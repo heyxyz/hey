@@ -11,6 +11,9 @@ fragment CommentFields on Comment {
   canMirror(profileId: $profileId) {
     result
   }
+  canDecrypt(profileId: $profileId) {
+    result
+  }
   hasCollectedByMe
   collectedBy {
     address
@@ -41,13 +44,16 @@ fragment CommentFields on Comment {
       }
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
+      hasCollectedByMe
       canComment(profileId: $profileId) {
         result
       }
       canMirror(profileId: $profileId) {
         result
       }
-      hasCollectedByMe
+      canDecrypt(profileId: $profileId) {
+        result
+      }
       collectedBy {
         address
         defaultProfile {

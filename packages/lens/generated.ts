@@ -3854,6 +3854,7 @@ export type CommentFieldsFragment = {
   };
   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+  canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
   collectedBy?: {
     __typename?: 'Wallet';
     address: any;
@@ -3996,6 +3997,7 @@ export type CommentFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -4117,6 +4119,7 @@ export type CommentFieldsFragment = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectModule:
                 | {
                     __typename?: 'FeeCollectModuleSettings';
@@ -4232,6 +4235,7 @@ export type CommentFieldsFragment = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     stats: {
                       __typename?: 'PublicationStats';
                       totalUpvotes: number;
@@ -4272,6 +4276,7 @@ export type CommentFieldsFragment = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -4423,6 +4428,7 @@ export type CommentFieldsFragment = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -4565,6 +4571,7 @@ export type CommentFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
         collectModule:
           | {
               __typename?: 'FeeCollectModuleSettings';
@@ -4680,6 +4687,7 @@ export type CommentFieldsFragment = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               stats: {
                 __typename?: 'PublicationStats';
                 totalUpvotes: number;
@@ -4720,6 +4728,7 @@ export type CommentFieldsFragment = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -4864,6 +4873,7 @@ export type CommentFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -5026,6 +5036,7 @@ export type MirrorFieldsFragment = {
   };
   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+  canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
   collectModule:
     | {
         __typename?: 'FeeCollectModuleSettings';
@@ -5141,6 +5152,7 @@ export type MirrorFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
         stats: {
           __typename?: 'PublicationStats';
           totalUpvotes: number;
@@ -5181,6 +5193,7 @@ export type MirrorFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -5326,6 +5339,7 @@ export type PostFieldsFragment = {
   };
   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+  canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
   collectedBy?: {
     __typename?: 'Wallet';
     address: any;
@@ -6348,6 +6362,7 @@ export type CommentFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -6490,6 +6505,7 @@ export type CommentFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -6615,6 +6631,7 @@ export type CommentFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectModule:
                         | {
                             __typename?: 'FeeCollectModuleSettings';
@@ -6741,6 +6758,7 @@ export type CommentFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -6789,6 +6807,7 @@ export type CommentFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                             collectedBy?: {
                               __typename?: 'Wallet';
                               address: any;
@@ -6968,6 +6987,7 @@ export type CommentFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -7117,6 +7137,7 @@ export type CommentFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectModule:
                   | {
                       __typename?: 'FeeCollectModuleSettings';
@@ -7236,6 +7257,7 @@ export type CommentFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -7280,6 +7302,7 @@ export type CommentFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -7431,6 +7454,7 @@ export type CommentFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -7648,6 +7672,7 @@ export type ExploreFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -7790,6 +7815,7 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -7915,6 +7941,7 @@ export type ExploreFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectModule:
                         | {
                             __typename?: 'FeeCollectModuleSettings';
@@ -8041,6 +8068,7 @@ export type ExploreFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -8089,6 +8117,7 @@ export type ExploreFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                             collectedBy?: {
                               __typename?: 'Wallet';
                               address: any;
@@ -8268,6 +8297,7 @@ export type ExploreFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -8417,6 +8447,7 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectModule:
                   | {
                       __typename?: 'FeeCollectModuleSettings';
@@ -8536,6 +8567,7 @@ export type ExploreFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -8580,6 +8612,7 @@ export type ExploreFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -8731,6 +8764,7 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -8874,6 +8908,7 @@ export type ExploreFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectModule:
             | {
                 __typename?: 'FeeCollectModuleSettings';
@@ -8989,6 +9024,7 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 stats: {
                   __typename?: 'PublicationStats';
                   totalUpvotes: number;
@@ -9029,6 +9065,7 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -9173,6 +9210,7 @@ export type ExploreFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -9332,6 +9370,7 @@ export type FeedHighlightsQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -9474,6 +9513,7 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -9599,6 +9639,7 @@ export type FeedHighlightsQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectModule:
                         | {
                             __typename?: 'FeeCollectModuleSettings';
@@ -9725,6 +9766,7 @@ export type FeedHighlightsQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -9773,6 +9815,7 @@ export type FeedHighlightsQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                             collectedBy?: {
                               __typename?: 'Wallet';
                               address: any;
@@ -9952,6 +9995,7 @@ export type FeedHighlightsQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -10101,6 +10145,7 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectModule:
                   | {
                       __typename?: 'FeeCollectModuleSettings';
@@ -10220,6 +10265,7 @@ export type FeedHighlightsQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -10264,6 +10310,7 @@ export type FeedHighlightsQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -10415,6 +10462,7 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -10558,6 +10606,7 @@ export type FeedHighlightsQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectModule:
             | {
                 __typename?: 'FeeCollectModuleSettings';
@@ -10673,6 +10722,7 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 stats: {
                   __typename?: 'PublicationStats';
                   totalUpvotes: number;
@@ -10713,6 +10763,7 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -10857,6 +10908,7 @@ export type FeedHighlightsQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -11758,6 +11810,7 @@ export type ProfileFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -11900,6 +11953,7 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -12025,6 +12079,7 @@ export type ProfileFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectModule:
                         | {
                             __typename?: 'FeeCollectModuleSettings';
@@ -12151,6 +12206,7 @@ export type ProfileFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -12199,6 +12255,7 @@ export type ProfileFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                             collectedBy?: {
                               __typename?: 'Wallet';
                               address: any;
@@ -12378,6 +12435,7 @@ export type ProfileFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -12527,6 +12585,7 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectModule:
                   | {
                       __typename?: 'FeeCollectModuleSettings';
@@ -12646,6 +12705,7 @@ export type ProfileFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -12690,6 +12750,7 @@ export type ProfileFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -12841,6 +12902,7 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -12984,6 +13046,7 @@ export type ProfileFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectModule:
             | {
                 __typename?: 'FeeCollectModuleSettings';
@@ -13099,6 +13162,7 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 stats: {
                   __typename?: 'PublicationStats';
                   totalUpvotes: number;
@@ -13139,6 +13203,7 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -13283,6 +13348,7 @@ export type ProfileFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -13508,6 +13574,7 @@ export type PublicationQuery = {
           | null;
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -13650,6 +13717,7 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -13771,6 +13839,7 @@ export type PublicationQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectModule:
                       | {
                           __typename?: 'FeeCollectModuleSettings';
@@ -13897,6 +13966,7 @@ export type PublicationQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                           stats: {
                             __typename?: 'PublicationStats';
                             totalUpvotes: number;
@@ -13945,6 +14015,7 @@ export type PublicationQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                           collectedBy?: {
                             __typename?: 'Wallet';
                             address: any;
@@ -14120,6 +14191,7 @@ export type PublicationQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -14269,6 +14341,7 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectModule:
                 | {
                     __typename?: 'FeeCollectModuleSettings';
@@ -14384,6 +14457,7 @@ export type PublicationQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     stats: {
                       __typename?: 'PublicationStats';
                       totalUpvotes: number;
@@ -14424,6 +14498,7 @@ export type PublicationQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -14575,6 +14650,7 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -14725,6 +14801,7 @@ export type PublicationQuery = {
           | null;
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
         collectModule:
           | {
               __typename?: 'FeeCollectModuleSettings';
@@ -14840,6 +14917,7 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               stats: {
                 __typename?: 'PublicationStats';
                 totalUpvotes: number;
@@ -14880,6 +14958,7 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -15031,6 +15110,7 @@ export type PublicationQuery = {
           | null;
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -15298,6 +15378,7 @@ export type SearchPublicationsQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -15440,6 +15521,7 @@ export type SearchPublicationsQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -15572,6 +15654,7 @@ export type SearchPublicationsQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                           collectModule:
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
@@ -15721,6 +15804,7 @@ export type SearchPublicationsQuery = {
                                 };
                                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                                 stats: {
                                   __typename?: 'PublicationStats';
                                   totalUpvotes: number;
@@ -15772,6 +15856,7 @@ export type SearchPublicationsQuery = {
                                 };
                                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                                canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                                 collectedBy?: {
                                   __typename?: 'Wallet';
                                   address: any;
@@ -15958,6 +16043,7 @@ export type SearchPublicationsQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                           collectedBy?: {
                             __typename?: 'Wallet';
                             address: any;
@@ -16131,6 +16217,7 @@ export type SearchPublicationsQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectModule:
                       | {
                           __typename?: 'FeeCollectModuleSettings';
@@ -16257,6 +16344,7 @@ export type SearchPublicationsQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                           stats: {
                             __typename?: 'PublicationStats';
                             totalUpvotes: number;
@@ -16305,6 +16393,7 @@ export type SearchPublicationsQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                           collectedBy?: {
                             __typename?: 'Wallet';
                             address: any;
@@ -16480,6 +16569,7 @@ export type SearchPublicationsQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -16632,6 +16722,7 @@ export type SearchPublicationsQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -17002,6 +17093,7 @@ export type TimelineQuery = {
             };
             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
             collectedBy?: {
               __typename?: 'Wallet';
               address: any;
@@ -17144,6 +17236,7 @@ export type TimelineQuery = {
                   };
                   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                  canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                   collectedBy?: {
                     __typename?: 'Wallet';
                     address: any;
@@ -17269,6 +17362,7 @@ export type TimelineQuery = {
                         };
                         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                         collectModule:
                           | {
                               __typename?: 'FeeCollectModuleSettings';
@@ -17415,6 +17509,7 @@ export type TimelineQuery = {
                               };
                               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                               stats: {
                                 __typename?: 'PublicationStats';
                                 totalUpvotes: number;
@@ -17463,6 +17558,7 @@ export type TimelineQuery = {
                               };
                               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                               collectedBy?: {
                                 __typename?: 'Wallet';
                                 address: any;
@@ -17645,6 +17741,7 @@ export type TimelineQuery = {
                         };
                         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                         collectedBy?: {
                           __typename?: 'Wallet';
                           address: any;
@@ -17818,6 +17915,7 @@ export type TimelineQuery = {
                   };
                   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                  canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                   collectModule:
                     | {
                         __typename?: 'FeeCollectModuleSettings';
@@ -17937,6 +18035,7 @@ export type TimelineQuery = {
                         };
                         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                         stats: {
                           __typename?: 'PublicationStats';
                           totalUpvotes: number;
@@ -17981,6 +18080,7 @@ export type TimelineQuery = {
                         };
                         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                         collectedBy?: {
                           __typename?: 'Wallet';
                           address: any;
@@ -18156,6 +18256,7 @@ export type TimelineQuery = {
                   };
                   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                  canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                   collectedBy?: {
                     __typename?: 'Wallet';
                     address: any;
@@ -18301,6 +18402,7 @@ export type TimelineQuery = {
             };
             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+            canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
             collectedBy?: {
               __typename?: 'Wallet';
               address: any;
@@ -18546,6 +18648,7 @@ export type TimelineQuery = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -18688,6 +18791,7 @@ export type TimelineQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -18809,6 +18913,7 @@ export type TimelineQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectModule:
                       | {
                           __typename?: 'FeeCollectModuleSettings';
@@ -18935,6 +19040,7 @@ export type TimelineQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                           stats: {
                             __typename?: 'PublicationStats';
                             totalUpvotes: number;
@@ -18983,6 +19089,7 @@ export type TimelineQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                           collectedBy?: {
                             __typename?: 'Wallet';
                             address: any;
@@ -19158,6 +19265,7 @@ export type TimelineQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -19307,6 +19415,7 @@ export type TimelineQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectModule:
                 | {
                     __typename?: 'FeeCollectModuleSettings';
@@ -19422,6 +19531,7 @@ export type TimelineQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     stats: {
                       __typename?: 'PublicationStats';
                       totalUpvotes: number;
@@ -19462,6 +19572,7 @@ export type TimelineQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -19613,6 +19724,7 @@ export type TimelineQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: { __typename?: 'CanDecryptResponse'; result: boolean };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -19969,13 +20081,16 @@ export const PostFieldsFragmentDoc = gql`
     }
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
+    hasCollectedByMe
     canComment(profileId: $profileId) {
       result
     }
     canMirror(profileId: $profileId) {
       result
     }
-    hasCollectedByMe
+    canDecrypt(profileId: $profileId) {
+      result
+    }
     collectedBy {
       address
       defaultProfile {
@@ -20013,6 +20128,9 @@ export const MirrorFieldsFragmentDoc = gql`
     canMirror(profileId: $profileId) {
       result
     }
+    canDecrypt(profileId: $profileId) {
+      result
+    }
     collectModule {
       ...CollectModuleFields
     }
@@ -20038,6 +20156,9 @@ export const MirrorFieldsFragmentDoc = gql`
           result
         }
         canMirror(profileId: $profileId) {
+          result
+        }
+        canDecrypt(profileId: $profileId) {
           result
         }
         stats {
@@ -20067,6 +20188,9 @@ export const CommentFieldsFragmentDoc = gql`
       result
     }
     canMirror(profileId: $profileId) {
+      result
+    }
+    canDecrypt(profileId: $profileId) {
       result
     }
     hasCollectedByMe
@@ -20099,13 +20223,16 @@ export const CommentFieldsFragmentDoc = gql`
         }
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
+        hasCollectedByMe
         canComment(profileId: $profileId) {
           result
         }
         canMirror(profileId: $profileId) {
           result
         }
-        hasCollectedByMe
+        canDecrypt(profileId: $profileId) {
+          result
+        }
         collectedBy {
           address
           defaultProfile {

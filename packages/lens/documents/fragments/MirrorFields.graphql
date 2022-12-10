@@ -10,6 +10,9 @@ fragment MirrorFields on Mirror {
   canMirror(profileId: $profileId) {
     result
   }
+  canDecrypt(profileId: $profileId) {
+    result
+  }
   collectModule {
     ...CollectModuleFields
   }
@@ -35,6 +38,9 @@ fragment MirrorFields on Mirror {
         result
       }
       canMirror(profileId: $profileId) {
+        result
+      }
+      canDecrypt(profileId: $profileId) {
         result
       }
       stats {
