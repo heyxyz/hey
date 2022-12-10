@@ -9,6 +9,7 @@ import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
+import DecryptedPublicationBody from './DecryptedPublicationBody';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 
@@ -47,7 +48,11 @@ const ThreadBody: FC<Props> = ({ publication }) => {
             <HiddenPublication type={publication.__typename} />
           ) : (
             <>
-              <PublicationBody publication={publication} />
+              {publication?.canDecrypt?.result ? (
+                <DecryptedPublicationBody publication={publication} />
+              ) : (
+                <PublicationBody publication={publication} />
+              )}
               <PublicationActions publication={publication} />
             </>
           )}

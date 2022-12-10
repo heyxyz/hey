@@ -12,6 +12,7 @@ import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
+import DecryptedPublicationBody from './DecryptedPublicationBody';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationType from './Type';
@@ -76,7 +77,11 @@ const SinglePublication: FC<Props> = ({
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
-            <PublicationBody publication={rootPublication as LensterPublication} />
+            {publication?.canDecrypt?.result ? (
+              <DecryptedPublicationBody publication={rootPublication as LensterPublication} />
+            ) : (
+              <PublicationBody publication={rootPublication as LensterPublication} />
+            )}
             {showActions && (
               <PublicationActions
                 publication={rootPublication as LensterPublication}
