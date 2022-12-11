@@ -1,4 +1,4 @@
-import { HANDLE_SUFFIX, MENTION_REGEX } from 'data/constants';
+import { HANDLE_MATCHER_REGEX, HANDLE_SUFFIX } from 'data/constants';
 
 /**
  *
@@ -24,7 +24,7 @@ const formatContentWithMentions = (content: string): string => {
   let matchedContent = '';
   let matcher = null;
 
-  while (currentContent && (matcher = match(currentContent, MENTION_REGEX))) {
+  while (currentContent && (matcher = match(currentContent, HANDLE_MATCHER_REGEX))) {
     const { index, length, match } = matcher;
     if (typeof index === 'number') {
       let mention = match;

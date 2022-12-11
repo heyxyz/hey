@@ -1,6 +1,7 @@
 import Slug from '@components/Shared/Slug';
 import formatHandle from '@lib/formatHandle';
 import { Leafwatch } from '@lib/leafwatch';
+import { HANDLE_MATCHER_REGEX } from 'data/constants';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
 import { createElement } from 'react';
@@ -30,7 +31,7 @@ export class MentionMatcher extends Matcher {
   }
 
   match(value: string) {
-    return this.doMatch(value, /@[\w.-]+/, (matches) => {
+    return this.doMatch(value, HANDLE_MATCHER_REGEX, (matches) => {
       return { display: matches[0] };
     });
   }
