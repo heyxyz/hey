@@ -17,6 +17,7 @@ const Footer: FC = () => {
       <span className="font-bold text-gray-500 dark:text-gray-300">
         &copy; {new Date().getFullYear()} {APP_NAME}
       </span>
+      <Link href="/privacy">Terms</Link>
       <Link href="/privacy">Privacy</Link>
       <a
         href="https://lenster.xyz/discord"
@@ -41,14 +42,6 @@ const Footer: FC = () => {
         onClick={() => Leafwatch.track(FOOTER.STATUS)}
       >
         Status
-      </a>
-      <a
-        href="https://vote.lenster.xyz"
-        target="_blank"
-        rel="noreferrer noopener"
-        onClick={() => Leafwatch.track(FOOTER.VOTE)}
-      >
-        Vote
       </a>
       <a
         href="https://feedback.lenster.xyz"
