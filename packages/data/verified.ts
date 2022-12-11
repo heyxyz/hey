@@ -6,7 +6,6 @@ export const mainnetVerified = [
   '0xadb2', // jameslondon.lens
   '0x1044', // south.lens
   '0xd6', // figue_me.lens
-  '0x5b8b', // matte.lens
   '0x016b0f', // prashantbagga.lens
   '0x018df3', // cryptobec.lens
   '0xe922', // zkfruitrollup.lens
