@@ -85,6 +85,7 @@ export const ADDRESS_REGEX = /^(0x)?[\da-f]{40}$/i;
 export const HANDLE_REGEX = /^[\da-z]+$/;
 export const ALL_HANDLES_REGEX = /([\s+])@(\S+)/g;
 export const HANDLE_SANITIZE_REGEX = /[^\d .A-Za-z]/g;
+export const MENTION_REGEX = /@[\w.-]+/;
 
 // Utils
 export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];

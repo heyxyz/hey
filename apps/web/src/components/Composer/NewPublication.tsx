@@ -14,6 +14,7 @@ import { LensEnvironment, LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import formatContentWithMentions from '@lib/formatContentWithMentions';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
@@ -405,8 +406,8 @@ const NewPublication: FC<Props> = ({ publication }) => {
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuid(),
-        description: trimify(publicationContent),
-        content: trimify(publicationContent),
+        description: formatContentWithMentions(trimify(publicationContent)),
+        content: formatContentWithMentions(trimify(publicationContent)),
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
         imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
