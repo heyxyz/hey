@@ -29,7 +29,7 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   setAttachments: (attachments) => set(() => ({ attachments })),
   addAttachments: (newAttachments) =>
     set((state) => {
-      if (newAttachments.length) {
+      if (newAttachments.length === 0) {
         return { attachments: [...state.attachments] };
       }
       return { attachments: [...state.attachments, ...newAttachments] };

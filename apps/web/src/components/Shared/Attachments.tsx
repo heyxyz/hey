@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
 import type { MediaSet } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 
@@ -52,6 +52,10 @@ const Attachments: FC<Props> = ({
 }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    console.log('attachments', attachments);
+  }, [attachments]);
 
   const removeAttachment = (attachment: any) => {
     const arr = attachments;
