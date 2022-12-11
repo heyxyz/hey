@@ -1,5 +1,6 @@
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import PublicationContentShimmer from '@components/Shared/Shimmer/PublicationContentShimmer';
 import { Card } from '@components/UI/Card';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, EyeIcon, UserAddIcon } from '@heroicons/react/outline';
@@ -77,7 +78,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   }
 
   if (!decryptedData) {
-    return <div>Unlocking...</div>;
+    return <PublicationContentShimmer />;
   }
 
   const publication: PublicationMetadataV2Input = decryptedData;
