@@ -1,7 +1,6 @@
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
-import type { LensterAttachment } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
@@ -13,17 +12,16 @@ import {
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
 } from 'data/constants';
-import type { ChangeEvent, Dispatch, FC } from 'react';
+import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 
-interface Props {
-  attachments: LensterAttachment[];
-  setAttachments: Dispatch<LensterAttachment[]>;
-}
+const Attachment: FC = () => {
+  const attachments = usePublicationStore((state) => state.attachments);
+  const addAttachments = usePublicationStore((state) => state.addAttachments);
 
-const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
   const [loading, setLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();
@@ -79,7 +77,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
       if (isTypeAllowed(evt.target.files)) {
         const attachment = await uploadToIPFS(evt.target.files);
         if (attachment) {
-          setAttachments(attachment);
+          addAttachments(attachment);
           evt.target.value = '';
         }
       } else {
