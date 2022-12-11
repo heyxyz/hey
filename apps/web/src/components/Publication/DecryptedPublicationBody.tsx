@@ -14,7 +14,7 @@ import type { PublicationMetadataV2Input } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useProvider, useSigner } from 'wagmi';
 
 interface Props {
@@ -41,6 +41,13 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     const { decrypted } = await sdk.gated.decryptMetadata(data);
     setDecryptedData(decrypted);
   };
+
+  useEffect(() => {
+    if (canDecrypt) {
+      getDecryptedData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canDecrypt]);
 
   if (!canDecrypt) {
     return (
@@ -70,16 +77,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   }
 
   if (!decryptedData) {
-    return (
-      <button
-        onClick={async (event) => {
-          event.stopPropagation();
-          await getDecryptedData();
-        }}
-      >
-        Unlock
-      </button>
-    );
+    return <div>Unlocking...</div>;
   }
 
   const publication: PublicationMetadataV2Input = decryptedData;
