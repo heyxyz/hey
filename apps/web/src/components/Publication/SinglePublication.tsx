@@ -68,8 +68,11 @@ const SinglePublication: FC<Props> = ({
       <div
         className="ml-[53px]"
         onClick={() => {
-          Leafwatch.track(PUBLICATION.OPEN);
-          push(`/posts/${rootPublication?.id}`);
+          const selection = window.getSelection();
+          if (!selection || selection.toString().length === 0) {
+            Leafwatch.track(PUBLICATION.OPEN);
+            push(`/posts/${rootPublication?.id}`);
+          }
         }}
       >
         {publication?.hidden ? (
