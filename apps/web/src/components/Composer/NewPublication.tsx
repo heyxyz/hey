@@ -6,7 +6,7 @@ import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { LensterAttachment, LensterPublication } from '@generated/types';
+import type { LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type { EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
@@ -93,6 +93,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
+  const attachments = usePublicationStore((state) => state.attachments);
+  const setAttachments = usePublicationStore((state) => state.setAttachments);
+  const addAttachments = usePublicationStore((state) => state.addAttachments);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -114,7 +117,6 @@ const NewPublication: FC<Props> = ({ publication }) => {
   // States
   const [publicationContentError, setPublicationContentError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
@@ -477,7 +479,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       type: 'image/gif',
       altTag: gif.title
     };
-    setAttachments([...attachments, attachment]);
+    addAttachments([attachment]);
   };
 
   return (
@@ -489,7 +491,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       )}
       <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
-          <Attachment attachments={attachments} setAttachments={setAttachments} />
+          <Attachment />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           <ReferenceSettings />
@@ -514,7 +516,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         </div>
       </div>
       <div className="px-5">
-        <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+        <Attachments attachments={attachments} isNew />
       </div>
     </Card>
   );
