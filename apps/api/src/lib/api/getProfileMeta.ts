@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import generateMeta from '@lib/generateMeta';
 import getIPFSLink from '@lib/getIPFSLink';
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
+import { HANDLE_SUFFIX, IMGPROXY_URL, LENSPROTOCOL_HANDLE } from 'data/constants';
 import type { MediaSet, NftImage, Profile } from 'lens';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import client from 'src/apollo';
@@ -51,7 +51,7 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
         : `@${profile?.handle} • Lenster`;
       const description = profile?.bio ?? '';
       const image = profile
-        ? `https://ik.imagekit.io/lensterimg/tr:n-avatar/${getIPFSLink(
+        ? `${IMGPROXY_URL}/tr:n-avatar,tr:di-placeholder.webp/${getIPFSLink(
             profile?.picture?.original?.url ??
               profile?.picture?.uri ??
               `https://avatar.tobi.sh/${profile?.ownedBy}_${profile?.handle}.png`
