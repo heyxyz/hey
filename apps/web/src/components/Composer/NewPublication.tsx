@@ -9,7 +9,12 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
-import type { EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
+import type {
+  AndCondition,
+  CollectCondition,
+  EncryptedMetadata,
+  FollowCondition
+} from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
@@ -111,6 +116,8 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   // Access module store
   const restricted = useAccessSettingsStore((state) => state.restricted);
+  const followToView = useAccessSettingsStore((state) => state.followToView);
+  const collectToView = useAccessSettingsStore((state) => state.collectToView);
 
   // States
   const [publicationContentError, setPublicationContentError] = useState('');
@@ -329,19 +336,39 @@ const NewPublication: FC<Props> = ({ publication }) => {
       return toast.error(SIGN_WALLET);
     }
 
+    // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
       provider,
       signer,
       env: LIT_PROTOCOL_ENVIRONMENT as any
     });
+
+    // Connect to the SDK
     await tokenGatedSdk.connect({
       address: currentProfile.ownedBy,
       env: LIT_PROTOCOL_ENVIRONMENT as any
     });
 
     // Condition for gating the content
+    const collectAccessCondition: CollectCondition = { thisPublication: true };
     const followAccessCondition: FollowCondition = { profileId: currentProfile.id };
-    const accessCondition: AccessConditionOutput = { follow: followAccessCondition };
+
+    // Combine the conditions
+    const andCondition: AndCondition = {
+      criteria: [
+        { collect: collectToView ? collectAccessCondition : null },
+        { follow: followToView ? followAccessCondition : null }
+      ]
+    };
+
+    console.log(andCondition);
+
+    // Create the access condition
+    const accessCondition: AccessConditionOutput = {
+      and: andCondition
+    };
+
+    console.log(accessCondition);
 
     // Generate the encrypted metadata and upload it to Arweave
     const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(

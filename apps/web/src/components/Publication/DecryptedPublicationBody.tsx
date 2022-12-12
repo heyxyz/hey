@@ -2,6 +2,7 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import PublicationContentShimmer from '@components/Shared/Shimmer/PublicationContentShimmer';
 import { Card } from '@components/UI/Card';
+import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, EyeIcon, UserAddIcon } from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
@@ -25,6 +26,7 @@ interface Props {
 const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { pathname } = useRouter();
   const [decryptedData, setDecryptedData] = useState<any>(null);
+  const [decryptError, setDecryptError] = useState<any>(null);
   const provider = useProvider();
   const { data: signer } = useSigner();
 
@@ -39,8 +41,9 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     const contentUri = encryptedPublication?.onChainContentURI;
     const { data } = await axios.get(contentUri);
     const sdk = await LensGatedSDK.create({ provider, signer, env: LIT_PROTOCOL_ENVIRONMENT as any });
-    const { decrypted } = await sdk.gated.decryptMetadata(data);
+    const { decrypted, error } = await sdk.gated.decryptMetadata(data);
     setDecryptedData(decrypted);
+    setDecryptError(error);
   };
 
   useEffect(() => {
@@ -75,6 +78,10 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
         </div>
       </Card>
     );
+  }
+
+  if (decryptError) {
+    return <ErrorMessage title="Error while decrypting!" error={decryptError} />;
   }
 
   if (!decryptedData) {
