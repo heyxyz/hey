@@ -56,7 +56,7 @@ const AccessSettings: FC = () => {
           }
         }}
       >
-        <BasicSettings />
+        <BasicSettings setShowModal={setShowModal} />
       </Modal>
     </>
   );

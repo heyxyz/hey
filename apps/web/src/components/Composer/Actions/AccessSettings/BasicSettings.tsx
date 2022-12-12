@@ -1,14 +1,20 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { UsersIcon } from '@heroicons/react/outline';
-import type { FC } from 'react';
+import type { Dispatch, FC } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 
-const BasicSettings: FC = () => {
+interface Props {
+  setShowModal: Dispatch<boolean>;
+}
+
+const BasicSettings: FC<Props> = ({ setShowModal }) => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
   const setRestricted = useAccessSettingsStore((state) => state.setRestricted);
   const followToView = useAccessSettingsStore((state) => state.followToView);
   const setFollowToView = useAccessSettingsStore((state) => state.setFollowToView);
+  const reset = useAccessSettingsStore((state) => state.reset);
 
   return (
     <div className="p-5">
@@ -34,6 +40,20 @@ const BasicSettings: FC = () => {
           </div>
         </Card>
       )}
+      <div className="pt-5 flex space-x-2">
+        <Button
+          className="ml-auto"
+          variant="danger"
+          outline
+          onClick={() => {
+            reset();
+            setShowModal(false);
+          }}
+        >
+          Cancel
+        </Button>
+        <Button onClick={() => setShowModal(false)}>Save</Button>
+      </div>
     </div>
   );
 };
