@@ -80,18 +80,15 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     setLoading(true);
 
     try {
+      const { files } = evt.target;
       // Count check
-      if (
-        evt.target.files &&
-        (hasVideos(evt.target.files) ||
-          (isImageType(evt.target.files) && evt.target.files.length + attachments.length > 4))
-      ) {
+      if (files && (hasVideos(files) || (isImageType(files) && files.length + attachments.length > 4))) {
         return toast.error('Please choose either 1 video or total 4 photos.');
       }
 
       // Type check
-      if (isTypeAllowed(evt.target.files)) {
-        const attachment = await uploadToIPFS(evt.target.files);
+      if (isTypeAllowed(files)) {
+        const attachment = await uploadToIPFS(files);
 
         if (attachment) {
           if (isImageType(attachment) && isImageType(attachments)) {
