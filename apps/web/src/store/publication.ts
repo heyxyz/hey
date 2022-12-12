@@ -1,4 +1,4 @@
-import type { LensterAttachment } from '@generated/types';
+import type { NewLensterAttachment } from '@generated/types';
 import create from 'zustand';
 
 interface PublicationState {
@@ -13,9 +13,11 @@ interface PublicationState {
     cover: string;
     coverMimeType: string;
   }) => void;
-  attachments: LensterAttachment[];
-  setAttachments: (attachments: LensterAttachment[]) => void;
-  addAttachments: (attachments: LensterAttachment[]) => void;
+  attachments: NewLensterAttachment[];
+  setAttachments: (attachments: NewLensterAttachment[]) => void;
+  addAttachments: (attachments: NewLensterAttachment[]) => void;
+  updateAttachments: (attachments: NewLensterAttachment[]) => void;
+  removeAttachments: (ids: string[]) => void;
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -29,9 +31,28 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   setAttachments: (attachments) => set(() => ({ attachments })),
   addAttachments: (newAttachments) =>
     set((state) => {
-      if (newAttachments.length === 0) {
-        return { attachments: [...state.attachments] };
-      }
       return { attachments: [...state.attachments, ...newAttachments] };
+    }),
+  updateAttachments: (updateAttachments) =>
+    set((state) => {
+      const attachments = [...state.attachments];
+      updateAttachments.map((attachment) => {
+        const index = attachments.findIndex((a) => a.id === attachment.id);
+        if (index !== -1) {
+          attachments[index] = attachment;
+        }
+      });
+      return { attachments };
+    }),
+  removeAttachments: (ids) =>
+    set((state) => {
+      const attachments = [...state.attachments];
+      ids.map((id) => {
+        const index = attachments.findIndex((a) => a.id === id);
+        if (index !== -1) {
+          attachments.splice(index, 1);
+        }
+      });
+      return { attachments };
     })
 }));

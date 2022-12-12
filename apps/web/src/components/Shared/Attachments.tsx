@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
-import type { LensterAttachment, LensterPublication } from '@generated/types';
+import type { LensterPublication, NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
@@ -71,9 +71,11 @@ const Attachments: FC<Props> = ({
   return slicedAttachments?.length !== 0 ? (
     <>
       <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid gap-2 pt-3')}>
-        {slicedAttachments?.map((attachment: LensterAttachment & MediaSet, index: number) => {
+        {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
           const type = isNew ? attachment.type : attachment.original?.mimeType;
-          const url = isNew ? getIPFSLink(attachment.item) : getIPFSLink(attachment.original?.url);
+          const url = isNew
+            ? attachment.previewItem || getIPFSLink(attachment.item!)
+            : getIPFSLink(attachment.original?.url);
 
           return (
             <div
@@ -91,7 +93,7 @@ const Attachments: FC<Props> = ({
                 },
                 'relative'
               )}
-              key={index}
+              key={url}
               onClick={(event) => {
                 event.stopPropagation();
               }}
@@ -119,8 +121,8 @@ const Attachments: FC<Props> = ({
                     setExpandedImage(url);
                     Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
                   }}
-                  src={imageProxy(url, ATTACHMENT)}
-                  alt={imageProxy(url, ATTACHMENT)}
+                  src={isNew ? url : imageProxy(url, ATTACHMENT)}
+                  alt={isNew ? url : imageProxy(url, ATTACHMENT)}
                 />
               )}
               {isNew && !hideDelete && (

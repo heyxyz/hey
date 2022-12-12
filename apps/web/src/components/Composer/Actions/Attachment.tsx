@@ -1,10 +1,10 @@
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
+import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu, Transition } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
-import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -20,7 +20,7 @@ import { PUBLICATION } from 'src/tracking';
 
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);
-  const addAttachments = usePublicationStore((state) => state.addAttachments);
+  const { handleUploadAttachments } = useUploadAttachments();
 
   const [loading, setLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -80,11 +80,8 @@ const Attachment: FC = () => {
 
       // Type check
       if (isTypeAllowed(evt.target.files)) {
-        const attachment = await uploadToIPFS(evt.target.files);
-        if (attachment) {
-          addAttachments(attachment);
-          evt.target.value = '';
-        }
+        await handleUploadAttachments(evt.target.files);
+        evt.target.value = '';
       } else {
         return toast.error('File format not allowed.');
       }

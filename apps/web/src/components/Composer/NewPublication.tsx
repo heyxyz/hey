@@ -6,7 +6,7 @@ import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
-import type { LensterPublication } from '@generated/types';
+import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type { EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
@@ -404,14 +404,22 @@ const NewPublication: FC<Props> = ({ publication }) => {
         });
       }
 
+      const attachmentsInput: LensterAttachment[] = attachments.map((attachment) => {
+        return {
+          type: attachment.type,
+          altTag: attachment.altTag,
+          item: attachment.item!
+        };
+      });
+
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuid(),
         description: trimify(publicationContent),
         content: trimify(publicationContent),
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-        image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
-        imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
+        image: attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
+        imageMimeType: attachmentsInput.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
         name: isAudioPublication
           ? audioPublication.title
           : `${isComment ? 'Comment' : 'Post'} by @${currentProfile?.handle}`,
@@ -420,7 +428,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         mainContentFocus: getMainContentFocus(),
         contentWarning: null,
         attributes,
-        media: attachments,
+        media: attachmentsInput,
         locale: getUserLocale(),
         appId: APP_NAME
       };
@@ -475,6 +483,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   const setGifAttachment = (gif: IGif) => {
     const attachment = {
+      id: uuid(),
       item: gif.images.original.url,
       type: 'image/gif',
       altTag: gif.title
