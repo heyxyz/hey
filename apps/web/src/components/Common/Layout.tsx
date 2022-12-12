@@ -1,8 +1,7 @@
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import axios from 'axios';
-import { IS_MAINNET, PRO_STATUS_API_URL } from 'data/constants';
+import { IS_MAINNET } from 'data/constants';
 import type { Profile } from 'lens';
 import { ReferenceModules, useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
@@ -102,9 +101,7 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     if (currentProfile?.id && currentProfile?.id === '0x0d') {
       if (IS_MAINNET) {
-        axios(`${PRO_STATUS_API_URL}/user/${currentProfile?.id}`)
-          .then(({ data }) => setIsPro(data.isPro))
-          .catch(() => setIsPro(false));
+        setIsPro(true);
       } else {
         setIsPro(true);
       }
