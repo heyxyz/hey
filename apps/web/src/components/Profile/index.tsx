@@ -14,7 +14,7 @@ import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
 import FeedType from './FeedType';
-import NFTFeed from './NFTFeed';
+import NFTFeed from './NftGallery/NFTFeed';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
