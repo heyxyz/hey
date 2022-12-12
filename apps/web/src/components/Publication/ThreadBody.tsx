@@ -39,8 +39,11 @@ const ThreadBody: FC<Props> = ({ publication }) => {
         <div
           className="pt-4 pb-5 !w-[85%] sm:w-full"
           onClick={() => {
-            Leafwatch.track(PUBLICATION.OPEN);
-            push(`/posts/${publication?.id}`);
+            const selection = window.getSelection();
+            if (!selection || selection.toString().length === 0) {
+              Leafwatch.track(PUBLICATION.OPEN);
+              push(`/posts/${publication?.id}`);
+            }
           }}
         >
           {publication?.hidden ? (

@@ -1,8 +1,7 @@
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import axios from 'axios';
-import { IS_MAINNET, PRO_STATUS_API_URL } from 'data/constants';
+import { IS_MAINNET } from 'data/constants';
 import type { Profile } from 'lens';
 import { ReferenceModules, useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
@@ -37,7 +36,7 @@ const Layout: FC<Props> = ({ children }) => {
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
 
   const { mounted } = useIsMounted();
-  const { address, isDisconnected } = useAccount();
+  const { address } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();
@@ -82,8 +81,7 @@ const Layout: FC<Props> = ({ children }) => {
     const currentProfileAddress = currentProfile?.ownedBy;
     const isSwitchedAccount = currentProfileAddress !== undefined && currentProfileAddress !== address;
     const isWrongNetworkChain = chain?.id !== CHAIN_ID;
-    const shouldLogout =
-      !getIsAuthTokensAvailable() || isWrongNetworkChain || isDisconnected || isSwitchedAccount;
+    const shouldLogout = !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount;
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {
@@ -97,25 +95,13 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDisconnected, address, chain, disconnect, profileId]);
-
-  // Remove service worker
-  // TODO: remove after a month
-  useEffect(() => {
-    navigator.serviceWorker.getRegistrations().then(function (registrations) {
-      for (let registration of registrations) {
-        registration.unregister();
-      }
-    });
-  }, []);
+  }, [address, chain, disconnect, profileId]);
 
   // set pro status
   useEffect(() => {
     if (currentProfile?.id && currentProfile?.id === '0x0d') {
       if (IS_MAINNET) {
-        axios(`${PRO_STATUS_API_URL}/user/${currentProfile?.id}`)
-          .then(({ data }) => setIsPro(data.isPro))
-          .catch(() => setIsPro(false));
+        setIsPro(true);
       } else {
         setIsPro(true);
       }

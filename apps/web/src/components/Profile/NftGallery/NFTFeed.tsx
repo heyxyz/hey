@@ -8,8 +8,9 @@ import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
 import React from 'react';
 import { CHAIN_ID } from 'src/constants';
+import { mainnet } from 'wagmi/chains';
 
-const Gallery = React.lazy(() => import('./Gallery'));
+import Gallery from './Gallery';
 
 interface Props {
   profile: Profile;
@@ -18,7 +19,7 @@ interface Props {
 const NFTFeed: FC<Props> = ({ profile }) => {
   // Variables
   const request = {
-    chainIds: [CHAIN_ID],
+    chainIds: [CHAIN_ID, mainnet.id],
     ownerAddress: profile?.ownedBy,
     limit: 50
   };
