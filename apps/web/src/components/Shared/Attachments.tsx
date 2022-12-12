@@ -91,7 +91,7 @@ const Attachments: FC<Props> = ({
                 },
                 'relative'
               )}
-              key={url}
+              key={index + url}
               onClick={(event) => {
                 event.stopPropagation();
               }}

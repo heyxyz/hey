@@ -64,23 +64,41 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
     return false;
   };
 
+  const isImageType = (files: any) => {
+    for (const file of files) {
+      if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
     setShowMenu(false);
     setLoading(true);
 
     try {
+      const { files } = evt.target;
       // Count check
-      if (evt.target.files && (hasVideos(evt.target.files) || evt.target.files.length > 4)) {
-        return toast.error('Please choose either 1 video or up to 4 photos.');
+      if (files && (hasVideos(files) || (isImageType(files) && files.length + attachments.length > 4))) {
+        return toast.error('Please choose either 1 video or total 4 photos.');
       }
 
       // Type check
-      if (isTypeAllowed(evt.target.files)) {
-        const attachment = await uploadToIPFS(evt.target.files);
+      if (isTypeAllowed(files)) {
+        const attachment = await uploadToIPFS(files);
+
         if (attachment) {
-          setAttachments(attachment);
-          evt.target.value = '';
+          if (isImageType(attachment) && isImageType(attachments)) {
+            const combineAttachment = attachments.concat(attachment);
+            setAttachments(combineAttachment);
+            evt.target.value = '';
+          } else {
+            setAttachments(attachment);
+            evt.target.value = '';
+          }
         }
       } else {
         return toast.error('File format not allowed.');
