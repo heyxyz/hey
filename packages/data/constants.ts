@@ -19,8 +19,6 @@ export const SERVERLESS_STAGING_SANDBOX_API_URL = 'https://api-staging-sandbox.l
 export const SERVERLESS_SANDBOX_API_URL = 'https://api-sandbox.lenster.xyz';
 export const SERVERLESS_DEVELOPMENT_API_URL = 'http://localhost:4784';
 
-export const PRO_STATUS_API_URL = 'https://pro.lenster.xyz';
-
 export const SERVERLESS_URL = getEnvConfig().serverlessEndpoint;
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
