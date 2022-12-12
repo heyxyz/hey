@@ -16,9 +16,10 @@ const GifSelector = dynamic(() => import('./GifSelector'), {
 
 interface Props {
   setGifAttachment: (gif: IGif) => void;
+  disabled?: boolean;
 }
 
-const Giphy: FC<Props> = ({ setGifAttachment }) => {
+const Giphy: FC<Props> = ({ setGifAttachment, disabled }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -31,6 +32,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
             setShowModal(!showModal);
             Leafwatch.track(PUBLICATION.NEW.OPEN_GIF);
           }}
+          disabled={disabled}
           aria-label="Choose GIFs"
         >
           <div className="w-full fill-brand-500 dark:fill-brand-400">

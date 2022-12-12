@@ -501,7 +501,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
           <Attachment />
-          <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          <Giphy disabled={attachments.length >= 4} setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           <ReferenceSettings />
           <AccessSettings />
