@@ -1,4 +1,5 @@
 import type { LensterPublication } from '@generated/types';
+import { IMGPROXY_URL } from 'data/constants';
 
 import getIPFSLink from './getIPFSLink';
 
@@ -14,7 +15,7 @@ const getThumbnailUrl = (publication: LensterPublication | undefined): string =>
   const url =
     publication.metadata?.cover?.original.url ||
     publication.metadata?.image ||
-    `https://ik.imagekit.io/lensterimg/placeholder.webp`;
+    `${IMGPROXY_URL}/placeholder.webp`;
 
   return getIPFSLink(url);
 };
