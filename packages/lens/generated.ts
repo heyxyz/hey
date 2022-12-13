@@ -58,6 +58,40 @@ export type Scalars = {
   Void: any;
 };
 
+export type AaveFeeCollectModuleParams = {
+  /** The collect module amount info */
+  amount: ModuleFeeAmountParams;
+  /** The collect module limit */
+  collectLimit: Scalars['String'];
+  /** The timestamp that this collect module will expire */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>;
+  /** Follower only */
+  followerOnly: Scalars['Boolean'];
+  /** The collect module recipient address */
+  recipient: Scalars['EthereumAddress'];
+  /** The collect module referral fee */
+  referralFee: Scalars['Float'];
+};
+
+export type AaveFeeCollectModuleSettings = {
+  __typename?: 'AaveFeeCollectModuleSettings';
+  /** The collect module amount info */
+  amount: ModuleFeeAmount;
+  /** The maximum number of collects for this publication. Omit for no limit. */
+  collectLimit?: Maybe<Scalars['String']>;
+  contractAddress: Scalars['ContractAddress'];
+  /** The end timestamp after which collecting is impossible. No expiry if missing. */
+  endTimestamp?: Maybe<Scalars['DateTime']>;
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean'];
+  /** Recipient of collect fees. */
+  recipient: Scalars['EthereumAddress'];
+  /** The referral fee associated with this publication. */
+  referralFee: Scalars['Float'];
+  /** The collect modules enum */
+  type: CollectModules;
+};
+
 /** The access conditions for the publication */
 export type AccessConditionInput = {
   /** AND condition */
@@ -199,7 +233,7 @@ export type CanCommentResponse = {
 
 export type CanDecryptResponse = {
   __typename?: 'CanDecryptResponse';
-  reasons?: Maybe<DecryptFailReason>;
+  reasons?: Maybe<Array<DecryptFailReason>>;
   result: Scalars['Boolean'];
 };
 
@@ -237,7 +271,7 @@ export type ClaimableHandles = {
 /** Condition that signifies if address or profile has collected a publication */
 export type CollectConditionInput = {
   /** The publication id that has to be collected to unlock content */
-  publicationId?: InputMaybe<Scalars['ProfileId']>;
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']>;
   /** True if the content will be unlocked for this specific publication */
   thisPublication?: InputMaybe<Scalars['Boolean']>;
 };
@@ -246,12 +280,13 @@ export type CollectConditionInput = {
 export type CollectConditionOutput = {
   __typename?: 'CollectConditionOutput';
   /** The publication id that has to be collected to unlock content */
-  publicationId?: Maybe<Scalars['ProfileId']>;
+  publicationId?: Maybe<Scalars['InternalPublicationId']>;
   /** True if the content will be unlocked for this specific publication */
   thisPublication?: Maybe<Scalars['Boolean']>;
 };
 
 export type CollectModule =
+  | AaveFeeCollectModuleSettings
   | FeeCollectModuleSettings
   | FreeCollectModuleSettings
   | LimitedFeeCollectModuleSettings
@@ -261,6 +296,10 @@ export type CollectModule =
   | UnknownCollectModuleSettings;
 
 export type CollectModuleParams = {
+  /** The collect aave fee collect module */
+  aaveFeeCollectModule?: InputMaybe<AaveFeeCollectModuleParams>;
+  /** The collect ERC4626 fee collect module */
+  erc4626FeeCollectModule?: InputMaybe<Erc4626FeeCollectModuleParams>;
   /** The collect fee collect module */
   feeCollectModule?: InputMaybe<FeeCollectModuleParams>;
   /** The collect empty collect module */
@@ -269,6 +308,8 @@ export type CollectModuleParams = {
   limitedFeeCollectModule?: InputMaybe<LimitedFeeCollectModuleParams>;
   /** The collect limited timed fee collect module */
   limitedTimedFeeCollectModule?: InputMaybe<LimitedTimedFeeCollectModuleParams>;
+  /** The multirecipient fee collect module */
+  multirecipientFeeCollectModule?: InputMaybe<MultirecipientFeeCollectModuleParams>;
   /** The collect revert collect module */
   revertCollectModule?: InputMaybe<Scalars['Boolean']>;
   /** The collect timed fee collect module */
@@ -279,10 +320,13 @@ export type CollectModuleParams = {
 
 /** The collect module types */
 export enum CollectModules {
+  AaveFeeCollectModule = 'AaveFeeCollectModule',
+  Erc4626FeeCollectModule = 'ERC4626FeeCollectModule',
   FeeCollectModule = 'FeeCollectModule',
   FreeCollectModule = 'FreeCollectModule',
   LimitedFeeCollectModule = 'LimitedFeeCollectModule',
   LimitedTimedFeeCollectModule = 'LimitedTimedFeeCollectModule',
+  MultirecipientFeeCollectModule = 'MultirecipientFeeCollectModule',
   RevertCollectModule = 'RevertCollectModule',
   TimedFeeCollectModule = 'TimedFeeCollectModule',
   UnknownCollectModule = 'UnknownCollectModule'
@@ -316,6 +360,7 @@ export type Comment = {
   commentOn?: Maybe<Publication>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
+  /** The data availability proofs you can fetch from */
   dataAvailabilityProofs?: Maybe<Scalars['String']>;
   /** This will bring back the first comment of a comment and only be defined if using `publication` query and `commentOf` */
   firstComment?: Maybe<Comment>;
@@ -1040,6 +1085,23 @@ export type Eip712TypedDataField = {
   type: Scalars['String'];
 };
 
+export type Erc4626FeeCollectModuleParams = {
+  /** The collecting cost associated with this publication. 0 for free collect. */
+  amount: ModuleFeeAmountParams;
+  /** The maximum number of collects for this publication. Omit for no limit. */
+  collectLimit?: InputMaybe<Scalars['String']>;
+  /** The end timestamp after which collecting is impossible. Omit for no expiry. */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>;
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean'];
+  /** The address of the recipient who will recieve vault shares after depositing is completed. */
+  recipient: Scalars['EthereumAddress'];
+  /** The referral fee associated with this publication. */
+  referralFee?: InputMaybe<Scalars['Float']>;
+  /** The address of the ERC4626 vault to deposit funds to. */
+  vault: Scalars['ContractAddress'];
+};
+
 export type ElectedMirror = {
   __typename?: 'ElectedMirror';
   mirrorId: Scalars['InternalPublicationId'];
@@ -1556,6 +1618,11 @@ export type HidePublicationRequest = {
   publicationId: Scalars['InternalPublicationId'];
 };
 
+export type IdKitPhoneVerifyWebhookRequest = {
+  sharedSecret: Scalars['String'];
+  worldcoin?: InputMaybe<WorldcoinPhoneVerifyWebhookRequest>;
+};
+
 export type IllegalReasonInputParams = {
   reason: PublicationReportingReason;
   subreason: PublicationReportingIllegalSubreason;
@@ -1768,6 +1835,7 @@ export type Mirror = {
   collectNftAddress?: Maybe<Scalars['ContractAddress']>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
+  /** The data availability proofs you can fetch from */
   dataAvailabilityProofs?: Maybe<Scalars['String']>;
   hasCollectedByMe: Scalars['Boolean'];
   /** If the publication has been hidden if it has then the content and media is not available */
@@ -1848,6 +1916,21 @@ export type ModuleInfo = {
   type: Scalars['String'];
 };
 
+export type MultirecipientFeeCollectModuleParams = {
+  /** The collecting cost associated with this publication. 0 for free collect. */
+  amount: ModuleFeeAmountParams;
+  /** The maximum number of collects for this publication. Omit for no limit. */
+  collectLimit?: InputMaybe<Scalars['String']>;
+  /** The end timestamp after which collecting is impossible. Omit for no expiry. */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>;
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean'];
+  /** Recipient of collect fees. */
+  recipients: Array<RecipientData>;
+  /** The referral fee associated with this publication. */
+  referralFee?: InputMaybe<Scalars['Float']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   ach?: Maybe<Scalars['Void']>;
@@ -1880,6 +1963,7 @@ export type Mutation = {
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
   hel?: Maybe<Scalars['Void']>;
   hidePublication?: Maybe<Scalars['Void']>;
+  idKitPhoneVerifyWebhook?: Maybe<Scalars['Void']>;
   proxyAction: Scalars['ProxyActionId'];
   refresh: AuthenticationResult;
   /** Removes profile interests from the given profile */
@@ -2016,6 +2100,10 @@ export type MutationHelArgs = {
 
 export type MutationHidePublicationArgs = {
   request: HidePublicationRequest;
+};
+
+export type MutationIdKitPhoneVerifyWebhookArgs = {
+  request: IdKitPhoneVerifyWebhookRequest;
 };
 
 export type MutationProxyActionArgs = {
@@ -2211,7 +2299,7 @@ export type NftOwnershipInput = {
   /** The unlocker contract type */
   contractType: ContractType;
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: InputMaybe<Scalars['TokenId']>;
+  tokenIds?: InputMaybe<Array<Scalars['TokenId']>>;
 };
 
 export type NftOwnershipOutput = {
@@ -2223,7 +2311,7 @@ export type NftOwnershipOutput = {
   /** The unlocker contract type */
   contractType: ContractType;
   /** The optional token ID(s) to check for ownership */
-  tokenIds?: Maybe<Scalars['TokenId']>;
+  tokenIds?: Maybe<Array<Scalars['TokenId']>>;
 };
 
 export type Notification =
@@ -2411,6 +2499,7 @@ export type Post = {
   collectedBy?: Maybe<Wallet>;
   /** The date the post was created on */
   createdAt: Scalars['DateTime'];
+  /** The data availability proofs you can fetch from */
   dataAvailabilityProofs?: Maybe<Scalars['String']>;
   hasCollectedByMe: Scalars['Boolean'];
   /** If the publication has been hidden if it has then the content and media is not available */
@@ -3050,6 +3139,7 @@ export type Query = {
   globalProtocolStats: GlobalProtocolStats;
   hasTxHashBeenIndexed: TransactionResult;
   internalPublicationFilter: PaginatedPublicationResult;
+  isIDKitPhoneVerified: Scalars['Boolean'];
   mutualFollowersProfiles: PaginatedProfileResult;
   nftOwnershipChallenge: NftOwnershipChallengeResult;
   nfts: NfTsResult;
@@ -3282,6 +3372,13 @@ export enum ReactionTypes {
   Downvote = 'DOWNVOTE',
   Upvote = 'UPVOTE'
 }
+
+export type RecipientData = {
+  /** Recipient of collect fees. */
+  recipient: Scalars['EthereumAddress'];
+  /** Split %, should be between 1 and 100. All % should add up to 100 */
+  split: Scalars['Float'];
+};
 
 export type RecommendedProfileOptions = {
   /** If you wish to turn ML off */
@@ -3742,6 +3839,22 @@ export type WorldcoinIdentity = {
   isHuman: Scalars['Boolean'];
 };
 
+/** The worldcoin signal type */
+export enum WorldcoinPhoneVerifyType {
+  Orb = 'ORB',
+  Phone = 'PHONE'
+}
+
+export type WorldcoinPhoneVerifyWebhookRequest = {
+  nullifierHash: Scalars['String'];
+  signal: Scalars['EthereumAddress'];
+  signalType: WorldcoinPhoneVerifyType;
+};
+
+type CollectModuleFields_AaveFeeCollectModuleSettings_Fragment = {
+  __typename?: 'AaveFeeCollectModuleSettings';
+};
+
 type CollectModuleFields_FeeCollectModuleSettings_Fragment = {
   __typename?: 'FeeCollectModuleSettings';
   type: CollectModules;
@@ -3814,6 +3927,7 @@ type CollectModuleFields_UnknownCollectModuleSettings_Fragment = {
 };
 
 export type CollectModuleFieldsFragment =
+  | CollectModuleFields_AaveFeeCollectModuleSettings_Fragment
   | CollectModuleFields_FeeCollectModuleSettings_Fragment
   | CollectModuleFields_FreeCollectModuleSettings_Fragment
   | CollectModuleFields_LimitedFeeCollectModuleSettings_Fragment
@@ -3880,6 +3994,7 @@ export type CommentFieldsFragment = {
     } | null;
   } | null;
   collectModule:
+    | { __typename?: 'AaveFeeCollectModuleSettings' }
     | {
         __typename?: 'FeeCollectModuleSettings';
         type: CollectModules;
@@ -4002,6 +4117,7 @@ export type CommentFieldsFragment = {
           defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
         } | null;
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -4118,6 +4234,7 @@ export type CommentFieldsFragment = {
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -4302,6 +4419,7 @@ export type CommentFieldsFragment = {
                       } | null;
                     } | null;
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -4449,6 +4567,7 @@ export type CommentFieldsFragment = {
                 } | null;
               } | null;
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -4566,6 +4685,7 @@ export type CommentFieldsFragment = {
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -4746,6 +4866,7 @@ export type CommentFieldsFragment = {
                 } | null;
               } | null;
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -4890,6 +5011,7 @@ export type CommentFieldsFragment = {
           } | null;
         } | null;
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -5027,6 +5149,7 @@ export type MirrorFieldsFragment = {
   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
   collectModule:
+    | { __typename?: 'AaveFeeCollectModuleSettings' }
     | {
         __typename?: 'FeeCollectModuleSettings';
         type: CollectModules;
@@ -5207,6 +5330,7 @@ export type MirrorFieldsFragment = {
           } | null;
         } | null;
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -5352,6 +5476,7 @@ export type PostFieldsFragment = {
     } | null;
   } | null;
   collectModule:
+    | { __typename?: 'AaveFeeCollectModuleSettings' }
     | {
         __typename?: 'FeeCollectModuleSettings';
         type: CollectModules;
@@ -6074,6 +6199,7 @@ export type CollectModuleQuery = {
         __typename?: 'Comment';
         collectNftAddress?: any | null;
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -6139,6 +6265,7 @@ export type CollectModuleQuery = {
         __typename?: 'Mirror';
         collectNftAddress?: any | null;
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -6204,6 +6331,7 @@ export type CollectModuleQuery = {
         __typename?: 'Post';
         collectNftAddress?: any | null;
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -6374,6 +6502,7 @@ export type CommentFeedQuery = {
             } | null;
           } | null;
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -6496,6 +6625,7 @@ export type CommentFeedQuery = {
                   defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -6616,6 +6746,7 @@ export type CommentFeedQuery = {
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -6823,6 +6954,7 @@ export type CommentFeedQuery = {
                               } | null;
                             } | null;
                             collectModule:
+                              | { __typename?: 'AaveFeeCollectModuleSettings' }
                               | {
                                   __typename?: 'FeeCollectModuleSettings';
                                   type: CollectModules;
@@ -6998,6 +7130,7 @@ export type CommentFeedQuery = {
                         } | null;
                       } | null;
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -7118,6 +7251,7 @@ export type CommentFeedQuery = {
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -7310,6 +7444,7 @@ export type CommentFeedQuery = {
                         } | null;
                       } | null;
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -7457,6 +7592,7 @@ export type CommentFeedQuery = {
                   } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -7674,6 +7810,7 @@ export type ExploreFeedQuery = {
             } | null;
           } | null;
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -7796,6 +7933,7 @@ export type ExploreFeedQuery = {
                   defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -7916,6 +8054,7 @@ export type ExploreFeedQuery = {
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -8123,6 +8262,7 @@ export type ExploreFeedQuery = {
                               } | null;
                             } | null;
                             collectModule:
+                              | { __typename?: 'AaveFeeCollectModuleSettings' }
                               | {
                                   __typename?: 'FeeCollectModuleSettings';
                                   type: CollectModules;
@@ -8298,6 +8438,7 @@ export type ExploreFeedQuery = {
                         } | null;
                       } | null;
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -8418,6 +8559,7 @@ export type ExploreFeedQuery = {
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -8610,6 +8752,7 @@ export type ExploreFeedQuery = {
                         } | null;
                       } | null;
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -8757,6 +8900,7 @@ export type ExploreFeedQuery = {
                   } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -8875,6 +9019,7 @@ export type ExploreFeedQuery = {
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -9055,6 +9200,7 @@ export type ExploreFeedQuery = {
                   } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -9199,6 +9345,7 @@ export type ExploreFeedQuery = {
             } | null;
           } | null;
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -9358,6 +9505,7 @@ export type FeedHighlightsQuery = {
             } | null;
           } | null;
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -9480,6 +9628,7 @@ export type FeedHighlightsQuery = {
                   defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -9600,6 +9749,7 @@ export type FeedHighlightsQuery = {
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -9807,6 +9957,7 @@ export type FeedHighlightsQuery = {
                               } | null;
                             } | null;
                             collectModule:
+                              | { __typename?: 'AaveFeeCollectModuleSettings' }
                               | {
                                   __typename?: 'FeeCollectModuleSettings';
                                   type: CollectModules;
@@ -9982,6 +10133,7 @@ export type FeedHighlightsQuery = {
                         } | null;
                       } | null;
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -10102,6 +10254,7 @@ export type FeedHighlightsQuery = {
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -10294,6 +10447,7 @@ export type FeedHighlightsQuery = {
                         } | null;
                       } | null;
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -10441,6 +10595,7 @@ export type FeedHighlightsQuery = {
                   } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -10559,6 +10714,7 @@ export type FeedHighlightsQuery = {
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -10739,6 +10895,7 @@ export type FeedHighlightsQuery = {
                   } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -10883,6 +11040,7 @@ export type FeedHighlightsQuery = {
             } | null;
           } | null;
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -11310,6 +11468,7 @@ export type NotificationsQuery = {
                 id: any;
                 metadata: { __typename?: 'MetadataOutput'; content?: any | null };
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -11377,6 +11536,7 @@ export type NotificationsQuery = {
                 id: any;
                 metadata: { __typename?: 'MetadataOutput'; content?: any | null };
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -11784,6 +11944,7 @@ export type ProfileFeedQuery = {
             } | null;
           } | null;
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -11906,6 +12067,7 @@ export type ProfileFeedQuery = {
                   defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -12026,6 +12188,7 @@ export type ProfileFeedQuery = {
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -12233,6 +12396,7 @@ export type ProfileFeedQuery = {
                               } | null;
                             } | null;
                             collectModule:
+                              | { __typename?: 'AaveFeeCollectModuleSettings' }
                               | {
                                   __typename?: 'FeeCollectModuleSettings';
                                   type: CollectModules;
@@ -12408,6 +12572,7 @@ export type ProfileFeedQuery = {
                         } | null;
                       } | null;
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -12528,6 +12693,7 @@ export type ProfileFeedQuery = {
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -12720,6 +12886,7 @@ export type ProfileFeedQuery = {
                         } | null;
                       } | null;
                       collectModule:
+                        | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
                             __typename?: 'FeeCollectModuleSettings';
                             type: CollectModules;
@@ -12867,6 +13034,7 @@ export type ProfileFeedQuery = {
                   } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -12985,6 +13153,7 @@ export type ProfileFeedQuery = {
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -13165,6 +13334,7 @@ export type ProfileFeedQuery = {
                   } | null;
                 } | null;
                 collectModule:
+                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
                       __typename?: 'FeeCollectModuleSettings';
                       type: CollectModules;
@@ -13309,6 +13479,7 @@ export type ProfileFeedQuery = {
             } | null;
           } | null;
           collectModule:
+            | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
                 __typename?: 'FeeCollectModuleSettings';
                 type: CollectModules;
@@ -13534,6 +13705,7 @@ export type PublicationQuery = {
           } | null;
         } | null;
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -13656,6 +13828,7 @@ export type PublicationQuery = {
                 defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
               } | null;
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -13772,6 +13945,7 @@ export type PublicationQuery = {
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -13979,6 +14153,7 @@ export type PublicationQuery = {
                             } | null;
                           } | null;
                           collectModule:
+                            | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
@@ -14150,6 +14325,7 @@ export type PublicationQuery = {
                       } | null;
                     } | null;
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -14270,6 +14446,7 @@ export type PublicationQuery = {
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -14454,6 +14631,7 @@ export type PublicationQuery = {
                       } | null;
                     } | null;
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -14601,6 +14779,7 @@ export type PublicationQuery = {
                 } | null;
               } | null;
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -14726,6 +14905,7 @@ export type PublicationQuery = {
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -14906,6 +15086,7 @@ export type PublicationQuery = {
                 } | null;
               } | null;
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -15057,6 +15238,7 @@ export type PublicationQuery = {
           } | null;
         } | null;
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -15324,6 +15506,7 @@ export type SearchPublicationsQuery = {
                 } | null;
               } | null;
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -15446,6 +15629,7 @@ export type SearchPublicationsQuery = {
                       defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
                     } | null;
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -15573,6 +15757,7 @@ export type SearchPublicationsQuery = {
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                           collectModule:
+                            | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
@@ -15809,6 +15994,7 @@ export type SearchPublicationsQuery = {
                                   } | null;
                                 } | null;
                                 collectModule:
+                                  | { __typename?: 'AaveFeeCollectModuleSettings' }
                                   | {
                                       __typename?: 'FeeCollectModuleSettings';
                                       type: CollectModules;
@@ -15992,6 +16178,7 @@ export type SearchPublicationsQuery = {
                             } | null;
                           } | null;
                           collectModule:
+                            | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
@@ -16132,6 +16319,7 @@ export type SearchPublicationsQuery = {
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -16339,6 +16527,7 @@ export type SearchPublicationsQuery = {
                             } | null;
                           } | null;
                           collectModule:
+                            | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
@@ -16510,6 +16699,7 @@ export type SearchPublicationsQuery = {
                       } | null;
                     } | null;
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -16658,6 +16848,7 @@ export type SearchPublicationsQuery = {
                 } | null;
               } | null;
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -17028,6 +17219,7 @@ export type TimelineQuery = {
               } | null;
             } | null;
             collectModule:
+              | { __typename?: 'AaveFeeCollectModuleSettings' }
               | {
                   __typename?: 'FeeCollectModuleSettings';
                   type: CollectModules;
@@ -17150,6 +17342,7 @@ export type TimelineQuery = {
                     defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
                   } | null;
                   collectModule:
+                    | { __typename?: 'AaveFeeCollectModuleSettings' }
                     | {
                         __typename?: 'FeeCollectModuleSettings';
                         type: CollectModules;
@@ -17270,6 +17463,7 @@ export type TimelineQuery = {
                         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                         collectModule:
+                          | { __typename?: 'AaveFeeCollectModuleSettings' }
                           | {
                               __typename?: 'FeeCollectModuleSettings';
                               type: CollectModules;
@@ -17500,6 +17694,7 @@ export type TimelineQuery = {
                                 } | null;
                               } | null;
                               collectModule:
+                                | { __typename?: 'AaveFeeCollectModuleSettings' }
                                 | {
                                     __typename?: 'FeeCollectModuleSettings';
                                     type: CollectModules;
@@ -17679,6 +17874,7 @@ export type TimelineQuery = {
                           } | null;
                         } | null;
                         collectModule:
+                          | { __typename?: 'AaveFeeCollectModuleSettings' }
                           | {
                               __typename?: 'FeeCollectModuleSettings';
                               type: CollectModules;
@@ -17819,6 +18015,7 @@ export type TimelineQuery = {
                   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                   collectModule:
+                    | { __typename?: 'AaveFeeCollectModuleSettings' }
                     | {
                         __typename?: 'FeeCollectModuleSettings';
                         type: CollectModules;
@@ -18015,6 +18212,7 @@ export type TimelineQuery = {
                           } | null;
                         } | null;
                         collectModule:
+                          | { __typename?: 'AaveFeeCollectModuleSettings' }
                           | {
                               __typename?: 'FeeCollectModuleSettings';
                               type: CollectModules;
@@ -18182,6 +18380,7 @@ export type TimelineQuery = {
                     } | null;
                   } | null;
                   collectModule:
+                    | { __typename?: 'AaveFeeCollectModuleSettings' }
                     | {
                         __typename?: 'FeeCollectModuleSettings';
                         type: CollectModules;
@@ -18327,6 +18526,7 @@ export type TimelineQuery = {
               } | null;
             } | null;
             collectModule:
+              | { __typename?: 'AaveFeeCollectModuleSettings' }
               | {
                   __typename?: 'FeeCollectModuleSettings';
                   type: CollectModules;
@@ -18572,6 +18772,7 @@ export type TimelineQuery = {
           } | null;
         } | null;
         collectModule:
+          | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
               __typename?: 'FeeCollectModuleSettings';
               type: CollectModules;
@@ -18694,6 +18895,7 @@ export type TimelineQuery = {
                 defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
               } | null;
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -18810,6 +19012,7 @@ export type TimelineQuery = {
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -19017,6 +19220,7 @@ export type TimelineQuery = {
                             } | null;
                           } | null;
                           collectModule:
+                            | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | {
                                 __typename?: 'FeeCollectModuleSettings';
                                 type: CollectModules;
@@ -19188,6 +19392,7 @@ export type TimelineQuery = {
                       } | null;
                     } | null;
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -19308,6 +19513,7 @@ export type TimelineQuery = {
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -19492,6 +19698,7 @@ export type TimelineQuery = {
                       } | null;
                     } | null;
                     collectModule:
+                      | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
                           __typename?: 'FeeCollectModuleSettings';
                           type: CollectModules;
@@ -19639,6 +19846,7 @@ export type TimelineQuery = {
                 } | null;
               } | null;
               collectModule:
+                | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
                     __typename?: 'FeeCollectModuleSettings';
                     type: CollectModules;
@@ -19787,6 +19995,7 @@ export interface PossibleTypesResultData {
 const result: PossibleTypesResultData = {
   possibleTypes: {
     CollectModule: [
+      'AaveFeeCollectModuleSettings',
       'FeeCollectModuleSettings',
       'FreeCollectModuleSettings',
       'LimitedFeeCollectModuleSettings',
