@@ -16,7 +16,7 @@ const SortableList: any = SortableContainer(({ nfts }: Props) => {
   return (
     <div className="masonry-3-col">
       {nfts.map((nft, index) => (
-        <SortableItem key={`${nft.tokenId}-${index}`} index={index} nft={nft} />
+        <SortableItem key={`${nft.contractAddress}_${nft.tokenId}`} index={index} nft={nft} />
       ))}
     </div>
   );

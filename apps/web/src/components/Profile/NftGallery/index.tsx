@@ -14,6 +14,7 @@ import { CHAIN_ID } from 'src/constants';
 import { mainnet } from 'wagmi/chains';
 
 import Gallery from './Gallery';
+import NoGallery from './NoGallery';
 import ReArrange from './ReArrange';
 
 interface Props {
@@ -61,6 +62,7 @@ const NFTGallery: FC<Props> = ({ profile }) => {
 
   return (
     <div className="space-y-4">
+      <NoGallery profile={profile} />
       <div className="flex items-center justify-between">
         <h6 className="font-medium text-lg mx-2">
           {isRearrange ? 'Arrange gallery' : `${profile.name}'s gallery`}
