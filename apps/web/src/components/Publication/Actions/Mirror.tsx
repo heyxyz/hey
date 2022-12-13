@@ -155,6 +155,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
+
     try {
       setIsSubmitting(true);
       const request = {
