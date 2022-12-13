@@ -3,6 +3,7 @@ fragment MirrorFields on Mirror {
   profile {
     ...ProfileFields
   }
+  isDataAvailability
   reaction(request: $reactionRequest)
   canComment(profileId: $profileId) {
     result
@@ -29,6 +30,7 @@ fragment MirrorFields on Mirror {
       profile {
         ...ProfileFields
       }
+      isDataAvailability
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
       canComment(profileId: $profileId) {

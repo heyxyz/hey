@@ -3,6 +3,7 @@ fragment PostFields on Post {
   profile {
     ...ProfileFields
   }
+  isDataAvailability
   reaction(request: $reactionRequest)
   mirrors(by: $profileId)
   canComment(profileId: $profileId) {

@@ -3990,6 +3990,7 @@ export type CollectModuleFieldsFragment =
 export type CommentFieldsFragment = {
   __typename?: 'Comment';
   id: any;
+  isDataAvailability: boolean;
   reaction?: ReactionTypes | null;
   mirrors: Array<any>;
   hasCollectedByMe: boolean;
@@ -4134,6 +4135,7 @@ export type CommentFieldsFragment = {
     | {
         __typename?: 'Comment';
         id: any;
+        isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
@@ -4257,6 +4259,7 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'Mirror';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               hidden: boolean;
               createdAt: any;
@@ -4374,6 +4377,7 @@ export type CommentFieldsFragment = {
                 | {
                     __typename?: 'Comment';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     createdAt: any;
@@ -4411,6 +4415,7 @@ export type CommentFieldsFragment = {
                 | {
                     __typename?: 'Post';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
@@ -4563,6 +4568,7 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'Post';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
@@ -4708,6 +4714,7 @@ export type CommentFieldsFragment = {
     | {
         __typename?: 'Mirror';
         id: any;
+        isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         hidden: boolean;
         createdAt: any;
@@ -4825,6 +4832,7 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'Comment';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               createdAt: any;
@@ -4862,6 +4870,7 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'Post';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
@@ -5007,6 +5016,7 @@ export type CommentFieldsFragment = {
     | {
         __typename?: 'Post';
         id: any;
+        isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
@@ -5172,6 +5182,7 @@ export type MetadataFieldsFragment = {
 export type MirrorFieldsFragment = {
   __typename?: 'Mirror';
   id: any;
+  isDataAvailability: boolean;
   reaction?: ReactionTypes | null;
   hidden: boolean;
   createdAt: any;
@@ -5289,6 +5300,7 @@ export type MirrorFieldsFragment = {
     | {
         __typename?: 'Comment';
         id: any;
+        isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         createdAt: any;
@@ -5326,6 +5338,7 @@ export type MirrorFieldsFragment = {
     | {
         __typename?: 'Post';
         id: any;
+        isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
@@ -5472,6 +5485,7 @@ export type MirrorFieldsFragment = {
 export type PostFieldsFragment = {
   __typename?: 'Post';
   id: any;
+  isDataAvailability: boolean;
   reaction?: ReactionTypes | null;
   mirrors: Array<any>;
   hasCollectedByMe: boolean;
@@ -6524,6 +6538,7 @@ export type CommentFeedQuery = {
       | {
           __typename?: 'Comment';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
@@ -6668,6 +6683,7 @@ export type CommentFeedQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -6791,6 +6807,7 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'Mirror';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       hidden: boolean;
                       createdAt: any;
@@ -6915,6 +6932,7 @@ export type CommentFeedQuery = {
                         | {
                             __typename?: 'Comment';
                             id: any;
+                            isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             createdAt: any;
@@ -6960,6 +6978,7 @@ export type CommentFeedQuery = {
                         | {
                             __typename?: 'Post';
                             id: any;
+                            isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
@@ -7144,6 +7163,7 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'Post';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
@@ -7300,6 +7320,7 @@ export type CommentFeedQuery = {
             | {
                 __typename?: 'Mirror';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 hidden: boolean;
                 createdAt: any;
@@ -7417,6 +7438,7 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'Comment';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       createdAt: any;
@@ -7458,6 +7480,7 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'Post';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
@@ -7614,6 +7637,7 @@ export type CommentFeedQuery = {
             | {
                 __typename?: 'Post';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -7832,6 +7856,7 @@ export type ExploreFeedQuery = {
       | {
           __typename?: 'Comment';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
@@ -7976,6 +8001,7 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -8099,6 +8125,7 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'Mirror';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       hidden: boolean;
                       createdAt: any;
@@ -8223,6 +8250,7 @@ export type ExploreFeedQuery = {
                         | {
                             __typename?: 'Comment';
                             id: any;
+                            isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             createdAt: any;
@@ -8268,6 +8296,7 @@ export type ExploreFeedQuery = {
                         | {
                             __typename?: 'Post';
                             id: any;
+                            isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
@@ -8452,6 +8481,7 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'Post';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
@@ -8608,6 +8638,7 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'Mirror';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 hidden: boolean;
                 createdAt: any;
@@ -8725,6 +8756,7 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'Comment';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       createdAt: any;
@@ -8766,6 +8798,7 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'Post';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
@@ -8922,6 +8955,7 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'Post';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -9068,6 +9102,7 @@ export type ExploreFeedQuery = {
       | {
           __typename?: 'Mirror';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           hidden: boolean;
           createdAt: any;
@@ -9185,6 +9220,7 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 createdAt: any;
@@ -9222,6 +9258,7 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'Post';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -9367,6 +9404,7 @@ export type ExploreFeedQuery = {
       | {
           __typename?: 'Post';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
@@ -9527,6 +9565,7 @@ export type FeedHighlightsQuery = {
       | {
           __typename?: 'Comment';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
@@ -9671,6 +9710,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -9794,6 +9834,7 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'Mirror';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       hidden: boolean;
                       createdAt: any;
@@ -9918,6 +9959,7 @@ export type FeedHighlightsQuery = {
                         | {
                             __typename?: 'Comment';
                             id: any;
+                            isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             createdAt: any;
@@ -9963,6 +10005,7 @@ export type FeedHighlightsQuery = {
                         | {
                             __typename?: 'Post';
                             id: any;
+                            isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
@@ -10147,6 +10190,7 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'Post';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
@@ -10303,6 +10347,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'Mirror';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 hidden: boolean;
                 createdAt: any;
@@ -10420,6 +10465,7 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'Comment';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       createdAt: any;
@@ -10461,6 +10507,7 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'Post';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
@@ -10617,6 +10664,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'Post';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -10763,6 +10811,7 @@ export type FeedHighlightsQuery = {
       | {
           __typename?: 'Mirror';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           hidden: boolean;
           createdAt: any;
@@ -10880,6 +10929,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 createdAt: any;
@@ -10917,6 +10967,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'Post';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -11062,6 +11113,7 @@ export type FeedHighlightsQuery = {
       | {
           __typename?: 'Post';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
@@ -11966,6 +12018,7 @@ export type ProfileFeedQuery = {
       | {
           __typename?: 'Comment';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
@@ -12110,6 +12163,7 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -12233,6 +12287,7 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'Mirror';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       hidden: boolean;
                       createdAt: any;
@@ -12357,6 +12412,7 @@ export type ProfileFeedQuery = {
                         | {
                             __typename?: 'Comment';
                             id: any;
+                            isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             createdAt: any;
@@ -12402,6 +12458,7 @@ export type ProfileFeedQuery = {
                         | {
                             __typename?: 'Post';
                             id: any;
+                            isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
@@ -12586,6 +12643,7 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'Post';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
@@ -12742,6 +12800,7 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'Mirror';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 hidden: boolean;
                 createdAt: any;
@@ -12859,6 +12918,7 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'Comment';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       createdAt: any;
@@ -12900,6 +12960,7 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'Post';
                       id: any;
+                      isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
@@ -13056,6 +13117,7 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'Post';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -13202,6 +13264,7 @@ export type ProfileFeedQuery = {
       | {
           __typename?: 'Mirror';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           hidden: boolean;
           createdAt: any;
@@ -13319,6 +13382,7 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 createdAt: any;
@@ -13356,6 +13420,7 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'Post';
                 id: any;
+                isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
@@ -13501,6 +13566,7 @@ export type ProfileFeedQuery = {
       | {
           __typename?: 'Post';
           id: any;
+          isDataAvailability: boolean;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
@@ -13722,6 +13788,7 @@ export type PublicationQuery = {
         onChainContentURI: string;
         collectNftAddress?: any | null;
         id: any;
+        isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
@@ -13871,6 +13938,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'Comment';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
@@ -13994,6 +14062,7 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'Mirror';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     hidden: boolean;
                     createdAt: any;
@@ -14114,6 +14183,7 @@ export type PublicationQuery = {
                       | {
                           __typename?: 'Comment';
                           id: any;
+                          isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           createdAt: any;
@@ -14159,6 +14229,7 @@ export type PublicationQuery = {
                       | {
                           __typename?: 'Post';
                           id: any;
+                          isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
@@ -14343,6 +14414,7 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'Post';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
@@ -14495,6 +14567,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'Mirror';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               hidden: boolean;
               createdAt: any;
@@ -14612,6 +14685,7 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'Comment';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     createdAt: any;
@@ -14649,6 +14723,7 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'Post';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
@@ -14801,6 +14876,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'Post';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
@@ -14949,6 +15025,7 @@ export type PublicationQuery = {
         onChainContentURI: string;
         collectNftAddress?: any | null;
         id: any;
+        isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         hidden: boolean;
         createdAt: any;
@@ -15071,6 +15148,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'Comment';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               createdAt: any;
@@ -15108,6 +15186,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'Post';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
@@ -15255,6 +15334,7 @@ export type PublicationQuery = {
         onChainContentURI: string;
         collectNftAddress?: any | null;
         id: any;
+        isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
@@ -15528,6 +15608,7 @@ export type SearchPublicationsQuery = {
           | {
               __typename?: 'Comment';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
@@ -15672,6 +15753,7 @@ export type SearchPublicationsQuery = {
                 | {
                     __typename?: 'Comment';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
@@ -15798,6 +15880,7 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'Mirror';
                           id: any;
+                          isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           hidden: boolean;
                           createdAt: any;
@@ -15946,6 +16029,7 @@ export type SearchPublicationsQuery = {
                             | {
                                 __typename?: 'Comment';
                                 id: any;
+                                isDataAvailability: boolean;
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
                                 createdAt: any;
@@ -15994,6 +16078,7 @@ export type SearchPublicationsQuery = {
                             | {
                                 __typename?: 'Post';
                                 id: any;
+                                isDataAvailability: boolean;
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
                                 hasCollectedByMe: boolean;
@@ -16184,6 +16269,7 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'Post';
                           id: any;
+                          isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
@@ -16368,6 +16454,7 @@ export type SearchPublicationsQuery = {
                 | {
                     __typename?: 'Mirror';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     hidden: boolean;
                     createdAt: any;
@@ -16488,6 +16575,7 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'Comment';
                           id: any;
+                          isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           createdAt: any;
@@ -16533,6 +16621,7 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'Post';
                           id: any;
+                          isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
@@ -16717,6 +16806,7 @@ export type SearchPublicationsQuery = {
                 | {
                     __typename?: 'Post';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
@@ -16870,6 +16960,7 @@ export type SearchPublicationsQuery = {
           | {
               __typename?: 'Post';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
@@ -17241,6 +17332,7 @@ export type TimelineQuery = {
         | {
             __typename?: 'Comment';
             id: any;
+            isDataAvailability: boolean;
             reaction?: ReactionTypes | null;
             mirrors: Array<any>;
             hasCollectedByMe: boolean;
@@ -17385,6 +17477,7 @@ export type TimelineQuery = {
               | {
                   __typename?: 'Comment';
                   id: any;
+                  isDataAvailability: boolean;
                   reaction?: ReactionTypes | null;
                   mirrors: Array<any>;
                   hasCollectedByMe: boolean;
@@ -17508,6 +17601,7 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'Mirror';
                         id: any;
+                        isDataAvailability: boolean;
                         reaction?: ReactionTypes | null;
                         hidden: boolean;
                         createdAt: any;
@@ -17652,6 +17746,7 @@ export type TimelineQuery = {
                           | {
                               __typename?: 'Comment';
                               id: any;
+                              isDataAvailability: boolean;
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
                               createdAt: any;
@@ -17697,6 +17792,7 @@ export type TimelineQuery = {
                           | {
                               __typename?: 'Post';
                               id: any;
+                              isDataAvailability: boolean;
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
                               hasCollectedByMe: boolean;
@@ -17884,6 +17980,7 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'Post';
                         id: any;
+                        isDataAvailability: boolean;
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         hasCollectedByMe: boolean;
@@ -18064,6 +18161,7 @@ export type TimelineQuery = {
               | {
                   __typename?: 'Mirror';
                   id: any;
+                  isDataAvailability: boolean;
                   reaction?: ReactionTypes | null;
                   hidden: boolean;
                   createdAt: any;
@@ -18181,6 +18279,7 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'Comment';
                         id: any;
+                        isDataAvailability: boolean;
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         createdAt: any;
@@ -18222,6 +18321,7 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'Post';
                         id: any;
+                        isDataAvailability: boolean;
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         hasCollectedByMe: boolean;
@@ -18402,6 +18502,7 @@ export type TimelineQuery = {
               | {
                   __typename?: 'Post';
                   id: any;
+                  isDataAvailability: boolean;
                   reaction?: ReactionTypes | null;
                   mirrors: Array<any>;
                   hasCollectedByMe: boolean;
@@ -18548,6 +18649,7 @@ export type TimelineQuery = {
         | {
             __typename?: 'Post';
             id: any;
+            isDataAvailability: boolean;
             reaction?: ReactionTypes | null;
             mirrors: Array<any>;
             hasCollectedByMe: boolean;
@@ -18794,6 +18896,7 @@ export type TimelineQuery = {
       comments?: Array<{
         __typename?: 'Comment';
         id: any;
+        isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
@@ -18938,6 +19041,7 @@ export type TimelineQuery = {
           | {
               __typename?: 'Comment';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
@@ -19061,6 +19165,7 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'Mirror';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     hidden: boolean;
                     createdAt: any;
@@ -19181,6 +19286,7 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'Comment';
                           id: any;
+                          isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           createdAt: any;
@@ -19226,6 +19332,7 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'Post';
                           id: any;
+                          isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
@@ -19410,6 +19517,7 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'Post';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
@@ -19562,6 +19670,7 @@ export type TimelineQuery = {
           | {
               __typename?: 'Mirror';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               hidden: boolean;
               createdAt: any;
@@ -19679,6 +19788,7 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'Comment';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     createdAt: any;
@@ -19716,6 +19826,7 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'Post';
                     id: any;
+                    isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
@@ -19868,6 +19979,7 @@ export type TimelineQuery = {
           | {
               __typename?: 'Post';
               id: any;
+              isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
@@ -20253,6 +20365,7 @@ export const PostFieldsFragmentDoc = gql`
     profile {
       ...ProfileFields
     }
+    isDataAvailability
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
     canComment(profileId: $profileId) {
@@ -20292,6 +20405,7 @@ export const MirrorFieldsFragmentDoc = gql`
     profile {
       ...ProfileFields
     }
+    isDataAvailability
     reaction(request: $reactionRequest)
     canComment(profileId: $profileId) {
       result
@@ -20318,6 +20432,7 @@ export const MirrorFieldsFragmentDoc = gql`
         profile {
           ...ProfileFields
         }
+        isDataAvailability
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
         canComment(profileId: $profileId) {
@@ -20347,6 +20462,7 @@ export const CommentFieldsFragmentDoc = gql`
     profile {
       ...ProfileFields
     }
+    isDataAvailability
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
     canComment(profileId: $profileId) {
@@ -20383,6 +20499,7 @@ export const CommentFieldsFragmentDoc = gql`
         profile {
           ...ProfileFields
         }
+        isDataAvailability
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
         canComment(profileId: $profileId) {
