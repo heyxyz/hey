@@ -404,13 +404,11 @@ const NewPublication: FC<Props> = ({ publication }) => {
         });
       }
 
-      const attachmentsInput: LensterAttachment[] = attachments.map((attachment) => {
-        return {
+      const attachmentsInput: LensterAttachment[] = attachments.map((attachment) => ({
           type: attachment.type,
           altTag: attachment.altTag,
           item: attachment.item!
-        };
-      });
+      }));
 
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
