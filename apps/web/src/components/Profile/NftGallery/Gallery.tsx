@@ -1,8 +1,9 @@
-import SingleNFT from '@components/NFT/SingleNFT';
 import type { Nft } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import { GridContextProvider, GridDropZone, GridItem, swap } from 'react-grid-dnd';
+
+import SingleNFT from './SingleNFT';
 type Props = {
   nfts: Nft[];
 };
@@ -10,12 +11,10 @@ type Props = {
 const Gallery: FC<Props> = ({ nfts }) => {
   const [items, setItems] = useState(nfts.filter((nft) => !nft?.originalContent?.animatedUrl));
 
-  function onChange(sourceId: any, sourceIndex: any, targetIndex: any) {
-    const result = swap(items, sourceIndex, targetIndex);
-    console.log('🚀 ~ file: Gallery.tsx:20 ~ onChange ~ result', result);
-    return setItems([...result]);
+  function onChange(_sourceId: string, sourceIndex: number, targetIndex: number) {
+    const results = swap(items, sourceIndex, targetIndex);
+    return setItems(results);
   }
-  console.log('🚀 ~ file: Gallery.tsx:24 ~ onChange ~ items', items);
 
   return (
     <GridContextProvider onChange={onChange}>

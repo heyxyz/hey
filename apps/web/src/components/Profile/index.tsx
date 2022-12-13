@@ -1,7 +1,10 @@
 import MetaTags from '@components/Common/MetaTags';
+import NFTFeed from '@components/NFT/NFTFeed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import formatHandle from '@lib/formatHandle';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
+import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -14,7 +17,7 @@ import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
 import FeedType from './FeedType';
-import NFTFeed from './NftGallery/NFTFeed';
+import NFTGallery from './NFTGallery';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
@@ -71,7 +74,11 @@ const ViewProfile: NextPage = () => {
           {(feedType === 'FEED' || feedType === 'REPLIES' || feedType === 'MEDIA') && (
             <Feed profile={profile as any} type={feedType} />
           )}
-          {feedType === 'NFT' && <NFTFeed profile={profile as any} />}
+          {feedType === 'NFT' && isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
+            <NFTGallery profile={profile as Profile} />
+          ) : (
+            <NFTFeed profile={profile as Profile} />
+          )}
         </GridItemEight>
       </GridLayout>
     </>

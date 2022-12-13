@@ -11,5 +11,10 @@ export const featureFlags = [
     key: 'access-settings',
     name: 'Access settings',
     enabledFor: [...lensterMembers, ...aaveMembers]
+  },
+  {
+    key: 'nft-gallery',
+    name: 'NFT Gallery',
+    enabledFor: [...aaveMembers]
   }
 ];
