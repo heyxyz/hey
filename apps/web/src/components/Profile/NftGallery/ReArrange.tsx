@@ -1,35 +1,31 @@
+import { arrayMoveImmutable } from 'array-move';
 import type { Nft } from 'lens';
-import type { FC } from 'react';
 import React, { useState } from 'react';
-import { GridContextProvider, GridDropZone, GridItem, swap } from 'react-grid-dnd';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 
 import SingleNFT from './SingleNFT';
-type Props = {
-  nfts: Nft[];
-};
 
-const ReArrange: FC<Props> = ({ nfts }) => {
-  const [items, setItems] = useState(nfts.filter((nft) => !nft?.originalContent?.animatedUrl));
+const SortableItem: any = SortableElement(({ nft }: { nft: Nft }) => <SingleNFT nft={nft} masonry />);
 
-  function onChange(_sourceId: string, sourceIndex: number, targetIndex: number) {
-    const results = swap(items, sourceIndex, targetIndex);
-    return setItems(results);
-  }
-
+const SortableList: any = SortableContainer(({ nfts }: { nfts: Nft[] }) => {
   return (
-    <GridContextProvider onChange={onChange}>
-      <GridDropZone id="nftGallery" className="h-full" boxesPerRow={3} rowHeight={270}>
-        {items?.map((nft) => (
-          <GridItem
-            key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
-            className="break-inside text-white flex justify-center items-center overflow-hidden"
-          >
-            <SingleNFT nft={nft as Nft} />
-          </GridItem>
-        ))}
-      </GridDropZone>
-    </GridContextProvider>
+    <div className="masonry-3-col">
+      {nfts.map((nft, index) => (
+        <SortableItem key={`${nft.tokenId}-${index}`} index={index} nft={nft} />
+      ))}
+    </div>
   );
+});
+
+const ReArrange = ({ nfts }: { nfts: Nft[] }) => {
+  const [allNfts, setAllNfts] = useState(nfts);
+
+  const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+    const list = arrayMoveImmutable(allNfts, oldIndex, newIndex);
+    setAllNfts(list);
+  };
+
+  return <SortableList axis="xy" nfts={allNfts} onSortEnd={onSortEnd} />;
 };
 
 export default ReArrange;

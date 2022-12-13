@@ -62,7 +62,9 @@ const NFTGallery: FC<Props> = ({ profile }) => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h6 className="font-medium mx-2">{isRearrange ? 'Arrange gallery' : `${profile.name}'s gallery`}</h6>
+        <h6 className="font-medium text-lg mx-2">
+          {isRearrange ? 'Arrange gallery' : `${profile.name}'s gallery`}
+        </h6>
         {isRearrange && (
           <div className="flex items-center space-x-2">
             <Button onClick={() => setIsRearrange(false)} size="sm" variant="secondary">
