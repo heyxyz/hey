@@ -7,9 +7,8 @@ type ImagesPluginProps = {
   onPaste: (files: FileList) => void;
 };
 
-export default function ImagesPlugin(props: ImagesPluginProps): JSX.Element | null {
+const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
   const { onPaste } = props;
-
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -34,4 +33,6 @@ export default function ImagesPlugin(props: ImagesPluginProps): JSX.Element | nu
   }, [editor, onPaste]);
 
   return null;
-}
+};
+
+export default ImagesPlugin;
