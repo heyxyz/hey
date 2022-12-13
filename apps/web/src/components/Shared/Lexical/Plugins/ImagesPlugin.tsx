@@ -20,12 +20,15 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
            * This registers a paste event listener on the editor.
            * The InputEvent/ClipboardEvent will be triggered both when the user pastes something into the editor.
            */
-          const { dataTransfer } = event;
-          if (dataTransfer && dataTransfer.files.length) {
-            const { files } = dataTransfer;
-            onPaste && onPaste(files);
+          if (event) {
+            const { dataTransfer } = event;
+            if (dataTransfer && dataTransfer.files.length) {
+              const { files } = dataTransfer;
+              onPaste && onPaste(files);
+            }
+            return true;
           }
-          return true;
+          return false;
         },
         COMMAND_PRIORITY_NORMAL
       )

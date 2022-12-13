@@ -9,9 +9,11 @@ const useUploadAttachments = () => {
   const addAttachments = usePublicationStore((state) => state.addAttachments);
   const updateAttachments = usePublicationStore((state) => state.updateAttachments);
   const removeAttachments = usePublicationStore((state) => state.removeAttachments);
+  const setIsUploading = usePublicationStore((state) => state.setIsUploading);
 
   const handleUploadAttachments = useCallback(
     async (attachments: any): Promise<NewLensterAttachment[]> => {
+      setIsUploading(true);
       const files = Array.from(attachments);
       const attachmentIds: string[] = [];
       const previewAttachments: NewLensterAttachment[] = files.map((file: any) => {
@@ -35,14 +37,14 @@ const useUploadAttachments = () => {
           }));
           updateAttachments(attachmentsIPFS);
         }
-        return attachmentsIPFS;
       } catch {
         removeAttachments(attachmentIds);
         toast.error('Error uploading files.');
-        return [];
       }
+      setIsUploading(false);
+      return attachmentsIPFS;
     },
-    [addAttachments, removeAttachments, updateAttachments]
+    [addAttachments, removeAttachments, updateAttachments, setIsUploading]
   );
 
   return { handleUploadAttachments };

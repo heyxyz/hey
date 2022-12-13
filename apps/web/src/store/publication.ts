@@ -18,6 +18,8 @@ interface PublicationState {
   addAttachments: (attachments: NewLensterAttachment[]) => void;
   updateAttachments: (attachments: NewLensterAttachment[]) => void;
   removeAttachments: (ids: string[]) => void;
+  isUploading: boolean;
+  setIsUploading: (isUploading: boolean) => void;
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -54,5 +56,7 @@ export const usePublicationStore = create<PublicationState>((set) => ({
         }
       });
       return { attachments };
-    })
+    }),
+  isUploading: false,
+  setIsUploading: (isUploading) => set(() => ({ isUploading }))
 }));
