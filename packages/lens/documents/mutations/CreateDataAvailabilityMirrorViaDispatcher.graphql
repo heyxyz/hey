@@ -1,0 +1,8 @@
+mutation CreateDataAvailabilityMirrorViaDispatcher(
+  $request: CreateDataAvailabilityMirrorViaDispatcherRequest!
+) {
+  createDataAvailabilityMirrorViaDispatcher(request: $request) {
+    id
+    proofs
+  }
+}

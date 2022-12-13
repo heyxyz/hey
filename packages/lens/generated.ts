@@ -5829,6 +5829,19 @@ export type CreateDataAvailabilityCommentViaDispatcherMutation = {
   };
 };
 
+export type CreateDataAvailabilityMirrorViaDispatcherMutationVariables = Exact<{
+  request: CreateDataAvailabilityMirrorViaDispatcherRequest;
+}>;
+
+export type CreateDataAvailabilityMirrorViaDispatcherMutation = {
+  __typename?: 'Mutation';
+  createDataAvailabilityMirrorViaDispatcher: {
+    __typename?: 'CreateDataAvailabilityPublicationViaDispatcherResult';
+    id: any;
+    proofs: string;
+  };
+};
+
 export type CreateDataAvailabilityPostViaDispatcherMutationVariables = Exact<{
   request: CreateDataAvailabilityPostViaDispatcherRequest;
 }>;
@@ -21048,6 +21061,59 @@ export type CreateDataAvailabilityCommentViaDispatcherMutationResult =
 export type CreateDataAvailabilityCommentViaDispatcherMutationOptions = Apollo.BaseMutationOptions<
   CreateDataAvailabilityCommentViaDispatcherMutation,
   CreateDataAvailabilityCommentViaDispatcherMutationVariables
+>;
+export const CreateDataAvailabilityMirrorViaDispatcherDocument = gql`
+  mutation CreateDataAvailabilityMirrorViaDispatcher(
+    $request: CreateDataAvailabilityMirrorViaDispatcherRequest!
+  ) {
+    createDataAvailabilityMirrorViaDispatcher(request: $request) {
+      id
+      proofs
+    }
+  }
+`;
+export type CreateDataAvailabilityMirrorViaDispatcherMutationFn = Apollo.MutationFunction<
+  CreateDataAvailabilityMirrorViaDispatcherMutation,
+  CreateDataAvailabilityMirrorViaDispatcherMutationVariables
+>;
+
+/**
+ * __useCreateDataAvailabilityMirrorViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateDataAvailabilityMirrorViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDataAvailabilityMirrorViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDataAvailabilityMirrorViaDispatcherMutation, { data, loading, error }] = useCreateDataAvailabilityMirrorViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateDataAvailabilityMirrorViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDataAvailabilityMirrorViaDispatcherMutation,
+    CreateDataAvailabilityMirrorViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateDataAvailabilityMirrorViaDispatcherMutation,
+    CreateDataAvailabilityMirrorViaDispatcherMutationVariables
+  >(CreateDataAvailabilityMirrorViaDispatcherDocument, options);
+}
+export type CreateDataAvailabilityMirrorViaDispatcherMutationHookResult = ReturnType<
+  typeof useCreateDataAvailabilityMirrorViaDispatcherMutation
+>;
+export type CreateDataAvailabilityMirrorViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateDataAvailabilityMirrorViaDispatcherMutation>;
+export type CreateDataAvailabilityMirrorViaDispatcherMutationOptions = Apollo.BaseMutationOptions<
+  CreateDataAvailabilityMirrorViaDispatcherMutation,
+  CreateDataAvailabilityMirrorViaDispatcherMutationVariables
 >;
 export const CreateDataAvailabilityPostViaDispatcherDocument = gql`
   mutation CreateDataAvailabilityPostViaDispatcher(
