@@ -551,6 +551,37 @@ export type CreateCommentEip712TypedDataValue = {
   referenceModuleInitData: Scalars['ReferenceModuleData'];
 };
 
+export type CreateDataAvailabilityCommentViaDispatcherRequest = {
+  /** Publication your commenting on */
+  commentOn: Scalars['InternalPublicationId'];
+  /** Profile id */
+  from: Scalars['ProfileId'];
+  /** The metadata properties */
+  metadata: PublicationMetadataRequest;
+};
+
+export type CreateDataAvailabilityMirrorViaDispatcherRequest = {
+  /** Profile id which will broadcast the mirror */
+  from: Scalars['ProfileId'];
+  /** The publication to mirror */
+  mirror: Scalars['InternalPublicationId'];
+};
+
+export type CreateDataAvailabilityPostViaDispatcherRequest = {
+  /** Profile id */
+  from: Scalars['ProfileId'];
+  /** The metadata properties */
+  metadata: PublicationMetadataRequest;
+};
+
+export type CreateDataAvailabilityPublicationViaDispatcherResult = {
+  __typename?: 'CreateDataAvailabilityPublicationViaDispatcherResult';
+  /** The id of the post */
+  id: Scalars['InternalPublicationId'];
+  /** The proofs for the DA */
+  proofs: Scalars['String'];
+};
+
 /** The broadcast item */
 export type CreateFollowBroadcastItemResult = {
   __typename?: 'CreateFollowBroadcastItemResult';
@@ -1945,6 +1976,9 @@ export type Mutation = {
   createCollectTypedData: CreateCollectBroadcastItemResult;
   createCommentTypedData: CreateCommentBroadcastItemResult;
   createCommentViaDispatcher: RelayResult;
+  createDataAvailabilityCommentViaDispatcher: CreateDataAvailabilityPublicationViaDispatcherResult;
+  createDataAvailabilityMirrorViaDispatcher: CreateDataAvailabilityPublicationViaDispatcherResult;
+  createDataAvailabilityPostViaDispatcher: CreateDataAvailabilityPublicationViaDispatcherResult;
   createFollowTypedData: CreateFollowBroadcastItemResult;
   createMirrorTypedData: CreateMirrorBroadcastItemResult;
   createMirrorViaDispatcher: RelayResult;
@@ -2017,6 +2051,18 @@ export type MutationCreateCommentTypedDataArgs = {
 
 export type MutationCreateCommentViaDispatcherArgs = {
   request: CreatePublicCommentRequest;
+};
+
+export type MutationCreateDataAvailabilityCommentViaDispatcherArgs = {
+  request: CreateDataAvailabilityCommentViaDispatcherRequest;
+};
+
+export type MutationCreateDataAvailabilityMirrorViaDispatcherArgs = {
+  request: CreateDataAvailabilityMirrorViaDispatcherRequest;
+};
+
+export type MutationCreateDataAvailabilityPostViaDispatcherArgs = {
+  request: CreateDataAvailabilityPostViaDispatcherRequest;
 };
 
 export type MutationCreateFollowTypedDataArgs = {
@@ -2869,6 +2915,11 @@ export type PublicationMetadataMediaInput = {
   source?: InputMaybe<PublicationMediaSource>;
   /** This is the mime type of media */
   type?: InputMaybe<Scalars['MimeType']>;
+};
+
+export type PublicationMetadataRequest = {
+  v1?: InputMaybe<PublicationMetadataV1Input>;
+  v2?: InputMaybe<PublicationMetadataV2Input>;
 };
 
 export type PublicationMetadataStatus = {
