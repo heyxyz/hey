@@ -1,19 +1,17 @@
 import getIPFSLink from '@lib/getIPFSLink';
-import clsx from 'clsx';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Nft } from 'lens';
 import type { FC } from 'react';
 
 interface Props {
   nft: Nft;
-  masonry?: boolean;
 }
 
-const SingleNFT: FC<Props> = ({ nft, masonry }) => {
+const NftCard: FC<Props> = ({ nft }) => {
   return (
     <div className="p-2">
       <img
-        className={clsx('rounded-xl object-cover', !masonry && 'h-[260px]')}
+        className="rounded-xl object-cover"
         src={
           nft.originalContent.uri
             ? getIPFSLink(nft.originalContent.uri)
@@ -27,4 +25,4 @@ const SingleNFT: FC<Props> = ({ nft, masonry }) => {
   );
 };
 
-export default SingleNFT;
+export default NftCard;

@@ -1,13 +1,18 @@
 import { arrayMoveImmutable } from 'array-move';
 import type { Nft } from 'lens';
+import type { FC } from 'react';
 import React, { useState } from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 
-import SingleNFT from './SingleNFT';
+import NftCard from './NftCard';
 
-const SortableItem: any = SortableElement(({ nft }: { nft: Nft }) => <SingleNFT nft={nft} masonry />);
+type Props = {
+  nfts: Nft[];
+};
 
-const SortableList: any = SortableContainer(({ nfts }: { nfts: Nft[] }) => {
+const SortableItem: any = SortableElement(({ nft }: { nft: Nft }) => <NftCard nft={nft} />);
+
+const SortableList: any = SortableContainer(({ nfts }: Props) => {
   return (
     <div className="masonry-3-col">
       {nfts.map((nft, index) => (
@@ -17,7 +22,7 @@ const SortableList: any = SortableContainer(({ nfts }: { nfts: Nft[] }) => {
   );
 });
 
-const ReArrange = ({ nfts }: { nfts: Nft[] }) => {
+const ReArrange: FC<Props> = ({ nfts }) => {
   const [allNfts, setAllNfts] = useState(nfts);
 
   const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
