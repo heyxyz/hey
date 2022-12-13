@@ -455,7 +455,10 @@ const NewPublication: FC<Props> = ({ publication }) => {
         appId: APP_NAME
       };
 
-      const useDataAvailability = selectedCollectModule === CollectModules.RevertCollectModule;
+      const isRevertCollectModule = selectedCollectModule === CollectModules.RevertCollectModule;
+      const useDataAvailability = isComment
+        ? publication.isDataAvailability && isRevertCollectModule
+        : isRevertCollectModule;
 
       let arweaveId = null;
       if (restricted) {
