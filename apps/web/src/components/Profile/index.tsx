@@ -74,7 +74,7 @@ const ViewProfile: NextPage = () => {
           {(feedType === 'FEED' || feedType === 'REPLIES' || feedType === 'MEDIA') && (
             <Feed profile={profile as any} type={feedType} />
           )}
-          {feedType === 'NFT' && isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
+          {feedType === 'NFT' && isFeatureEnabled('nft-gallery', '0x2d') ? (
             <NFTGallery profile={profile as Profile} />
           ) : (
             <NFTFeed profile={profile as Profile} />
