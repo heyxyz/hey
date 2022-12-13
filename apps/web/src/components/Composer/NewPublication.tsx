@@ -405,9 +405,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
       }
 
       const attachmentsInput: LensterAttachment[] = attachments.map((attachment) => ({
-          type: attachment.type,
-          altTag: attachment.altTag,
-          item: attachment.item!
+        type: attachment.type,
+        altTag: attachment.altTag,
+        item: attachment.item!
       }));
 
       const metadata: PublicationMetadataV2Input = {
