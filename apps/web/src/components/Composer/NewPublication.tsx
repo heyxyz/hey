@@ -42,11 +42,14 @@ import {
   ReferenceModules,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
+  useCreateDataAvailabilityCommentViaDispatcherMutation,
+  useCreateDataAvailabilityPostViaDispatcherMutation,
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
 } from 'lens';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -83,6 +86,7 @@ interface Props {
 }
 
 const NewPublication: FC<Props> = ({ publication }) => {
+  const { push } = useRouter();
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -253,6 +257,24 @@ const NewPublication: FC<Props> = ({ publication }) => {
     onError
   });
 
+  const [createDataAvailabilityPostViaDispatcher] = useCreateDataAvailabilityPostViaDispatcherMutation({
+    onCompleted: (data) => {
+      onCompleted();
+      const { id } = data.createDataAvailabilityPostViaDispatcher;
+      push(`/posts/${id}`);
+    },
+    onError
+  });
+
+  const [createDataAvailabilityCommentViaDispatcher] = useCreateDataAvailabilityCommentViaDispatcherMutation({
+    onCompleted: (data) => {
+      onCompleted();
+      const { id } = data.createDataAvailabilityCommentViaDispatcher;
+      push(`/posts/${id}`);
+    },
+    onError
+  });
+
   const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
     onCompleted: (data) => {
       onCompleted();
@@ -282,6 +304,16 @@ const NewPublication: FC<Props> = ({ publication }) => {
       if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
         createPostTypedData({ variables });
       }
+    }
+  };
+
+  const createViaDataAvailablityDispatcher = async (request: any) => {
+    const variables = { request };
+
+    if (isComment) {
+      await createDataAvailabilityCommentViaDispatcher({ variables });
+    } else {
+      await createDataAvailabilityPostViaDispatcher({ variables });
     }
   };
 
@@ -423,19 +455,29 @@ const NewPublication: FC<Props> = ({ publication }) => {
         appId: APP_NAME
       };
 
+      const useDataAvailability = selectedCollectModule === CollectModules.RevertCollectModule;
+
       let arweaveId = null;
       if (restricted) {
         arweaveId = await createTokenGatedMetadata(metadata);
       } else {
-        arweaveId = await createMetadata(metadata);
+        if (!useDataAvailability) {
+          arweaveId = await createMetadata(metadata);
+        }
       }
 
+      // parentPublicationId is the id of the publication on which the comment is being made
+      const parentPublicationId = isComment
+        ? publication.__typename === 'Mirror'
+          ? publication?.mirrorOf?.id
+          : publication?.id
+        : null;
+
+      // Payload for the post/comment
       const request = {
         profileId: currentProfile?.id,
         contentURI: `https://arweave.net/${arweaveId}`,
-        ...(isComment && {
-          publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
-        }),
+        ...(isComment && { publicationId: parentPublicationId }),
         collectModule: payload,
         referenceModule:
           selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
@@ -449,8 +491,19 @@ const NewPublication: FC<Props> = ({ publication }) => {
               }
       };
 
+      // Payload for the data availability post/comment
+      const dataAvailablityRequest = {
+        from: currentProfile?.id,
+        ...(isComment && { commentOn: parentPublicationId }),
+        metadata: { v2: { ...metadata } }
+      };
+
       if (currentProfile?.dispatcher?.canUseRelay) {
-        await createViaDispatcher(request);
+        if (useDataAvailability) {
+          await createViaDataAvailablityDispatcher(dataAvailablityRequest);
+        } else {
+          await createViaDispatcher(request);
+        }
       } else {
         if (isComment) {
           await createCommentTypedData({

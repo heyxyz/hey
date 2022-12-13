@@ -5802,6 +5802,32 @@ export type CreateCommentViaDispatcherMutation = {
     | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
+export type CreateDataAvailabilityCommentViaDispatcherMutationVariables = Exact<{
+  request: CreateDataAvailabilityCommentViaDispatcherRequest;
+}>;
+
+export type CreateDataAvailabilityCommentViaDispatcherMutation = {
+  __typename?: 'Mutation';
+  createDataAvailabilityCommentViaDispatcher: {
+    __typename?: 'CreateDataAvailabilityPublicationViaDispatcherResult';
+    id: any;
+    proofs: string;
+  };
+};
+
+export type CreateDataAvailabilityPostViaDispatcherMutationVariables = Exact<{
+  request: CreateDataAvailabilityPostViaDispatcherRequest;
+}>;
+
+export type CreateDataAvailabilityPostViaDispatcherMutation = {
+  __typename?: 'Mutation';
+  createDataAvailabilityPostViaDispatcher: {
+    __typename?: 'CreateDataAvailabilityPublicationViaDispatcherResult';
+    id: any;
+    proofs: string;
+  };
+};
+
 export type CreateFollowTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: FollowRequest;
@@ -20852,6 +20878,112 @@ export type CreateCommentViaDispatcherMutationResult =
 export type CreateCommentViaDispatcherMutationOptions = Apollo.BaseMutationOptions<
   CreateCommentViaDispatcherMutation,
   CreateCommentViaDispatcherMutationVariables
+>;
+export const CreateDataAvailabilityCommentViaDispatcherDocument = gql`
+  mutation CreateDataAvailabilityCommentViaDispatcher(
+    $request: CreateDataAvailabilityCommentViaDispatcherRequest!
+  ) {
+    createDataAvailabilityCommentViaDispatcher(request: $request) {
+      id
+      proofs
+    }
+  }
+`;
+export type CreateDataAvailabilityCommentViaDispatcherMutationFn = Apollo.MutationFunction<
+  CreateDataAvailabilityCommentViaDispatcherMutation,
+  CreateDataAvailabilityCommentViaDispatcherMutationVariables
+>;
+
+/**
+ * __useCreateDataAvailabilityCommentViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateDataAvailabilityCommentViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDataAvailabilityCommentViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDataAvailabilityCommentViaDispatcherMutation, { data, loading, error }] = useCreateDataAvailabilityCommentViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateDataAvailabilityCommentViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDataAvailabilityCommentViaDispatcherMutation,
+    CreateDataAvailabilityCommentViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateDataAvailabilityCommentViaDispatcherMutation,
+    CreateDataAvailabilityCommentViaDispatcherMutationVariables
+  >(CreateDataAvailabilityCommentViaDispatcherDocument, options);
+}
+export type CreateDataAvailabilityCommentViaDispatcherMutationHookResult = ReturnType<
+  typeof useCreateDataAvailabilityCommentViaDispatcherMutation
+>;
+export type CreateDataAvailabilityCommentViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateDataAvailabilityCommentViaDispatcherMutation>;
+export type CreateDataAvailabilityCommentViaDispatcherMutationOptions = Apollo.BaseMutationOptions<
+  CreateDataAvailabilityCommentViaDispatcherMutation,
+  CreateDataAvailabilityCommentViaDispatcherMutationVariables
+>;
+export const CreateDataAvailabilityPostViaDispatcherDocument = gql`
+  mutation CreateDataAvailabilityPostViaDispatcher(
+    $request: CreateDataAvailabilityPostViaDispatcherRequest!
+  ) {
+    createDataAvailabilityPostViaDispatcher(request: $request) {
+      id
+      proofs
+    }
+  }
+`;
+export type CreateDataAvailabilityPostViaDispatcherMutationFn = Apollo.MutationFunction<
+  CreateDataAvailabilityPostViaDispatcherMutation,
+  CreateDataAvailabilityPostViaDispatcherMutationVariables
+>;
+
+/**
+ * __useCreateDataAvailabilityPostViaDispatcherMutation__
+ *
+ * To run a mutation, you first call `useCreateDataAvailabilityPostViaDispatcherMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDataAvailabilityPostViaDispatcherMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDataAvailabilityPostViaDispatcherMutation, { data, loading, error }] = useCreateDataAvailabilityPostViaDispatcherMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateDataAvailabilityPostViaDispatcherMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDataAvailabilityPostViaDispatcherMutation,
+    CreateDataAvailabilityPostViaDispatcherMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateDataAvailabilityPostViaDispatcherMutation,
+    CreateDataAvailabilityPostViaDispatcherMutationVariables
+  >(CreateDataAvailabilityPostViaDispatcherDocument, options);
+}
+export type CreateDataAvailabilityPostViaDispatcherMutationHookResult = ReturnType<
+  typeof useCreateDataAvailabilityPostViaDispatcherMutation
+>;
+export type CreateDataAvailabilityPostViaDispatcherMutationResult =
+  Apollo.MutationResult<CreateDataAvailabilityPostViaDispatcherMutation>;
+export type CreateDataAvailabilityPostViaDispatcherMutationOptions = Apollo.BaseMutationOptions<
+  CreateDataAvailabilityPostViaDispatcherMutation,
+  CreateDataAvailabilityPostViaDispatcherMutationVariables
 >;
 export const CreateFollowTypedDataDocument = gql`
   mutation CreateFollowTypedData($options: TypedDataOptions, $request: FollowRequest!) {

@@ -1,0 +1,8 @@
+mutation CreateDataAvailabilityCommentViaDispatcher(
+  $request: CreateDataAvailabilityCommentViaDispatcherRequest!
+) {
+  createDataAvailabilityCommentViaDispatcher(request: $request) {
+    id
+    proofs
+  }
+}

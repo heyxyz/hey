@@ -1,0 +1,6 @@
+mutation CreateDataAvailabilityPostViaDispatcher($request: CreateDataAvailabilityPostViaDispatcherRequest!) {
+  createDataAvailabilityPostViaDispatcher(request: $request) {
+    id
+    proofs
+  }
+}
