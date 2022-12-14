@@ -40,6 +40,7 @@ import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
+  useBroadcastDataAvailabilityMutation,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
   useCreateDataAvailabilityCommentViaDispatcherMutation,
@@ -175,7 +176,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     };
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { signTypedDataAsync, isLoading: signedTypedDataLoading } = useSignTypedData({ onError });
 
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -196,7 +197,17 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
   });
 
-  const typedDataGenerator = async (generatedData: any) => {
+  const [broadcastDataAvailability] = useBroadcastDataAvailabilityMutation({
+    onCompleted: (data) => {
+      onCompleted();
+      if (data?.broadcastDataAvailability.__typename === 'CreateDataAvailabilityPublicationResult') {
+        push(`/posts/${data?.broadcastDataAvailability.id}`);
+      }
+    },
+    onError
+  });
+
+  const typedDataGenerator = async (generatedData: any, isDataAvailabilityPost: boolean = false) => {
     const { id, typedData } = generatedData;
     const {
       profileId,
@@ -229,6 +240,10 @@ const NewPublication: FC<Props> = ({ publication }) => {
       return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
 
+    if (isDataAvailabilityPost) {
+      return await broadcastDataAvailability({ variables: { request: { id, signature } } });
+    }
+
     const {
       data: { broadcast: result }
     } = await broadcast({ request: { id, signature } });
@@ -240,20 +255,19 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   // Normal typed data generation
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: ({ createCommentTypedData }) => typedDataGenerator(createCommentTypedData),
+    onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData),
     onError
   });
 
   const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: ({ createPostTypedData }) => typedDataGenerator(createPostTypedData),
+    onCompleted: async ({ createPostTypedData }) => await typedDataGenerator(createPostTypedData),
     onError
   });
 
   // Data availability typed data generation
   const [createDataAvailabilityPostTypedData] = useCreateDataAvailabilityPostTypedDataMutation({
-    onCompleted: ({ createDataAvailabilityPostTypedData }) =>
-      typedDataGenerator(createDataAvailabilityPostTypedData),
-    onError
+    onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
+      await typedDataGenerator(createDataAvailabilityPostTypedData, true)
   });
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
@@ -275,7 +289,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       const { id } = data.createDataAvailabilityPostViaDispatcher;
       push(`/posts/${id}`);
     },
-    onError
+    onError: () => {}
   });
 
   const [createDataAvailabilityCommentViaDispatcher] = useCreateDataAvailabilityCommentViaDispatcherMutation({
@@ -324,11 +338,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
     if (isComment) {
       await createDataAvailabilityCommentViaDispatcher({ variables });
-    } else {
-      const { data } = await createDataAvailabilityPostViaDispatcher({ variables });
-      if (data?.createDataAvailabilityPostViaDispatcher.__typename) {
-        createDataAvailabilityPostTypedData({ variables });
-      }
+      return;
+    }
+
+    const { data } = await createDataAvailabilityPostViaDispatcher({ variables });
+    if (!data?.createDataAvailabilityPostViaDispatcher?.id) {
+      await createDataAvailabilityPostTypedData({ variables });
     }
   };
 
@@ -575,9 +590,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isSubmitting || isUploading}
+            disabled={isSubmitting || signedTypedDataLoading || isUploading}
             icon={
-              isSubmitting ? (
+              signedTypedDataLoading || isSubmitting ? (
                 <Spinner size="xs" />
               ) : isComment ? (
                 <ChatAlt2Icon className="w-4 h-4" />
