@@ -94,6 +94,10 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
+  const attachments = usePublicationStore((state) => state.attachments);
+  const setAttachments = usePublicationStore((state) => state.setAttachments);
+  const addAttachments = usePublicationStore((state) => state.addAttachments);
+  const isUploading = usePublicationStore((state) => state.isUploading);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -113,9 +117,8 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
 
   // States
-  const [publicationContentError, setPublicationContentError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [attachments, setAttachments] = useState<LensterAttachment[]>([]);
+  const [publicationContentError, setPublicationContentError] = useState('');
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
@@ -403,14 +406,20 @@ const NewPublication: FC<Props> = ({ publication }) => {
         });
       }
 
+      const attachmentsInput: LensterAttachment[] = attachments.map((attachment) => ({
+        type: attachment.type,
+        altTag: attachment.altTag,
+        item: attachment.item!
+      }));
+
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuid(),
         description: formatContentWithMentions(trimify(publicationContent)),
         content: formatContentWithMentions(trimify(publicationContent)),
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-        image: attachments.length > 0 ? getAttachmentImage() : textNftImageUrl,
-        imageMimeType: attachments.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
+        image: attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
+        imageMimeType: attachmentsInput.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
         name: isAudioPublication
           ? audioPublication.title
           : `${isComment ? 'Comment' : 'Post'} by @${currentProfile?.handle}`,
@@ -419,7 +428,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         mainContentFocus: getMainContentFocus(),
         contentWarning: null,
         attributes,
-        media: attachments,
+        media: attachmentsInput,
         locale: getUserLocale(),
         appId: APP_NAME
       };
@@ -474,11 +483,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   const setGifAttachment = (gif: IGif) => {
     const attachment = {
+      id: uuid(),
       item: gif.images.original.url,
       type: 'image/gif',
       altTag: gif.title
     };
-    setAttachments([...attachments, attachment]);
+    addAttachments([attachment]);
   };
 
   return (
@@ -490,7 +500,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       )}
       <div className="block items-center sm:flex px-5">
         <div className="flex items-center space-x-4">
-          <Attachment attachments={attachments} setAttachments={setAttachments} />
+          <Attachment />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           <ReferenceSettings />
@@ -498,7 +508,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isSubmitting}
+            disabled={isSubmitting || isUploading}
             icon={
               isSubmitting ? (
                 <Spinner size="xs" />
@@ -515,7 +525,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         </div>
       </div>
       <div className="px-5">
-        <Attachments attachments={attachments} setAttachments={setAttachments} isNew />
+        <Attachments attachments={attachments} isNew />
       </div>
     </Card>
   );
