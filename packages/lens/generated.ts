@@ -217,6 +217,22 @@ export type AuthenticationResult = {
   refreshToken: Scalars['Jwt'];
 };
 
+export type BroadcastDataAvailabilityError = {
+  __typename?: 'BroadcastDataAvailabilityError';
+  reason: BroadcastDataAvailabilityErrorReasons;
+};
+
+/** The broadcast data availability error reasons */
+export enum BroadcastDataAvailabilityErrorReasons {
+  Error = 'ERROR',
+  Expired = 'EXPIRED',
+  WrongWalletSigned = 'WRONG_WALLET_SIGNED'
+}
+
+export type BroadcastDataAvailabilityUnion =
+  | BroadcastDataAvailabilityError
+  | CreateDataAvailabilityPublicationResult;
+
 export type BroadcastRequest = {
   id: Scalars['BroadcastId'];
   signature: Scalars['Signature'];
@@ -567,15 +583,15 @@ export type CreateDataAvailabilityMirrorViaDispatcherRequest = {
   mirror: Scalars['InternalPublicationId'];
 };
 
-export type CreateDataAvailabilityPostViaDispatcherRequest = {
+export type CreateDataAvailabilityPostRequest = {
   /** Profile id */
   from: Scalars['ProfileId'];
   /** The metadata properties */
   metadata: PublicationMetadataRequest;
 };
 
-export type CreateDataAvailabilityPublicationViaDispatcherResult = {
-  __typename?: 'CreateDataAvailabilityPublicationViaDispatcherResult';
+export type CreateDataAvailabilityPublicationResult = {
+  __typename?: 'CreateDataAvailabilityPublicationResult';
   /** The id of the post */
   id: Scalars['InternalPublicationId'];
   /** The proofs for the DA */
@@ -1970,15 +1986,17 @@ export type Mutation = {
   addReaction?: Maybe<Scalars['Void']>;
   authenticate: AuthenticationResult;
   broadcast: RelayResult;
+  broadcastDataAvailability: BroadcastDataAvailabilityUnion;
   claim: RelayResult;
   createAttachMediaData: PublicMediaResults;
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
   createCollectTypedData: CreateCollectBroadcastItemResult;
   createCommentTypedData: CreateCommentBroadcastItemResult;
   createCommentViaDispatcher: RelayResult;
-  createDataAvailabilityCommentViaDispatcher: CreateDataAvailabilityPublicationViaDispatcherResult;
-  createDataAvailabilityMirrorViaDispatcher: CreateDataAvailabilityPublicationViaDispatcherResult;
-  createDataAvailabilityPostViaDispatcher: CreateDataAvailabilityPublicationViaDispatcherResult;
+  createDataAvailabilityCommentViaDispatcher: CreateDataAvailabilityPublicationResult;
+  createDataAvailabilityMirrorViaDispatcher: CreateDataAvailabilityPublicationResult;
+  createDataAvailabilityPostTypedData: CreatePostBroadcastItemResult;
+  createDataAvailabilityPostViaDispatcher: CreateDataAvailabilityPublicationResult;
   createFollowTypedData: CreateFollowBroadcastItemResult;
   createMirrorTypedData: CreateMirrorBroadcastItemResult;
   createMirrorViaDispatcher: RelayResult;
@@ -2026,6 +2044,10 @@ export type MutationBroadcastArgs = {
   request: BroadcastRequest;
 };
 
+export type MutationBroadcastDataAvailabilityArgs = {
+  request: BroadcastRequest;
+};
+
 export type MutationClaimArgs = {
   request: ClaimHandleRequest;
 };
@@ -2061,8 +2083,12 @@ export type MutationCreateDataAvailabilityMirrorViaDispatcherArgs = {
   request: CreateDataAvailabilityMirrorViaDispatcherRequest;
 };
 
+export type MutationCreateDataAvailabilityPostTypedDataArgs = {
+  request: CreateDataAvailabilityPostRequest;
+};
+
 export type MutationCreateDataAvailabilityPostViaDispatcherArgs = {
-  request: CreateDataAvailabilityPostViaDispatcherRequest;
+  request: CreateDataAvailabilityPostRequest;
 };
 
 export type MutationCreateFollowTypedDataArgs = {
@@ -5823,7 +5849,7 @@ export type CreateDataAvailabilityCommentViaDispatcherMutationVariables = Exact<
 export type CreateDataAvailabilityCommentViaDispatcherMutation = {
   __typename?: 'Mutation';
   createDataAvailabilityCommentViaDispatcher: {
-    __typename?: 'CreateDataAvailabilityPublicationViaDispatcherResult';
+    __typename?: 'CreateDataAvailabilityPublicationResult';
     id: any;
     proofs: string;
   };
@@ -5836,20 +5862,20 @@ export type CreateDataAvailabilityMirrorViaDispatcherMutationVariables = Exact<{
 export type CreateDataAvailabilityMirrorViaDispatcherMutation = {
   __typename?: 'Mutation';
   createDataAvailabilityMirrorViaDispatcher: {
-    __typename?: 'CreateDataAvailabilityPublicationViaDispatcherResult';
+    __typename?: 'CreateDataAvailabilityPublicationResult';
     id: any;
     proofs: string;
   };
 };
 
 export type CreateDataAvailabilityPostViaDispatcherMutationVariables = Exact<{
-  request: CreateDataAvailabilityPostViaDispatcherRequest;
+  request: CreateDataAvailabilityPostRequest;
 }>;
 
 export type CreateDataAvailabilityPostViaDispatcherMutation = {
   __typename?: 'Mutation';
   createDataAvailabilityPostViaDispatcher: {
-    __typename?: 'CreateDataAvailabilityPublicationViaDispatcherResult';
+    __typename?: 'CreateDataAvailabilityPublicationResult';
     id: any;
     proofs: string;
   };
@@ -20196,6 +20222,10 @@ export interface PossibleTypesResultData {
 }
 const result: PossibleTypesResultData = {
   possibleTypes: {
+    BroadcastDataAvailabilityUnion: [
+      'BroadcastDataAvailabilityError',
+      'CreateDataAvailabilityPublicationResult'
+    ],
     CollectModule: [
       'AaveFeeCollectModuleSettings',
       'FeeCollectModuleSettings',
@@ -21116,9 +21146,7 @@ export type CreateDataAvailabilityMirrorViaDispatcherMutationOptions = Apollo.Ba
   CreateDataAvailabilityMirrorViaDispatcherMutationVariables
 >;
 export const CreateDataAvailabilityPostViaDispatcherDocument = gql`
-  mutation CreateDataAvailabilityPostViaDispatcher(
-    $request: CreateDataAvailabilityPostViaDispatcherRequest!
-  ) {
+  mutation CreateDataAvailabilityPostViaDispatcher($request: CreateDataAvailabilityPostRequest!) {
     createDataAvailabilityPostViaDispatcher(request: $request) {
       id
       proofs
