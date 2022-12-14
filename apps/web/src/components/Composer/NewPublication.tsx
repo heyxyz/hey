@@ -96,6 +96,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const attachments = usePublicationStore((state) => state.attachments);
   const setAttachments = usePublicationStore((state) => state.setAttachments);
   const addAttachments = usePublicationStore((state) => state.addAttachments);
+  const isUploading = usePublicationStore((state) => state.isUploading);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -506,7 +507,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isSubmitting}
+            disabled={isSubmitting || isUploading}
             icon={
               isSubmitting ? (
                 <Spinner size="xs" />
