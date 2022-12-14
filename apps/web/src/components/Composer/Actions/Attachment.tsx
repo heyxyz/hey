@@ -1,11 +1,10 @@
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
-import type { LensterAttachment } from '@generated/types';
+import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu, Transition } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
-import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -13,18 +12,16 @@ import {
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
 } from 'data/constants';
-import type { ChangeEvent, Dispatch, FC } from 'react';
+import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 
-interface Props {
-  attachments: LensterAttachment[];
-  setAttachments: Dispatch<LensterAttachment[]>;
-}
-
-const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
-  const [loading, setLoading] = useState(false);
+const Attachment: FC = () => {
+  const attachments = usePublicationStore((state) => state.attachments);
+  const isUploading = usePublicationStore((state) => state.isUploading);
+  const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();
   const dropdownRef = useRef(null);
@@ -77,34 +74,23 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
     setShowMenu(false);
-    setLoading(true);
 
     try {
       const { files } = evt.target;
       // Count check
       if (files && (hasVideos(files) || (isImageType(files) && files.length + attachments.length > 4))) {
-        return toast.error('Please choose either 1 video or total 4 photos.');
+        return toast.error('Please choose either 1 video or up to 4 photos.');
       }
 
       // Type check
       if (isTypeAllowed(files)) {
-        const attachment = await uploadToIPFS(files);
-
-        if (attachment) {
-          if (isImageType(attachment) && isImageType(attachments)) {
-            const combineAttachment = attachments.concat(attachment);
-            setAttachments(combineAttachment);
-            evt.target.value = '';
-          } else {
-            setAttachments(attachment);
-            evt.target.value = '';
-          }
-        }
+        await handleUploadAttachments(files);
+        evt.target.value = '';
       } else {
         return toast.error('File format not allowed.');
       }
-    } finally {
-      setLoading(false);
+    } catch {
+      toast.error('Something went wrong while uploading!');
     }
   };
 
@@ -115,7 +101,7 @@ const Attachment: FC<Props> = ({ attachments, setAttachments }) => {
         className="rounded-full hover:bg-gray-300 hover:bg-opacity-20"
         aria-label="More"
       >
-        {loading ? (
+        {isUploading ? (
           <Spinner size="sm" />
         ) : (
           <Tooltip placement="top" content="Media">
