@@ -19,10 +19,13 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
         (event) => {
           if (event) {
             const { dataTransfer, clipboardData } = event;
+
+            // If the clipboard data contains text, we don't want to handle the image paste event.
             if (clipboardData?.getData('Text')) {
               return false;
             }
 
+            // If the clipboard data contains files, we want to handle the image paste event.
             if (dataTransfer && dataTransfer.files.length) {
               const { files } = dataTransfer;
               onPaste && onPaste(files);
@@ -30,6 +33,7 @@ const ImagesPlugin = (props: ImagesPluginProps): JSX.Element | null => {
 
             return true;
           }
+
           return false;
         },
         COMMAND_PRIORITY_NORMAL
