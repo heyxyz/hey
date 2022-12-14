@@ -20,9 +20,8 @@ import { PUBLICATION } from 'src/tracking';
 
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);
+  const isUploading = usePublicationStore((state) => state.isUploading);
   const { handleUploadAttachments } = useUploadAttachments();
-
-  const [loading, setLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const id = useId();
   const dropdownRef = useRef(null);
@@ -75,7 +74,6 @@ const Attachment: FC = () => {
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
     setShowMenu(false);
-    setLoading(true);
 
     try {
       const { files } = evt.target;
@@ -91,8 +89,8 @@ const Attachment: FC = () => {
       } else {
         return toast.error('File format not allowed.');
       }
-    } finally {
-      setLoading(false);
+    } catch {
+      toast.error('Something went wrong while uploading!');
     }
   };
 
@@ -103,7 +101,7 @@ const Attachment: FC = () => {
         className="rounded-full hover:bg-gray-300 hover:bg-opacity-20"
         aria-label="More"
       >
-        {loading ? (
+        {isUploading ? (
           <Spinner size="sm" />
         ) : (
           <Tooltip placement="top" content="Media">

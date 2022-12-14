@@ -96,8 +96,6 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const attachments = usePublicationStore((state) => state.attachments);
   const setAttachments = usePublicationStore((state) => state.setAttachments);
   const addAttachments = usePublicationStore((state) => state.addAttachments);
-  const isUploading = usePublicationStore((state) => state.isUploading);
-  const setIsUploading = usePublicationStore((state) => state.setIsUploading);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -117,6 +115,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
 
   // States
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
@@ -364,7 +363,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
 
     try {
-      setIsUploading(true);
+      setIsSubmitting(true);
 
       if (isAudioPublication) {
         setPublicationContentError('');
@@ -476,7 +475,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       }
     } catch {
     } finally {
-      setIsUploading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -507,9 +506,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isUploading}
+            disabled={isSubmitting}
             icon={
-              isUploading ? (
+              isSubmitting ? (
                 <Spinner size="xs" />
               ) : isComment ? (
                 <ChatAlt2Icon className="w-4 h-4" />
