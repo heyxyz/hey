@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const Giphy: FC<Props> = ({ setGifAttachment }) => {
+  const attachments = usePublicationStore((state) => state.attachments);
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -31,6 +33,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
             setShowModal(!showModal);
             Leafwatch.track(PUBLICATION.NEW.OPEN_GIF);
           }}
+          disabled={attachments.length >= 4}
           aria-label="Choose GIFs"
         >
           <div className="w-full fill-brand-500 dark:fill-brand-400">

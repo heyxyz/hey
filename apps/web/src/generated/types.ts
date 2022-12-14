@@ -29,6 +29,11 @@ export interface LensterAttachment {
   type: string;
   altTag: string;
 }
+export interface NewLensterAttachment extends Omit<LensterAttachment, 'item'> {
+  id: string;
+  item?: string;
+  previewItem?: string;
+}
 export interface UserSuggestion {
   uid: string;
   id: string;
