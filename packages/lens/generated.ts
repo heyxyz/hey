@@ -5868,6 +5868,44 @@ export type CreateDataAvailabilityMirrorViaDispatcherMutation = {
   };
 };
 
+export type CreateDataAvailabilityPostTypedDataMutationVariables = Exact<{
+  request: CreateDataAvailabilityPostRequest;
+}>;
+
+export type CreateDataAvailabilityPostTypedDataMutation = {
+  __typename?: 'Mutation';
+  createDataAvailabilityPostTypedData: {
+    __typename?: 'CreatePostBroadcastItemResult';
+    id: any;
+    expiresAt: any;
+    typedData: {
+      __typename?: 'CreatePostEIP712TypedData';
+      types: {
+        __typename?: 'CreatePostEIP712TypedDataTypes';
+        PostWithSig: Array<{ __typename?: 'EIP712TypedDataField'; name: string; type: string }>;
+      };
+      domain: {
+        __typename?: 'EIP712TypedDataDomain';
+        name: string;
+        chainId: any;
+        version: string;
+        verifyingContract: any;
+      };
+      value: {
+        __typename?: 'CreatePostEIP712TypedDataValue';
+        nonce: any;
+        deadline: any;
+        profileId: any;
+        contentURI: any;
+        collectModule: any;
+        collectModuleInitData: any;
+        referenceModule: any;
+        referenceModuleInitData: any;
+      };
+    };
+  };
+};
+
 export type CreateDataAvailabilityPostViaDispatcherMutationVariables = Exact<{
   request: CreateDataAvailabilityPostRequest;
 }>;
@@ -21144,6 +21182,81 @@ export type CreateDataAvailabilityMirrorViaDispatcherMutationResult =
 export type CreateDataAvailabilityMirrorViaDispatcherMutationOptions = Apollo.BaseMutationOptions<
   CreateDataAvailabilityMirrorViaDispatcherMutation,
   CreateDataAvailabilityMirrorViaDispatcherMutationVariables
+>;
+export const CreateDataAvailabilityPostTypedDataDocument = gql`
+  mutation CreateDataAvailabilityPostTypedData($request: CreateDataAvailabilityPostRequest!) {
+    createDataAvailabilityPostTypedData(request: $request) {
+      id
+      expiresAt
+      typedData {
+        types {
+          PostWithSig {
+            name
+            type
+          }
+        }
+        domain {
+          name
+          chainId
+          version
+          verifyingContract
+        }
+        value {
+          nonce
+          deadline
+          profileId
+          contentURI
+          collectModule
+          collectModuleInitData
+          referenceModule
+          referenceModuleInitData
+        }
+      }
+    }
+  }
+`;
+export type CreateDataAvailabilityPostTypedDataMutationFn = Apollo.MutationFunction<
+  CreateDataAvailabilityPostTypedDataMutation,
+  CreateDataAvailabilityPostTypedDataMutationVariables
+>;
+
+/**
+ * __useCreateDataAvailabilityPostTypedDataMutation__
+ *
+ * To run a mutation, you first call `useCreateDataAvailabilityPostTypedDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDataAvailabilityPostTypedDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDataAvailabilityPostTypedDataMutation, { data, loading, error }] = useCreateDataAvailabilityPostTypedDataMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateDataAvailabilityPostTypedDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateDataAvailabilityPostTypedDataMutation,
+    CreateDataAvailabilityPostTypedDataMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateDataAvailabilityPostTypedDataMutation,
+    CreateDataAvailabilityPostTypedDataMutationVariables
+  >(CreateDataAvailabilityPostTypedDataDocument, options);
+}
+export type CreateDataAvailabilityPostTypedDataMutationHookResult = ReturnType<
+  typeof useCreateDataAvailabilityPostTypedDataMutation
+>;
+export type CreateDataAvailabilityPostTypedDataMutationResult =
+  Apollo.MutationResult<CreateDataAvailabilityPostTypedDataMutation>;
+export type CreateDataAvailabilityPostTypedDataMutationOptions = Apollo.BaseMutationOptions<
+  CreateDataAvailabilityPostTypedDataMutation,
+  CreateDataAvailabilityPostTypedDataMutationVariables
 >;
 export const CreateDataAvailabilityPostViaDispatcherDocument = gql`
   mutation CreateDataAvailabilityPostViaDispatcher($request: CreateDataAvailabilityPostRequest!) {

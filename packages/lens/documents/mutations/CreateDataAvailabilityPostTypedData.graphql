@@ -1,0 +1,30 @@
+mutation CreateDataAvailabilityPostTypedData($request: CreateDataAvailabilityPostRequest!) {
+  createDataAvailabilityPostTypedData(request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        PostWithSig {
+          name
+          type
+        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        contentURI
+        collectModule
+        collectModuleInitData
+        referenceModule
+        referenceModuleInitData
+      }
+    }
+  }
+}
