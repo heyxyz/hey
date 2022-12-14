@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
-import type { LensterAttachment, LensterPublication } from '@generated/types';
+import type { LensterPublication, NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
@@ -10,6 +10,7 @@ import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/const
 import type { MediaSet } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 
 import Audio from './Audio';
@@ -36,7 +37,6 @@ const getClass = (attachments: number, isNew = false) => {
 
 interface Props {
   attachments: any;
-  setAttachments?: any;
   isNew?: boolean;
   hideDelete?: boolean;
   publication?: LensterPublication;
@@ -44,13 +44,13 @@ interface Props {
 }
 
 const Attachments: FC<Props> = ({
-  attachments,
-  setAttachments,
+  attachments = [],
   isNew = false,
   hideDelete = false,
   publication,
   txn
 }) => {
+  const setAttachments = usePublicationStore((state) => state.setAttachments);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
 
   const removeAttachment = (attachment: any) => {
@@ -64,16 +64,18 @@ const Attachments: FC<Props> = ({
 
   const slicedAttachments = isNew
     ? attachments?.slice(0, 4)
-    : attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e.original.mimeType))
+    : attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e?.original?.mimeType))
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
 
   return slicedAttachments?.length !== 0 ? (
     <>
       <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid gap-2 pt-3')}>
-        {slicedAttachments?.map((attachment: LensterAttachment & MediaSet, index: number) => {
-          const type = isNew ? attachment.type : attachment.original.mimeType;
-          const url = isNew ? getIPFSLink(attachment.item) : getIPFSLink(attachment.original.url);
+        {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
+          const type = isNew ? attachment.type : attachment.original?.mimeType;
+          const url = isNew
+            ? attachment.previewItem || getIPFSLink(attachment.item!)
+            : getIPFSLink(attachment.original?.url);
 
           return (
             <div
@@ -119,8 +121,8 @@ const Attachments: FC<Props> = ({
                     setExpandedImage(url);
                     Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
                   }}
-                  src={imageProxy(url, ATTACHMENT)}
-                  alt={imageProxy(url, ATTACHMENT)}
+                  src={isNew ? url : imageProxy(url, ATTACHMENT)}
+                  alt={isNew ? url : imageProxy(url, ATTACHMENT)}
                 />
               )}
               {isNew && !hideDelete && (
