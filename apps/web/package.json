@@ -30,7 +30,7 @@
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.3",
     "ethers": "5.6.0",
-    "framer-motion": "^7.7.2",
+    "framer-motion": "^7.8.0",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
     "jwt-decode": "^3.1.2",
