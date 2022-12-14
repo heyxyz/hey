@@ -5724,6 +5724,17 @@ export type BroadcastMutation = {
     | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
+export type BroadcastDataAvailabilityMutationVariables = Exact<{
+  request: BroadcastRequest;
+}>;
+
+export type BroadcastDataAvailabilityMutation = {
+  __typename?: 'Mutation';
+  broadcastDataAvailability:
+    | { __typename?: 'BroadcastDataAvailabilityError'; reason: BroadcastDataAvailabilityErrorReasons }
+    | { __typename?: 'CreateDataAvailabilityPublicationResult'; id: any; proofs: string };
+};
+
 export type CreateBurnProfileTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: BurnProfileRequest;
@@ -20808,6 +20819,62 @@ export type BroadcastMutationResult = Apollo.MutationResult<BroadcastMutation>;
 export type BroadcastMutationOptions = Apollo.BaseMutationOptions<
   BroadcastMutation,
   BroadcastMutationVariables
+>;
+export const BroadcastDataAvailabilityDocument = gql`
+  mutation BroadcastDataAvailability($request: BroadcastRequest!) {
+    broadcastDataAvailability(request: $request) {
+      ... on CreateDataAvailabilityPublicationResult {
+        id
+        proofs
+      }
+      ... on BroadcastDataAvailabilityError {
+        reason
+      }
+    }
+  }
+`;
+export type BroadcastDataAvailabilityMutationFn = Apollo.MutationFunction<
+  BroadcastDataAvailabilityMutation,
+  BroadcastDataAvailabilityMutationVariables
+>;
+
+/**
+ * __useBroadcastDataAvailabilityMutation__
+ *
+ * To run a mutation, you first call `useBroadcastDataAvailabilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useBroadcastDataAvailabilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [broadcastDataAvailabilityMutation, { data, loading, error }] = useBroadcastDataAvailabilityMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useBroadcastDataAvailabilityMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    BroadcastDataAvailabilityMutation,
+    BroadcastDataAvailabilityMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<BroadcastDataAvailabilityMutation, BroadcastDataAvailabilityMutationVariables>(
+    BroadcastDataAvailabilityDocument,
+    options
+  );
+}
+export type BroadcastDataAvailabilityMutationHookResult = ReturnType<
+  typeof useBroadcastDataAvailabilityMutation
+>;
+export type BroadcastDataAvailabilityMutationResult =
+  Apollo.MutationResult<BroadcastDataAvailabilityMutation>;
+export type BroadcastDataAvailabilityMutationOptions = Apollo.BaseMutationOptions<
+  BroadcastDataAvailabilityMutation,
+  BroadcastDataAvailabilityMutationVariables
 >;
 export const CreateBurnProfileTypedDataDocument = gql`
   mutation CreateBurnProfileTypedData($options: TypedDataOptions, $request: BurnProfileRequest!) {
