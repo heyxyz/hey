@@ -43,6 +43,7 @@ import {
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
   useCreateDataAvailabilityCommentViaDispatcherMutation,
+  useCreateDataAvailabilityPostTypedDataMutation,
   useCreateDataAvailabilityPostViaDispatcherMutation,
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
@@ -237,6 +238,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
   };
 
+  // Normal typed data generation
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: ({ createCommentTypedData }) => typedDataGenerator(createCommentTypedData),
     onError
@@ -244,6 +246,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   const [createPostTypedData] = useCreatePostTypedDataMutation({
     onCompleted: ({ createPostTypedData }) => typedDataGenerator(createPostTypedData),
+    onError
+  });
+
+  // Data availability typed data generation
+  const [createDataAvailabilityPostTypedData] = useCreateDataAvailabilityPostTypedDataMutation({
+    onCompleted: ({ createDataAvailabilityPostTypedData }) =>
+      typedDataGenerator(createDataAvailabilityPostTypedData),
     onError
   });
 
@@ -316,7 +325,10 @@ const NewPublication: FC<Props> = ({ publication }) => {
     if (isComment) {
       await createDataAvailabilityCommentViaDispatcher({ variables });
     } else {
-      await createDataAvailabilityPostViaDispatcher({ variables });
+      const { data } = await createDataAvailabilityPostViaDispatcher({ variables });
+      if (data?.createDataAvailabilityPostViaDispatcher.id) {
+        createDataAvailabilityPostTypedData({ variables });
+      }
     }
   };
 
