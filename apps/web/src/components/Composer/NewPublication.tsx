@@ -326,7 +326,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       await createDataAvailabilityCommentViaDispatcher({ variables });
     } else {
       const { data } = await createDataAvailabilityPostViaDispatcher({ variables });
-      if (data?.createDataAvailabilityPostViaDispatcher.id) {
+      if (data?.createDataAvailabilityPostViaDispatcher.__typename) {
         createDataAvailabilityPostTypedData({ variables });
       }
     }
