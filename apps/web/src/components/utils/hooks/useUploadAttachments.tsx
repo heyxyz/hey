@@ -19,6 +19,7 @@ const useUploadAttachments = () => {
       const previewAttachments: NewLensterAttachment[] = files.map((file: any) => {
         const attachmentId = uuid();
         attachmentIds.push(attachmentId);
+
         return {
           id: attachmentId,
           type: file.type,
@@ -39,9 +40,10 @@ const useUploadAttachments = () => {
         }
       } catch {
         removeAttachments(attachmentIds);
-        toast.error('Error uploading files.');
+        toast.error('Something went wrong while uploading!');
       }
       setIsUploading(false);
+
       return attachmentsIPFS;
     },
     [addAttachments, removeAttachments, updateAttachments, setIsUploading]
