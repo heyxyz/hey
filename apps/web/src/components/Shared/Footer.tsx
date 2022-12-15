@@ -1,5 +1,5 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -23,7 +23,7 @@ const Footer: FC = () => {
         href="https://lenster.xyz/discord"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Leafwatch.track(FOOTER.DISCORD)}
+        onClick={() => Analytics.track(FOOTER.DISCORD)}
       >
         Discord
       </a>
@@ -31,7 +31,7 @@ const Footer: FC = () => {
         href="https://lenster.xyz/donate"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Leafwatch.track(FOOTER.DONATE)}
+        onClick={() => Analytics.track(FOOTER.DONATE)}
       >
         Donate
       </a>
@@ -39,7 +39,7 @@ const Footer: FC = () => {
         href="https://status.lenster.xyz"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Leafwatch.track(FOOTER.STATUS)}
+        onClick={() => Analytics.track(FOOTER.STATUS)}
       >
         Status
       </a>
@@ -47,7 +47,7 @@ const Footer: FC = () => {
         href="https://feedback.lenster.xyz"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Leafwatch.track(FOOTER.FEEDBACK)}
+        onClick={() => Analytics.track(FOOTER.FEEDBACK)}
       >
         Feedback
       </a>
@@ -56,7 +56,7 @@ const Footer: FC = () => {
         href="https://github.com/lensterxyz/lenster"
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Leafwatch.track(FOOTER.GITHUB)}
+        onClick={() => Analytics.track(FOOTER.GITHUB)}
       >
         GitHub
       </a>
@@ -65,7 +65,7 @@ const Footer: FC = () => {
         href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
         target="_blank"
         rel="noreferrer noopener"
-        onClick={() => Leafwatch.track(FOOTER.VERCEL)}
+        onClick={() => Analytics.track(FOOTER.VERCEL)}
       >
         ▲ Powered by Vercel
       </a>

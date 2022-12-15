@@ -1,6 +1,6 @@
 import TabButton from '@components/UI/TabButton';
 import { ChatAlt2Icon, FilmIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import type { ProfileStats } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { PROFILE } from 'src/tracking';
@@ -24,7 +24,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
           count={stats?.totalPosts + stats?.totalMirrors}
           onClick={() => {
             setFeedType('FEED');
-            Leafwatch.track(PROFILE.SWITCH_FEED);
+            Analytics.track(PROFILE.SWITCH_FEED);
           }}
         />
         <TabButton
@@ -34,7 +34,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
           count={stats?.totalComments}
           onClick={() => {
             setFeedType('REPLIES');
-            Leafwatch.track(PROFILE.SWITCH_REPLIES);
+            Analytics.track(PROFILE.SWITCH_REPLIES);
           }}
         />
         <TabButton
@@ -43,7 +43,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
           active={feedType === 'MEDIA'}
           onClick={() => {
             setFeedType('MEDIA');
-            Leafwatch.track(PROFILE.SWITCH_MEDIA);
+            Analytics.track(PROFILE.SWITCH_MEDIA);
           }}
         />
         <TabButton
@@ -52,7 +52,7 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
           active={feedType === 'NFT'}
           onClick={() => {
             setFeedType('NFT');
-            Leafwatch.track(PROFILE.SWITCH_NFTS);
+            Analytics.track(PROFILE.SWITCH_NFTS);
           }}
         />
       </div>

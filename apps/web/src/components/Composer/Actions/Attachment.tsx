@@ -4,7 +4,7 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu, Transition } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -142,7 +142,7 @@ const Attachment: FC = () => {
               multiple
               accept={ALLOWED_IMAGE_TYPES.join(',')}
               className="hidden"
-              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_IMAGES)}
+              onClick={() => Analytics.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_IMAGES)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -164,7 +164,7 @@ const Attachment: FC = () => {
               type="file"
               accept={ALLOWED_VIDEO_TYPES.join(',')}
               className="hidden"
-              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_VIDEO)}
+              onClick={() => Analytics.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_VIDEO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -186,7 +186,7 @@ const Attachment: FC = () => {
               type="file"
               accept={ALLOWED_AUDIO_TYPES.join(',')}
               className="hidden"
-              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_AUDIO)}
+              onClick={() => Analytics.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_AUDIO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
