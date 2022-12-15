@@ -1,5 +1,4 @@
 import MutualFollowers from '@components/Profile/MutualFollowers';
-import Loader from '@components/Shared/Loader';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -34,7 +33,6 @@ const UserPreview: FC<Props> = ({
   showUserPreview = true
 }) => {
   const [lazyProfile, setLazyProfile] = useState(profile);
-  const [loading, setLoading] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(lazyProfile?.isFollowedByMe);
@@ -73,64 +71,52 @@ const UserPreview: FC<Props> = ({
     <>
       <div className="flex justify-between items-center">
         <UserAvatar />
-        {!loading && (
-          <div onClick={(e) => e.preventDefault()}>
-            {!lazyProfile.isFollowedByMe &&
-              (followStatusLoading ? (
-                <div className="w-10 h-8 rounded-lg shimmer" />
-              ) : following ? null : lazyProfile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
-                <SuperFollow profile={lazyProfile} setFollowing={setFollowing} />
-              ) : (
-                <Follow profile={lazyProfile} setFollowing={setFollowing} />
-              ))}
-          </div>
-        )}
+        <div onClick={(e) => e.preventDefault()}>
+          {!lazyProfile.isFollowedByMe &&
+            (followStatusLoading ? (
+              <div className="w-10 h-8 rounded-lg shimmer" />
+            ) : following ? null : lazyProfile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
+              <SuperFollow profile={lazyProfile} setFollowing={setFollowing} />
+            ) : (
+              <Follow profile={lazyProfile} setFollowing={setFollowing} />
+            ))}
+        </div>
       </div>
       <div className="p-1 space-y-3">
         <UserName />
-        {!loading ? (
-          <>
-            <div>
-              {lazyProfile?.bio && (
-                <div
-                  className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify break-words leading-6')}
-                >
-                  <Markup>{lazyProfile?.bio}</Markup>
-                </div>
-              )}
+        <div>
+          {lazyProfile?.bio && (
+            <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify break-words leading-6')}>
+              <Markup>{lazyProfile?.bio}</Markup>
             </div>
-            <div className="flex space-x-3 items-center">
-              <div className="flex items-center space-x-1">
-                <div className="text-base">{nFormatter(lazyProfile?.stats?.totalFollowing)}</div>
-                <div className="text-gray-500 text-sm">Following</div>
-              </div>
-              <div className="flex items-center space-x-1 text-md">
-                <div className="text-base">{nFormatter(lazyProfile?.stats?.totalFollowers)}</div>
-                <div className="text-gray-500 text-sm">Followers</div>
-              </div>
-            </div>
-            {currentProfile && <MutualFollowers profile={lazyProfile} variant="xs" />}
-          </>
-        ) : (
-          <Loader message="Loading" />
-        )}
+          )}
+        </div>
+        <div className="flex space-x-3 items-center">
+          <div className="flex items-center space-x-1">
+            <div className="text-base">{nFormatter(lazyProfile?.stats?.totalFollowing)}</div>
+            <div className="text-gray-500 text-sm">Following</div>
+          </div>
+          <div className="flex items-center space-x-1 text-md">
+            <div className="text-base">{nFormatter(lazyProfile?.stats?.totalFollowers)}</div>
+            <div className="text-gray-500 text-sm">Followers</div>
+          </div>
+        </div>
+        {currentProfile && <MutualFollowers profile={lazyProfile} variant="xs" />}
       </div>
     </>
   );
 
   const onPreviewStart = async () => {
-    setShowPreview(true);
     if (!lazyProfile.id) {
-      setLoading(true);
       const { data } = await loadProfile({
         variables: { request: { handle: lazyProfile?.handle } }
       });
-      setLoading(false);
       const getProfile = data?.profile;
       if (getProfile) {
         setLazyProfile(getProfile as Profile);
       }
     }
+    setShowPreview(true);
   };
 
   return showUserPreview ? (
