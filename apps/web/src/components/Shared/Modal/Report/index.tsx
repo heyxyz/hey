@@ -7,7 +7,7 @@ import { TextArea } from '@components/UI/TextArea';
 import type { LensterPublication } from '@generated/types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import { useReportPublicationMutation } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -35,7 +35,7 @@ const Report: FC<Props> = ({ publication }) => {
   const [createReport, { data: submitData, loading: submitLoading, error: submitError }] =
     useReportPublicationMutation({
       onCompleted: () => {
-        Leafwatch.track(PUBLICATION.REPORT);
+        Analytics.track(PUBLICATION.REPORT);
       }
     });
 

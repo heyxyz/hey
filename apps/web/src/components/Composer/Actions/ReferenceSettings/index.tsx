@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { ReferenceModules } from 'lens';
@@ -59,7 +59,7 @@ const ReferenceSettings: FC = () => {
             as={motion.button}
             whileTap={{ scale: 0.9 }}
             onClick={() => {
-              Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
+              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
             }}
           >
             <div className="text-brand">
@@ -90,7 +90,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
                   setOnlyFollowers(false);
-                  Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
+                  Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
                 }}
               />
               <Module
@@ -100,7 +100,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
                   setOnlyFollowers(true);
-                  Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
+                  Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
                 }}
               />
               <Module
@@ -110,7 +110,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
                   setDegreesOfSeparation(1);
-                  Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
+                  Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
                 }}
               />
               <Module
@@ -120,7 +120,7 @@ const ReferenceSettings: FC = () => {
                 onClick={() => {
                   setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
                   setDegreesOfSeparation(2);
-                  Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
+                  Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
                 }}
               />
             </Menu.Items>

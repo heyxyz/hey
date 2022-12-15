@@ -23,6 +23,7 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import formatAddress from '@lib/formatAddress';
 import formatHandle from '@lib/formatHandle';
 import formatTime from '@lib/formatTime';
@@ -31,7 +32,6 @@ import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
@@ -87,7 +87,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success('Transaction submitted successfully!');
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    Analytics.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const { isFetching, refetch } = useContractRead({
@@ -333,7 +333,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal);
-                  Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+                  Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
                 }}
               >
                 {humanize(count)} collectors

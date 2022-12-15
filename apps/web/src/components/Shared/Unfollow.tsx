@@ -2,8 +2,8 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { UserRemoveIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { FollowNFT } from 'abis';
@@ -66,7 +66,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
             await burnWithSig(signature, typedData);
           }
           toast.success('Unfollowed successfully!');
-          Leafwatch.track(PROFILE.UNFOLLOW);
+          Analytics.track(PROFILE.UNFOLLOW);
         } catch {
           toast.error('User rejected request');
         } finally {

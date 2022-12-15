@@ -5,9 +5,9 @@ import GetModuleIcon from '@components/utils/GetModuleIcon';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import { motion } from 'framer-motion';
 import type { ElectedMirror } from 'lens';
@@ -53,7 +53,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
         whileTap={{ scale: 0.9 }}
         onClick={() => {
           setShowCollectModal(true);
-          Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+          Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
         }}
         aria-label="Collect"
       >

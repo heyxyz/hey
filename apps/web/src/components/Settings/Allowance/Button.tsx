@@ -3,8 +3,8 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -40,7 +40,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Leafwatch.track(`module_${allowed ? 'disabled' : 'enabled'}`);
+      Analytics.track(`module_${allowed ? 'disabled' : 'enabled'}`);
     },
     onError
   });
