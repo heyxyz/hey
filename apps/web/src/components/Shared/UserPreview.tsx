@@ -33,7 +33,6 @@ const UserPreview: FC<Props> = ({
   showUserPreview = true
 }) => {
   const [lazyProfile, setLazyProfile] = useState(profile);
-  const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(lazyProfile?.isFollowedByMe);
 
@@ -116,28 +115,23 @@ const UserPreview: FC<Props> = ({
         setLazyProfile(getProfile as Profile);
       }
     }
-    setShowPreview(true);
   };
 
   return showUserPreview ? (
     <span onMouseOver={onPreviewStart}>
-      {showPreview ? (
-        <Tippy
-          placement="bottom-start"
-          delay={[800, 0]}
-          hideOnClick={false}
-          content={<Preview />}
-          arrow={false}
-          interactive={true}
-          zIndex={1000}
-          className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
-          appendTo={() => document.body}
-        >
-          <span>{children}</span>
-        </Tippy>
-      ) : (
+      <Tippy
+        placement="bottom-start"
+        delay={[800, 0]}
+        hideOnClick={false}
+        content={<Preview />}
+        arrow={false}
+        interactive={true}
+        zIndex={1000}
+        className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
+        appendTo={() => document.body}
+      >
         <span>{children}</span>
-      )}
+      </Tippy>
     </span>
   ) : (
     <span>{children}</span>
