@@ -69,7 +69,7 @@ const Picker = () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {nfts?.map((nft) => (
           <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
-            <div className="relative">
+            <div className="relative border-brand-500 border-2 rounded-xl">
               <button className="absolute bg-brand-500 rounded-full right-2 top-2">
                 <CheckIcon className="w-5 p-1 h-5 text-white" />
               </button>
