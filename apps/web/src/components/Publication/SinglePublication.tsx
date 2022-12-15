@@ -1,8 +1,8 @@
 import EventType from '@components/Home/Timeline/EventType';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/types';
+import { Analytics } from '@lib/analytics';
 import formatTime from '@lib/formatTime';
-import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { ElectedMirror, FeedItem } from 'lens';
@@ -70,7 +70,7 @@ const SinglePublication: FC<Props> = ({
         onClick={() => {
           const selection = window.getSelection();
           if (!selection || selection.toString().length === 0) {
-            Leafwatch.track(PUBLICATION.OPEN);
+            Analytics.track(PUBLICATION.OPEN);
             push(`/posts/${rootPublication?.id}`);
           }
         }}

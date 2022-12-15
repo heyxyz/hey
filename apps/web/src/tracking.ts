@@ -1,4 +1,4 @@
-// Strings used for leafwatch tracking
+// Strings used for events tracking
 
 export const USER = {
   LOGIN: 'user_login',

@@ -1,8 +1,8 @@
 import type { LensterPublication } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
-import { Leafwatch } from '@lib/leafwatch';
 import type { Attribute } from 'lens';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
@@ -40,13 +40,13 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PLAY);
+      Analytics.track(PUBLICATION.ATTACHEMENT.AUDIO.PLAY);
 
       return playerRef.current?.plyr.play();
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PAUSE);
+    Analytics.track(PUBLICATION.ATTACHEMENT.AUDIO.PAUSE);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
