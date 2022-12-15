@@ -2,8 +2,8 @@ import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
 import type { LensterPublication, NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getIPFSLink from '@lib/getIPFSLink';
-import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES } from 'data/constants';
 import type { MediaSet } from 'lens';
@@ -118,7 +118,7 @@ const Attachments: FC<Props> = ({
                   width={1000}
                   onClick={() => {
                     setExpandedImage(url);
-                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
+                    Analytics.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
                   }}
                   // src={isNew ? url : imageProxy(url, ATTACHMENT)}
                   // alt={isNew ? url : imageProxy(url, ATTACHMENT)}

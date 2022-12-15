@@ -13,12 +13,12 @@ import {
   SwitchHorizontalIcon,
   UserIcon
 } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
-import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
 import clsx from 'clsx';
 import { APP_VERSION } from 'data/constants';
@@ -54,11 +54,11 @@ const SignedUser: FC = () => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
-    Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
+    Analytics.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   const logout = () => {
-    Leafwatch.track(PROFILE.LOGOUT);
+    Analytics.track(PROFILE.LOGOUT);
     disconnectXmtp();
     setCurrentProfile(null);
     setProfileId(null);
@@ -194,7 +194,7 @@ const SignedUser: FC = () => {
                             const selectedProfile = profiles[index];
                             setCurrentProfile(selectedProfile);
                             setProfileId(selectedProfile.id);
-                            Leafwatch.track(PROFILE.SWITCH_PROFILE);
+                            Analytics.track(PROFILE.SWITCH_PROFILE);
                           }}
                         >
                           {currentProfile?.id === profile?.id && (
@@ -219,7 +219,7 @@ const SignedUser: FC = () => {
                 as="a"
                 onClick={() => {
                   setTheme(theme === 'light' ? 'dark' : 'light');
-                  Leafwatch.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
+                  Analytics.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
                 }}
                 className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}
               >

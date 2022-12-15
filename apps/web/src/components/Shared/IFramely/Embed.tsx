@@ -1,6 +1,6 @@
 import { Card } from '@components/UI/Card';
 import type { OG } from '@generated/types';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
@@ -15,7 +15,7 @@ const Embed: FC<Props> = ({ og }) => {
         href={og.url}
         onClick={(event) => {
           event.stopPropagation();
-          Leafwatch.track(PUBLICATION.OEMBED_CLICK);
+          Analytics.track(PUBLICATION.OEMBED_CLICK);
         }}
         target="_blank"
         rel="noreferrer noopener"

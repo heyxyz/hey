@@ -1,6 +1,6 @@
+import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
-import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useMutualFollowersQuery } from 'lens';
@@ -39,7 +39,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
       })}
       onClick={() => {
         setShowMutualFollowersModal?.(true);
-        Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+        Analytics.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
       }}
     >
       <div className="contents -space-x-2">
