@@ -10,8 +10,7 @@ import {
   ShieldCheckIcon,
   ShieldExclamationIcon,
   SunIcon,
-  SwitchHorizontalIcon,
-  UserIcon
+  SwitchHorizontalIcon
 } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
@@ -126,18 +125,6 @@ const SignedUser: FC = () => {
                 </div>
               </Menu.Item>
               <div className="divider" />
-              <Menu.Item
-                as={NextLink}
-                href={`/u/${formatHandle(currentProfile?.handle)}`}
-                className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
-                }
-              >
-                <div className="flex items-center space-x-1.5">
-                  <UserIcon className="w-4 h-4" />
-                  <div>Your Profile</div>
-                </div>
-              </Menu.Item>
               <Menu.Item
                 as={NextLink}
                 href="/settings"
