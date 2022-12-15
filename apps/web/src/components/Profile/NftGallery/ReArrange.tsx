@@ -14,7 +14,7 @@ const SortableItem: any = SortableElement(({ nft }: { nft: Nft }) => <NftCard nf
 
 const SortableList: any = SortableContainer(({ nfts }: Props) => {
   return (
-    <div className="masonry-3-col">
+    <div className="columns-3">
       {nfts.map((nft, index) => (
         <SortableItem key={`${nft.contractAddress}_${nft.tokenId}`} index={index} nft={nft} />
       ))}
@@ -30,7 +30,7 @@ const ReArrange: FC<Props> = ({ nfts }) => {
     setAllNfts(list);
   };
 
-  return <SortableList axis="xy" nfts={allNfts} onSortEnd={onSortEnd} />;
+  return <SortableList axis="y" nfts={allNfts} onSortEnd={onSortEnd} />;
 };
 
 export default ReArrange;

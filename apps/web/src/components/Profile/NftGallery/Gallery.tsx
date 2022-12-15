@@ -10,7 +10,7 @@ type Props = {
 
 const Gallery: FC<Props> = ({ nfts }) => {
   return (
-    <div className="masonry-3-col">
+    <div className="columns-3">
       {nfts?.map((nft) => (
         <div
           key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}

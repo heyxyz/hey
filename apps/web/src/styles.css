@@ -8,14 +8,6 @@ html {
   @apply overflow-y-scroll;
 }
 
-@layer utilities {
-  @variants responsive {
-    .masonry-3-col {
-      column-count: 3;
-    }
-  }
-}
-
 body {
   font-family: 'CircularXXSub', sans-serif;
   @apply bg-gray-50;
