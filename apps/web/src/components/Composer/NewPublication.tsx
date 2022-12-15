@@ -14,11 +14,11 @@ import { LensEnvironment, LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import trimify from '@lib/trimify';
@@ -138,9 +138,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
     // Track in simple analytics
     if (restricted) {
-      Leafwatch.track(isComment ? COMMENT.TOKEN_GATED : POST.TOKEN_GATED);
+      Analytics.track(isComment ? COMMENT.TOKEN_GATED : POST.TOKEN_GATED);
     } else {
-      Leafwatch.track(isComment ? COMMENT.NEW : POST.NEW);
+      Analytics.track(isComment ? COMMENT.NEW : POST.NEW);
     }
   };
 

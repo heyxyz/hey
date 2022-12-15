@@ -2,7 +2,7 @@ import { useApolloClient } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import onError from '@lib/onError';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import {
@@ -32,11 +32,11 @@ const Interests: FC = () => {
 
   const { data, loading } = useProfileInterestsQuery();
   const [addProfileInterests] = useAddProfileInterestMutation({
-    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
+    onCompleted: () => Analytics.track(SETTINGS.INTERESTS.ADD),
     onError
   });
   const [removeProfileInterests] = useRemoveProfileInterestMutation({
-    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.REMOVE),
+    onCompleted: () => Analytics.track(SETTINGS.INTERESTS.REMOVE),
     onError
   });
 

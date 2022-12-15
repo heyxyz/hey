@@ -2,8 +2,8 @@ import HelpTooltip from '@components/UI/HelpTooltip';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LockClosedIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -33,7 +33,7 @@ const AccessSettings: FC = () => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.NEW.ACCESS.OPEN_ACCESS_SETTINGS);
+            Analytics.track(PUBLICATION.NEW.ACCESS.OPEN_ACCESS_SETTINGS);
           }}
           aria-label="Access"
         >

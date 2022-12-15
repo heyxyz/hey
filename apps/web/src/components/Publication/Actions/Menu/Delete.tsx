@@ -1,7 +1,7 @@
 import type { LensterPublication } from '@generated/types';
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
 import { useHidePublicationMutation } from 'lens';
 import { useRouter } from 'next/router';
@@ -16,7 +16,7 @@ const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter();
   const [hidePost] = useHidePublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.DELETE);
+      Analytics.track(PUBLICATION.DELETE);
       pathname === '/posts/[id]' ? push('/') : location.reload();
     }
   });

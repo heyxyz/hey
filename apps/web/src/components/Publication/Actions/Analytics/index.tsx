@@ -39,7 +39,7 @@ const Analytics: FC<Props> = ({ publication, isFullPublication }) => {
         whileTap={{ scale: 0.9 }}
         onClick={() => {
           setShowCollectModal(true);
-          // Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+          // Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
         }}
         aria-label="Analytics"
       >
