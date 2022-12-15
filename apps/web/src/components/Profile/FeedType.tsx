@@ -47,11 +47,11 @@ const FeedType: FC<Props> = ({ stats, setFeedType, feedType }) => {
           }}
         />
         <TabButton
-          name="NFTs"
+          name="Gallery"
           icon={<PhotographIcon className="w-4 h-4" />}
-          active={feedType === 'NFT'}
+          active={feedType === 'GALLERY'}
           onClick={() => {
-            setFeedType('NFT');
+            setFeedType('GALLERY');
             Leafwatch.track(PROFILE.SWITCH_NFTS);
           }}
         />
