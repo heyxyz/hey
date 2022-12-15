@@ -44,8 +44,6 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
       variables: { request: { handle: processedHandle } }
     });
 
-    console.log(data);
-
     if (data?.profile) {
       const profile: Profile & { picture: MediaSet & NftImage } = data?.profile;
       const title = profile?.name
