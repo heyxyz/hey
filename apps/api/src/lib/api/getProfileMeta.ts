@@ -44,6 +44,8 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
       variables: { request: { handle: processedHandle } }
     });
 
+    console.log(data);
+
     if (data?.profile) {
       const profile: Profile & { picture: MediaSet & NftImage } = data?.profile;
       const title = profile?.name
@@ -63,6 +65,11 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
         .setHeader('Cache-Control', 's-maxage=86400')
         .send(generateMeta(title, description, image));
     }
+
+    return res
+      .setHeader('Content-Type', 'text/html')
+      .setHeader('Cache-Control', 's-maxage=86400')
+      .send(generateMeta());
   } catch {
     return res
       .setHeader('Content-Type', 'text/html')
