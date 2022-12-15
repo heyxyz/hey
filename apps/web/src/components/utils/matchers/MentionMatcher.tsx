@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
+import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
-import { Leafwatch } from '@lib/leafwatch';
 import { Matcher } from 'interweave';
 import Link from 'next/link';
 import { createElement } from 'react';
@@ -12,7 +12,7 @@ export const Mention = ({ ...props }: any) => {
       href={`/u/${formatHandle(props.display.slice(1))}`}
       onClick={(event) => {
         event.stopPropagation();
-        Leafwatch.track(PUBLICATION.MENTION_CLICK);
+        Analytics.track(PUBLICATION.MENTION_CLICK);
       }}
     >
       <Slug slug={formatHandle(props.display)} />

@@ -6,9 +6,9 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
@@ -43,7 +43,7 @@ const SuperFollow: FC = () => {
   });
 
   const onCompleted = () => {
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
+    Analytics.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
   const {
