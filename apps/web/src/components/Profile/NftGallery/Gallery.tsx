@@ -14,7 +14,7 @@ const Gallery: FC<Props> = ({ nfts }) => {
       {nfts?.map((nft) => (
         <div
           key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
-          className="break-inside text-white flex justify-center items-center overflow-hidden"
+          className="break-inside text-white flex w-full items-center overflow-hidden"
         >
           <NftCard nft={nft as Nft} />
         </div>

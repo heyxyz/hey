@@ -9,9 +9,9 @@ interface Props {
 
 const NftCard: FC<Props> = ({ nft }) => {
   return (
-    <div className="p-2">
+    <div className="p-2 w-full">
       <img
-        className="rounded-xl object-cover"
+        className="rounded-xl object-cover w-full"
         src={
           nft.originalContent.uri
             ? getIPFSLink(nft.originalContent.uri)
