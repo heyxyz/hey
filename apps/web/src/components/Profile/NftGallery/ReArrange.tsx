@@ -1,36 +1,50 @@
-import { arrayMoveImmutable } from 'array-move';
+import update from 'immutability-helper';
 import type { Nft } from 'lens';
 import type { FC } from 'react';
-import React, { useState } from 'react';
-import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import React, { useCallback, useRef, useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import NftCard from './NftCard';
+import DraggableCard from './DraggableCard';
 
 type Props = {
   nfts: Nft[];
 };
 
-const SortableItem: any = SortableElement(({ nft }: { nft: Nft }) => <NftCard nft={nft} />);
-
-const SortableList: any = SortableContainer(({ nfts }: Props) => {
-  return (
-    <div className="columns-3">
-      {nfts.map((nft, index) => (
-        <SortableItem key={`${nft.contractAddress}_${nft.tokenId}`} index={index} nft={nft} />
-      ))}
-    </div>
-  );
-});
-
 const ReArrange: FC<Props> = ({ nfts }) => {
   const [allNfts, setAllNfts] = useState(nfts);
+  const gridRef = useRef<HTMLDivElement>(null);
 
-  const onSortEnd = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
-    const list = arrayMoveImmutable(allNfts, oldIndex, newIndex);
-    setAllNfts(list);
-  };
+  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
+    setAllNfts((prevCards: Nft[]) =>
+      update(prevCards, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevCards[dragIndex] as Nft]
+        ]
+      })
+    );
+  }, []);
 
-  return <SortableList axis="y" nfts={allNfts} onSortEnd={onSortEnd} />;
+  const renderNftCard = useCallback((nft: Nft, index: number) => {
+    return (
+      <DraggableCard
+        index={index}
+        nft={nft}
+        key={`${nft.contractAddress}-${nft.tokenId}`}
+        id={`${nft.contractAddress}-${nft.tokenId}`}
+        moveCard={moveCard}
+      />
+    );
+  }, []);
+
+  return (
+    <DndProvider backend={HTML5Backend}>
+      <div ref={gridRef} className="columns-3">
+        {allNfts.map((card, i) => renderNftCard(card, i))}
+      </div>
+    </DndProvider>
+  );
 };
 
 export default ReArrange;
