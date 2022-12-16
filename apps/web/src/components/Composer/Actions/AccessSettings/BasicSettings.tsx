@@ -2,8 +2,11 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
+import { CollectModules } from 'lens';
 import type { Dispatch, FC } from 'react';
+import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
+import { useCollectModuleStore } from 'src/store/collect-module';
 
 interface Props {
   setShowModal: Dispatch<boolean>;
@@ -18,6 +21,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
   const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
   const hasConditions = useAccessSettingsStore((state) => state.hasConditions);
   const reset = useAccessSettingsStore((state) => state.reset);
+  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
 
   const onSave = () => {
     if (!hasConditions()) {
@@ -48,7 +52,12 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
               </div>
               <ToggleWithHelper
                 on={collectToView}
-                setOn={() => setCollectToView(!collectToView)}
+                setOn={() => {
+                  if (!collectToView && selectedCollectModule === CollectModules.RevertCollectModule) {
+                    return toast.error('Enable collect module first to use collect based token gating');
+                  }
+                  setCollectToView(!collectToView);
+                }}
                 label="People need to collect it first to be able to view it"
               />
             </div>
