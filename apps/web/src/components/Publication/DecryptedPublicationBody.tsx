@@ -55,14 +55,15 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
   if (!canDecrypt) {
     return (
-      <Card className="text-sm rounded-xl w-fit p-8 shadow-sm" onClick={(event) => event.stopPropagation()}>
+      <Card
+        className="text-sm rounded-xl w-fit p-8 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="font-bold flex items-center space-x-2">
-          <LockClosedIcon className="h-5 w-5 text-green-500" />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-500 to-blue-500 font-black">
-            Unlock this by...
-          </span>
+          <LockClosedIcon className="h-5 w-5 text-green-300" />
+          <span className="text-white font-black text-base">Unlock this by...</span>
         </div>
-        <div className="pt-3.5 space-y-2">
+        <div className="pt-3.5 space-y-2 text-white">
           <div className="flex items-center space-x-2">
             <CollectionIcon className="h-4 w-4" />
             <span>
@@ -72,7 +73,10 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           <div className="flex items-center space-x-2">
             <UserAddIcon className="h-4 w-4" />
             <span>
-              Follow <b>@{formatHandle(encryptedPublication?.profile?.handle)}</b>
+              Follow{' '}
+              <Link href={`/u/${formatHandle(encryptedPublication?.profile?.handle)}`} className="font-bold">
+                @{formatHandle(encryptedPublication?.profile?.handle)}
+              </Link>
             </span>
           </div>
         </div>
