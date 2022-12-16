@@ -1,6 +1,7 @@
 import UserPreview from '@components/Shared/UserPreview';
 import { UserAddIcon } from '@heroicons/react/solid';
 import formatTime from '@lib/formatTime';
+import { Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { NewFollowerNotification } from 'lens';
@@ -38,14 +39,16 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
           )}
         </div>
         <div className="ml-9">
-          {notification?.wallet?.defaultProfile ? (
-            <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
-          ) : (
-            <NotificationWalletProfileName wallet={notification?.wallet} />
-          )}{' '}
-          <span className="text-gray-600 dark:text-gray-400">
-            {isSuperFollow ? 'super' : ''} followed you
-          </span>
+          <Trans>
+            {notification?.wallet?.defaultProfile ? (
+              <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
+            ) : (
+              <NotificationWalletProfileName wallet={notification?.wallet} />
+            )}{' '}
+            <span className="text-gray-600 dark:text-gray-400">
+              {isSuperFollow ? 'super' : ''} followed you
+            </span>
+          </Trans>
         </div>
       </div>
       <div className="text-gray-400 text-[12px]" title={formatTime(notification?.createdAt)}>

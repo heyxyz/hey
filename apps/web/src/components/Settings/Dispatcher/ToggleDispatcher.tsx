@@ -6,6 +6,7 @@ import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { t } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY } from 'data/constants';
@@ -108,7 +109,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
       }
       onClick={toggleDispatcher}
     >
-      {canUseRelay ? 'Disable' : 'Enable'} dispatcher
+      {canUseRelay ? t`Disable dispatcher` : t`Enable dispatcher`}
     </Button>
   );
 };

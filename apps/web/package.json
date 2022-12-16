@@ -3,12 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 4783",
+    "dev": "lingui compile && next dev --port 4783",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "test": "cypress run --headless"
+    "test": "cypress run --headless",
+    "extract": "NODE_ENV=development lingui extract",
+    "compile": "lingui compile",
+    "crowdin": "crowdin",
+    "sync": "crowdin push && crowdin pull",
+    "sync:sources": "crowdin push",
+    "sync:translations": "crowdin pull"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",

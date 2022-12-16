@@ -1,7 +1,7 @@
-import dayjs from 'dayjs';
+import { i18n } from '@lingui/core';
 
 const formatTime = (date: Date | undefined): string => {
-  return date ? dayjs(date).format('h:mm A · MMM D, YYYY') : '';
+  return date ? i18n.date(date, { dateStyle: 'medium', timeStyle: 'medium' }) : '';
 };
 
 export default formatTime;

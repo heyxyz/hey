@@ -16,7 +16,7 @@ import { useAppStore } from 'src/store/app';
 import SettingsSidebar from '../Sidebar';
 import NFTPicture from './NFTPicture';
 import Picture from './Picture';
-import Profile from './Profile';
+import ProfileSettingsForm from './Profile';
 
 const ProfileSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -74,7 +74,7 @@ const ProfileSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <Profile profile={profile as any} />
+        <ProfileSettingsForm profile={profile as any} />
         <Card className="space-y-5 p-5">
           <div className="flex items-center space-x-2">
             <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="AVATAR" name="Upload avatar" />

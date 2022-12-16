@@ -2,6 +2,7 @@ import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
 import { AtSymbolIcon } from '@heroicons/react/solid';
 import formatTime from '@lib/formatTime';
+import { Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { NewMentionNotification } from 'lens';
@@ -29,11 +30,13 @@ const MentionNotification: FC<Props> = ({ notification }) => {
           </UserPreview>
         </div>
         <div className="ml-9">
-          <NotificationProfileName profile={profile} />{' '}
-          <span className="text-gray-600 dark:text-gray-400">mentioned you in a </span>
-          <Link href={`/posts/${notification?.mentionPublication?.id}`} className="font-bold">
-            {notification?.mentionPublication.__typename?.toLowerCase()}
-          </Link>
+          <Trans>
+            <NotificationProfileName profile={profile} />{' '}
+            <span className="text-gray-600 dark:text-gray-400">mentioned you in a </span>
+            <Link href={`/posts/${notification?.mentionPublication?.id}`} className="font-bold">
+              {notification?.mentionPublication.__typename?.toLowerCase()}
+            </Link>
+          </Trans>
           <Link
             href={`/posts/${notification?.mentionPublication.id}`}
             className="lt-text-gray-500 line-clamp-2 linkify mt-2"

@@ -1,0 +1,8 @@
+project_id: '556737'
+api_token: 'f412c35a318449726ab736218ecf26de4293a8b63f4987303960b7f463e8a3a1a64c8932142764ff'
+
+preserve_hierarchy: true
+
+files:
+  - source: /**/locales/en/*.po
+    translation: /**/locales/%two_letters_code%/%original_file_name%

@@ -6,6 +6,7 @@ import {
 import UserPreview from '@components/Shared/UserPreview';
 import { CollectionIcon } from '@heroicons/react/solid';
 import formatTime from '@lib/formatTime';
+import { Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { NewCollectNotification } from 'lens';
@@ -36,15 +37,17 @@ const CollectNotification: FC<Props> = ({ notification }) => {
           )}
         </div>
         <div className="ml-9">
-          {notification?.wallet?.defaultProfile ? (
-            <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
-          ) : (
-            <NotificationWalletProfileName wallet={notification?.wallet} />
-          )}{' '}
-          <span className="text-gray-600 dark:text-gray-400">collected your </span>
-          <Link href={`/posts/${notification?.collectedPublication?.id}`} className="font-bold">
-            {notification?.collectedPublication.__typename?.toLowerCase()}
-          </Link>
+          <Trans>
+            {notification?.wallet?.defaultProfile ? (
+              <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
+            ) : (
+              <NotificationWalletProfileName wallet={notification?.wallet} />
+            )}{' '}
+            <span className="text-gray-600 dark:text-gray-400">collected your </span>
+            <Link href={`/posts/${notification?.collectedPublication?.id}`} className="font-bold">
+              {notification?.collectedPublication.__typename?.toLowerCase()}
+            </Link>
+          </Trans>
           <CollectedContent notification={notification} />
           <CollectedAmount notification={notification} />
         </div>

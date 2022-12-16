@@ -8,6 +8,7 @@ import { ChevronDownIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FeedItem, Profile, ProfileSearchResult } from 'lens';
 import {
@@ -97,7 +98,7 @@ const SeeThroughLens: FC = () => {
             className="bg-gray-200 w-5 h-5 rounded-full border dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />
-          <span>{seeThroughProfile ? `@${formatHandle(profile?.handle)}` : 'My Feed'}</span>
+          <span>{seeThroughProfile ? `@${formatHandle(profile?.handle)}` : t`My Feed`}</span>
           <ChevronDownIcon className="w-4 h-4" />
         </span>
       </Menu.Button>
@@ -106,12 +107,14 @@ const SeeThroughLens: FC = () => {
           static
           className="absolute w-64 right-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
         >
-          <div className="text-xs pt-2 px-3">👀 See the feed through...</div>
+          <div className="text-xs pt-2 px-3">
+            <Trans>👀 See the feed through...</Trans>
+          </div>
           <div className="p-2">
             <Input
               type="text"
               className="py-2 px-3 text-sm"
-              placeholder="Search"
+              placeholder={t`Search`}
               value={searchText}
               autoFocus
               autoComplete="off"

@@ -4,6 +4,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
+import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
@@ -81,7 +82,9 @@ const NewPost: FC = () => {
           onClick={() => openModal('update')}
         >
           <PencilAltIcon className="h-5 w-5" />
-          <span>What's happening?</span>
+          <span>
+            <Trans>What's happening?</Trans>
+          </span>
         </button>
         <Modal
           title="Create post"

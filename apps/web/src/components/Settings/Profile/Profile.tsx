@@ -21,9 +21,8 @@ import uploadToArweave from '@lib/uploadToArweave';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { LensPeriphery } from 'abis';
 import { APP_NAME, COVER, LENS_PERIPHERY, SIGN_WALLET, URL_REGEX } from 'data/constants';
-import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from 'lens';
+import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Profile } from 'lens';
 import {
-  Profile,
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
@@ -53,7 +52,7 @@ interface Props {
   profile: Profile & { coverPicture: MediaSet };
 }
 
-const Profile: FC<Props> = ({ profile }) => {
+const ProfileSettingsForm: FC<Props> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');
@@ -297,4 +296,4 @@ const Profile: FC<Props> = ({ profile }) => {
   );
 };
 
-export default Profile;
+export default ProfileSettingsForm;
