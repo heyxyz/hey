@@ -11,12 +11,20 @@ interface Props {
 
 const BasicSettings: FC<Props> = ({ setShowModal }) => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
-  const reset = useAccessSettingsStore((state) => state.reset);
   const setRestricted = useAccessSettingsStore((state) => state.setRestricted);
   const followToView = useAccessSettingsStore((state) => state.followToView);
   const setFollowToView = useAccessSettingsStore((state) => state.setFollowToView);
   const collectToView = useAccessSettingsStore((state) => state.collectToView);
   const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
+  const hasConditions = useAccessSettingsStore((state) => state.hasConditions);
+  const reset = useAccessSettingsStore((state) => state.reset);
+
+  const onSave = () => {
+    if (!hasConditions()) {
+      reset();
+    }
+    setShowModal(false);
+  };
 
   return (
     <div className="p-5">
@@ -61,18 +69,10 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
         </>
       )}
       <div className="pt-5 flex space-x-2">
-        <Button
-          className="ml-auto"
-          variant="danger"
-          outline
-          onClick={() => {
-            reset();
-            setShowModal(false);
-          }}
-        >
+        <Button className="ml-auto" variant="danger" outline onClick={onSave}>
           Cancel
         </Button>
-        <Button onClick={() => setShowModal(false)}>Save</Button>
+        <Button onClick={onSave}>Save</Button>
       </div>
     </div>
   );
