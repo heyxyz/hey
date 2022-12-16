@@ -56,7 +56,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   if (!canDecrypt) {
     return (
       <Card
-        className="text-sm rounded-xl w-fit p-8 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600"
+        className="text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600 cursor-text"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="font-bold flex items-center space-x-2">
