@@ -9,12 +9,7 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
-import type {
-  AndCondition,
-  CollectCondition,
-  EncryptedMetadata,
-  FollowCondition
-} from '@lens-protocol/sdk-gated';
+import type { CollectCondition, EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
@@ -356,22 +351,17 @@ const NewPublication: FC<Props> = ({ publication }) => {
     const collectAccessCondition: CollectCondition = { thisPublication: true };
     const followAccessCondition: FollowCondition = { profileId: currentProfile.id };
 
-    // Combine the conditions
-    const andCondition: AndCondition = {
-      criteria: [
-        { collect: collectToView ? collectAccessCondition : null },
-        { follow: followToView ? followAccessCondition : null }
-      ]
-    };
-
-    console.log(andCondition);
-
     // Create the access condition
-    const accessCondition: AccessConditionOutput = {
-      and: andCondition
-    };
-
-    console.log(accessCondition);
+    let accessCondition: AccessConditionOutput = {};
+    if (collectToView && followToView) {
+      accessCondition = {
+        and: { criteria: [{ collect: collectAccessCondition }, { follow: followAccessCondition }] }
+      };
+    } else if (collectToView) {
+      accessCondition = { collect: collectAccessCondition };
+    } else if (followToView) {
+      accessCondition = { follow: followAccessCondition };
+    }
 
     // Generate the encrypted metadata and upload it to Arweave
     const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
