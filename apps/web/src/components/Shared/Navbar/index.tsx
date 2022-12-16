@@ -66,7 +66,7 @@ const Navbar: FC = () => {
   return (
     <Disclosure
       as="header"
-      className="sticky top-0 z-10 w-full bg-white border-b dark:bg-gray-900 dark:border-b-gray-700/80"
+      className="sticky top-0 z-10 w-full bg-white border-b dark:bg-black dark:border-b-gray-700/80"
     >
       {({ open }) => (
         <>
