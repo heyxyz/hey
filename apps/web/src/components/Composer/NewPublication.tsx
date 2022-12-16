@@ -314,6 +314,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     ) {
       return attachments[0]?.item;
     }
+
     return null;
   };
 
