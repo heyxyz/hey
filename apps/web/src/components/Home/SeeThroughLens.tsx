@@ -93,7 +93,7 @@ const SeeThroughLens: FC = () => {
             loading="lazy"
             width={20}
             height={20}
-            className="bg-gray-200 w-5 h-5 rounded-full border dark:border-gray-700/80"
+            className="bg-gray-200 w-5 h-5 rounded-full border dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />
           <span>{seeThroughProfile ? `@${formatHandle(profile?.handle)}` : 'My Feed'}</span>
@@ -111,7 +111,7 @@ const SeeThroughLens: FC = () => {
       >
         <Menu.Items
           static
-          className="absolute w-64 right-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+          className="absolute w-64 right-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
         >
           <div className="text-xs pt-2 px-3">👀 See the feed through...</div>
           <div className="p-2">

@@ -43,7 +43,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
         <img
           src={getAvatar(profile)}
           loading="lazy"
-          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
+          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
           height={40}
           width={40}
           alt={formatHandle(profile?.handle)}
