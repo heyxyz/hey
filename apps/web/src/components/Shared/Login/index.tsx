@@ -16,14 +16,14 @@ const Login: FC = () => {
           {hasConnected ? (
             <div className="space-y-1">
               <div className="text-xl font-bold">Please sign the message.</div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm lt-text-gray-500">
                 {APP_NAME} uses this signature to verify that you&rsquo;re the owner of this address.
               </div>
             </div>
           ) : (
             <div className="space-y-1">
               <div className="text-xl font-bold">Connect your wallet.</div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm lt-text-gray-500">
                 Connect with one of our available wallet providers or create a new one.
               </div>
             </div>
@@ -53,7 +53,7 @@ const Login: FC = () => {
               </a>{' '}
               to claim your profile now 🏃‍♂️
             </div>
-            <div className="text-sm text-gray-500">Make sure to check back here when done!</div>
+            <div className="text-sm lt-text-gray-500">Make sure to check back here when done!</div>
           </div>
         </div>
       ) : (

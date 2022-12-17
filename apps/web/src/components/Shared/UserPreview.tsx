@@ -37,7 +37,7 @@ const UserPreview: FC<Props> = ({
       loading="lazy"
       className={clsx(
         isBig ? 'w-14 h-14' : 'w-10 h-10',
-        'bg-gray-200 rounded-full border dark:border-gray-700/80'
+        'bg-gray-200 rounded-full border dark:border-gray-700'
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
@@ -84,11 +84,11 @@ const UserPreview: FC<Props> = ({
         <div className="flex space-x-3 items-center">
           <div className="flex items-center space-x-1">
             <div className="text-base">{nFormatter(profile?.stats?.totalFollowing)}</div>
-            <div className="text-gray-500 text-sm">Following</div>
+            <div className="lt-text-gray-500 text-sm">Following</div>
           </div>
           <div className="flex items-center space-x-1 text-md">
             <div className="text-base">{nFormatter(profile?.stats?.totalFollowers)}</div>
-            <div className="text-gray-500 text-sm">Followers</div>
+            <div className="lt-text-gray-500 text-sm">Followers</div>
           </div>
         </div>
       </div>

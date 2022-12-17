@@ -113,7 +113,7 @@ const Attachments: FC<Props> = ({
                 <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
               ) : (
                 <img
-                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
+                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700"
                   loading="lazy"
                   height={1000}
                   width={1000}

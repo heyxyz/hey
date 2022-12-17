@@ -31,7 +31,7 @@ const Combined: FC<Props> = ({ feedItem }) => {
   };
 
   return (
-    <div className="flex flex-wrap leading-6 items-center pb-4 space-x-1 text-gray-500 text-[13px]">
+    <div className="flex flex-wrap leading-6 items-center pb-4 space-x-1 lt-text-gray-500 text-[13px]">
       <ProfileCircles profiles={getAllProfiles()} />
       <div className="flex items-center space-x-1">
         {mirrorsLength ? (

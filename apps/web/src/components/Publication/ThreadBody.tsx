@@ -30,7 +30,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
         </span>
-        <span className="text-xs text-gray-500" title={formatTime(timestamp)}>
+        <span className="text-xs lt-text-gray-500" title={formatTime(timestamp)}>
           {dayjs(new Date(timestamp)).fromNow()}
         </span>
       </div>

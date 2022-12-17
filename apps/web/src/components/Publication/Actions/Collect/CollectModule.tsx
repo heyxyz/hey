@@ -292,7 +292,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             )}
           </div>
           {publication?.metadata?.description && (
-            <Markup className="text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
+            <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
           )}
           <ReferralAlert
             electedMirror={electedMirror}
@@ -315,8 +315,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
               {usdPrice ? (
                 <>
-                  <span className="text-gray-500 px-0.5">·</span>
-                  <span className="text-xs font-bold text-gray-500">
+                  <span className="lt-text-gray-500 px-0.5">·</span>
+                  <span className="text-xs font-bold lt-text-gray-500">
                     ${(collectModule.amount.value * usdPrice).toFixed(2)}
                   </span>
                 </>
@@ -327,7 +327,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
         <div className="space-y-1.5">
           <div className="block space-y-1 sm:flex sm:space-x-5 item-center">
             <div className="flex items-center space-x-2">
-              <UsersIcon className="w-4 h-4 text-gray-500" />
+              <UsersIcon className="w-4 h-4 lt-text-gray-500" />
               <button
                 className="font-bold"
                 type="button"
@@ -353,20 +353,20 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             </div>
             {collectModule?.collectLimit && (
               <div className="flex items-center space-x-2">
-                <PhotographIcon className="w-4 h-4 text-gray-500" />
+                <PhotographIcon className="w-4 h-4 lt-text-gray-500" />
                 <div className="font-bold">{parseInt(collectModule?.collectLimit) - count} available</div>
               </div>
             )}
             {collectModule?.referralFee ? (
               <div className="flex items-center space-x-2">
-                <CashIcon className="w-4 h-4 text-gray-500" />
+                <CashIcon className="w-4 h-4 lt-text-gray-500" />
                 <div className="font-bold">{collectModule.referralFee}% referral fee</div>
               </div>
             ) : null}
           </div>
           {revenueData?.publicationRevenue && (
             <div className="flex items-center space-x-2">
-              <CashIcon className="w-4 h-4 text-gray-500" />
+              <CashIcon className="w-4 h-4 lt-text-gray-500" />
               <div className="flex items-center space-x-1.5">
                 <span>Revenue:</span>
                 <span className="flex items-center space-x-1">
@@ -383,8 +383,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                     <div className="text-[10px]">{collectModule?.amount?.asset?.symbol}</div>
                     {usdPrice ? (
                       <>
-                        <span className="text-gray-500">·</span>
-                        <span className="text-xs font-bold text-gray-500">
+                        <span className="lt-text-gray-500">·</span>
+                        <span className="text-xs font-bold lt-text-gray-500">
                           ${(revenue * usdPrice).toFixed(2)}
                         </span>
                       </>
@@ -396,7 +396,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           )}
           {collectModule?.endTimestamp && (
             <div className="flex items-center space-x-2">
-              <ClockIcon className="w-4 h-4 text-gray-500" />
+              <ClockIcon className="w-4 h-4 lt-text-gray-500" />
               <div className="space-x-1.5">
                 <span>Sale Ends:</span>
                 <span className="font-bold text-gray-600" title={formatTime(collectModule.endTimestamp)}>
@@ -408,7 +408,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           )}
           {data?.publication?.collectNftAddress && (
             <div className="flex items-center space-x-2">
-              <PuzzleIcon className="w-4 h-4 text-gray-500" />
+              <PuzzleIcon className="w-4 h-4 lt-text-gray-500" />
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <a

@@ -38,7 +38,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
         {address !== message.senderAddress && (
           <img
             src={getAvatar(profile)}
-            className="h-10 w-10 bg-gray-200 rounded-full border dark:border-gray-700/80 mr-2"
+            className="h-10 w-10 bg-gray-200 rounded-full border dark:border-gray-700 mr-2"
             alt={formatHandle(profile?.handle)}
           />
         )}

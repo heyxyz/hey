@@ -33,7 +33,7 @@ const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
             }}
             aria-label="More"
           >
-            <DotsHorizontalIcon className={clsx('text-gray-500 dark:text-gray-300', iconClassName)} />
+            <DotsHorizontalIcon className={clsx('lt-text-gray-500', iconClassName)} />
           </Menu.Button>
           <Transition
             show={open}
@@ -47,7 +47,7 @@ const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
           >
             <Menu.Items
               static
-              className="absolute py-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700/80"
+              className="absolute py-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700"
             >
               {currentProfile?.id === publication?.profile?.id ? (
                 <Delete publication={publication} />

@@ -26,7 +26,7 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, isFullPubli
     <span
       className={clsx(
         { 'justify-between': isFullPublication },
-        'flex gap-6 items-center pt-3 -ml-2 text-gray-500 sm:gap-8'
+        'flex gap-6 items-center pt-3 -ml-2 lt-text-gray-500 sm:gap-8'
       )}
       onClick={(event) => {
         event.stopPropagation();
