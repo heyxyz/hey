@@ -33,7 +33,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className={clsx('text-gray-500 flex items-center space-x-2.5 cursor-pointer', {
+      className={clsx('lt-text-gray-500 flex items-center space-x-2.5 cursor-pointer', {
         'text-sm': variant === 'sm',
         'text-xs': variant === 'xs'
       })}

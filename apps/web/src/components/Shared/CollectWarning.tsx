@@ -14,7 +14,7 @@ const CollectWarning: FC<Props> = ({ handle, isSuperFollow = false }) => {
     <Card
       className={clsx(
         { '!bg-pink-100 border-pink-300': isSuperFollow },
-        'flex items-center space-x-1.5 text-sm font-bold text-gray-500 p-5'
+        'flex items-center space-x-1.5 text-sm font-bold lt-text-gray-500 p-5'
       )}
     >
       {isSuperFollow ? (

@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 
 const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, helper, stat }) => (
   <>
-    <span className="text-sm text-gray-500 font-bold flex items-center space-x-1">
+    <span className="text-sm lt-text-gray-500 font-bold flex items-center space-x-1">
       <span>{title}</span>
       <HelpTooltip content={helper} />
     </span>

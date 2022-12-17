@@ -66,7 +66,7 @@ const UserProfile: FC<Props> = ({
         </div>
         {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand ml-1" />}
         {showStatus && hasStatus ? (
-          <div className="flex items-center text-gray-500">
+          <div className="flex items-center lt-text-gray-500">
             <span className="mx-1.5">·</span>
             <span className="text-xs flex items-center space-x-1 max-w-[10rem]">
               <span>{statusEmoji}</span>

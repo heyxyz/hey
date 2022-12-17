@@ -32,7 +32,7 @@ const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
       {icon}
       <b className="text-lg">{humanize(value)}</b>
     </div>
-    <div className="text-gray-500">{title}</div>
+    <div className="lt-text-gray-500">{title}</div>
   </Card>
 );
 

@@ -135,7 +135,7 @@ const SetProfile: FC = () => {
         your default profile anytime.
       </p>
       <div className="text-lg font-bold">What else you should know</div>
-      <div className="text-sm text-gray-500 divide-y dark:divide-gray-700">
+      <div className="text-sm lt-text-gray-500 divide-y dark:divide-gray-700">
         <p className="pb-3">
           Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc.
         </p>

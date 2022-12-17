@@ -33,7 +33,7 @@ const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
             }}
             aria-label="More"
           >
-            <DotsHorizontalIcon className={clsx('text-gray-500 dark:text-gray-300', iconClassName)} />
+            <DotsHorizontalIcon className={clsx('lt-text-gray-500', iconClassName)} />
           </Menu.Button>
           <Transition
             show={open}

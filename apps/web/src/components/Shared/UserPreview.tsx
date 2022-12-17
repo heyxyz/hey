@@ -84,11 +84,11 @@ const UserPreview: FC<Props> = ({
         <div className="flex space-x-3 items-center">
           <div className="flex items-center space-x-1">
             <div className="text-base">{nFormatter(profile?.stats?.totalFollowing)}</div>
-            <div className="text-gray-500 text-sm">Following</div>
+            <div className="lt-text-gray-500 text-sm">Following</div>
           </div>
           <div className="flex items-center space-x-1 text-md">
             <div className="text-base">{nFormatter(profile?.stats?.totalFollowers)}</div>
-            <div className="text-gray-500 text-sm">Followers</div>
+            <div className="lt-text-gray-500 text-sm">Followers</div>
           </div>
         </div>
       </div>

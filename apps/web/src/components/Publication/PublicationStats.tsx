@@ -32,7 +32,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
   const publicationId = isMirror ? publication?.mirrorOf?.id : publication?.id;
 
   return (
-    <div className="flex flex-wrap gap-6 text-sm items-center py-3 text-gray-500 sm:gap-8">
+    <div className="flex flex-wrap gap-6 text-sm items-center py-3 lt-text-gray-500 sm:gap-8">
       {mirrorCount > 0 && (
         <>
           <button

@@ -55,12 +55,12 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
               {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
             </div>
             {message.sent && (
-              <span className="min-w-fit pt-0.5 text-xs text-gray-500" title={formatTime(message.sent)}>
+              <span className="min-w-fit pt-0.5 text-xs lt-text-gray-500" title={formatTime(message.sent)}>
                 {dayjs(new Date(message.sent)).fromNow()}
               </span>
             )}
           </div>
-          <span className="text-sm text-gray-500 line-clamp-1 break-all">
+          <span className="text-sm lt-text-gray-500 line-clamp-1 break-all">
             {address === message.senderAddress && 'You: '} {message.content}
           </span>
         </div>
