@@ -8,7 +8,6 @@ import clsx from 'clsx';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';
-import { useAppStore } from 'src/store/app';
 
 import Follow from './Follow';
 import Markup from './Markup';
@@ -30,7 +29,6 @@ const UserPreview: FC<Props> = ({
   children,
   showUserPreview = true
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
 
   const UserAvatar = () => (
