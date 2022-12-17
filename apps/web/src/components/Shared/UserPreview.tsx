@@ -1,4 +1,3 @@
-import MutualFollowers from '@components/Profile/MutualFollowers';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -31,7 +30,6 @@ const UserPreview: FC<Props> = ({
   children,
   showUserPreview = true
 }) => {
-  const [showPreview, setShowPreview] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
 
@@ -95,37 +93,24 @@ const UserPreview: FC<Props> = ({
             <div className="text-gray-500 text-sm">Followers</div>
           </div>
         </div>
-        {currentProfile && <MutualFollowers profile={profile} variant="xs" />}
       </div>
     </>
   );
 
-  const onPreviewEnd = () => {
-    setShowPreview(false);
-  };
-
-  const onPreviewStart = () => {
-    setShowPreview(true);
-  };
-
   return showUserPreview ? (
-    <div onMouseOver={onPreviewStart} onMouseLeave={onPreviewEnd}>
-      {showPreview ? (
-        <Tippy
-          placement="bottom-start"
-          delay={[800, 0]}
-          hideOnClick={false}
-          content={<Preview />}
-          arrow={false}
-          interactive
-          zIndex={1000}
-          className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
-        >
-          <span>{children}</span>
-        </Tippy>
-      ) : (
+    <div>
+      <Tippy
+        placement="bottom-start"
+        delay={[800, 0]}
+        hideOnClick={false}
+        content={<Preview />}
+        arrow={false}
+        interactive
+        zIndex={1000}
+        className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
+      >
         <span>{children}</span>
-      )}
+      </Tippy>
     </div>
   ) : (
     <span>{children}</span>
