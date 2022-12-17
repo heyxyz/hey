@@ -53,7 +53,7 @@ const Trending: FC = () => {
                 onClick={() => Analytics.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
               >
                 <div className="font-bold">{tag?.tag}</div>
-                <div className="text-[12px] text-gray-500">{nFormatter(tag?.total)} Publications</div>
+                <div className="text-[12px] lt-text-gray-500">{nFormatter(tag?.total)} Publications</div>
               </Link>
             </div>
           ) : null

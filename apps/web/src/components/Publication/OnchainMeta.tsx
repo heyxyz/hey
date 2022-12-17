@@ -37,7 +37,7 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
 
   return (
     <Card as="aside">
-      <div className="text-gray-500 divide-y dark:divide-gray-700">
+      <div className="lt-text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
           <Meta name="ARWEAVE TRANSACTION" uri={`https://arweave.app/tx/${hash}`} hash={hash} />
         ) : null}

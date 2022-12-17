@@ -34,7 +34,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
           </Link>
           <Link
             href={`/posts/${notification?.publication?.id}`}
-            className="text-gray-500 line-clamp-2 linkify mt-2"
+            className="lt-text-gray-500 line-clamp-2 linkify mt-2"
           >
             <Markup>{notification?.publication?.metadata?.content}</Markup>
           </Link>

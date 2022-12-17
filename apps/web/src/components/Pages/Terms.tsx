@@ -21,7 +21,7 @@ const Terms: FC = () => {
       <div className="relative">
         <div className="flex justify-center">
           <div className="relative mx-auto rounded-lg sm:w-2/4 max-w-3/4">
-            <div className="!p-8 max-w-none text-gray-600 dark:text-gray-200">
+            <div className="!p-8 max-w-none lt-text-gray-500">
               {/* 1. Overview beings */}
               <div className="mb-5 text-xl font-bold text-black dark:text-white">1. Overview</div>
               <div className="space-y-5 leading-7">
