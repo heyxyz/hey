@@ -37,7 +37,7 @@ const Embed: FC<Props> = ({ og }) => {
             <div className="p-5 truncate">
               <div className="space-y-1.5">
                 {og.title && <div className="font-bold line-clamp-1">{og.title}</div>}
-                {og.description && <div className="text-gray-500 line-clamp-2">{og.description}</div>}
+                {og.description && <div className="lt-text-gray-500 line-clamp-2">{og.description}</div>}
                 {og.site && (
                   <div className="flex items-center pt-1.5 space-x-1">
                     {og.favicon && (
@@ -49,7 +49,7 @@ const Embed: FC<Props> = ({ og }) => {
                         alt="Favicon"
                       />
                     )}
-                    <div className="text-xs text-gray-500">{og.site}</div>
+                    <div className="text-xs lt-text-gray-500">{og.site}</div>
                   </div>
                 )}
               </div>

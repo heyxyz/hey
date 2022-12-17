@@ -98,7 +98,7 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
       </div>
       {profile?.bio && (
-        <div className="mr-0 sm:mr-10 leading-md linkify text-md">
+        <div className="mr-0 sm:mr-10 leading-md linkify text-md break-words">
           <Markup>{profile?.bio}</Markup>
         </div>
       )}

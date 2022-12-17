@@ -11,7 +11,7 @@ const CollectedContent: FC<Props> = ({ notification }) => {
   return (
     <Link
       href={`/posts/${notification?.collectedPublication?.id}`}
-      className="linkify text-gray-500 line-clamp-2 mt-2"
+      className="linkify lt-text-gray-500 line-clamp-2 mt-2"
     >
       <Markup>{notification?.collectedPublication?.metadata?.content}</Markup>
     </Link>

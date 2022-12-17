@@ -33,7 +33,7 @@ const FeedEventFilters: FC = () => {
       >
         <Menu.Items
           static
-          className="absolute right-0 py-1 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+          className="absolute right-0 py-1 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
         >
           <Menu.Item
             as="label"

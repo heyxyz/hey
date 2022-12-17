@@ -1,4 +1,3 @@
-import MutualFollowers from '@components/Profile/MutualFollowers';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -7,10 +6,8 @@ import nFormatter from '@lib/nFormatter';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
-import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';
-import { useAppStore } from 'src/store/app';
 
 import Follow from './Follow';
 import Markup from './Markup';
@@ -33,8 +30,7 @@ const UserPreview: FC<Props> = ({
   showUserPreview = true
 }) => {
   const [lazyProfile, setLazyProfile] = useState(profile);
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const [following, setFollowing] = useState(lazyProfile?.isFollowedByMe);
+  const [following, setFollowing] = useState(profile?.isFollowedByMe);
 
   const [loadProfile] = useProfileLazyQuery({
     fetchPolicy: 'cache-first'
@@ -46,7 +42,7 @@ const UserPreview: FC<Props> = ({
       loading="lazy"
       className={clsx(
         isBig ? 'w-14 h-14' : 'w-10 h-10',
-        'bg-gray-200 rounded-full border dark:border-gray-700/80'
+        'bg-gray-200 rounded-full border dark:border-gray-700'
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
@@ -93,14 +89,13 @@ const UserPreview: FC<Props> = ({
         <div className="flex space-x-3 items-center">
           <div className="flex items-center space-x-1">
             <div className="text-base">{nFormatter(lazyProfile?.stats?.totalFollowing)}</div>
-            <div className="text-gray-500 text-sm">Following</div>
+            <div className="lt-text-gray-500 text-sm">Following</div>
           </div>
           <div className="flex items-center space-x-1 text-md">
             <div className="text-base">{nFormatter(lazyProfile?.stats?.totalFollowers)}</div>
-            <div className="text-gray-500 text-sm">Followers</div>
+            <div className="lt-text-gray-500 text-sm">Followers</div>
           </div>
         </div>
-        {currentProfile && <MutualFollowers profile={lazyProfile} variant="xs" />}
       </div>
     </>
   );
@@ -118,21 +113,21 @@ const UserPreview: FC<Props> = ({
   };
 
   return showUserPreview ? (
-    <span onMouseOver={onPreviewStart}>
+    <div onMouseOver={onPreviewStart}>
       <Tippy
         placement="bottom-start"
         delay={[800, 0]}
         hideOnClick={false}
         content={<Preview />}
         arrow={false}
-        interactive={true}
+        interactive
         zIndex={1000}
         className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
         appendTo={() => document.body}
       >
         <span>{children}</span>
       </Tippy>
-    </span>
+    </div>
   ) : (
     <span>{children}</span>
   );

@@ -36,7 +36,7 @@ const MentionNotification: FC<Props> = ({ notification }) => {
           </Link>
           <Link
             href={`/posts/${notification?.mentionPublication.id}`}
-            className="text-gray-500 line-clamp-2 linkify mt-2"
+            className="lt-text-gray-500 line-clamp-2 linkify mt-2"
           >
             <Markup>{notification?.mentionPublication?.metadata?.content}</Markup>
           </Link>

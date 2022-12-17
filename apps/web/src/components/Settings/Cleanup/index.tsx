@@ -44,7 +44,7 @@ const CleanupSettings: NextPage = () => {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <b>Optimistic publications</b>
-                <div className="font-bold text-xs text-gray-500">
+                <div className="font-bold text-xs lt-text-gray-500">
                   Clean your posts or comments that are not indexed
                 </div>
               </div>
@@ -53,14 +53,14 @@ const CleanupSettings: NextPage = () => {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <b>Timeline settings</b>
-                <div className="font-bold text-xs text-gray-500">Clean your timeline filter settings</div>
+                <div className="font-bold text-xs lt-text-gray-500">Clean your timeline filter settings</div>
               </div>
               <Button onClick={() => cleanup(LS_KEYS.TIMELINE_STORE)}>Cleanup</Button>
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <b>Direct message keys</b>
-                <div className="font-bold text-xs text-gray-500">Clean your DM encryption key</div>
+                <div className="font-bold text-xs lt-text-gray-500">Clean your DM encryption key</div>
               </div>
               <Button
                 onClick={() => {
@@ -74,7 +74,7 @@ const CleanupSettings: NextPage = () => {
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <b className="text-red-500">App settings</b>
-                <div className="font-bold text-xs text-gray-500">Note: Cleaning will log you out</div>
+                <div className="font-bold text-xs lt-text-gray-500">Note: Cleaning will log you out</div>
               </div>
               <Button onClick={() => cleanup(LS_KEYS.LENSTER_STORE)}>Cleanup</Button>
             </div>
