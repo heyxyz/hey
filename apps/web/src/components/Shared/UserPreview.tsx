@@ -6,6 +6,7 @@ import nFormatter from '@lib/nFormatter';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';
 
