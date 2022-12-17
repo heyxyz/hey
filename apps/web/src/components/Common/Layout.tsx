@@ -9,10 +9,9 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useReferenceModuleStore } from 'src/store/reference-module';
-import { useAccount, useDisconnect, useNetwork } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
@@ -37,7 +36,6 @@ const Layout: FC<Props> = ({ children }) => {
 
   const { mounted } = useIsMounted();
   const { address } = useAccount();
-  const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();
 
@@ -80,8 +78,7 @@ const Layout: FC<Props> = ({ children }) => {
   const validateAuthentication = () => {
     const currentProfileAddress = currentProfile?.ownedBy;
     const isSwitchedAccount = currentProfileAddress !== undefined && currentProfileAddress !== address;
-    const isWrongNetworkChain = chain?.id !== CHAIN_ID;
-    const shouldLogout = !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount;
+    const shouldLogout = !getIsAuthTokensAvailable() || isSwitchedAccount;
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {
@@ -95,7 +92,7 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chain, disconnect, profileId]);
+  }, [address, disconnect, profileId]);
 
   // set pro status
   useEffect(() => {
