@@ -11,7 +11,7 @@ const Custom500: FC = () => {
       <MetaTags title={`500 • ${APP_NAME}`} />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">Looks like something went wrong!</h1>
-        <div className="mb-4 text-gray-500">
+        <div className="mb-4 lt-text-gray-500">
           We track these errors automatically, but if the problem persists feel free to contact us. In the
           meantime, try refreshing.
         </div>

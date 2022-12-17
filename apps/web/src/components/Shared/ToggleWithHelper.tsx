@@ -10,7 +10,7 @@ interface Props {
 const ToggleWithHelper: FC<Props> = ({ on, setOn, label }) => (
   <div className="flex items-center space-x-2">
     <Toggle on={on} setOn={setOn} />
-    <div className="text-gray-500 dark:text-gray-400 text-sm font-bold">{label}</div>
+    <div className="lt-text-gray-500 text-sm font-bold">{label}</div>
   </div>
 );
 

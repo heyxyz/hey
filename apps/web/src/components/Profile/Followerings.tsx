@@ -29,7 +29,7 @@ const Followerings: FC<Props> = ({ profile }) => {
         }}
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowing)}</div>
-        <div className="text-gray-500">Following</div>
+        <div className="lt-text-gray-500">Following</div>
       </button>
       <button
         type="button"
@@ -40,7 +40,7 @@ const Followerings: FC<Props> = ({ profile }) => {
         }}
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>
-        <div className="text-gray-500">Followers</div>
+        <div className="lt-text-gray-500">Followers</div>
       </button>
       <Modal
         title="Following"

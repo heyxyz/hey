@@ -103,7 +103,7 @@ const DeleteSettings: FC = () => {
             won&rsquo;t be able to get it back.
           </p>
           <div className="text-lg font-bold">What else you should know</div>
-          <div className="text-sm text-gray-500 divide-y dark:divide-gray-700">
+          <div className="text-sm lt-text-gray-500 divide-y dark:divide-gray-700">
             <p className="pb-3">
               You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted.
             </p>
