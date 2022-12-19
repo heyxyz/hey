@@ -18,7 +18,7 @@ const MetaDetails: FC<Props> = ({ children, title, value, icon }) => (
   >
     <div className="flex gap-2 items-center font-bold cursor-pointer linkify">
       {icon}
-      {title ? <div className="text-sm text-gray-500">{title}:</div> : null}
+      {title ? <div className="text-sm lt-text-gray-500">{title}:</div> : null}
       <div>{children}</div>
     </div>
   </CopyToClipboard>

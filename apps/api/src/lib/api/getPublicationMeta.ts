@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import generateMeta from '@lib/generateMeta';
 import getIPFSLink from '@lib/getIPFSLink';
-import { IMGPROXY_URL } from 'data/constants';
+import { OG_MEDIA_PROXY_URL } from 'data/constants';
 import type { Publication } from 'lens';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import client from 'src/apollo';
@@ -107,7 +107,7 @@ const getPublicationMeta = async (req: NextApiRequest, res: NextApiResponse, id:
       } • Lenster`;
       const description = publication.metadata?.content ?? '';
       const image = profile
-        ? `${IMGPROXY_URL}/tr:n-avatar,tr:di-placeholder.webp/${getIPFSLink(
+        ? `${OG_MEDIA_PROXY_URL}/tr:n-avatar,tr:di-placeholder.webp/${getIPFSLink(
             profile?.picture?.original?.url ??
               profile?.picture?.uri ??
               `https://avatar.tobi.sh/${profile?.ownedBy}_${profile?.handle}.png`
@@ -119,6 +119,11 @@ const getPublicationMeta = async (req: NextApiRequest, res: NextApiResponse, id:
         .setHeader('Cache-Control', 's-maxage=86400')
         .send(generateMeta(title, description, image));
     }
+
+    return res
+      .setHeader('Content-Type', 'text/html')
+      .setHeader('Cache-Control', 's-maxage=86400')
+      .send(generateMeta());
   } catch {
     return res
       .setHeader('Content-Type', 'text/html')

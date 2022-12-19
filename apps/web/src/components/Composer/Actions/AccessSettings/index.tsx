@@ -1,27 +1,26 @@
 import HelpTooltip from '@components/UI/HelpTooltip';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { LockClosedIcon } from '@heroicons/react/outline';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
-import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 
 import BasicSettings from './BasicSettings';
 
 const AccessSettings: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const restricted = useAccessSettingsStore((state) => state.restricted);
   const hasConditions = useAccessSettingsStore((state) => state.hasConditions);
   const reset = useAccessSettingsStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
+  const { allowed: staffMode } = useStaffMode();
 
-  if (!isFeatureEnabled('access-settings', currentProfile?.id)) {
+  if (!staffMode) {
     return null;
   }
 
@@ -33,7 +32,7 @@ const AccessSettings: FC = () => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.NEW.ACCESS.OPEN_ACCESS_SETTINGS);
+            Analytics.track(PUBLICATION.NEW.ACCESS.OPEN_ACCESS_SETTINGS);
           }}
           aria-label="Access"
         >
@@ -56,7 +55,7 @@ const AccessSettings: FC = () => {
           }
         }}
       >
-        <BasicSettings />
+        <BasicSettings setShowModal={setShowModal} />
       </Modal>
     </>
   );

@@ -5,11 +5,11 @@ import { WarningMessage } from '@components/UI/WarningMessage';
 import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterFollowModule } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import formatAddress from '@lib/formatAddress';
 import formatHandle from '@lib/formatHandle';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
@@ -51,7 +51,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
-    Leafwatch.track(PROFILE.SUPER_FOLLOW);
+    Analytics.track(PROFILE.SUPER_FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -169,7 +169,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
         <div className="text-lg font-bold">
           Super follow <Slug slug={formatHandle(profile?.handle)} prefix="@" /> {again ? 'again' : ''}
         </div>
-        <div className="text-gray-500">Follow {again ? 'again' : ''} and get some awesome perks!</div>
+        <div className="lt-text-gray-500">Follow {again ? 'again' : ''} and get some awesome perks!</div>
       </div>
       <div className="flex items-center py-2 space-x-1.5">
         <img
@@ -186,7 +186,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
         </span>
       </div>
       <div className="flex items-center space-x-2">
-        <UserIcon className="w-4 h-4 text-gray-500" />
+        <UserIcon className="w-4 h-4 lt-text-gray-500" />
         <div className="space-x-1.5">
           <span>Recipient:</span>
           <a
@@ -201,7 +201,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
       </div>
       <div className="pt-5 space-y-2">
         <div className="text-lg font-bold">Perks you get</div>
-        <ul className="space-y-1 text-sm text-gray-500">
+        <ul className="space-y-1 text-sm lt-text-gray-500">
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
             <div>You can comment on @{formatHandle(profile?.handle)}&rsquo;s publications</div>

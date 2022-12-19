@@ -4020,6 +4020,7 @@ export type CommentFieldsFragment = {
   reaction?: ReactionTypes | null;
   mirrors: Array<any>;
   hasCollectedByMe: boolean;
+  onChainContentURI: string;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -4046,6 +4047,11 @@ export type CommentFieldsFragment = {
   };
   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+  canDecrypt: {
+    __typename?: 'CanDecryptResponse';
+    result: boolean;
+    reasons?: Array<DecryptFailReason> | null;
+  };
   collectedBy?: {
     __typename?: 'Wallet';
     address: any;
@@ -4156,6 +4162,10 @@ export type CommentFieldsFragment = {
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
     }>;
+    encryptionParams?: {
+      __typename?: 'EncryptionParamsOutput';
+      providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+    } | null;
   };
   commentOn?:
     | {
@@ -4165,6 +4175,7 @@ export type CommentFieldsFragment = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
+        onChainContentURI: string;
         hidden: boolean;
         createdAt: any;
         profile: {
@@ -4190,6 +4201,11 @@ export type CommentFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -4273,6 +4289,10 @@ export type CommentFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+          } | null;
         };
         stats: {
           __typename?: 'PublicationStats';
@@ -4313,6 +4333,11 @@ export type CommentFieldsFragment = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
@@ -4398,6 +4423,10 @@ export type CommentFieldsFragment = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
               mirrorOf:
                 | {
@@ -4406,6 +4435,7 @@ export type CommentFieldsFragment = {
                     isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    onChainContentURI: string;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -4430,6 +4460,11 @@ export type CommentFieldsFragment = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     stats: {
                       __typename?: 'PublicationStats';
                       totalUpvotes: number;
@@ -4445,6 +4480,7 @@ export type CommentFieldsFragment = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
+                    onChainContentURI: string;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -4471,6 +4507,11 @@ export type CommentFieldsFragment = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -4588,6 +4629,13 @@ export type CommentFieldsFragment = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -4598,6 +4646,7 @@ export type CommentFieldsFragment = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
+              onChainContentURI: string;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -4624,6 +4673,11 @@ export type CommentFieldsFragment = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -4734,6 +4788,10 @@ export type CommentFieldsFragment = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
             };
       }
@@ -4768,6 +4826,11 @@ export type CommentFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
         collectModule:
           | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
@@ -4853,6 +4916,10 @@ export type CommentFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+          } | null;
         };
         mirrorOf:
           | {
@@ -4861,6 +4928,7 @@ export type CommentFieldsFragment = {
               isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              onChainContentURI: string;
               createdAt: any;
               profile: {
                 __typename?: 'Profile';
@@ -4885,6 +4953,11 @@ export type CommentFieldsFragment = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               stats: {
                 __typename?: 'PublicationStats';
                 totalUpvotes: number;
@@ -4900,6 +4973,7 @@ export type CommentFieldsFragment = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
+              onChainContentURI: string;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -4926,6 +5000,11 @@ export type CommentFieldsFragment = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -5036,6 +5115,10 @@ export type CommentFieldsFragment = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
             };
       }
@@ -5046,6 +5129,7 @@ export type CommentFieldsFragment = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
+        onChainContentURI: string;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -5072,6 +5156,11 @@ export type CommentFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -5182,6 +5271,10 @@ export type CommentFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+          } | null;
         };
       }
     | null;
@@ -5203,6 +5296,10 @@ export type MetadataFieldsFragment = {
     __typename?: 'MediaSet';
     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
   }>;
+  encryptionParams?: {
+    __typename?: 'EncryptionParamsOutput';
+    providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+  } | null;
 };
 
 export type MirrorFieldsFragment = {
@@ -5236,6 +5333,11 @@ export type MirrorFieldsFragment = {
   };
   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+  canDecrypt: {
+    __typename?: 'CanDecryptResponse';
+    result: boolean;
+    reasons?: Array<DecryptFailReason> | null;
+  };
   collectModule:
     | { __typename?: 'AaveFeeCollectModuleSettings' }
     | {
@@ -5321,6 +5423,10 @@ export type MirrorFieldsFragment = {
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
     }>;
+    encryptionParams?: {
+      __typename?: 'EncryptionParamsOutput';
+      providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+    } | null;
   };
   mirrorOf:
     | {
@@ -5329,6 +5435,7 @@ export type MirrorFieldsFragment = {
         isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
+        onChainContentURI: string;
         createdAt: any;
         profile: {
           __typename?: 'Profile';
@@ -5353,6 +5460,11 @@ export type MirrorFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
         stats: {
           __typename?: 'PublicationStats';
           totalUpvotes: number;
@@ -5368,6 +5480,7 @@ export type MirrorFieldsFragment = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
+        onChainContentURI: string;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -5394,6 +5507,11 @@ export type MirrorFieldsFragment = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -5504,6 +5622,10 @@ export type MirrorFieldsFragment = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+          } | null;
         };
       };
 };
@@ -5515,6 +5637,7 @@ export type PostFieldsFragment = {
   reaction?: ReactionTypes | null;
   mirrors: Array<any>;
   hasCollectedByMe: boolean;
+  onChainContentURI: string;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -5541,6 +5664,11 @@ export type PostFieldsFragment = {
   };
   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+  canDecrypt: {
+    __typename?: 'CanDecryptResponse';
+    result: boolean;
+    reasons?: Array<DecryptFailReason> | null;
+  };
   collectedBy?: {
     __typename?: 'Wallet';
     address: any;
@@ -5651,6 +5779,10 @@ export type PostFieldsFragment = {
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
     }>;
+    encryptionParams?: {
+      __typename?: 'EncryptionParamsOutput';
+      providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+    } | null;
   };
 };
 
@@ -6630,6 +6762,7 @@ export type CommentFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
+          onChainContentURI: string;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -6656,6 +6789,11 @@ export type CommentFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -6766,6 +6904,10 @@ export type CommentFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
           commentOn?:
             | {
@@ -6775,6 +6917,7 @@ export type CommentFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -6800,6 +6943,11 @@ export type CommentFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -6883,6 +7031,13 @@ export type CommentFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -6927,6 +7082,11 @@ export type CommentFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
@@ -7015,6 +7175,13 @@ export type CommentFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                       mirrorOf:
                         | {
@@ -7023,6 +7190,7 @@ export type CommentFeedQuery = {
                             isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            onChainContentURI: string;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -7055,6 +7223,11 @@ export type CommentFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: {
+                              __typename?: 'CanDecryptResponse';
+                              result: boolean;
+                              reasons?: Array<DecryptFailReason> | null;
+                            };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -7070,6 +7243,7 @@ export type CommentFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
+                            onChainContentURI: string;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -7104,6 +7278,11 @@ export type CommentFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: {
+                              __typename?: 'CanDecryptResponse';
+                              result: boolean;
+                              reasons?: Array<DecryptFailReason> | null;
+                            };
                             collectedBy?: {
                               __typename?: 'Wallet';
                               address: any;
@@ -7245,6 +7424,13 @@ export type CommentFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
+                              encryptionParams?: {
+                                __typename?: 'EncryptionParamsOutput';
+                                providerSpecificParams: {
+                                  __typename?: 'ProviderSpecificParamsOutput';
+                                  encryptionKey: any;
+                                };
+                              } | null;
                             };
                           };
                     }
@@ -7255,6 +7441,7 @@ export type CommentFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
+                      onChainContentURI: string;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -7285,6 +7472,11 @@ export type CommentFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -7402,6 +7594,13 @@ export type CommentFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -7436,6 +7635,11 @@ export type CommentFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
@@ -7521,6 +7725,13 @@ export type CommentFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
                 mirrorOf:
                   | {
@@ -7529,6 +7740,7 @@ export type CommentFeedQuery = {
                       isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      onChainContentURI: string;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -7557,6 +7769,11 @@ export type CommentFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -7572,6 +7789,7 @@ export type CommentFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
+                      onChainContentURI: string;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -7602,6 +7820,11 @@ export type CommentFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -7719,6 +7942,13 @@ export type CommentFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -7729,6 +7959,7 @@ export type CommentFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -7755,6 +7986,11 @@ export type CommentFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -7865,6 +8101,13 @@ export type CommentFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
               }
             | null;
@@ -7948,6 +8191,7 @@ export type ExploreFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
+          onChainContentURI: string;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -7974,6 +8218,11 @@ export type ExploreFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -8084,6 +8333,10 @@ export type ExploreFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
           commentOn?:
             | {
@@ -8093,6 +8346,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -8118,6 +8372,11 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -8201,6 +8460,13 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -8245,6 +8511,11 @@ export type ExploreFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
@@ -8333,6 +8604,13 @@ export type ExploreFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                       mirrorOf:
                         | {
@@ -8341,6 +8619,7 @@ export type ExploreFeedQuery = {
                             isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            onChainContentURI: string;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -8373,6 +8652,11 @@ export type ExploreFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: {
+                              __typename?: 'CanDecryptResponse';
+                              result: boolean;
+                              reasons?: Array<DecryptFailReason> | null;
+                            };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -8388,6 +8672,7 @@ export type ExploreFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
+                            onChainContentURI: string;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -8422,6 +8707,11 @@ export type ExploreFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: {
+                              __typename?: 'CanDecryptResponse';
+                              result: boolean;
+                              reasons?: Array<DecryptFailReason> | null;
+                            };
                             collectedBy?: {
                               __typename?: 'Wallet';
                               address: any;
@@ -8563,6 +8853,13 @@ export type ExploreFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
+                              encryptionParams?: {
+                                __typename?: 'EncryptionParamsOutput';
+                                providerSpecificParams: {
+                                  __typename?: 'ProviderSpecificParamsOutput';
+                                  encryptionKey: any;
+                                };
+                              } | null;
                             };
                           };
                     }
@@ -8573,6 +8870,7 @@ export type ExploreFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
+                      onChainContentURI: string;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -8603,6 +8901,11 @@ export type ExploreFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -8720,6 +9023,13 @@ export type ExploreFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -8754,6 +9064,11 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
@@ -8839,6 +9154,13 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
                 mirrorOf:
                   | {
@@ -8847,6 +9169,7 @@ export type ExploreFeedQuery = {
                       isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      onChainContentURI: string;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -8875,6 +9198,11 @@ export type ExploreFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -8890,6 +9218,7 @@ export type ExploreFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
+                      onChainContentURI: string;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -8920,6 +9249,11 @@ export type ExploreFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -9037,6 +9371,13 @@ export type ExploreFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -9047,6 +9388,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -9073,6 +9415,11 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -9183,6 +9530,13 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
               }
             | null;
@@ -9218,6 +9572,11 @@ export type ExploreFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
@@ -9303,6 +9662,10 @@ export type ExploreFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
           mirrorOf:
             | {
@@ -9311,6 +9674,7 @@ export type ExploreFeedQuery = {
                 isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                onChainContentURI: string;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -9335,6 +9699,11 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 stats: {
                   __typename?: 'PublicationStats';
                   totalUpvotes: number;
@@ -9350,6 +9719,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -9376,6 +9746,11 @@ export type ExploreFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -9486,6 +9861,13 @@ export type ExploreFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
               };
         }
@@ -9496,6 +9878,7 @@ export type ExploreFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
+          onChainContentURI: string;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -9522,6 +9905,11 @@ export type ExploreFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -9632,6 +10020,10 @@ export type ExploreFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
         }
     >;
@@ -9657,6 +10049,7 @@ export type FeedHighlightsQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
+          onChainContentURI: string;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -9683,6 +10076,11 @@ export type FeedHighlightsQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -9793,6 +10191,10 @@ export type FeedHighlightsQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
           commentOn?:
             | {
@@ -9802,6 +10204,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -9827,6 +10230,11 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -9910,6 +10318,13 @@ export type FeedHighlightsQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -9954,6 +10369,11 @@ export type FeedHighlightsQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
@@ -10042,6 +10462,13 @@ export type FeedHighlightsQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                       mirrorOf:
                         | {
@@ -10050,6 +10477,7 @@ export type FeedHighlightsQuery = {
                             isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            onChainContentURI: string;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -10082,6 +10510,11 @@ export type FeedHighlightsQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: {
+                              __typename?: 'CanDecryptResponse';
+                              result: boolean;
+                              reasons?: Array<DecryptFailReason> | null;
+                            };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -10097,6 +10530,7 @@ export type FeedHighlightsQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
+                            onChainContentURI: string;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -10131,6 +10565,11 @@ export type FeedHighlightsQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: {
+                              __typename?: 'CanDecryptResponse';
+                              result: boolean;
+                              reasons?: Array<DecryptFailReason> | null;
+                            };
                             collectedBy?: {
                               __typename?: 'Wallet';
                               address: any;
@@ -10272,6 +10711,13 @@ export type FeedHighlightsQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
+                              encryptionParams?: {
+                                __typename?: 'EncryptionParamsOutput';
+                                providerSpecificParams: {
+                                  __typename?: 'ProviderSpecificParamsOutput';
+                                  encryptionKey: any;
+                                };
+                              } | null;
                             };
                           };
                     }
@@ -10282,6 +10728,7 @@ export type FeedHighlightsQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
+                      onChainContentURI: string;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -10312,6 +10759,11 @@ export type FeedHighlightsQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -10429,6 +10881,13 @@ export type FeedHighlightsQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -10463,6 +10922,11 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
@@ -10548,6 +11012,13 @@ export type FeedHighlightsQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
                 mirrorOf:
                   | {
@@ -10556,6 +11027,7 @@ export type FeedHighlightsQuery = {
                       isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      onChainContentURI: string;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -10584,6 +11056,11 @@ export type FeedHighlightsQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -10599,6 +11076,7 @@ export type FeedHighlightsQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
+                      onChainContentURI: string;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -10629,6 +11107,11 @@ export type FeedHighlightsQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -10746,6 +11229,13 @@ export type FeedHighlightsQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -10756,6 +11246,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -10782,6 +11273,11 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -10892,6 +11388,13 @@ export type FeedHighlightsQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
               }
             | null;
@@ -10927,6 +11430,11 @@ export type FeedHighlightsQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
@@ -11012,6 +11520,10 @@ export type FeedHighlightsQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
           mirrorOf:
             | {
@@ -11020,6 +11532,7 @@ export type FeedHighlightsQuery = {
                 isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                onChainContentURI: string;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -11044,6 +11557,11 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 stats: {
                   __typename?: 'PublicationStats';
                   totalUpvotes: number;
@@ -11059,6 +11577,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -11085,6 +11604,11 @@ export type FeedHighlightsQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -11195,6 +11719,13 @@ export type FeedHighlightsQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
               };
         }
@@ -11205,6 +11736,7 @@ export type FeedHighlightsQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
+          onChainContentURI: string;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -11231,6 +11763,11 @@ export type FeedHighlightsQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -11341,6 +11878,10 @@ export type FeedHighlightsQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
         }
     >;
@@ -12110,6 +12651,7 @@ export type ProfileFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
+          onChainContentURI: string;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -12136,6 +12678,11 @@ export type ProfileFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -12246,6 +12793,10 @@ export type ProfileFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
           commentOn?:
             | {
@@ -12255,6 +12806,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -12280,6 +12832,11 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -12363,6 +12920,13 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
                 stats: {
                   __typename?: 'PublicationStats';
@@ -12407,6 +12971,11 @@ export type ProfileFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | {
@@ -12495,6 +13064,13 @@ export type ProfileFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                       mirrorOf:
                         | {
@@ -12503,6 +13079,7 @@ export type ProfileFeedQuery = {
                             isDataAvailability: boolean;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            onChainContentURI: string;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -12535,6 +13112,11 @@ export type ProfileFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: {
+                              __typename?: 'CanDecryptResponse';
+                              result: boolean;
+                              reasons?: Array<DecryptFailReason> | null;
+                            };
                             stats: {
                               __typename?: 'PublicationStats';
                               totalUpvotes: number;
@@ -12550,6 +13132,7 @@ export type ProfileFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
+                            onChainContentURI: string;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -12584,6 +13167,11 @@ export type ProfileFeedQuery = {
                             };
                             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                            canDecrypt: {
+                              __typename?: 'CanDecryptResponse';
+                              result: boolean;
+                              reasons?: Array<DecryptFailReason> | null;
+                            };
                             collectedBy?: {
                               __typename?: 'Wallet';
                               address: any;
@@ -12725,6 +13313,13 @@ export type ProfileFeedQuery = {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                               }>;
+                              encryptionParams?: {
+                                __typename?: 'EncryptionParamsOutput';
+                                providerSpecificParams: {
+                                  __typename?: 'ProviderSpecificParamsOutput';
+                                  encryptionKey: any;
+                                };
+                              } | null;
                             };
                           };
                     }
@@ -12735,6 +13330,7 @@ export type ProfileFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
+                      onChainContentURI: string;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -12765,6 +13361,11 @@ export type ProfileFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -12882,6 +13483,13 @@ export type ProfileFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -12916,6 +13524,11 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | {
@@ -13001,6 +13614,13 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
                 mirrorOf:
                   | {
@@ -13009,6 +13629,7 @@ export type ProfileFeedQuery = {
                       isDataAvailability: boolean;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      onChainContentURI: string;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -13037,6 +13658,11 @@ export type ProfileFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       stats: {
                         __typename?: 'PublicationStats';
                         totalUpvotes: number;
@@ -13052,6 +13678,7 @@ export type ProfileFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
+                      onChainContentURI: string;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -13082,6 +13709,11 @@ export type ProfileFeedQuery = {
                       };
                       canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                       canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                      canDecrypt: {
+                        __typename?: 'CanDecryptResponse';
+                        result: boolean;
+                        reasons?: Array<DecryptFailReason> | null;
+                      };
                       collectedBy?: {
                         __typename?: 'Wallet';
                         address: any;
@@ -13199,6 +13831,13 @@ export type ProfileFeedQuery = {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                         }>;
+                        encryptionParams?: {
+                          __typename?: 'EncryptionParamsOutput';
+                          providerSpecificParams: {
+                            __typename?: 'ProviderSpecificParamsOutput';
+                            encryptionKey: any;
+                          };
+                        } | null;
                       };
                     };
               }
@@ -13209,6 +13848,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -13235,6 +13875,11 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -13345,6 +13990,13 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
               }
             | null;
@@ -13380,6 +14032,11 @@ export type ProfileFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | {
@@ -13465,6 +14122,10 @@ export type ProfileFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
           mirrorOf:
             | {
@@ -13473,6 +14134,7 @@ export type ProfileFeedQuery = {
                 isDataAvailability: boolean;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                onChainContentURI: string;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -13497,6 +14159,11 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 stats: {
                   __typename?: 'PublicationStats';
                   totalUpvotes: number;
@@ -13512,6 +14179,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
+                onChainContentURI: string;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -13538,6 +14206,11 @@ export type ProfileFeedQuery = {
                 };
                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                canDecrypt: {
+                  __typename?: 'CanDecryptResponse';
+                  result: boolean;
+                  reasons?: Array<DecryptFailReason> | null;
+                };
                 collectedBy?: {
                   __typename?: 'Wallet';
                   address: any;
@@ -13648,6 +14321,13 @@ export type ProfileFeedQuery = {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                   }>;
+                  encryptionParams?: {
+                    __typename?: 'EncryptionParamsOutput';
+                    providerSpecificParams: {
+                      __typename?: 'ProviderSpecificParamsOutput';
+                      encryptionKey: any;
+                    };
+                  } | null;
                 };
               };
         }
@@ -13658,6 +14338,7 @@ export type ProfileFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
+          onChainContentURI: string;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -13684,6 +14365,11 @@ export type ProfileFeedQuery = {
           };
           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+          canDecrypt: {
+            __typename?: 'CanDecryptResponse';
+            result: boolean;
+            reasons?: Array<DecryptFailReason> | null;
+          };
           collectedBy?: {
             __typename?: 'Wallet';
             address: any;
@@ -13794,6 +14480,10 @@ export type ProfileFeedQuery = {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
             }>;
+            encryptionParams?: {
+              __typename?: 'EncryptionParamsOutput';
+              providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+            } | null;
           };
         }
     >;
@@ -13873,13 +14563,13 @@ export type PublicationQuery = {
   publication?:
     | {
         __typename?: 'Comment';
-        onChainContentURI: string;
         collectNftAddress?: any | null;
         id: any;
         isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
+        onChainContentURI: string;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -13911,6 +14601,11 @@ export type PublicationQuery = {
           | null;
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -14021,6 +14716,10 @@ export type PublicationQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+          } | null;
         };
         commentOn?:
           | {
@@ -14030,6 +14729,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
+              onChainContentURI: string;
               hidden: boolean;
               createdAt: any;
               profile: {
@@ -14055,6 +14755,11 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -14138,6 +14843,10 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
               stats: {
                 __typename?: 'PublicationStats';
@@ -14178,6 +14887,11 @@ export type PublicationQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
@@ -14266,6 +14980,13 @@ export type PublicationQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                     mirrorOf:
                       | {
@@ -14274,6 +14995,7 @@ export type PublicationQuery = {
                           isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          onChainContentURI: string;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -14306,6 +15028,11 @@ export type PublicationQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: {
+                            __typename?: 'CanDecryptResponse';
+                            result: boolean;
+                            reasons?: Array<DecryptFailReason> | null;
+                          };
                           stats: {
                             __typename?: 'PublicationStats';
                             totalUpvotes: number;
@@ -14321,6 +15048,7 @@ export type PublicationQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
+                          onChainContentURI: string;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -14355,6 +15083,11 @@ export type PublicationQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: {
+                            __typename?: 'CanDecryptResponse';
+                            result: boolean;
+                            reasons?: Array<DecryptFailReason> | null;
+                          };
                           collectedBy?: {
                             __typename?: 'Wallet';
                             address: any;
@@ -14496,6 +15229,13 @@ export type PublicationQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              providerSpecificParams: {
+                                __typename?: 'ProviderSpecificParamsOutput';
+                                encryptionKey: any;
+                              };
+                            } | null;
                           };
                         };
                   }
@@ -14506,6 +15246,7 @@ export type PublicationQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
+                    onChainContentURI: string;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -14532,6 +15273,11 @@ export type PublicationQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -14649,6 +15395,13 @@ export type PublicationQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -14683,6 +15436,11 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
@@ -14768,6 +15526,10 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
               mirrorOf:
                 | {
@@ -14776,6 +15538,7 @@ export type PublicationQuery = {
                     isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    onChainContentURI: string;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -14800,6 +15563,11 @@ export type PublicationQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     stats: {
                       __typename?: 'PublicationStats';
                       totalUpvotes: number;
@@ -14815,6 +15583,7 @@ export type PublicationQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
+                    onChainContentURI: string;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -14841,6 +15610,11 @@ export type PublicationQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -14958,6 +15732,13 @@ export type PublicationQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -14968,6 +15749,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
+              onChainContentURI: string;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -14994,6 +15776,11 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -15104,13 +15891,16 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
             }
           | null;
       }
     | {
         __typename?: 'Mirror';
-        onChainContentURI: string;
         collectNftAddress?: any | null;
         id: any;
         isDataAvailability: boolean;
@@ -15146,6 +15936,11 @@ export type PublicationQuery = {
           | null;
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
         collectModule:
           | { __typename?: 'AaveFeeCollectModuleSettings' }
           | {
@@ -15231,6 +16026,10 @@ export type PublicationQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+          } | null;
         };
         mirrorOf:
           | {
@@ -15239,6 +16038,7 @@ export type PublicationQuery = {
               isDataAvailability: boolean;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              onChainContentURI: string;
               createdAt: any;
               profile: {
                 __typename?: 'Profile';
@@ -15263,6 +16063,11 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               stats: {
                 __typename?: 'PublicationStats';
                 totalUpvotes: number;
@@ -15278,6 +16083,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
+              onChainContentURI: string;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -15304,6 +16110,11 @@ export type PublicationQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -15414,18 +16225,22 @@ export type PublicationQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
             };
       }
     | {
         __typename?: 'Post';
-        onChainContentURI: string;
         collectNftAddress?: any | null;
         id: any;
         isDataAvailability: boolean;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
+        onChainContentURI: string;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -15457,6 +16272,11 @@ export type PublicationQuery = {
           | null;
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -15567,6 +16387,10 @@ export type PublicationQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+          } | null;
         };
       }
     | null;
@@ -15700,6 +16524,7 @@ export type SearchPublicationsQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
+              onChainContentURI: string;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -15726,6 +16551,11 @@ export type SearchPublicationsQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -15836,6 +16666,10 @@ export type SearchPublicationsQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
               commentOn?:
                 | {
@@ -15845,6 +16679,7 @@ export type SearchPublicationsQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
+                    onChainContentURI: string;
                     hidden: boolean;
                     createdAt: any;
                     profile: {
@@ -15870,6 +16705,11 @@ export type SearchPublicationsQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -15956,6 +16796,13 @@ export type SearchPublicationsQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                     stats: {
                       __typename?: 'PublicationStats';
@@ -16004,6 +16851,11 @@ export type SearchPublicationsQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: {
+                            __typename?: 'CanDecryptResponse';
+                            result: boolean;
+                            reasons?: Array<DecryptFailReason> | null;
+                          };
                           collectModule:
                             | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | {
@@ -16112,6 +16964,13 @@ export type SearchPublicationsQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              providerSpecificParams: {
+                                __typename?: 'ProviderSpecificParamsOutput';
+                                encryptionKey: any;
+                              };
+                            } | null;
                           };
                           mirrorOf:
                             | {
@@ -16120,6 +16979,7 @@ export type SearchPublicationsQuery = {
                                 isDataAvailability: boolean;
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
+                                onChainContentURI: string;
                                 createdAt: any;
                                 profile: {
                                   __typename?: 'Profile';
@@ -16155,6 +17015,11 @@ export type SearchPublicationsQuery = {
                                 };
                                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                                canDecrypt: {
+                                  __typename?: 'CanDecryptResponse';
+                                  result: boolean;
+                                  reasons?: Array<DecryptFailReason> | null;
+                                };
                                 stats: {
                                   __typename?: 'PublicationStats';
                                   totalUpvotes: number;
@@ -16170,6 +17035,7 @@ export type SearchPublicationsQuery = {
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
                                 hasCollectedByMe: boolean;
+                                onChainContentURI: string;
                                 hidden: boolean;
                                 createdAt: any;
                                 appId?: any | null;
@@ -16207,6 +17073,11 @@ export type SearchPublicationsQuery = {
                                 };
                                 canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                                 canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                                canDecrypt: {
+                                  __typename?: 'CanDecryptResponse';
+                                  result: boolean;
+                                  reasons?: Array<DecryptFailReason> | null;
+                                };
                                 collectedBy?: {
                                   __typename?: 'Wallet';
                                   address: any;
@@ -16351,6 +17222,13 @@ export type SearchPublicationsQuery = {
                                     __typename?: 'MediaSet';
                                     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                                   }>;
+                                  encryptionParams?: {
+                                    __typename?: 'EncryptionParamsOutput';
+                                    providerSpecificParams: {
+                                      __typename?: 'ProviderSpecificParamsOutput';
+                                      encryptionKey: any;
+                                    };
+                                  } | null;
                                 };
                               };
                         }
@@ -16361,6 +17239,7 @@ export type SearchPublicationsQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
+                          onChainContentURI: string;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -16395,6 +17274,11 @@ export type SearchPublicationsQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: {
+                            __typename?: 'CanDecryptResponse';
+                            result: boolean;
+                            reasons?: Array<DecryptFailReason> | null;
+                          };
                           collectedBy?: {
                             __typename?: 'Wallet';
                             address: any;
@@ -16536,6 +17420,13 @@ export type SearchPublicationsQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              providerSpecificParams: {
+                                __typename?: 'ProviderSpecificParamsOutput';
+                                encryptionKey: any;
+                              };
+                            } | null;
                           };
                         };
                   }
@@ -16570,6 +17461,11 @@ export type SearchPublicationsQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
@@ -16658,6 +17554,13 @@ export type SearchPublicationsQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                     mirrorOf:
                       | {
@@ -16666,6 +17569,7 @@ export type SearchPublicationsQuery = {
                           isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          onChainContentURI: string;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -16698,6 +17602,11 @@ export type SearchPublicationsQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: {
+                            __typename?: 'CanDecryptResponse';
+                            result: boolean;
+                            reasons?: Array<DecryptFailReason> | null;
+                          };
                           stats: {
                             __typename?: 'PublicationStats';
                             totalUpvotes: number;
@@ -16713,6 +17622,7 @@ export type SearchPublicationsQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
+                          onChainContentURI: string;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -16747,6 +17657,11 @@ export type SearchPublicationsQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: {
+                            __typename?: 'CanDecryptResponse';
+                            result: boolean;
+                            reasons?: Array<DecryptFailReason> | null;
+                          };
                           collectedBy?: {
                             __typename?: 'Wallet';
                             address: any;
@@ -16888,6 +17803,13 @@ export type SearchPublicationsQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              providerSpecificParams: {
+                                __typename?: 'ProviderSpecificParamsOutput';
+                                encryptionKey: any;
+                              };
+                            } | null;
                           };
                         };
                   }
@@ -16898,6 +17820,7 @@ export type SearchPublicationsQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
+                    onChainContentURI: string;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -16924,6 +17847,11 @@ export type SearchPublicationsQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -17041,6 +17969,13 @@ export type SearchPublicationsQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                   }
                 | null;
@@ -17052,6 +17987,7 @@ export type SearchPublicationsQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
+              onChainContentURI: string;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -17078,6 +18014,11 @@ export type SearchPublicationsQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -17188,6 +18129,10 @@ export type SearchPublicationsQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
             }
         >;
@@ -17424,6 +18369,7 @@ export type TimelineQuery = {
             reaction?: ReactionTypes | null;
             mirrors: Array<any>;
             hasCollectedByMe: boolean;
+            onChainContentURI: string;
             hidden: boolean;
             createdAt: any;
             appId?: any | null;
@@ -17450,6 +18396,11 @@ export type TimelineQuery = {
             };
             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+            canDecrypt: {
+              __typename?: 'CanDecryptResponse';
+              result: boolean;
+              reasons?: Array<DecryptFailReason> | null;
+            };
             collectedBy?: {
               __typename?: 'Wallet';
               address: any;
@@ -17560,6 +18511,10 @@ export type TimelineQuery = {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
               }>;
+              encryptionParams?: {
+                __typename?: 'EncryptionParamsOutput';
+                providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+              } | null;
             };
             commentOn?:
               | {
@@ -17569,6 +18524,7 @@ export type TimelineQuery = {
                   reaction?: ReactionTypes | null;
                   mirrors: Array<any>;
                   hasCollectedByMe: boolean;
+                  onChainContentURI: string;
                   hidden: boolean;
                   createdAt: any;
                   profile: {
@@ -17594,6 +18550,11 @@ export type TimelineQuery = {
                   };
                   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                  canDecrypt: {
+                    __typename?: 'CanDecryptResponse';
+                    result: boolean;
+                    reasons?: Array<DecryptFailReason> | null;
+                  };
                   collectedBy?: {
                     __typename?: 'Wallet';
                     address: any;
@@ -17677,6 +18638,13 @@ export type TimelineQuery = {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                     }>;
+                    encryptionParams?: {
+                      __typename?: 'EncryptionParamsOutput';
+                      providerSpecificParams: {
+                        __typename?: 'ProviderSpecificParamsOutput';
+                        encryptionKey: any;
+                      };
+                    } | null;
                   };
                   stats: {
                     __typename?: 'PublicationStats';
@@ -17721,6 +18689,11 @@ export type TimelineQuery = {
                         };
                         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                        canDecrypt: {
+                          __typename?: 'CanDecryptResponse';
+                          result: boolean;
+                          reasons?: Array<DecryptFailReason> | null;
+                        };
                         collectModule:
                           | { __typename?: 'AaveFeeCollectModuleSettings' }
                           | {
@@ -17829,6 +18802,13 @@ export type TimelineQuery = {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                           }>;
+                          encryptionParams?: {
+                            __typename?: 'EncryptionParamsOutput';
+                            providerSpecificParams: {
+                              __typename?: 'ProviderSpecificParamsOutput';
+                              encryptionKey: any;
+                            };
+                          } | null;
                         };
                         mirrorOf:
                           | {
@@ -17837,6 +18817,7 @@ export type TimelineQuery = {
                               isDataAvailability: boolean;
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
+                              onChainContentURI: string;
                               createdAt: any;
                               profile: {
                                 __typename?: 'Profile';
@@ -17869,6 +18850,11 @@ export type TimelineQuery = {
                               };
                               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                              canDecrypt: {
+                                __typename?: 'CanDecryptResponse';
+                                result: boolean;
+                                reasons?: Array<DecryptFailReason> | null;
+                              };
                               stats: {
                                 __typename?: 'PublicationStats';
                                 totalUpvotes: number;
@@ -17884,6 +18870,7 @@ export type TimelineQuery = {
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
                               hasCollectedByMe: boolean;
+                              onChainContentURI: string;
                               hidden: boolean;
                               createdAt: any;
                               appId?: any | null;
@@ -17918,6 +18905,11 @@ export type TimelineQuery = {
                               };
                               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                              canDecrypt: {
+                                __typename?: 'CanDecryptResponse';
+                                result: boolean;
+                                reasons?: Array<DecryptFailReason> | null;
+                              };
                               collectedBy?: {
                                 __typename?: 'Wallet';
                                 address: any;
@@ -18062,6 +19054,13 @@ export type TimelineQuery = {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                                 }>;
+                                encryptionParams?: {
+                                  __typename?: 'EncryptionParamsOutput';
+                                  providerSpecificParams: {
+                                    __typename?: 'ProviderSpecificParamsOutput';
+                                    encryptionKey: any;
+                                  };
+                                } | null;
                               };
                             };
                       }
@@ -18072,6 +19071,7 @@ export type TimelineQuery = {
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         hasCollectedByMe: boolean;
+                        onChainContentURI: string;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -18102,6 +19102,11 @@ export type TimelineQuery = {
                         };
                         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                        canDecrypt: {
+                          __typename?: 'CanDecryptResponse';
+                          result: boolean;
+                          reasons?: Array<DecryptFailReason> | null;
+                        };
                         collectedBy?: {
                           __typename?: 'Wallet';
                           address: any;
@@ -18243,6 +19248,13 @@ export type TimelineQuery = {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                           }>;
+                          encryptionParams?: {
+                            __typename?: 'EncryptionParamsOutput';
+                            providerSpecificParams: {
+                              __typename?: 'ProviderSpecificParamsOutput';
+                              encryptionKey: any;
+                            };
+                          } | null;
                         };
                       };
                 }
@@ -18277,6 +19289,11 @@ export type TimelineQuery = {
                   };
                   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                  canDecrypt: {
+                    __typename?: 'CanDecryptResponse';
+                    result: boolean;
+                    reasons?: Array<DecryptFailReason> | null;
+                  };
                   collectModule:
                     | { __typename?: 'AaveFeeCollectModuleSettings' }
                     | {
@@ -18362,6 +19379,13 @@ export type TimelineQuery = {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                     }>;
+                    encryptionParams?: {
+                      __typename?: 'EncryptionParamsOutput';
+                      providerSpecificParams: {
+                        __typename?: 'ProviderSpecificParamsOutput';
+                        encryptionKey: any;
+                      };
+                    } | null;
                   };
                   mirrorOf:
                     | {
@@ -18370,6 +19394,7 @@ export type TimelineQuery = {
                         isDataAvailability: boolean;
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
+                        onChainContentURI: string;
                         createdAt: any;
                         profile: {
                           __typename?: 'Profile';
@@ -18398,6 +19423,11 @@ export type TimelineQuery = {
                         };
                         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                        canDecrypt: {
+                          __typename?: 'CanDecryptResponse';
+                          result: boolean;
+                          reasons?: Array<DecryptFailReason> | null;
+                        };
                         stats: {
                           __typename?: 'PublicationStats';
                           totalUpvotes: number;
@@ -18413,6 +19443,7 @@ export type TimelineQuery = {
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         hasCollectedByMe: boolean;
+                        onChainContentURI: string;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -18443,6 +19474,11 @@ export type TimelineQuery = {
                         };
                         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                        canDecrypt: {
+                          __typename?: 'CanDecryptResponse';
+                          result: boolean;
+                          reasons?: Array<DecryptFailReason> | null;
+                        };
                         collectedBy?: {
                           __typename?: 'Wallet';
                           address: any;
@@ -18584,6 +19620,13 @@ export type TimelineQuery = {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                           }>;
+                          encryptionParams?: {
+                            __typename?: 'EncryptionParamsOutput';
+                            providerSpecificParams: {
+                              __typename?: 'ProviderSpecificParamsOutput';
+                              encryptionKey: any;
+                            };
+                          } | null;
                         };
                       };
                 }
@@ -18594,6 +19637,7 @@ export type TimelineQuery = {
                   reaction?: ReactionTypes | null;
                   mirrors: Array<any>;
                   hasCollectedByMe: boolean;
+                  onChainContentURI: string;
                   hidden: boolean;
                   createdAt: any;
                   appId?: any | null;
@@ -18620,6 +19664,11 @@ export type TimelineQuery = {
                   };
                   canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                   canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                  canDecrypt: {
+                    __typename?: 'CanDecryptResponse';
+                    result: boolean;
+                    reasons?: Array<DecryptFailReason> | null;
+                  };
                   collectedBy?: {
                     __typename?: 'Wallet';
                     address: any;
@@ -18730,6 +19779,13 @@ export type TimelineQuery = {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                     }>;
+                    encryptionParams?: {
+                      __typename?: 'EncryptionParamsOutput';
+                      providerSpecificParams: {
+                        __typename?: 'ProviderSpecificParamsOutput';
+                        encryptionKey: any;
+                      };
+                    } | null;
                   };
                 }
               | null;
@@ -18741,6 +19797,7 @@ export type TimelineQuery = {
             reaction?: ReactionTypes | null;
             mirrors: Array<any>;
             hasCollectedByMe: boolean;
+            onChainContentURI: string;
             hidden: boolean;
             createdAt: any;
             appId?: any | null;
@@ -18767,6 +19824,11 @@ export type TimelineQuery = {
             };
             canComment: { __typename?: 'CanCommentResponse'; result: boolean };
             canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+            canDecrypt: {
+              __typename?: 'CanDecryptResponse';
+              result: boolean;
+              reasons?: Array<DecryptFailReason> | null;
+            };
             collectedBy?: {
               __typename?: 'Wallet';
               address: any;
@@ -18877,6 +19939,10 @@ export type TimelineQuery = {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any; mimeType?: any | null };
               }>;
+              encryptionParams?: {
+                __typename?: 'EncryptionParamsOutput';
+                providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+              } | null;
             };
           };
       electedMirror?: {
@@ -18988,6 +20054,7 @@ export type TimelineQuery = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
+        onChainContentURI: string;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -19014,6 +20081,11 @@ export type TimelineQuery = {
         };
         canComment: { __typename?: 'CanCommentResponse'; result: boolean };
         canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
         collectedBy?: {
           __typename?: 'Wallet';
           address: any;
@@ -19124,6 +20196,10 @@ export type TimelineQuery = {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
           }>;
+          encryptionParams?: {
+            __typename?: 'EncryptionParamsOutput';
+            providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+          } | null;
         };
         commentOn?:
           | {
@@ -19133,6 +20209,7 @@ export type TimelineQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
+              onChainContentURI: string;
               hidden: boolean;
               createdAt: any;
               profile: {
@@ -19158,6 +20235,11 @@ export type TimelineQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -19241,6 +20323,10 @@ export type TimelineQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
               stats: {
                 __typename?: 'PublicationStats';
@@ -19281,6 +20367,11 @@ export type TimelineQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | {
@@ -19369,6 +20460,13 @@ export type TimelineQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                     mirrorOf:
                       | {
@@ -19377,6 +20475,7 @@ export type TimelineQuery = {
                           isDataAvailability: boolean;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          onChainContentURI: string;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -19409,6 +20508,11 @@ export type TimelineQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: {
+                            __typename?: 'CanDecryptResponse';
+                            result: boolean;
+                            reasons?: Array<DecryptFailReason> | null;
+                          };
                           stats: {
                             __typename?: 'PublicationStats';
                             totalUpvotes: number;
@@ -19424,6 +20528,7 @@ export type TimelineQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
+                          onChainContentURI: string;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -19458,6 +20563,11 @@ export type TimelineQuery = {
                           };
                           canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                           canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                          canDecrypt: {
+                            __typename?: 'CanDecryptResponse';
+                            result: boolean;
+                            reasons?: Array<DecryptFailReason> | null;
+                          };
                           collectedBy?: {
                             __typename?: 'Wallet';
                             address: any;
@@ -19599,6 +20709,13 @@ export type TimelineQuery = {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                             }>;
+                            encryptionParams?: {
+                              __typename?: 'EncryptionParamsOutput';
+                              providerSpecificParams: {
+                                __typename?: 'ProviderSpecificParamsOutput';
+                                encryptionKey: any;
+                              };
+                            } | null;
                           };
                         };
                   }
@@ -19609,6 +20726,7 @@ export type TimelineQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
+                    onChainContentURI: string;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -19635,6 +20753,11 @@ export type TimelineQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -19752,6 +20875,13 @@ export type TimelineQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -19786,6 +20916,11 @@ export type TimelineQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | {
@@ -19871,6 +21006,10 @@ export type TimelineQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
               mirrorOf:
                 | {
@@ -19879,6 +21018,7 @@ export type TimelineQuery = {
                     isDataAvailability: boolean;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    onChainContentURI: string;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -19903,6 +21043,11 @@ export type TimelineQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     stats: {
                       __typename?: 'PublicationStats';
                       totalUpvotes: number;
@@ -19918,6 +21063,7 @@ export type TimelineQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
+                    onChainContentURI: string;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -19944,6 +21090,11 @@ export type TimelineQuery = {
                     };
                     canComment: { __typename?: 'CanCommentResponse'; result: boolean };
                     canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+                    canDecrypt: {
+                      __typename?: 'CanDecryptResponse';
+                      result: boolean;
+                      reasons?: Array<DecryptFailReason> | null;
+                    };
                     collectedBy?: {
                       __typename?: 'Wallet';
                       address: any;
@@ -20061,6 +21212,13 @@ export type TimelineQuery = {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                       }>;
+                      encryptionParams?: {
+                        __typename?: 'EncryptionParamsOutput';
+                        providerSpecificParams: {
+                          __typename?: 'ProviderSpecificParamsOutput';
+                          encryptionKey: any;
+                        };
+                      } | null;
                     };
                   };
             }
@@ -20071,6 +21229,7 @@ export type TimelineQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
+              onChainContentURI: string;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -20097,6 +21256,11 @@ export type TimelineQuery = {
               };
               canComment: { __typename?: 'CanCommentResponse'; result: boolean };
               canMirror: { __typename?: 'CanMirrorResponse'; result: boolean };
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReason> | null;
+              };
               collectedBy?: {
                 __typename?: 'Wallet';
                 address: any;
@@ -20207,6 +21371,10 @@ export type TimelineQuery = {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any; mimeType?: any | null };
                 }>;
+                encryptionParams?: {
+                  __typename?: 'EncryptionParamsOutput';
+                  providerSpecificParams: { __typename?: 'ProviderSpecificParamsOutput'; encryptionKey: any };
+                } | null;
               };
             }
           | null;
@@ -20449,6 +21617,11 @@ export const MetadataFieldsFragmentDoc = gql`
         mimeType
       }
     }
+    encryptionParams {
+      providerSpecificParams {
+        encryptionKey
+      }
+    }
   }
 `;
 export const PostFieldsFragmentDoc = gql`
@@ -20460,13 +21633,18 @@ export const PostFieldsFragmentDoc = gql`
     isDataAvailability
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
+    hasCollectedByMe
+    onChainContentURI
     canComment(profileId: $profileId) {
       result
     }
     canMirror(profileId: $profileId) {
       result
     }
-    hasCollectedByMe
+    canDecrypt(profileId: $profileId) {
+      result
+      reasons
+    }
     collectedBy {
       address
       defaultProfile {
@@ -20505,6 +21683,10 @@ export const MirrorFieldsFragmentDoc = gql`
     canMirror(profileId: $profileId) {
       result
     }
+    canDecrypt(profileId: $profileId) {
+      result
+      reasons
+    }
     collectModule {
       ...CollectModuleFields
     }
@@ -20527,11 +21709,16 @@ export const MirrorFieldsFragmentDoc = gql`
         isDataAvailability
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
+        onChainContentURI
         canComment(profileId: $profileId) {
           result
         }
         canMirror(profileId: $profileId) {
           result
+        }
+        canDecrypt(profileId: $profileId) {
+          result
+          reasons
         }
         stats {
           ...StatsFields
@@ -20557,13 +21744,18 @@ export const CommentFieldsFragmentDoc = gql`
     isDataAvailability
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
+    hasCollectedByMe
+    onChainContentURI
     canComment(profileId: $profileId) {
       result
     }
     canMirror(profileId: $profileId) {
       result
     }
-    hasCollectedByMe
+    canDecrypt(profileId: $profileId) {
+      result
+      reasons
+    }
     collectedBy {
       address
       defaultProfile {
@@ -20594,13 +21786,18 @@ export const CommentFieldsFragmentDoc = gql`
         isDataAvailability
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
+        hasCollectedByMe
+        onChainContentURI
         canComment(profileId: $profileId) {
           result
         }
         canMirror(profileId: $profileId) {
           result
         }
-        hasCollectedByMe
+        canDecrypt(profileId: $profileId) {
+          result
+          reasons
+        }
         collectedBy {
           address
           defaultProfile {
@@ -24221,7 +25418,6 @@ export const PublicationDocument = gql`
     publication(request: $request) {
       ... on Post {
         ...PostFields
-        onChainContentURI
         collectNftAddress
         profile {
           isFollowedByMe
@@ -24232,7 +25428,6 @@ export const PublicationDocument = gql`
       }
       ... on Comment {
         ...CommentFields
-        onChainContentURI
         collectNftAddress
         profile {
           isFollowedByMe
@@ -24243,7 +25438,6 @@ export const PublicationDocument = gql`
       }
       ... on Mirror {
         ...MirrorFields
-        onChainContentURI
         collectNftAddress
         profile {
           isFollowedByMe

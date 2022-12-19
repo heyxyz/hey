@@ -6,7 +6,6 @@ query Publication(
   publication(request: $request) {
     ... on Post {
       ...PostFields
-      onChainContentURI
       collectNftAddress
       profile {
         isFollowedByMe
@@ -17,7 +16,6 @@ query Publication(
     }
     ... on Comment {
       ...CommentFields
-      onChainContentURI
       collectNftAddress
       profile {
         isFollowedByMe
@@ -28,7 +26,6 @@ query Publication(
     }
     ... on Mirror {
       ...MirrorFields
-      onChainContentURI
       collectNftAddress
       profile {
         isFollowedByMe

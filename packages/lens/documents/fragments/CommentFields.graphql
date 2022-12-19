@@ -6,13 +6,18 @@ fragment CommentFields on Comment {
   isDataAvailability
   reaction(request: $reactionRequest)
   mirrors(by: $profileId)
+  hasCollectedByMe
+  onChainContentURI
   canComment(profileId: $profileId) {
     result
   }
   canMirror(profileId: $profileId) {
     result
   }
-  hasCollectedByMe
+  canDecrypt(profileId: $profileId) {
+    result
+    reasons
+  }
   collectedBy {
     address
     defaultProfile {
@@ -43,13 +48,18 @@ fragment CommentFields on Comment {
       isDataAvailability
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
+      hasCollectedByMe
+      onChainContentURI
       canComment(profileId: $profileId) {
         result
       }
       canMirror(profileId: $profileId) {
         result
       }
-      hasCollectedByMe
+      canDecrypt(profileId: $profileId) {
+        result
+        reasons
+      }
       collectedBy {
         address
         defaultProfile {

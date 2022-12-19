@@ -18,4 +18,9 @@ fragment MetadataFields on MetadataOutput {
       mimeType
     }
   }
+  encryptionParams {
+    providerSpecificParams {
+      encryptionKey
+    }
+  }
 }

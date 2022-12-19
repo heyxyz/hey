@@ -17,7 +17,7 @@ const ReferralAlert: FC<Props> = ({ mirror, electedMirror, referralFee = 0 }) =>
   const publication = electedMirror ?? mirror;
 
   return (
-    <div className="flex items-center pt-1 space-x-1.5 text-sm text-gray-500">
+    <div className="flex items-center pt-1 space-x-1.5 text-sm lt-text-gray-500">
       <HeartIcon className="w-4 h-4 text-pink-500" />
       <Slug slug={formatHandle(publication?.profile?.handle)} prefix="@" />
       <span>

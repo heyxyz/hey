@@ -6,7 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Modal } from '@components/UI/Modal';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
@@ -74,11 +74,11 @@ const RecommendedProfiles: FC = () => {
           ))}
         </div>
         <button
-          className="bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 border-t dark:border-t-gray-700/80 text-sm w-full rounded-b-xl text-left px-5 py-3 flex items-center space-x-2 text-gray-600 dark:text-gray-300"
+          className="bg-gray-50 dark:bg-black hover:bg-gray-100 dark:hover:bg-gray-900 border-t dark:border-t-gray-700 text-sm w-full rounded-b-xl text-left px-5 py-3 flex items-center space-x-2 text-gray-600 dark:text-gray-300"
           type="button"
           onClick={() => {
             setShowSuggestedModal(true);
-            Leafwatch.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
+            Analytics.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
           }}
         >
           <DotsCircleHorizontalIcon className="h-4 w-4" />

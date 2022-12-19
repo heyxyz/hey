@@ -3,8 +3,8 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { XCircleIcon } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import getWalletLogo from '@lib/getWalletLogo';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import toSnakeCase from '@lib/toSnakeCase';
 import clsx from 'clsx';
@@ -47,7 +47,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Leafwatch.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
+      Analytics.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
     } catch (error) {
       console.error(error);
     }
@@ -94,7 +94,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Leafwatch.track(USER.SIWL);
+      Analytics.track(USER.SIWL);
     } catch (error) {
       console.error(error);
     } finally {
@@ -137,7 +137,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             key={connector.id}
             className={clsx(
               { 'hover:bg-gray-100 dark:hover:bg-gray-700': connector.id !== activeConnector?.id },
-              'w-full flex items-center justify-between space-x-2.5 px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
+              'w-full flex items-center justify-between space-x-2.5 px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700 outline-none'
             )}
             onClick={() => onConnect(connector)}
             disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}
