@@ -14,6 +14,7 @@ import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useEffect } from 'react';
+import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
@@ -39,6 +40,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
+  const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
 
   const {
     RevertCollectModule,
@@ -62,6 +64,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
 
     switch (selectedCollectModule) {
       case RevertCollectModule:
+        setCollectToView(false);
         setPayload({ revertCollectModule: true });
         break;
       case FreeCollectModule:

@@ -7,8 +7,8 @@ import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
-import type { FC } from 'react';
-import React, { useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 
 import Follow from './Follow';
 import Markup from './Markup';
@@ -17,7 +17,7 @@ import SuperFollow from './SuperFollow';
 
 type Props = {
   profile: Profile;
-  children: React.ReactNode;
+  children: ReactNode;
   isBig?: boolean;
   followStatusLoading?: boolean;
   showUserPreview?: boolean;

@@ -4,7 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { useTimelinePersistStore } from 'src/store/timeline';
 
 const FeedEventFilters: FC = () => {

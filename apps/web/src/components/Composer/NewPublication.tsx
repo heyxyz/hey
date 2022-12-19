@@ -9,8 +9,8 @@ import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
-import type { EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
-import { LensEnvironment, LensGatedSDK } from '@lens-protocol/sdk-gated';
+import type { CollectCondition, EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
+import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -31,6 +31,7 @@ import {
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
   LENSHUB_PROXY,
+  LIT_PROTOCOL_ENVIRONMENT,
   RELAY_ON,
   SIGN_WALLET
 } from 'data/constants';
@@ -114,6 +115,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   // Access module store
   const restricted = useAccessSettingsStore((state) => state.restricted);
+  const followToView = useAccessSettingsStore((state) => state.followToView);
+  const collectToView = useAccessSettingsStore((state) => state.collectToView);
+  const resetAccessSettings = useAccessSettingsStore((state) => state.reset);
 
   // States
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -132,6 +136,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
+    resetAccessSettings();
     if (!isComment) {
       setShowNewPostModal(false);
     }
@@ -311,6 +316,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     ) {
       return attachments[0]?.item;
     }
+
     return null;
   };
 
@@ -331,15 +337,34 @@ const NewPublication: FC<Props> = ({ publication }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    const tokenGatedSdk = await LensGatedSDK.create({ provider, signer, env: LensEnvironment.Mumbai });
+    // Create the SDK instance
+    const tokenGatedSdk = await LensGatedSDK.create({
+      provider,
+      signer,
+      env: LIT_PROTOCOL_ENVIRONMENT as any
+    });
+
+    // Connect to the SDK
     await tokenGatedSdk.connect({
       address: currentProfile.ownedBy,
-      env: LensEnvironment.Mumbai
+      env: LIT_PROTOCOL_ENVIRONMENT as any
     });
 
     // Condition for gating the content
+    const collectAccessCondition: CollectCondition = { thisPublication: true };
     const followAccessCondition: FollowCondition = { profileId: currentProfile.id };
-    const accessCondition: AccessConditionOutput = { follow: followAccessCondition };
+
+    // Create the access condition
+    let accessCondition: AccessConditionOutput = {};
+    if (collectToView && followToView) {
+      accessCondition = {
+        and: { criteria: [{ collect: collectAccessCondition }, { follow: followAccessCondition }] }
+      };
+    } else if (collectToView) {
+      accessCondition = { collect: collectAccessCondition };
+    } else if (followToView) {
+      accessCondition = { follow: followAccessCondition };
+    }
 
     // Generate the encrypted metadata and upload it to Arweave
     const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(

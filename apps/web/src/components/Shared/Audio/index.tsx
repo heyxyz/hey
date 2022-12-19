@@ -6,7 +6,7 @@ import getThumbnailUrl from '@lib/getThumbnailUrl';
 import type { Attribute } from 'lens';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
