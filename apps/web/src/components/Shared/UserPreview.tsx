@@ -114,7 +114,7 @@ const UserPreview: FC<Props> = ({
   };
 
   return showUserPreview ? (
-    <div onMouseOver={onPreviewStart}>
+    <span onMouseOver={onPreviewStart}>
       <Tippy
         placement="bottom-start"
         delay={[800, 0]}
@@ -128,7 +128,7 @@ const UserPreview: FC<Props> = ({
       >
         <span>{children}</span>
       </Tippy>
-    </div>
+    </span>
   ) : (
     <span>{children}</span>
   );
