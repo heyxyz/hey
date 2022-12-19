@@ -15,6 +15,7 @@ fragment PostFields on Post {
   }
   canDecrypt(profileId: $profileId) {
     result
+    reasons
   }
   collectedBy {
     address
