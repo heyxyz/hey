@@ -1,36 +1,22 @@
 import { Button } from '@components/UI/Button';
-import { Modal } from '@components/UI/Modal';
-import { ArrowCircleRightIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useAuthStore } from 'src/store/auth';
 import { USER } from 'src/tracking';
 
-import Login from '../Login';
-
 const LoginButton: FC = () => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
 
   return (
-    <>
-      <Modal
-        title="Login"
-        icon={<ArrowCircleRightIcon className="w-5 h-5 text-brand" />}
-        show={showLoginModal}
-        onClose={() => setShowLoginModal(false)}
-      >
-        <Login />
-      </Modal>
-      <Button
-        icon={<img className="mr-0.5 w-4 h-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />}
-        onClick={() => {
-          setShowLoginModal(!showLoginModal);
-          Analytics.track(USER.LOGIN);
-        }}
-      >
-        Login
-      </Button>
-    </>
+    <Button
+      icon={<img className="mr-0.5 w-4 h-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />}
+      onClick={() => {
+        setShowAuthModal(true);
+        Analytics.track(USER.LOGIN);
+      }}
+    >
+      Login
+    </Button>
   );
 };
 
