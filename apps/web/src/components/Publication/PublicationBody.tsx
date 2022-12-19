@@ -4,10 +4,12 @@ import Markup from '@components/Shared/Markup';
 import type { LensterPublication } from '@generated/types';
 import { EyeIcon } from '@heroicons/react/outline';
 import getURLs from '@lib/getURLs';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { useAppStore } from 'src/store/app';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
@@ -17,9 +19,10 @@ interface Props {
 
 const PublicationBody: FC<Props> = ({ publication }) => {
   const { pathname } = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
-  if (publication?.metadata?.encryptionParams) {
+  if (isFeatureEnabled('access-settings', currentProfile?.id) && publication?.metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
