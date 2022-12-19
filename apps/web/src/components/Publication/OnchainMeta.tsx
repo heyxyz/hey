@@ -27,7 +27,7 @@ interface Props {
 }
 
 const OnchainMeta: FC<Props> = ({ publication }) => {
-  const hash = publication.onChainContentURI.split('/').pop();
+  const hash = publication.onChainContentURI?.split('/').pop();
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 
