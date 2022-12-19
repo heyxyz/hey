@@ -92,7 +92,11 @@ const UserProfile: FC<Props> = ({
           <div>
             <UserName />
             {showBio && profile?.bio && (
-              <div className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}>
+              <div
+                // Replace with Tailwind
+                style={{ wordBreak: 'break-word' }}
+                className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}
+              >
                 <Markup>{profile?.bio}</Markup>
               </div>
             )}
