@@ -117,6 +117,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
   const followToView = useAccessSettingsStore((state) => state.followToView);
   const collectToView = useAccessSettingsStore((state) => state.collectToView);
+  const resetAccessSettings = useAccessSettingsStore((state) => state.reset);
 
   // States
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -135,6 +136,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     setPublicationContent('');
     setAttachments([]);
     resetCollectSettings();
+    resetAccessSettings();
     if (!isComment) {
       setShowNewPostModal(false);
     }
