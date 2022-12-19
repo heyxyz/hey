@@ -13,11 +13,24 @@ import axios from 'axios';
 import clsx from 'clsx';
 import { LIT_PROTOCOL_ENVIRONMENT } from 'data/constants';
 import type { PublicationMetadataV2Input } from 'lens';
+import { DecryptFailReason } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { useProvider, useSigner } from 'wagmi';
+
+interface DecryptMessageProps {
+  icon: ReactNode;
+  children: ReactNode;
+}
+
+const DecryptMessage: FC<DecryptMessageProps> = ({ icon, children }) => (
+  <div className="flex items-center space-x-2">
+    {icon}
+    <span>{children}</span>
+  </div>
+);
 
 interface Props {
   encryptedPublication: LensterPublication;
@@ -31,6 +44,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { data: signer } = useSigner();
 
   const canDecrypt = encryptedPublication?.canDecrypt?.result;
+  const { reasons } = encryptedPublication.canDecrypt;
   const showMore = encryptedPublication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
   const getDecryptedData = async () => {
@@ -64,21 +78,19 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           <span className="text-white font-black text-base">Unlock this by...</span>
         </div>
         <div className="pt-3.5 space-y-2 text-white">
-          <div className="flex items-center space-x-2">
-            <CollectionIcon className="h-4 w-4" />
-            <span>
+          {reasons?.includes(DecryptFailReason.HasNotCollectedPublication) && (
+            <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
               Collect this <b className="lowercase">{encryptedPublication?.__typename}</b>
-            </span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <UserAddIcon className="h-4 w-4" />
-            <span>
+            </DecryptMessage>
+          )}
+          {reasons?.includes(DecryptFailReason.DoesNotFollowProfile) && (
+            <DecryptMessage icon={<UserAddIcon className="h-4 w-4" />}>
               Follow{' '}
               <Link href={`/u/${formatHandle(encryptedPublication?.profile?.handle)}`} className="font-bold">
                 @{formatHandle(encryptedPublication?.profile?.handle)}
               </Link>
-            </span>
-          </div>
+            </DecryptMessage>
+          )}
         </div>
       </Card>
     );
