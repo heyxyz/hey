@@ -19,14 +19,8 @@ fragment MetadataFields on MetadataOutput {
     }
   }
   encryptionParams {
-    accessCondition {
-      follow {
-        profileId
-      }
-      collect {
-        publicationId
-        thisPublication
-      }
+    providerSpecificParams {
+      encryptionKey
     }
   }
 }
