@@ -55,6 +55,10 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const followNotFinalisedOnChain =
     !doesNotFollowProfile && reasons?.includes(DecryptFailReason.FollowNotFinalisedOnChain);
 
+  // Style
+  const cardClasses =
+    'text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600 cursor-text';
+
   const getDecryptedData = async () => {
     if (!signer) {
       return;
@@ -77,10 +81,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
   if (!canDecrypt) {
     return (
-      <Card
-        className="text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600 cursor-text"
-        onClick={(event) => event.stopPropagation()}
-      >
+      <Card className={cardClasses} onClick={(event) => event.stopPropagation()}>
         <div className="font-bold flex items-center space-x-2">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
           <span className="text-white font-black text-base">Unlock this by...</span>
