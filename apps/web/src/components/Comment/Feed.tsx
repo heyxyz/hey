@@ -56,7 +56,7 @@ const Feed: FC<Props> = ({ publication }) => {
       {loading && <PublicationsShimmer />}
       {!loading && totalComments === 0 && (
         <EmptyState
-          message={<span>Be the first one to comment!</span>}
+          message={<span className="dark:text-white">Be the first one to comment!</span>}
           icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
       )}

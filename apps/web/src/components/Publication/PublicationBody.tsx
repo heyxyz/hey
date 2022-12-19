@@ -30,7 +30,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
       <Markup
         className={clsx(
           { 'line-clamp-5': showMore },
-          'whitespace-pre-wrap break-words leading-md linkify text-md'
+          'whitespace-pre-wrap break-words leading-md linkify text-md dark:text-white'
         )}
       >
         {publication?.metadata?.content}

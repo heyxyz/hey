@@ -288,7 +288,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               </Tooltip>
             )}
             {publication?.metadata?.name && (
-              <div className="text-xl font-bold">{publication?.metadata?.name}</div>
+              <div className="text-xl font-bold dark:text-white">{publication?.metadata?.name}</div>
             )}
           </div>
           {publication?.metadata?.description && (
@@ -329,7 +329,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             <div className="flex items-center space-x-2">
               <UsersIcon className="w-4 h-4 lt-text-gray-500" />
               <button
-                className="font-bold"
+                className="font-bold dark:text-white"
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal);

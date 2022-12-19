@@ -9,7 +9,7 @@ const Loader: FC<Props> = ({ message }) => {
   return (
     <div className="p-5 space-y-2 font-bold text-center">
       <Spinner size="md" className="mx-auto" />
-      {message ? <div>{message}</div> : null}
+      {message ? <div className="dark:text-white">{message}</div> : null}
     </div>
   );
 };

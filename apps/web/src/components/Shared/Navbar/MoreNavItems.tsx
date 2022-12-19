@@ -1,12 +1,16 @@
 import { Menu, Transition } from '@headlessui/react';
-import { HandIcon, SupportIcon } from '@heroicons/react/outline';
+import { HandIcon, MoonIcon, SunIcon, SupportIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
+import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 
 import { NextLink } from './MenuItems';
 
 const MoreNavItems: FC = () => {
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDarkMode = resolvedTheme === 'dark';
+
   return (
     <Menu as="div">
       {({ open }) => (
@@ -61,6 +65,20 @@ const MoreNavItems: FC = () => {
                   <HandIcon className="w-4 h-4" />
                   <div>Report a bug</div>
                 </div>
+              </Menu.Item>
+              <Menu.Item
+                as="div"
+                className={({ active }: { active: boolean }) =>
+                  clsx({ 'dropdown-active': active }, 'menu-item')
+                }
+              >
+                <button
+                  onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
+                  className="flex items-center space-x-1.5"
+                >
+                  {isDarkMode ? <SunIcon className="w-4 h-4" /> : <MoonIcon className="w-4 h-4" />}
+                  <div>{isDarkMode ? 'Light mode' : 'Dark mode'}</div>
+                </button>
               </Menu.Item>
             </Menu.Items>
           </Transition>

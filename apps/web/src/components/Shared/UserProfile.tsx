@@ -61,7 +61,7 @@ const UserProfile: FC<Props> = ({
   const UserName = () => (
     <>
       <div className="flex items-center max-w-sm truncate">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
+        <div className={clsx('dark:text-white', isBig ? 'font-bold' : 'text-md')}>
           {profile?.name ?? formatHandle(profile?.handle)}
         </div>
         {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand ml-1" />}
@@ -95,7 +95,7 @@ const UserProfile: FC<Props> = ({
               <div
                 // Replace with Tailwind
                 style={{ wordBreak: 'break-word' }}
-                className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}
+                className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6 dark:text-white')}
               >
                 <Markup>{profile?.bio}</Markup>
               </div>

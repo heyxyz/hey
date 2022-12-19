@@ -60,7 +60,7 @@ const Details: FC<Props> = ({ profile }) => {
   const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
     <div className="flex gap-2 items-center">
       {icon}
-      <div className="truncate text-md">{children}</div>
+      <div className="truncate text-md dark:text-white">{children}</div>
     </div>
   );
 
@@ -79,7 +79,7 @@ const Details: FC<Props> = ({ profile }) => {
       </div>
       <div className="py-2 space-y-1">
         <div className="flex gap-1.5 items-center text-2xl font-bold">
-          <div className="truncate">{profile?.name ?? formatHandle(profile?.handle)}</div>
+          <div className="truncate dark:text-white">{profile?.name ?? formatHandle(profile?.handle)}</div>
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
               <BadgeCheckIcon className="w-6 h-6 text-brand" />
@@ -98,7 +98,7 @@ const Details: FC<Props> = ({ profile }) => {
         </div>
       </div>
       {profile?.bio && (
-        <div className="mr-0 sm:mr-10 leading-md linkify text-md break-words">
+        <div className="mr-0 sm:mr-10 leading-md linkify text-md break-words dark:text-white">
           <Markup>{profile?.bio}</Markup>
         </div>
       )}
@@ -148,11 +148,11 @@ const Details: FC<Props> = ({ profile }) => {
         )}
         <div className="w-full divider" />
         <div className="space-y-2">
-          <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
+          <MetaDetails icon={<HashtagIcon className="w-4 h-4 dark:text-white" />}>
             <Tooltip content={`#${parseInt(profile?.id)}`}>{profile?.id}</Tooltip>
           </MetaDetails>
           {getAttribute(profile?.attributes, 'location') && (
-            <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
+            <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4 dark:text-white" />}>
               {getAttribute(profile?.attributes, 'location') as any}
             </MetaDetails>
           )}

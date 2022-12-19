@@ -24,7 +24,7 @@ export const Tooltip: FC<Props> = ({
       duration={0}
       delay={[withDelay ? 500 : 0, 0]}
       className="hidden sm:block !text-xs tracking-wide !rounded-lg !leading-6"
-      content={<span className={clsx(className)}>{content}</span>}
+      content={<span className={clsx(className, 'dark:text-white')}>{content}</span>}
     >
       <span>{children}</span>
     </Tippy>

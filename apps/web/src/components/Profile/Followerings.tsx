@@ -28,7 +28,7 @@ const Followerings: FC<Props> = ({ profile }) => {
           Analytics.track(PROFILE.OPEN_FOLLOWING);
         }}
       >
-        <div className="text-xl">{humanize(profile?.stats?.totalFollowing)}</div>
+        <div className="text-xl dark:text-white">{humanize(profile?.stats?.totalFollowing)}</div>
         <div className="lt-text-gray-500">Following</div>
       </button>
       <button
@@ -39,7 +39,7 @@ const Followerings: FC<Props> = ({ profile }) => {
           Analytics.track(PROFILE.OPEN_FOLLOWERS);
         }}
       >
-        <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>
+        <div className="text-xl dark:text-white">{humanize(profile?.stats?.totalFollowers)}</div>
         <div className="lt-text-gray-500">Followers</div>
       </button>
       <Modal

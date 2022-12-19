@@ -22,7 +22,7 @@ const Login: FC = () => {
             </div>
           ) : (
             <div className="space-y-1">
-              <div className="text-xl font-bold">Connect your wallet.</div>
+              <div className="text-xl font-bold dark:text-white">Connect your wallet.</div>
               <div className="text-sm lt-text-gray-500">
                 Connect with one of our available wallet providers or create a new one.
               </div>

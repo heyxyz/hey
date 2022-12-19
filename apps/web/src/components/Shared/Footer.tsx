@@ -10,7 +10,7 @@ const Footer: FC = () => {
 
   return (
     <footer
-      className={`mt-4 leading-7 text-sm sticky flex flex-wrap px-3 lg:px-0 gap-x-[12px] ${
+      className={`mt-4 leading-7 text-sm sticky flex flex-wrap px-3 lg:px-0 gap-x-[12px] dark:text-white ${
         staffMode ? 'top-28' : 'top-20'
       }`}
     >
