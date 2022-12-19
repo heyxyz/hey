@@ -1,4 +1,3 @@
-import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const featureFlags = [
@@ -10,6 +9,6 @@ export const featureFlags = [
   {
     key: 'access-settings',
     name: 'Access settings',
-    enabledFor: [...lensterMembers, ...aaveMembers]
+    enabledFor: [...lensterMembers]
   }
 ];
