@@ -4,10 +4,18 @@ import PublicationContentShimmer from '@components/Shared/Shimmer/PublicationCon
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { LensterPublication } from '@generated/types';
-import { CollectionIcon, EyeIcon, UserAddIcon } from '@heroicons/react/outline';
+import {
+  CollectionIcon,
+  DatabaseIcon,
+  EyeIcon,
+  FingerPrintIcon,
+  PhotographIcon,
+  UserAddIcon
+} from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import formatHandle from '@lib/formatHandle';
+import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -48,12 +56,20 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const showMore = encryptedPublication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
   // Status
+  // Collect checks - https://docs.lens.xyz/docs/gated#collected-publication
   const hasNotCollectedPublication = reasons?.includes(DecryptFailReason.HasNotCollectedPublication);
   const collectNotFinalisedOnChain =
     !hasNotCollectedPublication && reasons?.includes(DecryptFailReason.CollectNotFinalisedOnChain);
+  // Follow checks - https://docs.lens.xyz/docs/gated#profile-follow
   const doesNotFollowProfile = reasons?.includes(DecryptFailReason.DoesNotFollowProfile);
   const followNotFinalisedOnChain =
     !doesNotFollowProfile && reasons?.includes(DecryptFailReason.FollowNotFinalisedOnChain);
+  // Profile check - https://docs.lens.xyz/docs/gated#profile-ownership
+  const doesNotOwnProfile = reasons?.includes(DecryptFailReason.DoesNotOwnProfile);
+  // Token check - https://docs.lens.xyz/docs/gated#erc20-token-ownership
+  const unauthorizedBalance = reasons?.includes(DecryptFailReason.UnauthorizedBalance);
+  // NFT check - https://docs.lens.xyz/docs/gated#erc20-token-ownership
+  const doesNotOwnNft = reasons?.includes(DecryptFailReason.DoesNotOwnNft);
 
   // Style
   const cardClasses =
@@ -64,7 +80,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       return;
     }
 
-    const contentUri = encryptedPublication?.onChainContentURI;
+    const contentUri = getIPFSLink(encryptedPublication?.onChainContentURI);
     const { data } = await axios.get(contentUri);
     const sdk = await LensGatedSDK.create({ provider, signer, env: LIT_PROTOCOL_ENVIRONMENT as any });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);
@@ -87,6 +103,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           <span className="text-white font-black text-base">Unlock this by...</span>
         </div>
         <div className="pt-3.5 space-y-2 text-white">
+          {/* Collect checks */}
           {hasNotCollectedPublication && (
             <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
               Collect this <b className="lowercase">{encryptedPublication?.__typename}</b>
@@ -97,6 +114,8 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
               Collect finalizing on chain...
             </DecryptMessage>
           )}
+
+          {/* Follow checks */}
           {doesNotFollowProfile && (
             <DecryptMessage icon={<UserAddIcon className="h-4 w-4" />}>
               Follow{' '}
@@ -108,6 +127,27 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           {followNotFinalisedOnChain && (
             <DecryptMessage icon={<UserAddIcon className="animate-pulse h-4 w-4" />}>
               Follow finalizing on chain...
+            </DecryptMessage>
+          )}
+
+          {/* Profile check */}
+          {doesNotOwnProfile && (
+            <DecryptMessage icon={<FingerPrintIcon className="h-4 w-4" />}>
+              You don't own the profile
+            </DecryptMessage>
+          )}
+
+          {/* Token check */}
+          {unauthorizedBalance && (
+            <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
+              You don't have enough tokens
+            </DecryptMessage>
+          )}
+
+          {/* NFT check */}
+          {doesNotOwnNft && (
+            <DecryptMessage icon={<PhotographIcon className="h-4 w-4" />}>
+              You don't have the NFT
             </DecryptMessage>
           )}
         </div>
