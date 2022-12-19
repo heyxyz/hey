@@ -21,7 +21,7 @@ interface Props {
   profile: Profile;
 }
 
-const NFTGallery: FC<Props> = ({ profile }) => {
+const NftGallery: FC<Props> = ({ profile }) => {
   const [isRearrange, setIsRearrange] = useState(false);
 
   // Variables
@@ -139,4 +139,4 @@ const NFTGallery: FC<Props> = ({ profile }) => {
   );
 };
 
-export default NFTGallery;
+export default NftGallery;

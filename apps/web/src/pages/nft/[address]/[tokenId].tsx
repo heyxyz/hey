@@ -1,3 +1,3 @@
-import NFTDetail from '@components/Profile/NFTGallery/Detail';
+import NFTDetail from '@components/Profile/NftGallery/Detail';
 
 export default NFTDetail;

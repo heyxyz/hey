@@ -17,7 +17,7 @@ import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
 import FeedType from './FeedType';
-import NFTGallery from './NFTGallery';
+import NftGallery from './NftGallery';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
@@ -75,7 +75,7 @@ const ViewProfile: NextPage = () => {
             <Feed profile={profile as any} type={feedType} />
           )}
           {feedType === 'GALLERY' && isFeatureEnabled('nft-gallery', '0x2d') ? (
-            <NFTGallery profile={profile as Profile} />
+            <NftGallery profile={profile as Profile} />
           ) : (
             <NFTFeed profile={profile as Profile} />
           )}

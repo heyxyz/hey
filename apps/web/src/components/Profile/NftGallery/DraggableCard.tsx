@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
-import NFT from './NFT';
+import NFT from './NftCard';
 
 interface CardProps {
   id: string;
