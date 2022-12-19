@@ -54,7 +54,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
                 on={collectToView}
                 setOn={() => {
                   if (!collectToView && selectedCollectModule === CollectModules.RevertCollectModule) {
-                    return toast.error('Enable collect module first to use collect based token gating');
+                    return toast.error('Enable collect first to use collect based token gating');
                   }
                   setCollectToView(!collectToView);
                 }}
