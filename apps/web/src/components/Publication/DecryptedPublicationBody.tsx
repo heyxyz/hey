@@ -47,6 +47,14 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { reasons } = encryptedPublication.canDecrypt;
   const showMore = encryptedPublication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
+  // Status
+  const hasNotCollectedPublication = reasons?.includes(DecryptFailReason.HasNotCollectedPublication);
+  const collectNotFinalisedOnChain =
+    !hasNotCollectedPublication && reasons?.includes(DecryptFailReason.CollectNotFinalisedOnChain);
+  const doesNotFollowProfile = reasons?.includes(DecryptFailReason.DoesNotFollowProfile);
+  const followNotFinalisedOnChain =
+    !doesNotFollowProfile && reasons?.includes(DecryptFailReason.FollowNotFinalisedOnChain);
+
   const getDecryptedData = async () => {
     if (!signer) {
       return;
@@ -78,17 +86,27 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           <span className="text-white font-black text-base">Unlock this by...</span>
         </div>
         <div className="pt-3.5 space-y-2 text-white">
-          {reasons?.includes(DecryptFailReason.HasNotCollectedPublication) && (
+          {hasNotCollectedPublication && (
             <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
               Collect this <b className="lowercase">{encryptedPublication?.__typename}</b>
             </DecryptMessage>
           )}
-          {reasons?.includes(DecryptFailReason.DoesNotFollowProfile) && (
+          {collectNotFinalisedOnChain && (
+            <DecryptMessage icon={<CollectionIcon className="animate-pulse h-4 w-4" />}>
+              Collect finalizing on chain...
+            </DecryptMessage>
+          )}
+          {doesNotFollowProfile && (
             <DecryptMessage icon={<UserAddIcon className="h-4 w-4" />}>
               Follow{' '}
               <Link href={`/u/${formatHandle(encryptedPublication?.profile?.handle)}`} className="font-bold">
                 @{formatHandle(encryptedPublication?.profile?.handle)}
               </Link>
+            </DecryptMessage>
+          )}
+          {followNotFinalisedOnChain && (
+            <DecryptMessage icon={<UserAddIcon className="animate-pulse h-4 w-4" />}>
+              Follow finalizing on chain...
             </DecryptMessage>
           )}
         </div>
