@@ -16,7 +16,7 @@ import {
   useTimelineLazyQuery
 } from 'lens';
 import type { ChangeEvent, FC } from 'react';
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
 import { MISCELLANEOUS, SEARCH } from 'src/tracking';

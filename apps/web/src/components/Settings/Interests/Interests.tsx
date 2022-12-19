@@ -11,7 +11,6 @@ import {
   useRemoveProfileInterestMutation
 } from 'lens';
 import type { FC } from 'react';
-import React from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 

@@ -18,8 +18,10 @@ export const cursorBasedPagination = <T extends CursorBasedPagination>(
       if (!existing) {
         return existing;
       }
+
       const { items, pageInfo } = existing;
       const removedItems = items?.filter((item) => !canRead(item));
+
       return {
         ...existing,
         items,
@@ -34,8 +36,10 @@ export const cursorBasedPagination = <T extends CursorBasedPagination>(
       if (!existing) {
         return incoming;
       }
+
       const existingItems = existing.items ?? [];
       const incomingItems = incoming.items ?? [];
+
       return {
         ...incoming,
         items: existingItems?.concat(incomingItems),

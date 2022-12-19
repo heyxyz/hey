@@ -10,7 +10,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import React from 'react';
 import { useAppStore } from 'src/store/app';
 
 dayjs.extend(relativeTime);

@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { EmojiHappyIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 
 import List from './List';
 
