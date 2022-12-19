@@ -7,7 +7,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
-import DecryptedPublicationBody from './DecryptedPublicationBody';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationStats from './PublicationStats';
@@ -48,11 +47,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
             <HiddenPublication type={publication.__typename} />
           ) : (
             <>
-              {publication?.metadata?.encryptionParams ? (
-                <DecryptedPublicationBody encryptedPublication={publication} />
-              ) : (
-                <PublicationBody publication={publication} />
-              )}
+              <PublicationBody publication={publication} />
               <div className="text-sm lt-text-gray-500 my-3">
                 <span title={formatTime(timestamp)}>
                   {dayjs(new Date(timestamp)).format('hh:mm A · MMM D, YYYY')}

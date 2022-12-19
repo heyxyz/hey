@@ -9,6 +9,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
+import DecryptedPublicationBody from './DecryptedPublicationBody';
+
 interface Props {
   publication: LensterPublication;
 }
@@ -16,6 +18,10 @@ interface Props {
 const PublicationBody: FC<Props> = ({ publication }) => {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+
+  if (publication?.metadata?.encryptionParams) {
+    return <DecryptedPublicationBody encryptedPublication={publication} />;
+  }
 
   return (
     <div className="break-words">
