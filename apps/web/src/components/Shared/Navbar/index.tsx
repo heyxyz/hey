@@ -66,7 +66,7 @@ const Navbar: FC = () => {
   return (
     <Disclosure
       as="header"
-      className="sticky top-0 z-10 w-full bg-white border-b dark:bg-black dark:border-b-gray-700/80"
+      className="sticky top-0 z-10 w-full bg-white border-b dark:bg-black dark:border-b-gray-700"
     >
       {({ open }) => (
         <>
@@ -74,7 +74,7 @@ const Navbar: FC = () => {
           <div className="container px-5 mx-auto max-w-screen-xl">
             <div className="flex relative justify-between items-center h-14 sm:h-16">
               <div className="flex justify-start items-center">
-                <Disclosure.Button className="inline-flex justify-center items-center mr-4 text-gray-500 rounded-md sm:hidden focus:outline-none">
+                <Disclosure.Button className="inline-flex justify-center items-center mr-4 lt-text-gray-500 rounded-md sm:hidden focus:outline-none">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block w-6 h-6" aria-hidden="true" />

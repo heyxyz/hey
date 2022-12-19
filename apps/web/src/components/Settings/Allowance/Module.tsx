@@ -28,7 +28,7 @@ const Module: FC<Props> = ({ module }) => {
         </div>
         <a
           href={`${POLYGONSCAN_URL}/address/${module?.contractAddress}`}
-          className="text-sm text-gray-500 truncate"
+          className="text-sm lt-text-gray-500 truncate"
           target="_blank"
           rel="noreferrer noopener"
         >

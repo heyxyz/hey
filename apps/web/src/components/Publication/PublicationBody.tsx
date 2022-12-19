@@ -28,7 +28,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
         {publication?.metadata?.content}
       </Markup>
       {showMore && (
-        <div className="mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1">
+        <div className="mt-4 text-sm lt-text-gray-500 font-bold flex items-center space-x-1">
           <EyeIcon className="h-4 w-4" />
           <Link href={`/posts/${publication?.id}`}>Show more</Link>
         </div>

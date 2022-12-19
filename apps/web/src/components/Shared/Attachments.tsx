@@ -4,8 +4,9 @@ import type { LensterPublication, NewLensterAttachment } from '@generated/types'
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getIPFSLink from '@lib/getIPFSLink';
+import imageProxy from '@lib/imageProxy';
 import clsx from 'clsx';
-import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES } from 'data/constants';
+import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
 import type { MediaSet } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -112,7 +113,7 @@ const Attachments: FC<Props> = ({
                 <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
               ) : (
                 <img
-                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
+                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700"
                   loading="lazy"
                   height={1000}
                   width={1000}
@@ -120,10 +121,8 @@ const Attachments: FC<Props> = ({
                     setExpandedImage(url);
                     Analytics.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
                   }}
-                  // src={isNew ? url : imageProxy(url, ATTACHMENT)}
-                  // alt={isNew ? url : imageProxy(url, ATTACHMENT)}
-                  src={url}
-                  alt={url}
+                  src={isNew ? url : imageProxy(url, ATTACHMENT)}
+                  alt={isNew ? url : imageProxy(url, ATTACHMENT)}
                 />
               )}
               {isNew && !hideDelete && (
