@@ -21,7 +21,7 @@ const NFTImage = ({ nft }: { nft: Nft }) => (
   />
 );
 
-const NftCard: FC<Props> = ({ nft, linkToDetail }) => {
+const NFT: FC<Props> = ({ nft, linkToDetail }) => {
   return linkToDetail ? (
     <Link href={`/nft/${nft.contractAddress}/${nft.tokenId}`} className="pb-4 w-full">
       <NFTImage nft={nft} />
@@ -33,4 +33,4 @@ const NftCard: FC<Props> = ({ nft, linkToDetail }) => {
   );
 };
 
-export default NftCard;
+export default NFT;
