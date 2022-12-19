@@ -3,7 +3,6 @@ import { polygon, polygonMumbai } from 'wagmi/chains';
 
 // Web3
 export const RPC_URL = IS_MAINNET ? 'https://rpc.ankr.com/polygon' : 'https://rpc.ankr.com/polygon_mumbai';
-
 export const POLYGON_MAINNET = {
   ...polygon,
   name: 'Polygon Mainnet',

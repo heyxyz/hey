@@ -79,7 +79,7 @@ const SinglePublication: FC<Props> = ({
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
-            <PublicationBody publication={rootPublication as LensterPublication} />
+            <PublicationBody publication={rootPublication as LensterPublication} />{' '}
             {showActions && (
               <PublicationActions
                 publication={rootPublication as LensterPublication}

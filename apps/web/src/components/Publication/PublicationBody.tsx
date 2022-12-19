@@ -1,6 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { LensterPublication } from '@generated/types';
 import { EyeIcon } from '@heroicons/react/outline';
 import getURLs from '@lib/getURLs';
@@ -9,13 +10,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
+import DecryptedPublicationBody from './DecryptedPublicationBody';
+
 interface Props {
   publication: LensterPublication;
 }
 
 const PublicationBody: FC<Props> = ({ publication }) => {
   const { pathname } = useRouter();
+  const { allowed: staffMode } = useStaffMode();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+
+  if (staffMode && publication?.metadata?.encryptionParams) {
+    return <DecryptedPublicationBody encryptedPublication={publication} />;
+  }
 
   return (
     <div className="break-words">
