@@ -3988,7 +3988,6 @@ export type CommentFieldsFragment = {
                   contractType: ContractType;
                   tokenIds?: Array<any> | null;
                 } | null;
-                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                 token?: {
                   __typename?: 'Erc20OwnershipOutput';
@@ -4017,7 +4016,6 @@ export type CommentFieldsFragment = {
                   contractType: ContractType;
                   tokenIds?: Array<any> | null;
                 } | null;
-                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                 token?: {
                   __typename?: 'Erc20OwnershipOutput';
@@ -4042,7 +4040,6 @@ export type CommentFieldsFragment = {
               contractType: ContractType;
               tokenIds?: Array<any> | null;
             } | null;
-            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
             token?: {
               __typename?: 'Erc20OwnershipOutput';
@@ -4202,7 +4199,6 @@ export type CommentFieldsFragment = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -4231,7 +4227,6 @@ export type CommentFieldsFragment = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -4256,7 +4251,6 @@ export type CommentFieldsFragment = {
                     contractType: ContractType;
                     tokenIds?: Array<any> | null;
                   } | null;
-                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                   token?: {
                     __typename?: 'Erc20OwnershipOutput';
@@ -4423,7 +4417,6 @@ export type CommentFieldsFragment = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -4452,7 +4445,6 @@ export type CommentFieldsFragment = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -4477,7 +4469,6 @@ export type CommentFieldsFragment = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -4715,7 +4706,6 @@ export type CommentFieldsFragment = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -4744,7 +4734,6 @@ export type CommentFieldsFragment = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -4769,7 +4758,6 @@ export type CommentFieldsFragment = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -4958,7 +4946,6 @@ export type CommentFieldsFragment = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -4987,7 +4974,6 @@ export type CommentFieldsFragment = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -5012,7 +4998,6 @@ export type CommentFieldsFragment = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -5173,7 +5158,6 @@ export type CommentFieldsFragment = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -5202,7 +5186,6 @@ export type CommentFieldsFragment = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -5227,7 +5210,6 @@ export type CommentFieldsFragment = {
                     contractType: ContractType;
                     tokenIds?: Array<any> | null;
                   } | null;
-                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                   token?: {
                     __typename?: 'Erc20OwnershipOutput';
@@ -5458,7 +5440,6 @@ export type CommentFieldsFragment = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -5487,7 +5468,6 @@ export type CommentFieldsFragment = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -5512,7 +5492,6 @@ export type CommentFieldsFragment = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -5701,7 +5680,6 @@ export type CommentFieldsFragment = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -5730,7 +5708,6 @@ export type CommentFieldsFragment = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -5755,7 +5732,6 @@ export type CommentFieldsFragment = {
                     contractType: ContractType;
                     tokenIds?: Array<any> | null;
                   } | null;
-                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                   token?: {
                     __typename?: 'Erc20OwnershipOutput';
@@ -5815,7 +5791,6 @@ export type MetadataFieldsFragment = {
                 contractType: ContractType;
                 tokenIds?: Array<any> | null;
               } | null;
-              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
               token?: {
                 __typename?: 'Erc20OwnershipOutput';
@@ -5844,7 +5819,6 @@ export type MetadataFieldsFragment = {
                 contractType: ContractType;
                 tokenIds?: Array<any> | null;
               } | null;
-              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
               token?: {
                 __typename?: 'Erc20OwnershipOutput';
@@ -5869,7 +5843,6 @@ export type MetadataFieldsFragment = {
             contractType: ContractType;
             tokenIds?: Array<any> | null;
           } | null;
-          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
           token?: {
             __typename?: 'Erc20OwnershipOutput';
@@ -6029,7 +6002,6 @@ export type MirrorFieldsFragment = {
                   contractType: ContractType;
                   tokenIds?: Array<any> | null;
                 } | null;
-                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                 token?: {
                   __typename?: 'Erc20OwnershipOutput';
@@ -6058,7 +6030,6 @@ export type MirrorFieldsFragment = {
                   contractType: ContractType;
                   tokenIds?: Array<any> | null;
                 } | null;
-                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                 token?: {
                   __typename?: 'Erc20OwnershipOutput';
@@ -6083,7 +6054,6 @@ export type MirrorFieldsFragment = {
               contractType: ContractType;
               tokenIds?: Array<any> | null;
             } | null;
-            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
             token?: {
               __typename?: 'Erc20OwnershipOutput';
@@ -6314,7 +6284,6 @@ export type MirrorFieldsFragment = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -6343,7 +6312,6 @@ export type MirrorFieldsFragment = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -6368,7 +6336,6 @@ export type MirrorFieldsFragment = {
                     contractType: ContractType;
                     tokenIds?: Array<any> | null;
                   } | null;
-                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                   token?: {
                     __typename?: 'Erc20OwnershipOutput';
@@ -6558,7 +6525,6 @@ export type PostFieldsFragment = {
                   contractType: ContractType;
                   tokenIds?: Array<any> | null;
                 } | null;
-                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                 token?: {
                   __typename?: 'Erc20OwnershipOutput';
@@ -6587,7 +6553,6 @@ export type PostFieldsFragment = {
                   contractType: ContractType;
                   tokenIds?: Array<any> | null;
                 } | null;
-                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                 token?: {
                   __typename?: 'Erc20OwnershipOutput';
@@ -6612,7 +6577,6 @@ export type PostFieldsFragment = {
               contractType: ContractType;
               tokenIds?: Array<any> | null;
             } | null;
-            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
             token?: {
               __typename?: 'Erc20OwnershipOutput';
@@ -6674,7 +6638,6 @@ export type SimpleConditionFieldsFragment = {
     contractType: ContractType;
     tokenIds?: Array<any> | null;
   } | null;
-  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
   token?: {
     __typename?: 'Erc20OwnershipOutput';
@@ -7706,7 +7669,6 @@ export type CommentFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -7735,7 +7697,6 @@ export type CommentFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -7760,7 +7721,6 @@ export type CommentFeedQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -7920,7 +7880,6 @@ export type CommentFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -7949,7 +7908,6 @@ export type CommentFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -7974,7 +7932,6 @@ export type CommentFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -8148,10 +8105,6 @@ export type CommentFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -8180,10 +8133,6 @@ export type CommentFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -8208,7 +8157,6 @@ export type CommentFeedQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -8486,10 +8434,6 @@ export type CommentFeedQuery = {
                                             contractType: ContractType;
                                             tokenIds?: Array<any> | null;
                                           } | null;
-                                          profile?: {
-                                            __typename?: 'ProfileOwnershipOutput';
-                                            profileId: any;
-                                          } | null;
                                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                           token?: {
                                             __typename?: 'Erc20OwnershipOutput';
@@ -8521,10 +8465,6 @@ export type CommentFeedQuery = {
                                             contractType: ContractType;
                                             tokenIds?: Array<any> | null;
                                           } | null;
-                                          profile?: {
-                                            __typename?: 'ProfileOwnershipOutput';
-                                            profileId: any;
-                                          } | null;
                                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                           token?: {
                                             __typename?: 'Erc20OwnershipOutput';
@@ -8551,10 +8491,6 @@ export type CommentFeedQuery = {
                                         chainID: any;
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
-                                      } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
                                       } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
@@ -8758,10 +8694,6 @@ export type CommentFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -8790,10 +8722,6 @@ export type CommentFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -8818,7 +8746,6 @@ export type CommentFeedQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -8979,7 +8906,6 @@ export type CommentFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -9008,7 +8934,6 @@ export type CommentFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -9033,7 +8958,6 @@ export type CommentFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -9279,10 +9203,6 @@ export type CommentFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -9311,10 +9231,6 @@ export type CommentFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -9339,7 +9255,6 @@ export type CommentFeedQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -9528,7 +9443,6 @@ export type CommentFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -9557,7 +9471,6 @@ export type CommentFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -9582,7 +9495,6 @@ export type CommentFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -9844,7 +9756,6 @@ export type ExploreFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -9873,7 +9784,6 @@ export type ExploreFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -9898,7 +9808,6 @@ export type ExploreFeedQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -10058,7 +9967,6 @@ export type ExploreFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -10087,7 +9995,6 @@ export type ExploreFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -10112,7 +10019,6 @@ export type ExploreFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -10286,10 +10192,6 @@ export type ExploreFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -10318,10 +10220,6 @@ export type ExploreFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -10346,7 +10244,6 @@ export type ExploreFeedQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -10624,10 +10521,6 @@ export type ExploreFeedQuery = {
                                             contractType: ContractType;
                                             tokenIds?: Array<any> | null;
                                           } | null;
-                                          profile?: {
-                                            __typename?: 'ProfileOwnershipOutput';
-                                            profileId: any;
-                                          } | null;
                                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                           token?: {
                                             __typename?: 'Erc20OwnershipOutput';
@@ -10659,10 +10552,6 @@ export type ExploreFeedQuery = {
                                             contractType: ContractType;
                                             tokenIds?: Array<any> | null;
                                           } | null;
-                                          profile?: {
-                                            __typename?: 'ProfileOwnershipOutput';
-                                            profileId: any;
-                                          } | null;
                                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                           token?: {
                                             __typename?: 'Erc20OwnershipOutput';
@@ -10689,10 +10578,6 @@ export type ExploreFeedQuery = {
                                         chainID: any;
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
-                                      } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
                                       } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
@@ -10896,10 +10781,6 @@ export type ExploreFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -10928,10 +10809,6 @@ export type ExploreFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -10956,7 +10833,6 @@ export type ExploreFeedQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -11117,7 +10993,6 @@ export type ExploreFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -11146,7 +11021,6 @@ export type ExploreFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -11171,7 +11045,6 @@ export type ExploreFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -11417,10 +11290,6 @@ export type ExploreFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -11449,10 +11318,6 @@ export type ExploreFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -11477,7 +11342,6 @@ export type ExploreFeedQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -11666,7 +11530,6 @@ export type ExploreFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -11695,7 +11558,6 @@ export type ExploreFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -11720,7 +11582,6 @@ export type ExploreFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -11882,7 +11743,6 @@ export type ExploreFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -11911,7 +11771,6 @@ export type ExploreFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -11936,7 +11795,6 @@ export type ExploreFeedQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -12167,7 +12025,6 @@ export type ExploreFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -12196,7 +12053,6 @@ export type ExploreFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -12221,7 +12077,6 @@ export type ExploreFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -12410,7 +12265,6 @@ export type ExploreFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -12439,7 +12293,6 @@ export type ExploreFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -12464,7 +12317,6 @@ export type ExploreFeedQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -12668,7 +12520,6 @@ export type FeedHighlightsQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -12697,7 +12548,6 @@ export type FeedHighlightsQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -12722,7 +12572,6 @@ export type FeedHighlightsQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -12882,7 +12731,6 @@ export type FeedHighlightsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -12911,7 +12759,6 @@ export type FeedHighlightsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -12936,7 +12783,6 @@ export type FeedHighlightsQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -13110,10 +12956,6 @@ export type FeedHighlightsQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -13142,10 +12984,6 @@ export type FeedHighlightsQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -13170,7 +13008,6 @@ export type FeedHighlightsQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -13448,10 +13285,6 @@ export type FeedHighlightsQuery = {
                                             contractType: ContractType;
                                             tokenIds?: Array<any> | null;
                                           } | null;
-                                          profile?: {
-                                            __typename?: 'ProfileOwnershipOutput';
-                                            profileId: any;
-                                          } | null;
                                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                           token?: {
                                             __typename?: 'Erc20OwnershipOutput';
@@ -13483,10 +13316,6 @@ export type FeedHighlightsQuery = {
                                             contractType: ContractType;
                                             tokenIds?: Array<any> | null;
                                           } | null;
-                                          profile?: {
-                                            __typename?: 'ProfileOwnershipOutput';
-                                            profileId: any;
-                                          } | null;
                                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                           token?: {
                                             __typename?: 'Erc20OwnershipOutput';
@@ -13513,10 +13342,6 @@ export type FeedHighlightsQuery = {
                                         chainID: any;
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
-                                      } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
                                       } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
@@ -13720,10 +13545,6 @@ export type FeedHighlightsQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -13752,10 +13573,6 @@ export type FeedHighlightsQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -13780,7 +13597,6 @@ export type FeedHighlightsQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -13941,7 +13757,6 @@ export type FeedHighlightsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -13970,7 +13785,6 @@ export type FeedHighlightsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -13995,7 +13809,6 @@ export type FeedHighlightsQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -14241,10 +14054,6 @@ export type FeedHighlightsQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -14273,10 +14082,6 @@ export type FeedHighlightsQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -14301,7 +14106,6 @@ export type FeedHighlightsQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -14490,7 +14294,6 @@ export type FeedHighlightsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -14519,7 +14322,6 @@ export type FeedHighlightsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -14544,7 +14346,6 @@ export type FeedHighlightsQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -14706,7 +14507,6 @@ export type FeedHighlightsQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -14735,7 +14535,6 @@ export type FeedHighlightsQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -14760,7 +14559,6 @@ export type FeedHighlightsQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -14991,7 +14789,6 @@ export type FeedHighlightsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -15020,7 +14817,6 @@ export type FeedHighlightsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -15045,7 +14841,6 @@ export type FeedHighlightsQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -15234,7 +15029,6 @@ export type FeedHighlightsQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -15263,7 +15057,6 @@ export type FeedHighlightsQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -15288,7 +15081,6 @@ export type FeedHighlightsQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -16234,7 +16026,6 @@ export type ProfileFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -16263,7 +16054,6 @@ export type ProfileFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -16288,7 +16078,6 @@ export type ProfileFeedQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -16448,7 +16237,6 @@ export type ProfileFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -16477,7 +16265,6 @@ export type ProfileFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -16502,7 +16289,6 @@ export type ProfileFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -16676,10 +16462,6 @@ export type ProfileFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -16708,10 +16490,6 @@ export type ProfileFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -16736,7 +16514,6 @@ export type ProfileFeedQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -17014,10 +16791,6 @@ export type ProfileFeedQuery = {
                                             contractType: ContractType;
                                             tokenIds?: Array<any> | null;
                                           } | null;
-                                          profile?: {
-                                            __typename?: 'ProfileOwnershipOutput';
-                                            profileId: any;
-                                          } | null;
                                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                           token?: {
                                             __typename?: 'Erc20OwnershipOutput';
@@ -17049,10 +16822,6 @@ export type ProfileFeedQuery = {
                                             contractType: ContractType;
                                             tokenIds?: Array<any> | null;
                                           } | null;
-                                          profile?: {
-                                            __typename?: 'ProfileOwnershipOutput';
-                                            profileId: any;
-                                          } | null;
                                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                           token?: {
                                             __typename?: 'Erc20OwnershipOutput';
@@ -17079,10 +16848,6 @@ export type ProfileFeedQuery = {
                                         chainID: any;
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
-                                      } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
                                       } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
@@ -17286,10 +17051,6 @@ export type ProfileFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -17318,10 +17079,6 @@ export type ProfileFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -17346,7 +17103,6 @@ export type ProfileFeedQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -17507,7 +17263,6 @@ export type ProfileFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -17536,7 +17291,6 @@ export type ProfileFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -17561,7 +17315,6 @@ export type ProfileFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -17807,10 +17560,6 @@ export type ProfileFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -17839,10 +17588,6 @@ export type ProfileFeedQuery = {
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
                                     } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
-                                    } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
                                       __typename?: 'Erc20OwnershipOutput';
@@ -17867,7 +17612,6 @@ export type ProfileFeedQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -18056,7 +17800,6 @@ export type ProfileFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -18085,7 +17828,6 @@ export type ProfileFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -18110,7 +17852,6 @@ export type ProfileFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -18272,7 +18013,6 @@ export type ProfileFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -18301,7 +18041,6 @@ export type ProfileFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -18326,7 +18065,6 @@ export type ProfileFeedQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -18557,7 +18295,6 @@ export type ProfileFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -18586,7 +18323,6 @@ export type ProfileFeedQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -18611,7 +18347,6 @@ export type ProfileFeedQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -18800,7 +18535,6 @@ export type ProfileFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -18829,7 +18563,6 @@ export type ProfileFeedQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -18854,7 +18587,6 @@ export type ProfileFeedQuery = {
                       contractType: ContractType;
                       tokenIds?: Array<any> | null;
                     } | null;
-                    profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                     token?: {
                       __typename?: 'Erc20OwnershipOutput';
@@ -19123,7 +18855,6 @@ export type PublicationQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -19152,7 +18883,6 @@ export type PublicationQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -19177,7 +18907,6 @@ export type PublicationQuery = {
                     contractType: ContractType;
                     tokenIds?: Array<any> | null;
                   } | null;
-                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                   token?: {
                     __typename?: 'Erc20OwnershipOutput';
@@ -19337,7 +19066,6 @@ export type PublicationQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -19366,7 +19094,6 @@ export type PublicationQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -19391,7 +19118,6 @@ export type PublicationQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -19561,7 +19287,6 @@ export type PublicationQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -19590,7 +19315,6 @@ export type PublicationQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -19615,7 +19339,6 @@ export type PublicationQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -19893,10 +19616,6 @@ export type PublicationQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -19928,10 +19647,6 @@ export type PublicationQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -19958,10 +19673,6 @@ export type PublicationQuery = {
                                       chainID: any;
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
-                                    } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
                                     } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
@@ -20158,7 +19869,6 @@ export type PublicationQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -20187,7 +19897,6 @@ export type PublicationQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -20212,7 +19921,6 @@ export type PublicationQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -20373,7 +20081,6 @@ export type PublicationQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -20402,7 +20109,6 @@ export type PublicationQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -20427,7 +20133,6 @@ export type PublicationQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -20665,7 +20370,6 @@ export type PublicationQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -20694,7 +20398,6 @@ export type PublicationQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -20719,7 +20422,6 @@ export type PublicationQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -20908,7 +20610,6 @@ export type PublicationQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -20937,7 +20638,6 @@ export type PublicationQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -20962,7 +20662,6 @@ export type PublicationQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -21130,7 +20829,6 @@ export type PublicationQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -21159,7 +20857,6 @@ export type PublicationQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -21184,7 +20881,6 @@ export type PublicationQuery = {
                     contractType: ContractType;
                     tokenIds?: Array<any> | null;
                   } | null;
-                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                   token?: {
                     __typename?: 'Erc20OwnershipOutput';
@@ -21415,7 +21111,6 @@ export type PublicationQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -21444,7 +21139,6 @@ export type PublicationQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -21469,7 +21163,6 @@ export type PublicationQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -21664,7 +21357,6 @@ export type PublicationQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -21693,7 +21385,6 @@ export type PublicationQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -21718,7 +21409,6 @@ export type PublicationQuery = {
                     contractType: ContractType;
                     tokenIds?: Array<any> | null;
                   } | null;
-                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                   token?: {
                     __typename?: 'Erc20OwnershipOutput';
@@ -22030,7 +21720,6 @@ export type SearchPublicationsQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -22059,7 +21748,6 @@ export type SearchPublicationsQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -22084,7 +21772,6 @@ export type SearchPublicationsQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -22247,7 +21934,6 @@ export type SearchPublicationsQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -22276,7 +21962,6 @@ export type SearchPublicationsQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -22301,7 +21986,6 @@ export type SearchPublicationsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -22499,10 +22183,6 @@ export type SearchPublicationsQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -22534,10 +22214,6 @@ export type SearchPublicationsQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -22564,10 +22240,6 @@ export type SearchPublicationsQuery = {
                                       chainID: any;
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
-                                    } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
                                     } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
@@ -22855,10 +22527,6 @@ export type SearchPublicationsQuery = {
                                                 contractType: ContractType;
                                                 tokenIds?: Array<any> | null;
                                               } | null;
-                                              profile?: {
-                                                __typename?: 'ProfileOwnershipOutput';
-                                                profileId: any;
-                                              } | null;
                                               eoa?: {
                                                 __typename?: 'EoaOwnershipOutput';
                                                 address: any;
@@ -22893,10 +22561,6 @@ export type SearchPublicationsQuery = {
                                                 contractType: ContractType;
                                                 tokenIds?: Array<any> | null;
                                               } | null;
-                                              profile?: {
-                                                __typename?: 'ProfileOwnershipOutput';
-                                                profileId: any;
-                                              } | null;
                                               eoa?: {
                                                 __typename?: 'EoaOwnershipOutput';
                                                 address: any;
@@ -22926,10 +22590,6 @@ export type SearchPublicationsQuery = {
                                             chainID: any;
                                             contractType: ContractType;
                                             tokenIds?: Array<any> | null;
-                                          } | null;
-                                          profile?: {
-                                            __typename?: 'ProfileOwnershipOutput';
-                                            profileId: any;
                                           } | null;
                                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                           token?: {
@@ -23161,10 +22821,6 @@ export type SearchPublicationsQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -23196,10 +22852,6 @@ export type SearchPublicationsQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -23226,10 +22878,6 @@ export type SearchPublicationsQuery = {
                                       chainID: any;
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
-                                    } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
                                     } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
@@ -23394,7 +23042,6 @@ export type SearchPublicationsQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -23423,7 +23070,6 @@ export type SearchPublicationsQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -23448,7 +23094,6 @@ export type SearchPublicationsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -23726,10 +23371,6 @@ export type SearchPublicationsQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -23761,10 +23402,6 @@ export type SearchPublicationsQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -23791,10 +23428,6 @@ export type SearchPublicationsQuery = {
                                       chainID: any;
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
-                                    } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
                                     } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
@@ -23991,7 +23624,6 @@ export type SearchPublicationsQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -24020,7 +23652,6 @@ export type SearchPublicationsQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -24045,7 +23676,6 @@ export type SearchPublicationsQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -24235,7 +23865,6 @@ export type SearchPublicationsQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -24264,7 +23893,6 @@ export type SearchPublicationsQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -24289,7 +23917,6 @@ export type SearchPublicationsQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -24704,7 +24331,6 @@ export type TimelineQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -24733,7 +24359,6 @@ export type TimelineQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -24758,7 +24383,6 @@ export type TimelineQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -24918,7 +24542,6 @@ export type TimelineQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -24947,7 +24570,6 @@ export type TimelineQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -24972,7 +24594,6 @@ export type TimelineQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -25166,10 +24787,6 @@ export type TimelineQuery = {
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
                                       } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
-                                      } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
                                         __typename?: 'Erc20OwnershipOutput';
@@ -25201,10 +24818,6 @@ export type TimelineQuery = {
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
                                       } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
-                                      } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
                                         __typename?: 'Erc20OwnershipOutput';
@@ -25232,7 +24845,6 @@ export type TimelineQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -25513,10 +25125,6 @@ export type TimelineQuery = {
                                               contractType: ContractType;
                                               tokenIds?: Array<any> | null;
                                             } | null;
-                                            profile?: {
-                                              __typename?: 'ProfileOwnershipOutput';
-                                              profileId: any;
-                                            } | null;
                                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                             token?: {
                                               __typename?: 'Erc20OwnershipOutput';
@@ -25548,10 +25156,6 @@ export type TimelineQuery = {
                                               contractType: ContractType;
                                               tokenIds?: Array<any> | null;
                                             } | null;
-                                            profile?: {
-                                              __typename?: 'ProfileOwnershipOutput';
-                                              profileId: any;
-                                            } | null;
                                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                             token?: {
                                               __typename?: 'Erc20OwnershipOutput';
@@ -25578,10 +25182,6 @@ export type TimelineQuery = {
                                           chainID: any;
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
-                                        } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
                                         } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
@@ -25809,10 +25409,6 @@ export type TimelineQuery = {
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
                                       } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
-                                      } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
                                         __typename?: 'Erc20OwnershipOutput';
@@ -25844,10 +25440,6 @@ export type TimelineQuery = {
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
                                       } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
-                                      } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
                                         __typename?: 'Erc20OwnershipOutput';
@@ -25875,7 +25467,6 @@ export type TimelineQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -26036,7 +25627,6 @@ export type TimelineQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -26065,7 +25655,6 @@ export type TimelineQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -26090,7 +25679,6 @@ export type TimelineQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -26360,10 +25948,6 @@ export type TimelineQuery = {
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
                                       } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
-                                      } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
                                         __typename?: 'Erc20OwnershipOutput';
@@ -26395,10 +25979,6 @@ export type TimelineQuery = {
                                         contractType: ContractType;
                                         tokenIds?: Array<any> | null;
                                       } | null;
-                                      profile?: {
-                                        __typename?: 'ProfileOwnershipOutput';
-                                        profileId: any;
-                                      } | null;
                                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                       token?: {
                                         __typename?: 'Erc20OwnershipOutput';
@@ -26426,7 +26006,6 @@ export type TimelineQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -26615,7 +26194,6 @@ export type TimelineQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -26644,7 +26222,6 @@ export type TimelineQuery = {
                                   contractType: ContractType;
                                   tokenIds?: Array<any> | null;
                                 } | null;
-                                profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                 eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                 token?: {
                                   __typename?: 'Erc20OwnershipOutput';
@@ -26669,7 +26246,6 @@ export type TimelineQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -26859,7 +26435,6 @@ export type TimelineQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -26888,7 +26463,6 @@ export type TimelineQuery = {
                             contractType: ContractType;
                             tokenIds?: Array<any> | null;
                           } | null;
-                          profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                           eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                           token?: {
                             __typename?: 'Erc20OwnershipOutput';
@@ -26913,7 +26487,6 @@ export type TimelineQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -27203,7 +26776,6 @@ export type TimelineQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -27232,7 +26804,6 @@ export type TimelineQuery = {
                         contractType: ContractType;
                         tokenIds?: Array<any> | null;
                       } | null;
-                      profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                       eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                       token?: {
                         __typename?: 'Erc20OwnershipOutput';
@@ -27257,7 +26828,6 @@ export type TimelineQuery = {
                     contractType: ContractType;
                     tokenIds?: Array<any> | null;
                   } | null;
-                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                   token?: {
                     __typename?: 'Erc20OwnershipOutput';
@@ -27417,7 +26987,6 @@ export type TimelineQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -27446,7 +27015,6 @@ export type TimelineQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -27471,7 +27039,6 @@ export type TimelineQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -27641,7 +27208,6 @@ export type TimelineQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -27670,7 +27236,6 @@ export type TimelineQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -27695,7 +27260,6 @@ export type TimelineQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -27973,10 +27537,6 @@ export type TimelineQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -28008,10 +27568,6 @@ export type TimelineQuery = {
                                           contractType: ContractType;
                                           tokenIds?: Array<any> | null;
                                         } | null;
-                                        profile?: {
-                                          __typename?: 'ProfileOwnershipOutput';
-                                          profileId: any;
-                                        } | null;
                                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                         token?: {
                                           __typename?: 'Erc20OwnershipOutput';
@@ -28038,10 +27594,6 @@ export type TimelineQuery = {
                                       chainID: any;
                                       contractType: ContractType;
                                       tokenIds?: Array<any> | null;
-                                    } | null;
-                                    profile?: {
-                                      __typename?: 'ProfileOwnershipOutput';
-                                      profileId: any;
                                     } | null;
                                     eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                     token?: {
@@ -28238,7 +27790,6 @@ export type TimelineQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -28267,7 +27818,6 @@ export type TimelineQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -28292,7 +27842,6 @@ export type TimelineQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -28453,7 +28002,6 @@ export type TimelineQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -28482,7 +28030,6 @@ export type TimelineQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -28507,7 +28054,6 @@ export type TimelineQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -28745,7 +28291,6 @@ export type TimelineQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -28774,7 +28319,6 @@ export type TimelineQuery = {
                                     contractType: ContractType;
                                     tokenIds?: Array<any> | null;
                                   } | null;
-                                  profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                                   eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                                   token?: {
                                     __typename?: 'Erc20OwnershipOutput';
@@ -28799,7 +28343,6 @@ export type TimelineQuery = {
                                 contractType: ContractType;
                                 tokenIds?: Array<any> | null;
                               } | null;
-                              profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                               eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                               token?: {
                                 __typename?: 'Erc20OwnershipOutput';
@@ -28988,7 +28531,6 @@ export type TimelineQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -29017,7 +28559,6 @@ export type TimelineQuery = {
                               contractType: ContractType;
                               tokenIds?: Array<any> | null;
                             } | null;
-                            profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                             eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                             token?: {
                               __typename?: 'Erc20OwnershipOutput';
@@ -29042,7 +28583,6 @@ export type TimelineQuery = {
                           contractType: ContractType;
                           tokenIds?: Array<any> | null;
                         } | null;
-                        profile?: { __typename?: 'ProfileOwnershipOutput'; profileId: any } | null;
                         eoa?: { __typename?: 'EoaOwnershipOutput'; address: any } | null;
                         token?: {
                           __typename?: 'Erc20OwnershipOutput';
@@ -29285,9 +28825,6 @@ export const SimpleConditionFieldsFragmentDoc = gql`
       chainID
       contractType
       tokenIds
-    }
-    profile {
-      profileId
     }
     eoa {
       address
