@@ -19,8 +19,22 @@ fragment MetadataFields on MetadataOutput {
     }
   }
   encryptionParams {
-    providerSpecificParams {
-      encryptionKey
+    accessCondition {
+      or {
+        criteria {
+          ...SimpleConditionFields
+          and {
+            criteria {
+              ...SimpleConditionFields
+            }
+          }
+          or {
+            criteria {
+              ...SimpleConditionFields
+            }
+          }
+        }
+      }
     }
   }
 }
