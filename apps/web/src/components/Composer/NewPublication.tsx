@@ -38,6 +38,7 @@ import {
 import type { CreatePublicCommentRequest, MetadataAttributeInput, PublicationMetadataV2Input } from 'lens';
 import {
   CollectModules,
+  ContractType,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
@@ -356,15 +357,31 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
     // Create the access condition
     let accessCondition: AccessConditionOutput = {};
-    if (collectToView && followToView) {
-      accessCondition = {
-        and: { criteria: [{ collect: collectAccessCondition }, { follow: followAccessCondition }] }
-      };
-    } else if (collectToView) {
-      accessCondition = { collect: collectAccessCondition };
-    } else if (followToView) {
-      accessCondition = { follow: followAccessCondition };
-    }
+    accessCondition = {
+      and: {
+        criteria: [
+          { collect: collectAccessCondition },
+          { follow: followAccessCondition },
+          {
+            nft: {
+              chainID: 80001,
+              contractAddress: '0x690d04754c7c205d8fa391dc85cdefa40be95b28',
+              contractType: ContractType.Erc721
+            }
+          }
+        ]
+      }
+    };
+
+    // if (collectToView && followToView) {
+    //   accessCondition = {
+    //     and: { criteria: [{ collect: collectAccessCondition }, { follow: followAccessCondition }] }
+    //   };
+    // } else if (collectToView) {
+    //   accessCondition = { collect: collectAccessCondition };
+    // } else if (followToView) {
+    //   accessCondition = { follow: followAccessCondition };
+    // }
 
     // Generate the encrypted metadata and upload it to Arweave
     const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
