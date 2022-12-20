@@ -115,7 +115,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card className={cardClasses} onClick={(event) => event.stopPropagation()}>
         <div className="font-bold flex items-center space-x-2">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
-          <span className="text-white font-black text-base">Unlock this by...</span>
+          <span className="text-white font-black text-base">To view this...</span>
         </div>
         <div className="pt-3.5 space-y-2 text-white">
           {/* Collect checks */}
