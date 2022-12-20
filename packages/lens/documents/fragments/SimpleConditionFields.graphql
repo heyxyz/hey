@@ -1,0 +1,28 @@
+fragment SimpleConditionFields on AccessConditionOutput {
+  nft {
+    contractAddress
+    chainID
+    contractType
+    tokenIds
+  }
+  profile {
+    profileId
+  }
+  eoa {
+    address
+  }
+  token {
+    contractAddress
+    amount
+    chainID
+    condition
+    decimals
+  }
+  follow {
+    profileId
+  }
+  collect {
+    publicationId
+    thisPublication
+  }
+}
