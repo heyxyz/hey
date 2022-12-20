@@ -27,12 +27,12 @@ const useNFT = ({ address, chainId, enabled }: Props): { data: any; error: any }
     try {
       const response = await axios({
         method: 'GET',
-        url: `https://${getAlchemyChainName}.g.alchemy.com/nft/v2/${ALCHEMY_KEY}/getContractMetadata`,
+        url: `https://${getAlchemyChainName()}.g.alchemy.com/nft/v2/${ALCHEMY_KEY}/getContractMetadata`,
         params: { contractAddress: address }
       });
-      alert();
       setData(response.data);
     } catch (error: any) {
+      console.log(error);
       setError(error);
     }
   };
