@@ -16,8 +16,12 @@ const useNFT = ({ address, chainId, enabled }: Props): { data: any; error: any }
     switch (chainId) {
       case 1:
         return 'eth-mainnet';
+      case 5:
+        return 'eth-goerli';
       case 137:
         return 'polygon-mainnet';
+      case 80001:
+        return 'polygon-mumbai';
       default:
         return 'eth-mainnet';
     }
