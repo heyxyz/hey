@@ -4,14 +4,7 @@ import PublicationContentShimmer from '@components/Shared/Shimmer/PublicationCon
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import type { LensterPublication } from '@generated/types';
-import {
-  CollectionIcon,
-  DatabaseIcon,
-  EyeIcon,
-  FingerPrintIcon,
-  PhotographIcon,
-  UserAddIcon
-} from '@heroicons/react/outline';
+import { CollectionIcon, DatabaseIcon, EyeIcon, PhotographIcon, UserAddIcon } from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import formatHandle from '@lib/formatHandle';
@@ -64,8 +57,6 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const doesNotFollowProfile = reasons?.includes(DecryptFailReason.DoesNotFollowProfile);
   const followNotFinalisedOnChain =
     !doesNotFollowProfile && reasons?.includes(DecryptFailReason.FollowNotFinalisedOnChain);
-  // Profile check - https://docs.lens.xyz/docs/gated#profile-ownership
-  const doesNotOwnProfile = reasons?.includes(DecryptFailReason.DoesNotOwnProfile);
   // Token check - https://docs.lens.xyz/docs/gated#erc20-token-ownership
   const unauthorizedBalance = reasons?.includes(DecryptFailReason.UnauthorizedBalance);
   // NFT check - https://docs.lens.xyz/docs/gated#erc20-token-ownership
@@ -127,13 +118,6 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           {followNotFinalisedOnChain && (
             <DecryptMessage icon={<UserAddIcon className="animate-pulse h-4 w-4" />}>
               Follow finalizing on chain...
-            </DecryptMessage>
-          )}
-
-          {/* Profile check */}
-          {doesNotOwnProfile && (
-            <DecryptMessage icon={<FingerPrintIcon className="h-4 w-4" />}>
-              You don't own the profile
             </DecryptMessage>
           )}
 
