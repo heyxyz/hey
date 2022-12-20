@@ -67,7 +67,7 @@ const ViewProfile: NextPage = () => {
           <Details profile={profile as any} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <FeedType stats={profile?.stats as any} setFeedType={setFeedType} feedType={feedType} />
+          <FeedType setFeedType={setFeedType} feedType={feedType} />
           {(feedType === 'FEED' || feedType === 'REPLIES' || feedType === 'MEDIA') && (
             <Feed profile={profile as any} type={feedType} />
           )}
