@@ -6,5 +6,6 @@ export const mainnetStaffs = [
 ];
 
 export const testnetStaffs = [
-  '0x15' // yoginth.test
+  '0x15', // yoginth.test
+  '0x01aa'
 ];
