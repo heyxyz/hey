@@ -70,7 +70,7 @@ export const EVER_API = 'https://endpoint.4everland.co';
 export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
 
 // Web3
-export const RPC_URL = IS_MAINNET ? 'https://rpc.ankr.com/polygon' : 'https://rpc.ankr.com/polygon_mumbai';
+export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
 
 // Errors
 export const ERRORS = {
