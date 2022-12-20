@@ -5,17 +5,17 @@ import type { FC } from 'react';
 
 interface Props {
   src: string;
+  poster: string;
 }
 
-const Video: FC<Props> = ({ src }) => {
+const Video: FC<Props> = ({ src, poster }) => {
   return (
     <div className="rounded-lg">
       <Plyr
         source={{
           type: 'video',
           sources: [{ src, provider: 'html5' }],
-          // TODO: get placeholder image
-          poster: src
+          poster
         }}
         options={{
           controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],

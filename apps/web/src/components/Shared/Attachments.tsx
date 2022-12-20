@@ -62,6 +62,11 @@ const Attachments: FC<Props> = ({
     );
   };
 
+  const getCoverUrl = () => {
+    const url = publication?.metadata?.cover?.original.url || publication?.metadata?.image;
+    return getIPFSLink(url);
+  };
+
   const slicedAttachments = isNew
     ? attachments?.slice(0, 4)
     : attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e?.original?.mimeType))
@@ -108,7 +113,7 @@ const Attachments: FC<Props> = ({
                   <span>Open Image in new tab</span>
                 </Button>
               ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
-                <Video src={url} />
+                <Video src={url} poster={imageProxy(getCoverUrl())} />
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
                 <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
               ) : (
