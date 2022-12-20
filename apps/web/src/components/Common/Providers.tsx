@@ -1,33 +1,26 @@
 import { ApolloProvider } from '@apollo/client';
-import { IS_MAINNET, RPC_URL } from 'data/constants';
+import { ALCHEMY_KEY, IS_MAINNET } from 'data/constants';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
-import { CHAIN_ID } from 'src/constants';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { polygon, polygonMumbai } from 'wagmi/chains';
+import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import client from '../../apollo';
 import ErrorBoundary from './ErrorBoundary';
 import Layout from './Layout';
 
 const { chains, provider } = configureChains(
-  [IS_MAINNET ? polygon : polygonMumbai],
-  [jsonRpcProvider({ rpc: () => ({ http: RPC_URL }) })]
+  [IS_MAINNET ? polygon : polygonMumbai, mainnet],
+  [alchemyProvider({ apiKey: ALCHEMY_KEY })]
 );
 
 const connectors = () => {
   return [
-    new InjectedConnector({
-      chains,
-      options: { shimDisconnect: true }
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: { rpc: { [CHAIN_ID]: RPC_URL } }
-    })
+    new InjectedConnector({ chains, options: { shimDisconnect: true } }),
+    new WalletConnectConnector({ chains, options: {} })
   ];
 };
 

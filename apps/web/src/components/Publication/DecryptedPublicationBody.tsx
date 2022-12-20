@@ -3,10 +3,13 @@ import Markup from '@components/Shared/Markup';
 import PublicationContentShimmer from '@components/Shared/Shimmer/PublicationContentShimmer';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Tooltip } from '@components/UI/Tooltip';
+import useNFTToken from '@components/utils/hooks/useNFTToken';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, DatabaseIcon, EyeIcon, PhotographIcon, UserAddIcon } from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
+import type { Erc20OwnershipOutput, NftOwnershipOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import formatHandle from '@lib/formatHandle';
 import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
@@ -19,7 +22,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
-import { useProvider, useSigner } from 'wagmi';
+import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
   icon: ReactNode;
@@ -48,6 +51,15 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { reasons } = encryptedPublication.canDecrypt;
   const showMore = encryptedPublication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
+  const getCriteria = (key: string) => {
+    const criteria: any = encryptedPublication.metadata.encryptionParams?.accessCondition.or?.criteria;
+    return criteria.map((item: any) => item[key]).find((item: any) => item);
+  };
+
+  // Conditions
+  const tokenCondition: Erc20OwnershipOutput = getCriteria('token');
+  const nftCondition: NftOwnershipOutput = getCriteria('nft');
+
   // Status
   // Collect checks - https://docs.lens.xyz/docs/gated#collected-publication
   const hasNotCollectedPublication = reasons?.includes(DecryptFailReason.HasNotCollectedPublication);
@@ -65,6 +77,18 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   // Style
   const cardClasses =
     'text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600 cursor-text';
+
+  const { data: tokenData } = useToken({
+    address: tokenCondition?.contractAddress,
+    chainId: tokenCondition?.chainID,
+    enabled: Boolean(tokenCondition)
+  });
+
+  const { data: nftData } = useNFTToken({
+    address: nftCondition?.contractAddress,
+    chainId: nftCondition?.chainID,
+    enabled: Boolean(nftCondition)
+  });
 
   const getDecryptedData = async () => {
     if (!signer) {
@@ -124,14 +148,21 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           {/* Token check */}
           {unauthorizedBalance && (
             <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
-              You don't have enough tokens
+              You need{' '}
+              <b>
+                {tokenCondition.amount} {tokenData?.symbol} to unlock
+              </b>
             </DecryptMessage>
           )}
 
           {/* NFT check */}
           {doesNotOwnNft && (
             <DecryptMessage icon={<PhotographIcon className="h-4 w-4" />}>
-              You don't have the NFT
+              You need{' '}
+              <Tooltip content={nftData?.contractMetadata?.name} placement="top">
+                <b>{nftData?.contractMetadata?.symbol}</b>
+              </Tooltip>{' '}
+              nft to unlock
             </DecryptMessage>
           )}
         </div>
