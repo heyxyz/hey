@@ -4,7 +4,7 @@ import PublicationContentShimmer from '@components/Shared/Shimmer/PublicationCon
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Tooltip } from '@components/UI/Tooltip';
-import useNFTToken from '@components/utils/hooks/useNFTToken';
+import useNFT from '@components/utils/hooks/useNFT';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, DatabaseIcon, EyeIcon, PhotographIcon, UserAddIcon } from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
@@ -84,7 +84,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     enabled: Boolean(tokenCondition)
   });
 
-  const { data: nftData } = useNFTToken({
+  const { data: nftData } = useNFT({
     address: nftCondition?.contractAddress,
     chainId: nftCondition?.chainID,
     enabled: Boolean(nftCondition)
