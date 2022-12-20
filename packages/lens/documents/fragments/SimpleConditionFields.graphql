@@ -5,9 +5,6 @@ fragment SimpleConditionFields on AccessConditionOutput {
     contractType
     tokenIds
   }
-  profile {
-    profileId
-  }
   eoa {
     address
   }
