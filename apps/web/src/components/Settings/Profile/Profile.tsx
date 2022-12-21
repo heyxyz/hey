@@ -197,12 +197,12 @@ const Profile: FC<Props> = ({ profile }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        await createViaDispatcher(request);
-      } else {
-        await createSetProfileMetadataTypedData({
-          variables: { request }
-        });
+        return await createViaDispatcher(request);
       }
+
+      return await createSetProfileMetadataTypedData({
+        variables: { request }
+      });
     } catch {}
   };
 

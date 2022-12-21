@@ -276,13 +276,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
     if (isComment) {
       const { data } = await createCommentViaDispatcher({ variables: { request } });
       if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-        await createCommentTypedData({ variables });
+        return await createCommentTypedData({ variables });
       }
-    } else {
-      const { data } = await createPostViaDispatcher({ variables: { request } });
-      if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
-        await createPostTypedData({ variables });
-      }
+    }
+
+    const { data } = await createPostViaDispatcher({ variables: { request } });
+    if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
+      return await createPostTypedData({ variables });
     }
   };
 
@@ -476,21 +476,21 @@ const NewPublication: FC<Props> = ({ publication }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        await createViaDispatcher(request);
-      } else {
-        if (isComment) {
-          await createCommentTypedData({
-            variables: {
-              options: { overrideSigNonce: userSigNonce },
-              request: request as CreatePublicCommentRequest
-            }
-          });
-        } else {
-          await createPostTypedData({
-            variables: { options: { overrideSigNonce: userSigNonce }, request }
-          });
-        }
+        return await createViaDispatcher(request);
       }
+
+      if (isComment) {
+        return await createCommentTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request: request as CreatePublicCommentRequest
+          }
+        });
+      }
+
+      return await createPostTypedData({
+        variables: { options: { overrideSigNonce: userSigNonce }, request }
+      });
     } catch {
     } finally {
       setLoading(false);
