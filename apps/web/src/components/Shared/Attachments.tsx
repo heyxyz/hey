@@ -63,8 +63,7 @@ const Attachments: FC<Props> = ({
   };
 
   const getCoverUrl = () => {
-    const url = publication?.metadata?.cover?.original.url || publication?.metadata?.image;
-    return getIPFSLink(url);
+    return publication?.metadata?.cover?.original.url || publication?.metadata?.image;
   };
 
   const slicedAttachments = isNew
