@@ -31,7 +31,6 @@ import {
   APP_NAME,
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT,
-  RELAY_ON,
   SIGN_WALLET
 } from 'data/constants';
 import type { CreatePublicCommentRequest, MetadataAttributeInput, PublicationMetadataV2Input } from 'lens';
@@ -225,12 +224,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       }),
       sig
     };
-
     setUserSigNonce(userSigNonce + 1);
-    if (!RELAY_ON) {
-      return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-    }
-
     const { data } = await broadcast({ variables: { request: { id, signature } } });
     if (data?.broadcast.__typename === 'RelayError') {
       return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });

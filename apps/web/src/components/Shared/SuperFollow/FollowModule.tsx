@@ -12,7 +12,7 @@ import getTokenImage from '@lib/getTokenImage';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import type { Profile } from 'lens';
 import {
   FollowModules,
@@ -115,12 +115,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
         datas: followData,
         sig
       };
-
       setUserSigNonce(userSigNonce + 1);
-      if (!RELAY_ON) {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-      }
-
       const { data } = await broadcast({ variables: { request: { id, signature } } });
       if (data?.broadcast.__typename === 'RelayError') {
         return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
