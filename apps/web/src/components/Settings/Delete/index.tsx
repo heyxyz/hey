@@ -67,13 +67,13 @@ const DeleteSettings: FC = () => {
     onError
   });
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     try {
-      createBurnProfileTypedData({
+      await createBurnProfileTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: { profileId: currentProfile?.id }
