@@ -2,7 +2,6 @@ import AllowanceButton from '@components/Settings/Allowance/Button';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterFollowModule } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
@@ -18,6 +17,7 @@ import type { Profile } from 'lens';
 import {
   FollowModules,
   useApprovedModuleAllowanceAmountQuery,
+  useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useSuperFollowQuery
 } from 'lens';
@@ -99,7 +99,9 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     hasAmount = true;
   }
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createFollowTypedData, { loading: typedDataLoading }] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       try {
@@ -120,12 +122,9 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
 
-        const {
-          data: { broadcast: result }
-        } = await broadcast({ request: { id, signature } });
-
-        if ('reason' in result) {
-          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
       } catch {}
     },

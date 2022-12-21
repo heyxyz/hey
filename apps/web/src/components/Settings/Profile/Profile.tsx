@@ -8,7 +8,6 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getAttribute from '@lib/getAttribute';
@@ -25,6 +24,7 @@ import { APP_NAME, COVER, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } fro
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from 'lens';
 import {
   Profile,
+  useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
 } from 'lens';
@@ -81,7 +81,9 @@ const Profile: FC<Props> = ({ profile }) => {
     onError
   });
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useCreateSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createSetProfileMetadataTypedData }) => {
@@ -102,12 +104,9 @@ const Profile: FC<Props> = ({ profile }) => {
             return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { data } = await broadcast({ variables: { request: { id, signature } } });
+          if (data?.broadcast.__typename === 'RelayError') {
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },
@@ -210,11 +209,14 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const isLoading =
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
-  const txHash =
-    writeData?.hash ??
-    broadcastData?.broadcast?.txHash ??
-    (dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
-      dispatcherData?.createSetProfileMetadataViaDispatcher.txHash);
+
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
+  const dispatcherTxHash =
+    dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
+    dispatcherData?.createSetProfileMetadataViaDispatcher.txHash;
+
+  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
 
   return (
     <Card className="p-5">
