@@ -146,15 +146,15 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        await createViaDispatcher(request);
-      } else {
-        await createMirrorTypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request
-          }
-        });
+        return await createViaDispatcher(request);
       }
+
+      return await createMirrorTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
     } catch {}
   };
 
