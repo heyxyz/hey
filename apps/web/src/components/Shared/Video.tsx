@@ -1,21 +1,23 @@
 import 'plyr-react/plyr.css';
 
+import getIPFSLink from '@lib/getIPFSLink';
+import imageProxy from '@lib/imageProxy';
 import Plyr from 'plyr-react';
 import type { FC } from 'react';
 
 interface Props {
   src: string;
+  poster: string;
 }
 
-const Video: FC<Props> = ({ src }) => {
+const Video: FC<Props> = ({ src, poster }) => {
   return (
     <div className="rounded-lg">
       <Plyr
         source={{
           type: 'video',
           sources: [{ src, provider: 'html5' }],
-          // TODO: get placeholder image
-          poster: src
+          poster: poster ? imageProxy(getIPFSLink(poster)) : src
         }}
         options={{
           controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
