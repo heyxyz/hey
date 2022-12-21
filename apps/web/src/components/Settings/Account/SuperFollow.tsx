@@ -75,29 +75,27 @@ const SuperFollow: FC = () => {
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
     useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
-        try {
-          const { id, typedData } = createSetFollowModuleTypedData;
-          const { profileId, followModule, followModuleInitData, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            followModule,
-            followModuleInitData,
-            sig
-          };
+        const { id, typedData } = createSetFollowModuleTypedData;
+        const { profileId, followModule, followModuleInitData, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          followModule,
+          followModuleInitData,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
 
-          const { data } = await broadcast({ variables: { request: { id, signature } } });
-          if (data?.broadcast.__typename === 'RelayError') {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
       },
       onError
     });
@@ -107,27 +105,29 @@ const SuperFollow: FC = () => {
       return toast.error(SIGN_WALLET);
     }
 
-    createSetFollowModuleTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          profileId: currentProfile?.id,
-          followModule: amount
-            ? {
-                feeFollowModule: {
-                  amount: {
-                    currency: selectedCurrency,
-                    value: amount
-                  },
-                  recipient
+    try {
+      createSetFollowModuleTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: {
+            profileId: currentProfile?.id,
+            followModule: amount
+              ? {
+                  feeFollowModule: {
+                    amount: {
+                      currency: selectedCurrency,
+                      value: amount
+                    },
+                    recipient
+                  }
                 }
-              }
-            : {
-                freeFollowModule: true
-              }
+              : {
+                  freeFollowModule: true
+                }
+          }
         }
-      }
-    });
+      });
+    } catch {}
   };
 
   if (loading) {

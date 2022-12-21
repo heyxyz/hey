@@ -80,28 +80,26 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
-        try {
-          const { id, typedData } = createSetProfileImageURITypedData;
-          const { profileId, imageURI, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            imageURI,
-            sig
-          };
+        const { id, typedData } = createSetProfileImageURITypedData;
+        const { profileId, imageURI, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          imageURI,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
 
-          const { data } = await broadcast({ variables: { request: { id, signature } } });
-          if (data?.broadcast.__typename === 'RelayError') {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
       },
       onError
     });
@@ -128,43 +126,45 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    const challengeRes = await loadChallenge({
-      variables: {
-        request: {
-          ethereumAddress: currentProfile?.ownedBy,
-          nfts: [
-            {
-              contractAddress,
-              tokenId,
-              chainId
-            }
-          ]
-        }
-      }
-    });
-
-    const signature = await signMessageAsync({
-      message: challengeRes?.data?.nftOwnershipChallenge?.text as string
-    });
-
-    const request = {
-      profileId: currentProfile?.id,
-      nftData: {
-        id: challengeRes?.data?.nftOwnershipChallenge?.id,
-        signature
-      }
-    };
-
-    if (currentProfile?.dispatcher?.canUseRelay) {
-      createViaDispatcher(request);
-    } else {
-      createSetProfileImageURITypedData({
+    try {
+      const challengeRes = await loadChallenge({
         variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
+          request: {
+            ethereumAddress: currentProfile?.ownedBy,
+            nfts: [
+              {
+                contractAddress,
+                tokenId,
+                chainId
+              }
+            ]
+          }
         }
       });
-    }
+
+      const signature = await signMessageAsync({
+        message: challengeRes?.data?.nftOwnershipChallenge?.text as string
+      });
+
+      const request = {
+        profileId: currentProfile?.id,
+        nftData: {
+          id: challengeRes?.data?.nftOwnershipChallenge?.id,
+          signature
+        }
+      };
+
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        createViaDispatcher(request);
+      } else {
+        createSetProfileImageURITypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request
+          }
+        });
+      }
+    } catch {}
   };
 
   const isLoading =

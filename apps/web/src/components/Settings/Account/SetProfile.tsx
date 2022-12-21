@@ -66,29 +66,27 @@ const SetProfile: FC = () => {
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
     useCreateSetDefaultProfileTypedDataMutation({
       onCompleted: async ({ createSetDefaultProfileTypedData }) => {
-        try {
-          const { id, typedData } = createSetDefaultProfileTypedData;
-          const { wallet, profileId, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            follower: address,
-            wallet,
-            profileId,
-            sig
-          };
+        const { id, typedData } = createSetDefaultProfileTypedData;
+        const { wallet, profileId, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          follower: address,
+          wallet,
+          profileId,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
 
-          const { data } = await broadcast({ variables: { request: { id, signature } } });
-          if (data?.broadcast.__typename === 'RelayError') {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
       },
       onError
     });
@@ -98,13 +96,15 @@ const SetProfile: FC = () => {
       return toast.error(SIGN_WALLET);
     }
 
-    const request = { profileId: selectedUser };
-    createSetDefaultProfileTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request
-      }
-    });
+    try {
+      const request = { profileId: selectedUser };
+      createSetDefaultProfileTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
+    } catch {}
   };
 
   if (!currentProfile) {

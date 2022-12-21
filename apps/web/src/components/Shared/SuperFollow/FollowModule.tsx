@@ -104,29 +104,27 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   });
   const [createFollowTypedData, { loading: typedDataLoading }] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
-      try {
-        const { id, typedData } = createFollowTypedData;
-        const { profileIds, datas: followData, deadline } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          follower: address,
-          profileIds,
-          datas: followData,
-          sig
-        };
+      const { id, typedData } = createFollowTypedData;
+      const { profileIds, datas: followData, deadline } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        follower: address,
+        profileIds,
+        datas: followData,
+        sig
+      };
 
-        setUserSigNonce(userSigNonce + 1);
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
+      setUserSigNonce(userSigNonce + 1);
+      if (!RELAY_ON) {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
 
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
-        if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      } catch {}
+      const { data } = await broadcast({ variables: { request: { id, signature } } });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
     },
     onError
   });
@@ -136,26 +134,28 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
       return toast.error(SIGN_WALLET);
     }
 
-    createFollowTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: {
-          follow: [
-            {
-              profile: profile?.id,
-              followModule: {
-                feeFollowModule: {
-                  amount: {
-                    currency: followModule?.amount?.asset?.address,
-                    value: followModule?.amount?.value
+    try {
+      createFollowTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: {
+            follow: [
+              {
+                profile: profile?.id,
+                followModule: {
+                  feeFollowModule: {
+                    amount: {
+                      currency: followModule?.amount?.asset?.address,
+                      value: followModule?.amount?.value
+                    }
                   }
                 }
               }
-            }
-          ]
+            ]
+          }
         }
-      }
-    });
+      });
+    } catch {}
   };
 
   if (loading) {
