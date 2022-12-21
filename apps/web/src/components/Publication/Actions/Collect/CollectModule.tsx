@@ -34,7 +34,7 @@ import humanize from '@lib/humanize';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
 import type { BigNumber } from 'ethers';
@@ -179,12 +179,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
         data: collectData,
         sig
       };
-
       setUserSigNonce(userSigNonce + 1);
-      if (!RELAY_ON) {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-      }
-
       const { data } = await broadcast({ variables: { request: { id, signature } } });
       if (data?.broadcast.__typename === 'RelayError') {
         return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });

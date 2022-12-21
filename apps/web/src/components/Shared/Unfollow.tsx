@@ -6,7 +6,7 @@ import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { FollowNFT } from 'abis';
-import { RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { SIGN_WALLET } from 'data/constants';
 import type { Signer } from 'ethers';
 import { Contract } from 'ethers';
 import type { CreateBurnEip712TypedData, Profile } from 'lens';
@@ -56,9 +56,6 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
 
       setWriteLoading(true);
       try {
-        if (!RELAY_ON) {
-          return await burnWithSig(signature, typedData);
-        }
         const { data } = await broadcast({ variables: { request: { id, signature } } });
         if (data?.broadcast.__typename === 'RelayError') {
           await burnWithSig(signature, typedData);

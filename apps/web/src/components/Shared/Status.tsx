@@ -11,7 +11,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { LensPeriphery } from 'abis';
-import { APP_NAME, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { APP_NAME, LENS_PERIPHERY, SIGN_WALLET } from 'data/constants';
 import type { CreatePublicSetProfileMetadataUriRequest } from 'lens';
 import {
   useBroadcastMutation,
@@ -93,11 +93,6 @@ const Status: FC = () => {
           metadata,
           sig
         };
-
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-
         const { data } = await broadcast({ variables: { request: { id, signature } } });
         if (data?.broadcast.__typename === 'RelayError') {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });

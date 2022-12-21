@@ -8,7 +8,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
-import { LENSHUB_PROXY, RELAY_ON } from 'data/constants';
+import { LENSHUB_PROXY } from 'data/constants';
 import { useBroadcastMutation, useCreateSetDispatcherTypedDataMutation } from 'lens';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -62,12 +62,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
           dispatcher,
           sig
         };
-
         setUserSigNonce(userSigNonce + 1);
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-
         const { data } = await broadcast({ variables: { request: { id, signature } } });
         if (data?.broadcast.__typename === 'RelayError') {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });

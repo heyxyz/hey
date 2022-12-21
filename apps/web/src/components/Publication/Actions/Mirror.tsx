@@ -12,7 +12,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
-import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import type { CreateMirrorRequest } from 'lens';
 import {
@@ -102,12 +102,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
         referenceModuleInitData,
         sig
       };
-
       setUserSigNonce(userSigNonce + 1);
-      if (!RELAY_ON) {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-      }
-
       const { data } = await broadcast({ variables: { request: { id, signature } } });
       if (data?.broadcast.__typename === 'RelayError') {
         return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
