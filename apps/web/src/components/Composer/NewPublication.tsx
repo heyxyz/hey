@@ -5,7 +5,6 @@ import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
@@ -41,6 +40,7 @@ import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
+  useBroadcastMutation,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
   useCreatePostTypedDataMutation,
@@ -189,10 +189,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
     onError
   });
 
-  const { broadcast } = useBroadcast({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: (data) => {
       onCompleted();
-      setTxnQueue([generateOptimisticPublication({ txId: data?.broadcast?.txId }), ...txnQueue]);
+      if (data.broadcast.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPublication({ txId: data.broadcast.txId }), ...txnQueue]);
+      }
     }
   });
 
@@ -229,12 +231,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
       return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
 
-    const {
-      data: { broadcast: result }
-    } = await broadcast({ request: { id, signature } });
-
-    if ('reason' in result) {
-      write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+    const { data } = await broadcast({ variables: { request: { id, signature } } });
+    if (data?.broadcast.__typename === 'RelayError') {
+      return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
   };
 
