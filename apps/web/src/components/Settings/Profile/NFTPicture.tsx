@@ -107,7 +107,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       variables: { request }
     });
     if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
-      createSetProfileImageURITypedData({
+      await createSetProfileImageURITypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
@@ -150,9 +150,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        createViaDispatcher(request);
+        await createViaDispatcher(request);
       } else {
-        createSetProfileImageURITypedData({
+        await createSetProfileImageURITypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
             request

@@ -124,13 +124,13 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
     onError
   });
 
-  const createFollow = () => {
+  const createFollow = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     try {
-      createFollowTypedData({
+      await createFollowTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {

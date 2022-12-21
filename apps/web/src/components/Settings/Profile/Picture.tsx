@@ -97,7 +97,7 @@ const Picture: FC<Props> = ({ profile }) => {
       variables: { request }
     });
     if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
-      createSetProfileImageURITypedData({
+      await createSetProfileImageURITypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
@@ -119,7 +119,7 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   };
 
-  const editPicture = (avatar?: string) => {
+  const editPicture = async (avatar?: string) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
@@ -135,9 +135,9 @@ const Picture: FC<Props> = ({ profile }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        createViaDispatcher(request);
+        await createViaDispatcher(request);
       } else {
-        createSetProfileImageURITypedData({
+        await createSetProfileImageURITypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
             request
