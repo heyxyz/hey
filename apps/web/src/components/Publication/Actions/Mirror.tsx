@@ -1,7 +1,6 @@
 import type { ApolloCache } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
@@ -16,7 +15,11 @@ import clsx from 'clsx';
 import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import type { CreateMirrorRequest } from 'lens';
-import { useCreateMirrorTypedDataMutation, useCreateMirrorViaDispatcherMutation } from 'lens';
+import {
+  useBroadcastMutation,
+  useCreateMirrorTypedDataMutation,
+  useCreateMirrorViaDispatcherMutation
+} from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -70,7 +73,11 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     onError
   });
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted, update: updateCache });
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted,
+    update: updateCache
+  });
+
   const [createMirrorTypedData, { loading: typedDataLoading }] = useCreateMirrorTypedDataMutation({
     onCompleted: async ({ createMirrorTypedData }) => {
       try {
@@ -102,12 +109,9 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
 
-        const {
-          data: { broadcast: result }
-        } = await broadcast({ request: { id, signature } });
-
-        if ('reason' in result) {
-          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
       } catch {}
     },
