@@ -113,7 +113,7 @@ const Attachments: FC<Props> = ({
                   <span>Open Image in new tab</span>
                 </Button>
               ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
-                <Video src={url} poster={imageProxy(getCoverUrl())} />
+                <Video src={url} poster={getCoverUrl()} />
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
                 <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
               ) : (

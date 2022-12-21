@@ -1,5 +1,6 @@
 import 'plyr-react/plyr.css';
 
+import imageProxy from '@lib/imageProxy';
 import Plyr from 'plyr-react';
 import type { FC } from 'react';
 
@@ -15,7 +16,7 @@ const Video: FC<Props> = ({ src, poster }) => {
         source={{
           type: 'video',
           sources: [{ src, provider: 'html5' }],
-          poster
+          poster: poster ? imageProxy(poster) : src
         }}
         options={{
           controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
