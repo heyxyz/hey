@@ -12,7 +12,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { LensHubProxy } from 'abis';
-import { AVATAR, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { AVATAR, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from 'lens';
 import {
   useBroadcastMutation,
@@ -80,12 +80,7 @@ const Picture: FC<Props> = ({ profile }) => {
           imageURI,
           sig
         };
-
         setUserSigNonce(userSigNonce + 1);
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-
         const { data } = await broadcast({ variables: { request: { id, signature } } });
         if (data?.broadcast.__typename === 'RelayError') {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });

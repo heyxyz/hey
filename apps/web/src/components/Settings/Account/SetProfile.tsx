@@ -11,7 +11,7 @@ import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
-import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { Profile } from 'lens';
 import { useBroadcastMutation, useCreateSetDefaultProfileTypedDataMutation } from 'lens';
 import type { FC } from 'react';
@@ -77,12 +77,7 @@ const SetProfile: FC = () => {
           profileId,
           sig
         };
-
         setUserSigNonce(userSigNonce + 1);
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-
         const { data } = await broadcast({ variables: { request: { id, signature } } });
         if (data?.broadcast.__typename === 'RelayError') {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
