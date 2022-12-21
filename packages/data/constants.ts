@@ -44,7 +44,6 @@ export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.sli
 
 // Misc
 export const CONTACT_EMAIL = 'support@lenster.freshdesk.com';
-export const RELAY_ON = true;
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
