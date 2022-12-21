@@ -4,7 +4,6 @@ import { Card } from '@components/UI/Card';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
@@ -14,7 +13,11 @@ import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
 import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
 import type { Erc20 } from 'lens';
-import { useCreateSetFollowModuleTypedDataMutation, useEnabledCurrencyModulesWithProfileQuery } from 'lens';
+import {
+  useBroadcastMutation,
+  useCreateSetFollowModuleTypedDataMutation,
+  useEnabledCurrencyModulesWithProfileQuery
+} from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -66,7 +69,9 @@ const SuperFollow: FC = () => {
     }
   });
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
     useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
@@ -88,12 +93,9 @@ const SuperFollow: FC = () => {
             return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { data } = await broadcast({ variables: { request: { id, signature } } });
+          if (data?.broadcast.__typename === 'RelayError') {
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },
@@ -140,6 +142,8 @@ const SuperFollow: FC = () => {
   }
 
   const followType = currencyData?.profile?.followModule?.__typename;
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
 
   return (
     <Card>
@@ -218,8 +222,8 @@ const SuperFollow: FC = () => {
               {followType === 'FeeFollowModuleSettings' ? 'Update Super follow' : 'Set Super follow'}
             </Button>
           </div>
-          {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-            <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} />
+          {writeData?.hash ?? broadcastTxHash ? (
+            <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} />
           ) : null}
         </div>
       </Form>

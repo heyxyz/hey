@@ -4,7 +4,6 @@ import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
@@ -14,7 +13,7 @@ import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
 import type { Profile } from 'lens';
-import { useCreateSetDefaultProfileTypedDataMutation } from 'lens';
+import { useBroadcastMutation, useCreateSetDefaultProfileTypedDataMutation } from 'lens';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -61,7 +60,9 @@ const SetProfile: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
     useCreateSetDefaultProfileTypedDataMutation({
       onCompleted: async ({ createSetDefaultProfileTypedData }) => {
@@ -83,12 +84,9 @@ const SetProfile: FC = () => {
             return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { data } = await broadcast({ variables: { request: { id, signature } } });
+          if (data?.broadcast.__typename === 'RelayError') {
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },
@@ -114,6 +112,8 @@ const SetProfile: FC = () => {
   }
 
   const isLoading = typedDataLoading || signLoading || writeLoading || broadcastLoading;
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
 
   return (
     <Card className="space-y-5 p-5">
@@ -164,8 +164,8 @@ const SetProfile: FC = () => {
         >
           Save
         </Button>
-        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
-          <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} reload />
+        {writeData?.hash ?? broadcastTxHash ? (
+          <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} reload />
         ) : null}
       </div>
     </Card>

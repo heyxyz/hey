@@ -1,6 +1,5 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
@@ -11,7 +10,7 @@ import { RELAY_ON, SIGN_WALLET } from 'data/constants';
 import type { Signer } from 'ethers';
 import { Contract } from 'ethers';
 import type { CreateBurnEip712TypedData, Profile } from 'lens';
-import { useCreateUnfollowTypedDataMutation } from 'lens';
+import { useBroadcastMutation, useCreateUnfollowTypedDataMutation } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -44,7 +43,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     }
   };
 
-  const { broadcast } = useBroadcast({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: () => {
       setFollowing(false);
     }
@@ -61,8 +60,8 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           if (!RELAY_ON) {
             return await burnWithSig(signature, typedData);
           }
-          const { data } = await broadcast({ request: { id, signature } });
-          if (data?.broadcast?.reason) {
+          const { data } = await broadcast({ variables: { request: { id, signature } } });
+          if (data?.broadcast.__typename === 'RelayError') {
             await burnWithSig(signature, typedData);
           }
           toast.success('Unfollowed successfully!');

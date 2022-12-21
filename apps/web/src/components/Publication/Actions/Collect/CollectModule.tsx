@@ -11,7 +11,6 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/types';
 import {
   CashIcon,
@@ -44,6 +43,7 @@ import type { ElectedMirror } from 'lens';
 import {
   CollectModules,
   useApprovedModuleAllowanceAmountQuery,
+  useBroadcastMutation,
   useCollectModuleQuery,
   useCreateCollectTypedDataMutation,
   useProxyActionMutation,
@@ -162,7 +162,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     hasAmount = true;
   }
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createCollectTypedData, { loading: typedDataLoading }] = useCreateCollectTypedDataMutation({
     onCompleted: async ({ createCollectTypedData }) => {
       try {
@@ -184,12 +186,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
 
-        const {
-          data: { broadcast: result }
-        } = await broadcast({ request: { id, signature } });
-
-        if ('reason' in result) {
-          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
       } catch {}
     },
@@ -254,6 +253,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   const isLoading =
     typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
 
   return (
     <>
@@ -423,9 +424,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             </div>
           )}
         </div>
-        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+        {writeData?.hash ?? broadcastTxHash ? (
           <div className="mt-5">
-            <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} />
+            <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} />
           </div>
         ) : null}
         <div className="flex items-center space-x-2 mt-5">

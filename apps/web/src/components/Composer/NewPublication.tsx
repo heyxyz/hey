@@ -5,7 +5,6 @@ import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterAttachment, LensterPublication } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
@@ -41,6 +40,7 @@ import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
+  useBroadcastMutation,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
   useCreatePostTypedDataMutation,
@@ -120,7 +120,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const resetAccessSettings = useAccessSettingsStore((state) => state.reset);
 
   // States
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
@@ -175,7 +175,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     };
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({ onError });
 
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -189,10 +189,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
     onError
   });
 
-  const { broadcast } = useBroadcast({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: (data) => {
       onCompleted();
-      setTxnQueue([generateOptimisticPublication({ txId: data?.broadcast?.txId }), ...txnQueue]);
+      if (data.broadcast.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPublication({ txId: data.broadcast.txId }), ...txnQueue]);
+      }
     }
   });
 
@@ -229,22 +231,19 @@ const NewPublication: FC<Props> = ({ publication }) => {
       return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
 
-    const {
-      data: { broadcast: result }
-    } = await broadcast({ request: { id, signature } });
-
-    if ('reason' in result) {
-      write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+    const { data } = await broadcast({ variables: { request: { id, signature } } });
+    if (data?.broadcast.__typename === 'RelayError') {
+      return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
   };
 
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: ({ createCommentTypedData }) => typedDataGenerator(createCommentTypedData),
+    onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData),
     onError
   });
 
   const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: ({ createPostTypedData }) => typedDataGenerator(createPostTypedData),
+    onCompleted: async ({ createPostTypedData }) => await typedDataGenerator(createPostTypedData),
     onError
   });
 
@@ -283,12 +282,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
     if (isComment) {
       const { data } = await createCommentViaDispatcher({ variables: { request } });
       if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-        createCommentTypedData({ variables });
+        await createCommentTypedData({ variables });
       }
     } else {
       const { data } = await createPostViaDispatcher({ variables: { request } });
       if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
-        createPostTypedData({ variables });
+        await createPostTypedData({ variables });
       }
     }
   };
@@ -389,8 +388,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
 
     try {
-      setIsSubmitting(true);
-
+      setLoading(true);
       if (isAudioPublication) {
         setPublicationContentError('');
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
@@ -501,7 +499,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       }
     } catch {
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
@@ -514,6 +512,8 @@ const NewPublication: FC<Props> = ({ publication }) => {
     };
     addAttachments([attachment]);
   };
+
+  const isLoading = loading || typedDataLoading;
 
   return (
     <Card className={clsx({ 'border-none rounded-none': !isComment }, 'pb-3')}>
@@ -532,9 +532,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isSubmitting || isUploading}
+            disabled={isLoading || isUploading}
             icon={
-              isSubmitting ? (
+              isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (
                 <ChatAlt2Icon className="w-4 h-4" />
