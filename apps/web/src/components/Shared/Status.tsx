@@ -109,7 +109,7 @@ const Status: FC = () => {
       variables: { request }
     });
     if (data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError') {
-      createSetProfileMetadataTypedData({
+      await createSetProfileMetadataTypedData({
         variables: { request }
       });
     }
@@ -158,9 +158,9 @@ const Status: FC = () => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        createViaDispatcher(request);
+        await createViaDispatcher(request);
       } else {
-        createSetProfileMetadataTypedData({
+        await createSetProfileMetadataTypedData({
           variables: { request }
         });
       }

@@ -91,7 +91,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       variables
     });
     if (!data?.proxyAction) {
-      createFollowTypedData({
+      await createFollowTypedData({
         variables: {
           request: { follow: [{ profile: profile?.id }] },
           options: { overrideSigNonce: userSigNonce }
@@ -100,13 +100,14 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     }
   };
 
-  const createFollow = () => {
+  const createFollow = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
+
     try {
       if (profile?.followModule) {
-        createFollowTypedData({
+        await createFollowTypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
             request: {
@@ -123,7 +124,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           }
         });
       } else {
-        createViaProxyAction({
+        await createViaProxyAction({
           request: {
             follow: {
               freeFollow: {

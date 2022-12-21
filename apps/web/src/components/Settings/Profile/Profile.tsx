@@ -114,7 +114,7 @@ const Profile: FC<Props> = ({ profile }) => {
       variables: { request }
     });
     if (data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError') {
-      createSetProfileMetadataTypedData({
+      await createSetProfileMetadataTypedData({
         variables: { request }
       });
     }
@@ -197,9 +197,9 @@ const Profile: FC<Props> = ({ profile }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        createViaDispatcher(request);
+        await createViaDispatcher(request);
       } else {
-        createSetProfileMetadataTypedData({
+        await createSetProfileMetadataTypedData({
           variables: { request }
         });
       }

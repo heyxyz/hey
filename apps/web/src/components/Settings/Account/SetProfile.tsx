@@ -86,14 +86,14 @@ const SetProfile: FC = () => {
       onError
     });
 
-  const setDefaultProfile = () => {
+  const setDefaultProfile = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     try {
       const request = { profileId: selectedUser };
-      createSetDefaultProfileTypedData({
+      await createSetDefaultProfileTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
