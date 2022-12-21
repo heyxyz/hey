@@ -120,7 +120,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const resetAccessSettings = useAccessSettingsStore((state) => state.reset);
 
   // States
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
@@ -175,7 +175,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     };
   };
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({ onError });
 
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -238,12 +238,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
   };
 
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: ({ createCommentTypedData }) => typedDataGenerator(createCommentTypedData),
+    onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData),
     onError
   });
 
   const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: ({ createPostTypedData }) => typedDataGenerator(createPostTypedData),
+    onCompleted: async ({ createPostTypedData }) => await typedDataGenerator(createPostTypedData),
     onError
   });
 
@@ -282,12 +282,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
     if (isComment) {
       const { data } = await createCommentViaDispatcher({ variables: { request } });
       if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-        createCommentTypedData({ variables });
+        await createCommentTypedData({ variables });
       }
     } else {
       const { data } = await createPostViaDispatcher({ variables: { request } });
       if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
-        createPostTypedData({ variables });
+        await createPostTypedData({ variables });
       }
     }
   };
@@ -388,8 +388,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
 
     try {
-      setIsSubmitting(true);
-
+      setLoading(true);
       if (isAudioPublication) {
         setPublicationContentError('');
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
@@ -500,7 +499,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       }
     } catch {
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
@@ -513,6 +512,8 @@ const NewPublication: FC<Props> = ({ publication }) => {
     };
     addAttachments([attachment]);
   };
+
+  const isLoading = loading || typedDataLoading;
 
   return (
     <Card className={clsx({ 'border-none rounded-none': !isComment }, 'pb-3')}>
@@ -531,9 +532,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isSubmitting || isUploading}
+            disabled={isLoading || isUploading}
             icon={
-              isSubmitting ? (
+              isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (
                 <ChatAlt2Icon className="w-4 h-4" />
