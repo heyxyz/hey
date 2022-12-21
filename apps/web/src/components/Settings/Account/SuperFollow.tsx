@@ -95,13 +95,13 @@ const SuperFollow: FC = () => {
       onError
     });
 
-  const setSuperFollow = (amount: string | null, recipient: string | null) => {
+  const setSuperFollow = async (amount: string | null, recipient: string | null) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     try {
-      createSetFollowModuleTypedData({
+      await createSetFollowModuleTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {
