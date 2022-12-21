@@ -51,14 +51,31 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { reasons } = encryptedPublication.canDecrypt;
   const showMore = encryptedPublication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
-  const getCriteria = (key: string) => {
+  const getCondition = (key: string) => {
     const criteria: any = encryptedPublication.metadata.encryptionParams?.accessCondition.or?.criteria;
+
+    const getCriteria = (key: string) => {
+      return criteria.map((item: any) => item[key]).find((item: any) => item);
+    };
+
+    if (getCriteria('and')?.criteria) {
+      return getCriteria('and')
+        .criteria.map((item: any) => item[key])
+        .find((item: any) => item);
+    }
+
+    if (getCriteria('or')?.criteria) {
+      return getCriteria('or')
+        .criteria.map((item: any) => item[key])
+        .find((item: any) => item);
+    }
+
     return criteria.map((item: any) => item[key]).find((item: any) => item);
   };
 
   // Conditions
-  const tokenCondition: Erc20OwnershipOutput = getCriteria('token');
-  const nftCondition: NftOwnershipOutput = getCriteria('nft');
+  const tokenCondition: Erc20OwnershipOutput = getCondition('token');
+  const nftCondition: NftOwnershipOutput = getCondition('nft');
 
   // Status
   // Collect checks - https://docs.lens.xyz/docs/gated#collected-publication
@@ -115,7 +132,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card className={cardClasses} onClick={(event) => event.stopPropagation()}>
         <div className="font-bold flex items-center space-x-2">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
-          <span className="text-white font-black text-base">Unlock this by...</span>
+          <span className="text-white font-black text-base">To view this...</span>
         </div>
         <div className="pt-3.5 space-y-2 text-white">
           {/* Collect checks */}
