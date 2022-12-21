@@ -1,7 +1,6 @@
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
@@ -10,7 +9,7 @@ import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY, RELAY_ON } from 'data/constants';
-import { useCreateSetDispatcherTypedDataMutation } from 'lens';
+import { useBroadcastMutation, useCreateSetDispatcherTypedDataMutation } from 'lens';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -47,7 +46,9 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
     onError
   });
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useCreateSetDispatcherTypedDataMutation({
       onCompleted: async ({ createSetDispatcherTypedData }) => {
@@ -68,12 +69,9 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
             return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { data } = await broadcast({ variables: { request: { id, signature } } });
+          if (data?.broadcast.__typename === 'RelayError') {
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },
@@ -81,10 +79,12 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
     });
 
   const isLoading = signLoading || writeLoading || broadcastLoading || typedDataLoading;
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
 
-  return writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+  return writeData?.hash ?? broadcastTxHash ? (
     <div className="mt-2">
-      <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} reload />
+      <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} reload />
     </div>
   ) : (
     <Button
