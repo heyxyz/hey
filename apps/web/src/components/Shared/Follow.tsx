@@ -59,29 +59,26 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
       const { deadline } = typedData.value;
+      // TODO: Replace deep clone with right helper
+      const signature = await signTypedDataAsync(getSignature(JSON.parse(JSON.stringify(typedData))));
+      setUserSigNonce(userSigNonce + 1);
+      const { profileIds, datas: followData } = typedData.value;
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        follower: address,
+        profileIds,
+        datas: followData,
+        sig
+      };
+      if (!RELAY_ON) {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
 
-      try {
-        // TODO: Replace deep clone with right helper
-        const signature = await signTypedDataAsync(getSignature(JSON.parse(JSON.stringify(typedData))));
-        setUserSigNonce(userSigNonce + 1);
-        const { profileIds, datas: followData } = typedData.value;
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          follower: address,
-          profileIds,
-          datas: followData,
-          sig
-        };
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
-        if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      } catch {}
+      const { data } = await broadcast({ variables: { request: { id, signature } } });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
     },
     onError,
     update: updateCache
@@ -111,35 +108,36 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
-
-    if (profile?.followModule) {
-      createFollowTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: {
-            follow: [
-              {
-                profile: profile?.id,
-                followModule:
-                  profile?.followModule?.__typename === 'ProfileFollowModuleSettings'
-                    ? { profileFollowModule: { profileId: currentProfile?.id } }
-                    : null
-              }
-            ]
-          }
-        }
-      });
-    } else {
-      createViaProxyAction({
-        request: {
-          follow: {
-            freeFollow: {
-              profileId: profile?.id
+    try {
+      if (profile?.followModule) {
+        createFollowTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request: {
+              follow: [
+                {
+                  profile: profile?.id,
+                  followModule:
+                    profile?.followModule?.__typename === 'ProfileFollowModuleSettings'
+                      ? { profileFollowModule: { profileId: currentProfile?.id } }
+                      : null
+                }
+              ]
             }
           }
-        }
-      });
-    }
+        });
+      } else {
+        createViaProxyAction({
+          request: {
+            follow: {
+              freeFollow: {
+                profileId: profile?.id
+              }
+            }
+          }
+        });
+      }
+    } catch {}
   };
 
   const isLoading = typedDataLoading || proxyActionLoading || signLoading || writeLoading || broadcastLoading;

@@ -52,31 +52,42 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useCreateSetDispatcherTypedDataMutation({
       onCompleted: async ({ createSetDispatcherTypedData }) => {
-        try {
-          const { id, typedData } = createSetDispatcherTypedData;
-          const { profileId, dispatcher, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            dispatcher,
-            sig
-          };
+        const { id, typedData } = createSetDispatcherTypedData;
+        const { profileId, dispatcher, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          dispatcher,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
 
-          const { data } = await broadcast({ variables: { request: { id, signature } } });
-          if (data?.broadcast.__typename === 'RelayError') {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
       },
       onError
     });
+
+  const toggleDispatcher = () => {
+    try {
+      createSetProfileMetadataTypedData({
+        variables: {
+          request: {
+            profileId: currentProfile?.id,
+            enable: canUseRelay ? false : true
+          }
+        }
+      });
+    } catch {}
+  };
 
   const isLoading = signLoading || writeLoading || broadcastLoading || typedDataLoading;
   const broadcastTxHash =
@@ -100,16 +111,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
           <CheckCircleIcon className="w-4 h-4" />
         )
       }
-      onClick={() => {
-        createSetProfileMetadataTypedData({
-          variables: {
-            request: {
-              profileId: currentProfile?.id,
-              enable: canUseRelay ? false : true
-            }
-          }
-        });
-      }}
+      onClick={toggleDispatcher}
     >
       {canUseRelay ? 'Disable' : 'Enable'} dispatcher
     </Button>

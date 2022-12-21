@@ -70,28 +70,26 @@ const Picture: FC<Props> = ({ profile }) => {
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
-        try {
-          const { id, typedData } = createSetProfileImageURITypedData;
-          const { profileId, imageURI, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            imageURI,
-            sig
-          };
+        const { id, typedData } = createSetProfileImageURITypedData;
+        const { profileId, imageURI, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          imageURI,
+          sig
+        };
 
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
+        setUserSigNonce(userSigNonce + 1);
+        if (!RELAY_ON) {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
 
-          const { data } = await broadcast({ variables: { request: { id, signature } } });
-          if (data?.broadcast.__typename === 'RelayError') {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
       },
       onError
     });
@@ -135,21 +133,23 @@ const Picture: FC<Props> = ({ profile }) => {
       return toast.error("Avatar can't be empty!");
     }
 
-    const request = {
-      profileId: currentProfile?.id,
-      url: avatar
-    };
+    try {
+      const request = {
+        profileId: currentProfile?.id,
+        url: avatar
+      };
 
-    if (currentProfile?.dispatcher?.canUseRelay) {
-      createViaDispatcher(request);
-    } else {
-      createSetProfileImageURITypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
-      });
-    }
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        createViaDispatcher(request);
+      } else {
+        createSetProfileImageURITypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request
+          }
+        });
+      }
+    } catch {}
   };
 
   const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;

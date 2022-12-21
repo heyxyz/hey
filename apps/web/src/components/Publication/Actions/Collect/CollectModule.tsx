@@ -167,30 +167,28 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   });
   const [createCollectTypedData, { loading: typedDataLoading }] = useCreateCollectTypedDataMutation({
     onCompleted: async ({ createCollectTypedData }) => {
-      try {
-        const { id, typedData } = createCollectTypedData;
-        const { profileId, pubId, data: collectData, deadline } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          collector: address,
-          profileId,
-          pubId,
-          data: collectData,
-          sig
-        };
+      const { id, typedData } = createCollectTypedData;
+      const { profileId, pubId, data: collectData, deadline } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        collector: address,
+        profileId,
+        pubId,
+        data: collectData,
+        sig
+      };
 
-        setUserSigNonce(userSigNonce + 1);
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
+      setUserSigNonce(userSigNonce + 1);
+      if (!RELAY_ON) {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
 
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
-        if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      } catch {}
+      const { data } = await broadcast({ variables: { request: { id, signature } } });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
     },
     onError
   });
@@ -217,34 +215,36 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
       return toast.error(SIGN_WALLET);
     }
 
-    if (collectModule?.type === CollectModules.FreeCollectModule) {
-      createViaProxyAction({
-        request: { collect: { freeCollect: { publicationId: publication?.id } } }
-      });
-    } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
-      refetch().then(({ data }) => {
-        if (data) {
-          const decodedData: any = data;
-          const encodedData = defaultAbiCoder.encode(
-            ['address', 'uint256'],
-            [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
-          );
-          createCollectTypedData({
-            variables: {
-              options: { overrideSigNonce: userSigNonce },
-              request: { publicationId: publication?.id, unknownModuleData: encodedData }
-            }
-          });
-        }
-      });
-    } else {
-      createCollectTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
-        }
-      });
-    }
+    try {
+      if (collectModule?.type === CollectModules.FreeCollectModule) {
+        createViaProxyAction({
+          request: { collect: { freeCollect: { publicationId: publication?.id } } }
+        });
+      } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
+        refetch().then(({ data }) => {
+          if (data) {
+            const decodedData: any = data;
+            const encodedData = defaultAbiCoder.encode(
+              ['address', 'uint256'],
+              [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
+            );
+            createCollectTypedData({
+              variables: {
+                options: { overrideSigNonce: userSigNonce },
+                request: { publicationId: publication?.id, unknownModuleData: encodedData }
+              }
+            });
+          }
+        });
+      } else {
+        createCollectTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
+          }
+        });
+      }
+    } catch {}
   };
 
   if (loading || revenueLoading) {
