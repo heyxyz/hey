@@ -4,7 +4,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
@@ -14,6 +13,7 @@ import { LensHubProxy } from 'abis';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
 import type { NftImage, Profile, UpdateProfileImageRequest } from 'lens';
 import {
+  useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation,
   useNftChallengeLazyQuery
@@ -74,7 +74,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   });
 
   const [loadChallenge, { loading: challengeLoading }] = useNftChallengeLazyQuery();
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
@@ -95,12 +97,9 @@ const NFTPicture: FC<Props> = ({ profile }) => {
             return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
 
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { data } = await broadcast({ variables: { request: { id, signature } } });
+          if (data?.broadcast.__typename === 'RelayError') {
+            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
           }
         } catch {}
       },
@@ -175,11 +174,14 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     signLoading ||
     writeLoading ||
     broadcastLoading;
-  const txHash =
-    writeData?.hash ??
-    broadcastData?.broadcast?.txHash ??
-    (dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
-      dispatcherData?.createSetProfileImageURIViaDispatcher.txHash);
+
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
+  const dispatcherTxHash =
+    dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
+    dispatcherData?.createSetProfileImageURIViaDispatcher.txHash;
+
+  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
 
   return (
     <Form
