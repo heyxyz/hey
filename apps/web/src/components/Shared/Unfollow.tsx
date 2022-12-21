@@ -71,17 +71,13 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     onError
   });
 
-  const createUnfollow = () => {
+  const createUnfollow = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     try {
-      createUnfollowTypedData({
-        variables: {
-          request: { profile: profile?.id }
-        }
-      });
+      await createUnfollowTypedData({ variables: { request: { profile: profile?.id } } });
     } catch {}
   };
 
