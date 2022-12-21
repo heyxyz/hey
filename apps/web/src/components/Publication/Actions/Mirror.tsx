@@ -122,7 +122,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
       variables: { request }
     });
     if (data?.createMirrorViaDispatcher?.__typename === 'RelayError') {
-      createMirrorTypedData({
+      await createMirrorTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
@@ -131,7 +131,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     }
   };
 
-  const createMirror = () => {
+  const createMirror = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
@@ -146,9 +146,9 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        createViaDispatcher(request);
+        await createViaDispatcher(request);
       } else {
-        createMirrorTypedData({
+        await createMirrorTypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
             request
