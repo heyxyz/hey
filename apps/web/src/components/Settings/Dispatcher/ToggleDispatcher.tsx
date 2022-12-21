@@ -71,9 +71,9 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
       onError
     });
 
-  const toggleDispatcher = () => {
+  const toggleDispatcher = async () => {
     try {
-      createSetProfileMetadataTypedData({
+      await createSetProfileMetadataTypedData({
         variables: {
           request: {
             profileId: currentProfile?.id,
