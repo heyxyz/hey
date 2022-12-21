@@ -47,6 +47,7 @@ const useNFT = ({ address, chainId, enabled }: Props): { data: any; error: any }
     }
 
     loadContractDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { data, error };
