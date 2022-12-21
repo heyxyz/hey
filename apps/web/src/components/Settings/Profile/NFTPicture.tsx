@@ -150,15 +150,15 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        await createViaDispatcher(request);
-      } else {
-        await createSetProfileImageURITypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request
-          }
-        });
+        return await createViaDispatcher(request);
       }
+
+      return await createSetProfileImageURITypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
     } catch {}
   };
 
