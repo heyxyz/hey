@@ -36,7 +36,6 @@ const useNFT = ({ address, chainId, enabled }: Props): { data: any; error: any }
       });
       setData(response.data);
     } catch (error: any) {
-      console.log(error);
       setError(error);
     }
   };
