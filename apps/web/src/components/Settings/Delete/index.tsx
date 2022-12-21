@@ -55,16 +55,14 @@ const DeleteSettings: FC = () => {
 
   const [createBurnProfileTypedData, { loading: typedDataLoading }] = useCreateBurnProfileTypedDataMutation({
     onCompleted: async ({ createBurnProfileTypedData }) => {
-      try {
-        const { typedData } = createBurnProfileTypedData;
-        const { tokenId, deadline } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
+      const { typedData } = createBurnProfileTypedData;
+      const { tokenId, deadline } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
 
-        setUserSigNonce(userSigNonce + 1);
-        write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
-      } catch {}
+      setUserSigNonce(userSigNonce + 1);
+      write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
     },
     onError
   });
@@ -74,12 +72,14 @@ const DeleteSettings: FC = () => {
       return toast.error(SIGN_WALLET);
     }
 
-    createBurnProfileTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: { profileId: currentProfile?.id }
-      }
-    });
+    try {
+      createBurnProfileTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: { profileId: currentProfile?.id }
+        }
+      });
+    } catch {}
   };
 
   const isDeleting = typedDataLoading || signLoading || writeLoading;

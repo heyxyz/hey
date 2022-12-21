@@ -80,40 +80,38 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
 
   const [createMirrorTypedData, { loading: typedDataLoading }] = useCreateMirrorTypedDataMutation({
     onCompleted: async ({ createMirrorTypedData }) => {
-      try {
-        const { id, typedData } = createMirrorTypedData;
-        const {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          deadline
-        } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          sig
-        };
+      const { id, typedData } = createMirrorTypedData;
+      const {
+        profileId,
+        profileIdPointed,
+        pubIdPointed,
+        referenceModule,
+        referenceModuleData,
+        referenceModuleInitData,
+        deadline
+      } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        profileId,
+        profileIdPointed,
+        pubIdPointed,
+        referenceModule,
+        referenceModuleData,
+        referenceModuleInitData,
+        sig
+      };
 
-        setUserSigNonce(userSigNonce + 1);
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
+      setUserSigNonce(userSigNonce + 1);
+      if (!RELAY_ON) {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
 
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
-        if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      } catch {}
+      const { data } = await broadcast({ variables: { request: { id, signature } } });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
     },
     onError
   });
@@ -143,24 +141,26 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    const request = {
-      profileId: currentProfile?.id,
-      publicationId: publication?.id,
-      referenceModule: {
-        followerOnlyReferenceModule: false
-      }
-    };
-
-    if (currentProfile?.dispatcher?.canUseRelay) {
-      createViaDispatcher(request);
-    } else {
-      createMirrorTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
+    try {
+      const request = {
+        profileId: currentProfile?.id,
+        publicationId: publication?.id,
+        referenceModule: {
+          followerOnlyReferenceModule: false
         }
-      });
-    }
+      };
+
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        createViaDispatcher(request);
+      } else {
+        createMirrorTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request
+          }
+        });
+      }
+    } catch {}
   };
 
   const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;

@@ -51,27 +51,25 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
 
   const [createUnfollowTypedData, { loading: typedDataLoading }] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
-      try {
-        const { typedData, id } = createUnfollowTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
+      const { typedData, id } = createUnfollowTypedData;
+      const signature = await signTypedDataAsync(getSignature(typedData));
 
-        setWriteLoading(true);
-        try {
-          if (!RELAY_ON) {
-            return await burnWithSig(signature, typedData);
-          }
-          const { data } = await broadcast({ variables: { request: { id, signature } } });
-          if (data?.broadcast.__typename === 'RelayError') {
-            await burnWithSig(signature, typedData);
-          }
-          toast.success('Unfollowed successfully!');
-          Analytics.track(PROFILE.UNFOLLOW);
-        } catch {
-          toast.error('User rejected request');
-        } finally {
-          setWriteLoading(false);
+      setWriteLoading(true);
+      try {
+        if (!RELAY_ON) {
+          return await burnWithSig(signature, typedData);
         }
-      } catch {}
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          await burnWithSig(signature, typedData);
+        }
+        toast.success('Unfollowed successfully!');
+        Analytics.track(PROFILE.UNFOLLOW);
+      } catch {
+        toast.error('User rejected request');
+      } finally {
+        setWriteLoading(false);
+      }
     },
     onError
   });
@@ -81,11 +79,13 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    createUnfollowTypedData({
-      variables: {
-        request: { profile: profile?.id }
-      }
-    });
+    try {
+      createUnfollowTypedData({
+        variables: {
+          request: { profile: profile?.id }
+        }
+      });
+    } catch {}
   };
 
   return (
