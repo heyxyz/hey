@@ -196,7 +196,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
     if (!data?.proxyAction) {
-      createCollectTypedData({
+      await createCollectTypedData({
         variables: {
           request: { publicationId: publication?.id },
           options: { overrideSigNonce: userSigNonce }
@@ -205,25 +205,25 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   };
 
-  const createCollect = () => {
+  const createCollect = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
     try {
       if (collectModule?.type === CollectModules.FreeCollectModule) {
-        createViaProxyAction({
+        await createViaProxyAction({
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
         });
       } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
-        refetch().then(({ data }) => {
+        refetch().then(async ({ data }) => {
           if (data) {
             const decodedData: any = data;
             const encodedData = defaultAbiCoder.encode(
               ['address', 'uint256'],
               [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
             );
-            createCollectTypedData({
+            await createCollectTypedData({
               variables: {
                 options: { overrideSigNonce: userSigNonce },
                 request: { publicationId: publication?.id, unknownModuleData: encodedData }
@@ -232,7 +232,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           }
         });
       } else {
-        createCollectTypedData({
+        await createCollectTypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
             request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
