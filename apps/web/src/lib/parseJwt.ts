@@ -1,10 +1,9 @@
-
 /**
- * 
- * @param str 
- * @returns decoded data
+ *
+ * @param str jwt token
+ * @returns atob data
  */
-const decoded = (str: string): string => Buffer.from(str, 'base64').toString("binary")
+const decoded = (str: string): string => Buffer.from(str, 'base64').toString('binary');
 
 /**
  *
