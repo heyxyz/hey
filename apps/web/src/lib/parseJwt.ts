@@ -1,3 +1,11 @@
+
+/**
+ * 
+ * @param str 
+ * @returns decoded data
+ */
+const decoded = (str: string): string => Buffer.from(str, 'base64').toString("binary")
+
 /**
  *
  * @param token jwt token
@@ -9,7 +17,7 @@ const parseJwt = (
   exp: number;
 } => {
   try {
-    return JSON.parse(atob(token.split('.')[1]));
+    return JSON.parse(decoded(token.split('.')[1]));
   } catch (error) {
     console.error(error);
     return { exp: 0 };
