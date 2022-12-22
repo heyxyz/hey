@@ -4,16 +4,16 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { PencilIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
-import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { NftImage, Profile, UpdateProfileImageRequest } from 'lens';
 import {
+  useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation,
   useNftChallengeLazyQuery
@@ -48,7 +48,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Avatar updated successfully!');
-    Leafwatch.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
+    Analytics.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
 
   const form = useZodForm({
@@ -74,35 +74,27 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   });
 
   const [loadChallenge, { loading: challengeLoading }] = useNftChallengeLazyQuery();
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
-        try {
-          const { id, typedData } = createSetProfileImageURITypedData;
-          const { profileId, imageURI, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            imageURI,
-            sig
-          };
-
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
+        const { id, typedData } = createSetProfileImageURITypedData;
+        const { profileId, imageURI, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          imageURI,
+          sig
+        };
+        setUserSigNonce(userSigNonce + 1);
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
       },
       onError
     });
@@ -115,7 +107,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       variables: { request }
     });
     if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
-      createSetProfileImageURITypedData({
+      await createSetProfileImageURITypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
@@ -129,43 +121,45 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    const challengeRes = await loadChallenge({
-      variables: {
-        request: {
-          ethereumAddress: currentProfile?.ownedBy,
-          nfts: [
-            {
-              contractAddress,
-              tokenId,
-              chainId
-            }
-          ]
+    try {
+      const challengeRes = await loadChallenge({
+        variables: {
+          request: {
+            ethereumAddress: currentProfile?.ownedBy,
+            nfts: [
+              {
+                contractAddress,
+                tokenId,
+                chainId
+              }
+            ]
+          }
         }
+      });
+
+      const signature = await signMessageAsync({
+        message: challengeRes?.data?.nftOwnershipChallenge?.text as string
+      });
+
+      const request = {
+        profileId: currentProfile?.id,
+        nftData: {
+          id: challengeRes?.data?.nftOwnershipChallenge?.id,
+          signature
+        }
+      };
+
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        return await createViaDispatcher(request);
       }
-    });
 
-    const signature = await signMessageAsync({
-      message: challengeRes?.data?.nftOwnershipChallenge?.text as string
-    });
-
-    const request = {
-      profileId: currentProfile?.id,
-      nftData: {
-        id: challengeRes?.data?.nftOwnershipChallenge?.id,
-        signature
-      }
-    };
-
-    if (currentProfile?.dispatcher?.canUseRelay) {
-      createViaDispatcher(request);
-    } else {
-      createSetProfileImageURITypedData({
+      return await createSetProfileImageURITypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
         }
       });
-    }
+    } catch {}
   };
 
   const isLoading =
@@ -175,11 +169,14 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     signLoading ||
     writeLoading ||
     broadcastLoading;
-  const txHash =
-    writeData?.hash ??
-    broadcastData?.broadcast?.txHash ??
-    (dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
-      dispatcherData?.createSetProfileImageURIViaDispatcher.txHash);
+
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
+  const dispatcherTxHash =
+    dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
+    dispatcherData?.createSetProfileImageURIViaDispatcher.txHash;
+
+  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
 
   return (
     <Form
@@ -194,7 +191,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         <div className="label">Chain</div>
         <div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700/80 focus:border-brand-500 focus:ring-brand-400"
+            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => setChainId(parseInt(e.target.value))}
             value={chainId}
           >

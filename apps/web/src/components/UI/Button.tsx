@@ -36,7 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
             !outline && !light && variant === 'danger',
           'border border-brand-500 text-brand hover:bg-brand-100 focus:ring-brand-400':
             outline && !light && variant === 'primary',
-          'border border-gray-500 text-gray-500 hover:bg-gray-100 focus:ring-gray-400':
+          'border border-gray-500 lt-text-gray-500 hover:bg-gray-100 focus:ring-gray-400':
             outline && !light && variant === 'secondary',
           'border border-green-500 text-green-500 hover:bg-green-100 focus:ring-green-400':
             outline && !light && variant === 'success',
@@ -46,7 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
             outline && !light && variant === 'super',
           'border border-red-500 text-red-500 hover:bg-red-100 focus:ring-red-400':
             outline && !light && variant === 'danger',
-          'border-none !shadow-none text-gray-500': light,
+          'border-none !shadow-none lt-text-gray-500': light,
           'px-2 py-0.5': size === 'sm',
           'px-3 py-1': size === 'md',
           'px-4 py-1.5': size === 'lg',

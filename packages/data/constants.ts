@@ -24,6 +24,7 @@ export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
+export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 
 export const IS_MAINNET = API_URL === MAINNET_API_URL;
 
@@ -42,8 +43,7 @@ export const APP_VERSION = packageJson.version;
 export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
 
 // Misc
-export const CONTACT_EMAIL = 'support@lenster.xyz';
-export const RELAY_ON = true;
+export const CONTACT_EMAIL = 'support@lenster.freshdesk.com';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
@@ -69,7 +69,7 @@ export const EVER_API = 'https://endpoint.4everland.co';
 export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
 
 // Web3
-export const RPC_URL = IS_MAINNET ? 'https://rpc.ankr.com/polygon' : 'https://rpc.ankr.com/polygon_mumbai';
+export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
 
 // Errors
 export const ERRORS = {

@@ -1,7 +1,7 @@
 import { Card } from '@components/UI/Card';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import isVerified from '@lib/isVerified';
-import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
@@ -23,7 +23,7 @@ const Verification: FC = () => {
           <a
             href="https://tally.so/r/wgDajK"
             onClick={() => {
-              Leafwatch.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
+              Analytics.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
             }}
             target="_blank"
             rel="noreferrer noopener"

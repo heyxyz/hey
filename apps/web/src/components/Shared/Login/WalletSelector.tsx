@@ -3,8 +3,8 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { XCircleIcon } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import getWalletLogo from '@lib/getWalletLogo';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import toSnakeCase from '@lib/toSnakeCase';
 import clsx from 'clsx';
@@ -15,6 +15,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAuthStore } from 'src/store/auth';
 import { USER } from 'src/tracking';
 import type { Connector } from 'wagmi';
 import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi';
@@ -28,6 +29,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const [loading, setLoading] = useState(false);
 
   const { mounted } = useIsMounted();
@@ -47,7 +49,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Leafwatch.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
+      Analytics.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
     } catch (error) {
       console.error(error);
     }
@@ -94,11 +96,12 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Leafwatch.track(USER.SIWL);
+      Analytics.track(USER.SIWL);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
+      setShowAuthModal(false);
     }
   };
 
@@ -137,7 +140,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             key={connector.id}
             className={clsx(
               { 'hover:bg-gray-100 dark:hover:bg-gray-700': connector.id !== activeConnector?.id },
-              'w-full flex items-center justify-between space-x-2.5 px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700/80 outline-none'
+              'w-full flex items-center justify-between space-x-2.5 px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700 outline-none'
             )}
             onClick={() => onConnect(connector)}
             disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}

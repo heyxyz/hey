@@ -1,22 +1,25 @@
 import type { ApolloCache } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
 import { publicationKeyFields } from '@lib/keyFields';
-import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
-import { LENSHUB_PROXY, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import type { CreateMirrorRequest } from 'lens';
-import { useCreateMirrorTypedDataMutation, useCreateMirrorViaDispatcherMutation } from 'lens';
+import {
+  useBroadcastMutation,
+  useCreateMirrorTypedDataMutation,
+  useCreateMirrorViaDispatcherMutation
+} from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -58,7 +61,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   const onCompleted = () => {
     setMirrored(true);
     toast.success('Post has been mirrored!');
-    Leafwatch.track(PUBLICATION.MIRROR);
+    Analytics.track(PUBLICATION.MIRROR);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -70,46 +73,40 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     onError
   });
 
-  const { broadcast, loading: broadcastLoading } = useBroadcast({ onCompleted, update: updateCache });
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted,
+    update: updateCache
+  });
+
   const [createMirrorTypedData, { loading: typedDataLoading }] = useCreateMirrorTypedDataMutation({
     onCompleted: async ({ createMirrorTypedData }) => {
-      try {
-        const { id, typedData } = createMirrorTypedData;
-        const {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          deadline
-        } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          sig
-        };
-
-        setUserSigNonce(userSigNonce + 1);
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-
-        const {
-          data: { broadcast: result }
-        } = await broadcast({ request: { id, signature } });
-
-        if ('reason' in result) {
-          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      } catch {}
+      const { id, typedData } = createMirrorTypedData;
+      const {
+        profileId,
+        profileIdPointed,
+        pubIdPointed,
+        referenceModule,
+        referenceModuleData,
+        referenceModuleInitData,
+        deadline
+      } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        profileId,
+        profileIdPointed,
+        pubIdPointed,
+        referenceModule,
+        referenceModuleData,
+        referenceModuleInitData,
+        sig
+      };
+      setUserSigNonce(userSigNonce + 1);
+      const { data } = await broadcast({ variables: { request: { id, signature } } });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
     },
     onError
   });
@@ -125,7 +122,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
       variables: { request }
     });
     if (data?.createMirrorViaDispatcher?.__typename === 'RelayError') {
-      createMirrorTypedData({
+      await createMirrorTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
@@ -134,29 +131,31 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     }
   };
 
-  const createMirror = () => {
+  const createMirror = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
-    const request = {
-      profileId: currentProfile?.id,
-      publicationId: publication?.id,
-      referenceModule: {
-        followerOnlyReferenceModule: false
-      }
-    };
+    try {
+      const request = {
+        profileId: currentProfile?.id,
+        publicationId: publication?.id,
+        referenceModule: {
+          followerOnlyReferenceModule: false
+        }
+      };
 
-    if (currentProfile?.dispatcher?.canUseRelay) {
-      createViaDispatcher(request);
-    } else {
-      createMirrorTypedData({
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        return await createViaDispatcher(request);
+      }
+
+      return await createMirrorTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
         }
       });
-    }
+    } catch {}
   };
 
   const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;

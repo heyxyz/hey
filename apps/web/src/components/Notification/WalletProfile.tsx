@@ -14,7 +14,7 @@ export const NotificationWalletProfileAvatar: FC<Props> = ({ wallet }) => {
     <a href={`${POLYGONSCAN_URL}/address/${wallet?.address}`} target="_blank" rel="noreferrer noopener">
       <img
         src={imageProxy(getStampFyiURL(wallet?.address), AVATAR)}
-        className="w-8 h-8 bg-gray-200 rounded-full border dark:border-gray-700/80"
+        className="w-8 h-8 bg-gray-200 rounded-full border dark:border-gray-700"
         height={32}
         width={32}
         alt={wallet?.address}

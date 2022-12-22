@@ -16,7 +16,9 @@ const formatHandle = (handle: string | null, keepSuffix = false): string => {
   }
 
   if (keepSuffix) {
-    return handle + HANDLE_SUFFIX;
+    return handle.match(HANDLE_SUFFIX)
+      ? handle.split(HANDLE_SUFFIX)[0] + HANDLE_SUFFIX
+      : handle + HANDLE_SUFFIX;
   }
 
   return handle.replace(HANDLE_SUFFIX, '');

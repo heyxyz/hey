@@ -1,4 +1,3 @@
-import nFormatter from '@lib/nFormatter';
 import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 
@@ -6,12 +5,11 @@ interface Props {
   name: string;
   icon: ReactNode;
   active: boolean;
-  count?: number;
   showOnSm?: boolean;
   onClick: () => void;
 }
 
-const TabButton: FC<Props> = ({ name, icon, active, count, showOnSm = false, onClick }) => {
+const TabButton: FC<Props> = ({ name, icon, active, showOnSm = false, onClick }) => {
   return (
     <button
       type="button"
@@ -24,16 +22,6 @@ const TabButton: FC<Props> = ({ name, icon, active, count, showOnSm = false, onC
     >
       {icon}
       <span className={clsx({ 'hidden sm:block': !showOnSm })}>{name}</span>
-      {count ? (
-        <span
-          className={clsx(
-            { 'bg-brand-200 dark:bg-brand-800': active },
-            'px-2 text-xs rounded-full bg-gray-200 dark:bg-gray-800'
-          )}
-        >
-          {nFormatter(count)}
-        </span>
-      ) : null}
     </button>
   );
 };

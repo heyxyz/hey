@@ -1,4 +1,4 @@
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import { hashflags } from 'data/hashflags';
 import { Matcher } from 'interweave';
@@ -17,7 +17,7 @@ export const Hashtag = ({ ...props }: any) => {
           href={`/search?q=${props.display.slice(1)}&type=pubs&src=link_click`}
           onClick={(event) => {
             event.stopPropagation();
-            Leafwatch.track(PUBLICATION.HASHTAG_CLICK);
+            Analytics.track(PUBLICATION.HASHTAG_CLICK);
           }}
         >
           {props.display}

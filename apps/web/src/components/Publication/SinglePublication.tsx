@@ -1,8 +1,8 @@
 import EventType from '@components/Home/Timeline/EventType';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/types';
+import { Analytics } from '@lib/analytics';
 import formatTime from '@lib/formatTime';
-import { Leafwatch } from '@lib/leafwatch';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { ElectedMirror, FeedItem } from 'lens';
@@ -51,7 +51,7 @@ const SinglePublication: FC<Props> = ({
     : publication?.createdAt;
 
   return (
-    <article className="hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
+    <article className="hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5">
       {feedItem ? (
         <EventType feedItem={feedItem} showType={showType} showThread={showThread} />
       ) : (
@@ -61,7 +61,7 @@ const SinglePublication: FC<Props> = ({
         <span onClick={(event) => event.stopPropagation()}>
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
         </span>
-        <span className="text-xs text-gray-500" title={formatTime(timestamp)}>
+        <span className="text-xs lt-text-gray-500" title={formatTime(timestamp)}>
           {dayjs(new Date(timestamp)).fromNow()}
         </span>
       </div>
@@ -70,7 +70,7 @@ const SinglePublication: FC<Props> = ({
         onClick={() => {
           const selection = window.getSelection();
           if (!selection || selection.toString().length === 0) {
-            Leafwatch.track(PUBLICATION.OPEN);
+            Analytics.track(PUBLICATION.OPEN);
             push(`/posts/${rootPublication?.id}`);
           }
         }}
@@ -79,7 +79,7 @@ const SinglePublication: FC<Props> = ({
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
-            <PublicationBody publication={rootPublication as LensterPublication} />
+            <PublicationBody publication={rootPublication as LensterPublication} />{' '}
             {showActions && (
               <PublicationActions
                 publication={rootPublication as LensterPublication}

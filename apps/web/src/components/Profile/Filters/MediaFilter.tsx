@@ -4,7 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { ChangeEvent } from 'react';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { useProfileFeedStore } from 'src/store/profile-feed';
 
 const MediaFilter = () => {
@@ -33,7 +33,7 @@ const MediaFilter = () => {
       >
         <Menu.Items
           static
-          className="absolute right-0 py-1 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+          className="absolute right-0 py-1 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
         >
           <Menu.Item
             as="label"

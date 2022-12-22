@@ -8,23 +8,23 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { PencilIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getAttribute from '@lib/getAttribute';
 import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { LensPeriphery } from 'abis';
-import { APP_NAME, COVER, LENS_PERIPHERY, RELAY_ON, SIGN_WALLET, URL_REGEX } from 'data/constants';
+import { APP_NAME, COVER, LENS_PERIPHERY, SIGN_WALLET, URL_REGEX } from 'data/constants';
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from 'lens';
 import {
   Profile,
+  useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
 } from 'lens';
@@ -62,7 +62,7 @@ const Profile: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
+    Analytics.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -81,35 +81,27 @@ const Profile: FC<Props> = ({ profile }) => {
     onError
   });
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useCreateSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createSetProfileMetadataTypedData }) => {
-        try {
-          const { id, typedData } = createSetProfileMetadataTypedData;
-          const { profileId, metadata, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            user: currentProfile?.ownedBy,
-            profileId,
-            metadata,
-            sig
-          };
-
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
+        const { id, typedData } = createSetProfileMetadataTypedData;
+        const { profileId, metadata, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          user: currentProfile?.ownedBy,
+          profileId,
+          metadata,
+          sig
+        };
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
       },
       onError
     });
@@ -122,7 +114,7 @@ const Profile: FC<Props> = ({ profile }) => {
       variables: { request }
     });
     if (data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError') {
-      createSetProfileMetadataTypedData({
+      await createSetProfileMetadataTypedData({
         variables: { request }
       });
     }
@@ -170,51 +162,60 @@ const Profile: FC<Props> = ({ profile }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    setIsUploading(true);
-    const id = await uploadToArweave({
-      name,
-      bio,
-      cover_picture: cover ? cover : null,
-      attributes: [
-        { traitType: 'string', key: 'location', value: location },
-        { traitType: 'string', key: 'website', value: website },
-        { traitType: 'string', key: 'twitter', value: twitter },
-        { traitType: 'boolean', key: 'hasPrideLogo', value: pride },
-        { traitType: 'string', key: 'statusEmoji', value: getAttribute(profile?.attributes, 'statusEmoji') },
-        {
-          traitType: 'string',
-          key: 'statusMessage',
-          value: getAttribute(profile?.attributes, 'statusMessage')
-        },
-        { traitType: 'string', key: 'app', value: APP_NAME }
-      ],
-      version: '1.0.0',
-      metadata_id: uuid(),
-      createdOn: new Date(),
-      appId: APP_NAME
-    }).finally(() => setIsUploading(false));
+    try {
+      setIsUploading(true);
+      const id = await uploadToArweave({
+        name,
+        bio,
+        cover_picture: cover ? cover : null,
+        attributes: [
+          { traitType: 'string', key: 'location', value: location },
+          { traitType: 'string', key: 'website', value: website },
+          { traitType: 'string', key: 'twitter', value: twitter },
+          { traitType: 'boolean', key: 'hasPrideLogo', value: pride },
+          {
+            traitType: 'string',
+            key: 'statusEmoji',
+            value: getAttribute(profile?.attributes, 'statusEmoji')
+          },
+          {
+            traitType: 'string',
+            key: 'statusMessage',
+            value: getAttribute(profile?.attributes, 'statusMessage')
+          },
+          { traitType: 'string', key: 'app', value: APP_NAME }
+        ],
+        version: '1.0.0',
+        metadata_id: uuid(),
+        createdOn: new Date(),
+        appId: APP_NAME
+      }).finally(() => setIsUploading(false));
 
-    const request = {
-      profileId: currentProfile?.id,
-      metadata: `https://arweave.net/${id}`
-    };
+      const request = {
+        profileId: currentProfile?.id,
+        metadata: `https://arweave.net/${id}`
+      };
 
-    if (currentProfile?.dispatcher?.canUseRelay) {
-      createViaDispatcher(request);
-    } else {
-      createSetProfileMetadataTypedData({
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        return await createViaDispatcher(request);
+      }
+
+      return await createSetProfileMetadataTypedData({
         variables: { request }
       });
-    }
+    } catch {}
   };
 
   const isLoading =
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
-  const txHash =
-    writeData?.hash ??
-    broadcastData?.broadcast?.txHash ??
-    (dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
-      dispatcherData?.createSetProfileMetadataViaDispatcher.txHash);
+
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
+  const dispatcherTxHash =
+    dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
+    dispatcherData?.createSetProfileMetadataViaDispatcher.txHash;
+
+  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
 
   return (
     <Card className="p-5">

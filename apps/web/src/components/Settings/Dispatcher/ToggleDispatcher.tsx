@@ -1,16 +1,15 @@
 import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
-import { LENSHUB_PROXY, RELAY_ON } from 'data/constants';
-import { useCreateSetDispatcherTypedDataMutation } from 'lens';
+import { LENSHUB_PROXY } from 'data/constants';
+import { useBroadcastMutation, useCreateSetDispatcherTypedDataMutation } from 'lens';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -29,7 +28,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
 
   const onCompleted = () => {
     toast.success('Profile updated successfully!');
-    Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
+    Analytics.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -47,44 +46,51 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
     onError
   });
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useCreateSetDispatcherTypedDataMutation({
       onCompleted: async ({ createSetDispatcherTypedData }) => {
-        try {
-          const { id, typedData } = createSetDispatcherTypedData;
-          const { profileId, dispatcher, deadline } = typedData.value;
-          const signature = await signTypedDataAsync(getSignature(typedData));
-          const { v, r, s } = splitSignature(signature);
-          const sig = { v, r, s, deadline };
-          const inputStruct = {
-            profileId,
-            dispatcher,
-            sig
-          };
-
-          setUserSigNonce(userSigNonce + 1);
-          if (!RELAY_ON) {
-            return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-
-          const {
-            data: { broadcast: result }
-          } = await broadcast({ request: { id, signature } });
-
-          if ('reason' in result) {
-            write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-          }
-        } catch {}
+        const { id, typedData } = createSetDispatcherTypedData;
+        const { profileId, dispatcher, deadline } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          dispatcher,
+          sig
+        };
+        setUserSigNonce(userSigNonce + 1);
+        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
       },
       onError
     });
 
-  const isLoading = signLoading || writeLoading || broadcastLoading || typedDataLoading;
+  const toggleDispatcher = async () => {
+    try {
+      await createSetProfileMetadataTypedData({
+        variables: {
+          request: {
+            profileId: currentProfile?.id,
+            enable: canUseRelay ? false : true
+          }
+        }
+      });
+    } catch {}
+  };
 
-  return writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+  const isLoading = signLoading || writeLoading || broadcastLoading || typedDataLoading;
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
+
+  return writeData?.hash ?? broadcastTxHash ? (
     <div className="mt-2">
-      <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} reload />
+      <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} reload />
     </div>
   ) : (
     <Button
@@ -100,16 +106,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
           <CheckCircleIcon className="w-4 h-4" />
         )
       }
-      onClick={() => {
-        createSetProfileMetadataTypedData({
-          variables: {
-            request: {
-              profileId: currentProfile?.id,
-              enable: canUseRelay ? false : true
-            }
-          }
-        });
-      }}
+      onClick={toggleDispatcher}
     >
       {canUseRelay ? 'Disable' : 'Enable'} dispatcher
     </Button>

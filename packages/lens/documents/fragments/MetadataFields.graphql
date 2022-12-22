@@ -18,4 +18,23 @@ fragment MetadataFields on MetadataOutput {
       mimeType
     }
   }
+  encryptionParams {
+    accessCondition {
+      or {
+        criteria {
+          ...SimpleConditionFields
+          and {
+            criteria {
+              ...SimpleConditionFields
+            }
+          }
+          or {
+            criteria {
+              ...SimpleConditionFields
+            }
+          }
+        }
+      }
+    }
+  }
 }

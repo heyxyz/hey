@@ -27,7 +27,7 @@ interface Props {
 }
 
 const OnchainMeta: FC<Props> = ({ publication }) => {
-  const hash = publication.onChainContentURI.split('/').pop();
+  const hash = publication.onChainContentURI?.split('/').pop();
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 
@@ -37,9 +37,9 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
 
   return (
     <Card as="aside">
-      <div className="text-gray-500 divide-y dark:divide-gray-700">
+      <div className="lt-text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
-          <Meta name="ARWEAVE TRANSACTION" uri={`https://arweave.app/tx/${hash}`} hash={hash} />
+          <Meta name="ARWEAVE TRANSACTION" uri={`https://viewblock.io/arweave/tx/${hash}`} hash={hash} />
         ) : null}
         {isIPFSHash ? <Meta name="IPFS TRANSACTION" uri={`${IPFS_GATEWAY}${hash}`} hash={hash} /> : null}
         {publication?.collectNftAddress ? (

@@ -108,7 +108,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
       next={loadMore}
       loader={<InfiniteLoader />}
     >
-      <Card className="divide-y-[1px] dark:divide-gray-700/80">
+      <Card className="divide-y-[1px] dark:divide-gray-700">
         {publications?.map((publication, index) => (
           <SinglePublication
             key={`${publication.id}_${index}`}

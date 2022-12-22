@@ -55,31 +55,31 @@ const DeleteSettings: FC = () => {
 
   const [createBurnProfileTypedData, { loading: typedDataLoading }] = useCreateBurnProfileTypedDataMutation({
     onCompleted: async ({ createBurnProfileTypedData }) => {
-      try {
-        const { typedData } = createBurnProfileTypedData;
-        const { tokenId, deadline } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
+      const { typedData } = createBurnProfileTypedData;
+      const { tokenId, deadline } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
 
-        setUserSigNonce(userSigNonce + 1);
-        write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
-      } catch {}
+      setUserSigNonce(userSigNonce + 1);
+      write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
     },
     onError
   });
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
-    createBurnProfileTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request: { profileId: currentProfile?.id }
-      }
-    });
+    try {
+      await createBurnProfileTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: { profileId: currentProfile?.id }
+        }
+      });
+    } catch {}
   };
 
   const isDeleting = typedDataLoading || signLoading || writeLoading;
@@ -103,7 +103,7 @@ const DeleteSettings: FC = () => {
             won&rsquo;t be able to get it back.
           </p>
           <div className="text-lg font-bold">What else you should know</div>
-          <div className="text-sm text-gray-500 divide-y dark:divide-gray-700">
+          <div className="text-sm lt-text-gray-500 divide-y dark:divide-gray-700">
             <p className="pb-3">
               You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted.
             </p>

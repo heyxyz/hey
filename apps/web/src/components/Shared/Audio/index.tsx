@@ -1,12 +1,12 @@
 import type { LensterPublication } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
-import { Leafwatch } from '@lib/leafwatch';
 import type { Attribute } from 'lens';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
@@ -40,13 +40,13 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PLAY);
+      Analytics.track(PUBLICATION.ATTACHEMENT.AUDIO.PLAY);
 
       return playerRef.current?.plyr.play();
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PAUSE);
+    Analytics.track(PUBLICATION.ATTACHEMENT.AUDIO.PAUSE);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +54,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
   };
 
   return (
-    <div className="border px-3.5 pt-3.5 md:p-0 bg-brand-500 overflow-hidden border-gray-200 dark:border-gray-800 rounded-xl">
+    <div className="border px-3.5 pt-3.5 md:p-0 bg-brand-500 overflow-hidden dark:border-gray-700 rounded-xl">
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew && !txn}

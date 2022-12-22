@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import TabButton from '@components/UI/TabButton';
 import { AtSymbolIcon, ChatAlt2Icon, LightningBoltIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -30,7 +30,7 @@ const Notification: FC = () => {
             active={feedType === 'ALL'}
             onClick={() => {
               setFeedType('ALL');
-              Leafwatch.track(NOTIFICATION.SWITCH_ALL);
+              Analytics.track(NOTIFICATION.SWITCH_ALL);
             }}
           />
           <TabButton
@@ -39,7 +39,7 @@ const Notification: FC = () => {
             active={feedType === 'MENTIONS'}
             onClick={() => {
               setFeedType('MENTIONS');
-              Leafwatch.track(NOTIFICATION.SWITCH_MENTIONS);
+              Analytics.track(NOTIFICATION.SWITCH_MENTIONS);
             }}
           />
           <TabButton
@@ -48,7 +48,7 @@ const Notification: FC = () => {
             active={feedType === 'COMMENTS'}
             onClick={() => {
               setFeedType('COMMENTS');
-              Leafwatch.track(NOTIFICATION.SWITCH_COMMENTS);
+              Analytics.track(NOTIFICATION.SWITCH_COMMENTS);
             }}
           />
         </div>

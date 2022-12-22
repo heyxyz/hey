@@ -11,7 +11,6 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import useBroadcast from '@components/utils/hooks/useBroadcast';
 import type { LensterPublication } from '@generated/types';
 import {
   CashIcon,
@@ -23,6 +22,7 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import formatAddress from '@lib/formatAddress';
 import formatHandle from '@lib/formatHandle';
 import formatTime from '@lib/formatTime';
@@ -31,11 +31,10 @@ import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL, RELAY_ON, SIGN_WALLET } from 'data/constants';
+import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
 import type { BigNumber } from 'ethers';
@@ -44,6 +43,7 @@ import type { ElectedMirror } from 'lens';
 import {
   CollectModules,
   useApprovedModuleAllowanceAmountQuery,
+  useBroadcastMutation,
   useCollectModuleQuery,
   useCreateCollectTypedDataMutation,
   useProxyActionMutation,
@@ -87,7 +87,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success('Transaction submitted successfully!');
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    Analytics.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const { isFetching, refetch } = useContractRead({
@@ -162,36 +162,28 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     hasAmount = true;
   }
 
-  const { broadcast, data: broadcastData, loading: broadcastLoading } = useBroadcast({ onCompleted });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted
+  });
   const [createCollectTypedData, { loading: typedDataLoading }] = useCreateCollectTypedDataMutation({
     onCompleted: async ({ createCollectTypedData }) => {
-      try {
-        const { id, typedData } = createCollectTypedData;
-        const { profileId, pubId, data: collectData, deadline } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          collector: address,
-          profileId,
-          pubId,
-          data: collectData,
-          sig
-        };
-
-        setUserSigNonce(userSigNonce + 1);
-        if (!RELAY_ON) {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-
-        const {
-          data: { broadcast: result }
-        } = await broadcast({ request: { id, signature } });
-
-        if ('reason' in result) {
-          write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      } catch {}
+      const { id, typedData } = createCollectTypedData;
+      const { profileId, pubId, data: collectData, deadline } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        collector: address,
+        profileId,
+        pubId,
+        data: collectData,
+        sig
+      };
+      setUserSigNonce(userSigNonce + 1);
+      const { data } = await broadcast({ variables: { request: { id, signature } } });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
     },
     onError
   });
@@ -204,7 +196,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
     if (!data?.proxyAction) {
-      createCollectTypedData({
+      await createCollectTypedData({
         variables: {
           request: { publicationId: publication?.id },
           options: { overrideSigNonce: userSigNonce }
@@ -213,39 +205,41 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
   };
 
-  const createCollect = () => {
+  const createCollect = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
-    if (collectModule?.type === CollectModules.FreeCollectModule) {
-      createViaProxyAction({
-        request: { collect: { freeCollect: { publicationId: publication?.id } } }
-      });
-    } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
-      refetch().then(({ data }) => {
-        if (data) {
-          const decodedData: any = data;
-          const encodedData = defaultAbiCoder.encode(
-            ['address', 'uint256'],
-            [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
-          );
-          createCollectTypedData({
-            variables: {
-              options: { overrideSigNonce: userSigNonce },
-              request: { publicationId: publication?.id, unknownModuleData: encodedData }
-            }
-          });
-        }
-      });
-    } else {
-      createCollectTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
-        }
-      });
-    }
+    try {
+      if (collectModule?.type === CollectModules.FreeCollectModule) {
+        await createViaProxyAction({
+          request: { collect: { freeCollect: { publicationId: publication?.id } } }
+        });
+      } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
+        refetch().then(async ({ data }) => {
+          if (data) {
+            const decodedData: any = data;
+            const encodedData = defaultAbiCoder.encode(
+              ['address', 'uint256'],
+              [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
+            );
+            await createCollectTypedData({
+              variables: {
+                options: { overrideSigNonce: userSigNonce },
+                request: { publicationId: publication?.id, unknownModuleData: encodedData }
+              }
+            });
+          }
+        });
+      } else {
+        await createCollectTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
+          }
+        });
+      }
+    } catch {}
   };
 
   if (loading || revenueLoading) {
@@ -254,6 +248,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   const isLoading =
     typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
+  const broadcastTxHash =
+    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
 
   return (
     <>
@@ -292,7 +288,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             )}
           </div>
           {publication?.metadata?.description && (
-            <Markup className="text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
+            <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
           )}
           <ReferralAlert
             electedMirror={electedMirror}
@@ -315,8 +311,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
               {usdPrice ? (
                 <>
-                  <span className="text-gray-500 px-0.5">·</span>
-                  <span className="text-xs font-bold text-gray-500">
+                  <span className="lt-text-gray-500 px-0.5">·</span>
+                  <span className="text-xs font-bold lt-text-gray-500">
                     ${(collectModule.amount.value * usdPrice).toFixed(2)}
                   </span>
                 </>
@@ -327,13 +323,13 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
         <div className="space-y-1.5">
           <div className="block space-y-1 sm:flex sm:space-x-5 item-center">
             <div className="flex items-center space-x-2">
-              <UsersIcon className="w-4 h-4 text-gray-500" />
+              <UsersIcon className="w-4 h-4 lt-text-gray-500" />
               <button
                 className="font-bold"
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal);
-                  Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+                  Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
                 }}
               >
                 {humanize(count)} collectors
@@ -353,20 +349,20 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             </div>
             {collectModule?.collectLimit && (
               <div className="flex items-center space-x-2">
-                <PhotographIcon className="w-4 h-4 text-gray-500" />
+                <PhotographIcon className="w-4 h-4 lt-text-gray-500" />
                 <div className="font-bold">{parseInt(collectModule?.collectLimit) - count} available</div>
               </div>
             )}
             {collectModule?.referralFee ? (
               <div className="flex items-center space-x-2">
-                <CashIcon className="w-4 h-4 text-gray-500" />
+                <CashIcon className="w-4 h-4 lt-text-gray-500" />
                 <div className="font-bold">{collectModule.referralFee}% referral fee</div>
               </div>
             ) : null}
           </div>
           {revenueData?.publicationRevenue && (
             <div className="flex items-center space-x-2">
-              <CashIcon className="w-4 h-4 text-gray-500" />
+              <CashIcon className="w-4 h-4 lt-text-gray-500" />
               <div className="flex items-center space-x-1.5">
                 <span>Revenue:</span>
                 <span className="flex items-center space-x-1">
@@ -383,8 +379,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                     <div className="text-[10px]">{collectModule?.amount?.asset?.symbol}</div>
                     {usdPrice ? (
                       <>
-                        <span className="text-gray-500">·</span>
-                        <span className="text-xs font-bold text-gray-500">
+                        <span className="lt-text-gray-500">·</span>
+                        <span className="text-xs font-bold lt-text-gray-500">
                           ${(revenue * usdPrice).toFixed(2)}
                         </span>
                       </>
@@ -396,7 +392,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           )}
           {collectModule?.endTimestamp && (
             <div className="flex items-center space-x-2">
-              <ClockIcon className="w-4 h-4 text-gray-500" />
+              <ClockIcon className="w-4 h-4 lt-text-gray-500" />
               <div className="space-x-1.5">
                 <span>Sale Ends:</span>
                 <span className="font-bold text-gray-600" title={formatTime(collectModule.endTimestamp)}>
@@ -408,7 +404,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           )}
           {data?.publication?.collectNftAddress && (
             <div className="flex items-center space-x-2">
-              <PuzzleIcon className="w-4 h-4 text-gray-500" />
+              <PuzzleIcon className="w-4 h-4 lt-text-gray-500" />
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <a
@@ -423,9 +419,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             </div>
           )}
         </div>
-        {writeData?.hash ?? broadcastData?.broadcast?.txHash ? (
+        {writeData?.hash ?? broadcastTxHash ? (
           <div className="mt-5">
-            <IndexStatus txHash={writeData?.hash ?? broadcastData?.broadcast?.txHash} />
+            <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} />
           </div>
         ) : null}
         <div className="flex items-center space-x-2 mt-5">

@@ -10,6 +10,10 @@ fragment MirrorFields on Mirror {
   canMirror(profileId: $profileId) {
     result
   }
+  canDecrypt(profileId: $profileId) {
+    result
+    reasons
+  }
   collectModule {
     ...CollectModuleFields
   }
@@ -31,11 +35,16 @@ fragment MirrorFields on Mirror {
       }
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
+      onChainContentURI
       canComment(profileId: $profileId) {
         result
       }
       canMirror(profileId: $profileId) {
         result
+      }
+      canDecrypt(profileId: $profileId) {
+        result
+        reasons
       }
       stats {
         ...StatsFields

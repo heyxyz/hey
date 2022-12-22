@@ -2,10 +2,11 @@ import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
 import type { LensterPublication, NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getIPFSLink from '@lib/getIPFSLink';
-import { Leafwatch } from '@lib/leafwatch';
+import imageProxy from '@lib/imageProxy';
 import clsx from 'clsx';
-import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES } from 'data/constants';
+import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
 import type { MediaSet } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -61,6 +62,10 @@ const Attachments: FC<Props> = ({
     );
   };
 
+  const getCoverUrl = () => {
+    return publication?.metadata?.cover?.original.url || publication?.metadata?.image;
+  };
+
   const slicedAttachments = isNew
     ? attachments?.slice(0, 4)
     : attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e?.original?.mimeType))
@@ -107,23 +112,21 @@ const Attachments: FC<Props> = ({
                   <span>Open Image in new tab</span>
                 </Button>
               ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
-                <Video src={url} />
+                <Video src={url} poster={getCoverUrl()} />
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
                 <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
               ) : (
                 <img
-                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700/80"
+                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700"
                   loading="lazy"
                   height={1000}
                   width={1000}
                   onClick={() => {
                     setExpandedImage(url);
-                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
+                    Analytics.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
                   }}
-                  // src={isNew ? url : imageProxy(url, ATTACHMENT)}
-                  // alt={isNew ? url : imageProxy(url, ATTACHMENT)}
-                  src={url}
-                  alt={url}
+                  src={isNew ? url : imageProxy(url, ATTACHMENT)}
+                  alt={isNew ? url : imageProxy(url, ATTACHMENT)}
                 />
               )}
               {isNew && !hideDelete && (

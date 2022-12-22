@@ -10,7 +10,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import React from 'react';
 import { useAppStore } from 'src/store/app';
 
 dayjs.extend(relativeTime);
@@ -43,7 +42,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
         <img
           src={getAvatar(profile)}
           loading="lazy"
-          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700/80"
+          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
           height={40}
           width={40}
           alt={formatHandle(profile?.handle)}
@@ -55,12 +54,12 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
               {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
             </div>
             {message.sent && (
-              <span className="min-w-fit pt-0.5 text-xs text-gray-500" title={formatTime(message.sent)}>
+              <span className="min-w-fit pt-0.5 text-xs lt-text-gray-500" title={formatTime(message.sent)}>
                 {dayjs(new Date(message.sent)).fromNow()}
               </span>
             )}
           </div>
-          <span className="text-sm text-gray-500 line-clamp-1 break-all">
+          <span className="text-sm lt-text-gray-500 line-clamp-1 break-all">
             {address === message.senderAddress && 'You: '} {message.content}
           </span>
         </div>

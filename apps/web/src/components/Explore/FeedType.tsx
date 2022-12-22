@@ -1,4 +1,4 @@
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
 import { PublicationMainFocus } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -19,11 +19,11 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
       type="button"
       onClick={() => {
         setFocus(type);
-        Leafwatch.track(`select_${(type ?? 'all_posts')?.toLowerCase()}_filter_in_explore`);
+        Analytics.track(`select_${(type ?? 'all_posts')?.toLowerCase()}_filter_in_explore`);
       }}
       className={clsx(
         { '!bg-brand-500 !text-white': focus === type },
-        'text-xs bg-brand-100 dark:bg-opacity-20 rounded-full px-3 sm:px-4 py-1.5 text-brand border border-brand-300 dark:border-brand-500'
+        'text-xs bg-brand-100 dark:bg-opacity-10 rounded-full px-3 sm:px-4 py-1.5 text-brand border border-brand-300 dark:border-brand-500'
       )}
       aria-label={name}
     >

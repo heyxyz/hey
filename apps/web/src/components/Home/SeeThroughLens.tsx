@@ -4,9 +4,9 @@ import { Spinner } from '@components/UI/Spinner';
 import { Menu, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
-import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { FeedItem, Profile, ProfileSearchResult } from 'lens';
 import {
@@ -16,7 +16,7 @@ import {
   useTimelineLazyQuery
 } from 'lens';
 import type { ChangeEvent, FC } from 'react';
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
 import { MISCELLANEOUS, SEARCH } from 'src/tracking';
@@ -93,7 +93,7 @@ const SeeThroughLens: FC = () => {
             loading="lazy"
             width={20}
             height={20}
-            className="bg-gray-200 w-5 h-5 rounded-full border dark:border-gray-700/80"
+            className="bg-gray-200 w-5 h-5 rounded-full border dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />
           <span>{seeThroughProfile ? `@${formatHandle(profile?.handle)}` : 'My Feed'}</span>
@@ -111,7 +111,7 @@ const SeeThroughLens: FC = () => {
       >
         <Menu.Items
           static
-          className="absolute w-64 right-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+          className="absolute w-64 right-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
         >
           <div className="text-xs pt-2 px-3">👀 See the feed through...</div>
           <div className="p-2">
@@ -127,7 +127,7 @@ const SeeThroughLens: FC = () => {
                   className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
                   onClick={() => {
                     setSearchText('');
-                    Leafwatch.track(SEARCH.CLEAR);
+                    Analytics.track(SEARCH.CLEAR);
                   }}
                 />
               }
@@ -160,7 +160,7 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
-                      Leafwatch.track(MISCELLANEOUS.SELECT_USER_FEED);
+                      Analytics.track(MISCELLANEOUS.SELECT_USER_FEED);
                     }}
                   >
                     <UserProfile showUserPreview={false} linkToProfile={false} profile={profile} />
