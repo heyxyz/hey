@@ -1,8 +1,12 @@
 {
   "locales": [
     "en",
-    "cs"
+    "qaa"
   ],
+  "pseudoLocale": "qaa",
+  "fallbackLocales": {
+    "qaa": "en"
+  },
   "catalogs": [
     {
       "path": "src/locales/{locale}/messages",

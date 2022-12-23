@@ -1,17 +1,21 @@
 import { i18n } from '@lingui/core';
+import { IS_PRODUCTION } from 'data/constants';
 import dayjs from 'dayjs';
-import { cs, en } from 'make-plural/plurals';
+import { en } from 'make-plural/plurals';
 
-export const supportedLocales = {
-  en: 'English',
-  cs: 'Česky'
+export const supportedLocales: Record<string, string> = {
+  en: 'English'
 };
+
+if (!IS_PRODUCTION) {
+  supportedLocales.qaa = 'PseudoLanguage';
+}
 
 const defaultLocale = 'en';
 
 i18n.loadLocaleData({
   en: { plurals: en },
-  cs: { plurals: cs }
+  qaa: { plurals: en }
 });
 
 import('dayjs/locale/cs');
