@@ -13,408 +13,408 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/Notification/Type/CommentNotification.tsx:31
-msgid "<0/> <1>commented on your </1><2>{0}</2>"
-msgstr "<0/> <1>přidal komentář k vašemu </1><2>{0}</2>"
-
-#: src/components/Notification/Type/LikeNotification.tsx:31
-msgid "<0/> <1>liked your </1><2>{0}</2>"
-msgstr "<0/> <1>olajkovalo vaše </1><2>{0}</2>"
-
-#: src/components/Notification/Type/MentionNotification.tsx:33
-msgid "<0/> <1>mentioned you in a </1><2>{0}</2>"
-msgstr "<0/> <1>se o vás zmínil v </1><2>{0}</2>"
-
-#: src/components/Notification/Type/MirrorNotification.tsx:31
-msgid "<0/> <1>mirrored your </1><2>{0}</2>"
-msgstr "<0/> <1>zrcadlil vaše </1><2>{0}</2>"
-
-#: src/components/Publication/Type/Mirrored.tsx:17
-msgid "<0>{0}</0><1><2>mirrored the </2><3>{1}</3></1>"
-msgstr "<0>{0}</0><1><2>zrcadlil </2><3>{1}</3></1>"
-
-#: src/components/Settings/Sidebar.tsx:55
-msgid "Account"
-msgstr "Účet"
-
-#: src/components/Home/EnableDispatcher.tsx:24
-msgid "Action Required"
-msgstr "Je vyžadována akce"
-
-#: src/components/Explore/FeedType.tsx:37
-msgid "All posts"
-msgstr "Všechny příspěvky"
-
-#: src/components/Settings/Sidebar.tsx:73
-msgid "Allowance"
-msgstr "Příspěvek"
-
-#: src/components/Explore/FeedType.tsx:40
-msgid "Audio"
-msgstr "Zvuk"
-
-#: src/components/Home/BetaWarning.tsx:16
-msgid "Beta warning!"
-msgstr "Upozornění beta!"
-
-#: src/components/Shared/Login/WalletSelector.tsx:150
-msgid "Browser Wallet"
-msgstr "Peněženka prohlížeče"
-
-#: src/components/Settings/Sidebar.tsx:79
-msgid "Cleanup"
-msgstr "Čištění"
-
-#: src/components/Shared/Login/index.tsx:34
-msgid "Connect with one of our available wallet providers or create a new one."
-msgstr "Spojte se s jedním z našich dostupných poskytovatelů peněženek nebo vytvořte nového."
-
-#: src/components/Shared/Login/index.tsx:31
-msgid "Connect your wallet"
-msgstr "Připojte svou peněženku"
-
-#: src/components/Shared/Navbar/MoreNavItems.tsx:51
-msgid "Contact"
-msgstr "Kontakt"
-
-#: src/components/Settings/Sidebar.tsx:85
-msgid "Danger Zone"
-msgstr "Nebezpečná zóna"
-
-#: src/components/Shared/Navbar/SignedUser.tsx:246
-msgid "Dark mode"
-msgstr "Tmavý režim"
-
-#: src/components/Settings/Account/SuperFollow.tsx:217
-msgid "Disable Super follow"
-msgstr "Zakázat Super sledování"
-
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx:115
-msgid "Disable dispatcher"
-msgstr "Zakázat dispečera"
-
-#: src/components/Shared/Navbar/SignedUser.tsx:287
-msgid "Disable staff mode"
-msgstr "Zakázat režim pro zaměstnance"
-
-#: src/components/Shared/Footer.tsx:29
-msgid "Discord"
-msgstr "Discord"
-
-#: src/components/Settings/Sidebar.tsx:67
-msgid "Dispatcher"
-msgstr "Odesílatel"
-
-#: src/components/Shared/Footer.tsx:37
-msgid "Donate"
-msgstr "Darovat"
-
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx:115
-msgid "Enable dispatcher"
-msgstr "Povolit dispečera"
-
-#: src/components/Shared/Navbar/SignedUser.tsx:294
-msgid "Enable staff mode"
-msgstr "Povolit režim zaměstnanců"
-
-#: src/components/Shared/Navbar/index.tsx:61
-msgid "Explore"
-msgstr "Prozkoumat"
-
-#: src/components/Shared/Footer.tsx:53
-msgid "Feedback"
-msgstr "Zpětná vazba"
-
-#: src/components/Home/FeedEventFilters.tsx:22
-msgid "Filter"
-msgstr "Filtr"
-
-#: src/components/Settings/Account/SuperFollow.tsx:183
-msgid "Follow amount"
-msgstr "Sledujte množství"
-
-#: src/components/Explore/index.tsx:25
-msgid "For you"
-msgstr "Pro tebe"
-
-#: src/components/Settings/Account/SuperFollow.tsx:201
-msgid "Funds recipient"
-msgstr "Příjemce prostředků"
-
-#: src/components/Home/BetaWarning.tsx:26
-msgid "Get testnet tokens"
-msgstr "Získejte tokeny testnet"
-
-#: src/components/Shared/Footer.tsx:62
-msgid "GitHub"
-msgstr "GitHub"
-
-#: src/components/Home/FeedType.tsx:31
-msgid "Highlights"
-msgstr "Zvýraznění"
-
-#: src/components/Shared/Navbar/index.tsx:60
-msgid "Home"
-msgstr "Domov"
-
-#: src/components/Explore/FeedType.tsx:41
-msgid "Images"
-msgstr "Snímky"
-
-#: src/components/Explore/index.tsx:28
-msgid "Interesting"
-msgstr "Zajímavý"
-
-#: src/components/Settings/Sidebar.tsx:61
-msgid "Interests"
-msgstr "Zájmy"
-
-#: src/components/Shared/Navbar/SignedUser.tsx:253
-msgid "Light mode"
-msgstr "Světelný režim"
-
-#: src/components/Settings/Account/Language.tsx:17
-msgid "Locale settings"
-msgstr "Nastavení národního prostředí"
-
-#: src/components/Shared/Navbar/SignedUser.tsx:103
-msgid "Logged in as"
-msgstr "Přihlášen jako"
-
-#: src/components/Shared/GlobalModals.tsx:42
-#: src/components/Shared/Navbar/LoginButton.tsx:19
-msgid "Login"
-msgstr "Přihlásit se"
-
-#: src/components/Shared/Navbar/SignedUser.tsx:186
-msgid "Logout"
-msgstr "Odhlásit se"
-
-#: src/components/Shared/Navbar/SignedUser.tsx:173
-msgid "Moderation"
-msgstr "Umírněnost"
-
-#: src/components/Shared/Navbar/MoreNavItems.tsx:25
-msgid "More"
-msgstr "Více"
-
-#: src/components/Home/SeeThroughLens.tsx:100
-msgid "My Feed"
-msgstr "Můj příspěvek"
-
-#: src/components/Settings/Account/Verification.tsx:25
-msgid "No."
-msgstr "Ne."
-
-#: src/components/Settings/Account/SetProfile.tsx:151
-msgid "Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc."
-msgstr "V aplikaci {APP_NAME}, příkladech oznámení, sledování atd. bude viditelný pouze výchozí profil."
-
-#: src/components/Shared/Login/index.tsx:20
-msgid "Please sign the message"
-msgstr "Podepište prosím zprávu"
-
-#: src/components/Explore/index.tsx:26
-msgid "Popular"
-msgstr "Oblíbený"
-
-#: src/components/Shared/Footer.tsx:22
-msgid "Privacy"
-msgstr "Soukromí"
-
-#: src/components/Settings/Sidebar.tsx:49
-msgid "Profile"
-msgstr "Profil"
-
-#: src/components/Shared/Navbar/MoreNavItems.tsx:66
-msgid "Report a bug"
-msgstr "Nahlásit chybu"
-
-#: src/components/Settings/Account/Verification.tsx:34
-msgid "Request Verification"
-msgstr "Požádat o ověření"
-
-#: src/components/Home/SeeThroughLens.tsx:124
-msgid "Search"
-msgstr "Vyhledávání"
-
-#: src/components/Shared/Navbar/Search.tsx:28
-msgid "Search…"
-msgstr "Vyhledávání…"
-
-#: src/components/Settings/Account/SuperFollow.tsx:165
-msgid "Select Currency"
-msgstr "Vyberte možnost Měna"
-
-#: src/components/Settings/Account/SetProfile.tsx:138
-msgid "Select default profile"
-msgstr "Vyberte výchozí profil"
-
-#: src/components/Settings/Account/Language.tsx:21
-msgid "Select display language"
-msgstr "Vyberte jazyk zobrazení"
-
-#: src/components/Settings/Account/SetProfile.tsx:161
-msgid "Select profile"
-msgstr "Vyberte profil"
-
-#: src/components/Home/SetProfile.tsx:67
-msgid "Select profile interests"
-msgstr "Vyberte zájmy profilu"
-
-#: src/components/Settings/Account/SetProfile.tsx:141
-msgid "Selecting your default account helps to display the selected profile across {APP_NAME}, you can change your default profile anytime."
-msgstr "Výběr výchozího účtu pomůže zobrazit vybraný profil v aplikaci {APP_NAME}. Výchozí profil můžete kdykoli změnit."
-
-#: src/components/Settings/Account/SuperFollow.tsx:225
-msgid "Set Super follow"
-msgstr "Nastavte Super sledování"
-
-#: src/components/Home/SetProfile.tsx:57
-msgid "Set profile bio"
-msgstr "Nastavit bio profilu"
-
-#: src/components/Home/SetProfile.tsx:56
-msgid "Set profile name"
-msgstr "Nastavte název profilu"
-
-#: src/components/Shared/Navbar/SignedUser.tsx:127
-msgid "Set status"
-msgstr "Nastavit stav"
-
-#: src/components/Settings/Account/SuperFollow.tsx:155
-msgid "Set super follow"
-msgstr "Nastavit super sledování"
-
-#: src/components/Home/SetProfile.tsx:58
-msgid "Set your avatar"
-msgstr "Nastavte si avatara"
-
-#: src/components/Settings/Account/SuperFollow.tsx:158
-msgid "Setting super follow makes users spend crypto to follow you, and it’s a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-msgstr "Nastavení supersledování způsobí, že uživatelé utrácejí kryptoměny, aby vás sledovali, a je to dobrý způsob, jak je vydělat, můžete změnit částku a měnu nebo je kdykoli zakázat/povolit."
-
-#: src/components/Shared/Navbar/SignedUser.tsx:158
-msgid "Settings"
-msgstr "Nastavení"
-
-#: src/components/Home/SetProfile.tsx:52
-msgid "Setup your {APP_NAME} profile"
-msgstr "Nastavte si svůj profil {APP_NAME}"
-
-#: src/components/Home/RecommendedProfiles.tsx:89
-msgid "Show more"
-msgstr "Zobrazit více"
-
-#: src/components/Shared/Login/WalletSelector.tsx:123
-msgid "Sign-In with Lens"
-msgstr "Přihlaste se pomocí Lens"
-
-#: src/components/Shared/Footer.tsx:45
-msgid "Status"
-msgstr "Postavení"
-
-#: src/components/Shared/Navbar/SignedUser.tsx:197
-msgid "Switch to"
-msgstr "Přepnout na"
-
-#: src/components/Shared/Footer.tsx:21
-msgid "Terms"
-msgstr "Podmínky"
-
-#: src/components/Explore/FeedType.tsx:38
-msgid "Text"
-msgstr "Text"
-
-#: src/components/Shared/Footer.tsx:55
-msgid "Thanks"
-msgstr "Dík"
-
-#: src/components/Home/FeedType.tsx:21
-msgid "Timeline"
-msgstr "Časová osa"
-
-#: src/components/Explore/index.tsx:27
-#: src/components/Home/Trending.tsx:19
-msgid "Trending"
-msgstr "Trendy"
-
-#: src/components/Settings/Account/SuperFollow.tsx:225
-msgid "Update Super follow"
-msgstr "Aktualizovat Super sledování"
-
-#: src/components/Home/SetProfile.tsx:76
-msgid "Update profile now"
-msgstr "Aktualizujte profil nyní"
-
-#: src/components/Settings/Account/Verification.tsx:16
-msgid "Verified"
-msgstr "Ověřeno"
-
-#: src/components/Explore/FeedType.tsx:39
-msgid "Video"
-msgstr "Video"
-
-#: src/components/Home/Hero.tsx:11
-msgid "Welcome to {APP_NAME} 👋"
-msgstr "Vítejte v {APP_NAME} 👋"
-
-#: src/components/Settings/Account/SetProfile.tsx:147
-msgid "What else you should know"
-msgstr "Co byste ještě měli vědět"
-
-#: src/components/Composer/Post/New.tsx:86
+#: src/components/Composer/Post/New.tsx
 msgid "What's happening?"
 msgstr "Co se děje?"
 
-#: src/components/Home/RecommendedProfiles.tsx:24
-msgid "Who to follow"
-msgstr "Koho následovat"
+#: src/components/Explore/FeedType.tsx
+msgid "All posts"
+msgstr "Všechny příspěvky"
 
-#: src/components/Settings/Account/SetProfile.tsx:156
-msgid "You can change default profile anytime here."
-msgstr "Zde můžete kdykoli změnit výchozí profil."
+#: src/components/Explore/FeedType.tsx
+msgid "Text"
+msgstr "Text"
 
-#: src/components/Home/EnableDispatcher.tsx:28
-msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
-msgstr "Dispečerovi můžete povolit interakci s aplikací {APP_NAME}, aniž byste museli podepisovat jakoukoli z vašich transakcí."
+#: src/components/Explore/FeedType.tsx
+msgid "Video"
+msgstr "Video"
 
-#: src/components/Settings/Account/SetProfile.tsx:133
-msgid "You don’t have any default profile set!"
-msgstr "Nemáte nastaven žádný výchozí profil!"
+#: src/components/Explore/FeedType.tsx
+msgid "Audio"
+msgstr "Zvuk"
 
-#: src/components/Shared/Navbar/SignedUser.tsx:144
-msgid "Your Profile"
-msgstr "Tvůj profil"
+#: src/components/Explore/FeedType.tsx
+msgid "Images"
+msgstr "Snímky"
 
-#: src/components/Settings/Account/SetProfile.tsx:125
-msgid "Your default profile"
-msgstr "Váš výchozí profil"
+#: src/components/Explore/index.tsx
+msgid "For you"
+msgstr "Pro tebe"
 
-#: src/components/Notification/Type/CollectNotification/index.tsx:40
-msgid "{0} <0>collected your </0><1>{1}</1>"
-msgstr "{0} <0>shromáždil vaše </0><1>{1}</1>"
+#: src/components/Explore/index.tsx
+msgid "Popular"
+msgstr "Oblíbený"
 
-#: src/components/Notification/Type/FollowerNotification.tsx:42
-msgid "{0} <0>{1} followed you</0>"
-msgstr "{0} <0>{1} vás sleduje</0>"
+#: src/components/Explore/index.tsx
+#: src/components/Home/Trending.tsx
+msgid "Trending"
+msgstr "Trendy"
 
-#: src/components/Home/Hero.tsx:14
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr "{APP_NAME} je decentralizovaná aplikace sociálních médií bez povolení vytvořená pomocí protokolu Lens 🌿"
+#: src/components/Explore/index.tsx
+msgid "Interesting"
+msgstr "Zajímavý"
 
-#: src/components/Home/BetaWarning.tsx:20
+#: src/components/Home/BetaWarning.tsx
+msgid "Beta warning!"
+msgstr "Upozornění beta!"
+
+#: src/components/Home/BetaWarning.tsx
 msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
 msgstr "Aplikace {APP_NAME} je stále ve fázi beta, může se něco pokazit, zacházejte s námi prosím opatrně."
 
-#: src/components/Shared/Login/index.tsx:23
-msgid "{APP_NAME} uses this signature to verify that you’re the owner of this address."
-msgstr "Aplikace {APP_NAME} používá tento podpis k ověření, že jste vlastníkem této adresy."
+#: src/components/Home/BetaWarning.tsx
+msgid "Get testnet tokens"
+msgstr "Získejte tokeny testnet"
 
-#: src/components/Shared/Footer.tsx:71
+#: src/components/Home/EnableDispatcher.tsx
+msgid "Action Required"
+msgstr "Je vyžadována akce"
+
+#: src/components/Home/EnableDispatcher.tsx
+msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
+msgstr "Dispečerovi můžete povolit interakci s aplikací {APP_NAME}, aniž byste museli podepisovat jakoukoli z vašich transakcí."
+
+#: src/components/Home/FeedEventFilters.tsx
+msgid "Filter"
+msgstr "Filtr"
+
+#: src/components/Home/FeedType.tsx
+msgid "Timeline"
+msgstr "Časová osa"
+
+#: src/components/Home/FeedType.tsx
+msgid "Highlights"
+msgstr "Zvýraznění"
+
+#: src/components/Home/Hero.tsx
+msgid "Welcome to {APP_NAME} 👋"
+msgstr "Vítejte v {APP_NAME} 👋"
+
+#: src/components/Home/Hero.tsx
+msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
+msgstr "{APP_NAME} je decentralizovaná aplikace sociálních médií bez povolení vytvořená pomocí protokolu Lens 🌿"
+
+#: src/components/Home/RecommendedProfiles.tsx
+msgid "Who to follow"
+msgstr "Koho následovat"
+
+#: src/components/Home/RecommendedProfiles.tsx
+msgid "Show more"
+msgstr "Zobrazit více"
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "My Feed"
+msgstr "Můj příspěvek"
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "👀 See the feed through..."
+msgstr "👀 Podívejte se na feed přes..."
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "Search"
+msgstr "Vyhledávání"
+
+#: src/components/Home/SetProfile.tsx
+msgid "Setup your {APP_NAME} profile"
+msgstr "Nastavte si svůj profil {APP_NAME}"
+
+#: src/components/Home/SetProfile.tsx
+msgid "Set profile name"
+msgstr "Nastavte název profilu"
+
+#: src/components/Home/SetProfile.tsx
+msgid "Set profile bio"
+msgstr "Nastavit bio profilu"
+
+#: src/components/Home/SetProfile.tsx
+msgid "Set your avatar"
+msgstr "Nastavte si avatara"
+
+#: src/components/Home/SetProfile.tsx
+msgid "Select profile interests"
+msgstr "Vyberte zájmy profilu"
+
+#: src/components/Home/SetProfile.tsx
+msgid "Update profile now"
+msgstr "Aktualizujte profil nyní"
+
+#: src/components/Notification/Type/CollectNotification/index.tsx
+msgid "{0} <0>collected your </0><1>{1}</1>"
+msgstr "{0} <0>shromáždil vaše </0><1>{1}</1>"
+
+#: src/components/Notification/Type/CommentNotification.tsx
+msgid "<0/> <1>commented on your </1><2>{0}</2>"
+msgstr "<0/> <1>přidal komentář k vašemu </1><2>{0}</2>"
+
+#: src/components/Notification/Type/FollowerNotification.tsx
+msgid "{0} <0>{1} followed you</0>"
+msgstr "{0} <0>{1} vás sleduje</0>"
+
+#: src/components/Notification/Type/LikeNotification.tsx
+msgid "<0/> <1>liked your </1><2>{0}</2>"
+msgstr "<0/> <1>olajkovalo vaše </1><2>{0}</2>"
+
+#: src/components/Notification/Type/MentionNotification.tsx
+msgid "<0/> <1>mentioned you in a </1><2>{0}</2>"
+msgstr "<0/> <1>se o vás zmínil v </1><2>{0}</2>"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0/> <1>mirrored your </1><2>{0}</2>"
+msgstr "<0/> <1>zrcadlil vaše </1><2>{0}</2>"
+
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "<0>{0}</0><1><2>mirrored the </2><3>{1}</3></1>"
+msgstr "<0>{0}</0><1><2>zrcadlil </2><3>{1}</3></1>"
+
+#: src/components/Settings/Account/Language.tsx
+msgid "Locale settings"
+msgstr "Nastavení národního prostředí"
+
+#: src/components/Settings/Account/Language.tsx
+msgid "Select display language"
+msgstr "Vyberte jazyk zobrazení"
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Your default profile"
+msgstr "Váš výchozí profil"
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "You don’t have any default profile set!"
+msgstr "Nemáte nastaven žádný výchozí profil!"
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Select default profile"
+msgstr "Vyberte výchozí profil"
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Selecting your default account helps to display the selected profile across {APP_NAME}, you can change your default profile anytime."
+msgstr "Výběr výchozího účtu pomůže zobrazit vybraný profil v aplikaci {APP_NAME}. Výchozí profil můžete kdykoli změnit."
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "What else you should know"
+msgstr "Co byste ještě měli vědět"
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc."
+msgstr "V aplikaci {APP_NAME}, příkladech oznámení, sledování atd. bude viditelný pouze výchozí profil."
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "You can change default profile anytime here."
+msgstr "Zde můžete kdykoli změnit výchozí profil."
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Select profile"
+msgstr "Vyberte profil"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Set super follow"
+msgstr "Nastavit super sledování"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Setting super follow makes users spend crypto to follow you, and it’s a good way to earn it, you can change the amount and currency or disable/enable it anytime."
+msgstr "Nastavení supersledování způsobí, že uživatelé utrácejí kryptoměny, aby vás sledovali, a je to dobrý způsob, jak je vydělat, můžete změnit částku a měnu nebo je kdykoli zakázat/povolit."
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Select Currency"
+msgstr "Vyberte možnost Měna"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Follow amount"
+msgstr "Sledujte množství"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Funds recipient"
+msgstr "Příjemce prostředků"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Disable Super follow"
+msgstr "Zakázat Super sledování"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Update Super follow"
+msgstr "Aktualizovat Super sledování"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Set Super follow"
+msgstr "Nastavte Super sledování"
+
+#: src/components/Settings/Account/Verification.tsx
+msgid "Verified"
+msgstr "Ověřeno"
+
+#: src/components/Settings/Account/Verification.tsx
+msgid "No."
+msgstr "Ne."
+
+#: src/components/Settings/Account/Verification.tsx
+msgid "Request Verification"
+msgstr "Požádat o ověření"
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Disable dispatcher"
+msgstr "Zakázat dispečera"
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Enable dispatcher"
+msgstr "Povolit dispečera"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Profile"
+msgstr "Profil"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Account"
+msgstr "Účet"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Interests"
+msgstr "Zájmy"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Dispatcher"
+msgstr "Odesílatel"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Allowance"
+msgstr "Příspěvek"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Cleanup"
+msgstr "Čištění"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Danger Zone"
+msgstr "Nebezpečná zóna"
+
+#: src/components/Shared/Footer.tsx
+msgid "Terms"
+msgstr "Podmínky"
+
+#: src/components/Shared/Footer.tsx
+msgid "Privacy"
+msgstr "Soukromí"
+
+#: src/components/Shared/Footer.tsx
+msgid "Discord"
+msgstr "Discord"
+
+#: src/components/Shared/Footer.tsx
+msgid "Donate"
+msgstr "Darovat"
+
+#: src/components/Shared/Footer.tsx
+msgid "Status"
+msgstr "Postavení"
+
+#: src/components/Shared/Footer.tsx
+msgid "Feedback"
+msgstr "Zpětná vazba"
+
+#: src/components/Shared/Footer.tsx
+msgid "Thanks"
+msgstr "Dík"
+
+#: src/components/Shared/Footer.tsx
+msgid "GitHub"
+msgstr "GitHub"
+
+#: src/components/Shared/Footer.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ Používá technologii Vercel"
 
-#: src/components/Home/SeeThroughLens.tsx:118
-msgid "👀 See the feed through..."
-msgstr "👀 Podívejte se na feed přes..."
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/LoginButton.tsx
+msgid "Login"
+msgstr "Přihlásit se"
+
+#: src/components/Shared/Login/WalletSelector.tsx
+msgid "Sign-In with Lens"
+msgstr "Přihlaste se pomocí Lens"
+
+#: src/components/Shared/Login/WalletSelector.tsx
+msgid "Browser Wallet"
+msgstr "Peněženka prohlížeče"
+
+#: src/components/Shared/Login/index.tsx
+msgid "Please sign the message"
+msgstr "Podepište prosím zprávu"
+
+#: src/components/Shared/Login/index.tsx
+msgid "{APP_NAME} uses this signature to verify that you’re the owner of this address."
+msgstr "Aplikace {APP_NAME} používá tento podpis k ověření, že jste vlastníkem této adresy."
+
+#: src/components/Shared/Login/index.tsx
+msgid "Connect your wallet"
+msgstr "Připojte svou peněženku"
+
+#: src/components/Shared/Login/index.tsx
+msgid "Connect with one of our available wallet providers or create a new one."
+msgstr "Spojte se s jedním z našich dostupných poskytovatelů peněženek nebo vytvořte nového."
+
+#: src/components/Shared/Navbar/MoreNavItems.tsx
+msgid "More"
+msgstr "Více"
+
+#: src/components/Shared/Navbar/MoreNavItems.tsx
+msgid "Contact"
+msgstr "Kontakt"
+
+#: src/components/Shared/Navbar/MoreNavItems.tsx
+msgid "Report a bug"
+msgstr "Nahlásit chybu"
+
+#: src/components/Shared/Navbar/Search.tsx
+msgid "Search…"
+msgstr "Vyhledávání…"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Logged in as"
+msgstr "Přihlášen jako"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Set status"
+msgstr "Nastavit stav"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Your Profile"
+msgstr "Tvůj profil"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Settings"
+msgstr "Nastavení"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Moderation"
+msgstr "Umírněnost"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Logout"
+msgstr "Odhlásit se"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Switch to"
+msgstr "Přepnout na"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Dark mode"
+msgstr "Tmavý režim"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Light mode"
+msgstr "Světelný režim"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Disable staff mode"
+msgstr "Zakázat režim pro zaměstnance"
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Enable staff mode"
+msgstr "Povolit režim zaměstnanců"
+
+#: src/components/Shared/Navbar/index.tsx
+msgid "Home"
+msgstr "Domov"
+
+#: src/components/Shared/Navbar/index.tsx
+msgid "Explore"
+msgstr "Prozkoumat"

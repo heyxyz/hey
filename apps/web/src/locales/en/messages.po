@@ -13,408 +13,408 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/Notification/Type/CommentNotification.tsx:31
-msgid "<0/> <1>commented on your </1><2>{0}</2>"
-msgstr ""
-
-#: src/components/Notification/Type/LikeNotification.tsx:31
-msgid "<0/> <1>liked your </1><2>{0}</2>"
-msgstr ""
-
-#: src/components/Notification/Type/MentionNotification.tsx:33
-msgid "<0/> <1>mentioned you in a </1><2>{0}</2>"
-msgstr ""
-
-#: src/components/Notification/Type/MirrorNotification.tsx:31
-msgid "<0/> <1>mirrored your </1><2>{0}</2>"
-msgstr ""
-
-#: src/components/Publication/Type/Mirrored.tsx:17
-msgid "<0>{0}</0><1><2>mirrored the </2><3>{1}</3></1>"
-msgstr ""
-
-#: src/components/Settings/Sidebar.tsx:55
-msgid "Account"
-msgstr ""
-
-#: src/components/Home/EnableDispatcher.tsx:24
-msgid "Action Required"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx:37
-msgid "All posts"
-msgstr ""
-
-#: src/components/Settings/Sidebar.tsx:73
-msgid "Allowance"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx:40
-msgid "Audio"
-msgstr ""
-
-#: src/components/Home/BetaWarning.tsx:16
-msgid "Beta warning!"
-msgstr ""
-
-#: src/components/Shared/Login/WalletSelector.tsx:150
-msgid "Browser Wallet"
-msgstr ""
-
-#: src/components/Settings/Sidebar.tsx:79
-msgid "Cleanup"
-msgstr ""
-
-#: src/components/Shared/Login/index.tsx:34
-msgid "Connect with one of our available wallet providers or create a new one."
-msgstr ""
-
-#: src/components/Shared/Login/index.tsx:31
-msgid "Connect your wallet"
-msgstr ""
-
-#: src/components/Shared/Navbar/MoreNavItems.tsx:51
-msgid "Contact"
-msgstr ""
-
-#: src/components/Settings/Sidebar.tsx:85
-msgid "Danger Zone"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:246
-msgid "Dark mode"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx:217
-msgid "Disable Super follow"
-msgstr ""
-
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx:115
-msgid "Disable dispatcher"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:287
-msgid "Disable staff mode"
-msgstr ""
-
-#: src/components/Shared/Footer.tsx:29
-msgid "Discord"
-msgstr ""
-
-#: src/components/Settings/Sidebar.tsx:67
-msgid "Dispatcher"
-msgstr ""
-
-#: src/components/Shared/Footer.tsx:37
-msgid "Donate"
-msgstr ""
-
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx:115
-msgid "Enable dispatcher"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:294
-msgid "Enable staff mode"
-msgstr ""
-
-#: src/components/Shared/Navbar/index.tsx:61
-msgid "Explore"
-msgstr ""
-
-#: src/components/Shared/Footer.tsx:53
-msgid "Feedback"
-msgstr ""
-
-#: src/components/Home/FeedEventFilters.tsx:22
-msgid "Filter"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx:183
-msgid "Follow amount"
-msgstr ""
-
-#: src/components/Explore/index.tsx:25
-msgid "For you"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx:201
-msgid "Funds recipient"
-msgstr ""
-
-#: src/components/Home/BetaWarning.tsx:26
-msgid "Get testnet tokens"
-msgstr ""
-
-#: src/components/Shared/Footer.tsx:62
-msgid "GitHub"
-msgstr ""
-
-#: src/components/Home/FeedType.tsx:31
-msgid "Highlights"
-msgstr ""
-
-#: src/components/Shared/Navbar/index.tsx:60
-msgid "Home"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx:41
-msgid "Images"
-msgstr ""
-
-#: src/components/Explore/index.tsx:28
-msgid "Interesting"
-msgstr ""
-
-#: src/components/Settings/Sidebar.tsx:61
-msgid "Interests"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:253
-msgid "Light mode"
-msgstr ""
-
-#: src/components/Settings/Account/Language.tsx:17
-msgid "Locale settings"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:103
-msgid "Logged in as"
-msgstr ""
-
-#: src/components/Shared/GlobalModals.tsx:42
-#: src/components/Shared/Navbar/LoginButton.tsx:19
-msgid "Login"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:186
-msgid "Logout"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:173
-msgid "Moderation"
-msgstr ""
-
-#: src/components/Shared/Navbar/MoreNavItems.tsx:25
-msgid "More"
-msgstr ""
-
-#: src/components/Home/SeeThroughLens.tsx:100
-msgid "My Feed"
-msgstr ""
-
-#: src/components/Settings/Account/Verification.tsx:25
-msgid "No."
-msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx:151
-msgid "Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc."
-msgstr ""
-
-#: src/components/Shared/Login/index.tsx:20
-msgid "Please sign the message"
-msgstr ""
-
-#: src/components/Explore/index.tsx:26
-msgid "Popular"
-msgstr ""
-
-#: src/components/Shared/Footer.tsx:22
-msgid "Privacy"
-msgstr ""
-
-#: src/components/Settings/Sidebar.tsx:49
-msgid "Profile"
-msgstr ""
-
-#: src/components/Shared/Navbar/MoreNavItems.tsx:66
-msgid "Report a bug"
-msgstr ""
-
-#: src/components/Settings/Account/Verification.tsx:34
-msgid "Request Verification"
-msgstr ""
-
-#: src/components/Home/SeeThroughLens.tsx:124
-msgid "Search"
-msgstr ""
-
-#: src/components/Shared/Navbar/Search.tsx:28
-msgid "Search…"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx:165
-msgid "Select Currency"
-msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx:138
-msgid "Select default profile"
-msgstr ""
-
-#: src/components/Settings/Account/Language.tsx:21
-msgid "Select display language"
-msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx:161
-msgid "Select profile"
-msgstr ""
-
-#: src/components/Home/SetProfile.tsx:67
-msgid "Select profile interests"
-msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx:141
-msgid "Selecting your default account helps to display the selected profile across {APP_NAME}, you can change your default profile anytime."
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx:225
-msgid "Set Super follow"
-msgstr ""
-
-#: src/components/Home/SetProfile.tsx:57
-msgid "Set profile bio"
-msgstr ""
-
-#: src/components/Home/SetProfile.tsx:56
-msgid "Set profile name"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:127
-msgid "Set status"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx:155
-msgid "Set super follow"
-msgstr ""
-
-#: src/components/Home/SetProfile.tsx:58
-msgid "Set your avatar"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx:158
-msgid "Setting super follow makes users spend crypto to follow you, and it’s a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:158
-msgid "Settings"
-msgstr ""
-
-#: src/components/Home/SetProfile.tsx:52
-msgid "Setup your {APP_NAME} profile"
-msgstr ""
-
-#: src/components/Home/RecommendedProfiles.tsx:89
-msgid "Show more"
-msgstr ""
-
-#: src/components/Shared/Login/WalletSelector.tsx:123
-msgid "Sign-In with Lens"
-msgstr ""
-
-#: src/components/Shared/Footer.tsx:45
-msgid "Status"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx:197
-msgid "Switch to"
-msgstr ""
-
-#: src/components/Shared/Footer.tsx:21
-msgid "Terms"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx:38
-msgid "Text"
-msgstr ""
-
-#: src/components/Shared/Footer.tsx:55
-msgid "Thanks"
-msgstr ""
-
-#: src/components/Home/FeedType.tsx:21
-msgid "Timeline"
-msgstr ""
-
-#: src/components/Explore/index.tsx:27
-#: src/components/Home/Trending.tsx:19
-msgid "Trending"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx:225
-msgid "Update Super follow"
-msgstr ""
-
-#: src/components/Home/SetProfile.tsx:76
-msgid "Update profile now"
-msgstr ""
-
-#: src/components/Settings/Account/Verification.tsx:16
-msgid "Verified"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx:39
-msgid "Video"
-msgstr ""
-
-#: src/components/Home/Hero.tsx:11
-msgid "Welcome to {APP_NAME} 👋"
-msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx:147
-msgid "What else you should know"
-msgstr ""
-
-#: src/components/Composer/Post/New.tsx:86
+#: src/components/Composer/Post/New.tsx
 msgid "What's happening?"
 msgstr ""
 
-#: src/components/Home/RecommendedProfiles.tsx:24
-msgid "Who to follow"
+#: src/components/Explore/FeedType.tsx
+msgid "All posts"
 msgstr ""
 
-#: src/components/Settings/Account/SetProfile.tsx:156
-msgid "You can change default profile anytime here."
+#: src/components/Explore/FeedType.tsx
+msgid "Text"
 msgstr ""
 
-#: src/components/Home/EnableDispatcher.tsx:28
-msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
+#: src/components/Explore/FeedType.tsx
+msgid "Video"
 msgstr ""
 
-#: src/components/Settings/Account/SetProfile.tsx:133
-msgid "You don’t have any default profile set!"
+#: src/components/Explore/FeedType.tsx
+msgid "Audio"
 msgstr ""
 
-#: src/components/Shared/Navbar/SignedUser.tsx:144
-msgid "Your Profile"
+#: src/components/Explore/FeedType.tsx
+msgid "Images"
 msgstr ""
 
-#: src/components/Settings/Account/SetProfile.tsx:125
-msgid "Your default profile"
+#: src/components/Explore/index.tsx
+msgid "For you"
 msgstr ""
 
-#: src/components/Notification/Type/CollectNotification/index.tsx:40
-msgid "{0} <0>collected your </0><1>{1}</1>"
+#: src/components/Explore/index.tsx
+msgid "Popular"
 msgstr ""
 
-#: src/components/Notification/Type/FollowerNotification.tsx:42
-msgid "{0} <0>{1} followed you</0>"
+#: src/components/Explore/index.tsx
+#: src/components/Home/Trending.tsx
+msgid "Trending"
 msgstr ""
 
-#: src/components/Home/Hero.tsx:14
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
+#: src/components/Explore/index.tsx
+msgid "Interesting"
 msgstr ""
 
-#: src/components/Home/BetaWarning.tsx:20
+#: src/components/Home/BetaWarning.tsx
+msgid "Beta warning!"
+msgstr ""
+
+#: src/components/Home/BetaWarning.tsx
 msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
 msgstr ""
 
-#: src/components/Shared/Login/index.tsx:23
-msgid "{APP_NAME} uses this signature to verify that you’re the owner of this address."
+#: src/components/Home/BetaWarning.tsx
+msgid "Get testnet tokens"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx:71
+#: src/components/Home/EnableDispatcher.tsx
+msgid "Action Required"
+msgstr ""
+
+#: src/components/Home/EnableDispatcher.tsx
+msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
+msgstr ""
+
+#: src/components/Home/FeedEventFilters.tsx
+msgid "Filter"
+msgstr ""
+
+#: src/components/Home/FeedType.tsx
+msgid "Timeline"
+msgstr ""
+
+#: src/components/Home/FeedType.tsx
+msgid "Highlights"
+msgstr ""
+
+#: src/components/Home/Hero.tsx
+msgid "Welcome to {APP_NAME} 👋"
+msgstr ""
+
+#: src/components/Home/Hero.tsx
+msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
+msgstr ""
+
+#: src/components/Home/RecommendedProfiles.tsx
+msgid "Who to follow"
+msgstr ""
+
+#: src/components/Home/RecommendedProfiles.tsx
+msgid "Show more"
+msgstr ""
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "My Feed"
+msgstr ""
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "👀 See the feed through..."
+msgstr ""
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "Search"
+msgstr ""
+
+#: src/components/Home/SetProfile.tsx
+msgid "Setup your {APP_NAME} profile"
+msgstr ""
+
+#: src/components/Home/SetProfile.tsx
+msgid "Set profile name"
+msgstr ""
+
+#: src/components/Home/SetProfile.tsx
+msgid "Set profile bio"
+msgstr ""
+
+#: src/components/Home/SetProfile.tsx
+msgid "Set your avatar"
+msgstr ""
+
+#: src/components/Home/SetProfile.tsx
+msgid "Select profile interests"
+msgstr ""
+
+#: src/components/Home/SetProfile.tsx
+msgid "Update profile now"
+msgstr ""
+
+#: src/components/Notification/Type/CollectNotification/index.tsx
+msgid "{0} <0>collected your </0><1>{1}</1>"
+msgstr ""
+
+#: src/components/Notification/Type/CommentNotification.tsx
+msgid "<0/> <1>commented on your </1><2>{0}</2>"
+msgstr ""
+
+#: src/components/Notification/Type/FollowerNotification.tsx
+msgid "{0} <0>{1} followed you</0>"
+msgstr ""
+
+#: src/components/Notification/Type/LikeNotification.tsx
+msgid "<0/> <1>liked your </1><2>{0}</2>"
+msgstr ""
+
+#: src/components/Notification/Type/MentionNotification.tsx
+msgid "<0/> <1>mentioned you in a </1><2>{0}</2>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0/> <1>mirrored your </1><2>{0}</2>"
+msgstr ""
+
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "<0>{0}</0><1><2>mirrored the </2><3>{1}</3></1>"
+msgstr ""
+
+#: src/components/Settings/Account/Language.tsx
+msgid "Locale settings"
+msgstr ""
+
+#: src/components/Settings/Account/Language.tsx
+msgid "Select display language"
+msgstr ""
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Your default profile"
+msgstr ""
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "You don’t have any default profile set!"
+msgstr ""
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Select default profile"
+msgstr ""
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Selecting your default account helps to display the selected profile across {APP_NAME}, you can change your default profile anytime."
+msgstr ""
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "What else you should know"
+msgstr ""
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc."
+msgstr ""
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "You can change default profile anytime here."
+msgstr ""
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Select profile"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Set super follow"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Setting super follow makes users spend crypto to follow you, and it’s a good way to earn it, you can change the amount and currency or disable/enable it anytime."
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Select Currency"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Follow amount"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Funds recipient"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Disable Super follow"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Update Super follow"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Set Super follow"
+msgstr ""
+
+#: src/components/Settings/Account/Verification.tsx
+msgid "Verified"
+msgstr ""
+
+#: src/components/Settings/Account/Verification.tsx
+msgid "No."
+msgstr ""
+
+#: src/components/Settings/Account/Verification.tsx
+msgid "Request Verification"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Disable dispatcher"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Enable dispatcher"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Profile"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Account"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Interests"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Dispatcher"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Allowance"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Cleanup"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Danger Zone"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
+msgid "Terms"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
+msgid "Privacy"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
+msgid "Discord"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
+msgid "Donate"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
+msgid "Status"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
+msgid "Feedback"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
+msgid "Thanks"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
+msgid "GitHub"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
 msgid "▲ Powered by Vercel"
 msgstr ""
 
-#: src/components/Home/SeeThroughLens.tsx:118
-msgid "👀 See the feed through..."
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/LoginButton.tsx
+msgid "Login"
+msgstr ""
+
+#: src/components/Shared/Login/WalletSelector.tsx
+msgid "Sign-In with Lens"
+msgstr ""
+
+#: src/components/Shared/Login/WalletSelector.tsx
+msgid "Browser Wallet"
+msgstr ""
+
+#: src/components/Shared/Login/index.tsx
+msgid "Please sign the message"
+msgstr ""
+
+#: src/components/Shared/Login/index.tsx
+msgid "{APP_NAME} uses this signature to verify that you’re the owner of this address."
+msgstr ""
+
+#: src/components/Shared/Login/index.tsx
+msgid "Connect your wallet"
+msgstr ""
+
+#: src/components/Shared/Login/index.tsx
+msgid "Connect with one of our available wallet providers or create a new one."
+msgstr ""
+
+#: src/components/Shared/Navbar/MoreNavItems.tsx
+msgid "More"
+msgstr ""
+
+#: src/components/Shared/Navbar/MoreNavItems.tsx
+msgid "Contact"
+msgstr ""
+
+#: src/components/Shared/Navbar/MoreNavItems.tsx
+msgid "Report a bug"
+msgstr ""
+
+#: src/components/Shared/Navbar/Search.tsx
+msgid "Search…"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Logged in as"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Set status"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Your Profile"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Settings"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Moderation"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Logout"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Switch to"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Dark mode"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Light mode"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Disable staff mode"
+msgstr ""
+
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Enable staff mode"
+msgstr ""
+
+#: src/components/Shared/Navbar/index.tsx
+msgid "Home"
+msgstr ""
+
+#: src/components/Shared/Navbar/index.tsx
+msgid "Explore"
 msgstr ""
