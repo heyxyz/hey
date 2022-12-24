@@ -1,5 +1,5 @@
 import { i18n } from '@lingui/core';
-import { IS_PRODUCTION } from 'data/constants';
+import { IS_PREVIEW, IS_PRODUCTION } from 'data/constants';
 import dayjs from 'dayjs';
 import { en } from 'make-plural/plurals';
 
@@ -7,7 +7,7 @@ export const supportedLocales: Record<string, string> = {
   en: 'English'
 };
 
-if (!IS_PRODUCTION) {
+if (!IS_PRODUCTION || IS_PREVIEW) {
   supportedLocales.qaa = 'PseudoLanguage';
 }
 
