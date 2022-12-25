@@ -60,7 +60,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
                     return toast.error('Enable collect first to use collect based token gating');
                   }
                   setCollectToView(!collectToView);
-                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_COLLECT_TO_VIEW);
+                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_COLLECT_TO_VIEW_ACCESS);
                 }}
                 label="People need to collect it first to be able to view it"
               />
@@ -76,7 +76,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
                 on={followToView}
                 setOn={() => {
                   setFollowToView(!followToView);
-                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_FOLLOW_TO_VIEW);
+                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_FOLLOW_TO_VIEW_ACCESS);
                 }}
                 label="People need to follow you to be able to view it"
               />
