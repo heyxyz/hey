@@ -34,7 +34,7 @@ import Loader from './Loader';
 
 const editStatusSchema = object({
   status: string()
-    .min(1, { message: 'Status should atleast have 1 character' })
+    .min(1, { message: 'Status should at least have 1 character' })
     .max(100, { message: 'Status should not exceed 100 characters' })
 });
 
