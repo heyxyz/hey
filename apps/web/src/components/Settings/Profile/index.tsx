@@ -13,7 +13,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 
-import Sidebar from '../Sidebar';
+import SettingsSidebar from '../Sidebar';
 import NFTPicture from './NFTPicture';
 import Picture from './Picture';
 import Profile from './Profile';
@@ -71,7 +71,7 @@ const ProfileSettings: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Profile settings • ${APP_NAME}`} />
       <GridItemFour>
-        <Sidebar />
+        <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <Profile profile={profile as any} />
