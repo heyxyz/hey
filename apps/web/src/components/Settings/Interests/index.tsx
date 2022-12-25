@@ -9,7 +9,7 @@ import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 
-import Sidebar from '../Sidebar';
+import SettingsSidebar from '../Sidebar';
 
 const InterestsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -22,7 +22,7 @@ const InterestsSettings: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Interests settings • ${APP_NAME}`} />
       <GridItemFour>
-        <Sidebar />
+        <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
         <Card className="p-5">

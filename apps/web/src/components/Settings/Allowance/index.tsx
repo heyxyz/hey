@@ -12,7 +12,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 
-import Sidebar from '../Sidebar';
+import SettingsSidebar from '../Sidebar';
 import Allowance from './Allowance';
 
 const getAllowancePayload = (currency: string) => {
@@ -57,7 +57,7 @@ const AllowanceSettings: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Allowance settings • ${APP_NAME}`} />
       <GridItemFour>
-        <Sidebar />
+        <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
         <Card>

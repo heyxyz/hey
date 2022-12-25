@@ -9,13 +9,13 @@ const StaffToolsSidebar: FC = () => {
         items={[
           {
             title: 'Stats',
-            url: '/stafftools',
-            icon: <ChartPieIcon className="w-4 h-4" />
+            icon: <ChartPieIcon className="w-4 h-4" />,
+            url: '/stafftools'
           },
           {
             title: 'Analytics',
-            url: '/stafftools/analytics',
-            icon: <ChartBarIcon className="w-4 h-4" />
+            icon: <ChartBarIcon className="w-4 h-4" />,
+            url: '/stafftools/analytics'
           }
         ]}
       />

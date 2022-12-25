@@ -22,7 +22,11 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
 );
 
 interface Props {
-  items: any;
+  items: {
+    title: ReactNode;
+    icon: ReactNode;
+    url: string;
+  }[];
 }
 
 const Sidebar: FC<Props> = ({ items }) => {
