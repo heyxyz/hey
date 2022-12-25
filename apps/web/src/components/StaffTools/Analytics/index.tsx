@@ -18,7 +18,7 @@ const Analytics: NextPage = () => {
   const { allowed } = useStaffMode();
   const [start, setStart] = useState('today');
 
-  const { isLoading, error, data, refetch } = useQuery(
+  const { isLoading, error, data } = useQuery(
     'analyticsData',
     () =>
       axios({
