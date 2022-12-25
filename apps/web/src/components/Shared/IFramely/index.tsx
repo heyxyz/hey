@@ -1,9 +1,9 @@
 import imageProxy from '@lib/imageProxy';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ATTACHMENT } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect } from 'react';
-import { useQuery } from 'react-query';
 
 import Embed from './Embed';
 import Player from './Player';
@@ -16,7 +16,7 @@ const IFramely: FC<Props> = ({ url }) => {
   const allowedSites = ['YouTube', 'Spotify', 'SoundCloud', 'oohlala_xyz', 'Lenstube'];
 
   const { isLoading, error, data } = useQuery(
-    'iframelyData',
+    ['iframelyData'],
     () =>
       axios({
         url: 'https://iframe.ly/api/iframely',

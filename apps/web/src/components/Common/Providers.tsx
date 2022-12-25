@@ -1,8 +1,8 @@
 import { ApolloProvider } from '@apollo/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ALCHEMY_KEY, IS_MAINNET } from 'data/constants';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
