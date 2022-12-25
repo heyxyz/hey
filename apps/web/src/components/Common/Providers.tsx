@@ -2,6 +2,7 @@ import { ApolloProvider } from '@apollo/client';
 import { ALCHEMY_KEY, IS_MAINNET } from 'data/constants';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -30,14 +31,18 @@ const wagmiClient = createClient({
   provider
 });
 
+const queryClient = new QueryClient();
+
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
       <WagmiConfig client={wagmiClient}>
         <ApolloProvider client={client}>
-          <ThemeProvider defaultTheme="light" attribute="class">
-            <Layout>{children}</Layout>
-          </ThemeProvider>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider defaultTheme="light" attribute="class">
+              <Layout>{children}</Layout>
+            </ThemeProvider>
+          </QueryClientProvider>
         </ApolloProvider>
       </WagmiConfig>
     </ErrorBoundary>

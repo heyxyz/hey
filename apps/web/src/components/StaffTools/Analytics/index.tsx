@@ -2,20 +2,12 @@ import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import {
-  ChatAlt2Icon,
-  CollectionIcon,
-  FireIcon,
-  SwitchHorizontalIcon,
-  UserAddIcon,
-  UsersIcon
-} from '@heroicons/react/outline';
-import { PencilAltIcon } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
+import axios from 'axios';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
-import { useLensterStatsQuery } from 'lens';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
+import { useQuery } from 'react-query';
 import Custom404 from 'src/pages/404';
 
 import StaffToolsSidebar from '../Sidebar';
@@ -39,13 +31,20 @@ const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
 const Analytics: NextPage = () => {
   const { allowed } = useStaffMode();
 
-  const { data, loading, error } = useLensterStatsQuery({ pollInterval: 1000 });
+  const { isLoading, error, data } = useQuery('repoData', () =>
+    axios({
+      url: 'https://simpleanalytics.com/lenster.xyz.json',
+      params: {
+        version: 5,
+        fields: 'pageviews',
+        info: false
+      }
+    }).then((res) => res.data)
+  );
 
   if (!allowed) {
     return <Custom404 />;
   }
-
-  const stats: any = data?.globalProtocolStats;
 
   return (
     <GridLayout>
@@ -57,51 +56,13 @@ const Analytics: NextPage = () => {
         <Card className="p-5">
           {error ? (
             <b className="text-red-500">{ERROR_MESSAGE}</b>
-          ) : loading ? (
+          ) : isLoading ? (
             <div>Loading...</div>
           ) : (
             <section className="space-y-3">
               <h1 className="text-xl font-bold mb-4">Analytics</h1>
               <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
-                <StatBox
-                  icon={<UsersIcon className="w-4 h-4" />}
-                  value={stats?.totalProfiles}
-                  title="total profiles"
-                />
-                <StatBox
-                  icon={<FireIcon className="w-4 h-4" />}
-                  value={stats?.totalBurntProfiles}
-                  title="profiles burnt"
-                />
-                <StatBox
-                  icon={<PencilAltIcon className="w-4 h-4" />}
-                  value={stats?.totalPosts}
-                  title="total posts"
-                />
-              </div>
-              <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
-                <StatBox
-                  icon={<SwitchHorizontalIcon className="w-4 h-4" />}
-                  value={stats?.totalMirrors}
-                  title="total mirrors"
-                />
-                <StatBox
-                  icon={<ChatAlt2Icon className="w-4 h-4" />}
-                  value={stats?.totalComments}
-                  title="total comments"
-                />
-              </div>
-              <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
-                <StatBox
-                  icon={<CollectionIcon className="w-4 h-4" />}
-                  value={stats?.totalCollects}
-                  title="total collects"
-                />
-                <StatBox
-                  icon={<UserAddIcon className="w-4 h-4" />}
-                  value={stats?.totalFollows}
-                  title="total follows"
-                />
+                {JSON.stringify(data)}
               </div>
             </section>
           )}
