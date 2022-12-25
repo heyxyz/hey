@@ -74,7 +74,10 @@ export const PUBLICATION = {
       FRIENDS_OF_FRIENDS: 'select_friends_of_friends_reference'
     },
     ACCESS: {
-      OPEN_ACCESS_SETTINGS: 'open_access_settings'
+      OPEN_ACCESS_SETTINGS: 'open_access_settings',
+      TOGGLE_RESTRICTED_ACCESS: 'toggle_restricted_access',
+      TOGGLE_COLLECT_TO_VIEW: 'toggle_collect_to_view',
+      TOGGLE_FOLLOW_TO_VIEW: 'toggle_follow_to_view'
     }
   }
 };

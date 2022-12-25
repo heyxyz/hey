@@ -2,11 +2,13 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import { CollectModules } from 'lens';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   setShowModal: Dispatch<boolean>;
@@ -39,6 +41,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
             reset();
           }
           setRestricted(!restricted);
+          Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_RESTRICTED_ACCESS);
         }}
         label="Add restrictions on who can view this post"
       />
@@ -57,6 +60,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
                     return toast.error('Enable collect first to use collect based token gating');
                   }
                   setCollectToView(!collectToView);
+                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_COLLECT_TO_VIEW);
                 }}
                 label="People need to collect it first to be able to view it"
               />
@@ -70,7 +74,10 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
               </div>
               <ToggleWithHelper
                 on={followToView}
-                setOn={() => setFollowToView(!followToView)}
+                setOn={() => {
+                  setFollowToView(!followToView);
+                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_FOLLOW_TO_VIEW);
+                }}
                 label="People need to follow you to be able to view it"
               />
             </div>
