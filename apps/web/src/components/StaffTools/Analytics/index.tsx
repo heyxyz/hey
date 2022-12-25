@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { EyeIcon, ViewListIcon } from '@heroicons/react/outline';
+import { EyeIcon, UsersIcon, ViewListIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import type { NextPage } from 'next';
@@ -25,7 +25,7 @@ const Analytics: NextPage = () => {
         url: SIMPLEANALYTICS_API_ENDPOINT,
         params: {
           version: 5,
-          fields: 'pageviews',
+          fields: 'pageviews,visitors',
           start,
           events: '*',
           info: false
@@ -79,6 +79,11 @@ const Analytics: NextPage = () => {
                 </select>
               </div>
               <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
+                <StatBox
+                  icon={<UsersIcon className="w-4 h-4" />}
+                  value={data?.visitors}
+                  title="unique visitors"
+                />
                 <StatBox icon={<EyeIcon className="w-4 h-4" />} value={data?.pageviews} title="pageviews" />
                 <StatBox
                   icon={<ViewListIcon className="w-4 h-4" />}
