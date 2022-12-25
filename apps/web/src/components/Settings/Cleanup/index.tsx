@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 
-import Sidebar from '../Sidebar';
+import SettingsSidebar from '../Sidebar';
 
 const CleanupSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -28,7 +28,7 @@ const CleanupSettings: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Cleanup settings • ${APP_NAME}`} />
       <GridItemFour>
-        <Sidebar />
+        <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
         <Card className="p-5">

@@ -22,7 +22,7 @@ import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
 
-import Sidebar from '../Sidebar';
+import SettingsSidebar from '../Sidebar';
 
 const DeleteSettings: FC = () => {
   const [showWarningModal, setShowWarningModal] = useState(false);
@@ -92,7 +92,7 @@ const DeleteSettings: FC = () => {
     <GridLayout>
       <MetaTags title={`Delete Profile • ${APP_NAME}`} />
       <GridItemFour>
-        <Sidebar />
+        <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
         <Card className="space-y-5 p-5">
