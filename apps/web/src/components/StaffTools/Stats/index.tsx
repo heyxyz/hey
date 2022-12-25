@@ -26,7 +26,7 @@ interface StatBoxProps {
   title: string;
 }
 
-const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
+export const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
   <Card className="px-7 py-4 w-full" forceRounded>
     <div className="flex items-center space-x-2">
       {icon}
