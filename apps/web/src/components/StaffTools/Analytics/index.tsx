@@ -6,6 +6,7 @@ import { EyeIcon, ViewListIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import type { NextPage } from 'next';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { SIMPLEANALYTICS_API_ENDPOINT } from 'src/constants';
 import Custom404 from 'src/pages/404';
@@ -15,8 +16,9 @@ import { StatBox } from '../Stats';
 
 const Analytics: NextPage = () => {
   const { allowed } = useStaffMode();
+  const [start, setStart] = useState('today');
 
-  const { isLoading, error, data } = useQuery(
+  const { isLoading, error, data, refetch } = useQuery(
     'analyticsData',
     () =>
       axios({
@@ -24,13 +26,13 @@ const Analytics: NextPage = () => {
         params: {
           version: 5,
           fields: 'pageviews',
-          start: 'today',
+          start,
           events: '*',
           info: false
         }
       }).then((res) => res.data),
     {
-      refetchInterval: 5000
+      refetchInterval: 1000
     }
   );
 
@@ -38,13 +40,12 @@ const Analytics: NextPage = () => {
     return <Custom404 />;
   }
 
-  // count events from array of data.events in which total is the number
-  // of events
   const countEvents = (events: any) => {
     let total = 0;
     for (const event of events) {
       total += event.total;
     }
+
     return total;
   };
 
@@ -62,7 +63,21 @@ const Analytics: NextPage = () => {
             <div>Loading...</div>
           ) : (
             <section className="space-y-3">
-              <h1 className="text-xl font-bold mb-4">Analytics</h1>
+              <div className="mb-4 flex items-center justify-between">
+                <h1 className="text-xl font-bold">Analytics</h1>
+                <select
+                  className="text-sm py-1"
+                  onChange={(event) => {
+                    setStart(event.target.value);
+                  }}
+                >
+                  <option defaultChecked value="today">
+                    Today
+                  </option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="2021-11-01">All time</option>
+                </select>
+              </div>
               <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
                 <StatBox icon={<EyeIcon className="w-4 h-4" />} value={data?.pageviews} title="pageviews" />
                 <StatBox
