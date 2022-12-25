@@ -2,49 +2,51 @@ import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import humanize from '@lib/humanize';
+import { EyeIcon, ViewListIcon } from '@heroicons/react/outline';
 import axios from 'axios';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import type { NextPage } from 'next';
-import type { FC, ReactNode } from 'react';
 import { useQuery } from 'react-query';
+import { SIMPLEANALYTICS_API_ENDPOINT } from 'src/constants';
 import Custom404 from 'src/pages/404';
 
 import StaffToolsSidebar from '../Sidebar';
-
-interface StatBoxProps {
-  icon: ReactNode;
-  value: number;
-  title: string;
-}
-
-const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
-  <Card className="px-7 py-4 w-full" forceRounded>
-    <div className="flex items-center space-x-2">
-      {icon}
-      <b className="text-lg">{humanize(value)}</b>
-    </div>
-    <div className="lt-text-gray-500">{title}</div>
-  </Card>
-);
+import { StatBox } from '../Stats';
 
 const Analytics: NextPage = () => {
   const { allowed } = useStaffMode();
 
-  const { isLoading, error, data } = useQuery('repoData', () =>
-    axios({
-      url: 'https://simpleanalytics.com/lenster.xyz.json',
-      params: {
-        version: 5,
-        fields: 'pageviews',
-        info: false
-      }
-    }).then((res) => res.data)
+  const { isLoading, error, data } = useQuery(
+    'analyticsData',
+    () =>
+      axios({
+        url: SIMPLEANALYTICS_API_ENDPOINT,
+        params: {
+          version: 5,
+          fields: 'pageviews',
+          start: 'today',
+          events: '*',
+          info: false
+        }
+      }).then((res) => res.data),
+    {
+      refetchInterval: 5000
+    }
   );
 
   if (!allowed) {
     return <Custom404 />;
   }
+
+  // count events from array of data.events in which total is the number
+  // of events
+  const countEvents = (events: any) => {
+    let total = 0;
+    for (const event of events) {
+      total += event.total;
+    }
+    return total;
+  };
 
   return (
     <GridLayout>
@@ -62,7 +64,12 @@ const Analytics: NextPage = () => {
             <section className="space-y-3">
               <h1 className="text-xl font-bold mb-4">Analytics</h1>
               <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
-                {JSON.stringify(data)}
+                <StatBox icon={<EyeIcon className="w-4 h-4" />} value={data?.pageviews} title="pageviews" />
+                <StatBox
+                  icon={<ViewListIcon className="w-4 h-4" />}
+                  value={countEvents(data?.events)}
+                  title="events"
+                />
               </div>
             </section>
           )}
