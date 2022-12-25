@@ -3,11 +3,11 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { EyeIcon, UsersIcon, ViewListIcon } from '@heroicons/react/outline';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import { SIMPLEANALYTICS_API_ENDPOINT } from 'src/constants';
 import Custom404 from 'src/pages/404';
 
@@ -19,7 +19,7 @@ const Analytics: NextPage = () => {
   const [start, setStart] = useState('today');
 
   const { isLoading, error, data } = useQuery(
-    'analyticsData',
+    ['analyticsData'],
     () =>
       axios({
         url: SIMPLEANALYTICS_API_ENDPOINT,
