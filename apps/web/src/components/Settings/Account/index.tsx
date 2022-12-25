@@ -6,7 +6,7 @@ import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 
-import Sidebar from '../Sidebar';
+import SettingsSidebar from '../Sidebar';
 import CrossPost from './CrossPost';
 import SetProfile from './SetProfile';
 import Verification from './Verification';
@@ -22,7 +22,7 @@ const AccountSettings: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Account settings • ${APP_NAME}`} />
       <GridItemFour>
-        <Sidebar />
+        <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <SetProfile />
