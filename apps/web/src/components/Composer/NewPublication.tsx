@@ -277,12 +277,16 @@ const NewPublication: FC<Props> = ({ publication }) => {
       if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
         return await createCommentTypedData({ variables });
       }
+
+      return;
     }
 
     const { data } = await createPostViaDispatcher({ variables: { request } });
     if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
       return await createPostTypedData({ variables });
     }
+
+    return;
   };
 
   const getMainContentFocus = () => {
