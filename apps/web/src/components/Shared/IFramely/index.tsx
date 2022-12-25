@@ -2,7 +2,8 @@ import imageProxy from '@lib/imageProxy';
 import axios from 'axios';
 import { ATTACHMENT } from 'data/constants';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 import Embed from './Embed';
 import Player from './Player';
@@ -12,36 +13,23 @@ interface Props {
 }
 
 const IFramely: FC<Props> = ({ url }) => {
-  const [error, setError] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [data, setData] = useState<any>();
   const allowedSites = ['YouTube', 'Spotify', 'SoundCloud', 'oohlala_xyz', 'Lenstube'];
 
-  useEffect(() => {
-    if (url) {
-      axios(`https://iframe.ly/api/iframely?api_key=258c8580bd477c9b886b49&url=${url}`)
-        .then(({ data }) => {
-          setIsLoaded(true);
-          if (data) {
-            setData(data);
-          } else {
-            setError(true);
-          }
-        })
-        .catch(() => {
-          setIsLoaded(true);
-          setError(true);
-        });
-    } else {
-      setError(true);
-    }
-  }, [url]);
+  const { isLoading, error, data } = useQuery(
+    'iframelyData',
+    () =>
+      axios({
+        url: 'https://iframe.ly/api/iframely',
+        params: { api_key: '258c8580bd477c9b886b49', url }
+      }).then((res) => res.data),
+    { enabled: Boolean(url) }
+  );
 
   useEffect(() => {
     (window as any).iframely && (window as any).iframely.load();
   }, []);
 
-  if (error || !isLoaded) {
+  if (error || isLoading || !data) {
     return null;
   }
 
