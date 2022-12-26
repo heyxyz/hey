@@ -6,6 +6,7 @@ interface CardProps {
   as?: ElementType;
   className?: string;
   forceRounded?: boolean;
+  dataTest?: string;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -14,6 +15,7 @@ export const Card: FC<CardProps> = ({
   as: Tag = 'div',
   className = '',
   forceRounded = false,
+  dataTest = '',
   onClick
 }) => {
   return (
@@ -23,6 +25,7 @@ export const Card: FC<CardProps> = ({
         'border dark:border-gray-700 bg-white dark:bg-black',
         className
       )}
+      data-test={dataTest}
       onClick={onClick}
     >
       {children}
