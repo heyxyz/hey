@@ -49,6 +49,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "uuid": "^9.0.0",
     "wagmi": "^0.9.5",
+    "websocket": "^1.0.34",
     "zod": "^3.20.2",
     "zustand": "^4.1.4"
   },
@@ -61,6 +62,7 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.10",
     "@types/uuid": "^9.0.0",
+    "@types/websocket": "^1.0.5",
     "abis": "*",
     "autoprefixer": "^10.4.13",
     "data": "*",
