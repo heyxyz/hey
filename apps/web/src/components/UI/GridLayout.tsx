@@ -4,6 +4,7 @@ interface Props {
   children: ReactNode;
   className?: string;
   classNameChild?: string;
+  style?: React.CSSProperties;
 }
 
 export const GridLayout: FC<Props> = ({ children, className = '', classNameChild = '' }) => {
@@ -18,6 +19,10 @@ export const GridItemFour: FC<Props> = ({ children, className = '' }) => {
   return <div className={`lg:col-span-4 md:col-span-12 col-span-12 ${className}`}>{children}</div>;
 };
 
-export const GridItemEight: FC<Props> = ({ children, className = '' }) => {
-  return <div className={`lg:col-span-8 md:col-span-12 col-span-12 mb-5 ${className}`}>{children}</div>;
+export const GridItemEight: FC<Props> = ({ children, className = '', style }) => {
+  return (
+    <div className={`lg:col-span-8 md:col-span-12 col-span-12 mb-5 ${className}`} style={style}>
+      {children}
+    </div>
+  );
 };
