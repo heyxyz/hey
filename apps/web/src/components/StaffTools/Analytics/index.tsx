@@ -7,16 +7,15 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import type { NextPage } from 'next';
-import { useState } from 'react';
 import { SIMPLEANALYTICS_API_ENDPOINT } from 'src/constants';
 import Custom404 from 'src/pages/404';
 
 import StaffToolsSidebar from '../Sidebar';
 import { StatBox } from '../Stats';
+import Realtime from './Realtime';
 
 const Analytics: NextPage = () => {
   const { allowed } = useStaffMode();
-  const [start, setStart] = useState('today');
 
   const { isLoading, error, data } = useQuery(
     ['analyticsData'],
@@ -26,8 +25,8 @@ const Analytics: NextPage = () => {
         params: {
           version: 5,
           fields: 'pageviews,visitors',
-          start,
           events: '*',
+          start: 'today',
           info: false
         }
       }).then((res) => res.data),
@@ -63,21 +62,7 @@ const Analytics: NextPage = () => {
             <div>Loading...</div>
           ) : (
             <section className="space-y-3">
-              <div className="mb-4 flex items-center justify-between">
-                <h1 className="text-xl font-bold">Analytics</h1>
-                <select
-                  className="text-sm py-1"
-                  onChange={(event) => {
-                    setStart(event.target.value);
-                  }}
-                >
-                  <option defaultChecked value="today">
-                    Today
-                  </option>
-                  <option value="yesterday">Yesterday</option>
-                  <option value="2021-11-01">All time</option>
-                </select>
-              </div>
+              <h1 className="text-xl font-bold mb-4">Analytics</h1>
               <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
                 <StatBox
                   icon={<UsersIcon className="w-4 h-4" />}
@@ -91,6 +76,8 @@ const Analytics: NextPage = () => {
                   title="events"
                 />
               </div>
+              <div className="divider py-1" />
+              <Realtime />
             </section>
           )}
           <div />
