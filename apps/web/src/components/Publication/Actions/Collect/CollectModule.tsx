@@ -33,6 +33,7 @@ import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { useQuery } from '@tanstack/react-query';
 import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
@@ -71,7 +72,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
-  const [usdPrice, setUsdPrice] = useState(0);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const isMirror = electedMirror ? false : publication.__typename === 'Mirror';
@@ -138,14 +138,14 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     skip: !publication?.id
   });
 
+  const { data: usdPrice } = useQuery(
+    ['coingeckoData'],
+    () => getCoingeckoPrice(getAssetAddress(collectModule?.amount?.asset?.symbol)).then((res) => res),
+    { enabled: Boolean(collectModule?.amount) }
+  );
+
   useEffect(() => {
     setRevenue(parseFloat((revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0));
-    if (collectModule?.amount) {
-      getCoingeckoPrice(getAssetAddress(collectModule?.amount?.asset?.symbol)).then((data) => {
-        setUsdPrice(data);
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [revenueData]);
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
