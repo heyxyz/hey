@@ -8,7 +8,6 @@ import axios from 'axios';
 const getCoingeckoPrice = async (address: string) => {
   try {
     const response = await axios('https://api.coingecko.com/api/v3/simple/token_price/polygon-pos', {
-      method: 'GET',
       params: {
         contract_addresses: address,
         vs_currencies: 'usd'
