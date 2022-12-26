@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "test": "cypress run --headless"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
@@ -65,6 +66,7 @@
     "@types/websocket": "^1.0.5",
     "abis": "*",
     "autoprefixer": "^10.4.13",
+    "cypress": "^12.2.0",
     "data": "*",
     "eslint-config-weblint": "*",
     "lens": "*",
