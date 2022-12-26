@@ -11,6 +11,7 @@ export default defineConfig({
   viewportWidth: 1920,
   viewportHeight: 1080,
   env: {
+    URL: process.env.NEXT_PUBLIC_URL ?? 'http://localhost:4783',
     is_mainnet: process.env.NEXT_PUBLIC_IS_MAINNET === 'true'
   },
   e2e: {

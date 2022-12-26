@@ -1,6 +1,6 @@
 context('Explore Page', () => {
   before(() => {
-    cy.visit('http://localhost:4783/explore');
+    cy.visit(Cypress.env('URL') + '/explore');
   });
 
   it('should render footer', () => {
