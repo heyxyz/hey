@@ -33,7 +33,7 @@ const useNFT = ({ address, chainId, enabled }: Props): { data: any; error: any }
     return response.data;
   };
 
-  const { data, error } = useQuery(['coingeckoData'], () => loadContractDetails().then((res) => res), {
+  const { data, error } = useQuery(['nftData'], () => loadContractDetails().then((res) => res), {
     enabled
   });
 
