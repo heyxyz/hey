@@ -13,6 +13,7 @@ const Footer: FC = () => {
       className={`mt-4 leading-7 text-sm sticky flex flex-wrap px-3 lg:px-0 gap-x-[12px] ${
         staffMode ? 'top-28' : 'top-20'
       }`}
+      data-test="footer"
     >
       <span className="font-bold lt-text-gray-500">
         &copy; {new Date().getFullYear()} {APP_NAME}
