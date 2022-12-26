@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 
-import Sidebar from '../Sidebar';
+import SettingsSidebar from '../Sidebar';
 import ToggleDispatcher from './ToggleDispatcher';
 
 const DispatcherSettings: FC = () => {
@@ -20,7 +20,7 @@ const DispatcherSettings: FC = () => {
     <GridLayout>
       <MetaTags title={`Dispatcher • ${APP_NAME}`} />
       <GridItemFour>
-        <Sidebar />
+        <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
         <Card className="space-y-2 linkify p-5">

@@ -18,7 +18,7 @@ import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 import Custom404 from 'src/pages/404';
 
-import Sidebar from '../Sidebar';
+import StaffToolsSidebar from '../Sidebar';
 
 interface StatBoxProps {
   icon: ReactNode;
@@ -26,7 +26,7 @@ interface StatBoxProps {
   title: string;
 }
 
-const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
+export const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
   <Card className="px-7 py-4 w-full" forceRounded>
     <div className="flex items-center space-x-2">
       {icon}
@@ -51,7 +51,7 @@ const Stats: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Stafftools • ${APP_NAME}`} />
       <GridItemFour>
-        <Sidebar />
+        <StaffToolsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <Card className="p-5">

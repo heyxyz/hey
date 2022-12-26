@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ALCHEMY_KEY, IS_MAINNET } from 'data/constants';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
@@ -30,14 +31,18 @@ const wagmiClient = createClient({
   provider
 });
 
+const queryClient = new QueryClient();
+
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
       <WagmiConfig client={wagmiClient}>
         <ApolloProvider client={client}>
-          <ThemeProvider defaultTheme="light" attribute="class">
-            <Layout>{children}</Layout>
-          </ThemeProvider>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider defaultTheme="light" attribute="class">
+              <Layout>{children}</Layout>
+            </ThemeProvider>
+          </QueryClientProvider>
         </ApolloProvider>
       </WagmiConfig>
     </ErrorBoundary>

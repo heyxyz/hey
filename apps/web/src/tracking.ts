@@ -64,7 +64,12 @@ export const PUBLICATION = {
       UPLOAD_AUDIO: 'select_upload_audio'
     },
     COLLECT_MODULE: {
-      OPEN_COLLECT_SETTINGS: 'open_collect_module_settings'
+      OPEN_COLLECT_SETTINGS: 'open_collect_module_settings',
+      TOGGLE_COLLECT_MODULE: 'toggle_collect_module',
+      TOGGLE_CHARGE_FOR_COLLECT: 'toggle_charge_for_collect',
+      TOGGLE_LIMITED_EDITION_COLLECT: 'toggle_limited_edition_collect',
+      TOGGLE_TIME_LIMIT_COLLECT: 'toggle_time_limit_collect',
+      TOGGLE_FOLLOWERS_ONLY_COLLECT: 'toggle_followers_only_collect'
     },
     REFERENCE_MODULE: {
       OPEN_REFERENCE_SETTINGS: 'open_reference_module_settings',
@@ -74,7 +79,10 @@ export const PUBLICATION = {
       FRIENDS_OF_FRIENDS: 'select_friends_of_friends_reference'
     },
     ACCESS: {
-      OPEN_ACCESS_SETTINGS: 'open_access_settings'
+      OPEN_ACCESS_SETTINGS: 'open_access_settings',
+      TOGGLE_RESTRICTED_ACCESS: 'toggle_restricted_access',
+      TOGGLE_COLLECT_TO_VIEW_ACCESS: 'toggle_collect_to_view_access',
+      TOGGLE_FOLLOW_TO_VIEW_ACCESS: 'toggle_follow_to_view_access'
     }
   }
 };
