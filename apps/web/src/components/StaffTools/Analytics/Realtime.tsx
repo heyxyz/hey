@@ -15,7 +15,6 @@ const Realtime: FC = () => {
 
   client.onmessage = (message) => {
     const data = JSON.parse(message.data as string)[0];
-    console.log(data);
     setItems((prev: any) => {
       if (prev) {
         if (prev.length > 10) {
@@ -38,7 +37,7 @@ const Realtime: FC = () => {
           <Card
             key={index}
             className={clsx(
-              { 'bg-green-200 bg-opacity-50': item?.unique },
+              { 'bg-green-100 bg-opacity-50': item?.unique },
               'px-5 py-2 text-sm flex items-center justify-between'
             )}
           >
