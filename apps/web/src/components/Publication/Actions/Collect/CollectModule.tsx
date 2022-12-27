@@ -425,7 +425,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           </div>
         ) : null}
         <div className="flex items-center space-x-2 mt-5">
-          {currentProfile ? (
+          {currentProfile && !hasCollectedByMe ? (
             allowanceLoading || balanceLoading ? (
               <div className="w-28 rounded-lg h-[34px] shimmer" />
             ) : allowed ? (
