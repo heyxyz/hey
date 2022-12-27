@@ -1,5 +1,6 @@
+import MenuTransition from '@components/Shared/MenuTransition';
 import type { LensterPublication } from '@generated/types';
-import { Menu, Transition } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
@@ -34,16 +35,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
           >
             <DotsVerticalIcon className={clsx('lt-text-gray-500', iconClassName)} />
           </Menu.Button>
-          <Transition
-            show={open}
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
+          <MenuTransition>
             <Menu.Items
               static
               className="absolute right-0 mt-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700"
@@ -56,7 +48,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
               <Embed publication={publication} />
               <Permalink publication={publication} />
             </Menu.Items>
-          </Transition>
+          </MenuTransition>
         </>
       )}
     </Menu>

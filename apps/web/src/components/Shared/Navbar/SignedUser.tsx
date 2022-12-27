@@ -1,6 +1,6 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
-import { Menu, Transition } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import {
   CheckCircleIcon,
   CogIcon,
@@ -32,6 +32,7 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
+import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 
@@ -77,16 +78,7 @@ const SignedUser: FC = () => {
             className="w-8 h-8 rounded-full border cursor-pointer dark:border-gray-700"
             alt={formatHandle(currentProfile?.handle)}
           />
-          <Transition
-            show={open}
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
+          <MenuTransition>
             <Menu.Items
               static
               className="absolute right-0 py-1 mt-2 w-48 bg-white rounded-xl border shadow-sm dark:bg-black focus:outline-none dark:border-gray-700"
@@ -277,7 +269,7 @@ const SignedUser: FC = () => {
                 </>
               )}
             </Menu.Items>
-          </Transition>
+          </MenuTransition>
         </>
       )}
     </Menu>

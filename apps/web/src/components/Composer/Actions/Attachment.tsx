@@ -1,8 +1,9 @@
+import MenuTransition from '@components/Shared/MenuTransition';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
-import { Menu, Transition } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
@@ -13,7 +14,7 @@ import {
   ALLOWED_VIDEO_TYPES
 } from 'data/constants';
 import type { ChangeEvent, FC } from 'react';
-import { Fragment, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
@@ -109,16 +110,7 @@ const Attachment: FC = () => {
           </Tooltip>
         )}
       </Menu.Button>
-      <Transition
-        show={showMenu}
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
+      <MenuTransition>
         <Menu.Items
           ref={dropdownRef}
           static
@@ -192,7 +184,7 @@ const Attachment: FC = () => {
             />
           </Menu.Item>
         </Menu.Items>
-      </Transition>
+      </MenuTransition>
     </Menu>
   );
 };
