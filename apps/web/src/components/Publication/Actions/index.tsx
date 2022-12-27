@@ -8,7 +8,6 @@ import Analytics from './Analytics';
 import Collect from './Collect';
 import Comment from './Comment';
 import Like from './Like';
-import PublicationMenu from './Menu';
 import Mirror from './Mirror';
 
 interface Props {
@@ -43,7 +42,6 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, isFullPubli
         />
       )}
       <Analytics publication={publication} isFullPublication={isFullPublication} />
-      <PublicationMenu publication={publication} isFullPublication={isFullPublication} />
     </span>
   );
 };
