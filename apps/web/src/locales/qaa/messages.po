@@ -13,8 +13,22 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
+#: src/components/Shared/Status.tsx
 msgid "What's happening?"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
+msgid "[cta]Comment"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
+msgid "[cta]Post"
+msgstr ""
+
+#: src/components/Composer/Post/New.tsx
+msgid "Create post"
 msgstr ""
 
 #: src/components/Explore/Feed.tsx
@@ -145,6 +159,10 @@ msgstr ""
 msgid "Update profile now"
 msgstr ""
 
+#: src/components/Home/Trending.tsx
+msgid "<0>{0} Publications</0>"
+msgstr ""
+
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
 msgstr ""
@@ -202,6 +220,42 @@ msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Contact • {APP_NAME}"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Contact {APP_NAME}"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Contact us to help you get the issue resolved."
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Publication reported successfully!"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Subject"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "What happened?"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Message"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "How can we help?"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Submit"
 msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
@@ -371,6 +425,18 @@ msgstr ""
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
 msgid "Login"
+msgstr ""
+
+#: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
+msgid "Bold"
+msgstr ""
+
+#: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
+msgid "Italic"
+msgstr ""
+
+#: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
+msgid "Code"
 msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx

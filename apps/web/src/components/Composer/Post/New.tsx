@@ -4,7 +4,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
@@ -87,7 +87,7 @@ const NewPost: FC = () => {
           </span>
         </button>
         <Modal
-          title="Create post"
+          title={t`Create post`}
           size="md"
           show={showNewPostModal}
           onClose={() => setShowNewPostModal(false)}

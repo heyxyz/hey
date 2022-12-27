@@ -1,5 +1,6 @@
 import Beta from '@components/Shared/Badges/Beta';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { t } from '@lingui/macro';
 import {
   $getSelection,
   $isRangeSelection,
@@ -43,7 +44,7 @@ const ToolbarPlugin: FC = () => {
       <div className="w-full flex toolbar-icons space-x-1">
         <button
           className={isBold ? 'bg-brand-100' : ''}
-          title="Bold"
+          title={t`Bold`}
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
           }}
@@ -52,7 +53,7 @@ const ToolbarPlugin: FC = () => {
         </button>
         <button
           className={isItalic ? 'bg-brand-100' : ''}
-          title="Italic"
+          title={t`Italic`}
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
           }}
@@ -61,7 +62,7 @@ const ToolbarPlugin: FC = () => {
         </button>
         <button
           className={isCode ? 'bg-brand-100' : ''}
-          title="Code"
+          title={t`Code`}
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
           }}
