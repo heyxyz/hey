@@ -2,8 +2,6 @@ import EventType from '@components/Home/Timeline/EventType';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/types';
 import { Analytics } from '@lib/analytics';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import type { ElectedMirror, FeedItem } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -15,8 +13,6 @@ import ModAction from './Actions/ModAction';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationType from './Type';
-
-dayjs.extend(relativeTime);
 
 interface Props {
   publication: LensterPublication;
