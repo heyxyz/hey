@@ -1,9 +1,13 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
+import formatTime from '@lib/formatTime';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
+// @ts-ignore
+import dayjsTwitter from 'dayjs-twitter';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -15,6 +19,8 @@ import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
+dayjs.extend(dayjsTwitter);
+
 interface Props {
   profile: Profile;
   showBio?: boolean;
@@ -25,6 +31,7 @@ interface Props {
   linkToProfile?: boolean;
   showStatus?: boolean;
   showUserPreview?: boolean;
+  timestamp?: Date;
 }
 
 const UserProfile: FC<Props> = ({
@@ -36,7 +43,8 @@ const UserProfile: FC<Props> = ({
   isBig = false,
   linkToProfile = true,
   showStatus = false,
-  showUserPreview = true
+  showUserPreview = true,
+  timestamp = ''
 }) => {
   const [following, setFollowing] = useState(isFollowing);
 
@@ -75,7 +83,18 @@ const UserProfile: FC<Props> = ({
           </div>
         ) : null}
       </div>
-      <Slug className="text-sm" slug={formatHandle(profile?.handle)} prefix="@" />
+      <div>
+        <Slug className="text-sm" slug={formatHandle(profile?.handle)} prefix="@" />
+        {timestamp ? (
+          <span className="lt-text-gray-500">
+            <span className="mx-1.5">·</span>
+            <span className="text-xs" title={formatTime(timestamp as Date)}>
+              {/* @ts-ignore */}
+              {dayjs(new Date(timestamp)).twitter()}
+            </span>
+          </span>
+        ) : null}
+      </div>
     </>
   );
 

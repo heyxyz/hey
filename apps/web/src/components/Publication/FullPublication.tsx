@@ -7,6 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
+import PublicationMenu from './Actions/Menu';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationStats from './PublicationStats';
@@ -40,7 +41,8 @@ const FullPublication: FC<Props> = ({ publication }) => {
       <PublicationType publication={publication} showType />
       <div>
         <div className="flex justify-between pb-4 space-x-1.5">
-          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} />
+          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
+          <PublicationMenu publication={publication} />
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (

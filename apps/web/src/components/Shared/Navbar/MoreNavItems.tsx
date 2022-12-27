@@ -1,9 +1,10 @@
-import { Menu, Transition } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import { HandIcon, SupportIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 
+import MenuTransition from '../MenuTransition';
 import { NextLink } from './MenuItems';
 
 const MoreNavItems: FC = () => {
@@ -23,16 +24,7 @@ const MoreNavItems: FC = () => {
           >
             More
           </Menu.Button>
-          <Transition
-            show={open}
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
+          <MenuTransition>
             <Menu.Items
               static
               className="absolute py-1 mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
@@ -63,7 +55,7 @@ const MoreNavItems: FC = () => {
                 </div>
               </Menu.Item>
             </Menu.Items>
-          </Transition>
+          </MenuTransition>
         </>
       )}
     </Menu>
