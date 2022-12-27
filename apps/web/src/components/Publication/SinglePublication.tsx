@@ -2,7 +2,6 @@ import EventType from '@components/Home/Timeline/EventType';
 import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/types';
 import { Analytics } from '@lib/analytics';
-import formatTime from '@lib/formatTime';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { ElectedMirror, FeedItem } from 'lens';
@@ -11,6 +10,7 @@ import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
+import PublicationMenu from './Actions/Menu';
 import ModAction from './Actions/ModAction';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
@@ -59,11 +59,13 @@ const SinglePublication: FC<Props> = ({
       )}
       <div className="flex justify-between pb-4 space-x-1.5">
         <span onClick={(event) => event.stopPropagation()}>
-          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
+          <UserProfile
+            profile={profile ?? publication?.collectedBy?.defaultProfile}
+            timestamp={timestamp}
+            showStatus
+          />
         </span>
-        <span className="text-xs lt-text-gray-500" title={formatTime(timestamp)}>
-          {dayjs(new Date(timestamp)).fromNow()}
-        </span>
+        <PublicationMenu publication={publication} isFullPublication={true} />
       </div>
       <div
         className="ml-[53px]"

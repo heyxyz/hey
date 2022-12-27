@@ -1,6 +1,6 @@
 import type { LensterPublication } from '@generated/types';
 import { Menu, Transition } from '@headlessui/react';
-import { DotsHorizontalIcon } from '@heroicons/react/outline';
+import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -33,7 +33,7 @@ const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
             }}
             aria-label="More"
           >
-            <DotsHorizontalIcon className={clsx('lt-text-gray-500', iconClassName)} />
+            <DotsVerticalIcon className={clsx('lt-text-gray-500', iconClassName)} />
           </Menu.Button>
           <Transition
             show={open}
