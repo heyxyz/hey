@@ -7,7 +7,7 @@ const PublicationShimmer: FC = () => {
     <div className="p-5 space-y-4">
       <div className="flex justify-between">
         <UserProfileShimmer />
-        <div className="w-20 h-3 rounded-lg shimmer" />
+        <div className="w-5 h-5 rounded-lg shimmer" />
       </div>
       <div className="space-y-4 ml-[52px]">
         <div className="space-y-2">

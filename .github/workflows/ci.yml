@@ -33,3 +33,6 @@ jobs:
 
       - name: Prettier ✨
         run: yarn prettier
+
+      - name: Build 🎁
+        run: yarn build

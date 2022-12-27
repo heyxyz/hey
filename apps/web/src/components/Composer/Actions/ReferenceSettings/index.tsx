@@ -1,4 +1,5 @@
-import { Menu, Transition } from '@headlessui/react';
+import MenuTransition from '@components/Shared/MenuTransition';
+import { Menu } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
@@ -6,7 +7,6 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { ReferenceModules } from 'lens';
 import type { FC, ReactNode } from 'react';
-import { Fragment } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { PUBLICATION } from 'src/tracking';
 
@@ -53,80 +53,67 @@ const ReferenceSettings: FC = () => {
 
   return (
     <Menu as="div">
-      {({ open }) => (
-        <>
-          <Menu.Button
-            as={motion.button}
-            whileTap={{ scale: 0.9 }}
+      <Menu.Button
+        as={motion.button}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => {
+          Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
+        }}
+      >
+        <div className="text-brand">
+          {isEveryone && <GlobeAltIcon className="w-5" />}
+          {isMyFollowers && <UsersIcon className="w-5" />}
+          {isMyFollows && <UserAddIcon className="w-5" />}
+          {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+        </div>
+      </Menu.Button>
+      <MenuTransition>
+        <Menu.Items
+          static
+          className="absolute py-1 z-[5] mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
+        >
+          <Module
+            title={EVERYONE}
+            selected={isEveryone}
+            icon={<GlobeAltIcon className="w-4 h-4" />}
             onClick={() => {
-              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
+              setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
+              setOnlyFollowers(false);
+              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
             }}
-          >
-            <div className="text-brand">
-              {isEveryone && <GlobeAltIcon className="w-5" />}
-              {isMyFollowers && <UsersIcon className="w-5" />}
-              {isMyFollows && <UserAddIcon className="w-5" />}
-              {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
-            </div>
-          </Menu.Button>
-          <Transition
-            show={open}
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items
-              static
-              className="absolute py-1 z-[5] mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
-            >
-              <Module
-                title={EVERYONE}
-                selected={isEveryone}
-                icon={<GlobeAltIcon className="w-4 h-4" />}
-                onClick={() => {
-                  setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
-                  setOnlyFollowers(false);
-                  Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
-                }}
-              />
-              <Module
-                title={MY_FOLLOWERS}
-                selected={isMyFollowers}
-                icon={<UsersIcon className="w-4 h-4" />}
-                onClick={() => {
-                  setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
-                  setOnlyFollowers(true);
-                  Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
-                }}
-              />
-              <Module
-                title={MY_FOLLOWS}
-                selected={isMyFollows}
-                icon={<UserAddIcon className="w-4 h-4" />}
-                onClick={() => {
-                  setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
-                  setDegreesOfSeparation(1);
-                  Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
-                }}
-              />
-              <Module
-                title={FRIENDS_OF_FRIENDS}
-                selected={isFriendsOfFriends}
-                icon={<UserGroupIcon className="w-4 h-4" />}
-                onClick={() => {
-                  setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
-                  setDegreesOfSeparation(2);
-                  Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
-                }}
-              />
-            </Menu.Items>
-          </Transition>
-        </>
-      )}
+          />
+          <Module
+            title={MY_FOLLOWERS}
+            selected={isMyFollowers}
+            icon={<UsersIcon className="w-4 h-4" />}
+            onClick={() => {
+              setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
+              setOnlyFollowers(true);
+              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
+            }}
+          />
+          <Module
+            title={MY_FOLLOWS}
+            selected={isMyFollows}
+            icon={<UserAddIcon className="w-4 h-4" />}
+            onClick={() => {
+              setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
+              setDegreesOfSeparation(1);
+              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
+            }}
+          />
+          <Module
+            title={FRIENDS_OF_FRIENDS}
+            selected={isFriendsOfFriends}
+            icon={<UserGroupIcon className="w-4 h-4" />}
+            onClick={() => {
+              setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
+              setDegreesOfSeparation(2);
+              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
+            }}
+          />
+        </Menu.Items>
+      </MenuTransition>
     </Menu>
   );
 };
