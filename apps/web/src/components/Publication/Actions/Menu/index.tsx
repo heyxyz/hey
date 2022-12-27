@@ -22,7 +22,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (
-    <Menu as="div">
+    <Menu as="div" className="relative">
       {({ open }) => (
         <>
           <Menu.Button
@@ -46,7 +46,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
           >
             <Menu.Items
               static
-              className="absolute py-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700"
+              className="absolute right-0 mt-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700"
             >
               {currentProfile?.id === publication?.profile?.id ? (
                 <Delete publication={publication} />
