@@ -20,7 +20,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           name="Timeline"
           icon={<ViewListIcon className="w-4 h-4" />}
           active={feedType === 'TIMELINE'}
-          showOnSm
+          showOnSm={false}
           onClick={() => {
             setFeedType('TIMELINE');
             Analytics.track(MISCELLANEOUS.SWITCH_TIMELINE);
@@ -30,7 +30,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           name="Highlights"
           icon={<SparklesIcon className="w-4 h-4" />}
           active={feedType === 'HIGHLIGHTS'}
-          showOnSm
+          showOnSm={false}
           onClick={() => {
             setFeedType('HIGHLIGHTS');
             Analytics.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS);
