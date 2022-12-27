@@ -30,7 +30,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
             showStatus
           />
         </span>
-        <PublicationMenu publication={publication} isFullPublication={true} />
+        <PublicationMenu publication={publication} />
       </div>
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[3px]" />

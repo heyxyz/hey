@@ -15,12 +15,11 @@ import Report from './Report';
 
 interface Props {
   publication: LensterPublication;
-  isFullPublication: boolean;
 }
 
-const PublicationMenu: FC<Props> = ({ publication, isFullPublication }) => {
+const PublicationMenu: FC<Props> = ({ publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[21px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (
     <Menu as="div">

@@ -61,7 +61,7 @@ const SinglePublication: FC<Props> = ({
             showStatus
           />
         </span>
-        <PublicationMenu publication={publication} isFullPublication={true} />
+        <PublicationMenu publication={publication} />
       </div>
       <div
         className="ml-[53px]"
