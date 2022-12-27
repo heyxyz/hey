@@ -6,7 +6,8 @@ import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+// @ts-ignore
+import dayjsTwitter from 'dayjs-twitter';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -18,7 +19,7 @@ import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
-dayjs.extend(relativeTime);
+dayjs.extend(dayjsTwitter);
 
 interface Props {
   profile: Profile;
@@ -86,9 +87,10 @@ const UserProfile: FC<Props> = ({
         <Slug className="text-sm" slug={formatHandle(profile?.handle)} prefix="@" />
         {timestamp ? (
           <span className="lt-text-gray-500">
-            <span className="px-1">·</span>
+            <span className="mx-1.5">·</span>
             <span className="text-xs" title={formatTime(timestamp as Date)}>
-              {dayjs(new Date(timestamp)).fromNow()}
+              {/* @ts-ignore */}
+              {dayjs(new Date(timestamp)).twitter()}
             </span>
           </span>
         ) : null}
