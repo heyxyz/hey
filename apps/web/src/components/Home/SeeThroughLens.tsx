@@ -1,7 +1,8 @@
+import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import { Menu, Transition } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
@@ -97,18 +98,10 @@ const SeeThroughLens: FC = () => {
             alt={formatHandle(profile?.handle)}
           />
           <span>{seeThroughProfile ? `@${formatHandle(profile?.handle)}` : 'My Feed'}</span>
-          <ChevronDownIcon className="w-5 h-5" />
+          <ChevronDownIcon className="w-4 h-4" />
         </span>
       </Menu.Button>
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
+      <MenuTransition>
         <Menu.Items
           static
           className="absolute w-64 right-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
@@ -173,7 +166,7 @@ const SeeThroughLens: FC = () => {
             )}
           </div>
         </Menu.Items>
-      </Transition>
+      </MenuTransition>
     </Menu>
   );
 };
