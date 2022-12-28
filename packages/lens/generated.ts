@@ -15836,12 +15836,7 @@ export type ProfileQuery = {
     followNftAddress?: any | null;
     isFollowedByMe: boolean;
     isFollowing: boolean;
-    attributes?: Array<{
-      __typename?: 'Attribute';
-      traitType?: string | null;
-      key: string;
-      value: string;
-    }> | null;
+    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
     dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null;
     onChainIdentity: {
       __typename?: 'OnChainIdentity';
@@ -18670,7 +18665,12 @@ export type ProfileSettingsQuery = {
     id: any;
     name?: string | null;
     bio?: string | null;
-    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
+    attributes?: Array<{
+      __typename?: 'Attribute';
+      traitType?: string | null;
+      key: string;
+      value: string;
+    }> | null;
     coverPicture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
       | { __typename?: 'NftImage' }
@@ -32067,7 +32067,6 @@ export const ProfileDocument = gql`
       isFollowedByMe
       isFollowing(who: $who)
       attributes {
-        traitType
         key
         value
       }
@@ -32309,6 +32308,7 @@ export const ProfileSettingsDocument = gql`
       name
       bio
       attributes {
+        traitType
         key
         value
       }
