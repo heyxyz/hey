@@ -10,7 +10,7 @@ interface Props {
   className?: string;
 }
 
-const UserName: FC<Props> = ({ profile, className }) => {
+const Username: FC<Props> = ({ profile, className }) => {
   return (
     <Link href={`/u/${formatHandle(profile?.handle)}`} className={className}>
       {profile?.name ? <b>{profile?.name}</b> : <Slug slug={formatHandle(profile?.handle)} prefix="@" />}
@@ -18,4 +18,4 @@ const UserName: FC<Props> = ({ profile, className }) => {
   );
 };
 
-export default UserName;
+export default Username;

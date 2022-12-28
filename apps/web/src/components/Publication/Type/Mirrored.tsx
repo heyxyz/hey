@@ -1,4 +1,4 @@
-import UserName from '@components/Shared/Username';
+import Username from '@components/Shared/Username';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import type { MessageDescriptor } from '@lingui/core/cjs/i18n';
 import { defineMessage } from '@lingui/macro';
@@ -33,7 +33,7 @@ const Mirrored: FC<Props> = ({ publication }) => {
         id={messages[typeName]?.id || defaultMessage(typeName)}
         components={[
           <span key="" />,
-          <UserName profile={publication.profile} className="max-w-xs truncate" key="" />,
+          <Username profile={publication.profile} className="max-w-xs truncate" key="" />,
           <Link href={`/posts/${publication?.mirrorOf?.id}`} className="font-bold" key="">
             {publication?.mirrorOf.__typename?.toLowerCase()}
           </Link>

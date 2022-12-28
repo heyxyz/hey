@@ -18,8 +18,6 @@ i18n.loadLocaleData({
   qaa: { plurals: en }
 });
 
-import('dayjs/locale/cs');
-
 const localStorageKey = 'selectedLocale';
 
 /**
