@@ -17,7 +17,7 @@ const Realtime: FC = () => {
     const data = JSON.parse(message.data as string)[0];
     setItems((prev: any) => {
       if (prev) {
-        if (prev.length > 10) {
+        if (prev.length > 15) {
           prev.pop();
         }
         prev.unshift(data);
