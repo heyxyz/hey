@@ -10,7 +10,6 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     isFollowedByMe
     isFollowing(who: $who)
     attributes {
-      traitType
       key
       value
     }
