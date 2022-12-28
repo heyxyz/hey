@@ -1,11 +1,14 @@
-name: Crowdin upload
+name: Crowdin download
 
 on:
-  push:
-    branches: [ i18n-support ]
+  schedule:
+    - cron: '0 0 * * *' # every day at 00:00
+
+  # start via Actions tab in Github UI
+  workflow_dispatch:
 
 jobs:
-  upload-translations:
+  download-translations:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,11 +16,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Upload to Crowdin
+    - name: Download from Crowdin
       uses: crowdin/github-action@1.5.2
       with:
-        upload_translations: true
-        download_translations: false
+        upload_translations: false
+        download_translations: true
+        create_pull_request: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
