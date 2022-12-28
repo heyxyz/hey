@@ -11,11 +11,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx",
     "test": "cypress run --headless",
     "extract": "NODE_ENV=development lingui extract",
-    "compile": "lingui compile",
-    "crowdin": "crowdin",
-    "sync": "crowdin push && crowdin pull",
-    "sync:sources": "crowdin push",
-    "sync:translations": "crowdin pull"
+    "compile": "lingui compile"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",

@@ -1,5 +1,5 @@
-project_id: '556737'
-api_token: 'f412c35a318449726ab736218ecf26de4293a8b63f4987303960b7f463e8a3a1a64c8932142764ff'
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_PERSONAL_TOKEN
 
 preserve_hierarchy: true
 
