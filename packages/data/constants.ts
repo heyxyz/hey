@@ -115,7 +115,8 @@ export const LS_KEYS = {
   LENSTER_STORE: 'lenster.store',
   TRANSACTION_STORE: 'transaction.store',
   TIMELINE_STORE: 'timeline.store',
-  MESSAGE_STORE: 'message.store'
+  MESSAGE_STORE: 'message.store',
+  SELECTED_LOCALE: 'selected.locale'
 };
 
 // S3 bucket
