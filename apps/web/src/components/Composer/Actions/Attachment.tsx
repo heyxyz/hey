@@ -110,7 +110,7 @@ const Attachment: FC = () => {
           </Tooltip>
         )}
       </Menu.Button>
-      <MenuTransition>
+      <MenuTransition show={showMenu}>
         <Menu.Items
           ref={dropdownRef}
           static

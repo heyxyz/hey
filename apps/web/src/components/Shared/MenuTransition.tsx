@@ -4,12 +4,14 @@ import { Fragment } from 'react';
 
 interface Props {
   children: ReactNode;
+  show?: boolean;
 }
 
-const MenuTransition: FC<Props> = ({ children }) => {
+const MenuTransition: FC<Props> = ({ children, show }) => {
   return (
     <Transition
       as={Fragment}
+      show={show}
       enter="transition ease-out duration-100"
       enterFrom="transform opacity-0 scale-95"
       enterTo="transform opacity-100 scale-100"
