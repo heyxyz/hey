@@ -182,7 +182,7 @@ const Profile: FC<Props> = ({ profile }) => {
                   'app'
                 ].includes(attr.key)
             )
-            .map(({ key, value }) => ({ traitType: 'string', key, value })) ?? []),
+            .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []),
           { traitType: 'string', key: 'location', value: location },
           { traitType: 'string', key: 'website', value: website },
           { traitType: 'string', key: 'twitter', value: twitter },
