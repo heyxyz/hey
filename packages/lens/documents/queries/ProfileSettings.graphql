@@ -4,6 +4,7 @@ query ProfileSettings($request: SingleProfileQueryRequest!) {
     name
     bio
     attributes {
+      traitType
       key
       value
     }
