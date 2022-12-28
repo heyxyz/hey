@@ -169,6 +169,20 @@ const Profile: FC<Props> = ({ profile }) => {
         bio,
         cover_picture: cover ? cover : null,
         attributes: [
+          ...(profile?.attributes
+            ?.filter(
+              (attr) =>
+                ![
+                  'location',
+                  'website',
+                  'twitter',
+                  'hasPrideLogo',
+                  'statusEmoji',
+                  'statusMessage',
+                  'app'
+                ].includes(attr.key)
+            )
+            .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []),
           { traitType: 'string', key: 'location', value: location },
           { traitType: 'string', key: 'website', value: website },
           { traitType: 'string', key: 'twitter', value: twitter },
