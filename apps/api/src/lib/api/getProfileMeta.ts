@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import generateMeta from '@lib/generateMeta';
 import getIPFSLink from '@lib/getIPFSLink';
+import getStampFyiURL from '@lib/getStampFyiURL';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE, OG_MEDIA_PROXY_URL } from 'data/constants';
 import type { MediaSet, NftImage, Profile } from 'lens';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -12,6 +13,7 @@ const PROFILE_QUERY = gql`
       handle
       name
       bio
+      ownedBy
       stats {
         totalFollowers
         totalFollowing
@@ -52,9 +54,7 @@ const getProfileMeta = async (req: NextApiRequest, res: NextApiResponse, handle:
       const description = profile?.bio ?? '';
       const image = profile
         ? `${OG_MEDIA_PROXY_URL}/tr:n-avatar,tr:di-placeholder.webp/${getIPFSLink(
-            profile?.picture?.original?.url ??
-              profile?.picture?.uri ??
-              `https://avatar.tobi.sh/${profile?.ownedBy}_${profile?.handle}.png`
+            profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)
           )}`
         : 'https://assets.lenster.xyz/images/og/logo.jpeg';
 
