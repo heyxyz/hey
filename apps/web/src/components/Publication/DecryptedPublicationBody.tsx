@@ -194,7 +194,13 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
   if (!decryptedData) {
     return (
-      <Card className={clsx(cardClasses, '!cursor-pointer')} onClick={getDecryptedData}>
+      <Card
+        className={clsx(cardClasses, '!cursor-pointer')}
+        onClick={(event) => {
+          event.stopPropagation();
+          getDecryptedData();
+        }}
+      >
         <div className="text-white font-bold flex items-center space-x-1">
           {isDecrypting ? (
             <>
