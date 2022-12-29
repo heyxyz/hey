@@ -29,10 +29,10 @@ import {
   ALLOWED_IMAGE_TYPES,
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
-  CHRACTERS_MAXLENGTH,
+  CHARACTERS_MAXLENGTH,
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT,
-  SHOW_REMAINING_CHRACTERS_LENGTH,
+  SHOW_REMAINING_CHARACTERS_LENGTH,
   SIGN_WALLET
 } from 'data/constants';
 import type { CreatePublicCommentRequest, MetadataAttributeInput, PublicationMetadataV2Input } from 'lens';

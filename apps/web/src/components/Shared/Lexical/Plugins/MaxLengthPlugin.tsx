@@ -28,13 +28,11 @@ export const MaxLengthPlugin = ({
       const textContent = rootNode.getTextContent();
       if (prevTextContent !== textContent) {
         const textLength = textContent.length;
-        const delCount = maxLength - textLength;
+        const delCount = textLength - maxLength;
         const { anchor } = selection;
-        if (delCount >= 0) {
-          setRemainingCharacters(delCount);
-        }
+        delCount < 0 ? setRemainingCharacters(Math.abs(delCount)) : setRemainingCharacters(0);
 
-        if (delCount < 0) {
+        if (delCount > 0) {
           // Restore the old editor state instead if the last
           // text content was already at the limit.
           if (prevTextContent.length === maxLength && lastRestoredEditorState !== prevEditorState) {
