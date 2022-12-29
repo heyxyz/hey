@@ -16,7 +16,6 @@
   "dependencies": {
     "@apollo/client": "^3.7.3",
     "@aws-sdk/client-s3": "^3.238.0",
-    "@crowdin/cli": "3",
     "@giphy/js-fetch-api": "^4.7.1",
     "@giphy/react-components": "^6.5.1",
     "@headlessui/react": "^1.7.7",
@@ -62,6 +61,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",
+    "@crowdin/cli": "^3.9.1",
     "@giphy/js-types": "^4.2.1",
     "@lingui/cli": "^3.15.0",
     "@lingui/macro": "^3.15.0",

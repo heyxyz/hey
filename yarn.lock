@@ -2107,7 +2107,7 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@crowdin/cli@3":
+"@crowdin/cli@^3.9.1":
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/@crowdin/cli/-/cli-3.9.1.tgz#f09f3616798ec7474c2c7d162a40bf875e0c9e74"
   integrity sha512-Ca+mzVvLE9lYmTA4peTHOQdH42+eThwQ0DK6URT7crInQKJRjVJdsA2kkfEwi2mQPruAIG/KIKaPieRWPanlIQ==
