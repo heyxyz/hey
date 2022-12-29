@@ -1,5 +1,6 @@
 import EventType from '@components/Home/Timeline/EventType';
 import UserProfile from '@components/Shared/UserProfile';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { LensterPublication } from '@generated/types';
 import { Analytics } from '@lib/analytics';
 import type { ElectedMirror, FeedItem } from 'lens';
@@ -12,6 +13,7 @@ import PublicationMenu from './Actions/Menu';
 import ModAction from './Actions/ModAction';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
+import Source from './Source';
 import PublicationType from './Type';
 
 interface Props {
@@ -32,6 +34,7 @@ const SinglePublication: FC<Props> = ({
   showThread = true
 }) => {
   const { push } = useRouter();
+  const { allowed: staffMode } = useStaffMode();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
@@ -61,7 +64,10 @@ const SinglePublication: FC<Props> = ({
             showStatus
           />
         </span>
-        <PublicationMenu publication={publication} />
+        <div className="flex items-center space-x-1">
+          {staffMode && <Source publication={publication} />}
+          <PublicationMenu publication={publication} />
+        </div>
       </div>
       <div
         className="ml-[53px]"
