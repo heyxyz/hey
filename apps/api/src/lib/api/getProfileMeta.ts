@@ -13,6 +13,7 @@ const PROFILE_QUERY = gql`
       handle
       name
       bio
+      ownedBy
       stats {
         totalFollowers
         totalFollowing
