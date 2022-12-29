@@ -1,12 +1,19 @@
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import PublicationContentShimmer from '@components/Shared/Shimmer/PublicationContentShimmer';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useNFT from '@components/utils/hooks/useNFT';
 import type { LensterPublication } from '@generated/types';
-import { CollectionIcon, DatabaseIcon, EyeIcon, PhotographIcon, UserAddIcon } from '@heroicons/react/outline';
+import {
+  CollectionIcon,
+  DatabaseIcon,
+  EyeIcon,
+  FingerPrintIcon,
+  PhotographIcon,
+  UserAddIcon
+} from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type { Erc20OwnershipOutput, NftOwnershipOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
@@ -21,7 +28,7 @@ import { DecryptFailReason } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
@@ -44,6 +51,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { pathname } = useRouter();
   const [decryptedData, setDecryptedData] = useState<any>(null);
   const [decryptError, setDecryptError] = useState<any>(null);
+  const [isDecrypting, setIsDecrypting] = useState(false);
   const provider = useProvider();
   const { data: signer } = useSigner();
 
@@ -92,8 +100,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const doesNotOwnNft = reasons?.includes(DecryptFailReason.DoesNotOwnNft);
 
   // Style
-  const cardClasses =
-    'text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600 cursor-text';
+  const cardClasses = 'text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600';
 
   const { data: tokenData } = useToken({
     address: tokenCondition?.contractAddress,
@@ -108,28 +115,23 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   });
 
   const getDecryptedData = async () => {
-    if (!signer) {
+    if (!signer || isDecrypting) {
       return;
     }
 
+    setIsDecrypting(true);
     const contentUri = getIPFSLink(encryptedPublication?.onChainContentURI);
     const { data } = await axios.get(contentUri);
     const sdk = await LensGatedSDK.create({ provider, signer, env: LIT_PROTOCOL_ENVIRONMENT as any });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);
     setDecryptedData(decrypted);
     setDecryptError(error);
+    setIsDecrypting(false);
   };
-
-  useEffect(() => {
-    if (canDecrypt) {
-      getDecryptedData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canDecrypt]);
 
   if (!canDecrypt) {
     return (
-      <Card className={cardClasses} onClick={(event) => event.stopPropagation()}>
+      <Card className={clsx(cardClasses, 'cursor-text')} onClick={(event) => event.stopPropagation()}>
         <div className="font-bold flex items-center space-x-2">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
           <span className="text-white font-black text-base">To view this...</span>
@@ -192,7 +194,31 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   }
 
   if (!decryptedData) {
-    return <PublicationContentShimmer />;
+    return (
+      <Card
+        className={clsx(cardClasses, '!cursor-pointer')}
+        onClick={(event) => {
+          event.stopPropagation();
+          getDecryptedData();
+        }}
+      >
+        <div className="text-white font-bold flex items-center space-x-1">
+          {isDecrypting ? (
+            <>
+              <Spinner size="xs" className="mr-1" />
+              <span>Decrypting...</span>
+            </>
+          ) : (
+            <>
+              <FingerPrintIcon className="h-5 w-5" />
+              <span>
+                Decrypt <span className="lowercase">{encryptedPublication.__typename}</span>
+              </span>
+            </>
+          )}
+        </div>
+      </Card>
+    );
   }
 
   const publication: PublicationMetadataV2Input = decryptedData;
