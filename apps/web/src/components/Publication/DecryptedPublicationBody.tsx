@@ -115,9 +115,10 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   });
 
   const getDecryptedData = async () => {
-    if (!signer) {
+    if (!signer || isDecrypting) {
       return;
     }
+
     setIsDecrypting(true);
     const contentUri = getIPFSLink(encryptedPublication?.onChainContentURI);
     const { data } = await axios.get(contentUri);
