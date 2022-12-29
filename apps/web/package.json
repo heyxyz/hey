@@ -3,15 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "lingui compile && next dev --port 4783",
+    "predev": "lingui compile",
+    "dev": "next dev --port 4783",
     "prebuild": "lingui compile",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "test": "cypress run --headless",
-    "extract": "NODE_ENV=development lingui extract",
-    "compile": "lingui compile"
+    "extract": "NODE_ENV=development lingui extract"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
