@@ -124,4 +124,4 @@ export const S3_BUCKET = {
 
 // lexical MaxLengthPlugin
 export const CHRACTERS_MAXLENGTH = 10000;
-export const SHOW_REMAINING_CHRACTERS_LENGTH = 20;
+export const SHOW_REMAINING_CHARACTERS_LENGTH = 20;
