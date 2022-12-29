@@ -16,7 +16,7 @@ const IFramely: FC<Props> = ({ url }) => {
   const allowedSites = ['YouTube', 'Spotify', 'SoundCloud', 'oohlala_xyz', 'Lenstube'];
 
   const { isLoading, error, data } = useQuery(
-    ['iframelyData'],
+    [url],
     () =>
       axios({
         url: 'https://iframe.ly/api/iframely',
