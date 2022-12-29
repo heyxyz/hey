@@ -1,4 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { LensterPublication } from '@generated/types';
 import { Analytics } from '@lib/analytics';
 import { useRouter } from 'next/router';
@@ -9,6 +10,7 @@ import PublicationActions from './Actions';
 import PublicationMenu from './Actions/Menu';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
+import Source from './Source';
 
 interface Props {
   publication: LensterPublication;
@@ -16,6 +18,7 @@ interface Props {
 
 const ThreadBody: FC<Props> = ({ publication }) => {
   const { push } = useRouter();
+  const { allowed: staffMode } = useStaffMode();
   const isMirror = publication.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
@@ -30,7 +33,10 @@ const ThreadBody: FC<Props> = ({ publication }) => {
             showStatus
           />
         </span>
-        <PublicationMenu publication={publication} />
+        <div className="flex items-center space-x-1">
+          {staffMode && <Source publication={publication} />}
+          <PublicationMenu publication={publication} />
+        </div>
       </div>
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[3px]" />
