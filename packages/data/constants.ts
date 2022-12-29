@@ -121,3 +121,7 @@ export const LS_KEYS = {
 export const S3_BUCKET = {
   LENSTER_MEDIA: 'lenster-media'
 };
+
+// lexical MaxLengthPlugin
+export const CHRACTERS_MAXLENGTH = 10000;
+export const SHOW_REMAINING_CHRACTERS_LENGTH = 20;

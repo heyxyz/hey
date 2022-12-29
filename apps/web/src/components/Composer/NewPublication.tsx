@@ -1,5 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
+import MaxLengthPlugin from '@components/Shared/Lexical/Plugins/MaxLengthPlugin';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
@@ -28,8 +29,10 @@ import {
   ALLOWED_IMAGE_TYPES,
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
+  CHRACTERS_MAXLENGTH,
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT,
+  SHOW_REMAINING_CHRACTERS_LENGTH,
   SIGN_WALLET
 } from 'data/constants';
 import type { CreatePublicCommentRequest, MetadataAttributeInput, PublicationMetadataV2Input } from 'lens';
@@ -527,22 +530,28 @@ const NewPublication: FC<Props> = ({ publication }) => {
           <ReferenceSettings />
           <AccessSettings />
         </div>
-        <div className="ml-auto pt-2 sm:pt-0">
-          <Button
-            disabled={isLoading || isUploading}
-            icon={
-              isLoading ? (
-                <Spinner size="xs" />
-              ) : isComment ? (
-                <ChatAlt2Icon className="w-4 h-4" />
-              ) : (
-                <PencilAltIcon className="w-4 h-4" />
-              )
-            }
-            onClick={createPublication}
-          >
-            {isComment ? 'Comment' : 'Post'}
-          </Button>
+        <div className="ml-auto pt-2 sm:pt-2 space-x-4">
+          <div className="flex items-center space-x-4">
+            <MaxLengthPlugin
+              maxLength={CHRACTERS_MAXLENGTH}
+              remainingCharactersLength={SHOW_REMAINING_CHRACTERS_LENGTH}
+            />
+            <Button
+              disabled={isLoading || isUploading}
+              icon={
+                isLoading ? (
+                  <Spinner size="xs" />
+                ) : isComment ? (
+                  <ChatAlt2Icon className="w-4 h-4" />
+                ) : (
+                  <PencilAltIcon className="w-4 h-4" />
+                )
+              }
+              onClick={createPublication}
+            >
+              {isComment ? 'Comment' : 'Post'}
+            </Button>
+          </div>
         </div>
       </div>
       <div className="px-5">
