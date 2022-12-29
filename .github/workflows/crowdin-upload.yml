@@ -2,7 +2,10 @@ name: Crowdin upload
 
 on:
   push:
-    branches: [ i18n-support ]
+    branches: [ main ]
+
+  # start via Actions tab in Github UI
+  workflow_dispatch:
 
 jobs:
   upload-translations:

@@ -16,10 +16,7 @@
     "prettier": "prettier --check \"**/*.{ts,tsx,md}\"",
     "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
-    "crowdin": "crowdin",
-    "sync": "crowdin push && crowdin pull",
-    "sync:sources": "crowdin push",
-    "sync:translations": "crowdin pull"
+    "crowdin": "crowdin"
   },
   "devDependencies": {
     "husky": "^8.0.2",
