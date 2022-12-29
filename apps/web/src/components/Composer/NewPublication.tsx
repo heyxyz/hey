@@ -533,7 +533,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         <div className="ml-auto pt-2 sm:pt-2 space-x-4">
           <div className="flex items-center space-x-4">
             <MaxLengthPlugin
-              maxLength={CHRACTERS_MAXLENGTH}
+              maxLength={CHARACTERS_MAXLENGTH}
               remainingCharactersLength={SHOW_REMAINING_CHRACTERS_LENGTH}
             />
             <Button
