@@ -534,7 +534,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
           <div className="flex items-center space-x-4">
             <MaxLengthPlugin
               maxLength={CHARACTERS_MAXLENGTH}
-              remainingCharactersLength={SHOW_REMAINING_CHRACTERS_LENGTH}
+              remainingCharactersLength={SHOW_REMAINING_CHARACTERS_LENGTH}
             />
             <Button
               disabled={isLoading || isUploading}
