@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "predev": "lingui compile",
-    "dev": "next dev --port 4783",
-    "prebuild": "lingui compile",
+    "dev": "lingui compile; next dev --port 4783",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
