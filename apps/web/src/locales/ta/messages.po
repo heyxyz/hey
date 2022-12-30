@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-30 10:52\n"
+"PO-Revision-Date: 2022-12-30 11:49\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
-msgstr ""
+msgstr "என்ன நடக்கிறது?"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Comment"
@@ -61,7 +61,7 @@ msgstr "ஒலி"
 
 #: src/components/Explore/FeedType.tsx
 msgid "Images"
-msgstr ""
+msgstr "படங்கள்"
 
 #: src/components/Explore/index.tsx
 msgid "For you"
@@ -74,15 +74,15 @@ msgstr "பிரபலமானவை"
 #: src/components/Explore/index.tsx
 #: src/components/Home/Trending.tsx
 msgid "Trending"
-msgstr ""
+msgstr "டிரெண்டிங்"
 
 #: src/components/Explore/index.tsx
 msgid "Interesting"
-msgstr ""
+msgstr "கவர்ச்சியான"
 
 #: src/components/Home/BetaWarning.tsx
 msgid "Beta warning!"
-msgstr ""
+msgstr "பீட்டா எச்சரிக்கை!"
 
 #: src/components/Home/BetaWarning.tsx
 msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
@@ -90,19 +90,19 @@ msgstr ""
 
 #: src/components/Home/BetaWarning.tsx
 msgid "Get testnet tokens"
-msgstr ""
+msgstr "டெஸ்ட்நெட் டோக்கன்களைப் பெறுங்கள்"
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
-msgstr ""
+msgstr "நடவடிக்கை தேவை"
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
-msgstr ""
+msgstr "உங்கள் பரிவர்த்தனைகள் எதிலும் கையொப்பமிடாமல் {APP_NAME} உடன் தொடர்புகொள்வதற்கு டிஸ்பெட்சேரை இயக்கலாம்."
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Filter"
-msgstr ""
+msgstr "வடிகட்டு"
 
 #: src/components/Home/FeedType.tsx
 msgid "Timeline"
@@ -114,7 +114,7 @@ msgstr "ஹைலைட்ஸ்"
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
-msgstr ""
+msgstr "{APP_NAME} க்கு வரவேற்கிறோம் 👋"
 
 #: src/components/Home/Hero.tsx
 msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
@@ -122,7 +122,7 @@ msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
-msgstr ""
+msgstr "யாரை பின்பற்றுவது"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Show more"
@@ -130,7 +130,7 @@ msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
-msgstr ""
+msgstr "எனது ஊட்டம்"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "👀 See the feed through..."
@@ -138,23 +138,23 @@ msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
-msgstr ""
+msgstr "தேடு"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Setup your {APP_NAME} profile"
-msgstr ""
+msgstr "உங்கள் {APP_NAME} சுயவிவரத்தை அமைக்கவும்"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile name"
-msgstr ""
+msgstr "சுயவிவரப் பெயரை அமைக்கவும்"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile bio"
-msgstr ""
+msgstr "சுயவிவர பயோவை அமைக்கவும்"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set your avatar"
-msgstr ""
+msgstr "உங்கள் படத்தை அமைக்கவும்"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Select profile interests"
@@ -162,23 +162,23 @@ msgstr "உங்கள் ஆர்வங்களைத் தேர்ந்�
 
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
-msgstr ""
+msgstr "சுயவிவரத்தை இப்போது புதுப்பிக்கவும்"
 
 #: src/components/Home/Trending.tsx
 msgid "<0>{0} Publications</0>"
-msgstr ""
+msgstr "<0>{0} இடுகைகள்</0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> சேகரித்தார்"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> சேகரித்தார்"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> சேகரித்தார்"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 #: src/components/Notification/Type/MirrorNotification.tsx
@@ -245,7 +245,7 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
-msgstr ""
+msgstr "தலைப்பு"
 
 #: src/components/Pages/Contact.tsx
 msgid "What happened?"
@@ -257,7 +257,7 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "How can we help?"
-msgstr ""
+msgstr "நாங்கள் எவ்வாறு உதவலாம்?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
@@ -535,3 +535,4 @@ msgstr ""
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr ""
+
