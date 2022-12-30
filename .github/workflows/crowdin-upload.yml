@@ -2,17 +2,13 @@ name: Crowdin upload
 
 on:
   push:
-    branches: [ main ]
-
-  # start via Actions tab in Github UI
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   upload-translations:
     runs-on: ubuntu-latest
-
     steps:
-
     - name: Checkout
       uses: actions/checkout@v3
 
