@@ -1,0 +1,5 @@
+#: src/components/Composer/Editor/index.tsx
+#: src/components/Composer/Post/New.tsx
+#: src/components/Shared/Status.tsx
+msgid "What's happening?"
+msgstr ""
