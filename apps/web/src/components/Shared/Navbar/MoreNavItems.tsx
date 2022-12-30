@@ -1,5 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { HandIcon, SupportIcon } from '@heroicons/react/outline';
+import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { Fragment } from 'react';
@@ -22,7 +23,7 @@ const MoreNavItems: FC = () => {
               }
             )}
           >
-            More
+            <Trans>More</Trans>
           </Menu.Button>
           <MenuTransition>
             <Menu.Items
@@ -38,7 +39,9 @@ const MoreNavItems: FC = () => {
               >
                 <div className="flex items-center space-x-1.5">
                   <SupportIcon className="w-4 h-4" />
-                  <div>Contact</div>
+                  <div>
+                    <Trans>Contact</Trans>
+                  </div>
                 </div>
               </Menu.Item>
               <Menu.Item
@@ -51,7 +54,9 @@ const MoreNavItems: FC = () => {
               >
                 <div className="flex items-center space-x-1.5">
                   <HandIcon className="w-4 h-4" />
-                  <div>Report a bug</div>
+                  <div>
+                    <Trans>Report a bug</Trans>
+                  </div>
                 </div>
               </Menu.Item>
             </Menu.Items>

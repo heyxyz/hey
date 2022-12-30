@@ -2,6 +2,9 @@ import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
 import { AtSymbolIcon } from '@heroicons/react/solid';
 import formatTime from '@lib/formatTime';
+import type { MessageDescriptor } from '@lingui/core/cjs/i18n';
+import { defineMessage } from '@lingui/macro';
+import { Trans } from '@lingui/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { NewMentionNotification } from 'lens';
@@ -16,9 +19,25 @@ interface Props {
   notification: NewMentionNotification;
 }
 
+const messages: Record<string, MessageDescriptor> = {
+  comment: defineMessage({
+    id: '<0><1/> mentioned you in a <2>comment</2></0>'
+  }),
+  mirror: defineMessage({
+    id: '<0><1/> mentioned you in a <2>mirror</2></0>'
+  }),
+  post: defineMessage({
+    id: '<0><1/> mentioned you in a <2>post</2></0>'
+  })
+};
+
+const defaultMessage = (typeName: string): string => {
+  return '<0><1/> mentioned you in a <2>' + typeName + '</2></0>';
+};
+
 const MentionNotification: FC<Props> = ({ notification }) => {
   const profile = notification?.mentionPublication?.profile;
-
+  const typeName = notification?.mentionPublication.__typename?.toLowerCase() || '';
   return (
     <div className="flex justify-between items-start">
       <div className="space-y-2 w-4/5">
@@ -29,11 +48,14 @@ const MentionNotification: FC<Props> = ({ notification }) => {
           </UserPreview>
         </div>
         <div className="ml-9">
-          <NotificationProfileName profile={profile} />{' '}
-          <span className="text-gray-600 dark:text-gray-400">mentioned you in a </span>
-          <Link href={`/posts/${notification?.mentionPublication?.id}`} className="font-bold">
-            {notification?.mentionPublication.__typename?.toLowerCase()}
-          </Link>
+          <Trans
+            id={messages[typeName]?.id || defaultMessage(typeName)}
+            components={[
+              <span className="text-gray-600 dark:text-gray-400" key="" />,
+              <NotificationProfileName profile={profile} key="" />,
+              <Link href={`/posts/${notification?.mentionPublication?.id}`} className="font-bold" key="" />
+            ]}
+          />
           <Link
             href={`/posts/${notification?.mentionPublication.id}`}
             className="lt-text-gray-500 line-clamp-2 linkify mt-2"

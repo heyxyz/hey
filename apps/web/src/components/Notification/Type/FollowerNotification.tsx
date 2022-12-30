@@ -1,6 +1,8 @@
 import UserPreview from '@components/Shared/UserPreview';
 import { UserAddIcon } from '@heroicons/react/solid';
 import formatTime from '@lib/formatTime';
+import { defineMessage } from '@lingui/macro';
+import { Trans } from '@lingui/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { NewFollowerNotification } from 'lens';
@@ -15,6 +17,14 @@ dayjs.extend(relativeTime);
 interface Props {
   notification: NewFollowerNotification;
 }
+
+const messageFollow = defineMessage({
+  id: '<0><1/> followed you</0>'
+});
+
+const messageSuperFollow = defineMessage({
+  id: '<0><1/> super followed you</0>'
+});
 
 const FollowerNotification: FC<Props> = ({ notification }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -38,14 +48,17 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
           )}
         </div>
         <div className="ml-9">
-          {notification?.wallet?.defaultProfile ? (
-            <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
-          ) : (
-            <NotificationWalletProfileName wallet={notification?.wallet} />
-          )}{' '}
-          <span className="text-gray-600 dark:text-gray-400">
-            {isSuperFollow ? 'super' : ''} followed you
-          </span>
+          <Trans
+            id={(isSuperFollow ? messageSuperFollow.id : messageFollow.id) || ''}
+            components={[
+              <span className="text-gray-600 dark:text-gray-400" key="" />,
+              notification?.wallet?.defaultProfile ? (
+                <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
+              ) : (
+                <NotificationWalletProfileName wallet={notification?.wallet} />
+              )
+            ]}
+          />
         </div>
       </div>
       <div className="text-gray-400 text-[12px]" title={formatTime(notification?.createdAt)}>

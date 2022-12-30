@@ -6,6 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
+import { Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import { CustomFiltersTypes, PublicationSortCriteria, useExploreFeedQuery } from 'lens';
 import type { FC } from 'react';
@@ -52,7 +53,11 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message={<div>No posts yet!</div>}
+        message={
+          <div>
+            <Trans>No posts yet!</Trans>
+          </div>
+        }
         icon={<CollectionIcon className="w-8 h-8 text-brand" />}
       />
     );

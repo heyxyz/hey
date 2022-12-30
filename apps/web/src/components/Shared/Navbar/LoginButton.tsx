@@ -1,5 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { Analytics } from '@lib/analytics';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAuthStore } from 'src/store/auth';
 import { USER } from 'src/tracking';
@@ -15,7 +16,7 @@ const LoginButton: FC = () => {
         Analytics.track(USER.LOGIN);
       }}
     >
-      Login
+      <Trans>Login</Trans>
     </Button>
   );
 };

@@ -7,6 +7,7 @@ import { Analytics } from '@lib/analytics';
 import getWalletLogo from '@lib/getWalletLogo';
 import onError from '@lib/onError';
 import toSnakeCase from '@lib/toSnakeCase';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ERROR_MESSAGE } from 'data/constants';
 import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from 'lens';
@@ -119,7 +120,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
           }
           onClick={handleSign}
         >
-          Sign-In with Lens
+          <Trans>Sign-In with Lens</Trans>
         </Button>
       ) : (
         <SwitchNetwork />
@@ -146,7 +147,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}
           >
             <span>
-              {mounted ? (connector.id === 'injected' ? 'Browser Wallet' : connector.name) : connector.name}
+              {mounted ? (connector.id === 'injected' ? t`Browser Wallet` : connector.name) : connector.name}
               {mounted ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <img

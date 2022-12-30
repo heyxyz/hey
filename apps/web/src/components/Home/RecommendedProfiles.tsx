@@ -7,6 +7,7 @@ import { Modal } from '@components/UI/Modal';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
+import { Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
@@ -19,7 +20,9 @@ const Title = () => {
   return (
     <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
       <SparklesIcon className="w-4 h-4 text-yellow-500" />
-      <div>Who to follow</div>
+      <div>
+        <Trans>Who to follow</Trans>
+      </div>
     </div>
   );
 };
@@ -82,7 +85,9 @@ const RecommendedProfiles: FC = () => {
           }}
         >
           <DotsCircleHorizontalIcon className="h-4 w-4" />
-          <span>Show more</span>
+          <span>
+            <Trans>Show more</Trans>
+          </span>
         </button>
       </Card>
       <Modal

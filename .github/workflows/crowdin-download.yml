@@ -1,0 +1,28 @@
+name: Crowdin download
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # every day at 00:00
+
+  # start via Actions tab in Github UI
+  workflow_dispatch:
+
+jobs:
+  download-translations:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Download from Crowdin
+      uses: crowdin/github-action@1.5.2
+      with:
+        upload_translations: false
+        download_translations: true
+        create_pull_request: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+        CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}

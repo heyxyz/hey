@@ -8,6 +8,7 @@ import { useAppStore } from 'src/store/app';
 
 import SettingsSidebar from '../Sidebar';
 import CrossPost from './CrossPost';
+import Language from './Language';
 import SetProfile from './SetProfile';
 import Verification from './Verification';
 
@@ -25,6 +26,7 @@ const AccountSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
+        <Language />
         <SetProfile />
         <SuperFollow />
         <Verification />
