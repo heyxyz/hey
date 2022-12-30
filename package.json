@@ -15,7 +15,8 @@
     "codegen": "turbo run codegen",
     "prettier": "prettier --check \"**/*.{ts,tsx,md}\"",
     "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "crowdin": "crowdin"
   },
   "devDependencies": {
     "husky": "^8.0.2",
