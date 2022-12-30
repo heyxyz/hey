@@ -11,5 +11,10 @@ export const featureFlags = [
     key: 'nft-gallery',
     name: 'NFT Gallery',
     enabledFor: [...aaveMembers]
+  },
+  {
+    key: 'i18n',
+    name: 'Internationalization',
+    enabledFor: [...lensterMembers]
   }
 ];
