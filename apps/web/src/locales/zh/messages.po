@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-30 11:49\n"
+"PO-Revision-Date: 2022-12-30 13:45\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -261,6 +261,22 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
+msgstr ""
+
+#: src/components/Profile/Badges/Ens.tsx
+msgid "ENS name:"
+msgstr ""
+
+#: src/components/Profile/Badges/ProofOfHumanity.tsx
+msgid "<0>Proof of Humanity verified</0>"
+msgstr ""
+
+#: src/components/Profile/Badges/Sybil.tsx
+msgid "<0>Sybil verified</0>"
+msgstr ""
+
+#: src/components/Profile/Badges/Worldcoin.tsx
+msgid "<0>Worldcoin verified</0>"
 msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
