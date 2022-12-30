@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-30 10:41\n"
+"PO-Revision-Date: 2022-12-30 13:45\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -551,3 +551,4 @@ msgstr ""
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr ""
+
