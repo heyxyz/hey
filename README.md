@@ -17,6 +17,9 @@
     <a href="https://www.gitpoap.io/gh/lensterxyz/lenster">
         <img src="https://public-api.gitpoap.io/v1/repo/lensterxyz/lenster/badge" alt="Gitpoap">
     </a>
+    <a href="https://crowdin.com/project/lenster">
+        <img src="https://badges.crowdin.net/lenster/localized.svg" alt="Crowdin">
+    </a>
     <a href="https://github.com/orgs/lensterxyz/projects/1/views/2">
         <img src="https://img.shields.io/badge/Help%20wanted-contribute-blue" alt="Help wanted">
     </a>
