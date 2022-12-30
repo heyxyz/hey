@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-30 11:49\n"
+"PO-Revision-Date: 2022-12-30 13:45\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -26,15 +26,15 @@ msgstr "என்ன நடக்கிறது?"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Comment"
-msgstr ""
+msgstr "[cta]கருத்து"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Post"
-msgstr ""
+msgstr "[cta]பதிவு"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
-msgstr ""
+msgstr "போஸ்ட்-ஐ உருவாக்கு"
 
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/Highlights.tsx
@@ -45,7 +45,7 @@ msgstr "இதுவரை பதிவுகள் இல்லை!"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
-msgstr ""
+msgstr "அனைத்து பதிவுகள்"
 
 #: src/components/Explore/FeedType.tsx
 msgid "Text"
@@ -126,7 +126,7 @@ msgstr "யாரை பின்பற்றுவது"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Show more"
-msgstr ""
+msgstr "மேலும் காட்டு"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
@@ -229,7 +229,7 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
-msgstr ""
+msgstr "தொடர்பு • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact {APP_NAME}"
@@ -237,7 +237,7 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact us to help you get the issue resolved."
-msgstr ""
+msgstr "சிக்கலைத் தீர்ப்பதற்கு உங்களுக்கு உதவ எங்களை தொடர்பு கொள்ளுங்கள்."
 
 #: src/components/Pages/Contact.tsx
 msgid "Publication reported successfully!"
@@ -249,7 +249,7 @@ msgstr "தலைப்பு"
 
 #: src/components/Pages/Contact.tsx
 msgid "What happened?"
-msgstr ""
+msgstr "என்ன நடந்தது?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message"
@@ -261,23 +261,23 @@ msgstr "நாங்கள் எவ்வாறு உதவலாம்?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
-msgstr ""
+msgstr "சமர்ப்பி"
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
-msgstr ""
+msgstr "ENS பெயர்:"
 
 #: src/components/Profile/Badges/ProofOfHumanity.tsx
 msgid "<0>Proof of Humanity verified</0>"
-msgstr ""
+msgstr "<0>மனிதநேயத்தின் சான்று சரிபார்க்கப்பட்டது</0>"
 
 #: src/components/Profile/Badges/Sybil.tsx
 msgid "<0>Sybil verified</0>"
-msgstr ""
+msgstr "<0>சிபில் சரிபார்க்கப்பட்டது</0>"
 
 #: src/components/Profile/Badges/Worldcoin.tsx
 msgid "<0>Worldcoin verified</0>"
-msgstr ""
+msgstr "<0> Worldcoin சரிபார்க்கப்பட்டது</0>"
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -293,7 +293,7 @@ msgstr ""
 
 #: src/components/Settings/Account/Language.tsx
 msgid "Select display language"
-msgstr ""
+msgstr "காட்சி மொழியைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Your default profile"
@@ -313,7 +313,7 @@ msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "What else you should know"
-msgstr ""
+msgstr "நீங்கள் வேறு என்ன தெரிந்து கொள்ள வேண்டும்"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc."
@@ -337,7 +337,7 @@ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Select Currency"
-msgstr ""
+msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Follow amount"
@@ -345,11 +345,11 @@ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Funds recipient"
-msgstr ""
+msgstr "நிதி பெறுநர்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Disable Super follow"
-msgstr ""
+msgstr "சூப்பர் பின்தொடர் முடக்கு"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Update Super follow"
@@ -361,7 +361,7 @@ msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
-msgstr ""
+msgstr "சரிபார்க்கப்பட்டது"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
@@ -381,15 +381,15 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
-msgstr ""
+msgstr "சுயவிவரம்"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
-msgstr ""
+msgstr "கணக்கு"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Interests"
-msgstr ""
+msgstr "ஆர்வங்கள்"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Dispatcher"
@@ -401,19 +401,19 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
-msgstr ""
+msgstr "துப்புரவு"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Danger Zone"
-msgstr ""
+msgstr "ஆபத்தான இடம்"
 
 #: src/components/Shared/Footer.tsx
 msgid "Terms"
-msgstr ""
+msgstr "விதிகள்"
 
 #: src/components/Shared/Footer.tsx
 msgid "Privacy"
-msgstr ""
+msgstr "தனியுரிமை"
 
 #: src/components/Shared/Footer.tsx
 msgid "Discord"
@@ -421,27 +421,27 @@ msgstr ""
 
 #: src/components/Shared/Footer.tsx
 msgid "Donate"
-msgstr ""
+msgstr "நன்கொடை"
 
 #: src/components/Shared/Footer.tsx
 msgid "Status"
-msgstr ""
+msgstr "நிலை"
 
 #: src/components/Shared/Footer.tsx
 msgid "Feedback"
-msgstr ""
+msgstr "பின்னூட்டம்"
 
 #: src/components/Shared/Footer.tsx
 msgid "Thanks"
-msgstr ""
+msgstr "நன்றி"
 
 #: src/components/Shared/Footer.tsx
 msgid "GitHub"
-msgstr ""
+msgstr "கிட்ஹப்"
 
 #: src/components/Shared/Footer.tsx
 msgid "▲ Powered by Vercel"
-msgstr ""
+msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
@@ -450,19 +450,19 @@ msgstr ""
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Bold"
-msgstr ""
+msgstr "தடித்த"
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Italic"
-msgstr ""
+msgstr "சாய்வு"
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Code"
-msgstr ""
+msgstr "குறியீடு"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
-msgstr ""
+msgstr "லென்ஸுடன் உள்நுழை"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
@@ -486,7 +486,7 @@ msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
-msgstr ""
+msgstr "மேலும்"
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "Contact"
@@ -494,15 +494,15 @@ msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "Report a bug"
-msgstr ""
+msgstr "ஒரு பிழையைப் புகாரளிக்கவும்"
 
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Search…"
-msgstr ""
+msgstr "தேடு…"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Logged in as"
-msgstr ""
+msgstr "உள்நுழைந்துள்ள கணக்கு"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Set status"
@@ -514,7 +514,7 @@ msgstr ""
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Settings"
-msgstr ""
+msgstr "அமைப்புகள்"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Moderation"
@@ -522,32 +522,33 @@ msgstr ""
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Logout"
-msgstr ""
+msgstr "வெளியேறு"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Switch to"
-msgstr ""
+msgstr "மாற்று"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Dark mode"
-msgstr ""
+msgstr "இருள் பயன்முறை"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Light mode"
-msgstr ""
+msgstr "வெளிர்ந்த பயன்முறை"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Disable staff mode"
-msgstr ""
+msgstr "பணியாளர் பயன்முறையை முடக்கு"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Enable staff mode"
-msgstr ""
+msgstr "பணியாளர் பயன்முறையை இயக்கு"
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Home"
-msgstr ""
+msgstr "முகப்பு"
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
-msgstr ""
+msgstr "உலாவு"
+
