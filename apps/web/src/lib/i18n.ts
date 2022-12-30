@@ -2,6 +2,9 @@ import { i18n } from '@lingui/core';
 import { IS_PREVIEW, IS_PRODUCTION, LS_KEYS } from 'data/constants';
 import dayjs from 'dayjs';
 import { en, es, kn, ta } from 'make-plural/plurals';
+import('dayjs/locale/es');
+import('dayjs/locale/kn');
+import('dayjs/locale/ta');
 
 export const supportedLocales: Record<string, string> = {
   en: 'English',
@@ -37,7 +40,10 @@ export async function setLocale(locale: string) {
   const { messages } = await import(`src/locales/${locale}/messages`);
   i18n.load(locale, messages);
   i18n.activate(locale);
-  dayjs.locale(locale);
+  const loadResult = dayjs.locale(locale);
+  if (loadResult != locale) {
+    dayjs.locale(defaultLocale);
+  }
 }
 
 export const initLocale = () => {
