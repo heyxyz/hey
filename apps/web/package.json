@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "test": "cypress run --headless",
+    "crowdin": "crowdin",
     "extract": "NODE_ENV=development lingui extract"
   },
   "dependencies": {

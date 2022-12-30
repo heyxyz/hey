@@ -535,4 +535,3 @@ msgstr ""
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr ""
-
