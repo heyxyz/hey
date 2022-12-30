@@ -10,6 +10,7 @@ import formatHandle from '@lib/formatHandle';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { Trans } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { Profile } from 'lens';
@@ -115,29 +116,45 @@ const SetProfile: FC = () => {
       {error && <ErrorMessage title="Transaction failed!" error={error} />}
       {hasDefaultProfile ? (
         <>
-          <div className="text-lg font-bold">Your default profile</div>
+          <div className="text-lg font-bold">
+            <Trans>Your default profile</Trans>
+          </div>
           <UserProfile profile={sortedProfiles[0]} />
         </>
       ) : (
         <div className="flex items-center space-x-1.5 font-bold text-yellow-500">
           <ExclamationIcon className="w-5 h-5" />
-          <div>You don&rsquo;t have any default profile set!</div>
+          <div>
+            <Trans>You don&rsquo;t have any default profile set!</Trans>
+          </div>
         </div>
       )}
-      <div className="text-lg font-bold">Select default profile</div>
+      <div className="text-lg font-bold">
+        <Trans>Select default profile</Trans>
+      </div>
       <p>
-        Selecting your default account helps to display the selected profile across {APP_NAME}, you can change
-        your default profile anytime.
+        <Trans>
+          Selecting your default account helps to display the selected profile across {APP_NAME}, you can
+          change your default profile anytime.
+        </Trans>
       </p>
-      <div className="text-lg font-bold">What else you should know</div>
+      <div className="text-lg font-bold">
+        <Trans>What else you should know</Trans>
+      </div>
       <div className="text-sm lt-text-gray-500 divide-y dark:divide-gray-700">
         <p className="pb-3">
-          Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc.
+          <Trans>
+            Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc.
+          </Trans>
         </p>
-        <p className="py-3">You can change default profile anytime here.</p>
+        <p className="py-3">
+          <Trans>You can change default profile anytime here.</Trans>
+        </p>
       </div>
       <div>
-        <div className="label">Select profile</div>
+        <div className="label">
+          <Trans>Select profile</Trans>
+        </div>
         <select
           className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
           onChange={(e) => setSelectedUser(e.target.value)}

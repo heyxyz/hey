@@ -1,4 +1,5 @@
 import { Analytics } from '@lib/analytics';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { PublicationMainFocus } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -33,11 +34,11 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
 
   return (
     <div className="flex flex-wrap gap-3 px-5 mt-3 sm:px-0 sm:mt-0">
-      <FeedLink name="All posts" />
-      <FeedLink name="Text" type={PublicationMainFocus.TextOnly} />
-      <FeedLink name="Video" type={PublicationMainFocus.Video} />
-      <FeedLink name="Audio" type={PublicationMainFocus.Audio} />
-      <FeedLink name="Images" type={PublicationMainFocus.Image} />
+      <FeedLink name={t`All posts`} />
+      <FeedLink name={t`Text`} type={PublicationMainFocus.TextOnly} />
+      <FeedLink name={t`Video`} type={PublicationMainFocus.Video} />
+      <FeedLink name={t`Audio`} type={PublicationMainFocus.Audio} />
+      <FeedLink name={t`Images`} type={PublicationMainFocus.Image} />
     </div>
   );
 };

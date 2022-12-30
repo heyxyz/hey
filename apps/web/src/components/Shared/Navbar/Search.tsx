@@ -4,6 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
@@ -24,7 +25,7 @@ interface Props {
 const Search: FC<Props> = ({
   hideDropdown = false,
   onProfileSelected,
-  placeholder = 'Search...',
+  placeholder = t`Search…`,
   modalWidthClassName = 'max-w-md'
 }) => {
   const { push, pathname, query } = useRouter();

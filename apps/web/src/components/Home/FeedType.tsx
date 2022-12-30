@@ -1,6 +1,7 @@
 import TabButton from '@components/UI/TabButton';
 import { SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
+import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
 
@@ -17,7 +18,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
     <div className="flex flex-wrap items-center md:px-0 px-1 justify-between">
       <div className="flex overflow-x-auto gap-3 sm:px-0">
         <TabButton
-          name="Timeline"
+          name={t`Timeline`}
           icon={<ViewListIcon className="w-4 h-4" />}
           active={feedType === 'TIMELINE'}
           showOnSm={false}
@@ -27,7 +28,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           }}
         />
         <TabButton
-          name="Highlights"
+          name={t`Highlights`}
           icon={<SparklesIcon className="w-4 h-4" />}
           active={feedType === 'HIGHLIGHTS'}
           showOnSm={false}

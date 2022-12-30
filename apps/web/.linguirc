@@ -1,0 +1,24 @@
+{
+  "locales": [
+    "en",
+    "qaa"
+  ],
+  "pseudoLocale": "qaa",
+  "fallbackLocales": {
+    "qaa": "en"
+  },
+  "catalogs": [
+    {
+      "path": "src/locales/{locale}/messages",
+      "include": [
+        "src"
+      ]
+    }
+  ],
+  "format": "po",
+  "formatOptions": {
+    "origins": true,
+    "lineNumbers": false
+  },
+  "orderBy": "origin"
+}

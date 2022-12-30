@@ -3,12 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "predev": "lingui compile",
     "dev": "next dev --port 4783",
+    "prebuild": "lingui compile",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "test": "cypress run --headless"
+    "test": "cypress run --headless",
+    "extract": "NODE_ENV=development lingui extract"
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
@@ -24,6 +27,7 @@
     "@lexical/link": "^0.7.5",
     "@lexical/markdown": "^0.7.5",
     "@lexical/react": "^0.7.5",
+    "@lingui/react": "^3.15.0",
     "@tanstack/react-query": "^4.20.4",
     "@tippyjs/react": "^4.2.6",
     "@xmtp/xmtp-js": "^7.7.2",
@@ -56,7 +60,11 @@
     "zustand": "^4.1.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.7",
+    "@crowdin/cli": "^3.9.1",
     "@giphy/js-types": "^4.2.1",
+    "@lingui/cli": "^3.15.0",
+    "@lingui/macro": "^3.15.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
@@ -67,6 +75,7 @@
     "@types/websocket": "^1.0.5",
     "abis": "*",
     "autoprefixer": "^10.4.13",
+    "babel-plugin-macros": "^3.1.0",
     "cypress": "^12.2.0",
     "data": "*",
     "eslint-config-weblint": "*",
