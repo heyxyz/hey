@@ -1,6 +1,9 @@
 {
   "locales": [
     "en",
+    "es",
+    "ta",
+    "kn",
     "qaa"
   ],
   "pseudoLocale": "qaa",
