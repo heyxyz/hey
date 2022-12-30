@@ -21,6 +21,7 @@ import getUserLocale from '@lib/getUserLocale';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
+import { t } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
 import {
@@ -541,7 +542,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
             }
             onClick={createPublication}
           >
-            {isComment ? 'Comment' : 'Post'}
+            {isComment
+              ? t({ id: '[cta]Comment', message: 'Comment' })
+              : t({ id: '[cta]Post', message: 'Post' })}
           </Button>
         </div>
       </div>

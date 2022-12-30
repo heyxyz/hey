@@ -10,6 +10,7 @@ import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
+import { t } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
 import { APP_NAME, LENS_PERIPHERY, SIGN_WALLET } from 'data/constants';
 import type { CreatePublicSetProfileMetadataUriRequest } from 'lens';
@@ -202,7 +203,7 @@ const Status: FC = () => {
       >
         <Input
           prefix={<EmojiPicker emoji={emoji} setEmoji={setEmoji} />}
-          placeholder="What's happening?"
+          placeholder={t`What's happening?`}
           {...form.register('status')}
         />
         <div className="flex flex-col space-y-2">

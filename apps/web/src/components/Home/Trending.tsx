@@ -4,6 +4,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
 import nFormatter from '@lib/nFormatter';
+import { Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
 import { TagSortCriteria, useTrendingQuery } from 'lens';
 import Link from 'next/link';
@@ -14,7 +15,9 @@ const Title = () => {
   return (
     <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
       <TrendingUpIcon className="w-4 h-4 text-green-500" />
-      <div>Trending</div>
+      <div>
+        <Trans>Trending</Trans>
+      </div>
     </div>
   );
 };
@@ -53,7 +56,9 @@ const Trending: FC = () => {
                 onClick={() => Analytics.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
               >
                 <div className="font-bold">{tag?.tag}</div>
-                <div className="text-[12px] lt-text-gray-500">{nFormatter(tag?.total)} Publications</div>
+                <Trans>
+                  <div className="text-[12px] lt-text-gray-500">{nFormatter(tag?.total)} Publications</div>
+                </Trans>
               </Link>
             </div>
           ) : null

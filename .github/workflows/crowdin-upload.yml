@@ -1,0 +1,27 @@
+name: Crowdin upload
+
+on:
+  push:
+    branches: [ main ]
+
+  # start via Actions tab in Github UI
+  workflow_dispatch:
+
+jobs:
+  upload-translations:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Upload to Crowdin
+      uses: crowdin/github-action@1.5.2
+      with:
+        upload_translations: true
+        download_translations: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+        CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
