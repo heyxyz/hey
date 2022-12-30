@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-30 10:41\n"
+"PO-Revision-Date: 2022-12-30 10:52\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -41,7 +41,7 @@ msgstr ""
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
-msgstr ""
+msgstr "இதுவரை பதிவுகள் இல்லை!"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
@@ -49,15 +49,15 @@ msgstr ""
 
 #: src/components/Explore/FeedType.tsx
 msgid "Text"
-msgstr ""
+msgstr "உரை"
 
 #: src/components/Explore/FeedType.tsx
 msgid "Video"
-msgstr ""
+msgstr "காணொளி"
 
 #: src/components/Explore/FeedType.tsx
 msgid "Audio"
-msgstr ""
+msgstr "ஒலி"
 
 #: src/components/Explore/FeedType.tsx
 msgid "Images"
@@ -65,11 +65,11 @@ msgstr ""
 
 #: src/components/Explore/index.tsx
 msgid "For you"
-msgstr ""
+msgstr "உங்களுக்காக"
 
 #: src/components/Explore/index.tsx
 msgid "Popular"
-msgstr ""
+msgstr "பிரபலமானவை"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/Trending.tsx
@@ -106,11 +106,11 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Timeline"
-msgstr ""
+msgstr "காலவரிசை"
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
-msgstr ""
+msgstr "ஹைலைட்ஸ்"
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -158,7 +158,7 @@ msgstr ""
 
 #: src/components/Home/SetProfile.tsx
 msgid "Select profile interests"
-msgstr ""
+msgstr "உங்கள் ஆர்வங்களைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
