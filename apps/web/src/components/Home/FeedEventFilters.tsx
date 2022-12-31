@@ -3,6 +3,7 @@ import { Checkbox } from '@components/UI/Checkbox';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Menu } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { useTimelinePersistStore } from 'src/store/timeline';
@@ -18,7 +19,7 @@ const FeedEventFilters: FC = () => {
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20">
-        <Tooltip placement="top" content="Filter">
+        <Tooltip placement="top" content={t`Filter`}>
           <AdjustmentsIcon className="w-5 h-5 text-brand" />
         </Tooltip>
       </Menu.Button>

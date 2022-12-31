@@ -20,6 +20,7 @@ import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
 import resetAuthData from '@lib/resetAuthData';
+import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_VERSION } from 'data/constants';
 import type { Profile } from 'lens';
@@ -86,7 +87,9 @@ const SignedUser: FC = () => {
             href={`/u/${formatHandle(currentProfile?.handle)}`}
             className={({ active }: { active: boolean }) => clsx({ 'dropdown-active': active }, 'menu-item')}
           >
-            <div>Logged in as</div>
+            <div>
+              <Trans>Logged in as</Trans>
+            </div>
             <div className="truncate">
               <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
             </div>
@@ -108,7 +111,9 @@ const SignedUser: FC = () => {
               ) : (
                 <>
                   <EmojiHappyIcon className="w-4 h-4" />
-                  <span>Set status</span>
+                  <span>
+                    <Trans>Set status</Trans>
+                  </span>
                 </>
               )}
             </div>
@@ -121,7 +126,9 @@ const SignedUser: FC = () => {
           >
             <div className="flex items-center space-x-1.5">
               <UserIcon className="w-4 h-4" />
-              <div>Your Profile</div>
+              <div>
+                <Trans>Your Profile</Trans>
+              </div>
             </div>
           </Menu.Item>
           <Menu.Item
@@ -131,7 +138,9 @@ const SignedUser: FC = () => {
           >
             <div className="flex items-center space-x-1.5">
               <CogIcon className="w-4 h-4" />
-              <div>Settings</div>
+              <div>
+                <Trans>Settings</Trans>
+              </div>
             </div>
           </Menu.Item>
           {isGardener(currentProfile?.id) && (
@@ -144,7 +153,9 @@ const SignedUser: FC = () => {
             >
               <div className="flex items-center space-x-1.5">
                 <ShieldCheckIcon className="w-4 h-4" />
-                <div>Moderation</div>
+                <div>
+                  <Trans>Moderation</Trans>
+                </div>
               </div>
             </Menu.Item>
           )}
@@ -155,7 +166,9 @@ const SignedUser: FC = () => {
           >
             <div className="flex items-center space-x-1.5">
               <LogoutIcon className="w-4 h-4" />
-              <div>Logout</div>
+              <div>
+                <Trans>Logout</Trans>
+              </div>
             </div>
           </Menu.Item>
           {profiles?.length > 1 && (
@@ -164,7 +177,9 @@ const SignedUser: FC = () => {
               <div className="overflow-auto m-2 max-h-36 no-scrollbar">
                 <div className="flex items-center px-4 pt-1 pb-2 space-x-1.5 text-sm font-bold lt-text-gray-500">
                   <SwitchHorizontalIcon className="w-4 h-4" />
-                  <div>Switch to</div>
+                  <div>
+                    <Trans>Switch to</Trans>
+                  </div>
                 </div>
                 {profiles.map((profile: Profile, index) => (
                   <div
@@ -211,12 +226,16 @@ const SignedUser: FC = () => {
               {theme === 'light' ? (
                 <>
                   <MoonIcon className="w-4 h-4" />
-                  <div>Dark mode</div>
+                  <div>
+                    <Trans>Dark mode</Trans>
+                  </div>
                 </>
               ) : (
                 <>
                   <SunIcon className="w-4 h-4" />
-                  <div>Light mode</div>
+                  <div>
+                    <Trans>Light mode</Trans>
+                  </div>
                 </>
               )}
             </div>
@@ -246,12 +265,16 @@ const SignedUser: FC = () => {
               >
                 {staffMode ? (
                   <div className="flex items-center space-x-1.5">
-                    <div>Disable staff mode</div>
+                    <div>
+                      <Trans>Disable staff mode</Trans>
+                    </div>
                     <ShieldExclamationIcon className="w-4 h-4 text-green-600" />
                   </div>
                 ) : (
                   <div className="flex items-center space-x-1.5">
-                    <div>Enable staff mode</div>
+                    <div>
+                      <Trans>Enable staff mode</Trans>
+                    </div>
                     <ShieldCheckIcon className="w-4 h-4 text-red-500" />
                   </div>
                 )}

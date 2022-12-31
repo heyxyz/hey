@@ -3,6 +3,7 @@ import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 // Lens Network
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
@@ -114,7 +115,8 @@ export const LS_KEYS = {
   LENSTER_STORE: 'lenster.store',
   TRANSACTION_STORE: 'transaction.store',
   TIMELINE_STORE: 'timeline.store',
-  MESSAGE_STORE: 'message.store'
+  MESSAGE_STORE: 'message.store',
+  SELECTED_LOCALE: 'selected.locale'
 };
 
 // S3 bucket

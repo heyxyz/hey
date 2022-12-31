@@ -22,6 +22,7 @@ import getUserLocale from '@lib/getUserLocale';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
+import { t } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
 import {
@@ -530,28 +531,24 @@ const NewPublication: FC<Props> = ({ publication }) => {
           <ReferenceSettings />
           <AccessSettings />
         </div>
-        <div className="ml-auto pt-2 sm:pt-2 space-x-4">
-          <div className="flex items-center space-x-4">
-            <MaxLengthPlugin
-              maxLength={CHARACTERS_MAXLENGTH}
-              remainingCharactersLength={SHOW_REMAINING_CHARACTERS_LENGTH}
-            />
-            <Button
-              disabled={isLoading || isUploading}
-              icon={
-                isLoading ? (
-                  <Spinner size="xs" />
-                ) : isComment ? (
-                  <ChatAlt2Icon className="w-4 h-4" />
-                ) : (
-                  <PencilAltIcon className="w-4 h-4" />
-                )
-              }
-              onClick={createPublication}
-            >
-              {isComment ? 'Comment' : 'Post'}
-            </Button>
-          </div>
+        <div className="ml-auto pt-2 sm:pt-0">
+          <Button
+            disabled={isLoading || isUploading}
+            icon={
+              isLoading ? (
+                <Spinner size="xs" />
+              ) : isComment ? (
+                <ChatAlt2Icon className="w-4 h-4" />
+              ) : (
+                <PencilAltIcon className="w-4 h-4" />
+              )
+            }
+            onClick={createPublication}
+          >
+            {isComment
+              ? t({ id: '[cta]Comment', message: 'Comment' })
+              : t({ id: '[cta]Post', message: 'Post' })}
+          </Button>
         </div>
       </div>
       <div className="px-5">

@@ -9,6 +9,7 @@ import { Input } from '@components/UI/Input';
 import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { t, Trans } from '@lingui/macro';
 import { APP_NAME, CONTACT_EMAIL } from 'data/constants';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -32,18 +33,22 @@ const Contact: FC = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Contact • ${APP_NAME}`} />
+      <MetaTags title={t`Contact • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
-          heading={`Contact ${APP_NAME}`}
-          description="Contact us to help you get the issue resolved."
+          heading={t`Contact ${APP_NAME}`}
+          description={t`Contact us to help you get the issue resolved.`}
         />
       </GridItemFour>
       <GridItemEight>
         <Card>
           {false ? (
             <EmptyState
-              message={<span>Publication reported successfully!</span>}
+              message={
+                <span>
+                  <Trans>Publication reported successfully!</Trans>
+                </span>
+              }
               icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
               hideCard
             />
@@ -58,11 +63,11 @@ const Contact: FC = () => {
                 push('/');
               }}
             >
-              <Input label="Subject" placeholder="What happened?" {...form.register('subject')} />
-              <TextArea label="Message" placeholder="How can we help?" {...form.register('message')} />
+              <Input label={t`Subject`} placeholder={t`What happened?`} {...form.register('subject')} />
+              <TextArea label={t`Message`} placeholder={t`How can we help?`} {...form.register('message')} />
               <div className="ml-auto">
                 <Button type="submit" icon={<PencilAltIcon className="w-4 h-4" />}>
-                  Submit
+                  <Trans>Submit</Trans>
                 </Button>
               </div>
             </Form>

@@ -1,5 +1,6 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Analytics } from '@lib/analytics';
+import { Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -18,15 +19,19 @@ const Footer: FC = () => {
       <span className="font-bold lt-text-gray-500">
         &copy; {new Date().getFullYear()} {APP_NAME}
       </span>
-      <Link href="/privacy">Terms</Link>
-      <Link href="/privacy">Privacy</Link>
+      <Link href="/privacy">
+        <Trans>Terms</Trans>
+      </Link>
+      <Link href="/privacy">
+        <Trans>Privacy</Trans>
+      </Link>
       <a
         href="https://lenster.xyz/discord"
         target="_blank"
         rel="noreferrer noopener"
         onClick={() => Analytics.track(FOOTER.DISCORD)}
       >
-        Discord
+        <Trans>Discord</Trans>
       </a>
       <a
         href="https://lenster.xyz/donate"
@@ -34,7 +39,7 @@ const Footer: FC = () => {
         rel="noreferrer noopener"
         onClick={() => Analytics.track(FOOTER.DONATE)}
       >
-        Donate
+        <Trans>Donate</Trans>
       </a>
       <a
         href="https://status.lenster.xyz"
@@ -42,7 +47,7 @@ const Footer: FC = () => {
         rel="noreferrer noopener"
         onClick={() => Analytics.track(FOOTER.STATUS)}
       >
-        Status
+        <Trans>Status</Trans>
       </a>
       <a
         href="https://feedback.lenster.xyz"
@@ -50,16 +55,18 @@ const Footer: FC = () => {
         rel="noreferrer noopener"
         onClick={() => Analytics.track(FOOTER.FEEDBACK)}
       >
-        Feedback
+        <Trans>Feedback</Trans>
       </a>
-      <Link href="/thanks">Thanks</Link>
+      <Link href="/thanks">
+        <Trans>Thanks</Trans>
+      </Link>
       <a
         href="https://github.com/lensterxyz/lenster"
         target="_blank"
         rel="noreferrer noopener"
         onClick={() => Analytics.track(FOOTER.GITHUB)}
       >
-        GitHub
+        <Trans>GitHub</Trans>
       </a>
       <a
         className="pr-3 hover:font-bold"
@@ -68,7 +75,7 @@ const Footer: FC = () => {
         rel="noreferrer noopener"
         onClick={() => Analytics.track(FOOTER.VERCEL)}
       >
-        ▲ Powered by Vercel
+        <Trans>▲ Powered by Vercel</Trans>
       </a>
     </footer>
   );

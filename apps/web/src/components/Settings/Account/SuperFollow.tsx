@@ -10,6 +10,7 @@ import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { t, Trans } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { Erc20 } from 'lens';
@@ -149,13 +150,19 @@ const SuperFollow: FC = () => {
           setSuperFollow(amount, recipient);
         }}
       >
-        <div className="text-lg font-bold">Set super follow</div>
+        <div className="text-lg font-bold">
+          <Trans>Set super follow</Trans>
+        </div>
         <p>
-          Setting super follow makes users spend crypto to follow you, and it&rsquo;s a good way to earn it,
-          you can change the amount and currency or disable/enable it anytime.
+          <Trans>
+            Setting super follow makes users spend crypto to follow you, and it&rsquo;s a good way to earn it,
+            you can change the amount and currency or disable/enable it anytime.
+          </Trans>
         </p>
         <div className="pt-2">
-          <div className="label">Select Currency</div>
+          <div className="label">
+            <Trans>Select Currency</Trans>
+          </div>
           <select
             className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
             onChange={(e) => {
@@ -172,7 +179,7 @@ const SuperFollow: FC = () => {
           </select>
         </div>
         <Input
-          label="Follow amount"
+          label={t`Follow amount`}
           type="number"
           step="0.0001"
           min="0"
@@ -190,7 +197,7 @@ const SuperFollow: FC = () => {
           {...form.register('amount')}
         />
         <Input
-          label="Funds recipient"
+          label={t`Funds recipient`}
           type="text"
           placeholder="0x3A5bd...5e3"
           {...form.register('recipient')}
@@ -206,7 +213,7 @@ const SuperFollow: FC = () => {
                 disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
                 icon={<XIcon className="w-4 h-4" />}
               >
-                Disable Super follow
+                <Trans>Disable Super follow</Trans>
               </Button>
             )}
             <Button
@@ -214,7 +221,7 @@ const SuperFollow: FC = () => {
               disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
               icon={<StarIcon className="w-4 h-4" />}
             >
-              {followType === 'FeeFollowModuleSettings' ? 'Update Super follow' : 'Set Super follow'}
+              {followType === 'FeeFollowModuleSettings' ? t`Update Super follow` : t`Set Super follow`}
             </Button>
           </div>
           {writeData?.hash ?? broadcastTxHash ? (
