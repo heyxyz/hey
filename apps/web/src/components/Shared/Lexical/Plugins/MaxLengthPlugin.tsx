@@ -47,7 +47,7 @@ export const MaxLengthPlugin = ({
   }, [editor, maxLength]);
 
   return (
-    <div className="min-w-[10] flex items-center">
+    <div className="w-10 inline-flex items-center">
       {remainingCharactersLength >= remainingCharacters && (
         <span className="flex px-3 py-1 items-center font-bold rounded-full text-white bg-brand-500">
           {remainingCharacters}
