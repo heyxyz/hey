@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-30 13:45\n"
+"PO-Revision-Date: 2023-01-01 06:57\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
-msgstr ""
+msgstr "ಏನು ನಡೆಯುತ್ತಿದೆ?"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Comment"
@@ -34,7 +34,7 @@ msgstr ""
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
-msgstr ""
+msgstr "ಪೋಸ್ಟ್ ರಚಿಸಿ"
 
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/Highlights.tsx
