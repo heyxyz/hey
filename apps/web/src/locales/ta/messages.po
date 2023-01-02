@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-02 14:09\n"
+"PO-Revision-Date: 2023-01-02 14:25\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/Comment/Feed.tsx
 msgid "Be the first one to comment!"
-msgstr ""
+msgstr "முதல் நபராக கருத்திடுக!"
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
@@ -138,7 +138,7 @@ msgstr "எனது ஊட்டம்"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "👀 See the feed through..."
-msgstr ""
+msgstr "👀 ஊட்டத்தின் மூலம் பார்க்கவும்..."
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
@@ -170,7 +170,7 @@ msgstr "சுயவிவரத்தை இப்போது புதுப�
 
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
-msgstr ""
+msgstr "{0} பப்ளிகேஷன்ஸ்"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
@@ -201,7 +201,7 @@ msgstr ""
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
-msgstr ""
+msgstr "<0><1/> உங்களைப் பின்தொடர்ந்தார்</0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
@@ -209,7 +209,7 @@ msgstr ""
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> விரும்பினார்"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
@@ -217,7 +217,7 @@ msgstr ""
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> விரும்பினார்"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
@@ -229,7 +229,7 @@ msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2></0> குறிப்பிட்டுள்ளார்"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
@@ -245,7 +245,7 @@ msgstr "சிக்கலைத் தீர்ப்பதற்கு உங�
 
 #: src/components/Pages/Contact.tsx
 msgid "Publication reported successfully!"
-msgstr ""
+msgstr "இடுகை வெற்றிகரமாக புகார் செய்யப்பட்டது!"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -273,7 +273,7 @@ msgstr "ENS பெயர்:"
 
 #: src/components/Profile/Badges/ProofOfHumanity.tsx
 msgid "Proof of Humanity verified"
-msgstr ""
+msgstr "மனிதநேயத்தின் சான்று சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Badges/Sybil.tsx
 msgid "<0>Sybil verified</0>"
@@ -281,7 +281,7 @@ msgstr "<0>சிபில் சரிபார்க்கப்பட்ட�
 
 #: src/components/Profile/Badges/Worldcoin.tsx
 msgid "Worldcoin verified"
-msgstr ""
+msgstr "Worldcoin சரிபார்க்கப்பட்டது"
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -333,11 +333,11 @@ msgstr "சுயவிவரத்தைத் தேர்ந்தெடு�
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set super follow"
-msgstr ""
+msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Setting super follow makes users spend crypto to follow you, and it’s a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ அமைப்பது பயனர்கள் உங்களைப் பின்தொடர கிரிப்டோவைச் செலவழிக்கச் செய்கிறது, மேலும் அதைச் சம்பாதிப்பதற்கு இது ஒரு சிறந்த வழியாகும், நீங்கள் தொகை மற்றும் நாணயத்தை மாற்றலாம் அல்லது எப்போது வேண்டுமானாலும் முடக்கலாம்/இயக்கலாம்."
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Select Currency"
@@ -357,11 +357,11 @@ msgstr "சூப்பர் பின்தொடர் முடக்க�
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Update Super follow"
-msgstr ""
+msgstr "சூப்பர் பின்தொடர்பை புதுப்பிக்கவும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
-msgstr ""
+msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
@@ -377,11 +377,11 @@ msgstr "சரிபார்ப்பு கோரிக்கை"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable dispatcher"
-msgstr ""
+msgstr "டிஸ்பெட்சேரை முடக்கு"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable dispatcher"
-msgstr ""
+msgstr "டிஸ்பெட்சேரை இயக்கு"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
@@ -397,7 +397,7 @@ msgstr "ஆர்வங்கள்"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Dispatcher"
-msgstr ""
+msgstr "டிஸ்பெட்சேர்"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
@@ -470,7 +470,7 @@ msgstr "லென்ஸுடன் உள்நுழை"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
-msgstr ""
+msgstr "உலாவி வாலட்"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -478,11 +478,11 @@ msgstr "செய்தியில் கையொப்பமிடுங்�
 
 #: src/components/Shared/Login/index.tsx
 msgid "{APP_NAME} uses this signature to verify that you’re the owner of this address."
-msgstr ""
+msgstr "இந்த முகவரியின் உரிமையாளர் நீங்கள் என்பதைச் சரிபார்க்க {APP_NAME} இந்த கையொப்பத்தைப் பயன்படுத்துகிறது."
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect your wallet"
-msgstr ""
+msgstr "உங்கள் வாலட்டை இணைக்கவும்"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect with one of our available wallet providers or create a new one."
