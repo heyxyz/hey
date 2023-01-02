@@ -25,7 +25,15 @@ import {
   TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS
 } from '../contracts';
 
-const getEnvConfig = () => {
+const getEnvConfig = (): {
+  apiEndpoint: string;
+  serverlessEndpoint: string;
+  lensHubProxyAddress: `0x${string}`;
+  lensPeripheryAddress: `0x${string}`;
+  defaultCollectToken: string;
+  UpdateOwnableFeeCollectModuleAddress: `0x${string}`;
+  litProtocolEnvironment: string;
+} => {
   switch (LENS_NETWORK) {
     case 'mainnet':
       return {
