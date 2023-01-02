@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-30 13:45\n"
+"PO-Revision-Date: 2023-01-02 14:09\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -555,3 +555,4 @@ msgstr ""
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr ""
+
