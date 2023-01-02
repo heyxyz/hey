@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-01 06:57\n"
+"PO-Revision-Date: 2023-01-02 14:05\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -174,7 +174,7 @@ msgstr ""
 
 #: src/components/Home/Trending.tsx
 #~ msgid "<0>{0} Publications</0>"
-#~ msgstr "<0>{0} இடுகைகள்</0>"
+#~ msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
@@ -281,7 +281,7 @@ msgstr ""
 
 #: src/components/Profile/Badges/ProofOfHumanity.tsx
 #~ msgid "<0>Proof of Humanity verified</0>"
-#~ msgstr "<0>மனிதநேயத்தின் சான்று சரிபார்க்கப்பட்டது</0>"
+#~ msgstr ""
 
 #: src/components/Profile/Badges/Sybil.tsx
 msgid "<0>Sybil verified</0>"
@@ -293,7 +293,7 @@ msgstr ""
 
 #: src/components/Profile/Badges/Worldcoin.tsx
 #~ msgid "<0>Worldcoin verified</0>"
-#~ msgstr "<0> Worldcoin சரிபார்க்கப்பட்டது</0>"
+#~ msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -567,3 +567,4 @@ msgstr "முகப்பு"
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr "உலாவு"
+
