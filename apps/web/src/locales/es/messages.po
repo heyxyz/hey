@@ -18,6 +18,10 @@ msgstr ""
 "X-Crowdin-File: /apps/web/src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 43\n"
 
+#: src/components/Comment/Feed.tsx
+msgid "Be the first one to comment!"
+msgstr ""
+
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
@@ -165,8 +169,12 @@ msgid "Update profile now"
 msgstr ""
 
 #: src/components/Home/Trending.tsx
-msgid "<0>{0} Publications</0>"
+msgid "{0} Publications"
 msgstr ""
+
+#: src/components/Home/Trending.tsx
+#~ msgid "<0>{0} Publications</0>"
+#~ msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
@@ -268,16 +276,24 @@ msgid "ENS name:"
 msgstr ""
 
 #: src/components/Profile/Badges/ProofOfHumanity.tsx
-msgid "<0>Proof of Humanity verified</0>"
+msgid "Proof of Humanity verified"
 msgstr ""
+
+#: src/components/Profile/Badges/ProofOfHumanity.tsx
+#~ msgid "<0>Proof of Humanity verified</0>"
+#~ msgstr ""
 
 #: src/components/Profile/Badges/Sybil.tsx
 msgid "<0>Sybil verified</0>"
 msgstr ""
 
 #: src/components/Profile/Badges/Worldcoin.tsx
-msgid "<0>Worldcoin verified</0>"
+msgid "Worldcoin verified"
 msgstr ""
+
+#: src/components/Profile/Badges/Worldcoin.tsx
+#~ msgid "<0>Worldcoin verified</0>"
+#~ msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -551,4 +567,3 @@ msgstr ""
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr ""
-
