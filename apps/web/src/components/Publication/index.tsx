@@ -43,7 +43,7 @@ const ViewPublication: NextPage = () => {
     skip: !id
   });
 
-  useEffect(() => {
+  const calculateAdaptiveHeight = () => {
     const currentRef = postContainerRef.current;
     if (!currentRef || !data?.publication) {
       return;
@@ -53,6 +53,11 @@ const ViewPublication: NextPage = () => {
       return;
     }
     setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight}px)`);
+  };
+
+  useEffect(() => {
+    calculateAdaptiveHeight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postContainerRef, data]);
 
   if (error) {
