@@ -36,7 +36,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message="Loading likes" />;
+    return <Loader message={t`Loading likes`} />;
   }
 
   if (profiles?.length === 0) {

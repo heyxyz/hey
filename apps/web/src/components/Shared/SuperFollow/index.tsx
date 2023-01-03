@@ -3,6 +3,7 @@ import { Modal } from '@components/UI/Modal';
 import { StarIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
+import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
@@ -13,7 +14,7 @@ import Loader from '../Loader';
 import Slug from '../Slug';
 
 const FollowModule = dynamic(() => import('./FollowModule'), {
-  loading: () => <Loader message="Loading super follow" />
+  loading: () => <Loader message={t`Loading super follow`} />
 });
 
 interface Props {

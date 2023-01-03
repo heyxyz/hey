@@ -13,7 +13,7 @@ import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
-  loading: () => <Loader message="Loading GIFs" />
+  loading: () => <Loader message={t`Loading GIFs`} />
 });
 
 interface Props {

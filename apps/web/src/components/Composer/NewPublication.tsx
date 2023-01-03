@@ -515,7 +515,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   return (
     <Card className={clsx({ 'border-none rounded-none': !isComment }, 'pb-3')}>
-      {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
+      {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
       <Editor />
       {publicationContentError && (
         <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{publicationContentError}</div>

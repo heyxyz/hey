@@ -10,7 +10,7 @@ import formatHandle from '@lib/formatHandle';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { Profile } from 'lens';
@@ -113,7 +113,7 @@ const SetProfile: FC = () => {
 
   return (
     <Card className="space-y-5 p-5">
-      {error && <ErrorMessage title="Transaction failed!" error={error} />}
+      {error && <ErrorMessage title={t`Transaction failed!`} error={error} />}
       {hasDefaultProfile ? (
         <>
           <div className="text-lg font-bold">
@@ -125,7 +125,7 @@ const SetProfile: FC = () => {
         <div className="flex items-center space-x-1.5 font-bold text-yellow-500">
           <ExclamationIcon className="w-5 h-5" />
           <div>
-            <Trans>You don&rsquo;t have any default profile set!</Trans>
+            <Trans>You don't have any default profile set!</Trans>
           </div>
         </div>
       )}

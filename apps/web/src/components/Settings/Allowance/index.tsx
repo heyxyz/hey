@@ -3,6 +3,7 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import { Spinner } from '@components/UI/Spinner';
+import { t, Trans } from '@lingui/macro';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { Erc20 } from 'lens';
 import { CollectModules, FollowModules, ReferenceModules, useApprovedModuleAllowanceAmountQuery } from 'lens';
@@ -46,7 +47,7 @@ const AllowanceSettings: NextPage = () => {
   }
 
   if (loading) {
-    return <PageLoading message="Loading settings" />;
+    return <PageLoading message={t`Loading settings`} />;
   }
 
   if (!currentProfile) {
@@ -63,13 +64,19 @@ const AllowanceSettings: NextPage = () => {
         <Card>
           <div className="mx-5 mt-5">
             <div className="space-y-5">
-              <div className="text-lg font-bold">Allow / Revoke modules</div>
+              <div className="text-lg font-bold">
+                <Trans>Allow / Revoke modules</Trans>
+              </div>
               <p>
-                In order to use collect feature you need to allow the module you use, you can allow and revoke
-                the module anytime.
+                <Trans>
+                  In order to use collect feature you need to allow the module you use, you can allow and
+                  revoke the module anytime.
+                </Trans>
               </p>
             </div>
-            <div className="mt-6 label">Select Currency</div>
+            <div className="mt-6 label">
+              <Trans>Select Currency</Trans>
+            </div>
             <select
               className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
               onChange={(e) => {
@@ -89,7 +96,9 @@ const AllowanceSettings: NextPage = () => {
           {currencyLoading ? (
             <div className="py-10 space-y-3 text-center">
               <Spinner className="mx-auto" />
-              <div>Loading allowance data!</div>
+              <div>
+                <Trans>Loading allowance data!</Trans>
+              </div>
             </div>
           ) : (
             <Allowance allowance={data} />

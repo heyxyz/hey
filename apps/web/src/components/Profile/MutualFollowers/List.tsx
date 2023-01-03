@@ -40,7 +40,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
   };
 
   if (loading) {
-    return <Loader message="Loading mutual followers" />;
+    return <Loader message={t`Loading mutual followers`} />;
   }
 
   return (
