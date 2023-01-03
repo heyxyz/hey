@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import TabButton from '@components/UI/TabButton';
 import { AtSymbolIcon, ChatAlt2Icon, LightningBoltIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
+import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -25,7 +26,7 @@ const Notification: FC = () => {
       <div className="max-w-4xl w-full space-y-3">
         <div className="flex gap-3 pb-2">
           <TabButton
-            name="All notifications"
+            name={t`All notifications`}
             icon={<LightningBoltIcon className="w-4 h-4" />}
             active={feedType === 'ALL'}
             onClick={() => {
@@ -34,7 +35,7 @@ const Notification: FC = () => {
             }}
           />
           <TabButton
-            name="Mentions"
+            name={t`Mentions`}
             icon={<AtSymbolIcon className="w-4 h-4" />}
             active={feedType === 'MENTIONS'}
             onClick={() => {
@@ -43,7 +44,7 @@ const Notification: FC = () => {
             }}
           />
           <TabButton
-            name="Comments"
+            name={t`Comments`}
             icon={<ChatAlt2Icon className="w-4 h-4" />}
             active={feedType === 'COMMENTS'}
             onClick={() => {
