@@ -6,6 +6,7 @@ import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import onError from '@lib/onError';
+import { t } from '@lingui/macro';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -90,7 +91,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
         {title}
       </Button>
       <Modal
-        title="Warning"
+        title={t`Warning`}
         icon={<ExclamationIcon className="w-5 h-5 text-yellow-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}

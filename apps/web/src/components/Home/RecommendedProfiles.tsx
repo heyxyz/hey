@@ -84,7 +84,7 @@ const RecommendedProfiles: FC = () => {
         </button>
       </Card>
       <Modal
-        title="Suggested for you"
+        title={t`Suggested for you`}
         icon={<UsersIcon className="w-5 h-5 text-brand" />}
         show={showSuggestedModal}
         onClose={() => setShowSuggestedModal(false)}

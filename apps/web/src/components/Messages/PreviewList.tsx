@@ -160,7 +160,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
         </div>
       </Card>
       <Modal
-        title="New message"
+        title={t`New message`}
         icon={<MailIcon className="w-5 h-5 text-brand" />}
         size="sm"
         show={showSearchModal}

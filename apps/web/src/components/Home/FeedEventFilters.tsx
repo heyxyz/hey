@@ -41,7 +41,7 @@ const FeedEventFilters: FC = () => {
               onChange={handleChange}
               checked={feedEventFilters.posts}
               name="posts"
-              label="Show Posts"
+              label={t`Show Posts`}
             />
           </Menu.Item>
           <Menu.Item
@@ -57,7 +57,7 @@ const FeedEventFilters: FC = () => {
               onChange={handleChange}
               checked={feedEventFilters.mirrors}
               name="mirrors"
-              label="Show Mirrors"
+              label={t`Show Mirrors`}
             />
           </Menu.Item>
           <Menu.Item
@@ -73,7 +73,7 @@ const FeedEventFilters: FC = () => {
               onChange={handleChange}
               checked={feedEventFilters.likes}
               name="likes"
-              label="Show Likes"
+              label={t`Show Likes`}
             />
           </Menu.Item>
         </Menu.Items>

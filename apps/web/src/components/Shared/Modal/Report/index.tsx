@@ -8,7 +8,7 @@ import type { LensterPublication } from '@generated/types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useReportPublicationMutation } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -83,7 +83,7 @@ const Report: FC<Props> = ({ publication }) => {
             {subReason && (
               <>
                 <TextArea
-                  label="Description"
+                  label={t`Description`}
                   placeholder="Tell us something about the community!"
                   {...form.register('additionalComments')}
                 />
@@ -93,7 +93,7 @@ const Report: FC<Props> = ({ publication }) => {
                     disabled={submitLoading}
                     icon={submitLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
                   >
-                    Report
+                    <Trans>Report</Trans>
                   </Button>
                 </div>
               </>
