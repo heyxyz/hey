@@ -3,6 +3,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile } from 'lens';
 import { useMirrorsQuery } from 'lens';
@@ -42,7 +43,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          message={<span>No mirrors.</span>}
+          message={t`No mirrors.`}
           icon={<SwitchHorizontalIcon className="w-8 h-8 text-brand" />}
           hideCard
         />
@@ -52,7 +53,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
 
   return (
     <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
-      <ErrorMessage className="m-5" title="Failed to load mirrors" error={error} />
+      <ErrorMessage className="m-5" title={t`Failed to load mirrors`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}
         scrollThreshold={SCROLL_THRESHOLD}

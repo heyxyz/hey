@@ -4,7 +4,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
 import nFormatter from '@lib/nFormatter';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
 import { TagSortCriteria, useTrendingQuery } from 'lens';
 import Link from 'next/link';
@@ -47,7 +47,7 @@ const Trending: FC = () => {
     <>
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
-        <ErrorMessage title="Failed to load trending" error={error} />
+        <ErrorMessage title={t`Failed to load trending`} error={error} />
         {data?.allPublicationsTags?.items?.map((tag: TagResult) =>
           tag?.tag !== '{}' ? (
             <div key={tag?.tag}>

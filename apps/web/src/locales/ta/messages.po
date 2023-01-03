@@ -22,6 +22,133 @@ msgstr ""
 msgid "Be the first one to comment!"
 msgstr "முதல் நபராக கருத்திடுக!"
 
+#: src/components/Comment/Feed.tsx
+msgid "Failed to load comment feed"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Add restrictions on who can view this post"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Collectors can view"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Enable collect first to use collect based token gating"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "People need to collect it first to be able to view it"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Followers can view"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "People need to follow you to be able to view it"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Cancel"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Save"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access settings"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Loading collect settings"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Failed to load modules"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "This post can be collected"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Charge for collecting"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Get paid whenever someone collects your post"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Price"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Select Currency"
+msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Mirror referral reward"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Share your collect fee with people who amplify your content"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Referral fee"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Limited edition"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Make the collects exclusive"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Collect limit"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Time limit"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Limit collecting to the first 24h"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Who can collect"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Only followers can collect"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/index.tsx
+msgid "Collect settings"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/GifSelector.tsx
+msgid "Search for GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/index.tsx
+msgid "Select GIF"
+msgstr ""
+
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
@@ -47,6 +174,10 @@ msgstr "போஸ்ட்-ஐ உருவாக்கு"
 msgid "No posts yet!"
 msgstr "இதுவரை பதிவுகள் இல்லை!"
 
+#: src/components/Explore/Feed.tsx
+msgid "Failed to load explore feed"
+msgstr ""
+
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
 msgstr "அனைத்து பதிவுகள்"
@@ -56,14 +187,17 @@ msgid "Text"
 msgstr "உரை"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Video"
 msgstr "காணொளி"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
 msgstr "ஒலி"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
 msgstr "படங்கள்"
 
@@ -108,6 +242,18 @@ msgstr "உங்கள் பரிவர்த்தனைகள் எதி�
 msgid "Filter"
 msgstr "வடிகட்டு"
 
+#: src/components/Home/FeedEventFilters.tsx
+msgid "Show Posts"
+msgstr ""
+
+#: src/components/Home/FeedEventFilters.tsx
+msgid "Show Mirrors"
+msgstr ""
+
+#: src/components/Home/FeedEventFilters.tsx
+msgid "Show Likes"
+msgstr ""
+
 #: src/components/Home/FeedType.tsx
 msgid "Timeline"
 msgstr "காலவரிசை"
@@ -124,13 +270,30 @@ msgstr "{APP_NAME} க்கு வரவேற்கிறோம் 👋"
 msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
 msgstr "{APP_NAME} என்பது லென்ஸ் புரோட்டோகால் 🌿 மூலம் உருவாக்கப்பட்ட ஒரு பரவலாக்கப்பட்ட மற்றும் அனுமதியற்ற சமூக ஊடகப் பயன்பாடாகும்"
 
+#: src/components/Home/Highlights.tsx
+msgid "Failed to load highlights"
+msgstr ""
+
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
 msgstr "யாரை பின்பற்றுவது"
 
 #: src/components/Home/RecommendedProfiles.tsx
+msgid "No recommendations!"
+msgstr ""
+
+#: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Home/Suggested.tsx
+msgid "Failed to load recommendations"
+msgstr ""
+
+#: src/components/Home/RecommendedProfiles.tsx
 msgid "Show more"
 msgstr "மேலும் காட்டு"
+
+#: src/components/Home/RecommendedProfiles.tsx
+msgid "Suggested for you"
+msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
@@ -168,9 +331,53 @@ msgstr "உங்கள் ஆர்வங்களைத் தேர்ந்�
 msgid "Update profile now"
 msgstr "சுயவிவரத்தை இப்போது புதுப்பிக்கவும்"
 
+#: src/components/Home/Suggested.tsx
+msgid "Nothing to suggest"
+msgstr ""
+
+#: src/components/Home/Timeline/index.tsx
+msgid "Failed to load timeline"
+msgstr ""
+
+#: src/components/Home/Trending.tsx
+msgid "Failed to load trending"
+msgstr ""
+
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
 msgstr "{0} பப்ளிகேஷன்ஸ்"
+
+#: src/components/Messages/Composer.tsx
+msgid "Type Something"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Failed to load messages"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Start messaging your Lens frens"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "New message"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Search for someone to message..."
+msgstr ""
+
+#: src/components/Mod/Feed.tsx
+msgid "Failed to load moderation feed"
+msgstr ""
+
+#: src/components/Notification/List.tsx
+msgid "Failed to load notifications"
+msgstr ""
+
+#: src/components/Notification/List.tsx
+msgid "Inbox zero!"
+msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
@@ -244,6 +451,7 @@ msgid "Contact us to help you get the issue resolved."
 msgstr "சிக்கலைத் தீர்ப்பதற்கு உங்களுக்கு உதவ எங்களை தொடர்பு கொள்ளுங்கள்."
 
 #: src/components/Pages/Contact.tsx
+#: src/components/Shared/Modal/Report/index.tsx
 msgid "Publication reported successfully!"
 msgstr "இடுகை வெற்றிகரமாக புகார் செய்யப்பட்டது!"
 
@@ -283,12 +491,103 @@ msgstr "<0>சிபில் சரிபார்க்கப்பட்ட�
 msgid "Worldcoin verified"
 msgstr "Worldcoin சரிபார்க்கப்பட்டது"
 
+#: src/components/Profile/Details.tsx
+msgid "Followers you know"
+msgstr ""
+
+#: src/components/Profile/Feed.tsx
+msgid "Failed to load profile feed"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+msgid "Followers"
+msgstr ""
+
+#: src/components/Profile/Followers.tsx
+msgid "doesn’t have any followers yet."
+msgstr ""
+
+#: src/components/Profile/Followers.tsx
+msgid "Failed to load followers"
+msgstr ""
+
+#: src/components/Profile/Following.tsx
+msgid "doesn’t follow anyone."
+msgstr ""
+
+#: src/components/Profile/Following.tsx
+msgid "Failed to load following"
+msgstr ""
+
+#: src/components/Profile/MutualFollowers/List.tsx
+msgid "Failed to load mutual followers"
+msgstr ""
+
+#: src/components/Profile/NFTFeed.tsx
+msgid "doesn’t have any NFTs!"
+msgstr ""
+
+#: src/components/Profile/NFTFeed.tsx
+msgid "Failed to load nft feed"
+msgstr ""
+
+#: src/components/Publication/Actions/Analytics/index.tsx
+msgid "Publication Analytics"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Collected by"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+#: src/lib/getModule.ts
+msgid "Free Collect"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+#: src/lib/getModule.ts
+msgid "Unknown Collect"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "Mirrored by"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "Liked by"
+msgstr ""
+
+#: src/components/Publication/RelevantPeople.tsx
+msgid "Failed to load relevant people"
+msgstr ""
+
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
 msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>post</2></0>"
+msgstr ""
+
+#: src/components/Search/Profiles.tsx
+msgid "No profiles for <0>“{query}”</0>"
+msgstr ""
+
+#: src/components/Search/Profiles.tsx
+msgid "Failed to load profiles"
+msgstr ""
+
+#: src/components/Search/Publications.tsx
+msgid "No publications for <0>“{query}”</0>"
+msgstr ""
+
+#: src/components/Search/Publications.tsx
+msgid "Failed to load publications"
 msgstr ""
 
 #: src/components/Settings/Account/Language.tsx
@@ -340,10 +639,6 @@ msgid "Setting super follow makes users spend crypto to follow you, and it’s a
 msgstr "சூப்பர் ஃபாலோ அமைப்பது பயனர்கள் உங்களைப் பின்தொடர கிரிப்டோவைச் செலவழிக்கச் செய்கிறது, மேலும் அதைச் சம்பாதிப்பதற்கு இது ஒரு சிறந்த வழியாகும், நீங்கள் தொகை மற்றும் நாணயத்தை மாற்றலாம் அல்லது எப்போது வேண்டுமானாலும் முடக்கலாம்/இயக்கலாம்."
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Select Currency"
-msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
-
-#: src/components/Settings/Account/SuperFollow.tsx
 msgid "Follow amount"
 msgstr ""
 
@@ -375,6 +670,15 @@ msgstr "இல்லை."
 msgid "Request Verification"
 msgstr "சரிபார்ப்பு கோரிக்கை"
 
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Warning"
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Danger Zone"
+msgstr "ஆபத்தான இடம்"
+
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable dispatcher"
 msgstr "டிஸ்பெட்சேரை முடக்கு"
@@ -382,6 +686,42 @@ msgstr "டிஸ்பெட்சேரை முடக்கு"
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable dispatcher"
 msgstr "டிஸ்பெட்சேரை இயக்கு"
+
+#: src/components/Settings/Profile/NFTPicture.tsx
+msgid "Contract Address"
+msgstr ""
+
+#: src/components/Settings/Profile/NFTPicture.tsx
+msgid "Token Id"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Profile Id"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Name"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Location"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Website"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Tell us something about you!"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Bio"
+msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
@@ -407,9 +747,13 @@ msgstr "கொடுப்பனவு"
 msgid "Cleanup"
 msgstr "துப்புரவு"
 
-#: src/components/Settings/Sidebar.tsx
-msgid "Danger Zone"
-msgstr "ஆபத்தான இடம்"
+#: src/components/Shared/Audio/index.tsx
+msgid "Add title"
+msgstr ""
+
+#: src/components/Shared/Audio/index.tsx
+msgid "Add author"
+msgstr ""
 
 #: src/components/Shared/Footer.tsx
 msgid "Terms"
@@ -448,6 +792,16 @@ msgid "▲ Powered by Vercel"
 msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
 
 #: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Set status"
+msgstr "நிலையை அமைக்கவும்"
+
+#: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
 msgid "Login"
 msgstr "புகுபதிகை"
@@ -463,6 +817,10 @@ msgstr "சாய்வு"
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Code"
 msgstr "குறியீடு"
+
+#: src/components/Shared/Login/New/index.tsx
+msgid "Handle"
+msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
@@ -488,6 +846,42 @@ msgstr "உங்கள் வாலட்டை இணைக்கவும்"
 msgid "Connect with one of our available wallet providers or create a new one."
 msgstr "எங்களிடம் இருக்கும் வாலட் வழங்குநர்களில் ஒருவருடன் இணைக்கவும் அல்லது புதிய ஒன்றை உருவாக்கவும்."
 
+#: src/components/Shared/Modal/Collectors.tsx
+msgid "No collectors."
+msgstr ""
+
+#: src/components/Shared/Modal/Collectors.tsx
+msgid "Failed to load collectors"
+msgstr ""
+
+#: src/components/Shared/Modal/Likes.tsx
+msgid "No likes."
+msgstr ""
+
+#: src/components/Shared/Modal/Likes.tsx
+msgid "Failed to load likes"
+msgstr ""
+
+#: src/components/Shared/Modal/Mirrors.tsx
+msgid "No mirrors."
+msgstr ""
+
+#: src/components/Shared/Modal/Mirrors.tsx
+msgid "Failed to load mirrors"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Failed to report"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Description"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Please provide additional details"
+msgstr ""
+
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
 msgstr "மேலும்"
@@ -507,10 +901,6 @@ msgstr "தேடு…"
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Logged in as"
 msgstr "உள்நுழைந்துள்ள கணக்கு"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Set status"
-msgstr "நிலையை அமைக்கவும்"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Your Profile"
@@ -556,3 +946,91 @@ msgstr "முகப்பு"
 msgid "Explore"
 msgstr "உலாவு"
 
+#: src/components/Shared/Status.tsx
+msgid "Failed to load status settings"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Unknown Collect Module is unknown and not type supported in the API."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Fee Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Limited Fee Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Limited Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific limit of mints."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Timed Fee Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Timed Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Limited Time Fee Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Limited Timed Fee Collect Module allows for any follower to collect the associate publication, provided they pay a fee, up to a specific time limit and mint cap. It is essentially a combination of the Timed Fee Collect Module and the Limited Fee Collect Module."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Free Collect Module allows any profile to collect the publication this module is attached to."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Revert Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Revert Collect Module causes all collect actions on a given publication to fail, thus making the publication uncollectable."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Fee Follow"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Fee Follow Module only allows addresses to follow a given profile, so long as they pay a fee specified by the profile owner. Users can set the currency and amount required to be paid."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Follower Only Reference"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Follower Only Reference Module ensures that only a profile is only allowed to mirror or comment on content."
+msgstr ""
+
+#: src/pages/404.tsx
+msgid "Oops, Lost‽"
+msgstr ""
+
+#: src/pages/404.tsx
+msgid "This page could not be found."
+msgstr ""
+
+#: src/pages/404.tsx
+#: src/pages/500.tsx
+msgid "Go to home"
+msgstr ""
+
+#: src/pages/500.tsx
+msgid "Looks like something went wrong!"
+msgstr ""
+
+#: src/pages/500.tsx
+msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
+msgstr ""

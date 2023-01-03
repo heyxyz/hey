@@ -33,6 +33,7 @@ import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
@@ -335,7 +336,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                 {humanize(count)} collectors
               </button>
               <Modal
-                title="Collected by"
+                title={t`Collected by`}
                 icon={<CollectionIcon className="w-5 h-5 text-brand" />}
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
