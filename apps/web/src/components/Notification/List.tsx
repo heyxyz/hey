@@ -80,7 +80,7 @@ const List: FC<Props> = ({ feedType }) => {
   }
 
   if (error) {
-    return <ErrorMessage className="m-3" title="Failed to load notifications" error={error} />;
+    return <ErrorMessage className="m-3" title={t`Failed to load notifications`} error={error} />;
   }
 
   if (notifications?.length === 0) {

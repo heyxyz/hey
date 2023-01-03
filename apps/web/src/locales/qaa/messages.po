@@ -17,6 +17,60 @@ msgstr ""
 msgid "Be the first one to comment!"
 msgstr ""
 
+#: src/components/Comment/Feed.tsx
+msgid "Failed to load comment feed"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Add restrictions on who can view this post"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Collectors can view"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Enable collect first to use collect based token gating"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "People need to collect it first to be able to view it"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Followers can view"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "People need to follow you to be able to view it"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Cancel"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Save"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access settings"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Loading collect settings"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Failed to load modules"
+msgstr ""
+
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
@@ -40,6 +94,10 @@ msgstr ""
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
+msgstr ""
+
+#: src/components/Explore/Feed.tsx
+msgid "Failed to load explore feed"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
@@ -119,12 +177,21 @@ msgstr ""
 msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
 msgstr ""
 
+#: src/components/Home/Highlights.tsx
+msgid "Failed to load highlights"
+msgstr ""
+
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
 msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "No recommendations!"
+msgstr ""
+
+#: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Home/Suggested.tsx
+msgid "Failed to load recommendations"
 msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
@@ -171,12 +238,32 @@ msgstr ""
 msgid "Nothing to suggest"
 msgstr ""
 
+#: src/components/Home/Timeline/index.tsx
+msgid "Failed to load timeline"
+msgstr ""
+
+#: src/components/Home/Trending.tsx
+msgid "Failed to load trending"
+msgstr ""
+
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
+msgid "Failed to load messages"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
 msgid "Start messaging your Lens frens"
+msgstr ""
+
+#: src/components/Mod/Feed.tsx
+msgid "Failed to load moderation feed"
+msgstr ""
+
+#: src/components/Notification/List.tsx
+msgid "Failed to load notifications"
 msgstr ""
 
 #: src/components/Notification/List.tsx
@@ -295,16 +382,40 @@ msgstr ""
 msgid "Worldcoin verified"
 msgstr ""
 
+#: src/components/Profile/Feed.tsx
+msgid "Failed to load profile feed"
+msgstr ""
+
 #: src/components/Profile/Followers.tsx
 msgid "doesn’t have any followers yet."
+msgstr ""
+
+#: src/components/Profile/Followers.tsx
+msgid "Failed to load followers"
 msgstr ""
 
 #: src/components/Profile/Following.tsx
 msgid "doesn’t follow anyone."
 msgstr ""
 
+#: src/components/Profile/Following.tsx
+msgid "Failed to load following"
+msgstr ""
+
+#: src/components/Profile/MutualFollowers/List.tsx
+msgid "Failed to load mutual followers"
+msgstr ""
+
 #: src/components/Profile/NFTFeed.tsx
 msgid "doesn’t have any NFTs!"
+msgstr ""
+
+#: src/components/Profile/NFTFeed.tsx
+msgid "Failed to load nft feed"
+msgstr ""
+
+#: src/components/Publication/RelevantPeople.tsx
+msgid "Failed to load relevant people"
 msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
@@ -319,8 +430,16 @@ msgstr ""
 msgid "No profiles for <0>“{query}”</0>"
 msgstr ""
 
+#: src/components/Search/Profiles.tsx
+msgid "Failed to load profiles"
+msgstr ""
+
 #: src/components/Search/Publications.tsx
 msgid "No publications for <0>“{query}”</0>"
+msgstr ""
+
+#: src/components/Search/Publications.tsx
+msgid "Failed to load publications"
 msgstr ""
 
 #: src/components/Settings/Account/Language.tsx
@@ -524,12 +643,28 @@ msgstr ""
 msgid "No collectors."
 msgstr ""
 
+#: src/components/Shared/Modal/Collectors.tsx
+msgid "Failed to load collectors"
+msgstr ""
+
 #: src/components/Shared/Modal/Likes.tsx
 msgid "No likes."
 msgstr ""
 
+#: src/components/Shared/Modal/Likes.tsx
+msgid "Failed to load likes"
+msgstr ""
+
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "No mirrors."
+msgstr ""
+
+#: src/components/Shared/Modal/Mirrors.tsx
+msgid "Failed to load mirrors"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Failed to report"
 msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
@@ -598,4 +733,29 @@ msgstr ""
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
+msgstr ""
+
+#: src/components/Shared/Status.tsx
+msgid "Failed to load status settings"
+msgstr ""
+
+#: src/pages/404.tsx
+msgid "Oops, Lost‽"
+msgstr ""
+
+#: src/pages/404.tsx
+msgid "This page could not be found."
+msgstr ""
+
+#: src/pages/404.tsx
+#: src/pages/500.tsx
+msgid "Go to home"
+msgstr ""
+
+#: src/pages/500.tsx
+msgid "Looks like something went wrong!"
+msgstr ""
+
+#: src/pages/500.tsx
+msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""

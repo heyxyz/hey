@@ -61,7 +61,7 @@ const Feed: FC<Props> = ({ publication }) => {
           icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
       )}
-      <ErrorMessage title="Failed to load comment feed" error={error} />
+      <ErrorMessage title={t`Failed to load comment feed`} error={error} />
       {!error && !loading && totalComments !== 0 && (
         <InfiniteScroll
           dataLength={totalComments}

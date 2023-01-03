@@ -49,7 +49,7 @@ const Feed: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load mod feed" error={error} />;
+    return <ErrorMessage title={t`Failed to load moderation feed`} error={error} />;
   }
 
   return (

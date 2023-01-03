@@ -55,7 +55,7 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load explore feed" error={error} />;
+    return <ErrorMessage title={t`Failed to load explore feed`} error={error} />;
   }
 
   return (

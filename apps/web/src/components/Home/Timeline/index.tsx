@@ -68,7 +68,7 @@ const Timeline: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load timeline" error={error} />;
+    return <ErrorMessage title={t`Failed to load timeline`} error={error} />;
   }
 
   return (

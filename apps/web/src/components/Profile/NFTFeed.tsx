@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Nft, Profile } from 'lens';
 import { useNftFeedQuery } from 'lens';
@@ -62,7 +62,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load nft feed" error={error} />;
+    return <ErrorMessage title={t`Failed to load nft feed`} error={error} />;
   }
 
   return (

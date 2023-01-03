@@ -78,7 +78,7 @@ const Report: FC<Props> = ({ publication }) => {
               reportPublication(additionalComments);
             }}
           >
-            {submitError && <ErrorMessage title="Failed to report" error={submitError} />}
+            {submitError && <ErrorMessage title={t`Failed to report`} error={submitError} />}
             <Reason setType={setType} setSubReason={setSubReason} type={type} subReason={subReason} />
             {subReason && (
               <>

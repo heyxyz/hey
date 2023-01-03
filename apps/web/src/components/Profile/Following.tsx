@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile } from 'lens';
 import { useFollowingQuery } from 'lens';
@@ -61,7 +61,7 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
 
   return (
     <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
-      <ErrorMessage className="m-5" title="Failed to load following" error={error} />
+      <ErrorMessage className="m-5" title={t`Failed to load following`} error={error} />
       <InfiniteScroll
         dataLength={followings?.length ?? 0}
         scrollThreshold={SCROLL_THRESHOLD}

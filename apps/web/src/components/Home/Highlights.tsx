@@ -47,7 +47,7 @@ const Highlights: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load highlights" error={error} />;
+    return <ErrorMessage title={t`Failed to load highlights`} error={error} />;
   }
 
   return (

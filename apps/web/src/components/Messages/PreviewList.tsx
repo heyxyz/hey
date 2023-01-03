@@ -128,7 +128,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
           ) : profilesError ? (
             <ErrorMessage
               className="m-5"
-              title="Failed to load messages"
+              title={t`Failed to load messages`}
               error={{ message: ERROR_MESSAGE, name: ERROR_MESSAGE }}
             />
           ) : sortedProfiles.length === 0 ? (

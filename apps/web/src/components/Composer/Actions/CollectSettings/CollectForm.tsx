@@ -11,6 +11,7 @@ import {
   UserGroupIcon
 } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
+import { t, Trans } from '@lingui/macro';
 import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -122,13 +123,15 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     return (
       <div className="py-3.5 px-5 space-y-2 font-bold text-center">
         <Spinner size="md" className="mx-auto" />
-        <div>Loading collect settings</div>
+        <div>
+          <Trans>Loading collect settings</Trans>
+        </div>
       </div>
     );
   }
 
   if (error) {
-    return <ErrorMessage className="p-5" title="Failed to load modules" error={error} />;
+    return <ErrorMessage className="p-5" title={t`Failed to load modules`} error={error} />;
   }
 
   const toggleCollect = () => {
@@ -303,9 +306,11 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
             setShowModal(false);
           }}
         >
-          Cancel
+          <Trans>Cancel</Trans>
         </Button>
-        <Button onClick={() => setShowModal(false)}>Save</Button>
+        <Button onClick={() => setShowModal(false)}>
+          <Trans>Save</Trans>
+        </Button>
       </div>
     </div>
   );

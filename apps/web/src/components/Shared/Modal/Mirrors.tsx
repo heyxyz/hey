@@ -53,7 +53,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
 
   return (
     <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
-      <ErrorMessage className="m-5" title="Failed to load mirrors" error={error} />
+      <ErrorMessage className="m-5" title={t`Failed to load mirrors`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}
         scrollThreshold={SCROLL_THRESHOLD}

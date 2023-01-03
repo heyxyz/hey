@@ -6,7 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, Wallet } from 'lens';
 import { useFollowersQuery } from 'lens';
@@ -59,7 +59,7 @@ const Followers: FC<Props> = ({ profile }) => {
 
   return (
     <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
-      <ErrorMessage className="m-5" title="Failed to load followers" error={error} />
+      <ErrorMessage className="m-5" title={t`Failed to load followers`} error={error} />
       <InfiniteScroll
         dataLength={followers?.length ?? 0}
         scrollThreshold={SCROLL_THRESHOLD}
