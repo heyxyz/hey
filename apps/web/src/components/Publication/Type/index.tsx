@@ -21,12 +21,12 @@ const PublicationType: FC<Props> = ({ publication, showType, showThread = false 
   }
 
   return (
-    <>
+    <span onClick={(event) => event.stopPropagation()}>
       {type === 'Mirror' && <Mirrored publication={publication} />}
       {type === 'Comment' && !showThread && <CommentedPublication publication={publication} />}
       {type === 'Comment' && showThread && !isCollected && <Commented publication={publication} />}
       {isCollected && <Collected publication={publication} />}
-    </>
+    </span>
   );
 };
 
