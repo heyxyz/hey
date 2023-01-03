@@ -52,7 +52,7 @@ const ViewPublication: NextPage = () => {
     if (availableLinks.length) {
       return;
     }
-    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight}px)`);
+    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight - 85}px)`);
   };
 
   useEffect(() => {
