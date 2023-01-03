@@ -12,7 +12,7 @@ import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
@@ -98,20 +98,30 @@ const DeleteSettings: FC = () => {
       <GridItemEight>
         <Card className="space-y-5 p-5">
           <UserProfile profile={currentProfile} />
-          <div className="text-lg font-bold text-red-500">This will deactivate your account</div>
+          <div className="text-lg font-bold text-red-500">
+            <Trans>This will deactivate your account</Trans>
+          </div>
           <p>
-            Deleting your account is permanent. All your data will be wiped out immediately and you
-            won&rsquo;t be able to get it back.
+            <Trans>
+              Deleting your account is permanent. All your data will be wiped out immediately and you won't be
+              able to get it back.
+            </Trans>
           </p>
           <div className="text-lg font-bold">What else you should know</div>
           <div className="text-sm lt-text-gray-500 divide-y dark:divide-gray-700">
             <p className="pb-3">
-              You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted.
+              <Trans>
+                You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted.
+              </Trans>
             </p>
             <p className="py-3">
-              Some account information may still be available in search engines, such as Google or Bing.
+              <Trans>
+                Some account information may still be available in search engines, such as Google or Bing.
+              </Trans>
             </p>
-            <p className="py-3">Your @handle will be released immediately after deleting the account.</p>
+            <p className="py-3">
+              <Trans>Your @handle will be released immediately after deleting the account.</Trans>
+            </p>
           </div>
           <Button
             variant="danger"
@@ -119,7 +129,7 @@ const DeleteSettings: FC = () => {
             disabled={isDeleting}
             onClick={() => setShowWarningModal(true)}
           >
-            {isDeleting ? 'Deleting...' : 'Delete your account'}
+            {isDeleting ? t`Deleting...` : t`Delete your account`}
           </Button>
           <Modal
             title={t`Danger Zone`}
@@ -132,7 +142,9 @@ const DeleteSettings: FC = () => {
                 title="Are you sure?"
                 message={
                   <div className="leading-6">
-                    Confirm that you have read all consequences and want to delete your account anyway
+                    <Trans>
+                      Confirm that you have read all consequences and want to delete your account anyway
+                    </Trans>
                   </div>
                 }
               />
@@ -144,7 +156,7 @@ const DeleteSettings: FC = () => {
                   handleDelete();
                 }}
               >
-                Yes, delete my account
+                <Trans>Yes, delete my account</Trans>
               </Button>
             </div>
           </Modal>

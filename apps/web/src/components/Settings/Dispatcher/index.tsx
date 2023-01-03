@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
@@ -30,7 +31,10 @@ const DispatcherSettings: FC = () => {
             </div>
           </div>
           <div className="pb-2">
-            We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}.
+            <Trans>
+              We suggest you to enable dispatcher so you don't need to sign all your transactions in{' '}
+              {APP_NAME}.
+            </Trans>
           </div>
           <ToggleDispatcher />
         </Card>

@@ -19,7 +19,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import uploadToIPFS from '@lib/uploadToIPFS';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
 import { APP_NAME, COVER, LENS_PERIPHERY, SIGN_WALLET, URL_REGEX } from 'data/constants';
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Profile } from 'lens';
@@ -240,7 +240,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
           editProfile(name, location, website, twitter, bio);
         }}
       >
-        {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
+        {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
         <Input label={t`Profile Id`} type="text" value={currentProfile?.id} disabled />
         <Input label={t`Name`} type="text" placeholder="Gavin" {...form.register('name')} />
         <Input label={t`Location`} type="text" placeholder="Miami" {...form.register('location')} />
@@ -274,11 +274,15 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
         <div className="pt-4 space-y-2">
           <div className="flex items-center space-x-2 label">
             <img className="w-5 h-5" src="/pride.svg" alt="Pride Logo" />
-            <span>Celebrate pride every day</span>
+            <span>
+              <Trans>Celebrate pride every day</Trans>
+            </span>
           </div>
           <div className="flex items-center space-x-2">
             <Toggle on={pride} setOn={setPride} />
-            <div>Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day.</div>
+            <div>
+              <Trans>Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day.</Trans>
+            </div>
           </div>
         </div>
         <div className="flex flex-col space-y-2">
@@ -288,7 +292,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
             disabled={isLoading}
             icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
           >
-            Save
+            <Trans>Save</Trans>
           </Button>
           {txHash ? <IndexStatus txHash={txHash} /> : null}
         </div>

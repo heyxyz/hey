@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
 const Stats = dynamic(() => import('./Stats'), {
-  loading: () => <Loader message="Loading analytics" />
+  loading: () => <Loader message={t`Loading analytics`} />
 });
 
 interface Props {
