@@ -49,14 +49,14 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     getURLs(mainPost?.metadata.content || '') || getURLs(commentOn?.metadata.content || '');
 
   useEffect(() => {
-    if (!mainPost || !commentOn || !threadRef.current) {
+    if ((!mainPost && !commentOn) || !threadRef.current) {
       return;
     }
     if (!availableLinks.length) {
       threadRef.current?.scrollIntoView({ block: 'start' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threadRef]);
+  }, [threadRef, availableLinks]);
 
   return (
     <article className="p-5">
