@@ -3,6 +3,7 @@ import { Menu } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { ReferenceModules } from 'lens';
@@ -17,10 +18,10 @@ const ReferenceSettings: FC = () => {
   const setOnlyFollowers = useReferenceModuleStore((state) => state.setOnlyFollowers);
   const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
   const setDegreesOfSeparation = useReferenceModuleStore((state) => state.setDegreesOfSeparation);
-  const MY_FOLLOWS = 'My follows';
-  const MY_FOLLOWERS = 'My followers';
-  const FRIENDS_OF_FRIENDS = 'Friends of friends';
-  const EVERYONE = 'Everyone';
+  const MY_FOLLOWS = t`My follows`;
+  const MY_FOLLOWERS = t`My followers`;
+  const FRIENDS_OF_FRIENDS = t`Friends of friends`;
+  const EVERYONE = t`Everyone`;
 
   const isFollowerOnlyReferenceModule =
     selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule;
