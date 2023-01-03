@@ -18,9 +18,9 @@ const ProofOfHumanity: FC<Props> = ({ profile }) => {
     <Tooltip
       content={
         <span className="flex items-center space-x-1">
-          <Trans>
-            <span>Proof of Humanity verified</span>
-          </Trans>
+          <span>
+            <Trans>Proof of Humanity verified</Trans>
+          </span>
           <CheckCircleIcon className="h-4 w-4" />
         </span>
       }

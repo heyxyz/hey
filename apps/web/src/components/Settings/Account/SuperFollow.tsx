@@ -131,7 +131,9 @@ const SuperFollow: FC = () => {
       <Card>
         <div className="p-5 py-10 space-y-2 text-center">
           <Spinner size="md" className="mx-auto" />
-          <div>Loading super follow settings</div>
+          <div>
+            <Trans>Loading super follow settings</Trans>
+          </div>
         </div>
       </Card>
     );
@@ -155,8 +157,8 @@ const SuperFollow: FC = () => {
         </div>
         <p>
           <Trans>
-            Setting super follow makes users spend crypto to follow you, and it&rsquo;s a good way to earn it,
-            you can change the amount and currency or disable/enable it anytime.
+            Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you
+            can change the amount and currency or disable/enable it anytime.
           </Trans>
         </p>
         <div className="pt-2">

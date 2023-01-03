@@ -4,6 +4,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { LensterPublication } from '@generated/types';
 import { ChartBarIcon } from '@heroicons/react/outline';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
@@ -11,7 +12,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
 const Stats = dynamic(() => import('./Stats'), {
-  loading: () => <Loader message="Loading analytics" />
+  loading: () => <Loader message={t`Loading analytics`} />
 });
 
 interface Props {
@@ -52,7 +53,7 @@ const Analytics: FC<Props> = ({ publication, isFullPublication }) => {
         </span>
       </motion.button>
       <Modal
-        title="Publication Analytics"
+        title={t`Publication Analytics`}
         icon={<ChartBarIcon className="text-brand h-5 w-5" />}
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}

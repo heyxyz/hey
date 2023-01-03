@@ -57,6 +57,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
   };
 
   const handleSign = async () => {
+    let keepModal = false;
     try {
       setLoading(true);
       // Get challenge
@@ -87,6 +88,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
       if (profilesData?.profiles?.items?.length === 0) {
         setHasProfile(false);
+        keepModal = true;
       } else {
         const profiles: any = profilesData?.profiles?.items
           ?.slice()
@@ -102,7 +104,9 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       console.error(error);
     } finally {
       setLoading(false);
-      setShowAuthModal(false);
+      if (!keepModal) {
+        setShowAuthModal(false);
+      }
     }
   };
 

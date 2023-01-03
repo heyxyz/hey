@@ -3,6 +3,7 @@ import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
+import { t } from '@lingui/macro';
 import type { Attribute } from 'lens';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
@@ -79,7 +80,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
                   <div className="flex flex-col w-full">
                     <input
                       className="border-none text-lg text-white placeholder-white bg-transparent outline-none"
-                      placeholder="Add title"
+                      placeholder={t`Add title`}
                       name="title"
                       value={audioPublication.title}
                       autoComplete="off"
@@ -87,7 +88,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
                     />
                     <input
                       className="border-none text-white/70 placeholder-white/70 bg-transparent outline-none"
-                      placeholder="Add author"
+                      placeholder={t`Add author`}
                       name="author"
                       value={audioPublication.author}
                       onChange={handleChange}

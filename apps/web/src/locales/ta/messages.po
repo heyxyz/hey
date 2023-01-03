@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-30 13:45\n"
+"PO-Revision-Date: 2023-01-03 09:24\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -18,11 +18,176 @@ msgstr ""
 "X-Crowdin-File: /apps/web/src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 43\n"
 
+#: src/components/Comment/Feed.tsx
+msgid "Be the first one to comment!"
+msgstr "முதல் நபராக கருத்திடுக!"
+
+#: src/components/Comment/Feed.tsx
+msgid "Failed to load comment feed"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Add restrictions on who can view this post"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Collectors can view"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Enable collect first to use collect based token gating"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "People need to collect it first to be able to view it"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Followers can view"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "People need to follow you to be able to view it"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Cancel"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Save"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access settings"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Loading collect settings"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Failed to load modules"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "This post can be collected"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Charge for collecting"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Get paid whenever someone collects your post"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Price"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Settings/Allowance/index.tsx
+msgid "Select Currency"
+msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Mirror referral reward"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Share your collect fee with people who amplify your content"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Referral fee"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Limited edition"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Make the collects exclusive"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Collect limit"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Time limit"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Limit collecting to the first 24h"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Who can collect"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Only followers can collect"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/index.tsx
+msgid "Collect settings"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/GifSelector.tsx
+msgid "Search for GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/GifSelector.tsx
+msgid "No GIFs found."
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/index.tsx
+msgid "Loading GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/index.tsx
+msgid "Select GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My follows"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My followers"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Friends of friends"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Everyone"
+msgstr ""
+
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
 msgstr "என்ன நடக்கிறது?"
+
+#: src/components/Composer/NewPublication.tsx
+#: src/components/Settings/Account/SetProfile.tsx
+#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Transaction failed!"
+msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Comment"
@@ -43,6 +208,10 @@ msgstr "போஸ்ட்-ஐ உருவாக்கு"
 msgid "No posts yet!"
 msgstr "இதுவரை பதிவுகள் இல்லை!"
 
+#: src/components/Explore/Feed.tsx
+msgid "Failed to load explore feed"
+msgstr ""
+
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
 msgstr "அனைத்து பதிவுகள்"
@@ -52,14 +221,17 @@ msgid "Text"
 msgstr "உரை"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Video"
 msgstr "காணொளி"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
 msgstr "ஒலி"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
 msgstr "படங்கள்"
 
@@ -86,7 +258,7 @@ msgstr "பீட்டா எச்சரிக்கை!"
 
 #: src/components/Home/BetaWarning.tsx
 msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr ""
+msgstr "{APP_NAME} இன்னும் பீட்டா கட்டத்தில் உள்ளது, விஷயங்கள் உடைந்து போகலாம், தயவுசெய்து கவனமாகக் கையாளவும்."
 
 #: src/components/Home/BetaWarning.tsx
 msgid "Get testnet tokens"
@@ -100,9 +272,33 @@ msgstr "நடவடிக்கை தேவை"
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr "உங்கள் பரிவர்த்தனைகள் எதிலும் கையொப்பமிடாமல் {APP_NAME} உடன் தொடர்புகொள்வதற்கு டிஸ்பெட்சேரை இயக்கலாம்."
 
+#: src/components/Home/EnableMessages.tsx
+msgid "Direct messages are here!"
+msgstr ""
+
+#: src/components/Home/EnableMessages.tsx
+msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
+msgstr ""
+
+#: src/components/Home/EnableMessages.tsx
+msgid "Enable DMs"
+msgstr ""
+
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Filter"
 msgstr "வடிகட்டு"
+
+#: src/components/Home/FeedEventFilters.tsx
+msgid "Show Posts"
+msgstr ""
+
+#: src/components/Home/FeedEventFilters.tsx
+msgid "Show Mirrors"
+msgstr ""
+
+#: src/components/Home/FeedEventFilters.tsx
+msgid "Show Likes"
+msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Timeline"
@@ -118,6 +314,10 @@ msgstr "{APP_NAME} க்கு வரவேற்கிறோம் 👋"
 
 #: src/components/Home/Hero.tsx
 msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
+msgstr "{APP_NAME} என்பது லென்ஸ் புரோட்டோகால் 🌿 மூலம் உருவாக்கப்பட்ட ஒரு பரவலாக்கப்பட்ட மற்றும் அனுமதியற்ற சமூக ஊடகப் பயன்பாடாகும்"
+
+#: src/components/Home/Highlights.tsx
+msgid "Failed to load highlights"
 msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
@@ -125,8 +325,21 @@ msgid "Who to follow"
 msgstr "யாரை பின்பற்றுவது"
 
 #: src/components/Home/RecommendedProfiles.tsx
+msgid "No recommendations!"
+msgstr ""
+
+#: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Home/Suggested.tsx
+msgid "Failed to load recommendations"
+msgstr ""
+
+#: src/components/Home/RecommendedProfiles.tsx
 msgid "Show more"
 msgstr "மேலும் காட்டு"
+
+#: src/components/Home/RecommendedProfiles.tsx
+msgid "Suggested for you"
+msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
@@ -134,11 +347,35 @@ msgstr "எனது ஊட்டம்"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "👀 See the feed through..."
-msgstr ""
+msgstr "👀 ஊட்டத்தின் மூலம் பார்க்கவும்..."
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
 msgstr "தேடு"
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "Reset filter to your own feed"
+msgstr ""
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "Searching users"
+msgstr ""
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "No matching users"
+msgstr ""
+
+#: src/components/Home/SetDefaultProfile.tsx
+msgid "Set default profile"
+msgstr ""
+
+#: src/components/Home/SetDefaultProfile.tsx
+msgid "You own {count} {0} but you don't have a default one."
+msgstr ""
+
+#: src/components/Home/SetDefaultProfile.tsx
+msgid "Set default profile here"
+msgstr ""
 
 #: src/components/Home/SetProfile.tsx
 msgid "Setup your {APP_NAME} profile"
@@ -157,6 +394,7 @@ msgid "Set your avatar"
 msgstr "உங்கள் படத்தை அமைக்கவும்"
 
 #: src/components/Home/SetProfile.tsx
+#: src/components/Settings/Interests/index.tsx
 msgid "Select profile interests"
 msgstr "உங்கள் ஆர்வங்களைத் தேர்ந்தெடுக்கவும்"
 
@@ -164,9 +402,143 @@ msgstr "உங்கள் ஆர்வங்களைத் தேர்ந்�
 msgid "Update profile now"
 msgstr "சுயவிவரத்தை இப்போது புதுப்பிக்கவும்"
 
+#: src/components/Home/Suggested.tsx
+msgid "Loading suggested"
+msgstr ""
+
+#: src/components/Home/Suggested.tsx
+msgid "Nothing to suggest"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Collected by"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "mirrored{0}"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "commented{0}{1}"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "collected{0}"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "liked"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Liked.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Liked by"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Mirrored by"
+msgstr ""
+
+#: src/components/Home/Timeline/index.tsx
+msgid "Failed to load timeline"
+msgstr ""
+
 #: src/components/Home/Trending.tsx
-msgid "<0>{0} Publications</0>"
-msgstr "<0>{0} இடுகைகள்</0>"
+msgid "Failed to load trending"
+msgstr ""
+
+#: src/components/Home/Trending.tsx
+msgid "{0} Publications"
+msgstr "{0} பப்ளிகேஷன்ஸ்"
+
+#: src/components/Messages/Composer.tsx
+msgid "Type Something"
+msgstr ""
+
+#: src/components/Messages/Composer.tsx
+msgid "Send"
+msgstr ""
+
+#: src/components/Messages/Message.tsx
+msgid "Loading messages"
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "This fren hasn't enabled DMs yet"
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "You can't send them a message until they enable DMs."
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "This is the beginning of the conversation"
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "Loading..."
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+#: src/components/Profile/Followerings.tsx
+#: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Requested"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "These conversations are from Lens profiles that you don't currently follow."
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Loading conversations"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Failed to load messages"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Start messaging your Lens frens"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "New message"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Search for someone to message..."
+msgstr ""
+
+#: src/components/Messages/index.tsx
+msgid "Select a conversation"
+msgstr ""
+
+#: src/components/Messages/index.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr ""
+
+#: src/components/Mod/Feed.tsx
+msgid "Failed to load moderation feed"
+msgstr ""
+
+#: src/components/Notification/List.tsx
+msgid "Failed to load notifications"
+msgstr ""
+
+#: src/components/Notification/List.tsx
+msgid "Inbox zero!"
+msgstr ""
+
+#: src/components/Notification/Type/CollectNotification/Amount.tsx
+msgid "Collected for {0} {1}"
+msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
@@ -197,7 +569,7 @@ msgstr ""
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
-msgstr ""
+msgstr "<0><1/> உங்களைப் பின்தொடர்ந்தார்</0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
@@ -205,7 +577,7 @@ msgstr ""
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> விரும்பினார்"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
@@ -213,7 +585,7 @@ msgstr ""
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> விரும்பினார்"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
@@ -225,6 +597,18 @@ msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
+msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2></0> குறிப்பிட்டுள்ளார்"
+
+#: src/components/Notification/index.tsx
+msgid "All notifications"
+msgstr ""
+
+#: src/components/Notification/index.tsx
+msgid "Mentions"
+msgstr ""
+
+#: src/components/Notification/index.tsx
+msgid "Comments"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
@@ -233,15 +617,16 @@ msgstr "தொடர்பு • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact {APP_NAME}"
-msgstr ""
+msgstr "{APP_NAME} ஐத் தொடர்பு கொள்ளவும்"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact us to help you get the issue resolved."
 msgstr "சிக்கலைத் தீர்ப்பதற்கு உங்களுக்கு உதவ எங்களை தொடர்பு கொள்ளுங்கள்."
 
 #: src/components/Pages/Contact.tsx
+#: src/components/Shared/Modal/Report/index.tsx
 msgid "Publication reported successfully!"
-msgstr ""
+msgstr "இடுகை வெற்றிகரமாக புகார் செய்யப்பட்டது!"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -253,7 +638,7 @@ msgstr "என்ன நடந்தது?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message"
-msgstr ""
+msgstr "செய்தி"
 
 #: src/components/Pages/Contact.tsx
 msgid "How can we help?"
@@ -268,16 +653,129 @@ msgid "ENS name:"
 msgstr "ENS பெயர்:"
 
 #: src/components/Profile/Badges/ProofOfHumanity.tsx
-msgid "<0>Proof of Humanity verified</0>"
-msgstr "<0>மனிதநேயத்தின் சான்று சரிபார்க்கப்பட்டது</0>"
+msgid "Proof of Humanity verified"
+msgstr "மனிதநேயத்தின் சான்று சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Badges/Sybil.tsx
-msgid "<0>Sybil verified</0>"
-msgstr "<0>சிபில் சரிபார்க்கப்பட்டது</0>"
+msgid "Sybil verified"
+msgstr "சிபில் சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Badges/Worldcoin.tsx
-msgid "<0>Worldcoin verified</0>"
-msgstr "<0> Worldcoin சரிபார்க்கப்பட்டது</0>"
+msgid "Worldcoin verified"
+msgstr "Worldcoin சரிபார்க்கப்பட்டது"
+
+#: src/components/Profile/Details.tsx
+msgid "Edit Profile"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+msgid "Followers you know"
+msgstr ""
+
+#: src/components/Profile/Feed.tsx
+msgid "Failed to load profile feed"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+msgid "Feed"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+msgid "Replies"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+msgid "Media"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+msgid "NFTs"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Profile/Followerings.tsx
+msgid "Followers"
+msgstr ""
+
+#: src/components/Profile/Followers.tsx
+msgid "Loading followers"
+msgstr ""
+
+#: src/components/Profile/Followers.tsx
+msgid "doesn’t have any followers yet."
+msgstr ""
+
+#: src/components/Profile/Followers.tsx
+msgid "Failed to load followers"
+msgstr ""
+
+#: src/components/Profile/Following.tsx
+msgid "Loading following"
+msgstr ""
+
+#: src/components/Profile/Following.tsx
+msgid "doesn’t follow anyone."
+msgstr ""
+
+#: src/components/Profile/Following.tsx
+msgid "Failed to load following"
+msgstr ""
+
+#: src/components/Profile/MutualFollowers/List.tsx
+msgid "Loading mutual followers"
+msgstr ""
+
+#: src/components/Profile/MutualFollowers/List.tsx
+msgid "Failed to load mutual followers"
+msgstr ""
+
+#: src/components/Profile/MutualFollowers/index.tsx
+msgid "Followed by"
+msgstr ""
+
+#: src/components/Profile/NFTFeed.tsx
+msgid "doesn’t have any NFTs!"
+msgstr ""
+
+#: src/components/Profile/NFTFeed.tsx
+msgid "Failed to load nft feed"
+msgstr ""
+
+#: src/components/Publication/Actions/Analytics/Stats.tsx
+#: src/components/Publication/Actions/Analytics/index.tsx
+msgid "Loading analytics"
+msgstr ""
+
+#: src/components/Publication/Actions/Analytics/Stats.tsx
+msgid "Views"
+msgstr ""
+
+#: src/components/Publication/Actions/Analytics/Stats.tsx
+msgid "Times people viewed the details about this publication"
+msgstr ""
+
+#: src/components/Publication/Actions/Analytics/index.tsx
+msgid "Publication Analytics"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+#: src/components/Publication/Actions/Collect/index.tsx
+msgid "Loading collect"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+#: src/lib/getModule.ts
+msgid "Free Collect"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+#: src/lib/getModule.ts
+msgid "Unknown Collect"
+msgstr ""
+
+#: src/components/Publication/RelevantPeople.tsx
+msgid "Failed to load relevant people"
+msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -287,9 +785,45 @@ msgstr ""
 msgid "<0><1/> mirrored the <2>post</2></0>"
 msgstr ""
 
+#: src/components/Search/Profiles.tsx
+msgid "No profiles for <0>“{query}”</0>"
+msgstr ""
+
+#: src/components/Search/Profiles.tsx
+msgid "Failed to load profiles"
+msgstr ""
+
+#: src/components/Search/Publications.tsx
+msgid "No publications for <0>“{query}”</0>"
+msgstr ""
+
+#: src/components/Search/Publications.tsx
+msgid "Failed to load publications"
+msgstr ""
+
+#: src/components/Settings/Account/CrossPost.tsx
+msgid "Cross post to Twitter"
+msgstr ""
+
+#: src/components/Settings/Account/CrossPost.tsx
+msgid "Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site."
+msgstr ""
+
+#: src/components/Settings/Account/CrossPost.tsx
+msgid "Already reposting to <0>@{repostingTo}</0>"
+msgstr ""
+
+#: src/components/Settings/Account/CrossPost.tsx
+msgid "Disable now"
+msgstr ""
+
+#: src/components/Settings/Account/CrossPost.tsx
+msgid "Setup now"
+msgstr ""
+
 #: src/components/Settings/Account/Language.tsx
 msgid "Locale settings"
-msgstr ""
+msgstr "மொழி அமைப்புகள்"
 
 #: src/components/Settings/Account/Language.tsx
 msgid "Select display language"
@@ -297,19 +831,19 @@ msgstr "காட்சி மொழியைத் தேர்ந்தெ�
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Your default profile"
-msgstr ""
+msgstr "உங்கள் இயல்புநிலை சுயவிவரம்"
 
 #: src/components/Settings/Account/SetProfile.tsx
-msgid "You don’t have any default profile set!"
+msgid "You don't have any default profile set!"
 msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Select default profile"
-msgstr ""
+msgstr "இயல்புநிலை சுயவிவரத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Selecting your default account helps to display the selected profile across {APP_NAME}, you can change your default profile anytime."
-msgstr ""
+msgstr "உங்கள் இயல்புநிலை கணக்கைத் தேர்ந்தெடுப்பது, தேர்ந்தெடுக்கப்பட்ட சுயவிவரத்தை {APP_NAME} முழுவதும் காண்பிக்க உதவுகிறது, உங்கள் இயல்புநிலை சுயவிவரத்தை எப்போது வேண்டுமானாலும் மாற்றலாம்."
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "What else you should know"
@@ -317,27 +851,27 @@ msgstr "நீங்கள் வேறு என்ன தெரிந்து
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc."
-msgstr ""
+msgstr "{APP_NAME}, எடுத்துக்காட்டு அறிவிப்புகள், பின்தொடர்தல் போன்றவற்றில் இயல்புநிலை சுயவிவரம் மட்டுமே தெரியும்."
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "You can change default profile anytime here."
-msgstr ""
+msgstr "நீங்கள் எந்த நேரத்திலும் இங்கே இயல்புநிலை சுயவிவரத்தை மாற்றலாம்."
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Select profile"
+msgstr "சுயவிவரத்தைத் தேர்ந்தெடுக்கவும்"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Loading super follow settings"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set super follow"
-msgstr ""
+msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Setting super follow makes users spend crypto to follow you, and it’s a good way to earn it, you can change the amount and currency or disable/enable it anytime."
+msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
 msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx
-msgid "Select Currency"
-msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Follow amount"
@@ -353,11 +887,11 @@ msgstr "சூப்பர் பின்தொடர் முடக்க�
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Update Super follow"
-msgstr ""
+msgstr "சூப்பர் பின்தொடர்பை புதுப்பிக்கவும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
-msgstr ""
+msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
@@ -365,18 +899,208 @@ msgstr "சரிபார்க்கப்பட்டது"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
-msgstr ""
+msgstr "இல்லை."
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Request Verification"
+msgstr "சரிபார்ப்பு கோரிக்கை"
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Allow"
+msgstr ""
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Revoke"
+msgstr ""
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Warning"
+msgstr ""
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Handle with care!"
+msgstr ""
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
+msgstr ""
+
+#: src/components/Settings/Allowance/index.tsx
+#: src/components/Settings/Profile/index.tsx
+msgid "Loading settings"
+msgstr ""
+
+#: src/components/Settings/Allowance/index.tsx
+msgid "Allow / Revoke modules"
+msgstr ""
+
+#: src/components/Settings/Allowance/index.tsx
+msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
+msgstr ""
+
+#: src/components/Settings/Allowance/index.tsx
+msgid "Loading allowance data!"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Cleared {key}"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Cleanup Localstorage"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Optimistic publications"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Clean your posts or comments that are not indexed"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Cleanup"
+msgstr "துப்புரவு"
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Timeline settings"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Clean your timeline filter settings"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Direct message keys"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Clean your DM encryption key"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Cleared DM keys"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "App settings"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Note: Cleaning will log you out"
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "This will deactivate your account"
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Deleting your account is permanent. All your data will be wiped out immediately and you won't be able to get it back."
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted."
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Some account information may still be available in search engines, such as Google or Bing."
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Your @handle will be released immediately after deleting the account."
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Deleting..."
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Delete your account"
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Danger Zone"
+msgstr "ஆபத்தான இடம்"
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Confirm that you have read all consequences and want to delete your account anyway"
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Yes, delete my account"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Profile updated successfully!"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable dispatcher"
-msgstr ""
+msgstr "டிஸ்பெட்சேரை முடக்கு"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable dispatcher"
+msgstr "டிஸ்பெட்சேரை இயக்கு"
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
+msgstr ""
+
+#: src/components/Settings/Interests/index.tsx
+msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
+msgstr ""
+
+#: src/components/Settings/Profile/NFTPicture.tsx
+msgid "Contract Address"
+msgstr ""
+
+#: src/components/Settings/Profile/NFTPicture.tsx
+msgid "Token Id"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Profile Id"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Name"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Location"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Website"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Bio"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Tell us something about you!"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Celebrate pride every day"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
@@ -393,19 +1117,31 @@ msgstr "ஆர்வங்கள்"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Dispatcher"
-msgstr ""
+msgstr "டிஸ்பெட்சேர்"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
+msgstr "கொடுப்பனவு"
+
+#: src/components/Shared/Audio/index.tsx
+msgid "Add title"
 msgstr ""
 
-#: src/components/Settings/Sidebar.tsx
-msgid "Cleanup"
-msgstr "துப்புரவு"
+#: src/components/Shared/Audio/index.tsx
+msgid "Add author"
+msgstr ""
 
-#: src/components/Settings/Sidebar.tsx
-msgid "Danger Zone"
-msgstr "ஆபத்தான இடம்"
+#: src/components/Shared/Badges/Beta.tsx
+msgid "Beta"
+msgstr ""
+
+#: src/components/Shared/Badges/New.tsx
+msgid "New"
+msgstr ""
+
+#: src/components/Shared/EmojiPicker/List.tsx
+msgid "Loading emojis"
+msgstr ""
 
 #: src/components/Shared/Footer.tsx
 msgid "Terms"
@@ -417,7 +1153,7 @@ msgstr "தனியுரிமை"
 
 #: src/components/Shared/Footer.tsx
 msgid "Discord"
-msgstr ""
+msgstr "டிஸ்கார்ட்"
 
 #: src/components/Shared/Footer.tsx
 msgid "Donate"
@@ -444,8 +1180,26 @@ msgid "▲ Powered by Vercel"
 msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
 
 #: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Set status"
+msgstr "நிலையை அமைக்கவும்"
+
+#: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
 msgid "Login"
+msgstr "புகுபதிகை"
+
+#: src/components/Shared/IndexStatus.tsx
+msgid "{type} Indexing"
+msgstr ""
+
+#: src/components/Shared/IndexStatus.tsx
+msgid "Index Successful"
 msgstr ""
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
@@ -460,28 +1214,80 @@ msgstr "சாய்வு"
 msgid "Code"
 msgstr "குறியீடு"
 
+#: src/components/Shared/Login/New/index.tsx
+msgid "Handle"
+msgstr ""
+
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
 msgstr "லென்ஸுடன் உள்நுழை"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
-msgstr ""
+msgstr "உலாவி வாலட்"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
-msgstr ""
+msgstr "செய்தியில் கையொப்பமிடுங்கள்"
 
 #: src/components/Shared/Login/index.tsx
-msgid "{APP_NAME} uses this signature to verify that you’re the owner of this address."
+msgid "{APP_NAME} uses this signature to verify that you're the owner of this address."
 msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect your wallet"
-msgstr ""
+msgstr "உங்கள் வாலட்டை இணைக்கவும்"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect with one of our available wallet providers or create a new one."
+msgstr "எங்களிடம் இருக்கும் வாலட் வழங்குநர்களில் ஒருவருடன் இணைக்கவும் அல்லது புதிய ஒன்றை உருவாக்கவும்."
+
+#: src/components/Shared/Modal/Collectors.tsx
+msgid "Loading collectors"
+msgstr ""
+
+#: src/components/Shared/Modal/Collectors.tsx
+msgid "No collectors."
+msgstr ""
+
+#: src/components/Shared/Modal/Collectors.tsx
+msgid "Failed to load collectors"
+msgstr ""
+
+#: src/components/Shared/Modal/Likes.tsx
+msgid "Loading likes"
+msgstr ""
+
+#: src/components/Shared/Modal/Likes.tsx
+msgid "No likes."
+msgstr ""
+
+#: src/components/Shared/Modal/Likes.tsx
+msgid "Failed to load likes"
+msgstr ""
+
+#: src/components/Shared/Modal/Mirrors.tsx
+msgid "Loading mirrors"
+msgstr ""
+
+#: src/components/Shared/Modal/Mirrors.tsx
+msgid "No mirrors."
+msgstr ""
+
+#: src/components/Shared/Modal/Mirrors.tsx
+msgid "Failed to load mirrors"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Failed to report"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Description"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Please provide additional details"
 msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
@@ -490,7 +1296,7 @@ msgstr "மேலும்"
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "Contact"
-msgstr ""
+msgstr "தொடர்புகொள்ளவும்"
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "Report a bug"
@@ -505,12 +1311,8 @@ msgid "Logged in as"
 msgstr "உள்நுழைந்துள்ள கணக்கு"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Set status"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Your Profile"
-msgstr ""
+msgstr "உங்கள் சுயவிவரம்"
 
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Settings"
@@ -552,3 +1354,100 @@ msgstr "முகப்பு"
 msgid "Explore"
 msgstr "உலாவு"
 
+#: src/components/Shared/Status.tsx
+msgid "Loading status settings"
+msgstr ""
+
+#: src/components/Shared/Status.tsx
+msgid "Failed to load status settings"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+#: src/components/Shared/SuperFollow/index.tsx
+msgid "Loading super follow"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Unknown Collect Module is unknown and not type supported in the API."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Fee Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Limited Fee Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Limited Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific limit of mints."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Timed Fee Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Timed Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Limited Time Fee Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Limited Timed Fee Collect Module allows for any follower to collect the associate publication, provided they pay a fee, up to a specific time limit and mint cap. It is essentially a combination of the Timed Fee Collect Module and the Limited Fee Collect Module."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Free Collect Module allows any profile to collect the publication this module is attached to."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Revert Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Revert Collect Module causes all collect actions on a given publication to fail, thus making the publication uncollectable."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Fee Follow"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Fee Follow Module only allows addresses to follow a given profile, so long as they pay a fee specified by the profile owner. Users can set the currency and amount required to be paid."
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "Follower Only Reference"
+msgstr ""
+
+#: src/lib/getModule.ts
+msgid "The Follower Only Reference Module ensures that only a profile is only allowed to mirror or comment on content."
+msgstr ""
+
+#: src/pages/404.tsx
+msgid "Oops, Lost‽"
+msgstr ""
+
+#: src/pages/404.tsx
+msgid "This page could not be found."
+msgstr ""
+
+#: src/pages/404.tsx
+#: src/pages/500.tsx
+msgid "Go to home"
+msgstr ""
+
+#: src/pages/500.tsx
+msgid "Looks like something went wrong!"
+msgstr ""
+
+#: src/pages/500.tsx
+msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
+msgstr ""

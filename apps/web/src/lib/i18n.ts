@@ -1,16 +1,12 @@
 import { i18n } from '@lingui/core';
 import { IS_PREVIEW, IS_PRODUCTION, LS_KEYS } from 'data/constants';
 import dayjs from 'dayjs';
-import { en, es, kn, ta } from 'make-plural/plurals';
-import('dayjs/locale/es');
-import('dayjs/locale/kn');
-import('dayjs/locale/ta');
+import { en, es, ta } from 'make-plural/plurals';
 
 export const supportedLocales: Record<string, string> = {
   en: 'English',
   es: 'Español',
-  ta: 'தமிழ்',
-  kn: 'ಕನ್ನಡ'
+  ta: 'தமிழ்'
 };
 
 if (!IS_PRODUCTION || IS_PREVIEW) {
@@ -23,7 +19,6 @@ i18n.loadLocaleData({
   en: { plurals: en },
   es: { plurals: es },
   ta: { plurals: ta },
-  kn: { plurals: kn },
   qaa: { plurals: en }
 });
 
@@ -40,10 +35,7 @@ export async function setLocale(locale: string) {
   const { messages } = await import(`src/locales/${locale}/messages`);
   i18n.load(locale, messages);
   i18n.activate(locale);
-  const loadResult = dayjs.locale(locale);
-  if (loadResult != locale) {
-    dayjs.locale(defaultLocale);
-  }
+  dayjs.locale(locale);
 }
 
 export const initLocale = () => {

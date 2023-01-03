@@ -23,7 +23,7 @@ const GlobalModals: FC = () => {
   return (
     <>
       <Modal
-        title="Report"
+        title={t`Report`}
         icon={<ShieldCheckIcon className="w-5 h-5 text-brand" />}
         show={showReportModal}
         onClose={() => setShowReportModal(false, reportPublication)}
@@ -31,7 +31,7 @@ const GlobalModals: FC = () => {
         <Report publication={reportPublication as LensterPublication} />
       </Modal>
       <Modal
-        title="Set Status"
+        title={t`Set status`}
         icon={<EmojiHappyIcon className="w-5 h-5 text-brand" />}
         show={showStatusModal}
         onClose={() => setShowStatusModal(false)}

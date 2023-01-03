@@ -18,9 +18,9 @@ const Worldcoin: FC<Props> = ({ profile }) => {
     <Tooltip
       content={
         <span className="flex items-center space-x-1">
-          <Trans>
-            <span>Worldcoin verified</span>
-          </Trans>
+          <span>
+            <Trans>Worldcoin verified</Trans>
+          </span>
           <CheckCircleIcon className="h-4 w-4" />
         </span>
       }

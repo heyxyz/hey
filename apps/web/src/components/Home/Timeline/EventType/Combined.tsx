@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import type { FeedItem } from 'lens';
 import type { FC } from 'react';
 
@@ -36,29 +37,37 @@ const Combined: FC<Props> = ({ feedItem }) => {
       <div className="flex items-center space-x-1">
         {mirrorsLength ? (
           <span className="whitespace-nowrap">
-            mirrored{totalActions < 3 ? (totalActions !== 1 ? ' and ' : '') : ', '}
+            <Trans>mirrored{totalActions < 3 ? (totalActions !== 1 ? ' and ' : '') : ', '}</Trans>
           </span>
         ) : null}
         {commentsLength ? (
           <span className="whitespace-nowrap">
-            commented
-            {totalActions < 3
-              ? collectsLength && reactionsLength
-                ? ' and '
-                : !mirrorsLength && totalActions !== 1
-                ? ' and '
-                : ''
-              : ', '}
-            {totalActions >= 3 && (!collectsLength || !reactionsLength) ? ' and ' : ''}
+            <Trans>
+              commented
+              {totalActions < 3
+                ? collectsLength && reactionsLength
+                  ? ' and '
+                  : !mirrorsLength && totalActions !== 1
+                  ? ' and '
+                  : ''
+                : ', '}
+              {totalActions >= 3 && (!collectsLength || !reactionsLength) ? ' and ' : ''}
+            </Trans>
           </span>
         ) : null}
         {collectsLength ? (
           <span className="whitespace-nowrap">
-            collected
-            {totalActions >= 3 && reactionsLength ? ' and ' : reactionsLength ? ' and ' : ''}
+            <Trans>
+              collected
+              {totalActions >= 3 && reactionsLength ? ' and ' : reactionsLength ? ' and ' : ''}
+            </Trans>
           </span>
         ) : null}
-        {reactionsLength ? <span className="whitespace-nowrap">liked</span> : null}
+        {reactionsLength ? (
+          <span className="whitespace-nowrap">
+            <Trans>liked</Trans>
+          </span>
+        ) : null}
       </div>
     </div>
   );

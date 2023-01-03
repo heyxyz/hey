@@ -28,7 +28,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
 
   const onCompleted = () => {
-    toast.success('Profile updated successfully!');
+    toast.success(t`Profile updated successfully!`);
     Analytics.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 

@@ -44,11 +44,7 @@ const Contact: FC = () => {
         <Card>
           {false ? (
             <EmptyState
-              message={
-                <span>
-                  <Trans>Publication reported successfully!</Trans>
-                </span>
-              }
+              message={t`Publication reported successfully!`}
               icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
               hideCard
             />

@@ -11,6 +11,7 @@ import imageProxy from '@lib/imageProxy';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToIPFS from '@lib/uploadToIPFS';
+import { t } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { AVATAR, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from 'lens';
@@ -160,7 +161,7 @@ const Picture: FC<Props> = ({ profile }) => {
   return (
     <>
       <div className="space-y-1.5">
-        {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
+        {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
         <div className="space-y-3">
           {avatar && (
             <div>
