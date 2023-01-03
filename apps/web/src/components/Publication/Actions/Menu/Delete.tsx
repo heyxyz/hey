@@ -30,7 +30,8 @@ const Delete: FC<Props> = ({ publication }) => {
           'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
         )
       }
-      onClick={() => {
+      onClick={(event: any) => {
+        event.stopPropagation();
         if (confirm('Are you sure you want to delete?')) {
           hidePost({
             variables: { request: { publicationId: publication?.id } }

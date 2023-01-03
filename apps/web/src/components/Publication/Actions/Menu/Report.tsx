@@ -21,7 +21,10 @@ const Report: FC<Props> = ({ publication }) => {
           'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
         )
       }
-      onClick={() => setShowReportModal(true, publication)}
+      onClick={(event: any) => {
+        event.stopPropagation();
+        setShowReportModal(true, publication);
+      }}
     >
       <div className="flex items-center space-x-2">
         <ShieldExclamationIcon className="w-4 h-4" />
