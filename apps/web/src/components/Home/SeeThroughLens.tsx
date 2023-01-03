@@ -135,14 +135,16 @@ const SeeThroughLens: FC = () => {
               className="py-2 px-3 mb-2 text-left outline-none w-full mt-1 bg-gray-200 text-sm dark:bg-gray-700"
               onClick={() => setSeeThroughProfile(null)}
             >
-              Reset filter to your own feed
+              <Trans>Reset filter to your own feed</Trans>
             </button>
           )}
           <div className="mx-2 mb-2">
             {searchUsersLoading || loading ? (
               <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
                 <Spinner size="sm" className="mx-auto" />
-                <div>Searching users</div>
+                <div>
+                  <Trans>Searching users</Trans>
+                </div>
               </div>
             ) : (
               <>
@@ -163,7 +165,9 @@ const SeeThroughLens: FC = () => {
                   </Menu.Item>
                 ))}
                 {(profiles.length === 0 || error) && (
-                  <div className="py-4 text-center">No matching users</div>
+                  <div className="py-4 text-center">
+                    <Trans>No matching users</Trans>
+                  </div>
                 )}
               </>
             )}

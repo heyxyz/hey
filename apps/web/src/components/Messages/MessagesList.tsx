@@ -4,6 +4,7 @@ import { EmojiSadIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import formatTime from '@lib/formatTime';
 import getAvatar from '@lib/getAvatar';
+import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
@@ -93,20 +94,28 @@ const MissingXmtpAuth: FC = () => (
   <Card as="aside" className="mb-2 mr-4 border-gray-400 !bg-gray-300 !bg-opacity-20 space-y-2.5 p-5">
     <div className="flex items-center space-x-2 font-bold">
       <EmojiSadIcon className="w-5 h-5" />
-      <p>This fren hasn't enabled DMs yet</p>
+      <p>
+        <Trans>This fren hasn't enabled DMs yet</Trans>
+      </p>
     </div>
-    <p className="text-sm leading-[22px]">You can't send them a message until they enable DMs.</p>
+    <p className="text-sm leading-[22px]">
+      <Trans>You can't send them a message until they enable DMs.</Trans>
+    </p>
   </Card>
 );
 
 const ConversationBeginningNotice: FC = () => (
   <div className="flex align-items-center justify-center mt-6 pb-4">
-    <span className="text-gray-300 text-sm font-bold">This is the beginning of the conversation</span>
+    <span className="text-gray-300 text-sm font-bold">
+      <Trans>This is the beginning of the conversation</Trans>
+    </span>
   </div>
 );
 
 const LoadingMore: FC = () => (
-  <div className="p-1 mt-6 text-center text-gray-300 font-bold text-sm">Loading...</div>
+  <div className="p-1 mt-6 text-center text-gray-300 font-bold text-sm">
+    <Trans>Loading...</Trans>
+  </div>
 );
 
 interface MessageListProps {
