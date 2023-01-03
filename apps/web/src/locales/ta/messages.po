@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-03 06:44\n"
+"PO-Revision-Date: 2023-01-03 09:24\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -721,7 +721,7 @@ msgstr "சுயவிவரத்தைத் தேர்ந்தெடு�
 
 #: src/components/Settings/Account/SetProfile.tsx
 #~ msgid "You don’t have any default profile set!"
-#~ msgstr "உங்களிடம் இயல்புநிலை சுயவிவரம் எதுவும் இல்லை!"
+#~ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -757,7 +757,7 @@ msgstr "சூப்பர் பின்தொடர்பை அமைக்�
 
 #: src/components/Settings/Account/SuperFollow.tsx
 #~ msgid "Setting super follow makes users spend crypto to follow you, and it’s a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-#~ msgstr "சூப்பர் ஃபாலோ அமைப்பது பயனர்கள் உங்களைப் பின்தொடர கிரிப்டோவைச் செலவழிக்கச் செய்கிறது, மேலும் அதைச் சம்பாதிப்பதற்கு இது ஒரு சிறந்த வழியாகும், நீங்கள் தொகை மற்றும் நாணயத்தை மாற்றலாம் அல்லது எப்போது வேண்டுமானாலும் முடக்கலாம்/இயக்கலாம்."
+#~ msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
@@ -1106,7 +1106,7 @@ msgstr "எங்களிடம் இருக்கும் வாலட் 
 
 #: src/components/Shared/Login/index.tsx
 #~ msgid "{APP_NAME} uses this signature to verify that you’re the owner of this address."
-#~ msgstr "இந்த முகவரியின் உரிமையாளர் நீங்கள் என்பதைச் சரிபார்க்க {APP_NAME} இந்த கையொப்பத்தைப் பயன்படுத்துகிறது."
+#~ msgstr ""
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
@@ -1317,3 +1317,4 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
+
