@@ -12,7 +12,7 @@ import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ERROR_MESSAGE } from 'data/constants';
 import type { Profile } from 'lens';
@@ -94,7 +94,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             )}
           >
             <UsersIcon className="mr-2 h-4 w-4" />
-            Following
+            <Trans>Following</Trans>
           </div>
           <div
             onClick={() => setSelectedTab('Requested')}
@@ -103,7 +103,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
           >
-            Requested
+            <Trans>Requested</Trans>
             {requestedCount > 0 && (
               <span className="text-sm font-bold ml-2 bg-brand-200 px-3 py-0.5 rounded-2xl">
                 {requestedCount > 99 ? '99+' : requestedCount}
@@ -113,7 +113,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
         </div>
         {selectedTab === 'Requested' ? (
           <div className="p-2 px-5 mt-1 text-sm bg-yellow-100 text-yellow-800">
-            These conversations are from Lens profiles that you don't currently follow.
+            <Trans>These conversations are from Lens profiles that you don't currently follow.</Trans>
           </div>
         ) : null}
         <div className="h-full overflow-y-auto overflow-x-hidden">

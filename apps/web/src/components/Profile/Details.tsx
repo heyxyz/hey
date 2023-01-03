@@ -19,7 +19,7 @@ import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import Link from 'next/link';
@@ -109,7 +109,7 @@ const Details: FC<Props> = ({ profile }) => {
           {currentProfile?.id === profile?.id ? (
             <Link href="/settings">
               <Button variant="secondary" icon={<CogIcon className="w-5 h-5" />} outline>
-                Edit Profile
+                <Trans>Edit Profile</Trans>
               </Button>
             </Link>
           ) : followType !== 'RevertFollowModuleSettings' ? (

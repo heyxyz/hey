@@ -2,7 +2,7 @@ import { Modal } from '@components/UI/Modal';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import humanize from '@lib/humanize';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -30,7 +30,9 @@ const Followerings: FC<Props> = ({ profile }) => {
         }}
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowing)}</div>
-        <div className="lt-text-gray-500">Following</div>
+        <div className="lt-text-gray-500">
+          <Trans>Following</Trans>
+        </div>
       </button>
       <button
         type="button"
@@ -41,7 +43,9 @@ const Followerings: FC<Props> = ({ profile }) => {
         }}
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>
-        <div className="lt-text-gray-500">Followers</div>
+        <div className="lt-text-gray-500">
+          <Trans>Followers</Trans>
+        </div>
       </button>
       <Modal
         title={t`Following`}
