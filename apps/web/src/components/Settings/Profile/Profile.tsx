@@ -252,7 +252,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
           placeholder="gavin"
           {...form.register('twitter')}
         />
-        <TextArea label={t`Bio`} placeholder="Tell us something about you!" {...form.register('bio')} />
+        <TextArea label={t`Bio`} placeholder={t`Tell us something about you!`} {...form.register('bio')} />
         <div className="space-y-1.5">
           <div className="label">Cover</div>
           <div className="space-y-3">

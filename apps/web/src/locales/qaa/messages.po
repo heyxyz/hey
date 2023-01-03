@@ -136,6 +136,10 @@ msgstr ""
 msgid "Collect settings"
 msgstr ""
 
+#: src/components/Composer/Actions/Giphy/GifSelector.tsx
+msgid "Search for GIFs"
+msgstr ""
+
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
 msgstr ""
@@ -338,6 +342,10 @@ msgstr ""
 msgid "{0} Publications"
 msgstr ""
 
+#: src/components/Messages/Composer.tsx
+msgid "Type Something"
+msgstr ""
+
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
 msgstr ""
@@ -348,6 +356,10 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Search for someone to message..."
 msgstr ""
 
 #: src/components/Mod/Feed.tsx
@@ -699,6 +711,10 @@ msgid "Twitter"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Tell us something about you!"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
 msgstr ""
 
@@ -724,6 +740,14 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
+msgstr ""
+
+#: src/components/Shared/Audio/index.tsx
+msgid "Add title"
+msgstr ""
+
+#: src/components/Shared/Audio/index.tsx
+msgid "Add author"
 msgstr ""
 
 #: src/components/Shared/Footer.tsx
@@ -847,6 +871,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Please provide additional details"
 msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx

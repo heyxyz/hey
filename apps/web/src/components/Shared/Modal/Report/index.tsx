@@ -84,7 +84,7 @@ const Report: FC<Props> = ({ publication }) => {
               <>
                 <TextArea
                   label={t`Description`}
-                  placeholder="Tell us something about the community!"
+                  placeholder={t`Please provide additional details`}
                   {...form.register('additionalComments')}
                 />
                 <div className="ml-auto">
