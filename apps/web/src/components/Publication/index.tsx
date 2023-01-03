@@ -7,6 +7,7 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import formatHandle from '@lib/formatHandle';
+import getURLs from '@lib/getURLs';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
@@ -45,6 +46,10 @@ const ViewPublication: NextPage = () => {
   useEffect(() => {
     const currentRef = postContainerRef.current;
     if (!currentRef || !data?.publication) {
+      return;
+    }
+    const availableLinks = getURLs(data?.publication?.metadata.content);
+    if (availableLinks.length) {
       return;
     }
     setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight}px)`);

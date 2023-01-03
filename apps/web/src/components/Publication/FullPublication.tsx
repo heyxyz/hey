@@ -2,6 +2,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import type { LensterPublication } from '@generated/types';
 import formatTime from '@lib/formatTime';
 import getAppName from '@lib/getAppName';
+import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { FC, Ref } from 'react';
@@ -13,6 +14,7 @@ import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationStats from './PublicationStats';
 import ThreadBody from './ThreadBody';
+import PublicationType from './Type';
 
 dayjs.extend(relativeTime);
 
@@ -43,8 +45,14 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     : publication?.stats?.totalAmountOfCollects;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
+  const availableLinks =
+    getURLs(mainPost?.metadata.content || '') || getURLs(commentOn?.metadata.content || '');
+
   useEffect(() => {
-    if (threadRef.current && publication.commentOn) {
+    if (!mainPost || !commentOn || !threadRef.current) {
+      return;
+    }
+    if (!availableLinks.length) {
       threadRef.current?.scrollIntoView({ block: 'start' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -52,12 +60,15 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
 
   return (
     <article className="p-5">
-      {/* <PublicationType publication={publication} showType /> */}
-      {publication.commentOn && (
-        <div ref={postContainerRef}>
-          {mainPost ? <ThreadBody publication={mainPost} /> : null}
-          <ThreadBody publication={commentOn} />
-        </div>
+      {availableLinks.length ? (
+        <PublicationType publication={publication} showType />
+      ) : (
+        publication.commentOn && (
+          <div ref={postContainerRef}>
+            {mainPost ? <ThreadBody publication={mainPost} /> : null}
+            <ThreadBody publication={commentOn} />
+          </div>
+        )
       )}
       <div ref={threadRef} className="scroll-mt-20">
         <div className="flex justify-between pb-4 space-x-1.5">
