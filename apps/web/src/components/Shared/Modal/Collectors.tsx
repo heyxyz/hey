@@ -37,7 +37,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message="Loading collectors" />;
+    return <Loader message={t`Loading collectors`} />;
   }
 
   if (profiles?.length === 0) {

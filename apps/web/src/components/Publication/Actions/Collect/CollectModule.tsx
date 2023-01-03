@@ -244,7 +244,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   };
 
   if (loading || revenueLoading) {
-    return <Loader message="Loading collect" />;
+    return <Loader message={t`Loading collect`} />;
   }
 
   const isLoading =

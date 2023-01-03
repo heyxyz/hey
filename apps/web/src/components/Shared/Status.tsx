@@ -171,7 +171,7 @@ const Status: FC = () => {
   if (loading) {
     return (
       <div className="p-5">
-        <Loader message="Loading status settings" />
+        <Loader message={t`Loading status settings`} />
       </div>
     );
   }

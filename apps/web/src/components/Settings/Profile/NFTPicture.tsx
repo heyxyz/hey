@@ -187,7 +187,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         setAvatar(contractAddress, tokenId);
       }}
     >
-      {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
+      {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
       <div>
         <div className="label">Chain</div>
         <div>
