@@ -36,7 +36,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message="Loading mirrors" />;
+    return <Loader message={t`Loading mirrors`} />;
   }
 
   if (profiles?.length === 0) {

@@ -20,9 +20,7 @@ const Login: FC = () => {
                 <Trans>Please sign the message</Trans>.
               </div>
               <div className="text-sm lt-text-gray-500">
-                <Trans>
-                  {APP_NAME} uses this signature to verify that you&rsquo;re the owner of this address.
-                </Trans>
+                <Trans>{APP_NAME} uses this signature to verify that you're the owner of this address.</Trans>
               </div>
             </div>
           ) : (

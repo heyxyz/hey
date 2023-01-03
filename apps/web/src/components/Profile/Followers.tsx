@@ -37,7 +37,7 @@ const Followers: FC<Props> = ({ profile }) => {
   };
 
   if (loading) {
-    return <Loader message="Loading followers" />;
+    return <Loader message={t`Loading followers`} />;
   }
 
   if (followers?.length === 0) {

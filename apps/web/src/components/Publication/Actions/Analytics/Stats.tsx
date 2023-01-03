@@ -3,6 +3,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import HelpTooltip from '@components/UI/HelpTooltip';
 import type { LensterPublication } from '@generated/types';
 import humanize from '@lib/humanize';
+import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ERROR_MESSAGE, SIMPLEANALYTICS_API } from 'data/constants';
@@ -38,7 +39,7 @@ const Stats: FC<Props> = ({ publication }) => {
   }
 
   if (isLoading) {
-    return <Loader message="Loading analytics" />;
+    return <Loader message={t`Loading analytics`} />;
   }
 
   return (
