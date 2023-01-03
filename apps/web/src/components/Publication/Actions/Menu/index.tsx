@@ -25,7 +25,8 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
     <Menu as="div" className="relative">
       <Menu.Button
         className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
-        onClick={() => {
+        onClick={(event: any) => {
+          event.stopPropagation();
           Analytics.track(PUBLICATION.MORE);
         }}
         aria-label="More"
