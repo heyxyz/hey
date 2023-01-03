@@ -1,6 +1,7 @@
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
+import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import { XMTP_ENV } from 'data/constants';
@@ -40,10 +41,12 @@ const EnableMessages: FC = () => {
     >
       <div className="flex items-center space-x-2 font-bold">
         <MailOpenIcon className="w-5 h-5" />
-        <p>Direct messages are here!</p>
+        <p>
+          <Trans>Direct messages are here!</Trans>
+        </p>
       </div>
       <p className="text-sm leading-[22px] mr-10">
-        Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens.
+        <Trans>Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens.</Trans>
       </p>
       <Button
         variant="success"
@@ -51,7 +54,7 @@ const EnableMessages: FC = () => {
         icon={<MailIcon className="w-4 h-4" />}
         onClick={onConversationSelected}
       >
-        Enable DMs
+        <Trans>Enable DMs</Trans>
       </Button>
     </Card>
   );

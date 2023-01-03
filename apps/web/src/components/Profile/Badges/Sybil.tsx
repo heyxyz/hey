@@ -19,9 +19,9 @@ const Sybil: FC<Props> = ({ profile }) => {
       content={
         <span>
           <span className="flex items-center space-x-1">
-            <Trans>
-              <span>Sybil verified</span>
-            </Trans>
+            <span>
+              <Trans>Sybil verified</Trans>
+            </span>
             <CheckCircleIcon className="h-4 w-4" />
           </span>
           <span>
