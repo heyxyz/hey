@@ -8,6 +8,7 @@ import type { LensterPublication } from '@generated/types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
+import { t } from '@lingui/macro';
 import { useReportPublicationMutation } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -64,7 +65,7 @@ const Report: FC<Props> = ({ publication }) => {
     <div onClick={(event) => event.stopPropagation()}>
       {submitData?.reportPublication === null ? (
         <EmptyState
-          message={<span>Publication reported successfully!</span>}
+          message={t`Publication reported successfully!`}
           icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
           hideCard
         />

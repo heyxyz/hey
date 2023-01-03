@@ -5,6 +5,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
+import { Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, ProfileSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from 'lens';
@@ -49,7 +50,9 @@ const Profiles: FC<Props> = ({ query }) => {
       <EmptyState
         message={
           <div>
-            No profiles for <b>&ldquo;{query}&rdquo;</b>
+            <Trans>
+              No profiles for <b>&ldquo;{query}&rdquo;</b>
+            </Trans>
           </div>
         }
         icon={<UsersIcon className="w-8 h-8 text-brand" />}

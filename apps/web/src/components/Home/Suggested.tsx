@@ -3,6 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { UsersIcon } from '@heroicons/react/outline';
+import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
@@ -16,7 +17,11 @@ const Suggested: FC = () => {
 
   if (data?.recommendedProfiles?.length === 0) {
     return (
-      <EmptyState message="Nothing to suggest" icon={<UsersIcon className="w-8 h-8 text-brand" />} hideCard />
+      <EmptyState
+        message={t`Nothing to suggest`}
+        icon={<UsersIcon className="w-8 h-8 text-brand" />}
+        hideCard
+      />
     );
   }
 

@@ -3,6 +3,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { LightningBoltIcon } from '@heroicons/react/outline';
+import { Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type {
   NewCollectNotification,
@@ -87,7 +88,7 @@ const List: FC<Props> = ({ feedType }) => {
       <EmptyState
         message={
           <div>
-            <span>Inbox zero!</span>
+            <Trans>Inbox zero!</Trans>
           </div>
         }
         icon={<LightningBoltIcon className="w-8 h-8 text-brand" />}

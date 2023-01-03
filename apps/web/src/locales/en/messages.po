@@ -129,6 +129,10 @@ msgid "Who to follow"
 msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
+msgid "No recommendations!"
+msgstr ""
+
+#: src/components/Home/RecommendedProfiles.tsx
 msgid "Show more"
 msgstr ""
 
@@ -168,8 +172,20 @@ msgstr ""
 msgid "Update profile now"
 msgstr ""
 
+#: src/components/Home/Suggested.tsx
+msgid "Nothing to suggest"
+msgstr ""
+
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Start messaging your Lens frens"
+msgstr ""
+
+#: src/components/Notification/List.tsx
+msgid "Inbox zero!"
 msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
@@ -244,6 +260,7 @@ msgid "Contact us to help you get the issue resolved."
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
+#: src/components/Shared/Modal/Report/index.tsx
 msgid "Publication reported successfully!"
 msgstr ""
 
@@ -283,12 +300,32 @@ msgstr ""
 msgid "Worldcoin verified"
 msgstr ""
 
+#: src/components/Profile/Followers.tsx
+msgid "doesn’t have any followers yet."
+msgstr ""
+
+#: src/components/Profile/Following.tsx
+msgid "doesn’t follow anyone."
+msgstr ""
+
+#: src/components/Profile/NFTFeed.tsx
+msgid "doesn’t have any NFTs!"
+msgstr ""
+
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
 msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>post</2></0>"
+msgstr ""
+
+#: src/components/Search/Profiles.tsx
+msgid "No profiles for <0>“{query}”</0>"
+msgstr ""
+
+#: src/components/Search/Publications.tsx
+msgid "No publications for <0>“{query}”</0>"
 msgstr ""
 
 #: src/components/Settings/Account/Language.tsx
@@ -486,6 +523,18 @@ msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect with one of our available wallet providers or create a new one."
+msgstr ""
+
+#: src/components/Shared/Modal/Collectors.tsx
+msgid "No collectors."
+msgstr ""
+
+#: src/components/Shared/Modal/Likes.tsx
+msgid "No likes."
+msgstr ""
+
+#: src/components/Shared/Modal/Mirrors.tsx
+msgid "No mirrors."
 msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx

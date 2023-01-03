@@ -55,7 +55,7 @@ const RecommendedProfiles: FC = () => {
         <EmptyState
           message={
             <div>
-              <span>No recommendations!</span>
+              <Trans>No recommendations!</Trans>
             </div>
           }
           icon={<UsersIcon className="w-8 h-8 text-brand" />}

@@ -129,6 +129,10 @@ msgid "Who to follow"
 msgstr "யாரை பின்பற்றுவது"
 
 #: src/components/Home/RecommendedProfiles.tsx
+msgid "No recommendations!"
+msgstr ""
+
+#: src/components/Home/RecommendedProfiles.tsx
 msgid "Show more"
 msgstr "மேலும் காட்டு"
 
@@ -168,9 +172,21 @@ msgstr "உங்கள் ஆர்வங்களைத் தேர்ந்�
 msgid "Update profile now"
 msgstr "சுயவிவரத்தை இப்போது புதுப்பிக்கவும்"
 
+#: src/components/Home/Suggested.tsx
+msgid "Nothing to suggest"
+msgstr ""
+
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
 msgstr "{0} பப்ளிகேஷன்ஸ்"
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Start messaging your Lens frens"
+msgstr ""
+
+#: src/components/Notification/List.tsx
+msgid "Inbox zero!"
+msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
@@ -244,6 +260,7 @@ msgid "Contact us to help you get the issue resolved."
 msgstr "சிக்கலைத் தீர்ப்பதற்கு உங்களுக்கு உதவ எங்களை தொடர்பு கொள்ளுங்கள்."
 
 #: src/components/Pages/Contact.tsx
+#: src/components/Shared/Modal/Report/index.tsx
 msgid "Publication reported successfully!"
 msgstr "இடுகை வெற்றிகரமாக புகார் செய்யப்பட்டது!"
 
@@ -283,12 +300,32 @@ msgstr "<0>சிபில் சரிபார்க்கப்பட்ட�
 msgid "Worldcoin verified"
 msgstr "Worldcoin சரிபார்க்கப்பட்டது"
 
+#: src/components/Profile/Followers.tsx
+msgid "doesn’t have any followers yet."
+msgstr ""
+
+#: src/components/Profile/Following.tsx
+msgid "doesn’t follow anyone."
+msgstr ""
+
+#: src/components/Profile/NFTFeed.tsx
+msgid "doesn’t have any NFTs!"
+msgstr ""
+
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
 msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>post</2></0>"
+msgstr ""
+
+#: src/components/Search/Profiles.tsx
+msgid "No profiles for <0>“{query}”</0>"
+msgstr ""
+
+#: src/components/Search/Publications.tsx
+msgid "No publications for <0>“{query}”</0>"
 msgstr ""
 
 #: src/components/Settings/Account/Language.tsx
@@ -488,6 +525,18 @@ msgstr "உங்கள் வாலட்டை இணைக்கவும்"
 msgid "Connect with one of our available wallet providers or create a new one."
 msgstr "எங்களிடம் இருக்கும் வாலட் வழங்குநர்களில் ஒருவருடன் இணைக்கவும் அல்லது புதிய ஒன்றை உருவாக்கவும்."
 
+#: src/components/Shared/Modal/Collectors.tsx
+msgid "No collectors."
+msgstr ""
+
+#: src/components/Shared/Modal/Likes.tsx
+msgid "No likes."
+msgstr ""
+
+#: src/components/Shared/Modal/Mirrors.tsx
+msgid "No mirrors."
+msgstr ""
+
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
 msgstr "மேலும்"
@@ -555,4 +604,3 @@ msgstr "முகப்பு"
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr "உலாவு"
-
