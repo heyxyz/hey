@@ -3,6 +3,7 @@ import { Checkbox } from '@components/UI/Checkbox';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Menu } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { ChangeEvent } from 'react';
 import { useProfileFeedStore } from 'src/store/profile-feed';
@@ -40,7 +41,7 @@ const MediaFilter = () => {
               onChange={handleChange}
               checked={mediaFeedFilters.images}
               name="images"
-              label="Images"
+              label={t`Images`}
             />
           </Menu.Item>
           <Menu.Item
@@ -52,7 +53,12 @@ const MediaFilter = () => {
               )
             }
           >
-            <Checkbox onChange={handleChange} checked={mediaFeedFilters.video} name="video" label="Video" />
+            <Checkbox
+              onChange={handleChange}
+              checked={mediaFeedFilters.video}
+              name="video"
+              label={t`Video`}
+            />
           </Menu.Item>
           <Menu.Item
             as="label"
@@ -63,7 +69,12 @@ const MediaFilter = () => {
               )
             }
           >
-            <Checkbox onChange={handleChange} checked={mediaFeedFilters.audio} name="audio" label="Audio" />
+            <Checkbox
+              onChange={handleChange}
+              checked={mediaFeedFilters.audio}
+              name="audio"
+              label={t`Audio`}
+            />
           </Menu.Item>
         </Menu.Items>
       </MenuTransition>

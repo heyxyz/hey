@@ -6,6 +6,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
+import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { PublicationSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchPublicationsQuery } from 'lens';
@@ -53,9 +54,9 @@ const Publications: FC<Props> = ({ query }) => {
     return (
       <EmptyState
         message={
-          <div>
+          <Trans>
             No publications for <b>&ldquo;{query}&rdquo;</b>
-          </div>
+          </Trans>
         }
         icon={<CollectionIcon className="w-8 h-8 text-brand" />}
       />
@@ -63,7 +64,7 @@ const Publications: FC<Props> = ({ query }) => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load publications" error={error} />;
+    return <ErrorMessage title={t`Failed to load publications`} error={error} />;
   }
 
   return (

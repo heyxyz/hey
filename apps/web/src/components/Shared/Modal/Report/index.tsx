@@ -8,6 +8,7 @@ import type { LensterPublication } from '@generated/types';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
+import { t, Trans } from '@lingui/macro';
 import { useReportPublicationMutation } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -64,7 +65,7 @@ const Report: FC<Props> = ({ publication }) => {
     <div onClick={(event) => event.stopPropagation()}>
       {submitData?.reportPublication === null ? (
         <EmptyState
-          message={<span>Publication reported successfully!</span>}
+          message={t`Publication reported successfully!`}
           icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
           hideCard
         />
@@ -77,13 +78,13 @@ const Report: FC<Props> = ({ publication }) => {
               reportPublication(additionalComments);
             }}
           >
-            {submitError && <ErrorMessage title="Failed to report" error={submitError} />}
+            {submitError && <ErrorMessage title={t`Failed to report`} error={submitError} />}
             <Reason setType={setType} setSubReason={setSubReason} type={type} subReason={subReason} />
             {subReason && (
               <>
                 <TextArea
-                  label="Description"
-                  placeholder="Tell us something about the community!"
+                  label={t`Description`}
+                  placeholder={t`Please provide additional details`}
                   {...form.register('additionalComments')}
                 />
                 <div className="ml-auto">
@@ -92,7 +93,7 @@ const Report: FC<Props> = ({ publication }) => {
                     disabled={submitLoading}
                     icon={submitLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
                   >
-                    Report
+                    <Trans>Report</Trans>
                   </Button>
                 </div>
               </>

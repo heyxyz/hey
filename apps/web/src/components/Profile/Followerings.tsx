@@ -2,6 +2,7 @@ import { Modal } from '@components/UI/Modal';
 import { UsersIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import humanize from '@lib/humanize';
+import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -43,7 +44,7 @@ const Followerings: FC<Props> = ({ profile }) => {
         <div className="lt-text-gray-500">Followers</div>
       </button>
       <Modal
-        title="Following"
+        title={t`Following`}
         icon={<UsersIcon className="w-5 h-5 text-brand" />}
         show={showFollowingModal}
         onClose={() => setShowFollowingModal(false)}
@@ -51,7 +52,7 @@ const Followerings: FC<Props> = ({ profile }) => {
         <Following profile={profile} />
       </Modal>
       <Modal
-        title="Followers"
+        title={t`Followers`}
         icon={<UsersIcon className="w-5 h-5 text-brand" />}
         show={showFollowersModal}
         onClose={() => setShowFollowersModal(false)}

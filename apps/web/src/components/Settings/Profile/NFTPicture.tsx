@@ -9,6 +9,7 @@ import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { t } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { NftImage, Profile, UpdateProfileImageRequest } from 'lens';
@@ -203,12 +204,12 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         </div>
       </div>
       <Input
-        label="Contract Address"
+        label={t`Contract Address`}
         type="text"
         placeholder="0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac"
         {...form.register('contractAddress')}
       />
-      <Input label="Token Id" type="text" placeholder="1" {...form.register('tokenId')} />
+      <Input label={t`Token Id`} type="text" placeholder="1" {...form.register('tokenId')} />
 
       <div className="flex flex-col space-y-2">
         <Button

@@ -2,6 +2,7 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
+import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile } from 'lens';
 import { useMutualFollowersListQuery } from 'lens';
@@ -44,7 +45,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
 
   return (
     <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
-      <ErrorMessage className="m-5" title="Failed to load mutual followers" error={error} />
+      <ErrorMessage className="m-5" title={t`Failed to load mutual followers`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}
         scrollThreshold={SCROLL_THRESHOLD}

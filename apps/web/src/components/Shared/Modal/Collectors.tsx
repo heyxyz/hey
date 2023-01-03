@@ -4,6 +4,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
+import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, Wallet } from 'lens';
 import { useCollectorsQuery } from 'lens';
@@ -43,7 +44,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
     return (
       <div className="p-5">
         <EmptyState
-          message={<span>No collectors.</span>}
+          message={t`No collectors.`}
           icon={<CollectionIcon className="w-8 h-8 text-brand" />}
           hideCard
         />
@@ -53,7 +54,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
 
   return (
     <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
-      <ErrorMessage className="m-5" title="Failed to load collectors" error={error} />
+      <ErrorMessage className="m-5" title={t`Failed to load collectors`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}
         scrollThreshold={SCROLL_THRESHOLD}
