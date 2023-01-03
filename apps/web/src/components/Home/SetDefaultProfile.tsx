@@ -1,5 +1,6 @@
 import { Card } from '@components/UI/Card';
 import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -21,14 +22,20 @@ const SetDefaultProfile: FC = () => {
     >
       <div className="flex items-center space-x-2 font-bold">
         <UserCircleIcon className="w-5 h-5" />
-        <p>Set default profile</p>
+        <p>
+          <Trans>Set default profile</Trans>
+        </p>
       </div>
       <p className="text-sm leading-[22px]">
-        You own {count} {count === 1 ? 'profile' : 'profiles'} but you don't have a default one.
+        <Trans>
+          You own {count} {count === 1 ? 'profile' : 'profiles'} but you don't have a default one.
+        </Trans>
       </p>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <CurrencyDollarIcon className="w-4 h-4" />
-        <Link href="/settings/account">Set default profile here</Link>
+        <Link href="/settings/account">
+          <Trans>Set default profile here</Trans>
+        </Link>
       </div>
     </Card>
   );
