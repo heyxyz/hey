@@ -719,10 +719,6 @@ msgstr "நீங்கள் எந்த நேரத்திலும் இ
 msgid "Select profile"
 msgstr "சுயவிவரத்தைத் தேர்ந்தெடுக்கவும்"
 
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "You don’t have any default profile set!"
-#~ msgstr ""
-
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
 msgstr ""
@@ -754,10 +750,6 @@ msgstr "சூப்பர் பின்தொடர்பை புதுப�
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
 msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
-
-#: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Setting super follow makes users spend crypto to follow you, and it’s a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-#~ msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
@@ -950,11 +942,11 @@ msgid "Twitter"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Tell us something about you!"
+msgid "Bio"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Bio"
+msgid "Tell us something about you!"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -1103,10 +1095,6 @@ msgstr "உங்கள் வாலட்டை இணைக்கவும்"
 #: src/components/Shared/Login/index.tsx
 msgid "Connect with one of our available wallet providers or create a new one."
 msgstr "எங்களிடம் இருக்கும் வாலட் வழங்குநர்களில் ஒருவருடன் இணைக்கவும் அல்லது புதிய ஒன்றை உருவாக்கவும்."
-
-#: src/components/Shared/Login/index.tsx
-#~ msgid "{APP_NAME} uses this signature to verify that you’re the owner of this address."
-#~ msgstr ""
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
@@ -1317,4 +1305,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

@@ -719,10 +719,6 @@ msgstr ""
 msgid "Select profile"
 msgstr ""
 
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "You don’t have any default profile set!"
-#~ msgstr ""
-
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
 msgstr ""
@@ -754,10 +750,6 @@ msgstr ""
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
 msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Setting super follow makes users spend crypto to follow you, and it’s a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-#~ msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
@@ -950,11 +942,11 @@ msgid "Twitter"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Tell us something about you!"
+msgid "Bio"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Bio"
+msgid "Tell us something about you!"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -1103,10 +1095,6 @@ msgstr ""
 #: src/components/Shared/Login/index.tsx
 msgid "Connect with one of our available wallet providers or create a new one."
 msgstr ""
-
-#: src/components/Shared/Login/index.tsx
-#~ msgid "{APP_NAME} uses this signature to verify that you’re the owner of this address."
-#~ msgstr ""
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
