@@ -39,7 +39,7 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
   };
 
   if (loading) {
-    return <Loader message="Loading following" />;
+    return <Loader message={t`Loading following`} />;
   }
 
   if (followings?.length === 0) {

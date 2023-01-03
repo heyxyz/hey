@@ -9,6 +9,7 @@ import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { parseConversationKey } from '@lib/conversationKey';
 import formatHandle from '@lib/formatHandle';
+import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -70,7 +71,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
         <Card className="h-full flex justify-between flex-col">
           {showLoading ? (
             <div className="flex h-full flex-grow justify-center items-center">
-              <Loader message="Loading messages" />
+              <Loader message={t`Loading messages`} />
             </div>
           ) : (
             <>

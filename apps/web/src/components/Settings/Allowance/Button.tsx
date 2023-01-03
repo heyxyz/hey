@@ -6,7 +6,7 @@ import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import onError from '@lib/onError';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -20,7 +20,7 @@ interface Props {
   setAllowed: Dispatch<boolean>;
 }
 
-const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllowed }) => {
+const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllowed }) => {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [generateAllowanceQuery, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
@@ -79,7 +79,7 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       }
       onClick={() => handleAllowance(module.currency, '0', module.module)}
     >
-      Revoke
+      <Trans>Revoke</Trans>
     </Button>
   ) : (
     <>
@@ -98,11 +98,13 @@ const AllowanceButton: FC<Props> = ({ title = 'Allow', module, allowed, setAllow
       >
         <div className="p-5 space-y-3">
           <WarningMessage
-            title="Handle with care!"
+            title={t`Handle with care!`}
             message={
               <div className="leading-6">
-                Please be aware that by allowing this module, the amount indicated will be automatically
-                deducted when you <b>collect</b> and <b>super follow</b>.
+                <Trans>
+                  Please be aware that by allowing this module, the amount indicated will be automatically
+                  deducted when you <b>collect</b> and <b>super follow</b>.
+                </Trans>
               </div>
             }
           />

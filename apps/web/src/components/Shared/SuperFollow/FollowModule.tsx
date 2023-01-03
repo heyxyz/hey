@@ -11,6 +11,7 @@ import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { t } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import type { Profile } from 'lens';
@@ -154,7 +155,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
   };
 
   if (loading) {
-    return <Loader message="Loading super follow" />;
+    return <Loader message={t`Loading super follow`} />;
   }
 
   return (
@@ -198,15 +199,15 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
         <ul className="space-y-1 text-sm lt-text-gray-500">
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>You can comment on @{formatHandle(profile?.handle)}&rsquo;s publications</div>
+            <div>You can comment on @{formatHandle(profile?.handle)}'s publications</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>You can collect @{formatHandle(profile?.handle)}&rsquo;s publications</div>
+            <div>You can collect @{formatHandle(profile?.handle)}'s publications</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>
-            <div>You will get super follow badge in @{formatHandle(profile?.handle)}&rsquo;s profile</div>
+            <div>You will get super follow badge in @{formatHandle(profile?.handle)}'s profile</div>
           </li>
           <li className="flex space-x-2 tracking-normal leading-6">
             <div>•</div>

@@ -19,7 +19,7 @@ import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
-  loading: () => <Loader message="Loading collect" />
+  loading: () => <Loader message={t`Loading collect`} />
 });
 
 interface Props {

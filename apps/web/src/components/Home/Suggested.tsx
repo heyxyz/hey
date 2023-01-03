@@ -12,7 +12,7 @@ const Suggested: FC = () => {
   const { data, loading, error } = useRecommendedProfilesQuery();
 
   if (loading) {
-    return <Loader message="Loading suggested" />;
+    return <Loader message={t`Loading suggested`} />;
   }
 
   if (data?.recommendedProfiles?.length === 0) {

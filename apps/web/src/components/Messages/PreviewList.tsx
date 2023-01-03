@@ -123,7 +123,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             </div>
           ) : showLoading ? (
             <div className="flex h-full flex-grow justify-center items-center">
-              <Loader message="Loading conversations" />
+              <Loader message={t`Loading conversations`} />
             </div>
           ) : profilesError ? (
             <ErrorMessage
