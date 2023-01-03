@@ -7,6 +7,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { PlusIcon } from '@heroicons/react/outline';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import uploadToIPFS from '@lib/uploadToIPFS';
+import { t } from '@lingui/macro';
 import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
 import { useCreateProfileMutation } from 'lens';
 import type { ChangeEvent, FC } from 'react';
@@ -86,7 +87,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
           <div className="text-xl font-bold">Sign up to {APP_NAME}</div>
         </div>
       )}
-      <Input label="Handle" type="text" placeholder="gavin" {...form.register('handle')} />
+      <Input label={t`Handle`} type="text" placeholder="gavin" {...form.register('handle')} />
       <div className="space-y-1.5">
         <div className="label">Avatar</div>
         <div className="space-y-3">

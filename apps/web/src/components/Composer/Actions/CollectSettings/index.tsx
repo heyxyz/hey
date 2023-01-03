@@ -4,6 +4,7 @@ import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CashIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -34,7 +35,7 @@ const CollectSettings: FC = () => {
         </motion.button>
       </Tooltip>
       <Modal
-        title="Collect settings"
+        title={t`Collect settings`}
         icon={<CashIcon className="w-5 h-5 text-brand" />}
         show={showModal}
         onClose={() => setShowModal(false)}

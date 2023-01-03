@@ -12,6 +12,7 @@ import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
+import { t } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
@@ -121,7 +122,7 @@ const DeleteSettings: FC = () => {
             {isDeleting ? 'Deleting...' : 'Delete your account'}
           </Button>
           <Modal
-            title="Danger Zone"
+            title={t`Danger Zone`}
             icon={<ExclamationIcon className="w-5 h-5 text-red-500" />}
             show={showWarningModal}
             onClose={() => setShowWarningModal(false)}

@@ -6,6 +6,7 @@ import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import nFormatter from '@lib/nFormatter';
+import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
@@ -45,7 +46,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
           </button>
           <Modal
-            title="Mirrored by"
+            title={t`Mirrored by`}
             icon={<SwitchHorizontalIcon className="w-5 h-5 text-brand" />}
             show={showMirrorsModal}
             onClose={() => setShowMirrorsModal(false)}
@@ -66,7 +67,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
           </button>
           <Modal
-            title="Liked by"
+            title={t`Liked by`}
             icon={<HeartIcon className="w-5 h-5 text-brand" />}
             show={showLikesModal}
             onClose={() => setShowLikesModal(false)}
@@ -87,7 +88,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
           </button>
           <Modal
-            title="Collected by"
+            title={t`Collected by`}
             icon={<CollectionIcon className="w-5 h-5 text-brand" />}
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}
