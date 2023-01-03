@@ -14,10 +14,9 @@ const ModAction: FC<Props> = ({ publication }) => {
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
 
   return (
-    <span className="flex items-center gap-3 mt-3 text-sm">
+    <span className="flex items-center gap-3 mt-3 text-sm" onClick={(event) => event.stopPropagation()}>
       <Button
-        onClick={(event) => {
-          event.stopPropagation();
+        onClick={() => {
           setShowReportModal(true, publication, { type: 'spamReason', subReason: 'FAKE_ENGAGEMENT' });
           Analytics.track(MOD.SPAM);
         }}
@@ -28,8 +27,7 @@ const ModAction: FC<Props> = ({ publication }) => {
         Spam
       </Button>
       <Button
-        onClick={(event) => {
-          event.stopPropagation();
+        onClick={() => {
           setShowReportModal(true, publication);
           Analytics.track(MOD.OTHER);
         }}
@@ -38,8 +36,7 @@ const ModAction: FC<Props> = ({ publication }) => {
         Others
       </Button>
       <Button
-        onClick={(event) => {
-          event.stopPropagation();
+        onClick={() => {
           window.open(`/posts/${publication?.id}`, '_blank');
         }}
         icon={<ExternalLinkIcon className="h-4 w-4" />}

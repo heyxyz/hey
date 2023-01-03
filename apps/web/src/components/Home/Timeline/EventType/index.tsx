@@ -35,7 +35,7 @@ const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
   }
 
   return (
-    <>
+    <span onClick={(event) => event.stopPropagation()}>
       {canCombined ? (
         <Combined feedItem={feedItem} />
       ) : (
@@ -46,7 +46,7 @@ const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
         </>
       )}
       {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
-    </>
+    </span>
   );
 };
 
