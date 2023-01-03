@@ -45,16 +45,22 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     : publication?.stats?.totalAmountOfCollects;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
-  const availableLinks =
-    getURLs(mainPost?.metadata.content || '') || getURLs(commentOn?.metadata.content || '');
+  const availableLinks = [
+    ...getURLs(mainPost?.metadata.content ?? ''),
+    ...getURLs(commentOn?.metadata.content ?? '')
+  ];
 
-  useEffect(() => {
+  const scrollToThread = () => {
     if ((!mainPost && !commentOn) || !threadRef.current) {
       return;
     }
     if (!availableLinks.length) {
       threadRef.current?.scrollIntoView({ block: 'start' });
     }
+  };
+
+  useEffect(() => {
+    scrollToThread();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [threadRef, availableLinks]);
 
