@@ -7,6 +7,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
+import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile } from 'lens';
 import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from 'lens';
@@ -97,7 +98,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load profile feed" error={error} />;
+    return <ErrorMessage title={t`Failed to load profile feed`} error={error} />;
   }
 
   return (

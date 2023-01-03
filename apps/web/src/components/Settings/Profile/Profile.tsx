@@ -19,11 +19,11 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import uploadToIPFS from '@lib/uploadToIPFS';
+import { t } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
 import { APP_NAME, COVER, LENS_PERIPHERY, SIGN_WALLET, URL_REGEX } from 'data/constants';
-import type { CreatePublicSetProfileMetadataUriRequest, MediaSet } from 'lens';
+import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Profile } from 'lens';
 import {
-  Profile,
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
@@ -53,7 +53,7 @@ interface Props {
   profile: Profile & { coverPicture: MediaSet };
 }
 
-const Profile: FC<Props> = ({ profile }) => {
+const ProfileSettingsForm: FC<Props> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');
@@ -241,18 +241,18 @@ const Profile: FC<Props> = ({ profile }) => {
         }}
       >
         {error && <ErrorMessage className="mb-3" title="Transaction failed!" error={error} />}
-        <Input label="Profile Id" type="text" value={currentProfile?.id} disabled />
-        <Input label="Name" type="text" placeholder="Gavin" {...form.register('name')} />
-        <Input label="Location" type="text" placeholder="Miami" {...form.register('location')} />
-        <Input label="Website" type="text" placeholder="https://hooli.com" {...form.register('website')} />
+        <Input label={t`Profile Id`} type="text" value={currentProfile?.id} disabled />
+        <Input label={t`Name`} type="text" placeholder="Gavin" {...form.register('name')} />
+        <Input label={t`Location`} type="text" placeholder="Miami" {...form.register('location')} />
+        <Input label={t`Website`} type="text" placeholder="https://hooli.com" {...form.register('website')} />
         <Input
-          label="Twitter"
+          label={t`Twitter`}
           type="text"
           prefix="https://twitter.com"
           placeholder="gavin"
           {...form.register('twitter')}
         />
-        <TextArea label="Bio" placeholder="Tell us something about you!" {...form.register('bio')} />
+        <TextArea label={t`Bio`} placeholder={t`Tell us something about you!`} {...form.register('bio')} />
         <div className="space-y-1.5">
           <div className="label">Cover</div>
           <div className="space-y-3">
@@ -297,4 +297,4 @@ const Profile: FC<Props> = ({ profile }) => {
   );
 };
 
-export default Profile;
+export default ProfileSettingsForm;

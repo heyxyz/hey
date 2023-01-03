@@ -9,6 +9,7 @@ import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
 import nFormatter from '@lib/nFormatter';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ElectedMirror } from 'lens';
 import { CollectModules } from 'lens';
@@ -79,9 +80,9 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
       <Modal
         title={
           isFreeCollect
-            ? 'Free Collect'
+            ? t`Free Collect`
             : isUnknownCollect
-            ? 'Unknown Collect'
+            ? t`Unknown Collect`
             : getModule(publication?.collectModule?.type).name
         }
         icon={

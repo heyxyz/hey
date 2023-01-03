@@ -9,6 +9,8 @@
     "typecheck": { "outputs": [] },
     "codegen": { "outputs": [] },
     "test": { "outputs": [] },
+    "crowdin": { "outputs": [] },
+    "extract": { "outputs": [] },
     "dev": { "cache": false }
   }
 }

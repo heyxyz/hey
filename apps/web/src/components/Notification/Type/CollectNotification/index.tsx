@@ -6,6 +6,9 @@ import {
 import UserPreview from '@components/Shared/UserPreview';
 import { CollectionIcon } from '@heroicons/react/solid';
 import formatTime from '@lib/formatTime';
+import type { MessageDescriptor } from '@lingui/core/cjs/i18n';
+import { defineMessage } from '@lingui/macro';
+import { Trans } from '@lingui/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { NewCollectNotification } from 'lens';
@@ -21,7 +24,24 @@ interface Props {
   notification: NewCollectNotification;
 }
 
+const messages: Record<string, MessageDescriptor> = {
+  comment: defineMessage({
+    id: '<0><1/> collected your <2>comment</2></0>'
+  }),
+  mirror: defineMessage({
+    id: '<0><1/> collected your <2>mirror</2></0>'
+  }),
+  post: defineMessage({
+    id: '<0><1/> collected your <2>post</2></0>'
+  })
+};
+
+const defaultMessage = (typeName: string): string => {
+  return '<0><1/> collected your <2>' + typeName + '</2></0>';
+};
+
 const CollectNotification: FC<Props> = ({ notification }) => {
+  const typeName = notification?.collectedPublication.__typename?.toLowerCase() || '';
   return (
     <div className="flex justify-between items-start">
       <div className="space-y-2 w-4/5">
@@ -36,15 +56,18 @@ const CollectNotification: FC<Props> = ({ notification }) => {
           )}
         </div>
         <div className="ml-9">
-          {notification?.wallet?.defaultProfile ? (
-            <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
-          ) : (
-            <NotificationWalletProfileName wallet={notification?.wallet} />
-          )}{' '}
-          <span className="text-gray-600 dark:text-gray-400">collected your </span>
-          <Link href={`/posts/${notification?.collectedPublication?.id}`} className="font-bold">
-            {notification?.collectedPublication.__typename?.toLowerCase()}
-          </Link>
+          <Trans
+            id={messages[typeName]?.id || defaultMessage(typeName)}
+            components={[
+              <span className="text-gray-600 dark:text-gray-400" key="" />,
+              notification?.wallet?.defaultProfile ? (
+                <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
+              ) : (
+                <NotificationWalletProfileName wallet={notification?.wallet} />
+              ),
+              <Link href={`/posts/${notification?.collectedPublication?.id}`} className="font-bold" key="" />
+            ]}
+          />
           <CollectedContent notification={notification} />
           <CollectedAmount notification={notification} />
         </div>

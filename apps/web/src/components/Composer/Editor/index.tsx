@@ -10,6 +10,7 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { Trans } from '@lingui/macro';
 import { ERROR_MESSAGE } from 'data/constants';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -40,7 +41,7 @@ const Editor: FC = () => {
         contentEditable={<ContentEditable className="px-5 block my-4 min-h-[65px] overflow-auto" />}
         placeholder={
           <div className="px-5 absolute top-[65px] text-gray-400 pointer-events-none whitespace-nowrap">
-            What's happening?
+            <Trans>What's happening?</Trans>
           </div>
         }
         ErrorBoundary={() => <div>{ERROR_MESSAGE}</div>}

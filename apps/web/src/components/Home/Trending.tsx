@@ -4,6 +4,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
 import nFormatter from '@lib/nFormatter';
+import { t, Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
 import { TagSortCriteria, useTrendingQuery } from 'lens';
 import Link from 'next/link';
@@ -14,7 +15,9 @@ const Title = () => {
   return (
     <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
       <TrendingUpIcon className="w-4 h-4 text-green-500" />
-      <div>Trending</div>
+      <div>
+        <Trans>Trending</Trans>
+      </div>
     </div>
   );
 };
@@ -44,7 +47,7 @@ const Trending: FC = () => {
     <>
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
-        <ErrorMessage title="Failed to load trending" error={error} />
+        <ErrorMessage title={t`Failed to load trending`} error={error} />
         {data?.allPublicationsTags?.items?.map((tag: TagResult) =>
           tag?.tag !== '{}' ? (
             <div key={tag?.tag}>
@@ -53,7 +56,9 @@ const Trending: FC = () => {
                 onClick={() => Analytics.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
               >
                 <div className="font-bold">{tag?.tag}</div>
-                <div className="text-[12px] lt-text-gray-500">{nFormatter(tag?.total)} Publications</div>
+                <div className="text-[12px] lt-text-gray-500">
+                  <Trans>{nFormatter(tag?.total)} Publications</Trans>
+                </div>
               </Link>
             </div>
           ) : null

@@ -11,6 +11,7 @@ import {
   UserGroupIcon
 } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
+import { t, Trans } from '@lingui/macro';
 import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -122,13 +123,15 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     return (
       <div className="py-3.5 px-5 space-y-2 font-bold text-center">
         <Spinner size="md" className="mx-auto" />
-        <div>Loading collect settings</div>
+        <div>
+          <Trans>Loading collect settings</Trans>
+        </div>
       </div>
     );
   }
 
   if (error) {
-    return <ErrorMessage className="p-5" title="Failed to load modules" error={error} />;
+    return <ErrorMessage className="p-5" title={t`Failed to load modules`} error={error} />;
   }
 
   const toggleCollect = () => {
@@ -145,14 +148,18 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     <div className="p-5 space-y-3">
       <div className="flex items-center space-x-2">
         <Toggle on={selectedCollectModule !== RevertCollectModule} setOn={toggleCollect} />
-        <div className="lt-text-gray-500 text-sm font-bold">This post can be collected</div>
+        <div className="lt-text-gray-500 text-sm font-bold">
+          <Trans>This post can be collected</Trans>
+        </div>
       </div>
       {selectedCollectModule !== RevertCollectModule && (
         <div className="ml-5">
           <div className="space-y-2 pt-3">
             <div className="flex items-center space-x-2">
               <CollectionIcon className="h-4 w-4 text-brand-500" />
-              <span>Charge for collecting</span>
+              <span>
+                <Trans>Charge for collecting</Trans>
+              </span>
             </div>
             <div className="flex items-center space-x-2">
               <Toggle
@@ -163,14 +170,14 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 }}
               />
               <div className="lt-text-gray-500 text-sm font-bold">
-                Get paid whenever someone collects your post
+                <Trans>Get paid whenever someone collects your post</Trans>
               </div>
             </div>
             {amount ? (
               <div className="pt-2">
                 <div className="text-sm flex space-x-2">
                   <Input
-                    label="Price"
+                    label={t`Price`}
                     type="number"
                     placeholder="0.5"
                     min="0"
@@ -181,7 +188,9 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                     }}
                   />
                   <div>
-                    <div className="label">Select Currency</div>
+                    <div className="label">
+                      <Trans>Select Currency</Trans>
+                    </div>
                     <select
                       className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
                       onChange={(e) => setSelectedCurrency(e.target.value)}
@@ -201,14 +210,16 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 <div className="space-y-2 pt-5">
                   <div className="flex items-center space-x-2">
                     <SwitchHorizontalIcon className="h-4 w-4 text-brand-500" />
-                    <span>Mirror referral reward</span>
+                    <span>
+                      <Trans>Mirror referral reward</Trans>
+                    </span>
                   </div>
                   <div className="lt-text-gray-500 text-sm font-bold">
-                    Share your collect fee with people who amplify your content
+                    <Trans>Share your collect fee with people who amplify your content</Trans>
                   </div>
                   <div className="text-sm pt-2 flex space-x-2">
                     <Input
-                      label="Referral fee"
+                      label={t`Referral fee`}
                       type="number"
                       placeholder="5"
                       iconRight="%"
@@ -229,7 +240,9 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               <div className="space-y-2 pt-5">
                 <div className="flex items-center space-x-2">
                   <StarIcon className="h-4 w-4 text-brand-500" />
-                  <span>Limited edition</span>
+                  <span>
+                    <Trans>Limited edition</Trans>
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Toggle
@@ -239,12 +252,14 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                       Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
                     }}
                   />
-                  <div className="lt-text-gray-500 text-sm font-bold">Make the collects exclusive</div>
+                  <div className="lt-text-gray-500 text-sm font-bold">
+                    <Trans>Make the collects exclusive</Trans>
+                  </div>
                 </div>
                 {collectLimit ? (
                   <div className="text-sm pt-2 flex space-x-2">
                     <Input
-                      label="Collect limit"
+                      label={t`Collect limit`}
                       type="number"
                       placeholder="5"
                       min="1"
@@ -260,7 +275,9 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               <div className="space-y-2 pt-5">
                 <div className="flex items-center space-x-2">
                   <ClockIcon className="h-4 w-4 text-brand-500" />
-                  <span>Time limit</span>
+                  <span>
+                    <Trans>Time limit</Trans>
+                  </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Toggle
@@ -270,7 +287,9 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                       Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
                     }}
                   />
-                  <div className="lt-text-gray-500 text-sm font-bold">Limit collecting to the first 24h</div>
+                  <div className="lt-text-gray-500 text-sm font-bold">
+                    <Trans>Limit collecting to the first 24h</Trans>
+                  </div>
                 </div>
               </div>
             </>
@@ -278,7 +297,9 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
           <div className="space-y-2 pt-5">
             <div className="flex items-center space-x-2">
               <UserGroupIcon className="h-4 w-4 text-brand-500" />
-              <span>Who can collect</span>
+              <span>
+                <Trans>Who can collect</Trans>
+              </span>
             </div>
             <div className="flex items-center space-x-2">
               <Toggle
@@ -288,7 +309,9 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
                 }}
               />
-              <div className="lt-text-gray-500 text-sm font-bold">Only followers can collect</div>
+              <div className="lt-text-gray-500 text-sm font-bold">
+                <Trans>Only followers can collect</Trans>
+              </div>
             </div>
           </div>
         </div>
@@ -303,9 +326,11 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
             setShowModal(false);
           }}
         >
-          Cancel
+          <Trans>Cancel</Trans>
         </Button>
-        <Button onClick={() => setShowModal(false)}>Save</Button>
+        <Button onClick={() => setShowModal(false)}>
+          <Trans>Save</Trans>
+        </Button>
       </div>
     </div>
   );
