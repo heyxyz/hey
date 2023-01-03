@@ -117,10 +117,13 @@ const Attachments: FC<Props> = ({
                 <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
               ) : (
                 <img
-                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700"
+                  className={clsx(
+                    'object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700',
+                    slicedAttachments.length === 1 && 'h-[380px]'
+                  )}
                   loading="lazy"
-                  height={1000}
-                  width={1000}
+                  height={380}
+                  width={380}
                   onClick={() => {
                     setExpandedImage(url);
                     Analytics.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);

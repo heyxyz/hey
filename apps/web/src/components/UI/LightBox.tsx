@@ -36,7 +36,7 @@ export const LightBox: FC<Props> = ({ show, url, onClose }) => {
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <img
-              className="max-h-screen"
+              className="max-h-screen object-contain"
               height={1000}
               width={1000}
               src={url ?? ''}
