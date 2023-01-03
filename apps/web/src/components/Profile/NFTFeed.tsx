@@ -5,6 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
+import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Nft, Profile } from 'lens';
 import { useNftFeedQuery } from 'lens';
@@ -50,7 +51,9 @@ const NFTFeed: FC<Props> = ({ profile }) => {
         message={
           <div>
             <span className="mr-1 font-bold">@{formatHandle(profile?.handle)}</span>
-            <span>doesn’t have any NFTs!</span>
+            <span>
+              <Trans>doesn’t have any NFTs!</Trans>
+            </span>
           </div>
         }
         icon={<CollectionIcon className="w-8 h-8 text-brand" />}
@@ -59,7 +62,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load nft feed" error={error} />;
+    return <ErrorMessage title={t`Failed to load nft feed`} error={error} />;
   }
 
   return (

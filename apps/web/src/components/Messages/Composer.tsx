@@ -4,6 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
+import { t } from '@lingui/macro';
 import { MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -52,7 +53,7 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
     <div className="flex space-x-4 p-4">
       <Input
         type="text"
-        placeholder="Type Something"
+        placeholder={t`Type Something`}
         value={message}
         disabled={disabledInput}
         onKeyDown={handleKeyDown}

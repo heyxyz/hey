@@ -177,7 +177,7 @@ const Status: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage title="Failed to load status settings" error={error} />;
+    return <ErrorMessage title={t`Failed to load status settings`} error={error} />;
   }
 
   const isLoading =
