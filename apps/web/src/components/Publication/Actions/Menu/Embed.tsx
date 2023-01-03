@@ -17,7 +17,8 @@ const Embed: FC<Props> = ({ publication }) => {
       className={({ active }) =>
         clsx({ 'dropdown-active': active }, 'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer')
       }
-      onClick={() => {
+      onClick={(event: any) => {
+        event.stopPropagation();
         Analytics.track(PUBLICATION.EMBED);
       }}
       href={`https://embed.withlens.app/?url=${publication?.id}`}
