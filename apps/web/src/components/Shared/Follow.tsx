@@ -7,12 +7,13 @@ import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { LensHubProxy } from 'abis';
-import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import { useBroadcastMutation, useCreateFollowTypedDataMutation, useProxyActionMutation } from 'lens';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -27,6 +28,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { address } = useAccount();
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
@@ -102,7 +104,8 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
 
   const createFollow = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      setShowAuthModal(true);
+      return;
     }
 
     try {
