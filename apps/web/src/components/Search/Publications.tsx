@@ -54,11 +54,9 @@ const Publications: FC<Props> = ({ query }) => {
     return (
       <EmptyState
         message={
-          <div>
-            <Trans>
-              No publications for <b>&ldquo;{query}&rdquo;</b>
-            </Trans>
-          </div>
+          <Trans>
+            No publications for <b>&ldquo;{query}&rdquo;</b>
+          </Trans>
         }
         icon={<CollectionIcon className="w-8 h-8 text-brand" />}
       />

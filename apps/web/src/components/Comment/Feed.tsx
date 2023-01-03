@@ -7,7 +7,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import { CustomFiltersTypes, useCommentFeedQuery } from 'lens';
 import type { FC } from 'react';
@@ -57,11 +57,7 @@ const Feed: FC<Props> = ({ publication }) => {
       {loading && <PublicationsShimmer />}
       {!loading && totalComments === 0 && (
         <EmptyState
-          message={
-            <span>
-              <Trans>Be the first one to comment!</Trans>
-            </span>
-          }
+          message={t`Be the first one to comment!`}
           icon={<CollectionIcon className="w-8 h-8 text-brand" />}
         />
       )}

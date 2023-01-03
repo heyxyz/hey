@@ -3,7 +3,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { LightningBoltIcon } from '@heroicons/react/outline';
-import { Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type {
   NewCollectNotification,
@@ -86,11 +86,7 @@ const List: FC<Props> = ({ feedType }) => {
   if (notifications?.length === 0) {
     return (
       <EmptyState
-        message={
-          <div>
-            <Trans>Inbox zero!</Trans>
-          </div>
-        }
+        message={t`Inbox zero!`}
         icon={<LightningBoltIcon className="w-8 h-8 text-brand" />}
         hideCard
       />

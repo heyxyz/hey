@@ -7,7 +7,7 @@ import { Modal } from '@components/UI/Modal';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
@@ -52,14 +52,7 @@ const RecommendedProfiles: FC = () => {
     return (
       <>
         <Title />
-        <EmptyState
-          message={
-            <div>
-              <Trans>No recommendations!</Trans>
-            </div>
-          }
-          icon={<UsersIcon className="w-8 h-8 text-brand" />}
-        />
+        <EmptyState message={t`No recommendations!`} icon={<UsersIcon className="w-8 h-8 text-brand" />} />
       </>
     );
   }

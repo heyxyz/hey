@@ -49,11 +49,9 @@ const Profiles: FC<Props> = ({ query }) => {
     return (
       <EmptyState
         message={
-          <div>
-            <Trans>
-              No profiles for <b>&ldquo;{query}&rdquo;</b>
-            </Trans>
-          </div>
+          <Trans>
+            No profiles for <b>&ldquo;{query}&rdquo;</b>
+          </Trans>
         }
         icon={<UsersIcon className="w-8 h-8 text-brand" />}
       />
