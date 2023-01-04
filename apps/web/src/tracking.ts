@@ -101,7 +101,8 @@ export const NOTIFICATION = {
   OPEN: 'open_notifications',
   SWITCH_ALL: 'switch_to_all_notifications',
   SWITCH_MENTIONS: 'switch_to_mentions_notifications',
-  SWITCH_COMMENTS: 'switch_to_comments_notifications'
+  SWITCH_COMMENTS: 'switch_to_comments_notifications',
+  SWITCH_COLLECTS: 'switch_to_collects_notifications'
 };
 
 export const MESSAGES = {
