@@ -1456,6 +1456,18 @@ msgstr ""
 msgid "Loading super follow"
 msgstr ""
 
+#: src/components/utils/hooks/useUploadAttachments.tsx
+msgid "Image size should be less than 10MB"
+msgstr ""
+
+#: src/components/utils/hooks/useUploadAttachments.tsx
+msgid "Video size should be less than 50MB"
+msgstr ""
+
+#: src/components/utils/hooks/useUploadAttachments.tsx
+msgid "Audio size should be less than 20MB"
+msgstr ""
+
 #: src/lib/getModule.ts
 msgid "The Unknown Collect Module is unknown and not type supported in the API."
 msgstr ""
