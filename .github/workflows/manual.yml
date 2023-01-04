@@ -1,0 +1,15 @@
+name: Sync branches
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Sync
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
+        
+      - name: Sync 🔁
+        run: script/sync-branches
