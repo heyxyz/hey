@@ -20,6 +20,7 @@ import type { Erc20OwnershipOutput, NftOwnershipOutput } from '@lens-protocol/sd
 import formatHandle from '@lib/formatHandle';
 import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
+import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
 import { LIT_PROTOCOL_ENVIRONMENT } from 'data/constants';
@@ -134,7 +135,9 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card className={clsx(cardClasses, 'cursor-text')} onClick={(event) => event.stopPropagation()}>
         <div className="font-bold flex items-center space-x-2">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
-          <span className="text-white font-black text-base">To view this...</span>
+          <span className="text-white font-black text-base">
+            <Trans>To view this...</Trans>
+          </span>
         </div>
         <div className="pt-3.5 space-y-2 text-white">
           {/* Collect checks */}
@@ -145,7 +148,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           )}
           {collectNotFinalisedOnChain && (
             <DecryptMessage icon={<CollectionIcon className="animate-pulse h-4 w-4" />}>
-              Collect finalizing on chain...
+              <Trans>Collect finalizing on chain...</Trans>
             </DecryptMessage>
           )}
 
@@ -160,7 +163,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           )}
           {followNotFinalisedOnChain && (
             <DecryptMessage icon={<UserAddIcon className="animate-pulse h-4 w-4" />}>
-              Follow finalizing on chain...
+              <Trans>Follow finalizing on chain...</Trans>
             </DecryptMessage>
           )}
 
@@ -190,7 +193,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   }
 
   if (decryptError) {
-    return <ErrorMessage title="Error while decrypting!" error={decryptError} />;
+    return <ErrorMessage title={t`Error while decrypting!`} error={decryptError} />;
   }
 
   if (!decryptedData) {
@@ -206,7 +209,9 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           {isDecrypting ? (
             <>
               <Spinner size="xs" className="mr-1" />
-              <span>Decrypting...</span>
+              <span>
+                <Trans>Decrypting...</Trans>
+              </span>
             </>
           ) : (
             <>
@@ -236,7 +241,9 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       {showMore && (
         <div className="mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1">
           <EyeIcon className="h-4 w-4" />
-          <Link href={`/posts/${encryptedPublication?.id}`}>Show more</Link>
+          <Link href={`/posts/${encryptedPublication?.id}`}>
+            <Trans>Show more</Trans>
+          </Link>
         </div>
       )}
       {publication?.content

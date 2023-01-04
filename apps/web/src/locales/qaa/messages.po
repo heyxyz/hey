@@ -329,6 +329,7 @@ msgid "Failed to load recommendations"
 msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "Show more"
 msgstr ""
 
@@ -758,6 +759,38 @@ msgstr ""
 msgid "Loading collect"
 msgstr ""
 
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "{0} collectors"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "{0} available"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "{0}% referral fee"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Revenue:"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Sale Ends:"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Token:"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Collect now"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "You already collected this"
+msgstr ""
+
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
@@ -768,8 +801,60 @@ msgstr ""
 msgid "Unknown Collect"
 msgstr ""
 
+#: src/components/Publication/Actions/Like.tsx
+msgid "Unlike"
+msgstr ""
+
+#: src/components/Publication/Actions/Like.tsx
+msgid "Like"
+msgstr ""
+
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "{0} Mirrors"
+msgstr ""
+
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Mirror"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction.tsx
+msgid "Spam"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction.tsx
+msgid "Others"
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "To view this..."
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "Collect finalizing on chain..."
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "Follow finalizing on chain..."
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "Error while decrypting!"
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "Decrypting..."
+msgstr ""
+
+#: src/components/Publication/HiddenPublication.tsx
+msgid "{type} was hidden by the author"
+msgstr ""
+
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
+msgstr ""
+
+#: src/components/Publication/Type/Collected.tsx
+msgid "collected the <0>{0}</0>"
 msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
