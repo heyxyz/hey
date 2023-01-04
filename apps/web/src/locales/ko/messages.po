@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-03 09:24\n"
+"PO-Revision-Date: 2023-01-04 05:16\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -272,6 +272,18 @@ msgstr ""
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr ""
 
+#: src/components/Home/EnableMessages.tsx
+msgid "Direct messages are here!"
+msgstr ""
+
+#: src/components/Home/EnableMessages.tsx
+msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
+msgstr ""
+
+#: src/components/Home/EnableMessages.tsx
+msgid "Enable DMs"
+msgstr ""
+
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Filter"
 msgstr ""
@@ -322,6 +334,7 @@ msgid "Failed to load recommendations"
 msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "Show more"
 msgstr ""
 
@@ -339,6 +352,30 @@ msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
+msgstr ""
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "Reset filter to your own feed"
+msgstr ""
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "Searching users"
+msgstr ""
+
+#: src/components/Home/SeeThroughLens.tsx
+msgid "No matching users"
+msgstr ""
+
+#: src/components/Home/SetDefaultProfile.tsx
+msgid "Set default profile"
+msgstr ""
+
+#: src/components/Home/SetDefaultProfile.tsx
+msgid "You own {count} {0} but you don't have a default one."
+msgstr ""
+
+#: src/components/Home/SetDefaultProfile.tsx
+msgid "Set default profile here"
 msgstr ""
 
 #: src/components/Home/SetProfile.tsx
@@ -374,6 +411,38 @@ msgstr ""
 msgid "Nothing to suggest"
 msgstr ""
 
+#: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Collected by"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "mirrored{0}"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "commented{0}{1}"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "collected{0}"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "liked"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Liked.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Liked by"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Mirrored by"
+msgstr ""
+
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
 msgstr ""
@@ -390,8 +459,42 @@ msgstr ""
 msgid "Type Something"
 msgstr ""
 
+#: src/components/Messages/Composer.tsx
+msgid "Send"
+msgstr ""
+
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "This fren hasn't enabled DMs yet"
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "You can't send them a message until they enable DMs."
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "This is the beginning of the conversation"
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "Loading..."
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+#: src/components/Profile/Followerings.tsx
+#: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "Requested"
+msgstr ""
+
+#: src/components/Messages/PreviewList.tsx
+msgid "These conversations are from Lens profiles that you don't currently follow."
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
@@ -414,6 +517,14 @@ msgstr ""
 msgid "Search for someone to message..."
 msgstr ""
 
+#: src/components/Messages/index.tsx
+msgid "Select a conversation"
+msgstr ""
+
+#: src/components/Messages/index.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr ""
+
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
 msgstr ""
@@ -424,6 +535,10 @@ msgstr ""
 
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
+msgstr ""
+
+#: src/components/Notification/Type/CollectNotification/Amount.tsx
+msgid "Collected for {0} {1}"
 msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
@@ -485,6 +600,22 @@ msgstr ""
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr ""
 
+#: src/components/Notification/index.tsx
+msgid "All notifications"
+msgstr ""
+
+#: src/components/Notification/index.tsx
+msgid "Mentions"
+msgstr ""
+
+#: src/components/Notification/index.tsx
+msgid "Comments"
+msgstr ""
+
+#: src/components/Notification/index.tsx
+msgid "Collects"
+msgstr ""
+
 #: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
 msgstr ""
@@ -531,11 +662,15 @@ msgid "Proof of Humanity verified"
 msgstr ""
 
 #: src/components/Profile/Badges/Sybil.tsx
-msgid "<0>Sybil verified</0>"
+msgid "Sybil verified"
 msgstr ""
 
 #: src/components/Profile/Badges/Worldcoin.tsx
 msgid "Worldcoin verified"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+msgid "Edit Profile"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
@@ -546,10 +681,23 @@ msgstr ""
 msgid "Failed to load profile feed"
 msgstr ""
 
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
+#: src/components/Profile/FeedType.tsx
+msgid "Feed"
 msgstr ""
 
+#: src/components/Profile/FeedType.tsx
+msgid "Replies"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+msgid "Media"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+msgid "NFTs"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
@@ -586,6 +734,10 @@ msgstr ""
 msgid "Failed to load mutual followers"
 msgstr ""
 
+#: src/components/Profile/MutualFollowers/index.tsx
+msgid "Followed by"
+msgstr ""
+
 #: src/components/Profile/NFTFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr ""
@@ -599,6 +751,14 @@ msgstr ""
 msgid "Loading analytics"
 msgstr ""
 
+#: src/components/Publication/Actions/Analytics/Stats.tsx
+msgid "Views"
+msgstr ""
+
+#: src/components/Publication/Actions/Analytics/Stats.tsx
+msgid "Times people viewed the details about this publication"
+msgstr ""
+
 #: src/components/Publication/Actions/Analytics/index.tsx
 msgid "Publication Analytics"
 msgstr ""
@@ -609,8 +769,35 @@ msgid "Loading collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Collected by"
+msgid "{0} collectors"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "{0} available"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "{0}% referral fee"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Revenue:"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Sale Ends:"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Token:"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Collect now"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "You already collected this"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -623,16 +810,60 @@ msgstr ""
 msgid "Unknown Collect"
 msgstr ""
 
-#: src/components/Publication/PublicationStats.tsx
-msgid "Mirrored by"
+#: src/components/Publication/Actions/Like.tsx
+msgid "Unlike"
 msgstr ""
 
-#: src/components/Publication/PublicationStats.tsx
-msgid "Liked by"
+#: src/components/Publication/Actions/Like.tsx
+msgid "Like"
+msgstr ""
+
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "{0} Mirrors"
+msgstr ""
+
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Mirror"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction.tsx
+msgid "Spam"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction.tsx
+msgid "Others"
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "To view this..."
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "Collect finalizing on chain..."
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "Follow finalizing on chain..."
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "Error while decrypting!"
+msgstr ""
+
+#: src/components/Publication/DecryptedPublicationBody.tsx
+msgid "Decrypting..."
+msgstr ""
+
+#: src/components/Publication/HiddenPublication.tsx
+msgid "{type} was hidden by the author"
 msgstr ""
 
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
+msgstr ""
+
+#: src/components/Publication/Type/Collected.tsx
+msgid "collected the <0>{0}</0>"
 msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
@@ -898,6 +1129,10 @@ msgid "Yes, delete my account"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Profile updated successfully!"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable dispatcher"
 msgstr ""
 
@@ -942,11 +1177,11 @@ msgid "Twitter"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Tell us something about you!"
+msgid "Bio"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Bio"
+msgid "Tell us something about you!"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
