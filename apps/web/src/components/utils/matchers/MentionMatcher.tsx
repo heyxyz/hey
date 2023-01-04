@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
+import { EmailMatcher } from './EmailMatcher';
+
 export const Mention = ({ ...props }: any) => {
   const profile = {
     __typename: 'Profile',
@@ -49,6 +51,11 @@ export class MentionMatcher extends Matcher {
   }
 
   match(value: string) {
+    const emailMatcher = new EmailMatcher('email');
+    const matchesEmail = emailMatcher.match(value);
+    if (matchesEmail) {
+      return null;
+    }
     return this.doMatch(value, /@[\w.-]+/, (matches) => {
       return { display: matches[0] };
     });
