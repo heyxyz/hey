@@ -2,7 +2,7 @@ import type { ChildrenNode, MatchResponse, Node } from 'interweave';
 import { Matcher } from 'interweave';
 import { createElement } from 'react';
 
-import { BLOCKED_TLDS, URL_PATTERN } from '../constants';
+import { BLOCKED_TLDS, URL_PATTERN } from './constants';
 
 interface UrlProps {
   children: ChildrenNode;

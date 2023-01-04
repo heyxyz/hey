@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-import { EmailMatcher } from './EmailMatcher';
+import { UrlMatcher } from './UrlMatcher';
 
 export const Mention = ({ ...props }: any) => {
   const profile = {
@@ -51,10 +51,14 @@ export class MentionMatcher extends Matcher {
   }
 
   match(value: string) {
-    const emailMatcher = new EmailMatcher('email');
-    const matchesEmail = emailMatcher.match(value);
-    if (matchesEmail) {
-      return null;
+    const urlMatcher = new UrlMatcher('url');
+    const urlResponse = urlMatcher.match(value);
+    if (urlResponse) {
+      const { host } = urlResponse;
+      const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
+      if (!['lens', 'test'].includes(tld)) {
+        return null;
+      }
     }
     return this.doMatch(value, /@[\w.-]+/, (matches) => {
       return { display: matches[0] };
