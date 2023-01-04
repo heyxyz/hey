@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import TabButton from '@components/UI/TabButton';
-import { AtSymbolIcon, ChatAlt2Icon, LightningBoltIcon } from '@heroicons/react/outline';
+import { AtSymbolIcon, ChatAlt2Icon, CollectionIcon, LightningBoltIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
@@ -14,7 +14,7 @@ import List from './List';
 
 const Notification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [feedType, setFeedType] = useState<'ALL' | 'MENTIONS' | 'COMMENTS'>('ALL');
+  const [feedType, setFeedType] = useState<'ALL' | 'MENTIONS' | 'COMMENTS' | 'COLLECTS'>('ALL');
 
   if (!currentProfile) {
     return <Custom404 />;
@@ -50,6 +50,15 @@ const Notification: FC = () => {
             onClick={() => {
               setFeedType('COMMENTS');
               Analytics.track(NOTIFICATION.SWITCH_COMMENTS);
+            }}
+          />
+          <TabButton
+            name={t`Collects`}
+            icon={<CollectionIcon className="w-4 h-4" />}
+            active={feedType === 'COLLECTS'}
+            onClick={() => {
+              setFeedType('COLLECTS');
+              Analytics.track(NOTIFICATION.SWITCH_COLLECTS);
             }}
           />
         </div>

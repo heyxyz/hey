@@ -612,6 +612,10 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
+#: src/components/Notification/index.tsx
+msgid "Collects"
+msgstr ""
+
 #: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
 msgstr ""
