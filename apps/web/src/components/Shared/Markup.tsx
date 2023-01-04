@@ -1,3 +1,4 @@
+import { EmailMatcher } from '@components/utils/matchers/EmailMatcher';
 import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher';
 import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher';
 import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher';
@@ -20,6 +21,7 @@ interface Props {
 const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
   const defaultMatchers = [
     new MDCodeMatcher('mdCode'),
+    new EmailMatcher('email'),
     new MentionMatcher('mention'),
     new MDLinkMatcher('mdLink'),
     new UrlMatcher('url'),

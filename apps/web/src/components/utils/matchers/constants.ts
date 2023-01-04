@@ -6,7 +6,7 @@ interface CombinePatternsOptions {
   nonCapture?: boolean;
 }
 
-const combinePatterns = (patterns: RegExp[], options: CombinePatternsOptions = {}) => {
+export const combinePatterns = (patterns: RegExp[], options: CombinePatternsOptions = {}) => {
   let regex = patterns.map((pattern) => pattern.source).join(options.join ?? '');
 
   if (options.capture) {
@@ -25,7 +25,14 @@ const combinePatterns = (patterns: RegExp[], options: CombinePatternsOptions = {
 const VALID_PATH_CHARS = /[\w!$%&'()*+,./;=[\\\]~\u0400-\u04FF\-]*/u;
 const URL_SCHEME = combinePatterns([/(https?:\/\/)?/], { capture: true });
 
-const URL_HOST = combinePatterns(
+export const VALID_ALNUM_CHARS = /[\da-z]/;
+export const EMAIL_USERNAME_PART = /[\d!#$%&*+.=?_a-z{|}~-]*/;
+
+export const EMAIL_USERNAME = combinePatterns([VALID_ALNUM_CHARS, EMAIL_USERNAME_PART, VALID_ALNUM_CHARS], {
+  capture: true
+});
+
+export const URL_HOST = combinePatterns(
   [
     /(?:[\da-z](?:[\d_a-z-]*[\da-z])?\.)*/, // Subdomain
     /(?:[\da-z](?:[\da-z-]*[\da-z])?\.)/, // Domain
