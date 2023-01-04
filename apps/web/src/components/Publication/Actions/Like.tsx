@@ -7,6 +7,7 @@ import { Analytics } from '@lib/analytics';
 import { publicationKeyFields } from '@lib/keyFields';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
+import { t } from '@lingui/macro';
 import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
@@ -103,7 +104,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
     <motion.button whileTap={{ scale: 0.9 }} onClick={createLike} aria-label="Like">
       <span className="flex items-center space-x-1 text-pink-500">
         <span className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">
-          <Tooltip placement="top" content={liked ? 'Unlike' : 'Like'} withDelay>
+          <Tooltip placement="top" content={liked ? t`Unlike` : t`Like`} withDelay>
             {liked ? <HeartIconSolid className={iconClassName} /> : <HeartIcon className={iconClassName} />}
           </Tooltip>
         </span>
