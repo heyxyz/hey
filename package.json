@@ -20,7 +20,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "husky": "^8.0.2",
+    "husky": "^8.0.3",
     "prettier": "latest",
     "turbo": "latest"
   },
