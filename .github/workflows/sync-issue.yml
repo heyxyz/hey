@@ -1,0 +1,17 @@
+name: Sync Issue to Height
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync issue
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://api.height.app/tasks'
+          method: 'POST'
+          customHeaders: '{ "Content-Type": "application/json", "Authorization": "api-key ${{ secrets.HEIGHT_SECRET_TOKEN }}" }'
+          data: '{ "name": "${{ github.event.issue.title }}", "listIds": ["c18298a5-1fd3-4bc7-81a0-2ecb1964fd76"], "status": "359d42b4-5e7b-46fa-8465-d179b5a097ef" }'
