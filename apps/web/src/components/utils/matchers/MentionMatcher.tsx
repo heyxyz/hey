@@ -56,7 +56,8 @@ export class MentionMatcher extends Matcher {
     if (urlResponse) {
       const { host } = urlResponse;
       const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
-      if (!['lens', 'test'].includes(tld)) {
+      const ALLOWED_MENTIONS = ['lens', 'test'];
+      if (!ALLOWED_MENTIONS.includes(tld)) {
         return null;
       }
     }
