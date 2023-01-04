@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-04 05:16\n"
+"PO-Revision-Date: 2023-01-04 09:49\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Collectors can view"
-msgstr ""
+msgstr "சேகரிப்பாளர்கள் பார்க்க முடியும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
@@ -53,17 +53,17 @@ msgstr ""
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Cancel"
-msgstr ""
+msgstr "ரத்து"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Save"
-msgstr ""
+msgstr "சேமி"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
-msgstr ""
+msgstr "அணுகல் அமைப்புகள்"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
@@ -91,7 +91,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Price"
-msgstr ""
+msgstr "விலை"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Settings/Account/SuperFollow.tsx
@@ -101,7 +101,7 @@ msgstr "நாணயத்தைத் தேர்ந்தெடுக்க�
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Mirror referral reward"
-msgstr ""
+msgstr "மிரர் பரிந்துரை வெகுமதி"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Share your collect fee with people who amplify your content"
@@ -109,11 +109,11 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Referral fee"
-msgstr ""
+msgstr "பரிந்துரை கட்டணம்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Limited edition"
-msgstr ""
+msgstr "வரையறுக்கப்பட்ட பதிப்பு"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Make the collects exclusive"
@@ -125,7 +125,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Time limit"
-msgstr ""
+msgstr "நேர வரம்பு"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Limit collecting to the first 24h"
@@ -133,11 +133,11 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Who can collect"
-msgstr ""
+msgstr "யார் சேகரிக்க முடியும்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Only followers can collect"
-msgstr ""
+msgstr "பின்பற்றுபவர்கள் மட்டுமே சேகரிக்க முடியும்"
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
@@ -145,11 +145,11 @@ msgstr ""
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "Search for GIFs"
-msgstr ""
+msgstr "GIF களைத் தேடுங்கள்"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "No GIFs found."
-msgstr ""
+msgstr "GIF கள் எதுவும் காணப்படவில்லை."
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Loading GIFs"
@@ -157,7 +157,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
-msgstr ""
+msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -165,15 +165,15 @@ msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers"
-msgstr ""
+msgstr "என்னை பின்தொடர்பவர்கள்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friends of friends"
-msgstr ""
+msgstr "நண்பர்களின் நண்பர்கள்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone"
-msgstr ""
+msgstr "எல்லோரும்"
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
@@ -187,7 +187,7 @@ msgstr "என்ன நடக்கிறது?"
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
-msgstr ""
+msgstr "பணப்பரிமாற்றம் தோல்வி அடைந்தது!"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Comment"
@@ -290,7 +290,7 @@ msgstr "வடிகட்டு"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Posts"
-msgstr ""
+msgstr "இடுகைகளைக் காட்டு"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Mirrors"
@@ -298,7 +298,7 @@ msgstr ""
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Likes"
-msgstr ""
+msgstr "விருப்பங்களைக் காட்டு"
 
 #: src/components/Home/FeedType.tsx
 msgid "Timeline"
@@ -457,11 +457,11 @@ msgstr "{0} பப்ளிகேஷன்ஸ்"
 
 #: src/components/Messages/Composer.tsx
 msgid "Type Something"
-msgstr ""
+msgstr "ஏதாவது டைப் செய்க"
 
 #: src/components/Messages/Composer.tsx
 msgid "Send"
-msgstr ""
+msgstr "அனுப்பு"
 
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
@@ -519,7 +519,7 @@ msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
-msgstr ""
+msgstr "உரையாடலைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Messages/index.tsx
 msgid "Choose an existing conversation or create a new one to start messaging"
@@ -602,15 +602,15 @@ msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2><
 
 #: src/components/Notification/index.tsx
 msgid "All notifications"
-msgstr ""
+msgstr "அனைத்து அறிவிப்புகளும்"
 
 #: src/components/Notification/index.tsx
 msgid "Mentions"
-msgstr ""
+msgstr "குறிப்பிடுதல்கள்"
 
 #: src/components/Notification/index.tsx
 msgid "Comments"
-msgstr ""
+msgstr "கருத்துரைகள்"
 
 #: src/components/Notification/index.tsx
 msgid "Collects"
@@ -671,7 +671,7 @@ msgstr "Worldcoin சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Details.tsx
 msgid "Edit Profile"
-msgstr ""
+msgstr "சுயவிவரத்தைத் திருத்து"
 
 #: src/components/Profile/Details.tsx
 msgid "Followers you know"
@@ -700,7 +700,7 @@ msgstr ""
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
-msgstr ""
+msgstr "பின்பற்றுபவர்கள்"
 
 #: src/components/Profile/Followers.tsx
 msgid "Loading followers"
@@ -720,7 +720,7 @@ msgstr ""
 
 #: src/components/Profile/Following.tsx
 msgid "doesn’t follow anyone."
-msgstr ""
+msgstr "யாரையும் பின்பற்றவில்லை."
 
 #: src/components/Profile/Following.tsx
 msgid "Failed to load following"
@@ -753,7 +753,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 msgid "Views"
-msgstr ""
+msgstr "பார்வைகள்"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 msgid "Times people viewed the details about this publication"
