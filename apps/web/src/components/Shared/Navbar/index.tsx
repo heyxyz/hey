@@ -96,7 +96,7 @@ const Navbar: FC = () => {
                   </div>
                 </div>
               </div>
-              <Link href="/" className="md:hidden">
+              <Link href="/" className={clsx('md:hidden', !currentProfile?.id && 'ml-14')}>
                 <img
                   className="w-7 h-7"
                   height={32}
