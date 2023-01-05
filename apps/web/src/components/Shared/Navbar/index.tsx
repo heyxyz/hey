@@ -2,7 +2,7 @@ import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import { t } from '@lingui/macro';
@@ -75,15 +75,10 @@ const Navbar: FC = () => {
           <div className="container px-5 mx-auto max-w-screen-xl">
             <div className="flex relative justify-between items-center h-14 sm:h-16">
               <div className="flex justify-start items-center">
-                <Disclosure.Button className="inline-flex justify-center items-center mr-4 lt-text-gray-500 rounded-md sm:hidden focus:outline-none">
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XIcon className="block w-6 h-6" aria-hidden="true" />
-                  ) : (
-                    <MenuIcon className="block w-6 h-6" aria-hidden="true" />
-                  )}
+                <Disclosure.Button className="inline-flex justify-center items-center text-gray-500 rounded-md md:hidden focus:outline-none">
+                  {open ? <XIcon className="w-6 h-6" /> : <SearchIcon className="w-6 h-6" />}
                 </Disclosure.Button>
-                <Link href="/">
+                <Link href="/" className="hidden md:block">
                   <img
                     className="w-8 h-8"
                     height={32}
@@ -92,15 +87,24 @@ const Navbar: FC = () => {
                     alt="Logo"
                   />
                 </Link>
-                <div className="hidden sm:block sm:ml-6">
+                <div className="hidden md:block sm:ml-6">
                   <div className="flex items-center space-x-4">
-                    <div className="hidden lg:block">
+                    <div className="hidden md:block">
                       <Search onProfileSelected={onProfileSelected} />
                     </div>
                     <NavItems />
                   </div>
                 </div>
               </div>
+              <Link href="/" className={clsx('md:hidden', !currentProfile?.id && 'ml-14')}>
+                <img
+                  className="w-7 h-7"
+                  height={32}
+                  width={32}
+                  src={currentProfile && hasPrideLogo(currentProfile) ? '/pride.svg' : '/logo.svg'}
+                  alt="Logo"
+                />
+              </Link>
               <div className="flex gap-4 items-center">
                 {currentProfile ? (
                   <>
@@ -114,11 +118,8 @@ const Navbar: FC = () => {
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-            <div className="flex flex-col p-3 space-y-2">
-              <div className="mb-2">
-                <Search hideDropdown onProfileSelected={onProfileSelected} />
-              </div>
-              <NavItems />
+            <div className="m-3">
+              <Search hideDropdown onProfileSelected={onProfileSelected} />
             </div>
           </Disclosure.Panel>
         </>
