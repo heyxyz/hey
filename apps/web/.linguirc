@@ -2,12 +2,10 @@
   "locales": [
     "en",
     "es",
-    "ta",
-    "qaa"
+    "ta"
   ],
-  "pseudoLocale": "qaa",
   "fallbackLocales": {
-    "qaa": "en"
+    "default": "en"
   },
   "catalogs": [
     {
