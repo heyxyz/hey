@@ -15,34 +15,34 @@ const BottomNavigation = () => {
   const isActivePath = (path: string) => router.pathname === path;
 
   return (
-    <div className="fixed pb-safe inset-x-0 bg-white border-t border-gray-200 dark:border-gray-800 dark:bg-black bottom-0 z-[4] md:hidden">
-      <div className="grid grid-cols-4 py-1">
-        <Link href="/" className="my-3 mx-auto">
+    <div className="fixed pb-safe flex items-center inset-x-0 bg-white border-t border-gray-200 dark:border-gray-800 dark:bg-black h-14 bottom-0 z-[4] md:hidden">
+      <div className="grid grid-cols-4 w-full">
+        <Link href="/" className="mx-auto">
           {isActivePath('/') ? (
-            <HomeIconSolid className="w-6 h-6 text-indigo-500" />
+            <HomeIconSolid className="w-7 h-7 text-indigo-500" />
           ) : (
-            <HomeIcon className="w-6 h-6" />
+            <HomeIcon className="w-7 h-7" />
           )}
         </Link>
-        <Link href="/explore" className="my-3 mx-auto">
+        <Link href="/explore" className="mx-auto">
           {isActivePath('/explore') ? (
-            <ViewGridIconSolid className="w-6 h-6 text-indigo-500" />
+            <ViewGridIconSolid className="w-7 h-7 text-indigo-500" />
           ) : (
-            <ViewGridIcon className="w-6 h-6" />
+            <ViewGridIcon className="w-7 h-7" />
           )}
         </Link>
-        <Link href="/notifications" className="my-3 mx-auto">
+        <Link href="/notifications" className="mx-auto">
           {isActivePath('/notifications') ? (
-            <LightningBoltIconSolid className="w-6 h-6 text-indigo-500" />
+            <LightningBoltIconSolid className="w-7 h-7 text-indigo-500" />
           ) : (
-            <LightningBoltIcon className="w-6 h-6" />
+            <LightningBoltIcon className="w-7 h-7" />
           )}
         </Link>
-        <Link href="/messages" className="my-3 mx-auto">
+        <Link href="/messages" className="mx-auto">
           {isActivePath('/messages') ? (
-            <MailIconSolid className="w-6 h-6 text-indigo-500" />
+            <MailIconSolid className="w-7 h-7 text-indigo-500" />
           ) : (
-            <MailIcon className="w-6 h-6" />
+            <MailIcon className="w-7 h-7" />
           )}
         </Link>
       </div>
