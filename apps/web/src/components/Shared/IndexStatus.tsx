@@ -17,9 +17,7 @@ const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
   const { data, loading } = useHasTxHashBeenIndexedQuery({
-    variables: {
-      request: { txHash }
-    },
+    variables: { request: { txHash } },
     pollInterval,
     onCompleted: (data) => {
       if (

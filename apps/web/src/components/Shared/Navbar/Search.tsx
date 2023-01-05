@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
@@ -95,7 +95,9 @@ const Search: FC<Props> = ({
             {searchUsersLoading ? (
               <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
                 <Spinner size="sm" className="mx-auto" />
-                <div>Searching users</div>
+                <div>
+                  <Trans>Searching users</Trans>
+                </div>
               </div>
             ) : (
               <>
@@ -113,7 +115,11 @@ const Search: FC<Props> = ({
                     <UserProfile linkToProfile={!onProfileSelected} profile={profile} />
                   </div>
                 ))}
-                {profiles.length === 0 && <div className="py-2 px-4">No matching users</div>}
+                {profiles.length === 0 && (
+                  <div className="py-2 px-4">
+                    <Trans>No matching users</Trans>
+                  </div>
+                )}
               </>
             )}
           </Card>

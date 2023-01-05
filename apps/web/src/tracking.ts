@@ -172,5 +172,6 @@ export const FOOTER = {
   VOTE: 'open_vote',
   FEEDBACK: 'open_feedback',
   GITHUB: 'open_github',
+  TRANSLATE: 'open_translate',
   VERCEL: 'open_vercel'
 };

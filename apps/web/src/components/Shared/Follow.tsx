@@ -6,6 +6,7 @@ import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
+import { t } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { Profile } from 'lens';
@@ -32,7 +33,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
 
   const onCompleted = () => {
     setFollowing(true);
-    toast.success('Followed successfully!');
+    toast.success(t`Followed successfully!`);
     Analytics.track(PROFILE.FOLLOW);
   };
 

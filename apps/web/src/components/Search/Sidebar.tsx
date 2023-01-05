@@ -1,4 +1,5 @@
 import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
+import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -29,11 +30,15 @@ const Sidebar: FC = () => {
     <div className="sticky px-3 mb-4 space-y-1.5 sm:px-0 top-[128px]">
       <Menu current={query.type == 'pubs'} url={`/search?q=${query.q}&type=pubs`}>
         <PencilAltIcon className="w-4 h-4" />
-        <div>Publications</div>
+        <div>
+          <Trans>Publications</Trans>
+        </div>
       </Menu>
       <Menu current={query.type == 'profiles'} url={`/search?q=${query.q}&type=profiles`}>
         <UsersIcon className="w-4 h-4" />
-        <div>Profiles</div>
+        <div>
+          <Trans>Profiles</Trans>
+        </div>
       </Menu>
     </div>
   );
