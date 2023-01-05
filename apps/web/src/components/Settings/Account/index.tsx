@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import SuperFollow from '@components/Settings/Account/SuperFollow';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -9,7 +8,6 @@ import { useAppStore } from 'src/store/app';
 
 import SettingsSidebar from '../Sidebar';
 import CrossPost from './CrossPost';
-import Language from './Language';
 import SetProfile from './SetProfile';
 import Verification from './Verification';
 
@@ -27,7 +25,6 @@ const AccountSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        {isFeatureEnabled('i18n', currentProfile.id) && <Language />}
         <SetProfile />
         <SuperFollow />
         <Verification />

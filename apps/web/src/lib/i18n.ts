@@ -1,5 +1,5 @@
 import { i18n } from '@lingui/core';
-import { IS_PREVIEW, IS_PRODUCTION, LS_KEYS } from 'data/constants';
+import { LS_KEYS } from 'data/constants';
 import dayjs from 'dayjs';
 import { en, es, ta } from 'make-plural/plurals';
 
@@ -9,17 +9,12 @@ export const supportedLocales: Record<string, string> = {
   ta: 'தமிழ்'
 };
 
-if (!IS_PRODUCTION || IS_PREVIEW) {
-  supportedLocales.qaa = 'PseudoLanguage';
-}
-
 const defaultLocale = 'en';
 
 i18n.loadLocaleData({
   en: { plurals: en },
   es: { plurals: es },
-  ta: { plurals: ta },
-  qaa: { plurals: en }
+  ta: { plurals: ta }
 });
 
 /**

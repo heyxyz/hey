@@ -13,7 +13,6 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "codegen": "turbo run codegen",
-    "i18n:crowdin": "turbo run crowdin",
     "i18n:extract": "turbo run extract",
     "prettier": "prettier --check \"**/*.{ts,tsx,md}\"",
     "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
