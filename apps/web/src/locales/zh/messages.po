@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-05 06:19\n"
+"PO-Revision-Date: 2023-01-05 14:42\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -553,6 +553,22 @@ msgstr ""
 msgid "Failed to load moderation feed"
 msgstr ""
 
+#: src/components/Notification/FeedType.tsx
+msgid "All notifications"
+msgstr ""
+
+#: src/components/Notification/FeedType.tsx
+msgid "Mentions"
+msgstr ""
+
+#: src/components/Notification/FeedType.tsx
+msgid "Comments"
+msgstr ""
+
+#: src/components/Notification/FeedType.tsx
+msgid "Collects"
+msgstr ""
+
 #: src/components/Notification/List.tsx
 msgid "Failed to load notifications"
 msgstr ""
@@ -622,22 +638,6 @@ msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
-msgstr ""
-
-#: src/components/Notification/index.tsx
-msgid "All notifications"
-msgstr ""
-
-#: src/components/Notification/index.tsx
-msgid "Mentions"
-msgstr ""
-
-#: src/components/Notification/index.tsx
-msgid "Comments"
-msgstr ""
-
-#: src/components/Notification/index.tsx
-msgid "Collects"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
@@ -986,14 +986,6 @@ msgstr ""
 
 #: src/components/Settings/Account/CrossPost.tsx
 msgid "Setup now"
-msgstr ""
-
-#: src/components/Settings/Account/Language.tsx
-msgid "Locale settings"
-msgstr ""
-
-#: src/components/Settings/Account/Language.tsx
-msgid "Select display language"
 msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
