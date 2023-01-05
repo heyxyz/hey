@@ -7,12 +7,13 @@ on:
 
 jobs:
   download-translations:
+    name: Download translations
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    - name: Checkout 🚪
       uses: actions/checkout@v3
 
-    - name: Download from Crowdin
+    - name: Download from Crowdin ⬇️
       uses: crowdin/github-action@1.5.2
       with:
         upload_translations: false
