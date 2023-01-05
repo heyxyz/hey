@@ -14,7 +14,7 @@ const MetaTags: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) =>
       <meta name="description" content={description} />
       <meta
         name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=5,  viewport-fit=cover"
+        content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
       />
 
       <meta property="og:url" content="https://lenster.xyz" />
