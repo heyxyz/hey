@@ -11,7 +11,6 @@ import React from 'react';
 
 const BottomNavigation = () => {
   const router = useRouter();
-
   const isActivePath = (path: string) => router.pathname === path;
 
   return (
