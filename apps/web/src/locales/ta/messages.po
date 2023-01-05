@@ -870,10 +870,6 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
-#: src/components/Publication/Actions/Like.tsx
-#~ msgid "Unlike"
-#~ msgstr ""
-
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
@@ -1930,4 +1926,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
