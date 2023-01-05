@@ -6,9 +6,10 @@ on:
 
 jobs:
   sync:
+    name: Sync
     runs-on: ubuntu-latest
     steps:
-      - name: Sync issue
+      - name: Sync issue 🔁
         uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://api.height.app/tasks'
