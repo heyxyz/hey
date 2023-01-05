@@ -34,7 +34,7 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
       setMessage('');
       Analytics.track(MESSAGES.SEND);
     } else {
-      toast.error('Error sending message');
+      toast.error(t`Error sending message`);
     }
     setSending(false);
   };

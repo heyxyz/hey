@@ -168,7 +168,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="w-5 h-5" />
-          <div>{error?.message ?? 'Failed to connect'}</div>
+          <div>{error?.message ?? t`Failed to connect`}</div>
         </div>
       ) : null}
     </div>

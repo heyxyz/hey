@@ -53,6 +53,7 @@ msgstr ""
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/Shared/Status.tsx
 msgid "Save"
 msgstr ""
 
@@ -62,6 +63,22 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
+msgstr ""
+
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Composer/Editor/index.tsx
+#: src/components/Composer/Editor/index.tsx
+msgid "Please choose either 1 video or up to 4 photos."
+msgstr ""
+
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Composer/Actions/Attachment.tsx
+msgid "File format not allowed."
+msgstr ""
+
+#: src/components/Composer/Actions/Attachment.tsx
+msgid "Something went wrong while uploading!"
 msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
@@ -330,6 +347,7 @@ msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Publication/DecryptedPublicationBody.tsx
+#: src/components/Publication/PublicationBody.tsx
 msgid "Show more"
 msgstr ""
 
@@ -354,10 +372,12 @@ msgid "Reset filter to your own feed"
 msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
+#: src/components/Shared/Navbar/Search.tsx
 msgid "Searching users"
 msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
+#: src/components/Shared/Navbar/Search.tsx
 msgid "No matching users"
 msgstr ""
 
@@ -448,6 +468,10 @@ msgstr ""
 
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
+msgstr ""
+
+#: src/components/Messages/Composer.tsx
+msgid "Error sending message"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
@@ -612,6 +636,22 @@ msgid "Collects"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
+msgid "Subject should not be empty"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Subject should not exceed 260 characters"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Message should not be empty"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Message should not exceed 1000 characters"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
 msgstr ""
 
@@ -741,6 +781,10 @@ msgstr ""
 msgid "Failed to load nft feed"
 msgstr ""
 
+#: src/components/Profile/New.tsx
+msgid "Create new decentralized profile"
+msgstr ""
+
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx
 msgid "Loading analytics"
@@ -805,12 +849,29 @@ msgstr ""
 msgid "Unknown Collect"
 msgstr ""
 
+#: src/components/Publication/Actions/Comment.tsx
+msgid "{0} Comments"
+msgstr ""
+
+#: src/components/Publication/Actions/Comment.tsx
+msgid "Comment"
+msgstr ""
+
 #: src/components/Publication/Actions/Like.tsx
-msgid "Unlike"
+msgid "Dislike"
 msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
+msgstr ""
+
+#: src/components/Publication/Actions/Like.tsx
+#~ msgid "Unlike"
+#~ msgstr ""
+
+#: src/components/Publication/Actions/Menu/Permalink.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
 msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
@@ -822,6 +883,7 @@ msgid "Mirror"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Spam"
 msgstr ""
 
@@ -851,6 +913,18 @@ msgstr ""
 
 #: src/components/Publication/HiddenPublication.tsx
 msgid "{type} was hidden by the author"
+msgstr ""
+
+#: src/components/Publication/OnchainMeta.tsx
+msgid "ARWEAVE TRANSACTION"
+msgstr ""
+
+#: src/components/Publication/OnchainMeta.tsx
+msgid "NFT ADDRESS"
+msgstr ""
+
+#: src/components/Publication/QueuedPublication.tsx
+msgid "Indexing"
 msgstr ""
 
 #: src/components/Publication/RelevantPeople.tsx
@@ -885,6 +959,14 @@ msgstr ""
 msgid "Failed to load publications"
 msgstr ""
 
+#: src/components/Search/Sidebar.tsx
+msgid "Publications"
+msgstr ""
+
+#: src/components/Search/Sidebar.tsx
+msgid "Profiles"
+msgstr ""
+
 #: src/components/Settings/Account/CrossPost.tsx
 msgid "Cross post to Twitter"
 msgstr ""
@@ -911,6 +993,10 @@ msgstr ""
 
 #: src/components/Settings/Account/Language.tsx
 msgid "Select display language"
+msgstr ""
+
+#: src/components/Settings/Account/SetProfile.tsx
+msgid "Default profile updated successfully!"
 msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
@@ -943,6 +1029,18 @@ msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Select profile"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Invalid amount"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Ethereum address should be within 42 characters"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Invalid Ethereum address"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
@@ -991,6 +1089,10 @@ msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
+msgstr ""
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Module {0} successfully!"
 msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
@@ -1124,6 +1226,7 @@ msgid "Yes, delete my account"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile updated successfully!"
 msgstr ""
 
@@ -1144,11 +1247,49 @@ msgid "Interests you select are used to personalize your experience across Lenst
 msgstr ""
 
 #: src/components/Settings/Profile/NFTPicture.tsx
+msgid "Contract address should be within 42 characters"
+msgstr ""
+
+#: src/components/Settings/Profile/NFTPicture.tsx
+msgid "Invalid Contract address"
+msgstr ""
+
+#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Avatar updated successfully!"
+msgstr ""
+
+#: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Contract Address"
 msgstr ""
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Token Id"
+msgstr ""
+
+#: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Avatar can't be empty!"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Name should not exceed 100 characters"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Location should not exceed 100 characters"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Invalid website"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter should not exceed 100 characters"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Bio should not exceed 260 characters"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -1207,6 +1348,22 @@ msgstr ""
 msgid "Allowance"
 msgstr ""
 
+#: src/components/Shared/Attachments.tsx
+msgid "Open Image in new tab"
+msgstr ""
+
+#: src/components/Shared/Audio/index.tsx
+msgid "Invalid audio title"
+msgstr ""
+
+#: src/components/Shared/Audio/index.tsx
+msgid "Invalid author name"
+msgstr ""
+
+#: src/components/Shared/Audio/index.tsx
+msgid "Invalid cover image"
+msgstr ""
+
 #: src/components/Shared/Audio/index.tsx
 msgid "Add title"
 msgstr ""
@@ -1223,8 +1380,17 @@ msgstr ""
 msgid "New"
 msgstr ""
 
+#: src/components/Shared/CommentWarning.tsx
+msgid "You can't reply to this post"
+msgstr ""
+
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
+msgstr ""
+
+#: src/components/Shared/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
 msgstr ""
 
 #: src/components/Shared/Footer.tsx
@@ -1257,6 +1423,10 @@ msgstr ""
 
 #: src/components/Shared/Footer.tsx
 msgid "GitHub"
+msgstr ""
+
+#: src/components/Shared/Footer.tsx
+msgid "Translate"
 msgstr ""
 
 #: src/components/Shared/Footer.tsx
@@ -1298,8 +1468,36 @@ msgstr ""
 msgid "Code"
 msgstr ""
 
+#: src/components/Shared/Login/New/Pending.tsx
+msgid "Account creation in progress, please wait!"
+msgstr ""
+
+#: src/components/Shared/Login/New/Pending.tsx
+msgid "Go to profile"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+msgid "Handle should be at least 2 characters"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+msgid "Handle should not exceed 32 characters"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+msgid "Handle should only contain alphanumeric characters"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+msgid "Sign up to {APP_NAME}"
+msgstr ""
+
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+msgid "Sign up"
 msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
@@ -1308,6 +1506,10 @@ msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
+msgstr ""
+
+#: src/components/Shared/Login/WalletSelector.tsx
+msgid "Failed to connect"
 msgstr ""
 
 #: src/components/Shared/Login/index.tsx
@@ -1360,6 +1562,98 @@ msgstr ""
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Failed to load mirrors"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Select type"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Illegal"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Fraud"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Sensitive"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Reason"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Select sub reason"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Animal Abuse"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Direct Threat"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Human Abuse"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Threat Individual"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Violence"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Impersonation"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Offensive"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Fake engagement"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Algorithm manipulation"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Misleading"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Misuse hashtags"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Something else"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Unrelated"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Additional comments should not exceed 260 characters"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/index.tsx
@@ -1438,6 +1732,26 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+#: src/components/Shared/Pending.tsx
+msgid "Go to {type}"
+msgstr ""
+
+#: src/components/Shared/ReferralAlert.tsx
+msgid "will get <0>{referralFee}%</0> referral fee"
+msgstr ""
+
+#: src/components/Shared/Status.tsx
+msgid "Status should not be empty"
+msgstr ""
+
+#: src/components/Shared/Status.tsx
+msgid "Status should not exceed 100 characters"
+msgstr ""
+
+#: src/components/Shared/Status.tsx
+msgid "Status updated successfully!"
+msgstr ""
+
 #: src/components/Shared/Status.tsx
 msgid "Loading status settings"
 msgstr ""
@@ -1446,9 +1760,73 @@ msgstr ""
 msgid "Failed to load status settings"
 msgstr ""
 
+#: src/components/Shared/Status.tsx
+msgid "Clear status"
+msgstr ""
+
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Loading super follow"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Recipient:"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "You can comment on @{0}'s publications"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "You can collect @{0}'s publications"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "You will get super follow badge in @{0}'s profile"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "You will have high voting power if you followed multiple times"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "More coming soon™"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Allow follow module"
+msgstr ""
+
+#: src/components/Shared/SwitchNetwork.tsx
+msgid "Please change your network wallet!"
+msgstr ""
+
+#: src/components/Shared/SwitchNetwork.tsx
+msgid "Switch Network"
+msgstr ""
+
+#: src/components/Shared/Unfollow.tsx
+msgid "Unfollowed successfully!"
+msgstr ""
+
+#: src/components/Shared/Unfollow.tsx
+msgid "User rejected request"
+msgstr ""
+
+#: src/components/Shared/Unfollow.tsx
+msgid "Unfollow"
+msgstr ""
+
+#: src/components/Shared/Uniswap.tsx
+msgid "You don't have enough <0>{0}</0>"
+msgstr ""
+
+#: src/components/Shared/Uniswap.tsx
+msgid "Swap in Uniswap"
+msgstr ""
+
+#: src/components/UI/LightBox.tsx
+msgid "Open original"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
