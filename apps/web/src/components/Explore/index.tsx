@@ -38,9 +38,9 @@ const Explore: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Tab.Group
-          defaultIndex={Number(router.query.tabIndex)}
+          defaultIndex={Number(router.query.tab)}
           onChange={(index) => {
-            router.replace({ query: { ...router.query, tabIndex: index } }, undefined, { shallow: true });
+            router.replace({ query: { ...router.query, tab: index } }, undefined, { shallow: true });
           }}
         >
           <Tab.List className="divider space-x-8">
