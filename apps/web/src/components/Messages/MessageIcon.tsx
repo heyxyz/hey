@@ -101,7 +101,7 @@ const MessageIcon: FC = () => {
   return (
     <Link
       href="/messages"
-      className="flex items-start justify-center rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20 min-w-[40px]"
+      className="md:flex hidden items-start justify-center rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20 min-w-[40px]"
       onClick={() => {
         currentProfile && clearMessagesBadge(currentProfile.id);
       }}
