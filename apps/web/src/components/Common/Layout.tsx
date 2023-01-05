@@ -1,3 +1,4 @@
+import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
@@ -122,6 +123,7 @@ const Layout: FC<Props> = ({ children }) => {
       <GlobalModals />
       <div className="flex flex-col min-h-screen">
         <Navbar />
+        <BottomNavigation />
         {children}
       </div>
     </>
