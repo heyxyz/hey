@@ -61,6 +61,7 @@ export class MentionMatcher extends Matcher {
         return null;
       }
     }
+
     return this.doMatch(value, /@[\w.-]+/, (matches) => {
       return { display: matches[0] };
     });
