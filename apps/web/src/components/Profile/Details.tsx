@@ -20,7 +20,7 @@ import getAvatar from '@lib/getAvatar';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
 import { t, Trans } from '@lingui/macro';
-import { OPENSEA_NFT_URL, STATIC_IMAGES_URL } from 'data/constants';
+import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import type { Profile } from 'lens';
 import Link from 'next/link';
@@ -153,7 +153,7 @@ const Details: FC<Props> = ({ profile }) => {
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
             <Tooltip content={`#${profile?.id}`}>
               <a
-                href={`${OPENSEA_NFT_URL}/${getEnvConfig().lensHubProxyAddress}/${parseInt(profile?.id)}`}
+                href={`${RARIBLE_URL}/polygon/${getEnvConfig().lensHubProxyAddress}:${parseInt(profile?.id)}`}
                 target="_blank"
                 rel="noreferrer"
               >
