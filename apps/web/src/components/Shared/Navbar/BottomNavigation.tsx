@@ -15,7 +15,7 @@ const BottomNavigation = () => {
   const isActivePath = (path: string) => router.pathname === path;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[4] md:hidden">
+    <div className="fixed pb-safe inset-x-0 bottom-0 z-[4] md:hidden">
       <div className="grid grid-cols-4 py-1 bg-white border-t border-gray-200 dark:border-gray-800">
         <Link href="/" className="my-3 mx-auto">
           {isActivePath('/') ? (
