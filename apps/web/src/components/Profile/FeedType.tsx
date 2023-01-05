@@ -20,6 +20,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           name={t`Feed`}
           icon={<PencilAltIcon className="w-4 h-4" />}
           active={feedType === 'FEED'}
+          type="feed"
           onClick={() => {
             setFeedType('FEED');
             Analytics.track(PROFILE.SWITCH_FEED);
@@ -29,6 +30,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           name={t`Replies`}
           icon={<ChatAlt2Icon className="w-4 h-4" />}
           active={feedType === 'REPLIES'}
+          type="replies"
           onClick={() => {
             setFeedType('REPLIES');
             Analytics.track(PROFILE.SWITCH_REPLIES);
@@ -38,6 +40,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           name={t`Media`}
           icon={<FilmIcon className="w-4 h-4" />}
           active={feedType === 'MEDIA'}
+          type="media"
           onClick={() => {
             setFeedType('MEDIA');
             Analytics.track(PROFILE.SWITCH_MEDIA);
@@ -46,7 +49,8 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         <TabButton
           name={t`NFTs`}
           icon={<PhotographIcon className="w-4 h-4" />}
-          active={feedType === 'GALLERY'}
+          active={feedType === 'NFT'}
+          type="nft"
           onClick={() => {
             setFeedType('GALLERY');
             Analytics.track(PROFILE.SWITCH_NFTS);
