@@ -865,10 +865,6 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
-#: src/components/Publication/Actions/Like.tsx
-#~ msgid "Unlike"
-#~ msgstr ""
-
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
