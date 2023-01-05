@@ -115,19 +115,23 @@ const UserPreview: FC<Props> = ({
 
   return showUserPreview ? (
     <span onMouseOver={onPreviewStart}>
-      <Tippy
-        placement="bottom-start"
-        delay={[800, 0]}
-        hideOnClick={false}
-        content={<Preview />}
-        arrow={false}
-        interactive
-        zIndex={1000}
-        className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
-        appendTo={() => document.body}
-      >
+      {lazyProfile.id ? (
+        <Tippy
+          placement="bottom-start"
+          delay={[800, 0]}
+          hideOnClick={false}
+          content={<Preview />}
+          arrow={false}
+          interactive
+          zIndex={1000}
+          className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
+          appendTo={() => document.body}
+        >
+          <span>{children}</span>
+        </Tippy>
+      ) : (
         <span>{children}</span>
-      </Tippy>
+      )}
     </span>
   ) : (
     <span>{children}</span>
