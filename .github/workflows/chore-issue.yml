@@ -23,6 +23,7 @@ jobs:
             - [ ] Sync all branches `script/sync-branches`
             - [ ] Extract all i18n strings `yarn i18n:extract`
             - [ ] Clear all deprecated strings (search by `#~` in vscode)
+            - [ ] Update all deps `yarn upgrade-interactive --latest`
           pinned: false
           close-previous: true
         env:
