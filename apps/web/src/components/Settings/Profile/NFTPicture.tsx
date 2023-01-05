@@ -30,8 +30,8 @@ import { object, string } from 'zod';
 
 const editNftPictureSchema = object({
   contractAddress: string()
-    .max(42, { message: 'Contract address should be within 42 characters' })
-    .regex(ADDRESS_REGEX, { message: 'Invalid Contract address' }),
+    .max(42, { message: t`Contract address should be within 42 characters` })
+    .regex(ADDRESS_REGEX, { message: t`Invalid Contract address` }),
   tokenId: string()
 });
 
@@ -48,7 +48,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const { signMessageAsync } = useSignMessage();
 
   const onCompleted = () => {
-    toast.success('Avatar updated successfully!');
+    toast.success(t`Avatar updated successfully!`);
     Analytics.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
 

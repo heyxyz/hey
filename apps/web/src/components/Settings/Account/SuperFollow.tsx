@@ -28,10 +28,10 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
 const newSuperFollowSchema = object({
-  amount: string().min(1, { message: 'Invalid amount' }),
+  amount: string().min(1, { message: t`Invalid amount` }),
   recipient: string()
-    .max(42, { message: 'Ethereum address should be within 42 characters' })
-    .regex(ADDRESS_REGEX, { message: 'Invalid Ethereum address' })
+    .max(42, { message: t`Ethereum address should be within 42 characters` })
+    .regex(ADDRESS_REGEX, { message: t`Invalid Ethereum address` })
 });
 
 const SuperFollow: FC = () => {

@@ -38,7 +38,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
     onSuccess: () => {
-      toast.success(`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
+      toast.success(t`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarningModal(false);
       setAllowed(!allowed);
       Analytics.track(`module_${allowed ? 'disabled' : 'enabled'}`);
