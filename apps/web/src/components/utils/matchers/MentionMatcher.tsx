@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
+import { UrlMatcher } from './UrlMatcher';
+
 export const Mention = ({ ...props }: any) => {
   const profile = {
     __typename: 'Profile',
@@ -49,6 +51,17 @@ export class MentionMatcher extends Matcher {
   }
 
   match(value: string) {
+    const urlMatcher = new UrlMatcher('url');
+    const urlResponse = urlMatcher.match(value);
+    if (urlResponse) {
+      const { host } = urlResponse;
+      const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
+      const ALLOWED_MENTIONS = ['lens', 'test'];
+      if (!ALLOWED_MENTIONS.includes(tld)) {
+        return null;
+      }
+    }
+
     return this.doMatch(value, /@[\w.-]+/, (matches) => {
       return { display: matches[0] };
     });

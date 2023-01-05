@@ -20,7 +20,7 @@ import Reason from './Reason';
 
 const newReportSchema = object({
   additionalComments: string().max(260, {
-    message: 'Additional comments should not exceed 260 characters'
+    message: t`Additional comments should not exceed 260 characters`
   })
 });
 

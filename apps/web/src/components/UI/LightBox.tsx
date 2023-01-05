@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 
@@ -52,7 +53,7 @@ export const LightBox: FC<Props> = ({ show, url, onClose }) => {
                   rel="noopener noreferrer"
                   onClick={(event) => event.stopPropagation()}
                 >
-                  Open original
+                  <Trans>Open original</Trans>
                 </a>
               </div>
             ) : null}

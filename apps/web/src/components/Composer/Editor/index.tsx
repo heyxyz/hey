@@ -10,7 +10,7 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { ERROR_MESSAGE } from 'data/constants';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -27,7 +27,7 @@ const Editor: FC = () => {
 
   const handlePaste = async (pastedFiles: FileList) => {
     if (attachments.length === 4 || attachments.length + pastedFiles.length > 4) {
-      return toast.error('You can only upload 4 files.');
+      return toast.error(t`Please choose either 1 video or up to 4 photos.`);
     }
     if (pastedFiles) {
       await handleUploadAttachments(pastedFiles);
