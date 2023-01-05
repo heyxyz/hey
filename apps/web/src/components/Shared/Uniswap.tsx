@@ -1,6 +1,7 @@
 import type { LensterCollectModule, LensterFollowModule } from '@generated/types';
 import { Analytics } from '@lib/analytics';
 import getUniswapURL from '@lib/getUniswapURL';
+import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
@@ -13,7 +14,9 @@ const Uniswap: FC<Props> = ({ module }) => {
   return (
     <div className="space-y-1">
       <div className="text-sm">
-        You don't have enough <b>{module?.amount?.asset?.symbol}</b>
+        <Trans>
+          You don't have enough <b>{module?.amount?.asset?.symbol}</b>
+        </Trans>
       </div>
       <a
         href={getUniswapURL(parseFloat(module?.amount?.value), module?.amount?.asset?.address)}
@@ -31,7 +34,9 @@ const Uniswap: FC<Props> = ({ module }) => {
           width={20}
           alt="Uniswap"
         />
-        <div>Swap in Uniswap</div>
+        <div>
+          <Trans>Swap in Uniswap</Trans>
+        </div>
       </a>
     </div>
   );

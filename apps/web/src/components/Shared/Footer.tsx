@@ -69,6 +69,14 @@ const Footer: FC = () => {
         <Trans>GitHub</Trans>
       </a>
       <a
+        href="https://translate.lenster.xyz"
+        target="_blank"
+        rel="noreferrer noopener"
+        onClick={() => Analytics.track(FOOTER.TRANSLATE)}
+      >
+        <Trans>Translate</Trans>
+      </a>
+      <a
         className="pr-3 hover:font-bold"
         href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
         target="_blank"

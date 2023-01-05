@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { ArrowRightIcon } from '@heroicons/react/outline';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -43,7 +44,7 @@ const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
           <div className="pt-3">
             <Link href={`/${urlPrefix}/${data?.publication?.id}`}>
               <Button className="mx-auto" icon={<ArrowRightIcon className="mr-1 w-4 h-4" />}>
-                Go to {type}
+                <Trans>Go to {type}</Trans>
               </Button>
             </Link>
           </div>

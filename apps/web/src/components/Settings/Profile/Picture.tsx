@@ -40,7 +40,7 @@ const Picture: FC<Props> = ({ profile }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
-    toast.success('Avatar updated successfully!');
+    toast.success(t`Avatar updated successfully!`);
     Analytics.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
@@ -126,7 +126,7 @@ const Picture: FC<Props> = ({ profile }) => {
     }
 
     if (!avatar) {
-      return toast.error("Avatar can't be empty!");
+      return toast.error(t`Avatar can't be empty!`);
     }
 
     try {
