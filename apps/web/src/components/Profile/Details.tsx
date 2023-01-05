@@ -20,7 +20,8 @@ import getAvatar from '@lib/getAvatar';
 import isStaff from '@lib/isStaff';
 import isVerified from '@lib/isVerified';
 import { t, Trans } from '@lingui/macro';
-import { STATIC_IMAGES_URL } from 'data/constants';
+import { OPENSEA_NFT_URL, STATIC_IMAGES_URL } from 'data/constants';
+import getEnvConfig from 'data/utils/getEnvConfig';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -150,7 +151,15 @@ const Details: FC<Props> = ({ profile }) => {
         <div className="w-full divider" />
         <div className="space-y-2">
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
-            <Tooltip content={`#${parseInt(profile?.id)}`}>{profile?.id}</Tooltip>
+            <Tooltip content={`#${profile?.id}`}>
+              <a
+                href={`${OPENSEA_NFT_URL}/${getEnvConfig().lensHubProxyAddress}/${parseInt(profile?.id)}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {parseInt(profile?.id)}
+              </a>
+            </Tooltip>
           </MetaDetails>
           {getAttribute(profile?.attributes, 'location') && (
             <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
