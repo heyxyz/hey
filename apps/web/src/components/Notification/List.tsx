@@ -27,7 +27,7 @@ import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
 
 interface Props {
-  feedType: 'ALL' | 'MENTIONS' | 'COMMENTS' | 'COLLECTS';
+  feedType: string;
 }
 
 const List: FC<Props> = ({ feedType }) => {
