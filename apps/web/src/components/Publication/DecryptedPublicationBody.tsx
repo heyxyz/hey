@@ -210,6 +210,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
               <a
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
                 className="font-bold underline"
+                onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -227,6 +228,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
                 <a
                   href={`${POLYGONSCAN_URL}/token/${nftCondition.contractAddress}`}
                   className="font-bold underline"
+                  onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
                   target="_blank"
                   rel="noreferrer"
                 >
