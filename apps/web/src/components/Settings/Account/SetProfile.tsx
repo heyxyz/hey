@@ -33,7 +33,7 @@ const SetProfile: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const onCompleted = () => {
-    toast.success('Default profile updated successfully!');
+    toast.success(t`Default profile updated successfully!`);
     Analytics.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 

@@ -11,24 +11,34 @@ import {
   DatabaseIcon,
   EyeIcon,
   FingerPrintIcon,
+  LogoutIcon,
   PhotographIcon,
   UserAddIcon
 } from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type { Erc20OwnershipOutput, NftOwnershipOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
+import type {
+  CollectConditionOutput,
+  Erc20OwnershipOutput,
+  NftOwnershipOutput
+} from '@lens-protocol/sdk-gated/dist/graphql/types';
+import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
+import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
-import { LIT_PROTOCOL_ENVIRONMENT } from 'data/constants';
+import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
 import type { PublicationMetadataV2Input } from 'lens';
 import { DecryptFailReason } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { useAppStore } from 'src/store/app';
+import { useAuthStore } from 'src/store/auth';
+import { PUBLICATION } from 'src/tracking';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
@@ -49,6 +59,8 @@ interface Props {
 
 const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { pathname } = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const [decryptedData, setDecryptedData] = useState<any>(null);
   const [decryptError, setDecryptError] = useState<any>(null);
   const [isDecrypting, setIsDecrypting] = useState(false);
@@ -84,6 +96,39 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   // Conditions
   const tokenCondition: Erc20OwnershipOutput = getCondition('token');
   const nftCondition: NftOwnershipOutput = getCondition('nft');
+  const collectCondition: CollectConditionOutput = getCondition('collect');
+
+  const { data: tokenData } = useToken({
+    address: tokenCondition?.contractAddress,
+    chainId: tokenCondition?.chainID,
+    enabled: Boolean(tokenCondition)
+  });
+
+  const { data: nftData } = useNFT({
+    address: nftCondition?.contractAddress,
+    chainId: nftCondition?.chainID,
+    enabled: Boolean(nftCondition)
+  });
+
+  // Style
+  const cardClasses = 'text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600';
+
+  if (!currentProfile) {
+    return (
+      <Card
+        className={clsx(cardClasses, '!cursor-pointer')}
+        onClick={(event) => {
+          event.stopPropagation();
+          setShowAuthModal(true);
+        }}
+      >
+        <div className="text-white font-bold flex items-center space-x-1">
+          <LogoutIcon className="h-5 w-5" />
+          <span>Login to decrypt</span>
+        </div>
+      </Card>
+    );
+  }
 
   // Status
   // Collect checks - https://docs.lens.xyz/docs/gated#collected-publication
@@ -98,21 +143,6 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const unauthorizedBalance = reasons?.includes(DecryptFailReason.UnauthorizedBalance);
   // NFT check - https://docs.lens.xyz/docs/gated#erc20-token-ownership
   const doesNotOwnNft = reasons?.includes(DecryptFailReason.DoesNotOwnNft);
-
-  // Style
-  const cardClasses = 'text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600';
-
-  const { data: tokenData } = useToken({
-    address: tokenCondition?.contractAddress,
-    chainId: tokenCondition?.chainID,
-    enabled: Boolean(tokenCondition)
-  });
-
-  const { data: nftData } = useNFT({
-    address: nftCondition?.contractAddress,
-    chainId: nftCondition?.chainID,
-    enabled: Boolean(nftCondition)
-  });
 
   const getDecryptedData = async () => {
     if (!signer || isDecrypting) {
@@ -134,18 +164,27 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card className={clsx(cardClasses, 'cursor-text')} onClick={(event) => event.stopPropagation()}>
         <div className="font-bold flex items-center space-x-2">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
-          <span className="text-white font-black text-base">To view this...</span>
+          <span className="text-white font-black text-base">
+            <Trans>To view this...</Trans>
+          </span>
         </div>
         <div className="pt-3.5 space-y-2 text-white">
           {/* Collect checks */}
           {hasNotCollectedPublication && (
             <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
-              Collect this <b className="lowercase">{encryptedPublication?.__typename}</b>
+              Collect the{' '}
+              <Link
+                href={`/posts/${collectCondition?.publicationId}`}
+                className="font-bold lowercase underline"
+                onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT)}
+              >
+                {encryptedPublication?.__typename}
+              </Link>
             </DecryptMessage>
           )}
           {collectNotFinalisedOnChain && (
             <DecryptMessage icon={<CollectionIcon className="animate-pulse h-4 w-4" />}>
-              Collect finalizing on chain...
+              <Trans>Collect finalizing on chain...</Trans>
             </DecryptMessage>
           )}
 
@@ -160,7 +199,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           )}
           {followNotFinalisedOnChain && (
             <DecryptMessage icon={<UserAddIcon className="animate-pulse h-4 w-4" />}>
-              Follow finalizing on chain...
+              <Trans>Follow finalizing on chain...</Trans>
             </DecryptMessage>
           )}
 
@@ -168,9 +207,16 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           {unauthorizedBalance && (
             <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
               You need{' '}
-              <b>
-                {tokenCondition.amount} {tokenData?.symbol} to unlock
-              </b>
+              <a
+                href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
+                className="font-bold underline"
+                onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {tokenCondition.amount} {tokenData?.symbol}
+              </a>{' '}
+              to unlock
             </DecryptMessage>
           )}
 
@@ -179,7 +225,15 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
             <DecryptMessage icon={<PhotographIcon className="h-4 w-4" />}>
               You need{' '}
               <Tooltip content={nftData?.contractMetadata?.name} placement="top">
-                <b>{nftData?.contractMetadata?.symbol}</b>
+                <a
+                  href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
+                  className="font-bold underline"
+                  onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {nftData?.contractMetadata?.symbol}
+                </a>
               </Tooltip>{' '}
               nft to unlock
             </DecryptMessage>
@@ -190,7 +244,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   }
 
   if (decryptError) {
-    return <ErrorMessage title="Error while decrypting!" error={decryptError} />;
+    return <ErrorMessage title={t`Error while decrypting!`} error={decryptError} />;
   }
 
   if (!decryptedData) {
@@ -200,13 +254,16 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
         onClick={(event) => {
           event.stopPropagation();
           getDecryptedData();
+          Analytics.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
       >
         <div className="text-white font-bold flex items-center space-x-1">
           {isDecrypting ? (
             <>
               <Spinner size="xs" className="mr-1" />
-              <span>Decrypting...</span>
+              <span>
+                <Trans>Decrypting...</Trans>
+              </span>
             </>
           ) : (
             <>
@@ -236,7 +293,9 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       {showMore && (
         <div className="mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1">
           <EyeIcon className="h-4 w-4" />
-          <Link href={`/posts/${encryptedPublication?.id}`}>Show more</Link>
+          <Link href={`/posts/${encryptedPublication?.id}`}>
+            <Trans>Show more</Trans>
+          </Link>
         </div>
       )}
       {publication?.content

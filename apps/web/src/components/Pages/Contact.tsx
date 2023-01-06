@@ -16,12 +16,16 @@ import type { FC } from 'react';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
-  subject: string().min(1, { message: 'Subject  should not be empty' }).max(260, {
-    message: 'Subject should not exceed 260 characters'
-  }),
-  message: string().min(1, { message: 'Message should not be empty' }).max(1000, {
-    message: 'Message should not exceed 1000 characters'
-  })
+  subject: string()
+    .min(1, { message: t`Subject should not be empty` })
+    .max(260, {
+      message: t`Subject should not exceed 260 characters`
+    }),
+  message: string()
+    .min(1, { message: t`Message should not be empty` })
+    .max(1000, {
+      message: t`Message should not exceed 1000 characters`
+    })
 });
 
 const Contact: FC = () => {

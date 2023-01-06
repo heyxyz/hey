@@ -1,14 +1,4 @@
 {
-  "locales": [
-    "en",
-    "es",
-    "ta",
-    "qaa"
-  ],
-  "pseudoLocale": "qaa",
-  "fallbackLocales": {
-    "qaa": "en"
-  },
   "catalogs": [
     {
       "path": "src/locales/{locale}/messages",
@@ -22,5 +12,14 @@
     "origins": true,
     "lineNumbers": false
   },
-  "orderBy": "origin"
+  "orderBy": "origin",
+  "locales": [
+    "en",
+    "es",
+    "ta"
+  ],
+  "sourceLocale": "en",
+  "fallbackLocales": {
+    "default": "en"
+  }
 }
