@@ -66,7 +66,7 @@ const MobileDrawerMenu = () => {
   };
 
   return (
-    <div className="w-full z-[10] bottom-0 top-0 h-full bg-gray-100 dark:bg-black py-4 fixed">
+    <div className="w-full z-[10] bottom-0 top-0 h-full bg-gray-100 dark:bg-black py-4 md:hidden fixed">
       <button className="visible md:hidden px-5" type="button" onClick={toggleMenu}>
         <XIcon className="w-6 h-6" />
       </button>
@@ -190,7 +190,7 @@ const MobileDrawerMenu = () => {
 
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <button type="button" onClick={logout} className="p-5">
+          <button type="button" onClick={logout} className="p-5 w-full">
             <div className="flex items-center space-x-1.5">
               <LogoutIcon className="w-4 h-4" />
               <div>
