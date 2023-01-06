@@ -2,6 +2,7 @@ import Slug from '@components/Shared/Slug';
 import Username from '@components/Shared/Username';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
+import { Trans } from '@lingui/macro';
 import { POLYGONSCAN_URL } from 'data/constants';
 import type { Comment, Post } from 'lens';
 import Link from 'next/link';
@@ -27,8 +28,11 @@ const Collected: FC<Props> = ({ publication }) => {
         </a>
       )}
       <Link href={`/posts/${publication?.id}`}>
-        <span>collected the </span>
-        <b>{publication.__typename?.toLowerCase()}</b>
+        <span>
+          <Trans>
+            collected the <b>{publication.__typename?.toLowerCase()}</b>
+          </Trans>
+        </span>
       </Link>
     </div>
   );

@@ -38,15 +38,15 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';
 
 const editProfileSchema = object({
-  name: string().max(100, { message: 'Name should not exceed 100 characters' }),
+  name: string().max(100, { message: t`Name should not exceed 100 characters` }),
   location: string().max(100, {
-    message: 'Location should not exceed 100 characters'
+    message: t`Location should not exceed 100 characters`
   }),
-  website: union([string().regex(URL_REGEX, { message: 'Invalid website' }), string().max(0)]),
+  website: union([string().regex(URL_REGEX, { message: t`Invalid website` }), string().max(0)]),
   twitter: string().max(100, {
-    message: 'Twitter should not exceed 100 characters'
+    message: t`Twitter should not exceed 100 characters`
   }),
-  bio: string().max(260, { message: 'Bio should not exceed 260 characters' })
+  bio: string().max(260, { message: t`Bio should not exceed 260 characters` })
 });
 
 interface Props {
@@ -61,7 +61,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
   const [uploading, setUploading] = useState(false);
 
   const onCompleted = () => {
-    toast.success('Profile updated successfully!');
+    toast.success(t`Profile updated successfully!`);
     Analytics.track(SETTINGS.PROFILE.UPDATE);
   };
 

@@ -3,6 +3,7 @@ import Signup from '@components/Shared/Login/New';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -19,7 +20,7 @@ const NewProfile: NextPage = () => {
     <GridLayout>
       <MetaTags title={`Create Profile • ${APP_NAME}`} />
       <GridItemFour>
-        <SettingsHelper heading="Create profile" description="Create new decentralized profile" />
+        <SettingsHelper heading="Create profile" description={t`Create new decentralized profile`} />
       </GridItemFour>
       <GridItemEight>
         <Card className="p-5">

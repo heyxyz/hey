@@ -5,6 +5,7 @@ import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
+import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
 import type { MediaSet } from 'lens';
@@ -109,7 +110,9 @@ const Attachments: FC<Props> = ({
                   icon={<ExternalLinkIcon className="h-4 w-4" />}
                   onClick={() => window.open(url, '_blank')}
                 >
-                  <span>Open Image in new tab</span>
+                  <span>
+                    <Trans>Open Image in new tab</Trans>
+                  </span>
                 </Button>
               ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
                 <Video src={url} poster={getCoverUrl()} />

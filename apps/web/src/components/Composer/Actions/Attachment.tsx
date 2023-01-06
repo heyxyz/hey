@@ -6,6 +6,7 @@ import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -80,7 +81,7 @@ const Attachment: FC = () => {
       const { files } = evt.target;
       // Count check
       if (files && (hasVideos(files) || (isImageType(files) && files.length + attachments.length > 4))) {
-        return toast.error('Please choose either 1 video or up to 4 photos.');
+        return toast.error(t`Please choose either 1 video or up to 4 photos.`);
       }
 
       // Type check
@@ -88,10 +89,10 @@ const Attachment: FC = () => {
         await handleUploadAttachments(files);
         evt.target.value = '';
       } else {
-        return toast.error('File format not allowed.');
+        return toast.error(t`File format not allowed.`);
       }
     } catch {
-      toast.error('Something went wrong while uploading!');
+      toast.error(t`Something went wrong while uploading!`);
     }
   };
 

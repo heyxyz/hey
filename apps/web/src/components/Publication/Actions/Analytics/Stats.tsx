@@ -45,8 +45,8 @@ const Stats: FC<Props> = ({ publication }) => {
   return (
     <div className="p-5">
       <Stat
-        title="Views"
-        helper="Times people viewed the details about this publication"
+        title={t`Views`}
+        helper={t`Times people viewed the details about this publication`}
         stat={data?.pageviews}
       />
     </div>

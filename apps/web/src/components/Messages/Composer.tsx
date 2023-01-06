@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -34,7 +34,7 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
       setMessage('');
       Analytics.track(MESSAGES.SEND);
     } else {
-      toast.error('Error sending message');
+      toast.error(t`Error sending message`);
     }
     setSending(false);
   };
@@ -61,7 +61,11 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
       />
       <Button disabled={!canSendMessage} onClick={handleSend} variant="primary" aria-label="Send message">
         <div className="flex items-center space-x-2">
-          {Number(width) > MIN_WIDTH_DESKTOP ? <span>Send</span> : null}
+          {Number(width) > MIN_WIDTH_DESKTOP ? (
+            <span>
+              <Trans>Send</Trans>
+            </span>
+          ) : null}
           {!sending && <ArrowRightIcon className="h-5 w-5" />}
           {sending && <Spinner size="sm" className="h-5 w-5" />}
         </div>

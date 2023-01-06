@@ -5,6 +5,7 @@ import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
 import getURLs from '@lib/getURLs';
+import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import {
   PublicationDocument,
@@ -89,7 +90,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
     <article className="p-5">
       <div className="pb-4 flex items-start justify-between">
         <UserProfile profile={currentProfile as Profile} />
-        <Tooltip content="Indexing" placement="top">
+        <Tooltip content={t`Indexing`} placement="top">
           <div className="bg-brand-200 rounded-full h-4 w-4 flex items-center justify-center">
             <div className="animate-pulse bg-brand-500 rounded-full h-2 w-2" />
           </div>

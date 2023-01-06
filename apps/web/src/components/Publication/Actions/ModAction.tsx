@@ -2,6 +2,7 @@ import { Button } from '@components/UI/Button';
 import type { LensterPublication } from '@generated/types';
 import { ExclamationCircleIcon, ExternalLinkIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
@@ -14,10 +15,9 @@ const ModAction: FC<Props> = ({ publication }) => {
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
 
   return (
-    <span className="flex items-center gap-3 mt-3 text-sm">
+    <span className="flex items-center gap-3 mt-3 text-sm" onClick={(event) => event.stopPropagation()}>
       <Button
-        onClick={(event) => {
-          event.stopPropagation();
+        onClick={() => {
           setShowReportModal(true, publication, { type: 'spamReason', subReason: 'FAKE_ENGAGEMENT' });
           Analytics.track(MOD.SPAM);
         }}
@@ -25,21 +25,19 @@ const ModAction: FC<Props> = ({ publication }) => {
         icon={<ExclamationCircleIcon className="h-4 w-4" />}
         outline
       >
-        Spam
+        <Trans>Spam</Trans>
       </Button>
       <Button
-        onClick={(event) => {
-          event.stopPropagation();
+        onClick={() => {
           setShowReportModal(true, publication);
           Analytics.track(MOD.OTHER);
         }}
         icon={<ShieldCheckIcon className="h-4 w-4" />}
       >
-        Others
+        <Trans>Others</Trans>
       </Button>
       <Button
-        onClick={(event) => {
-          event.stopPropagation();
+        onClick={() => {
           window.open(`/posts/${publication?.id}`, '_blank');
         }}
         icon={<ExternalLinkIcon className="h-4 w-4" />}

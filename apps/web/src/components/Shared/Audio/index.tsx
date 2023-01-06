@@ -23,9 +23,15 @@ interface Props {
 }
 
 export const AudioPublicationSchema = object({
-  title: string().trim().min(1, { message: 'Invalid audio title' }),
-  author: string().trim().min(1, { message: 'Invalid author name' }),
-  cover: string().trim().min(1, { message: 'Invalid cover image' })
+  title: string()
+    .trim()
+    .min(1, { message: t`Invalid audio title` }),
+  author: string()
+    .trim()
+    .min(1, { message: t`Invalid author name` }),
+  cover: string()
+    .trim()
+    .min(1, { message: t`Invalid cover image` })
 });
 
 const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
