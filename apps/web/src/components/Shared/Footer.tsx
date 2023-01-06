@@ -96,7 +96,10 @@ const Footer: FC = () => {
                 <Menu.Item
                   key={localeCode}
                   as="div"
-                  onClick={() => setLocale(localeCode)}
+                  onClick={() => {
+                    setLocale(localeCode);
+                    Analytics.track(`locale_changed_to_${localeCode}`);
+                  }}
                   className={({ active }: { active: boolean }) =>
                     clsx({ 'dropdown-active': active }, 'menu-item')
                   }
