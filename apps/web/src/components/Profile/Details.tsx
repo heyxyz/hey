@@ -153,7 +153,9 @@ const Details: FC<Props> = ({ profile }) => {
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
             <Tooltip content={`#${profile?.id}`}>
               <a
-                href={`${RARIBLE_URL}/polygon/${getEnvConfig().lensHubProxyAddress}:${parseInt(profile?.id)}`}
+                href={`${RARIBLE_URL}/token/polygon/${getEnvConfig().lensHubProxyAddress}:${parseInt(
+                  profile?.id
+                )}`}
                 target="_blank"
                 rel="noreferrer"
               >
