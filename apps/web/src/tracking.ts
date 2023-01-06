@@ -55,6 +55,9 @@ export const PUBLICATION = {
     OPEN_COLLECTORS: 'open_collectors_list',
     OPEN_UNISWAP: 'open_uniswap'
   },
+  TOKEN_GATED: {
+    DECRYPT: 'decrypt_token_gated_publication'
+  },
   NEW: {
     MARKDOWN_PREVIEW: 'preview_markdown',
     OPEN_GIF: 'open_gif_modal',
