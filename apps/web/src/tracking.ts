@@ -57,7 +57,9 @@ export const PUBLICATION = {
   },
   TOKEN_GATED: {
     DECRYPT: 'decrypt_token_gated_publication',
-    CHECKLIST_NAVIGATED_TO_COLLECT: 'decrypt_checklist_navigated_to_collect'
+    CHECKLIST_NAVIGATED_TO_COLLECT: 'decrypt_checklist_navigated_to_collect',
+    CHECKLIST_NAVIGATED_TO_TOKEN: 'decrypt_checklist_navigated_to_token',
+    CHECKLIST_NAVIGATED_TO_NFT: 'decrypt_checklist_navigated_to_nft'
   },
   NEW: {
     MARKDOWN_PREVIEW: 'preview_markdown',
