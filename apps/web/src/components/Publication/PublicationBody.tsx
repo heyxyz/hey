@@ -22,7 +22,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
   const { allowed: staffMode } = useStaffMode();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
-  if (publication?.metadata?.encryptionParams) {
+  if (staffMode && publication?.metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
