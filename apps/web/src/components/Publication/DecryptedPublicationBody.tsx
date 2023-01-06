@@ -17,7 +17,11 @@ import {
 } from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type { Erc20OwnershipOutput, NftOwnershipOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
+import type {
+  CollectConditionOutput,
+  Erc20OwnershipOutput,
+  NftOwnershipOutput
+} from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getIPFSLink from '@lib/getIPFSLink';
@@ -25,7 +29,7 @@ import getURLs from '@lib/getURLs';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
-import { LIT_PROTOCOL_ENVIRONMENT } from 'data/constants';
+import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL } from 'data/constants';
 import type { PublicationMetadataV2Input } from 'lens';
 import { DecryptFailReason } from 'lens';
 import Link from 'next/link';
@@ -92,6 +96,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   // Conditions
   const tokenCondition: Erc20OwnershipOutput = getCondition('token');
   const nftCondition: NftOwnershipOutput = getCondition('nft');
+  const collectCondition: CollectConditionOutput = getCondition('collect');
 
   const { data: tokenData } = useToken({
     address: tokenCondition?.contractAddress,
@@ -169,7 +174,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
             <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
               Collect the{' '}
               <Link
-                href={`/posts/${getCondition('collect')?.publicationId}`}
+                href={`/posts/${collectCondition?.publicationId}`}
                 className="font-bold lowercase underline"
                 onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT)}
               >
@@ -202,9 +207,16 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           {unauthorizedBalance && (
             <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
               You need{' '}
-              <b>
-                {tokenCondition.amount} {tokenData?.symbol} to unlock
-              </b>
+              <a
+                href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
+                className="font-bold underline"
+                onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {tokenCondition.amount} {tokenData?.symbol}
+              </a>{' '}
+              to unlock
             </DecryptMessage>
           )}
 
@@ -213,7 +225,15 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
             <DecryptMessage icon={<PhotographIcon className="h-4 w-4" />}>
               You need{' '}
               <Tooltip content={nftData?.contractMetadata?.name} placement="top">
-                <b>{nftData?.contractMetadata?.symbol}</b>
+                <a
+                  href={`${POLYGONSCAN_URL}/token/${nftCondition.contractAddress}`}
+                  className="font-bold underline"
+                  onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {nftData?.contractMetadata?.symbol}
+                </a>
               </Tooltip>{' '}
               nft to unlock
             </DecryptMessage>
