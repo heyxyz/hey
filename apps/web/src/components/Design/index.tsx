@@ -1,14 +1,17 @@
-import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
+import { GridLayout } from '@components/UI/GridLayout';
 import type { NextPage } from 'next';
 
+import Colors from './Colors';
 import Typography from './Typography';
 
 const Design: NextPage = () => {
   return (
     <GridLayout>
-      <GridItemEight>
+      <div className="col-span-12">
         <Typography />
-      </GridItemEight>
+        <div className="divider my-5" />
+        <Colors />
+      </div>
     </GridLayout>
   );
 };
