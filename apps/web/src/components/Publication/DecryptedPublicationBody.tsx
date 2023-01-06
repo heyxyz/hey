@@ -11,6 +11,7 @@ import {
   DatabaseIcon,
   EyeIcon,
   FingerPrintIcon,
+  LogoutIcon,
   PhotographIcon,
   UserAddIcon
 } from '@heroicons/react/outline';
@@ -30,6 +31,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { useAppStore } from 'src/store/app';
+import { useAuthStore } from 'src/store/auth';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
@@ -50,6 +53,8 @@ interface Props {
 
 const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { pathname } = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const [decryptedData, setDecryptedData] = useState<any>(null);
   const [decryptError, setDecryptError] = useState<any>(null);
   const [isDecrypting, setIsDecrypting] = useState(false);
@@ -86,6 +91,38 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const tokenCondition: Erc20OwnershipOutput = getCondition('token');
   const nftCondition: NftOwnershipOutput = getCondition('nft');
 
+  const { data: tokenData } = useToken({
+    address: tokenCondition?.contractAddress,
+    chainId: tokenCondition?.chainID,
+    enabled: Boolean(tokenCondition)
+  });
+
+  const { data: nftData } = useNFT({
+    address: nftCondition?.contractAddress,
+    chainId: nftCondition?.chainID,
+    enabled: Boolean(nftCondition)
+  });
+
+  // Style
+  const cardClasses = 'text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600';
+
+  if (!currentProfile) {
+    return (
+      <Card
+        className={clsx(cardClasses, '!cursor-pointer')}
+        onClick={(event) => {
+          event.stopPropagation();
+          setShowAuthModal(true);
+        }}
+      >
+        <div className="text-white font-bold flex items-center space-x-1">
+          <LogoutIcon className="h-5 w-5" />
+          <span>Login to decrypt</span>
+        </div>
+      </Card>
+    );
+  }
+
   // Status
   // Collect checks - https://docs.lens.xyz/docs/gated#collected-publication
   const hasNotCollectedPublication = reasons?.includes(DecryptFailReason.HasNotCollectedPublication);
@@ -99,21 +136,6 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const unauthorizedBalance = reasons?.includes(DecryptFailReason.UnauthorizedBalance);
   // NFT check - https://docs.lens.xyz/docs/gated#erc20-token-ownership
   const doesNotOwnNft = reasons?.includes(DecryptFailReason.DoesNotOwnNft);
-
-  // Style
-  const cardClasses = 'text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600';
-
-  const { data: tokenData } = useToken({
-    address: tokenCondition?.contractAddress,
-    chainId: tokenCondition?.chainID,
-    enabled: Boolean(tokenCondition)
-  });
-
-  const { data: nftData } = useNFT({
-    address: nftCondition?.contractAddress,
-    chainId: nftCondition?.chainID,
-    enabled: Boolean(nftCondition)
-  });
 
   const getDecryptedData = async () => {
     if (!signer || isDecrypting) {
