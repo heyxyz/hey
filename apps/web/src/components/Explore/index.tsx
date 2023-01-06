@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -20,6 +21,7 @@ import FeedType from './FeedType';
 const Explore: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<any>();
+  const router = useRouter();
 
   const tabs = [
     { name: t`For you`, emoji: 'leaf-fluttering-in-wind.png', type: PublicationSortCriteria.CuratedProfiles },
@@ -35,7 +37,12 @@ const Explore: NextPage = () => {
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
       <GridItemEight className="space-y-5">
-        <Tab.Group>
+        <Tab.Group
+          defaultIndex={Number(router.query.tab)}
+          onChange={(index) => {
+            router.replace({ query: { ...router.query, tab: index } }, undefined, { shallow: true });
+          }}
+        >
           <Tab.List className="divider space-x-8">
             {tabs.map((tab, index) => (
               <Tab
