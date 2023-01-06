@@ -32,7 +32,6 @@ import Slug from '../Slug';
 
 const MobileDrawerMenu = () => {
   const router = useRouter();
-  const profiles = useAppStore((state) => state.profiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -113,24 +112,24 @@ const MobileDrawerMenu = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div className="px-5 pt-5">
+          <div className="mx-5 my-2">
             <Link
               href={`/u/${formatHandle(currentProfile?.handle)}`}
-              className="flex items-center pb-5 space-x-1.5"
+              className="flex items-center py-4 space-x-1.5"
             >
               <UserIcon className="w-5 h-5" />
               <div>
                 <Trans>Your Profile</Trans>
               </div>
             </Link>
-            <Link href="/settings" className="flex items-center pb-5 space-x-1.5">
+            <Link href="/settings" className="flex items-center py-4 space-x-1.5">
               <CogIcon className="w-5 h-5" />
               <div>
                 <Trans>Settings</Trans>
               </div>
             </Link>
             {isGardener(currentProfile?.id) && (
-              <Link href="/mod" className="flex items-center pb-5 space-x-1.5">
+              <Link href="/mod" className="flex items-center py-4 space-x-1.5">
                 <ShieldCheckIcon className="w-5 h-5" />
                 <div>
                   <Trans>Moderation</Trans>
@@ -139,12 +138,13 @@ const MobileDrawerMenu = () => {
             )}
             <button
               type="button"
+              className="w-full"
               onClick={() => {
                 setTheme(theme === 'light' ? 'dark' : 'light');
                 Analytics.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
               }}
             >
-              <div className="flex items-center space-x-1.5 pb-5">
+              <div className="flex items-center space-x-1.5 py-4">
                 {theme === 'light' ? (
                   <>
                     <MoonIcon className="w-5 h-5" />
@@ -167,8 +167,8 @@ const MobileDrawerMenu = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div className="p-5">
-            <Link href="/contact" className="flex items-center pb-5 space-x-1.5">
+          <div className="mx-5 my-2">
+            <Link href="/contact" className="flex items-center py-4 space-x-1.5">
               <SupportIcon className="w-5 h-5" />
               <div>
                 <Trans>Contact</Trans>
@@ -177,7 +177,7 @@ const MobileDrawerMenu = () => {
             <Link
               href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
               target="_blank"
-              className="flex items-center space-x-1.5"
+              className="flex items-center space-x-1.5 py-4"
             >
               <HandIcon className="w-5 h-5" />
               <div>
