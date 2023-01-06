@@ -12,6 +12,8 @@ interface AppState {
   setUserSigNonce: (userSigNonce: number) => void;
   isPro: boolean;
   setIsPro: (isPro: boolean) => void;
+  showMobileDrawerMenu: boolean;
+  setShowMobileDrawerMenu: (showMobileDrawerMenu: boolean) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -22,7 +24,9 @@ export const useAppStore = create<AppState>((set) => ({
   userSigNonce: 0,
   setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
   isPro: false,
-  setIsPro: (isPro) => set(() => ({ isPro }))
+  setIsPro: (isPro) => set(() => ({ isPro })),
+  showMobileDrawerMenu: false,
+  setShowMobileDrawerMenu: (showMobileDrawerMenu) => set(() => ({ showMobileDrawerMenu }))
 }));
 
 interface AppPersistState {
