@@ -167,7 +167,14 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           {/* Collect checks */}
           {hasNotCollectedPublication && (
             <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
-              Collect this <b className="lowercase">{encryptedPublication?.__typename}</b>
+              Collect the{' '}
+              <Link
+                href={`/posts/${getCondition('collect')?.publicationId}`}
+                className="font-bold lowercase underline"
+                onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT)}
+              >
+                {encryptedPublication?.__typename}
+              </Link>
             </DecryptMessage>
           )}
           {collectNotFinalisedOnChain && (

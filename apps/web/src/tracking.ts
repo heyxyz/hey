@@ -56,7 +56,8 @@ export const PUBLICATION = {
     OPEN_UNISWAP: 'open_uniswap'
   },
   TOKEN_GATED: {
-    DECRYPT: 'decrypt_token_gated_publication'
+    DECRYPT: 'decrypt_token_gated_publication',
+    CHECKLIST_NAVIGATED_TO_COLLECT: 'decrypt_checklist_navigated_to_collect'
   },
   NEW: {
     MARKDOWN_PREVIEW: 'preview_markdown',
