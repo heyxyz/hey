@@ -10,7 +10,7 @@ interface Props {
 }
 
 const SingleNFT: FC<Props> = ({ nft }) => {
-  const nftURL = `${RARIBLE_URL}/${nft.chainId === CHAIN_ID ? 'polygon/' : ''}${nft.contractAddress}:${
+  const nftURL = `${RARIBLE_URL}/token/${nft.chainId === CHAIN_ID ? 'polygon/' : ''}${nft.contractAddress}:${
     nft.tokenId
   }`.toLowerCase();
 
