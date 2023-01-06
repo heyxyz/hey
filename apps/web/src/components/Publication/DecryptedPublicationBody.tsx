@@ -29,7 +29,7 @@ import getURLs from '@lib/getURLs';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
-import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL } from 'data/constants';
+import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
 import type { PublicationMetadataV2Input } from 'lens';
 import { DecryptFailReason } from 'lens';
 import Link from 'next/link';
@@ -226,7 +226,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
               You need{' '}
               <Tooltip content={nftData?.contractMetadata?.name} placement="top">
                 <a
-                  href={`${POLYGONSCAN_URL}/token/${nftCondition.contractAddress}`}
+                  href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
                   onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
                   target="_blank"
