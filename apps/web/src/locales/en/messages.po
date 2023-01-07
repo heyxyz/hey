@@ -1498,6 +1498,10 @@ msgid "Sign-In with Lens"
 msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
+msgid "Change wallet"
+msgstr "Change wallet"
+
+#: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
 msgstr ""
 
