@@ -3,7 +3,8 @@
 export const USER = {
   LOGIN: 'user_login',
   LOGOUT: 'user_logout',
-  SIWL: 'sign_in_with_lens'
+  SIWL: 'sign_in_with_lens',
+  CHANGE_WALLET: 'change_wallet'
 };
 
 export const PROFILE = {
