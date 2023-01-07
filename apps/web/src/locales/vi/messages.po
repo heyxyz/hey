@@ -8,7 +8,7 @@ msgstr ""
 "Language: vi\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-05 14:42\n"
+"PO-Revision-Date: 2023-01-07 11:27\n"
 "Last-Translator: \n"
 "Language-Team: Vietnamese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1495,6 +1495,10 @@ msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
+msgstr ""
+
+#: src/components/Shared/Login/WalletSelector.tsx
+msgid "Change wallet"
 msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
