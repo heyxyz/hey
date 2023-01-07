@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-07 11:27\n"
+"PO-Revision-Date: 2023-01-07 12:06\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -28,7 +28,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
-msgstr ""
+msgstr "இந்த இடுகையை யார் பார்க்கலாம் என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Collectors can view"
@@ -36,19 +36,19 @@ msgstr "சேகரிப்பாளர்கள் பார்க்க ம�
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
-msgstr ""
+msgstr "சேகரிப்பு அடிப்படையிலான டோக்கன் கேட்டிங்கைப் பயன்படுத்த முதலில் சேகரிப்பை இயக்கவும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
-msgstr ""
+msgstr "மக்கள் அதைப் பார்க்க முதலில் அதை சேகரிக்க வேண்டும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Followers can view"
-msgstr ""
+msgstr "பின்பற்றுபவர்கள் பார்க்க முடியும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to follow you to be able to view it"
-msgstr ""
+msgstr "அதைப் பார்க்க மக்கள் உங்களைப் பின்தொடர வேண்டும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
@@ -68,23 +68,23 @@ msgstr "அணுகல் அமைப்புகள்"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
-msgstr ""
+msgstr "உங்கள் உள்ளடக்கத்தை யார் பார்க்கலாம், யார் பார்க்கக்கூடாது என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும். உதாரணமாக - குறிப்பிட்ட NFTகள் அல்லது டோக்கன்களை வைத்திருக்கும் நிலையில் உங்கள் இடுகைகளை டோக்கன் கேட் செய்யவும்."
 
 #: src/components/Composer/Actions/Attachment.tsx
 #: src/components/Composer/Actions/Attachment.tsx
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
-msgstr ""
+msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
 
 #: src/components/Composer/Actions/Attachment.tsx
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
-msgstr ""
+msgstr "கோப்பு வடிவம் அனுமதிக்கப்படவில்லை."
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Something went wrong while uploading!"
-msgstr ""
+msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏற்பட்டது!"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
@@ -96,7 +96,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
-msgstr ""
+msgstr "இந்த இடுகையை சேகரிக்கலாம்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Charge for collecting"
@@ -104,7 +104,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Get paid whenever someone collects your post"
-msgstr ""
+msgstr "உங்கள் இடுகையை யாராவது சேகரிக்கும் போதெல்லாம் பணம் பெறுங்கள்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Price"
@@ -122,7 +122,7 @@ msgstr "மிரர் பரிந்துரை வெகுமதி"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Share your collect fee with people who amplify your content"
-msgstr ""
+msgstr "உங்கள் உள்ளடக்கத்தை பெருக்கும் நபர்களுடன் உங்கள் சேகரிப்புக் கட்டணத்தை பகிர்ந்து கொள்ளுங்கள்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Referral fee"
@@ -134,7 +134,7 @@ msgstr "வரையறுக்கப்பட்ட பதிப்பு"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Make the collects exclusive"
-msgstr ""
+msgstr "சேகரிப்புகளை பிரத்தியேகமாக்குங்கள்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Collect limit"
@@ -146,7 +146,7 @@ msgstr "நேர வரம்பு"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Limit collecting to the first 24h"
-msgstr ""
+msgstr "முதல் 24 மணிநேரத்திற்கு சேகரிப்பதை வரம்பிடவும்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Who can collect"
@@ -343,7 +343,7 @@ msgstr "யாரை பின்பற்றுவது"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "No recommendations!"
-msgstr ""
+msgstr "பரிந்துரைகள் இல்லை!"
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Home/Suggested.tsx
@@ -358,7 +358,7 @@ msgstr "மேலும் காட்டு"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Suggested for you"
-msgstr ""
+msgstr "உங்களுக்காகப் பரிந்துரைக்கப்பட்டது"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
@@ -374,21 +374,21 @@ msgstr "தேடு"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
-msgstr ""
+msgstr "உங்கள் சொந்த ஊட்டத்திற்கு வடிகட்டியை மீட்டமைக்கவும்"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Searching users"
-msgstr ""
+msgstr "பயனர்களைத் தேடுகிறது"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
 msgid "No matching users"
-msgstr ""
+msgstr "பொருத்தமான பயனர்கள் இல்லை"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile"
-msgstr ""
+msgstr "இயல்புநிலை சுயவிவரத்தை அமைக்கவும்"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "You own {count} {0} but you don't have a default one."
@@ -396,7 +396,7 @@ msgstr ""
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile here"
-msgstr ""
+msgstr "இயல்புநிலை சுயவிவரத்தை இங்கே அமைக்கவும்"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Setup your {APP_NAME} profile"
@@ -429,7 +429,7 @@ msgstr ""
 
 #: src/components/Home/Suggested.tsx
 msgid "Nothing to suggest"
-msgstr ""
+msgstr "பரிந்துரைக்க எதுவும் இல்லை"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -477,7 +477,7 @@ msgstr "{0} பப்ளிகேஷன்ஸ்"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
-msgstr ""
+msgstr "செய்தியை அனுப்புவதில் பிழை"
 
 #: src/components/Messages/Composer.tsx
 msgid "Type Something"
@@ -497,7 +497,7 @@ msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "You can't send them a message until they enable DMs."
-msgstr ""
+msgstr "அவர்கள் DMகளை இயக்கும் வரை நீங்கள் அவர்களுக்கு செய்தி அனுப்ப முடியாது."
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This is the beginning of the conversation"
@@ -642,19 +642,19 @@ msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2><
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
-msgstr ""
+msgstr "பொருள் காலியாக இருக்கக்கூடாது"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not exceed 260 characters"
-msgstr ""
+msgstr "பொருள் 260 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message should not be empty"
-msgstr ""
+msgstr "செய்தி காலியாக இருக்கக்கூடாது"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message should not exceed 1000 characters"
-msgstr ""
+msgstr "செய்தி 1000 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
@@ -715,7 +715,7 @@ msgstr "சுயவிவரத்தைத் திருத்து"
 
 #: src/components/Profile/Details.tsx
 msgid "Followers you know"
-msgstr ""
+msgstr "உங்களுக்குத் தெரிந்த பின்தொடர்பவர்கள்"
 
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
@@ -723,19 +723,19 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
-msgstr ""
+msgstr "ஊட்டம்"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Replies"
-msgstr ""
+msgstr "பதில்கள்"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Media"
-msgstr ""
+msgstr "மீடியா"
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
-msgstr ""
+msgstr "NFTகள்"
 
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
@@ -776,7 +776,7 @@ msgstr ""
 
 #: src/components/Profile/MutualFollowers/index.tsx
 msgid "Followed by"
-msgstr ""
+msgstr "பின்பற்றுபவர்கள்"
 
 #: src/components/Profile/NFTFeed.tsx
 msgid "doesn’t have any NFTs!"
@@ -805,7 +805,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Analytics/index.tsx
 msgid "Publication Analytics"
-msgstr ""
+msgstr "வெளியீட்டு பகுப்பாய்வு"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -826,28 +826,28 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
-msgstr ""
+msgstr "வருவாய்:"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Sale Ends:"
-msgstr ""
+msgstr "விற்பனை முடிவடைகிறது:"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Token:"
-msgstr ""
+msgstr "டோக்கன்:"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collect now"
-msgstr ""
+msgstr "இப்போது சேகரிக்கவும்"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "You already collected this"
-msgstr ""
+msgstr "நீங்கள் ஏற்கனவே இதை சேகரித்துள்ளீர்கள்"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
-msgstr ""
+msgstr "இலவச சேகரிப்பு"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
@@ -860,20 +860,20 @@ msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
-msgstr ""
+msgstr "கருத்துரை"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Dislike"
-msgstr ""
+msgstr "விருப்பமில்லை"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
-msgstr ""
+msgstr "விருப்பம்"
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
-msgstr ""
+msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
@@ -886,15 +886,15 @@ msgstr ""
 #: src/components/Publication/Actions/ModAction.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Spam"
-msgstr ""
+msgstr "ஸ்பேம்"
 
 #: src/components/Publication/Actions/ModAction.tsx
 msgid "Others"
-msgstr ""
+msgstr "மற்றவை"
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
-msgstr ""
+msgstr "இதைக் காண..."
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "Collect finalizing on chain..."
@@ -906,11 +906,11 @@ msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "Error while decrypting!"
-msgstr ""
+msgstr "டிக்ரிப்ட் செய்யும் போது பிழை!"
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "Decrypting..."
-msgstr ""
+msgstr "டிக்ரிப்ட் செய்கிறது..."
 
 #: src/components/Publication/HiddenPublication.tsx
 msgid "{type} was hidden by the author"
@@ -1082,7 +1082,7 @@ msgstr "சரிபார்ப்பு கோரிக்கை"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
-msgstr ""
+msgstr "அனுமதி"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Module {0} successfully!"
@@ -1090,15 +1090,15 @@ msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
-msgstr ""
+msgstr "திரும்பப்பெறு"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Warning"
-msgstr ""
+msgstr "எச்சரிக்கை"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Handle with care!"
-msgstr ""
+msgstr "கவனத்துடன் கையாளுங்கள்!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
@@ -1111,11 +1111,11 @@ msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
-msgstr ""
+msgstr "தொகுதிகளை அனுமதிக்கவும் / திரும்பப் பெறவும்"
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
-msgstr ""
+msgstr "சேகரிப்பு அம்சத்தைப் பயன்படுத்த, நீங்கள் பயன்படுத்தும் தொகுதியை அனுமதிக்க வேண்டும், எந்த நேரத்திலும் தொகுதியை அனுமதிக்கலாம் மற்றும் திரும்பப் பெறலாம்."
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Loading allowance data!"
@@ -1123,7 +1123,7 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
-msgstr ""
+msgstr "அழிக்கப்பட்டது {key}"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup Localstorage"
@@ -1151,15 +1151,15 @@ msgstr "துப்புரவு"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Timeline settings"
-msgstr ""
+msgstr "காலவரிசை அமைப்புகள்"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your timeline filter settings"
-msgstr ""
+msgstr "உங்கள் காலவரிசை வடிகட்டி அமைப்புகளை சுத்தம் செய்யவும்"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Direct message keys"
-msgstr ""
+msgstr "நேரடி செய்தி விசைகள்"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your DM encryption key"
@@ -1171,39 +1171,39 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
-msgstr ""
+msgstr "செயலி அமைப்புகள்"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Note: Cleaning will log you out"
-msgstr ""
+msgstr "குறிப்பு: சுத்தம் செய்வது உங்களை வெளியேற்றும்"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "This will deactivate your account"
-msgstr ""
+msgstr "இது உங்கள் கணக்கை செயலிழக்கச் செய்யும்"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Deleting your account is permanent. All your data will be wiped out immediately and you won't be able to get it back."
-msgstr ""
+msgstr "உங்கள் கணக்கை நீக்குவது நிரந்தரமானது. உங்களின் எல்லாத் தரவுகளும் உடனடியாக அழிக்கப்படும், உங்களால் அதைத் திரும்பப் பெற முடியாது."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted."
-msgstr ""
+msgstr "உங்கள் {APP_NAME} கணக்கு தற்செயலாக அல்லது தவறாக நீக்கப்பட்டிருந்தால் அதை மீட்டெடுக்க முடியாது."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
-msgstr ""
+msgstr "Google அல்லது Bing போன்ற தேடுபொறிகளில் சில கணக்குத் தகவல்கள் இன்னும் கிடைக்கக்கூடும்."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Your @handle will be released immediately after deleting the account."
-msgstr ""
+msgstr "கணக்கை நீக்கிய உடனேயே உங்கள் @handle வெளியிடப்படும்."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Deleting..."
-msgstr ""
+msgstr "நீக்குகிறது..."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Delete your account"
-msgstr ""
+msgstr "உங்கள் கணக்கை நீக்கவும்"
 
 #: src/components/Settings/Delete/index.tsx
 #: src/components/Settings/Sidebar.tsx
@@ -1212,16 +1212,16 @@ msgstr "ஆபத்தான இடம்"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
-msgstr ""
+msgstr "நீங்கள் எல்லா விளைவுகளையும் படித்துவிட்டீர்கள் என்பதை உறுதிசெய்து, எப்படியும் உங்கள் கணக்கை நீக்க விரும்புகிறீர்கள்"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Yes, delete my account"
-msgstr ""
+msgstr "ஆம், எனது கணக்கை நீக்கவும்"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Profile updated successfully!"
-msgstr ""
+msgstr "சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable dispatcher"
@@ -1420,7 +1420,7 @@ msgstr "கிட்ஹப்"
 
 #: src/components/Shared/Footer.tsx
 msgid "Translate"
-msgstr ""
+msgstr "மொழிபெயர்"
 
 #: src/components/Shared/Footer.tsx
 msgid "▲ Powered by Vercel"
