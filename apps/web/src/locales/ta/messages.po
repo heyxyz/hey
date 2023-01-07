@@ -1498,6 +1498,10 @@ msgid "Sign-In with Lens"
 msgstr "லென்ஸுடன் உள்நுழை"
 
 #: src/components/Shared/Login/WalletSelector.tsx
+msgid "Change wallet"
+msgstr ""
+
+#: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
 msgstr "உலாவி வாலட்"
 
@@ -1918,4 +1922,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
