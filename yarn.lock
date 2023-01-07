@@ -3618,7 +3618,7 @@
   resolved "https://registry.yarnpkg.com/@ledgerhq/connect-kit-loader/-/connect-kit-loader-1.0.2.tgz#8554e16943f86cc2a5f6348a14dfe6e5bd0c572a"
   integrity sha512-TQ21IjcZOw/scqypaVFY3jHVqI7X7Hta3qN/us6FvTol3AY06UmrhhXGww0E9xHmAbdX241ddwXEiMBSQZFr9g==
 
-"@lens-protocol/sdk-gated@^1.1.6":
+"@lens-protocol/sdk-gated@^1.1.5":
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/@lens-protocol/sdk-gated/-/sdk-gated-1.1.6.tgz#acf995c9a1cdbc82ec0814b6e0761952de7efafd"
   integrity sha512-GOBux596ps37d+1eYVzBQp8ZpK1Q9kxyDTenMncuKcGc7si0ANckm20AkCB3wxzPkaDH/zKa3tsSwmlt/qzQsw==
