@@ -6,14 +6,13 @@ interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement
   size?: 'sm' | 'md' | 'lg';
   variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'super' | 'danger';
   outline?: boolean;
-  loading?: boolean;
   icon?: ReactNode;
   children?: ReactNode;
   className?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
-  { className = '', size = 'md', variant = 'primary', outline, loading, icon, children, ...rest },
+  { className = '', size = 'md', variant = 'primary', outline, icon, children, ...rest },
   ref
 ) {
   return (
@@ -45,7 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
             outline && variant === 'super',
           'border border-red-500 text-red-500 hover:bg-red-100 focus:ring-red-400':
             outline && variant === 'danger',
-          'px-2 py-0.5': size === 'sm',
+          'px-3 py-0.5 text-sm': size === 'sm',
           'px-3 py-1': size === 'md',
           'px-4 py-1.5': size === 'lg',
           'inline-flex items-center space-x-1.5': icon && children
@@ -53,11 +52,10 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
         'rounded-lg font-bold disabled:opacity-50 shadow-sm focus:ring-2 focus:ring-opacity-50 focus:ring-offset-1 outline-none',
         className
       )}
-      disabled={loading}
       type={rest.type}
       {...rest}
     >
-      {icon ? <span>{icon}</span> : null}
+      {icon ? icon : null}
       <div>{children}</div>
     </button>
   );

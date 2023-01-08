@@ -171,7 +171,6 @@ const Picture: FC<Props> = ({ profile }) => {
         </div>
       </div>
       <Button
-        className="ml-auto"
         type="submit"
         disabled={isLoading}
         onClick={() => editPicture(avatar)}
