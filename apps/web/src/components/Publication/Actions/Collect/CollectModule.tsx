@@ -1,6 +1,5 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
-import IndexStatus from '@components/Shared/IndexStatus';
 import Loader from '@components/Shared/Loader';
 import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
@@ -99,11 +98,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     enabled: false
   });
 
-  const {
-    data: writeData,
-    isLoading: writeLoading,
-    write
-  } = useContractWrite({
+  const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHubProxy,
     functionName: 'collectWithSig',
@@ -163,7 +158,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     hasAmount = true;
   }
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
   const [createCollectTypedData, { loading: typedDataLoading }] = useCreateCollectTypedDataMutation({
@@ -249,8 +244,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   const isLoading =
     typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
-  const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
 
   return (
     <>
@@ -430,11 +423,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             </div>
           )}
         </div>
-        {writeData?.hash ?? broadcastTxHash ? (
-          <div className="mt-5">
-            <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} />
-          </div>
-        ) : null}
         <div className="flex items-center space-x-2 mt-5">
           {currentProfile && !hasCollectedByMe ? (
             allowanceLoading || balanceLoading ? (
