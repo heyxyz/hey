@@ -169,7 +169,7 @@ const SetProfile: FC = () => {
         onClick={setDefaultProfile}
         icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
       >
-        Save
+        <Trans>Save</Trans>
       </Button>
     </Card>
   );
