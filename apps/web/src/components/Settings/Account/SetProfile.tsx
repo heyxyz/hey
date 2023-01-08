@@ -1,4 +1,3 @@
-import IndexStatus from '@components/Shared/IndexStatus';
 import UserProfile from '@components/Shared/UserProfile';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
@@ -38,7 +37,6 @@ const SetProfile: FC = () => {
   };
 
   const {
-    data: writeData,
     isLoading: writeLoading,
     error,
     write
@@ -61,7 +59,7 @@ const SetProfile: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
@@ -108,8 +106,6 @@ const SetProfile: FC = () => {
   }
 
   const isLoading = typedDataLoading || signLoading || writeLoading || broadcastLoading;
-  const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
 
   return (
     <Card className="space-y-5 p-5">
@@ -166,20 +162,15 @@ const SetProfile: FC = () => {
           ))}
         </select>
       </div>
-      <div className="flex flex-col space-y-2">
-        <Button
-          className="ml-auto"
-          type="submit"
-          disabled={isLoading}
-          onClick={setDefaultProfile}
-          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
-        >
-          Save
-        </Button>
-        {writeData?.hash ?? broadcastTxHash ? (
-          <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} reload />
-        ) : null}
-      </div>
+      <Button
+        className="ml-auto"
+        type="submit"
+        disabled={isLoading}
+        onClick={setDefaultProfile}
+        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+      >
+        Save
+      </Button>
     </Card>
   );
 };

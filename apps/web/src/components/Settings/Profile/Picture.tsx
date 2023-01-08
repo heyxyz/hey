@@ -1,5 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
@@ -45,7 +44,6 @@ const Picture: FC<Props> = ({ profile }) => {
   };
 
   const {
-    data: writeData,
     isLoading: writeLoading,
     error,
     write
@@ -65,7 +63,7 @@ const Picture: FC<Props> = ({ profile }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -90,7 +88,7 @@ const Picture: FC<Props> = ({ profile }) => {
       onError
     });
 
-  const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+  const [createSetProfileImageURIViaDispatcher, { loading: dispatcherLoading }] =
     useCreateSetProfileImageUriViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
@@ -150,14 +148,6 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
-  const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
-  const dispatcherTxHash =
-    dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
-    dispatcherData?.createSetProfileImageURIViaDispatcher.txHash;
-
-  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
-
   return (
     <>
       <div className="space-y-1.5">
@@ -180,18 +170,15 @@ const Picture: FC<Props> = ({ profile }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col space-y-2">
-        <Button
-          className="ml-auto"
-          type="submit"
-          disabled={isLoading}
-          onClick={() => editPicture(avatar)}
-          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
-        >
-          Save
-        </Button>
-        {txHash ? <IndexStatus txHash={txHash} /> : null}
-      </div>
+      <Button
+        className="ml-auto"
+        type="submit"
+        disabled={isLoading}
+        onClick={() => editPicture(avatar)}
+        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+      >
+        Save
+      </Button>
     </>
   );
 };
