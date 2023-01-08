@@ -63,11 +63,7 @@ const Status: FC = () => {
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
-  const {
-    data: writeData,
-    isLoading: writeLoading,
-    write
-  } = useContractWrite({
+  const { isLoading: writeLoading, write } = useContractWrite({
     address: LENS_PERIPHERY,
     abi: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
@@ -76,7 +72,7 @@ const Status: FC = () => {
     onError
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
@@ -101,7 +97,7 @@ const Status: FC = () => {
       onError
     });
 
-  const [createSetProfileMetadataViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+  const [createSetProfileMetadataViaDispatcher, { loading: dispatcherLoading }] =
     useCreateSetProfileMetadataViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
@@ -181,14 +177,6 @@ const Status: FC = () => {
 
   const isLoading =
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
-
-  const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
-  const dispatcherTxHash =
-    dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
-    dispatcherData?.createSetProfileMetadataViaDispatcher.txHash;
-
-  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
 
   return (
     <div className="p-5 space-y-5">
