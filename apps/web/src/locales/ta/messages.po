@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-08 00:09\n"
+"PO-Revision-Date: 2023-01-08 09:27\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1491,7 +1491,7 @@ msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up"
-msgstr ""
+msgstr "பதிவு செய்யவும்"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
@@ -1507,7 +1507,7 @@ msgstr "உலாவி வாலட்"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
-msgstr ""
+msgstr "இணைக்க முடியவில்லை"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -1515,7 +1515,7 @@ msgstr "செய்தியில் கையொப்பமிடுங்�
 
 #: src/components/Shared/Login/index.tsx
 msgid "{APP_NAME} uses this signature to verify that you're the owner of this address."
-msgstr ""
+msgstr "இந்த முகவரியின் உரிமையாளர் நீங்கள் என்பதைச் சரிபார்க்க {APP_NAME} இந்த கையொப்பத்தைப் பயன்படுத்துகிறது."
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect your wallet"
@@ -1531,7 +1531,7 @@ msgstr ""
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "No collectors."
-msgstr ""
+msgstr "சேகரிப்பாளர்கள் இல்லை."
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
@@ -1543,7 +1543,7 @@ msgstr ""
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "No likes."
-msgstr ""
+msgstr "விருப்பங்கள் இல்லை."
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Failed to load likes"
@@ -1768,7 +1768,7 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
-msgstr ""
+msgstr "பெறுநர்:"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can comment on @{0}'s publications"
@@ -1788,11 +1788,11 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "More coming soon™"
-msgstr ""
+msgstr "மேலும் விரைவில்™"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Allow follow module"
-msgstr ""
+msgstr "பின்தொடரும் தொகுதியை அனுமதிக்கவும்"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
@@ -1800,23 +1800,23 @@ msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
-msgstr ""
+msgstr "நெட்வொர்க்கை மாற்றவும்"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
-msgstr ""
+msgstr "வெற்றிகரமாக பின்தொடரவில்லை!"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "User rejected request"
-msgstr ""
+msgstr "பயனர் கோரிக்கையை நிராகரித்தார்"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
-msgstr ""
+msgstr "பின்தொடர வேண்டாம்"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{0}</0>"
-msgstr ""
+msgstr "உங்களிடம் போதுமான <0>{0}</0> இல்லை"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
@@ -1824,19 +1824,19 @@ msgstr ""
 
 #: src/components/UI/LightBox.tsx
 msgid "Open original"
-msgstr ""
+msgstr "அசல் திறக்க"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
-msgstr ""
+msgstr "படத்தின் அளவு 10MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 50MB"
-msgstr ""
+msgstr "வீடியோ அளவு 50MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 20MB"
-msgstr ""
+msgstr "ஆடியோ அளவு 20MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/lib/getModule.ts
 msgid "The Unknown Collect Module is unknown and not type supported in the API."
@@ -1908,7 +1908,7 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "This page could not be found."
-msgstr ""
+msgstr "இந்தப் பக்கத்தைக் காண முடியவில்லை."
 
 #: src/pages/404.tsx
 #: src/pages/500.tsx
@@ -1917,9 +1917,9 @@ msgstr ""
 
 #: src/pages/500.tsx
 msgid "Looks like something went wrong!"
-msgstr ""
+msgstr "ஏதோ தவறாகிவிட்டது போல் தெரிகிறது!"
 
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
-msgstr ""
+msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
 
