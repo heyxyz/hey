@@ -1,4 +1,3 @@
-import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { Form, useZodForm } from '@components/UI/Form';
@@ -50,11 +49,7 @@ const SuperFollow: FC = () => {
     Analytics.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
-  const {
-    data: writeData,
-    isLoading: writeLoading,
-    write
-  } = useContractWrite({
+  const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHubProxy,
     functionName: 'setFollowModuleWithSig',
@@ -70,7 +65,7 @@ const SuperFollow: FC = () => {
     }
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
@@ -140,8 +135,6 @@ const SuperFollow: FC = () => {
   }
 
   const followType = currencyData?.profile?.followModule?.__typename;
-  const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
 
   return (
     <Card>
@@ -204,7 +197,7 @@ const SuperFollow: FC = () => {
           placeholder="0x3A5bd...5e3"
           {...form.register('recipient')}
         />
-        <div className="ml-auto flex flex-col space-y-2">
+        <div className="ml-auto">
           <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">
             {followType === 'FeeFollowModuleSettings' && (
               <Button
@@ -226,9 +219,6 @@ const SuperFollow: FC = () => {
               {followType === 'FeeFollowModuleSettings' ? t`Update Super follow` : t`Set Super follow`}
             </Button>
           </div>
-          {writeData?.hash ?? broadcastTxHash ? (
-            <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} />
-          ) : null}
         </div>
       </Form>
     </Card>

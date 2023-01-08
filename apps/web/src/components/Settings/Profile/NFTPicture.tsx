@@ -1,4 +1,3 @@
-import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
@@ -61,7 +60,6 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   });
 
   const {
-    data: writeData,
     isLoading: writeLoading,
     error,
     write
@@ -75,7 +73,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   });
 
   const [loadChallenge, { loading: challengeLoading }] = useNftChallengeLazyQuery();
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
@@ -100,7 +98,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
       onError
     });
 
-  const [createSetProfileImageURIViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+  const [createSetProfileImageURIViaDispatcher, { loading: dispatcherLoading }] =
     useCreateSetProfileImageUriViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
@@ -171,14 +169,6 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     writeLoading ||
     broadcastLoading;
 
-  const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
-  const dispatcherTxHash =
-    dispatcherData?.createSetProfileImageURIViaDispatcher.__typename === 'RelayerResult' &&
-    dispatcherData?.createSetProfileImageURIViaDispatcher.txHash;
-
-  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
-
   return (
     <Form
       form={form}
@@ -210,18 +200,14 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         {...form.register('contractAddress')}
       />
       <Input label={t`Token Id`} type="text" placeholder="1" {...form.register('tokenId')} />
-
-      <div className="flex flex-col space-y-2">
-        <Button
-          className="ml-auto"
-          type="submit"
-          disabled={isLoading}
-          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
-        >
-          Save
-        </Button>
-        {txHash ? <IndexStatus txHash={txHash} /> : null}
-      </div>
+      <Button
+        className="ml-auto"
+        type="submit"
+        disabled={isLoading}
+        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+      >
+        Save
+      </Button>
     </Form>
   );
 };
