@@ -183,3 +183,11 @@ div[data-lexical-editor='true'] {
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+.virtual-list {
+  @apply overflow-y-hidden;
+}
+
+.virtual-list > div > div {
+  @apply divide-y-[1px] dark:divide-gray-700/80;
+}

@@ -1,6 +1,7 @@
 import EventType from '@components/Home/Timeline/EventType';
 import type { LensterPublication } from '@generated/types';
 import { Analytics } from '@lib/analytics';
+import clsx from 'clsx';
 import type { ElectedMirror, FeedItem } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -20,6 +21,7 @@ interface Props {
   showActions?: boolean;
   showModActions?: boolean;
   showThread?: boolean;
+  index?: number;
 }
 
 const SinglePublication: FC<Props> = ({
@@ -28,7 +30,8 @@ const SinglePublication: FC<Props> = ({
   showType = true,
   showActions = true,
   showModActions = false,
-  showThread = true
+  showThread = true,
+  index
 }) => {
   const { push } = useRouter();
   const firstComment = feedItem?.comments && feedItem.comments[0];
@@ -36,7 +39,10 @@ const SinglePublication: FC<Props> = ({
 
   return (
     <article
-      className="hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5"
+      className={clsx(
+        { 'rounded-t-xl': index === 0 },
+        'hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer p-5'
+      )}
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
