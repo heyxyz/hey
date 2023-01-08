@@ -1,5 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -68,7 +67,6 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const {
-    data: writeData,
     isLoading: writeLoading,
     error,
     write
@@ -81,7 +79,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
     onError
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
@@ -106,7 +104,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
       onError
     });
 
-  const [createSetProfileMetadataViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+  const [createSetProfileMetadataViaDispatcher, { loading: dispatcherLoading }] =
     useCreateSetProfileMetadataViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
@@ -223,14 +221,6 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
   const isLoading =
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
-  const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
-  const dispatcherTxHash =
-    dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
-    dispatcherData?.createSetProfileMetadataViaDispatcher.txHash;
-
-  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
-
   return (
     <Card className="p-5">
       <Form
@@ -285,17 +275,14 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col space-y-2">
-          <Button
-            className="ml-auto"
-            type="submit"
-            disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
-          >
-            <Trans>Save</Trans>
-          </Button>
-          {txHash ? <IndexStatus txHash={txHash} /> : null}
-        </div>
+        <Button
+          className="ml-auto"
+          type="submit"
+          disabled={isLoading}
+          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+        >
+          <Trans>Save</Trans>
+        </Button>
       </Form>
     </Card>
   );

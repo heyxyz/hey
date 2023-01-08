@@ -57,6 +57,9 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Settings/Account/SetProfile.tsx
+#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
 msgid "Save"
@@ -924,6 +927,18 @@ msgstr ""
 msgid "NFT ADDRESS"
 msgstr ""
 
+#: src/components/Publication/PublicationStats.tsx
+msgid "<0>{0}</0> Mirrors"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "<0>{0}</0> Likes"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "<0>{0}</0> Collects"
+msgstr ""
+
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
 msgstr ""
@@ -1386,6 +1401,10 @@ msgstr ""
 msgid "Followed successfully!"
 msgstr ""
 
+#: src/components/Shared/Follow.tsx
+msgid "Follow"
+msgstr ""
+
 #: src/components/Shared/Footer.tsx
 msgid "Terms"
 msgstr ""
@@ -1791,7 +1810,19 @@ msgid "More coming soon™"
 msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Super follow again"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Super follow now"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Allow follow module"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/index.tsx
+msgid "Super follow"
 msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
@@ -1922,4 +1953,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
