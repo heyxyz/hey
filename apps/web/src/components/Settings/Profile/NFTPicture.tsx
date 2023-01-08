@@ -8,7 +8,7 @@ import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { NftImage, Profile, UpdateProfileImageRequest } from 'lens';
@@ -206,7 +206,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         disabled={isLoading}
         icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
       >
-        Save
+        <Trans>Save</Trans>
       </Button>
     </Form>
   );
