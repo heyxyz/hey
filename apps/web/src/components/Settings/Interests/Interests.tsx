@@ -70,7 +70,7 @@ const Interests: FC = () => {
                 key={subCategory.id}
                 variant={selectedTopics.includes(subCategory.id) ? 'primary' : 'secondary'}
                 size="sm"
-                className="text-sm font-medium capitalize"
+                className="font-medium capitalize"
                 disabled={
                   !selectedTopics.includes(subCategory.id) && selectedTopics.length === MAX_TOPICS_ALLOWED
                 }
@@ -92,7 +92,7 @@ const Interests: FC = () => {
                 key={category.id}
                 variant={selectedTopics.includes(category.id) ? 'primary' : 'secondary'}
                 size="sm"
-                className="text-sm font-medium capitalize"
+                className="font-medium capitalize"
                 disabled={
                   !selectedTopics.includes(category.id) && selectedTopics.length === MAX_TOPICS_ALLOWED
                 }
