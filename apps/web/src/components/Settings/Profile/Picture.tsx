@@ -10,7 +10,7 @@ import imageProxy from '@lib/imageProxy';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToIPFS from '@lib/uploadToIPFS';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { AVATAR, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from 'lens';
@@ -177,7 +177,7 @@ const Picture: FC<Props> = ({ profile }) => {
         onClick={() => editPicture(avatar)}
         icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
       >
-        Save
+        <Trans>Save</Trans>
       </Button>
     </>
   );

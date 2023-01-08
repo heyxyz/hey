@@ -48,7 +48,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
         aria-label="Super Follow"
         icon={<StarIcon className="w-4 h-4" />}
       >
-        {showText && `Super follow`}
+        {showText && t`Super follow`}
       </Button>
       <Modal
         title={
