@@ -30,7 +30,6 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
 import EmojiPicker from './EmojiPicker';
-import IndexStatus from './IndexStatus';
 import Loader from './Loader';
 
 const editStatusSchema = object({
@@ -206,33 +205,28 @@ const Status: FC = () => {
           placeholder={t`What's happening?`}
           {...form.register('status')}
         />
-        <div className="flex flex-col space-y-2">
-          <div className="flex items-center space-x-2">
-            <Button
-              className="ml-auto"
-              type="submit"
-              variant="danger"
-              disabled={isLoading}
-              outline
-              onClick={() => {
-                setEmoji('');
-                form.setValue('status', '');
-                editStatus('', '');
-                Analytics.track(SETTINGS.PROFILE.CLEAR_STATUS);
-              }}
-            >
-              <Trans>Clear status</Trans>
-            </Button>
-            <Button
-              className="ml-auto"
-              type="submit"
-              disabled={isLoading}
-              icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
-            >
-              <Trans>Save</Trans>
-            </Button>
-          </div>
-          {txHash ? <IndexStatus txHash={txHash} reload /> : null}
+        <div className="flex items-center space-x-2 ml-auto">
+          <Button
+            type="submit"
+            variant="danger"
+            disabled={isLoading}
+            outline
+            onClick={() => {
+              setEmoji('');
+              form.setValue('status', '');
+              editStatus('', '');
+              Analytics.track(SETTINGS.PROFILE.CLEAR_STATUS);
+            }}
+          >
+            <Trans>Clear status</Trans>
+          </Button>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+          >
+            <Trans>Save</Trans>
+          </Button>
         </div>
       </Form>
     </div>
