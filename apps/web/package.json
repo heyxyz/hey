@@ -7,7 +7,7 @@
     "build": "lingui compile; next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx",
     "test": "cypress run --headless",
     "crowdin": "crowdin",
     "extract": "NODE_ENV=development lingui extract"
