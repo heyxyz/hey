@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['lens', 'data', 'abis']);
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -10,6 +9,7 @@ module.exports = withTM(
   withPWA({
     reactStrictMode: false,
     trailingSlash: false,
+    transpilePackages: ['lens', 'data', 'abis'],
     experimental: {
       scrollRestoration: true,
       newNextLinkBehavior: true

@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
-const withTM = require('next-transpile-modules')(['data']);
-
 module.exports = withTM({
   reactStrictMode: false,
   trailingSlash: false,
+  transpilePackages: ['data'],
   async rewrites() {
     return [{ source: '/:path*', destination: '/api/:path*' }];
   },
