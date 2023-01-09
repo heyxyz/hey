@@ -13,10 +13,13 @@ module.exports = {
     extend: {
       colors: {
         gray: colors.zinc,
+        brand: colors.violet,
+        indigo: colors.indigo,
+        red: colors.red,
+        pink: colors.pink,
+        blue: colors.blue,
         green: colors.emerald,
-        purple: colors.violet,
-        yellow: colors.yellow,
-        brand: colors.violet
+        yellow: colors.yellow
       }
     }
   },

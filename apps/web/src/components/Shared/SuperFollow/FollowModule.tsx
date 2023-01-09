@@ -250,7 +250,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
                 )
               }
             >
-              Super follow {again ? 'again' : 'now'}
+              {again ? t`Super follow again` : t`Super follow now`}
             </Button>
           ) : (
             <WarningMessage

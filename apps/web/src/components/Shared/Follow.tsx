@@ -153,7 +153,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
       disabled={isLoading}
       icon={isLoading ? <Spinner variant="success" size="xs" /> : <UserAddIcon className="w-4 h-4" />}
     >
-      {showText && 'Follow'}
+      {showText && t`Follow`}
     </Button>
   );
 };

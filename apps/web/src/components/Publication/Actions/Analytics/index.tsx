@@ -44,13 +44,13 @@ const Analytics: FC<Props> = ({ publication, isFullPublication }) => {
         }}
         aria-label="Analytics"
       >
-        <span className="flex items-center space-x-1 text-indigo-500">
-          <span className="p-1.5 rounded-full hover:bg-indigo-300 hover:bg-opacity-20">
+        <div className="flex items-center space-x-1 text-indigo-500">
+          <div className="p-1.5 rounded-full hover:bg-indigo-300 hover:bg-opacity-20">
             <Tooltip placement="top" content="Analytics" withDelay>
               <ChartBarIcon className={iconClassName} />
             </Tooltip>
-          </span>
-        </span>
+          </div>
+        </div>
       </motion.button>
       <Modal
         title={t`Publication Analytics`}
