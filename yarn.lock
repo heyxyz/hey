@@ -8257,9 +8257,9 @@ fraction.js@^4.2.0:
   integrity sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==
 
 framer-motion@^8.2.4:
-  version "8.2.4"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-8.2.4.tgz#24e99707b4d98567ce233b4f5a8894470d2da91d"
-  integrity sha512-bd2g3kgb8m0jBi+OOzsKPW4rQCn5gOOlbAlT0iMX6ruQPZ9qzIIABrRj2DFhwW6EcFvfJSP6EVVHSI8SQYBBOw==
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-8.3.0.tgz#649d42d88b78759fec21ffb0f2e1535ef5743312"
+  integrity sha512-vzkEdruun2QD87+5/LQ8tk5OmPvb5h1T1FV2KhXgPo2I0MIhJYmfmrHAyuHSUtuc4rS1Sno3AHxTJ5JtXVvSGQ==
   dependencies:
     "@motionone/dom" "^10.15.3"
     hey-listen "^1.0.8"
