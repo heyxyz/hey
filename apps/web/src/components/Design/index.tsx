@@ -3,6 +3,7 @@ import { GridLayout } from '@components/UI/GridLayout';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 
+import Buttons from './Buttons';
 import Colors from './Colors';
 import Typography from './Typography';
 
@@ -14,6 +15,8 @@ const Design: NextPage = () => {
         <Typography />
         <div className="divider my-6" />
         <Colors />
+        <div className="divider my-6" />
+        <Buttons />
         <div className="divider my-6" />
       </div>
     </GridLayout>

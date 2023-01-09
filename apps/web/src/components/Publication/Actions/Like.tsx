@@ -1,13 +1,14 @@
 import type { ApolloCache } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { LensterPublication } from '@generated/types';
-import { HeartIcon } from '@heroicons/react/outline';
-import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
+import { HeartIcon, SunIcon } from '@heroicons/react/outline';
+import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
 import { publicationKeyFields } from '@lib/keyFields';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
+import clsx from 'clsx';
 import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
@@ -99,20 +100,42 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
   };
 
   const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const { content } = publication.metadata;
+  const isGM = content?.startsWith('gm') ? content?.includes('gm') : content?.includes(' gm');
 
   return (
-    <motion.button whileTap={{ scale: 0.9 }} onClick={createLike} aria-label="Like">
-      <span className="flex items-center space-x-1 text-pink-500">
-        <span className="p-1.5 rounded-full hover:bg-pink-300 hover:bg-opacity-20">
+    <div className={clsx(isGM ? 'text-yellow-600' : 'text-pink-500', 'flex items-center space-x-1')}>
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        animate={{
+          rotate: isGM && liked ? 90 : 0
+        }}
+        onClick={createLike}
+        aria-label="Like"
+      >
+        <div
+          className={clsx(
+            isGM ? 'hover:bg-yellow-400' : 'hover:bg-pink-300',
+            'p-1.5 rounded-full hover:bg-opacity-20'
+          )}
+        >
           <Tooltip placement="top" content={liked ? t`Dislike` : t`Like`} withDelay>
-            {liked ? <HeartIconSolid className={iconClassName} /> : <HeartIcon className={iconClassName} />}
+            {liked ? (
+              isGM ? (
+                <SunIconSolid className={iconClassName} />
+              ) : (
+                <HeartIconSolid className={iconClassName} />
+              )
+            ) : isGM ? (
+              <SunIcon className={iconClassName} />
+            ) : (
+              <HeartIcon className={iconClassName} />
+            )}
           </Tooltip>
-        </span>
-        {count > 0 && !isFullPublication && (
-          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
-        )}
-      </span>
-    </motion.button>
+        </div>
+      </motion.button>
+      {count > 0 && !isFullPublication && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+    </div>
   );
 };
 
