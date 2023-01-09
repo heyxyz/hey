@@ -109,7 +109,8 @@ export const NOTIFICATION = {
   SWITCH_ALL: 'switch_to_all_notifications',
   SWITCH_MENTIONS: 'switch_to_mentions_notifications',
   SWITCH_COMMENTS: 'switch_to_comments_notifications',
-  SWITCH_COLLECTS: 'switch_to_collects_notifications'
+  SWITCH_COLLECTS: 'switch_to_collects_notifications',
+  SWITCH_LIKES: 'switch_to_likes_notifications'
 };
 
 export const MESSAGES = {
