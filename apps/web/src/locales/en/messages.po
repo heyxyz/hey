@@ -569,6 +569,10 @@ msgid "Comments"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
+msgid "Likes"
+msgstr "Likes"
+
+#: src/components/Notification/FeedType.tsx
 msgid "Collects"
 msgstr ""
 
