@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-module.exports = withTM({
+module.exports = {
   reactStrictMode: false,
   trailingSlash: false,
   transpilePackages: ['data'],
@@ -18,4 +18,4 @@ module.exports = withTM({
       }
     ];
   }
-});
+};
