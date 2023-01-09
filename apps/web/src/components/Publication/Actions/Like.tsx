@@ -4,6 +4,7 @@ import type { LensterPublication } from '@generated/types';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
+import hasGm from '@lib/hasGm';
 import { publicationKeyFields } from '@lib/keyFields';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
@@ -101,7 +102,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
   const { content } = publication.metadata;
-  const isGM = content?.startsWith('gm') ? content?.includes('gm') : content?.includes(' gm');
+  const isGM = hasGm(content);
 
   return (
     <div className={clsx(isGM ? 'text-yellow-600' : 'text-pink-500', 'flex items-center space-x-1')}>
