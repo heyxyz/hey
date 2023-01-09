@@ -3618,10 +3618,10 @@
   resolved "https://registry.yarnpkg.com/@ledgerhq/connect-kit-loader/-/connect-kit-loader-1.0.2.tgz#8554e16943f86cc2a5f6348a14dfe6e5bd0c572a"
   integrity sha512-TQ21IjcZOw/scqypaVFY3jHVqI7X7Hta3qN/us6FvTol3AY06UmrhhXGww0E9xHmAbdX241ddwXEiMBSQZFr9g==
 
-"@lens-protocol/sdk-gated@1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@lens-protocol/sdk-gated/-/sdk-gated-1.1.5.tgz#b747f851c30ccd7515cfa4f7bb675b1bad10d027"
-  integrity sha512-xBaOAKiTUGyZPVTeFHdKCgp/jatWzNz02i6RaL5VHdCSCA/mlnWrUHfg5FUrBNziK/wHSolQElTUf9qmnYhOoQ==
+"@lens-protocol/sdk-gated@1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@lens-protocol/sdk-gated/-/sdk-gated-1.1.6.tgz#acf995c9a1cdbc82ec0814b6e0761952de7efafd"
+  integrity sha512-GOBux596ps37d+1eYVzBQp8ZpK1Q9kxyDTenMncuKcGc7si0ANckm20AkCB3wxzPkaDH/zKa3tsSwmlt/qzQsw==
   dependencies:
     "@apollo/client" "^3.7.1"
     "@ethersproject/address" "^5.7.0"
@@ -3631,6 +3631,7 @@
     "@ethersproject/strings" "^5.7.0"
     "@ethersproject/wallet" "^5.7.0"
     "@metamask/detect-provider" "^1.2.0"
+    buffer "^6.0.3"
     cross-fetch "^3.1.5"
     pako "^2.0.4"
     prettier "^2.8.1"
