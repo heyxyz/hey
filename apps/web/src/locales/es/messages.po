@@ -569,6 +569,10 @@ msgid "Comments"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
+msgid "Likes"
+msgstr ""
+
+#: src/components/Notification/FeedType.tsx
 msgid "Collects"
 msgstr ""
 
@@ -1953,4 +1957,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

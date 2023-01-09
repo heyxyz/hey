@@ -1,5 +1,11 @@
 import TabButton from '@components/UI/TabButton';
-import { AtSymbolIcon, ChatAlt2Icon, CollectionIcon, LightningBoltIcon } from '@heroicons/react/outline';
+import {
+  AtSymbolIcon,
+  ChatAlt2Icon,
+  CollectionIcon,
+  HeartIcon,
+  LightningBoltIcon
+} from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
@@ -42,6 +48,16 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           onClick={() => {
             setFeedType('COMMENTS');
             Analytics.track(NOTIFICATION.SWITCH_COMMENTS);
+          }}
+        />
+        <TabButton
+          name={t`Likes`}
+          icon={<HeartIcon className="w-4 h-4" />}
+          active={feedType === 'LIKES'}
+          type="likes"
+          onClick={() => {
+            setFeedType('LIKES');
+            Analytics.track(NOTIFICATION.SWITCH_LIKES);
           }}
         />
         <TabButton
