@@ -20,7 +20,7 @@
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^2.9.10",
-    "@lens-protocol/sdk-gated": "1.1.5",
+    "@lens-protocol/sdk-gated": "^1.1.8",
     "@lexical/code": "^0.7.5",
     "@lexical/hashtag": "^0.7.5",
     "@lexical/link": "^0.7.5",
