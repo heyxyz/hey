@@ -281,8 +281,8 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               <div className="text-xl font-bold">{publication?.metadata?.name}</div>
             )}
           </div>
-          {publication?.metadata?.description && (
-            <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.description}</Markup>
+          {publication?.metadata?.content && (
+            <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.content}</Markup>
           )}
           <ReferralAlert
             electedMirror={electedMirror}
