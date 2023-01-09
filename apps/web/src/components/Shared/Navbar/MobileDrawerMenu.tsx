@@ -1,5 +1,6 @@
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import {
+  CheckCircleIcon,
   CogIcon,
   EmojiHappyIcon,
   HandIcon,
@@ -8,6 +9,7 @@ import {
   ShieldCheckIcon,
   SunIcon,
   SupportIcon,
+  SwitchHorizontalIcon,
   UserIcon,
   XIcon
 } from '@heroicons/react/outline';
@@ -32,6 +34,7 @@ import Slug from '../Slug';
 
 const MobileDrawerMenu = () => {
   const router = useRouter();
+  const profiles = useAppStore((state) => state.profiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -173,6 +176,47 @@ const MobileDrawerMenu = () => {
                 )}
               </div>
             </button>
+            <div className="flex flex-col py-4">
+              <div className="flex items-center space-x-1.5">
+                <SwitchHorizontalIcon className="w-4 h-4" />
+                <div>
+                  <Trans>Switch to</Trans>
+                </div>
+              </div>
+              <div className="pt-3 px-4">
+                {profiles.map((profile: Profile, index) => (
+                  <div
+                    key={profile?.id}
+                    className="block w-full text-gray-700 rounded-lg cursor-pointer dark:text-gray-200"
+                  >
+                    <button
+                      type="button"
+                      className="flex items-center py-1 space-x-2 w-full rounded-lg dark:hover:bg-gray-800"
+                      onClick={() => {
+                        const selectedProfile = profiles[index];
+                        setCurrentProfile(selectedProfile);
+                        setProfileId(selectedProfile.id);
+                        Analytics.track(PROFILE.SWITCH_PROFILE);
+                      }}
+                    >
+                      <span className="flex items-center py-1 space-x-2 w-full rounded-lg dark:hover:bg-gray-800">
+                        <img
+                          className="w-5 h-5 rounded-full border dark:border-gray-700"
+                          height={20}
+                          width={20}
+                          src={getAvatar(profile)}
+                          alt={formatHandle(profile?.handle)}
+                        />
+                        <div className="truncate">{formatHandle(profile?.handle)}</div>
+                      </span>
+                      {currentProfile?.id === profile?.id && (
+                        <CheckCircleIcon className="w-4 h-4 text-green-500" />
+                      )}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
           <div className="divider" />
         </div>
