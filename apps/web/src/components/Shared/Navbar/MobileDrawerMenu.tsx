@@ -62,6 +62,7 @@ const MobileDrawerMenu = () => {
     setProfileId(null);
     resetAuthData();
     disconnect?.();
+    setShowMobileDrawerMenu(false);
     router.push('/');
   };
 
@@ -116,20 +117,29 @@ const MobileDrawerMenu = () => {
             <Link
               href={`/u/${formatHandle(currentProfile?.handle)}`}
               className="flex items-center py-4 space-x-1.5"
+              onClick={() => setShowMobileDrawerMenu(false)}
             >
               <UserIcon className="w-5 h-5" />
               <div>
                 <Trans>Your Profile</Trans>
               </div>
             </Link>
-            <Link href="/settings" className="flex items-center py-4 space-x-1.5">
+            <Link
+              href="/settings"
+              className="flex items-center py-4 space-x-1.5"
+              onClick={() => setShowMobileDrawerMenu(false)}
+            >
               <CogIcon className="w-5 h-5" />
               <div>
                 <Trans>Settings</Trans>
               </div>
             </Link>
             {isGardener(currentProfile?.id) && (
-              <Link href="/mod" className="flex items-center py-4 space-x-1.5">
+              <Link
+                href="/mod"
+                className="flex items-center py-4 space-x-1.5"
+                onClick={() => setShowMobileDrawerMenu(false)}
+              >
                 <ShieldCheckIcon className="w-5 h-5" />
                 <div>
                   <Trans>Moderation</Trans>
@@ -142,6 +152,7 @@ const MobileDrawerMenu = () => {
               onClick={() => {
                 setTheme(theme === 'light' ? 'dark' : 'light');
                 Analytics.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
+                setShowMobileDrawerMenu(false);
               }}
             >
               <div className="flex items-center space-x-1.5 py-4">
@@ -168,7 +179,11 @@ const MobileDrawerMenu = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div className="mx-5 my-2">
-            <Link href="/contact" className="flex items-center py-4 space-x-1.5">
+            <Link
+              href="/contact"
+              className="flex items-center py-4 space-x-1.5"
+              onClick={() => setShowMobileDrawerMenu(false)}
+            >
               <SupportIcon className="w-5 h-5" />
               <div>
                 <Trans>Contact</Trans>
@@ -178,6 +193,7 @@ const MobileDrawerMenu = () => {
               href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
               target="_blank"
               className="flex items-center space-x-1.5 py-4"
+              onClick={() => setShowMobileDrawerMenu(false)}
             >
               <HandIcon className="w-5 h-5" />
               <div>
@@ -203,14 +219,15 @@ const MobileDrawerMenu = () => {
 
         {currentProfile && (
           <div className="py-2 px-5 text-sm opacity-60">
-            <a
+            <Link
               href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
               className="font-mono"
               target="_blank"
               rel="noreferrer noopener"
+              onClick={() => setShowMobileDrawerMenu(false)}
             >
               v{APP_VERSION}
-            </a>
+            </Link>
           </div>
         )}
       </div>
