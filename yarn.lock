@@ -3618,10 +3618,10 @@
   resolved "https://registry.yarnpkg.com/@ledgerhq/connect-kit-loader/-/connect-kit-loader-1.0.2.tgz#8554e16943f86cc2a5f6348a14dfe6e5bd0c572a"
   integrity sha512-TQ21IjcZOw/scqypaVFY3jHVqI7X7Hta3qN/us6FvTol3AY06UmrhhXGww0E9xHmAbdX241ddwXEiMBSQZFr9g==
 
-"@lens-protocol/sdk-gated@^1.1.7":
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/@lens-protocol/sdk-gated/-/sdk-gated-1.1.7.tgz#869831a39dc49317c9ccc878c69b726751b19791"
-  integrity sha512-HT5+4nvCPgnFadHmf3tefrviFal0WsS4TlY/IaVf0uhBt5dTZ9jNuabEGWsmvSZLBIhU2SvSFfiYQAA2puOBmg==
+"@lens-protocol/sdk-gated@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@lens-protocol/sdk-gated/-/sdk-gated-1.1.8.tgz#7ab918d7bb08d5e99f9d86b98b75f39e5bbd4959"
+  integrity sha512-hOosPuYGFyk0SAqiSdxyXou5LJUMLvsQY5dBpoV/U/Uo4cDkK5xaPIkZogYHR22JGq7u/cCynMuh9ZDTQEsZMg==
   dependencies:
     "@apollo/client" "^3.7.1"
     "@ethersproject/address" "^5.7.0"
