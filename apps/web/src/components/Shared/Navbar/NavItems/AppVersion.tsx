@@ -1,0 +1,26 @@
+import { APP_VERSION } from 'data/constants';
+import Link from 'next/link';
+import type { FC } from 'react';
+import React from 'react';
+
+type Props = {
+  onClick?: () => void;
+};
+
+const AppVersion: FC<Props> = ({ onClick }) => {
+  return (
+    <div className="py-2 px-5 text-sm opacity-60">
+      <Link
+        href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
+        className="font-mono"
+        target="_blank"
+        rel="noreferrer noopener"
+        onClick={onClick}
+      >
+        v{APP_VERSION}
+      </Link>
+    </div>
+  );
+};
+
+export default AppVersion;

@@ -3,19 +3,21 @@ import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
+import isStaff from '@lib/isStaff';
 import { Trans } from '@lingui/macro';
-import { APP_VERSION } from 'data/constants';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 
 import Slug from '../Slug';
+import AppVersion from './NavItems/AppVersion';
 import Contact from './NavItems/Contact';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
+import StaffMode from './NavItems/StaffMode';
 import Status from './NavItems/Status';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
@@ -128,17 +130,10 @@ const MobileDrawerMenu = () => {
           <div className="divider" />
         </div>
 
-        {currentProfile && (
-          <div className="py-2 px-5 text-sm opacity-60">
-            <Link
-              href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
-              className="font-mono"
-              target="_blank"
-              rel="noreferrer noopener"
-              onClick={() => closeDrawer()}
-            >
-              v{APP_VERSION}
-            </Link>
+        {currentProfile && <AppVersion />}
+        {!isStaff(currentProfile?.id) && (
+          <div className="px-5">
+            <StaffMode />
           </div>
         )}
       </div>

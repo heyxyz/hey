@@ -1,11 +1,5 @@
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Menu } from '@headlessui/react';
-import {
-  CheckCircleIcon,
-  ShieldCheckIcon,
-  ShieldExclamationIcon,
-  SwitchHorizontalIcon
-} from '@heroicons/react/outline';
+import { CheckCircleIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -13,18 +7,19 @@ import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { APP_VERSION } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { PROFILE, STAFFTOOLS } from 'src/tracking';
+import { PROFILE } from 'src/tracking';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
+import AppVersion from './NavItems/AppVersion';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
 import Settings from './NavItems/Settings';
+import StaffMode from './NavItems/StaffMode';
 import Status from './NavItems/Status';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
@@ -34,13 +29,6 @@ const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
-  const { allowed: staffMode } = useStaffMode();
-
-  const toggleStaffMode = () => {
-    setStaffMode(!staffMode);
-    Analytics.track(STAFFTOOLS.TOGGLE_MODE);
-  };
 
   const Avatar = () => (
     <img
@@ -170,16 +158,7 @@ const SignedUser: FC = () => {
             {currentProfile && (
               <>
                 <div className="divider" />
-                <div className="py-3 px-6 text-xs">
-                  <a
-                    href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
-                    className="font-mono"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    v{APP_VERSION}
-                  </a>
-                </div>
+                <AppVersion />
               </>
             )}
             {isStaff(currentProfile?.id) && (
@@ -187,26 +166,11 @@ const SignedUser: FC = () => {
                 <div className="divider" />
                 <Menu.Item
                   as="div"
-                  onClick={toggleStaffMode}
                   className={({ active }) =>
                     clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'menu-item')
                   }
                 >
-                  {staffMode ? (
-                    <div className="flex items-center space-x-1.5">
-                      <div>
-                        <Trans>Disable staff mode</Trans>
-                      </div>
-                      <ShieldExclamationIcon className="w-4 h-4 text-green-600" />
-                    </div>
-                  ) : (
-                    <div className="flex items-center space-x-1.5">
-                      <div>
-                        <Trans>Enable staff mode</Trans>
-                      </div>
-                      <ShieldCheckIcon className="w-4 h-4 text-red-500" />
-                    </div>
-                  )}
+                  <StaffMode />
                 </Menu.Item>
               </>
             )}
