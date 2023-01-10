@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-09 00:09\n"
+"PO-Revision-Date: 2023-01-10 00:56\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -566,6 +566,10 @@ msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "Comments"
+msgstr ""
+
+#: src/components/Notification/FeedType.tsx
+msgid "Likes"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
