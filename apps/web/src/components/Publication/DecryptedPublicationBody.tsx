@@ -77,9 +77,8 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       profileId: currentProfile?.id ?? null
     },
     pollInterval: 1000,
-    skip: canDecrypt,
+    skip: canDecrypt || !currentProfile,
     onCompleted: (data) => {
-      console.log('data', data);
       setCanDecrypt(data.publication?.canDecrypt.result || false);
       setReasons(data.publication?.canDecrypt.reasons || []);
     }
