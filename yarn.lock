@@ -5287,9 +5287,9 @@
     undici "^5.8.1"
 
 "@xmtp/xmtp-js@^7.7.2":
-  version "7.7.2"
-  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-7.7.2.tgz#14d2bec6ed1c3757e17dde36cdcd7df4c0979514"
-  integrity sha512-/EwbN10L2aPwf5Hh3qnlFvXfK67gyXjQ8ePMgRczhmbv68u8JaNwc8c5WMwJ7kCjFN6NbAHCjD6cpGXtx8afYg==
+  version "7.7.3"
+  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-7.7.3.tgz#2a45d8ed4ac8cfb2b1d4e935d530dc0c83a6fe0c"
+  integrity sha512-z8CMwRSPfH5nvUBoH7+KcYlxSMGAzrOlq89jkiznBgViXTc0WemY2bGjg9u5mTtYfKEWhZmfrCrq3zqNiML//Q==
   dependencies:
     "@noble/secp256k1" "^1.5.2"
     "@stardazed/streams-polyfill" "^2.4.0"
@@ -8257,9 +8257,9 @@ fraction.js@^4.2.0:
   integrity sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==
 
 framer-motion@^8.2.4:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-8.3.0.tgz#649d42d88b78759fec21ffb0f2e1535ef5743312"
-  integrity sha512-vzkEdruun2QD87+5/LQ8tk5OmPvb5h1T1FV2KhXgPo2I0MIhJYmfmrHAyuHSUtuc4rS1Sno3AHxTJ5JtXVvSGQ==
+  version "8.3.3"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-8.3.3.tgz#fc380c0bb9f5999bb6fd3be48909d5c09aae5ab7"
+  integrity sha512-K7YpdFSfcs8M12m1gd8AankcEeYh8DhQKPBbCecniSWdOwcfrACiwMptCepMCdDehKmzHo1iDxYXy4FEhw9yaw==
   dependencies:
     "@motionone/dom" "^10.15.3"
     hey-listen "^1.0.8"
@@ -9998,13 +9998,6 @@ next-tick@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.1.0.tgz#1836ee30ad56d67ef281b22bd199f709449b35eb"
   integrity sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==
-
-next-transpile-modules@^10.0.0:
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/next-transpile-modules/-/next-transpile-modules-10.0.0.tgz#7152880048835acb64d05fc7aa34910cbe7994da"
-  integrity sha512-FyeJ++Lm2Fq31gbThiRCrJlYpIY9QaI7A3TjuhQLzOix8ChQrvn5ny4MhfIthS5cy6+uK1AhDRvxVdW17y3Xdw==
-  dependencies:
-    enhanced-resolve "^5.10.0"
 
 next@^13.1.1:
   version "13.1.1"
