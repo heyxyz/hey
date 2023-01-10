@@ -80,7 +80,7 @@ const Attachments: FC<Props> = ({
           const type = isNew ? attachment.type : attachment.original?.mimeType;
           const url = isNew
             ? attachment.previewItem || getIPFSLink(attachment.item!)
-            : getIPFSLink(attachment.original?.url);
+            : getIPFSLink(attachment.original?.url) || getIPFSLink(attachment.item!);
 
           return (
             <div
