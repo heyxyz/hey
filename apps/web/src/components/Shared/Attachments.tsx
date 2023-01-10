@@ -124,6 +124,9 @@ const Attachments: FC<Props> = ({
                   loading="lazy"
                   height={1000}
                   width={1000}
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = url;
+                  }}
                   onClick={() => {
                     setExpandedImage(url);
                     Analytics.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
