@@ -77,7 +77,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       request: { publicationId: encryptedPublication.id },
       profileId: currentProfile?.id ?? null
     },
-    pollInterval: 1000,
+    pollInterval: 5000,
     skip: canDecrypt || !currentProfile,
     onCompleted: (data) => {
       setCanDecrypt(data.publication?.canDecrypt.result || false);
