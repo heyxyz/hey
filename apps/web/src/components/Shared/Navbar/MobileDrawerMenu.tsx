@@ -3,12 +3,9 @@ import {
   CheckCircleIcon,
   CogIcon,
   EmojiHappyIcon,
-  HandIcon,
-  LogoutIcon,
   MoonIcon,
   ShieldCheckIcon,
   SunIcon,
-  SupportIcon,
   SwitchHorizontalIcon,
   UserIcon,
   XIcon
@@ -31,6 +28,9 @@ import { PROFILE, SYSTEM } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
 import Slug from '../Slug';
+import Contact from './NavItems/Contact';
+import Logout from './NavItems/Logout';
+import ReportBug from './NavItems/ReportBug';
 
 const MobileDrawerMenu = () => {
   const router = useRouter();
@@ -184,7 +184,7 @@ const MobileDrawerMenu = () => {
                   >
                     <button
                       type="button"
-                      className="flex items-center py-1 space-x-2 w-full rounded-lg dark:hover:bg-gray-800"
+                      className="flex items-center py-1 space-x-2 w-full rounded-lg"
                       onClick={() => {
                         const selectedProfile = profiles[index];
                         setCurrentProfile(selectedProfile);
@@ -192,7 +192,7 @@ const MobileDrawerMenu = () => {
                         Analytics.track(PROFILE.SWITCH_PROFILE);
                       }}
                     >
-                      <span className="flex items-center py-1 space-x-2 w-full rounded-lg dark:hover:bg-gray-800">
+                      <span className="flex items-center py-1 space-x-2 w-full rounded-lg">
                         <img
                           className="w-5 h-5 rounded-full border dark:border-gray-700"
                           height={20}
@@ -216,41 +216,15 @@ const MobileDrawerMenu = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div className="mx-5 my-2">
-            <Link
-              href="/contact"
-              className="flex items-center py-4 space-x-1.5"
-              onClick={() => closeDrawer()}
-            >
-              <SupportIcon className="w-5 h-5" />
-              <div>
-                <Trans>Contact</Trans>
-              </div>
-            </Link>
-            <Link
-              href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
-              target="_blank"
-              className="flex items-center space-x-1.5 py-4"
-              onClick={() => closeDrawer()}
-            >
-              <HandIcon className="w-5 h-5" />
-              <div>
-                <Trans>Report a bug</Trans>
-              </div>
-            </Link>
+            <Contact className="py-4" onClick={() => closeDrawer()} />
+            <ReportBug className="py-4" onClick={() => closeDrawer()} />
           </div>
           <div className="divider" />
         </div>
 
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <button type="button" onClick={logout} className="p-5 w-full">
-            <div className="flex items-center space-x-1.5">
-              <LogoutIcon className="w-4 h-4" />
-              <div>
-                <Trans>Logout</Trans>
-              </div>
-            </div>
-          </button>
+          <Logout className="p-5" onClick={() => closeDrawer()} />
           <div className="divider" />
         </div>
 

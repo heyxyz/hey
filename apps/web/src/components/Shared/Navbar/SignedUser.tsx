@@ -5,7 +5,6 @@ import {
   CheckCircleIcon,
   CogIcon,
   EmojiHappyIcon,
-  LogoutIcon,
   MoonIcon,
   ShieldCheckIcon,
   ShieldExclamationIcon,
@@ -36,6 +35,7 @@ import { useDisconnect } from 'wagmi';
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
+import Logout from './NavItems/Logout';
 
 const SignedUser: FC = () => {
   const router = useRouter();
@@ -178,17 +178,8 @@ const SignedUser: FC = () => {
                 </div>
               </Menu.Item>
             )}
-            <Menu.Item
-              as="a"
-              onClick={logout}
-              className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}
-            >
-              <div className="flex items-center space-x-1.5">
-                <LogoutIcon className="w-4 h-4" />
-                <div>
-                  <Trans>Logout</Trans>
-                </div>
-              </div>
+            <Menu.Item as="div" className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}>
+              <Logout onClick={() => logout()} />
             </Menu.Item>
             {profiles?.length > 1 && (
               <>
