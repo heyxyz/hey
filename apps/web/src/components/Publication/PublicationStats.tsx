@@ -21,6 +21,9 @@ const PublicationStats: FC<Props> = ({ publication }) => {
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
   const isMirror = publication.__typename === 'Mirror';
+  const commentsCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalAmountOfComments
+    : publication?.stats?.totalAmountOfComments;
   const mirrorCount = isMirror
     ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
     : publication?.stats?.totalAmountOfMirrors;
@@ -36,6 +39,11 @@ const PublicationStats: FC<Props> = ({ publication }) => {
     <div className="flex flex-wrap gap-6 text-sm items-center py-3 lt-text-gray-500 sm:gap-8">
       {mirrorCount > 0 && (
         <>
+          <span>
+            <Trans>
+              <b className="text-black dark:text-white">{nFormatter(commentsCount)}</b> Comments
+            </Trans>
+          </span>
           <button
             type="button"
             onClick={() => {
