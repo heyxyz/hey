@@ -1,7 +1,9 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
+import { SunIcon } from '@heroicons/react/outline';
 import { HeartIcon } from '@heroicons/react/solid';
 import formatTime from '@lib/formatTime';
+import hasGm from '@lib/hasGm';
 import type { MessageDescriptor } from '@lingui/core/cjs/i18n';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
@@ -37,11 +39,17 @@ const defaultMessage = (typeName: string): string => {
 
 const LikeNotification: FC<Props> = ({ notification }) => {
   const typeName = notification?.publication?.__typename?.toLowerCase() || '';
+  const isGM = hasGm(notification?.publication?.metadata?.content);
+
   return (
     <div className="flex justify-between items-start">
       <div className="space-y-2 w-4/5">
         <div className="flex items-center space-x-3">
-          <HeartIcon className="h-6 w-6 text-pink-500/70" />
+          {isGM ? (
+            <SunIcon className="h-6 w-6 text-yellow-600/70" />
+          ) : (
+            <HeartIcon className="h-6 w-6 text-pink-500/70" />
+          )}
           <UserPreview profile={notification?.profile}>
             <NotificationProfileAvatar profile={notification?.profile} />
           </UserPreview>

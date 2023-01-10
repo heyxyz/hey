@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-08 09:27\n"
+"PO-Revision-Date: 2023-01-10 00:56\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -57,6 +57,9 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Settings/Account/SetProfile.tsx
+#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
 msgid "Save"
@@ -566,6 +569,10 @@ msgid "Comments"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
+msgid "Likes"
+msgstr ""
+
+#: src/components/Notification/FeedType.tsx
 msgid "Collects"
 msgstr ""
 
@@ -922,6 +929,18 @@ msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "<0>{0}</0> Mirrors"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "<0>{0}</0> Likes"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "<0>{0}</0> Collects"
 msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
@@ -1386,6 +1405,10 @@ msgstr ""
 msgid "Followed successfully!"
 msgstr ""
 
+#: src/components/Shared/Follow.tsx
+msgid "Follow"
+msgstr ""
+
 #: src/components/Shared/Footer.tsx
 msgid "Terms"
 msgstr ""
@@ -1791,7 +1814,19 @@ msgid "More coming soon™"
 msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Super follow again"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Super follow now"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Allow follow module"
+msgstr ""
+
+#: src/components/Shared/SuperFollow/index.tsx
+msgid "Super follow"
 msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx

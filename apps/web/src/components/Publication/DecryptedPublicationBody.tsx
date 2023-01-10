@@ -1,3 +1,4 @@
+import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
@@ -31,7 +32,7 @@ import axios from 'axios';
 import clsx from 'clsx';
 import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
 import type { PublicationMetadataV2Input } from 'lens';
-import { DecryptFailReason } from 'lens';
+import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -64,12 +65,25 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const [decryptedData, setDecryptedData] = useState<any>(null);
   const [decryptError, setDecryptError] = useState<any>(null);
   const [isDecrypting, setIsDecrypting] = useState(false);
+  const [canDecrypt, setCanDecrypt] = useState<boolean>(encryptedPublication?.canDecrypt?.result);
+  const [reasons, setReasons] = useState<any>(encryptedPublication?.canDecrypt.reasons);
   const provider = useProvider();
   const { data: signer } = useSigner();
 
-  const canDecrypt = encryptedPublication?.canDecrypt?.result;
-  const { reasons } = encryptedPublication.canDecrypt;
   const showMore = encryptedPublication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+
+  useCanDecryptStatusQuery({
+    variables: {
+      request: { publicationId: encryptedPublication.id },
+      profileId: currentProfile?.id ?? null
+    },
+    pollInterval: 5000,
+    skip: canDecrypt || !currentProfile,
+    onCompleted: (data) => {
+      setCanDecrypt(data.publication?.canDecrypt.result || false);
+      setReasons(data.publication?.canDecrypt.reasons || []);
+    }
+  });
 
   const getCondition = (key: string) => {
     const criteria: any = encryptedPublication.metadata.encryptionParams?.accessCondition.or?.criteria;
@@ -298,9 +312,11 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           </Link>
         </div>
       )}
-      {publication?.content
-        ? getURLs(publication?.content)?.length > 0 && <IFramely url={getURLs(publication?.content)[0]} />
-        : null}
+      {publication?.media?.length ? (
+        <Attachments attachments={publication?.media} />
+      ) : publication?.content ? (
+        getURLs(publication?.content)?.length > 0 && <IFramely url={getURLs(publication?.content)[0]} />
+      ) : null}
     </div>
   );
 };

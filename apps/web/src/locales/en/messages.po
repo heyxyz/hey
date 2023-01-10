@@ -569,6 +569,10 @@ msgid "Comments"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
+msgid "Likes"
+msgstr "Likes"
+
+#: src/components/Notification/FeedType.tsx
 msgid "Collects"
 msgstr ""
 
@@ -926,6 +930,10 @@ msgstr ""
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
 msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "<0>{0}</0> Comments"
+msgstr "<0>{0}</0> Comments"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Mirrors"
