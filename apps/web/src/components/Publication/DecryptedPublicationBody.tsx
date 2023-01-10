@@ -1,3 +1,4 @@
+import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
@@ -311,9 +312,11 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           </Link>
         </div>
       )}
-      {publication?.content
-        ? getURLs(publication?.content)?.length > 0 && <IFramely url={getURLs(publication?.content)[0]} />
-        : null}
+      {publication?.media?.length ? (
+        <Attachments attachments={publication?.media} />
+      ) : publication?.content ? (
+        getURLs(publication?.content)?.length > 0 && <IFramely url={getURLs(publication?.content)[0]} />
+      ) : null}
     </div>
   );
 };
