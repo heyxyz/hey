@@ -12,9 +12,9 @@ export const mainnetVerified = [
   '0x9752', // vitto.lens
   '0x01a011', // dcinvestor.lens
   '0x3015', // mcsquared.lens
-  '0x2033', //chelsea.lens
-  '0x019c8b', //alexkwon.lens
-  '0x0efa', //ya7ya.lens
+  '0x2033', // chelsea.lens
+  '0x019c8b', // alexkwon.lens
+  '0x0efa', // ya7ya.lens
   '0x016b0f', // prashantbagga.lens
   '0x018df3', // cryptobec.lens
   '0xe922', // zkfruitrollup.lens
