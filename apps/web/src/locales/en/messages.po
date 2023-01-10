@@ -932,6 +932,10 @@ msgid "NFT ADDRESS"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
+msgid "<0>{0}</0> Comments"
+msgstr "<0>{0}</0> Comments"
+
+#: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Mirrors"
 msgstr "<0>{0}</0> Mirrors"
 
