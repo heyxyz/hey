@@ -3,14 +3,10 @@ import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Menu } from '@headlessui/react';
 import {
   CheckCircleIcon,
-  CogIcon,
   EmojiHappyIcon,
-  MoonIcon,
   ShieldCheckIcon,
   ShieldExclamationIcon,
-  SunIcon,
-  SwitchHorizontalIcon,
-  UserIcon
+  SwitchHorizontalIcon
 } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
@@ -29,13 +25,17 @@ import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { PROFILE, STAFFTOOLS, SYSTEM } from 'src/tracking';
+import { PROFILE, STAFFTOOLS } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 import Logout from './NavItems/Logout';
+import Mod from './NavItems/Mod';
+import Settings from './NavItems/Settings';
+import ThemeSwitch from './NavItems/ThemeSwitch';
+import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
   const router = useRouter();
@@ -135,47 +135,29 @@ const SignedUser: FC = () => {
             </Menu.Item>
             <div className="divider" />
             <Menu.Item
-              as={NextLink}
-              href={`/u/${formatHandle(currentProfile?.handle)}`}
+              as="div"
               className={({ active }: { active: boolean }) =>
                 clsx({ 'dropdown-active': active }, 'menu-item')
               }
             >
-              <div className="flex items-center space-x-1.5">
-                <UserIcon className="w-4 h-4" />
-                <div>
-                  <Trans>Your Profile</Trans>
-                </div>
-              </div>
+              <YourProfile />
             </Menu.Item>
             <Menu.Item
-              as={NextLink}
-              href="/settings"
+              as="div"
               className={({ active }: { active: boolean }) =>
                 clsx({ 'dropdown-active': active }, 'menu-item')
               }
             >
-              <div className="flex items-center space-x-1.5">
-                <CogIcon className="w-4 h-4" />
-                <div>
-                  <Trans>Settings</Trans>
-                </div>
-              </div>
+              <Settings />
             </Menu.Item>
             {isGardener(currentProfile?.id) && (
               <Menu.Item
-                as={NextLink}
-                href="/mod"
+                as="div"
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
                 }
               >
-                <div className="flex items-center space-x-1.5">
-                  <ShieldCheckIcon className="w-4 h-4" />
-                  <div>
-                    <Trans>Moderation</Trans>
-                  </div>
-                </div>
+                <Mod />
               </Menu.Item>
             )}
             <Menu.Item as="div" className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}>
@@ -224,31 +206,8 @@ const SignedUser: FC = () => {
               </>
             )}
             <div className="divider" />
-            <Menu.Item
-              as="a"
-              onClick={() => {
-                setTheme(theme === 'light' ? 'dark' : 'light');
-                Analytics.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
-              }}
-              className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}
-            >
-              <div className="flex items-center space-x-1.5">
-                {theme === 'light' ? (
-                  <>
-                    <MoonIcon className="w-4 h-4" />
-                    <div>
-                      <Trans>Dark mode</Trans>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <SunIcon className="w-4 h-4" />
-                    <div>
-                      <Trans>Light mode</Trans>
-                    </div>
-                  </>
-                )}
-              </div>
+            <Menu.Item as="div" className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}>
+              <ThemeSwitch />
             </Menu.Item>
             {currentProfile && (
               <>

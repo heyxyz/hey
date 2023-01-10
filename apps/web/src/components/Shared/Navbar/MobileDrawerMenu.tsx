@@ -1,15 +1,4 @@
-import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
-import {
-  CheckCircleIcon,
-  CogIcon,
-  EmojiHappyIcon,
-  MoonIcon,
-  ShieldCheckIcon,
-  SunIcon,
-  SwitchHorizontalIcon,
-  UserIcon,
-  XIcon
-} from '@heroicons/react/outline';
+import { CheckCircleIcon, EmojiHappyIcon, SwitchHorizontalIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAttribute from '@lib/getAttribute';
@@ -19,29 +8,25 @@ import { Trans } from '@lingui/macro';
 import { APP_VERSION } from 'data/constants';
 import type { Profile } from 'lens';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useTheme } from 'next-themes';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { PROFILE, SYSTEM } from 'src/tracking';
-import { useDisconnect } from 'wagmi';
+import { PROFILE } from 'src/tracking';
 
 import Slug from '../Slug';
 import Contact from './NavItems/Contact';
 import Logout from './NavItems/Logout';
+import Mod from './NavItems/Mod';
 import ReportBug from './NavItems/ReportBug';
+import Settings from './NavItems/Settings';
+import ThemeSwitch from './NavItems/ThemeSwitch';
+import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu = () => {
-  const router = useRouter();
   const profiles = useAppStore((state) => state.profiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
-
-  const { theme, setTheme } = useTheme();
-  const { disconnect } = useDisconnect();
-  const disconnectXmtp = useDisconnectXmtp();
 
   const statusEmoji = getAttribute(currentProfile?.attributes, 'statusEmoji');
   const statusMessage = getAttribute(currentProfile?.attributes, 'statusMessage');
@@ -102,61 +87,10 @@ const MobileDrawerMenu = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div className="mx-5 my-2">
-            <Link
-              href={`/u/${formatHandle(currentProfile?.handle)}`}
-              className="flex items-center py-4 space-x-1.5"
-              onClick={() => closeDrawer()}
-            >
-              <UserIcon className="w-5 h-5" />
-              <div>
-                <Trans>Your Profile</Trans>
-              </div>
-            </Link>
-            <Link
-              href="/settings"
-              className="flex items-center py-4 space-x-1.5"
-              onClick={() => closeDrawer()}
-            >
-              <CogIcon className="w-5 h-5" />
-              <div>
-                <Trans>Settings</Trans>
-              </div>
-            </Link>
-            {isGardener(currentProfile?.id) && (
-              <Link href="/mod" className="flex items-center py-4 space-x-1.5" onClick={() => closeDrawer()}>
-                <ShieldCheckIcon className="w-5 h-5" />
-                <div>
-                  <Trans>Moderation</Trans>
-                </div>
-              </Link>
-            )}
-            <button
-              type="button"
-              className="w-full"
-              onClick={() => {
-                setTheme(theme === 'light' ? 'dark' : 'light');
-                Analytics.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
-                closeDrawer();
-              }}
-            >
-              <div className="flex items-center space-x-1.5 py-4">
-                {theme === 'light' ? (
-                  <>
-                    <MoonIcon className="w-5 h-5" />
-                    <div>
-                      <Trans>Dark mode</Trans>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <SunIcon className="w-5 h-5" />
-                    <div>
-                      <Trans>Light mode</Trans>
-                    </div>
-                  </>
-                )}
-              </div>
-            </button>
+            <YourProfile onClick={() => closeDrawer()} className="py-4" />
+            <Settings onClick={() => closeDrawer()} className="py-4" />
+            {isGardener(currentProfile?.id) && <Mod onClick={() => closeDrawer()} className="py-4" />}
+            <ThemeSwitch className="py-4" onClick={() => closeDrawer()} />
             <div className="flex flex-col py-4">
               <div className="flex items-center space-x-1.5">
                 <SwitchHorizontalIcon className="w-4 h-4" />
