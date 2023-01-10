@@ -1,31 +1,23 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Menu } from '@headlessui/react';
 import {
   CheckCircleIcon,
-  EmojiHappyIcon,
   ShieldCheckIcon,
   ShieldExclamationIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
-import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
 import isStaff from '@lib/isStaff';
-import resetAuthData from '@lib/resetAuthData';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_VERSION } from 'data/constants';
 import type { Profile } from 'lens';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { Fragment } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE, STAFFTOOLS } from 'src/tracking';
-import { useDisconnect } from 'wagmi';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -33,38 +25,21 @@ import { NextLink } from './MenuItems';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
 import Settings from './NavItems/Settings';
+import Status from './NavItems/Status';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
-  const router = useRouter();
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
-  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const { allowed: staffMode } = useStaffMode();
-  const { disconnect } = useDisconnect();
-  const disconnectXmtp = useDisconnectXmtp();
-
-  const statusEmoji = getAttribute(currentProfile?.attributes, 'statusEmoji');
-  const statusMessage = getAttribute(currentProfile?.attributes, 'statusMessage');
-  const hasStatus = statusEmoji && statusMessage;
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
     Analytics.track(STAFFTOOLS.TOGGLE_MODE);
-  };
-
-  const logout = () => {
-    Analytics.track(PROFILE.LOGOUT);
-    disconnectXmtp();
-    setCurrentProfile(null);
-    setProfileId(null);
-    resetAuthData();
-    disconnect?.();
-    router.push('/');
   };
 
   const Avatar = () => (
@@ -109,27 +84,12 @@ const SignedUser: FC = () => {
             </Menu.Item>
             <div className="divider" />
             <Menu.Item
-              as="a"
-              onClick={() => setShowStatusModal(true)}
+              as="div"
               className={({ active }: { active: boolean }) =>
                 clsx({ 'dropdown-active': active }, 'menu-item border dark:border-gray-700')
               }
             >
-              <div className="flex items-center space-x-2">
-                {hasStatus ? (
-                  <>
-                    <span>{statusEmoji}</span>
-                    <span className="truncate">{statusMessage}</span>
-                  </>
-                ) : (
-                  <>
-                    <EmojiHappyIcon className="w-4 h-4" />
-                    <span>
-                      <Trans>Set status</Trans>
-                    </span>
-                  </>
-                )}
-              </div>
+              <Status />
             </Menu.Item>
             <div className="divider" />
             <Menu.Item
@@ -159,7 +119,7 @@ const SignedUser: FC = () => {
               </Menu.Item>
             )}
             <Menu.Item as="div" className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}>
-              <Logout onClick={() => logout()} />
+              <Logout />
             </Menu.Item>
             {profiles?.length > 1 && (
               <>

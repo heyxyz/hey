@@ -1,7 +1,6 @@
-import { CheckCircleIcon, EmojiHappyIcon, SwitchHorizontalIcon, XIcon } from '@heroicons/react/outline';
+import { CheckCircleIcon, SwitchHorizontalIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
-import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
 import { Trans } from '@lingui/macro';
@@ -9,7 +8,6 @@ import { APP_VERSION } from 'data/constants';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE } from 'src/tracking';
 
 import Slug from '../Slug';
@@ -18,6 +16,7 @@ import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
+import Status from './NavItems/Status';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
@@ -26,11 +25,6 @@ const MobileDrawerMenu = () => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
-
-  const statusEmoji = getAttribute(currentProfile?.attributes, 'statusEmoji');
-  const statusMessage = getAttribute(currentProfile?.attributes, 'statusMessage');
-  const hasStatus = statusEmoji && statusMessage;
 
   const closeDrawer = () => {
     document.getElementById('mobile-drawer')?.classList.add('hidden');
@@ -65,23 +59,7 @@ const MobileDrawerMenu = () => {
         </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <button type="button" className="py-4 px-5 w-full" onClick={() => setShowStatusModal(true)}>
-            <div className="flex items-center space-x-2">
-              {hasStatus ? (
-                <>
-                  <span>{statusEmoji}</span>
-                  <span className="truncate">{statusMessage}</span>
-                </>
-              ) : (
-                <>
-                  <EmojiHappyIcon className="w-5 h-5" />
-                  <span>
-                    <Trans>Set status</Trans>
-                  </span>
-                </>
-              )}
-            </div>
-          </button>
+          <Status className="py-4 px-5" />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
