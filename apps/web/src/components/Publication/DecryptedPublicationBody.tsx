@@ -2,7 +2,6 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useNFT from '@components/utils/hooks/useNFT';
 import type { LensterPublication } from '@generated/types';
@@ -35,7 +34,7 @@ import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
@@ -83,6 +82,16 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       setReasons(data.publication?.canDecrypt.reasons || []);
     }
   });
+
+  useEffect(() => {
+    const lensLitAuthSig = localStorage.getItem('lens-lit-authsig');
+
+    if (lensLitAuthSig) {
+      // eslint-disable-next-line no-use-before-define
+      getDecryptedData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getCondition = (key: string) => {
     const criteria: any = encryptedPublication.metadata.encryptionParams?.accessCondition.or?.criteria;
@@ -260,6 +269,15 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     return <ErrorMessage title={t`Error while decrypting!`} error={decryptError} />;
   }
 
+  if (!decryptedData && isDecrypting) {
+    return (
+      <div className="space-y-2">
+        <div className="w-7/12 h-3 rounded-lg shimmer" />
+        <div className="w-1/3 h-3 rounded-lg shimmer" />
+      </div>
+    );
+  }
+
   if (!decryptedData) {
     return (
       <Card
@@ -271,21 +289,10 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
         }}
       >
         <div className="text-white font-bold flex items-center space-x-1">
-          {isDecrypting ? (
-            <>
-              <Spinner size="xs" className="mr-1" />
-              <span>
-                <Trans>Decrypting...</Trans>
-              </span>
-            </>
-          ) : (
-            <>
-              <FingerPrintIcon className="h-5 w-5" />
-              <span>
-                Decrypt <span className="lowercase">{encryptedPublication.__typename}</span>
-              </span>
-            </>
-          )}
+          <FingerPrintIcon className="h-5 w-5" />
+          <span>
+            Decrypt <span className="lowercase">{encryptedPublication.__typename}</span>
+          </span>
         </div>
       </Card>
     );
