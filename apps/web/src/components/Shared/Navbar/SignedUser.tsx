@@ -20,7 +20,6 @@ import clsx from 'clsx';
 import { APP_VERSION } from 'data/constants';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -46,7 +45,6 @@ const SignedUser: FC = () => {
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const { allowed: staffMode } = useStaffMode();
-  const { theme, setTheme } = useTheme();
   const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();
 
