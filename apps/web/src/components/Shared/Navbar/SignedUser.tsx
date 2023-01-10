@@ -42,7 +42,6 @@ const SignedUser: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setShowMobileDrawerMenu = useAppStore((state) => state.setShowMobileDrawerMenu);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
@@ -78,9 +77,13 @@ const SignedUser: FC = () => {
     />
   );
 
+  const openMobileMenuDrawer = () => {
+    document.getElementById('mobile-drawer')?.classList.remove('hidden');
+  };
+
   return (
     <>
-      <button className="md:hidden focus:outline-none" onClick={() => setShowMobileDrawerMenu(true)}>
+      <button className="md:hidden focus:outline-none" onClick={() => openMobileMenuDrawer()}>
         <Avatar />
       </button>
       <Menu as="div" className="hidden md:block">

@@ -38,8 +38,6 @@ const MobileDrawerMenu = () => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowMobileDrawerMenu = useAppStore((state) => state.setShowMobileDrawerMenu);
-  const showMobileDrawerMenu = useAppStore((state) => state.showMobileDrawerMenu);
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
 
   const { theme, setTheme } = useTheme();
@@ -50,12 +48,8 @@ const MobileDrawerMenu = () => {
   const statusMessage = getAttribute(currentProfile?.attributes, 'statusMessage');
   const hasStatus = statusEmoji && statusMessage;
 
-  if (!showMobileDrawerMenu) {
-    return null;
-  }
-
-  const toggleMenu = () => {
-    setShowMobileDrawerMenu(false);
+  const closeDrawer = () => {
+    document.getElementById('mobile-drawer')?.classList.add('hidden');
   };
 
   const logout = () => {
@@ -65,13 +59,16 @@ const MobileDrawerMenu = () => {
     setProfileId(null);
     resetAuthData();
     disconnect?.();
-    setShowMobileDrawerMenu(false);
+    closeDrawer();
     router.push('/');
   };
 
   return (
-    <div className="w-full z-[10] bottom-0 top-0 h-full bg-gray-100 dark:bg-black py-4 md:hidden fixed">
-      <button className="visible md:hidden px-5" type="button" onClick={toggleMenu}>
+    <div
+      id="mobile-drawer"
+      className="w-full z-[10] hidden overflow-y-auto no-scrollbar bottom-0 top-0 h-full bg-gray-100 dark:bg-black py-4 md:hidden fixed"
+    >
+      <button className="visible md:hidden px-5" type="button" onClick={closeDrawer}>
         <XIcon className="w-6 h-6" />
       </button>
       <div className="w-full py-4 space-y-4">
@@ -120,7 +117,7 @@ const MobileDrawerMenu = () => {
             <Link
               href={`/u/${formatHandle(currentProfile?.handle)}`}
               className="flex items-center py-4 space-x-1.5"
-              onClick={() => setShowMobileDrawerMenu(false)}
+              onClick={() => closeDrawer()}
             >
               <UserIcon className="w-5 h-5" />
               <div>
@@ -130,7 +127,7 @@ const MobileDrawerMenu = () => {
             <Link
               href="/settings"
               className="flex items-center py-4 space-x-1.5"
-              onClick={() => setShowMobileDrawerMenu(false)}
+              onClick={() => closeDrawer()}
             >
               <CogIcon className="w-5 h-5" />
               <div>
@@ -138,11 +135,7 @@ const MobileDrawerMenu = () => {
               </div>
             </Link>
             {isGardener(currentProfile?.id) && (
-              <Link
-                href="/mod"
-                className="flex items-center py-4 space-x-1.5"
-                onClick={() => setShowMobileDrawerMenu(false)}
-              >
+              <Link href="/mod" className="flex items-center py-4 space-x-1.5" onClick={() => closeDrawer()}>
                 <ShieldCheckIcon className="w-5 h-5" />
                 <div>
                   <Trans>Moderation</Trans>
@@ -155,7 +148,7 @@ const MobileDrawerMenu = () => {
               onClick={() => {
                 setTheme(theme === 'light' ? 'dark' : 'light');
                 Analytics.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
-                setShowMobileDrawerMenu(false);
+                closeDrawer();
               }}
             >
               <div className="flex items-center space-x-1.5 py-4">
@@ -226,7 +219,7 @@ const MobileDrawerMenu = () => {
             <Link
               href="/contact"
               className="flex items-center py-4 space-x-1.5"
-              onClick={() => setShowMobileDrawerMenu(false)}
+              onClick={() => closeDrawer()}
             >
               <SupportIcon className="w-5 h-5" />
               <div>
@@ -237,7 +230,7 @@ const MobileDrawerMenu = () => {
               href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
               target="_blank"
               className="flex items-center space-x-1.5 py-4"
-              onClick={() => setShowMobileDrawerMenu(false)}
+              onClick={() => closeDrawer()}
             >
               <HandIcon className="w-5 h-5" />
               <div>
@@ -268,7 +261,7 @@ const MobileDrawerMenu = () => {
               className="font-mono"
               target="_blank"
               rel="noreferrer noopener"
-              onClick={() => setShowMobileDrawerMenu(false)}
+              onClick={() => closeDrawer()}
             >
               v{APP_VERSION}
             </Link>
