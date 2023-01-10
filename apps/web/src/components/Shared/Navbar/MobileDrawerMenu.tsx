@@ -15,7 +15,6 @@ import formatHandle from '@lib/formatHandle';
 import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
-import resetAuthData from '@lib/resetAuthData';
 import { Trans } from '@lingui/macro';
 import { APP_VERSION } from 'data/constants';
 import type { Profile } from 'lens';
@@ -50,17 +49,6 @@ const MobileDrawerMenu = () => {
 
   const closeDrawer = () => {
     document.getElementById('mobile-drawer')?.classList.add('hidden');
-  };
-
-  const logout = () => {
-    Analytics.track(PROFILE.LOGOUT);
-    disconnectXmtp();
-    setCurrentProfile(null);
-    setProfileId(null);
-    resetAuthData();
-    disconnect?.();
-    closeDrawer();
-    router.push('/');
   };
 
   return (
