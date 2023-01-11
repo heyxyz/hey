@@ -38,6 +38,9 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
       <div className="flex max-w-[60%]">
         {address !== message.senderAddress && (
           <img
+            onError={({ currentTarget }) => {
+              currentTarget.src = getAvatar(profile, false);
+            }}
             src={getAvatar(profile)}
             className="h-10 w-10 bg-gray-200 rounded-full border dark:border-gray-700 mr-2"
             alt={formatHandle(profile?.handle)}
