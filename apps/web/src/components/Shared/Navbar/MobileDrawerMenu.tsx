@@ -98,7 +98,7 @@ const MobileDrawerMenu = () => {
         </div>
 
         {currentProfile && <AppVersion />}
-        {!isStaff(currentProfile?.id) && (
+        {isStaff(currentProfile?.id) && (
           <div className="px-5">
             <StaffMode />
           </div>
