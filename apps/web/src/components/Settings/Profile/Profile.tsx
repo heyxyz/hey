@@ -250,6 +250,9 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
               <div>
                 <img
                   className="object-cover w-full h-60 rounded-lg"
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getIPFSLink(cover);
+                  }}
                   src={imageProxy(getIPFSLink(cover), COVER)}
                   alt={cover}
                 />
