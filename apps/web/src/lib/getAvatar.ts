@@ -7,16 +7,25 @@ import imageProxy from './imageProxy';
 /**
  *
  * @param profile - Profile object
+ * @param isCdn - To passthrough image proxy
  * @returns avatar image url
  */
-const getAvatar = (profile: any): string => {
-  return imageProxy(
-    getIPFSLink(
-      profile?.picture?.original?.url ??
-        profile?.picture?.uri ??
-        getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS)
-    ),
-    AVATAR
+const getAvatar = (profile: any, isCdn = true): string => {
+  if (isCdn) {
+    return imageProxy(
+      getIPFSLink(
+        profile?.picture?.original?.url ??
+          profile?.picture?.uri ??
+          getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS)
+      ),
+      AVATAR
+    );
+  }
+
+  return getIPFSLink(
+    profile?.picture?.original?.url ??
+      profile?.picture?.uri ??
+      getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS)
   );
 };
 

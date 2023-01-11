@@ -203,6 +203,9 @@ const SignedUser: FC = () => {
                         className="w-5 h-5 rounded-full border dark:border-gray-700"
                         height={20}
                         width={20}
+                        onError={({ currentTarget }) => {
+                          currentTarget.src = getAvatar(profile, false);
+                        }}
                         src={getAvatar(profile)}
                         alt={formatHandle(profile?.handle)}
                       />

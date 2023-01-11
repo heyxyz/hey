@@ -91,6 +91,9 @@ const SeeThroughLens: FC = () => {
       >
         <span className="flex space-x-1 items-center text-sm pl-1">
           <img
+            onError={({ currentTarget }) => {
+              currentTarget.src = getAvatar(profile, false);
+            }}
             src={getAvatar(profile)}
             loading="lazy"
             width={20}

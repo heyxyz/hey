@@ -14,6 +14,9 @@ export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
   return (
     <Link href={`/u/${formatHandle(profile?.handle)}`}>
       <img
+        onError={({ currentTarget }) => {
+          currentTarget.src = getAvatar(profile, false);
+        }}
         src={getAvatar(profile)}
         className="w-8 h-8 bg-gray-200 rounded-full border dark:border-gray-700"
         height={32}
