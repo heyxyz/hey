@@ -1,4 +1,4 @@
-import { CheckCircleIcon } from '@heroicons/react/outline';
+import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';

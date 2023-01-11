@@ -1,12 +1,7 @@
 import Report from '@components/Shared/Modal/Report';
 import { Modal } from '@components/UI/Modal';
 import type { LensterPublication } from '@generated/types';
-import {
-  ArrowCircleRightIcon,
-  EmojiHappyIcon,
-  ShieldCheckIcon,
-  SwitchHorizontalIcon
-} from '@heroicons/react/outline';
+import { ArrowCircleRightIcon, EmojiHappyIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAuthStore } from 'src/store/auth';
@@ -48,7 +43,6 @@ const GlobalModals: FC = () => {
       </Modal>
       <Modal
         title={t`Change Profile`}
-        icon={<SwitchHorizontalIcon className="w-5 h-5 text-brand" />}
         show={showProfileSwitchModal}
         onClose={() => setShowProfileSwitchModal(false)}
         size="xs"

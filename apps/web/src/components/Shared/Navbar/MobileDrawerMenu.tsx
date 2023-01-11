@@ -1,3 +1,4 @@
+import { Button } from '@components/UI/Button';
 import { SwitchHorizontalIcon, XIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -23,6 +24,7 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu: FC = () => {
+  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowMobileDrawer = useGlobalModalStateStore((state) => state.setShowMobileDrawer);
 
@@ -59,15 +61,18 @@ const MobileDrawerMenu: FC = () => {
                 </div>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowProfileSwitchModal(true);
-              }}
-            >
-              <SwitchHorizontalIcon className="w-4 h-4" />
-            </button>
+            {profiles.length > 1 && (
+              <Button
+                variant="secondary"
+                outline
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowProfileSwitchModal(true);
+                }}
+              >
+                <SwitchHorizontalIcon className="w-4 h-4 text-brand-500" />
+              </Button>
+            )}
           </div>
         </Link>
         <div className="bg-white dark:bg-gray-900">

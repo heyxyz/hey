@@ -1,3 +1,4 @@
+import { Button } from '@components/UI/Button';
 import { Menu } from '@headlessui/react';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
@@ -25,6 +26,7 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
+  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
   const setShowMobileDrawer = useGlobalModalStateStore((state) => state.setShowMobileDrawer);
@@ -60,26 +62,27 @@ const SignedUser: FC = () => {
             <Menu.Item
               as={NextLink}
               href={`/u/${formatHandle(currentProfile?.handle)}`}
-              className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
-              }
+              className="text-sm items-center flex p-3 w-full"
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between flex-1">
                 <span>
                   <Trans>Logged in as</Trans>
                   <div className="truncate">
                     <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
                   </div>
                 </span>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setShowProfileSwitchModal(true);
-                  }}
-                >
-                  <SwitchHorizontalIcon className="w-4 h-4" />
-                </button>
+                {profiles.length > 1 && (
+                  <Button
+                    outline
+                    variant="secondary"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setShowProfileSwitchModal(true);
+                    }}
+                  >
+                    <SwitchHorizontalIcon className="w-4 h-4 text-brand-500" />
+                  </Button>
+                )}
               </div>
             </Menu.Item>
             <div className="divider" />
