@@ -1,5 +1,4 @@
-import { CheckCircleIcon, SwitchHorizontalIcon, XIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { SwitchHorizontalIcon, XIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
@@ -7,8 +6,8 @@ import isStaff from '@lib/isStaff';
 import { Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import Link from 'next/link';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { PROFILE } from 'src/tracking';
+import { useAppStore } from 'src/store/app';
+import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
@@ -23,10 +22,8 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu = () => {
-  const profiles = useAppStore((state) => state.profiles);
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
 
   const closeDrawer = () => {
     document.getElementById('mobile-drawer')?.classList.add('hidden');
@@ -45,18 +42,29 @@ const MobileDrawerMenu = () => {
           href={`/u/${formatHandle(currentProfile?.handle)}`}
           className="flex px-5 space-x-2 items-center"
         >
-          <img
-            src={getAvatar(currentProfile as Profile)}
-            className="w-12 h-12 rounded-full border cursor-pointer dark:border-gray-700"
-            alt={formatHandle(currentProfile?.handle)}
-          />
-          <div>
-            <div>
-              <Trans>Logged in as</Trans>
+          <div className="flex items-center space-x-2 w-full justify-between">
+            <div className="flex space-x-1.5">
+              <img
+                src={getAvatar(currentProfile as Profile)}
+                className="w-12 h-12 rounded-full border cursor-pointer dark:border-gray-700"
+                alt={formatHandle(currentProfile?.handle)}
+              />
+              <div>
+                <Trans>Logged in as</Trans>
+                <div className="truncate">
+                  <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
+                </div>
+              </div>
             </div>
-            <div className="truncate">
-              <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
-            </div>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowProfileSwitchModal(true);
+              }}
+            >
+              <SwitchHorizontalIcon className="w-4 h-4" />
+            </button>
           </div>
         </Link>
         <div className="bg-white dark:bg-gray-900">
@@ -71,47 +79,6 @@ const MobileDrawerMenu = () => {
             <Settings onClick={() => closeDrawer()} className="py-4" />
             {isGardener(currentProfile?.id) && <Mod onClick={() => closeDrawer()} className="py-4" />}
             <ThemeSwitch className="py-4" onClick={() => closeDrawer()} />
-            <div className="flex flex-col py-4">
-              <div className="flex items-center space-x-1.5">
-                <SwitchHorizontalIcon className="w-4 h-4" />
-                <div>
-                  <Trans>Switch to</Trans>
-                </div>
-              </div>
-              <div className="pt-3 px-4">
-                {profiles.map((profile: Profile, index) => (
-                  <div
-                    key={profile?.id}
-                    className="block w-full text-gray-700 rounded-lg cursor-pointer dark:text-gray-200"
-                  >
-                    <button
-                      type="button"
-                      className="flex items-center py-1 space-x-2 w-full rounded-lg"
-                      onClick={() => {
-                        const selectedProfile = profiles[index];
-                        setCurrentProfile(selectedProfile);
-                        setProfileId(selectedProfile.id);
-                        Analytics.track(PROFILE.SWITCH_PROFILE);
-                      }}
-                    >
-                      <span className="flex items-center py-1 space-x-2 w-full rounded-lg">
-                        <img
-                          className="w-5 h-5 rounded-full border dark:border-gray-700"
-                          height={20}
-                          width={20}
-                          src={getAvatar(profile)}
-                          alt={formatHandle(profile?.handle)}
-                        />
-                        <div className="truncate">{formatHandle(profile?.handle)}</div>
-                      </span>
-                      {currentProfile?.id === profile?.id && (
-                        <CheckCircleIcon className="w-4 h-4 text-green-500" />
-                      )}
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
           <div className="divider" />
         </div>

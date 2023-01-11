@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 interface Props {
   icon?: ReactNode;
   title: ReactNode;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   show: boolean;
   children: ReactNode[] | ReactNode;
   onClose?: () => void;
@@ -44,6 +44,7 @@ export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onC
                 { 'sm:max-w-5xl': size === 'lg' },
                 { 'sm:max-w-3xl': size === 'md' },
                 { 'sm:max-w-lg': size === 'sm' },
+                { 'sm:max-w-sm': size === 'xs' },
                 'inline-block align-bottom bg-white dark:bg-gray-800 text-left shadow-xl transform transition-all sm:my-8 sm:align-middle w-full rounded-xl'
               )}
             >
