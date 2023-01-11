@@ -8,12 +8,14 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
+import { useRef } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
 import { NextLink } from './MenuItems';
+import MobileDrawerMenu from './MobileDrawerMenu';
 import AppVersion from './NavItems/AppVersion';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
@@ -24,6 +26,7 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
+  const mobileDrawerRef = useRef<HTMLDivElement>(null);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
 
@@ -36,11 +39,12 @@ const SignedUser: FC = () => {
   );
 
   const openMobileMenuDrawer = () => {
-    document.getElementById('mobile-drawer')?.classList.remove('hidden');
+    mobileDrawerRef?.current?.classList.remove('hidden');
   };
 
   return (
     <>
+      <MobileDrawerMenu mobileDrawerRef={mobileDrawerRef} />
       <button className="md:hidden focus:outline-none" onClick={() => openMobileMenuDrawer()}>
         <Avatar />
       </button>

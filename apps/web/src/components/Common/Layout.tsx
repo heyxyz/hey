@@ -1,5 +1,4 @@
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
-import MobileDrawerMenu from '@components/Shared/Navbar/MobileDrawerMenu';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
@@ -124,7 +123,6 @@ const Layout: FC<Props> = ({ children }) => {
       <GlobalModals />
       <div className="flex flex-col min-h-screen md:pb-0 pb-14">
         <Navbar />
-        <MobileDrawerMenu />
         <BottomNavigation />
         {children}
       </div>
