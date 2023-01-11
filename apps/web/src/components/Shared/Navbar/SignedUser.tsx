@@ -8,7 +8,6 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
-import { useRef } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -26,9 +25,10 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
-  const mobileDrawerRef = useRef<HTMLDivElement>(null);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
+  const setShowMobileDrawer = useGlobalModalStateStore((state) => state.setShowMobileDrawer);
+  const showMobileDrawer = useGlobalModalStateStore((state) => state.showMobileDrawer);
 
   const Avatar = () => (
     <img
@@ -39,12 +39,12 @@ const SignedUser: FC = () => {
   );
 
   const openMobileMenuDrawer = () => {
-    mobileDrawerRef?.current?.classList.remove('hidden');
+    setShowMobileDrawer(true);
   };
 
   return (
     <>
-      <MobileDrawerMenu mobileDrawerRef={mobileDrawerRef} />
+      {showMobileDrawer && <MobileDrawerMenu />}
       <button className="md:hidden focus:outline-none" onClick={() => openMobileMenuDrawer()}>
         <Avatar />
       </button>

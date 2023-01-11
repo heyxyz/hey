@@ -14,6 +14,8 @@ interface GlobalModalState {
   setShowStatusModal: (showStatusModal: boolean) => void;
   showProfileSwitchModal: boolean;
   setShowProfileSwitchModal: (showProfileSwitchModal: boolean) => void;
+  showMobileDrawer: boolean;
+  setShowMobileDrawer: (showMobileDrawer: boolean) => void;
 }
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
@@ -25,5 +27,7 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showStatusModal: false,
   setShowStatusModal: (showStatusModal) => set(() => ({ showStatusModal })),
   showProfileSwitchModal: false,
-  setShowProfileSwitchModal: (showProfileSwitchModal) => set(() => ({ showProfileSwitchModal }))
+  setShowProfileSwitchModal: (showProfileSwitchModal) => set(() => ({ showProfileSwitchModal })),
+  showMobileDrawer: false,
+  setShowMobileDrawer: (showMobileDrawer) => set(() => ({ showMobileDrawer }))
 }));

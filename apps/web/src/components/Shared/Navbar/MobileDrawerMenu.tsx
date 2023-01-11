@@ -6,7 +6,7 @@ import isStaff from '@lib/isStaff';
 import { Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import Link from 'next/link';
-import type { FC, RefObject } from 'react';
+import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -22,24 +22,19 @@ import Status from './NavItems/Status';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
-type Props = {
-  mobileDrawerRef: RefObject<HTMLDivElement>;
-};
-
-const MobileDrawerMenu: FC<Props> = ({ mobileDrawerRef }) => {
+const MobileDrawerMenu: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setShowMobileDrawer = useGlobalModalStateStore((state) => state.setShowMobileDrawer);
+
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
 
   const closeDrawer = () => {
-    mobileDrawerRef?.current?.classList.add('hidden');
+    setShowMobileDrawer(false);
   };
 
   return (
-    <div
-      ref={mobileDrawerRef}
-      className="w-full z-10 hidden overflow-y-auto no-scrollbar inset-0 h-full bg-gray-100 dark:bg-black py-4 md:hidden fixed"
-    >
-      <button className="visible md:hidden px-5" type="button" onClick={closeDrawer}>
+    <div className="w-full z-10 overflow-y-auto no-scrollbar inset-0 h-full bg-gray-100 dark:bg-black py-4 md:hidden fixed">
+      <button className="px-5" type="button" onClick={closeDrawer}>
         <XIcon className="w-6 h-6" />
       </button>
       <div className="w-full py-4 space-y-4">
