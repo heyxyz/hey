@@ -1,4 +1,5 @@
 import { Button } from '@components/UI/Button';
+import { HomeIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 
 const Buttons: FC = () => {
@@ -9,7 +10,7 @@ const Buttons: FC = () => {
         <div className="text-lg font-bold">Specs</div>
         <div className="flex items-center space-x-10">
           <div className="flex items-center space-x-3">
-            <Button variant="primary" size="lg">
+            <Button variant="primary" size="lg" icon={<HomeIcon className="h-5 w-5" />}>
               Large
             </Button>
             <div className="text-sm">
@@ -22,10 +23,13 @@ const Buttons: FC = () => {
               <div>
                 <b>font-size: </b> 16px
               </div>
+              <div>
+                <b>icon-size: </b> 20px
+              </div>
             </div>
           </div>
           <div className="flex items-center space-x-3">
-            <Button variant="primary" size="md">
+            <Button variant="primary" size="md" icon={<HomeIcon className="h-4 w-4" />}>
               Medium
             </Button>
             <div className="text-sm">
@@ -38,10 +42,13 @@ const Buttons: FC = () => {
               <div>
                 <b>font-size: </b> 16px
               </div>
+              <div>
+                <b>icon-size: </b> 16px
+              </div>
             </div>
           </div>
           <div className="flex items-center space-x-3">
-            <Button variant="primary" size="sm">
+            <Button variant="primary" size="sm" icon={<HomeIcon className="h-3 w-3" />}>
               Small
             </Button>
             <div className="text-sm">
@@ -53,6 +60,9 @@ const Buttons: FC = () => {
               </div>
               <div>
                 <b>font-size: </b> 14px
+              </div>
+              <div>
+                <b>icon-size: </b> 12px
               </div>
             </div>
           </div>
