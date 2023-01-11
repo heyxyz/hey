@@ -6,7 +6,6 @@ export class EmojiMatcher extends Matcher {
   getEmojiURL = (children: string) => `${TWEMOJI_HOST}/${children.codePointAt(0)?.toString(16)}.svg`;
 
   replaceWith(children: string) {
-    console.log({ children });
     return (
       <img
         className="h-4 w-4 inline-block	align-baseline -mb-0.5"
