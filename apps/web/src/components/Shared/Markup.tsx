@@ -1,3 +1,4 @@
+import { EmojiMatcher } from '@components/utils/matchers/EmojiMatcher';
 import { HashtagMatcher } from '@components/utils/matchers/HashtagMatcher';
 import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher';
 import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher';
@@ -19,6 +20,7 @@ interface Props {
 
 const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
   const defaultMatchers = [
+    new EmojiMatcher('emoji'),
     new MDCodeMatcher('mdCode'),
     new MentionMatcher('mention'),
     new MDLinkMatcher('mdLink'),

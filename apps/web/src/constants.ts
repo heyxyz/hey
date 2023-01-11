@@ -14,3 +14,4 @@ export const POLYGON_MUMBAI = {
 };
 export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id;
 export const SIMPLEANALYTICS_API_ENDPOINT = 'https://simpleanalytics.com/lenster.xyz.json';
+export const TWEMOJI_HOST = 'https://abs.twimg.com/emoji/v2/svg';
