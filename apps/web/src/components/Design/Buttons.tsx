@@ -1,4 +1,5 @@
 import { Button } from '@components/UI/Button';
+import { HomeIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
 
 const Buttons: FC = () => {
@@ -6,6 +7,67 @@ const Buttons: FC = () => {
     <div className="space-y-3">
       <div className="text-xl font-bold">Buttons</div>
       <div className="space-y-3">
+        <div className="text-lg font-bold">Specs</div>
+        <div className="flex items-center space-x-10">
+          <div className="flex items-center space-x-3">
+            <Button variant="primary" size="lg" icon={<HomeIcon className="h-5 w-5" />}>
+              Large
+            </Button>
+            <div className="text-sm">
+              <div>
+                <b>padding-x: </b>16px
+              </div>
+              <div>
+                <b>padding-y: </b>6px
+              </div>
+              <div>
+                <b>font-size: </b> 16px
+              </div>
+              <div>
+                <b>icon-size: </b> 20px
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Button variant="primary" size="md" icon={<HomeIcon className="h-4 w-4" />}>
+              Medium
+            </Button>
+            <div className="text-sm">
+              <div>
+                <b>padding-x: </b>12px
+              </div>
+              <div>
+                <b>padding-y: </b>4px
+              </div>
+              <div>
+                <b>font-size: </b> 16px
+              </div>
+              <div>
+                <b>icon-size: </b> 16px
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Button variant="primary" size="sm" icon={<HomeIcon className="h-3 w-3" />}>
+              Small
+            </Button>
+            <div className="text-sm">
+              <div>
+                <b>padding-x: </b>12px
+              </div>
+              <div>
+                <b>padding-y: </b>2px
+              </div>
+              <div>
+                <b>font-size: </b> 14px
+              </div>
+              <div>
+                <b>icon-size: </b> 12px
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="text-lg font-bold">Style</div>
         <div className="space-x-3">
           <Button variant="primary" size="lg" outline>
             Primary outline
