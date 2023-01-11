@@ -39,6 +39,9 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => 
   return (
     <div className="relative flex-none overflow-hidden group">
       <img
+        onError={({ currentTarget }) => {
+          currentTarget.src = cover ? getIPFSLink(cover) : cover;
+        }}
         src={cover ? imageProxy(getIPFSLink(cover), COVER) : cover}
         className="object-cover md:w-40 md:h-40 h-24 w-24 rounded-xl md:rounded-none"
         draggable={false}
