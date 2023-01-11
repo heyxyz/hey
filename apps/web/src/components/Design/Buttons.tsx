@@ -6,6 +6,58 @@ const Buttons: FC = () => {
     <div className="space-y-3">
       <div className="text-xl font-bold">Buttons</div>
       <div className="space-y-3">
+        <div className="text-lg font-bold">Specs</div>
+        <div className="flex items-center space-x-10">
+          <div className="flex items-center space-x-3">
+            <Button variant="primary" size="lg">
+              Large
+            </Button>
+            <div className="text-sm">
+              <div>
+                <b>padding-x: </b>16px
+              </div>
+              <div>
+                <b>padding-y: </b>6px
+              </div>
+              <div>
+                <b>font-size: </b> 16px
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Button variant="primary" size="md">
+              Medium
+            </Button>
+            <div className="text-sm">
+              <div>
+                <b>padding-x: </b>12px
+              </div>
+              <div>
+                <b>padding-y: </b>4px
+              </div>
+              <div>
+                <b>font-size: </b> 16px
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <Button variant="primary" size="sm">
+              Small
+            </Button>
+            <div className="text-sm">
+              <div>
+                <b>padding-x: </b>12px
+              </div>
+              <div>
+                <b>padding-y: </b>2px
+              </div>
+              <div>
+                <b>font-size: </b> 14px
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="text-lg font-bold">Style</div>
         <div className="space-x-3">
           <Button variant="primary" size="lg" outline>
             Primary outline
