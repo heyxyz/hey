@@ -10,7 +10,7 @@
     "@apollo/client": "^3.7.3"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.16.3",
+    "@graphql-codegen/cli": "^2.16.4",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
     "@graphql-codegen/typescript": "^2.8.7",
     "@graphql-codegen/typescript-operations": "^2.5.12",
