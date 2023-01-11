@@ -1,7 +1,5 @@
-import imageProxy from '@lib/imageProxy';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { ATTACHMENT } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 
@@ -39,7 +37,7 @@ const IFramely: FC<Props> = ({ url }) => {
     site: data?.meta?.site,
     url: data?.url,
     favicon: `https://www.google.com/s2/favicons?domain=${url}`,
-    thumbnail: data?.links?.thumbnail && imageProxy(data?.links?.thumbnail[0]?.href, ATTACHMENT),
+    thumbnail: data?.links?.thumbnail && data?.links?.thumbnail[0]?.href,
     isSquare:
       data?.links?.thumbnail &&
       data?.links?.thumbnail[0]?.media?.width === data?.links?.thumbnail[0]?.media?.height,

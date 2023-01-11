@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-10 00:56\n"
+"PO-Revision-Date: 2023-01-11 00:55\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -929,6 +929,10 @@ msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "<0>{0}</0> Comments"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx

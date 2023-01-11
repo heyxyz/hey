@@ -80,7 +80,7 @@ const Attachments: FC<Props> = ({
           const type = isNew ? attachment.type : attachment.original?.mimeType;
           const url = isNew
             ? attachment.previewItem || getIPFSLink(attachment.item!)
-            : getIPFSLink(attachment.original?.url);
+            : getIPFSLink(attachment.original?.url) || getIPFSLink(attachment.item!);
 
           return (
             <div
@@ -124,6 +124,9 @@ const Attachments: FC<Props> = ({
                   loading="lazy"
                   height={1000}
                   width={1000}
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = url;
+                  }}
                   onClick={() => {
                     setExpandedImage(url);
                     Analytics.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
