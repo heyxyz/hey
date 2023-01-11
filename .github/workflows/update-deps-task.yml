@@ -1,0 +1,19 @@
+name: Update dependency task
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+jobs:
+  create_task:
+    name: Create task
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create task ➕
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://api.height.app/tasks'
+          method: 'POST'
+          customHeaders: '{ "Content-Type": "application/json", "Authorization": "api-key ${{ secrets.HEIGHT_SECRET_TOKEN }}" }'
+          data: '{ "name": "Update dependencies", "description": "Run `yarn upgrade-interactive --latest` and `rm yarn.lock && yarn`", "listIds": ["c18298a5-1fd3-4bc7-81a0-2ecb1964fd76"] }'
