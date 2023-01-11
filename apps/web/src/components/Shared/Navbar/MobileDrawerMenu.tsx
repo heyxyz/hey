@@ -83,22 +83,22 @@ const MobileDrawerMenu: FC<Props> = ({ mobileDrawerRef }) => {
             <YourProfile onClick={closeDrawer} className="py-4" />
             <Settings onClick={closeDrawer} className="py-4" />
             {isGardener(currentProfile?.id) && <Mod onClick={closeDrawer} className="py-4" />}
-            <ThemeSwitch className="py-4" onClick={() => closeDrawer()} />
+            <ThemeSwitch className="py-4" onClick={closeDrawer} />
           </div>
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div className="mx-5 my-2">
-            <Contact className="py-4" onClick={() => closeDrawer()} />
-            <ReportBug className="py-4" onClick={() => closeDrawer()} />
+            <Contact className="py-4" onClick={closeDrawer} />
+            <ReportBug className="py-4" onClick={closeDrawer} />
           </div>
           <div className="divider" />
         </div>
 
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <Logout className="p-5" onClick={() => closeDrawer()} />
+          <Logout className="p-5" onClick={closeDrawer} />
           <div className="divider" />
         </div>
 
