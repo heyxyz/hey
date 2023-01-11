@@ -1,15 +1,11 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
-import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
-import getWalletLogo from '@lib/getWalletLogo';
 import onError from '@lib/onError';
-import toSnakeCase from '@lib/toSnakeCase';
-import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
+import { Trans } from '@lingui/macro';
 import { ERROR_MESSAGE } from 'data/constants';
 import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -19,44 +15,28 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { USER } from 'src/tracking';
-import type { Connector } from 'wagmi';
-import { useAccount, useConnect, useDisconnect, useNetwork, useSignMessage } from 'wagmi';
+import { useAccount, useDisconnect, useNetwork, useSignMessage } from 'wagmi';
 
 interface Props {
-  setHasConnected: Dispatch<boolean>;
   setHasProfile: Dispatch<boolean>;
 }
 
-const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
+const WalletSelector: FC<Props> = ({ setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
   const [loading, setLoading] = useState(false);
 
-  const { mounted } = useIsMounted();
   const { chain } = useNetwork();
-  const { connectors, error, connectAsync } = useConnect({ chainId: CHAIN_ID });
   const { disconnect } = useDisconnect();
-  const { address, connector: activeConnector } = useAccount();
+  const { address } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
   const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
   });
   const [authenticate, { error: errorAuthenticate }] = useAuthenticateMutation();
   const [getProfiles, { error: errorProfiles }] = useUserProfilesLazyQuery();
-
-  const onConnect = async (connector: Connector) => {
-    try {
-      const account = await connectAsync({ connector });
-      if (account) {
-        setHasConnected(true);
-      }
-      Analytics.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleSign = async () => {
     let keepModal = false;
@@ -107,15 +87,15 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
     } finally {
       setLoading(false);
       if (!keepModal) {
-        setShowAuthModal(false);
+        setShowLoginFlow(false);
       }
     }
   };
 
-  return activeConnector?.id ? (
+  return (
     <div className="space-y-3">
       <div className="space-y-2.5">
-        {chain?.id === CHAIN_ID ? (
+        {chain?.id === CHAIN_ID || !chain?.id ? (
           <Button
             disabled={loading}
             icon={
@@ -151,42 +131,6 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
           <div>{ERROR_MESSAGE}</div>
         </div>
       )}
-    </div>
-  ) : (
-    <div className="inline-block overflow-hidden space-y-3 w-full text-left align-middle transition-all transform">
-      {connectors.map((connector) => {
-        return (
-          <button
-            type="button"
-            key={connector.id}
-            className={clsx(
-              { 'hover:bg-gray-100 dark:hover:bg-gray-700': connector.id !== activeConnector?.id },
-              'w-full flex items-center justify-between space-x-2.5 px-4 py-3 overflow-hidden rounded-xl border dark:border-gray-700 outline-none'
-            )}
-            onClick={() => onConnect(connector)}
-            disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}
-          >
-            <span>
-              {mounted ? (connector.id === 'injected' ? t`Browser Wallet` : connector.name) : connector.name}
-              {mounted ? !connector.ready && ' (unsupported)' : ''}
-            </span>
-            <img
-              src={getWalletLogo(connector.name)}
-              draggable={false}
-              className="w-6 h-6"
-              height={24}
-              width={24}
-              alt={connector.id}
-            />
-          </button>
-        );
-      })}
-      {error?.message ? (
-        <div className="flex items-center space-x-1 text-red-500">
-          <XCircleIcon className="w-5 h-5" />
-          <div>{error?.message ?? t`Failed to connect`}</div>
-        </div>
-      ) : null}
     </div>
   );
 };

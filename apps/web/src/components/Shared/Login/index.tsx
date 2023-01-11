@@ -7,33 +7,21 @@ import { useState } from 'react';
 import NewProfile from './New';
 
 const Login: FC = () => {
-  const [hasConnected, setHasConnected] = useState(false);
   const [hasProfile, setHasProfile] = useState(true);
 
   return (
     <div className="p-5">
       {hasProfile ? (
         <div className="space-y-5">
-          {hasConnected ? (
-            <div className="space-y-1">
-              <div className="text-xl font-bold">
-                <Trans>Please sign the message</Trans>.
-              </div>
-              <div className="text-sm lt-text-gray-500">
-                <Trans>{APP_NAME} uses this signature to verify that you're the owner of this address.</Trans>
-              </div>
+          <div className="space-y-1">
+            <div className="text-xl font-bold">
+              <Trans>Please sign the message</Trans>.
             </div>
-          ) : (
-            <div className="space-y-1">
-              <div className="text-xl font-bold">
-                <Trans>Connect your wallet</Trans>.
-              </div>
-              <div className="text-sm lt-text-gray-500">
-                <Trans>Connect with one of our available wallet providers or create a new one.</Trans>
-              </div>
+            <div className="text-sm lt-text-gray-500">
+              <Trans>{APP_NAME} uses this signature to verify that you're the owner of this address.</Trans>
             </div>
-          )}
-          <WalletSelector setHasConnected={setHasConnected} setHasProfile={setHasProfile} />
+          </div>
+          <WalletSelector setHasProfile={setHasProfile} />
         </div>
       ) : IS_MAINNET ? (
         <div className="mb-2 space-y-4">

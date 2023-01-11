@@ -2,15 +2,14 @@ import { ApolloProvider } from '@apollo/client';
 import { initLocale } from '@lib/i18n';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ALCHEMY_KEY, IS_MAINNET } from 'data/constants';
+import { ALCHEMY_KEY, APP_NAME, IS_MAINNET } from 'data/constants';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 
 import client from '../../apollo';
@@ -22,12 +21,10 @@ const { chains, provider } = configureChains(
   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
 );
 
-const connectors = () => {
-  return [
-    new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-    new WalletConnectConnector({ chains, options: {} })
-  ];
-};
+const { connectors } = getDefaultWallets({
+  appName: APP_NAME,
+  chains
+});
 
 const wagmiClient = createClient({
   autoConnect: true,
@@ -46,13 +43,15 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <I18nProvider i18n={i18n}>
       <ErrorBoundary>
         <WagmiConfig client={wagmiClient}>
-          <ApolloProvider client={client}>
-            <QueryClientProvider client={queryClient}>
-              <ThemeProvider defaultTheme="light" attribute="class">
-                <Layout>{children}</Layout>
-              </ThemeProvider>
-            </QueryClientProvider>
-          </ApolloProvider>
+          <RainbowKitProvider chains={chains} modalSize="compact">
+            <ApolloProvider client={client}>
+              <QueryClientProvider client={queryClient}>
+                <ThemeProvider defaultTheme="light" attribute="class">
+                  <Layout>{children}</Layout>
+                </ThemeProvider>
+              </QueryClientProvider>
+            </ApolloProvider>
+          </RainbowKitProvider>
         </WagmiConfig>
       </ErrorBoundary>
     </I18nProvider>

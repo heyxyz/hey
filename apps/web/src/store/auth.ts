@@ -1,11 +1,11 @@
 import { create } from 'zustand';
 
 interface AuthState {
-  showAuthModal: boolean;
-  setShowAuthModal: (showAuthModal: boolean) => void;
+  showLoginFlow: boolean;
+  setShowLoginFlow: (showLoginFlow: boolean) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  showAuthModal: false,
-  setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal }))
+  showLoginFlow: false,
+  setShowLoginFlow: (showLoginFlow) => set(() => ({ showLoginFlow: showLoginFlow }))
 }));

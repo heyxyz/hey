@@ -29,7 +29,7 @@ interface Props {
 const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again = false }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
 
   return (
     <>
@@ -39,7 +39,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
         outline
         onClick={() => {
           if (!currentProfile) {
-            setShowAuthModal(true);
+            setShowLoginFlow(true);
             return;
           }
           setShowFollowModal(!showFollowModal);

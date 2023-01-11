@@ -2,7 +2,9 @@ import Report from '@components/Shared/Modal/Report';
 import { Modal } from '@components/UI/Modal';
 import { ArrowCircleRightIcon, EmojiHappyIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useAuthStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -19,8 +21,15 @@ const GlobalModals: FC = () => {
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const showProfileSwitchModal = useGlobalModalStateStore((state) => state.showProfileSwitchModal);
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
-  const showAuthModal = useAuthStore((state) => state.showAuthModal);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const showLoginFlow = useAuthStore((state) => state.showLoginFlow);
+  const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
+  const { openConnectModal } = useConnectModal();
+
+  useEffect(() => {
+    if (showLoginFlow && openConnectModal) {
+      openConnectModal();
+    }
+  }, [showLoginFlow, openConnectModal]);
 
   return (
     <>
@@ -53,8 +62,8 @@ const GlobalModals: FC = () => {
       <Modal
         title={t`Login`}
         icon={<ArrowCircleRightIcon className="w-5 h-5 text-brand" />}
-        show={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
+        show={showLoginFlow && !openConnectModal}
+        onClose={() => setShowLoginFlow(false)}
       >
         <Login />
       </Modal>
