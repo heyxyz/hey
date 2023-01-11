@@ -37,7 +37,7 @@ const MobileDrawerMenu: FC<Props> = ({ mobileDrawerRef }) => {
   return (
     <div
       ref={mobileDrawerRef}
-      className="w-full z-[10] hidden overflow-y-auto no-scrollbar inset-0 h-full bg-gray-100 dark:bg-black py-4 md:hidden fixed"
+      className="w-full z-10 hidden overflow-y-auto no-scrollbar inset-0 h-full bg-gray-100 dark:bg-black py-4 md:hidden fixed"
     >
       <button className="visible md:hidden px-5" type="button" onClick={closeDrawer}>
         <XIcon className="w-6 h-6" />
