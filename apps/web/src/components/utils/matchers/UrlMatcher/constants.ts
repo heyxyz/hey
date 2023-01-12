@@ -39,8 +39,8 @@ const URL_PATH = combinePatterns(
     /\//,
     combinePatterns(
       [
-        /[\d!$%&'*+,./:;=@[\]_a-z|~-]*/,
-        /[\d+/a-z-]/ // Valid ending chars
+        /[\d!$%&'()*+,./:;=@[\]_a-z|~-]*/,
+        /[\d()+/a-z-]/ // Valid ending chars
       ],
       { match: '*', nonCapture: true }
     )
