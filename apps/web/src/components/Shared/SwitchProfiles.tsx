@@ -3,12 +3,13 @@ import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import type { Profile } from 'lens';
+import type { FC } from 'react';
 import React from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE } from 'src/tracking';
 
-const SwitchProfiles = () => {
+const SwitchProfiles: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
@@ -16,7 +17,7 @@ const SwitchProfiles = () => {
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
 
   return (
-    <div className="py-2">
+    <div className="py-2 max-h-[80vh] overflow-y-auto">
       {profiles.map((profile: Profile, index) => (
         <div key={profile?.id} className="text-gray-700 px-2 rounded-lg cursor-pointer dark:text-gray-200">
           <button
