@@ -43,6 +43,7 @@ const MobileDrawerMenu: FC = () => {
         <Link
           href={`/u/${formatHandle(currentProfile?.handle)}`}
           className="flex px-5 space-x-2 items-center"
+          onClick={closeDrawer}
         >
           <div className="flex items-center space-x-2 w-full justify-between">
             <div className="flex space-x-1.5">
