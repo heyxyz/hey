@@ -126,26 +126,33 @@ const Status: FC = () => {
         cover_picture:
           profile?.coverPicture?.__typename === 'MediaSet' ? profile?.coverPicture?.original?.url ?? '' : '',
         attributes: [
-          { traitType: 'string', key: 'location', value: getAttribute(profile?.attributes, 'location') },
-          { traitType: 'string', key: 'website', value: getAttribute(profile?.attributes, 'website') },
+          ...(profile?.attributes
+            ?.filter(
+              (attr) =>
+                ![
+                  'location',
+                  'website',
+                  'twitter',
+                  'hasPrideLogo',
+                  'statusEmoji',
+                  'statusMessage',
+                  'app'
+                ].includes(attr.key)
+            )
+            .map(({ key, value }) => ({ key, value })) ?? []),
+          { key: 'location', value: getAttribute(profile?.attributes, 'location') },
+          { key: 'website', value: getAttribute(profile?.attributes, 'website') },
           {
-            traitType: 'string',
             key: 'twitter',
             value: getAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '')
           },
-          {
-            traitType: 'boolean',
-            key: 'hasPrideLogo',
-            value: getAttribute(profile?.attributes, 'hasPrideLogo')
-          },
-          { traitType: 'string', key: 'statusEmoji', value: emoji },
-          { traitType: 'string', key: 'statusMessage', value: status },
-          { traitType: 'string', key: 'app', value: APP_NAME }
+          { key: 'hasPrideLogo', value: getAttribute(profile?.attributes, 'hasPrideLogo') },
+          { key: 'statusEmoji', value: emoji },
+          { key: 'statusMessage', value: status },
+          { key: 'app', value: APP_NAME }
         ],
         version: '1.0.0',
-        metadata_id: uuid(),
-        createdOn: new Date(),
-        appId: APP_NAME
+        metadata_id: uuid()
       }).finally(() => setIsUploading(false));
 
       const request = {
