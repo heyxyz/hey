@@ -32,12 +32,16 @@ export class UrlMatcher extends Matcher<UrlProps> {
     return createElement(Url, props, children);
   }
 
+  getPattern(): RegExp {
+    return URL_PATTERN;
+  }
+
   asTag(): string {
     return 'a';
   }
 
   match(string: string): MatchResponse<UrlMatch> | null {
-    const response = this.doMatch(string, URL_PATTERN, this.handleMatches, true);
+    const response = this.doMatch(string, this.getPattern(), this.handleMatches, true);
 
     if (response?.valid) {
       const { host } = response;
@@ -59,28 +63,13 @@ export class UrlMatcher extends Matcher<UrlProps> {
   }
 }
 
-export class PUrlMatcher extends Matcher<UrlProps> {
+export class PUrlMatcher extends UrlMatcher {
   replaceWith(children: ChildrenNode, props: UrlProps): Node {
     return <>({createElement(Url, props, props.url)})</>;
   }
 
-  asTag(): string {
-    return 'a';
-  }
-
-  match(string: string): MatchResponse<UrlMatch> | null {
-    const response = this.doMatch(string, PARENTHESES_URL_PATTERN, this.handleMatches, true);
-
-    if (response?.valid) {
-      const { host } = response;
-      const tld = host.slice(host.lastIndexOf('.') + 1).toLowerCase();
-
-      if (BLOCKED_TLDS.includes(tld)) {
-        response.valid = false;
-      }
-    }
-
-    return response;
+  getPattern(): RegExp {
+    return PARENTHESES_URL_PATTERN;
   }
 
   handleMatches(matches: string[]): UrlMatch {
