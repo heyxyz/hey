@@ -25,9 +25,7 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
-  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
   const setShowMobileDrawer = useGlobalModalStateStore((state) => state.setShowMobileDrawer);
   const showMobileDrawer = useGlobalModalStateStore((state) => state.showMobileDrawer);
 
@@ -74,7 +72,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item border dark:border-gray-700')
+                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg border dark:border-gray-700')
               }
             >
               <SwitchProfile />
@@ -82,7 +80,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item border dark:border-gray-700')
+                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg border dark:border-gray-700')
               }
             >
               <Status />

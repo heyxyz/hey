@@ -2,11 +2,17 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { ShieldCheckIcon, ShieldExclamationIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { Trans } from '@lingui/macro';
+import clsx from 'clsx';
+import type { FC } from 'react';
 import React from 'react';
 import { useAppPersistStore } from 'src/store/app';
 import { STAFFTOOLS } from 'src/tracking';
 
-const StaffMode = () => {
+type Props = {
+  className?: string;
+};
+
+const StaffMode: FC<Props> = ({ className }) => {
   const { allowed: staffMode } = useStaffMode();
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
 
@@ -18,7 +24,7 @@ const StaffMode = () => {
   return (
     <button
       onClick={toggleStaffMode}
-      className="flex px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200"
+      className={clsx('flex px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200', className)}
     >
       {staffMode ? (
         <div className="flex items-center space-x-1.5">

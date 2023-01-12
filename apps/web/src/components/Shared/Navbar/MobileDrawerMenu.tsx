@@ -71,7 +71,7 @@ const MobileDrawerMenu: FC = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div className="my-2">
+          <div>
             <Link href={`/u/${formatHandle(currentProfile?.handle)}`} onClick={closeDrawer}>
               <YourProfile className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
             </Link>
@@ -89,7 +89,7 @@ const MobileDrawerMenu: FC = () => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div className="my-2">
+          <div>
             <Contact className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={closeDrawer} />
             <ReportBug className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={closeDrawer} />
           </div>
@@ -98,14 +98,14 @@ const MobileDrawerMenu: FC = () => {
 
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div className="py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
-            <Logout onClick={closeDrawer} />
+          <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
+            <Logout onClick={closeDrawer} className="py-3" />
           </div>
           <div className="divider" />
           {isStaff(currentProfile?.id) && (
             <>
-              <div onClick={closeDrawer} className="py-2 hover:bg-gray-200 dark:hover:bg-gray-800">
-                <StaffMode />
+              <div onClick={closeDrawer} className="hover:bg-gray-200 dark:hover:bg-gray-800">
+                <StaffMode className="py-3" />
               </div>
               <div className="divider" />
             </>
