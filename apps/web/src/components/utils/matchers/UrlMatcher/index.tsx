@@ -63,7 +63,7 @@ export class UrlMatcher extends Matcher<UrlProps> {
   }
 }
 
-export class PUrlMatcher extends UrlMatcher {
+export class ParenthesesUrlMatcher extends UrlMatcher {
   replaceWith(children: ChildrenNode, props: UrlProps): Node {
     return <>({createElement(Url, props, props.url)})</>;
   }
