@@ -16,20 +16,23 @@ const StaffMode = () => {
   };
 
   return (
-    <button onClick={toggleStaffMode}>
+    <button
+      onClick={toggleStaffMode}
+      className="flex px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200"
+    >
       {staffMode ? (
         <div className="flex items-center space-x-1.5">
+          <ShieldExclamationIcon className="w-4 h-4 text-green-600" />
           <div>
             <Trans>Disable staff mode</Trans>
           </div>
-          <ShieldExclamationIcon className="w-4 h-4 text-green-600" />
         </div>
       ) : (
         <div className="flex items-center space-x-1.5">
+          <ShieldCheckIcon className="w-4 h-4 text-red-500" />
           <div>
             <Trans>Enable staff mode</Trans>
           </div>
-          <ShieldCheckIcon className="w-4 h-4 text-red-500" />
         </div>
       )}
     </button>

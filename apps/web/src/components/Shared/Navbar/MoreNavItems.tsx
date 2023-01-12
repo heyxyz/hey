@@ -33,7 +33,7 @@ const MoreNavItems: FC = () => {
               <Menu.Item
                 as="div"
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
                 }
               >
                 <Contact />
@@ -41,7 +41,7 @@ const MoreNavItems: FC = () => {
               <Menu.Item
                 as="div"
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
                 }
               >
                 <ReportBug />

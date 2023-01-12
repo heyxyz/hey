@@ -18,28 +18,30 @@ const ThemeSwitch: FC<Props> = ({ onClick, className }) => {
   return (
     <button
       type="button"
-      className={clsx('w-full flex items-center space-x-1.5', className)}
+      className={clsx('flex px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200', className)}
       onClick={() => {
         setTheme(theme === 'light' ? 'dark' : 'light');
         Analytics.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
         onClick?.();
       }}
     >
-      {theme === 'light' ? (
-        <>
-          <MoonIcon className="w-4 h-4" />
-          <div>
-            <Trans>Dark mode</Trans>
-          </div>
-        </>
-      ) : (
-        <>
-          <SunIcon className="w-4 h-4" />
-          <div>
-            <Trans>Light mode</Trans>
-          </div>
-        </>
-      )}
+      <div className="flex items-center space-x-1.5">
+        {theme === 'light' ? (
+          <>
+            <MoonIcon className="w-4 h-4" />
+            <div>
+              <Trans>Dark mode</Trans>
+            </div>
+          </>
+        ) : (
+          <>
+            <SunIcon className="w-4 h-4" />
+            <div>
+              <Trans>Light mode</Trans>
+            </div>
+          </>
+        )}
+      </div>
     </button>
   );
 };

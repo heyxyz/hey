@@ -22,7 +22,7 @@ const SwitchProfiles: FC = () => {
         <div key={profile?.id} className="text-gray-700 px-2 rounded-lg cursor-pointer dark:text-gray-200">
           <button
             type="button"
-            className="flex items-center py-1.5 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex items-center py-3 px-4 space-x-2 w-full rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
             onClick={() => {
               const selectedProfile = profiles[index];
               setCurrentProfile(selectedProfile);
@@ -33,7 +33,7 @@ const SwitchProfiles: FC = () => {
           >
             {currentProfile?.id === profile?.id && <CheckCircleIcon className="w-4 h-4 text-green-500" />}
             <img
-              className="w-5 h-5 rounded-full border dark:border-gray-700"
+              className="w-6 h-6 rounded-full border dark:border-gray-700"
               height={20}
               width={20}
               onError={({ currentTarget }) => {

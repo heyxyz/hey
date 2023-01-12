@@ -1,6 +1,4 @@
-import { Button } from '@components/UI/Button';
 import { Menu } from '@headlessui/react';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
@@ -22,6 +20,7 @@ import Mod from './NavItems/Mod';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import Status from './NavItems/Status';
+import SwitchProfile from './NavItems/SwitchProfile';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
@@ -62,30 +61,24 @@ const SignedUser: FC = () => {
             <Menu.Item
               as={NextLink}
               href={`/u/${formatHandle(currentProfile?.handle)}`}
-              className="text-sm items-center flex p-3 w-full"
+              className="text-sm items-center flex hover:bg-gray-100 dark:hover:bg-gray-800 m-2 px-4 text-gray-700 dark:text-gray-200 py-2 rounded-lg"
             >
-              <div className="flex items-center justify-between flex-1">
-                <span>
-                  <Trans>Logged in as</Trans>
-                  <div className="truncate">
-                    <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
-                  </div>
-                </span>
-                {profiles.length > 1 && (
-                  <Button
-                    outline
-                    variant="secondary"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setShowProfileSwitchModal(true);
-                    }}
-                  >
-                    <SwitchHorizontalIcon className="w-4 h-4 text-brand-500" />
-                  </Button>
-                )}
-              </div>
+              <span>
+                <Trans>Logged in as</Trans>
+                <div className="truncate">
+                  <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
+                </div>
+              </span>
             </Menu.Item>
             <div className="divider" />
+            <Menu.Item
+              as="div"
+              className={({ active }: { active: boolean }) =>
+                clsx({ 'dropdown-active': active }, 'menu-item border dark:border-gray-700')
+              }
+            >
+              <SwitchProfile />
+            </Menu.Item>
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
@@ -96,7 +89,8 @@ const SignedUser: FC = () => {
             </Menu.Item>
             <div className="divider" />
             <Menu.Item
-              as="div"
+              as={NextLink}
+              href={`/u/${formatHandle(currentProfile?.handle)}`}
               className={({ active }: { active: boolean }) =>
                 clsx({ 'dropdown-active': active }, 'menu-item')
               }
@@ -104,7 +98,8 @@ const SignedUser: FC = () => {
               <YourProfile />
             </Menu.Item>
             <Menu.Item
-              as="div"
+              as={NextLink}
+              href={'/settings'}
               className={({ active }: { active: boolean }) =>
                 clsx({ 'dropdown-active': active }, 'menu-item')
               }
@@ -113,7 +108,8 @@ const SignedUser: FC = () => {
             </Menu.Item>
             {isGardener(currentProfile?.id) && (
               <Menu.Item
-                as="div"
+                as={NextLink}
+                href={'/mod'}
                 className={({ active }: { active: boolean }) =>
                   clsx({ 'dropdown-active': active }, 'menu-item')
                 }
@@ -121,11 +117,17 @@ const SignedUser: FC = () => {
                 <Mod />
               </Menu.Item>
             )}
-            <Menu.Item as="div" className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}>
+            <Menu.Item
+              as="div"
+              className={({ active }) => clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')}
+            >
               <Logout />
             </Menu.Item>
             <div className="divider" />
-            <Menu.Item as="div" className={({ active }) => clsx({ 'dropdown-active': active }, 'menu-item')}>
+            <Menu.Item
+              as="div"
+              className={({ active }) => clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')}
+            >
               <ThemeSwitch />
             </Menu.Item>
             {currentProfile && (
@@ -140,7 +142,7 @@ const SignedUser: FC = () => {
                 <Menu.Item
                   as="div"
                   className={({ active }) =>
-                    clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'menu-item')
+                    clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'm-2 rounded-lg')
                   }
                 >
                   <StaffMode />

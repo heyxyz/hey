@@ -1,31 +1,26 @@
 import { UserIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
-import { useAppStore } from 'src/store/app';
 
 type Props = {
-  onClick?: () => void;
   className?: string;
 };
 
-const YourProfile: FC<Props> = ({ onClick, className }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
+const YourProfile: FC<Props> = ({ className }) => {
   return (
-    <Link
-      href={`/u/${formatHandle(currentProfile?.handle)}`}
-      className={clsx('flex items-center space-x-1.5', className)}
-      onClick={onClick}
+    <div
+      className={clsx(
+        'flex text-sm w-full text-gray-700 dark:text-gray-200 space-x-1.5 items-center',
+        className
+      )}
     >
       <UserIcon className="w-4 h-4" />
       <div>
         <Trans>Your Profile</Trans>
       </div>
-    </Link>
+    </div>
   );
 };
 

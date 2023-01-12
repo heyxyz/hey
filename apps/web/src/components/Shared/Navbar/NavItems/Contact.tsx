@@ -12,7 +12,14 @@ type Props = {
 
 const Contact: FC<Props> = ({ onClick, className }) => {
   return (
-    <Link href="/contact" className={clsx('flex items-center space-x-1.5', className)} onClick={onClick}>
+    <Link
+      href="/contact"
+      className={clsx(
+        'flex items-center px-4 py-1.5 space-x-1.5 text-sm w-full text-gray-700 dark:text-gray-200',
+        className
+      )}
+      onClick={onClick}
+    >
       <SupportIcon className="w-4 h-4" />
       <div>
         <Trans>Contact</Trans>

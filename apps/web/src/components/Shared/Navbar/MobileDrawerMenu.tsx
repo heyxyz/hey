@@ -1,5 +1,4 @@
-import { Button } from '@components/UI/Button';
-import { SwitchHorizontalIcon, XIcon } from '@heroicons/react/outline';
+import { XIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isGardener from '@lib/isGardener';
@@ -20,6 +19,7 @@ import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import Status from './NavItems/Status';
+import SwitchProfile from './NavItems/SwitchProfile';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
@@ -27,8 +27,6 @@ const MobileDrawerMenu: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowMobileDrawer = useGlobalModalStateStore((state) => state.setShowMobileDrawer);
-
-  const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
@@ -39,79 +37,81 @@ const MobileDrawerMenu: FC = () => {
       <button className="px-5" type="button" onClick={closeDrawer}>
         <XIcon className="w-6 h-6" />
       </button>
-      <div className="w-full py-4 space-y-4">
+      <div className="w-full space-y-2">
         <Link
-          href={`/u/${formatHandle(currentProfile?.handle)}`}
-          className="flex px-5 space-x-2 items-center"
           onClick={closeDrawer}
+          href={`/u/${formatHandle(currentProfile?.handle)}`}
+          className="flex hover:bg-gray-200 dark:hover:bg-gray-800 px-5 py-3 mt-2 space-x-2 items-center"
         >
-          <div className="flex items-center space-x-2 w-full justify-between">
-            <div className="flex space-x-1.5">
-              <img
-                src={getAvatar(currentProfile as Profile)}
-                className="w-12 h-12 rounded-full border cursor-pointer dark:border-gray-700"
-                alt={formatHandle(currentProfile?.handle)}
-                onError={({ currentTarget }) => {
-                  currentTarget.src = getAvatar(currentProfile, false);
-                }}
-              />
-              <div>
-                <Trans>Logged in as</Trans>
-                <div className="truncate">
-                  <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
-                </div>
+          <div className="w-full flex space-x-1.5">
+            <img
+              src={getAvatar(currentProfile as Profile)}
+              className="w-12 h-12 rounded-full border cursor-pointer dark:border-gray-700"
+              alt={formatHandle(currentProfile?.handle)}
+              onError={({ currentTarget }) => {
+                currentTarget.src = getAvatar(currentProfile, false);
+              }}
+            />
+            <div>
+              <Trans>Logged in as</Trans>
+              <div className="truncate">
+                <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
               </div>
             </div>
-            {profiles.length > 1 && (
-              <Button
-                variant="secondary"
-                outline
-                onClick={(e) => {
-                  e.preventDefault();
-                  setShowProfileSwitchModal(true);
-                }}
-              >
-                <SwitchHorizontalIcon className="w-4 h-4 text-brand-500" />
-              </Button>
-            )}
           </div>
         </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <Status className="py-4 px-5" />
+          {profiles.length > 1 && (
+            <SwitchProfile className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
+          )}
+          <div className="divider" />
+          <Status className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div className="mx-5 my-2">
-            <YourProfile onClick={closeDrawer} className="py-4" />
-            <Settings onClick={closeDrawer} className="py-4" />
-            {isGardener(currentProfile?.id) && <Mod onClick={closeDrawer} className="py-4" />}
-            <ThemeSwitch className="py-4" onClick={closeDrawer} />
+          <div className="my-2">
+            <Link href={`/u/${formatHandle(currentProfile?.handle)}`} onClick={closeDrawer}>
+              <YourProfile className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
+            </Link>
+            <Link href={'/settings'} onClick={closeDrawer}>
+              <Settings className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
+            </Link>
+            {isGardener(currentProfile?.id) && (
+              <Link href="/mod" onClick={closeDrawer}>
+                <Mod className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
+              </Link>
+            )}
+            <ThemeSwitch className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={closeDrawer} />
           </div>
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <div className="mx-5 my-2">
-            <Contact className="py-4" onClick={closeDrawer} />
-            <ReportBug className="py-4" onClick={closeDrawer} />
+          <div className="my-2">
+            <Contact className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={closeDrawer} />
+            <ReportBug className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={closeDrawer} />
           </div>
           <div className="divider" />
         </div>
 
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <Logout className="p-5" onClick={closeDrawer} />
+          <div className="py-2 hover:bg-gray-100 dark:hover:bg-gray-800">
+            <Logout onClick={closeDrawer} />
+          </div>
           <div className="divider" />
+          {isStaff(currentProfile?.id) && (
+            <>
+              <div onClick={closeDrawer} className="py-2 hover:bg-gray-200 dark:hover:bg-gray-800">
+                <StaffMode />
+              </div>
+              <div className="divider" />
+            </>
+          )}
         </div>
-
         {currentProfile && <AppVersion />}
-        {isStaff(currentProfile?.id) && (
-          <div className="px-5">
-            <StaffMode />
-          </div>
-        )}
       </div>
     </div>
   );
