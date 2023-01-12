@@ -27,8 +27,8 @@ const SwitchProfiles: FC = () => {
               const selectedProfile = profiles[index];
               setCurrentProfile(selectedProfile);
               setProfileId(selectedProfile.id);
-              Analytics.track(PROFILE.SWITCH_PROFILE);
               setShowProfileSwitchModal(false);
+              Analytics.track(PROFILE.SWITCH_PROFILE);
             }}
           >
             {currentProfile?.id === profile?.id && <CheckCircleIcon className="w-4 h-4 text-green-500" />}
