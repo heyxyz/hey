@@ -10,7 +10,7 @@ type Props = {
   className?: string;
 };
 
-const Contact: FC<Props> = ({ onClick, className }) => {
+const Contact: FC<Props> = ({ onClick, className = '' }) => {
   return (
     <Link
       href="/contact"

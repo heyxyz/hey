@@ -8,7 +8,7 @@ type Props = {
   className?: string;
 };
 
-const YourProfile: FC<Props> = ({ className }) => {
+const YourProfile: FC<Props> = ({ className = '' }) => {
   return (
     <div
       className={clsx(

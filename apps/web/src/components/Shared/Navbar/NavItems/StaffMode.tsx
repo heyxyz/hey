@@ -12,7 +12,7 @@ type Props = {
   className?: string;
 };
 
-const StaffMode: FC<Props> = ({ className }) => {
+const StaffMode: FC<Props> = ({ className = '' }) => {
   const { allowed: staffMode } = useStaffMode();
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
 
@@ -24,22 +24,25 @@ const StaffMode: FC<Props> = ({ className }) => {
   return (
     <button
       onClick={toggleStaffMode}
-      className={clsx('flex px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200', className)}
+      className={clsx(
+        'flex items-center space-x-1.5 px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200',
+        className
+      )}
     >
       {staffMode ? (
-        <div className="flex items-center space-x-1.5">
+        <>
           <ShieldExclamationIcon className="w-4 h-4 text-green-600" />
           <div>
             <Trans>Disable staff mode</Trans>
           </div>
-        </div>
+        </>
       ) : (
-        <div className="flex items-center space-x-1.5">
+        <>
           <ShieldCheckIcon className="w-4 h-4 text-red-500" />
           <div>
             <Trans>Enable staff mode</Trans>
           </div>
-        </div>
+        </>
       )}
     </button>
   );

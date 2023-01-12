@@ -9,7 +9,7 @@ type Props = {
   className?: string;
 };
 
-const SwitchProfile: FC<Props> = ({ className }) => {
+const SwitchProfile: FC<Props> = ({ className = '' }) => {
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
 
   return (

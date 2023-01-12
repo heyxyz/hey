@@ -10,7 +10,7 @@ type Props = {
   className?: string;
 };
 
-const ReportBug: FC<Props> = ({ onClick, className }) => {
+const ReportBug: FC<Props> = ({ onClick, className = '' }) => {
   return (
     <Link
       href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"

@@ -16,7 +16,7 @@ type Props = {
   className?: string;
 };
 
-const Logout: FC<Props> = ({ onClick, className }) => {
+const Logout: FC<Props> = ({ onClick, className = '' }) => {
   const router = useRouter();
   const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();

@@ -8,7 +8,7 @@ type Props = {
   className?: string;
 };
 
-const Mod: FC<Props> = ({ className }) => {
+const Mod: FC<Props> = ({ className = '' }) => {
   return (
     <div
       className={clsx(

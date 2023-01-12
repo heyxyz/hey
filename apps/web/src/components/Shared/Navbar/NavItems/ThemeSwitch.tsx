@@ -12,7 +12,7 @@ type Props = {
   className?: string;
 };
 
-const ThemeSwitch: FC<Props> = ({ onClick, className }) => {
+const ThemeSwitch: FC<Props> = ({ onClick, className = '' }) => {
   const { theme, setTheme } = useTheme();
 
   return (

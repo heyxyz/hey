@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 };
 
-const Status: FC<Props> = ({ className }) => {
+const Status: FC<Props> = ({ className = '' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
 
@@ -22,24 +22,25 @@ const Status: FC<Props> = ({ className }) => {
   return (
     <button
       type="button"
-      className={clsx('flex text-sm px-4 py-1.5 w-full text-gray-700 dark:text-gray-200', className)}
+      className={clsx(
+        'flex text-sm px-4 items-center space-x-2 py-1.5 w-full text-gray-700 dark:text-gray-200',
+        className
+      )}
       onClick={() => setShowStatusModal(true)}
     >
-      <div className="flex items-center space-x-2">
-        {hasStatus ? (
-          <>
-            <span>{statusEmoji}</span>
-            <span className="truncate">{statusMessage}</span>
-          </>
-        ) : (
-          <>
-            <EmojiHappyIcon className="w-4 h-4" />
-            <span>
-              <Trans>Set status</Trans>
-            </span>
-          </>
-        )}
-      </div>
+      {hasStatus ? (
+        <>
+          <span>{statusEmoji}</span>
+          <span className="truncate">{statusMessage}</span>
+        </>
+      ) : (
+        <>
+          <EmojiHappyIcon className="w-4 h-4" />
+          <span>
+            <Trans>Set status</Trans>
+          </span>
+        </>
+      )}
     </button>
   );
 };
