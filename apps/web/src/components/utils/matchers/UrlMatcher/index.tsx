@@ -61,7 +61,7 @@ export class UrlMatcher extends Matcher<UrlProps> {
 
 export class PUrlMatcher extends Matcher<UrlProps> {
   replaceWith(children: ChildrenNode, props: UrlProps): Node {
-    return createElement(Url, props, children);
+    return <>({createElement(Url, props, props.url)})</>;
   }
 
   asTag(): string {
