@@ -73,7 +73,6 @@ export class ParenthesesUrlMatcher extends UrlMatcher {
   }
 
   handleMatches(matches: string[]): UrlMatch {
-    console.log(matches);
     return {
       url: matches[1],
       host: matches[4]
