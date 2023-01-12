@@ -4,7 +4,6 @@ import { Analytics } from '@lib/analytics';
 import resetAuthData from '@lib/resetAuthData';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import React from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -17,7 +16,6 @@ type Props = {
 };
 
 const Logout: FC<Props> = ({ onClick, className = '' }) => {
-  const router = useRouter();
   const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();
 
@@ -31,7 +29,6 @@ const Logout: FC<Props> = ({ onClick, className = '' }) => {
     setProfileId(null);
     resetAuthData();
     disconnect?.();
-    router.push('/');
   };
 
   return (
