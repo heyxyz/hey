@@ -9,7 +9,7 @@ type Props = {
 
 const AppVersion: FC<Props> = ({ onClick }) => {
   return (
-    <div className="py-2 px-5 text-sm opacity-60">
+    <div className="py-2 px-5 text-xs">
       <Link
         href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
         className="font-mono"

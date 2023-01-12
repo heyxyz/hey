@@ -20,7 +20,7 @@ const Status: FC<Props> = ({ className }) => {
   const hasStatus = statusEmoji && statusMessage;
 
   return (
-    <button type="button" className={clsx('w-full', className)} onClick={() => setShowStatusModal(true)}>
+    <button type="button" className={clsx('flex w-full', className)} onClick={() => setShowStatusModal(true)}>
       <div className="flex items-center space-x-2">
         {hasStatus ? (
           <>
