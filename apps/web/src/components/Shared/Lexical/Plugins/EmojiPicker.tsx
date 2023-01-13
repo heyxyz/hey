@@ -48,9 +48,12 @@ function EmojiMenuItem({
     <li
       key={key}
       tabIndex={-1}
-      className={clsx('m-2 p-2 text-gray-900 text-sm outline-none cursor-pointer rounded-md', {
-        'bg-gray-100': isSelected
-      })}
+      className={clsx(
+        'm-2 p-2 text-gray-900 text-sm outline-none cursor-pointer rounded-md dark:text-white',
+        {
+          'bg-gray-100 dark:bg-gray-900': isSelected
+        }
+      )}
       ref={setRefElement}
       role="option"
       aria-selected={isSelected}
@@ -156,7 +159,7 @@ export default function EmojiPickerPlugin() {
 
         return anchorElementRef.current && options.length
           ? ReactDOM.createPortal(
-              <div className="typeahead-popover w-52 rounded-md border border-gray-300 bg-white mt-7">
+              <div className="typeahead-popover w-52 rounded-md border border-gray-300 bg-white dark:bg-black dark:border-gray-900 mt-7">
                 <ul className="p-0 list-none m-0 rounded-sm overflow-y-scroll max-h-52">
                   {options.map((option: EmojiOption, index) => (
                     <div key={option.key}>
