@@ -899,6 +899,10 @@ msgstr ""
 msgid "Others"
 msgstr ""
 
+#: src/components/Publication/Actions/index.tsx
+msgid "Gated Publication"
+msgstr "Gated Publication"
+
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
 msgstr ""
@@ -1871,12 +1875,12 @@ msgid "Image size should be less than 10MB"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 50MB"
-msgstr ""
+msgid "Video size should be less than 100MB"
+msgstr "Video size should be less than 100MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Audio size should be less than 20MB"
-msgstr ""
+msgid "Audio size should be less than 100MB"
+msgstr "Audio size should be less than 100MB"
 
 #: src/lib/getModule.ts
 msgid "The Unknown Collect Module is unknown and not type supported in the API."
