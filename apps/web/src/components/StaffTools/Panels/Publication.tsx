@@ -1,17 +1,19 @@
 import { Card } from '@components/UI/Card';
-import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import getIPFSLink from '@lib/getIPFSLink';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 
 import MetaDetails from './MetaDetails';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const PublicationStaffTool: FC<Props> = ({ publication }) => {
+  const isComment = publication.__typename === 'Comment';
+
   return (
     <Card as="aside" className="mt-5 border-yellow-400 !bg-yellow-300 !bg-opacity-20 p-5">
       <div className="flex items-center space-x-2 text-yellow-600">
@@ -26,7 +28,7 @@ const PublicationStaffTool: FC<Props> = ({ publication }) => {
         >
           {publication?.id}
         </MetaDetails>
-        {publication?.commentOn?.id ? (
+        {isComment ? (
           <MetaDetails
             icon={<HashtagIcon className="w-4 h-4 lt-text-gray-500" />}
             value={publication?.commentOn?.id}
@@ -37,7 +39,7 @@ const PublicationStaffTool: FC<Props> = ({ publication }) => {
         ) : null}
         <MetaDetails
           icon={<CollectionIcon className="w-4 h-4 lt-text-gray-500" />}
-          value={publication?.commentOn?.id}
+          value={publication?.collectModule?.type}
           title="Collect module"
         >
           {publication?.collectModule?.type}

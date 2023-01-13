@@ -1,14 +1,14 @@
-import type { LensterPublication } from '@generated/types';
+import type { Comment } from 'lens';
 import type { FC } from 'react';
 
 import ThreadBody from '../ThreadBody';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Comment;
 }
 
 const Commented: FC<Props> = ({ publication }) => {
-  const commentOn: LensterPublication | any = publication?.commentOn;
+  const commentOn: Comment | any = publication?.commentOn;
   const mainPost = commentOn?.mainPost;
 
   return (

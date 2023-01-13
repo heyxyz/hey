@@ -1,20 +1,15 @@
 import type {
-  Comment,
   FeeCollectModuleSettings,
   FeeFollowModuleSettings,
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
-  Mirror,
-  Post,
   ProfileFollowModuleSettings,
   RevertCollectModuleSettings,
   RevertFollowModuleSettings,
   TimedFeeCollectModuleSettings
 } from 'lens';
 
-export type LensterPublication = Post & Mirror & Comment;
-export type Community = Post;
 export type LensterCollectModule = FeeCollectModuleSettings &
   FreeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &

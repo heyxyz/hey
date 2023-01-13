@@ -1,11 +1,11 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/types';
 import { apps } from 'data/apps';
 import { STATIC_IMAGES_URL } from 'data/constants';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const Source: FC<Props> = ({ publication }) => {
