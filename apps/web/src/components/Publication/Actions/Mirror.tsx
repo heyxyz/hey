@@ -21,6 +21,7 @@ import {
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -30,10 +31,11 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   publication: LensterPublication;
-  isFullPublication: boolean;
 }
 
-const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
+const Mirror: FC<Props> = ({ publication }) => {
+  const { pathname } = useRouter();
+  const isFullPublication = pathname === '/posts/[id]';
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);

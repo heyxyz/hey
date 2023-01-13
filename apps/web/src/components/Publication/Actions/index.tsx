@@ -14,11 +14,10 @@ import Mirror from './Mirror';
 
 interface Props {
   publication: LensterPublication;
-  isFullPublication?: boolean;
   electedMirror?: ElectedMirror;
 }
 
-const PublicationActions: FC<Props> = ({ publication, electedMirror, isFullPublication = false }) => {
+const PublicationActions: FC<Props> = ({ publication, electedMirror }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const collectModuleType = publication?.collectModule.__typename;
   const canMirror = currentProfile ? publication?.canMirror?.result : true;
@@ -31,17 +30,13 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, isFullPubli
           event.stopPropagation();
         }}
       >
-        <Comment publication={publication} isFullPublication={isFullPublication} />
-        {canMirror && <Mirror publication={publication} isFullPublication={isFullPublication} />}
-        <Like publication={publication} isFullPublication={isFullPublication} />
+        <Comment publication={publication} />
+        {canMirror && <Mirror publication={publication} />}
+        <Like publication={publication} />
         {collectModuleType !== 'RevertCollectModuleSettings' && (
-          <Collect
-            electedMirror={electedMirror}
-            publication={publication}
-            isFullPublication={isFullPublication}
-          />
+          <Collect electedMirror={electedMirror} publication={publication} />
         )}
-        <Analytics publication={publication} isFullPublication={isFullPublication} />
+        <Analytics publication={publication} />
       </span>
       <Tooltip placement="top" content={t`Gated Publication`}>
         <LockClosedIcon className="h-4 w-4 text-green-500" />
