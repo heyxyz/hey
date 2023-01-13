@@ -8,20 +8,20 @@ import clsx from 'clsx';
 import { STATIC_ASSETS_URL } from 'data/constants';
 import type { TextNode } from 'lexical';
 import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical';
-import * as React from 'react';
+import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 
 class EmojiOption extends TypeaheadOption {
   title: string;
   emoji: string;
-  keywords: Array<string>;
+  keywords: string[];
 
   constructor(
     title: string,
     emoji: string,
     options: {
-      keywords?: Array<string>;
+      keywords?: string[];
     }
   ) {
     super(title);
@@ -30,30 +30,23 @@ class EmojiOption extends TypeaheadOption {
     this.keywords = options.keywords || [];
   }
 }
-function EmojiMenuItem({
-  index,
-  isSelected,
-  onClick,
-  onMouseEnter,
-  option
-}: {
+
+interface Props {
   index: number;
   isSelected: boolean;
   onClick: () => void;
   onMouseEnter: () => void;
   option: EmojiOption;
-}) {
+}
+
+const EmojiMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
   const { key, title, emoji, setRefElement } = option;
+
   return (
     <li
       key={key}
       tabIndex={-1}
-      className={clsx(
-        'm-2 p-2 text-gray-900 text-sm outline-none cursor-pointer rounded-md dark:text-white',
-        {
-          'bg-gray-100 dark:bg-gray-900': isSelected
-        }
-      )}
+      className={clsx({ 'dropdown-active': isSelected }, 'm-2 p-2 outline-none cursor-pointer rounded-lg')}
       ref={setRefElement}
       role="option"
       aria-selected={isSelected}
@@ -61,12 +54,13 @@ function EmojiMenuItem({
       onMouseEnter={onMouseEnter}
       onClick={onClick}
     >
-      <span className="text">
-        {emoji} {title.split('_').join(' ')}
-      </span>
+      <div className="flex items-center space-x-2">
+        <span className="text-base">{emoji}</span>
+        <span className="capitalize text-sm">{title.split('_').join(' ')}</span>
+      </div>
     </li>
   );
-}
+};
 
 type Emoji = {
   emoji: string;
@@ -79,9 +73,9 @@ type Emoji = {
   skin_tones?: boolean;
 };
 
-const MAX_EMOJI_SUGGESTION_COUNT = 100;
+const MAX_EMOJI_SUGGESTION_COUNT = 5;
 
-export default function EmojiPickerPlugin() {
+const EmojiPickerPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
   const [emojis, setEmojis] = useState<Array<Emoji>>([]);
@@ -159,30 +153,30 @@ export default function EmojiPickerPlugin() {
 
         return anchorElementRef.current && options.length
           ? ReactDOM.createPortal(
-              <div className="typeahead-popover w-52 rounded-md border border-gray-300 bg-white dark:bg-black dark:border-gray-900 mt-7">
-                <ul className="p-0 list-none m-0 rounded-sm overflow-y-scroll max-h-52">
-                  {options.map((option: EmojiOption, index) => (
-                    <div key={option.key}>
-                      <EmojiMenuItem
-                        index={index}
-                        isSelected={selectedIndex === index}
-                        onClick={() => {
-                          setHighlightedIndex(index);
-                          selectOptionAndCleanUp(option);
-                        }}
-                        onMouseEnter={() => {
-                          setHighlightedIndex(index);
-                        }}
-                        option={option}
-                      />
-                    </div>
-                  ))}
-                </ul>
-              </div>,
+              <ul className="w-52 rounded-xl border shadow-sm bg-white dark:bg-gray-900 dark:border-gray-700 mt-7">
+                {options.map((option: EmojiOption, index) => (
+                  <div key={option.key}>
+                    <EmojiMenuItem
+                      index={index}
+                      isSelected={selectedIndex === index}
+                      onClick={() => {
+                        setHighlightedIndex(index);
+                        selectOptionAndCleanUp(option);
+                      }}
+                      onMouseEnter={() => {
+                        setHighlightedIndex(index);
+                      }}
+                      option={option}
+                    />
+                  </div>
+                ))}
+              </ul>,
               anchorElementRef.current
             )
           : null;
       }}
     />
   );
-}
+};
+
+export default EmojiPickerPlugin;
