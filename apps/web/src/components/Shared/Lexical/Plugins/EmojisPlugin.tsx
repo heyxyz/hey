@@ -16,8 +16,8 @@ const emojis: Map<string, [string, string]> = new Map([
   [':*', ['emoji kiss', '😘']],
   [':$', ['emoji blush', '😳']],
   [':@', ['emoji angry', '😠']],
-  [':s', ['emoji smirk', '😏']],
-  [':l', ['emoji sealed', '🌸']],
+  [':S', ['emoji smirk', '😏']],
+  [':L', ['emoji sealed', '🌸']],
   ['<3', ['emoji heart', '💜']]
 ]);
 
