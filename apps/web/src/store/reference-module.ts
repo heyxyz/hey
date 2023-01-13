@@ -1,5 +1,5 @@
 import { ReferenceModules } from 'lens';
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface ReferenceModuleState {
   selectedReferenceModule: ReferenceModules;
