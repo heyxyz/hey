@@ -1,7 +1,6 @@
 import EventType from '@components/Home/Timeline/EventType';
-import type { LensterPublication } from '@generated/types';
 import { Analytics } from '@lib/analytics';
-import type { ElectedMirror, FeedItem } from 'lens';
+import type { ElectedMirror, FeedItem, Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
@@ -14,7 +13,7 @@ import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
   feedItem?: FeedItem;
   showType?: boolean;
   showActions?: boolean;
@@ -50,24 +49,20 @@ const SinglePublication: FC<Props> = ({
       ) : (
         <PublicationType publication={publication} showType={showType} showThread={showThread} />
       )}
-      <PublicationHeader
-        className="pb-4"
-        publication={rootPublication as LensterPublication}
-        feedItem={feedItem}
-      />
+      <PublicationHeader className="pb-4" publication={rootPublication} feedItem={feedItem} />
       <div className="ml-[53px]">
         {publication?.hidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
-            <PublicationBody publication={rootPublication as LensterPublication} />
+            <PublicationBody publication={rootPublication} />
             {showActions && (
               <PublicationActions
-                publication={rootPublication as LensterPublication}
+                publication={rootPublication}
                 electedMirror={feedItem?.electedMirror as ElectedMirror}
               />
             )}
-            {showModActions && <ModAction publication={rootPublication as LensterPublication} />}
+            {showModActions && <ModAction publication={rootPublication} />}
           </>
         )}
       </div>

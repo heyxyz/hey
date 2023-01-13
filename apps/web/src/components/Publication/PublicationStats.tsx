@@ -2,17 +2,17 @@ import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
 import { Modal } from '@components/UI/Modal';
-import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import nFormatter from '@lib/nFormatter';
 import { t, Trans } from '@lingui/macro';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const PublicationStats: FC<Props> = ({ publication }) => {

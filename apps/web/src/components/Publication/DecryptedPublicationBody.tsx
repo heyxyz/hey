@@ -5,7 +5,6 @@ import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Tooltip } from '@components/UI/Tooltip';
 import useNFT from '@components/utils/hooks/useNFT';
-import type { LensterPublication } from '@generated/types';
 import {
   CollectionIcon,
   DatabaseIcon,
@@ -30,7 +29,7 @@ import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
 import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
-import type { PublicationMetadataV2Input } from 'lens';
+import type { Publication, PublicationMetadataV2Input } from 'lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -54,7 +53,7 @@ const DecryptMessage: FC<DecryptMessageProps> = ({ icon, children }) => (
 );
 
 interface Props {
-  encryptedPublication: LensterPublication;
+  encryptedPublication: Publication;
 }
 
 const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
