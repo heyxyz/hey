@@ -39,8 +39,8 @@ const URL_PATH = combinePatterns(
     /\//,
     combinePatterns(
       [
-        /[\d!$%&'*+,./:;=@[\]_a-z|~-]*/,
-        /[\d+/a-z-]/ // Valid ending chars
+        /[\d!$%&'()*+,./:;=@[\]_a-z|~-]*/,
+        /[\d()+/a-z-]/ // Valid ending chars
       ],
       { match: '*', nonCapture: true }
     )
@@ -79,5 +79,7 @@ const URL_FRAGMENT = combinePatterns(
 export const URL_PATTERN = combinePatterns([URL_SCHEME, URL_HOST, URL_PATH, URL_QUERY, URL_FRAGMENT], {
   flags: 'i'
 });
+
+export const PARENTHESES_URL_PATTERN = new RegExp(`\\((${URL_PATTERN.source})\\)`, 'i');
 
 export const BLOCKED_TLDS = ['lens'];
