@@ -127,8 +127,6 @@ const Attachments: FC<Props> = ({
                   loading="lazy"
                   height={380}
                   width={380}
-                  height={380}
-                  width={380}
                   onError={({ currentTarget }) => {
                     currentTarget.src = url;
                   }}
