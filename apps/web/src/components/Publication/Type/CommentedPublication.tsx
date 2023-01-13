@@ -1,12 +1,12 @@
 import Slug from '@components/Shared/Slug';
-import type { LensterPublication } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
+import type { Comment } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Comment;
 }
 
 const CommentedPublication: FC<Props> = ({ publication }) => {

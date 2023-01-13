@@ -1,20 +1,15 @@
 import type {
-  Comment,
   FeeCollectModuleSettings,
   FeeFollowModuleSettings,
   FreeCollectModuleSettings,
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
-  Mirror,
-  Post,
   ProfileFollowModuleSettings,
   RevertCollectModuleSettings,
   RevertFollowModuleSettings,
   TimedFeeCollectModuleSettings
 } from 'lens';
 
-export type LensterPublication = Post & Mirror & Comment;
-export type Community = Post;
 export type LensterCollectModule = FeeCollectModuleSettings &
   FreeCollectModuleSettings &
   LimitedFeeCollectModuleSettings &
@@ -24,16 +19,19 @@ export type LensterCollectModule = FeeCollectModuleSettings &
 export type LensterFollowModule = FeeFollowModuleSettings &
   ProfileFollowModuleSettings &
   RevertFollowModuleSettings;
+
 export interface LensterAttachment {
   item: string;
   type: string;
   altTag: string;
 }
+
 export interface NewLensterAttachment extends Omit<LensterAttachment, 'item'> {
   id: string;
   item?: string;
   previewItem?: string;
 }
+
 export interface UserSuggestion {
   uid: string;
   id: string;
@@ -41,6 +39,7 @@ export interface UserSuggestion {
   name: string;
   picture: string;
 }
+
 export interface OG {
   title: string;
   description: string;

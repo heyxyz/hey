@@ -1,8 +1,7 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/types';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { t } from '@lingui/macro';
-import type { ElectedMirror } from 'lens';
+import type { ElectedMirror, Publication } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -13,7 +12,7 @@ import Like from './Like';
 import Mirror from './Mirror';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
   electedMirror?: ElectedMirror;
 }
 

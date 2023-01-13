@@ -10,14 +10,12 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import type { LensterPublication } from '@generated/types';
 import {
   CashIcon,
   ClockIcon,
   CollectionIcon,
   PhotographIcon,
   PuzzleIcon,
-  SwitchHorizontalIcon,
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
@@ -40,7 +38,7 @@ import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
 import type { BigNumber } from 'ethers';
 import { defaultAbiCoder } from 'ethers/lib/utils';
-import type { ElectedMirror } from 'lens';
+import type { ElectedMirror, Publication } from 'lens';
 import {
   CollectModules,
   useApprovedModuleAllowanceAmountQuery,
@@ -60,7 +58,7 @@ import { useAccount, useBalance, useContractRead, useContractWrite, useSignTyped
 interface Props {
   count: number;
   setCount: Dispatch<number>;
-  publication: LensterPublication;
+  publication: Publication;
   electedMirror?: ElectedMirror;
 }
 
@@ -74,7 +72,6 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
-  const isMirror = electedMirror ? false : publication.__typename === 'Mirror';
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
@@ -265,22 +262,9 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           </div>
         )}
         <div className="pb-2 space-y-1.5">
-          <div className="flex items-center space-x-2">
-            {(electedMirror || isMirror) && (
-              <Tooltip
-                content={`Mirror of ${
-                  electedMirror ? publication.__typename : publication?.mirrorOf.__typename?.toLowerCase()
-                } by ${
-                  isMirror ? publication?.mirrorOf?.profile?.handle : formatHandle(publication.profile.handle)
-                }`}
-              >
-                <SwitchHorizontalIcon className="w-5 h-5 text-brand" />
-              </Tooltip>
-            )}
-            {publication?.metadata?.name && (
-              <div className="text-xl font-bold">{publication?.metadata?.name}</div>
-            )}
-          </div>
+          {publication?.metadata?.name && (
+            <div className="text-xl font-bold">{publication?.metadata?.name}</div>
+          )}
           {publication?.metadata?.content && (
             <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.content}</Markup>
           )}

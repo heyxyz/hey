@@ -1,9 +1,9 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import type { LensterPublication } from '@generated/types';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
@@ -14,7 +14,7 @@ import Permalink from './Permalink';
 import Report from './Report';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const PublicationMenu: FC<Props> = ({ publication }) => {

@@ -4,12 +4,11 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
-import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile } from 'lens';
+import type { Profile, Publication } from 'lens';
 import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -113,7 +112,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
         {publications?.map((publication, index) => (
           <SinglePublication
             key={`${publication.id}_${index}`}
-            publication={publication as LensterPublication}
+            publication={publication as Publication}
             showThread={type !== 'MEDIA'}
           />
         ))}

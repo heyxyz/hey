@@ -1,6 +1,5 @@
 import type { ApolloCache } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/types';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
@@ -12,6 +11,7 @@ import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
+import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -21,7 +21,7 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const Like: FC<Props> = ({ publication }) => {
