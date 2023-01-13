@@ -57,7 +57,7 @@ const Analytics: FC<Props> = ({ publication }) => {
       </motion.button>
       <Modal
         title={
-          <div className="flex space-x-2 items-center">
+          <div className="flex items-center space-x-2">
             <span>{t`Publication Analytics`}</span>
             <Beta />
           </div>
