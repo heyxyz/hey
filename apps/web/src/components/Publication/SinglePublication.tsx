@@ -1,7 +1,6 @@
 import EventType from '@components/Home/Timeline/EventType';
-import type { LensterPublication } from '@generated/types';
 import { Analytics } from '@lib/analytics';
-import type { ElectedMirror, FeedItem } from 'lens';
+import type { ElectedMirror, FeedItem, Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
@@ -14,7 +13,7 @@ import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
   feedItem?: FeedItem;
   showType?: boolean;
   showActions?: boolean;
