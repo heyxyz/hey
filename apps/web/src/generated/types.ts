@@ -53,5 +53,5 @@ export interface OG {
 
 export interface ProfileInterest {
   category: { label: string; id: string };
-  subCategories: Array<{ label: string; id: string }>;
+  subCategories: { label: string; id: string }[];
 }
