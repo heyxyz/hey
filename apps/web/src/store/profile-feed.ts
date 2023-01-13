@@ -1,4 +1,4 @@
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface ProfileFeedState {
   mediaFeedFilters: Record<string, boolean>;
