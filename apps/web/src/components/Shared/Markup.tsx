@@ -6,7 +6,7 @@ import { MDLinkMatcher } from '@components/utils/matchers/markdown/MDLinkMatcher
 import { MDQuoteMatcher } from '@components/utils/matchers/markdown/MDQuoteMatcher';
 import { MDStrikeMatcher } from '@components/utils/matchers/markdown/MDStrikeMatcher';
 import { MentionMatcher } from '@components/utils/matchers/MentionMatcher';
-import { UrlMatcher } from '@components/utils/matchers/UrlMatcher';
+import { ParenthesesUrlMatcher, UrlMatcher } from '@components/utils/matchers/UrlMatcher';
 import trimify from '@lib/trimify';
 import { Interweave } from 'interweave';
 import type { FC, MouseEvent } from 'react';
@@ -22,6 +22,7 @@ const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
     new MDCodeMatcher('mdCode'),
     new MentionMatcher('mention'),
     new MDLinkMatcher('mdLink'),
+    new ParenthesesUrlMatcher('pUrl'),
     new UrlMatcher('url'),
     new HashtagMatcher('hashtag'),
     new MDBoldMatcher('mdBold'),
@@ -36,7 +37,7 @@ const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
       content={trimify(children)}
       escapeHtml
       allowList={['b', 'i', 'a', 'br', 'code', 'span']}
-      matchers={matchOnlyUrl ? [new UrlMatcher('url')] : defaultMatchers}
+      matchers={matchOnlyUrl ? [new ParenthesesUrlMatcher('pUrl'), new UrlMatcher('url')] : defaultMatchers}
       onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
     />
   );

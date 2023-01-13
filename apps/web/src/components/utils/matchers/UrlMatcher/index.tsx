@@ -2,7 +2,7 @@ import type { ChildrenNode, MatchResponse, Node } from 'interweave';
 import { Matcher } from 'interweave';
 import { createElement } from 'react';
 
-import { BLOCKED_TLDS, URL_PATTERN } from './constants';
+import { BLOCKED_TLDS, PARENTHESES_URL_PATTERN, URL_PATTERN } from './constants';
 
 interface UrlProps {
   children: ChildrenNode;
@@ -32,12 +32,16 @@ export class UrlMatcher extends Matcher<UrlProps> {
     return createElement(Url, props, children);
   }
 
+  getPattern(): RegExp {
+    return URL_PATTERN;
+  }
+
   asTag(): string {
     return 'a';
   }
 
   match(string: string): MatchResponse<UrlMatch> | null {
-    const response = this.doMatch(string, URL_PATTERN, this.handleMatches, true);
+    const response = this.doMatch(string, this.getPattern(), this.handleMatches, true);
 
     if (response?.valid) {
       const { host } = response;
@@ -55,6 +59,23 @@ export class UrlMatcher extends Matcher<UrlProps> {
     return {
       url: matches[0],
       host: matches[3]
+    };
+  }
+}
+
+export class ParenthesesUrlMatcher extends UrlMatcher {
+  replaceWith(children: ChildrenNode, props: UrlProps): Node {
+    return <>({createElement(Url, props, props.url)})</>;
+  }
+
+  getPattern(): RegExp {
+    return PARENTHESES_URL_PATTERN;
+  }
+
+  handleMatches(matches: string[]): UrlMatch {
+    return {
+      url: matches[1],
+      host: matches[4]
     };
   }
 }
