@@ -1,7 +1,6 @@
 import type { ApolloCache } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
@@ -15,7 +14,7 @@ import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
-import type { CreateMirrorRequest } from 'lens';
+import type { CreateMirrorRequest, Publication } from 'lens';
 import {
   useBroadcastMutation,
   useCreateMirrorTypedDataMutation,
@@ -30,7 +29,7 @@ import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const Mirror: FC<Props> = ({ publication }) => {
@@ -44,7 +43,8 @@ const Mirror: FC<Props> = ({ publication }) => {
     ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
     : publication?.stats?.totalAmountOfMirrors;
   const [mirrored, setMirrored] = useState(
-    publication?.mirrors?.length > 0 || publication?.mirrorOf?.mirrors?.length > 0
+    // @ts-ignore
+    isMirror ? publication?.mirrorOf?.mirrors?.length > 0 : publication?.mirrors?.length > 0
   );
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
