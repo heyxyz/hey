@@ -50,20 +50,16 @@ const SinglePublication: FC<Props> = ({
       ) : (
         <PublicationType publication={publication} showType={showType} showThread={showThread} />
       )}
-      <PublicationHeader
-        className="pb-4"
-        publication={rootPublication as LensterPublication}
-        feedItem={feedItem}
-      />
+      <PublicationHeader className="pb-4" publication={rootPublication} feedItem={feedItem} />
       <div className="ml-[53px]">
         {publication?.hidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
-            <PublicationBody publication={rootPublication as LensterPublication} />
+            <PublicationBody publication={rootPublication} />
             {showActions && (
               <PublicationActions
-                publication={rootPublication as LensterPublication}
+                publication={rootPublication}
                 electedMirror={feedItem?.electedMirror as ElectedMirror}
               />
             )}

@@ -1,15 +1,14 @@
 import UserProfile from '@components/Shared/UserProfile';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import type { LensterPublication } from '@generated/types';
 import clsx from 'clsx';
-import type { FeedItem } from 'lens';
+import type { FeedItem, Publication } from 'lens';
 import type { FC } from 'react';
 
 import PublicationMenu from './Actions/Menu';
 import Source from './Source';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
   className?: string;
   feedItem?: FeedItem;
 }
@@ -34,6 +33,7 @@ const PublicationHeader: FC<Props> = ({ publication, className = '', feedItem })
     <div className={clsx('flex justify-between space-x-1.5', className)}>
       <span onClick={(event) => event.stopPropagation()}>
         <UserProfile
+          // @ts-ignore
           profile={profile ?? publication?.collectedBy?.defaultProfile}
           timestamp={timestamp}
           showStatus
