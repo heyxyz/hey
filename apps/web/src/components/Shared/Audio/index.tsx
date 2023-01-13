@@ -19,6 +19,7 @@ interface Props {
   isNew?: boolean;
   publication?: Publication;
   txn: any;
+  expandCover: (url: string) => void;
 }
 
 export const AudioPublicationSchema = object({
@@ -33,7 +34,7 @@ export const AudioPublicationSchema = object({
     .min(1, { message: t`Invalid cover image` })
 });
 
-const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
+const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover }) => {
   const [playing, setPlaying] = useState(false);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setAudioPublication = usePublicationStore((state) => state.setAudioPublication);
@@ -69,6 +70,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn }) => {
             setAudioPublication({ ...audioPublication, cover: url, coverMimeType: mimeType })
           }
           imageRef={imageRef}
+          expandCover={expandCover}
         />
         <div className="flex py-1 md:px-3 flex-col justify-between w-full truncate">
           <div className="flex justify-between mt-3 md:mt-7">
