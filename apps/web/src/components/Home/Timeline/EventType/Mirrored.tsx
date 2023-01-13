@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import ProfileCircles from './ProfileCircles';
 
 interface Props {
-  mirrors: Array<MirrorEvent>;
+  mirrors: MirrorEvent[];
 }
 
 const Mirrored: FC<Props> = ({ mirrors }) => {
