@@ -1,5 +1,5 @@
-import type { LensterPublication } from '@generated/types';
 import { Analytics } from '@lib/analytics';
+import type { Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
@@ -10,7 +10,7 @@ import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const ThreadBody: FC<Props> = ({ publication }) => {
