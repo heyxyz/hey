@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-11 00:55\n"
+"PO-Revision-Date: 2023-01-13 04:22\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -915,10 +915,6 @@ msgstr ""
 msgid "Error while decrypting!"
 msgstr "டிக்ரிப்ட் செய்யும் போது பிழை!"
 
-#: src/components/Publication/DecryptedPublicationBody.tsx
-msgid "Decrypting..."
-msgstr "டிக்ரிப்ட் செய்கிறது..."
-
 #: src/components/Publication/HiddenPublication.tsx
 msgid "{type} was hidden by the author"
 msgstr ""
@@ -1459,9 +1455,13 @@ msgid "Report"
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Navbar/SignedUser.tsx
+#: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
 msgstr "நிலையை அமைக்கவும்"
+
+#: src/components/Shared/GlobalModals.tsx
+msgid "Change Profile"
+msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
@@ -1692,61 +1692,62 @@ msgstr ""
 msgid "Please provide additional details"
 msgstr ""
 
-#: src/components/Shared/Navbar/MoreNavItems.tsx
-msgid "More"
-msgstr "மேலும்"
-
-#: src/components/Shared/Navbar/MoreNavItems.tsx
-msgid "Contact"
-msgstr "தொடர்புகொள்ளவும்"
-
-#: src/components/Shared/Navbar/MoreNavItems.tsx
-msgid "Report a bug"
-msgstr "ஒரு பிழையைப் புகாரளிக்கவும்"
-
-#: src/components/Shared/Navbar/Search.tsx
-msgid "Search…"
-msgstr "தேடு…"
-
+#: src/components/Shared/Navbar/MobileDrawerMenu.tsx
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Logged in as"
 msgstr "உள்நுழைந்துள்ள கணக்கு"
 
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Your Profile"
-msgstr "உங்கள் சுயவிவரம்"
+#: src/components/Shared/Navbar/MoreNavItems.tsx
+msgid "More"
+msgstr "மேலும்"
 
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Settings"
-msgstr "அமைப்புகள்"
+#: src/components/Shared/Navbar/NavItems/Contact.tsx
+msgid "Contact"
+msgstr "தொடர்புகொள்ளவும்"
 
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Moderation"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx
+#: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
 msgstr "வெளியேறு"
 
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Switch to"
-msgstr "மாற்று"
+#: src/components/Shared/Navbar/NavItems/Mod.tsx
+msgid "Moderation"
+msgstr ""
 
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Dark mode"
-msgstr "இருள் பயன்முறை"
+#: src/components/Shared/Navbar/NavItems/ReportBug.tsx
+msgid "Report a bug"
+msgstr "ஒரு பிழையைப் புகாரளிக்கவும்"
 
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Light mode"
-msgstr "வெளிர்ந்த பயன்முறை"
+#: src/components/Shared/Navbar/NavItems/Settings.tsx
+msgid "Settings"
+msgstr "அமைப்புகள்"
 
-#: src/components/Shared/Navbar/SignedUser.tsx
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Disable staff mode"
 msgstr "பணியாளர் பயன்முறையை முடக்கு"
 
-#: src/components/Shared/Navbar/SignedUser.tsx
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Enable staff mode"
 msgstr "பணியாளர் பயன்முறையை இயக்கு"
+
+#: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
+msgid "Switch Profile"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
+msgid "Dark mode"
+msgstr "இருள் பயன்முறை"
+
+#: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
+msgid "Light mode"
+msgstr "வெளிர்ந்த பயன்முறை"
+
+#: src/components/Shared/Navbar/NavItems/YourProfile.tsx
+msgid "Your Profile"
+msgstr "உங்கள் சுயவிவரம்"
+
+#: src/components/Shared/Navbar/Search.tsx
+msgid "Search…"
+msgstr "தேடு…"
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Home"
