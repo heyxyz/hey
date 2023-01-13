@@ -1,5 +1,5 @@
 import type { LensterPublication } from '@generated/types';
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface GlobalModalState {
   showReportModal: boolean;
