@@ -1,3 +1,4 @@
+import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
@@ -75,7 +76,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       request: { publicationId: encryptedPublication.id },
       profileId: currentProfile?.id ?? null
     },
-    pollInterval: 1000,
+    pollInterval: 5000,
     skip: canDecrypt || !currentProfile,
     onCompleted: (data) => {
       setCanDecrypt(data.publication?.canDecrypt.result || false);
@@ -318,9 +319,11 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           </Link>
         </div>
       )}
-      {publication?.content
-        ? getURLs(publication?.content)?.length > 0 && <IFramely url={getURLs(publication?.content)[0]} />
-        : null}
+      {publication?.media?.length ? (
+        <Attachments attachments={publication?.media} />
+      ) : publication?.content ? (
+        getURLs(publication?.content)?.length > 0 && <IFramely url={getURLs(publication?.content)[0]} />
+      ) : null}
     </div>
   );
 };
