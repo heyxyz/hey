@@ -67,7 +67,7 @@ const SinglePublication: FC<Props> = ({
                 electedMirror={feedItem?.electedMirror as ElectedMirror}
               />
             )}
-            {showModActions && <ModAction publication={rootPublication as LensterPublication} />}
+            {showModActions && <ModAction publication={rootPublication} />}
           </>
         )}
       </div>
