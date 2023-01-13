@@ -899,6 +899,10 @@ msgstr "ஸ்பேம்"
 msgid "Others"
 msgstr "மற்றவை"
 
+#: src/components/Publication/Actions/index.tsx
+msgid "Gated Publication"
+msgstr ""
+
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
 msgstr "இதைக் காண..."
@@ -1871,12 +1875,12 @@ msgid "Image size should be less than 10MB"
 msgstr "படத்தின் அளவு 10MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 50MB"
-msgstr "வீடியோ அளவு 50MB க்கும் குறைவாக இருக்க வேண்டும்"
+msgid "Video size should be less than 100MB"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Audio size should be less than 20MB"
-msgstr "ஆடியோ அளவு 20MB க்கும் குறைவாக இருக்க வேண்டும்"
+msgid "Audio size should be less than 100MB"
+msgstr ""
 
 #: src/lib/getModule.ts
 msgid "The Unknown Collect Module is unknown and not type supported in the API."
@@ -1962,4 +1966,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
