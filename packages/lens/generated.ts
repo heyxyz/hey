@@ -3866,6 +3866,7 @@ export type CommentFieldsFragment = {
   mirrors: Array<any>;
   hasCollectedByMe: boolean;
   onChainContentURI: string;
+  isGated: boolean;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -3993,7 +3994,6 @@ export type CommentFieldsFragment = {
   metadata: {
     __typename?: 'MetadataOutput';
     name?: string | null;
-    description?: any | null;
     content?: any | null;
     image?: any | null;
     attributes: Array<{
@@ -4105,6 +4105,7 @@ export type CommentFieldsFragment = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         profile: {
@@ -4204,7 +4205,6 @@ export type CommentFieldsFragment = {
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
-          description?: any | null;
           content?: any | null;
           image?: any | null;
           attributes: Array<{
@@ -4320,6 +4320,7 @@ export type CommentFieldsFragment = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -4422,7 +4423,6 @@ export type CommentFieldsFragment = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -4533,6 +4533,7 @@ export type CommentFieldsFragment = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     onChainContentURI: string;
+                    isGated: boolean;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -4577,6 +4578,7 @@ export type CommentFieldsFragment = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -4708,7 +4710,6 @@ export type CommentFieldsFragment = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -4824,6 +4825,7 @@ export type CommentFieldsFragment = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -4951,7 +4953,6 @@ export type CommentFieldsFragment = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -5061,6 +5062,7 @@ export type CommentFieldsFragment = {
         __typename?: 'Mirror';
         id: any;
         reaction?: ReactionTypes | null;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -5163,7 +5165,6 @@ export type CommentFieldsFragment = {
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
-          description?: any | null;
           content?: any | null;
           image?: any | null;
           attributes: Array<{
@@ -5274,6 +5275,7 @@ export type CommentFieldsFragment = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               onChainContentURI: string;
+              isGated: boolean;
               createdAt: any;
               profile: {
                 __typename?: 'Profile';
@@ -5318,6 +5320,7 @@ export type CommentFieldsFragment = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -5445,7 +5448,6 @@ export type CommentFieldsFragment = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -5558,6 +5560,7 @@ export type CommentFieldsFragment = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -5685,7 +5688,6 @@ export type CommentFieldsFragment = {
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
-          description?: any | null;
           content?: any | null;
           image?: any | null;
           attributes: Array<{
@@ -5796,7 +5798,6 @@ export type CommentFieldsFragment = {
 export type MetadataFieldsFragment = {
   __typename?: 'MetadataOutput';
   name?: string | null;
-  description?: any | null;
   content?: any | null;
   image?: any | null;
   attributes: Array<{
@@ -5905,6 +5906,7 @@ export type MirrorFieldsFragment = {
   __typename?: 'Mirror';
   id: any;
   reaction?: ReactionTypes | null;
+  isGated: boolean;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -6007,7 +6009,6 @@ export type MirrorFieldsFragment = {
   metadata: {
     __typename?: 'MetadataOutput';
     name?: string | null;
-    description?: any | null;
     content?: any | null;
     image?: any | null;
     attributes: Array<{
@@ -6118,6 +6119,7 @@ export type MirrorFieldsFragment = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         onChainContentURI: string;
+        isGated: boolean;
         createdAt: any;
         profile: {
           __typename?: 'Profile';
@@ -6162,6 +6164,7 @@ export type MirrorFieldsFragment = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -6289,7 +6292,6 @@ export type MirrorFieldsFragment = {
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
-          description?: any | null;
           content?: any | null;
           image?: any | null;
           attributes: Array<{
@@ -6403,6 +6405,7 @@ export type PostFieldsFragment = {
   mirrors: Array<any>;
   hasCollectedByMe: boolean;
   onChainContentURI: string;
+  isGated: boolean;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -6530,7 +6533,6 @@ export type PostFieldsFragment = {
   metadata: {
     __typename?: 'MetadataOutput';
     name?: string | null;
-    description?: any | null;
     content?: any | null;
     image?: any | null;
     attributes: Array<{
@@ -7278,6 +7280,44 @@ export type ApprovedModuleAllowanceAmountQuery = {
   }>;
 };
 
+export type CanDecryptStatusQueryVariables = Exact<{
+  request: PublicationQueryRequest;
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+}>;
+
+export type CanDecryptStatusQuery = {
+  __typename?: 'Query';
+  publication?:
+    | {
+        __typename?: 'Comment';
+        id: any;
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
+      }
+    | {
+        __typename?: 'Mirror';
+        id: any;
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
+      }
+    | {
+        __typename?: 'Post';
+        id: any;
+        canDecrypt: {
+          __typename?: 'CanDecryptResponse';
+          result: boolean;
+          reasons?: Array<DecryptFailReason> | null;
+        };
+      }
+    | null;
+};
+
 export type ChallengeQueryVariables = Exact<{
   request: ChallengeRequest;
 }>;
@@ -7547,6 +7587,7 @@ export type CommentFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -7674,7 +7715,6 @@ export type CommentFeedQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -7786,6 +7826,7 @@ export type CommentFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -7885,7 +7926,6 @@ export type CommentFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -8001,6 +8041,7 @@ export type CommentFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -8107,7 +8148,6 @@ export type CommentFeedQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -8221,6 +8261,7 @@ export type CommentFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
+                            isGated: boolean;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -8273,6 +8314,7 @@ export type CommentFeedQuery = {
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
+                            isGated: boolean;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -8436,7 +8478,6 @@ export type CommentFeedQuery = {
                             metadata: {
                               __typename?: 'MetadataOutput';
                               name?: string | null;
-                              description?: any | null;
                               content?: any | null;
                               image?: any | null;
                               attributes: Array<{
@@ -8561,6 +8602,7 @@ export type CommentFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -8696,7 +8738,6 @@ export type CommentFeedQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -8809,6 +8850,7 @@ export type CommentFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -8911,7 +8953,6 @@ export type CommentFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -9022,6 +9063,7 @@ export type CommentFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
+                      isGated: boolean;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -9070,6 +9112,7 @@ export type CommentFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -9205,7 +9248,6 @@ export type CommentFeedQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -9321,6 +9363,7 @@ export type CommentFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -9448,7 +9491,6 @@ export type CommentFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -9634,6 +9676,7 @@ export type ExploreFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -9761,7 +9804,6 @@ export type ExploreFeedQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -9873,6 +9915,7 @@ export type ExploreFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -9972,7 +10015,6 @@ export type ExploreFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -10088,6 +10130,7 @@ export type ExploreFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -10194,7 +10237,6 @@ export type ExploreFeedQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -10308,6 +10350,7 @@ export type ExploreFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
+                            isGated: boolean;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -10360,6 +10403,7 @@ export type ExploreFeedQuery = {
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
+                            isGated: boolean;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -10523,7 +10567,6 @@ export type ExploreFeedQuery = {
                             metadata: {
                               __typename?: 'MetadataOutput';
                               name?: string | null;
-                              description?: any | null;
                               content?: any | null;
                               image?: any | null;
                               attributes: Array<{
@@ -10648,6 +10691,7 @@ export type ExploreFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -10783,7 +10827,6 @@ export type ExploreFeedQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -10896,6 +10939,7 @@ export type ExploreFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -10998,7 +11042,6 @@ export type ExploreFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -11109,6 +11152,7 @@ export type ExploreFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
+                      isGated: boolean;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -11157,6 +11201,7 @@ export type ExploreFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -11292,7 +11337,6 @@ export type ExploreFeedQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -11408,6 +11452,7 @@ export type ExploreFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -11535,7 +11580,6 @@ export type ExploreFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -11646,6 +11690,7 @@ export type ExploreFeedQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -11748,7 +11793,6 @@ export type ExploreFeedQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -11859,6 +11903,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 onChainContentURI: string;
+                isGated: boolean;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -11903,6 +11948,7 @@ export type ExploreFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -12030,7 +12076,6 @@ export type ExploreFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -12143,6 +12188,7 @@ export type ExploreFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -12270,7 +12316,6 @@ export type ExploreFeedQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -12398,6 +12443,7 @@ export type FeedHighlightsQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -12525,7 +12571,6 @@ export type FeedHighlightsQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -12637,6 +12682,7 @@ export type FeedHighlightsQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -12736,7 +12782,6 @@ export type FeedHighlightsQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -12852,6 +12897,7 @@ export type FeedHighlightsQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -12958,7 +13004,6 @@ export type FeedHighlightsQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -13072,6 +13117,7 @@ export type FeedHighlightsQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
+                            isGated: boolean;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -13124,6 +13170,7 @@ export type FeedHighlightsQuery = {
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
+                            isGated: boolean;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -13287,7 +13334,6 @@ export type FeedHighlightsQuery = {
                             metadata: {
                               __typename?: 'MetadataOutput';
                               name?: string | null;
-                              description?: any | null;
                               content?: any | null;
                               image?: any | null;
                               attributes: Array<{
@@ -13412,6 +13458,7 @@ export type FeedHighlightsQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -13547,7 +13594,6 @@ export type FeedHighlightsQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -13660,6 +13706,7 @@ export type FeedHighlightsQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -13762,7 +13809,6 @@ export type FeedHighlightsQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -13873,6 +13919,7 @@ export type FeedHighlightsQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
+                      isGated: boolean;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -13921,6 +13968,7 @@ export type FeedHighlightsQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -14056,7 +14104,6 @@ export type FeedHighlightsQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -14172,6 +14219,7 @@ export type FeedHighlightsQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -14299,7 +14347,6 @@ export type FeedHighlightsQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -14410,6 +14457,7 @@ export type FeedHighlightsQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -14512,7 +14560,6 @@ export type FeedHighlightsQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -14623,6 +14670,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 onChainContentURI: string;
+                isGated: boolean;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -14667,6 +14715,7 @@ export type FeedHighlightsQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -14794,7 +14843,6 @@ export type FeedHighlightsQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -14907,6 +14955,7 @@ export type FeedHighlightsQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -15034,7 +15083,6 @@ export type FeedHighlightsQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -15904,6 +15952,7 @@ export type ProfileFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -16031,7 +16080,6 @@ export type ProfileFeedQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -16143,6 +16191,7 @@ export type ProfileFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -16242,7 +16291,6 @@ export type ProfileFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -16358,6 +16406,7 @@ export type ProfileFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -16464,7 +16513,6 @@ export type ProfileFeedQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -16578,6 +16626,7 @@ export type ProfileFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
+                            isGated: boolean;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -16630,6 +16679,7 @@ export type ProfileFeedQuery = {
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
+                            isGated: boolean;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -16793,7 +16843,6 @@ export type ProfileFeedQuery = {
                             metadata: {
                               __typename?: 'MetadataOutput';
                               name?: string | null;
-                              description?: any | null;
                               content?: any | null;
                               image?: any | null;
                               attributes: Array<{
@@ -16918,6 +16967,7 @@ export type ProfileFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -17053,7 +17103,6 @@ export type ProfileFeedQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -17166,6 +17215,7 @@ export type ProfileFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -17268,7 +17318,6 @@ export type ProfileFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -17379,6 +17428,7 @@ export type ProfileFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
+                      isGated: boolean;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -17427,6 +17477,7 @@ export type ProfileFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -17562,7 +17613,6 @@ export type ProfileFeedQuery = {
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
-                        description?: any | null;
                         content?: any | null;
                         image?: any | null;
                         attributes: Array<{
@@ -17678,6 +17728,7 @@ export type ProfileFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -17805,7 +17856,6 @@ export type ProfileFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -17916,6 +17966,7 @@ export type ProfileFeedQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -18018,7 +18069,6 @@ export type ProfileFeedQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -18129,6 +18179,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 onChainContentURI: string;
+                isGated: boolean;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -18173,6 +18224,7 @@ export type ProfileFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -18300,7 +18352,6 @@ export type ProfileFeedQuery = {
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
-                  description?: any | null;
                   content?: any | null;
                   image?: any | null;
                   attributes: Array<{
@@ -18413,6 +18464,7 @@ export type ProfileFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -18540,7 +18592,6 @@ export type ProfileFeedQuery = {
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
-            description?: any | null;
             content?: any | null;
             image?: any | null;
             attributes: Array<{
@@ -18733,6 +18784,7 @@ export type PublicationQuery = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -18865,7 +18917,6 @@ export type PublicationQuery = {
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
-          description?: any | null;
           content?: any | null;
           image?: any | null;
           attributes: Array<{
@@ -18977,6 +19028,7 @@ export type PublicationQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               profile: {
@@ -19076,7 +19128,6 @@ export type PublicationQuery = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -19192,6 +19243,7 @@ export type PublicationQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -19294,7 +19346,6 @@ export type PublicationQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -19408,6 +19459,7 @@ export type PublicationQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           onChainContentURI: string;
+                          isGated: boolean;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -19460,6 +19512,7 @@ export type PublicationQuery = {
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -19623,7 +19676,6 @@ export type PublicationQuery = {
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
-                            description?: any | null;
                             content?: any | null;
                             image?: any | null;
                             attributes: Array<{
@@ -19745,6 +19797,7 @@ export type PublicationQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -19876,7 +19929,6 @@ export type PublicationQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -19989,6 +20041,7 @@ export type PublicationQuery = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -20091,7 +20144,6 @@ export type PublicationQuery = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -20202,6 +20254,7 @@ export type PublicationQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     onChainContentURI: string;
+                    isGated: boolean;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -20246,6 +20299,7 @@ export type PublicationQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -20377,7 +20431,6 @@ export type PublicationQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -20493,6 +20546,7 @@ export type PublicationQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -20620,7 +20674,6 @@ export type PublicationQuery = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -20732,6 +20785,7 @@ export type PublicationQuery = {
         collectNftAddress?: any | null;
         id: any;
         reaction?: ReactionTypes | null;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -20839,7 +20893,6 @@ export type PublicationQuery = {
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
-          description?: any | null;
           content?: any | null;
           image?: any | null;
           attributes: Array<{
@@ -20950,6 +21003,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               onChainContentURI: string;
+              isGated: boolean;
               createdAt: any;
               profile: {
                 __typename?: 'Profile';
@@ -20994,6 +21048,7 @@ export type PublicationQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -21121,7 +21176,6 @@ export type PublicationQuery = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -21235,6 +21289,7 @@ export type PublicationQuery = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -21367,7 +21422,6 @@ export type PublicationQuery = {
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
-          description?: any | null;
           content?: any | null;
           image?: any | null;
           attributes: Array<{
@@ -21603,6 +21657,7 @@ export type SearchPublicationsQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -21730,7 +21785,6 @@ export type SearchPublicationsQuery = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -21842,6 +21896,7 @@ export type SearchPublicationsQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     profile: {
@@ -21941,7 +21996,6 @@ export type SearchPublicationsQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -22060,6 +22114,7 @@ export type SearchPublicationsQuery = {
                           __typename?: 'Mirror';
                           id: any;
                           reaction?: ReactionTypes | null;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -22190,7 +22245,6 @@ export type SearchPublicationsQuery = {
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
-                            description?: any | null;
                             content?: any | null;
                             image?: any | null;
                             attributes: Array<{
@@ -22310,6 +22364,7 @@ export type SearchPublicationsQuery = {
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
                                 onChainContentURI: string;
+                                isGated: boolean;
                                 createdAt: any;
                                 profile: {
                                   __typename?: 'Profile';
@@ -22365,6 +22420,7 @@ export type SearchPublicationsQuery = {
                                 mirrors: Array<any>;
                                 hasCollectedByMe: boolean;
                                 onChainContentURI: string;
+                                isGated: boolean;
                                 hidden: boolean;
                                 createdAt: any;
                                 appId?: any | null;
@@ -22534,7 +22590,6 @@ export type SearchPublicationsQuery = {
                                 metadata: {
                                   __typename?: 'MetadataOutput';
                                   name?: string | null;
-                                  description?: any | null;
                                   content?: any | null;
                                   image?: any | null;
                                   attributes: Array<{
@@ -22665,6 +22720,7 @@ export type SearchPublicationsQuery = {
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -22828,7 +22884,6 @@ export type SearchPublicationsQuery = {
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
-                            description?: any | null;
                             content?: any | null;
                             image?: any | null;
                             attributes: Array<{
@@ -22947,6 +23002,7 @@ export type SearchPublicationsQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -23049,7 +23105,6 @@ export type SearchPublicationsQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -23163,6 +23218,7 @@ export type SearchPublicationsQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           onChainContentURI: string;
+                          isGated: boolean;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -23215,6 +23271,7 @@ export type SearchPublicationsQuery = {
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -23378,7 +23435,6 @@ export type SearchPublicationsQuery = {
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
-                            description?: any | null;
                             content?: any | null;
                             image?: any | null;
                             attributes: Array<{
@@ -23500,6 +23556,7 @@ export type SearchPublicationsQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -23631,7 +23688,6 @@ export type SearchPublicationsQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -23748,6 +23804,7 @@ export type SearchPublicationsQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -23875,7 +23932,6 @@ export type SearchPublicationsQuery = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -24214,6 +24270,7 @@ export type TimelineQuery = {
             mirrors: Array<any>;
             hasCollectedByMe: boolean;
             onChainContentURI: string;
+            isGated: boolean;
             hidden: boolean;
             createdAt: any;
             appId?: any | null;
@@ -24341,7 +24398,6 @@ export type TimelineQuery = {
             metadata: {
               __typename?: 'MetadataOutput';
               name?: string | null;
-              description?: any | null;
               content?: any | null;
               image?: any | null;
               attributes: Array<{
@@ -24453,6 +24509,7 @@ export type TimelineQuery = {
                   mirrors: Array<any>;
                   hasCollectedByMe: boolean;
                   onChainContentURI: string;
+                  isGated: boolean;
                   hidden: boolean;
                   createdAt: any;
                   profile: {
@@ -24552,7 +24609,6 @@ export type TimelineQuery = {
                   metadata: {
                     __typename?: 'MetadataOutput';
                     name?: string | null;
-                    description?: any | null;
                     content?: any | null;
                     image?: any | null;
                     attributes: Array<{
@@ -24668,6 +24724,7 @@ export type TimelineQuery = {
                         __typename?: 'Mirror';
                         id: any;
                         reaction?: ReactionTypes | null;
+                        isGated: boolean;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -24794,7 +24851,6 @@ export type TimelineQuery = {
                         metadata: {
                           __typename?: 'MetadataOutput';
                           name?: string | null;
-                          description?: any | null;
                           content?: any | null;
                           image?: any | null;
                           attributes: Array<{
@@ -24914,6 +24970,7 @@ export type TimelineQuery = {
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
                               onChainContentURI: string;
+                              isGated: boolean;
                               createdAt: any;
                               profile: {
                                 __typename?: 'Profile';
@@ -24966,6 +25023,7 @@ export type TimelineQuery = {
                               mirrors: Array<any>;
                               hasCollectedByMe: boolean;
                               onChainContentURI: string;
+                              isGated: boolean;
                               hidden: boolean;
                               createdAt: any;
                               appId?: any | null;
@@ -25132,7 +25190,6 @@ export type TimelineQuery = {
                               metadata: {
                                 __typename?: 'MetadataOutput';
                                 name?: string | null;
-                                description?: any | null;
                                 content?: any | null;
                                 image?: any | null;
                                 attributes: Array<{
@@ -25257,6 +25314,7 @@ export type TimelineQuery = {
                         mirrors: Array<any>;
                         hasCollectedByMe: boolean;
                         onChainContentURI: string;
+                        isGated: boolean;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -25416,7 +25474,6 @@ export type TimelineQuery = {
                         metadata: {
                           __typename?: 'MetadataOutput';
                           name?: string | null;
-                          description?: any | null;
                           content?: any | null;
                           image?: any | null;
                           attributes: Array<{
@@ -25535,6 +25592,7 @@ export type TimelineQuery = {
                   __typename?: 'Mirror';
                   id: any;
                   reaction?: ReactionTypes | null;
+                  isGated: boolean;
                   hidden: boolean;
                   createdAt: any;
                   appId?: any | null;
@@ -25637,7 +25695,6 @@ export type TimelineQuery = {
                   metadata: {
                     __typename?: 'MetadataOutput';
                     name?: string | null;
-                    description?: any | null;
                     content?: any | null;
                     image?: any | null;
                     attributes: Array<{
@@ -25748,6 +25805,7 @@ export type TimelineQuery = {
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         onChainContentURI: string;
+                        isGated: boolean;
                         createdAt: any;
                         profile: {
                           __typename?: 'Profile';
@@ -25796,6 +25854,7 @@ export type TimelineQuery = {
                         mirrors: Array<any>;
                         hasCollectedByMe: boolean;
                         onChainContentURI: string;
+                        isGated: boolean;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -25955,7 +26014,6 @@ export type TimelineQuery = {
                         metadata: {
                           __typename?: 'MetadataOutput';
                           name?: string | null;
-                          description?: any | null;
                           content?: any | null;
                           image?: any | null;
                           attributes: Array<{
@@ -26077,6 +26135,7 @@ export type TimelineQuery = {
                   mirrors: Array<any>;
                   hasCollectedByMe: boolean;
                   onChainContentURI: string;
+                  isGated: boolean;
                   hidden: boolean;
                   createdAt: any;
                   appId?: any | null;
@@ -26204,7 +26263,6 @@ export type TimelineQuery = {
                   metadata: {
                     __typename?: 'MetadataOutput';
                     name?: string | null;
-                    description?: any | null;
                     content?: any | null;
                     image?: any | null;
                     attributes: Array<{
@@ -26318,6 +26376,7 @@ export type TimelineQuery = {
             mirrors: Array<any>;
             hasCollectedByMe: boolean;
             onChainContentURI: string;
+            isGated: boolean;
             hidden: boolean;
             createdAt: any;
             appId?: any | null;
@@ -26445,7 +26504,6 @@ export type TimelineQuery = {
             metadata: {
               __typename?: 'MetadataOutput';
               name?: string | null;
-              description?: any | null;
               content?: any | null;
               image?: any | null;
               attributes: Array<{
@@ -26659,6 +26717,7 @@ export type TimelineQuery = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -26786,7 +26845,6 @@ export type TimelineQuery = {
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
-          description?: any | null;
           content?: any | null;
           image?: any | null;
           attributes: Array<{
@@ -26898,6 +26956,7 @@ export type TimelineQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               profile: {
@@ -26997,7 +27056,6 @@ export type TimelineQuery = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -27113,6 +27171,7 @@ export type TimelineQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -27215,7 +27274,6 @@ export type TimelineQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -27329,6 +27387,7 @@ export type TimelineQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           onChainContentURI: string;
+                          isGated: boolean;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -27381,6 +27440,7 @@ export type TimelineQuery = {
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -27544,7 +27604,6 @@ export type TimelineQuery = {
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
-                            description?: any | null;
                             content?: any | null;
                             image?: any | null;
                             attributes: Array<{
@@ -27666,6 +27725,7 @@ export type TimelineQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -27797,7 +27857,6 @@ export type TimelineQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -27910,6 +27969,7 @@ export type TimelineQuery = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -28012,7 +28072,6 @@ export type TimelineQuery = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -28123,6 +28182,7 @@ export type TimelineQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     onChainContentURI: string;
+                    isGated: boolean;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -28167,6 +28227,7 @@ export type TimelineQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -28298,7 +28359,6 @@ export type TimelineQuery = {
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
-                      description?: any | null;
                       content?: any | null;
                       image?: any | null;
                       attributes: Array<{
@@ -28414,6 +28474,7 @@ export type TimelineQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -28541,7 +28602,6 @@ export type TimelineQuery = {
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
-                description?: any | null;
                 content?: any | null;
                 image?: any | null;
                 attributes: Array<{
@@ -28890,7 +28950,6 @@ export const SimpleConditionFieldsFragmentDoc = gql`
 export const MetadataFieldsFragmentDoc = gql`
   fragment MetadataFields on MetadataOutput {
     name
-    description
     content
     image
     attributes {
@@ -28940,6 +28999,7 @@ export const PostFieldsFragmentDoc = gql`
     mirrors(by: $profileId)
     hasCollectedByMe
     onChainContentURI
+    isGated
     canComment(profileId: $profileId) {
       result
     }
@@ -28981,6 +29041,7 @@ export const MirrorFieldsFragmentDoc = gql`
       ...ProfileFields
     }
     reaction(request: $reactionRequest)
+    isGated
     canComment(profileId: $profileId) {
       result
     }
@@ -29013,6 +29074,7 @@ export const MirrorFieldsFragmentDoc = gql`
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
         onChainContentURI
+        isGated
         canComment(profileId: $profileId) {
           result
         }
@@ -29048,6 +29110,7 @@ export const CommentFieldsFragmentDoc = gql`
     mirrors(by: $profileId)
     hasCollectedByMe
     onChainContentURI
+    isGated
     canComment(profileId: $profileId) {
       result
     }
@@ -29089,6 +29152,7 @@ export const CommentFieldsFragmentDoc = gql`
         mirrors(by: $profileId)
         hasCollectedByMe
         onChainContentURI
+        isGated
         canComment(profileId: $profileId) {
           result
         }
@@ -30760,6 +30824,75 @@ export type ApprovedModuleAllowanceAmountLazyQueryHookResult = ReturnType<
 export type ApprovedModuleAllowanceAmountQueryResult = Apollo.QueryResult<
   ApprovedModuleAllowanceAmountQuery,
   ApprovedModuleAllowanceAmountQueryVariables
+>;
+export const CanDecryptStatusDocument = gql`
+  query CanDecryptStatus($request: PublicationQueryRequest!, $profileId: ProfileId) {
+    publication(request: $request) {
+      ... on Post {
+        id
+        canDecrypt(profileId: $profileId) {
+          result
+          reasons
+        }
+      }
+      ... on Comment {
+        id
+        canDecrypt(profileId: $profileId) {
+          result
+          reasons
+        }
+      }
+      ... on Mirror {
+        id
+        canDecrypt(profileId: $profileId) {
+          result
+          reasons
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useCanDecryptStatusQuery__
+ *
+ * To run a query within a React component, call `useCanDecryptStatusQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCanDecryptStatusQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCanDecryptStatusQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *      profileId: // value for 'profileId'
+ *   },
+ * });
+ */
+export function useCanDecryptStatusQuery(
+  baseOptions: Apollo.QueryHookOptions<CanDecryptStatusQuery, CanDecryptStatusQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<CanDecryptStatusQuery, CanDecryptStatusQueryVariables>(
+    CanDecryptStatusDocument,
+    options
+  );
+}
+export function useCanDecryptStatusLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<CanDecryptStatusQuery, CanDecryptStatusQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<CanDecryptStatusQuery, CanDecryptStatusQueryVariables>(
+    CanDecryptStatusDocument,
+    options
+  );
+}
+export type CanDecryptStatusQueryHookResult = ReturnType<typeof useCanDecryptStatusQuery>;
+export type CanDecryptStatusLazyQueryHookResult = ReturnType<typeof useCanDecryptStatusLazyQuery>;
+export type CanDecryptStatusQueryResult = Apollo.QueryResult<
+  CanDecryptStatusQuery,
+  CanDecryptStatusQueryVariables
 >;
 export const ChallengeDocument = gql`
   query Challenge($request: ChallengeRequest!) {

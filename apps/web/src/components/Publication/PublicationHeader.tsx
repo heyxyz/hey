@@ -39,7 +39,7 @@ const PublicationHeader: FC<Props> = ({ publication, className = '', feedItem })
           showStatus
         />
       </span>
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center space-x-1 !-mr-[7px]">
         {staffMode && <Source publication={publication} />}
         <PublicationMenu publication={publication} />
       </div>

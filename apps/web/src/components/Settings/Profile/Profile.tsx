@@ -1,5 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -68,7 +67,6 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
   const {
-    data: writeData,
     isLoading: writeLoading,
     error,
     write
@@ -81,7 +79,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
     onError
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
@@ -106,7 +104,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
       onError
     });
 
-  const [createSetProfileMetadataViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+  const [createSetProfileMetadataViaDispatcher, { loading: dispatcherLoading }] =
     useCreateSetProfileMetadataViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
@@ -182,27 +180,17 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
                   'app'
                 ].includes(attr.key)
             )
-            .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []),
-          { traitType: 'string', key: 'location', value: location },
-          { traitType: 'string', key: 'website', value: website },
-          { traitType: 'string', key: 'twitter', value: twitter },
-          { traitType: 'boolean', key: 'hasPrideLogo', value: pride },
-          {
-            traitType: 'string',
-            key: 'statusEmoji',
-            value: getAttribute(profile?.attributes, 'statusEmoji')
-          },
-          {
-            traitType: 'string',
-            key: 'statusMessage',
-            value: getAttribute(profile?.attributes, 'statusMessage')
-          },
-          { traitType: 'string', key: 'app', value: APP_NAME }
+            .map(({ key, value }) => ({ key, value })) ?? []),
+          { key: 'location', value: location },
+          { key: 'website', value: website },
+          { key: 'twitter', value: twitter },
+          { key: 'hasPrideLogo', value: pride },
+          { key: 'statusEmoji', value: getAttribute(profile?.attributes, 'statusEmoji') },
+          { key: 'statusMessage', value: getAttribute(profile?.attributes, 'statusMessage') },
+          { key: 'app', value: APP_NAME }
         ],
         version: '1.0.0',
-        metadata_id: uuid(),
-        createdOn: new Date(),
-        appId: APP_NAME
+        metadata_id: uuid()
       }).finally(() => setIsUploading(false));
 
       const request = {
@@ -222,14 +210,6 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
 
   const isLoading =
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
-
-  const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
-  const dispatcherTxHash =
-    dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
-    dispatcherData?.createSetProfileMetadataViaDispatcher.txHash;
-
-  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
 
   return (
     <Card className="p-5">
@@ -260,6 +240,9 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
               <div>
                 <img
                   className="object-cover w-full h-60 rounded-lg"
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getIPFSLink(cover);
+                  }}
                   src={imageProxy(getIPFSLink(cover), COVER)}
                   alt={cover}
                 />
@@ -285,17 +268,14 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col space-y-2">
-          <Button
-            className="ml-auto"
-            type="submit"
-            disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
-          >
-            <Trans>Save</Trans>
-          </Button>
-          {txHash ? <IndexStatus txHash={txHash} /> : null}
-        </div>
+        <Button
+          className="ml-auto"
+          type="submit"
+          disabled={isLoading}
+          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+        >
+          <Trans>Save</Trans>
+        </Button>
       </Form>
     </Card>
   );

@@ -72,6 +72,9 @@ const Details: FC<Props> = ({ profile }) => {
     <div className="px-5 mb-4 space-y-5 sm:px-0">
       <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
         <img
+          onError={({ currentTarget }) => {
+            currentTarget.src = getAvatar(profile, false);
+          }}
           src={getAvatar(profile)}
           className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black"
           height={128}
@@ -153,7 +156,9 @@ const Details: FC<Props> = ({ profile }) => {
           <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
             <Tooltip content={`#${profile?.id}`}>
               <a
-                href={`${RARIBLE_URL}/polygon/${getEnvConfig().lensHubProxyAddress}:${parseInt(profile?.id)}`}
+                href={`${RARIBLE_URL}/token/polygon/${getEnvConfig().lensHubProxyAddress}:${parseInt(
+                  profile?.id
+                )}`}
                 target="_blank"
                 rel="noreferrer"
               >

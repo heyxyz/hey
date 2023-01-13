@@ -19,8 +19,7 @@ const TabButton: FC<Props> = ({ name, icon, active, type, showOnSm = false, onCl
       type="button"
       onClick={() => {
         if (type) {
-          router.query.type = type;
-          router.push(router);
+          router.replace({ query: { ...router.query, type } }, undefined, { shallow: true });
         }
         onClick();
       }}

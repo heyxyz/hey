@@ -21,6 +21,7 @@ import {
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -30,10 +31,11 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   publication: LensterPublication;
-  isFullPublication: boolean;
 }
 
-const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
+const Mirror: FC<Props> = ({ publication }) => {
+  const { pathname } = useRouter();
+  const isFullPublication = pathname === '/posts/[id]';
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -163,9 +165,14 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
-    <motion.button whileTap={{ scale: 0.9 }} onClick={createMirror} disabled={isLoading} aria-label="Mirror">
-      <span className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
-        <span
+    <div className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
+      <motion.button
+        whileTap={{ scale: 0.9 }}
+        onClick={createMirror}
+        disabled={isLoading}
+        aria-label="Mirror"
+      >
+        <div
           className={clsx(
             mirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
             'p-1.5 rounded-full hover:bg-opacity-20'
@@ -182,12 +189,10 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
               <SwitchHorizontalIcon className={iconClassName} />
             </Tooltip>
           )}
-        </span>
-        {count > 0 && !isFullPublication && (
-          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
-        )}
-      </span>
-    </motion.button>
+        </div>
+      </motion.button>
+      {count > 0 && !isFullPublication && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+    </div>
   );
 };
 

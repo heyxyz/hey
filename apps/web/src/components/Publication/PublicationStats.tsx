@@ -6,7 +6,7 @@ import type { LensterPublication } from '@generated/types';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import nFormatter from '@lib/nFormatter';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
@@ -21,6 +21,9 @@ const PublicationStats: FC<Props> = ({ publication }) => {
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
   const isMirror = publication.__typename === 'Mirror';
+  const commentsCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalAmountOfComments
+    : publication?.stats?.totalAmountOfComments;
   const mirrorCount = isMirror
     ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
     : publication?.stats?.totalAmountOfMirrors;
@@ -36,6 +39,11 @@ const PublicationStats: FC<Props> = ({ publication }) => {
     <div className="flex flex-wrap gap-6 text-sm items-center py-3 lt-text-gray-500 sm:gap-8">
       {mirrorCount > 0 && (
         <>
+          <span>
+            <Trans>
+              <b className="text-black dark:text-white">{nFormatter(commentsCount)}</b> Comments
+            </Trans>
+          </span>
           <button
             type="button"
             onClick={() => {
@@ -43,7 +51,9 @@ const PublicationStats: FC<Props> = ({ publication }) => {
               Analytics.track(PUBLICATION.STATS.MIRRORED_BY);
             }}
           >
-            <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
+            <Trans>
+              <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
+            </Trans>
           </button>
           <Modal
             title={t`Mirrored by`}
@@ -64,7 +74,9 @@ const PublicationStats: FC<Props> = ({ publication }) => {
               Analytics.track(PUBLICATION.STATS.LIKED_BY);
             }}
           >
-            <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
+            <Trans>
+              <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
+            </Trans>
           </button>
           <Modal
             title={t`Liked by`}
@@ -85,7 +97,9 @@ const PublicationStats: FC<Props> = ({ publication }) => {
               Analytics.track(PUBLICATION.STATS.COLLECTED_BY);
             }}
           >
-            <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
+            <Trans>
+              <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
+            </Trans>
           </button>
           <Modal
             title={t`Collected by`}

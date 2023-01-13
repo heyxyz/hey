@@ -100,7 +100,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
                 </>
               )}
               <div className="divider" />
-              <PublicationActions publication={publication} isFullPublication />
+              <PublicationActions publication={publication} />
             </>
           )}
         </div>

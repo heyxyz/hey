@@ -30,7 +30,6 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
 import EmojiPicker from './EmojiPicker';
-import IndexStatus from './IndexStatus';
 import Loader from './Loader';
 
 const editStatusSchema = object({
@@ -64,11 +63,7 @@ const Status: FC = () => {
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
-  const {
-    data: writeData,
-    isLoading: writeLoading,
-    write
-  } = useContractWrite({
+  const { isLoading: writeLoading, write } = useContractWrite({
     address: LENS_PERIPHERY,
     abi: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
@@ -77,7 +72,7 @@ const Status: FC = () => {
     onError
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
@@ -102,7 +97,7 @@ const Status: FC = () => {
       onError
     });
 
-  const [createSetProfileMetadataViaDispatcher, { data: dispatcherData, loading: dispatcherLoading }] =
+  const [createSetProfileMetadataViaDispatcher, { loading: dispatcherLoading }] =
     useCreateSetProfileMetadataViaDispatcherMutation({ onCompleted, onError });
 
   const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
@@ -131,26 +126,33 @@ const Status: FC = () => {
         cover_picture:
           profile?.coverPicture?.__typename === 'MediaSet' ? profile?.coverPicture?.original?.url ?? '' : '',
         attributes: [
-          { traitType: 'string', key: 'location', value: getAttribute(profile?.attributes, 'location') },
-          { traitType: 'string', key: 'website', value: getAttribute(profile?.attributes, 'website') },
+          ...(profile?.attributes
+            ?.filter(
+              (attr) =>
+                ![
+                  'location',
+                  'website',
+                  'twitter',
+                  'hasPrideLogo',
+                  'statusEmoji',
+                  'statusMessage',
+                  'app'
+                ].includes(attr.key)
+            )
+            .map(({ key, value }) => ({ key, value })) ?? []),
+          { key: 'location', value: getAttribute(profile?.attributes, 'location') },
+          { key: 'website', value: getAttribute(profile?.attributes, 'website') },
           {
-            traitType: 'string',
             key: 'twitter',
             value: getAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '')
           },
-          {
-            traitType: 'boolean',
-            key: 'hasPrideLogo',
-            value: getAttribute(profile?.attributes, 'hasPrideLogo')
-          },
-          { traitType: 'string', key: 'statusEmoji', value: emoji },
-          { traitType: 'string', key: 'statusMessage', value: status },
-          { traitType: 'string', key: 'app', value: APP_NAME }
+          { key: 'hasPrideLogo', value: getAttribute(profile?.attributes, 'hasPrideLogo') },
+          { key: 'statusEmoji', value: emoji },
+          { key: 'statusMessage', value: status },
+          { key: 'app', value: APP_NAME }
         ],
         version: '1.0.0',
-        metadata_id: uuid(),
-        createdOn: new Date(),
-        appId: APP_NAME
+        metadata_id: uuid()
       }).finally(() => setIsUploading(false));
 
       const request = {
@@ -183,14 +185,6 @@ const Status: FC = () => {
   const isLoading =
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
-  const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
-  const dispatcherTxHash =
-    dispatcherData?.createSetProfileMetadataViaDispatcher.__typename === 'RelayerResult' &&
-    dispatcherData?.createSetProfileMetadataViaDispatcher.txHash;
-
-  const txHash = writeData?.hash ?? broadcastTxHash ?? dispatcherTxHash;
-
   return (
     <div className="p-5 space-y-5">
       <Form
@@ -206,33 +200,28 @@ const Status: FC = () => {
           placeholder={t`What's happening?`}
           {...form.register('status')}
         />
-        <div className="flex flex-col space-y-2">
-          <div className="flex items-center space-x-2">
-            <Button
-              className="ml-auto"
-              type="submit"
-              variant="danger"
-              disabled={isLoading}
-              outline
-              onClick={() => {
-                setEmoji('');
-                form.setValue('status', '');
-                editStatus('', '');
-                Analytics.track(SETTINGS.PROFILE.CLEAR_STATUS);
-              }}
-            >
-              <Trans>Clear status</Trans>
-            </Button>
-            <Button
-              className="ml-auto"
-              type="submit"
-              disabled={isLoading}
-              icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
-            >
-              <Trans>Save</Trans>
-            </Button>
-          </div>
-          {txHash ? <IndexStatus txHash={txHash} reload /> : null}
+        <div className="flex items-center space-x-2 ml-auto">
+          <Button
+            type="submit"
+            variant="danger"
+            disabled={isLoading}
+            outline
+            onClick={() => {
+              setEmoji('');
+              form.setValue('status', '');
+              editStatus('', '');
+              Analytics.track(SETTINGS.PROFILE.CLEAR_STATUS);
+            }}
+          >
+            <Trans>Clear status</Trans>
+          </Button>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+          >
+            <Trans>Save</Trans>
+          </Button>
         </div>
       </Form>
     </div>

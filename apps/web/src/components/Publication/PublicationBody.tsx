@@ -1,7 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import type { LensterPublication } from '@generated/types';
 import { EyeIcon } from '@heroicons/react/outline';
 import getURLs from '@lib/getURLs';
@@ -19,10 +18,9 @@ interface Props {
 
 const PublicationBody: FC<Props> = ({ publication }) => {
   const { pathname } = useRouter();
-  const { allowed: staffMode } = useStaffMode();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
-  if (staffMode && publication?.metadata?.encryptionParams) {
+  if (publication?.metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 

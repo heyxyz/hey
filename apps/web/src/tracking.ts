@@ -3,7 +3,8 @@
 export const USER = {
   LOGIN: 'user_login',
   LOGOUT: 'user_logout',
-  SIWL: 'sign_in_with_lens'
+  SIWL: 'sign_in_with_lens',
+  CHANGE_WALLET: 'change_wallet'
 };
 
 export const PROFILE = {
@@ -55,6 +56,12 @@ export const PUBLICATION = {
     OPEN_COLLECTORS: 'open_collectors_list',
     OPEN_UNISWAP: 'open_uniswap'
   },
+  TOKEN_GATED: {
+    DECRYPT: 'decrypt_token_gated_publication',
+    CHECKLIST_NAVIGATED_TO_COLLECT: 'decrypt_checklist_navigated_to_collect',
+    CHECKLIST_NAVIGATED_TO_TOKEN: 'decrypt_checklist_navigated_to_token',
+    CHECKLIST_NAVIGATED_TO_NFT: 'decrypt_checklist_navigated_to_nft'
+  },
   NEW: {
     MARKDOWN_PREVIEW: 'preview_markdown',
     OPEN_GIF: 'open_gif_modal',
@@ -102,7 +109,8 @@ export const NOTIFICATION = {
   SWITCH_ALL: 'switch_to_all_notifications',
   SWITCH_MENTIONS: 'switch_to_mentions_notifications',
   SWITCH_COMMENTS: 'switch_to_comments_notifications',
-  SWITCH_COLLECTS: 'switch_to_collects_notifications'
+  SWITCH_COLLECTS: 'switch_to_collects_notifications',
+  SWITCH_LIKES: 'switch_to_likes_notifications'
 };
 
 export const MESSAGES = {

@@ -34,7 +34,7 @@ const Action: FC<ActionProps> = ({ icon, text, onClick }) => (
 );
 
 const NewPost: FC = () => {
-  const { query, isReady } = useRouter();
+  const { query, isReady, push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
@@ -72,8 +72,12 @@ const NewPost: FC = () => {
     <Card className="p-5 space-y-3">
       <div className="flex items-center space-x-3">
         <img
+          onError={({ currentTarget }) => {
+            currentTarget.src = getAvatar(currentProfile, false);
+          }}
           src={getAvatar(currentProfile)}
-          className="h-9 w-9 bg-gray-200 rounded-full border dark:border-gray-700"
+          className="h-9 w-9 bg-gray-200 rounded-full border dark:border-gray-700 cursor-pointer"
+          onClick={() => push(`/u/${currentProfile?.handle}`)}
           alt={formatHandle(currentProfile?.handle)}
         />
         <button
