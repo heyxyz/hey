@@ -1,13 +1,13 @@
-import type { LensterPublication } from '@generated/types';
+import type { Publication } from 'lens';
 import { create } from 'zustand';
 
 interface GlobalModalState {
   showReportModal: boolean;
-  reportPublication: LensterPublication | null;
+  reportPublication: Publication | null;
   reportConfig: any;
   setShowReportModal: (
     showReportModal: boolean,
-    reportPublication: LensterPublication | null,
+    reportPublication: Publication | null,
     reportConfig?: any
   ) => void;
   showStatusModal: boolean;
