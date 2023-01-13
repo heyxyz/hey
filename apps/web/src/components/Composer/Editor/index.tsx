@@ -1,4 +1,5 @@
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
+import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
 import EmojisPlugin from '@components/Shared/Lexical/Plugins/EmojisPlugin';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
@@ -36,6 +37,7 @@ const Editor: FC = () => {
 
   return (
     <div className="relative">
+      <EmojiPickerPlugin />
       <ToolbarPlugin />
       <RichTextPlugin
         contentEditable={<ContentEditable className="px-5 block my-4 min-h-[65px] overflow-auto" />}
