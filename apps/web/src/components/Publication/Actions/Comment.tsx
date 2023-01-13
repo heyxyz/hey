@@ -1,16 +1,16 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import nFormatter from '@lib/nFormatter';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
+import type { Publication } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const Comment: FC<Props> = ({ publication }) => {
