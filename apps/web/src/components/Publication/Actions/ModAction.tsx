@@ -1,14 +1,14 @@
 import { Button } from '@components/UI/Button';
-import type { LensterPublication } from '@generated/types';
 import { ExclamationCircleIcon, ExternalLinkIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { Trans } from '@lingui/macro';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const ModAction: FC<Props> = ({ publication }) => {
