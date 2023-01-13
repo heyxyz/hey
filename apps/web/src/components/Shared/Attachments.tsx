@@ -117,7 +117,13 @@ const Attachments: FC<Props> = ({
               ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
                 <Video src={url} poster={getCoverUrl()} />
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
-                <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
+                <Audio
+                  src={url}
+                  isNew={isNew}
+                  publication={publication}
+                  txn={txn}
+                  expandCover={(url) => setExpandedImage(url)}
+                />
               ) : (
                 <img
                   className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700"
