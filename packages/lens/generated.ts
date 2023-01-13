@@ -3866,6 +3866,7 @@ export type CommentFieldsFragment = {
   mirrors: Array<any>;
   hasCollectedByMe: boolean;
   onChainContentURI: string;
+  isGated: boolean;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -4104,6 +4105,7 @@ export type CommentFieldsFragment = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         profile: {
@@ -4318,6 +4320,7 @@ export type CommentFieldsFragment = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -4530,6 +4533,7 @@ export type CommentFieldsFragment = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     onChainContentURI: string;
+                    isGated: boolean;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -4574,6 +4578,7 @@ export type CommentFieldsFragment = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -4820,6 +4825,7 @@ export type CommentFieldsFragment = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -5056,6 +5062,7 @@ export type CommentFieldsFragment = {
         __typename?: 'Mirror';
         id: any;
         reaction?: ReactionTypes | null;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -5268,6 +5275,7 @@ export type CommentFieldsFragment = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               onChainContentURI: string;
+              isGated: boolean;
               createdAt: any;
               profile: {
                 __typename?: 'Profile';
@@ -5312,6 +5320,7 @@ export type CommentFieldsFragment = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -5551,6 +5560,7 @@ export type CommentFieldsFragment = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -5896,6 +5906,7 @@ export type MirrorFieldsFragment = {
   __typename?: 'Mirror';
   id: any;
   reaction?: ReactionTypes | null;
+  isGated: boolean;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -6108,6 +6119,7 @@ export type MirrorFieldsFragment = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         onChainContentURI: string;
+        isGated: boolean;
         createdAt: any;
         profile: {
           __typename?: 'Profile';
@@ -6152,6 +6164,7 @@ export type MirrorFieldsFragment = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -6392,6 +6405,7 @@ export type PostFieldsFragment = {
   mirrors: Array<any>;
   hasCollectedByMe: boolean;
   onChainContentURI: string;
+  isGated: boolean;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -7573,6 +7587,7 @@ export type CommentFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -7811,6 +7826,7 @@ export type CommentFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -8025,6 +8041,7 @@ export type CommentFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -8244,6 +8261,7 @@ export type CommentFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
+                            isGated: boolean;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -8296,6 +8314,7 @@ export type CommentFeedQuery = {
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
+                            isGated: boolean;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -8583,6 +8602,7 @@ export type CommentFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -8830,6 +8850,7 @@ export type CommentFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -9042,6 +9063,7 @@ export type CommentFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
+                      isGated: boolean;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -9090,6 +9112,7 @@ export type CommentFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -9340,6 +9363,7 @@ export type CommentFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -9652,6 +9676,7 @@ export type ExploreFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -9890,6 +9915,7 @@ export type ExploreFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -10104,6 +10130,7 @@ export type ExploreFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -10323,6 +10350,7 @@ export type ExploreFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
+                            isGated: boolean;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -10375,6 +10403,7 @@ export type ExploreFeedQuery = {
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
+                            isGated: boolean;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -10662,6 +10691,7 @@ export type ExploreFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -10909,6 +10939,7 @@ export type ExploreFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -11121,6 +11152,7 @@ export type ExploreFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
+                      isGated: boolean;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -11169,6 +11201,7 @@ export type ExploreFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -11419,6 +11452,7 @@ export type ExploreFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -11656,6 +11690,7 @@ export type ExploreFeedQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -11868,6 +11903,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 onChainContentURI: string;
+                isGated: boolean;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -11912,6 +11948,7 @@ export type ExploreFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -12151,6 +12188,7 @@ export type ExploreFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -12405,6 +12443,7 @@ export type FeedHighlightsQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -12643,6 +12682,7 @@ export type FeedHighlightsQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -12857,6 +12897,7 @@ export type FeedHighlightsQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -13076,6 +13117,7 @@ export type FeedHighlightsQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
+                            isGated: boolean;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -13128,6 +13170,7 @@ export type FeedHighlightsQuery = {
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
+                            isGated: boolean;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -13415,6 +13458,7 @@ export type FeedHighlightsQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -13662,6 +13706,7 @@ export type FeedHighlightsQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -13874,6 +13919,7 @@ export type FeedHighlightsQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
+                      isGated: boolean;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -13922,6 +13968,7 @@ export type FeedHighlightsQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -14172,6 +14219,7 @@ export type FeedHighlightsQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -14409,6 +14457,7 @@ export type FeedHighlightsQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -14621,6 +14670,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 onChainContentURI: string;
+                isGated: boolean;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -14665,6 +14715,7 @@ export type FeedHighlightsQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -14904,6 +14955,7 @@ export type FeedHighlightsQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -15900,6 +15952,7 @@ export type ProfileFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -16138,6 +16191,7 @@ export type ProfileFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -16352,6 +16406,7 @@ export type ProfileFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -16571,6 +16626,7 @@ export type ProfileFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
+                            isGated: boolean;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -16623,6 +16679,7 @@ export type ProfileFeedQuery = {
                             mirrors: Array<any>;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
+                            isGated: boolean;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -16910,6 +16967,7 @@ export type ProfileFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -17157,6 +17215,7 @@ export type ProfileFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -17369,6 +17428,7 @@ export type ProfileFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
+                      isGated: boolean;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -17417,6 +17477,7 @@ export type ProfileFeedQuery = {
                       mirrors: Array<any>;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
+                      isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -17667,6 +17728,7 @@ export type ProfileFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -17904,6 +17966,7 @@ export type ProfileFeedQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -18116,6 +18179,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 onChainContentURI: string;
+                isGated: boolean;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -18160,6 +18224,7 @@ export type ProfileFeedQuery = {
                 mirrors: Array<any>;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
+                isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -18399,6 +18464,7 @@ export type ProfileFeedQuery = {
           mirrors: Array<any>;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
+          isGated: boolean;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -18718,6 +18784,7 @@ export type PublicationQuery = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -18961,6 +19028,7 @@ export type PublicationQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               profile: {
@@ -19175,6 +19243,7 @@ export type PublicationQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -19390,6 +19459,7 @@ export type PublicationQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           onChainContentURI: string;
+                          isGated: boolean;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -19442,6 +19512,7 @@ export type PublicationQuery = {
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -19726,6 +19797,7 @@ export type PublicationQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -19969,6 +20041,7 @@ export type PublicationQuery = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -20181,6 +20254,7 @@ export type PublicationQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     onChainContentURI: string;
+                    isGated: boolean;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -20225,6 +20299,7 @@ export type PublicationQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -20471,6 +20546,7 @@ export type PublicationQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -20709,6 +20785,7 @@ export type PublicationQuery = {
         collectNftAddress?: any | null;
         id: any;
         reaction?: ReactionTypes | null;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -20926,6 +21003,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               onChainContentURI: string;
+              isGated: boolean;
               createdAt: any;
               profile: {
                 __typename?: 'Profile';
@@ -20970,6 +21048,7 @@ export type PublicationQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -21210,6 +21289,7 @@ export type PublicationQuery = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -21577,6 +21657,7 @@ export type SearchPublicationsQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -21815,6 +21896,7 @@ export type SearchPublicationsQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     profile: {
@@ -22032,6 +22114,7 @@ export type SearchPublicationsQuery = {
                           __typename?: 'Mirror';
                           id: any;
                           reaction?: ReactionTypes | null;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -22281,6 +22364,7 @@ export type SearchPublicationsQuery = {
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
                                 onChainContentURI: string;
+                                isGated: boolean;
                                 createdAt: any;
                                 profile: {
                                   __typename?: 'Profile';
@@ -22336,6 +22420,7 @@ export type SearchPublicationsQuery = {
                                 mirrors: Array<any>;
                                 hasCollectedByMe: boolean;
                                 onChainContentURI: string;
+                                isGated: boolean;
                                 hidden: boolean;
                                 createdAt: any;
                                 appId?: any | null;
@@ -22635,6 +22720,7 @@ export type SearchPublicationsQuery = {
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -22916,6 +23002,7 @@ export type SearchPublicationsQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -23131,6 +23218,7 @@ export type SearchPublicationsQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           onChainContentURI: string;
+                          isGated: boolean;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -23183,6 +23271,7 @@ export type SearchPublicationsQuery = {
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -23467,6 +23556,7 @@ export type SearchPublicationsQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -23714,6 +23804,7 @@ export type SearchPublicationsQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -24179,6 +24270,7 @@ export type TimelineQuery = {
             mirrors: Array<any>;
             hasCollectedByMe: boolean;
             onChainContentURI: string;
+            isGated: boolean;
             hidden: boolean;
             createdAt: any;
             appId?: any | null;
@@ -24417,6 +24509,7 @@ export type TimelineQuery = {
                   mirrors: Array<any>;
                   hasCollectedByMe: boolean;
                   onChainContentURI: string;
+                  isGated: boolean;
                   hidden: boolean;
                   createdAt: any;
                   profile: {
@@ -24631,6 +24724,7 @@ export type TimelineQuery = {
                         __typename?: 'Mirror';
                         id: any;
                         reaction?: ReactionTypes | null;
+                        isGated: boolean;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -24876,6 +24970,7 @@ export type TimelineQuery = {
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
                               onChainContentURI: string;
+                              isGated: boolean;
                               createdAt: any;
                               profile: {
                                 __typename?: 'Profile';
@@ -24928,6 +25023,7 @@ export type TimelineQuery = {
                               mirrors: Array<any>;
                               hasCollectedByMe: boolean;
                               onChainContentURI: string;
+                              isGated: boolean;
                               hidden: boolean;
                               createdAt: any;
                               appId?: any | null;
@@ -25218,6 +25314,7 @@ export type TimelineQuery = {
                         mirrors: Array<any>;
                         hasCollectedByMe: boolean;
                         onChainContentURI: string;
+                        isGated: boolean;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -25495,6 +25592,7 @@ export type TimelineQuery = {
                   __typename?: 'Mirror';
                   id: any;
                   reaction?: ReactionTypes | null;
+                  isGated: boolean;
                   hidden: boolean;
                   createdAt: any;
                   appId?: any | null;
@@ -25707,6 +25805,7 @@ export type TimelineQuery = {
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         onChainContentURI: string;
+                        isGated: boolean;
                         createdAt: any;
                         profile: {
                           __typename?: 'Profile';
@@ -25755,6 +25854,7 @@ export type TimelineQuery = {
                         mirrors: Array<any>;
                         hasCollectedByMe: boolean;
                         onChainContentURI: string;
+                        isGated: boolean;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -26035,6 +26135,7 @@ export type TimelineQuery = {
                   mirrors: Array<any>;
                   hasCollectedByMe: boolean;
                   onChainContentURI: string;
+                  isGated: boolean;
                   hidden: boolean;
                   createdAt: any;
                   appId?: any | null;
@@ -26275,6 +26376,7 @@ export type TimelineQuery = {
             mirrors: Array<any>;
             hasCollectedByMe: boolean;
             onChainContentURI: string;
+            isGated: boolean;
             hidden: boolean;
             createdAt: any;
             appId?: any | null;
@@ -26615,6 +26717,7 @@ export type TimelineQuery = {
         mirrors: Array<any>;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
+        isGated: boolean;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -26853,6 +26956,7 @@ export type TimelineQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               profile: {
@@ -27067,6 +27171,7 @@ export type TimelineQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -27282,6 +27387,7 @@ export type TimelineQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           onChainContentURI: string;
+                          isGated: boolean;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -27334,6 +27440,7 @@ export type TimelineQuery = {
                           mirrors: Array<any>;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
+                          isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -27618,6 +27725,7 @@ export type TimelineQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -27861,6 +27969,7 @@ export type TimelineQuery = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -28073,6 +28182,7 @@ export type TimelineQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     onChainContentURI: string;
+                    isGated: boolean;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -28117,6 +28227,7 @@ export type TimelineQuery = {
                     mirrors: Array<any>;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
+                    isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -28363,6 +28474,7 @@ export type TimelineQuery = {
               mirrors: Array<any>;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
+              isGated: boolean;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -28887,6 +28999,7 @@ export const PostFieldsFragmentDoc = gql`
     mirrors(by: $profileId)
     hasCollectedByMe
     onChainContentURI
+    isGated
     canComment(profileId: $profileId) {
       result
     }
@@ -28928,6 +29041,7 @@ export const MirrorFieldsFragmentDoc = gql`
       ...ProfileFields
     }
     reaction(request: $reactionRequest)
+    isGated
     canComment(profileId: $profileId) {
       result
     }
@@ -28960,6 +29074,7 @@ export const MirrorFieldsFragmentDoc = gql`
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
         onChainContentURI
+        isGated
         canComment(profileId: $profileId) {
           result
         }
@@ -28995,6 +29110,7 @@ export const CommentFieldsFragmentDoc = gql`
     mirrors(by: $profileId)
     hasCollectedByMe
     onChainContentURI
+    isGated
     canComment(profileId: $profileId) {
       result
     }
@@ -29036,6 +29152,7 @@ export const CommentFieldsFragmentDoc = gql`
         mirrors(by: $profileId)
         hasCollectedByMe
         onChainContentURI
+        isGated
         canComment(profileId: $profileId) {
           result
         }
