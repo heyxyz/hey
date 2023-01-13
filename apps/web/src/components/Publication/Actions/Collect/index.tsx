@@ -14,6 +14,7 @@ import { motion } from 'framer-motion';
 import type { ElectedMirror } from 'lens';
 import { CollectModules } from 'lens';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
@@ -24,15 +25,16 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 
 interface Props {
   publication: LensterPublication;
-  isFullPublication: boolean;
   electedMirror?: ElectedMirror;
 }
 
-const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) => {
+const Collect: FC<Props> = ({ publication, electedMirror }) => {
+  const { pathname } = useRouter();
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
   const isUnknownCollect = publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
+  const isFullPublication = pathname === '/posts/[id]';
   const isMirror = publication.__typename === 'Mirror';
   const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
 

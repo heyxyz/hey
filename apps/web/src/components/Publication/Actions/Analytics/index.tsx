@@ -7,6 +7,7 @@ import { ChartBarIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -17,14 +18,15 @@ const Stats = dynamic(() => import('./Stats'), {
 
 interface Props {
   publication: LensterPublication;
-  isFullPublication: boolean;
 }
 
-const Analytics: FC<Props> = ({ publication, isFullPublication }) => {
+const Analytics: FC<Props> = ({ publication }) => {
+  const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const { allowed: staffMode } = useStaffMode();
 
+  const isFullPublication = pathname === '/posts/[id]';
   const profileIdFromPublication = publication?.id.split('-')[0];
   const showAnalytics = currentProfile?.id === profileIdFromPublication;
 

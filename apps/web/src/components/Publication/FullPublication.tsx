@@ -63,7 +63,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
                 </>
               )}
               <div className="divider" />
-              <PublicationActions publication={publication} isFullPublication />
+              <PublicationActions publication={publication} />
             </>
           )}
         </div>
