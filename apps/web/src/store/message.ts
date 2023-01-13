@@ -3,7 +3,7 @@ import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
 import { LS_KEYS } from 'data/constants';
 import type { Profile } from 'lens';
-import create from 'zustand';
+import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 type TabValues = 'Following' | 'Requested';

@@ -1,6 +1,6 @@
 import { DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import { CollectModules } from 'lens';
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface CollectModuleState {
   selectedCollectModule: CollectModules;

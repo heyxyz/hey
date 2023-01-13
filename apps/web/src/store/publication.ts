@@ -1,5 +1,5 @@
 import type { NewLensterAttachment } from '@generated/types';
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface PublicationState {
   showNewPostModal: boolean;
