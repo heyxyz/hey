@@ -84,16 +84,6 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     }
   });
 
-  useEffect(() => {
-    const lensLitAuthSig = localStorage.getItem('lens-lit-authsig');
-
-    if (lensLitAuthSig) {
-      // eslint-disable-next-line no-use-before-define
-      getDecryptedData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const getCondition = (key: string) => {
     const criteria: any = encryptedPublication.metadata.encryptionParams?.accessCondition.or?.criteria;
 
@@ -136,23 +126,6 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   // Style
   const cardClasses = 'text-sm rounded-xl w-fit p-9 shadow-sm bg-gradient-to-tr from-brand-400 to-brand-600';
 
-  if (!currentProfile) {
-    return (
-      <Card
-        className={clsx(cardClasses, '!cursor-pointer')}
-        onClick={(event) => {
-          event.stopPropagation();
-          setShowAuthModal(true);
-        }}
-      >
-        <div className="text-white font-bold flex items-center space-x-1">
-          <LogoutIcon className="h-5 w-5" />
-          <span>Login to decrypt</span>
-        </div>
-      </Card>
-    );
-  }
-
   // Status
   // Collect checks - https://docs.lens.xyz/docs/gated#collected-publication
   const hasNotCollectedPublication = reasons?.includes(DecryptFailReason.HasNotCollectedPublication);
@@ -181,6 +154,32 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     setDecryptError(error);
     setIsDecrypting(false);
   };
+
+  useEffect(() => {
+    const lensLitAuthSig = localStorage.getItem('lens-lit-authsig');
+
+    if (lensLitAuthSig) {
+      getDecryptedData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!currentProfile) {
+    return (
+      <Card
+        className={clsx(cardClasses, '!cursor-pointer')}
+        onClick={(event) => {
+          event.stopPropagation();
+          setShowAuthModal(true);
+        }}
+      >
+        <div className="text-white font-bold flex items-center space-x-1">
+          <LogoutIcon className="h-5 w-5" />
+          <span>Login to decrypt</span>
+        </div>
+      </Card>
+    );
+  }
 
   if (!canDecrypt) {
     return (
