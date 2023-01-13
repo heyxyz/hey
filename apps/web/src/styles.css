@@ -183,3 +183,7 @@ div[data-lexical-editor='true'] {
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+#typeahead-menu {
+  @apply z-20;
+}
