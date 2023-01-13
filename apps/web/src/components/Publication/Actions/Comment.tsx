@@ -6,14 +6,16 @@ import nFormatter from '@lib/nFormatter';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 interface Props {
   publication: LensterPublication;
-  isFullPublication: boolean;
 }
 
-const Comment: FC<Props> = ({ publication, isFullPublication }) => {
+const Comment: FC<Props> = ({ publication }) => {
+  const { pathname } = useRouter();
+  const isFullPublication = pathname === '/posts/[id]';
   const count =
     publication.__typename === 'Mirror'
       ? publication?.mirrorOf?.stats?.totalAmountOfComments

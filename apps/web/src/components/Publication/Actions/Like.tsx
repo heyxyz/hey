@@ -22,11 +22,11 @@ import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: LensterPublication;
-  isFullPublication: boolean;
 }
 
-const Like: FC<Props> = ({ publication, isFullPublication }) => {
+const Like: FC<Props> = ({ publication }) => {
   const { pathname } = useRouter();
+  const isFullPublication = pathname === '/posts/[id]';
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(
@@ -37,7 +37,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
   );
 
   const updateCache = (cache: ApolloCache<any>, type: ReactionTypes.Upvote | ReactionTypes.Downvote) => {
-    if (pathname === '/posts/[id]') {
+    if (isFullPublication) {
       cache.modify({
         id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
         fields: {
