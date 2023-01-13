@@ -915,10 +915,6 @@ msgstr ""
 msgid "Error while decrypting!"
 msgstr ""
 
-#: src/components/Publication/DecryptedPublicationBody.tsx
-msgid "Decrypting..."
-msgstr ""
-
 #: src/components/Publication/HiddenPublication.tsx
 msgid "{type} was hidden by the author"
 msgstr ""
