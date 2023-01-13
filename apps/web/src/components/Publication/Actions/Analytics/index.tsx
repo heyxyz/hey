@@ -1,3 +1,4 @@
+import Beta from '@components/Shared/Badges/Beta';
 import Loader from '@components/Shared/Loader';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
@@ -55,7 +56,12 @@ const Analytics: FC<Props> = ({ publication }) => {
         </div>
       </motion.button>
       <Modal
-        title={t`Publication Analytics`}
+        title={
+          <div className="flex items-center space-x-2">
+            <span>{t`Publication Analytics`}</span>
+            <Beta />
+          </div>
+        }
         icon={<ChartBarIcon className="text-brand h-5 w-5" />}
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
