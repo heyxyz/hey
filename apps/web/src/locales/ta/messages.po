@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-14 00:08\n"
+"PO-Revision-Date: 2023-01-14 18:34\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1021,7 +1021,7 @@ msgstr "உங்கள் இயல்புநிலை சுயவிவர�
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "You don't have any default profile set!"
-msgstr ""
+msgstr "உங்களிடம் இயல்புநிலை சுயவிவரம் எதுவும் இல்லை!"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Select default profile"
@@ -1053,11 +1053,11 @@ msgstr "தவறான தொகை"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Ethereum address should be within 42 characters"
-msgstr ""
+msgstr "Ethereum முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
-msgstr ""
+msgstr "தவறான Ethereum முகவரி"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -1069,7 +1069,7 @@ msgstr "சூப்பர் பின்தொடர்பை அமைக்�
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ அமைப்பது, பயனர்கள் உங்களைப் பின்தொடர கிரிப்டோவைச் செலவழிக்க வைக்கிறது, மேலும் இது சம்பாதிப்பதற்கான ஒரு சிறந்த வழியாகும், நீங்கள் தொகை மற்றும் நாணயத்தை மாற்றலாம் அல்லது எப்போது வேண்டுமானாலும் அதை முடக்கலாம்/இயக்கலாம்."
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Follow amount"
@@ -1268,7 +1268,7 @@ msgstr ""
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Invalid Contract address"
-msgstr ""
+msgstr "தவறான ஒப்பந்த முகவரி"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -1277,7 +1277,7 @@ msgstr ""
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Contract Address"
-msgstr ""
+msgstr "ஒப்பந்த முகவரி"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Token Id"
@@ -1286,19 +1286,19 @@ msgstr ""
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar can't be empty!"
-msgstr ""
+msgstr "அவதார் காலியாக இருக்க முடியாது!"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
-msgstr ""
+msgstr "பெயர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
-msgstr ""
+msgstr "இருப்பிடம் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Invalid website"
-msgstr ""
+msgstr "தவறான இணையதளம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Twitter should not exceed 100 characters"
@@ -1306,27 +1306,27 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
-msgstr ""
+msgstr "பயோ 260 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
-msgstr ""
+msgstr "சுயவிவர ஐடி"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name"
-msgstr ""
+msgstr "பெயர்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location"
-msgstr ""
+msgstr "இடம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Website"
-msgstr ""
+msgstr "இணையதளம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Twitter"
-msgstr ""
+msgstr "ட்விட்டர்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
@@ -1334,7 +1334,7 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
-msgstr ""
+msgstr "உங்களைப் பற்றி ஏதாவது சொல்லுங்கள்!"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
@@ -1366,52 +1366,52 @@ msgstr "கொடுப்பனவு"
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
-msgstr ""
+msgstr "படத்தை புதிய தாவலில் திறக்கவும்"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
-msgstr ""
+msgstr "தவறான ஆடியோ தலைப்பு"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid author name"
-msgstr ""
+msgstr "தவறான ஆசிரியர் பெயர்"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid cover image"
-msgstr ""
+msgstr "தவறான அட்டைப் படம்"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add title"
-msgstr ""
+msgstr "தலைப்பை சேர்க்கவும்"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
-msgstr ""
+msgstr "ஆசிரியரைச் சேர்க்கவும்"
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
-msgstr ""
+msgstr "பீட்டா"
 
 #: src/components/Shared/Badges/New.tsx
 msgid "New"
-msgstr ""
+msgstr "புதியது"
 
 #: src/components/Shared/CommentWarning.tsx
 msgid "You can't reply to this post"
-msgstr ""
+msgstr "இந்த இடுகைக்கு நீங்கள் பதிலளிக்க முடியாது"
 
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
-msgstr ""
+msgstr "ஈமோஜிகளை ஏற்றுகிறது"
 
 #: src/components/Shared/Follow.tsx
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Followed successfully!"
-msgstr ""
+msgstr "வெற்றிகரமாக பின்பற்றப்பட்டது!"
 
 #: src/components/Shared/Follow.tsx
 msgid "Follow"
-msgstr ""
+msgstr "பின்பற்றவும்"
 
 #: src/components/Shared/Footer.tsx
 msgid "Terms"
@@ -1456,7 +1456,7 @@ msgstr "▲ வெர்செல் மூலம் இயக்கப்பட
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Report"
-msgstr ""
+msgstr "புகார்"
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
@@ -1465,7 +1465,7 @@ msgstr "நிலையை அமைக்கவும்"
 
 #: src/components/Shared/GlobalModals.tsx
 msgid "Change Profile"
-msgstr ""
+msgstr "சுயவிவரத்தை மாற்றவும்"
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
@@ -1494,11 +1494,11 @@ msgstr "குறியீடு"
 
 #: src/components/Shared/Login/New/Pending.tsx
 msgid "Account creation in progress, please wait!"
-msgstr ""
+msgstr "கணக்கு உருவாக்கம் செயலில் உள்ளது, காத்திருக்கவும்!"
 
 #: src/components/Shared/Login/New/Pending.tsx
 msgid "Go to profile"
-msgstr ""
+msgstr "சுயவிவரத்திற்குச் செல்லவும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should be at least 2 characters"
@@ -1594,39 +1594,39 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select type"
-msgstr ""
+msgstr "வகையைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Illegal"
-msgstr ""
+msgstr "சட்டவிரோதமானது"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fraud"
-msgstr ""
+msgstr "மோசடி"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Sensitive"
-msgstr ""
+msgstr "உணர்திறன்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
-msgstr ""
+msgstr "காரணம்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select sub reason"
-msgstr ""
+msgstr "துணை காரணத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Animal Abuse"
-msgstr ""
+msgstr "விலங்கு வன்கொடுமை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Direct Threat"
-msgstr ""
+msgstr "நேரடி அச்சுறுத்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Human Abuse"
-msgstr ""
+msgstr "மனித வன்கொடுமை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Threat Individual"
@@ -1634,23 +1634,23 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
-msgstr ""
+msgstr "வன்முறை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Scam"
-msgstr ""
+msgstr "ஊழல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
-msgstr ""
+msgstr "ஆள்மாறாட்டம்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "NSFW"
-msgstr ""
+msgstr "என்எஸ்எஃப்டபிள்யூ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Offensive"
-msgstr ""
+msgstr "வெறுக்கத்தக்க"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
@@ -1674,27 +1674,27 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
-msgstr ""
+msgstr "வேறு ஏதாவது"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Unrelated"
-msgstr ""
+msgstr "தொடர்பில்லாத"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
-msgstr ""
+msgstr "கூடுதல் கருத்துகள் 260 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"
-msgstr ""
+msgstr "புகாரளிக்க முடியவில்லை"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
-msgstr ""
+msgstr "விளக்கம்"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Please provide additional details"
-msgstr ""
+msgstr "கூடுதல் விவரங்களை வழங்கவும்"
 
 #: src/components/Shared/Navbar/MobileDrawerMenu.tsx
 #: src/components/Shared/Navbar/SignedUser.tsx
@@ -1735,7 +1735,7 @@ msgstr "பணியாளர் பயன்முறையை இயக்க�
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
-msgstr ""
+msgstr "சுயவிவரத்தை மாற்றவும்"
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Dark mode"
@@ -1763,7 +1763,7 @@ msgstr "உலாவு"
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
-msgstr ""
+msgstr "{type} க்கு செல்க"
 
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
@@ -1771,15 +1771,15 @@ msgstr ""
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
-msgstr ""
+msgstr "நிலை காலியாக இருக்கக்கூடாது"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not exceed 100 characters"
-msgstr ""
+msgstr "நிலை 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Shared/Status.tsx
 msgid "Status updated successfully!"
-msgstr ""
+msgstr "நிலை வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Shared/Status.tsx
 msgid "Loading status settings"
@@ -1836,7 +1836,7 @@ msgstr "பின்தொடரும் தொகுதியை அனும�
 
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Super follow"
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
