@@ -24,21 +24,6 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
 
   const canSendMessage = !disabledInput && !sending && message.length > 0;
 
-  const handleSend = async () => {
-    if (!canSendMessage) {
-      return;
-    }
-    setSending(true);
-    const sent = await sendMessage(message);
-    if (sent) {
-      setMessage('');
-      Analytics.track(MESSAGES.SEND);
-    } else {
-      toast.error(t`Error sending message`);
-    }
-    setSending(false);
-  };
-
   const getPartialMessageStore = (): any => {
     const jsonData = localStorage.getItem(LS_KEYS.PARTIAL_MESSAGE_STORE);
     return jsonData ? JSON.parse(jsonData) : {};
@@ -47,6 +32,24 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
   const setPartialMessageStore = (store: any) => {
     const jsonData = JSON.stringify(store);
     localStorage.setItem(LS_KEYS.PARTIAL_MESSAGE_STORE, jsonData);
+  };
+
+  const handleSend = async () => {
+    if (!canSendMessage) {
+      return;
+    }
+    setSending(true);
+    const sent = await sendMessage(message);
+    if (sent) {
+      setMessage('');
+      const store = getPartialMessageStore();
+      delete store[conversationKey];
+      setPartialMessageStore(store);
+      Analytics.track(MESSAGES.SEND);
+    } else {
+      toast.error(t`Error sending message`);
+    }
+    setSending(false);
   };
 
   useEffect(() => {
