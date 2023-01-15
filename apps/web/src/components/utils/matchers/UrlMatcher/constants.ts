@@ -82,4 +82,7 @@ export const URL_PATTERN = combinePatterns([URL_SCHEME, URL_HOST, URL_PATH, URL_
 
 export const PARENTHESES_URL_PATTERN = new RegExp(`\\((${URL_PATTERN.source})\\)`, 'i');
 
+export const URL_TRUNCATE_LENGTH = 25;
+export const PATH_MIN_LENGTH = 5;
+
 export const BLOCKED_TLDS = ['lens'];
