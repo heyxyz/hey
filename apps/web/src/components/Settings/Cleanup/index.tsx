@@ -92,6 +92,19 @@ const CleanupSettings: NextPage = () => {
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-1">
+                <b>
+                  <Trans>Unsent direct messages</Trans>
+                </b>
+                <div className="font-bold text-xs lt-text-gray-500">
+                  <Trans>Clean your unsent DMs</Trans>
+                </div>
+              </div>
+              <Button onClick={() => cleanup(LS_KEYS.PARTIAL_MESSAGE_STORE)}>
+                <Trans>Cleanup</Trans>
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
                 <b className="text-red-500">
                   <Trans>App settings</Trans>
                 </b>
