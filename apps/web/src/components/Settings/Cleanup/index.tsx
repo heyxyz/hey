@@ -99,7 +99,7 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Clean your unsent DMs</Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(LS_KEYS.PARTIAL_MESSAGE_STORE)}>
+              <Button onClick={() => cleanup(LS_KEYS.UNSENT_DM_STORE)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>

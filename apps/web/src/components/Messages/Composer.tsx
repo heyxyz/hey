@@ -25,13 +25,13 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
   const canSendMessage = !disabledInput && !sending && message.length > 0;
 
   const getPartialMessageStore = (): any => {
-    const jsonData = localStorage.getItem(LS_KEYS.PARTIAL_MESSAGE_STORE);
+    const jsonData = localStorage.getItem(LS_KEYS.UNSENT_DM_STORE);
     return jsonData ? JSON.parse(jsonData) : {};
   };
 
   const setPartialMessageStore = (store: any) => {
     const jsonData = JSON.stringify(store);
-    localStorage.setItem(LS_KEYS.PARTIAL_MESSAGE_STORE, jsonData);
+    localStorage.setItem(LS_KEYS.UNSENT_DM_STORE, jsonData);
   };
 
   const handleSend = async () => {
