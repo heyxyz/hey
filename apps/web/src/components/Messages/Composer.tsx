@@ -5,7 +5,7 @@ import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { t, Trans } from '@lingui/macro';
-import { MIN_WIDTH_DESKTOP } from 'data/constants';
+import { LS_KEYS, MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -39,9 +39,28 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
     setSending(false);
   };
 
+  const getPartialMessageStore = (): any => {
+    const jsonData = localStorage.getItem(LS_KEYS.PARTIAL_MESSAGE_STORE);
+    return jsonData ? JSON.parse(jsonData) : {};
+  };
+
+  const setPartialMessageStore = (store: any) => {
+    const jsonData = JSON.stringify(store);
+    localStorage.setItem(LS_KEYS.PARTIAL_MESSAGE_STORE, jsonData);
+  };
+
   useEffect(() => {
-    setMessage('');
+    const store = getPartialMessageStore();
+    const partialMessage = store[conversationKey];
+    setMessage(partialMessage ?? '');
   }, [conversationKey]);
+
+  const onChangeCallback = (value: string) => {
+    const store = getPartialMessageStore();
+    store[conversationKey] = value;
+    setPartialMessageStore(store);
+    setMessage(value);
+  };
 
   const handleKeyDown = (event: { key: string }) => {
     if (event.key === 'Enter') {
@@ -57,7 +76,7 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
         value={message}
         disabled={disabledInput}
         onKeyDown={handleKeyDown}
-        onChange={(event) => setMessage(event.target.value)}
+        onChange={(event) => onChangeCallback(event.target.value)}
       />
       <Button disabled={!canSendMessage} onClick={handleSend} variant="primary" aria-label="Send message">
         <div className="flex items-center space-x-2">
