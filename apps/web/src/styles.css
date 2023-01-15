@@ -187,3 +187,7 @@ div[data-lexical-editor='true'] {
 #typeahead-menu {
   @apply z-20;
 }
+
+.editor p:not(:last-child) {
+	margin-bottom: 1em;
+}

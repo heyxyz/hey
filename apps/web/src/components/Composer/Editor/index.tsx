@@ -40,7 +40,7 @@ const Editor: FC = () => {
       <EmojiPickerPlugin />
       <ToolbarPlugin />
       <RichTextPlugin
-        contentEditable={<ContentEditable className="px-5 block my-4 min-h-[65px] overflow-auto" />}
+        contentEditable={<ContentEditable className="px-5 block my-4 min-h-[65px] overflow-auto editor" />}
         placeholder={
           <div className="px-5 absolute top-[65px] text-gray-400 pointer-events-none whitespace-nowrap">
             <Trans>What's happening?</Trans>
