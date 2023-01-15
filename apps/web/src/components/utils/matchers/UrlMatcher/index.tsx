@@ -2,13 +2,26 @@ import type { ChildrenNode, MatchResponse, Node } from 'interweave';
 import { Matcher } from 'interweave';
 import { createElement } from 'react';
 
-import { BLOCKED_TLDS, PARENTHESES_URL_PATTERN, URL_PATTERN } from './constants';
+import {
+  BLOCKED_TLDS,
+  PARENTHESES_URL_PATTERN,
+  PATH_MIN_LENGTH,
+  URL_PATTERN,
+  URL_TRUNCATE_LENGTH
+} from './constants';
 
 interface UrlProps {
   children: ChildrenNode;
   url: string;
   host: string;
+  fullPath: string;
 }
+
+const shortUrl = (props: UrlProps): string => {
+  const truncatedPathLength = Math.max(URL_TRUNCATE_LENGTH - props.host.length, PATH_MIN_LENGTH);
+  let doTruncate = props.fullPath.length - truncatedPathLength > 3;
+  return props.host + (doTruncate ? props.fullPath.substring(0, truncatedPathLength) + '…' : props.fullPath);
+};
 
 const Url = ({ children, url }: UrlProps) => {
   let href = url;
@@ -25,11 +38,11 @@ const Url = ({ children, url }: UrlProps) => {
   );
 };
 
-type UrlMatch = Pick<UrlProps, 'url' | 'host'>;
+type UrlMatch = Pick<UrlProps, 'url' | 'host' | 'fullPath'>;
 
 export class UrlMatcher extends Matcher<UrlProps> {
   replaceWith(children: ChildrenNode, props: UrlProps): Node {
-    return createElement(Url, props, children);
+    return createElement(Url, props, shortUrl(props));
   }
 
   getPattern(): RegExp {
@@ -58,14 +71,15 @@ export class UrlMatcher extends Matcher<UrlProps> {
   handleMatches(matches: string[]): UrlMatch {
     return {
       url: matches[0],
-      host: matches[3]
+      host: matches[3],
+      fullPath: (matches[4] ?? '') + (matches[5] ?? '') + (matches[6] ?? '')
     };
   }
 }
 
 export class ParenthesesUrlMatcher extends UrlMatcher {
   replaceWith(children: ChildrenNode, props: UrlProps): Node {
-    return <>({createElement(Url, props, props.url)})</>;
+    return <>({createElement(Url, props, shortUrl(props))})</>;
   }
 
   getPattern(): RegExp {
@@ -75,7 +89,8 @@ export class ParenthesesUrlMatcher extends UrlMatcher {
   handleMatches(matches: string[]): UrlMatch {
     return {
       url: matches[1],
-      host: matches[4]
+      host: matches[4],
+      fullPath: (matches[5] ?? '') + (matches[6] ?? '') + (matches[7] ?? '')
     };
   }
 }
