@@ -33,3 +33,11 @@ export interface ProfileInterest {
   category: { label: string; id: string };
   subCategories: { label: string; id: string }[];
 }
+
+export interface Emoji {
+  emoji: string;
+  description: string;
+  category: string;
+  aliases: string[];
+  tags: string[];
+}
