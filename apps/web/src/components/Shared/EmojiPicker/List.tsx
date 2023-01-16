@@ -1,8 +1,10 @@
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import type { Emoji } from '@generated/types';
 import { t } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { ERROR_MESSAGE, STATIC_ASSETS_URL } from 'data/constants';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
 
 import Loader from '../Loader';
 
@@ -11,27 +13,11 @@ interface Props {
 }
 
 const List: FC<Props> = ({ setEmoji }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [emojis, setEmojis] = useState([]);
-
-  const getEmojisList = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch(`${STATIC_ASSETS_URL}/emoji.json`);
-      const data = await res.json();
-      setLoading(false);
-      setEmojis(data);
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getEmojisList();
-  }, []);
+  const { isLoading, error, data } = useQuery(['emojisData'], () =>
+    axios({
+      url: `${STATIC_ASSETS_URL}/emoji.json`
+    }).then((res) => res.data)
+  );
 
   if (error) {
     return (
@@ -43,16 +29,16 @@ const List: FC<Props> = ({ setEmoji }) => {
     );
   }
 
-  if (loading) {
+  if (isLoading) {
     return <Loader message={t`Loading emojis`} />;
   }
 
   return (
     <div className="max-h-[20rem] overflow-y-auto p-5 grid grid-cols-7 text-lg">
-      {emojis.map((emoji: any, index) => (
+      {data.map((emoji: Emoji) => (
         <button
           className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg py-1"
-          key={index}
+          key={emoji.emoji}
           type="button"
           onClick={() => setEmoji(emoji.emoji)}
         >
