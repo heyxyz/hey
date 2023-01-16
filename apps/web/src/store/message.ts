@@ -25,7 +25,7 @@ interface MessageState {
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
 
   unsentMessages: Map<string, string>;
-  setUnsentMessage: (key: string, message: string) => void;
+  setUnsentMessage: (key: string, message: string | null) => void;
   setUnsentMessages: (unsentMessages: Map<string, string>) => void;
 
   reset: () => void;
@@ -89,10 +89,14 @@ export const useMessageStore = create<MessageState>((set) => ({
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
 
   unsentMessages: new Map(),
-  setUnsentMessage: (key: string, message: string) =>
+  setUnsentMessage: (key: string, message: string | null) =>
     set((state) => {
       const newUnsentMessages = new Map(state.unsentMessages);
-      newUnsentMessages.set(key, message);
+      if (message) {
+        newUnsentMessages.set(key, message);
+      } else {
+        newUnsentMessages.delete(key);
+      }
       return { unsentMessages: newUnsentMessages };
     }),
   setUnsentMessages: (unsentMessages) => set(() => ({ unsentMessages })),

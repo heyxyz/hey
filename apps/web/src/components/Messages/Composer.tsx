@@ -9,6 +9,7 @@ import { LS_KEYS, MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
 
 interface Props {
@@ -21,18 +22,10 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
   const { width } = useWindowSize();
+  const unsentMessage = useMessageStore((state) => state.unsentMessages.get(conversationKey));
+  const setUnsentMessage = useMessageStore((state) => state.setUnsentMessage);
 
   const canSendMessage = !disabledInput && !sending && message.length > 0;
-
-  const getPartialMessageStore = (): any => {
-    const jsonData = localStorage.getItem(LS_KEYS.UNSENT_DM_STORE);
-    return jsonData ? JSON.parse(jsonData) : {};
-  };
-
-  const setPartialMessageStore = (store: any) => {
-    const jsonData = JSON.stringify(store);
-    localStorage.setItem(LS_KEYS.UNSENT_DM_STORE, jsonData);
-  };
 
   const handleSend = async () => {
     if (!canSendMessage) {
@@ -42,9 +35,7 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
     const sent = await sendMessage(message);
     if (sent) {
       setMessage('');
-      const store = getPartialMessageStore();
-      delete store[conversationKey];
-      setPartialMessageStore(store);
+      setUnsentMessage(conversationKey, null);
       Analytics.track(MESSAGES.SEND);
     } else {
       toast.error(t`Error sending message`);
@@ -53,15 +44,12 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
   };
 
   useEffect(() => {
-    const store = getPartialMessageStore();
-    const partialMessage = store[conversationKey];
-    setMessage(partialMessage ?? '');
-  }, [conversationKey]);
+    setMessage(unsentMessage ?? '');
+    console.log('unsentMessage', unsentMessage);
+  }, [unsentMessage]);
 
   const onChangeCallback = (value: string) => {
-    const store = getPartialMessageStore();
-    store[conversationKey] = value;
-    setPartialMessageStore(store);
+    setUnsentMessage(conversationKey, value);
     setMessage(value);
   };
 
