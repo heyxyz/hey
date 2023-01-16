@@ -112,7 +112,11 @@ const Search: FC<Props> = ({
                       setSearchText('');
                     }}
                   >
-                    <UserProfile linkToProfile={!onProfileSelected} profile={profile} />
+                    <UserProfile
+                      linkToProfile={!onProfileSelected}
+                      profile={profile}
+                      showUserPreview={false}
+                    />
                   </div>
                 ))}
                 {profiles.length === 0 && (

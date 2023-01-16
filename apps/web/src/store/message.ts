@@ -105,6 +105,9 @@ interface MessagePersistState {
   showMessagesBadge: Map<string, boolean>;
   setShowMessagesBadge: (showMessagesBadge: Map<string, boolean>) => void;
   clearMessagesBadge: (profileId: string) => void;
+  unsentMessages: Map<string, string>;
+  setUnsentMessage: (key: string, message: string | null) => void;
+  setUnsentMessages: (unsentMessages: Map<string, string>) => void;
 }
 
 export const useMessagePersistStore = create(
@@ -124,7 +127,19 @@ export const useMessagePersistStore = create(
           show.set(profileId, false);
           return { viewedMessagesAtNs: viewedAt, showMessagesBadge: show };
         });
-      }
+      },
+      unsentMessages: new Map(),
+      setUnsentMessage: (key: string, message: string | null) =>
+        set((state) => {
+          const newUnsentMessages = new Map(state.unsentMessages);
+          if (message) {
+            newUnsentMessages.set(key, message);
+          } else {
+            newUnsentMessages.delete(key);
+          }
+          return { unsentMessages: newUnsentMessages };
+        }),
+      setUnsentMessages: (unsentMessages) => set(() => ({ unsentMessages }))
     }),
     {
       name: LS_KEYS.MESSAGE_STORE,
@@ -136,7 +151,8 @@ export const useMessagePersistStore = create(
           state: {
             ...data.state,
             viewedMessagesAtNs: Array.from(data.state.viewedMessagesAtNs),
-            showMessagesBadge: Array.from(data.state.showMessagesBadge)
+            showMessagesBadge: Array.from(data.state.showMessagesBadge),
+            unsentMessages: Array.from(data.state.unsentMessages)
           }
         });
       },
@@ -144,6 +160,7 @@ export const useMessagePersistStore = create(
         const data = JSON.parse(value);
         data.state.viewedMessagesAtNs = new Map(data.state.viewedMessagesAtNs);
         data.state.showMessagesBadge = new Map(data.state.showMessagesBadge);
+        data.state.unsentMessages = new Map(data.state.unsentMessages);
         return data;
       }
     }

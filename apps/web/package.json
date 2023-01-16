@@ -13,7 +13,7 @@
     "extract": "NODE_ENV=development lingui extract"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.3",
+    "@apollo/client": "^3.7.4",
     "@aws-sdk/client-s3": "^3.245.0",
     "@giphy/js-fetch-api": "^4.7.1",
     "@giphy/react-components": "^6.5.1",
@@ -37,7 +37,7 @@
     "dayjs-twitter": "^0.5.0",
     "dotenv": "^16.0.3",
     "ethers": "5.6.0",
-    "framer-motion": "^8.4.2",
+    "framer-motion": "^8.4.3",
     "graphql": "^16.6.0",
     "interweave": "^13.0.0",
     "jwt-decode": "^3.1.2",
@@ -49,14 +49,14 @@
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.42.0",
+    "react-hook-form": "^7.42.1",
     "react-hot-toast": "^2.4.0",
     "react-infinite-scroll-component": "^6.1.0",
     "uuid": "^9.0.0",
     "wagmi": "^0.10.10",
     "websocket": "^1.0.34",
     "zod": "^3.20.2",
-    "zustand": "^4.3.1"
+    "zustand": "^4.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",

@@ -1,25 +1,3 @@
-import type {
-  FeeCollectModuleSettings,
-  FeeFollowModuleSettings,
-  FreeCollectModuleSettings,
-  LimitedFeeCollectModuleSettings,
-  LimitedTimedFeeCollectModuleSettings,
-  ProfileFollowModuleSettings,
-  RevertCollectModuleSettings,
-  RevertFollowModuleSettings,
-  TimedFeeCollectModuleSettings
-} from 'lens';
-
-export type LensterCollectModule = FeeCollectModuleSettings &
-  FreeCollectModuleSettings &
-  LimitedFeeCollectModuleSettings &
-  LimitedTimedFeeCollectModuleSettings &
-  RevertCollectModuleSettings &
-  TimedFeeCollectModuleSettings;
-export type LensterFollowModule = FeeFollowModuleSettings &
-  ProfileFollowModuleSettings &
-  RevertFollowModuleSettings;
-
 export interface LensterAttachment {
   item: string;
   type: string;
@@ -54,4 +32,12 @@ export interface OG {
 export interface ProfileInterest {
   category: { label: string; id: string };
   subCategories: { label: string; id: string }[];
+}
+
+export interface Emoji {
+  emoji: string;
+  description: string;
+  category: string;
+  aliases: string[];
+  tags: string[];
 }
