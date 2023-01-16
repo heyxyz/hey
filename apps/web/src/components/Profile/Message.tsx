@@ -13,7 +13,6 @@ const Message: FC<Props> = ({ onClick }) => {
       icon={<MailIcon className="h-5 w-5" />}
       outline
       onClick={onClick}
-      variant="success"
       aria-label="Message"
     />
   );
