@@ -144,7 +144,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
       name: profile?.name ?? '',
       location: getAttribute(profile?.attributes, 'location'),
       website: getAttribute(profile?.attributes, 'website'),
-      twitter: getAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', ''),
+      twitter: getAttribute(profile?.attributes, 'twitter')?.replace(/(https:\/\/)?twitter\.com\//, ''),
       bio: profile?.bio ?? ''
     }
   });
