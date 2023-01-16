@@ -6,12 +6,13 @@ import { Menu, Transition } from '@headlessui/react';
 import { CollectionIcon, DotsVerticalIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import clsx from 'clsx';
+import { IS_MAINNET } from 'data/constants';
 import type { Nft, Profile } from 'lens';
 import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { CHAIN_ID } from 'src/constants';
-import { mainnet } from 'wagmi/chains';
+import { mainnet } from 'wagmi';
 
 import Gallery from './Gallery';
 import NoGallery from './NoGallery';
@@ -26,7 +27,7 @@ const NftGallery: FC<Props> = ({ profile }) => {
 
   // Variables
   const request = {
-    chainIds: [CHAIN_ID, mainnet.id],
+    chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
     ownerAddress: profile?.ownedBy,
     limit: 50
   };

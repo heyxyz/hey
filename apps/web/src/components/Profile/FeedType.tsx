@@ -52,7 +52,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           active={feedType === 'NFT'}
           type="nft"
           onClick={() => {
-            setFeedType('GALLERY');
+            setFeedType('NFT');
             Analytics.track(PROFILE.SWITCH_NFTS);
           }}
         />

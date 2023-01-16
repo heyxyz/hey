@@ -3,6 +3,8 @@ import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import formatHandle from '@lib/formatHandle';
+import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { Profile } from 'lens';
 import Link from 'next/link';
@@ -12,6 +14,7 @@ import { useAppStore } from 'src/store/app';
 
 const NFTDetail = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const profiles = useAppStore((state) => state.profiles);
 
   if (!isFeatureEnabled('nft-gallery', currentProfile?.id)) {
     return <Custom404 />;
@@ -36,7 +39,22 @@ const NFTDetail = () => {
         <Card className="p-4">
           <h1>Subscape #363</h1>
           <Slug className="text-xs" slug="Subscapes" />
-          <div className="text-xs pt-3">Sasi, Jouni, Yogi, and 10 others own Subscapes</div>
+          <div className="flex items-center pt-3 space-x-1">
+            <div className="contents -space-x-2">
+              {profiles?.map((profile) => (
+                <img
+                  key={profile.handle}
+                  className="w-5 h-5 rounded-full border dark:border-gray-700"
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getAvatar(profile, false);
+                  }}
+                  src={getAvatar(profile)}
+                  alt={formatHandle(profile?.handle)}
+                />
+              ))}
+            </div>
+            <div className="text-xs">Sasi, Jouni, Yogi, and 10 others own Subscapes</div>
+          </div>
         </Card>
         <Card className="p-4">
           <h1 className="mb-2">Description</h1>
@@ -66,48 +84,54 @@ const NFTDetail = () => {
         </Card>
         <Card className="p-4">
           <h1 className="mb-2">View on</h1>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 text-sm">
             <Link
               href="rarible.com"
-              className="px-3 py-0.5 border dark:border-gray-700 rounded-lg"
+              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              Lensport
+              <img className="w-4 h-4" src="/logo.svg" alt="Lensport" />
+              <span>Lensport</span>
             </Link>
             <Link
               href="opensea.io"
-              className="px-3 py-0.5 border dark:border-gray-700 rounded-lg"
+              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              Opensea
+              <img className="w-4 h-4" src="/logo.svg" alt="Opensea" />
+              <span>Opensea</span>
             </Link>
             <Link
               href="rarible.com"
-              className="px-3 py-0.5 border dark:border-gray-700 rounded-lg"
+              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              Rarible
+              <img className="w-4 h-4" src="/logo.svg" alt="Rarible" />
+              <span>Rarible</span>
             </Link>
             <Link
               href="opensea.io"
-              className="px-3 py-0.5 border dark:border-gray-700 rounded-lg"
+              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              Uniswap
+              <img className="w-4 h-4" src="/logo.svg" alt="Uniswap" />
+              <span>Uniswap</span>
             </Link>
             <Link
               href="rarible.com"
-              className="px-3 py-0.5 border dark:border-gray-700 rounded-lg"
+              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              Looksrare
+              <img className="w-4 h-4" src="/logo.svg" alt="Looksrare" />
+              <span>Looksrare</span>
             </Link>
             <Link
               href="rarible.com"
-              className="px-3 py-0.5 border dark:border-gray-700 rounded-lg"
+              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              Etherscan
+              <img className="w-4 h-4" src="/logo.svg" alt="Etherscan" />
+              <span>Etherscan</span>
             </Link>
           </div>
         </Card>

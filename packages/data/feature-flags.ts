@@ -1,4 +1,3 @@
-import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const featureFlags = [
@@ -10,7 +9,7 @@ export const featureFlags = [
   {
     key: 'nft-gallery',
     name: 'NFT Gallery',
-    enabledFor: [...aaveMembers]
+    enabledFor: [...lensterMembers]
   },
   {
     key: 'i18n',
