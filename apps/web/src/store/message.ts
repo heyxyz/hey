@@ -23,6 +23,11 @@ interface MessageState {
   previewMessages: Map<string, DecodedMessage>;
   setPreviewMessage: (key: string, message: DecodedMessage) => void;
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
+
+  unsentMessages: Map<string, DecodedMessage>;
+  setUnsentMessage: (key: string, message: DecodedMessage) => void;
+  setUnsentMessages: (unsentMessages: Map<string, DecodedMessage>) => void;
+
   reset: () => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
@@ -82,6 +87,16 @@ export const useMessageStore = create<MessageState>((set) => ({
       return { previewMessages: newPreviewMessages };
     }),
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
+
+  unsentMessages: new Map(),
+  setUnsentMessage: (key: string, message: DecodedMessage) =>
+    set((state) => {
+      const newUnsentMessages = new Map(state.unsentMessages);
+      newUnsentMessages.set(key, message);
+      return { unsentMessages: newUnsentMessages };
+    }),
+  setUnsentMessages: (unsentMessages) => set(() => ({ unsentMessages })),
+
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) => set(() => ({ selectedProfileId })),
   selectedTab: 'Following',
