@@ -24,9 +24,9 @@ interface MessageState {
   setPreviewMessage: (key: string, message: DecodedMessage) => void;
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
 
-  unsentMessages: Map<string, DecodedMessage>;
-  setUnsentMessage: (key: string, message: DecodedMessage) => void;
-  setUnsentMessages: (unsentMessages: Map<string, DecodedMessage>) => void;
+  unsentMessages: Map<string, string>;
+  setUnsentMessage: (key: string, message: string) => void;
+  setUnsentMessages: (unsentMessages: Map<string, string>) => void;
 
   reset: () => void;
   selectedProfileId: string;
@@ -89,7 +89,7 @@ export const useMessageStore = create<MessageState>((set) => ({
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
 
   unsentMessages: new Map(),
-  setUnsentMessage: (key: string, message: DecodedMessage) =>
+  setUnsentMessage: (key: string, message: string) =>
     set((state) => {
       const newUnsentMessages = new Map(state.unsentMessages);
       newUnsentMessages.set(key, message);
