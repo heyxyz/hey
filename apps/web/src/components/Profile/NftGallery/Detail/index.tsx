@@ -86,51 +86,51 @@ const NFTDetail = () => {
           <h1 className="mb-2">View on</h1>
           <div className="flex flex-wrap gap-3 text-sm">
             <Link
-              href="rarible.com"
+              href="https://lensport.io"
               className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" alt="Lensport" />
+              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Lensport" />
               <span>Lensport</span>
             </Link>
             <Link
-              href="opensea.io"
+              href="https://opensea.io"
               className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" alt="Opensea" />
+              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Opensea" />
               <span>Opensea</span>
             </Link>
             <Link
-              href="rarible.com"
+              href="https://rarible.com"
               className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" alt="Rarible" />
+              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Rarible" />
               <span>Rarible</span>
             </Link>
             <Link
-              href="opensea.io"
+              href="https://opensea.io"
               className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" alt="Uniswap" />
+              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Uniswap" />
               <span>Uniswap</span>
             </Link>
             <Link
-              href="rarible.com"
+              href="https://rarible.com"
               className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" alt="Looksrare" />
+              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Looksrare" />
               <span>Looksrare</span>
             </Link>
             <Link
-              href="rarible.com"
+              href="https://etherscan.com"
               className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" alt="Etherscan" />
+              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Etherscan" />
               <span>Etherscan</span>
             </Link>
           </div>

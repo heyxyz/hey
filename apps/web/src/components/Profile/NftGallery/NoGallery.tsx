@@ -1,4 +1,5 @@
 import { Button } from '@components/UI/Button';
+import { Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';
@@ -26,7 +27,7 @@ const NoGallery: FC<Props> = ({ profile }) => {
             height={100}
             className="w-20 h-20"
             src="https://i.imgur.com/OAauOym.png"
-            alt=""
+            alt="No gallery found"
             draggable={false}
           />
         </div>
@@ -61,12 +62,20 @@ const NoGallery: FC<Props> = ({ profile }) => {
           </>
         ) : (
           <>
-            <h5 className="text-xl mb-2">Welcome to your gallery</h5>
-            <p className="opacity-60 text-sm">Create a curated space for your digital collectibles</p>
+            <h5 className="text-xl mb-2">
+              <Trans>Welcome to your gallery</Trans>
+            </h5>
+            <p className="opacity-60 text-sm">
+              <Trans>Create a curated space for your digital collectibles</Trans>
+            </p>
           </>
         )}
       </div>
-      {isOwner && <Button onClick={() => setShowCreateModal(true)}>Let's do it!</Button>}
+      {isOwner && (
+        <Button onClick={() => setShowCreateModal(true)}>
+          <Trans>Let's do it!</Trans>
+        </Button>
+      )}
     </div>
   );
 };

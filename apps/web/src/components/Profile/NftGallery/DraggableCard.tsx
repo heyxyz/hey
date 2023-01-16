@@ -40,16 +40,12 @@ const DraggableCard: FC<CardProps> = ({ id, nft, index, moveCard }) => {
       if (dragIndex === hoverIndex) {
         return;
       }
-
       // Determine rectangle on screen
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
       // Get vertical middle
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
-
       // Get pixels to the top
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
@@ -61,15 +57,12 @@ const DraggableCard: FC<CardProps> = ({ id, nft, index, moveCard }) => {
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
       }
-
       // Dragging upwards
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-
       // Time to actually perform the action
       moveCard(dragIndex, hoverIndex);
-
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance

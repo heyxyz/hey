@@ -2,6 +2,7 @@ import EmojiPicker from '@components/Shared/EmojiPicker';
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
+import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
 import React, { useState } from 'react';
@@ -27,7 +28,9 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
               <button type="button" onClick={() => setPickNfts(false)}>
                 <ChevronLeftIcon className="w-4 h-4" />
               </button>
-              <span>Select collectibles you want others to see</span>
+              <span>
+                <Trans>Select collectibles you want others to see</Trans>
+              </span>
             </div>
           ) : (
             "What's your gallery name?"

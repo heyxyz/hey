@@ -55,8 +55,8 @@ const Picker = () => {
             <Tab
               key={index}
               className={clsx(
-                { '!bg-brand-500 !text-white': 'Recent' === tab.name },
-                'text-xs bg-brand-100 dark:bg-opacity-20 rounded-full px-3 sm:px-4 py-1.5 text-brand border border-brand-300 dark:border-brand-500'
+                'Recent' === tab.name ? 'bg-brand-500 text-white' : 'bg-brand-100 text-brand',
+                'text-xs bg-brand-100 dark:bg-opacity-20 rounded-full px-3 sm:px-4 py-1.5 border border-brand-300 dark:border-brand-500'
               )}
             >
               <span className="flex items-center space-x-2">
