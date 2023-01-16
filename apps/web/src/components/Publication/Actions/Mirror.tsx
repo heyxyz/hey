@@ -63,7 +63,7 @@ const Mirror: FC<Props> = ({ publication }) => {
 
   const onCompleted = () => {
     setMirrored(true);
-    toast.success('Post has been mirrored!');
+    toast.success(t`Post has been mirrored!`);
     Analytics.track(PUBLICATION.MIRROR);
   };
 
