@@ -1,9 +1,3 @@
-import type { FeeFollowModuleSettings, ProfileFollowModuleSettings, RevertFollowModuleSettings } from 'lens';
-
-export type LensterFollowModule = FeeFollowModuleSettings &
-  ProfileFollowModuleSettings &
-  RevertFollowModuleSettings;
-
 export interface LensterAttachment {
   item: string;
   type: string;
