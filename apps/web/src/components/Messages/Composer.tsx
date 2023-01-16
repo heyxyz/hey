@@ -45,7 +45,6 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
 
   useEffect(() => {
     setMessage(unsentMessage ?? '');
-    console.log('unsentMessage', unsentMessage);
   }, [unsentMessage]);
 
   const onChangeCallback = (value: string) => {

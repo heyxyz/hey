@@ -116,7 +116,6 @@ export const LS_KEYS = {
   TRANSACTION_STORE: 'transaction.store',
   TIMELINE_STORE: 'timeline.store',
   MESSAGE_STORE: 'message.store',
-  UNSENT_DM_STORE: 'unsent_dm.store',
   SELECTED_LOCALE: 'selected.locale'
 };
 
