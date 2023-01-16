@@ -164,7 +164,7 @@ const SeeThroughLens: FC = () => {
                       Analytics.track(MISCELLANEOUS.SELECT_USER_FEED);
                     }}
                   >
-                    <UserProfile showUserPreview={false} linkToProfile={false} profile={profile} />
+                    <UserProfile linkToProfile={false} profile={profile} showUserPreview={false} />
                   </Menu.Item>
                 ))}
                 {(profiles.length === 0 || error) && (
