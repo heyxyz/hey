@@ -1,4 +1,3 @@
-import type { LensterCollectModule, LensterFollowModule } from '@generated/types';
 import { Analytics } from '@lib/analytics';
 import getUniswapURL from '@lib/getUniswapURL';
 import { Trans } from '@lingui/macro';
@@ -7,7 +6,7 @@ import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
-  module: LensterCollectModule | LensterFollowModule;
+  module: any;
 }
 
 const Uniswap: FC<Props> = ({ module }) => {

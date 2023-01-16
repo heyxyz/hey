@@ -1,3 +1,4 @@
+import type { Emoji } from '@generated/types';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,
@@ -62,23 +63,12 @@ const EmojiMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, op
   );
 };
 
-type Emoji = {
-  emoji: string;
-  description: string;
-  category: string;
-  aliases: Array<string>;
-  tags: Array<string>;
-  unicode_version: string;
-  ios_version: string;
-  skin_tones?: boolean;
-};
-
 const MAX_EMOJI_SUGGESTION_COUNT = 5;
 
 const EmojiPickerPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
   const [queryString, setQueryString] = useState<string | null>(null);
-  const [emojis, setEmojis] = useState<Array<Emoji>>([]);
+  const [emojis, setEmojis] = useState<Emoji[]>([]);
 
   const fetchEmojis = async () => {
     const res = await fetch(`${STATIC_ASSETS_URL}/emoji.json`);
@@ -107,7 +97,7 @@ const EmojiPickerPlugin: FC = () => {
     minLength: 0
   });
 
-  const options: Array<EmojiOption> = useMemo(() => {
+  const options: EmojiOption[] = useMemo(() => {
     return emojiOptions
       .filter((option: EmojiOption) => {
         return queryString != null

@@ -2,7 +2,6 @@ import AllowanceButton from '@components/Settings/Allowance/Button';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import type { LensterFollowModule } from '@generated/types';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatAddress from '@lib/formatAddress';
@@ -253,10 +252,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
               {again ? t`Super follow again` : t`Super follow now`}
             </Button>
           ) : (
-            <WarningMessage
-              className="mt-5"
-              message={<Uniswap module={followModule as LensterFollowModule} />}
-            />
+            <WarningMessage className="mt-5" message={<Uniswap module={followModule} />} />
           )
         ) : (
           <div className="mt-5">

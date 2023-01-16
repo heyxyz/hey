@@ -815,6 +815,10 @@ msgid "Publication Analytics"
 msgstr "வெளியீட்டு பகுப்பாய்வு"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Collected successfully!"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
 msgid "Loading collect"
 msgstr ""
@@ -881,6 +885,10 @@ msgstr "விருப்பம்"
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
 msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
+
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Post has been mirrored!"
+msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
@@ -1128,11 +1136,6 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
-#: src/components/Settings/Profile/index.tsx
-msgid "Loading settings"
-msgstr ""
-
-#: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
 msgstr "தொகுதிகளை அனுமதிக்கவும் / திரும்பப் பெறவும்"
 
@@ -1141,8 +1144,8 @@ msgid "In order to use collect feature you need to allow the module you use, you
 msgstr "சேகரிப்பு அம்சத்தைப் பயன்படுத்த, நீங்கள் பயன்படுத்தும் தொகுதியை அனுமதிக்க வேண்டும், எந்த நேரத்திலும் தொகுதியை அனுமதிக்கலாம் மற்றும் திரும்பப் பெறலாம்."
 
 #: src/components/Settings/Allowance/index.tsx
-msgid "Loading allowance data!"
-msgstr ""
+#~ msgid "Loading allowance data!"
+#~ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
@@ -1342,6 +1345,10 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
+msgstr ""
+
+#: src/components/Settings/Profile/index.tsx
+msgid "Loading settings"
 msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
@@ -1966,4 +1973,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

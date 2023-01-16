@@ -1,9 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
+import Loader from '@components/Shared/Loader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { PageLoading } from '@components/UI/PageLoading';
-import { Spinner } from '@components/UI/Spinner';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { Erc20 } from 'lens';
 import { CollectModules, FollowModules, ReferenceModules, useApprovedModuleAllowanceAmountQuery } from 'lens';
@@ -46,10 +45,6 @@ const AllowanceSettings: NextPage = () => {
     return <Custom500 />;
   }
 
-  if (loading) {
-    return <PageLoading message={t`Loading settings`} />;
-  }
-
   if (!currentProfile) {
     return <Custom404 />;
   }
@@ -74,6 +69,7 @@ const AllowanceSettings: NextPage = () => {
                 </Trans>
               </p>
             </div>
+            <div className="divider my-5" />
             <div className="mt-6 label">
               <Trans>Select Currency</Trans>
             </div>
@@ -86,19 +82,20 @@ const AllowanceSettings: NextPage = () => {
                 }).finally(() => setCurrencyLoading(false));
               }}
             >
-              {data?.enabledModuleCurrencies.map((currency: Erc20) => (
-                <option key={currency.address} value={currency.address}>
-                  {currency.name}
-                </option>
-              ))}
+              {loading ? (
+                <option>Loading...</option>
+              ) : (
+                data?.enabledModuleCurrencies.map((currency: Erc20) => (
+                  <option key={currency.address} value={currency.address}>
+                    {currency.name}
+                  </option>
+                ))
+              )}
             </select>
           </div>
-          {currencyLoading ? (
-            <div className="py-10 space-y-3 text-center">
-              <Spinner className="mx-auto" />
-              <div>
-                <Trans>Loading allowance data!</Trans>
-              </div>
+          {loading || currencyLoading ? (
+            <div className="py-5">
+              <Loader />
             </div>
           ) : (
             <Allowance allowance={data} />
