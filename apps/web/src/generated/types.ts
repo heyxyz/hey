@@ -1,21 +1,5 @@
-import type {
-  FeeCollectModuleSettings,
-  FeeFollowModuleSettings,
-  FreeCollectModuleSettings,
-  LimitedFeeCollectModuleSettings,
-  LimitedTimedFeeCollectModuleSettings,
-  ProfileFollowModuleSettings,
-  RevertCollectModuleSettings,
-  RevertFollowModuleSettings,
-  TimedFeeCollectModuleSettings
-} from 'lens';
+import type { FeeFollowModuleSettings, ProfileFollowModuleSettings, RevertFollowModuleSettings } from 'lens';
 
-export type LensterCollectModule = FeeCollectModuleSettings &
-  FreeCollectModuleSettings &
-  LimitedFeeCollectModuleSettings &
-  LimitedTimedFeeCollectModuleSettings &
-  RevertCollectModuleSettings &
-  TimedFeeCollectModuleSettings;
 export type LensterFollowModule = FeeFollowModuleSettings &
   ProfileFollowModuleSettings &
   RevertFollowModuleSettings;
