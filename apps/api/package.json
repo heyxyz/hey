@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.3",
+    "@apollo/client": "^3.7.4",
     "@aws-sdk/client-s3": "^3.245.0",
     "@aws-sdk/client-sts": "^3.245.0",
     "@bundlr-network/client": "^0.9.11",
