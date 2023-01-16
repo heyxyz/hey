@@ -5,6 +5,7 @@ import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
@@ -13,7 +14,9 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { t, Trans } from '@lingui/macro';
 import { ERROR_MESSAGE } from 'data/constants';
+import { COMMAND_PRIORITY_NORMAL, INSERT_LINE_BREAK_COMMAND, INSERT_PARAGRAPH_COMMAND } from 'lexical';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 
@@ -25,6 +28,7 @@ const Editor: FC = () => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const attachments = usePublicationStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
+  const [editor] = useLexicalComposerContext();
 
   const handlePaste = async (pastedFiles: FileList) => {
     if (attachments.length === 4 || attachments.length + pastedFiles.length > 4) {
@@ -34,6 +38,17 @@ const Editor: FC = () => {
       await handleUploadAttachments(pastedFiles);
     }
   };
+
+  useEffect(() => {
+    return editor.registerCommand(
+      INSERT_PARAGRAPH_COMMAND,
+      () => {
+        editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
+        return true;
+      },
+      COMMAND_PRIORITY_NORMAL
+    );
+  }, [editor]);
 
   return (
     <div className="relative">
