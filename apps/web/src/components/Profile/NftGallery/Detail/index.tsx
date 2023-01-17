@@ -29,8 +29,8 @@ const NFTDetail = () => {
             width={500}
             height={500}
             className="w-full h-full p-16"
-            src="https://i.seadn.io/gae/qMfunIhyvoXGLufcKGh6GYF_iP0_5ngeo7M5PU6_MpwxMJignfm23JCemI6HVqMP0bcb6NUva5CtRQ30HE51J9TLg_68juYSe5T9Fg?auto=format&w=1000"
-            alt=""
+            src="/pride.svg"
+            alt="nft"
             draggable={false}
           />
         </Card>
