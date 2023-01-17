@@ -15,9 +15,17 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
 
+export enum ProfileFeedType {
+  Feed = 'FEED',
+  Replies = 'REPLIES',
+  Media = 'MEDIA',
+  Collects = 'COLLECTS',
+  Nft = 'NFT'
+}
+
 interface Props {
   profile: Profile;
-  type: 'FEED' | 'REPLIES' | 'MEDIA';
+  type: ProfileFeedType.Feed | ProfileFeedType.Replies | ProfileFeedType.Media | ProfileFeedType.Collects;
 }
 
 const Feed: FC<Props> = ({ profile, type }) => {
@@ -40,18 +48,25 @@ const Feed: FC<Props> = ({ profile, type }) => {
 
   // Variables
   const publicationTypes =
-    type === 'FEED'
+    type === ProfileFeedType.Feed
       ? [PublicationTypes.Post, PublicationTypes.Mirror]
-      : type === 'MEDIA'
+      : type === ProfileFeedType.Replies
+      ? [PublicationTypes.Comment]
+      : type === ProfileFeedType.Media
       ? [PublicationTypes.Post, PublicationTypes.Comment]
-      : [PublicationTypes.Comment];
+      : [PublicationTypes.Post, PublicationTypes.Comment, PublicationTypes.Mirror];
   const metadata =
-    type === 'MEDIA'
+    type === ProfileFeedType.Media
       ? {
           mainContentFocus: getMediaFilters()
         }
       : null;
-  const request = { publicationTypes, metadata, profileId: profile?.id, limit: 10 };
+  const request = {
+    publicationTypes,
+    metadata,
+    ...(type !== ProfileFeedType.Collects ? { profileId: profile?.id } : { collectedBy: profile?.ownedBy }),
+    limit: 10
+  };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
@@ -76,13 +91,16 @@ const Feed: FC<Props> = ({ profile, type }) => {
 
   if (publications?.length === 0) {
     const emptyMessage =
-      type === 'FEED'
+      type === ProfileFeedType.Feed
         ? 'has nothing in their feed yet!'
-        : type === 'MEDIA'
+        : type === ProfileFeedType.Media
         ? 'has no media yet!'
-        : type === 'REPLIES'
+        : type === ProfileFeedType.Replies
         ? "hasn't replied yet!"
+        : type === ProfileFeedType.Collects
+        ? "hasn't collected anything yet!"
         : '';
+
     return (
       <EmptyState
         message={
@@ -113,7 +131,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
           <SinglePublication
             key={`${publication.id}_${index}`}
             publication={publication as Publication}
-            showThread={type !== 'MEDIA'}
+            showThread={type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects}
           />
         ))}
       </Card>
