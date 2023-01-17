@@ -1,6 +1,5 @@
-import { mainnetStaffs } from 'staffs';
-
 import { lensterMembers } from './lenster-members';
+import { mainnetStaffs } from './staffs';
 
 export const featureFlags = [
   {
