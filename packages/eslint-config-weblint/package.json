@@ -4,11 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
     "eslint": "^8.32.0",
     "eslint-config-next": "^13.1.2",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-simple-import-sort": "^9.0.0",
     "eslint-plugin-unicorn": "^45.0.2",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.8.3"

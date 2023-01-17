@@ -16,4 +16,4 @@ jobs:
           url: 'https://api.height.app/tasks'
           method: 'POST'
           customHeaders: '{ "Content-Type": "application/json", "Authorization": "api-key ${{ secrets.HEIGHT_SECRET_TOKEN }}" }'
-          data: '{ "name": "Update yarn dependencies", "description": "Run `yarn upgrade-interactive --latest` and `rm yarn.lock && yarn`", "listIds": ["c18298a5-1fd3-4bc7-81a0-2ecb1964fd76"] }'
+          data: '{ "name": "chore: update yarn dependencies 📦", "description": "Run `yarn upgrade-interactive --latest` and `rm yarn.lock && yarn`", "listIds": ["c18298a5-1fd3-4bc7-81a0-2ecb1964fd76"] }'
