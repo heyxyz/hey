@@ -4,7 +4,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import formatHandle from '@lib/formatHandle';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
-import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -70,7 +69,7 @@ const ViewProfile: NextPage = () => {
           <Details profile={profile as any} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <FeedType setFeedType={setFeedType} feedType={feedType} /> 
+          <FeedType setFeedType={setFeedType} feedType={feedType} />
           {(feedType === ProfileFeedType.Feed ||
             feedType === ProfileFeedType.Replies ||
             feedType === ProfileFeedType.Media ||
@@ -78,7 +77,7 @@ const ViewProfile: NextPage = () => {
           {feedType === ProfileFeedType.Nft && isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
             <NftGallery profile={profile as any} />
           ) : (
-            <NFTFeed profile={profile as Profile} />
+            <NFTFeed profile={profile as any} />
           )}
         </GridItemEight>
       </GridLayout>
