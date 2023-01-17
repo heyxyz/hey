@@ -8,7 +8,7 @@ msgstr ""
 "Language: vi\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-14 00:08\n"
+"PO-Revision-Date: 2023-01-17 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Vietnamese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -815,6 +815,10 @@ msgid "Publication Analytics"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Collected successfully!"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
 msgid "Loading collect"
 msgstr ""
@@ -880,6 +884,10 @@ msgstr ""
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
+msgstr ""
+
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Post has been mirrored!"
 msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
@@ -1128,11 +1136,6 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
-#: src/components/Settings/Profile/index.tsx
-msgid "Loading settings"
-msgstr ""
-
-#: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
 msgstr ""
 
@@ -1141,8 +1144,8 @@ msgid "In order to use collect feature you need to allow the module you use, you
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
-msgid "Loading allowance data!"
-msgstr ""
+#~ msgid "Loading allowance data!"
+#~ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
@@ -1342,6 +1345,10 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
+msgstr ""
+
+#: src/components/Settings/Profile/index.tsx
+msgid "Loading settings"
 msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
