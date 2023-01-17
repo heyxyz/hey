@@ -115,7 +115,7 @@ const cache = new InMemoryCache({
         explorePublications: cursorBasedPagination(['request', ['sortCriteria', 'metadata']]),
         publications: cursorBasedPagination([
           'request',
-          ['profileId', 'commentsOf', 'publicationTypes', 'metadata']
+          ['profileId', 'collectedBy', 'commentsOf', 'publicationTypes', 'metadata']
         ]),
         nfts: cursorBasedPagination(['request', ['ownerAddress', 'chainIds']]),
         notifications: cursorBasedPagination(['request', ['profileId', 'notificationTypes']]),
