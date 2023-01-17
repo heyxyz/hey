@@ -15,7 +15,7 @@ import { useAppStore } from 'src/store/app';
 
 import Cover from './Cover';
 import Details from './Details';
-import Feed from './Feed';
+import Feed, { ProfileFeedType } from './Feed';
 import FeedType from './FeedType';
 import NftGallery from './NftGallery';
 import ProfilePageShimmer from './Shimmer';
@@ -26,9 +26,9 @@ const ViewProfile: NextPage = () => {
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
-    type && ['feed', 'replies', 'media', 'nft'].includes(type as string)
+    type && ['feed', 'replies', 'media', 'collects', 'nft'].includes(type as string)
       ? type.toString().toUpperCase()
-      : 'FEED'
+      : ProfileFeedType.Feed
   );
 
   const handle = formatHandle(username as string, true);
@@ -70,12 +70,13 @@ const ViewProfile: NextPage = () => {
           <Details profile={profile as any} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <FeedType setFeedType={setFeedType} feedType={feedType} />
-          {(feedType === 'FEED' || feedType === 'REPLIES' || feedType === 'MEDIA') && (
-            <Feed profile={profile as any} type={feedType} />
-          )}
-          {feedType === 'NFT' && isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
-            <NftGallery profile={profile as Profile} />
+          <FeedType setFeedType={setFeedType} feedType={feedType} /> 
+          {(feedType === ProfileFeedType.Feed ||
+            feedType === ProfileFeedType.Replies ||
+            feedType === ProfileFeedType.Media ||
+            feedType === ProfileFeedType.Collects) && <Feed profile={profile as any} type={feedType} />}
+          {feedType === ProfileFeedType.Nft && isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
+            <NftGallery profile={profile as any} />
           ) : (
             <NFTFeed profile={profile as Profile} />
           )}

@@ -23,12 +23,12 @@ dayjs.extend(dayjsTwitter);
 
 interface Props {
   profile: Profile;
-  showBio?: boolean;
-  showFollow?: boolean;
   followStatusLoading?: boolean;
   isFollowing?: boolean;
   isBig?: boolean;
   linkToProfile?: boolean;
+  showBio?: boolean;
+  showFollow?: boolean;
   showStatus?: boolean;
   showUserPreview?: boolean;
   timestamp?: Date;
@@ -36,12 +36,12 @@ interface Props {
 
 const UserProfile: FC<Props> = ({
   profile,
-  showBio = false,
-  showFollow = false,
   followStatusLoading = false,
   isFollowing = false,
   isBig = false,
   linkToProfile = true,
+  showBio = false,
+  showFollow = false,
   showStatus = false,
   showUserPreview = true,
   timestamp = ''
