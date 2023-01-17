@@ -1,3 +1,5 @@
+import { mainnetStaffs } from 'staffs';
+
 import { lensterMembers } from './lenster-members';
 
 export const featureFlags = [
@@ -9,7 +11,7 @@ export const featureFlags = [
   {
     key: 'nft-gallery',
     name: 'NFT Gallery',
-    enabledFor: [...lensterMembers]
+    enabledFor: [...lensterMembers, ...mainnetStaffs]
   },
   {
     key: 'i18n',
