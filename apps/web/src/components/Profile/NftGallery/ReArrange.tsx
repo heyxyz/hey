@@ -41,7 +41,7 @@ const ReArrange: FC<Props> = ({ nfts }) => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div ref={gridRef} className="columns-3">
+      <div ref={gridRef} className="columns-3 gap-5 space-y-5 py-5">
         {allNfts.map((card, i) => renderNftCard(card, i))}
       </div>
     </DndProvider>
