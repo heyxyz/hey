@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
@@ -36,7 +37,7 @@ const Suggested: FC = () => {
                 profile={profile as Profile}
                 isFollowing={profile?.isFollowedByMe}
                 followPosition={index + 1}
-                followSource="who_to_follow"
+                followSource={FollowSource.WHO_TO_FOLLOW}
                 showBio
                 showFollow
                 showUserPreview={false}

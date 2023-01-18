@@ -19,6 +19,15 @@ import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
+export enum FollowSource {
+  WHO_TO_FOLLOW = 'who_to_follow',
+  LIKES_MODAL = 'likes_modal',
+  MIRRORS_MODAL = 'mirrors_modal',
+  COLLECTORS_MODAL = 'collectors_modal',
+  FOLLOWERS_MODAL = 'followers_modal',
+  FOLLOWING_MODAL = 'following_modal'
+}
+
 interface Props {
   profile: Profile;
   setFollowing: Dispatch<boolean>;

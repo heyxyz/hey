@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
@@ -69,7 +70,7 @@ const RecommendedProfiles: FC = () => {
                 profile={profile as Profile}
                 isFollowing={profile.isFollowedByMe}
                 followPosition={index + 1}
-                followSource="who_to_follow"
+                followSource={FollowSource.WHO_TO_FOLLOW}
                 showFollow
               />
             </div>
