@@ -69,9 +69,10 @@ const Collectors: FC<Props> = ({ publicationId }) => {
               {wallet?.defaultProfile ? (
                 <UserProfile
                   profile={wallet?.defaultProfile as Profile}
+                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
                   showBio
                   showFollow
-                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
+                  showUserPreview={false}
                 />
               ) : (
                 <WalletProfile wallet={wallet as Wallet} />

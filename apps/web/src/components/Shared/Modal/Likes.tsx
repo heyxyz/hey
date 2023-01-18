@@ -63,9 +63,10 @@ const Likes: FC<Props> = ({ publicationId }) => {
             <div className="p-5" key={like?.reactionId}>
               <UserProfile
                 profile={like?.profile as Profile}
+                isFollowing={like?.profile?.isFollowedByMe}
                 showBio
                 showFollow
-                isFollowing={like?.profile?.isFollowedByMe}
+                showUserPreview={false}
               />
             </div>
           ))}
