@@ -45,7 +45,7 @@ interface Props {
 }
 
 const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSource, followPosition }) => {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -58,7 +58,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
     setFollowing(true);
     toast.success(t`Followed successfully!`);
     Analytics.track(PROFILE.FOLLOW, {
-      follow_path: asPath,
+      follow_path: pathname,
       ...(followSource && { follow_source: followSource }),
       ...(followPosition && { follow_position: followPosition }),
       follow_from: currentProfile?.id,
