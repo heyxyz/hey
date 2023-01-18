@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
@@ -63,9 +64,15 @@ const RecommendedProfiles: FC = () => {
       <Card as="aside">
         <div className="space-y-4 p-5">
           <ErrorMessage title={t`Failed to load recommendations`} error={error} />
-          {data?.recommendedProfiles?.slice(0, 5)?.map((profile) => (
+          {data?.recommendedProfiles?.slice(0, 5)?.map((profile, index) => (
             <div key={profile?.id} className="truncate">
-              <UserProfile profile={profile as Profile} isFollowing={profile.isFollowedByMe} showFollow />
+              <UserProfile
+                profile={profile as Profile}
+                isFollowing={profile.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.WHO_TO_FOLLOW}
+                showFollow
+              />
             </div>
           ))}
         </div>
