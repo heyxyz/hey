@@ -10,6 +10,8 @@ The `follow_profile` event is triggered when a user follows another user's profi
 
 The path of the current webpage user's profile that was followed.
 
+Example: `/u/[username]`
+
 ### `follow_source`
 
 The place where the user followed another user's profile.
