@@ -30,13 +30,16 @@ const Suggested: FC = () => {
       <ErrorMessage title={t`Failed to load recommendations`} error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.recommendedProfiles?.map((profile) => (
+          {data?.recommendedProfiles?.map((profile, index) => (
             <div className="p-5" key={profile?.id}>
               <UserProfile
                 profile={profile as Profile}
+                isFollowing={profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource="who_to_follow"
                 showBio
                 showFollow
-                isFollowing={profile?.isFollowedByMe}
+                showUserPreview={false}
               />
             </div>
           ))}
