@@ -9,7 +9,6 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "cypress run --headless",
-    "crowdin": "crowdin",
     "extract": "NODE_ENV=development lingui extract"
   },
   "dependencies": {
@@ -60,7 +59,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
-    "@crowdin/cli": "^3.9.3",
     "@giphy/js-types": "^4.2.1",
     "@lingui/cli": "^3.15.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
