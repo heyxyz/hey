@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 
 interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'super' | 'danger';
+  variant?: 'primary' | 'secondary' | 'warning' | 'super' | 'danger';
   outline?: boolean;
   icon?: ReactNode;
   children?: ReactNode;
@@ -24,8 +24,6 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
             !outline && variant === 'primary',
           'bg-gray-500 hover:bg-gray-600 border border-gray-600 text-white focus:ring-gray-400':
             !outline && variant === 'secondary',
-          'bg-green-500 hover:bg-green-400 border border-green-600 text-white focus:ring-green-400':
-            !outline && variant === 'success',
           'bg-yellow-500 hover:bg-yellow-400 border border-yellow-600 text-white focus:ring-yellow-400':
             !outline && variant === 'warning',
           'bg-pink-500 hover:bg-pink-400 border border-pink-600 text-white focus:ring-pink-400':
@@ -36,8 +34,6 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
             outline && variant === 'primary',
           'border border-gray-500 lt-text-gray-500 hover:bg-gray-100 focus:ring-gray-400':
             outline && variant === 'secondary',
-          'border border-green-500 text-green-500 hover:bg-green-100 focus:ring-green-400':
-            outline && variant === 'success',
           'border border-yellow-500 text-yellow-500 hover:bg-yellow-100 focus:ring-yellow-400':
             outline && variant === 'warning',
           'border border-pink-500 text-pink-500 hover:bg-pink-100 focus:ring-pink-400':

@@ -176,7 +176,6 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
       className="text-sm !px-3 !py-1.5"
       outline
       onClick={createFollow}
-      variant="success"
       aria-label="Follow"
       disabled={isLoading}
       icon={isLoading ? <Spinner variant="success" size="xs" /> : <UserAddIcon className="w-4 h-4" />}
