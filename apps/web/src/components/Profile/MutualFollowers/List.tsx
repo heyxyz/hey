@@ -59,9 +59,10 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
             <div className="p-5" key={profile?.id}>
               <UserProfile
                 profile={profile as Profile}
+                isFollowing={profile?.isFollowedByMe}
                 showBio
                 showFollow
-                isFollowing={profile?.isFollowedByMe}
+                showUserPreview={false}
               />
             </div>
           ))}
