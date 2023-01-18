@@ -33,14 +33,22 @@ The place where the user followed another user's profile.
 
 The position of the user profile in the list of profiles.
 
+Example: `2`
+
 ### `follow_from`
 
 The current profile id of the user that is following another user's profile.
+
+Example: `0x0d`
 
 ### `follow_target`
 
 The profile id of the user that was followed.
 
+Example: `0x2d`
+
 ### `follow_time`
 
 The time when the user followed another user's profile.
+
+Example: `2020-12-01T12:00:00.000Z`
