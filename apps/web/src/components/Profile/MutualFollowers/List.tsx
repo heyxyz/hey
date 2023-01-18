@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -55,11 +56,13 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((profile) => (
+          {profiles?.map((profile, index) => (
             <div className="p-5" key={profile?.id}>
               <UserProfile
                 profile={profile as Profile}
                 isFollowing={profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.MUTUAL_FOLLOWERS_MODAL}
                 showBio
                 showFollow
                 showUserPreview={false}
