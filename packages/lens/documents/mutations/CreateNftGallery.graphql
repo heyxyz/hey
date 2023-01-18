@@ -1,0 +1,6 @@
+mutation CreateNftGallery($request: NftGalleryCreateRequest!) {
+  createNftGallery(request: $request) {
+    id
+    name
+  }
+}

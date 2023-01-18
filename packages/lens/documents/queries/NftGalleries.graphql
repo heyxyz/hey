@@ -1,0 +1,15 @@
+query NftGalleries($request: NftGalleriesRequest!) {
+  nftGalleries(request: $request) {
+    id
+    name
+    profileId
+    items {
+      name
+      tokenId
+      description
+      contractAddress
+    }
+    createdAt
+    updatedAt
+  }
+}

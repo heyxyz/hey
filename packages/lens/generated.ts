@@ -35,6 +35,8 @@ export type Scalars = {
   Locale: any;
   Markdown: any;
   MimeType: any;
+  NftGalleryId: any;
+  NftGalleryName: any;
   NftOwnershipId: any;
   Nonce: any;
   NotificationId: any;
@@ -990,6 +992,10 @@ export type DegreesOfSeparationReferenceModuleSettings = {
   type: ReferenceModules;
 };
 
+export type DismissRecommendedProfilesRequest = {
+  profileIds: Array<Scalars['ProfileId']>;
+};
+
 /** The dispatcher */
 export type Dispatcher = {
   __typename?: 'Dispatcher';
@@ -1883,6 +1889,8 @@ export type Mutation = {
   createFollowTypedData: CreateFollowBroadcastItemResult;
   createMirrorTypedData: CreateMirrorBroadcastItemResult;
   createMirrorViaDispatcher: RelayResult;
+  /** Create a new NFT gallery */
+  createNftGallery: NftGallery;
   createPostTypedData: CreatePostBroadcastItemResult;
   createPostViaDispatcher: RelayResult;
   createProfile: RelayResult;
@@ -1896,6 +1904,7 @@ export type Mutation = {
   createSetProfileMetadataViaDispatcher: RelayResult;
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult;
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
+  dismissRecommendedProfiles: Scalars['Void'];
   hel?: Maybe<Scalars['Void']>;
   hidePublication?: Maybe<Scalars['Void']>;
   idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType;
@@ -1905,6 +1914,12 @@ export type Mutation = {
   removeProfileInterests?: Maybe<Scalars['Void']>;
   removeReaction?: Maybe<Scalars['Void']>;
   reportPublication?: Maybe<Scalars['Void']>;
+  /** Update the name of an NFT gallery */
+  updateNftGalleryInfo: Scalars['Void'];
+  /** Add and/or remove NFTs to a gallery */
+  updateNftGalleryItems: Scalars['Void'];
+  /** Update the order of NFTs in a gallery */
+  updateNftGalleryOrder: Scalars['Void'];
 };
 
 export type MutationAchArgs = {
@@ -1968,6 +1983,10 @@ export type MutationCreateMirrorViaDispatcherArgs = {
   request: CreateMirrorRequest;
 };
 
+export type MutationCreateNftGalleryArgs = {
+  request: NftGalleryCreateRequest;
+};
+
 export type MutationCreatePostTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: CreatePublicPostRequest;
@@ -2029,6 +2048,10 @@ export type MutationCreateUnfollowTypedDataArgs = {
   request: UnfollowRequest;
 };
 
+export type MutationDismissRecommendedProfilesArgs = {
+  request: DismissRecommendedProfilesRequest;
+};
+
 export type MutationHelArgs = {
   request: HelRequest;
 };
@@ -2059,6 +2082,18 @@ export type MutationRemoveReactionArgs = {
 
 export type MutationReportPublicationArgs = {
   request: ReportPublicationRequest;
+};
+
+export type MutationUpdateNftGalleryInfoArgs = {
+  request: NftGalleryUpdateInfoRequest;
+};
+
+export type MutationUpdateNftGalleryItemsArgs = {
+  request: NftGalleryUpdateItemsRequest;
+};
+
+export type MutationUpdateNftGalleryOrderArgs = {
+  request: NftGalleryUpdateItemOrderRequest;
 };
 
 export type MutualFollowersProfilesQueryRequest = {
@@ -2186,6 +2221,71 @@ export type NewReactionNotification = {
   reaction: ReactionTypes;
 };
 
+/** The NFT gallery input */
+export type NftGalleriesRequest = {
+  /** The profile id */
+  profileId: Scalars['ProfileId'];
+};
+
+/** The NFT gallery */
+export type NftGallery = {
+  __typename?: 'NftGallery';
+  /** The creation date */
+  createdAt: Scalars['DateTime'];
+  /** The NFT gallery id */
+  id: Scalars['NftGalleryId'];
+  /** The NFTs in the gallery */
+  items: Array<Nft>;
+  /** The NFT gallery name */
+  name: Scalars['String'];
+  /** The owning profile id */
+  profileId: Scalars['ProfileId'];
+  /** The last update date */
+  updatedAt: Scalars['DateTime'];
+};
+
+/** The input for creating a new NFT gallery */
+export type NftGalleryCreateRequest = {
+  /** The NFTs in the gallery */
+  items: Array<NftInput>;
+  /** The name of the NFT gallery */
+  name: Scalars['NftGalleryName'];
+  /** The owner profile id */
+  profileId: Scalars['ProfileId'];
+};
+
+/** The input for updating NFT gallery name */
+export type NftGalleryUpdateInfoRequest = {
+  /** The NFT gallery id */
+  galleryId: Scalars['NftGalleryId'];
+  /** The name of the NFT gallery */
+  name: Scalars['NftGalleryName'];
+  /** The profile id of the gallery owner */
+  profileId: Scalars['ProfileId'];
+};
+
+/** The input for reordering gallery items */
+export type NftGalleryUpdateItemOrderRequest = {
+  /** The NFT gallery id */
+  galleryId: Scalars['NftGalleryId'];
+  /** The profile id of the gallery owner */
+  profileId: Scalars['ProfileId'];
+  /** The order of the NFTs in the gallery */
+  updates: Array<NftUpdateItemOrder>;
+};
+
+/** The input for adding/removing gallery items */
+export type NftGalleryUpdateItemsRequest = {
+  /** The NFT gallery id */
+  galleryId: Scalars['NftGalleryId'];
+  /** The profile id of the gallery owner */
+  profileId: Scalars['ProfileId'];
+  /** The contents of the NFT gallery */
+  toAdd?: InputMaybe<Array<NftInput>>;
+  /** The contents of the NFT gallery */
+  toRemove?: InputMaybe<Array<NftInput>>;
+};
+
 /** The NFT image */
 export type NftImage = {
   __typename?: 'NftImage';
@@ -2199,6 +2299,16 @@ export type NftImage = {
   uri: Scalars['Url'];
   /** If the NFT is verified */
   verified: Scalars['Boolean'];
+};
+
+/** The NFT input for gallery */
+export type NftInput = {
+  /** The chain ID of the NFT */
+  chainId: Scalars['ChainId'];
+  /** The contract address of the NFT */
+  contractAddress: Scalars['ContractAddress'];
+  /** The token ID of the NFT */
+  tokenId: Scalars['String'];
 };
 
 export type NftOwnershipChallenge = {
@@ -2247,6 +2357,18 @@ export type NftOwnershipOutput = {
   contractType: ContractType;
   /** The optional token ID(s) to check for ownership */
   tokenIds?: Maybe<Array<Scalars['TokenId']>>;
+};
+
+/** The input for updating the order of a NFT gallery item */
+export type NftUpdateItemOrder = {
+  /** The chain ID of the NFT */
+  chainId: Scalars['ChainId'];
+  /** The contract address of the NFT */
+  contractAddress: Scalars['ContractAddress'];
+  /** The new order of the NFT in the gallery */
+  newOrder: Scalars['Int'];
+  /** The token ID of the NFT */
+  tokenId: Scalars['String'];
 };
 
 export type Notification =
@@ -2772,7 +2894,7 @@ export enum PublicationMediaSource {
   Lens = 'LENS'
 }
 
-/** Publication metadata content waring filters */
+/** Publication metadata content warning filters */
 export type PublicationMetadataContentWarningFilter = {
   /** By default all content warnings will be hidden you can include them in your query by adding them to this array. */
   includeOneOf?: InputMaybe<Array<PublicationContentWarning>>;
@@ -3076,6 +3198,8 @@ export type Query = {
   internalPublicationFilter: PaginatedPublicationResult;
   isIDKitPhoneVerified: Scalars['Boolean'];
   mutualFollowersProfiles: PaginatedProfileResult;
+  /** Get all NFT galleries for a profile */
+  nftGalleries: Array<NftGallery>;
   nftOwnershipChallenge: NftOwnershipChallengeResult;
   nfts: NfTsResult;
   notifications: PaginatedNotificationResult;
@@ -3179,6 +3303,10 @@ export type QueryInternalPublicationFilterArgs = {
 
 export type QueryMutualFollowersProfilesArgs = {
   request: MutualFollowersProfilesQueryRequest;
+};
+
+export type QueryNftGalleriesArgs = {
+  request: NftGalleriesRequest;
 };
 
 export type QueryNftOwnershipChallengeArgs = {
@@ -3321,7 +3449,7 @@ export type ReferenceModule =
   | UnknownReferenceModuleSettings;
 
 export type ReferenceModuleParams = {
-  /** The degrees of seperation reference module */
+  /** The degrees of separation reference module */
   degreesOfSeparationReferenceModule?: InputMaybe<DegreesOfSeparationReferenceModuleParams>;
   /** The follower only reference module */
   followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']>;
@@ -6937,6 +7065,15 @@ export type CreateMirrorViaDispatcherMutation = {
     | { __typename?: 'RelayerResult'; txHash: any; txId: any };
 };
 
+export type CreateNftGalleryMutationVariables = Exact<{
+  request: NftGalleryCreateRequest;
+}>;
+
+export type CreateNftGalleryMutation = {
+  __typename?: 'Mutation';
+  createNftGallery: { __typename?: 'NftGallery'; id: any; name: string };
+};
+
 export type CreatePostTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: CreatePublicPostRequest;
@@ -7257,6 +7394,24 @@ export type ReportPublicationMutationVariables = Exact<{
 }>;
 
 export type ReportPublicationMutation = { __typename?: 'Mutation'; reportPublication?: any | null };
+
+export type UpdateNftGalleryInfoMutationVariables = Exact<{
+  request: NftGalleryUpdateInfoRequest;
+}>;
+
+export type UpdateNftGalleryInfoMutation = { __typename?: 'Mutation'; updateNftGalleryInfo: any };
+
+export type UpdateNftGalleryItemsMutationVariables = Exact<{
+  request: NftGalleryUpdateItemsRequest;
+}>;
+
+export type UpdateNftGalleryItemsMutation = { __typename?: 'Mutation'; updateNftGalleryItems: any };
+
+export type UpdateNftGalleryOrderMutationVariables = Exact<{
+  request: NftGalleryUpdateItemOrderRequest;
+}>;
+
+export type UpdateNftGalleryOrderMutation = { __typename?: 'Mutation'; updateNftGalleryOrder: any };
 
 export type ApprovedModuleAllowanceAmountQueryVariables = Exact<{
   request: ApprovedModuleAllowanceAmountRequest;
@@ -15471,6 +15626,29 @@ export type NftFeedQuery = {
     }>;
     pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
   };
+};
+
+export type NftGalleriesQueryVariables = Exact<{
+  request: NftGalleriesRequest;
+}>;
+
+export type NftGalleriesQuery = {
+  __typename?: 'Query';
+  nftGalleries: Array<{
+    __typename?: 'NftGallery';
+    id: any;
+    name: string;
+    profileId: any;
+    createdAt: any;
+    updatedAt: any;
+    items: Array<{
+      __typename?: 'NFT';
+      name: string;
+      tokenId: string;
+      description: string;
+      contractAddress: any;
+    }>;
+  }>;
 };
 
 export type NotificationCountQueryVariables = Exact<{
@@ -29843,6 +30021,51 @@ export type CreateMirrorViaDispatcherMutationOptions = Apollo.BaseMutationOption
   CreateMirrorViaDispatcherMutation,
   CreateMirrorViaDispatcherMutationVariables
 >;
+export const CreateNftGalleryDocument = gql`
+  mutation CreateNftGallery($request: NftGalleryCreateRequest!) {
+    createNftGallery(request: $request) {
+      id
+      name
+    }
+  }
+`;
+export type CreateNftGalleryMutationFn = Apollo.MutationFunction<
+  CreateNftGalleryMutation,
+  CreateNftGalleryMutationVariables
+>;
+
+/**
+ * __useCreateNftGalleryMutation__
+ *
+ * To run a mutation, you first call `useCreateNftGalleryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNftGalleryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNftGalleryMutation, { data, loading, error }] = useCreateNftGalleryMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateNftGalleryMutation(
+  baseOptions?: Apollo.MutationHookOptions<CreateNftGalleryMutation, CreateNftGalleryMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CreateNftGalleryMutation, CreateNftGalleryMutationVariables>(
+    CreateNftGalleryDocument,
+    options
+  );
+}
+export type CreateNftGalleryMutationHookResult = ReturnType<typeof useCreateNftGalleryMutation>;
+export type CreateNftGalleryMutationResult = Apollo.MutationResult<CreateNftGalleryMutation>;
+export type CreateNftGalleryMutationOptions = Apollo.BaseMutationOptions<
+  CreateNftGalleryMutation,
+  CreateNftGalleryMutationVariables
+>;
 export const CreatePostTypedDataDocument = gql`
   mutation CreatePostTypedData($options: TypedDataOptions, $request: CreatePublicPostRequest!) {
     createPostTypedData(options: $options, request: $request) {
@@ -30757,6 +30980,141 @@ export type ReportPublicationMutationResult = Apollo.MutationResult<ReportPublic
 export type ReportPublicationMutationOptions = Apollo.BaseMutationOptions<
   ReportPublicationMutation,
   ReportPublicationMutationVariables
+>;
+export const UpdateNftGalleryInfoDocument = gql`
+  mutation UpdateNftGalleryInfo($request: NftGalleryUpdateInfoRequest!) {
+    updateNftGalleryInfo(request: $request)
+  }
+`;
+export type UpdateNftGalleryInfoMutationFn = Apollo.MutationFunction<
+  UpdateNftGalleryInfoMutation,
+  UpdateNftGalleryInfoMutationVariables
+>;
+
+/**
+ * __useUpdateNftGalleryInfoMutation__
+ *
+ * To run a mutation, you first call `useUpdateNftGalleryInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNftGalleryInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNftGalleryInfoMutation, { data, loading, error }] = useUpdateNftGalleryInfoMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUpdateNftGalleryInfoMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateNftGalleryInfoMutation,
+    UpdateNftGalleryInfoMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateNftGalleryInfoMutation, UpdateNftGalleryInfoMutationVariables>(
+    UpdateNftGalleryInfoDocument,
+    options
+  );
+}
+export type UpdateNftGalleryInfoMutationHookResult = ReturnType<typeof useUpdateNftGalleryInfoMutation>;
+export type UpdateNftGalleryInfoMutationResult = Apollo.MutationResult<UpdateNftGalleryInfoMutation>;
+export type UpdateNftGalleryInfoMutationOptions = Apollo.BaseMutationOptions<
+  UpdateNftGalleryInfoMutation,
+  UpdateNftGalleryInfoMutationVariables
+>;
+export const UpdateNftGalleryItemsDocument = gql`
+  mutation UpdateNftGalleryItems($request: NftGalleryUpdateItemsRequest!) {
+    updateNftGalleryItems(request: $request)
+  }
+`;
+export type UpdateNftGalleryItemsMutationFn = Apollo.MutationFunction<
+  UpdateNftGalleryItemsMutation,
+  UpdateNftGalleryItemsMutationVariables
+>;
+
+/**
+ * __useUpdateNftGalleryItemsMutation__
+ *
+ * To run a mutation, you first call `useUpdateNftGalleryItemsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNftGalleryItemsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNftGalleryItemsMutation, { data, loading, error }] = useUpdateNftGalleryItemsMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUpdateNftGalleryItemsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateNftGalleryItemsMutation,
+    UpdateNftGalleryItemsMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateNftGalleryItemsMutation, UpdateNftGalleryItemsMutationVariables>(
+    UpdateNftGalleryItemsDocument,
+    options
+  );
+}
+export type UpdateNftGalleryItemsMutationHookResult = ReturnType<typeof useUpdateNftGalleryItemsMutation>;
+export type UpdateNftGalleryItemsMutationResult = Apollo.MutationResult<UpdateNftGalleryItemsMutation>;
+export type UpdateNftGalleryItemsMutationOptions = Apollo.BaseMutationOptions<
+  UpdateNftGalleryItemsMutation,
+  UpdateNftGalleryItemsMutationVariables
+>;
+export const UpdateNftGalleryOrderDocument = gql`
+  mutation UpdateNftGalleryOrder($request: NftGalleryUpdateItemOrderRequest!) {
+    updateNftGalleryOrder(request: $request)
+  }
+`;
+export type UpdateNftGalleryOrderMutationFn = Apollo.MutationFunction<
+  UpdateNftGalleryOrderMutation,
+  UpdateNftGalleryOrderMutationVariables
+>;
+
+/**
+ * __useUpdateNftGalleryOrderMutation__
+ *
+ * To run a mutation, you first call `useUpdateNftGalleryOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNftGalleryOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNftGalleryOrderMutation, { data, loading, error }] = useUpdateNftGalleryOrderMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUpdateNftGalleryOrderMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateNftGalleryOrderMutation,
+    UpdateNftGalleryOrderMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateNftGalleryOrderMutation, UpdateNftGalleryOrderMutationVariables>(
+    UpdateNftGalleryOrderDocument,
+    options
+  );
+}
+export type UpdateNftGalleryOrderMutationHookResult = ReturnType<typeof useUpdateNftGalleryOrderMutation>;
+export type UpdateNftGalleryOrderMutationResult = Apollo.MutationResult<UpdateNftGalleryOrderMutation>;
+export type UpdateNftGalleryOrderMutationOptions = Apollo.BaseMutationOptions<
+  UpdateNftGalleryOrderMutation,
+  UpdateNftGalleryOrderMutationVariables
 >;
 export const ApprovedModuleAllowanceAmountDocument = gql`
   query ApprovedModuleAllowanceAmount($request: ApprovedModuleAllowanceAmountRequest!) {
@@ -31955,6 +32313,55 @@ export function useNftFeedLazyQuery(
 export type NftFeedQueryHookResult = ReturnType<typeof useNftFeedQuery>;
 export type NftFeedLazyQueryHookResult = ReturnType<typeof useNftFeedLazyQuery>;
 export type NftFeedQueryResult = Apollo.QueryResult<NftFeedQuery, NftFeedQueryVariables>;
+export const NftGalleriesDocument = gql`
+  query NftGalleries($request: NftGalleriesRequest!) {
+    nftGalleries(request: $request) {
+      id
+      name
+      profileId
+      items {
+        name
+        tokenId
+        description
+        contractAddress
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+/**
+ * __useNftGalleriesQuery__
+ *
+ * To run a query within a React component, call `useNftGalleriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNftGalleriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNftGalleriesQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useNftGalleriesQuery(
+  baseOptions: Apollo.QueryHookOptions<NftGalleriesQuery, NftGalleriesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<NftGalleriesQuery, NftGalleriesQueryVariables>(NftGalleriesDocument, options);
+}
+export function useNftGalleriesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<NftGalleriesQuery, NftGalleriesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<NftGalleriesQuery, NftGalleriesQueryVariables>(NftGalleriesDocument, options);
+}
+export type NftGalleriesQueryHookResult = ReturnType<typeof useNftGalleriesQuery>;
+export type NftGalleriesLazyQueryHookResult = ReturnType<typeof useNftGalleriesLazyQuery>;
+export type NftGalleriesQueryResult = Apollo.QueryResult<NftGalleriesQuery, NftGalleriesQueryVariables>;
 export const NotificationCountDocument = gql`
   query NotificationCount($request: NotificationRequest!) {
     notifications(request: $request) {
