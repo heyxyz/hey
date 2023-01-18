@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-17 00:08\n"
+"PO-Revision-Date: 2023-01-18 04:40\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -24,7 +24,7 @@ msgstr "முதல் நபராக கருத்திடுக!"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
-msgstr ""
+msgstr "கருத்து ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
@@ -91,11 +91,11 @@ msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏ
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
-msgstr ""
+msgstr "சேகரிப்பு அமைப்புகளை ஏற்றுகிறது"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Failed to load modules"
-msgstr ""
+msgstr "தொகுதிகளை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
@@ -173,7 +173,7 @@ msgstr "GIF கள் எதுவும் காணப்படவில்ல
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Loading GIFs"
-msgstr ""
+msgstr "GIFகளை ஏற்றுகிறது"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
@@ -294,7 +294,7 @@ msgstr "உங்கள் பரிவர்த்தனைகள் எதி�
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
-msgstr ""
+msgstr "நேரடி செய்திகள் இங்கே!"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
@@ -314,7 +314,7 @@ msgstr "இடுகைகளைக் காட்டு"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Mirrors"
-msgstr ""
+msgstr "கண்ணாடியைக் காட்டு"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Likes"
@@ -338,7 +338,7 @@ msgstr "{APP_NAME} என்பது லென்ஸ் புரோட்ட�
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
-msgstr ""
+msgstr "சிறப்பம்சங்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
@@ -351,7 +351,7 @@ msgstr "பரிந்துரைகள் இல்லை!"
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
-msgstr ""
+msgstr "பரிந்துரைகளை ஏற்ற முடியவில்லை"
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Publication/DecryptedPublicationBody.tsx
@@ -468,11 +468,11 @@ msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
-msgstr ""
+msgstr "காலவரிசையை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Home/Trending.tsx
 msgid "Failed to load trending"
-msgstr ""
+msgstr "டிரெண்டிங்கை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
@@ -492,7 +492,7 @@ msgstr "அனுப்பு"
 
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
-msgstr ""
+msgstr "செய்திகளை ஏற்றுகிறது"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
@@ -504,11 +504,11 @@ msgstr "அவர்கள் DMகளை இயக்கும் வரை ந
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This is the beginning of the conversation"
-msgstr ""
+msgstr "இதுதான் உரையாடலின் ஆரம்பம்"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
+msgstr "ஏற்றுகிறது..."
 
 #: src/components/Messages/PreviewList.tsx
 #: src/components/Profile/Followerings.tsx
@@ -518,7 +518,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Requested"
-msgstr ""
+msgstr "கோரப்பட்டது"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -582,7 +582,7 @@ msgstr ""
 
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
-msgstr ""
+msgstr "இன்பாக்ஸ் பூஜ்யம்!"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
@@ -816,7 +816,7 @@ msgstr "வெளியீட்டு பகுப்பாய்வு"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
-msgstr ""
+msgstr "வெற்றிகரமாக சேகரிக்கப்பட்டது!"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -825,15 +825,15 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} collectors"
-msgstr ""
+msgstr "{0} சேகரிப்பாளர்கள்"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
-msgstr ""
+msgstr "{0} கிடைக்கிறது"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0}% referral fee"
-msgstr ""
+msgstr "{0}% பரிந்துரை கட்டணம்"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
@@ -867,7 +867,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
-msgstr ""
+msgstr "{0} கருத்துகள்"
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
@@ -892,11 +892,11 @@ msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
-msgstr ""
+msgstr "{0} மிரர்கள்"
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
-msgstr ""
+msgstr "மிரர்"
 
 #: src/components/Publication/Actions/ModAction.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -933,23 +933,23 @@ msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "ARWEAVE TRANSACTION"
-msgstr ""
+msgstr "ARWEAVE பரிவர்த்தனை"
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
-msgstr ""
+msgstr "NFT முகவரி"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Comments"
-msgstr ""
+msgstr "<0>{0}</0> கருத்துகள்"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Mirrors"
-msgstr ""
+msgstr "<0>{0}</0> மிரர்கள்"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Likes"
-msgstr ""
+msgstr "<0>{0}</0> விருப்பு"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
@@ -981,23 +981,23 @@ msgstr ""
 
 #: src/components/Search/Profiles.tsx
 msgid "Failed to load profiles"
-msgstr ""
+msgstr "சுயவிவரங்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Search/Publications.tsx
 msgid "No publications for <0>“{query}”</0>"
-msgstr ""
+msgstr "<0>“{query}”க்கு வெளியீடுகள் இல்லை</0>"
 
 #: src/components/Search/Publications.tsx
 msgid "Failed to load publications"
-msgstr ""
+msgstr "வெளியீடுகளை ஏற்ற முடியவில்லை"
 
 #: src/components/Search/Sidebar.tsx
 msgid "Publications"
-msgstr ""
+msgstr "வெளியீடுகள்"
 
 #: src/components/Search/Sidebar.tsx
 msgid "Profiles"
-msgstr ""
+msgstr "சுயவிவரங்கள்"
 
 #: src/components/Settings/Account/CrossPost.tsx
 msgid "Cross post to Twitter"
@@ -1013,15 +1013,15 @@ msgstr ""
 
 #: src/components/Settings/Account/CrossPost.tsx
 msgid "Disable now"
-msgstr ""
+msgstr "இப்போது முடக்கு"
 
 #: src/components/Settings/Account/CrossPost.tsx
 msgid "Setup now"
-msgstr ""
+msgstr "இப்போது அமைக்கவும்"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Default profile updated successfully!"
-msgstr ""
+msgstr "இயல்புநிலை சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Your default profile"
@@ -1069,7 +1069,7 @@ msgstr "தவறான Ethereum முகவரி"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ அமைப்புகளை ஏற்றுகிறது"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set super follow"
@@ -1276,7 +1276,7 @@ msgstr "தவறான ஒப்பந்த முகவரி"
 #: src/components/Settings/Profile/NFTPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
-msgstr ""
+msgstr "அவதார் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Contract Address"
@@ -1284,7 +1284,7 @@ msgstr "ஒப்பந்த முகவரி"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Token Id"
-msgstr ""
+msgstr "டோக்கன் ஐடி"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -1593,7 +1593,7 @@ msgstr ""
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "No mirrors."
-msgstr ""
+msgstr "மிரர்கள் இல்லை."
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Failed to load mirrors"
