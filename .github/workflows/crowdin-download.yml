@@ -27,3 +27,5 @@ jobs:
         pull_request_reviewers: 'bigint'
         source: '/**/locales/en/*.po'
         translation: '/**/locales/%two_letters_code%/%original_file_name%'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
