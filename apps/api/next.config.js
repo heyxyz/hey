@@ -2,6 +2,7 @@
 module.exports = {
   reactStrictMode: false,
   trailingSlash: false,
+  transpilePackages: ['data'],
   async rewrites() {
     return [{ source: '/:path*', destination: '/api/:path*' }];
   },
