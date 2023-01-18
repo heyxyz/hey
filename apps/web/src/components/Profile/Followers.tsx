@@ -74,9 +74,10 @@ const Followers: FC<Props> = ({ profile }) => {
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
                   profile={follower?.wallet?.defaultProfile as Profile}
+                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
                   showBio
                   showFollow
-                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
+                  showUserPreview={false}
                 />
               ) : (
                 <WalletProfile wallet={follower?.wallet as Wallet} />

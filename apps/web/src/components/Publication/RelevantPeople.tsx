@@ -62,7 +62,12 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
       <ErrorMessage title={t`Failed to load relevant people`} error={error} />
       {data?.profiles?.items?.map((profile) => (
         <div key={profile?.id} className="truncate">
-          <UserProfile profile={profile as Profile} isFollowing={profile.isFollowedByMe} showFollow />
+          <UserProfile
+            profile={profile as Profile}
+            isFollowing={profile.isFollowedByMe}
+            showUserPreview={false}
+            showFollow
+          />
         </div>
       ))}
     </Card>
