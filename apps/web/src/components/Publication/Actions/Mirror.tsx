@@ -20,7 +20,6 @@ import {
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -30,11 +29,10 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
   publication: Publication;
+  showCount: boolean;
 }
 
-const Mirror: FC<Props> = ({ publication }) => {
-  const { pathname } = useRouter();
-  const isFullPublication = pathname === '/posts/[id]';
+const Mirror: FC<Props> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -162,7 +160,7 @@ const Mirror: FC<Props> = ({ publication }) => {
   };
 
   const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
-  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
     <div className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
@@ -191,7 +189,7 @@ const Mirror: FC<Props> = ({ publication }) => {
           )}
         </div>
       </motion.button>
-      {count > 0 && !isFullPublication && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+      {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
     </div>
   );
 };
