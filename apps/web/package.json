@@ -30,6 +30,7 @@
     "@lingui/react": "^3.15.0",
     "@tanstack/react-query": "^4.20.9",
     "@tippyjs/react": "^4.2.6",
+    "@worldcoin/idkit": "^0.2.4",
     "@xmtp/xmtp-js": "^7.7.2",
     "axios": "^1.2.2",
     "clsx": "^1.2.1",
