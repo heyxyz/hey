@@ -19,11 +19,11 @@ jobs:
         upload_translations: false
         download_translations: true
         create_pull_request: true
+        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
         pull_request_title: 'chore(i18n): synchronize translations from crowdin'
         pull_request_body: 'New Crowdin pull request with translations'
         pull_request_assignees: 'crowdin-bot'
         pull_request_reviewers: 'bigint'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
-        CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+        source: '/**/locales/en/*.po'
+        translation: '/**/locales/%two_letters_code%/%original_file_name%'
