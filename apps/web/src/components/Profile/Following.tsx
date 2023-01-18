@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
@@ -71,7 +72,7 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {followings?.map((following) => (
+          {followings?.map((following, index) => (
             <div
               className={`p-5 ${
                 onProfileSelected && 'hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer'
@@ -89,6 +90,8 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
                 profile={following?.profile as Profile}
                 linkToProfile={!onProfileSelected}
                 isFollowing={following?.profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.FOLLOWING_MODAL}
                 showBio
                 showFollow
                 showUserPreview={false}

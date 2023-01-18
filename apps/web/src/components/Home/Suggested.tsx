@@ -37,7 +37,7 @@ const Suggested: FC = () => {
                 profile={profile as Profile}
                 isFollowing={profile?.isFollowedByMe}
                 followPosition={index + 1}
-                followSource={FollowSource.WHO_TO_FOLLOW}
+                followSource={FollowSource.WHO_TO_FOLLOW_MODAL}
                 showBio
                 showFollow
                 showUserPreview={false}
