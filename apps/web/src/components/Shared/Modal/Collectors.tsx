@@ -11,6 +11,7 @@ import { useCollectorsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import { FollowSource } from '../Follow';
 import Loader from '../Loader';
 
 interface Props {
@@ -64,12 +65,14 @@ const Collectors: FC<Props> = ({ publicationId }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((wallet) => (
+          {profiles?.map((wallet, index) => (
             <div className="p-5" key={wallet?.address}>
               {wallet?.defaultProfile ? (
                 <UserProfile
                   profile={wallet?.defaultProfile as Profile}
                   isFollowing={wallet?.defaultProfile?.isFollowedByMe}
+                  followPosition={index + 1}
+                  followSource={FollowSource.COLLECTORS_MODAL}
                   showBio
                   showFollow
                   showUserPreview={false}

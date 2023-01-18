@@ -10,6 +10,7 @@ import { useMirrorsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import { FollowSource } from '../Follow';
 import Loader from '../Loader';
 
 interface Props {
@@ -63,11 +64,13 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((profile) => (
+          {profiles?.map((profile, index) => (
             <div className="p-5" key={profile?.id}>
               <UserProfile
                 profile={profile as Profile}
                 isFollowing={profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.MIRRORS_MODAL}
                 showBio
                 showFollow
                 showUserPreview={false}

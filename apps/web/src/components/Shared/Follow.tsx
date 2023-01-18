@@ -11,6 +11,7 @@ import { LensHubProxy } from 'abis';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import { useBroadcastMutation, useCreateFollowTypedDataMutation, useProxyActionMutation } from 'lens';
+import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -18,13 +19,33 @@ import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
+export enum FollowSource {
+  WHO_TO_FOLLOW = 'who_to_follow',
+  WHO_TO_FOLLOW_MODAL = 'who_to_follow_modal',
+  LIKES_MODAL = 'likes_modal',
+  MIRRORS_MODAL = 'mirrors_modal',
+  COLLECTORS_MODAL = 'collectors_modal',
+  FOLLOWERS_MODAL = 'followers_modal',
+  FOLLOWING_MODAL = 'following_modal',
+  MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
+  PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
+  DIRECT_MESSAGE_HEADER = 'direct_message_header',
+  PROFILE_PAGE = 'profile_page',
+  PROFILE_POPOVER = 'profile_popover'
+}
+
 interface Props {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
+
+  // For data analytics
+  followPosition?: number;
+  followSource?: string;
 }
 
-const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
+const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSource, followPosition }) => {
+  const { pathname } = useRouter();
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -36,7 +57,14 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
   const onCompleted = () => {
     setFollowing(true);
     toast.success(t`Followed successfully!`);
-    Analytics.track(PROFILE.FOLLOW);
+    Analytics.track(PROFILE.FOLLOW, {
+      follow_path: pathname,
+      ...(followSource && { follow_source: followSource }),
+      ...(followPosition && { follow_position: followPosition }),
+      follow_from: currentProfile?.id,
+      follow_target: profile?.id,
+      follow_time: new Date().toISOString()
+    });
   };
 
   const updateCache = (cache: ApolloCache<any>) => {

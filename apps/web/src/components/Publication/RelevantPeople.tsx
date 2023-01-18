@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
@@ -60,11 +61,13 @@ const RelevantPeople: FC<Props> = ({ publication }) => {
   return (
     <Card as="aside" className="space-y-4 p-5">
       <ErrorMessage title={t`Failed to load relevant people`} error={error} />
-      {data?.profiles?.items?.map((profile) => (
+      {data?.profiles?.items?.map((profile, index) => (
         <div key={profile?.id} className="truncate">
           <UserProfile
             profile={profile as Profile}
             isFollowing={profile.isFollowedByMe}
+            followPosition={index + 1}
+            followSource={FollowSource.PUBLICATION_RELEVANT_PROFILES}
             showUserPreview={false}
             showFollow
           />
