@@ -1143,10 +1143,6 @@ msgstr ""
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
 msgstr ""
 
-#: src/components/Settings/Allowance/index.tsx
-#~ msgid "Loading allowance data!"
-#~ msgstr ""
-
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
 msgstr ""
