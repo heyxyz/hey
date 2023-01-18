@@ -8,6 +8,7 @@ const withPWA = require('next-pwa')({
 module.exports = withPWA({
   reactStrictMode: false,
   trailingSlash: false,
+  transpilePackages: ['data'],
   experimental: {
     scrollRestoration: true,
     newNextLinkBehavior: true
