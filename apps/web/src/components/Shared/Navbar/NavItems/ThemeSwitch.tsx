@@ -21,7 +21,7 @@ const ThemeSwitch: FC<Props> = ({ onClick, className = '' }) => {
       className={clsx('flex px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200', className)}
       onClick={() => {
         setTheme(theme === 'light' ? 'dark' : 'light');
-        Analytics.track(theme === 'light' ? SYSTEM.SWITCH_DARK_THEME : SYSTEM.SWITCH_LIGHT_THEME);
+        Analytics.track(SYSTEM.SWITCH_THEME, { mode: theme });
         onClick?.();
       }}
     >
