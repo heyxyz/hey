@@ -28,7 +28,10 @@ export enum FollowSource {
   FOLLOWERS_MODAL = 'followers_modal',
   FOLLOWING_MODAL = 'following_modal',
   MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
-  PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles'
+  PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
+  DIRECT_MESSAGE_HEADER = 'direct_message_header',
+  PROFILE_PAGE = 'profile_page',
+  PROFILE_POPOVER = 'profile_popover'
 }
 
 interface Props {
