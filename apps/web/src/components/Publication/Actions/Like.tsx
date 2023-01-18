@@ -13,7 +13,6 @@ import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -22,11 +21,10 @@ import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: Publication;
+  showCount: boolean;
 }
 
-const Like: FC<Props> = ({ publication }) => {
-  const { pathname } = useRouter();
-  const isFullPublication = pathname === '/posts/[id]';
+const Like: FC<Props> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(
@@ -37,7 +35,7 @@ const Like: FC<Props> = ({ publication }) => {
   );
 
   const updateCache = (cache: ApolloCache<any>, type: ReactionTypes.Upvote | ReactionTypes.Downvote) => {
-    if (isFullPublication) {
+    if (showCount) {
       cache.modify({
         id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
         fields: {
@@ -100,7 +98,7 @@ const Like: FC<Props> = ({ publication }) => {
     }
   };
 
-  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
   const { content } = publication.metadata;
   const isGM = hasGm(content);
 
@@ -135,7 +133,7 @@ const Like: FC<Props> = ({ publication }) => {
           </Tooltip>
         </div>
       </motion.button>
-      {count > 0 && !isFullPublication && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+      {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
     </div>
   );
 };
