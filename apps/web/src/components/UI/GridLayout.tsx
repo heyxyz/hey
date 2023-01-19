@@ -1,10 +1,10 @@
-import type { FC, ReactNode } from 'react';
+import type { CSSProperties, FC, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
   className?: string;
   classNameChild?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 export const GridLayout: FC<Props> = ({ children, className = '', classNameChild = '' }) => {
