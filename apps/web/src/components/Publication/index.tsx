@@ -48,7 +48,6 @@ const ViewPublication: NextPage = () => {
       return;
     }
 
-    // const availableLinks = getURLs(data?.publication?.metadata.content);
     if (data?.publication?.isGated) {
       return;
     }

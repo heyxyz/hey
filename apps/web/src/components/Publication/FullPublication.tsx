@@ -30,7 +30,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   const commentOn = publication.__typename === 'Comment' ? (publication?.commentOn as any) : null;
-  const mainPost = commentOn && commentOn?.__typename !== 'Mirror' ? commentOn?.mainPost : null;
+  const mainPost = commentOn?.__typename !== 'Mirror' ? commentOn?.mainPost : null;
 
   // Count check to show the publication stats only if the publication has a comment, like or collect
   const mirrorCount = isMirror
@@ -45,13 +45,12 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
   const isGatedThread = !publication?.isGated && !commentOn?.isGated && !mainPost?.isGated;
-  // [...getURLs(mainPost?.metadata.content ?? ''), ...getURLs(commentOn?.metadata.content ?? '')].length ===
-  // 0;
 
   const scrollToThread = () => {
     if ((!mainPost && !commentOn) || !threadRef.current) {
       return;
     }
+
     if (isGatedThread) {
       threadRef.current?.scrollIntoView({ block: 'start' });
     }
@@ -60,11 +59,6 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   useLayoutEffect(() => {
     scrollToThread();
   });
-
-  // useLayoutEffect(() => {
-  //   scrollToThread();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [threadRef, showOriginalThread]);
 
   return (
     <article className="p-5">
