@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import ProfileCircles from './ProfileCircles';
 
 interface Props {
-  reactions: Array<ReactionEvent>;
+  reactions: ReactionEvent[];
 }
 
 const Liked: FC<Props> = ({ reactions }) => {

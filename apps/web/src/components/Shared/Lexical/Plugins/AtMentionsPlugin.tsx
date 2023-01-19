@@ -132,7 +132,7 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
 
 const NewMentionsPlugin: FC = () => {
   const [queryString, setQueryString] = useState<string | null>(null);
-  const [results, setResults] = useState<Array<Record<string, string>>>([]);
+  const [results, setResults] = useState<Record<string, string>[]>([]);
   const [editor] = useLexicalComposerContext();
   const [searchUsers] = useSearchProfilesLazyQuery();
 

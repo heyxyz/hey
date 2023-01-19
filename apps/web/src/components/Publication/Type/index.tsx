@@ -1,4 +1,4 @@
-import type { LensterPublication } from '@generated/types';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 
 import Collected from './Collected';
@@ -7,14 +7,14 @@ import CommentedPublication from './CommentedPublication';
 import Mirrored from './Mirrored';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
   showType?: boolean;
   showThread?: boolean;
 }
 
 const PublicationType: FC<Props> = ({ publication, showType, showThread = false }) => {
   const type = publication.__typename;
-  const isCollected = Boolean(publication?.collectedBy);
+  const isCollected = (type === 'Post' || type === 'Comment') && Boolean(publication?.collectedBy);
 
   if (!showType) {
     return null;

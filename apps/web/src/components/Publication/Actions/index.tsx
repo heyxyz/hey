@@ -1,8 +1,7 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/types';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { t } from '@lingui/macro';
-import type { ElectedMirror } from 'lens';
+import type { ElectedMirror, Publication } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -13,11 +12,12 @@ import Like from './Like';
 import Mirror from './Mirror';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
   electedMirror?: ElectedMirror;
+  showCount?: boolean;
 }
 
-const PublicationActions: FC<Props> = ({ publication, electedMirror }) => {
+const PublicationActions: FC<Props> = ({ publication, electedMirror, showCount = false }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const collectModuleType = publication?.collectModule.__typename;
   const canMirror = currentProfile ? publication?.canMirror?.result : true;
@@ -30,11 +30,11 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror }) => {
           event.stopPropagation();
         }}
       >
-        <Comment publication={publication} />
-        {canMirror && <Mirror publication={publication} />}
-        <Like publication={publication} />
+        <Comment publication={publication} showCount={showCount} />
+        {canMirror && <Mirror publication={publication} showCount={showCount} />}
+        <Like publication={publication} showCount={showCount} />
         {collectModuleType !== 'RevertCollectModuleSettings' && (
-          <Collect electedMirror={electedMirror} publication={publication} />
+          <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
         )}
         <Analytics publication={publication} />
       </span>

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
-import Follow from '../Shared/Follow';
+import Follow, { FollowSource } from '../Shared/Follow';
 
 interface Props {
   profile?: Profile;
@@ -35,7 +35,12 @@ const MessageHeader: FC<Props> = ({ profile }) => {
         <UserProfile profile={profile} />
       </div>
       {!following ? (
-        <Follow showText profile={profile} setFollowing={setFollowing} />
+        <Follow
+          showText
+          profile={profile}
+          setFollowing={setFollowing}
+          followSource={FollowSource.DIRECT_MESSAGE_HEADER}
+        />
       ) : (
         <Unfollow showText profile={profile} setFollowing={setFollowing} />
       )}

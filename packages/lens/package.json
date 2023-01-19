@@ -7,7 +7,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.3"
+    "@apollo/client": "^3.7.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.16.4",
@@ -16,7 +16,7 @@
     "@graphql-codegen/typescript-operations": "^2.5.12",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "eslint-config-weblint": "*",
-    "prettier": "^2.8.1",
+    "prettier": "^2.8.3",
     "tsconfig": "*",
     "typescript": "^4.9.4"
   }

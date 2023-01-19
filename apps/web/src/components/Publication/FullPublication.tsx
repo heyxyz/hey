@@ -1,10 +1,10 @@
 import UserProfile from '@components/Shared/UserProfile';
-import type { LensterPublication } from '@generated/types';
 import formatTime from '@lib/formatTime';
 import getAppName from '@lib/getAppName';
 import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import type { Publication } from 'lens';
 import type { FC, Ref } from 'react';
 import { useEffect, useRef } from 'react';
 
@@ -19,7 +19,7 @@ import PublicationType from './Type';
 dayjs.extend(relativeTime);
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
   postContainerRef?: Ref<HTMLDivElement>;
 }
 
@@ -30,8 +30,8 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
-  const commentOn = publication?.commentOn as LensterPublication;
-  const mainPost = commentOn?.mainPost as LensterPublication;
+  const commentOn = publication.__typename === 'Comment' ? (publication?.commentOn as any) : null;
+  const mainPost = commentOn && commentOn?.__typename !== 'Mirror' ? commentOn?.mainPost : null;
 
   // Count check to show the publication stats only if the publication has a comment, like or collect
   const mirrorCount = isMirror
@@ -69,7 +69,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
       {availableLinks.length ? (
         <PublicationType publication={publication} showType />
       ) : (
-        publication.commentOn && (
+        commentOn && (
           <div ref={postContainerRef}>
             {mainPost ? <ThreadBody publication={mainPost} /> : null}
             <ThreadBody publication={commentOn} />
@@ -78,6 +78,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
       )}
       <div ref={threadRef} className="scroll-mt-20">
         <div className="flex justify-between pb-4 space-x-1.5">
+          {/* @ts-ignore */}
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
           <PublicationMenu publication={publication} />
         </div>
@@ -100,7 +101,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
                 </>
               )}
               <div className="divider" />
-              <PublicationActions publication={publication} />
+              <PublicationActions publication={publication} showCount />
             </>
           )}
         </div>

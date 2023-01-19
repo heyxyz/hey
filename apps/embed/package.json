@@ -1,0 +1,28 @@
+{
+  "name": "embed",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 4785",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .js,.ts,.tsx"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.7.4",
+    "dotenv": "^16.0.3",
+    "next": "^13.1.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.23",
+    "@types/react-dom": "^18.0.10",
+    "data": "*",
+    "eslint-config-weblint": "*",
+    "lens": "*",
+    "tsconfig": "*",
+    "typescript": "^4.9.3"
+  }
+}

@@ -1,8 +1,8 @@
 import { Card } from '@components/UI/Card';
-import type { LensterPublication } from '@generated/types';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'data/constants';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 
 interface MetaProps {
@@ -24,7 +24,7 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
 );
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const OnchainMeta: FC<Props> = ({ publication }) => {

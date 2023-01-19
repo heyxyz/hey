@@ -109,26 +109,6 @@ const Buttons: FC = () => {
           </Button>
         </div>
         <div className="space-x-3">
-          <Button variant="success" size="lg" outline>
-            Success outline
-          </Button>
-          <Button variant="success" size="lg" outline disabled>
-            Success outline disabled
-          </Button>
-          <Button variant="success" size="lg" disabled>
-            Success disabled
-          </Button>
-          <Button variant="success" size="lg">
-            Success large
-          </Button>
-          <Button variant="success" size="md">
-            Success medium
-          </Button>
-          <Button variant="success" size="sm">
-            Success small
-          </Button>
-        </div>
-        <div className="space-x-3">
           <Button variant="warning" size="lg" outline>
             Warning outline
           </Button>

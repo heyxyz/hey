@@ -14,9 +14,10 @@ interface Props {
   cover: string;
   setCover: (url: string, mimeType: string) => void;
   imageRef: Ref<HTMLImageElement>;
+  expandCover: (url: string) => void;
 }
 
-const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => {
+const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef, expandCover }) => {
   const [loading, setLoading] = useState(false);
 
   const onError = (error: any) => {
@@ -38,16 +39,22 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef }) => 
 
   return (
     <div className="relative flex-none overflow-hidden group">
-      <img
-        onError={({ currentTarget }) => {
-          currentTarget.src = cover ? getIPFSLink(cover) : cover;
-        }}
-        src={cover ? imageProxy(getIPFSLink(cover), COVER) : cover}
-        className="object-cover md:w-40 md:h-40 h-24 w-24 rounded-xl md:rounded-none"
-        draggable={false}
-        alt="cover"
-        ref={imageRef}
-      />
+      <button
+        type="button"
+        className="flex focus:outline-none"
+        onClick={() => expandCover(cover ? getIPFSLink(cover) : cover)}
+      >
+        <img
+          onError={({ currentTarget }) => {
+            currentTarget.src = cover ? getIPFSLink(cover) : cover;
+          }}
+          src={cover ? imageProxy(getIPFSLink(cover), COVER) : cover}
+          className="object-cover md:w-40 md:h-40 h-24 w-24 rounded-xl md:rounded-none"
+          draggable={false}
+          alt="cover"
+          ref={imageRef}
+        />
+      </button>
       {isNew && (
         <label
           className={clsx(

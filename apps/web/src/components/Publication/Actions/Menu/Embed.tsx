@@ -1,13 +1,13 @@
-import type { LensterPublication } from '@generated/types';
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const Embed: FC<Props> = ({ publication }) => {
