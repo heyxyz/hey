@@ -44,7 +44,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     : publication?.stats?.totalAmountOfCollects;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
-  const showOriginalThread = true;
+  const showOriginalThread = !publication?.isGated && !commentOn?.isGated && !mainPost?.isGated;
   // [...getURLs(mainPost?.metadata.content ?? ''), ...getURLs(commentOn?.metadata.content ?? '')].length ===
   // 0;
 

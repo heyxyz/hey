@@ -47,10 +47,11 @@ const ViewPublication: NextPage = () => {
     if (!currentRef || !data?.publication) {
       return;
     }
+
     // const availableLinks = getURLs(data?.publication?.metadata.content);
-    // if (availableLinks.length) {
-    //   return;
-    // }
+    if (data?.publication?.isGated) {
+      return;
+    }
     setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight - 85}px)`);
   };
 
@@ -74,7 +75,7 @@ const ViewPublication: NextPage = () => {
   const { publication } = data as any;
 
   return (
-    <GridLayout className={clsx(publication.commentOn && 'min-h-screen')}>
+    <GridLayout className={clsx(publication.commentOn && !publication.isGated && 'min-h-screen')}>
       <MetaTags
         title={
           publication.__typename && publication?.profile?.handle
