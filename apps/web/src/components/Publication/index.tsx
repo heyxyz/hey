@@ -24,6 +24,7 @@ import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
   const [adaptiveHeight, setAdaptiveHeight] = useState('');
+  console.log('🚀 ~ file: index.tsx:27 ~ adaptiveHeight', adaptiveHeight);
   const postContainerRef = useRef<HTMLDivElement>(null);
 
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -51,7 +52,7 @@ const ViewPublication: NextPage = () => {
     if (data?.publication?.isGated) {
       return;
     }
-    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight - 85}px)`);
+    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight + 200}px)`);
   };
 
   useEffect(() => {
