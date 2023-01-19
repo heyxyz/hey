@@ -1,6 +1,8 @@
 import UserProfile from '@components/Shared/UserProfile';
+import useStaffMode from '@components/utils/hooks/useStaffMode';
 import formatTime from '@lib/formatTime';
 import getAppName from '@lib/getAppName';
+import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
@@ -24,6 +26,7 @@ interface Props {
 
 const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   const threadRef = useRef<HTMLDivElement>(null);
+  const { allowed: staffMode } = useStaffMode();
 
   const isMirror = publication.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
@@ -70,7 +73,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
       ) : (
         <PublicationType publication={publication} showType />
       )}
-      <div ref={threadRef} className="scroll-mt-20">
+      <div ref={threadRef} className={clsx(staffMode ? 'scroll-mt-28' : 'scroll-mt-20')}>
         <div className="flex justify-between pb-4 space-x-1.5">
           {/* @ts-ignore */}
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
