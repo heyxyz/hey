@@ -52,7 +52,7 @@ const ViewPublication: NextPage = () => {
     if (data?.publication?.isGated) {
       return;
     }
-    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight + 200}px)`);
+    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight + 360}px)`);
   };
 
   useEffect(() => {
