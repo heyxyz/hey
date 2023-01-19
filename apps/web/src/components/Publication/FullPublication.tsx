@@ -1,12 +1,11 @@
 import UserProfile from '@components/Shared/UserProfile';
 import formatTime from '@lib/formatTime';
 import getAppName from '@lib/getAppName';
-import getURLs from '@lib/getURLs';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
 import type { FC, Ref } from 'react';
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 import PublicationActions from './Actions';
 import PublicationMenu from './Actions/Menu';
@@ -45,36 +44,37 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     : publication?.stats?.totalAmountOfCollects;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
-  const availableLinks = [
-    ...getURLs(mainPost?.metadata.content ?? ''),
-    ...getURLs(commentOn?.metadata.content ?? '')
-  ];
+  const showOriginalThread = true;
+  // [...getURLs(mainPost?.metadata.content ?? ''), ...getURLs(commentOn?.metadata.content ?? '')].length ===
+  // 0;
 
   const scrollToThread = () => {
     if ((!mainPost && !commentOn) || !threadRef.current) {
       return;
     }
-    if (!availableLinks.length) {
+    if (showOriginalThread) {
       threadRef.current?.scrollIntoView({ block: 'start' });
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     scrollToThread();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [threadRef, availableLinks]);
+  });
+
+  // useLayoutEffect(() => {
+  //   scrollToThread();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [threadRef, showOriginalThread]);
 
   return (
     <article className="p-5">
-      {availableLinks.length ? (
-        <PublicationType publication={publication} showType />
+      {showOriginalThread && commentOn ? (
+        <div ref={postContainerRef}>
+          {mainPost ? <ThreadBody publication={mainPost} /> : null}
+          <ThreadBody publication={commentOn} />
+        </div>
       ) : (
-        commentOn && (
-          <div ref={postContainerRef}>
-            {mainPost ? <ThreadBody publication={mainPost} /> : null}
-            <ThreadBody publication={commentOn} />
-          </div>
-        )
+        <PublicationType publication={publication} showType />
       )}
       <div ref={threadRef} className="scroll-mt-20">
         <div className="flex justify-between pb-4 space-x-1.5">

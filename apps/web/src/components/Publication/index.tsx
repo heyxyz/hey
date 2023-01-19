@@ -7,7 +7,6 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import formatHandle from '@lib/formatHandle';
-import getURLs from '@lib/getURLs';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
@@ -48,10 +47,10 @@ const ViewPublication: NextPage = () => {
     if (!currentRef || !data?.publication) {
       return;
     }
-    const availableLinks = getURLs(data?.publication?.metadata.content);
-    if (availableLinks.length) {
-      return;
-    }
+    // const availableLinks = getURLs(data?.publication?.metadata.content);
+    // if (availableLinks.length) {
+    //   return;
+    // }
     setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight - 85}px)`);
   };
 
@@ -75,7 +74,7 @@ const ViewPublication: NextPage = () => {
   const { publication } = data as any;
 
   return (
-    <GridLayout className={clsx(publication.commentOn && '!min-h-screen')}>
+    <GridLayout className={clsx(publication.commentOn && 'min-h-screen')}>
       <MetaTags
         title={
           publication.__typename && publication?.profile?.handle
@@ -89,19 +88,21 @@ const ViewPublication: NextPage = () => {
         </Card>
         <Feed publication={publication} />
       </GridItemEight>
-      <GridItemFour className="space-y-5 !max-h-screen !sticky !top-24">
-        <Card as="aside" className="p-5">
-          <UserProfile
-            profile={
-              publication.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile
-            }
-            showBio
-          />
-        </Card>
-        <RelevantPeople publication={publication} />
-        <OnchainMeta publication={publication} />
-        {staffMode && <PublicationStaffTool publication={publication} />}
-        <Footer />
+      <GridItemFour className="relative">
+        <div className="fixed space-y-5 max-w-[392px]">
+          <Card as="aside" className="p-5">
+            <UserProfile
+              profile={
+                publication.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile
+              }
+              showBio
+            />
+          </Card>
+          <RelevantPeople publication={publication} />
+          <OnchainMeta publication={publication} />
+          {staffMode && <PublicationStaffTool publication={publication} />}
+          <Footer />
+        </div>
       </GridItemFour>
     </GridLayout>
   );
