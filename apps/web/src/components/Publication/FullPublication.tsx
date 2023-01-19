@@ -44,7 +44,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     : publication?.stats?.totalAmountOfCollects;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
-  const showOriginalThread = !publication?.isGated && !commentOn?.isGated && !mainPost?.isGated;
+  const isGatedThread = !publication?.isGated && !commentOn?.isGated && !mainPost?.isGated;
   // [...getURLs(mainPost?.metadata.content ?? ''), ...getURLs(commentOn?.metadata.content ?? '')].length ===
   // 0;
 
@@ -52,7 +52,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     if ((!mainPost && !commentOn) || !threadRef.current) {
       return;
     }
-    if (showOriginalThread) {
+    if (isGatedThread) {
       threadRef.current?.scrollIntoView({ block: 'start' });
     }
   };
@@ -68,7 +68,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
 
   return (
     <article className="p-5">
-      {showOriginalThread && commentOn ? (
+      {isGatedThread && commentOn ? (
         <div ref={postContainerRef}>
           {mainPost ? <ThreadBody publication={mainPost} /> : null}
           <ThreadBody publication={commentOn} />
