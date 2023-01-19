@@ -53,13 +53,19 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     if ((!mainPost && !commentOn) || !threadRef.current) {
       return;
     }
-
     if (isGatedThread) {
       threadRef.current?.scrollIntoView({ block: 'start' });
     }
   };
 
+  const resizeObserver = new ResizeObserver(() => {
+    scrollToThread();
+  });
+
   useLayoutEffect(() => {
+    if (threadRef.current) {
+      resizeObserver.observe(threadRef.current);
+    }
     scrollToThread();
   });
 
