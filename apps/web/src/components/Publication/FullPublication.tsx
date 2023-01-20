@@ -99,7 +99,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
       ) : (
         <PublicationType publication={publication} showType />
       )}
-      <div ref={commentRef} className={clsx(staffMode ? 'scroll-mt-28' : 'scroll-mt-20', 'scroll-mt-20')}>
+      <div ref={commentRef} className={clsx(staffMode ? 'scroll-mt-28' : 'scroll-mt-20')}>
         <div className="flex justify-between pb-4 space-x-1.5">
           {/* @ts-ignore */}
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
