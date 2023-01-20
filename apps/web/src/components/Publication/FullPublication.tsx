@@ -25,7 +25,10 @@ interface Props {
 }
 
 const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
-  const threadRef = useRef<HTMLDivElement>(null);
+  const commentRef = useRef<HTMLDivElement>(null);
+  const intersectionRef = useRef<HTMLDivElement>(null);
+  const isPostVisible = useRef(false);
+
   const { allowed: staffMode } = useStaffMode();
 
   const isMirror = publication.__typename === 'Mirror';
@@ -47,31 +50,43 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     : publication?.stats?.totalAmountOfCollects;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
-  const isGatedThread = !publication?.isGated && !commentOn?.isGated && !mainPost?.isGated;
+  const isGatedThread = publication?.isGated || commentOn?.isGated || mainPost?.isGated;
 
   const scrollToThread = () => {
-    if ((!mainPost && !commentOn) || !threadRef.current) {
+    if ((!mainPost && !commentOn) || !commentRef.current) {
       return;
     }
-    if (isGatedThread) {
-      threadRef.current?.scrollIntoView({ block: 'start' });
+    if (!isGatedThread) {
+      commentRef.current?.scrollIntoView({ block: 'start' });
     }
   };
 
   const resizeObserver = new ResizeObserver(() => {
-    scrollToThread();
+    if (!isPostVisible.current) {
+      scrollToThread();
+    }
+  });
+
+  const intersectionObserver = new IntersectionObserver(([entry]) => {
+    isPostVisible.current = entry.isIntersecting;
   });
 
   useLayoutEffect(() => {
-    if (threadRef.current) {
-      resizeObserver.observe(threadRef.current);
+    if (intersectionRef.current) {
+      intersectionObserver.observe(intersectionRef.current);
     }
-    scrollToThread();
+    if (commentRef.current) {
+      resizeObserver.observe(commentRef.current);
+    }
+    if (!isPostVisible.current) {
+      scrollToThread();
+    }
   });
 
   return (
     <article className="p-5">
-      {isGatedThread && commentOn ? (
+      <span ref={intersectionRef} />
+      {!isGatedThread && commentOn ? (
         <div ref={postContainerRef}>
           {mainPost ? <ThreadBody publication={mainPost} /> : null}
           <ThreadBody publication={commentOn} />
@@ -79,7 +94,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
       ) : (
         <PublicationType publication={publication} showType />
       )}
-      <div ref={threadRef} className={clsx(staffMode ? 'scroll-mt-28' : 'scroll-mt-20')}>
+      <div ref={commentRef} className={clsx(staffMode ? 'scroll-mt-28' : 'scroll-mt-20', 'scroll-mt-20')}>
         <div className="flex justify-between pb-4 space-x-1.5">
           {/* @ts-ignore */}
           <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
