@@ -1,8 +1,8 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
+import type { MessageDescriptor } from '@generated/types';
 import { AtSymbolIcon } from '@heroicons/react/solid';
 import formatTime from '@lib/formatTime';
-import type { MessageDescriptor } from '@lingui/core/cjs/i18n';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import dayjs from 'dayjs';
