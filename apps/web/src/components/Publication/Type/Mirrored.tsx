@@ -1,6 +1,6 @@
 import Username from '@components/Shared/Username';
+import type { MessageDescriptor } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import type { MessageDescriptor } from '@lingui/core/cjs/i18n';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import type { Mirror } from 'lens';

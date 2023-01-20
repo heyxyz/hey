@@ -1,10 +1,10 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
+import type { MessageDescriptor } from '@generated/types';
 import { SunIcon } from '@heroicons/react/outline';
 import { HeartIcon } from '@heroicons/react/solid';
 import formatTime from '@lib/formatTime';
 import hasGm from '@lib/hasGm';
-import type { MessageDescriptor } from '@lingui/core/cjs/i18n';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import dayjs from 'dayjs';

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-18 16:28\n"
+"PO-Revision-Date: 2023-01-19 14:40\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -538,11 +538,11 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
-msgstr ""
+msgstr "புதிய தகவல்"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
-msgstr ""
+msgstr "செய்தி அனுப்ப யாரையாவது தேடுங்கள்..."
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
@@ -550,7 +550,7 @@ msgstr "உரையாடலைத் தேர்ந்தெடுக்க�
 
 #: src/components/Messages/index.tsx
 msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
+msgstr "ஏற்கனவே உள்ள உரையாடலைத் தேர்வுசெய்யவும் அல்லது செய்தி அனுப்பத் தொடங்க புதிய ஒன்றை உருவாக்கவும்"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -570,15 +570,15 @@ msgstr "கருத்துரைகள்"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
-msgstr ""
+msgstr "விருப்பங்கள்"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Collects"
-msgstr ""
+msgstr "சேகரிப்புகள்"
 
 #: src/components/Notification/List.tsx
 msgid "Failed to load notifications"
-msgstr ""
+msgstr "அறிவிப்புகளை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
@@ -751,7 +751,7 @@ msgstr "பின்பற்றுபவர்கள்"
 
 #: src/components/Profile/Followers.tsx
 msgid "Loading followers"
-msgstr ""
+msgstr "பின்தொடர்பவர்களை ஏற்றுகிறது"
 
 #: src/components/Profile/Followers.tsx
 msgid "doesn’t have any followers yet."
@@ -759,7 +759,7 @@ msgstr ""
 
 #: src/components/Profile/Followers.tsx
 msgid "Failed to load followers"
-msgstr ""
+msgstr "பின்தொடர்பவர்களை ஏற்ற முடியவில்லை"
 
 #: src/components/Profile/Following.tsx
 msgid "Loading following"
@@ -791,16 +791,16 @@ msgstr ""
 
 #: src/components/Profile/NFTFeed.tsx
 msgid "Failed to load nft feed"
-msgstr ""
+msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
-msgstr ""
+msgstr "புதிய பரவலாக்கப்பட்ட சுயவிவரத்தை உருவாக்கவும்"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx
 msgid "Loading analytics"
-msgstr ""
+msgstr "பகுப்பாய்வுகளை ஏற்றுகிறது"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 msgid "Views"
@@ -1345,7 +1345,7 @@ msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
-msgstr ""
+msgstr "அமைப்புகளை ஏற்றுகிறது"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
@@ -1569,11 +1569,11 @@ msgstr "சேகரிப்பாளர்கள் இல்லை."
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
-msgstr ""
+msgstr "சேகரிப்பாளர்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
-msgstr ""
+msgstr "விருப்பங்களை ஏற்றுகிறது"
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "No likes."
@@ -1581,7 +1581,7 @@ msgstr "விருப்பங்கள் இல்லை."
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Failed to load likes"
-msgstr ""
+msgstr "விருப்பங்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Loading mirrors"
@@ -1786,11 +1786,11 @@ msgstr "நிலை வெற்றிகரமாக புதுப்பி�
 
 #: src/components/Shared/Status.tsx
 msgid "Loading status settings"
-msgstr ""
+msgstr "நிலை அமைப்புகளை ஏற்றுகிறது"
 
 #: src/components/Shared/Status.tsx
 msgid "Failed to load status settings"
-msgstr ""
+msgstr "நிலை அமைப்புகளை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Shared/Status.tsx
 msgid "Clear status"
@@ -1879,11 +1879,11 @@ msgstr "படத்தின் அளவு 10MB க்கும் குற�
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 100MB"
-msgstr ""
+msgstr "வீடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
-msgstr ""
+msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/lib/getModule.ts
 msgid "The Unknown Collect Module is unknown and not type supported in the API."
