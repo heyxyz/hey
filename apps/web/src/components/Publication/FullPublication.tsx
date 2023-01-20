@@ -6,8 +6,9 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
+import { useRouter } from 'next/router';
 import type { FC, Ref } from 'react';
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 import PublicationActions from './Actions';
 import PublicationMenu from './Actions/Menu';
@@ -29,6 +30,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   const intersectionRef = useRef<HTMLDivElement>(null);
   const isPostVisible = useRef(false);
 
+  const { query } = useRouter();
   const { allowed: staffMode } = useStaffMode();
 
   const isMirror = publication.__typename === 'Mirror';
@@ -71,6 +73,10 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     isPostVisible.current = entry.isIntersecting;
   });
 
+  useEffect(() => {
+    isPostVisible.current = false;
+  }, [query.id]);
+
   useLayoutEffect(() => {
     if (intersectionRef.current) {
       intersectionObserver.observe(intersectionRef.current);
@@ -85,11 +91,10 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
 
   return (
     <article className="p-5">
-      <span ref={intersectionRef} />
       {!isGatedThread && commentOn ? (
         <div ref={postContainerRef}>
-          {mainPost ? <ThreadBody publication={mainPost} /> : null}
-          <ThreadBody publication={commentOn} />
+          {mainPost ? <ThreadBody intersectionRef={intersectionRef} publication={mainPost} /> : null}
+          <ThreadBody intersectionRef={intersectionRef} publication={commentOn} />
         </div>
       ) : (
         <PublicationType publication={publication} showType />

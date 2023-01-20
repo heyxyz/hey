@@ -11,9 +11,10 @@ import PublicationHeader from './PublicationHeader';
 
 interface Props {
   publication: Publication;
+  intersectionRef?: any;
 }
 
-const ThreadBody: FC<Props> = ({ publication }) => {
+const ThreadBody: FC<Props> = ({ publication, intersectionRef }) => {
   const { push } = useRouter();
 
   return (
@@ -26,6 +27,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
         }
       }}
     >
+      {intersectionRef && <span ref={intersectionRef} />}
       <PublicationHeader publication={publication} />
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[3px]" />
