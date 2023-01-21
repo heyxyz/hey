@@ -62,8 +62,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
       ...(followSource && { follow_source: followSource }),
       ...(followPosition && { follow_position: followPosition }),
       follow_from: currentProfile?.id,
-      follow_target: profile?.id,
-      follow_time: new Date().toISOString()
+      follow_target: profile?.id
     });
   };
 
