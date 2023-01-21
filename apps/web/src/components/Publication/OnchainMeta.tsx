@@ -1,8 +1,8 @@
 import { Card } from '@components/UI/Card';
-import type { LensterPublication } from '@generated/types';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'data/constants';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 
 interface MetaProps {
@@ -24,7 +24,7 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
 );
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const OnchainMeta: FC<Props> = ({ publication }) => {
@@ -40,7 +40,7 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
     <Card as="aside">
       <div className="lt-text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
-          <Meta name={t`ARWEAVE TRANSACTION`} uri={`https://viewblock.io/arweave/tx/${hash}`} hash={hash} />
+          <Meta name={t`ARWEAVE TRANSACTION`} uri={`https://arweave.app/tx/${hash}`} hash={hash} />
         ) : null}
         {isIPFSHash ? <Meta name="IPFS TRANSACTION" uri={`${IPFS_GATEWAY}${hash}`} hash={hash} /> : null}
         {publication?.collectNftAddress ? (

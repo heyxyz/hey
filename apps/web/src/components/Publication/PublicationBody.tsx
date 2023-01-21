@@ -1,11 +1,11 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import type { LensterPublication } from '@generated/types';
 import { EyeIcon } from '@heroicons/react/outline';
 import getURLs from '@lib/getURLs';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import type { Publication } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -13,7 +13,7 @@ import type { FC } from 'react';
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const PublicationBody: FC<Props> = ({ publication }) => {

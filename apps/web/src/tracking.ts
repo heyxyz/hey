@@ -158,8 +158,7 @@ export const SEARCH = {
 };
 
 export const SYSTEM = {
-  SWITCH_LIGHT_THEME: 'switch_light_theme',
-  SWITCH_DARK_THEME: 'switch_dark_theme',
+  SWITCH_THEME: 'switch_theme',
   SWITCH_NETWORK: 'switch_network'
 };
 

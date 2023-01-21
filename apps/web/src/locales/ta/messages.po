@@ -8,15 +8,15 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-10 00:56\n"
+"PO-Revision-Date: 2023-01-19 14:40\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: lenster\n"
 "X-Crowdin-Project-ID: 552311\n"
 "X-Crowdin-Language: ta\n"
-"X-Crowdin-File: /apps/web/src/locales/en/messages.po\n"
-"X-Crowdin-File-ID: 43\n"
+"X-Crowdin-File: messages.po\n"
+"X-Crowdin-File-ID: 47\n"
 
 #: src/components/Comment/Feed.tsx
 msgid "Be the first one to comment!"
@@ -24,7 +24,7 @@ msgstr "முதல் நபராக கருத்திடுக!"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
-msgstr ""
+msgstr "கருத்து ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
@@ -91,11 +91,11 @@ msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏ
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
-msgstr ""
+msgstr "சேகரிப்பு அமைப்புகளை ஏற்றுகிறது"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Failed to load modules"
-msgstr ""
+msgstr "தொகுதிகளை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
@@ -173,7 +173,7 @@ msgstr "GIF கள் எதுவும் காணப்படவில்ல
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Loading GIFs"
-msgstr ""
+msgstr "GIFகளை ஏற்றுகிறது"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
@@ -294,7 +294,7 @@ msgstr "உங்கள் பரிவர்த்தனைகள் எதி�
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
-msgstr ""
+msgstr "நேரடி செய்திகள் இங்கே!"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
@@ -314,7 +314,7 @@ msgstr "இடுகைகளைக் காட்டு"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Mirrors"
-msgstr ""
+msgstr "கண்ணாடியைக் காட்டு"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Likes"
@@ -338,7 +338,7 @@ msgstr "{APP_NAME} என்பது லென்ஸ் புரோட்ட�
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
-msgstr ""
+msgstr "சிறப்பம்சங்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
@@ -351,7 +351,7 @@ msgstr "பரிந்துரைகள் இல்லை!"
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
-msgstr ""
+msgstr "பரிந்துரைகளை ஏற்ற முடியவில்லை"
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Publication/DecryptedPublicationBody.tsx
@@ -468,11 +468,11 @@ msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
-msgstr ""
+msgstr "காலவரிசையை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Home/Trending.tsx
 msgid "Failed to load trending"
-msgstr ""
+msgstr "டிரெண்டிங்கை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
@@ -492,7 +492,7 @@ msgstr "அனுப்பு"
 
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
-msgstr ""
+msgstr "செய்திகளை ஏற்றுகிறது"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
@@ -504,11 +504,11 @@ msgstr "அவர்கள் DMகளை இயக்கும் வரை ந
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This is the beginning of the conversation"
-msgstr ""
+msgstr "இதுதான் உரையாடலின் ஆரம்பம்"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
+msgstr "ஏற்றுகிறது..."
 
 #: src/components/Messages/PreviewList.tsx
 #: src/components/Profile/Followerings.tsx
@@ -518,7 +518,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Requested"
-msgstr ""
+msgstr "கோரப்பட்டது"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -538,11 +538,11 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
-msgstr ""
+msgstr "புதிய தகவல்"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
-msgstr ""
+msgstr "செய்தி அனுப்ப யாரையாவது தேடுங்கள்..."
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
@@ -550,7 +550,7 @@ msgstr "உரையாடலைத் தேர்ந்தெடுக்க�
 
 #: src/components/Messages/index.tsx
 msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
+msgstr "ஏற்கனவே உள்ள உரையாடலைத் தேர்வுசெய்யவும் அல்லது செய்தி அனுப்பத் தொடங்க புதிய ஒன்றை உருவாக்கவும்"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -570,19 +570,19 @@ msgstr "கருத்துரைகள்"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
-msgstr ""
+msgstr "விருப்பங்கள்"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Collects"
-msgstr ""
+msgstr "சேகரிப்புகள்"
 
 #: src/components/Notification/List.tsx
 msgid "Failed to load notifications"
-msgstr ""
+msgstr "அறிவிப்புகளை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
-msgstr ""
+msgstr "இன்பாக்ஸ் பூஜ்யம்!"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
@@ -751,7 +751,7 @@ msgstr "பின்பற்றுபவர்கள்"
 
 #: src/components/Profile/Followers.tsx
 msgid "Loading followers"
-msgstr ""
+msgstr "பின்தொடர்பவர்களை ஏற்றுகிறது"
 
 #: src/components/Profile/Followers.tsx
 msgid "doesn’t have any followers yet."
@@ -759,7 +759,7 @@ msgstr ""
 
 #: src/components/Profile/Followers.tsx
 msgid "Failed to load followers"
-msgstr ""
+msgstr "பின்தொடர்பவர்களை ஏற்ற முடியவில்லை"
 
 #: src/components/Profile/Following.tsx
 msgid "Loading following"
@@ -791,16 +791,16 @@ msgstr ""
 
 #: src/components/Profile/NFTFeed.tsx
 msgid "Failed to load nft feed"
-msgstr ""
+msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
-msgstr ""
+msgstr "புதிய பரவலாக்கப்பட்ட சுயவிவரத்தை உருவாக்கவும்"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx
 msgid "Loading analytics"
-msgstr ""
+msgstr "பகுப்பாய்வுகளை ஏற்றுகிறது"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 msgid "Views"
@@ -815,21 +815,25 @@ msgid "Publication Analytics"
 msgstr "வெளியீட்டு பகுப்பாய்வு"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Collected successfully!"
+msgstr "வெற்றிகரமாக சேகரிக்கப்பட்டது!"
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
 msgid "Loading collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} collectors"
-msgstr ""
+msgstr "{0} சேகரிப்பாளர்கள்"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
-msgstr ""
+msgstr "{0} கிடைக்கிறது"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0}% referral fee"
-msgstr ""
+msgstr "{0}% பரிந்துரை கட்டணம்"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
@@ -863,7 +867,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
-msgstr ""
+msgstr "{0} கருத்துகள்"
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
@@ -883,12 +887,16 @@ msgid "Copied to clipboard!"
 msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
 
 #: src/components/Publication/Actions/Mirror.tsx
-msgid "{0} Mirrors"
+msgid "Post has been mirrored!"
 msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
+msgid "{0} Mirrors"
+msgstr "{0} மிரர்கள்"
+
+#: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
-msgstr ""
+msgstr "மிரர்"
 
 #: src/components/Publication/Actions/ModAction.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -898,6 +906,10 @@ msgstr "ஸ்பேம்"
 #: src/components/Publication/Actions/ModAction.tsx
 msgid "Others"
 msgstr "மற்றவை"
+
+#: src/components/Publication/Actions/index.tsx
+msgid "Gated Publication"
+msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -915,33 +927,29 @@ msgstr ""
 msgid "Error while decrypting!"
 msgstr "டிக்ரிப்ட் செய்யும் போது பிழை!"
 
-#: src/components/Publication/DecryptedPublicationBody.tsx
-msgid "Decrypting..."
-msgstr "டிக்ரிப்ட் செய்கிறது..."
-
 #: src/components/Publication/HiddenPublication.tsx
 msgid "{type} was hidden by the author"
 msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "ARWEAVE TRANSACTION"
-msgstr ""
+msgstr "ARWEAVE பரிவர்த்தனை"
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
-msgstr ""
+msgstr "NFT முகவரி"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Comments"
-msgstr ""
+msgstr "<0>{0}</0> கருத்துகள்"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Mirrors"
-msgstr ""
+msgstr "<0>{0}</0> மிரர்கள்"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Likes"
-msgstr ""
+msgstr "<0>{0}</0> விருப்பு"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
@@ -973,23 +981,23 @@ msgstr ""
 
 #: src/components/Search/Profiles.tsx
 msgid "Failed to load profiles"
-msgstr ""
+msgstr "சுயவிவரங்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Search/Publications.tsx
 msgid "No publications for <0>“{query}”</0>"
-msgstr ""
+msgstr "<0>“{query}”க்கு வெளியீடுகள் இல்லை</0>"
 
 #: src/components/Search/Publications.tsx
 msgid "Failed to load publications"
-msgstr ""
+msgstr "வெளியீடுகளை ஏற்ற முடியவில்லை"
 
 #: src/components/Search/Sidebar.tsx
 msgid "Publications"
-msgstr ""
+msgstr "வெளியீடுகள்"
 
 #: src/components/Search/Sidebar.tsx
 msgid "Profiles"
-msgstr ""
+msgstr "சுயவிவரங்கள்"
 
 #: src/components/Settings/Account/CrossPost.tsx
 msgid "Cross post to Twitter"
@@ -1005,15 +1013,15 @@ msgstr ""
 
 #: src/components/Settings/Account/CrossPost.tsx
 msgid "Disable now"
-msgstr ""
+msgstr "இப்போது முடக்கு"
 
 #: src/components/Settings/Account/CrossPost.tsx
 msgid "Setup now"
-msgstr ""
+msgstr "இப்போது அமைக்கவும்"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Default profile updated successfully!"
-msgstr ""
+msgstr "இயல்புநிலை சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Your default profile"
@@ -1021,7 +1029,7 @@ msgstr "உங்கள் இயல்புநிலை சுயவிவர�
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "You don't have any default profile set!"
-msgstr ""
+msgstr "உங்களிடம் இயல்புநிலை சுயவிவரம் எதுவும் இல்லை!"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Select default profile"
@@ -1053,15 +1061,15 @@ msgstr "தவறான தொகை"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Ethereum address should be within 42 characters"
-msgstr ""
+msgstr "Ethereum முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
-msgstr ""
+msgstr "தவறான Ethereum முகவரி"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ அமைப்புகளை ஏற்றுகிறது"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set super follow"
@@ -1069,7 +1077,7 @@ msgstr "சூப்பர் பின்தொடர்பை அமைக்�
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ அமைப்பது, பயனர்கள் உங்களைப் பின்தொடர கிரிப்டோவைச் செலவழிக்க வைக்கிறது, மேலும் இது சம்பாதிப்பதற்கான ஒரு சிறந்த வழியாகும், நீங்கள் தொகை மற்றும் நாணயத்தை மாற்றலாம் அல்லது எப்போது வேண்டுமானாலும் அதை முடக்கலாம்/இயக்கலாம்."
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Follow amount"
@@ -1128,21 +1136,12 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
-#: src/components/Settings/Profile/index.tsx
-msgid "Loading settings"
-msgstr ""
-
-#: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
 msgstr "தொகுதிகளை அனுமதிக்கவும் / திரும்பப் பெறவும்"
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
 msgstr "சேகரிப்பு அம்சத்தைப் பயன்படுத்த, நீங்கள் பயன்படுத்தும் தொகுதியை அனுமதிக்க வேண்டும், எந்த நேரத்திலும் தொகுதியை அனுமதிக்கலாம் மற்றும் திரும்பப் பெறலாம்."
-
-#: src/components/Settings/Allowance/index.tsx
-msgid "Loading allowance data!"
-msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
@@ -1268,37 +1267,37 @@ msgstr ""
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Invalid Contract address"
-msgstr ""
+msgstr "தவறான ஒப்பந்த முகவரி"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
-msgstr ""
+msgstr "அவதார் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Contract Address"
-msgstr ""
+msgstr "ஒப்பந்த முகவரி"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Token Id"
-msgstr ""
+msgstr "டோக்கன் ஐடி"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar can't be empty!"
-msgstr ""
+msgstr "அவதார் காலியாக இருக்க முடியாது!"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
-msgstr ""
+msgstr "பெயர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
-msgstr ""
+msgstr "இருப்பிடம் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Invalid website"
-msgstr ""
+msgstr "தவறான இணையதளம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Twitter should not exceed 100 characters"
@@ -1306,27 +1305,27 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
-msgstr ""
+msgstr "பயோ 260 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
-msgstr ""
+msgstr "சுயவிவர ஐடி"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name"
-msgstr ""
+msgstr "பெயர்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location"
-msgstr ""
+msgstr "இடம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Website"
-msgstr ""
+msgstr "இணையதளம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Twitter"
-msgstr ""
+msgstr "ட்விட்டர்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
@@ -1334,7 +1333,7 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
-msgstr ""
+msgstr "உங்களைப் பற்றி ஏதாவது சொல்லுங்கள்!"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
@@ -1343,6 +1342,10 @@ msgstr ""
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr ""
+
+#: src/components/Settings/Profile/index.tsx
+msgid "Loading settings"
+msgstr "அமைப்புகளை ஏற்றுகிறது"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
@@ -1366,52 +1369,52 @@ msgstr "கொடுப்பனவு"
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
-msgstr ""
+msgstr "படத்தை புதிய தாவலில் திறக்கவும்"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
-msgstr ""
+msgstr "தவறான ஆடியோ தலைப்பு"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid author name"
-msgstr ""
+msgstr "தவறான ஆசிரியர் பெயர்"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid cover image"
-msgstr ""
+msgstr "தவறான அட்டைப் படம்"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add title"
-msgstr ""
+msgstr "தலைப்பை சேர்க்கவும்"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
-msgstr ""
+msgstr "ஆசிரியரைச் சேர்க்கவும்"
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
-msgstr ""
+msgstr "பீட்டா"
 
 #: src/components/Shared/Badges/New.tsx
 msgid "New"
-msgstr ""
+msgstr "புதியது"
 
 #: src/components/Shared/CommentWarning.tsx
 msgid "You can't reply to this post"
-msgstr ""
+msgstr "இந்த இடுகைக்கு நீங்கள் பதிலளிக்க முடியாது"
 
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
-msgstr ""
+msgstr "ஈமோஜிகளை ஏற்றுகிறது"
 
 #: src/components/Shared/Follow.tsx
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Followed successfully!"
-msgstr ""
+msgstr "வெற்றிகரமாக பின்பற்றப்பட்டது!"
 
 #: src/components/Shared/Follow.tsx
 msgid "Follow"
-msgstr ""
+msgstr "பின்பற்றவும்"
 
 #: src/components/Shared/Footer.tsx
 msgid "Terms"
@@ -1456,12 +1459,16 @@ msgstr "▲ வெர்செல் மூலம் இயக்கப்பட
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Report"
-msgstr ""
+msgstr "புகார்"
 
 #: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Navbar/SignedUser.tsx
+#: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
 msgstr "நிலையை அமைக்கவும்"
+
+#: src/components/Shared/GlobalModals.tsx
+msgid "Change Profile"
+msgstr "சுயவிவரத்தை மாற்றவும்"
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
@@ -1490,11 +1497,11 @@ msgstr "குறியீடு"
 
 #: src/components/Shared/Login/New/Pending.tsx
 msgid "Account creation in progress, please wait!"
-msgstr ""
+msgstr "கணக்கு உருவாக்கம் செயலில் உள்ளது, காத்திருக்கவும்!"
 
 #: src/components/Shared/Login/New/Pending.tsx
 msgid "Go to profile"
-msgstr ""
+msgstr "சுயவிவரத்திற்குச் செல்லவும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should be at least 2 characters"
@@ -1562,11 +1569,11 @@ msgstr "சேகரிப்பாளர்கள் இல்லை."
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
-msgstr ""
+msgstr "சேகரிப்பாளர்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
-msgstr ""
+msgstr "விருப்பங்களை ஏற்றுகிறது"
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "No likes."
@@ -1574,7 +1581,7 @@ msgstr "விருப்பங்கள் இல்லை."
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Failed to load likes"
-msgstr ""
+msgstr "விருப்பங்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Loading mirrors"
@@ -1582,7 +1589,7 @@ msgstr ""
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "No mirrors."
-msgstr ""
+msgstr "மிரர்கள் இல்லை."
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Failed to load mirrors"
@@ -1590,39 +1597,39 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select type"
-msgstr ""
+msgstr "வகையைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Illegal"
-msgstr ""
+msgstr "சட்டவிரோதமானது"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fraud"
-msgstr ""
+msgstr "மோசடி"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Sensitive"
-msgstr ""
+msgstr "உணர்திறன்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
-msgstr ""
+msgstr "காரணம்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select sub reason"
-msgstr ""
+msgstr "துணை காரணத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Animal Abuse"
-msgstr ""
+msgstr "விலங்கு வன்கொடுமை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Direct Threat"
-msgstr ""
+msgstr "நேரடி அச்சுறுத்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Human Abuse"
-msgstr ""
+msgstr "மனித வன்கொடுமை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Threat Individual"
@@ -1630,23 +1637,23 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
-msgstr ""
+msgstr "வன்முறை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Scam"
-msgstr ""
+msgstr "ஊழல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
-msgstr ""
+msgstr "ஆள்மாறாட்டம்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "NSFW"
-msgstr ""
+msgstr "என்எஸ்எஃப்டபிள்யூ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Offensive"
-msgstr ""
+msgstr "வெறுக்கத்தக்க"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
@@ -1670,83 +1677,84 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
-msgstr ""
+msgstr "வேறு ஏதாவது"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Unrelated"
-msgstr ""
+msgstr "தொடர்பில்லாத"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
-msgstr ""
+msgstr "கூடுதல் கருத்துகள் 260 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"
-msgstr ""
+msgstr "புகாரளிக்க முடியவில்லை"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
-msgstr ""
+msgstr "விளக்கம்"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Please provide additional details"
-msgstr ""
+msgstr "கூடுதல் விவரங்களை வழங்கவும்"
+
+#: src/components/Shared/Navbar/MobileDrawerMenu.tsx
+#: src/components/Shared/Navbar/SignedUser.tsx
+msgid "Logged in as"
+msgstr "உள்நுழைந்துள்ள கணக்கு"
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
 msgstr "மேலும்"
 
-#: src/components/Shared/Navbar/MoreNavItems.tsx
+#: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
 msgstr "தொடர்புகொள்ளவும்"
 
-#: src/components/Shared/Navbar/MoreNavItems.tsx
+#: src/components/Shared/Navbar/NavItems/Logout.tsx
+msgid "Logout"
+msgstr "வெளியேறு"
+
+#: src/components/Shared/Navbar/NavItems/Mod.tsx
+msgid "Moderation"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
 msgstr "ஒரு பிழையைப் புகாரளிக்கவும்"
+
+#: src/components/Shared/Navbar/NavItems/Settings.tsx
+msgid "Settings"
+msgstr "அமைப்புகள்"
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Disable staff mode"
+msgstr "பணியாளர் பயன்முறையை முடக்கு"
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Enable staff mode"
+msgstr "பணியாளர் பயன்முறையை இயக்கு"
+
+#: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
+msgid "Switch Profile"
+msgstr "சுயவிவரத்தை மாற்றவும்"
+
+#: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
+msgid "Dark mode"
+msgstr "இருள் பயன்முறை"
+
+#: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
+msgid "Light mode"
+msgstr "வெளிர்ந்த பயன்முறை"
+
+#: src/components/Shared/Navbar/NavItems/YourProfile.tsx
+msgid "Your Profile"
+msgstr "உங்கள் சுயவிவரம்"
 
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Search…"
 msgstr "தேடு…"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Logged in as"
-msgstr "உள்நுழைந்துள்ள கணக்கு"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Your Profile"
-msgstr "உங்கள் சுயவிவரம்"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Settings"
-msgstr "அமைப்புகள்"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Moderation"
-msgstr ""
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Logout"
-msgstr "வெளியேறு"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Switch to"
-msgstr "மாற்று"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Dark mode"
-msgstr "இருள் பயன்முறை"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Light mode"
-msgstr "வெளிர்ந்த பயன்முறை"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Disable staff mode"
-msgstr "பணியாளர் பயன்முறையை முடக்கு"
-
-#: src/components/Shared/Navbar/SignedUser.tsx
-msgid "Enable staff mode"
-msgstr "பணியாளர் பயன்முறையை இயக்கு"
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Home"
@@ -1758,7 +1766,7 @@ msgstr "உலாவு"
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
-msgstr ""
+msgstr "{type} க்கு செல்க"
 
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
@@ -1766,23 +1774,23 @@ msgstr ""
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
-msgstr ""
+msgstr "நிலை காலியாக இருக்கக்கூடாது"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not exceed 100 characters"
-msgstr ""
+msgstr "நிலை 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Shared/Status.tsx
 msgid "Status updated successfully!"
-msgstr ""
+msgstr "நிலை வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Shared/Status.tsx
 msgid "Loading status settings"
-msgstr ""
+msgstr "நிலை அமைப்புகளை ஏற்றுகிறது"
 
 #: src/components/Shared/Status.tsx
 msgid "Failed to load status settings"
-msgstr ""
+msgstr "நிலை அமைப்புகளை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Shared/Status.tsx
 msgid "Clear status"
@@ -1831,7 +1839,7 @@ msgstr "பின்தொடரும் தொகுதியை அனும�
 
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Super follow"
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
@@ -1870,12 +1878,12 @@ msgid "Image size should be less than 10MB"
 msgstr "படத்தின் அளவு 10MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 50MB"
-msgstr "வீடியோ அளவு 50MB க்கும் குறைவாக இருக்க வேண்டும்"
+msgid "Video size should be less than 100MB"
+msgstr "வீடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Audio size should be less than 20MB"
-msgstr "ஆடியோ அளவு 20MB க்கும் குறைவாக இருக்க வேண்டும்"
+msgid "Audio size should be less than 100MB"
+msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/lib/getModule.ts
 msgid "The Unknown Collect Module is unknown and not type supported in the API."
@@ -1961,3 +1969,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+

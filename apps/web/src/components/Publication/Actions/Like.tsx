@@ -1,6 +1,5 @@
 import type { ApolloCache } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/types';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
@@ -12,6 +11,7 @@ import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
+import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -21,11 +21,11 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
-  publication: LensterPublication;
-  isFullPublication: boolean;
+  publication: Publication;
+  showCount: boolean;
 }
 
-const Like: FC<Props> = ({ publication, isFullPublication }) => {
+const Like: FC<Props> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -37,7 +37,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
   );
 
   const updateCache = (cache: ApolloCache<any>, type: ReactionTypes.Upvote | ReactionTypes.Downvote) => {
-    if (pathname === '/posts/[id]') {
+    if (showCount) {
       cache.modify({
         id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
         fields: {
@@ -50,9 +50,31 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
     }
   };
 
+  const getLikeSource = () => {
+    if (pathname === '/') {
+      return 'home_feed';
+    } else if (pathname === '/u/[username]') {
+      return 'profile_feed';
+    } else if (pathname === '/explore') {
+      return 'explore_feed';
+    } else if (pathname === '/posts/[id]') {
+      return 'post_page';
+    } else {
+      return;
+    }
+  };
+
+  const getEventProperties = (type: 'like' | 'dislike') => {
+    return {
+      [`${type}_by`]: currentProfile?.id,
+      [`${type}_publication`]: publication?.id,
+      [`${type}_source`]: getLikeSource()
+    };
+  };
+
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Analytics.track(PUBLICATION.LIKE);
+      Analytics.track(PUBLICATION.LIKE, getEventProperties('like'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -64,7 +86,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Analytics.track(PUBLICATION.DISLIKE);
+      Analytics.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -100,7 +122,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
     }
   };
 
-  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
   const { content } = publication.metadata;
   const isGM = hasGm(content);
 
@@ -135,7 +157,7 @@ const Like: FC<Props> = ({ publication, isFullPublication }) => {
           </Tooltip>
         </div>
       </motion.button>
-      {count > 0 && !isFullPublication && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+      {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
     </div>
   );
 };

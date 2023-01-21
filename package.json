@@ -1,6 +1,6 @@
 {
   "name": "lenster",
-  "version": "1.0.5-beta",
+  "version": "1.0.6-beta",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -20,8 +20,8 @@
   },
   "devDependencies": {
     "husky": "^8.0.3",
-    "prettier": "latest",
-    "turbo": "latest"
+    "prettier": "2.8.3",
+    "turbo": "1.7.0"
   },
   "engines": {
     "node": ">=14.0.0"

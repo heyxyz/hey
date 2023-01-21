@@ -1,7 +1,6 @@
 import type { ApolloCache } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
@@ -15,7 +14,7 @@ import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
-import type { CreateMirrorRequest } from 'lens';
+import type { CreateMirrorRequest, Publication } from 'lens';
 import {
   useBroadcastMutation,
   useCreateMirrorTypedDataMutation,
@@ -29,11 +28,11 @@ import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
-  publication: LensterPublication;
-  isFullPublication: boolean;
+  publication: Publication;
+  showCount: boolean;
 }
 
-const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
+const Mirror: FC<Props> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -42,7 +41,8 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
     ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
     : publication?.stats?.totalAmountOfMirrors;
   const [mirrored, setMirrored] = useState(
-    publication?.mirrors?.length > 0 || publication?.mirrorOf?.mirrors?.length > 0
+    // @ts-ignore
+    isMirror ? publication?.mirrorOf?.mirrors?.length > 0 : publication?.mirrors?.length > 0
   );
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -61,7 +61,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
 
   const onCompleted = () => {
     setMirrored(true);
-    toast.success('Post has been mirrored!');
+    toast.success(t`Post has been mirrored!`);
     Analytics.track(PUBLICATION.MIRROR);
   };
 
@@ -160,7 +160,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
   };
 
   const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
-  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
     <div className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
@@ -189,7 +189,7 @@ const Mirror: FC<Props> = ({ publication, isFullPublication }) => {
           )}
         </div>
       </motion.button>
-      {count > 0 && !isFullPublication && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+      {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
     </div>
   );
 };

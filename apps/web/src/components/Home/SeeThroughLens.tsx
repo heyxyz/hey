@@ -91,6 +91,9 @@ const SeeThroughLens: FC = () => {
       >
         <span className="flex space-x-1 items-center text-sm pl-1">
           <img
+            onError={({ currentTarget }) => {
+              currentTarget.src = getAvatar(profile, false);
+            }}
             src={getAvatar(profile)}
             loading="lazy"
             width={20}
@@ -161,7 +164,7 @@ const SeeThroughLens: FC = () => {
                       Analytics.track(MISCELLANEOUS.SELECT_USER_FEED);
                     }}
                   >
-                    <UserProfile showUserPreview={false} linkToProfile={false} profile={profile} />
+                    <UserProfile linkToProfile={false} profile={profile} showUserPreview={false} />
                   </Menu.Item>
                 ))}
                 {(profiles.length === 0 || error) && (

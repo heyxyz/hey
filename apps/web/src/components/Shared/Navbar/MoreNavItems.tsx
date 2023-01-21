@@ -1,12 +1,12 @@
 import { Menu } from '@headlessui/react';
-import { HandIcon, SupportIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 
 import MenuTransition from '../MenuTransition';
-import { NextLink } from './MenuItems';
+import Contact from './NavItems/Contact';
+import ReportBug from './NavItems/ReportBug';
 
 const MoreNavItems: FC = () => {
   return (
@@ -31,33 +31,20 @@ const MoreNavItems: FC = () => {
               className="absolute py-1 mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
             >
               <Menu.Item
-                as={NextLink}
-                href="/contact"
+                as="div"
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
                 }
               >
-                <div className="flex items-center space-x-1.5">
-                  <SupportIcon className="w-4 h-4" />
-                  <div>
-                    <Trans>Contact</Trans>
-                  </div>
-                </div>
+                <Contact />
               </Menu.Item>
               <Menu.Item
-                as="a"
-                href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
-                target="_blank"
+                as="div"
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
+                  clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
                 }
               >
-                <div className="flex items-center space-x-1.5">
-                  <HandIcon className="w-4 h-4" />
-                  <div>
-                    <Trans>Report a bug</Trans>
-                  </div>
-                </div>
+                <ReportBug />
               </Menu.Item>
             </Menu.Items>
           </MenuTransition>

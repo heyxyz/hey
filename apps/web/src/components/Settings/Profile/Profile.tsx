@@ -144,7 +144,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
       name: profile?.name ?? '',
       location: getAttribute(profile?.attributes, 'location'),
       website: getAttribute(profile?.attributes, 'website'),
-      twitter: getAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', ''),
+      twitter: getAttribute(profile?.attributes, 'twitter')?.replace(/(https:\/\/)?twitter\.com\//, ''),
       bio: profile?.bio ?? ''
     }
   });
@@ -180,27 +180,17 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
                   'app'
                 ].includes(attr.key)
             )
-            .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []),
-          { traitType: 'string', key: 'location', value: location },
-          { traitType: 'string', key: 'website', value: website },
-          { traitType: 'string', key: 'twitter', value: twitter },
-          { traitType: 'boolean', key: 'hasPrideLogo', value: pride },
-          {
-            traitType: 'string',
-            key: 'statusEmoji',
-            value: getAttribute(profile?.attributes, 'statusEmoji')
-          },
-          {
-            traitType: 'string',
-            key: 'statusMessage',
-            value: getAttribute(profile?.attributes, 'statusMessage')
-          },
-          { traitType: 'string', key: 'app', value: APP_NAME }
+            .map(({ key, value }) => ({ key, value })) ?? []),
+          { key: 'location', value: location },
+          { key: 'website', value: website },
+          { key: 'twitter', value: twitter },
+          { key: 'hasPrideLogo', value: pride },
+          { key: 'statusEmoji', value: getAttribute(profile?.attributes, 'statusEmoji') },
+          { key: 'statusMessage', value: getAttribute(profile?.attributes, 'statusMessage') },
+          { key: 'app', value: APP_NAME }
         ],
         version: '1.0.0',
-        metadata_id: uuid(),
-        createdOn: new Date(),
-        appId: APP_NAME
+        metadata_id: uuid()
       }).finally(() => setIsUploading(false));
 
       const request = {
@@ -250,6 +240,9 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
               <div>
                 <img
                   className="object-cover w-full h-60 rounded-lg"
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getIPFSLink(cover);
+                  }}
                   src={imageProxy(getIPFSLink(cover), COVER)}
                   alt={cover}
                 />

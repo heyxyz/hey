@@ -41,5 +41,6 @@ export const aaveMembers = [
   '0x8d68', // avadi.lens
   '0xadb2', // jameslondon.lens
   '0x1044', // south.lens
-  '0xd543' // mirran.lens
+  '0xd543', // mirran.lens
+  '0x0ba3' // khaled.lens
 ];

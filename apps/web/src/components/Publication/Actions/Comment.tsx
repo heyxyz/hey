@@ -1,24 +1,24 @@
 import { Tooltip } from '@components/UI/Tooltip';
-import type { LensterPublication } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
 import nFormatter from '@lib/nFormatter';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
+import type { Publication } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 
 interface Props {
-  publication: LensterPublication;
-  isFullPublication: boolean;
+  publication: Publication;
+  showCount: boolean;
 }
 
-const Comment: FC<Props> = ({ publication, isFullPublication }) => {
+const Comment: FC<Props> = ({ publication, showCount }) => {
   const count =
     publication.__typename === 'Mirror'
       ? publication?.mirrorOf?.stats?.totalAmountOfComments
       : publication?.stats?.totalAmountOfComments;
-  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
     <div className="text-blue-500 flex items-center space-x-1">
@@ -35,7 +35,7 @@ const Comment: FC<Props> = ({ publication, isFullPublication }) => {
           </div>
         </Link>
       </motion.button>
-      {count > 0 && !isFullPublication && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+      {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
-import type { LensterPublication, NewLensterAttachment } from '@generated/types';
+import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import getIPFSLink from '@lib/getIPFSLink';
@@ -8,7 +8,7 @@ import imageProxy from '@lib/imageProxy';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
-import type { MediaSet } from 'lens';
+import type { MediaSet, Publication } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -40,7 +40,7 @@ interface Props {
   attachments: any;
   isNew?: boolean;
   hideDelete?: boolean;
-  publication?: LensterPublication;
+  publication?: Publication;
   txn?: any;
 }
 
@@ -117,7 +117,13 @@ const Attachments: FC<Props> = ({
               ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
                 <Video src={url} poster={getCoverUrl()} />
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
-                <Audio src={url} isNew={isNew} publication={publication} txn={txn} />
+                <Audio
+                  src={url}
+                  isNew={isNew}
+                  publication={publication}
+                  txn={txn}
+                  expandCover={(url) => setExpandedImage(url)}
+                />
               ) : (
                 <img
                   className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700"

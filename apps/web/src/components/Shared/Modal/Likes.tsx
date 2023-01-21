@@ -10,6 +10,7 @@ import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import { FollowSource } from '../Follow';
 import Loader from '../Loader';
 
 interface Props {
@@ -59,13 +60,16 @@ const Likes: FC<Props> = ({ publicationId }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((like) => (
+          {profiles?.map((like, index) => (
             <div className="p-5" key={like?.reactionId}>
               <UserProfile
                 profile={like?.profile as Profile}
+                isFollowing={like?.profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.LIKES_MODAL}
                 showBio
                 showFollow
-                isFollowing={like?.profile?.isFollowedByMe}
+                showUserPreview={false}
               />
             </div>
           ))}

@@ -10,7 +10,7 @@ import { useProfileLazyQuery } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 
-import Follow from './Follow';
+import Follow, { FollowSource } from './Follow';
 import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
@@ -39,6 +39,9 @@ const UserPreview: FC<Props> = ({
 
   const UserAvatar = () => (
     <img
+      onError={({ currentTarget }) => {
+        currentTarget.src = getAvatar(lazyProfile, false);
+      }}
       src={getAvatar(lazyProfile)}
       loading="lazy"
       className={clsx(
@@ -74,7 +77,11 @@ const UserPreview: FC<Props> = ({
             ) : following ? null : lazyProfile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
               <SuperFollow profile={lazyProfile} setFollowing={setFollowing} />
             ) : (
-              <Follow profile={lazyProfile} setFollowing={setFollowing} />
+              <Follow
+                profile={lazyProfile}
+                setFollowing={setFollowing}
+                followSource={FollowSource.PROFILE_POPOVER}
+              />
             ))}
         </div>
       </div>

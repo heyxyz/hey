@@ -4,6 +4,7 @@ fragment MirrorFields on Mirror {
     ...ProfileFields
   }
   reaction(request: $reactionRequest)
+  isGated
   canComment(profileId: $profileId) {
     result
   }
@@ -36,6 +37,7 @@ fragment MirrorFields on Mirror {
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
       onChainContentURI
+      isGated
       canComment(profileId: $profileId) {
         result
       }

@@ -1,12 +1,12 @@
-import type { LensterPublication } from '@generated/types';
 import { Menu } from '@headlessui/react';
 import { ShieldExclamationIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const Report: FC<Props> = ({ publication }) => {

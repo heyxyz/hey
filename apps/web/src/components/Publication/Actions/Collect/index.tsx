@@ -2,7 +2,6 @@ import Loader from '@components/Shared/Loader';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
-import type { LensterPublication } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
@@ -11,7 +10,7 @@ import humanize from '@lib/humanize';
 import nFormatter from '@lib/nFormatter';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { ElectedMirror } from 'lens';
+import type { ElectedMirror, Publication } from 'lens';
 import { CollectModules } from 'lens';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
@@ -23,12 +22,12 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 });
 
 interface Props {
-  publication: LensterPublication;
-  isFullPublication: boolean;
+  publication: Publication;
   electedMirror?: ElectedMirror;
+  showCount: boolean;
 }
 
-const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) => {
+const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
@@ -37,16 +36,21 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
   const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
 
   useEffect(() => {
-    if (publication?.mirrorOf?.stats?.totalAmountOfCollects || publication?.stats?.totalAmountOfCollects) {
+    if (
+      isMirror
+        ? publication?.mirrorOf?.stats?.totalAmountOfCollects
+        : publication?.stats?.totalAmountOfCollects
+    ) {
       setCount(
         publication.__typename === 'Mirror'
           ? publication?.mirrorOf?.stats?.totalAmountOfCollects
           : publication?.stats?.totalAmountOfCollects
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
 
-  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
     <>
@@ -73,9 +77,7 @@ const Collect: FC<Props> = ({ publication, isFullPublication, electedMirror }) =
             </Tooltip>
           </div>
         </motion.button>
-        {count > 0 && !isFullPublication && (
-          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
-        )}
+        {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
       </div>
       <Modal
         title={

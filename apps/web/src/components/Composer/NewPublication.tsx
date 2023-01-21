@@ -6,7 +6,7 @@ import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
-import type { LensterAttachment, LensterPublication } from '@generated/types';
+import type { LensterAttachment } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type { CollectCondition, EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
@@ -36,7 +36,12 @@ import {
   SHOW_REMAINING_CHARACTERS_LENGTH,
   SIGN_WALLET
 } from 'data/constants';
-import type { CreatePublicCommentRequest, MetadataAttributeInput, PublicationMetadataV2Input } from 'lens';
+import type {
+  CreatePublicCommentRequest,
+  MetadataAttributeInput,
+  Publication,
+  PublicationMetadataV2Input
+} from 'lens';
 import {
   CollectModules,
   PublicationMainFocus,
@@ -82,7 +87,7 @@ const AccessSettings = dynamic(() => import('@components/Composer/Actions/Access
 });
 
 interface Props {
-  publication: LensterPublication;
+  publication: Publication;
 }
 
 const NewPublication: FC<Props> = ({ publication }) => {
