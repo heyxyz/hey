@@ -11,6 +11,9 @@ const ChooseFile: FC<Props> = ({ onChange }) => {
       type="file"
       accept=".png, .jpg, .jpeg, .gif"
       onChange={onChange}
+      onClick={(event) => {
+        (event.target as HTMLInputElement).value = '';
+      }}
     />
   );
 };

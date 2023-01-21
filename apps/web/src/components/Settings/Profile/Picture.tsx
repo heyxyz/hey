@@ -20,11 +20,15 @@ import {
 } from 'lens';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
+import type { Area } from 'react-easy-crop';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+
+import { getCroppedImg } from './canvasUtils';
+import ImageCropper from './ImageCropper';
 
 interface Props {
   profile: Profile & { picture: MediaSet & NftImage };
@@ -37,6 +41,8 @@ const Picture: FC<Props> = ({ profile }) => {
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const [imageSrc, setImageSrc] = useState('');
 
   const onCompleted = () => {
     toast.success(t`Avatar updated successfully!`);
@@ -105,26 +111,36 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   };
 
-  const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
-    evt.preventDefault();
+  const cropAndUpload = async (): Promise<string> => {
+    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+    if (!croppedImage) {
+      return '';
+    }
+    const blob = await new Promise((resolve) => croppedImage.toBlob(resolve));
+    let file = new File([blob as Blob], 'cropped_image.png', { type: (blob as Blob).type });
+    let url = '';
     setUploading(true);
     try {
-      const attachment = await uploadToIPFS(evt.target.files);
+      const attachment = await uploadToIPFS([file]);
       if (attachment[0]?.item) {
-        setAvatar(attachment[0].item);
+        url = attachment[0].item;
       }
     } finally {
+      setAvatar(croppedImage.toDataURL('image/png'));
+      setImageSrc('');
       setUploading(false);
     }
+    return url;
   };
 
-  const editPicture = async (avatar?: string) => {
+  const uploadAndSave = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
 
+    let avatar = await cropAndUpload();
     if (!avatar) {
-      return toast.error(t`Avatar can't be empty!`);
+      return toast.error(t`Upload failed`);
     }
 
     try {
@@ -143,43 +159,65 @@ const Picture: FC<Props> = ({ profile }) => {
           request
         }
       });
-    } catch {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
+  const isLoading =
+    typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading || uploading;
+
+  function readFile(file: Blob): Promise<string> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => resolve(reader.result as string), false);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
+    if (evt.target.files && evt.target.files.length > 0) {
+      const file = evt.target.files[0];
+      let imageDataUrl = await readFile(file);
+      setImageSrc(imageDataUrl);
+    }
+  };
 
   return (
     <>
       <div className="space-y-1.5">
         {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
         <div className="space-y-3">
-          {avatar && (
-            <div>
-              <img
-                className="h-60 w-60 rounded-lg"
-                height={240}
-                width={240}
-                onError={({ currentTarget }) => {
-                  currentTarget.src = getIPFSLink(avatar);
-                }}
-                src={imageProxy(getIPFSLink(avatar), AVATAR)}
-                alt={avatar}
-              />
-            </div>
+          {imageSrc ? (
+            <ImageCropper imageSrc={imageSrc} setCroppedAreaPixels={setCroppedAreaPixels} />
+          ) : (
+            avatar && (
+              <div>
+                <img
+                  className="h-60 w-60 rounded-lg"
+                  height={240}
+                  width={240}
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getIPFSLink(avatar);
+                  }}
+                  src={imageProxy(getIPFSLink(avatar), AVATAR)}
+                  alt={avatar}
+                />
+              </div>
+            )
           )}
           <div className="flex items-center space-x-3">
-            <ChooseFile onChange={(evt: ChangeEvent<HTMLInputElement>) => handleUpload(evt)} />
-            {uploading && <Spinner size="sm" />}
+            <ChooseFile onChange={(evt: ChangeEvent<HTMLInputElement>) => onFileChange(evt)} />
           </div>
         </div>
       </div>
       <Button
         type="submit"
-        disabled={isLoading}
-        onClick={() => editPicture(avatar)}
+        disabled={isLoading || !imageSrc}
+        onClick={() => uploadAndSave()}
         icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
       >
-        <Trans>Save</Trans>
+        <Trans>Upload and save</Trans>
       </Button>
     </>
   );
