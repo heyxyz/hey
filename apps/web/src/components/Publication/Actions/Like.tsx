@@ -55,10 +55,10 @@ const Like: FC<Props> = ({ publication, showCount }) => {
       return 'home_feed';
     } else if (pathname === '/u/[username]') {
       return 'profile_feed';
-    } else if (pathname === '/posts/[id]') {
-      return 'post_page';
     } else if (pathname === '/explore') {
       return 'explore_feed';
+    } else if (pathname === '/posts/[id]') {
+      return 'post_page';
     } else {
       return;
     }
