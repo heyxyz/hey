@@ -107,7 +107,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
           <Button
             icon={
               queryLoading || transactionLoading || waitLoading ? (
-                <Spinner variant="success" size="xs" />
+                <Spinner size="xs" />
               ) : (
                 <PlusIcon className="w-4 h-4" />
               )
