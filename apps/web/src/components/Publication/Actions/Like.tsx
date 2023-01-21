@@ -13,6 +13,7 @@ import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -25,6 +26,7 @@ interface Props {
 }
 
 const Like: FC<Props> = ({ publication, showCount }) => {
+  const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(
@@ -48,9 +50,31 @@ const Like: FC<Props> = ({ publication, showCount }) => {
     }
   };
 
+  const getLikeSource = () => {
+    if (pathname === '/') {
+      return 'home_feed';
+    } else if (pathname === '/u/[username]') {
+      return 'profile_feed';
+    } else if (pathname === '/explore') {
+      return 'explore_feed';
+    } else if (pathname === '/posts/[id]') {
+      return 'post_page';
+    } else {
+      return;
+    }
+  };
+
+  const getEventProperties = (type: 'like' | 'dislike') => {
+    return {
+      [`${type}_by`]: currentProfile?.id,
+      [`${type}_publication`]: publication?.id,
+      [`${type}_source`]: getLikeSource()
+    };
+  };
+
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Analytics.track(PUBLICATION.LIKE);
+      Analytics.track(PUBLICATION.LIKE, getEventProperties('like'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -62,7 +86,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Analytics.track(PUBLICATION.DISLIKE);
+      Analytics.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
     },
     onError: (error) => {
       setLiked(!liked);

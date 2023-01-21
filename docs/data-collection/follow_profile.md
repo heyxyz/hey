@@ -48,9 +48,3 @@ Example: `0x0d`
 The profile id of the user that was followed.
 
 Example: `0x2d`
-
-### `follow_time`
-
-The time when the user followed another user's profile.
-
-Example: `2020-12-01T12:00:00.000Z`
