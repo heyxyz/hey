@@ -9,7 +9,7 @@ import { UsersIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile, Wallet } from 'lens';
+import type { FollowersRequest, Profile, Wallet } from 'lens';
 import { useFollowersQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -20,7 +20,7 @@ interface Props {
 
 const Followers: FC<Props> = ({ profile }) => {
   // Variables
-  const request = { profileId: profile?.id, limit: 10 };
+  const request: FollowersRequest = { profileId: profile?.id, limit: 10 };
 
   const { data, loading, error, fetchMore } = useFollowersQuery({
     variables: { request },

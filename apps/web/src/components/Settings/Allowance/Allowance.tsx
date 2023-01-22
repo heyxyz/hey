@@ -1,11 +1,11 @@
-import type { ApprovedAllowanceAmount } from 'lens';
+import type { ApprovedAllowanceAmount, ApprovedModuleAllowanceAmountQuery } from 'lens';
 import { CollectModules } from 'lens';
 import type { FC } from 'react';
 
 import Module from './Module';
 
 interface Props {
-  allowance: any;
+  allowance: ApprovedModuleAllowanceAmountQuery | undefined;
 }
 
 const Allowance: FC<Props> = ({ allowance }) => {

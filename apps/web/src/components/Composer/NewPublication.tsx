@@ -10,7 +10,10 @@ import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type { CollectCondition, EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
+import type {
+  AccessConditionOutput,
+  CreatePublicPostRequest
+} from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { Analytics } from '@lib/analytics';
@@ -464,7 +467,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         arweaveId = await createMetadata(metadata);
       }
 
-      const request = {
+      const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
         profileId: currentProfile?.id,
         contentURI: `https://arweave.net/${arweaveId}`,
         ...(isComment && {

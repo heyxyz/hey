@@ -6,7 +6,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile, Wallet } from 'lens';
+import type { Profile, Wallet, WhoCollectedPublicationRequest } from 'lens';
 import { useCollectorsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -20,7 +20,7 @@ interface Props {
 
 const Collectors: FC<Props> = ({ publicationId }) => {
   // Variables
-  const request = { publicationId: publicationId, limit: 10 };
+  const request: WhoCollectedPublicationRequest = { publicationId: publicationId, limit: 10 };
 
   const { data, loading, error, fetchMore } = useCollectorsQuery({
     variables: { request },

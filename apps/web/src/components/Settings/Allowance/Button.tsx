@@ -7,6 +7,7 @@ import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
+import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -15,7 +16,7 @@ import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface Props {
   title?: string;
-  module: any;
+  module: ApprovedAllowanceAmount;
   allowed: boolean;
   setAllowed: Dispatch<boolean>;
 }

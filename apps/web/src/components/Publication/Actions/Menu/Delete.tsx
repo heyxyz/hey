@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import type { Publication } from 'lens';
 import { useHidePublicationMutation } from 'lens';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -30,7 +30,7 @@ const Delete: FC<Props> = ({ publication }) => {
           'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
         )
       }
-      onClick={(event: any) => {
+      onClick={(event: MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
         if (confirm('Are you sure you want to delete?')) {
           hidePost({

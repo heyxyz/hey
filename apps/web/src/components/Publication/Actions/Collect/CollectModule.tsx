@@ -38,7 +38,7 @@ import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
 import type { BigNumber } from 'ethers';
 import { defaultAbiCoder } from 'ethers/lib/utils';
-import type { ElectedMirror, Publication } from 'lens';
+import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
 import {
   CollectModules,
   useApprovedModuleAllowanceAmountQuery,
@@ -426,7 +426,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
             ) : (
               <AllowanceButton
                 title="Allow collect module"
-                module={allowanceData?.approvedModuleAllowanceAmount[0]}
+                module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
                 allowed={allowed}
                 setAllowed={setAllowed}
               />
