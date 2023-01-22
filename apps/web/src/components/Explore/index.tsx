@@ -9,6 +9,7 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
+import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -20,7 +21,7 @@ import FeedType from './FeedType';
 
 const Explore: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [focus, setFocus] = useState<any>();
+  const [focus, setFocus] = useState<PublicationMainFocus>();
   const router = useRouter();
 
   const tabs = [
