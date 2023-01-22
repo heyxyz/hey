@@ -30,7 +30,7 @@ const Attachment: FC = () => {
 
   useOnClickOutside(dropdownRef, () => setShowMenu(false));
 
-  const hasVideos = (files: any) => {
+  const hasVideos = (files: FileList) => {
     let videos = 0;
     let images = 0;
 
@@ -53,7 +53,7 @@ const Attachment: FC = () => {
     return false;
   };
 
-  const isTypeAllowed = (files: any) => {
+  const isTypeAllowed = (files: FileList) => {
     for (const file of files) {
       if (ALLOWED_MEDIA_TYPES.includes(file.type)) {
         return true;
@@ -63,7 +63,7 @@ const Attachment: FC = () => {
     return false;
   };
 
-  const isImageType = (files: any) => {
+  const isImageType = (files: FileList) => {
     for (const file of files) {
       if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
         return false;
@@ -85,7 +85,7 @@ const Attachment: FC = () => {
       }
 
       // Type check
-      if (isTypeAllowed(files)) {
+      if (isTypeAllowed(files as FileList)) {
         await handleUploadAttachments(files);
         evt.target.value = '';
       } else {

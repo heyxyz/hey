@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -34,7 +34,7 @@ const Messages: NextPage = () => {
 
   return (
     <GridLayout classNameChild="md:gap-8">
-      <MetaTags title={`Messages • ${APP_NAME}`} />
+      <MetaTags title={t`Messages • ${APP_NAME}`} />
       <PreviewList />
       <GridItemEight className="sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-8 lg:block md:hidden sm:hidden xs:hidden sm:mx-2 xs:mx-2">
         <Card className="h-full">

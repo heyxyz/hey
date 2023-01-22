@@ -1,12 +1,13 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
+import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 
 const Privacy: FC = () => {
   return (
     <>
-      <MetaTags title={`Privacy Policy • ${APP_NAME}`} />
+      <MetaTags title={t`Privacy Policy • ${APP_NAME}`} />
       <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">Privacy Policy</h1>

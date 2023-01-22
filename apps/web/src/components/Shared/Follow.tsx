@@ -62,8 +62,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
       ...(followSource && { follow_source: followSource }),
       ...(followPosition && { follow_position: followPosition }),
       follow_from: currentProfile?.id,
-      follow_target: profile?.id,
-      follow_time: new Date().toISOString()
+      follow_target: profile?.id
     });
   };
 
@@ -178,7 +177,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
       onClick={createFollow}
       aria-label="Follow"
       disabled={isLoading}
-      icon={isLoading ? <Spinner variant="success" size="xs" /> : <UserAddIcon className="w-4 h-4" />}
+      icon={isLoading ? <Spinner size="xs" /> : <UserAddIcon className="w-4 h-4" />}
     >
       {showText && t`Follow`}
     </Button>

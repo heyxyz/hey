@@ -3,6 +3,7 @@ import Footer from '@components/Shared/Footer';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import isGardener from '@lib/isGardener';
+import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -19,10 +20,7 @@ const Mod: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags
-        title={`Mod Center • ${APP_NAME}`}
-        description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
-      />
+      <MetaTags title={t`Mod Center • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
         <Feed />
       </GridItemEight>

@@ -140,7 +140,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         message: challengeRes?.data?.nftOwnershipChallenge?.text as string
       });
 
-      const request = {
+      const request: UpdateProfileImageRequest = {
         profileId: currentProfile?.id,
         nftData: {
           id: challengeRes?.data?.nftOwnershipChallenge?.id,

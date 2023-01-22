@@ -4,7 +4,7 @@ import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 
@@ -25,7 +25,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
     <Menu as="div" className="relative">
       <Menu.Button
         className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
-        onClick={(event: any) => {
+        onClick={(event: MouseEvent<HTMLButtonElement>) => {
           event.stopPropagation();
           Analytics.track(PUBLICATION.MORE);
         }}

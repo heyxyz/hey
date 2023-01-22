@@ -1,3 +1,4 @@
+import type { OptimisticTransaction } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
@@ -18,7 +19,7 @@ interface Props {
   src: string;
   isNew?: boolean;
   publication?: Publication;
-  txn: any;
+  txn: OptimisticTransaction;
   expandCover: (url: string) => void;
 }
 
@@ -65,7 +66,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew && !txn}
-          cover={isNew ? (txn ? txn.cover : audioPublication.cover) : getThumbnailUrl(publication)}
+          cover={isNew ? txn?.cover ?? audioPublication.cover : getThumbnailUrl(publication)}
           setCover={(url, mimeType) =>
             setAudioPublication({ ...audioPublication, cover: url, coverMimeType: mimeType })
           }

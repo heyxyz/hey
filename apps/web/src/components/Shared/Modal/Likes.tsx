@@ -5,7 +5,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { HeartIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile } from 'lens';
+import type { Profile, WhoReactedPublicationRequest } from 'lens';
 import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -19,7 +19,7 @@ interface Props {
 
 const Likes: FC<Props> = ({ publicationId }) => {
   // Variables
-  const request = { publicationId: publicationId, limit: 10 };
+  const request: WhoReactedPublicationRequest = { publicationId: publicationId, limit: 10 };
 
   const { data, loading, error, fetchMore } = useLikesQuery({
     variables: { request },

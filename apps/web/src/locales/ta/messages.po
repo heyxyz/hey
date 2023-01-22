@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-19 14:40\n"
+"PO-Revision-Date: 2023-01-22 09:15\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -271,6 +271,10 @@ msgstr "டிரெண்டிங்"
 #: src/components/Explore/index.tsx
 msgid "Interesting"
 msgstr "கவர்ச்சியான"
+
+#: src/components/Explore/index.tsx
+msgid "Explore • {APP_NAME}"
+msgstr ""
 
 #: src/components/Home/BetaWarning.tsx
 msgid "Beta warning!"
@@ -552,8 +556,16 @@ msgstr "உரையாடலைத் தேர்ந்தெடுக்க�
 msgid "Choose an existing conversation or create a new one to start messaging"
 msgstr "ஏற்கனவே உள்ள உரையாடலைத் தேர்வுசெய்யவும் அல்லது செய்தி அனுப்பத் தொடங்க புதிய ஒன்றை உருவாக்கவும்"
 
+#: src/components/Messages/index.tsx
+msgid "Messages • {APP_NAME}"
+msgstr "செய்திகள் • {APP_NAME}"
+
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Mod Center • {APP_NAME}"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
@@ -647,6 +659,10 @@ msgstr ""
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2></0> குறிப்பிட்டுள்ளார்"
 
+#: src/components/Notification/index.tsx
+msgid "Notifications • {APP_NAME}"
+msgstr "அறிவிப்புகள் • {APP_NAME}"
+
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
 msgstr "பொருள் காலியாக இருக்கக்கூடாது"
@@ -700,6 +716,18 @@ msgstr "நாங்கள் எவ்வாறு உதவலாம்?"
 msgid "Submit"
 msgstr "சமர்ப்பி"
 
+#: src/components/Pages/Privacy.tsx
+msgid "Privacy Policy • {APP_NAME}"
+msgstr "தனியுரிமைக் கொள்கை • {APP_NAME}"
+
+#: src/components/Pages/Terms.tsx
+msgid "Terms & Conditions • {APP_NAME}"
+msgstr "விதிமுறைகள் & நிபந்தனைகள் • {APP_NAME}"
+
+#: src/components/Pages/Thanks.tsx
+msgid "Thanks • {APP_NAME}"
+msgstr "நன்றி • {APP_NAME}"
+
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
 msgstr "ENS பெயர்:"
@@ -739,6 +767,10 @@ msgstr "பதில்கள்"
 #: src/components/Profile/FeedType.tsx
 msgid "Media"
 msgstr "மீடியா"
+
+#: src/components/Profile/FeedType.tsx
+msgid "Collected"
+msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
@@ -792,6 +824,10 @@ msgstr ""
 #: src/components/Profile/NFTFeed.tsx
 msgid "Failed to load nft feed"
 msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
+
+#: src/components/Profile/New.tsx
+msgid "Create Profile • {APP_NAME}"
+msgstr "சுயவிவரத்தை உருவாக்கவும் • {APP_NAME}"
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
@@ -1111,6 +1147,10 @@ msgstr "இல்லை."
 msgid "Request Verification"
 msgstr "சரிபார்ப்பு கோரிக்கை"
 
+#: src/components/Settings/Account/index.tsx
+msgid "Account settings • {APP_NAME}"
+msgstr "கணக்கு அமைப்புகள் • {APP_NAME}"
+
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
 msgstr "அனுமதி"
@@ -1136,6 +1176,10 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
+msgid "Allowance settings • {APP_NAME}"
+msgstr "கொடுப்பனவு அமைப்புகள் • {APP_NAME}"
+
+#: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
 msgstr "தொகுதிகளை அனுமதிக்கவும் / திரும்பப் பெறவும்"
 
@@ -1146,6 +1190,10 @@ msgstr "சேகரிப்பு அம்சத்தைப் பயன்�
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
 msgstr "அழிக்கப்பட்டது {key}"
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Cleanup settings • {APP_NAME}"
+msgstr "துப்புரவு அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup Localstorage"
@@ -1198,6 +1246,10 @@ msgstr "செயலி அமைப்புகள்"
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Note: Cleaning will log you out"
 msgstr "குறிப்பு: சுத்தம் செய்வது உங்களை வெளியேற்றும்"
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Delete Profile • {APP_NAME}"
+msgstr "சுயவிவரத்தை நீக்கு • {APP_NAME}"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "This will deactivate your account"
@@ -1254,8 +1306,16 @@ msgid "Enable dispatcher"
 msgstr "டிஸ்பெட்சேரை இயக்கு"
 
 #: src/components/Settings/Dispatcher/index.tsx
+msgid "Dispatcher • {APP_NAME}"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
 msgstr ""
+
+#: src/components/Settings/Interests/index.tsx
+msgid "Interests settings • {APP_NAME}"
+msgstr "ஆர்வங்கள் அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
@@ -1346,6 +1406,10 @@ msgstr ""
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
 msgstr "அமைப்புகளை ஏற்றுகிறது"
+
+#: src/components/Settings/Profile/index.tsx
+msgid "Profile settings • {APP_NAME}"
+msgstr "சுயவிவர அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
@@ -1868,6 +1932,10 @@ msgstr "உங்களிடம் போதுமான <0>{0}</0> இல்�
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stafftools • {APP_NAME}"
+msgstr "பணியாளர் கருவிகள் • {APP_NAME}"
 
 #: src/components/UI/LightBox.tsx
 msgid "Open original"

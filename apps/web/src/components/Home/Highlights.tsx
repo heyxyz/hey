@@ -8,7 +8,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Publication } from 'lens';
+import type { FeedHighlightsRequest, Publication } from 'lens';
 import { useFeedHighlightsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -20,7 +20,7 @@ const Highlights: FC = () => {
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
-  const request = { profileId: currentProfile?.id, limit: 10 };
+  const request: FeedHighlightsRequest = { profileId: currentProfile?.id, limit: 10 };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
