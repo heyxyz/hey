@@ -82,7 +82,7 @@ const EmojiPickerPlugin: FC = () => {
 
   const emojiOptions = useMemo(
     () =>
-      emojis != null
+      emojis !== null
         ? emojis.map(
             ({ emoji, aliases, tags }) =>
               new EmojiOption(aliases[0], emoji, {
@@ -100,8 +100,8 @@ const EmojiPickerPlugin: FC = () => {
   const options: EmojiOption[] = useMemo(() => {
     return emojiOptions
       .filter((option: EmojiOption) => {
-        return queryString != null
-          ? new RegExp(queryString, 'gi').exec(option.title) || option.keywords != null
+        return queryString !== null
+          ? new RegExp(queryString, 'gi').exec(option.title) || option.keywords !== null
             ? option.keywords.some((keyword: string) => new RegExp(queryString, 'gi').exec(keyword))
             : false
           : emojiOptions;
@@ -114,7 +114,7 @@ const EmojiPickerPlugin: FC = () => {
       editor.update(() => {
         const selection = $getSelection();
 
-        if (!$isRangeSelection(selection) || selectedOption == null) {
+        if (!$isRangeSelection(selection) || selectedOption === null) {
           return;
         }
 
@@ -137,7 +137,7 @@ const EmojiPickerPlugin: FC = () => {
       triggerFn={checkForTriggerMatch}
       options={options}
       menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
-        if (anchorElementRef.current == null || options.length === 0) {
+        if (anchorElementRef.current === null || options.length === 0) {
           return null;
         }
 
