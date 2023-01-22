@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
@@ -19,7 +19,7 @@ const DispatcherSettings: FC = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Dispatcher • ${APP_NAME}`} />
+      <MetaTags title={t`Dispatcher • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

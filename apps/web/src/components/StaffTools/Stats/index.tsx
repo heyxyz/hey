@@ -12,6 +12,7 @@ import {
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
+import { t } from '@lingui/macro';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import { useLensterStatsQuery } from 'lens';
 import type { NextPage } from 'next';
@@ -49,7 +50,7 @@ const Stats: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Stafftools • ${APP_NAME}`} />
+      <MetaTags title={t`Stafftools • ${APP_NAME}`} />
       <GridItemFour>
         <StaffToolsSidebar />
       </GridItemFour>

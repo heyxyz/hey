@@ -272,6 +272,10 @@ msgstr "டிரெண்டிங்"
 msgid "Interesting"
 msgstr "கவர்ச்சியான"
 
+#: src/components/Explore/index.tsx
+msgid "Explore • {APP_NAME}"
+msgstr ""
+
 #: src/components/Home/BetaWarning.tsx
 msgid "Beta warning!"
 msgstr "பீட்டா எச்சரிக்கை!"
@@ -552,8 +556,16 @@ msgstr "உரையாடலைத் தேர்ந்தெடுக்க�
 msgid "Choose an existing conversation or create a new one to start messaging"
 msgstr "ஏற்கனவே உள்ள உரையாடலைத் தேர்வுசெய்யவும் அல்லது செய்தி அனுப்பத் தொடங்க புதிய ஒன்றை உருவாக்கவும்"
 
+#: src/components/Messages/index.tsx
+msgid "Messages • {APP_NAME}"
+msgstr ""
+
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Mod Center • {APP_NAME}"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
@@ -647,6 +659,10 @@ msgstr ""
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2></0> குறிப்பிட்டுள்ளார்"
 
+#: src/components/Notification/index.tsx
+msgid "Notifications • {APP_NAME}"
+msgstr ""
+
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
 msgstr "பொருள் காலியாக இருக்கக்கூடாது"
@@ -699,6 +715,18 @@ msgstr "நாங்கள் எவ்வாறு உதவலாம்?"
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
 msgstr "சமர்ப்பி"
+
+#: src/components/Pages/Privacy.tsx
+msgid "Privacy Policy • {APP_NAME}"
+msgstr ""
+
+#: src/components/Pages/Terms.tsx
+msgid "Terms & Conditions • {APP_NAME}"
+msgstr ""
+
+#: src/components/Pages/Thanks.tsx
+msgid "Thanks • {APP_NAME}"
+msgstr ""
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
@@ -796,6 +824,10 @@ msgstr ""
 #: src/components/Profile/NFTFeed.tsx
 msgid "Failed to load nft feed"
 msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
+
+#: src/components/Profile/New.tsx
+msgid "Create Profile • {APP_NAME}"
+msgstr ""
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
@@ -1115,6 +1147,10 @@ msgstr "இல்லை."
 msgid "Request Verification"
 msgstr "சரிபார்ப்பு கோரிக்கை"
 
+#: src/components/Settings/Account/index.tsx
+msgid "Account settings • {APP_NAME}"
+msgstr ""
+
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
 msgstr "அனுமதி"
@@ -1140,6 +1176,10 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
+msgid "Allowance settings • {APP_NAME}"
+msgstr ""
+
+#: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
 msgstr "தொகுதிகளை அனுமதிக்கவும் / திரும்பப் பெறவும்"
 
@@ -1150,6 +1190,10 @@ msgstr "சேகரிப்பு அம்சத்தைப் பயன்�
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
 msgstr "அழிக்கப்பட்டது {key}"
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Cleanup settings • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup Localstorage"
@@ -1202,6 +1246,10 @@ msgstr "செயலி அமைப்புகள்"
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Note: Cleaning will log you out"
 msgstr "குறிப்பு: சுத்தம் செய்வது உங்களை வெளியேற்றும்"
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Delete Profile • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "This will deactivate your account"
@@ -1258,7 +1306,15 @@ msgid "Enable dispatcher"
 msgstr "டிஸ்பெட்சேரை இயக்கு"
 
 #: src/components/Settings/Dispatcher/index.tsx
+msgid "Dispatcher • {APP_NAME}"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
+msgstr ""
+
+#: src/components/Settings/Interests/index.tsx
+msgid "Interests settings • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
@@ -1350,6 +1406,10 @@ msgstr ""
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
 msgstr "அமைப்புகளை ஏற்றுகிறது"
+
+#: src/components/Settings/Profile/index.tsx
+msgid "Profile settings • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
@@ -1873,6 +1933,10 @@ msgstr "உங்களிடம் போதுமான <0>{0}</0> இல்�
 msgid "Swap in Uniswap"
 msgstr ""
 
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stafftools • {APP_NAME}"
+msgstr ""
+
 #: src/components/UI/LightBox.tsx
 msgid "Open original"
 msgstr "அசல் திறக்க"
@@ -1973,4 +2037,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
