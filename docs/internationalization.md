@@ -1,10 +1,10 @@
-## Internationalization
+# Internationalization
 
 Lenster uses [Crowdin](https://translate.lenster.xyz) for managing translations. A GitHub workflow uploads new strings for translation to the Crowdin project whenever code using the lingui translation macros is merged into `main`.
 
 Every day, translations are synced back down from Crowdin to a pull request to `main`. We then merge these PR's into `main` manually.
 
-### Marking strings for translation
+## Marking strings for translation
 
 Any user-facing strings that are added or modified in the source code should be marked for translation. Use the `t` macro or the `Trans` component from the `@lingui/macro` library. [Learn more](https://lingui.js.org/ref/macro.html).
 
@@ -22,7 +22,7 @@ const myString = t`Example text`;
 yarn i18n:extract
 ```
 
-### Contributing translations
+## Contributing translations
 
 - Sign up to Crowdin and go to [Lenster](https://translate.lenster.xyz) project page.
 - Select the language you’d like to contribute to and request access:
@@ -33,7 +33,7 @@ yarn i18n:extract
 - You are a proofreader too but, you can’t appove your translations.
 - If you identify some error in any translation please, comment your revision proposal on the comments in the right column before approve and wait for the translator answer!
 
-### Adding a language (for devs)
+## Adding a language (for devs)
 
 1. Add the locale code to `./apps/web/linguirc.json`.
 
