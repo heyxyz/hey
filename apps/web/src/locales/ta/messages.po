@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-22 08:53\n"
+"PO-Revision-Date: 2023-01-22 09:15\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -558,7 +558,7 @@ msgstr "ஏற்கனவே உள்ள உரையாடலைத் தே
 
 #: src/components/Messages/index.tsx
 msgid "Messages • {APP_NAME}"
-msgstr ""
+msgstr "செய்திகள் • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -661,7 +661,7 @@ msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2><
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
-msgstr ""
+msgstr "அறிவிப்புகள் • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
@@ -718,15 +718,15 @@ msgstr "சமர்ப்பி"
 
 #: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
-msgstr ""
+msgstr "தனியுரிமைக் கொள்கை • {APP_NAME}"
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
-msgstr ""
+msgstr "விதிமுறைகள் & நிபந்தனைகள் • {APP_NAME}"
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
-msgstr ""
+msgstr "நன்றி • {APP_NAME}"
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
@@ -827,7 +827,7 @@ msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்
 
 #: src/components/Profile/New.tsx
 msgid "Create Profile • {APP_NAME}"
-msgstr ""
+msgstr "சுயவிவரத்தை உருவாக்கவும் • {APP_NAME}"
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
@@ -1149,7 +1149,7 @@ msgstr "சரிபார்ப்பு கோரிக்கை"
 
 #: src/components/Settings/Account/index.tsx
 msgid "Account settings • {APP_NAME}"
-msgstr ""
+msgstr "கணக்கு அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
@@ -1177,7 +1177,7 @@ msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allowance settings • {APP_NAME}"
-msgstr ""
+msgstr "கொடுப்பனவு அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
@@ -1193,7 +1193,7 @@ msgstr "அழிக்கப்பட்டது {key}"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup settings • {APP_NAME}"
-msgstr ""
+msgstr "துப்புரவு அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup Localstorage"
@@ -1249,7 +1249,7 @@ msgstr "குறிப்பு: சுத்தம் செய்வது �
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Delete Profile • {APP_NAME}"
-msgstr ""
+msgstr "சுயவிவரத்தை நீக்கு • {APP_NAME}"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "This will deactivate your account"
@@ -1315,7 +1315,7 @@ msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
-msgstr ""
+msgstr "ஆர்வங்கள் அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
@@ -1409,7 +1409,7 @@ msgstr "அமைப்புகளை ஏற்றுகிறது"
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Profile settings • {APP_NAME}"
-msgstr ""
+msgstr "சுயவிவர அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
@@ -1935,7 +1935,7 @@ msgstr ""
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools • {APP_NAME}"
-msgstr ""
+msgstr "பணியாளர் கருவிகள் • {APP_NAME}"
 
 #: src/components/UI/LightBox.tsx
 msgid "Open original"
@@ -2037,3 +2037,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+
