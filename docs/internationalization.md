@@ -24,13 +24,14 @@ yarn i18n:extract
 
 ### Contributing translations
 
-1. Sign up to Crowdin and go to [Lenster](https://translate.lenster.xyz) project page.
-2. Select the language you’d like to contribute to and request access:
-3. Drop a message in the Translators channel of our Discord to introduce yourself and let us know you’ve requested access.
-4. Once you’ve been given access, you can start making translations.
-5. Once your translations have been approved by a proofreader they’ll be automatically synced with the Lenster site!
-6. You are a proofreader too but, you can’t appove your translations.
-7. If you identify some error in any translation please, comment your revision proposal on the comments in the right column before approve and wait for the translator answer!
+- Sign up to Crowdin and go to [Lenster](https://translate.lenster.xyz) project page.
+- Select the language you’d like to contribute to and request access:
+  <img width="1465" alt="image" src="https://user-images.githubusercontent.com/69431456/213901159-abc8e619-089c-4bd3-acf9-6428c77cc918.png">
+- Drop a message in the Translators channel of our Discord to introduce yourself and let us know you’ve requested access.
+- Once you’ve been given access, you can start making translations.
+- Once your translations have been approved by a proofreader they’ll be automatically synced with the Lenster site!
+- You are a proofreader too but, you can’t appove your translations.
+- If you identify some error in any translation please, comment your revision proposal on the comments in the right column before approve and wait for the translator answer!
 
 ### Adding a language (for devs)
 
