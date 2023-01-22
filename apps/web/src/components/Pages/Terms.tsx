@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
+import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -7,7 +8,7 @@ import type { FC } from 'react';
 const Terms: FC = () => {
   return (
     <>
-      <MetaTags title={`Terms & Conditions • ${APP_NAME}`} />
+      <MetaTags title={t`Terms & Conditions • ${APP_NAME}`} />
       <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">Terms & Conditions</h1>

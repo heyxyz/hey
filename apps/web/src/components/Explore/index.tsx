@@ -34,7 +34,7 @@ const Explore: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags
-        title={`Explore • ${APP_NAME}`}
+        title={t`Explore • ${APP_NAME}`}
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
       <GridItemEight className="space-y-5">
