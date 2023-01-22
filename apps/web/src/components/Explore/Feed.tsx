@@ -7,14 +7,14 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Publication } from 'lens';
+import type { ExplorePublicationRequest, Publication, PublicationMainFocus } from 'lens';
 import { CustomFiltersTypes, PublicationSortCriteria, useExploreFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 
 interface Props {
-  focus?: any;
+  focus?: PublicationMainFocus;
   feedType?: PublicationSortCriteria;
 }
 
@@ -22,11 +22,11 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request = {
+  const request: ExplorePublicationRequest = {
     sortCriteria: feedType,
     noRandomize: feedType === 'LATEST',
     customFilters: [CustomFiltersTypes.Gardeners],
-    metadata: focus ? { mainContentFocus: focus } : null,
+    metadata: focus ? { mainContentFocus: [focus] } : null,
     limit: 10
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;

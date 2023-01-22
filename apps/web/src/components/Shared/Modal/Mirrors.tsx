@@ -5,7 +5,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile } from 'lens';
+import type { Profile, ProfileQueryRequest } from 'lens';
 import { useMirrorsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -19,7 +19,7 @@ interface Props {
 
 const Mirrors: FC<Props> = ({ publicationId }) => {
   // Variables
-  const request = { whoMirroredPublicationId: publicationId, limit: 10 };
+  const request: ProfileQueryRequest = { whoMirroredPublicationId: publicationId, limit: 10 };
 
   const { data, loading, error, fetchMore } = useMirrorsQuery({
     variables: { request },
