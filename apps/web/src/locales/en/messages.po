@@ -741,6 +741,10 @@ msgid "Media"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
+msgid "Collected"
+msgstr "Collected"
+
+#: src/components/Profile/FeedType.tsx
 msgid "NFTs"
 msgstr ""
 
