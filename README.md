@@ -73,7 +73,7 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 ### Using Local Environment
 
-```sh
+```bash
 cd apps/web
 cp .env.example .env
 yarn install

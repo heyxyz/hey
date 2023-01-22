@@ -741,6 +741,10 @@ msgid "Media"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
+msgid "Collected"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
 msgid "NFTs"
 msgstr ""
 
@@ -1969,4 +1973,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
