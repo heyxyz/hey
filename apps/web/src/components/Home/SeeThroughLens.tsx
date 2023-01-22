@@ -10,7 +10,7 @@ import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import type { FeedItem, Profile, ProfileSearchResult } from 'lens';
+import type { FeedItem, FeedRequest, Profile, ProfileSearchResult } from 'lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
@@ -49,7 +49,7 @@ const SeeThroughLens: FC = () => {
   };
 
   const profile = seeThroughProfile ?? currentProfile;
-  const request = { profileId: profile?.id, limit: 50 };
+  const request: FeedRequest = { profileId: profile?.id, limit: 50 };
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
 
