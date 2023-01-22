@@ -8,7 +8,6 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
-    "test": "cypress run --headless",
     "extract": "lingui compile; NODE_ENV=development lingui extract"
   },
   "dependencies": {
@@ -70,7 +69,6 @@
     "abis": "*",
     "autoprefixer": "^10.4.13",
     "babel-plugin-macros": "^3.1.0",
-    "cypress": "^12.3.0",
     "data": "*",
     "eslint-config-weblint": "*",
     "lens": "*",

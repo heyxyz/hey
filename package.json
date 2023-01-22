@@ -11,7 +11,6 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
-    "test": "turbo run test",
     "codegen": "turbo run codegen",
     "i18n:extract": "turbo run extract",
     "prettier": "prettier --check \"**/*.{ts,tsx,md}\"",
