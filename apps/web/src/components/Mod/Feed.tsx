@@ -7,7 +7,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Publication } from 'lens';
+import type { ExplorePublicationRequest, Publication } from 'lens';
 import { PublicationSortCriteria, PublicationTypes, useExploreFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -17,7 +17,7 @@ const Feed: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request = {
+  const request: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.Latest,
     publicationTypes: [PublicationTypes.Post, PublicationTypes.Comment],
     noRandomize: true,

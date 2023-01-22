@@ -8,7 +8,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile, Publication } from 'lens';
+import type { Profile, Publication, PublicationsQueryRequest } from 'lens';
 import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -61,7 +61,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
           mainContentFocus: getMediaFilters()
         }
       : null;
-  const request = {
+  const request: PublicationsQueryRequest = {
     publicationTypes,
     metadata,
     ...(type !== ProfileFeedType.Collects ? { profileId: profile?.id } : { collectedBy: profile?.ownedBy }),

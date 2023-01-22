@@ -128,7 +128,7 @@ const Picture: FC<Props> = ({ profile }) => {
     }
 
     try {
-      const request = {
+      const request: UpdateProfileImageRequest = {
         profileId: currentProfile?.id,
         url: avatar
       };

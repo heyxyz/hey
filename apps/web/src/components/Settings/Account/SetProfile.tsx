@@ -12,7 +12,7 @@ import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
-import type { Profile } from 'lens';
+import type { CreateSetDefaultProfileRequest, Profile } from 'lens';
 import { useBroadcastMutation, useCreateSetDefaultProfileTypedDataMutation } from 'lens';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -91,7 +91,7 @@ const SetProfile: FC = () => {
     }
 
     try {
-      const request = { profileId: selectedUser };
+      const request: CreateSetDefaultProfileRequest = { profileId: selectedUser };
       await createSetDefaultProfileTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
