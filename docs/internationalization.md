@@ -35,17 +35,6 @@ yarn i18n:extract
 
 ### Adding a language (for devs)
 
-1. Add the locale code, english name, and short and long alias's to `constants/languages/language-options.ts`.
-
-```diff
-export const Languages: Language = {
-  en: { code: 'en', name: 'english', short: 'EN', long: 'English' },
-  zh: { code: 'zh', name: 'chinese', short: '中文', long: '中文' },
-  ru: { code: 'ru', name: 'russian', short: 'RU', long: 'Pусский' },
-+ es: { code: 'es', name: 'spanish', short: 'ES', long: 'Español' },
-}
-```
-
 1. Add the locale code to `./apps/web/linguirc.json`.
 
 ```diff
@@ -53,14 +42,24 @@ export const Languages: Language = {
 + "locales": ["en", "es", "ta"]
 ```
 
-1. Import the locale plurals in `./apps/web/src/lib/i18n.ts`.
+2. Add the locale code and long alias's to `./apps/web/src/lib/i18n.ts`.
+
+```diff
+export const supportedLocales: Record<string, string> = {
+  en: 'English',
+  es: 'Español',
++ ta: 'தமிழ்'
+};
+```
+
+3. Import the locale plurals in `./apps/web/src/lib/i18n.ts`.
 
 ```diff
 - import { en, es } from 'make-plural/plurals'
 + import { en, es, ta } from 'make-plural/plurals'
 ```
 
-1. Load the locale plurals in `./apps/web/src/lib/i18n.ts`
+4. Load the locale plurals in `./apps/web/src/lib/i18n.ts`
 
 ```diff
 i18n.loadLocaleData({
@@ -70,7 +69,7 @@ i18n.loadLocaleData({
 })
 ```
 
-1. Extract and compile the strings marked for translation. This creates a directory for the locale within the `./apps/web/src/locales/` directory:
+5. Extract and compile the strings marked for translation. This creates a directory for the locale within the `./apps/web/src/locales/` directory:
 
 ```bash
 yarn i18n:extract
