@@ -18,7 +18,7 @@ const NewProfile: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Create Profile • ${APP_NAME}`} />
+      <MetaTags title={t`Create Profile • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper heading="Create profile" description={t`Create new decentralized profile`} />
       </GridItemFour>
