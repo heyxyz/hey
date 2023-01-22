@@ -272,6 +272,10 @@ msgstr ""
 msgid "Interesting"
 msgstr ""
 
+#: src/components/Explore/index.tsx
+msgid "Explore • {APP_NAME}"
+msgstr ""
+
 #: src/components/Home/BetaWarning.tsx
 msgid "Beta warning!"
 msgstr ""
@@ -552,8 +556,16 @@ msgstr ""
 msgid "Choose an existing conversation or create a new one to start messaging"
 msgstr ""
 
+#: src/components/Messages/index.tsx
+msgid "Messages • {APP_NAME}"
+msgstr ""
+
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Mod Center • {APP_NAME}"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
@@ -647,6 +659,10 @@ msgstr ""
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr ""
 
+#: src/components/Notification/index.tsx
+msgid "Notifications • {APP_NAME}"
+msgstr ""
+
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
 msgstr ""
@@ -698,6 +714,18 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
+msgstr ""
+
+#: src/components/Pages/Privacy.tsx
+msgid "Privacy Policy • {APP_NAME}"
+msgstr ""
+
+#: src/components/Pages/Terms.tsx
+msgid "Terms & Conditions • {APP_NAME}"
+msgstr ""
+
+#: src/components/Pages/Thanks.tsx
+msgid "Thanks • {APP_NAME}"
 msgstr ""
 
 #: src/components/Profile/Badges/Ens.tsx
@@ -795,6 +823,10 @@ msgstr ""
 
 #: src/components/Profile/NFTFeed.tsx
 msgid "Failed to load nft feed"
+msgstr ""
+
+#: src/components/Profile/New.tsx
+msgid "Create Profile • {APP_NAME}"
 msgstr ""
 
 #: src/components/Profile/New.tsx
@@ -1115,6 +1147,10 @@ msgstr ""
 msgid "Request Verification"
 msgstr ""
 
+#: src/components/Settings/Account/index.tsx
+msgid "Account settings • {APP_NAME}"
+msgstr ""
+
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
 msgstr ""
@@ -1140,6 +1176,10 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
+msgid "Allowance settings • {APP_NAME}"
+msgstr ""
+
+#: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
 msgstr ""
 
@@ -1149,6 +1189,10 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Cleanup settings • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
@@ -1201,6 +1245,10 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Note: Cleaning will log you out"
+msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Delete Profile • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
@@ -1258,7 +1306,15 @@ msgid "Enable dispatcher"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
+msgid "Dispatcher • {APP_NAME}"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
+msgstr ""
+
+#: src/components/Settings/Interests/index.tsx
+msgid "Interests settings • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
@@ -1349,6 +1405,10 @@ msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
+msgstr ""
+
+#: src/components/Settings/Profile/index.tsx
+msgid "Profile settings • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
@@ -1873,6 +1933,10 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr ""
 
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stafftools • {APP_NAME}"
+msgstr ""
+
 #: src/components/UI/LightBox.tsx
 msgid "Open original"
 msgstr ""
@@ -1973,4 +2037,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

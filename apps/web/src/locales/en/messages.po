@@ -272,6 +272,10 @@ msgstr ""
 msgid "Interesting"
 msgstr ""
 
+#: src/components/Explore/index.tsx
+msgid "Explore • {APP_NAME}"
+msgstr "Explore • {APP_NAME}"
+
 #: src/components/Home/BetaWarning.tsx
 msgid "Beta warning!"
 msgstr ""
@@ -552,9 +556,17 @@ msgstr ""
 msgid "Choose an existing conversation or create a new one to start messaging"
 msgstr ""
 
+#: src/components/Messages/index.tsx
+msgid "Messages • {APP_NAME}"
+msgstr "Messages • {APP_NAME}"
+
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
 msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Mod Center • {APP_NAME}"
+msgstr "Mod Center • {APP_NAME}"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -647,6 +659,10 @@ msgstr ""
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr ""
 
+#: src/components/Notification/index.tsx
+msgid "Notifications • {APP_NAME}"
+msgstr "Notifications • {APP_NAME}"
+
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
 msgstr ""
@@ -699,6 +715,18 @@ msgstr ""
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
 msgstr ""
+
+#: src/components/Pages/Privacy.tsx
+msgid "Privacy Policy • {APP_NAME}"
+msgstr "Privacy Policy • {APP_NAME}"
+
+#: src/components/Pages/Terms.tsx
+msgid "Terms & Conditions • {APP_NAME}"
+msgstr "Terms & Conditions • {APP_NAME}"
+
+#: src/components/Pages/Thanks.tsx
+msgid "Thanks • {APP_NAME}"
+msgstr "Thanks • {APP_NAME}"
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
@@ -796,6 +824,10 @@ msgstr ""
 #: src/components/Profile/NFTFeed.tsx
 msgid "Failed to load nft feed"
 msgstr ""
+
+#: src/components/Profile/New.tsx
+msgid "Create Profile • {APP_NAME}"
+msgstr "Create Profile • {APP_NAME}"
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
@@ -1115,6 +1147,10 @@ msgstr ""
 msgid "Request Verification"
 msgstr ""
 
+#: src/components/Settings/Account/index.tsx
+msgid "Account settings • {APP_NAME}"
+msgstr "Account settings • {APP_NAME}"
+
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
 msgstr ""
@@ -1140,6 +1176,10 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
+msgid "Allowance settings • {APP_NAME}"
+msgstr "Allowance settings • {APP_NAME}"
+
+#: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
 msgstr ""
 
@@ -1150,6 +1190,10 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
 msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Cleanup settings • {APP_NAME}"
+msgstr "Cleanup settings • {APP_NAME}"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup Localstorage"
@@ -1202,6 +1246,10 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Note: Cleaning will log you out"
 msgstr ""
+
+#: src/components/Settings/Delete/index.tsx
+msgid "Delete Profile • {APP_NAME}"
+msgstr "Delete Profile • {APP_NAME}"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "This will deactivate your account"
@@ -1258,8 +1306,16 @@ msgid "Enable dispatcher"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
+msgid "Dispatcher • {APP_NAME}"
+msgstr "Dispatcher • {APP_NAME}"
+
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
 msgstr ""
+
+#: src/components/Settings/Interests/index.tsx
+msgid "Interests settings • {APP_NAME}"
+msgstr "Interests settings • {APP_NAME}"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
@@ -1350,6 +1406,10 @@ msgstr ""
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
 msgstr ""
+
+#: src/components/Settings/Profile/index.tsx
+msgid "Profile settings • {APP_NAME}"
+msgstr "Profile settings • {APP_NAME}"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
@@ -1872,6 +1932,10 @@ msgstr ""
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stafftools • {APP_NAME}"
+msgstr "Stafftools • {APP_NAME}"
 
 #: src/components/UI/LightBox.tsx
 msgid "Open original"
