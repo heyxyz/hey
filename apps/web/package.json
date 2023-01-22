@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "test": "cypress run --headless",
-    "extract": "NODE_ENV=development lingui extract"
+    "extract": "lingui compile; NODE_ENV=development lingui extract"
   },
   "dependencies": {
     "@apollo/client": "^3.7.4",
