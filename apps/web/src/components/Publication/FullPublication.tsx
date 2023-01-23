@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
-import { useRouter } from 'next/router';
 import type { FC, Ref } from 'react';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
@@ -30,7 +29,6 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   const intersectionRef = useRef<HTMLDivElement>(null);
   const isPostVisible = useRef(false);
 
-  const { query } = useRouter();
   const { allowed: staffMode } = useStaffMode();
 
   const isMirror = publication.__typename === 'Mirror';
