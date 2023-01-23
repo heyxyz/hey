@@ -7,6 +7,7 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import formatHandle from '@lib/formatHandle';
+import getURLs from '@lib/getURLs';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
@@ -51,7 +52,15 @@ const ViewPublication: NextPage = () => {
     if (data?.publication?.isGated) {
       return;
     }
-    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight + 360}px)`);
+    const { publication } = data;
+    const commentOn = publication.__typename === 'Comment' ? (publication?.commentOn as any) : null;
+    const mainPost = commentOn?.__typename !== 'Mirror' ? commentOn?.mainPost : null;
+    const hasUrls =
+      getURLs(publication?.metadata?.content) ||
+      getURLs(commentOn.metadata.content) ||
+      getURLs(mainPost.metadata.content);
+    const height = hasUrls.length ? 360 : 0;
+    setAdaptiveHeight(`calc(100vh + ${currentRef.clientHeight + height}px)`);
   };
 
   useEffect(() => {
