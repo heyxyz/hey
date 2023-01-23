@@ -74,8 +74,10 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   });
 
   useEffect(() => {
-    isPostVisible.current = false;
-  }, [query.id]);
+    if (publication.id) {
+      isPostVisible.current = false;
+    }
+  }, [publication.id]);
 
   useLayoutEffect(() => {
     if (intersectionRef.current) {
@@ -84,7 +86,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     if (commentRef.current) {
       resizeObserver.observe(commentRef.current);
     }
-    if (!isPostVisible.current) {
+    if (publication.id) {
       scrollToThread();
     }
   });
