@@ -7,7 +7,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { Modal } from '@components/UI/Modal';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
@@ -65,7 +65,7 @@ const ViewProfile: NextPage = () => {
     if (profile != undefined) {
       setFollowing(null);
     }
-  }, [isFollowedByMe, profile]);
+  }, [profile]);
 
   useEffect(() => {
     if (following) {
@@ -117,7 +117,7 @@ const ViewProfile: NextPage = () => {
                 onClick={() => {
                   setShowFollowModal(false);
                 }}
-                aria-label="Super Follow"
+                aria-label={t`Not now`}
               >
                 <Trans>Not now</Trans>
               </Button>

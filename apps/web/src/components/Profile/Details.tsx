@@ -68,7 +68,6 @@ const Details: FC<Props> = ({ profile, following, setFollowing }) => {
   );
 
   const followType = profile?.followModule?.__typename;
-  console.log('details followtype', followType);
 
   return (
     <div className="px-5 mb-4 space-y-5 sm:px-0">
