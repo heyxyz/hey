@@ -36,7 +36,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
 
   const { mounted } = useIsMounted();
   const { chain } = useNetwork();
-  const { connectors, error, connectAsync } = useConnect();
+  const { connectors, error, connectAsync } = useConnect({ chainId: CHAIN_ID });
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
