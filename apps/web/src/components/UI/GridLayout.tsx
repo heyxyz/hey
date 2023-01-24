@@ -21,7 +21,7 @@ export const GridItemFour: FC<Props> = ({ children, className = '' }) => {
 
 export const GridItemEight: FC<Props> = ({ children, className = '', style }) => {
   return (
-    <div className={`lg:col-span-8 md:col-span-12 col-span-12 mb-5 ${className}`} style={style}>
+    <div className={clsx('lg:col-span-8 md:col-span-12 col-span-12 mb-5', className)} style={style}>
       {children}
     </div>
   );
