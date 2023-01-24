@@ -1,7 +1,7 @@
 import { Analytics } from '@lib/analytics';
 import type { Publication } from 'lens';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import type { FC, RefObject } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
@@ -11,7 +11,7 @@ import PublicationHeader from './PublicationHeader';
 
 interface Props {
   publication: Publication;
-  intersectionRef?: any;
+  intersectionRef?: RefObject<HTMLDivElement>;
 }
 
 const ThreadBody: FC<Props> = ({ publication, intersectionRef }) => {
