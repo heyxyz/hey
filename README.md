@@ -72,8 +72,6 @@ For a place to have open discussions on features, voice your ideas, or get help 
 ## 🤝 Supporting Repos
 
 - [Lenster Assets](https://github.com/lensterxyz/assets) - Static assets hosted in Vercel edge CDN
-- [Lenster Sitemap](https://github.com/lensterxyz/sitemap) - List of sitemap for SEO
-- [Lenster Utils](https://github.com/lensterxyz/utils) - Util APIs and http rewrites
 
 ## 💕 Contributors
 
