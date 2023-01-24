@@ -149,12 +149,11 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
 
     // Track in simple analytics
-    const eventPropertyPrefix = isComment ? 'comment' : 'post';
     const eventProperties = {
-      [`${eventPropertyPrefix}_type`]: restricted ? 'token_gated' : 'public',
-      [`${eventPropertyPrefix}_collect_module`]: selectedCollectModule,
-      [`${eventPropertyPrefix}_reference_module`]: selectedReferenceModule,
-      [`${eventPropertyPrefix}_has_attachments`]: attachments.length > 0
+      publication_type: restricted ? 'token_gated' : 'public',
+      publication_collect_module: selectedCollectModule,
+      publication_reference_module: selectedReferenceModule,
+      publication_has_attachments: attachments.length > 0
     };
     Analytics.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
   };
