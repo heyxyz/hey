@@ -28,6 +28,13 @@ class LensterDocument extends Document {
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 
+          <Script
+            defer
+            src="https://unpkg.com/@tinybirdco/flock.js"
+            data-host="https://api.tinybird.co"
+            data-token="p.eyJ1IjogImMxZmYwODI1LTkzY2QtNDczZS04ZjBjLTMxYzBhNjRjNjlhMCIsICJpZCI6ICJlNzU5YjQ1MC02MzdhLTRjNjAtOTNiMi0wZDQ0YjQzZWJkYTcifQ.POXg2oGWD5Vo1HghzrjF99B7W4L94UEfltrnbCmb-PY"
+          />
+
           {/* Simple Analytics */}
           <Script strategy="lazyOnload" id="sa-events">
             {`window.sa_event=window.sa_event||function(){var a=[].slice.call(arguments);window.sa_event.q?window.sa_event.q.push(a):window.sa_event.q=[a]};`}
