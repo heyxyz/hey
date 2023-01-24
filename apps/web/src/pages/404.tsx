@@ -20,9 +20,7 @@ const Custom404: FC = () => {
         </div>
         <Link href="/">
           <Button className="flex mx-auto item-center" size="lg" icon={<HomeIcon className="w-4 h-4" />}>
-            <div>
-              <Trans>Go to home</Trans>
-            </div>
+            <Trans>Go to home</Trans>
           </Button>
         </Link>
       </div>
