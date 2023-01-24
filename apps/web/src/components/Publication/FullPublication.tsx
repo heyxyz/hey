@@ -84,7 +84,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
     if (commentRef.current) {
       resizeObserver.observe(commentRef.current);
     }
-    if (publication.id) {
+    if (publication.id && !isPostVisible.current) {
       scrollToThread();
     }
   });
