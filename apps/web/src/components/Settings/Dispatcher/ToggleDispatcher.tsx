@@ -11,7 +11,7 @@ import type { ISuccessResult } from '@worldcoin/idkit';
 import { IDKitWidget } from '@worldcoin/idkit';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
-import { IDKIT_ACTION_ID, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
+import { IDKIT_ACTION_ID, IDKIT_BRIDGE, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
 import { useBroadcastMutation, useCreateSetDispatcherTypedDataMutation, useIsIdKitVerifiedQuery } from 'lens';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -24,7 +24,7 @@ interface Props {
 }
 
 const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
-  const { data: idKitData } = useIsIdKitVerifiedQuery({});
+  const { data: idKitData } = useIsIdKitVerifiedQuery();
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -89,7 +89,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
   };
 
   const handleIDKitProof = async (result: ISuccessResult) => {
-    const response = await fetch('https://world-id-lens-bridge.vercel.app/api/v1/submit', {
+    const response = await fetch(IDKIT_BRIDGE, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

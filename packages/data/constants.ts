@@ -33,6 +33,7 @@ export const IS_MAINNET = API_URL === MAINNET_API_URL;
 export const IDKIT_ACTION_ID = IS_MAINNET
   ? 'wid_2d3d2e7a1e0c8286083d4e43598e4f62'
   : 'wid_staging_ac7743b1589fefaf3ed2fc05b3d60da1';
+export const IDKIT_BRIDGE = 'https://world-id-lens-bridge.vercel.app/api/v1/submit';
 
 // XMTP
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
