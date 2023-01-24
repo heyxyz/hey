@@ -5,6 +5,7 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
+import { NotificationBanner } from '@components/UI/NotificationBanner';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
@@ -57,6 +58,14 @@ const Feed: FC<Props> = ({ publication }) => {
 
   return (
     <>
+      {/* alert here */}
+      {!loading && publication && (
+        <NotificationBanner
+          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          publication={publication}
+          showCount={false}
+        />
+      )}
       {currentProfile ? canComment ? <NewPublication publication={publication} /> : <CommentWarning /> : null}
       {loading && <PublicationsShimmer />}
       {!loading && totalComments === 0 && (

@@ -19,6 +19,9 @@ module.exports = {
         blue: colors.blue,
         green: colors.emerald,
         yellow: colors.yellow
+      },
+      borderRadius: {
+        xl: '1.5rem'
       }
     }
   },
