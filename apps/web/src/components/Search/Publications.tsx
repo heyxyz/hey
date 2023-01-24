@@ -7,7 +7,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Publication, PublicationSearchResult } from 'lens';
+import type { Publication, PublicationSearchResult, SearchQueryRequest } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchPublicationsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -21,7 +21,7 @@ const Publications: FC<Props> = ({ query }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request = {
+  const request: SearchQueryRequest = {
     query,
     type: SearchRequestTypes.Publication,
     customFilters: [CustomFiltersTypes.Gardeners],

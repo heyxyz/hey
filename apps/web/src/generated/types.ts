@@ -41,3 +41,21 @@ export interface Emoji {
   aliases: string[];
   tags: string[];
 }
+
+export interface MessageDescriptor {
+  id?: string;
+  comment?: string;
+  message?: string;
+  context?: string;
+  values?: Record<string, unknown>;
+}
+
+export interface OptimisticTransaction {
+  txHash?: string;
+  txId?: string;
+  title?: string;
+  cover?: string;
+  author?: string;
+  content: string;
+  attachments: LensterAttachment[];
+}

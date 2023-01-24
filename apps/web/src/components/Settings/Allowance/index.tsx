@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { Erc20 } from 'lens';
 import { CollectModules, FollowModules, ReferenceModules, useApprovedModuleAllowanceAmountQuery } from 'lens';
@@ -51,7 +51,7 @@ const AllowanceSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Allowance settings • ${APP_NAME}`} />
+      <MetaTags title={t`Allowance settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

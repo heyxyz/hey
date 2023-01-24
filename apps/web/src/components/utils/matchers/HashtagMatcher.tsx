@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-export const Hashtag = ({ ...props }: any) => {
+export const Hashtag = ({ ...props }) => {
   const hashflag = props.display.slice(1).toLowerCase();
   const hasHashflag = hashflags.hasOwnProperty(hashflag);
 

@@ -5,7 +5,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile } from 'lens';
+import type { MutualFollowersProfilesQueryRequest, Profile } from 'lens';
 import { useMutualFollowersListQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -19,7 +19,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request = {
+  const request: MutualFollowersProfilesQueryRequest = {
     viewingProfileId: profileId,
     yourProfileId: currentProfile?.id,
     limit: 10

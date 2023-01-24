@@ -4,7 +4,7 @@ import Beta from '@components/Shared/Badges/Beta';
 import New from '@components/Shared/Badges/New';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -21,7 +21,7 @@ const InterestsSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Interests settings • ${APP_NAME}`} />
+      <MetaTags title={t`Interests settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

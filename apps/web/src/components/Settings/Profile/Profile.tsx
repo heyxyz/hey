@@ -193,7 +193,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
         metadata_id: uuid()
       }).finally(() => setIsUploading(false));
 
-      const request = {
+      const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
         metadata: `https://arweave.net/${id}`
       };
