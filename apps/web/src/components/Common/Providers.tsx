@@ -1,4 +1,8 @@
 import { ApolloProvider } from '@apollo/client';
+import type { LensConfig } from '@lens-protocol/react';
+import { LensProvider, production } from '@lens-protocol/react';
+import { localStorage } from '@lens-protocol/react/web';
+import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
 import { initLocale } from '@lib/i18n';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
@@ -35,6 +39,12 @@ const wagmiClient = createClient({
   provider
 });
 
+const lensConfig: LensConfig = {
+  bindings: wagmiBindings(),
+  environment: production,
+  storage: localStorage()
+};
+
 const queryClient = new QueryClient();
 
 const Providers = ({ children }: { children: ReactNode }) => {
@@ -46,13 +56,15 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <I18nProvider i18n={i18n}>
       <ErrorBoundary>
         <WagmiConfig client={wagmiClient}>
-          <ApolloProvider client={client}>
-            <QueryClientProvider client={queryClient}>
-              <ThemeProvider defaultTheme="light" attribute="class">
-                <Layout>{children}</Layout>
-              </ThemeProvider>
-            </QueryClientProvider>
-          </ApolloProvider>
+          <LensProvider config={lensConfig}>
+            <ApolloProvider client={client}>
+              <QueryClientProvider client={queryClient}>
+                <ThemeProvider defaultTheme="light" attribute="class">
+                  <Layout>{children}</Layout>
+                </ThemeProvider>
+              </QueryClientProvider>
+            </ApolloProvider>
+          </LensProvider>
         </WagmiConfig>
       </ErrorBoundary>
     </I18nProvider>
