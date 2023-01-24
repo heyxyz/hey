@@ -1247,6 +1247,10 @@ msgid "Profile updated successfully!"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Verify your phone number for free gassless transactions"
+msgstr "Verify your phone number for free gassless transactions"
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable dispatcher"
 msgstr ""
 
