@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "husky": "^8.0.3",
-    "prettier": "latest",
+    "prettier": "2.8.3",
     "turbo": "1.7.0"
   },
   "engines": {

@@ -1,5 +1,5 @@
 import Message from '@components/Profile/Message';
-import Follow from '@components/Shared/Follow';
+import Follow, { FollowSource } from '@components/Shared/Follow';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
@@ -132,7 +132,12 @@ const Details: FC<Props> = ({ profile }) => {
               </div>
             ) : (
               <div className="flex space-x-2">
-                <Follow profile={profile} setFollowing={setFollowing} showText />
+                <Follow
+                  profile={profile}
+                  setFollowing={setFollowing}
+                  followSource={FollowSource.PROFILE_PAGE}
+                  showText
+                />
                 {currentProfile && <Message onClick={onMessageClick} />}
               </div>
             )

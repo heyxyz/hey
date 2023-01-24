@@ -8,15 +8,15 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-14 00:08\n"
+"PO-Revision-Date: 2023-01-18 16:28\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Crowdin-Project: lenster\n"
 "X-Crowdin-Project-ID: 552311\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /apps/web/src/locales/en/messages.po\n"
-"X-Crowdin-File-ID: 43\n"
+"X-Crowdin-File: messages.po\n"
+"X-Crowdin-File-ID: 47\n"
 
 #: src/components/Comment/Feed.tsx
 msgid "Be the first one to comment!"
@@ -815,6 +815,10 @@ msgid "Publication Analytics"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+msgid "Collected successfully!"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
 msgid "Loading collect"
 msgstr ""
@@ -880,6 +884,10 @@ msgstr ""
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
+msgstr ""
+
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Post has been mirrored!"
 msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
@@ -1128,20 +1136,11 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
-#: src/components/Settings/Profile/index.tsx
-msgid "Loading settings"
-msgstr ""
-
-#: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
-msgstr ""
-
-#: src/components/Settings/Allowance/index.tsx
-msgid "Loading allowance data!"
 msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
@@ -1342,6 +1341,10 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
+msgstr ""
+
+#: src/components/Settings/Profile/index.tsx
+msgid "Loading settings"
 msgstr ""
 
 #: src/components/Settings/Sidebar.tsx

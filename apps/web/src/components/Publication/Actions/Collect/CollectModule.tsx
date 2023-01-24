@@ -83,7 +83,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     setCount(count + 1);
     setHasCollectedByMe(true);
-    toast.success('Transaction submitted successfully!');
+    toast.success(t`Collected successfully!`);
     Analytics.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 

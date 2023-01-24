@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
@@ -69,14 +70,17 @@ const Followers: FC<Props> = ({ profile }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {followers?.map((follower) => (
+          {followers?.map((follower, index) => (
             <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
                   profile={follower?.wallet?.defaultProfile as Profile}
+                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
+                  followPosition={index + 1}
+                  followSource={FollowSource.FOLLOWERS_MODAL}
                   showBio
                   showFollow
-                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
+                  showUserPreview={false}
                 />
               ) : (
                 <WalletProfile wallet={follower?.wallet as Wallet} />
