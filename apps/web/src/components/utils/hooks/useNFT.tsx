@@ -8,7 +8,11 @@ interface Props {
   enabled?: boolean;
 }
 
-const useNFT = ({ address, chainId, enabled }: Props): { data: any; error: any } => {
+const useNFT = ({
+  address,
+  chainId,
+  enabled
+}: Props): { data: { contractMetadata: { name: string; symbol: string } }; error: unknown } => {
   const getAlchemyChainName = () => {
     switch (chainId) {
       case 1:

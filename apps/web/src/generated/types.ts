@@ -49,3 +49,13 @@ export interface MessageDescriptor {
   context?: string;
   values?: Record<string, unknown>;
 }
+
+export interface OptimisticTransaction {
+  txHash?: string;
+  txId?: string;
+  title?: string;
+  cover?: string;
+  author?: string;
+  content: string;
+  attachments: LensterAttachment[];
+}

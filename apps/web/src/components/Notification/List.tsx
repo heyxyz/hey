@@ -11,7 +11,8 @@ import type {
   NewFollowerNotification,
   NewMentionNotification,
   NewMirrorNotification,
-  NewReactionNotification
+  NewReactionNotification,
+  NotificationRequest
 } from 'lens';
 import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'lens';
 import type { FC } from 'react';
@@ -51,7 +52,7 @@ const List: FC<Props> = ({ feedType }) => {
   };
 
   // Variables
-  const request = {
+  const request: NotificationRequest = {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
     notificationTypes: getNotificationType(),

@@ -27,7 +27,7 @@ const CleanupSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Cleanup settings • ${APP_NAME}`} />
+      <MetaTags title={t`Cleanup settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

@@ -91,7 +91,7 @@ const DeleteSettings: FC = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Delete Profile • ${APP_NAME}`} />
+      <MetaTags title={t`Delete Profile • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
