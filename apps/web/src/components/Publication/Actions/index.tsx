@@ -6,11 +6,11 @@ import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Analytics from './Analytics';
-import Claps from './Claps';
 import Collect from './Collect';
 import Comment from './Comment';
 import Like from './Like';
 import Mirror from './Mirror';
+import Votes from './Votes';
 
 interface Props {
   publication: Publication;
@@ -37,7 +37,7 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, showCount =
         {collectModuleType !== 'RevertCollectModuleSettings' && (
           <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
         )}
-        {publication.__typename != 'Comment' && <Claps publication={publication} showCount={showCount} />}
+        {publication.__typename != 'Comment' && <Votes publication={publication} showCount={showCount} />}
         <Analytics publication={publication} />
       </span>
       {publication.isGated && (

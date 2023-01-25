@@ -1,4 +1,4 @@
-import VoteSolidIcon from '@components/Publication/Actions/Claps/ClapIcons/VoteSolidIcon';
+import VoteSolidIcon from '@components/Publication/Actions/Votes/VoteIcons/VoteSolidIcon';
 import { Card } from '@components/UI/Card';
 // import type { Publication } from 'lens';
 // import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
@@ -32,7 +32,7 @@ const RoundStats: FC<ChildrenProps> = ({ showDetails }) => {
       <div>
         <div className="md:max-lg:px-50">
           <div className={topic}>
-            <p className={category}>Claps Received</p>
+            <p className={category}>Votes Received</p>
             <p>22,376</p>
           </div>
           <div className={topic}>
@@ -40,7 +40,7 @@ const RoundStats: FC<ChildrenProps> = ({ showDetails }) => {
             <p>22,376</p>
           </div>
           <div className={topic}>
-            <p className={category}>Amount of Clappers</p>
+            <p className={category}>Amount of Voters</p>
             <p>31</p>
           </div>
           <div className={topic}>
@@ -56,17 +56,17 @@ const RoundStats: FC<ChildrenProps> = ({ showDetails }) => {
             <p>980.55</p>
           </div>
         </div>
-        <div className="text-gray-500 text-xs mt-8 mb-2">Claps per post:</div>
+        <div className="text-gray-500 text-xs mt-8 mb-2">Votes per post:</div>
         <Card>
           <div className="m-4 text-md">
             <div className="my-2">
               <p>Coming to Eth Denver for the first time!</p>
-              <p className="text-green-500 text-sm">67 claps by 10 clappers</p>
+              <p className="text-green-500 text-sm">67 votes by 10 voters</p>
             </div>
             <div className="w-full divider" />
             <div className="my-2">
               <p>Some other post</p>
-              <p className="text-green-500 text-sm">4 claps by 1 clapper</p>
+              <p className="text-green-500 text-sm">4 votes by 1 voters</p>
             </div>
           </div>
         </Card>
@@ -92,8 +92,8 @@ const ClaimReward: FC<ChildrenProps> = ({ showDetails, setShowDetails }) => {
   );
 };
 
-export const ProfileClapsStats: FC = () => {
-  // export const ProfileClapsStats: FC<Props> = ({ icon, publication, showCount }) => {
+export const ProfileVotesStats: FC = () => {
+  // export const ProfileVotesStats: FC<Props> = ({ icon, publication, showCount }) => {
   // alert
   const roundOpen = true;
   // const iconClassName = true ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
@@ -106,7 +106,7 @@ export const ProfileClapsStats: FC = () => {
         </div>
         <div>
           <div className="flex flex-col justify-between">
-            <p className="mb-1">You've received 22376 claps so far!</p>
+            <p className="mb-1">You've received 22376 votes so far!</p>
             <p>This will be matched with 980,55 DAI.</p>
           </div>
           {roundOpen ? (

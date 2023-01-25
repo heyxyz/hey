@@ -62,7 +62,7 @@ interface Props {
   electedMirror?: ElectedMirror;
 }
 
-const ClapsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
+const VotesModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -446,4 +446,4 @@ const ClapsModule: FC<Props> = ({ count, setCount, publication, electedMirror })
   );
 };
 
-export default ClapsModule;
+export default VotesModule;

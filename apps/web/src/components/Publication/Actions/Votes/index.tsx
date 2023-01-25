@@ -15,10 +15,10 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-import VoteSolidIcon from './ClapIcons/VoteSolidIcon';
-import VotesOutlineIcon from './ClapIcons/VotesOutlineIcon';
+import VoteSolidIcon from './VoteIcons/VoteSolidIcon';
+import VotesOutlineIcon from './VoteIcons/VotesOutlineIcon';
 
-const ClapsModule = dynamic(() => import('./ClapsModule'), {
+const VotesModule = dynamic(() => import('./VotesModule'), {
   loading: () => <Loader message={t`Loading collect`} />
 });
 
@@ -28,10 +28,10 @@ interface Props {
   showCount: boolean;
 }
 
-// const Claps: FC<Props> = ({ publication, electedMirror, showCount }) => {
-const Claps: FC<Props> = ({ publication, electedMirror }) => {
+// const Votes: FC<Props> = ({ publication, electedMirror, showCount }) => {
+const Votes: FC<Props> = ({ publication, electedMirror }) => {
   const [count, setCount] = useState(0);
-  const [showClapsModal, setShowClapsModal] = useState(false);
+  const [showVotesModal, setShowVotesModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
   const isUnknownCollect = publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
   const isMirror = publication.__typename === 'Mirror';
@@ -71,7 +71,7 @@ const Claps: FC<Props> = ({ publication, electedMirror }) => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => {
-            setShowClapsModal(true);
+            setShowVotesModal(true);
             Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
           aria-label="Clap"
@@ -103,10 +103,10 @@ const Claps: FC<Props> = ({ publication, electedMirror }) => {
             />
           </div>
         }
-        show={showClapsModal}
-        onClose={() => setShowClapsModal(false)}
+        show={showVotesModal}
+        onClose={() => setShowVotesModal(false)}
       >
-        <ClapsModule
+        <VotesModule
           electedMirror={electedMirror}
           publication={publication}
           count={count}
@@ -117,4 +117,4 @@ const Claps: FC<Props> = ({ publication, electedMirror }) => {
   );
 };
 
-export default Claps;
+export default Votes;

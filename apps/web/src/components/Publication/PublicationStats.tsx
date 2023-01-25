@@ -109,10 +109,10 @@ const PublicationStats: FC<Props> = ({ publication }) => {
               Analytics.track(PUBLICATION.STATS.COLLECTED_BY);
             }}
           >
-            <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Claps
+            <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Votes
           </button>
           <Modal
-            title={t`Claps By`}
+            title={t`Votes By`}
             icon={<CollectionIcon className="w-5 h-5 text-brand" />}
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}
