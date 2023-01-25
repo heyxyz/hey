@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
-import type { FC, Ref } from 'react';
+import type { FC, RefObject } from 'react';
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
 import PublicationActions from './Actions';
@@ -21,12 +21,12 @@ dayjs.extend(relativeTime);
 
 interface Props {
   publication: Publication;
-  postContainerRef?: Ref<HTMLDivElement>;
+  postContainerRef?: RefObject<HTMLDivElement>;
 }
 
 const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   const commentRef = useRef<HTMLDivElement>(null);
-  const intersectionRef = useRef<HTMLDivElement>(null);
+  const intersectionRef = useRef<HTMLSpanElement>(null);
   const isPostVisible = useRef(false);
 
   const { allowed: staffMode } = useStaffMode();
@@ -52,23 +52,26 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
 
   const isGatedThread = publication?.isGated || commentOn?.isGated || mainPost?.isGated;
 
+  const intersectionObserver = new IntersectionObserver(([entry]) => {
+    isPostVisible.current = entry.isIntersecting;
+  });
+
   const scrollToThread = () => {
-    if ((!mainPost && !commentOn) || !commentRef.current) {
+    if ((!mainPost && !commentOn) || !commentRef.current || isGatedThread) {
       return;
     }
-    if (!isGatedThread) {
-      commentRef.current?.scrollIntoView({ block: 'start' });
-    }
+    commentRef.current?.scrollIntoView({ block: 'start' });
+    setTimeout(() => {
+      if (intersectionRef.current) {
+        intersectionObserver.observe(intersectionRef.current);
+      }
+    }, 1000);
   };
 
   const resizeObserver = new ResizeObserver(() => {
     if (!isPostVisible.current) {
       scrollToThread();
     }
-  });
-
-  const intersectionObserver = new IntersectionObserver(([entry]) => {
-    isPostVisible.current = entry.isIntersecting;
   });
 
   useEffect(() => {
@@ -78,9 +81,6 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
   }, [publication.id]);
 
   useLayoutEffect(() => {
-    if (intersectionRef.current) {
-      intersectionObserver.observe(intersectionRef.current);
-    }
     if (commentRef.current) {
       resizeObserver.observe(commentRef.current);
     }

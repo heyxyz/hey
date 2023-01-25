@@ -11,7 +11,7 @@ import PublicationHeader from './PublicationHeader';
 
 interface Props {
   publication: Publication;
-  intersectionRef?: RefObject<HTMLDivElement>;
+  intersectionRef?: RefObject<HTMLSpanElement>;
 }
 
 const ThreadBody: FC<Props> = ({ publication, intersectionRef }) => {
@@ -27,7 +27,6 @@ const ThreadBody: FC<Props> = ({ publication, intersectionRef }) => {
         }
       }}
     >
-      {intersectionRef && <span ref={intersectionRef} />}
       <PublicationHeader publication={publication} />
       <div className="flex">
         <div className="mr-8 ml-5 bg-gray-300 border-gray-300 dark:bg-gray-700 dark:border-gray-700 border-[0.8px] -my-[3px]" />
@@ -42,6 +41,7 @@ const ThreadBody: FC<Props> = ({ publication, intersectionRef }) => {
           )}
         </div>
       </div>
+      {intersectionRef && <span ref={intersectionRef} />}
     </article>
   );
 };
