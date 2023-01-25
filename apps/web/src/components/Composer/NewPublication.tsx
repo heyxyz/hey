@@ -149,11 +149,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
 
     // Track in simple analytics
-    if (restricted) {
-      Analytics.track(isComment ? COMMENT.TOKEN_GATED : POST.TOKEN_GATED);
-    } else {
-      Analytics.track(isComment ? COMMENT.NEW : POST.NEW);
-    }
+    const eventProperties = {
+      publication_type: restricted ? 'token_gated' : 'public',
+      publication_collect_module: selectedCollectModule,
+      publication_reference_module: selectedReferenceModule,
+      publication_has_attachments: attachments.length > 0
+    };
+    Analytics.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
   };
 
   useEffect(() => {
