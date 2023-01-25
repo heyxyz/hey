@@ -34,3 +34,5 @@ jobs:
         run: |
           yarn global add wrangler
           yarn workers:deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
