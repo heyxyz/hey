@@ -1,0 +1,17 @@
+{
+  "name": "og-worker",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "worker:start": "wrangler dev",
+    "worker:deploy": "wrangler publish",
+    "lint": "eslint . --ext .ts"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20221111.1",
+    "eslint-config-weblint": "*",
+    "tsconfig": "*",
+    "typescript": "^4.9.4",
+    "wrangler": "2.8.1"
+  }
+}
