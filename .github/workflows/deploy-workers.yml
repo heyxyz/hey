@@ -1,0 +1,36 @@
+name: Deploy cloudflare workers
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
+
+      - name: Setup node 🍀
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: Install 📦
+        run: yarn install --frozen-lockfile
+
+      - name: Typecheck 🔡
+        run: yarn typecheck
+
+      - name: Lint 🪩
+        run: yarn lint
+
+      - name: Prettier ✨
+        run: yarn prettier
+
+      - name: Deploy 🚀
+        run: |
+          yarn global add wrangler
+          yarn workers:deploy
