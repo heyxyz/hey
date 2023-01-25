@@ -17,7 +17,7 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount }) => {
   return (
     <Card>
       <div className="grid justify-items-left p-5 space-y-2 m-3">
-        <div className="text-green-500">{`You've clapped ${publication.stats.totalUpvotes} times for this post!`}</div>
+        <div className="text-green-500">{`You've voted ${publication.stats.totalUpvotes} times for this post!`}</div>
         <div>
           It has received 9885 claps of 44 users in total for 10,500 DAI. It will be matched with 20000 DAI.
         </div>

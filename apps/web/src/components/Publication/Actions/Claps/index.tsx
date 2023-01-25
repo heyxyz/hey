@@ -15,8 +15,8 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-import ClapsOutlineIcon from './ClapIcons/ClapsOutlineIcon';
-import ClapsSolidIcon from './ClapIcons/ClapsSolidIcon';
+import VoteSolidIcon from './ClapIcons/VoteSolidIcon';
+import VotesOutlineIcon from './ClapIcons/VotesOutlineIcon';
 
 const ClapsModule = dynamic(() => import('./ClapsModule'), {
   loading: () => <Loader message={t`Loading collect`} />
@@ -58,7 +58,8 @@ const Claps: FC<Props> = ({ publication, electedMirror }) => {
 
   // console.log(showCount, 'showCount')
 
-  const baseClasses = 'flex items-center space-x-1 p-1 px-2 hover:bg-green-300 hover:bg-opacity-20';
+  const baseClasses =
+    'flex justify-center items-center space-x-1 p-1 px-2 hover:bg-green-300 hover:bg-opacity-20';
 
   return (
     <div className="flex">
@@ -76,15 +77,15 @@ const Claps: FC<Props> = ({ publication, electedMirror }) => {
           aria-label="Clap"
         >
           <div>
-            <Tooltip placement="top" content={count > 0 ? `${humanize(count)} Claps` : 'Clap'} withDelay>
-              {hasClapped ? <ClapsSolidIcon size={14} /> : <ClapsOutlineIcon size={14} />}
+            <Tooltip placement="top" content={count > 0 ? `${humanize(count)} Votes` : 'QF vote!'} withDelay>
+              {hasClapped ? <VoteSolidIcon size={18} /> : <VotesOutlineIcon size={20} />}
             </Tooltip>
           </div>
         </motion.button>
         {count > 0 && <span className="font-size-14 text-green-500 ">{nFormatter(count)} +</span>}
       </div>
 
-      <div className="font-size-14 text-green-500 place-self-center ml-2">- total claps</div>
+      <div className="font-size-14 text-green-500 place-self-center ml-2">- total votes</div>
 
       <Modal
         title={

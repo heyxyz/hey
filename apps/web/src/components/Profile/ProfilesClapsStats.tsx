@@ -1,10 +1,9 @@
+import VoteSolidIcon from '@components/Publication/Actions/Claps/ClapIcons/VoteSolidIcon';
 import { Card } from '@components/UI/Card';
 // import type { Publication } from 'lens';
 // import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
-
-import ClapsBlackOutlineIcon from '../Publication/Actions/Claps/ClapIcons/ClapsBlackOutlineIcon';
 
 // interface Props {
 //   icon: ReactNode;
@@ -31,30 +30,31 @@ const RoundStats: FC<ChildrenProps> = ({ showDetails }) => {
       }`}
     >
       <div>
-        {' '}
-        <div className={topic}>
-          <p className={category}>Claps Received</p>
-          <p>22,376</p>
-        </div>
-        <div className={topic}>
-          <p className={category}>Value in Dai</p>
-          <p>22,376</p>
-        </div>
-        <div className={topic}>
-          <p className={category}>Amount of Clappers</p>
-          <p>31</p>
-        </div>
-        <div className={topic}>
-          <p className={category}>Posts in Current Round</p>
-          <p>6</p>
-        </div>
-        <div className={`pt-3 ${topic}`}>
-          <p className={category}>End of matching round</p>
-          <p>5th nov 2023</p>
-        </div>
-        <div className={topic}>
-          <p className={category}>Current Match in Dai</p>
-          <p>980.55</p>
+        <div className="md:max-lg:px-50">
+          <div className={topic}>
+            <p className={category}>Claps Received</p>
+            <p>22,376</p>
+          </div>
+          <div className={topic}>
+            <p className={category}>Value in Dai</p>
+            <p>22,376</p>
+          </div>
+          <div className={topic}>
+            <p className={category}>Amount of Clappers</p>
+            <p>31</p>
+          </div>
+          <div className={topic}>
+            <p className={category}>Posts in Current Round</p>
+            <p>6</p>
+          </div>
+          <div className={`pt-3 ${topic}`}>
+            <p className={category}>End of matching round</p>
+            <p>5th nov 2023</p>
+          </div>
+          <div className={topic}>
+            <p className={category}>Current Match in Dai</p>
+            <p>980.55</p>
+          </div>
         </div>
         <div className="text-gray-500 text-xs mt-8 mb-2">Claps per post:</div>
         <Card>
@@ -94,14 +94,15 @@ const ClaimReward: FC<ChildrenProps> = ({ showDetails, setShowDetails }) => {
 
 export const ProfileClapsStats: FC = () => {
   // export const ProfileClapsStats: FC<Props> = ({ icon, publication, showCount }) => {
-  const roundOpen = false;
+  // alert
+  const roundOpen = true;
   // const iconClassName = true ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
   const [showDetails, setShowDetails] = useState(false);
   return (
     <div>
-      <div className="justify-between p-5 flex">
-        <div>
-          <ClapsBlackOutlineIcon color="black" size={1} />
+      <div className="justify-center px-10 py-3 flex">
+        <div className="mr-3 mt-1">
+          <VoteSolidIcon size={20} />
         </div>
         <div>
           <div className="flex flex-col justify-between">
