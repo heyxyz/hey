@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-23 08:22\n"
+"PO-Revision-Date: 2023-01-25 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2372,3 +2372,4 @@ msgstr ""
 #: src/pages/_offline.tsx
 msgid "Retry"
 msgstr ""
+

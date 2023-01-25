@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-23 08:22\n"
+"PO-Revision-Date: 2023-01-25 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2359,5 +2359,17 @@ msgstr ""
 
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
+msgstr ""
+
+#: src/pages/_offline.tsx
+msgid "Oops, You are offline!"
+msgstr ""
+
+#: src/pages/_offline.tsx
+msgid "Check your internet connection and try again"
+msgstr ""
+
+#: src/pages/_offline.tsx
+msgid "Retry"
 msgstr ""
 
