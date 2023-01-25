@@ -13,6 +13,11 @@ const PUBLICATION_QUERY = gql`
       ... on Post {
         metadata {
           content
+          media {
+            original {
+              url
+            }
+          }
         }
         profile {
           handle
@@ -32,6 +37,11 @@ const PUBLICATION_QUERY = gql`
       ... on Comment {
         metadata {
           content
+          media {
+            original {
+              url
+            }
+          }
         }
         profile {
           handle
@@ -51,6 +61,11 @@ const PUBLICATION_QUERY = gql`
       ... on Mirror {
         metadata {
           content
+          media {
+            original {
+              url
+            }
+          }
         }
         mirrorOf {
           ... on Post {
