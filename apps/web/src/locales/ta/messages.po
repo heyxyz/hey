@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-25 00:09\n"
+"PO-Revision-Date: 2023-01-26 09:33\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -361,7 +361,7 @@ msgstr "பரிந்துரைகளை ஏற்ற முடியவி�
 #: src/components/Publication/DecryptedPublicationBody.tsx
 #: src/components/Publication/PublicationBody.tsx
 msgid "Show more"
-msgstr "மேலும் காட்டு"
+msgstr "மேலும் காண்பி"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Suggested for you"
@@ -463,12 +463,12 @@ msgstr ""
 #: src/components/Home/Timeline/EventType/Liked.tsx
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
-msgstr ""
+msgstr "இவர்களால் விரும்பப்பட்டது"
 
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
-msgstr ""
+msgstr "இவர்களால் மிரர் செய்யப்பட்டது"
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
@@ -518,7 +518,7 @@ msgstr "ஏற்றுகிறது..."
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
-msgstr ""
+msgstr "பின்தொடர்கிறீர்கள்"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Requested"
@@ -1069,7 +1069,7 @@ msgstr "Worldcoin சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Details.tsx
 msgid "Follows you"
-msgstr ""
+msgstr "உங்களைப் பின்தொடர்கிறார்"
 
 #: src/components/Profile/Details.tsx
 msgid "Edit Profile"
@@ -1242,7 +1242,7 @@ msgstr "விருப்பமில்லை"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
-msgstr "விருப்பம்"
+msgstr "விரும்பு"
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1251,7 +1251,7 @@ msgstr "கிளிப்போர்டுக்கு நகலெடுக�
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
-msgstr ""
+msgstr "இடுகை மிரர் செய்யப்பட்டது!"
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
@@ -1312,7 +1312,7 @@ msgstr "<0>{0}</0> மிரர்கள்"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Likes"
-msgstr "<0>{0}</0> விருப்பு"
+msgstr "<0>{0}</0> விருப்பங்கள்"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
@@ -1992,7 +1992,7 @@ msgstr "விருப்பங்களை ஏற்றுவதில் த�
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Loading mirrors"
-msgstr ""
+msgstr "மிரர்களை ஏற்றுகிறது"
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "No mirrors."
@@ -2000,7 +2000,7 @@ msgstr "மிரர்கள் இல்லை."
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Failed to load mirrors"
-msgstr ""
+msgstr "மிரர்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select type"
@@ -2266,7 +2266,7 @@ msgstr "பயனர் கோரிக்கையை நிராகரித�
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
-msgstr "பின்தொடர வேண்டாம்"
+msgstr "பின்தொடராதே"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{0}</0>"
@@ -2371,7 +2371,7 @@ msgstr "இந்தப் பக்கத்தைக் காண முடி
 #: src/pages/404.tsx
 #: src/pages/500.tsx
 msgid "Go to home"
-msgstr ""
+msgstr "முகப்பிற்குச் செல்லுங்கள்"
 
 #: src/pages/500.tsx
 msgid "Looks like something went wrong!"
@@ -2392,3 +2392,4 @@ msgstr ""
 #: src/pages/_offline.tsx
 msgid "Retry"
 msgstr ""
+
