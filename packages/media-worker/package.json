@@ -8,7 +8,7 @@
     "lint": "eslint . --ext .ts"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20221111.1",
+    "@cloudflare/workers-types": "^4.20230115.0",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^4.9.4",
