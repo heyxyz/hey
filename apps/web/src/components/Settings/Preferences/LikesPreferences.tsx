@@ -3,8 +3,12 @@ import { Card } from '@components/UI/Card';
 import { Toggle } from '@components/UI/Toggle';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
+import { usePreferencesStore } from 'src/store/preferences';
 
 const LikesPreferences: FC = () => {
+  const showLikesCount = usePreferencesStore((state) => state.showLikesCount);
+  const setShowLikesCount = usePreferencesStore((state) => state.setShowLikesCount);
+
   return (
     <Card className="space-y-2 linkify p-5">
       <div className="flex items-center space-x-2">
@@ -22,7 +26,7 @@ const LikesPreferences: FC = () => {
             </Trans>
           </div>
           <div>
-            <Toggle on={true} setOn={() => {}} />
+            <Toggle on={showLikesCount} setOn={setShowLikesCount} />
           </div>
         </div>
       </div>
