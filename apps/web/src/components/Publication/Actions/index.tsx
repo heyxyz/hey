@@ -10,6 +10,7 @@ import Collect from './Collect';
 import Comment from './Comment';
 import Like from './Like';
 import Mirror from './Mirror';
+import Tips from './Tips';
 
 interface Props {
   publication: Publication;
@@ -36,6 +37,7 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, showCount =
         {collectModuleType !== 'RevertCollectModuleSettings' && (
           <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
         )}
+        {publication.__typename != 'Comment' && <Tips publication={publication} showCount={showCount} />}
         <Analytics publication={publication} />
       </span>
       {publication.isGated && (
@@ -46,5 +48,4 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, showCount =
     </div>
   );
 };
-
 export default PublicationActions;

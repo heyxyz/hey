@@ -35,6 +35,7 @@ import Badges from './Badges';
 import Followerings from './Followerings';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
+import { ProfileTipsStats } from './ProfileTipsStats';
 
 interface Props {
   profile: Profile;
@@ -143,6 +144,8 @@ const Details: FC<Props> = ({ profile }) => {
             )
           ) : null}
         </div>
+        <div className="w-full divider" />
+        <div>{currentProfile?.id === profile?.id ? <ProfileTipsStats /> : null}</div>
         {currentProfile?.id !== profile?.id && (
           <>
             <MutualFollowers setShowMutualFollowersModal={setShowMutualFollowersModal} profile={profile} />
