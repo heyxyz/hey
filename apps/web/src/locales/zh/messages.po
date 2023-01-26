@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-25 00:09\n"
+"PO-Revision-Date: 2023-01-26 09:31\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1068,6 +1068,10 @@ msgid "Worldcoin verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
+msgid "Follows you"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
 msgid "Edit Profile"
 msgstr ""
 
@@ -1644,6 +1648,18 @@ msgstr ""
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr ""
 
+#: src/components/Settings/Preferences/LikesPreferences.tsx
+msgid "Hide number of likes"
+msgstr ""
+
+#: src/components/Settings/Preferences/LikesPreferences.tsx
+msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
+msgstr ""
+
+#: src/components/Settings/Preferences/index.tsx
+msgid "Preferences • {APP_NAME}"
+msgstr ""
+
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr ""
@@ -1740,6 +1756,10 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Preferences"
 msgstr ""
 
 #: src/components/Settings/Sidebar.tsx

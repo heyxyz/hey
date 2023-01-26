@@ -98,7 +98,9 @@ const Details: FC<Props> = ({ profile }) => {
             <Slug className="text-sm sm:text-base" slug={formatAddress(profile?.ownedBy)} />
           )}
           {currentProfile && currentProfile?.id !== profile?.id && profile?.isFollowing && (
-            <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">Follows you</div>
+            <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">
+              <Trans>Follows you</Trans>
+            </div>
           )}
         </div>
       </div>
