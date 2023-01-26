@@ -18,17 +18,19 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: Publication;
+  showCount: boolean;
 }
 
-const Like: FC<Props> = ({ publication }) => {
+const Like: FC<Props> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
-  const isFullPublication = pathname === '/posts/[id]';
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
   const [liked, setLiked] = useState(
     (isMirror ? publication?.mirrorOf?.reaction : publication?.reaction) === 'UPVOTE'
   );
@@ -37,7 +39,7 @@ const Like: FC<Props> = ({ publication }) => {
   );
 
   const updateCache = (cache: ApolloCache<any>, type: ReactionTypes.Upvote | ReactionTypes.Downvote) => {
-    if (isFullPublication) {
+    if (showCount || hideLikesCount) {
       cache.modify({
         id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
         fields: {
@@ -50,9 +52,31 @@ const Like: FC<Props> = ({ publication }) => {
     }
   };
 
+  const getLikeSource = () => {
+    if (pathname === '/') {
+      return 'home_feed';
+    } else if (pathname === '/u/[username]') {
+      return 'profile_feed';
+    } else if (pathname === '/explore') {
+      return 'explore_feed';
+    } else if (pathname === '/posts/[id]') {
+      return 'post_page';
+    } else {
+      return;
+    }
+  };
+
+  const getEventProperties = (type: 'like' | 'dislike') => {
+    return {
+      [`${type}_by`]: currentProfile?.id,
+      [`${type}_publication`]: publication?.id,
+      [`${type}_source`]: getLikeSource()
+    };
+  };
+
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Analytics.track(PUBLICATION.LIKE);
+      Analytics.track(PUBLICATION.LIKE, getEventProperties('like'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -64,7 +88,7 @@ const Like: FC<Props> = ({ publication }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Analytics.track(PUBLICATION.DISLIKE);
+      Analytics.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -100,7 +124,7 @@ const Like: FC<Props> = ({ publication }) => {
     }
   };
 
-  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
   const { content } = publication.metadata;
   const isGM = hasGm(content);
 
@@ -135,7 +159,9 @@ const Like: FC<Props> = ({ publication }) => {
           </Tooltip>
         </div>
       </motion.button>
-      {count > 0 && !isFullPublication && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+      {count > 0 && !showCount && !hideLikesCount && (
+        <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+      )}
     </div>
   );
 };

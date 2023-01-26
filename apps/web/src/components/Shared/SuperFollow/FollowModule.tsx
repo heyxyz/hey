@@ -13,7 +13,7 @@ import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
-import type { Profile } from 'lens';
+import type { ApprovedAllowanceAmount, Profile } from 'lens';
 import {
   FollowModules,
   useApprovedModuleAllowanceAmountQuery,
@@ -258,7 +258,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
           <div className="mt-5">
             <AllowanceButton
               title={t`Allow follow module`}
-              module={allowanceData?.approvedModuleAllowanceAmount[0]}
+              module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
               allowed={allowed}
               setAllowed={setAllowed}
             />

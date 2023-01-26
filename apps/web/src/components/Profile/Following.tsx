@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
@@ -7,7 +8,7 @@ import { UsersIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile } from 'lens';
+import type { FollowingRequest, Profile } from 'lens';
 import { useFollowingQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -19,7 +20,7 @@ interface Props {
 
 const Following: FC<Props> = ({ profile, onProfileSelected }) => {
   // Variables
-  const request = { address: profile?.ownedBy, limit: 10 };
+  const request: FollowingRequest = { address: profile?.ownedBy, limit: 10 };
 
   const { data, loading, error, fetchMore } = useFollowingQuery({
     variables: { request },
@@ -71,7 +72,7 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {followings?.map((following) => (
+          {followings?.map((following, index) => (
             <div
               className={`p-5 ${
                 onProfileSelected && 'hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer'
@@ -88,9 +89,12 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
               <UserProfile
                 profile={following?.profile as Profile}
                 linkToProfile={!onProfileSelected}
+                isFollowing={following?.profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.FOLLOWING_MODAL}
                 showBio
                 showFollow
-                isFollowing={following?.profile?.isFollowedByMe}
+                showUserPreview={false}
               />
             </div>
           ))}

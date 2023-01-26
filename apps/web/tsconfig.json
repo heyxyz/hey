@@ -11,6 +11,5 @@
       "@generated*": ["src/generated*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"],
-  "exclude": ["cypress/support"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
 }

@@ -7,6 +7,7 @@ import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
+import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -15,7 +16,7 @@ import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface Props {
   title?: string;
-  module: any;
+  module: ApprovedAllowanceAmount;
   allowed: boolean;
   setAllowed: Dispatch<boolean>;
 }
@@ -83,11 +84,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
     </Button>
   ) : (
     <>
-      <Button
-        variant="success"
-        icon={<PlusIcon className="w-4 h-4" />}
-        onClick={() => setShowWarningModal(!showWarningModal)}
-      >
+      <Button icon={<PlusIcon className="w-4 h-4" />} onClick={() => setShowWarningModal(!showWarningModal)}>
         {title}
       </Button>
       <Modal
@@ -109,10 +106,9 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
             }
           />
           <Button
-            variant="success"
             icon={
               queryLoading || transactionLoading || waitLoading ? (
-                <Spinner variant="success" size="xs" />
+                <Spinner size="xs" />
               ) : (
                 <PlusIcon className="w-4 h-4" />
               )

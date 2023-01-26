@@ -1,10 +1,11 @@
+import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile } from 'lens';
+import type { MutualFollowersProfilesQueryRequest, Profile } from 'lens';
 import { useMutualFollowersListQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -18,7 +19,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request = {
+  const request: MutualFollowersProfilesQueryRequest = {
     viewingProfileId: profileId,
     yourProfileId: currentProfile?.id,
     limit: 10
@@ -55,13 +56,16 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((profile) => (
+          {profiles?.map((profile, index) => (
             <div className="p-5" key={profile?.id}>
               <UserProfile
                 profile={profile as Profile}
+                isFollowing={profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.MUTUAL_FOLLOWERS_MODAL}
                 showBio
                 showFollow
-                isFollowing={profile?.isFollowedByMe}
+                showUserPreview={false}
               />
             </div>
           ))}

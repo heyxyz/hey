@@ -6,11 +6,12 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile, Wallet } from 'lens';
+import type { Profile, Wallet, WhoCollectedPublicationRequest } from 'lens';
 import { useCollectorsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import { FollowSource } from '../Follow';
 import Loader from '../Loader';
 
 interface Props {
@@ -19,7 +20,7 @@ interface Props {
 
 const Collectors: FC<Props> = ({ publicationId }) => {
   // Variables
-  const request = { publicationId: publicationId, limit: 10 };
+  const request: WhoCollectedPublicationRequest = { publicationId: publicationId, limit: 10 };
 
   const { data, loading, error, fetchMore } = useCollectorsQuery({
     variables: { request },
@@ -64,14 +65,17 @@ const Collectors: FC<Props> = ({ publicationId }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((wallet) => (
+          {profiles?.map((wallet, index) => (
             <div className="p-5" key={wallet?.address}>
               {wallet?.defaultProfile ? (
                 <UserProfile
                   profile={wallet?.defaultProfile as Profile}
+                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
+                  followPosition={index + 1}
+                  followSource={FollowSource.COLLECTORS_MODAL}
                   showBio
                   showFollow
-                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
+                  showUserPreview={false}
                 />
               ) : (
                 <WalletProfile wallet={wallet as Wallet} />

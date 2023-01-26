@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/outline';
+import { t } from '@lingui/macro';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -38,7 +39,7 @@ const Brand: FC<Props> = ({ name, logo, url, size, type, children }) => {
 const Thanks: FC = () => {
   return (
     <>
-      <MetaTags title={`Thanks • ${APP_NAME}`} />
+      <MetaTags title={t`Thanks • ${APP_NAME}`} />
       <div className="flex justify-center items-center w-full h-48 bg-brand-400">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-bold text-white md:text-4xl">

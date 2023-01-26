@@ -95,13 +95,11 @@ export const PUBLICATION = {
 };
 
 export const POST = {
-  NEW: 'new_post',
-  TOKEN_GATED: 'new_token_gated_post'
+  NEW: 'new_post'
 };
 
 export const COMMENT = {
-  NEW: 'new_comment',
-  TOKEN_GATED: 'new_token_gated_comment'
+  NEW: 'new_comment'
 };
 
 export const NOTIFICATION = {
@@ -158,8 +156,7 @@ export const SEARCH = {
 };
 
 export const SYSTEM = {
-  SWITCH_LIGHT_THEME: 'switch_light_theme',
-  SWITCH_DARK_THEME: 'switch_dark_theme',
+  SWITCH_THEME: 'switch_theme',
   SWITCH_NETWORK: 'switch_network'
 };
 

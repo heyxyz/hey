@@ -1,5 +1,5 @@
 import Message from '@components/Profile/Message';
-import Follow from '@components/Shared/Follow';
+import Follow, { FollowSource } from '@components/Shared/Follow';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
@@ -98,7 +98,9 @@ const Details: FC<Props> = ({ profile }) => {
             <Slug className="text-sm sm:text-base" slug={formatAddress(profile?.ownedBy)} />
           )}
           {currentProfile && currentProfile?.id !== profile?.id && profile?.isFollowing && (
-            <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">Follows you</div>
+            <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">
+              <Trans>Follows you</Trans>
+            </div>
           )}
         </div>
       </div>
@@ -132,7 +134,12 @@ const Details: FC<Props> = ({ profile }) => {
               </div>
             ) : (
               <div className="flex space-x-2">
-                <Follow profile={profile} setFollowing={setFollowing} showText />
+                <Follow
+                  profile={profile}
+                  setFollowing={setFollowing}
+                  followSource={FollowSource.PROFILE_PAGE}
+                  showText
+                />
                 {currentProfile && <Message onClick={onMessageClick} />}
               </div>
             )

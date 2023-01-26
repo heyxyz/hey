@@ -1,3 +1,4 @@
+import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 import { mainnetStaffs } from './staffs';
 
@@ -13,8 +14,8 @@ export const featureFlags = [
     enabledFor: [...lensterMembers, ...mainnetStaffs]
   },
   {
-    key: 'i18n',
-    name: 'Internationalization',
-    enabledFor: [...lensterMembers]
+    key: 'preferences-settings',
+    name: 'Preferences settings',
+    enabledFor: [...lensterMembers, ...aaveMembers]
   }
 ];

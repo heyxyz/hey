@@ -1,0 +1,7 @@
+name = "og-worker"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+routes = [
+  "lenster.xyz/u/*",
+  "lenster.xyz/posts/*"
+]

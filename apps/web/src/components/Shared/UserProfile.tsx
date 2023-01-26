@@ -32,6 +32,10 @@ interface Props {
   showStatus?: boolean;
   showUserPreview?: boolean;
   timestamp?: Date;
+
+  // For data analytics
+  followPosition?: number;
+  followSource?: string;
 }
 
 const UserProfile: FC<Props> = ({
@@ -44,7 +48,9 @@ const UserProfile: FC<Props> = ({
   showFollow = false,
   showStatus = false,
   showUserPreview = true,
-  timestamp = ''
+  timestamp = '',
+  followPosition,
+  followSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
 
@@ -143,7 +149,12 @@ const UserProfile: FC<Props> = ({
         ) : following ? null : profile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
           <SuperFollow profile={profile} setFollowing={setFollowing} />
         ) : (
-          <Follow profile={profile} setFollowing={setFollowing} />
+          <Follow
+            profile={profile}
+            setFollowing={setFollowing}
+            followPosition={followPosition}
+            followSource={followSource}
+          />
         ))}
     </div>
   );

@@ -5,21 +5,21 @@ import { PublicationMainFocus } from 'lens';
 import type { Dispatch, FC } from 'react';
 
 interface Props {
-  setFocus: Dispatch<any>;
-  focus: string;
+  setFocus: Dispatch<PublicationMainFocus>;
+  focus?: PublicationMainFocus;
 }
 
 const FeedType: FC<Props> = ({ setFocus, focus }) => {
   interface FeedLinkProps {
     name: string;
-    type?: string;
+    type?: PublicationMainFocus;
   }
 
   const FeedLink: FC<FeedLinkProps> = ({ name, type }) => (
     <button
       type="button"
       onClick={() => {
-        setFocus(type);
+        setFocus(type as PublicationMainFocus);
         Analytics.track(`select_${(type ?? 'all_posts')?.toLowerCase()}_filter_in_explore`);
       }}
       className={clsx(

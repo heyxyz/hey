@@ -13,6 +13,11 @@ const PUBLICATION_QUERY = gql`
       ... on Post {
         metadata {
           content
+          media {
+            original {
+              url
+            }
+          }
         }
         profile {
           handle
@@ -32,6 +37,11 @@ const PUBLICATION_QUERY = gql`
       ... on Comment {
         metadata {
           content
+          media {
+            original {
+              url
+            }
+          }
         }
         profile {
           handle
@@ -51,6 +61,11 @@ const PUBLICATION_QUERY = gql`
       ... on Mirror {
         metadata {
           content
+          media {
+            original {
+              url
+            }
+          }
         }
         mirrorOf {
           ... on Post {
@@ -100,6 +115,7 @@ const getPublicationMeta = async (req: NextApiRequest, res: NextApiResponse, id:
 
     if (data?.publication) {
       const publication: Publication = data?.publication;
+      const hasMedia = publication.metadata?.media.length;
       const profile: any =
         publication?.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile;
 
@@ -107,7 +123,9 @@ const getPublicationMeta = async (req: NextApiRequest, res: NextApiResponse, id:
         profile.handle
       } • Lenster`;
       const description = publication.metadata?.content ?? '';
-      const image = profile
+      const image = hasMedia
+        ? getIPFSLink(publication.metadata?.media[0].original.url)
+        : profile
         ? `${OG_MEDIA_PROXY_URL}/tr:n-avatar,tr:di-placeholder.webp/${getIPFSLink(
             profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)
           )}`
@@ -116,7 +134,7 @@ const getPublicationMeta = async (req: NextApiRequest, res: NextApiResponse, id:
       return res
         .setHeader('Content-Type', 'text/html')
         .setHeader('Cache-Control', 's-maxage=86400')
-        .send(generateMeta(title, description, image));
+        .send(generateMeta(title, description, image, hasMedia ? 'summary_large_image' : 'summary'));
     }
 
     return res
