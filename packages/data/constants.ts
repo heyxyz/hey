@@ -113,6 +113,7 @@ export const ATTACHMENT = 'attachment';
 // Localstorage keys
 export const LS_KEYS = {
   LENSTER_STORE: 'lenster.store',
+  PREFERENCES_STORE: 'preferences.store',
   TRANSACTION_STORE: 'transaction.store',
   TIMELINE_STORE: 'timeline.store',
   MESSAGE_STORE: 'message.store',
