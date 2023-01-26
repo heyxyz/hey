@@ -1,6 +1,7 @@
 import Sidebar from '@components/Shared/Sidebar';
 import UserProfile from '@components/Shared/UserProfile';
 import {
+  AdjustmentsIcon,
   BookmarkIcon,
   ChipIcon,
   ExclamationIcon,
@@ -33,6 +34,11 @@ const SettingsSidebar: FC = () => {
             title: t`Account`,
             icon: <ChipIcon className="w-4 h-4" />,
             url: '/settings/account'
+          },
+          {
+            title: t`Preferences`,
+            icon: <AdjustmentsIcon className="w-4 h-4" />,
+            url: '/settings/preferences'
           },
           {
             title: t`Interests`,
