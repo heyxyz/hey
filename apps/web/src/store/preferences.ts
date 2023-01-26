@@ -3,15 +3,15 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface PreferencesState {
-  showLikesCount: boolean;
-  setShowLikesCount: (showLikesCount: boolean) => void;
+  hideLikesCount: boolean;
+  setHideLikesCount: (hideLikesCount: boolean) => void;
 }
 
 export const usePreferencesStore = create(
   persist<PreferencesState>(
     (set) => ({
-      showLikesCount: true,
-      setShowLikesCount: (showLikesCount) => set(() => ({ showLikesCount }))
+      hideLikesCount: false,
+      setHideLikesCount: (hideLikesCount) => set(() => ({ hideLikesCount }))
     }),
     { name: LS_KEYS.PREFERENCES_STORE }
   )

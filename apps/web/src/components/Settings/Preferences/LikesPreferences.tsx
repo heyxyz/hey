@@ -6,8 +6,8 @@ import type { FC } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 
 const LikesPreferences: FC = () => {
-  const showLikesCount = usePreferencesStore((state) => state.showLikesCount);
-  const setShowLikesCount = usePreferencesStore((state) => state.setShowLikesCount);
+  const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
+  const setHideLikesCount = usePreferencesStore((state) => state.setHideLikesCount);
 
   return (
     <Card className="space-y-2 linkify p-5">
@@ -26,7 +26,7 @@ const LikesPreferences: FC = () => {
             </Trans>
           </div>
           <div>
-            <Toggle on={showLikesCount} setOn={setShowLikesCount} />
+            <Toggle on={hideLikesCount} setOn={setHideLikesCount} />
           </div>
         </div>
       </div>
