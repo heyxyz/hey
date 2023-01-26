@@ -15,10 +15,10 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-import VoteSolidIcon from './VoteIcons/VoteSolidIcon';
-import VotesOutlineIcon from './VoteIcons/VotesOutlineIcon';
+import TipsOutlineIcon from './TipIcons/TipsOutlineIcon';
+import TipsSolidIcon from './TipIcons/TipsSolidIcon';
 
-const VotesModule = dynamic(() => import('./VotesModule'), {
+const TipsModule = dynamic(() => import('./TipsModule'), {
   loading: () => <Loader message={t`Loading collect`} />
 });
 
@@ -29,7 +29,7 @@ interface Props {
 }
 
 // const Votes: FC<Props> = ({ publication, electedMirror, showCount }) => {
-const Votes: FC<Props> = ({ publication, electedMirror }) => {
+const Tips: FC<Props> = ({ publication, electedMirror }) => {
   const [count, setCount] = useState(0);
   const [showVotesModal, setShowVotesModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
@@ -77,15 +77,19 @@ const Votes: FC<Props> = ({ publication, electedMirror }) => {
           aria-label="Clap"
         >
           <div>
-            <Tooltip placement="top" content={count > 0 ? `${humanize(count)} Votes` : 'QF vote!'} withDelay>
-              {hasClapped ? <VoteSolidIcon size={18} /> : <VotesOutlineIcon size={20} />}
+            <Tooltip
+              placement="top"
+              content={count > 0 ? `${humanize(count)} Tips` : 'Tip quadratically!'}
+              withDelay
+            >
+              {hasClapped ? <TipsSolidIcon size={18} /> : <TipsOutlineIcon size={20} />}
             </Tooltip>
           </div>
         </motion.button>
         {count > 0 && <span className="font-size-14 text-green-500 ">{nFormatter(count)} +</span>}
       </div>
 
-      <div className="font-size-14 text-green-500 place-self-center ml-2">- total votes</div>
+      <div className="font-size-14 text-green-500 place-self-center ml-2"> - total tips placeholder</div>
 
       <Modal
         title={
@@ -106,7 +110,7 @@ const Votes: FC<Props> = ({ publication, electedMirror }) => {
         show={showVotesModal}
         onClose={() => setShowVotesModal(false)}
       >
-        <VotesModule
+        <TipsModule
           electedMirror={electedMirror}
           publication={publication}
           count={count}
@@ -117,4 +121,4 @@ const Votes: FC<Props> = ({ publication, electedMirror }) => {
   );
 };
 
-export default Votes;
+export default Tips;

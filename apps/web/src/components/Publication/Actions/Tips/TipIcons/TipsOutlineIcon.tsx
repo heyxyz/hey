@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function VotesOutlineIcon({ size }: { size: number }) {
+export default function TipsOutlineIcon({ size }: { size: number }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="42 20 400 400" fill="none">
       <path

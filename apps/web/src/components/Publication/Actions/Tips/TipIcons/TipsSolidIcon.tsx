@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function VoteSolidIcon({ size }: { size: number }) {
+export default function TipsSolidIcon({ size }: { size: number }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 350 350" fill="none">
       <path
