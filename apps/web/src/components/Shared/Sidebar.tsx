@@ -26,20 +26,24 @@ interface Props {
     title: ReactNode;
     icon: ReactNode;
     url: string;
+    enabled?: boolean;
   }[];
 }
 
 const Sidebar: FC<Props> = ({ items }) => {
   const { pathname } = useRouter();
+  const menuItems = items.map((item) => ({ ...item, enabled: item.enabled ?? true }));
 
   return (
     <div className="px-3 mb-4 space-y-1.5 sm:px-0">
-      {items.map((item: any, index: number) => (
-        <Menu key={index} current={pathname == item.url} url={item.url}>
-          {item.icon}
-          <div>{item.title}</div>
-        </Menu>
-      ))}
+      {menuItems.map((item: any, index: number) =>
+        item?.enabled ? (
+          <Menu key={index} current={pathname == item.url} url={item.url}>
+            {item.icon}
+            <div>{item.title}</div>
+          </Menu>
+        ) : null
+      )}
     </div>
   );
 };

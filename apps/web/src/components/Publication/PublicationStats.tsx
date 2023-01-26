@@ -9,6 +9,7 @@ import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const PublicationStats: FC<Props> = ({ publication }) => {
+  const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
@@ -65,7 +67,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
           </Modal>
         </>
       )}
-      {reactionCount > 0 && (
+      {!hideLikesCount && reactionCount > 0 && (
         <>
           <button
             type="button"
