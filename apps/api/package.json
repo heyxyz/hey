@@ -10,11 +10,11 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.4",
-    "@aws-sdk/client-s3": "^3.256.0",
-    "@aws-sdk/client-sts": "^3.256.0",
-    "@bundlr-network/client": "^0.9.11",
-    "axios": "^1.2.3",
+    "@apollo/client": "^3.7.5",
+    "@aws-sdk/client-s3": "^3.258.0",
+    "@aws-sdk/client-sts": "^3.258.0",
+    "@bundlr-network/client": "^0.10.1",
+    "axios": "^1.2.4",
     "dotenv": "^16.0.3",
     "next": "^13.1.5",
     "react": "^18.2.0",

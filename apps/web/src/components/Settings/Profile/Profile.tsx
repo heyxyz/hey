@@ -263,7 +263,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
           </div>
           <div className="flex items-center space-x-2">
             <Toggle on={pride} setOn={setPride} />
-            <div>
+            <div className="lt-text-gray-500">
               <Trans>Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day.</Trans>
             </div>
           </div>

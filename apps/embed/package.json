@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.4",
+    "@apollo/client": "^3.7.5",
     "dotenv": "^16.0.3",
     "next": "^13.1.5",
     "react": "^18.2.0",
