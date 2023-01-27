@@ -1,7 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import formatTime from '@lib/formatTime';
 import getAppName from '@lib/getAppName';
-import getPublicationAttribute from '@lib/getPublicationAttribute';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
@@ -13,6 +12,7 @@ import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
+import Wav3s from './Wav3s';
 
 dayjs.extend(relativeTime);
 
@@ -52,7 +52,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              {getPublicationAttribute(publication.metadata.attributes, 'createdIn')}
+              <Wav3s publication={publication} />
               <div className="text-sm lt-text-gray-500 my-3">
                 <span title={formatTime(timestamp)}>
                   {dayjs(new Date(timestamp)).format('hh:mm A · MMM D, YYYY')}

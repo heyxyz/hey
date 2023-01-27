@@ -7,7 +7,7 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 
 import SettingsSidebar from '../Sidebar';
-import LikesPreferences from './LikesPreferences';
+import PreferencesList from './List';
 
 const PreferencesSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -23,7 +23,7 @@ const PreferencesSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
-        <LikesPreferences />
+        <PreferencesList />
       </GridItemEight>
     </GridLayout>
   );
