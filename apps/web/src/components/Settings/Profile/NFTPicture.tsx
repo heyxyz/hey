@@ -42,7 +42,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [chainId, setChainId] = useState(mainnet.id);
+  const [chainId, setChainId] = useState<number>(mainnet.id);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { signMessageAsync } = useSignMessage();
 
