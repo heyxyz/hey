@@ -16,7 +16,7 @@ const NFTDetail = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
 
-  if (!isFeatureEnabled('nft-gallery', currentProfile?.id)) {
+  if (!isFeatureEnabled('nft-gallery', currentProfile?.id) || !currentProfile) {
     return <Custom404 />;
   }
 
