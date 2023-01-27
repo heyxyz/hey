@@ -52,13 +52,13 @@ const PreferencesList: FC = () => {
       <div className="divider my-5" />
       <div className="space-y-2">
         <div className="flex items-center space-x-2 label">
-          <Trans>Show wav3s rewards</Trans>
+          <Trans>Hide wav3s rewards</Trans>
         </div>
         <div className="flex items-center space-x-2 justify-between">
           <div className="mr-5 lt-text-gray-500">
             <Trans>
-              Show wav3s rewards related information on publications. So you can see how much you can earn
-              from mirroring the publication.
+              Hide wav3s rewards related information on publications. So you will not see the promotion on
+              publications. This will not affect your ability to earn wav3s rewards.
             </Trans>
           </div>
           <div>

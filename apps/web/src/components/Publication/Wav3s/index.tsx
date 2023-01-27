@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 
 dayjs.extend(relativeTime);
 
@@ -15,11 +16,12 @@ interface Props {
 
 const Wav3s: FC<Props> = ({ publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const hideWav3sReward = usePreferencesStore((state) => state.hideWav3sReward);
 
   const isWav3sPublication =
     getPublicationAttribute(publication.metadata.attributes, 'createdIn') === 'wav3s';
 
-  if (!isWav3sPublication || !isFeatureEnabled('wav3s', currentProfile?.id)) {
+  if (!isWav3sPublication || hideWav3sReward || !isFeatureEnabled('wav3s', currentProfile?.id)) {
     return null;
   }
 

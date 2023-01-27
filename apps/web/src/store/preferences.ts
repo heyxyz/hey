@@ -14,7 +14,7 @@ export const usePreferencesStore = create(
     (set) => ({
       hideLikesCount: false,
       setHideLikesCount: (hideLikesCount) => set(() => ({ hideLikesCount })),
-      hideWav3sReward: true,
+      hideWav3sReward: false,
       setHideWav3sReward: (hideWav3sReward) => set(() => ({ hideWav3sReward }))
     }),
     { name: LS_KEYS.PREFERENCES_STORE }
