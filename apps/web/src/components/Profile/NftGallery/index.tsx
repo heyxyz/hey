@@ -68,7 +68,7 @@ const NftGallery: FC<Props> = ({ profile }) => {
         <h6 className="font-medium text-lg mx-2">
           {isRearrange ? 'Arrange gallery' : `${profile.name}'s gallery`}
         </h6>
-        {isRearrange && (
+        {isRearrange ? (
           <div className="flex items-center space-x-2">
             <Button onClick={() => setIsRearrange(false)} size="sm" variant="secondary">
               Cancel
@@ -77,11 +77,10 @@ const NftGallery: FC<Props> = ({ profile }) => {
               Save
             </Button>
           </div>
-        )}
-        {!isRearrange && (
+        ) : (
           <Menu as="div" className="relative">
             <Menu.Button className="rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20">
-              <DotsVerticalIcon className="w-5 h-5" />
+              <DotsVerticalIcon className="w-4 h-4" />
             </Menu.Button>
             <Transition
               as={Fragment}
