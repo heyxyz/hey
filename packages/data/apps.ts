@@ -8,5 +8,6 @@ export const apps = [
   'buttrfly',
   'memester',
   'pinsta',
-  'chainjet'
+  'chainjet',
+  'wav3s'
 ];
