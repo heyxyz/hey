@@ -1,20 +1,15 @@
-import type { Maybe } from 'lens';
+import type { Attribute, Maybe } from 'lens';
 
-interface Attribute {
-  key: string;
-  value: string;
-}
-
-type Query = 'hasPrideLogo' | 'app' | 'twitter' | 'location' | 'website' | 'statusEmoji' | 'statusMessage';
+type Key = 'hasPrideLogo' | 'app' | 'twitter' | 'location' | 'website' | 'statusEmoji' | 'statusMessage';
 
 /**
  *
- * @param attributes - Array of attributes
- * @param query - Query to search for
- * @returns attribute if found, otherwise undefined
+ * @param attributes - The attributes to search through
+ * @param key - The key to search for
+ * @returns the attribute from a trait
  */
-const getProfileAttribute = (attributes?: Maybe<Attribute[]>, query?: Query): string => {
-  return attributes?.find((o) => o.key === query)?.value || '';
+const getProfileAttribute = (attributes: Maybe<Attribute[]> | undefined, key: Key): string => {
+  return attributes?.find((el) => el.key === key)?.value ?? '';
 };
 
 export default getProfileAttribute;
