@@ -892,8 +892,8 @@ msgid "User Lens profile is referred as the “Profile” in the “Site”."
 msgstr "User Lens profile is referred as the “Profile” in the “Site”."
 
 #: src/components/Pages/Terms.tsx
-msgid "The Site allow you to interact with the Lens Protocol, including posts, mirrors, comments and other content related actions."
-msgstr "The Site allow you to interact with the Lens Protocol, including posts, mirrors, comments and other content related actions."
+msgid "The Site allows you to interact with the Lens Protocol, including posts, mirrors, comments and other content related actions."
+msgstr "The Site allows you to interact with the Lens Protocol, including posts, mirrors, comments and other content related actions."
 
 #: src/components/Pages/Terms.tsx
 msgid "We reserve the right - but are not obligated to - limit the provision of Profiles or Services to any person, geographic region or jurisdiction. We may exercise this right on a case-by-case basis in our sole discretion."
@@ -916,8 +916,8 @@ msgid "It is important to understand that neither we nor any affiliated entity i
 msgstr "It is important to understand that neither we nor any affiliated entity is a party to any transaction on the blockchain networks underlying the Lens Protocol; we do not have possession, custody or control over any items on your wallet and we do not have possession, custody, ability to delete or control over any items on any user’s wallet or interactions with the Lens Protocol."
 
 #: src/components/Pages/Terms.tsx
-msgid "If you’re not comfortable with interacting with an inherently transparent blockchain, you should not engage with our Site to create and manage a content on the Lens Protocol. You are solely responsible for the safekeeping of the private key associated with the blockchain address used to interact with the Lens Protocol."
-msgstr "If you’re not comfortable with interacting with an inherently transparent blockchain, you should not engage with our Site to create and manage a content on the Lens Protocol. You are solely responsible for the safekeeping of the private key associated with the blockchain address used to interact with the Lens Protocol."
+msgid "If you’re not comfortable with interacting with an inherently transparent blockchain, you should not engage with our Site to create and manage content on the Lens Protocol. You are solely responsible for the safekeeping of the private key associated with the blockchain address used to interact with the Lens Protocol."
+msgstr "If you’re not comfortable with interacting with an inherently transparent blockchain, you should not engage with our Site to create and manage content on the Lens Protocol. You are solely responsible for the safekeeping of the private key associated with the blockchain address used to interact with the Lens Protocol."
 
 #: src/components/Pages/Terms.tsx
 msgid "The transactions on blockchain including transfer of tokens and data attached to it are permanent and cannot be undone."
@@ -1527,7 +1527,7 @@ msgid "Cleanup Localstorage"
 msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
-msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
+msgid "If you are stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
 msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
