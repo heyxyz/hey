@@ -1,6 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
 import formatTime from '@lib/formatTime';
 import getAppName from '@lib/getAppName';
+import getPublicationAttribute from '@lib/getPublicationAttribute';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
@@ -51,6 +52,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
+              {getPublicationAttribute(publication.metadata.attributes, 'createdIn')}
               <div className="text-sm lt-text-gray-500 my-3">
                 <span title={formatTime(timestamp)}>
                   {dayjs(new Date(timestamp)).format('hh:mm A · MMM D, YYYY')}
