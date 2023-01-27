@@ -11,7 +11,7 @@ interface Props {
 
 const NFTImage = ({ nft }: { nft: Nft }) => (
   <img
-    className="rounded-xl object-cover w-full bg-gray-200 dark:bg-gray-800"
+    className="rounded-xl object-cover w-full h-64 bg-gray-200 dark:bg-gray-800"
     src={
       nft.originalContent.uri ? getIPFSLink(nft.originalContent.uri) : `${STATIC_IMAGES_URL}/placeholder.webp`
     }
