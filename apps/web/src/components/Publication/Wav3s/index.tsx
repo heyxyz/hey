@@ -1,4 +1,6 @@
 import { Card } from '@components/UI/Card';
+import CircularProgressBar from '@components/UI/CircularProgressBar';
+import { GiftIcon } from '@heroicons/react/outline';
 import getPublicationAttribute from '@lib/getPublicationAttribute';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import dayjs from 'dayjs';
@@ -25,7 +27,17 @@ const Wav3s: FC<Props> = ({ publication }) => {
     return null;
   }
 
-  return <Card className="py-3 px-5 my-5 text-sm bg-gray-50">gm</Card>;
+  return (
+    <Card className="py-3 px-5 my-5 text-xs bg-pink-50 border-pink-300 flex">
+      <div className="font-bold text-pink-500 flex items-center space-x-1.5">
+        <GiftIcon className="h-4 w-4" />
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 dark:from-pink-400 to-brand-600 dark:to-brand-400">
+          You can earn reward by mirroring this <span className="lowercase">{publication.__typename}</span>
+        </span>
+      </div>
+      <CircularProgressBar value={80} label="50" />
+    </Card>
+  );
 };
 
 export default Wav3s;
