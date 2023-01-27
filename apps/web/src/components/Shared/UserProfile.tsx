@@ -1,8 +1,8 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import formatTime from '@lib/formatTime';
-import getAttribute from '@lib/getAttribute';
 import getAvatar from '@lib/getAvatar';
+import getProfileAttribute from '@lib/getProfileAttribute';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
@@ -54,8 +54,8 @@ const UserProfile: FC<Props> = ({
 }) => {
   const [following, setFollowing] = useState(isFollowing);
 
-  const statusEmoji = getAttribute(profile?.attributes, 'statusEmoji');
-  const statusMessage = getAttribute(profile?.attributes, 'statusMessage');
+  const statusEmoji = getProfileAttribute(profile?.attributes, 'statusEmoji');
+  const statusMessage = getProfileAttribute(profile?.attributes, 'statusMessage');
   const hasStatus = statusEmoji && statusMessage;
 
   const UserAvatar = () => (

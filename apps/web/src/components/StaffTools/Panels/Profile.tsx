@@ -11,8 +11,8 @@ import {
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import formatHandle from '@lib/formatHandle';
-import getAttribute from '@lib/getAttribute';
 import { getFollowModule } from '@lib/getFollowModule';
+import getProfileAttribute from '@lib/getProfileAttribute';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import { APP_NAME } from 'data/constants';
 import type { Profile } from 'lens';
@@ -32,7 +32,7 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
         <div className="text-lg font-bold">Staff tool</div>
       </div>
       <div className="mt-3 space-y-1.5">
-        {getAttribute(profile?.attributes, 'app') === APP_NAME && (
+        {getProfileAttribute(profile?.attributes, 'app') === APP_NAME && (
           <MetaDetails
             icon={
               <img

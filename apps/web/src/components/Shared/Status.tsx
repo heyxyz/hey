@@ -5,7 +5,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
-import getAttribute from '@lib/getAttribute';
+import getProfileAttribute from '@lib/getProfileAttribute';
 import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -52,8 +52,8 @@ const Status: FC = () => {
     skip: !currentProfile?.id,
     onCompleted: (data) => {
       const profile = data?.profile;
-      form.setValue('status', getAttribute(profile?.attributes, 'statusMessage'));
-      setEmoji(getAttribute(profile?.attributes, 'statusEmoji'));
+      form.setValue('status', getProfileAttribute(profile?.attributes, 'statusMessage'));
+      setEmoji(getProfileAttribute(profile?.attributes, 'statusEmoji'));
     }
   });
 
@@ -140,13 +140,13 @@ const Status: FC = () => {
                 ].includes(attr.key)
             )
             .map(({ key, value }) => ({ key, value })) ?? []),
-          { key: 'location', value: getAttribute(profile?.attributes, 'location') },
-          { key: 'website', value: getAttribute(profile?.attributes, 'website') },
+          { key: 'location', value: getProfileAttribute(profile?.attributes, 'location') },
+          { key: 'website', value: getProfileAttribute(profile?.attributes, 'website') },
           {
             key: 'twitter',
-            value: getAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '')
+            value: getProfileAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '')
           },
-          { key: 'hasPrideLogo', value: getAttribute(profile?.attributes, 'hasPrideLogo') },
+          { key: 'hasPrideLogo', value: getProfileAttribute(profile?.attributes, 'hasPrideLogo') },
           { key: 'statusEmoji', value: emoji },
           { key: 'statusMessage', value: status },
           { key: 'app', value: APP_NAME }
