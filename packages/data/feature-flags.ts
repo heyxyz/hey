@@ -8,6 +8,11 @@ export const featureFlags = [
     enabledFor: [...lensterMembers]
   },
   {
+    key: 'wav3s',
+    name: 'Wav3s Integration',
+    enabledFor: [...lensterMembers, ...aaveMembers]
+  },
+  {
     key: 'preferences-settings',
     name: 'Preferences settings',
     enabledFor: [...lensterMembers, ...aaveMembers]
