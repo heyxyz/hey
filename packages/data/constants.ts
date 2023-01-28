@@ -65,7 +65,7 @@ export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://testnet
 export const MEDIA_PROXY_URL = 'https://media.lenster.xyz';
 export const OG_MEDIA_PROXY_URL = 'https://og-media.lenster.xyz';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
-export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
+export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
 
