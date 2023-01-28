@@ -14,7 +14,7 @@ import type {
   AccessConditionOutput,
   CreatePublicPostRequest
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import { $convertFromMarkdownString } from '@lexical/markdown';
+import { $convertFromMarkdownString, $convertToMarkdownString, TRANSFORMERS } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
@@ -53,7 +53,7 @@ import {
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
 } from 'lens';
-import { $getRoot } from 'lexical';
+import { $createLineBreakNode, $createParagraphNode, $getRoot, DecoratorNode, ElementNode } from 'lexical';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -395,6 +395,30 @@ const NewPublication: FC<Props> = ({ publication }) => {
       return toast.error(SIGN_WALLET);
     }
 
+    let processedContent = '';
+    editor.update(() => {
+      const root = $getRoot();
+      const paragraphNode = $createParagraphNode();
+      for (const rootChild of root.getChildren()) {
+        if (rootChild instanceof ElementNode) {
+          for (const elementChild of rootChild.getChildren()) {
+            if (elementChild) {
+              paragraphNode.append(elementChild);
+            }
+          }
+        } else if (rootChild instanceof DecoratorNode) {
+          paragraphNode.append(rootChild);
+        } else {
+          console.error('Unexpected root child type', rootChild);
+        }
+        paragraphNode.append($createLineBreakNode());
+      }
+      paragraphNode.getLastChild()?.remove();
+      root.clear();
+      root.append(paragraphNode);
+      processedContent = $convertToMarkdownString(TRANSFORMERS);
+    });
+
     try {
       setLoading(true);
       if (isAudioPublication) {
@@ -406,15 +430,14 @@ const NewPublication: FC<Props> = ({ publication }) => {
         }
       }
 
-      if (publicationContent.length === 0 && attachments.length === 0) {
+      if (processedContent.length === 0 && attachments.length === 0) {
         return setPublicationContentError(`${isComment ? 'Comment' : 'Post'} should not be empty!`);
       }
-
       setPublicationContentError('');
       let textNftImageUrl = null;
       if (!attachments.length && selectedCollectModule !== CollectModules.RevertCollectModule) {
         textNftImageUrl = await getTextNftUrl(
-          publicationContent,
+          processedContent,
           currentProfile.handle,
           new Date().toLocaleString()
         );
@@ -445,14 +468,14 @@ const NewPublication: FC<Props> = ({ publication }) => {
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuid(),
-        content: publicationContent,
+        content: processedContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image: attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
         imageMimeType: attachmentsInput.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
         name: isAudioPublication
           ? audioPublication.title
           : `${isComment ? 'Comment' : 'Post'} by @${currentProfile?.handle}`,
-        tags: getTags(publicationContent),
+        tags: getTags(processedContent),
         animation_url: getAnimationUrl(),
         mainContentFocus: getMainContentFocus(),
         contentWarning: null,
