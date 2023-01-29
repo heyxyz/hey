@@ -6,9 +6,10 @@ interface Props {
   description: string;
   image: string;
   cardType?: 'summary' | 'summary_large_image';
+  schema?: any;
 }
 
-const Tags: FC<Props> = ({ title, description, image, cardType = 'summary' }) => {
+const Tags: FC<Props> = ({ title, description, image, cardType = 'summary', schema }) => {
   return (
     <Head>
       <title>{title}</title>
@@ -29,6 +30,7 @@ const Tags: FC<Props> = ({ title, description, image, cardType = 'summary' }) =>
       <meta property="twitter:image:width" content="400" />
       <meta property="twitter:image:height" content="400" />
       <meta property="twitter:creator" content="lensterxyz" />
+      {schema ? schema : null}
     </Head>
   );
 };
