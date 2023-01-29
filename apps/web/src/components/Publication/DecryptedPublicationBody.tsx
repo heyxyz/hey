@@ -1,4 +1,5 @@
 import Attachments from '@components/Shared/Attachments';
+import { useLoginFlow } from '@components/Shared/GlobalModals';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
@@ -26,7 +27,6 @@ import formatHandle from '@lib/formatHandle';
 import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
 import { t, Trans } from '@lingui/macro';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
 import axios from 'axios';
 import clsx from 'clsx';
 import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
@@ -37,7 +37,6 @@ import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
@@ -60,7 +59,6 @@ interface Props {
 const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const [decryptedData, setDecryptedData] = useState<any>(null);
   const [decryptError, setDecryptError] = useState<any>(null);
   const [isDecrypting, setIsDecrypting] = useState(false);
@@ -68,7 +66,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const [reasons, setReasons] = useState<any>(encryptedPublication?.canDecrypt.reasons);
   const provider = useProvider();
   const { data: signer } = useSigner();
-  const { openConnectModal } = useConnectModal();
+  const { showLoginFlow } = useLoginFlow();
 
   const showMore = encryptedPublication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
@@ -171,8 +169,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
         className={clsx(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
           event.stopPropagation();
-          openConnectModal?.();
-          setShowAuthModal(true);
+          showLoginFlow();
         }}
       >
         <div className="text-white font-bold flex items-center space-x-1">

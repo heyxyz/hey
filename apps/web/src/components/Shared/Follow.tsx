@@ -7,7 +7,6 @@ import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { LensHubProxy } from 'abis';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
@@ -16,9 +15,10 @@ import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
+
+import { useLoginFlow } from './GlobalModals';
 
 export enum FollowSource {
   WHO_TO_FOLLOW = 'who_to_follow',
@@ -51,8 +51,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { address } = useAccount();
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
-  const { openConnectModal } = useConnectModal();
+  const { showLoginFlow } = useLoginFlow();
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
@@ -134,8 +133,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
 
   const createFollow = async () => {
     if (!currentProfile) {
-      openConnectModal?.();
-      setShowAuthModal(true);
+      showLoginFlow();
       return;
     }
 

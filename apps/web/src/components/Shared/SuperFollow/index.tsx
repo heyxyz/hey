@@ -4,15 +4,14 @@ import { StarIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import { t } from '@lingui/macro';
-import { useConnectModal } from '@rainbow-me/rainbowkit';
 import type { Profile } from 'lens';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
 
+import { useLoginFlow } from '../GlobalModals';
 import Loader from '../Loader';
 import Slug from '../Slug';
 
@@ -30,8 +29,7 @@ interface Props {
 const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again = false }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
-  const { openConnectModal } = useConnectModal();
+  const { showLoginFlow } = useLoginFlow();
 
   return (
     <>
@@ -41,8 +39,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
         outline
         onClick={() => {
           if (!currentProfile) {
-            openConnectModal?.();
-            setShowAuthModal(true);
+            showLoginFlow();
             return;
           }
           setShowFollowModal(!showFollowModal);

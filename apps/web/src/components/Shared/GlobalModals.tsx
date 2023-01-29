@@ -4,12 +4,24 @@ import { ArrowCircleRightIcon, EmojiHappyIcon, ShieldCheckIcon } from '@heroicon
 import { t } from '@lingui/macro';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import type { FC } from 'react';
+import { useCallback } from 'react';
 import { useAuthStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Login from './Login';
 import Status from './Status';
 import SwitchProfiles from './SwitchProfiles';
+
+export const useLoginFlow = () => {
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const { openConnectModal } = useConnectModal();
+
+  const showLoginFlow = useCallback(() => {
+    openConnectModal?.();
+    setShowAuthModal(true);
+  }, [openConnectModal, setShowAuthModal]);
+  return { showLoginFlow };
+};
 
 const GlobalModals: FC = () => {
   // Report modal state
