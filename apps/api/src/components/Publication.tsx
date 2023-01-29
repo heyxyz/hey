@@ -32,7 +32,12 @@ const Publication: FC<Props> = ({ publication }) => {
 
   return (
     <>
-      <Tags title={title} description={description} image={image} />
+      <Tags
+        title={title}
+        description={description}
+        image={image}
+        cardType={hasMedia ? 'summary_large_image' : 'summary'}
+      />
       <div>{title}</div>
     </>
   );
