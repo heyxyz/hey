@@ -1,5 +1,4 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
@@ -8,7 +7,7 @@ import { Trans } from '@lingui/macro';
 import { ERROR_MESSAGE } from 'data/constants';
 import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -25,7 +24,6 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
-  const [loading, setLoading] = useState(false);
 
   const { chain } = useNetwork();
   const { address, connector, isConnected } = useAccount();
@@ -39,7 +37,6 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
   const handleSign = async () => {
     let keepModal = false;
     try {
-      setLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
         variables: { request: { address } }
@@ -83,7 +80,6 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
       if (!keepModal) {
         setShowLoginFlow(false);
       }
