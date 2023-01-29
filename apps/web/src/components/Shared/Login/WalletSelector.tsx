@@ -101,19 +101,12 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain?.id === CHAIN_ID || !chain?.id ? (
-          <Button
-            disabled={loading}
-            icon={
-              loading ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : (
-                <img className="mr-0.5 w-4 h-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />
-              )
-            }
-            onClick={handleSign}
-          >
-            <Trans>Sign-In with Lens</Trans>
-          </Button>
+          <div className="text-sm font-bold text-center flex">
+            <div className="flex">
+              <Spinner size="sm" className="mx-auto mr-2" />
+              <Trans>Signing …</Trans>
+            </div>
+          </div>
         ) : (
           <SwitchNetwork />
         )}
