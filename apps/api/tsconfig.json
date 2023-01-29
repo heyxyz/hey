@@ -4,6 +4,7 @@
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
+      "@components*": ["src/components*"],
       "@lib*": ["src/lib*"]
     }
   },
