@@ -7,6 +7,9 @@ import client from 'src/apollo';
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const handle = context.params?.handle;
 
+  // Cache the response for 60 days
+  context.res.setHeader('Cache-Control', 'public, max-age=5184000');
+
   if (!handle) {
     return {
       props: { data: null }
