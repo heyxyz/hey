@@ -26,6 +26,7 @@ import formatHandle from '@lib/formatHandle';
 import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
 import { t, Trans } from '@lingui/macro';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import axios from 'axios';
 import clsx from 'clsx';
 import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
@@ -67,6 +68,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const [reasons, setReasons] = useState<any>(encryptedPublication?.canDecrypt.reasons);
   const provider = useProvider();
   const { data: signer } = useSigner();
+  const { openConnectModal } = useConnectModal();
 
   const showMore = encryptedPublication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
@@ -169,6 +171,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
         className={clsx(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
           event.stopPropagation();
+          openConnectModal?.();
           setShowLoginFlow(true);
         }}
       >

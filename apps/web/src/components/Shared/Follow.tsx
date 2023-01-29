@@ -7,6 +7,7 @@ import getSignature from '@lib/getSignature';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { LensHubProxy } from 'abis';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
@@ -51,6 +52,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { address } = useAccount();
   const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
+  const { openConnectModal } = useConnectModal();
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
@@ -132,6 +134,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
 
   const createFollow = async () => {
     if (!currentProfile) {
+      openConnectModal?.();
       setShowLoginFlow(true);
       return;
     }

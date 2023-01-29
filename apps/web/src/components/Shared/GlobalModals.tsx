@@ -4,7 +4,6 @@ import { ArrowCircleRightIcon, EmojiHappyIcon, ShieldCheckIcon } from '@heroicon
 import { t } from '@lingui/macro';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import { useAuthStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -24,12 +23,6 @@ const GlobalModals: FC = () => {
   const showLoginFlow = useAuthStore((state) => state.showLoginFlow);
   const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
   const { openConnectModal } = useConnectModal();
-
-  useEffect(() => {
-    if (showLoginFlow && openConnectModal) {
-      openConnectModal();
-    }
-  }, [showLoginFlow, openConnectModal]);
 
   return (
     <>
