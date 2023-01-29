@@ -67,7 +67,7 @@ const Editor: FC = () => {
         onChange={(editorState) => {
           editorState.read(() => {
             const markdown = $convertToMarkdownString(TRANSFORMERS);
-            setPublicationContent(markdown);
+            setPublicationContent(markdown.replaceAll('\n\n', '\n'));
           });
         }}
       />
