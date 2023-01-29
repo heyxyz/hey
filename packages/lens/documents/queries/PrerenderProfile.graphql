@@ -1,0 +1,22 @@
+query PrerenderProfile($request: SingleProfileQueryRequest!) {
+  profile(request: $request) {
+    handle
+    name
+    bio
+    ownedBy
+    stats {
+      totalFollowers
+      totalFollowing
+    }
+    picture {
+      ... on MediaSet {
+        original {
+          url
+        }
+      }
+      ... on NftImage {
+        uri
+      }
+    }
+  }
+}
