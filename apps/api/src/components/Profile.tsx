@@ -30,45 +30,51 @@ const Profile: FC<Props> = ({ profile }) => {
 
   return (
     <>
-      <Tags title={title} description={description} image={image} />
-      <JsonLd<any>
-        item={{
-          '@context': 'https://schema.org',
-          '@type': 'ProfilePage',
-          author: {
-            '@type': 'Person',
-            additionalName: profile.handle,
-            description: profile.bio,
-            givenName: profile.name ?? profile.handle,
-            identifier: profile.id,
-            image: {
-              '@type': 'ImageObject',
-              contentUrl: image,
-              thumbnailUrl: image
-            },
-            interactionStatistic: [
-              {
-                '@type': 'InteractionCounter',
-                interactionType: 'https://schema.org/FollowAction',
-                name: 'Follows',
-                userInteractionCount: profile.stats.totalFollowers
-              },
-              {
-                '@type': 'InteractionCounter',
-                interactionType: 'https://schema.org/SubscribeAction',
-                name: 'Following',
-                userInteractionCount: profile.stats.totalFollowing
-              },
-              {
-                '@type': 'InteractionCounter',
-                interactionType: 'https://schema.org/WriteAction',
-                name: 'Posts',
-                userInteractionCount: profile.stats.totalPosts
+      <Tags
+        title={title}
+        description={description}
+        image={image}
+        schema={
+          <JsonLd<any>
+            item={{
+              '@context': 'https://schema.org',
+              '@type': 'ProfilePage',
+              author: {
+                '@type': 'Person',
+                additionalName: profile.handle,
+                description: profile.bio,
+                givenName: profile.name ?? profile.handle,
+                identifier: profile.id,
+                image: {
+                  '@type': 'ImageObject',
+                  contentUrl: image,
+                  thumbnailUrl: image
+                },
+                interactionStatistic: [
+                  {
+                    '@type': 'InteractionCounter',
+                    interactionType: 'https://schema.org/FollowAction',
+                    name: 'Follows',
+                    userInteractionCount: profile.stats.totalFollowers
+                  },
+                  {
+                    '@type': 'InteractionCounter',
+                    interactionType: 'https://schema.org/SubscribeAction',
+                    name: 'Following',
+                    userInteractionCount: profile.stats.totalFollowing
+                  },
+                  {
+                    '@type': 'InteractionCounter',
+                    interactionType: 'https://schema.org/WriteAction',
+                    name: 'Posts',
+                    userInteractionCount: profile.stats.totalPosts
+                  }
+                ],
+                url: `https://lenster.xyz/u/${profile.handle}}`
               }
-            ],
-            url: `https://lenster.xyz/u/${profile.handle}}`
-          }
-        }}
+            }}
+          />
+        }
       />
       <div>{title}</div>
     </>
