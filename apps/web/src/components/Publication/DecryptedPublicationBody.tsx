@@ -60,7 +60,7 @@ interface Props {
 const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const [decryptedData, setDecryptedData] = useState<any>(null);
   const [decryptError, setDecryptError] = useState<any>(null);
   const [isDecrypting, setIsDecrypting] = useState(false);
@@ -172,7 +172,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
         onClick={(event) => {
           event.stopPropagation();
           openConnectModal?.();
-          setShowLoginFlow(true);
+          setShowAuthModal(true);
         }}
       >
         <div className="text-white font-bold flex items-center space-x-1">

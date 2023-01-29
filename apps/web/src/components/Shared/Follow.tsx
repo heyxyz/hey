@@ -51,7 +51,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { address } = useAccount();
-  const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const { openConnectModal } = useConnectModal();
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -135,7 +135,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
   const createFollow = async () => {
     if (!currentProfile) {
       openConnectModal?.();
-      setShowLoginFlow(true);
+      setShowAuthModal(true);
       return;
     }
 

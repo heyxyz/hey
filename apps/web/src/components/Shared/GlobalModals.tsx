@@ -20,8 +20,8 @@ const GlobalModals: FC = () => {
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const showProfileSwitchModal = useGlobalModalStateStore((state) => state.showProfileSwitchModal);
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
-  const showLoginFlow = useAuthStore((state) => state.showLoginFlow);
-  const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
+  const showAuthModal = useAuthStore((state) => state.showAuthModal);
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const { openConnectModal } = useConnectModal();
 
   return (
@@ -55,8 +55,8 @@ const GlobalModals: FC = () => {
       <Modal
         title={t`Login`}
         icon={<ArrowCircleRightIcon className="w-5 h-5 text-brand" />}
-        show={showLoginFlow && !openConnectModal}
-        onClose={() => setShowLoginFlow(false)}
+        show={showAuthModal && !openConnectModal}
+        onClose={() => setShowAuthModal(false)}
       >
         <Login />
       </Modal>

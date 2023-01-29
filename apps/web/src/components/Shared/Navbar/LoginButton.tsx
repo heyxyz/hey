@@ -9,7 +9,7 @@ import { USER } from 'src/tracking';
 import { useAccount, useDisconnect } from 'wagmi';
 
 const LoginButton: FC = () => {
-  const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const { openConnectModal } = useConnectModal();
   const { isConnected } = useAccount();
   const { disconnect } = useDisconnect({
@@ -24,7 +24,7 @@ const LoginButton: FC = () => {
         icon={<img className="mr-0.5 w-4 h-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />}
         onClick={() => {
           openConnectModal?.();
-          setShowLoginFlow(true);
+          setShowAuthModal(true);
           Analytics.track(USER.LOGIN);
         }}
       >

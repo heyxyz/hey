@@ -23,7 +23,7 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const setShowLoginFlow = useAuthStore((state) => state.setShowLoginFlow);
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
 
   const { chain } = useNetwork();
   const { address, connector, isConnected } = useAccount();
@@ -81,7 +81,7 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
       console.error(error);
     } finally {
       if (!keepModal) {
-        setShowLoginFlow(false);
+        setShowAuthModal(false);
       }
     }
   };
