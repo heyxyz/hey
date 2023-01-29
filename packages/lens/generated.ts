@@ -15878,7 +15878,12 @@ export type PrerenderProfileQuery = {
     name?: string | null;
     bio?: string | null;
     ownedBy: any;
-    stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
+    stats: {
+      __typename?: 'ProfileStats';
+      totalFollowers: number;
+      totalFollowing: number;
+      totalPosts: number;
+    };
     picture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
       | { __typename?: 'NftImage'; uri: any }
@@ -32294,6 +32299,7 @@ export const PrerenderProfileDocument = gql`
       stats {
         totalFollowers
         totalFollowing
+        totalPosts
       }
       picture {
         ... on MediaSet {
