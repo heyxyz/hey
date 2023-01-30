@@ -9,6 +9,7 @@ async function handleRequest(request: Request) {
   let options: any = {
     cf: {
       cacheEverything: true,
+      cacheKey: url.pathname,
       image: { quality: 90, format: 'auto' }
     }
   };
