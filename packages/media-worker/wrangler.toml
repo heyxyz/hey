@@ -2,5 +2,5 @@ name = "media-worker"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
 routes = [
-	{ pattern = "images.lenster.xyz", custom_domain = true }
+	{ pattern = "media.lenster.xyz", custom_domain = true }
 ]
