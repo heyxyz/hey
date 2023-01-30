@@ -37,7 +37,6 @@ export const XMTP_PREFIX = 'lens.dev/dm';
 export const APP_NAME = 'Lenster';
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
-export const DEFAULT_OG = 'https://assets.lenster.xyz/images/og/logo.jpeg';
 export const APP_VERSION = packageJson.version;
 
 // Git
@@ -62,12 +61,12 @@ export const STATIC_ASSETS_URL = 'https://assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://testnet.rarible.com';
-export const MEDIA_PROXY_URL = 'https://media.lenster.xyz';
-export const OG_MEDIA_PROXY_URL = 'https://og-media.lenster.xyz';
+export const IMAGE_PROXY_URL = 'https://images.lenster.xyz';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
+export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
