@@ -5,7 +5,7 @@ import { CheckIcon, SearchIcon, XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { Nft } from 'lens';
 import { useNftFeedQuery } from 'lens';
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, FC } from 'react';
 import React, { useState } from 'react';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -13,7 +13,7 @@ import { mainnet } from 'wagmi/chains';
 
 const tabs = [{ name: 'Recent' }, { name: 'Floor price' }, { name: 'A-Z' }];
 
-const Picker = () => {
+const Picker: FC = () => {
   const [searchText, setSearchText] = useState('');
   const currentProfile = useAppStore((state) => state.currentProfile);
 

@@ -8,11 +8,12 @@ import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import type { Profile } from 'lens';
 import Link from 'next/link';
+import type { FC } from 'react';
 import React from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 
-const NFTDetail = () => {
+const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
 
