@@ -1,6 +1,7 @@
 import { aaveMembers } from './aave-members';
+import { IS_DEVELOPMENT } from './constants';
 import { lensterMembers } from './lenster-members';
-import { mainnetStaffs } from './staffs';
+import { mainnetStaffs, testnetStaffs } from './staffs';
 
 export const featureFlags = [
   {
@@ -11,7 +12,7 @@ export const featureFlags = [
   {
     key: 'nft-gallery',
     name: 'NFT Gallery',
-    enabledFor: [...lensterMembers, ...mainnetStaffs]
+    enabledFor: [IS_DEVELOPMENT ? [...mainnetStaffs, ...testnetStaffs] : null]
   },
   {
     key: 'preferences-settings',
