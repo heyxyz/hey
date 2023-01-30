@@ -12,7 +12,7 @@ export const featureFlags = [
   {
     key: 'nft-gallery',
     name: 'NFT Gallery',
-    enabledFor: [IS_DEVELOPMENT ? [...mainnetStaffs, ...testnetStaffs] : null]
+    enabledFor: IS_DEVELOPMENT ? [...mainnetStaffs, ...testnetStaffs] : []
   },
   {
     key: 'preferences-settings',
