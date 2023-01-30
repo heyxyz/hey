@@ -5,10 +5,10 @@
   "license": "MIT",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.49.0",
-    "eslint": "^8.32.0",
-    "eslint-config-next": "^13.1.5",
+    "eslint": "^8.33.0",
+    "eslint-config-next": "^13.1.6",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^9.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unicorn": "^45.0.2",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.8.3"
