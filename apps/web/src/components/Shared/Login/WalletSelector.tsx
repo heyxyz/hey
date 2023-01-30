@@ -87,16 +87,16 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
   };
 
   useEffect(() => {
-    if (connector?.id && isConnected) {
+    if (chain?.id === CHAIN_ID && connector?.id && isConnected) {
       handleSign();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected]);
+  }, [isConnected, chain]);
 
   return (
     <div className="space-y-3">
       <div className="space-y-2.5">
-        {chain?.id === CHAIN_ID || !chain?.id ? (
+        {chain?.id === CHAIN_ID ? (
           <div className="text-sm font-bold text-center flex">
             <div className="flex">
               <Spinner size="sm" className="mx-auto mr-2" />
