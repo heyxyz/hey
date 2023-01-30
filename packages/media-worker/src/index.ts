@@ -5,23 +5,41 @@ export default {
 };
 
 async function handleRequest(request: Request) {
-  const url = new URL(request.url);
-  const path = url.pathname;
-  let response = await fetch(`https://ik.imagekit.io/lensterimg/media${path}`, {
-    // @ts-ignore
+  let url = new URL(request.url);
+  let options: any = {
     cf: {
       cacheEverything: true,
-      cacheKey: path
+      cacheKey: url.pathname,
+      image: { quality: 90, format: 'auto' }
     }
-  });
-  const shouldCache = response.headers.get('access-control-allow-origin');
-  response = new Response(response.body, { ...response, status: shouldCache ? 200 : 408 });
-  response.headers.delete('via');
-  response.headers.delete('x-cache');
-  response.headers.delete('x-amz-cf-id');
-  response.headers.delete('x-request-id');
-  response.headers.delete('x-server');
-  response.headers.set('x-server', 'Lenster.xyz');
+  };
 
-  return response;
+  if (url.searchParams.has('name')) {
+    if (url.searchParams.get('name') === 'avatar') {
+      options.cf.image.width = 300;
+      options.cf.image.height = 300;
+    } else if (url.searchParams.get('name') === 'cover') {
+      options.cf.image.height = 1000;
+    } else if (url.searchParams.get('name') === 'attachment') {
+      options.cf.image.height = 1000;
+    }
+  }
+
+  const accept = request.headers.get('Accept') as string;
+  if (/image\/avif/.test(accept)) {
+    options.cf.image.format = 'avif';
+  } else if (/image\/webp/.test(accept)) {
+    options.cf.image.format = 'webp';
+  }
+
+  const imageURL = url.searchParams.get('image');
+  if (!imageURL) {
+    return new Response('Missing "image" value', { status: 400 });
+  }
+
+  const imageRequest = new Request(imageURL, {
+    headers: request.headers
+  });
+
+  return fetch(imageRequest, options);
 }

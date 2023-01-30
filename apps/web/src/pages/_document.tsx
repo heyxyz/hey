@@ -10,8 +10,8 @@ class LensterDocument extends Document {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
           {/* Prefetch and Preconnect */}
-          <link rel="preconnect" href="https://media.lenster.xyz" />
-          <link rel="dns-prefetch" href="https://media.lenster.xyz" />
+          <link rel="preconnect" href="https://images.lenster.xyz" />
+          <link rel="dns-prefetch" href="https://images.lenster.xyz" />
           <link rel="preconnect" href="https://assets.lenster.xyz" />
           <link rel="dns-prefetch" href="https://assets.lenster.xyz" />
 
