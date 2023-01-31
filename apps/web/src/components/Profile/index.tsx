@@ -75,11 +75,13 @@ const ViewProfile: NextPage = () => {
             feedType === ProfileFeedType.Replies ||
             feedType === ProfileFeedType.Media ||
             feedType === ProfileFeedType.Collects) && <Feed profile={profile as Profile} type={feedType} />}
-          {feedType === ProfileFeedType.Nft && isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
-            <NftGallery profile={profile as Profile} />
-          ) : (
-            <NFTFeed profile={profile as Profile} />
-          )}
+          {feedType === ProfileFeedType.Nft ? (
+            isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
+              <NftGallery profile={profile as Profile} />
+            ) : (
+              <NFTFeed profile={profile as Profile} />
+            )
+          ) : null}
         </GridItemEight>
       </GridLayout>
     </>
