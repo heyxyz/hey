@@ -122,7 +122,7 @@ const UserPreview: FC<Props> = ({
 
   return showUserPreview ? (
     <span onMouseOver={onPreviewStart}>
-      {lazyProfile.id ? (
+      {lazyProfile?.id ? (
         <Tippy
           placement="bottom-start"
           delay={[800, 0]}
