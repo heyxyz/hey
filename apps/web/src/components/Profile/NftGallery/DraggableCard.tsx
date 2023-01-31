@@ -58,7 +58,7 @@ const DraggableCard: FC<CardProps> = ({ id, nft, index, moveCard }) => {
 
   return (
     <div ref={ref} style={{ opacity }} className="cursor-move" data-handler-id={handlerId}>
-      <NFT nft={nft} linkToDetail={false} />
+      <NFT nft={nft} />
     </div>
   );
 };
