@@ -4,9 +4,9 @@ import React from 'react';
 
 import NftCard from './NftCard';
 
-type Props = {
+interface Props {
   nfts: Nft[];
-};
+}
 
 const Gallery: FC<Props> = ({ nfts }) => {
   return (

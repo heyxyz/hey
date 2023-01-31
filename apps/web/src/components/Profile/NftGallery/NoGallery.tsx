@@ -7,9 +7,9 @@ import { useAppStore } from 'src/store/app';
 
 import Create from './Create';
 
-type Props = {
+interface Props {
   profile: Profile;
-};
+}
 
 const NoGallery: FC<Props> = ({ profile }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
