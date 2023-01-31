@@ -60,22 +60,6 @@ const FeedEventFilters: FC = () => {
               label={t`Show Mirrors`}
             />
           </Menu.Item>
-          <Menu.Item
-            as="label"
-            className={({ active }) =>
-              clsx(
-                { 'dropdown-active': active },
-                'flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
-              )
-            }
-          >
-            <Checkbox
-              onChange={handleChange}
-              checked={feedEventFilters.likes}
-              name="likes"
-              label={t`Show Likes`}
-            />
-          </Menu.Item>
         </Menu.Items>
       </MenuTransition>
     </Menu>

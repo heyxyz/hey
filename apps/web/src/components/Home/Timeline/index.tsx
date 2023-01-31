@@ -33,9 +33,6 @@ const Timeline: FC = () => {
     if (feedEventFilters.mirrors) {
       filters.push(FeedEventItemType.Mirror);
     }
-    if (feedEventFilters.likes) {
-      filters.push(FeedEventItemType.ReactionPost, FeedEventItemType.ReactionComment);
-    }
     return filters;
   };
 

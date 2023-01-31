@@ -16,7 +16,7 @@ interface TimelineState {
 export const useTimelinePersistStore = create(
   persist<TimelinePersistState>(
     (set) => ({
-      feedEventFilters: { posts: true, collects: true, mirrors: true, likes: false },
+      feedEventFilters: { posts: true, collects: true, mirrors: true },
       setFeedEventFilters: (feedEventFilters) => set(() => ({ feedEventFilters }))
     }),
     { name: LS_KEYS.TIMELINE_STORE }
