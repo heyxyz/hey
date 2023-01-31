@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.5",
-    "@aws-sdk/client-s3": "^3.259.0",
-    "@aws-sdk/client-sts": "^3.259.0",
+    "@aws-sdk/client-s3": "^3.261.0",
+    "@aws-sdk/client-sts": "^3.261.0",
     "@bundlr-network/client": "^0.10.1",
     "axios": "^1.2.6",
     "dotenv": "^16.0.3",
@@ -31,6 +31,6 @@
     "eslint-config-weblint": "*",
     "lens": "*",
     "tsconfig": "*",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.5"
   }
 }
