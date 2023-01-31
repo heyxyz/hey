@@ -16,7 +16,7 @@ const Gallery: FC<Props> = ({ nfts }) => {
           key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
           className="break-inside text-white flex w-full items-center overflow-hidden"
         >
-          <NftCard nft={nft as Nft} linkToDetail={true} />
+          <NftCard nft={nft as Nft} />
         </div>
       ))}
     </div>

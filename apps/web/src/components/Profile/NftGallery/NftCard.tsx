@@ -1,12 +1,10 @@
 import getIPFSLink from '@lib/getIPFSLink';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Nft } from 'lens';
-import Link from 'next/link';
 import type { FC } from 'react';
 
 interface Props {
   nft: Nft;
-  linkToDetail?: boolean;
 }
 
 const NFTImage = ({ nft }: { nft: Nft }) => (
@@ -23,12 +21,8 @@ const NFTImage = ({ nft }: { nft: Nft }) => (
   />
 );
 
-const NftCard: FC<Props> = ({ nft, linkToDetail }) => {
-  return linkToDetail ? (
-    <Link href={`/nft/${nft.contractAddress}/${nft.tokenId}`} className="w-full">
-      <NFTImage nft={nft} />
-    </Link>
-  ) : (
+const NftCard: FC<Props> = ({ nft }) => {
+  return (
     <div className="w-full">
       <NFTImage nft={nft} />
     </div>
