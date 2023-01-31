@@ -7,7 +7,7 @@ interface Props {
   nft: Nft;
 }
 
-const NFTImage = ({ nft }: { nft: Nft }) => (
+const NFTImage: FC<Props> = ({ nft }) => (
   <img
     className="rounded-xl object-cover w-full h-64 bg-gray-200 dark:bg-gray-800"
     src={
