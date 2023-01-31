@@ -1,0 +1,96 @@
+query PrerenderPublication($request: PublicationQueryRequest!) {
+  publication(request: $request) {
+    ... on Post {
+      metadata {
+        content
+        media {
+          original {
+            url
+          }
+        }
+      }
+      profile {
+        handle
+        ownedBy
+        picture {
+          ... on NftImage {
+            uri
+          }
+          ... on MediaSet {
+            original {
+              url
+            }
+          }
+        }
+      }
+    }
+    ... on Comment {
+      metadata {
+        content
+        media {
+          original {
+            url
+          }
+        }
+      }
+      profile {
+        handle
+        ownedBy
+        picture {
+          ... on NftImage {
+            uri
+          }
+          ... on MediaSet {
+            original {
+              url
+            }
+          }
+        }
+      }
+    }
+    ... on Mirror {
+      metadata {
+        content
+        media {
+          original {
+            url
+          }
+        }
+      }
+      mirrorOf {
+        ... on Post {
+          profile {
+            handle
+            ownedBy
+            picture {
+              ... on NftImage {
+                uri
+              }
+              ... on MediaSet {
+                original {
+                  url
+                }
+              }
+            }
+          }
+        }
+        ... on Comment {
+          profile {
+            handle
+            ownedBy
+            picture {
+              ... on NftImage {
+                uri
+              }
+              ... on MediaSet {
+                original {
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

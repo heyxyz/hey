@@ -23,6 +23,6 @@
     "eslint-config-weblint": "*",
     "lens": "*",
     "tsconfig": "*",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.5"
   }
 }

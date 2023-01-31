@@ -4,7 +4,10 @@ module.exports = {
   trailingSlash: false,
   transpilePackages: ['data'],
   async rewrites() {
-    return [{ source: '/:path*', destination: '/api/:path*' }];
+    return [
+      { source: '/prerender/:path*', destination: '/prerender/:path*' },
+      { source: '/:path*', destination: '/api/:path*' }
+    ];
   },
   async headers() {
     return [
