@@ -22,7 +22,7 @@ const Gallery: FC<Props> = ({ profile, galleries }) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h6 className="mx-2 text-lg font-medium">
+        <h6 className="text-lg font-medium">
           {isRearrange ? 'Arrange gallery' : `${profile.name}'s gallery`}
         </h6>
         {isRearrange ? (
