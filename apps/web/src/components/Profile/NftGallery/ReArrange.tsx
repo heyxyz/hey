@@ -7,9 +7,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import DraggableCard from './DraggableCard';
 
-type Props = {
+interface Props {
   nfts: Nft[];
-};
+}
 
 const ReArrange: FC<Props> = ({ nfts }) => {
   const [allNfts, setAllNfts] = useState(nfts);
