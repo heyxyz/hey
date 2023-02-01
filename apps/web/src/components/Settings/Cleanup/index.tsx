@@ -51,7 +51,7 @@ const CleanupSettings: NextPage = () => {
                 <b>
                   <Trans>Optimistic publications</Trans>
                 </b>
-                <div className="font-bold text-xs lt-text-gray-500">
+                <div className="lt-text-gray-500 text-xs font-bold">
                   <Trans>Clean your posts or comments that are not indexed</Trans>
                 </div>
               </div>
@@ -64,7 +64,7 @@ const CleanupSettings: NextPage = () => {
                 <b>
                   <Trans>Timeline settings</Trans>
                 </b>
-                <div className="font-bold text-xs lt-text-gray-500">
+                <div className="lt-text-gray-500 text-xs font-bold">
                   <Trans>Clean your timeline filter settings</Trans>
                 </div>
               </div>
@@ -77,7 +77,7 @@ const CleanupSettings: NextPage = () => {
                 <b>
                   <Trans>Direct message keys</Trans>
                 </b>
-                <div className="font-bold text-xs lt-text-gray-500">
+                <div className="lt-text-gray-500 text-xs font-bold">
                   <Trans>Clean your DM encryption key</Trans>
                 </div>
               </div>
@@ -95,7 +95,7 @@ const CleanupSettings: NextPage = () => {
                 <b className="text-red-500">
                   <Trans>App settings</Trans>
                 </b>
-                <div className="font-bold text-xs lt-text-gray-500">
+                <div className="lt-text-gray-500 text-xs font-bold">
                   <Trans>Note: Cleaning will log you out</Trans>
                 </div>
               </div>

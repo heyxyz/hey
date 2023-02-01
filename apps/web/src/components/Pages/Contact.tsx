@@ -49,13 +49,13 @@ const Contact: FC = () => {
           {false ? (
             <EmptyState
               message={t`Publication reported successfully!`}
-              icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
+              icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
               hideCard
             />
           ) : (
             <Form
               form={form}
-              className="p-5 space-y-4"
+              className="space-y-4 p-5"
               onSubmit={({ subject, message }) => {
                 location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
                   subject
@@ -66,7 +66,7 @@ const Contact: FC = () => {
               <Input label={t`Subject`} placeholder={t`What happened?`} {...form.register('subject')} />
               <TextArea label={t`Message`} placeholder={t`How can we help?`} {...form.register('message')} />
               <div className="ml-auto">
-                <Button type="submit" icon={<PencilAltIcon className="w-4 h-4" />}>
+                <Button type="submit" icon={<PencilAltIcon className="h-4 w-4" />}>
                   <Trans>Submit</Trans>
                 </Button>
               </div>

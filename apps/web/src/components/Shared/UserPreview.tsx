@@ -45,8 +45,8 @@ const UserPreview: FC<Props> = ({
       src={getAvatar(lazyProfile)}
       loading="lazy"
       className={clsx(
-        isBig ? 'w-14 h-14' : 'w-10 h-10',
-        'bg-gray-200 rounded-full border dark:border-gray-700'
+        isBig ? 'h-14 w-14' : 'h-10 w-10',
+        'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
@@ -56,11 +56,11 @@ const UserPreview: FC<Props> = ({
 
   const UserName = () => (
     <>
-      <div className="flex gap-1 items-center max-w-sm truncate">
+      <div className="flex max-w-sm items-center gap-1 truncate">
         <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
           {lazyProfile?.name ?? formatHandle(lazyProfile?.handle)}
         </div>
-        {isVerified(lazyProfile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
+        {isVerified(lazyProfile?.id) && <BadgeCheckIcon className="text-brand h-4 w-4" />}
       </div>
       <Slug className="text-sm" slug={formatHandle(lazyProfile?.handle)} prefix="@" />
     </>
@@ -68,12 +68,12 @@ const UserPreview: FC<Props> = ({
 
   const Preview = () => (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <UserAvatar />
         <div onClick={(e) => e.preventDefault()}>
           {!lazyProfile.isFollowedByMe &&
             (followStatusLoading ? (
-              <div className="w-10 h-8 rounded-lg shimmer" />
+              <div className="shimmer h-8 w-10 rounded-lg" />
             ) : following ? null : lazyProfile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
               <SuperFollow profile={lazyProfile} setFollowing={setFollowing} />
             ) : (
@@ -85,7 +85,7 @@ const UserPreview: FC<Props> = ({
             ))}
         </div>
       </div>
-      <div className="p-1 space-y-3">
+      <div className="space-y-3 p-1">
         <UserName />
         <div>
           {lazyProfile?.bio && (
@@ -94,12 +94,12 @@ const UserPreview: FC<Props> = ({
             </div>
           )}
         </div>
-        <div className="flex space-x-3 items-center">
+        <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-1">
             <div className="text-base">{nFormatter(lazyProfile?.stats?.totalFollowing)}</div>
             <div className="lt-text-gray-500 text-sm">Following</div>
           </div>
-          <div className="flex items-center space-x-1 text-md">
+          <div className="text-md flex items-center space-x-1">
             <div className="text-base">{nFormatter(lazyProfile?.stats?.totalFollowers)}</div>
             <div className="lt-text-gray-500 text-sm">Followers</div>
           </div>
@@ -131,7 +131,7 @@ const UserPreview: FC<Props> = ({
           arrow={false}
           interactive
           zIndex={1000}
-          className="!bg-white hidden md:block !px-1.5 !py-3 !text-black dark:!text-white w-64 dark:!bg-black border dark:border-gray-700 !rounded-xl"
+          className="hidden w-64 !rounded-xl border !bg-white !px-1.5 !py-3 !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
           appendTo={() => document.body}
         >
           <span>{children}</span>

@@ -45,7 +45,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
       <div className="p-5">
         <EmptyState
           message={t`No mirrors.`}
-          icon={<SwitchHorizontalIcon className="w-8 h-8 text-brand" />}
+          icon={<SwitchHorizontalIcon className="text-brand h-8 w-8" />}
           hideCard
         />
       </div>
@@ -53,7 +53,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableDiv">
       <ErrorMessage className="m-5" title={t`Failed to load mirrors`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}

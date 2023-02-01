@@ -20,7 +20,7 @@ const SwitchNetwork: FC<Props> = ({ className = '' }) => {
       className={className}
       type="button"
       variant="danger"
-      icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+      icon={<SwitchHorizontalIcon className="h-4 w-4" />}
       onClick={() => {
         if (switchNetwork) {
           switchNetwork(CHAIN_ID);

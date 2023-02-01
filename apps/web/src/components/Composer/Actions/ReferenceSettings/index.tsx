@@ -71,12 +71,12 @@ const ReferenceSettings: FC = () => {
       <MenuTransition>
         <Menu.Items
           static
-          className="absolute py-1 z-[5] mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
+          className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
           <Module
             title={EVERYONE}
             selected={isEveryone}
-            icon={<GlobeAltIcon className="w-4 h-4" />}
+            icon={<GlobeAltIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
               setOnlyFollowers(false);
@@ -86,7 +86,7 @@ const ReferenceSettings: FC = () => {
           <Module
             title={MY_FOLLOWERS}
             selected={isMyFollowers}
-            icon={<UsersIcon className="w-4 h-4" />}
+            icon={<UsersIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
               setOnlyFollowers(true);
@@ -96,7 +96,7 @@ const ReferenceSettings: FC = () => {
           <Module
             title={MY_FOLLOWS}
             selected={isMyFollows}
-            icon={<UserAddIcon className="w-4 h-4" />}
+            icon={<UserAddIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
               setDegreesOfSeparation(1);
@@ -106,7 +106,7 @@ const ReferenceSettings: FC = () => {
           <Module
             title={FRIENDS_OF_FRIENDS}
             selected={isFriendsOfFriends}
-            icon={<UserGroupIcon className="w-4 h-4" />}
+            icon={<UserGroupIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
               setDegreesOfSeparation(2);

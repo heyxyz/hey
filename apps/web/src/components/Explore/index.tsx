@@ -54,8 +54,8 @@ const Explore: NextPage = () => {
                 }}
                 className={({ selected }) =>
                   clsx(
-                    { 'border-b-2 border-brand-500 !text-black dark:!text-white': selected },
-                    'px-4 pb-2 lt-text-gray-500 outline-none font-medium text-xs sm:text-sm'
+                    { 'border-brand-500 border-b-2 !text-black dark:!text-white': selected },
+                    'lt-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
                   )
                 }
               >

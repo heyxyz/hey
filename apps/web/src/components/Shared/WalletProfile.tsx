@@ -14,7 +14,7 @@ interface Props {
 
 const WalletProfile: FC<Props> = ({ wallet }) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       <a
         href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
         className="flex items-center space-x-3"
@@ -26,15 +26,15 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
             currentTarget.src = getStampFyiURL(wallet?.address);
           }}
           src={imageProxy(getStampFyiURL(wallet?.address), AVATAR)}
-          className="w-10 h-10 bg-gray-200 rounded-full border"
+          className="h-10 w-10 rounded-full border bg-gray-200"
           height={40}
           width={40}
           alt={wallet?.address}
         />
         <div>
-          <div className="flex gap-1.5 items-center">
+          <div className="flex items-center gap-1.5">
             <div>{formatAddress(wallet?.address)}</div>
-            <ExternalLinkIcon className="w-4 h-4" />
+            <ExternalLinkIcon className="h-4 w-4" />
           </div>
           <Slug className="text-sm" slug={formatAddress(wallet?.address)} />
         </div>

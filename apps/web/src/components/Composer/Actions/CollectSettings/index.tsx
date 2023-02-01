@@ -36,7 +36,7 @@ const CollectSettings: FC = () => {
       </Tooltip>
       <Modal
         title={t`Collect settings`}
-        icon={<CashIcon className="w-5 h-5 text-brand" />}
+        icon={<CashIcon className="text-brand h-5 w-5" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >

@@ -14,8 +14,8 @@ interface Props {
 
 const Collected: FC<Props> = ({ publication }) => {
   return (
-    <div className="flex items-center pb-4 space-x-1 lt-text-gray-500 text-[13px]">
-      <CollectionIcon className="w-4 h-4" />
+    <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
+      <CollectionIcon className="h-4 w-4" />
       {publication?.collectedBy?.defaultProfile ? (
         <Username profile={publication?.collectedBy?.defaultProfile} className="max-w-xs truncate" />
       ) : (

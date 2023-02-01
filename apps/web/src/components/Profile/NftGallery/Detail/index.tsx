@@ -29,7 +29,7 @@ const NFTDetail: FC = () => {
           <img
             width={500}
             height={500}
-            className="w-full h-full p-16"
+            className="h-full w-full p-16"
             src="/pride.svg"
             alt="nft"
             draggable={false}
@@ -40,12 +40,12 @@ const NFTDetail: FC = () => {
         <Card className="p-4">
           <h1>Subscape #363</h1>
           <Slug className="text-xs" slug="Subscapes" />
-          <div className="flex items-center pt-3 space-x-1">
+          <div className="flex items-center space-x-1 pt-3">
             <div className="contents -space-x-2">
               {profiles?.map((profile) => (
                 <img
                   key={profile.handle}
-                  className="w-5 h-5 rounded-full border dark:border-gray-700"
+                  className="h-5 w-5 rounded-full border dark:border-gray-700"
                   onError={({ currentTarget }) => {
                     currentTarget.src = getAvatar(profile, false);
                   }}
@@ -69,7 +69,7 @@ const NFTDetail: FC = () => {
           <h1 className="mb-2">Owner</h1>
           <UserProfile profile={currentProfile as Profile} showUserPreview />
         </Card>
-        <Card className="p-4 divide-y dark:divide-gray-700">
+        <Card className="divide-y p-4 dark:divide-gray-700">
           <div className="pb-3">
             <div className="text-sm opacity-50">Floor price</div>
             <span>1.2 ETH</span>
@@ -88,50 +88,50 @@ const NFTDetail: FC = () => {
           <div className="flex flex-wrap gap-3 text-sm">
             <Link
               href="https://lensport.io"
-              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
+              className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Lensport" />
+              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Lensport" />
               <span>Lensport</span>
             </Link>
             <Link
               href="https://opensea.io"
-              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
+              className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Opensea" />
+              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Opensea" />
               <span>Opensea</span>
             </Link>
             <Link
               href="https://rarible.com"
-              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
+              className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Rarible" />
+              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Rarible" />
               <span>Rarible</span>
             </Link>
             <Link
               href="https://opensea.io"
-              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
+              className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Uniswap" />
+              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Uniswap" />
               <span>Uniswap</span>
             </Link>
             <Link
               href="https://rarible.com"
-              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
+              className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Looksrare" />
+              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Looksrare" />
               <span>Looksrare</span>
             </Link>
             <Link
               href="https://etherscan.com"
-              className="px-2 py-0.5 flex items-center space-x-1 border dark:border-gray-700 rounded-lg"
+              className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="w-4 h-4" src="/logo.svg" width={10} height={10} alt="Etherscan" />
+              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Etherscan" />
               <span>Etherscan</span>
             </Link>
           </div>
