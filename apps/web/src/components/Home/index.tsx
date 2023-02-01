@@ -42,7 +42,7 @@ const Home: NextPage = () => {
           {currentProfile ? (
             <>
               <EnableDispatcher />
-              <EnableMessages />
+              {false && <EnableMessages />}
             </>
           ) : null}
           <BetaWarning />
