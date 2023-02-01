@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-30 00:08\n"
+"PO-Revision-Date: 2023-02-01 17:31\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -566,6 +566,14 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
+msgstr ""
+
+#: src/components/NFT/NFTFeed.tsx
+msgid "doesn’t have any NFTs!"
+msgstr ""
+
+#: src/components/NFT/NFTFeed.tsx
+msgid "Failed to load nft feed"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
@@ -1144,20 +1152,28 @@ msgstr ""
 msgid "Followed by"
 msgstr ""
 
-#: src/components/Profile/NFTFeed.tsx
-msgid "doesn’t have any NFTs!"
-msgstr ""
-
-#: src/components/Profile/NFTFeed.tsx
-msgid "Failed to load nft feed"
-msgstr ""
-
 #: src/components/Profile/New.tsx
 msgid "Create Profile • {APP_NAME}"
 msgstr ""
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Select collectibles you want others to see"
+msgstr ""
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Welcome to your gallery"
+msgstr ""
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Create a curated space for your digital collectibles"
+msgstr ""
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Let's do it!"
 msgstr ""
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
