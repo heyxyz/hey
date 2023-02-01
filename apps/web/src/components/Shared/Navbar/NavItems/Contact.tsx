@@ -5,10 +5,10 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
 
-type Props = {
+interface Props {
   onClick?: () => void;
   className?: string;
-};
+}
 
 const Contact: FC<Props> = ({ onClick, className = '' }) => {
   return (

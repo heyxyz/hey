@@ -5,9 +5,9 @@ import type { FC } from 'react';
 import React from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-type Props = {
+interface Props {
   className?: string;
-};
+}
 
 const SwitchProfile: FC<Props> = ({ className = '' }) => {
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);

@@ -10,10 +10,10 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
-type Props = {
+interface Props {
   onClick?: () => void;
   className?: string;
-};
+}
 
 const Logout: FC<Props> = ({ onClick, className = '' }) => {
   const { disconnect } = useDisconnect();
