@@ -12,7 +12,7 @@ import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
-import { mainnet } from 'wagmi';
+import { mainnet } from 'wagmi/chains';
 
 interface Props {
   profile: Profile;
