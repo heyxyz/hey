@@ -171,3 +171,7 @@ div[data-lexical-editor='true'] {
 #typeahead-menu {
   @apply z-20;
 }
+
+.lp-player > div > div {
+  @apply border border-gray-100 shadow-none dark:border-gray-700;
+}

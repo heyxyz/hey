@@ -11,7 +11,7 @@ interface Props {
 
 const Video: FC<Props> = ({ src, poster }) => {
   return (
-    <div className="rounded-lg">
+    <div className="lp-player">
       <Player
         src={src}
         poster={imageProxy(getIPFSLink(poster))}
