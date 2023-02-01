@@ -7,10 +7,10 @@ import type { FC } from 'react';
 import React from 'react';
 import { SYSTEM } from 'src/tracking';
 
-type Props = {
+interface Props {
   onClick?: () => void;
   className?: string;
-};
+}
 
 const ThemeSwitch: FC<Props> = ({ onClick, className = '' }) => {
   const { theme, setTheme } = useTheme();

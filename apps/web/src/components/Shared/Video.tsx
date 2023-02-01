@@ -1,8 +1,7 @@
-import 'plyr-react/plyr.css';
-
 import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
-import Plyr from 'plyr-react';
+import { Player } from '@livepeer/react';
+import { IPFS_GATEWAY } from 'data/constants';
 import type { FC } from 'react';
 
 interface Props {
@@ -13,16 +12,16 @@ interface Props {
 const Video: FC<Props> = ({ src, poster }) => {
   return (
     <div className="rounded-lg">
-      <Plyr
-        source={{
-          type: 'video',
-          sources: [{ src, provider: 'html5' }],
-          poster: poster ? imageProxy(getIPFSLink(poster)) : src
-        }}
-        options={{
-          controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
-          ratio: '16:12'
-        }}
+      <Player
+        src={src}
+        poster={imageProxy(getIPFSLink(poster))}
+        showTitle={false}
+        objectFit="contain"
+        showLoadingSpinner={false}
+        showPipButton={false}
+        showUploadingIndicator={false}
+        controls={{ defaultVolume: 1 }}
+        autoUrlUpload={{ fallback: true, ipfsGateway: IPFS_GATEWAY }}
       />
     </div>
   );

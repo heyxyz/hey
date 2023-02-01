@@ -71,6 +71,7 @@ export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
+export const LIVEPEER_TOKEN = '12f97508-13d6-4220-bf6c-9d8604d6bfbb';
 
 // Errors
 export const ERRORS = {

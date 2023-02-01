@@ -4,9 +4,9 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import React from 'react';
 
-type Props = {
+interface Props {
   className?: string;
-};
+}
 
 const Settings: FC<Props> = ({ className = '' }) => {
   return (
