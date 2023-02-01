@@ -47,7 +47,7 @@ const EmojiMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, op
     <li
       key={key}
       tabIndex={-1}
-      className={clsx({ 'dropdown-active': isSelected }, 'm-2 p-2 outline-none cursor-pointer rounded-lg')}
+      className={clsx({ 'dropdown-active': isSelected }, 'm-2 cursor-pointer rounded-lg p-2 outline-none')}
       ref={setRefElement}
       role="option"
       aria-selected={isSelected}
@@ -57,7 +57,7 @@ const EmojiMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, op
     >
       <div className="flex items-center space-x-2">
         <span className="text-base">{emoji}</span>
-        <span className="capitalize text-sm">{title.split('_').join(' ')}</span>
+        <span className="text-sm capitalize">{title.split('_').join(' ')}</span>
       </div>
     </li>
   );
@@ -143,7 +143,7 @@ const EmojiPickerPlugin: FC = () => {
 
         return anchorElementRef.current && options.length
           ? ReactDOM.createPortal(
-              <ul className="w-52 rounded-xl border shadow-sm bg-white dark:bg-gray-900 dark:border-gray-700 mt-7">
+              <ul className="mt-7 w-52 rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
                 {options.map((option: EmojiOption, index) => (
                   <div key={option.key}>
                     <EmojiMenuItem

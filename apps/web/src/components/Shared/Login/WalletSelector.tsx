@@ -97,7 +97,7 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain?.id === CHAIN_ID ? (
-          <div className="text-sm font-bold text-center flex">
+          <div className="flex text-center text-sm font-bold">
             <div className="flex">
               <Spinner size="sm" className="mx-auto mr-2" />
               <Trans>Signing …</Trans>
@@ -109,7 +109,7 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
       </div>
       {(errorChallenge || errorAuthenticate || errorProfiles) && (
         <div className="flex items-center space-x-1 font-bold text-red-500">
-          <XCircleIcon className="w-5 h-5" />
+          <XCircleIcon className="h-5 w-5" />
           <div>{ERROR_MESSAGE}</div>
         </div>
       )}

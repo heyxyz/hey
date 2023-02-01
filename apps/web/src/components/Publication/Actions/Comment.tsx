@@ -21,10 +21,10 @@ const Comment: FC<Props> = ({ publication, showCount }) => {
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
-    <div className="text-blue-500 flex items-center space-x-1">
+    <div className="flex items-center space-x-1 text-blue-500">
       <motion.button whileTap={{ scale: 0.9 }} aria-label="Comment">
         <Link href={`/posts/${publication.id}`}>
-          <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
+          <div className="rounded-full p-1.5 hover:bg-blue-300 hover:bg-opacity-20">
             <Tooltip
               placement="top"
               content={count > 0 ? t`${humanize(count)} Comments` : t`Comment`}

@@ -48,10 +48,10 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
       />
       {restricted && (
         <>
-          <Card className="p-5 mt-5">
+          <Card className="mt-5 p-5">
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
-                <CollectionIcon className="h-4 w-4 text-brand-500" />
+                <CollectionIcon className="text-brand-500 h-4 w-4" />
                 <span>
                   <Trans>Collectors can view</Trans>
                 </span>
@@ -69,10 +69,10 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
               />
             </div>
           </Card>
-          <Card className="p-5 mt-5">
+          <Card className="mt-5 p-5">
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
-                <UsersIcon className="h-4 w-4 text-brand-500" />
+                <UsersIcon className="text-brand-500 h-4 w-4" />
                 <span>
                   <Trans>Followers can view</Trans>
                 </span>
@@ -89,7 +89,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
           </Card>
         </>
       )}
-      <div className="pt-5 flex space-x-2">
+      <div className="flex space-x-2 pt-5">
         <Button className="ml-auto" variant="danger" outline onClick={onSave}>
           <Trans>Cancel</Trans>
         </Button>

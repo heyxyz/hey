@@ -92,7 +92,7 @@ const List: FC<Props> = ({ feedType }) => {
     return (
       <EmptyState
         message={t`Inbox zero!`}
-        icon={<LightningBoltIcon className="w-8 h-8 text-brand" />}
+        icon={<LightningBoltIcon className="text-brand h-8 w-8" />}
         hideCard
       />
     );

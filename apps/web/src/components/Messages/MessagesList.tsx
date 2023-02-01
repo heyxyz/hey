@@ -31,8 +31,8 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
   return (
     <div
       className={clsx(
-        address === message.senderAddress ? 'items-end mr-4' : 'items-start',
-        'flex flex-col mx-auto mb-4'
+        address === message.senderAddress ? 'mr-4 items-end' : 'items-start',
+        'mx-auto mb-4 flex flex-col'
       )}
     >
       <div className="flex max-w-[60%]">
@@ -42,20 +42,20 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
               currentTarget.src = getAvatar(profile, false);
             }}
             src={getAvatar(profile)}
-            className="h-10 w-10 bg-gray-200 rounded-full border dark:border-gray-700 mr-2"
+            className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />
         )}
         <div
           className={clsx(
             address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100 dark:bg-gray-700',
-            'px-4 py-2 rounded-lg w-full'
+            'w-full rounded-lg px-4 py-2'
           )}
         >
           <span
             className={clsx(
               address === message.senderAddress && 'text-white',
-              'block text-md break-words linkify-message'
+              'text-md linkify-message block break-words'
             )}
           >
             {message.error
@@ -65,7 +65,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
         </div>
       </div>
       <div className={clsx(address !== message.senderAddress ? 'ml-12' : '')}>
-        <span className="text-xs place-self-end text-gray-400" title={formatTime(message.sent)}>
+        <span className="place-self-end text-xs text-gray-400" title={formatTime(message.sent)}>
           {dayjs(message.sent).fromNow()}
         </span>
       </div>
@@ -79,24 +79,24 @@ interface Props {
 
 const DateDividerBorder: FC<Props> = ({ children }) => (
   <>
-    <div className="grow h-0.5 bg-gray-300/25" />
+    <div className="h-0.5 grow bg-gray-300/25" />
     {children}
-    <div className="grow h-0.5 bg-gray-300/25" />
+    <div className="h-0.5 grow bg-gray-300/25" />
   </>
 );
 
 const DateDivider: FC<{ date?: Date }> = ({ date }) => (
-  <div className="flex align-items-center items-center p-4 pt-0 pl-2">
+  <div className="align-items-center flex items-center p-4 pt-0 pl-2">
     <DateDividerBorder>
-      <span className="mx-11 flex-none text-gray-300 text-sm font-bold">{formatDate(date)}</span>
+      <span className="mx-11 flex-none text-sm font-bold text-gray-300">{formatDate(date)}</span>
     </DateDividerBorder>
   </div>
 );
 
 const MissingXmtpAuth: FC = () => (
-  <Card as="aside" className="mb-2 mr-4 border-gray-400 !bg-gray-300 !bg-opacity-20 space-y-2.5 p-5">
+  <Card as="aside" className="mb-2 mr-4 space-y-2.5 border-gray-400 !bg-gray-300 !bg-opacity-20 p-5">
     <div className="flex items-center space-x-2 font-bold">
-      <EmojiSadIcon className="w-5 h-5" />
+      <EmojiSadIcon className="h-5 w-5" />
       <p>
         <Trans>This fren hasn't enabled DMs yet</Trans>
       </p>
@@ -108,15 +108,15 @@ const MissingXmtpAuth: FC = () => (
 );
 
 const ConversationBeginningNotice: FC = () => (
-  <div className="flex align-items-center justify-center mt-6 pb-4">
-    <span className="text-gray-300 text-sm font-bold">
+  <div className="align-items-center mt-6 flex justify-center pb-4">
+    <span className="text-sm font-bold text-gray-300">
       <Trans>This is the beginning of the conversation</Trans>
     </span>
   </div>
 );
 
 const LoadingMore: FC = () => (
-  <div className="p-1 mt-6 text-center text-gray-300 font-bold text-sm">
+  <div className="mt-6 p-1 text-center text-sm font-bold text-gray-300">
     <Trans>Loading...</Trans>
   </div>
 );
@@ -141,9 +141,9 @@ const MessagesList: FC<MessageListProps> = ({
   let lastMessageDate: Date | undefined;
 
   return (
-    <div className="flex-grow flex h-[75%]">
-      <div className="relative w-full h-full pl-4 flex">
-        <div id="scrollableDiv" className="flex flex-col-reverse h-full overflow-y-auto w-full">
+    <div className="flex h-[75%] flex-grow">
+      <div className="relative flex h-full w-full pl-4">
+        <div id="scrollableDiv" className="flex h-full w-full flex-col-reverse overflow-y-auto">
           {missingXmtpAuth && <MissingXmtpAuth />}
           <InfiniteScroll
             dataLength={messages.length}

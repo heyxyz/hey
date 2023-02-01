@@ -25,20 +25,20 @@ const StaffMode: FC<Props> = ({ className = '' }) => {
     <button
       onClick={toggleStaffMode}
       className={clsx(
-        'flex items-center space-x-1.5 px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200',
+        'flex w-full items-center space-x-1.5 px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
     >
       {staffMode ? (
         <>
-          <ShieldExclamationIcon className="w-4 h-4 text-green-600" />
+          <ShieldExclamationIcon className="h-4 w-4 text-green-600" />
           <div>
             <Trans>Disable staff mode</Trans>
           </div>
         </>
       ) : (
         <>
-          <ShieldCheckIcon className="w-4 h-4 text-red-500" />
+          <ShieldCheckIcon className="h-4 w-4 text-red-500" />
           <div>
             <Trans>Enable staff mode</Trans>
           </div>

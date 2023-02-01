@@ -17,7 +17,7 @@ const Login: FC = () => {
             <div className="text-xl font-bold">
               <Trans>Please sign the message</Trans>.
             </div>
-            <div className="text-sm lt-text-gray-500">
+            <div className="lt-text-gray-500 text-sm">
               <Trans>{APP_NAME} uses this signature to verify that you're the owner of this address.</Trans>
             </div>
           </div>
@@ -26,7 +26,7 @@ const Login: FC = () => {
       ) : IS_MAINNET ? (
         <div className="mb-2 space-y-4">
           <img
-            className="w-16 h-16 rounded-full"
+            className="h-16 w-16 rounded-full"
             height={64}
             width={64}
             src={`${STATIC_IMAGES_URL}/brands/lens.png`}
@@ -46,7 +46,7 @@ const Login: FC = () => {
               </a>{' '}
               to claim your profile now 🏃‍♂️
             </div>
-            <div className="text-sm lt-text-gray-500">Make sure to check back here when done!</div>
+            <div className="lt-text-gray-500 text-sm">Make sure to check back here when done!</div>
           </div>
         </div>
       ) : (

@@ -52,7 +52,7 @@ const NftGallery: FC<Props> = ({ profile }) => {
             <span>doesn’t have any NFTs!</span>
           </div>
         }
-        icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+        icon={<CollectionIcon className="text-brand h-8 w-8" />}
       />
     );
   }
@@ -65,7 +65,7 @@ const NftGallery: FC<Props> = ({ profile }) => {
     <div className="space-y-4">
       <NoGallery profile={profile} />
       <div className="flex items-center justify-between">
-        <h6 className="font-medium text-lg mx-2">
+        <h6 className="mx-2 text-lg font-medium">
           {isRearrange ? 'Arrange gallery' : `${profile.name}'s gallery`}
         </h6>
         {isRearrange ? (
@@ -79,8 +79,8 @@ const NftGallery: FC<Props> = ({ profile }) => {
           </div>
         ) : (
           <Menu as="div" className="relative">
-            <Menu.Button className="rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20">
-              <DotsVerticalIcon className="w-4 h-4" />
+            <Menu.Button className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20">
+              <DotsVerticalIcon className="h-4 w-4" />
             </Menu.Button>
             <Transition
               as={Fragment}
@@ -93,14 +93,14 @@ const NftGallery: FC<Props> = ({ profile }) => {
             >
               <Menu.Items
                 static
-                className="absolute right-0 py-1 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700/80"
+                className="absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700/80 dark:bg-gray-900"
               >
                 <Menu.Item
                   as="label"
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },
-                      'flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+                      'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
                     )
                   }
                 >
@@ -111,7 +111,7 @@ const NftGallery: FC<Props> = ({ profile }) => {
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },
-                      'flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+                      'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
                     )
                   }
                 >
@@ -123,7 +123,7 @@ const NftGallery: FC<Props> = ({ profile }) => {
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },
-                      'flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+                      'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
                     )
                   }
                 >

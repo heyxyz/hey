@@ -17,18 +17,18 @@ const Module: FC<Props> = ({ module }) => {
   const [allowed, setAllowed] = useState(module?.allowance !== '0x00');
 
   return (
-    <Card key={module?.module} className="block justify-between items-center sm:flex p-5" forceRounded>
-      <div className="overflow-hidden mr-1.5 mb-3 sm:mb-0">
+    <Card key={module?.module} className="block items-center justify-between p-5 sm:flex" forceRounded>
+      <div className="mr-1.5 mb-3 overflow-hidden sm:mb-0">
         <div className="flex items-center space-x-2">
           <div className="text-brand">
             <GetModuleIcon module={module?.module} size={4} />
           </div>
-          <div className="font-bold whitespace-nowrap">{getModule(module?.module).name}</div>
+          <div className="whitespace-nowrap font-bold">{getModule(module?.module).name}</div>
           <HelpTooltip content={getModule(module?.module).helper} />
         </div>
         <a
           href={`${POLYGONSCAN_URL}/address/${module?.contractAddress}`}
-          className="text-sm lt-text-gray-500 truncate"
+          className="lt-text-gray-500 truncate text-sm"
           target="_blank"
           rel="noreferrer noopener"
         >

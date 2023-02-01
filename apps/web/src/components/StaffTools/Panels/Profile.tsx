@@ -36,7 +36,7 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
           <MetaDetails
             icon={
               <img
-                className="w-4 h-4"
+                className="h-4 w-4"
                 height={16}
                 width={16}
                 src={hasPrideLogo(profile) ? '/pride.svg' : '/logo.svg'}
@@ -49,21 +49,21 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
           </MetaDetails>
         )}
         <MetaDetails
-          icon={<HashtagIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile?.id}
           title="Profile ID"
         >
           {profile?.id}
         </MetaDetails>
         <MetaDetails
-          icon={<CashIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<CashIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile?.ownedBy}
           title="Address"
         >
           {formatAddress(profile?.ownedBy)}
         </MetaDetails>
         <MetaDetails
-          icon={<HandIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
           title="Dispatcher enabled"
         >
@@ -71,7 +71,7 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
         </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails
-            icon={<PhotographIcon className="w-4 h-4 lt-text-gray-500" />}
+            icon={<PhotographIcon className="lt-text-gray-500 h-4 w-4" />}
             value={profile?.ownedBy}
             title="NFT address"
           >
@@ -79,21 +79,21 @@ const ProfileStaffTool: FC<Props> = ({ profile }) => {
           </MetaDetails>
         ) : null}
         <MetaDetails
-          icon={<AtSymbolIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<AtSymbolIcon className="lt-text-gray-500 h-4 w-4" />}
           value={formatHandle(profile?.handle)}
           title="Handle"
         >
           {formatHandle(profile?.handle)}
         </MetaDetails>
         <MetaDetails
-          icon={<IdentificationIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<IdentificationIcon className="lt-text-gray-500 h-4 w-4" />}
           value={formatHandle(profile?.handle)}
           title="Follow module"
         >
           {getFollowModule(profile?.followModule?.__typename).description}
         </MetaDetails>
         <MetaDetails
-          icon={<LinkIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile?.metadata}
           title="Metadata"
         >

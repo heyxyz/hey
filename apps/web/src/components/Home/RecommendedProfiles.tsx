@@ -19,8 +19,8 @@ import Suggested from './Suggested';
 
 const Title = () => {
   return (
-    <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
-      <SparklesIcon className="w-4 h-4 text-yellow-500" />
+    <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
+      <SparklesIcon className="h-4 w-4 text-yellow-500" />
       <div>
         <Trans>Who to follow</Trans>
       </div>
@@ -53,7 +53,7 @@ const RecommendedProfiles: FC = () => {
     return (
       <>
         <Title />
-        <EmptyState message={t`No recommendations!`} icon={<UsersIcon className="w-8 h-8 text-brand" />} />
+        <EmptyState message={t`No recommendations!`} icon={<UsersIcon className="text-brand h-8 w-8" />} />
       </>
     );
   }
@@ -77,7 +77,7 @@ const RecommendedProfiles: FC = () => {
           ))}
         </div>
         <button
-          className="bg-gray-50 dark:bg-black hover:bg-gray-100 dark:hover:bg-gray-900 border-t dark:border-t-gray-700 text-sm w-full rounded-b-xl text-left px-5 py-3 flex items-center space-x-2 text-gray-600 dark:text-gray-300"
+          className="flex w-full items-center space-x-2 rounded-b-xl border-t bg-gray-50 px-5 py-3 text-left text-sm text-gray-600 hover:bg-gray-100 dark:border-t-gray-700 dark:bg-black dark:text-gray-300 dark:hover:bg-gray-900"
           type="button"
           onClick={() => {
             setShowSuggestedModal(true);
@@ -92,7 +92,7 @@ const RecommendedProfiles: FC = () => {
       </Card>
       <Modal
         title={t`Suggested for you`}
-        icon={<UsersIcon className="w-5 h-5 text-brand" />}
+        icon={<UsersIcon className="text-brand h-5 w-5" />}
         show={showSuggestedModal}
         onClose={() => setShowSuggestedModal(false)}
       >

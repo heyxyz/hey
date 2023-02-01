@@ -8,8 +8,8 @@ interface Props {
 
 const SettingsHelper: FC<Props> = ({ icon, heading, description }) => {
   return (
-    <div className="mb-4 ml-4 space-y-2 w-5/6 md:ml-0 lg-ml-0">
-      <div className="flex gap-1.5 items-center text-xl">
+    <div className="lg-ml-0 mb-4 ml-4 w-5/6 space-y-2 md:ml-0">
+      <div className="flex items-center gap-1.5 text-xl">
         {icon}
         <div>{heading}</div>
       </div>
