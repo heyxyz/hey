@@ -1,6 +1,6 @@
 import Username from '@components/Shared/Username';
+import type { MessageDescriptor } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import type { MessageDescriptor } from '@lingui/core/cjs/i18n';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import type { Mirror } from 'lens';
@@ -27,8 +27,8 @@ const defaultMessage = (typeName: string): string => {
 const Mirrored: FC<Props> = ({ publication }) => {
   const typeName = publication?.mirrorOf.__typename?.toLowerCase() || '';
   return (
-    <div className="flex items-center pb-4 space-x-1 lt-text-gray-500 text-[13px]">
-      <SwitchHorizontalIcon className="w-4 h-4" />
+    <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
+      <SwitchHorizontalIcon className="h-4 w-4" />
       <Trans
         id={messages[typeName]?.id || defaultMessage(typeName)}
         components={[

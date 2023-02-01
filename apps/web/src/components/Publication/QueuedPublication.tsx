@@ -4,6 +4,7 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
+import type { OptimisticTransaction } from '@generated/types';
 import getURLs from '@lib/getURLs';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
@@ -18,7 +19,7 @@ import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
 interface Props {
-  txn: any;
+  txn: OptimisticTransaction;
 }
 
 const QueuedPublication: FC<Props> = ({ txn }) => {
@@ -85,16 +86,16 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
 
   return (
     <article className="p-5">
-      <div className="pb-4 flex items-start justify-between">
+      <div className="flex items-start justify-between pb-4">
         <UserProfile profile={currentProfile as Profile} />
         <Tooltip content={t`Indexing`} placement="top">
-          <div className="bg-brand-200 rounded-full h-4 w-4 flex items-center justify-center">
-            <div className="animate-pulse bg-brand-500 rounded-full h-2 w-2" />
+          <div className="bg-brand-200 flex h-4 w-4 items-center justify-center rounded-full">
+            <div className="bg-brand-500 h-2 w-2 animate-pulse rounded-full" />
           </div>
         </Tooltip>
       </div>
       <div className="ml-[53px] break-words">
-        <div className="whitespace-pre-wrap break-words leading-md linkify text-md">
+        <div className="leading-md linkify text-md whitespace-pre-wrap break-words">
           <Markup>{txn?.content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (

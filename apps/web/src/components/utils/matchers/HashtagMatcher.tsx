@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { createElement } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-export const Hashtag = ({ ...props }: any) => {
+export const Hashtag = ({ ...props }) => {
   const hashflag = props.display.slice(1).toLowerCase();
   const hasHashflag = hashflags.hasOwnProperty(hashflag);
 
@@ -25,7 +25,7 @@ export const Hashtag = ({ ...props }: any) => {
       </span>
       {hasHashflag && (
         <img
-          className="h-4 w-4 !mr-0.5"
+          className="!mr-0.5 h-4 w-4"
           height={16}
           width={16}
           src={`${STATIC_IMAGES_URL}/hashflags/${hashflags[hashflag]}.png`}

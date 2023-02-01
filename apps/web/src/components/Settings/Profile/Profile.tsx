@@ -193,7 +193,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
         metadata_id: uuid()
       }).finally(() => setIsUploading(false));
 
-      const request = {
+      const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
         metadata: `https://arweave.net/${id}`
       };
@@ -239,7 +239,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
             {cover && (
               <div>
                 <img
-                  className="object-cover w-full h-60 rounded-lg"
+                  className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
                     currentTarget.src = getIPFSLink(cover);
                   }}
@@ -254,16 +254,16 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
             </div>
           </div>
         </div>
-        <div className="pt-4 space-y-2">
-          <div className="flex items-center space-x-2 label">
-            <img className="w-5 h-5" src="/pride.svg" alt="Pride Logo" />
+        <div className="space-y-2 pt-4">
+          <div className="label flex items-center space-x-2">
+            <img className="h-5 w-5" src="/pride.svg" alt="Pride Logo" />
             <span>
               <Trans>Celebrate pride every day</Trans>
             </span>
           </div>
           <div className="flex items-center space-x-2">
             <Toggle on={pride} setOn={setPride} />
-            <div>
+            <div className="lt-text-gray-500">
               <Trans>Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day.</Trans>
             </div>
           </div>
@@ -272,7 +272,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
           className="ml-auto"
           type="submit"
           disabled={isLoading}
-          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
         >
           <Trans>Save</Trans>
         </Button>

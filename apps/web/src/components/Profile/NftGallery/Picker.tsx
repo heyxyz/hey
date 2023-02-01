@@ -5,7 +5,7 @@ import { CheckIcon, SearchIcon, XIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { Nft } from 'lens';
 import { useNftFeedQuery } from 'lens';
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, FC } from 'react';
 import React, { useState } from 'react';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -13,7 +13,7 @@ import { mainnet } from 'wagmi/chains';
 
 const tabs = [{ name: 'Recent' }, { name: 'Floor price' }, { name: 'A-Z' }];
 
-const Picker = () => {
+const Picker: FC = () => {
   const [searchText, setSearchText] = useState('');
   const currentProfile = useAppStore((state) => state.currentProfile);
 
@@ -56,7 +56,7 @@ const Picker = () => {
               key={index}
               className={clsx(
                 'Recent' === tab.name ? 'bg-brand-500 text-white' : 'bg-brand-100 text-brand',
-                'text-xs bg-brand-100 dark:bg-opacity-20 rounded-full px-3 sm:px-4 py-1.5 border border-brand-300 dark:border-brand-500'
+                'bg-brand-100 border-brand-300 dark:border-brand-500 rounded-full border px-3 py-1.5 text-xs dark:bg-opacity-20 sm:px-4'
               )}
             >
               <span className="flex items-center space-x-2">
@@ -69,9 +69,9 @@ const Picker = () => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {nfts?.map((nft) => (
           <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
-            <div className="relative border-brand-500 border-2 rounded-xl">
-              <button className="absolute bg-brand-500 rounded-full right-2 top-2">
-                <CheckIcon className="w-5 p-1 h-5 text-white" />
+            <div className="border-brand-500 relative rounded-xl border-2">
+              <button className="bg-brand-500 absolute right-2 top-2 rounded-full">
+                <CheckIcon className="h-5 w-5 p-1 text-white" />
               </button>
               <SingleNFT nft={nft as Nft} />
             </div>

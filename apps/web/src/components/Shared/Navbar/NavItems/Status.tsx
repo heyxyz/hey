@@ -23,7 +23,7 @@ const Status: FC<Props> = ({ className = '' }) => {
     <button
       type="button"
       className={clsx(
-        'flex text-sm px-4 items-center space-x-2 py-1.5 w-full text-gray-700 dark:text-gray-200',
+        'flex w-full items-center space-x-2 px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
       onClick={() => setShowStatusModal(true)}
@@ -35,7 +35,7 @@ const Status: FC<Props> = ({ className = '' }) => {
         </>
       ) : (
         <>
-          <EmojiHappyIcon className="w-4 h-4" />
+          <EmojiHappyIcon className="h-4 w-4" />
           <span>
             <Trans>Set status</Trans>
           </span>

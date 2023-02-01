@@ -7,7 +7,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile, ProfileSearchResult } from 'lens';
+import type { Profile, ProfileSearchResult, SearchQueryRequest } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -18,7 +18,7 @@ interface Props {
 
 const Profiles: FC<Props> = ({ query }) => {
   // Variables
-  const request = {
+  const request: SearchQueryRequest = {
     query,
     type: SearchRequestTypes.Profile,
     customFilters: [CustomFiltersTypes.Gardeners],
@@ -53,7 +53,7 @@ const Profiles: FC<Props> = ({ query }) => {
             No profiles for <b>&ldquo;{query}&rdquo;</b>
           </Trans>
         }
-        icon={<UsersIcon className="w-8 h-8 text-brand" />}
+        icon={<UsersIcon className="text-brand h-8 w-8" />}
       />
     );
   }

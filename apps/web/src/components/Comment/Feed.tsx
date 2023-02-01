@@ -8,7 +8,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Comment, Publication } from 'lens';
+import type { Comment, Publication, PublicationsQueryRequest } from 'lens';
 import { CustomFiltersTypes, useCommentFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -28,7 +28,11 @@ const Feed: FC<Props> = ({ publication }) => {
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
-  const request = { commentsOf: publicationId, customFilters: [CustomFiltersTypes.Gardeners], limit: 10 };
+  const request: PublicationsQueryRequest = {
+    commentsOf: publicationId,
+    customFilters: [CustomFiltersTypes.Gardeners],
+    limit: 10
+  };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
@@ -58,7 +62,7 @@ const Feed: FC<Props> = ({ publication }) => {
       {!loading && totalComments === 0 && (
         <EmptyState
           message={t`Be the first one to comment!`}
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          icon={<CollectionIcon className="text-brand h-8 w-8" />}
         />
       )}
       <ErrorMessage title={t`Failed to load comment feed`} error={error} />

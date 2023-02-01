@@ -5,11 +5,12 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { HeartIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile } from 'lens';
+import type { Profile, WhoReactedPublicationRequest } from 'lens';
 import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import { FollowSource } from '../Follow';
 import Loader from '../Loader';
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
 
 const Likes: FC<Props> = ({ publicationId }) => {
   // Variables
-  const request = { publicationId: publicationId, limit: 10 };
+  const request: WhoReactedPublicationRequest = { publicationId: publicationId, limit: 10 };
 
   const { data, loading, error, fetchMore } = useLikesQuery({
     variables: { request },
@@ -42,13 +43,13 @@ const Likes: FC<Props> = ({ publicationId }) => {
   if (profiles?.length === 0) {
     return (
       <div className="p-5">
-        <EmptyState message={t`No likes.`} icon={<HeartIcon className="w-8 h-8 text-brand" />} hideCard />
+        <EmptyState message={t`No likes.`} icon={<HeartIcon className="text-brand h-8 w-8" />} hideCard />
       </div>
     );
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableDiv">
       <ErrorMessage className="m-5" title={t`Failed to load likes`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}
@@ -59,13 +60,16 @@ const Likes: FC<Props> = ({ publicationId }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((like) => (
+          {profiles?.map((like, index) => (
             <div className="p-5" key={like?.reactionId}>
               <UserProfile
                 profile={like?.profile as Profile}
+                isFollowing={like?.profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.LIKES_MODAL}
                 showBio
                 showFollow
-                isFollowing={like?.profile?.isFollowedByMe}
+                showUserPreview={false}
               />
             </div>
           ))}

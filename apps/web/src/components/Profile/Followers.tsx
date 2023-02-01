@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
@@ -8,7 +9,7 @@ import { UsersIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { Profile, Wallet } from 'lens';
+import type { FollowersRequest, Profile, Wallet } from 'lens';
 import { useFollowersQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -19,7 +20,7 @@ interface Props {
 
 const Followers: FC<Props> = ({ profile }) => {
   // Variables
-  const request = { profileId: profile?.id, limit: 10 };
+  const request: FollowersRequest = { profileId: profile?.id, limit: 10 };
 
   const { data, loading, error, fetchMore } = useFollowersQuery({
     variables: { request },
@@ -51,14 +52,14 @@ const Followers: FC<Props> = ({ profile }) => {
             </span>
           </div>
         }
-        icon={<UsersIcon className="w-8 h-8 text-brand" />}
+        icon={<UsersIcon className="text-brand h-8 w-8" />}
         hideCard
       />
     );
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableDiv">
       <ErrorMessage className="m-5" title={t`Failed to load followers`} error={error} />
       <InfiniteScroll
         dataLength={followers?.length ?? 0}
@@ -69,14 +70,17 @@ const Followers: FC<Props> = ({ profile }) => {
         scrollableTarget="scrollableDiv"
       >
         <div className="divide-y dark:divide-gray-700">
-          {followers?.map((follower) => (
+          {followers?.map((follower, index) => (
             <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
                   profile={follower?.wallet?.defaultProfile as Profile}
+                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
+                  followPosition={index + 1}
+                  followSource={FollowSource.FOLLOWERS_MODAL}
                   showBio
                   showFollow
-                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
+                  showUserPreview={false}
                 />
               ) : (
                 <WalletProfile wallet={follower?.wallet as Wallet} />

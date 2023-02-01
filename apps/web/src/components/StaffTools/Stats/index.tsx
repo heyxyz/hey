@@ -12,6 +12,7 @@ import {
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
+import { t } from '@lingui/macro';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import { useLensterStatsQuery } from 'lens';
 import type { NextPage } from 'next';
@@ -27,7 +28,7 @@ interface StatBoxProps {
 }
 
 export const StatBox: FC<StatBoxProps> = ({ icon, value, title }) => (
-  <Card className="px-7 py-4 w-full" forceRounded>
+  <Card className="w-full px-7 py-4" forceRounded>
     <div className="flex items-center space-x-2">
       {icon}
       <b className="text-lg">{humanize(value)}</b>
@@ -49,7 +50,7 @@ const Stats: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Stafftools • ${APP_NAME}`} />
+      <MetaTags title={t`Stafftools • ${APP_NAME}`} />
       <GridItemFour>
         <StaffToolsSidebar />
       </GridItemFour>
@@ -61,44 +62,44 @@ const Stats: NextPage = () => {
             <div>Loading...</div>
           ) : (
             <section className="space-y-3">
-              <h1 className="text-xl font-bold mb-4">Stats</h1>
-              <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
+              <h1 className="mb-4 text-xl font-bold">Stats</h1>
+              <div className="block justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-3">
                 <StatBox
-                  icon={<UsersIcon className="w-4 h-4" />}
+                  icon={<UsersIcon className="h-4 w-4" />}
                   value={stats?.totalProfiles}
                   title="total profiles"
                 />
                 <StatBox
-                  icon={<FireIcon className="w-4 h-4" />}
+                  icon={<FireIcon className="h-4 w-4" />}
                   value={stats?.totalBurntProfiles}
                   title="profiles burnt"
                 />
                 <StatBox
-                  icon={<PencilAltIcon className="w-4 h-4" />}
+                  icon={<PencilAltIcon className="h-4 w-4" />}
                   value={stats?.totalPosts}
                   title="total posts"
                 />
               </div>
-              <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
+              <div className="block justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-3">
                 <StatBox
-                  icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+                  icon={<SwitchHorizontalIcon className="h-4 w-4" />}
                   value={stats?.totalMirrors}
                   title="total mirrors"
                 />
                 <StatBox
-                  icon={<ChatAlt2Icon className="w-4 h-4" />}
+                  icon={<ChatAlt2Icon className="h-4 w-4" />}
                   value={stats?.totalComments}
                   title="total comments"
                 />
               </div>
-              <div className="block sm:flex space-y-3 sm:space-y-0 sm:space-x-3 justify-between">
+              <div className="block justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-3">
                 <StatBox
-                  icon={<CollectionIcon className="w-4 h-4" />}
+                  icon={<CollectionIcon className="h-4 w-4" />}
                   value={stats?.totalCollects}
                   title="total collects"
                 />
                 <StatBox
-                  icon={<UserAddIcon className="w-4 h-4" />}
+                  icon={<UserAddIcon className="h-4 w-4" />}
                   value={stats?.totalFollows}
                   title="total follows"
                 />

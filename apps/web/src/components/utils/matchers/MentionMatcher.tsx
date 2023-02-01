@@ -10,7 +10,7 @@ import { PUBLICATION } from 'src/tracking';
 
 import { UrlMatcher } from './UrlMatcher';
 
-export const Mention = ({ ...props }: any) => {
+export const Mention = ({ ...props }) => {
   const profile = {
     __typename: 'Profile',
     handle: props?.display.slice(1),

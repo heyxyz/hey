@@ -121,7 +121,7 @@ const Layout: FC<Props> = ({ children }) => {
       </Head>
       <Toaster position="bottom-right" toastOptions={getToastOptions(resolvedTheme)} />
       <GlobalModals />
-      <div className="flex flex-col min-h-screen md:pb-0 pb-14">
+      <div className="flex min-h-screen flex-col pb-14 md:pb-0">
         <Navbar />
         <BottomNavigation />
         {children}

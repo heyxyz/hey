@@ -18,9 +18,9 @@ const Footer: FC = () => {
   const { i18n } = useLingui();
 
   return (
-    <footer className={`sticky leading-7 text-sm ${staffMode ? 'top-28' : 'top-20'}`} data-test="footer">
-      <div className={'mt-4 flex flex-wrap px-3 lg:px-0 gap-x-[12px]'}>
-        <span className="font-bold lt-text-gray-500">
+    <footer className={`sticky text-sm leading-7 ${staffMode ? 'top-28' : 'top-20'}`} data-test="footer">
+      <div className={'mt-4 flex flex-wrap gap-x-[12px] px-3 lg:px-0'}>
+        <span className="lt-text-gray-500 font-bold">
           &copy; {new Date().getFullYear()} {APP_NAME}
         </span>
         <Link href="/privacy">
@@ -90,7 +90,7 @@ const Footer: FC = () => {
           <MenuTransition>
             <Menu.Items
               static
-              className="absolute py-1 mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
+              className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             >
               {Object.entries(supportedLocales).map(([localeCode, localeName]) => (
                 <Menu.Item

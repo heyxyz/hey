@@ -32,6 +32,10 @@ interface Props {
   showStatus?: boolean;
   showUserPreview?: boolean;
   timestamp?: Date;
+
+  // For data analytics
+  followPosition?: number;
+  followSource?: string;
 }
 
 const UserProfile: FC<Props> = ({
@@ -44,7 +48,9 @@ const UserProfile: FC<Props> = ({
   showFollow = false,
   showStatus = false,
   showUserPreview = true,
-  timestamp = ''
+  timestamp = '',
+  followPosition,
+  followSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
 
@@ -60,8 +66,8 @@ const UserProfile: FC<Props> = ({
       src={getAvatar(profile)}
       loading="lazy"
       className={clsx(
-        isBig ? 'w-14 h-14' : 'w-10 h-10',
-        'bg-gray-200 rounded-full border dark:border-gray-700'
+        isBig ? 'h-14 w-14' : 'h-10 w-10',
+        'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
@@ -71,15 +77,15 @@ const UserProfile: FC<Props> = ({
 
   const UserName = () => (
     <>
-      <div className="flex items-center max-w-sm truncate">
+      <div className="flex max-w-sm items-center truncate">
         <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
           {profile?.name ?? formatHandle(profile?.handle)}
         </div>
-        {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand ml-1" />}
+        {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />}
         {showStatus && hasStatus ? (
-          <div className="flex items-center lt-text-gray-500">
+          <div className="lt-text-gray-500 flex items-center">
             <span className="mx-1.5">·</span>
-            <span className="text-xs flex items-center space-x-1 max-w-[10rem]">
+            <span className="flex max-w-[10rem] items-center space-x-1 text-xs">
               <span>{statusEmoji}</span>
               <span className="truncate">{statusMessage}</span>
             </span>
@@ -129,7 +135,7 @@ const UserProfile: FC<Props> = ({
   };
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       {linkToProfile ? (
         <Link href={`/u/${formatHandle(profile?.handle)}`}>
           <UserInfo />
@@ -139,11 +145,16 @@ const UserProfile: FC<Props> = ({
       )}
       {showFollow &&
         (followStatusLoading ? (
-          <div className="w-10 h-8 rounded-lg shimmer" />
+          <div className="shimmer h-8 w-10 rounded-lg" />
         ) : following ? null : profile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
           <SuperFollow profile={profile} setFollowing={setFollowing} />
         ) : (
-          <Follow profile={profile} setFollowing={setFollowing} />
+          <Follow
+            profile={profile}
+            setFollowing={setFollowing}
+            followPosition={followPosition}
+            followSource={followSource}
+          />
         ))}
     </div>
   );

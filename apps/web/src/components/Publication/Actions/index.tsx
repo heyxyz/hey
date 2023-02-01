@@ -14,26 +14,27 @@ import Mirror from './Mirror';
 interface Props {
   publication: Publication;
   electedMirror?: ElectedMirror;
+  showCount?: boolean;
 }
 
-const PublicationActions: FC<Props> = ({ publication, electedMirror }) => {
+const PublicationActions: FC<Props> = ({ publication, electedMirror, showCount = false }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const collectModuleType = publication?.collectModule.__typename;
   const canMirror = currentProfile ? publication?.canMirror?.result : true;
 
   return (
-    <div className="flex items-center justify-between pt-3 -ml-2">
+    <div className="-ml-2 flex items-center justify-between pt-3">
       <span
         className="flex items-center gap-6 sm:gap-8"
         onClick={(event) => {
           event.stopPropagation();
         }}
       >
-        <Comment publication={publication} />
-        {canMirror && <Mirror publication={publication} />}
-        <Like publication={publication} />
+        <Comment publication={publication} showCount={showCount} />
+        {canMirror && <Mirror publication={publication} showCount={showCount} />}
+        <Like publication={publication} showCount={showCount} />
         {collectModuleType !== 'RevertCollectModuleSettings' && (
-          <Collect electedMirror={electedMirror} publication={publication} />
+          <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
         )}
         <Analytics publication={publication} />
       </span>

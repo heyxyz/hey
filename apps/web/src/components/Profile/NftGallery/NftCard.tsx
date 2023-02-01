@@ -9,9 +9,9 @@ interface Props {
   linkToDetail?: boolean;
 }
 
-const NFTImage = ({ nft }: { nft: Nft }) => (
+const NFTImage: FC<Props> = ({ nft }) => (
   <img
-    className="rounded-xl object-cover w-full bg-gray-200 dark:bg-gray-800"
+    className="h-64 w-full rounded-xl bg-gray-200 object-cover dark:bg-gray-800"
     src={
       nft.originalContent.uri ? getIPFSLink(nft.originalContent.uri) : `${STATIC_IMAGES_URL}/placeholder.webp`
     }

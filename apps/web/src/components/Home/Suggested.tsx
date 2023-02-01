@@ -1,3 +1,4 @@
+import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
@@ -19,24 +20,27 @@ const Suggested: FC = () => {
     return (
       <EmptyState
         message={t`Nothing to suggest`}
-        icon={<UsersIcon className="w-8 h-8 text-brand" />}
+        icon={<UsersIcon className="text-brand h-8 w-8" />}
         hideCard
       />
     );
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]">
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage title={t`Failed to load recommendations`} error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">
-          {data?.recommendedProfiles?.map((profile) => (
+          {data?.recommendedProfiles?.map((profile, index) => (
             <div className="p-5" key={profile?.id}>
               <UserProfile
                 profile={profile as Profile}
+                isFollowing={profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.WHO_TO_FOLLOW_MODAL}
                 showBio
                 showFollow
-                isFollowing={profile?.isFollowedByMe}
+                showUserPreview={false}
               />
             </div>
           ))}

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import type { Publication } from 'lens';
 import { useHidePublicationMutation } from 'lens';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -27,10 +27,10 @@ const Delete: FC<Props> = ({ publication }) => {
       className={({ active }) =>
         clsx(
           { 'dropdown-active': active },
-          'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
+          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
         )
       }
-      onClick={(event: any) => {
+      onClick={(event: MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
         if (confirm('Are you sure you want to delete?')) {
           hidePost({
@@ -40,7 +40,7 @@ const Delete: FC<Props> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <TrashIcon className="w-4 h-4" />
+        <TrashIcon className="h-4 w-4" />
         <div>Delete</div>
       </div>
     </Menu.Item>

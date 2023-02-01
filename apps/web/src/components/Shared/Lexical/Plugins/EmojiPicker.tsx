@@ -47,7 +47,7 @@ const EmojiMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, op
     <li
       key={key}
       tabIndex={-1}
-      className={clsx({ 'dropdown-active': isSelected }, 'm-2 p-2 outline-none cursor-pointer rounded-lg')}
+      className={clsx({ 'dropdown-active': isSelected }, 'm-2 cursor-pointer rounded-lg p-2 outline-none')}
       ref={setRefElement}
       role="option"
       aria-selected={isSelected}
@@ -57,7 +57,7 @@ const EmojiMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, op
     >
       <div className="flex items-center space-x-2">
         <span className="text-base">{emoji}</span>
-        <span className="capitalize text-sm">{title.split('_').join(' ')}</span>
+        <span className="text-sm capitalize">{title.split('_').join(' ')}</span>
       </div>
     </li>
   );
@@ -82,7 +82,7 @@ const EmojiPickerPlugin: FC = () => {
 
   const emojiOptions = useMemo(
     () =>
-      emojis != null
+      emojis !== null
         ? emojis.map(
             ({ emoji, aliases, tags }) =>
               new EmojiOption(aliases[0], emoji, {
@@ -100,8 +100,8 @@ const EmojiPickerPlugin: FC = () => {
   const options: EmojiOption[] = useMemo(() => {
     return emojiOptions
       .filter((option: EmojiOption) => {
-        return queryString != null
-          ? new RegExp(queryString, 'gi').exec(option.title) || option.keywords != null
+        return queryString !== null
+          ? new RegExp(queryString, 'gi').exec(option.title) || option.keywords !== null
             ? option.keywords.some((keyword: string) => new RegExp(queryString, 'gi').exec(keyword))
             : false
           : emojiOptions;
@@ -114,7 +114,7 @@ const EmojiPickerPlugin: FC = () => {
       editor.update(() => {
         const selection = $getSelection();
 
-        if (!$isRangeSelection(selection) || selectedOption == null) {
+        if (!$isRangeSelection(selection) || selectedOption === null) {
           return;
         }
 
@@ -137,13 +137,13 @@ const EmojiPickerPlugin: FC = () => {
       triggerFn={checkForTriggerMatch}
       options={options}
       menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
-        if (anchorElementRef.current == null || options.length === 0) {
+        if (anchorElementRef.current === null || options.length === 0) {
           return null;
         }
 
         return anchorElementRef.current && options.length
           ? ReactDOM.createPortal(
-              <ul className="w-52 rounded-xl border shadow-sm bg-white dark:bg-gray-900 dark:border-gray-700 mt-7">
+              <ul className="mt-7 w-52 rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
                 {options.map((option: EmojiOption, index) => (
                   <div key={option.key}>
                     <EmojiMenuItem

@@ -6,5 +6,8 @@ export const apps = [
   'phaver',
   'lensport',
   'buttrfly',
-  'memester'
+  'memester',
+  'pinsta',
+  'chainjet',
+  'wav3s'
 ];

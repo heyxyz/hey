@@ -29,15 +29,15 @@ const NotificationIcon: FC = () => {
   return (
     <Link
       href="/notifications"
-      className="md:flex hidden items-start justify-center rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20 min-w-[40px]"
+      className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20 md:flex"
       onClick={() => {
         setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
         setShowBadge(false);
         Analytics.track(NOTIFICATION.OPEN);
       }}
     >
-      <LightningBoltIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-      {showBadge && <span className="w-2 h-2 bg-red-500 rounded-full" />}
+      <LightningBoltIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+      {showBadge && <span className="h-2 w-2 rounded-full bg-red-500" />}
     </Link>
   );
 };

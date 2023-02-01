@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { Erc20 } from 'lens';
 import { CollectModules, FollowModules, ReferenceModules, useApprovedModuleAllowanceAmountQuery } from 'lens';
@@ -51,7 +51,7 @@ const AllowanceSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Allowance settings • ${APP_NAME}`} />
+      <MetaTags title={t`Allowance settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
@@ -70,11 +70,11 @@ const AllowanceSettings: NextPage = () => {
               </p>
             </div>
             <div className="divider my-5" />
-            <div className="mt-6 label">
+            <div className="label mt-6">
               <Trans>Select Currency</Trans>
             </div>
             <select
-              className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
+              className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
               onChange={(e) => {
                 setCurrencyLoading(true);
                 refetch({

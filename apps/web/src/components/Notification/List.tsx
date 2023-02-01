@@ -11,7 +11,8 @@ import type {
   NewFollowerNotification,
   NewMentionNotification,
   NewMirrorNotification,
-  NewReactionNotification
+  NewReactionNotification,
+  NotificationRequest
 } from 'lens';
 import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'lens';
 import type { FC } from 'react';
@@ -51,7 +52,7 @@ const List: FC<Props> = ({ feedType }) => {
   };
 
   // Variables
-  const request = {
+  const request: NotificationRequest = {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
     notificationTypes: getNotificationType(),
@@ -91,7 +92,7 @@ const List: FC<Props> = ({ feedType }) => {
     return (
       <EmptyState
         message={t`Inbox zero!`}
-        icon={<LightningBoltIcon className="w-8 h-8 text-brand" />}
+        icon={<LightningBoltIcon className="text-brand h-8 w-8" />}
         hideCard
       />
     );

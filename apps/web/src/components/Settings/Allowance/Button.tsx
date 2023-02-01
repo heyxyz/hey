@@ -7,6 +7,7 @@ import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
+import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -15,7 +16,7 @@ import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface Props {
   title?: string;
-  module: any;
+  module: ApprovedAllowanceAmount;
   allowed: boolean;
   setAllowed: Dispatch<boolean>;
 }
@@ -74,7 +75,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
         queryLoading || transactionLoading || waitLoading ? (
           <Spinner variant="warning" size="xs" />
         ) : (
-          <MinusIcon className="w-4 h-4" />
+          <MinusIcon className="h-4 w-4" />
         )
       }
       onClick={() => handleAllowance(module.currency, '0', module.module)}
@@ -83,20 +84,16 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
     </Button>
   ) : (
     <>
-      <Button
-        variant="success"
-        icon={<PlusIcon className="w-4 h-4" />}
-        onClick={() => setShowWarningModal(!showWarningModal)}
-      >
+      <Button icon={<PlusIcon className="h-4 w-4" />} onClick={() => setShowWarningModal(!showWarningModal)}>
         {title}
       </Button>
       <Modal
         title={t`Warning`}
-        icon={<ExclamationIcon className="w-5 h-5 text-yellow-500" />}
+        icon={<ExclamationIcon className="h-5 w-5 text-yellow-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}
       >
-        <div className="p-5 space-y-3">
+        <div className="space-y-3 p-5">
           <WarningMessage
             title={t`Handle with care!`}
             message={
@@ -109,12 +106,11 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
             }
           />
           <Button
-            variant="success"
             icon={
               queryLoading || transactionLoading || waitLoading ? (
-                <Spinner variant="success" size="xs" />
+                <Spinner size="xs" />
               ) : (
-                <PlusIcon className="w-4 h-4" />
+                <PlusIcon className="h-4 w-4" />
               )
             }
             onClick={() =>

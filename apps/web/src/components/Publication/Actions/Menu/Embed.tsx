@@ -3,7 +3,7 @@ import { CodeIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
-import type { FC } from 'react';
+import type { FC, MouseEvent } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -15,9 +15,9 @@ const Embed: FC<Props> = ({ publication }) => {
     <Menu.Item
       as="a"
       className={({ active }) =>
-        clsx({ 'dropdown-active': active }, 'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer')
+        clsx({ 'dropdown-active': active }, 'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm')
       }
-      onClick={(event: any) => {
+      onClick={(event: MouseEvent<HTMLAnchorElement>) => {
         event.stopPropagation();
         Analytics.track(PUBLICATION.EMBED);
       }}
@@ -25,7 +25,7 @@ const Embed: FC<Props> = ({ publication }) => {
       target="_blank"
     >
       <div className="flex items-center space-x-2">
-        <CodeIcon className="w-4 h-4" />
+        <CodeIcon className="h-4 w-4" />
         <div>Embed</div>
       </div>
     </Menu.Item>

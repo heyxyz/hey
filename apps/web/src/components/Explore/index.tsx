@@ -9,6 +9,7 @@ import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
+import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -20,7 +21,7 @@ import FeedType from './FeedType';
 
 const Explore: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [focus, setFocus] = useState<any>();
+  const [focus, setFocus] = useState<PublicationMainFocus>();
   const router = useRouter();
 
   const tabs = [
@@ -33,7 +34,7 @@ const Explore: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags
-        title={`Explore • ${APP_NAME}`}
+        title={t`Explore • ${APP_NAME}`}
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
       <GridItemEight className="space-y-5">
@@ -53,8 +54,8 @@ const Explore: NextPage = () => {
                 }}
                 className={({ selected }) =>
                   clsx(
-                    { 'border-b-2 border-brand-500 !text-black dark:!text-white': selected },
-                    'px-4 pb-2 lt-text-gray-500 outline-none font-medium text-xs sm:text-sm'
+                    { 'border-brand-500 border-b-2 !text-black dark:!text-white': selected },
+                    'lt-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
                   )
                 }
               >
