@@ -186,7 +186,7 @@ const Status: FC = () => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <div className="p-5 space-y-5">
+    <div className="space-y-5 p-5">
       <Form
         form={form}
         className="space-y-4"
@@ -200,7 +200,7 @@ const Status: FC = () => {
           placeholder={t`What's happening?`}
           {...form.register('status')}
         />
-        <div className="flex items-center space-x-2 ml-auto">
+        <div className="ml-auto flex items-center space-x-2">
           <Button
             type="submit"
             variant="danger"
@@ -218,7 +218,7 @@ const Status: FC = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
           >
             <Trans>Save</Trans>
           </Button>

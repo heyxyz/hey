@@ -83,7 +83,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
       )}
       {isModal && (
         <div className="mb-2 space-y-4">
-          <img className="w-10 h-10" height={40} width={40} src="/logo.svg" alt="Logo" />
+          <img className="h-10 w-10" height={40} width={40} src="/logo.svg" alt="Logo" />
           <div className="text-xl font-bold">
             <Trans>Sign up to {APP_NAME}</Trans>
           </div>
@@ -95,7 +95,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
         <div className="space-y-3">
           {avatar && (
             <div>
-              <img className="w-60 h-60 rounded-lg" height={240} width={240} src={avatar} alt={avatar} />
+              <img className="h-60 w-60 rounded-lg" height={240} width={240} src={avatar} alt={avatar} />
             </div>
           )}
           <div>
@@ -110,7 +110,7 @@ const NewProfile: FC<Props> = ({ isModal = false }) => {
         className="ml-auto"
         type="submit"
         disabled={loading}
-        icon={loading ? <Spinner size="xs" /> : <PlusIcon className="w-4 h-4" />}
+        icon={loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />}
       >
         <Trans>Sign up</Trans>
       </Button>

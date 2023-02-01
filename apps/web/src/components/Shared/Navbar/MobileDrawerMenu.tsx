@@ -33,20 +33,20 @@ const MobileDrawerMenu: FC = () => {
   };
 
   return (
-    <div className="w-full z-10 overflow-y-auto no-scrollbar inset-0 h-full bg-gray-100 dark:bg-black py-4 md:hidden fixed">
+    <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 dark:bg-black md:hidden">
       <button className="px-5" type="button" onClick={closeDrawer}>
-        <XIcon className="w-6 h-6" />
+        <XIcon className="h-6 w-6" />
       </button>
       <div className="w-full space-y-2">
         <Link
           onClick={closeDrawer}
           href={`/u/${formatHandle(currentProfile?.handle)}`}
-          className="flex hover:bg-gray-200 dark:hover:bg-gray-800 px-5 py-3 mt-2 space-x-2 items-center"
+          className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
         >
-          <div className="w-full flex space-x-1.5">
+          <div className="flex w-full space-x-1.5">
             <img
               src={getAvatar(currentProfile as Profile)}
-              className="w-12 h-12 rounded-full border cursor-pointer dark:border-gray-700"
+              className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
               alt={formatHandle(currentProfile?.handle)}
               onError={({ currentTarget }) => {
                 currentTarget.src = getAvatar(currentProfile, false);

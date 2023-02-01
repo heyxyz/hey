@@ -25,11 +25,11 @@ const Permalink: FC<Props> = ({ publication }) => {
       <Menu.Item
         as="div"
         className={({ active }) =>
-          clsx({ 'dropdown-active': active }, 'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer')
+          clsx({ 'dropdown-active': active }, 'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm')
         }
       >
         <div className="flex items-center space-x-2">
-          <ClipboardCopyIcon className="w-4 h-4" />
+          <ClipboardCopyIcon className="h-4 w-4" />
           <div>Permalink</div>
         </div>
       </Menu.Item>

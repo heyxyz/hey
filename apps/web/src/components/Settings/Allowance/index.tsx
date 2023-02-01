@@ -70,11 +70,11 @@ const AllowanceSettings: NextPage = () => {
               </p>
             </div>
             <div className="divider my-5" />
-            <div className="mt-6 label">
+            <div className="label mt-6">
               <Trans>Select Currency</Trans>
             </div>
             <select
-              className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
+              className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
               onChange={(e) => {
                 setCurrencyLoading(true);
                 refetch({

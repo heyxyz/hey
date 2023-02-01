@@ -48,7 +48,7 @@ const Analytics: FC<Props> = ({ publication }) => {
         aria-label="Analytics"
       >
         <div className="flex items-center space-x-1 text-blue-500">
-          <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
+          <div className="rounded-full p-1.5 hover:bg-blue-300 hover:bg-opacity-20">
             <Tooltip placement="top" content="Analytics" withDelay>
               <ChartBarIcon className={iconClassName} />
             </Tooltip>

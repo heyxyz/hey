@@ -87,9 +87,9 @@ const SeeThroughLens: FC = () => {
     <Menu as="div" className="relative">
       <Menu.Button
         onClick={() => fetchRecommendedProfiles()}
-        className="rounded-md hover:bg-gray-300 p-1 hover:bg-opacity-20"
+        className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20"
       >
-        <span className="flex space-x-1 items-center text-sm pl-1">
+        <span className="flex items-center space-x-1 pl-1 text-sm">
           <img
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
@@ -98,19 +98,19 @@ const SeeThroughLens: FC = () => {
             loading="lazy"
             width={20}
             height={20}
-            className="bg-gray-200 w-5 h-5 rounded-full border dark:border-gray-700"
+            className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />
           <span>{seeThroughProfile ? `@${formatHandle(profile?.handle)}` : t`My Feed`}</span>
-          <ChevronDownIcon className="w-4 h-4" />
+          <ChevronDownIcon className="h-4 w-4" />
         </span>
       </Menu.Button>
       <MenuTransition>
         <Menu.Items
           static
-          className="absolute w-64 right-0 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
+          className="absolute right-0 z-[5] mt-1 w-64 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
-          <div className="text-xs pt-2 px-3">
+          <div className="px-3 pt-2 text-xs">
             <Trans>👀 See the feed through...</Trans>
           </div>
           <div className="p-2">
@@ -135,7 +135,7 @@ const SeeThroughLens: FC = () => {
           </div>
           {seeThroughProfile && (
             <button
-              className="py-2 px-3 mb-2 text-left outline-none w-full mt-1 bg-gray-200 text-sm dark:bg-gray-700"
+              className="mb-2 mt-1 w-full bg-gray-200 py-2 px-3 text-left text-sm outline-none dark:bg-gray-700"
               onClick={() => setSeeThroughProfile(null)}
             >
               <Trans>Reset filter to your own feed</Trans>
@@ -143,7 +143,7 @@ const SeeThroughLens: FC = () => {
           )}
           <div className="mx-2 mb-2">
             {searchUsersLoading || loading ? (
-              <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
+              <div className="space-y-2 py-2 px-4 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>
                   <Trans>Searching users</Trans>
@@ -155,7 +155,7 @@ const SeeThroughLens: FC = () => {
                   <Menu.Item
                     as="div"
                     className={({ active }) =>
-                      clsx({ 'dropdown-active': active }, 'rounded-lg overflow-hidden cursor-pointer p-1')
+                      clsx({ 'dropdown-active': active }, 'cursor-pointer overflow-hidden rounded-lg p-1')
                     }
                     key={profile?.handle}
                     onClick={() => {

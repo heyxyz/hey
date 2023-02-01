@@ -26,9 +26,9 @@ const Notification: FC = () => {
   }
 
   return (
-    <div className="flex flex-grow justify-center px-0 sm:px-6 lg:px-8 py-8">
+    <div className="flex flex-grow justify-center px-0 py-8 sm:px-6 lg:px-8">
       <MetaTags title={t`Notifications • ${APP_NAME}`} />
-      <div className="max-w-4xl w-full space-y-3">
+      <div className="w-full max-w-4xl space-y-3">
         <div className="flex gap-3 pb-2">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
         </div>

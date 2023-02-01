@@ -34,7 +34,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
   return (
     <>
       <Button
-        className="text-sm !px-3 !py-1.5"
+        className="!px-3 !py-1.5 text-sm"
         variant="super"
         outline
         onClick={() => {
@@ -46,7 +46,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
           Analytics.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
         aria-label="Super Follow"
-        icon={<StarIcon className="w-4 h-4" />}
+        icon={<StarIcon className="h-4 w-4" />}
       >
         {showText && t`Super follow`}
       </Button>
@@ -56,7 +56,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
             Super follow <Slug slug={formatHandle(profile?.handle)} prefix="@" /> {again ? 'again' : ''}
           </span>
         }
-        icon={<StarIcon className="w-5 h-5 text-pink-500" />}
+        icon={<StarIcon className="h-5 w-5 text-pink-500" />}
         show={showFollowModal}
         onClose={() => setShowFollowModal(false)}
       >

@@ -124,7 +124,7 @@ const SuperFollow: FC = () => {
   if (loading) {
     return (
       <Card>
-        <div className="p-5 py-10 space-y-2 text-center">
+        <div className="space-y-2 p-5 py-10 text-center">
           <Spinner size="md" className="mx-auto" />
           <div>
             <Trans>Loading super follow settings</Trans>
@@ -140,7 +140,7 @@ const SuperFollow: FC = () => {
     <Card>
       <Form
         form={form}
-        className="p-5 space-y-4"
+        className="space-y-4 p-5"
         onSubmit={({ amount, recipient }) => {
           setSuperFollow(amount, recipient);
         }}
@@ -159,7 +159,7 @@ const SuperFollow: FC = () => {
             <Trans>Select Currency</Trans>
           </div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
+            className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
             onChange={(e) => {
               const currency = e.target.value.split('-');
               setSelectedCurrency(currency[0]);
@@ -181,7 +181,7 @@ const SuperFollow: FC = () => {
           max="100000"
           prefix={
             <img
-              className="w-6 h-6"
+              className="h-6 w-6"
               height={24}
               width={24}
               src={getTokenImage(selectedCurrencySymbol)}
@@ -206,7 +206,7 @@ const SuperFollow: FC = () => {
                 outline
                 onClick={() => setSuperFollow(null, null)}
                 disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
-                icon={<XIcon className="w-4 h-4" />}
+                icon={<XIcon className="h-4 w-4" />}
               >
                 <Trans>Disable Super follow</Trans>
               </Button>
@@ -214,7 +214,7 @@ const SuperFollow: FC = () => {
             <Button
               type="submit"
               disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
-              icon={<StarIcon className="w-4 h-4" />}
+              icon={<StarIcon className="h-4 w-4" />}
             >
               {followType === 'FeeFollowModuleSettings' ? t`Update Super follow` : t`Set Super follow`}
             </Button>

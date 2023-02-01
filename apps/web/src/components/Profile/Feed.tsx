@@ -109,7 +109,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
             <span>{emptyMessage}</span>
           </div>
         }
-        icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+        icon={<CollectionIcon className="text-brand h-8 w-8" />}
       />
     );
   }
