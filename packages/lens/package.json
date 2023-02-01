@@ -10,14 +10,14 @@
     "@apollo/client": "^3.7.5"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.16.4",
+    "@graphql-codegen/cli": "^2.16.5",
     "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/typescript": "^2.8.7",
-    "@graphql-codegen/typescript-operations": "^2.5.12",
+    "@graphql-codegen/typescript": "^2.8.8",
+    "@graphql-codegen/typescript-operations": "^2.5.13",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "eslint-config-weblint": "*",
     "prettier": "^2.8.3",
     "tsconfig": "*",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   }
 }
