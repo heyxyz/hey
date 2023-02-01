@@ -1,4 +1,3 @@
-import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { Spinner } from '@components/UI/Spinner';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
@@ -13,7 +12,7 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { USER } from 'src/tracking';
-import { useAccount, useNetwork, useSignMessage } from 'wagmi';
+import { useAccount, useNetwork, useSignMessage, useSwitchNetwork } from 'wagmi';
 
 interface Props {
   setHasProfile: Dispatch<boolean>;
@@ -28,6 +27,7 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
   const { chain } = useNetwork();
   const { address, connector, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
+  const { switchNetwork } = useSwitchNetwork();
   const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
   });
@@ -87,8 +87,12 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
   };
 
   useEffect(() => {
-    if (chain?.id === CHAIN_ID && connector?.id && isConnected) {
-      handleSign();
+    if (chain?.id === CHAIN_ID) {
+      if (connector?.id && isConnected) {
+        handleSign();
+      }
+    } else {
+      switchNetwork?.(CHAIN_ID);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected, chain]);
@@ -96,16 +100,12 @@ const WalletSelector: FC<Props> = ({ setHasProfile }) => {
   return (
     <div className="space-y-3">
       <div className="space-y-2.5">
-        {chain?.id === CHAIN_ID ? (
-          <div className="flex text-center text-sm font-bold">
-            <div className="flex">
-              <Spinner size="sm" className="mx-auto mr-2" />
-              <Trans>Signing …</Trans>
-            </div>
+        <div className="flex text-center text-sm font-bold">
+          <div className="flex">
+            <Spinner size="sm" className="mx-auto mr-2" />
+            <Trans>Signing …</Trans>
           </div>
-        ) : (
-          <SwitchNetwork />
-        )}
+        </div>
       </div>
       {(errorChallenge || errorAuthenticate || errorProfiles) && (
         <div className="flex items-center space-x-1 font-bold text-red-500">
