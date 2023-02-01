@@ -3,11 +3,15 @@ import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
+import { useCreateNftGalleryMutation } from 'lens';
 import type { Dispatch, FC } from 'react';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { useAppStore } from 'src/store/app';
+import { useNftGalleryStore } from 'src/store/nft-gallery';
 
 import Picker from './Picker';
+import ReviewSelection from './ReviewSelection';
 
 interface Props {
   showModal: boolean;
@@ -16,19 +20,52 @@ interface Props {
 
 const Create: FC<Props> = ({ showModal, setShowModal }) => {
   const [emoji, setEmoji] = useState('');
-  const [pickNfts, setPickNfts] = useState(false);
+  const [currentStep, setCurrentStep] = useState('NAME');
+  const gallery = useNftGalleryStore((state) => state.gallery);
+  const setGallery = useNftGalleryStore((state) => state.setGallery);
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
+  const [createGallery] = useCreateNftGalleryMutation();
+
+  const onClickNext = async () => {
+    if (gallery.name.length && gallery.items.length && currentStep === 'REVIEW') {
+      const sanitizedItems = gallery.items.map((el) => {
+        return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
+      });
+      await createGallery({
+        variables: {
+          request: {
+            items: sanitizedItems,
+            name: gallery.name,
+            profileId: currentProfile?.id
+          }
+        }
+      });
+      toast.success('Gallery created');
+    } else if (gallery.name.length && gallery.items.length) {
+      setCurrentStep('REVIEW');
+    } else if (gallery.name.length && !gallery.items.length) {
+      setCurrentStep('PICK_NFTS');
+    } else {
+      setCurrentStep('NAME');
+    }
+  };
 
   return (
     <Modal
-      size={pickNfts ? 'lg' : 'sm'}
+      size={currentStep === 'NAME' ? 'sm' : 'lg'}
       title={
-        pickNfts ? (
+        currentStep === 'PICK_NFTS' || currentStep === 'REVIEW' ? (
           <div className="flex items-center space-x-1">
-            <button type="button" onClick={() => setPickNfts(false)}>
+            <button type="button" onClick={() => setCurrentStep(gallery.name.length ? 'PICK_NFTS' : 'NAME')}>
               <ChevronLeftIcon className="h-4 w-4" />
             </button>
             <span>
-              <Trans>Select collectibles you want others to see</Trans>
+              <Trans>
+                {currentStep === 'REVIEW'
+                  ? 'Review collection'
+                  : 'Select collectibles you want others to see'}
+              </Trans>
             </span>
           </div>
         ) : (
@@ -36,20 +73,33 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
         )
       }
       show={showModal}
-      onClose={() => setShowModal(false)}
+      onClose={() => {
+        setShowModal(false);
+        setCurrentStep('NAME');
+        setGallery({ name: '', items: [] });
+      }}
     >
-      {pickNfts ? (
-        <Picker />
-      ) : (
-        <textarea
-          rows={4}
-          className="w-full resize-none border-none bg-white py-2 px-4 outline-none !ring-0 dark:bg-gray-800"
-        />
-      )}
-
-      <div className={clsx('flex items-center p-4', pickNfts ? 'justify-end' : 'justify-between')}>
-        {!pickNfts && <EmojiPicker emoji={emoji} setEmoji={setEmoji} />}
-        <Button onClick={() => setPickNfts(true)}>Next</Button>
+      <div className="max-h-[80vh] overflow-y-auto pb-16">
+        {currentStep === 'REVIEW' ? (
+          <ReviewSelection />
+        ) : currentStep === 'PICK_NFTS' ? (
+          <Picker />
+        ) : (
+          <textarea
+            className="w-full resize-none border-none bg-white py-2 px-4 outline-none !ring-0 dark:bg-gray-800"
+            value={gallery.name}
+            onChange={(e) => setGallery({ name: e.target.value, items: gallery.items })}
+            rows={4}
+          />
+        )}
+        <div className="absolute bottom-0 flex w-full items-center justify-between rounded-b-lg bg-white p-4 dark:bg-gray-800">
+          {currentStep === 'NAME' ? (
+            <EmojiPicker emoji={emoji} setEmoji={setEmoji} />
+          ) : (
+            `${gallery.items.length} selected`
+          )}
+          <Button onClick={() => onClickNext()}>Next</Button>
+        </div>
       </div>
     </Modal>
   );

@@ -5,9 +5,15 @@ query NftGalleries($request: NftGalleriesRequest!) {
     profileId
     items {
       name
-      tokenId
       description
+      collectionName
       contractAddress
+      tokenId
+      chainId
+      originalContent {
+        uri
+        animatedUrl
+      }
     }
     createdAt
     updatedAt

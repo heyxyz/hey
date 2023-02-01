@@ -1898,12 +1898,15 @@ export type Mutation = {
   createSetDispatcherTypedData: CreateSetDispatcherBroadcastItemResult;
   createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult;
   createSetFollowNFTUriTypedData: CreateSetFollowNftUriBroadcastItemResult;
+  createSetFollowNFTUriViaDispatcher: RelayResult;
   createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult;
   createSetProfileImageURIViaDispatcher: RelayResult;
   createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult;
   createSetProfileMetadataViaDispatcher: RelayResult;
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult;
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
+  /** Delete an NFT Gallery */
+  deleteNftGallery: Scalars['Void'];
   dismissRecommendedProfiles: Scalars['Void'];
   hel?: Maybe<Scalars['Void']>;
   hidePublication?: Maybe<Scalars['Void']>;
@@ -2020,6 +2023,10 @@ export type MutationCreateSetFollowNftUriTypedDataArgs = {
   request: CreateSetFollowNftUriRequest;
 };
 
+export type MutationCreateSetFollowNftUriViaDispatcherArgs = {
+  request: CreateSetFollowNftUriRequest;
+};
+
 export type MutationCreateSetProfileImageUriTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: UpdateProfileImageRequest;
@@ -2046,6 +2053,10 @@ export type MutationCreateToggleFollowTypedDataArgs = {
 export type MutationCreateUnfollowTypedDataArgs = {
   options?: InputMaybe<TypedDataOptions>;
   request: UnfollowRequest;
+};
+
+export type MutationDeleteNftGalleryArgs = {
+  request: NftGalleryDeleteRequest;
 };
 
 export type MutationDismissRecommendedProfilesArgs = {
@@ -2251,6 +2262,14 @@ export type NftGalleryCreateRequest = {
   /** The name of the NFT gallery */
   name: Scalars['NftGalleryName'];
   /** The owner profile id */
+  profileId: Scalars['ProfileId'];
+};
+
+/** The input for deleting gallery */
+export type NftGalleryDeleteRequest = {
+  /** The NFT gallery id */
+  galleryId: Scalars['NftGalleryId'];
+  /** The profile id of the gallery owner */
   profileId: Scalars['ProfileId'];
 };
 
@@ -15644,9 +15663,12 @@ export type NftGalleriesQuery = {
     items: Array<{
       __typename?: 'NFT';
       name: string;
-      tokenId: string;
       description: string;
+      collectionName: string;
       contractAddress: any;
+      tokenId: string;
+      chainId: any;
+      originalContent: { __typename?: 'NFTContent'; uri: string; animatedUrl?: string | null };
     }>;
   }>;
 };
@@ -32423,9 +32445,15 @@ export const NftGalleriesDocument = gql`
       profileId
       items {
         name
-        tokenId
         description
+        collectionName
         contractAddress
+        tokenId
+        chainId
+        originalContent {
+          uri
+          animatedUrl
+        }
       }
       createdAt
       updatedAt

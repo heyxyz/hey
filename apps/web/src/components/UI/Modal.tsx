@@ -45,7 +45,7 @@ export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onC
                 { 'sm:max-w-3xl': size === 'md' },
                 { 'sm:max-w-lg': size === 'sm' },
                 { 'sm:max-w-sm': size === 'xs' },
-                'inline-block w-full transform rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
+                'inline-block w-full transform overflow-hidden rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
               )}
             >
               <div className="divider flex items-center justify-between py-3.5 px-5">
