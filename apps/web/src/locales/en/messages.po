@@ -568,6 +568,14 @@ msgstr ""
 msgid "Mod Center • {APP_NAME}"
 msgstr "Mod Center • {APP_NAME}"
 
+#: src/components/NFT/NFTFeed.tsx
+msgid "doesn’t have any NFTs!"
+msgstr ""
+
+#: src/components/NFT/NFTFeed.tsx
+msgid "Failed to load nft feed"
+msgstr ""
+
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
 msgstr ""
@@ -1144,14 +1152,6 @@ msgstr ""
 msgid "Followed by"
 msgstr ""
 
-#: src/components/Profile/NFTFeed.tsx
-msgid "doesn’t have any NFTs!"
-msgstr ""
-
-#: src/components/Profile/NFTFeed.tsx
-msgid "Failed to load nft feed"
-msgstr ""
-
 #: src/components/Profile/New.tsx
 msgid "Create Profile • {APP_NAME}"
 msgstr "Create Profile • {APP_NAME}"
@@ -1159,6 +1159,22 @@ msgstr "Create Profile • {APP_NAME}"
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
 msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Select collectibles you want others to see"
+msgstr "Select collectibles you want others to see"
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Welcome to your gallery"
+msgstr "Welcome to your gallery"
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Create a curated space for your digital collectibles"
+msgstr "Create a curated space for your digital collectibles"
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Let's do it!"
+msgstr "Let's do it!"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx
