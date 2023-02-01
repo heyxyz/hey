@@ -108,7 +108,7 @@ const Navbar: FC = () => {
               <div className="flex items-center gap-4">
                 {currentProfile ? (
                   <>
-                    <MessageIcon />
+                    {false && <MessageIcon />}
                     <NotificationIcon />
                   </>
                 ) : null}
