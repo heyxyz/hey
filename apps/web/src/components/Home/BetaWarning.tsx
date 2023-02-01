@@ -8,10 +8,10 @@ const BetaWarning: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 border-yellow-400 !bg-yellow-300 !bg-opacity-20 space-y-2.5 text-yellow-600 p-5"
+      className="mb-4 space-y-2.5 border-yellow-400 !bg-yellow-300 !bg-opacity-20 p-5 text-yellow-600"
     >
       <div className="flex items-center space-x-2 font-bold">
-        <BeakerIcon className="w-5 h-5" />
+        <BeakerIcon className="h-5 w-5" />
         <p>
           <Trans>Beta warning!</Trans>
         </p>
@@ -21,7 +21,7 @@ const BetaWarning: FC = () => {
       </p>
       {!IS_MAINNET && (
         <div className="flex items-center space-x-1.5 text-sm font-bold">
-          <CurrencyDollarIcon className="w-4 h-4" />
+          <CurrencyDollarIcon className="h-4 w-4" />
           <a href="https://faucet.polygon.technology/" target="_blank" rel="noreferrer noopener">
             <Trans>Get testnet tokens</Trans>
           </a>

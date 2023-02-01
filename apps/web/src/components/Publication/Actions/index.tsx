@@ -23,7 +23,7 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, showCount =
   const canMirror = currentProfile ? publication?.canMirror?.result : true;
 
   return (
-    <div className="flex items-center justify-between pt-3 -ml-2">
+    <div className="-ml-2 flex items-center justify-between pt-3">
       <span
         className="flex items-center gap-6 sm:gap-8"
         onClick={(event) => {

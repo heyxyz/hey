@@ -34,7 +34,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
             <iframe
               title={`${nft.contractAddress}:${nft.tokenId}`}
               sandbox=""
-              className="w-full h-full sm:rounded-t-[10px]"
+              className="h-full w-full sm:rounded-t-[10px]"
               src={nft?.originalContent?.animatedUrl}
             />
           )}
@@ -57,7 +57,7 @@ const SingleNFT: FC<Props> = ({ nft }) => {
         </a>
       )}
       <div className="space-y-1 p-5">
-        {nft.collectionName && <div className="text-sm lt-text-gray-500 truncate">{nft.collectionName}</div>}
+        {nft.collectionName && <div className="lt-text-gray-500 truncate text-sm">{nft.collectionName}</div>}
         <div className="truncate">
           <a className="font-bold" href={nftURL} target="_blank" rel="noreferrer noopener">
             {nft.name ? nft.name : `#${nft.tokenId}`}

@@ -27,7 +27,7 @@ const Delete: FC<Props> = ({ publication }) => {
       className={({ active }) =>
         clsx(
           { 'dropdown-active': active },
-          'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
+          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
         )
       }
       onClick={(event: MouseEvent<HTMLDivElement>) => {
@@ -40,7 +40,7 @@ const Delete: FC<Props> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <TrashIcon className="w-4 h-4" />
+        <TrashIcon className="h-4 w-4" />
         <div>Delete</div>
       </div>
     </Menu.Item>

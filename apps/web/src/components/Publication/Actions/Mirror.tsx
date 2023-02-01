@@ -173,7 +173,7 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
         <div
           className={clsx(
             mirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
-            'p-1.5 rounded-full hover:bg-opacity-20'
+            'rounded-full p-1.5 hover:bg-opacity-20'
           )}
         >
           {isLoading ? (

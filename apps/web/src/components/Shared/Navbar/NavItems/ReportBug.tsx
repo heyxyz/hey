@@ -16,18 +16,18 @@ const ReportBug: FC<Props> = ({ onClick, className = '' }) => {
       href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
       target="_blank"
       className={clsx(
-        'flex items-center justify-between px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200',
+        'flex w-full items-center justify-between px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
       onClick={onClick}
     >
       <div className="flex items-center space-x-1.5">
-        <HandIcon className="w-4 h-4" />
+        <HandIcon className="h-4 w-4" />
         <div>
           <Trans>Report a bug</Trans>
         </div>
       </div>
-      <ExternalLinkIcon className="md:hidden w-4 h-4" />
+      <ExternalLinkIcon className="h-4 w-4 md:hidden" />
     </Link>
   );
 };

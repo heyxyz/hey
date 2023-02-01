@@ -7,7 +7,7 @@ interface Props {
 
 const Loader: FC<Props> = ({ message }) => {
   return (
-    <div className="p-5 space-y-2 font-bold text-center">
+    <div className="space-y-2 p-5 text-center font-bold">
       <Spinner size="md" className="mx-auto" />
       {message ? <div>{message}</div> : null}
     </div>

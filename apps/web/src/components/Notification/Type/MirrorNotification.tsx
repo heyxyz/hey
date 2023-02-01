@@ -38,10 +38,10 @@ const defaultMessage = (typeName: string): string => {
 const MirrorNotification: FC<Props> = ({ notification }) => {
   const typeName = notification?.publication.__typename?.toLowerCase() || '';
   return (
-    <div className="flex justify-between items-start">
-      <div className="space-y-2 w-4/5">
+    <div className="flex items-start justify-between">
+      <div className="w-4/5 space-y-2">
         <div className="flex items-center space-x-3">
-          <SwitchHorizontalIcon className="h-6 w-6 text-brand-500/70" />
+          <SwitchHorizontalIcon className="text-brand-500/70 h-6 w-6" />
           <UserPreview profile={notification?.profile}>
             <NotificationProfileAvatar profile={notification?.profile} />
           </UserPreview>
@@ -63,7 +63,7 @@ const MirrorNotification: FC<Props> = ({ notification }) => {
           </Link>
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]" title={formatTime(notification?.createdAt)}>
+      <div className="text-[12px] text-gray-400" title={formatTime(notification?.createdAt)}>
         {dayjs(new Date(notification?.createdAt)).fromNow()}
       </div>
     </div>

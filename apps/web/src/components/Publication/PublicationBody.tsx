@@ -29,13 +29,13 @@ const PublicationBody: FC<Props> = ({ publication }) => {
       <Markup
         className={clsx(
           { 'line-clamp-5': showMore },
-          'whitespace-pre-wrap break-words leading-md linkify text-md'
+          'leading-md linkify text-md whitespace-pre-wrap break-words'
         )}
       >
         {publication?.metadata?.content}
       </Markup>
       {showMore && (
-        <div className="mt-4 text-sm lt-text-gray-500 font-bold flex items-center space-x-1">
+        <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
           <EyeIcon className="h-4 w-4" />
           <Link href={`/posts/${publication?.id}`}>
             <Trans>Show more</Trans>
