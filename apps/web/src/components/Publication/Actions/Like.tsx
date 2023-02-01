@@ -141,7 +141,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
         <div
           className={clsx(
             isGM ? 'hover:bg-yellow-400' : 'hover:bg-pink-300',
-            'p-1.5 rounded-full hover:bg-opacity-20'
+            'rounded-full p-1.5 hover:bg-opacity-20'
           )}
         >
           <Tooltip placement="top" content={liked ? t`Dislike` : t`Like`} withDelay>

@@ -102,9 +102,9 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
         isLoading ? (
           <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
         ) : canUseRelay ? (
-          <XIcon className="w-4 h-4" />
+          <XIcon className="h-4 w-4" />
         ) : (
-          <CheckCircleIcon className="w-4 h-4" />
+          <CheckCircleIcon className="h-4 w-4" />
         )
       }
       onClick={toggleDispatcher}

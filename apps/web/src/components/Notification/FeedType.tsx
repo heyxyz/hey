@@ -18,11 +18,11 @@ interface Props {
 
 const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
   return (
-    <div className="flex justify-between items-center">
-      <div className="flex overflow-x-auto gap-3 px-5 pb-2 mt-3 sm:px-0 sm:mt-0 md:pb-0">
+    <div className="flex items-center justify-between">
+      <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
         <TabButton
           name={t`All notifications`}
-          icon={<LightningBoltIcon className="w-4 h-4" />}
+          icon={<LightningBoltIcon className="h-4 w-4" />}
           active={feedType === 'ALL'}
           type="all"
           onClick={() => {
@@ -32,7 +32,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         />
         <TabButton
           name={t`Mentions`}
-          icon={<AtSymbolIcon className="w-4 h-4" />}
+          icon={<AtSymbolIcon className="h-4 w-4" />}
           active={feedType === 'MENTIONS'}
           type="mentions"
           onClick={() => {
@@ -42,7 +42,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         />
         <TabButton
           name={t`Comments`}
-          icon={<ChatAlt2Icon className="w-4 h-4" />}
+          icon={<ChatAlt2Icon className="h-4 w-4" />}
           active={feedType === 'COMMENTS'}
           type="comments"
           onClick={() => {
@@ -52,7 +52,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         />
         <TabButton
           name={t`Likes`}
-          icon={<HeartIcon className="w-4 h-4" />}
+          icon={<HeartIcon className="h-4 w-4" />}
           active={feedType === 'LIKES'}
           type="likes"
           onClick={() => {
@@ -62,7 +62,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
         />
         <TabButton
           name={t`Collects`}
-          icon={<CollectionIcon className="w-4 h-4" />}
+          icon={<CollectionIcon className="h-4 w-4" />}
           active={feedType === 'COLLECTS'}
           type="collects"
           onClick={() => {

@@ -7,7 +7,7 @@ interface Props {
 const ChooseFile: FC<Props> = ({ onChange }) => {
   return (
     <input
-      className="pr-1 text-sm text-gray-700 bg-white rounded-xl border border-gray-300 shadow-sm cursor-pointer dark:text-white dark:bg-gray-800 focus:outline-none dark:border-gray-700 focus:border-brand-400"
+      className="focus:border-brand-400 cursor-pointer rounded-xl border border-gray-300 bg-white pr-1 text-sm text-gray-700 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-white"
       type="file"
       accept=".png, .jpg, .jpeg, .gif"
       onChange={onChange}

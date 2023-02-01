@@ -20,14 +20,14 @@ const Suggested: FC = () => {
     return (
       <EmptyState
         message={t`Nothing to suggest`}
-        icon={<UsersIcon className="w-8 h-8 text-brand" />}
+        icon={<UsersIcon className="text-brand h-8 w-8" />}
         hideCard
       />
     );
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]">
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage title={t`Failed to load recommendations`} error={error} />
       <div className="space-y-3">
         <div className="divide-y dark:divide-gray-700">

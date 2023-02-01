@@ -12,11 +12,11 @@ const YourProfile: FC<Props> = ({ className = '' }) => {
   return (
     <div
       className={clsx(
-        'flex text-sm w-full text-gray-700 dark:text-gray-200 space-x-1.5 items-center',
+        'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
     >
-      <UserIcon className="w-4 h-4" />
+      <UserIcon className="h-4 w-4" />
       <div>
         <Trans>Your Profile</Trans>
       </div>
