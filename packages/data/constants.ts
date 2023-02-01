@@ -4,6 +4,7 @@ import getEnvConfig from './utils/getEnvConfig';
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
+export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 // Lens Network
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
@@ -37,7 +38,6 @@ export const XMTP_PREFIX = 'lens.dev/dm';
 export const APP_NAME = 'Lenster';
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
-export const DEFAULT_OG = 'https://assets.lenster.xyz/images/og/logo.jpeg';
 export const APP_VERSION = packageJson.version;
 
 // Git
@@ -62,12 +62,12 @@ export const STATIC_ASSETS_URL = 'https://assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://testnet.rarible.com';
-export const MEDIA_PROXY_URL = 'https://media.lenster.xyz';
-export const OG_MEDIA_PROXY_URL = 'https://og-media.lenster.xyz';
+export const IMAGE_PROXY_URL = 'https://media.lenster.xyz';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
-export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
+export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
+export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
@@ -113,6 +113,7 @@ export const ATTACHMENT = 'attachment';
 // Localstorage keys
 export const LS_KEYS = {
   LENSTER_STORE: 'lenster.store',
+  PREFERENCES_STORE: 'preferences.store',
   TRANSACTION_STORE: 'transaction.store',
   TIMELINE_STORE: 'timeline.store',
   MESSAGE_STORE: 'message.store',

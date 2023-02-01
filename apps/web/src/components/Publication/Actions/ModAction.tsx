@@ -15,7 +15,7 @@ const ModAction: FC<Props> = ({ publication }) => {
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
 
   return (
-    <span className="flex items-center gap-3 mt-3 text-sm" onClick={(event) => event.stopPropagation()}>
+    <span className="mt-3 flex items-center gap-3 text-sm" onClick={(event) => event.stopPropagation()}>
       <Button
         onClick={() => {
           setShowReportModal(true, publication, { type: 'spamReason', subReason: 'FAKE_ENGAGEMENT' });

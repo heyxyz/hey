@@ -1,5 +1,6 @@
 import type { ChildrenNode, MatchResponse, Node } from 'interweave';
 import { Matcher } from 'interweave';
+import Link from 'next/link';
 import { createElement } from 'react';
 
 import {
@@ -18,6 +19,10 @@ interface UrlProps {
 }
 
 const shortUrl = (props: UrlProps): string => {
+  if (props.host === location.host) {
+    return props.host + props.fullPath;
+  }
+
   const truncatedPathLength = Math.max(URL_TRUNCATE_LENGTH - props.host.length, PATH_MIN_LENGTH);
   let doTruncate = props.fullPath.length - truncatedPathLength > 3;
   return props.host + (doTruncate ? props.fullPath.substring(0, truncatedPathLength) + '…' : props.fullPath);
@@ -31,10 +36,14 @@ const Url = ({ children, url }: UrlProps) => {
   }
 
   return (
-    // eslint-disable-next-line react/jsx-no-target-blank
-    <a href={href} target="_blank" onClick={(event) => event.stopPropagation()} rel="noopener">
+    <Link
+      href={href}
+      target={href.includes(location.host) ? '_self' : '_blank'}
+      onClick={(event) => event.stopPropagation()}
+      rel="noopener"
+    >
       {children}
-    </a>
+    </Link>
   );
 };
 

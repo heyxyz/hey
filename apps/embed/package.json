@@ -10,9 +10,9 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.4",
+    "@apollo/client": "^3.7.6",
     "dotenv": "^16.0.3",
-    "next": "^13.1.5",
+    "next": "^13.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -23,6 +23,6 @@
     "eslint-config-weblint": "*",
     "lens": "*",
     "tsconfig": "*",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.5"
   }
 }

@@ -24,7 +24,7 @@ const DispatcherSettings: FC = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card className="space-y-2 linkify p-5">
+        <Card className="linkify space-y-2 p-5">
           <div className="flex items-center space-x-2">
             <div className="text-lg font-bold">
               {currentProfile?.dispatcher?.canUseRelay ? 'Disable' : 'Enable'} dispatcher

@@ -24,7 +24,7 @@ interface ActionProps {
 const Action: FC<ActionProps> = ({ icon, text, onClick }) => (
   <Tooltip content={text} placement="top">
     <button
-      className="flex flex-col items-center lt-text-gray-500 hover:text-brand-500"
+      className="lt-text-gray-500 hover:text-brand-500 flex flex-col items-center"
       onClick={onClick}
       type="button"
     >
@@ -69,19 +69,19 @@ const NewPost: FC = () => {
   }, []);
 
   return (
-    <Card className="p-5 space-y-3">
+    <Card className="space-y-3 p-5">
       <div className="flex items-center space-x-3">
         <img
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(currentProfile, false);
           }}
           src={getAvatar(currentProfile)}
-          className="h-9 w-9 bg-gray-200 rounded-full border dark:border-gray-700 cursor-pointer"
+          className="h-9 w-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           onClick={() => push(`/u/${currentProfile?.handle}`)}
           alt={formatHandle(currentProfile?.handle)}
         />
         <button
-          className="w-full flex items-center space-x-2 bg-gray-100 dark:bg-gray-900 px-4 py-2 rounded-xl border dark:border-gray-700"
+          className="flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
           type="button"
           onClick={() => openModal('update')}
         >

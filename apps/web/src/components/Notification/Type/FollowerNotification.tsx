@@ -31,8 +31,8 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
   const isSuperFollow = currentProfile?.followModule?.__typename === 'FeeFollowModuleSettings';
 
   return (
-    <div className="flex justify-between items-start">
-      <div className="space-y-2 w-4/5">
+    <div className="flex items-start justify-between">
+      <div className="w-4/5 space-y-2">
         <div className="flex items-center space-x-3">
           {isSuperFollow ? (
             <UserAddIcon className="h-6 w-6 text-pink-500/70" />
@@ -61,7 +61,7 @@ const FollowerNotification: FC<Props> = ({ notification }) => {
           />
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]" title={formatTime(notification?.createdAt)}>
+      <div className="text-[12px] text-gray-400" title={formatTime(notification?.createdAt)}>
         {dayjs(new Date(notification?.createdAt)).fromNow()}
       </div>
     </div>

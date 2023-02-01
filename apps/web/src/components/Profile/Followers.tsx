@@ -40,7 +40,7 @@ const Followers: FC<Props> = ({ profile }) => {
             </span>
           </div>
         }
-        icon={<UsersIcon className="w-8 h-8 text-brand" />}
+        icon={<UsersIcon className="text-brand h-8 w-8" />}
         hideCard
       />
     );

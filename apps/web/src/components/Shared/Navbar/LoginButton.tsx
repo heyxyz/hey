@@ -10,7 +10,7 @@ const LoginButton: FC = () => {
 
   return (
     <Button
-      icon={<img className="mr-0.5 w-4 h-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />}
+      icon={<img className="mr-0.5 h-4 w-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />}
       onClick={() => {
         setShowAuthModal(true);
         Analytics.track(USER.LOGIN);

@@ -28,7 +28,7 @@ const Uniswap: FC<Props> = ({ module }) => {
       >
         <img
           src={`${STATIC_IMAGES_URL}/brands/uniswap.png`}
-          className="w-5 h-5"
+          className="h-5 w-5"
           height={20}
           width={20}
           alt="Uniswap"

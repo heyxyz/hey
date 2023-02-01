@@ -172,7 +172,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           setShowAuthModal(true);
         }}
       >
-        <div className="text-white font-bold flex items-center space-x-1">
+        <div className="flex items-center space-x-1 font-bold text-white">
           <LogoutIcon className="h-5 w-5" />
           <span>Login to decrypt</span>
         </div>
@@ -183,13 +183,13 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   if (!canDecrypt) {
     return (
       <Card className={clsx(cardClasses, 'cursor-text')} onClick={(event) => event.stopPropagation()}>
-        <div className="font-bold flex items-center space-x-2">
+        <div className="flex items-center space-x-2 font-bold">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
-          <span className="text-white font-black text-base">
+          <span className="text-base font-black text-white">
             <Trans>To view this...</Trans>
           </span>
         </div>
-        <div className="pt-3.5 space-y-2 text-white">
+        <div className="space-y-2 pt-3.5 text-white">
           {/* Collect checks */}
           {hasNotCollectedPublication && (
             <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
@@ -204,7 +204,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
             </DecryptMessage>
           )}
           {collectNotFinalisedOnChain && (
-            <DecryptMessage icon={<CollectionIcon className="animate-pulse h-4 w-4" />}>
+            <DecryptMessage icon={<CollectionIcon className="h-4 w-4 animate-pulse" />}>
               <Trans>Collect finalizing on chain...</Trans>
             </DecryptMessage>
           )}
@@ -219,7 +219,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
             </DecryptMessage>
           )}
           {followNotFinalisedOnChain && (
-            <DecryptMessage icon={<UserAddIcon className="animate-pulse h-4 w-4" />}>
+            <DecryptMessage icon={<UserAddIcon className="h-4 w-4 animate-pulse" />}>
               <Trans>Follow finalizing on chain...</Trans>
             </DecryptMessage>
           )}
@@ -271,8 +271,8 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   if (!decryptedData && isDecrypting) {
     return (
       <div className="space-y-2">
-        <div className="w-7/12 h-3 rounded-lg shimmer" />
-        <div className="w-1/3 h-3 rounded-lg shimmer" />
+        <div className="shimmer h-3 w-7/12 rounded-lg" />
+        <div className="shimmer h-3 w-1/3 rounded-lg" />
       </div>
     );
   }
@@ -287,7 +287,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           Analytics.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
       >
-        <div className="text-white font-bold flex items-center space-x-1">
+        <div className="flex items-center space-x-1 font-bold text-white">
           <FingerPrintIcon className="h-5 w-5" />
           <span>
             Decrypt <span className="lowercase">{encryptedPublication.__typename}</span>
@@ -304,13 +304,13 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Markup
         className={clsx(
           { 'line-clamp-5': showMore },
-          'whitespace-pre-wrap break-words leading-md linkify text-md'
+          'leading-md linkify text-md whitespace-pre-wrap break-words'
         )}
       >
         {publication?.content}
       </Markup>
       {showMore && (
-        <div className="mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1">
+        <div className="mt-4 flex items-center space-x-1 text-sm font-bold text-gray-500">
           <EyeIcon className="h-4 w-4" />
           <Link href={`/posts/${encryptedPublication?.id}`}>
             <Trans>Show more</Trans>

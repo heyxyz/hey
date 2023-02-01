@@ -126,7 +126,7 @@ const Attachments: FC<Props> = ({
                 />
               ) : (
                 <img
-                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700"
+                  className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
                   loading="lazy"
                   height={1000}
                   width={1000}
@@ -147,10 +147,10 @@ const Attachments: FC<Props> = ({
                 >
                   <button
                     type="button"
-                    className="p-1.5 bg-gray-900 rounded-full opacity-75"
+                    className="rounded-full bg-gray-900 p-1.5 opacity-75"
                     onClick={() => removeAttachment(attachment)}
                   >
-                    <XIcon className="w-4 h-4 text-white" />
+                    <XIcon className="h-4 w-4 text-white" />
                   </button>
                 </div>
               )}

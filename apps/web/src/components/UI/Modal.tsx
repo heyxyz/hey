@@ -16,8 +16,8 @@ interface Props {
 export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onClose }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
-      <Dialog as="div" className="overflow-y-auto fixed inset-0 z-10" onClose={() => onClose?.()}>
-        <div className="flex justify-center items-center p-4 min-h-screen text-center sm:block sm:p-0">
+      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => onClose?.()}>
+        <div className="flex min-h-screen items-center justify-center p-4 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-100"
@@ -27,7 +27,7 @@ export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onC
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900 dark:bg-opacity-80 transition-opacity" />
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity dark:bg-gray-900 dark:bg-opacity-80" />
           </Transition.Child>
           <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
           <Transition.Child
@@ -45,10 +45,10 @@ export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onC
                 { 'sm:max-w-3xl': size === 'md' },
                 { 'sm:max-w-lg': size === 'sm' },
                 { 'sm:max-w-sm': size === 'xs' },
-                'inline-block align-bottom bg-white dark:bg-gray-800 text-left shadow-xl transform transition-all sm:my-8 sm:align-middle w-full rounded-xl'
+                'inline-block w-full transform rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
               )}
             >
-              <div className="flex justify-between items-center py-3.5 px-5 divider">
+              <div className="divider flex items-center justify-between py-3.5 px-5">
                 <div className="flex items-center space-x-2 font-bold">
                   {icon}
                   <div>{title}</div>
@@ -56,10 +56,10 @@ export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onC
                 {onClose ? (
                   <button
                     type="button"
-                    className="p-1 text-gray-800 rounded-full dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
                     onClick={onClose}
                   >
-                    <XIcon className="w-5 h-5" />
+                    <XIcon className="h-5 w-5" />
                   </button>
                 ) : null}
               </div>

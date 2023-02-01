@@ -10,11 +10,11 @@ const Privacy: FC = () => {
   return (
     <>
       <MetaTags title={t`Privacy Policy • ${APP_NAME}`} />
-      <div className="flex justify-center items-center w-full h-48 bg-brand-400">
+      <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">Privacy Policy</h1>
-          <div className="flex justify-center mt-4">
-            <div className="py-0.5 px-2 text-xs text-white bg-gray-800 rounded-md">
+          <div className="mt-4 flex justify-center">
+            <div className="rounded-md bg-gray-800 py-0.5 px-2 text-xs text-white">
               <Trans>Updated {updatedAt}</Trans>
             </div>
           </div>
@@ -22,8 +22,8 @@ const Privacy: FC = () => {
       </div>
       <div className="relative">
         <div className="flex justify-center">
-          <div className="relative mx-auto rounded-lg sm:w-2/4 max-w-3/4">
-            <div className="!p-8 max-w-none lt-text-gray-500">
+          <div className="max-w-3/4 relative mx-auto rounded-lg sm:w-2/4">
+            <div className="lt-text-gray-500 max-w-none !p-8">
               {/* 1. Overview beings */}
               <div className="mb-5 text-xl font-bold text-black dark:text-white">
                 <Trans>1. Overview</Trans>
@@ -68,7 +68,7 @@ const Privacy: FC = () => {
                 <p>
                   <Trans>We may collect the following information about you when you use the Site:</Trans>
                 </p>
-                <ul className="list-disc list-inside">
+                <ul className="list-inside list-disc">
                   <li>
                     <Trans>Information you provide such as feedback, question and issues reports.</Trans>
                   </li>
@@ -85,7 +85,7 @@ const Privacy: FC = () => {
                     following:
                   </Trans>
                 </p>
-                <ul className="space-y-3 list-disc list-inside">
+                <ul className="list-inside list-disc space-y-3">
                   <li>
                     <Trans>
                       <b>Log Files</b>, to record events or errors that occur when using our Site.
@@ -165,7 +165,7 @@ const Privacy: FC = () => {
                 <p>
                   <Trans>We may collect the following information about you when you use the Site:</Trans>
                 </p>
-                <ul className="space-y-2 list-disc list-inside">
+                <ul className="list-inside list-disc space-y-2">
                   <li>
                     <Trans>
                       <b>Cookies</b>. We will only use strictly necessary cookies. These cookies are essential

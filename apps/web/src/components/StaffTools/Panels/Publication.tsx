@@ -22,7 +22,7 @@ const PublicationStaffTool: FC<Props> = ({ publication }) => {
       </div>
       <div className="mt-3 space-y-1.5">
         <MetaDetails
-          icon={<HashtagIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
           value={publication?.id}
           title="Publication ID"
         >
@@ -30,7 +30,7 @@ const PublicationStaffTool: FC<Props> = ({ publication }) => {
         </MetaDetails>
         {isComment ? (
           <MetaDetails
-            icon={<HashtagIcon className="w-4 h-4 lt-text-gray-500" />}
+            icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
             value={publication?.commentOn?.id}
             title="Parent ID"
           >
@@ -38,21 +38,21 @@ const PublicationStaffTool: FC<Props> = ({ publication }) => {
           </MetaDetails>
         ) : null}
         <MetaDetails
-          icon={<CollectionIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<CollectionIcon className="lt-text-gray-500 h-4 w-4" />}
           value={publication?.collectModule?.type}
           title="Collect module"
         >
           {publication?.collectModule?.type}
         </MetaDetails>
         <MetaDetails
-          icon={<GlobeAltIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<GlobeAltIcon className="lt-text-gray-500 h-4 w-4" />}
           value={publication?.id}
           title="Posted via"
         >
           {publication?.appId}
         </MetaDetails>
         <MetaDetails
-          icon={<LinkIcon className="w-4 h-4 lt-text-gray-500" />}
+          icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
           value={getIPFSLink(publication?.onChainContentURI)}
           title="On-chain content URI"
         >

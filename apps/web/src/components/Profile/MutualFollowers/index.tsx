@@ -34,7 +34,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className={clsx('lt-text-gray-500 flex items-center space-x-2.5 cursor-pointer', {
+      className={clsx('lt-text-gray-500 flex cursor-pointer items-center space-x-2.5', {
         'text-sm': variant === 'sm',
         'text-xs': variant === 'xs'
       })}
@@ -47,7 +47,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
         {profiles?.map((profile) => (
           <img
             key={profile.handle}
-            className="w-5 h-5 rounded-full border dark:border-gray-700"
+            className="h-5 w-5 rounded-full border dark:border-gray-700"
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
             }}
