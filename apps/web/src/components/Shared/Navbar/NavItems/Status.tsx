@@ -7,9 +7,9 @@ import React from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-type Props = {
+interface Props {
   className?: string;
-};
+}
 
 const Status: FC<Props> = ({ className = '' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
