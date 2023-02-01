@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
-import NFT from './NftCard';
+import NftCard from './NftCard';
 
 interface CardProps {
   id: string;
@@ -58,7 +58,7 @@ const DraggableCard: FC<CardProps> = ({ id, nft, index, moveCard }) => {
 
   return (
     <div ref={ref} style={{ opacity }} className="cursor-move" data-handler-id={handlerId}>
-      <NFT nft={nft} />
+      <NftCard nft={nft} />
     </div>
   );
 };

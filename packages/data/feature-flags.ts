@@ -15,6 +15,11 @@ export const featureFlags = [
     enabledFor: IS_DEVELOPMENT ? [...mainnetStaffs, ...testnetStaffs] : []
   },
   {
+    key: 'nft-detail',
+    name: 'NFT Detail Page',
+    enabledFor: IS_DEVELOPMENT ? [...mainnetStaffs, ...testnetStaffs] : []
+  },
+  {
     key: 'preferences-settings',
     name: 'Preferences settings',
     enabledFor: [...lensterMembers, ...aaveMembers]
