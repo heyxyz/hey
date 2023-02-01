@@ -15,13 +15,13 @@ import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
-type Props = {
+interface Props {
   profile: Profile;
   children: ReactNode;
   isBig?: boolean;
   followStatusLoading?: boolean;
   showUserPreview?: boolean;
-};
+}
 
 const UserPreview: FC<Props> = ({
   profile,
