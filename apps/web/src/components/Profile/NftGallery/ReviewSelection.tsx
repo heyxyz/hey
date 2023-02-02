@@ -1,5 +1,7 @@
 import SingleNFT from '@components/NFT/SingleNFT';
-import { XIcon } from '@heroicons/react/outline';
+import { EmptyState } from '@components/UI/EmptyState';
+import { CollectionIcon, XIcon } from '@heroicons/react/outline';
+import { t } from '@lingui/macro';
 import type { Nft } from 'lens';
 import React from 'react';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
@@ -15,6 +17,18 @@ const ReviewSelection = () => {
     nfts.splice(index, 1);
     setGallery({ name: gallery.name, items: nfts });
   };
+
+  if (!gallery.items.length) {
+    return (
+      <div className="p-10">
+        <EmptyState
+          hideCard
+          message={t`No collectables selected!`}
+          icon={<CollectionIcon className="text-brand h-8 w-8" />}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3">

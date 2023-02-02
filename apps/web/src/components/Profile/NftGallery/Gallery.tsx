@@ -23,21 +23,24 @@ const Gallery: FC<Props> = ({ galleries }) => {
   const gallery = galleries[0];
   const nfts = gallery.items;
 
-  const [deleteNftGallery] = useDeleteNftGalleryMutation();
+  const [deleteNftGallery] = useDeleteNftGalleryMutation({
+    onCompleted: () => {
+      toast.success('Gallery deleted');
+      location.reload();
+    }
+  });
 
   const onDelete = async () => {
     try {
-      const result = await deleteNftGallery({
-        variables: {
-          request: {
-            profileId: currentProfile?.id,
-            galleryId: gallery.id
+      if (confirm('Are you sure you want to delete?')) {
+        deleteNftGallery({
+          variables: {
+            request: {
+              profileId: currentProfile?.id,
+              galleryId: gallery.id
+            }
           }
-        }
-      });
-      if (result) {
-        toast.success('Gallery deleted');
-        location.reload();
+        });
       }
     } catch {}
   };
