@@ -1,44 +1,19 @@
 /** @type {import('next').NextConfig} */
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development'
-});
 
-module.exports = withPWA({
+module.exports = {
   reactStrictMode: false,
-  trailingSlash: false,
   transpilePackages: ['data'],
   experimental: {
     scrollRestoration: true,
     newNextLinkBehavior: true
   },
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: 'https://sitemap.lenster.xyz/sitemap.xml'
-      },
-      {
-        source: '/sitemaps/:match*',
-        destination: 'https://sitemap.lenster.xyz/sitemaps/:match*'
-      }
-    ];
-  },
   async redirects() {
     return [
       { source: '/u/:handle(.+).lens', destination: '/u/:handle', permanent: true },
       { source: '/u/:handle(.+).test', destination: '/u/:handle', permanent: true },
-      {
-        source: '/discord',
-        destination: 'https://discord.com/invite/B8eKhSSUwX',
-        permanent: true
-      },
-      {
-        source: '/donate',
-        destination: 'https://gitcoin.co/grants/5007/lenster',
-        permanent: true
-      },
+      { source: '/discord', destination: 'https://discord.com/invite/B8eKhSSUwX', permanent: true },
+      { source: '/donate', destination: 'https://gitcoin.co/grants/5007/lenster', permanent: true },
       {
         source: '/gitcoin',
         destination:
@@ -62,4 +37,4 @@ module.exports = withPWA({
       { source: '/thanks', headers }
     ];
   }
-});
+};

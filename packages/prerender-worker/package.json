@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "worker:start": "wrangler dev",
     "worker:deploy": "wrangler publish",
     "lint": "eslint . --ext .ts"
   },
