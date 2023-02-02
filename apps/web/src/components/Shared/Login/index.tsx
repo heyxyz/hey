@@ -1,29 +1,12 @@
-import WalletSelector from '@components/Shared/Login/WalletSelector';
-import { Trans } from '@lingui/macro';
-import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from 'data/constants';
+import { IS_MAINNET, STATIC_IMAGES_URL } from 'data/constants';
 import type { FC } from 'react';
-import { useState } from 'react';
 
 import NewProfile from './New';
 
 const Login: FC = () => {
-  const [hasProfile, setHasProfile] = useState(true);
-
   return (
     <div className="p-5">
-      {hasProfile ? (
-        <div className="space-y-5">
-          <div className="space-y-1">
-            <div className="text-xl font-bold">
-              <Trans>Please sign the message</Trans>.
-            </div>
-            <div className="lt-text-gray-500 text-sm">
-              <Trans>{APP_NAME} uses this signature to verify that you're the owner of this address.</Trans>
-            </div>
-          </div>
-          <WalletSelector setHasProfile={setHasProfile} />
-        </div>
-      ) : IS_MAINNET ? (
+      {IS_MAINNET ? (
         <div className="mb-2 space-y-4">
           <img
             className="h-16 w-16 rounded-full"

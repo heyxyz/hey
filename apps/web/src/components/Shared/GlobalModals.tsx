@@ -1,12 +1,21 @@
 import Report from '@components/Shared/Modal/Report';
 import { Modal } from '@components/UI/Modal';
 import { ArrowCircleRightIcon, EmojiHappyIcon, ShieldCheckIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
+import onError from '@lib/onError';
 import { t } from '@lingui/macro';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { ERROR_MESSAGE } from 'data/constants';
+import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from 'lens';
 import type { FC } from 'react';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { CHAIN_ID } from 'src/constants';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { USER } from 'src/tracking';
+import { useAccount, useNetwork, useSignMessage, useSwitchNetwork } from 'wagmi';
 
 import Login from './Login';
 import Status from './Status';
@@ -23,6 +32,100 @@ export const useLoginFlow = () => {
   return { showLoginFlow };
 };
 
+export const useSignerFlow = () => {
+  const setProfiles = useAppStore((state) => state.setProfiles);
+  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const showAuthModal = useAuthStore((state) => state.showAuthModal);
+  const { openConnectModal } = useConnectModal();
+
+  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+
+  const { chain } = useNetwork();
+  const { address, connector, isConnected } = useAccount();
+  const { signMessageAsync } = useSignMessage({ onError });
+  const { switchNetwork } = useSwitchNetwork();
+  const [loadChallenge] = useChallengeLazyQuery({
+    fetchPolicy: 'no-cache'
+  });
+  const [authenticate] = useAuthenticateMutation();
+  const [getProfiles] = useUserProfilesLazyQuery();
+  const [hasProfile, setHasProfile] = useState(true);
+
+  // todo, errorChallenge, errorAuthenticate, errorProfiles
+
+  const active = showAuthModal && !openConnectModal;
+
+  const handleSign = async () => {
+    let keepModal = false;
+    try {
+      // Get challenge
+      const challenge = await loadChallenge({
+        variables: { request: { address } }
+      });
+
+      if (!challenge?.data?.challenge?.text) {
+        return toast.error(ERROR_MESSAGE);
+      }
+
+      // Get signature
+      const signature = await signMessageAsync({
+        message: challenge?.data?.challenge?.text
+      });
+
+      // Auth user and set cookies
+      const auth = await authenticate({
+        variables: { request: { address, signature } }
+      });
+      localStorage.setItem('accessToken', auth.data?.authenticate.accessToken);
+      localStorage.setItem('refreshToken', auth.data?.authenticate.refreshToken);
+
+      // Get authed profiles
+      const { data: profilesData } = await getProfiles({
+        variables: { ownedBy: address }
+      });
+
+      if (profilesData?.profiles?.items?.length === 0) {
+        setHasProfile(false);
+        keepModal = true;
+      } else {
+        const profiles: any = profilesData?.profiles?.items
+          ?.slice()
+          ?.sort((a, b) => Number(a.id) - Number(b.id))
+          ?.sort((a, b) => (a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1));
+        const currentProfile = profiles[0];
+        setProfiles(profiles);
+        setCurrentProfile(currentProfile);
+        setProfileId(currentProfile.id);
+      }
+      Analytics.track(USER.SIWL);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (!keepModal) {
+        setShowAuthModal(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (!active) {
+      return;
+    }
+
+    if (chain?.id === CHAIN_ID) {
+      if (connector?.id && isConnected) {
+        handleSign();
+      }
+    } else {
+      switchNetwork?.(CHAIN_ID);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected, chain, active, showAuthModal, hasProfile]);
+
+  return { hasProfile };
+};
+
 const GlobalModals: FC = () => {
   // Report modal state
   const showReportModal = useGlobalModalStateStore((state) => state.showReportModal);
@@ -35,6 +138,8 @@ const GlobalModals: FC = () => {
   const showAuthModal = useAuthStore((state) => state.showAuthModal);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const { openConnectModal } = useConnectModal();
+
+  const { hasProfile } = useSignerFlow();
 
   return (
     <>
@@ -67,7 +172,7 @@ const GlobalModals: FC = () => {
       <Modal
         title={t`Login`}
         icon={<ArrowCircleRightIcon className="text-brand h-5 w-5" />}
-        show={showAuthModal && !openConnectModal}
+        show={showAuthModal && !openConnectModal && !hasProfile}
         onClose={() => setShowAuthModal(false)}
       >
         <Login />
