@@ -15,13 +15,13 @@ import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
-type Props = {
+interface Props {
   profile: Profile;
   children: ReactNode;
   isBig?: boolean;
   followStatusLoading?: boolean;
   showUserPreview?: boolean;
-};
+}
 
 const UserPreview: FC<Props> = ({
   profile,
@@ -122,7 +122,7 @@ const UserPreview: FC<Props> = ({
 
   return showUserPreview ? (
     <span onMouseOver={onPreviewStart}>
-      {lazyProfile.id ? (
+      {lazyProfile?.id ? (
         <Tippy
           placement="bottom-start"
           delay={[800, 0]}

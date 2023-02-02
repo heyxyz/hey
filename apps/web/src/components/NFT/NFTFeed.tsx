@@ -6,7 +6,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
+import { IS_MAINNET, SCROLL_THRESHOLD } from 'data/constants';
 import type { Nft, NfTsRequest, Profile } from 'lens';
 import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
@@ -21,7 +21,7 @@ interface Props {
 const NFTFeed: FC<Props> = ({ profile }) => {
   // Variables
   const request: NfTsRequest = {
-    chainIds: [CHAIN_ID, mainnet.id],
+    chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
     ownerAddress: profile?.ownedBy,
     limit: 10
   };
