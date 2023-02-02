@@ -77,7 +77,14 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
       title={
         currentStep === 'PICK_NFTS' || currentStep === 'REVIEW' ? (
           <div className="flex items-center space-x-1">
-            <button type="button" onClick={() => setCurrentStep(gallery.name.length ? 'PICK_NFTS' : 'NAME')}>
+            <button
+              type="button"
+              onClick={() =>
+                setCurrentStep(
+                  currentStep === 'REVIEW' ? 'PICK_NFTS' : currentStep === 'PICK_NFTS' ? 'NAME' : 'NAME'
+                )
+              }
+            >
               <ChevronLeftIcon className="h-4 w-4" />
             </button>
             <span>

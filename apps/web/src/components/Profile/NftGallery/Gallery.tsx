@@ -82,17 +82,6 @@ const Gallery: FC<Props> = ({ galleries }) => {
                     )
                   }
                 >
-                  Rename
-                </Menu.Item>
-                <Menu.Item
-                  as="label"
-                  className={({ active }) =>
-                    clsx(
-                      { 'dropdown-active': active },
-                      'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
-                    )
-                  }
-                >
                   Edit
                 </Menu.Item>
                 <Menu.Item
