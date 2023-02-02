@@ -5121,6 +5121,25 @@ arbundles@^0.7.3:
     secp256k1 "^4.0.2"
     tmp-promise "^3.0.2"
 
+arbundles@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/arbundles/-/arbundles-0.8.0.tgz#1aee36fb09ea77ec32a3c6b9a43bf40e205779f8"
+  integrity sha512-bwlptLa9poz+Coe5hy756i093BgG+2HpNITBpFsyCfkOT2AxW9C4lP6yK+kHpmURs+j7IElK6XdaDnVujq2Pow==
+  dependencies:
+    "@noble/ed25519" "^1.6.1"
+    arweave "^1.11.4"
+    base64url "^3.0.1"
+    bs58 "^4.0.1"
+    ethers "^5.5.1"
+    keccak "^3.0.2"
+    secp256k1 "^4.0.2"
+  optionalDependencies:
+    "@randlabs/myalgo-connect" "^1.1.2"
+    algosdk "^1.13.1"
+    arweave-stream-tx "^1.1.0"
+    multistream "^4.1.0"
+    tmp-promise "^3.0.2"
+
 arconnect@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/arconnect/-/arconnect-0.4.2.tgz#83de7638fb46183e82d7ec7efb5594c5f7cdc806"
