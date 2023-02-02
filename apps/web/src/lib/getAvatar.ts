@@ -4,7 +4,7 @@ import getIPFSLink from './getIPFSLink';
 import getStampFyiURL from './getStampFyiURL';
 import imageProxy from './imageProxy';
 
-const skipList = ['cdn.stamp.fyi', 'avataaars.io'];
+const skipList = ['assets.lenster.xyz', 'cdn.stamp.fyi', 'avataaars.io'];
 
 /**
  *
