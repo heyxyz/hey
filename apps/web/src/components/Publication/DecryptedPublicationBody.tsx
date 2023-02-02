@@ -1,10 +1,10 @@
 import Attachments from '@components/Shared/Attachments';
-import { useLoginFlow } from '@components/Shared/GlobalModals';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Tooltip } from '@components/UI/Tooltip';
+import useLoginFlow from '@components/utils/hooks/useLoginFlow';
 import useNFT from '@components/utils/hooks/useNFT';
 import {
   CollectionIcon,

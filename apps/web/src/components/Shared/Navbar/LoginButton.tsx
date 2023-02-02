@@ -1,5 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
+import useLoginFlow from '@components/utils/hooks/useLoginFlow';
 import { Analytics } from '@lib/analytics';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -7,8 +8,6 @@ import toast from 'react-hot-toast';
 import { useAuthStore } from 'src/store/auth';
 import { USER } from 'src/tracking';
 import { useAccount, useDisconnect } from 'wagmi';
-
-import { useLoginFlow } from '../GlobalModals';
 
 const LoginButton: FC = () => {
   const { isConnected } = useAccount();

@@ -1,5 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
+import useLoginFlow from '@components/utils/hooks/useLoginFlow';
 import { StarIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
@@ -11,7 +12,6 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 
-import { useLoginFlow } from '../GlobalModals';
 import Loader from '../Loader';
 import Slug from '../Slug';
 
