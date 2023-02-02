@@ -3,8 +3,10 @@ import { Menu, Transition } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { Nft, NftGallery } from 'lens';
+import { useDeleteNftGalleryMutation } from 'lens';
 import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
+import { useAppStore } from 'src/store/app';
 
 import NftCard from './NftCard';
 import ReArrange from './ReArrange';
@@ -15,9 +17,26 @@ interface Props {
 
 const Gallery: FC<Props> = ({ galleries }) => {
   const [isRearrange, setIsRearrange] = useState(false);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const gallery = galleries[0];
   const nfts = gallery.items;
+
+  const [deleteNftGallery] = useDeleteNftGalleryMutation();
+
+  const onDelete = async () => {
+    try {
+      await deleteNftGallery({
+        variables: {
+          request: {
+            profileId: currentProfile?.id,
+            galleryId: gallery.id
+          }
+        }
+      });
+      location.reload();
+    } catch {}
+  };
 
   return (
     <>
@@ -83,6 +102,18 @@ const Gallery: FC<Props> = ({ galleries }) => {
                   }
                 >
                   Rearrrange
+                </Menu.Item>
+                <Menu.Item
+                  as="label"
+                  onClick={() => onDelete()}
+                  className={({ active }) =>
+                    clsx(
+                      { 'dropdown-active': active },
+                      'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg hover:text-red-500'
+                    )
+                  }
+                >
+                  Delete
                 </Menu.Item>
               </Menu.Items>
             </Transition>

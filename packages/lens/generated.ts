@@ -7384,6 +7384,12 @@ export type CreateUnfollowTypedDataMutation = {
   };
 };
 
+export type DeleteNftGalleryMutationVariables = Exact<{
+  request: NftGalleryDeleteRequest;
+}>;
+
+export type DeleteNftGalleryMutation = { __typename?: 'Mutation'; deleteNftGallery: any };
+
 export type HidePublicationMutationVariables = Exact<{
   request: HidePublicationRequest;
 }>;
@@ -30894,6 +30900,48 @@ export type CreateUnfollowTypedDataMutationResult = Apollo.MutationResult<Create
 export type CreateUnfollowTypedDataMutationOptions = Apollo.BaseMutationOptions<
   CreateUnfollowTypedDataMutation,
   CreateUnfollowTypedDataMutationVariables
+>;
+export const DeleteNftGalleryDocument = gql`
+  mutation DeleteNftGallery($request: NftGalleryDeleteRequest!) {
+    deleteNftGallery(request: $request)
+  }
+`;
+export type DeleteNftGalleryMutationFn = Apollo.MutationFunction<
+  DeleteNftGalleryMutation,
+  DeleteNftGalleryMutationVariables
+>;
+
+/**
+ * __useDeleteNftGalleryMutation__
+ *
+ * To run a mutation, you first call `useDeleteNftGalleryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteNftGalleryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteNftGalleryMutation, { data, loading, error }] = useDeleteNftGalleryMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useDeleteNftGalleryMutation(
+  baseOptions?: Apollo.MutationHookOptions<DeleteNftGalleryMutation, DeleteNftGalleryMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<DeleteNftGalleryMutation, DeleteNftGalleryMutationVariables>(
+    DeleteNftGalleryDocument,
+    options
+  );
+}
+export type DeleteNftGalleryMutationHookResult = ReturnType<typeof useDeleteNftGalleryMutation>;
+export type DeleteNftGalleryMutationResult = Apollo.MutationResult<DeleteNftGalleryMutation>;
+export type DeleteNftGalleryMutationOptions = Apollo.BaseMutationOptions<
+  DeleteNftGalleryMutation,
+  DeleteNftGalleryMutationVariables
 >;
 export const HidePublicationDocument = gql`
   mutation HidePublication($request: HidePublicationRequest!) {
