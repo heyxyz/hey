@@ -27,12 +27,18 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
 
   const [createGallery] = useCreateNftGalleryMutation();
 
-  const onClickNext = async () => {
-    if (gallery.name.length && gallery.items.length && currentStep === 'REVIEW') {
+  const closeModal = () => {
+    setShowModal(false);
+    setCurrentStep('NAME');
+    setGallery({ name: '', items: [] });
+  };
+
+  const create = async () => {
+    try {
       const sanitizedItems = gallery.items.map((el) => {
         return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
       });
-      await createGallery({
+      const result = await createGallery({
         variables: {
           request: {
             items: sanitizedItems,
@@ -41,7 +47,16 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
           }
         }
       });
-      toast.success('Gallery created');
+      if (result.data) {
+        closeModal();
+        toast.success('Gallery created');
+      }
+    } catch {}
+  };
+
+  const onClickNext = async () => {
+    if (gallery.name.length && gallery.items.length && currentStep === 'REVIEW') {
+      create();
     } else if (gallery.name.length && gallery.items.length) {
       setCurrentStep('REVIEW');
     } else if (gallery.name.length && !gallery.items.length) {
@@ -49,6 +64,11 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
     } else {
       setCurrentStep('NAME');
     }
+  };
+
+  const onPickEmoji = (emoji: string) => {
+    setEmoji(emoji);
+    setGallery({ ...gallery, name: gallery.name + emoji });
   };
 
   return (
@@ -73,11 +93,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
         )
       }
       show={showModal}
-      onClose={() => {
-        setShowModal(false);
-        setCurrentStep('NAME');
-        setGallery({ name: '', items: [] });
-      }}
+      onClose={() => closeModal()}
     >
       <div className="max-h-[80vh] overflow-y-auto pb-16">
         {currentStep === 'REVIEW' ? (
@@ -94,7 +110,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
         )}
         <div className="absolute bottom-0 flex w-full items-center justify-between rounded-b-lg bg-white p-4 dark:bg-gray-800">
           {currentStep === 'NAME' ? (
-            <EmojiPicker emoji={emoji} setEmoji={setEmoji} />
+            <EmojiPicker emoji={emoji} setEmoji={(emoji) => onPickEmoji(emoji)} />
           ) : (
             `${gallery.items.length} selected`
           )}

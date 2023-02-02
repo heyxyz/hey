@@ -1,3 +1,4 @@
+import NftGalleryShimmer from '@components/Shared/Shimmer/NftGalleryShimmer';
 import type { NftGallery, Profile } from 'lens';
 import { useNftGalleriesQuery } from 'lens';
 import type { FC } from 'react';
@@ -11,11 +12,15 @@ interface Props {
 }
 
 const NftGalleryHome: FC<Props> = ({ profile }) => {
-  const { data } = useNftGalleriesQuery({
+  const { data, loading } = useNftGalleriesQuery({
     variables: { request: { profileId: profile?.id } }
   });
 
   const nftGalleries = data?.nftGalleries as NftGallery[];
+
+  if (loading) {
+    return <NftGalleryShimmer />;
+  }
 
   if (!nftGalleries?.length) {
     return <NoGallery profile={profile} />;
@@ -23,7 +28,7 @@ const NftGalleryHome: FC<Props> = ({ profile }) => {
 
   return (
     <div className="space-y-4">
-      <Gallery profile={profile} galleries={nftGalleries} />
+      <Gallery galleries={nftGalleries} />
     </div>
   );
 };

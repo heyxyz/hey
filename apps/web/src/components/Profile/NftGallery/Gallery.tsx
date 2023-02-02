@@ -2,7 +2,7 @@ import { Button } from '@components/UI/Button';
 import { Menu, Transition } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
-import type { Nft, NftGallery, Profile } from 'lens';
+import type { Nft, NftGallery } from 'lens';
 import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
 
@@ -10,21 +10,19 @@ import NftCard from './NftCard';
 import ReArrange from './ReArrange';
 
 interface Props {
-  profile: Profile;
   galleries: NftGallery[];
 }
 
-const Gallery: FC<Props> = ({ profile, galleries }) => {
+const Gallery: FC<Props> = ({ galleries }) => {
   const [isRearrange, setIsRearrange] = useState(false);
 
-  const nfts = galleries[0].items;
+  const gallery = galleries[0];
+  const nfts = gallery.items;
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <h6 className="text-lg font-medium">
-          {isRearrange ? 'Arrange gallery' : `${profile.name}'s gallery`}
-        </h6>
+        <h6 className="text-lg font-medium">{isRearrange ? 'Arrange gallery' : gallery.name}</h6>
         {isRearrange ? (
           <div className="flex items-center space-x-2">
             <Button onClick={() => setIsRearrange(false)} size="sm" variant="secondary">
