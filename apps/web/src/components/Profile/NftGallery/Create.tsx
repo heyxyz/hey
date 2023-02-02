@@ -47,7 +47,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
           }
         }
       });
-      if (result.data) {
+      if (result) {
         closeModal();
         toast.success('Gallery created');
       }

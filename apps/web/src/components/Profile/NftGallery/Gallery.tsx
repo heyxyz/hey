@@ -6,6 +6,7 @@ import type { Nft, NftGallery } from 'lens';
 import { useDeleteNftGalleryMutation } from 'lens';
 import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 
 import NftCard from './NftCard';
@@ -26,7 +27,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
 
   const onDelete = async () => {
     try {
-      await deleteNftGallery({
+      const result = await deleteNftGallery({
         variables: {
           request: {
             profileId: currentProfile?.id,
@@ -34,7 +35,10 @@ const Gallery: FC<Props> = ({ galleries }) => {
           }
         }
       });
-      location.reload();
+      if (result) {
+        toast.success('Gallery deleted');
+        location.reload();
+      }
     } catch {}
   };
 
