@@ -4,7 +4,7 @@ import getIPFSLink from './getIPFSLink';
 import getStampFyiURL from './getStampFyiURL';
 import imageProxy from './imageProxy';
 
-const skipList = ['assets.lenster.xyz', 'cdn.stamp.fyi', 'avataaars.io'];
+const skipList = ['assets.lenster.xyz', 'cdn.stamp.fyi', 'avataaars.io', 'avatar.tobi.sh'];
 
 /**
  *
@@ -13,17 +13,17 @@ const skipList = ['assets.lenster.xyz', 'cdn.stamp.fyi', 'avataaars.io'];
  * @returns avatar image url
  */
 const getAvatar = (profile: any, isCdn = true): string => {
+  const avatarUrl =
+    profile?.picture?.original?.url ??
+    profile?.picture?.uri ??
+    getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS);
+  const url = new URL(avatarUrl);
+
+  if (skipList.includes(url.hostname)) {
+    return avatarUrl;
+  }
+
   if (isCdn) {
-    const avatarUrl =
-      profile?.picture?.original?.url ??
-      profile?.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS);
-    const url = new URL(avatarUrl);
-
-    if (skipList.includes(url.hostname)) {
-      return avatarUrl;
-    }
-
     return imageProxy(getIPFSLink(avatarUrl), AVATAR);
   }
 
