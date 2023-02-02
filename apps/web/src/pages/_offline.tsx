@@ -7,7 +7,7 @@ import type { FC } from 'react';
 
 const Offline: FC = () => {
   return (
-    <div className="flex-col page-center">
+    <div className="page-center flex-col">
       <MetaTags title={`Offline • ${APP_NAME}`} />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">
@@ -17,9 +17,9 @@ const Offline: FC = () => {
           <Trans>Check your internet connection and try again</Trans>
         </div>
         <Button
-          className="flex mx-auto item-center"
+          className="item-center mx-auto flex"
           size="lg"
-          icon={<RefreshIcon className="w-4 h-4" />}
+          icon={<RefreshIcon className="h-4 w-4" />}
           onClick={() => location.reload()}
         >
           <Trans>Retry</Trans>

@@ -45,7 +45,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableDiv">
       <ErrorMessage className="m-5" title={t`Failed to load mutual followers`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}

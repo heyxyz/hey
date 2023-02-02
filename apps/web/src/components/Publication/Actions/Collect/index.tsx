@@ -54,7 +54,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
 
   return (
     <>
-      <div className="text-red-500 flex items-center space-x-1">
+      <div className="flex items-center space-x-1 text-red-500">
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => {
@@ -63,7 +63,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
           }}
           aria-label="Collect"
         >
-          <div className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
+          <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
             <Tooltip
               placement="top"
               content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}

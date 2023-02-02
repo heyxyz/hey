@@ -11,7 +11,7 @@ import type { FC } from 'react';
 
 const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, helper, stat }) => (
   <>
-    <span className="text-sm lt-text-gray-500 font-bold flex items-center space-x-1">
+    <span className="lt-text-gray-500 flex items-center space-x-1 text-sm font-bold">
       <span>{title}</span>
       <HelpTooltip content={helper} />
     </span>

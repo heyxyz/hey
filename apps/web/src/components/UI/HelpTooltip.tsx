@@ -17,7 +17,7 @@ const HelpTooltip: FC<Props> = ({ content }) => {
     <Tippy
       placement="top"
       duration={0}
-      className="p-2.5 tracking-wide !rounded-xl !leading-5 shadow-lg"
+      className="!rounded-xl p-2.5 !leading-5 tracking-wide shadow-lg"
       content={<span>{content}</span>}
     >
       <InformationCircleIcon className="lt-text-gray-500 h-[15px] w-[15px]" />

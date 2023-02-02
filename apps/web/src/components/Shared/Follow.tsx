@@ -180,12 +180,12 @@ const Follow: FC<Props> = ({
 
   return (
     <Button
-      className="text-sm !px-3 !py-1.5"
+      className="!px-3 !py-1.5 text-sm"
       outline={outline}
       onClick={createFollow}
       aria-label="Follow"
       disabled={isLoading}
-      icon={isLoading ? <Spinner size="xs" /> : <UserAddIcon className="w-4 h-4" />}
+      icon={isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />}
     >
       {showText && t`Follow`}
     </Button>

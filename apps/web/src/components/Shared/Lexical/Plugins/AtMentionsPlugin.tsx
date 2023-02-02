@@ -113,16 +113,16 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
       onMouseEnter={onMouseEnter}
       onClick={onClick}
     >
-      <div className="dark:hover:bg-gray-800 hover:bg-gray-200 dark:text-white flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl">
+      <div className="m-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800">
         <img
-          className="rounded-full w-7 h-7"
+          className="h-7 w-7 rounded-full"
           height="32"
           width="32"
           src={option.picture}
           alt={option.handle}
         />
         <div className="flex flex-col truncate">
-          <div className="text-sm truncate">{option.name}</div>
+          <div className="truncate text-sm">{option.name}</div>
           <span className="text-xs">{formatHandle(option.handle)}</span>
         </div>
       </div>
@@ -220,7 +220,7 @@ const NewMentionsPlugin: FC = () => {
       menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
-              <div className="bg-white dark:bg-gray-900 mt-8 border dark:border-gray-700 rounded-xl shadow-sm w-52 sticky z-40 bg-brand min-w-full">
+              <div className="bg-brand sticky z-40 mt-8 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
                 <ul className="divide-y dark:divide-gray-700">
                   {options.map((option, i: number) => (
                     <MentionsTypeaheadMenuItem

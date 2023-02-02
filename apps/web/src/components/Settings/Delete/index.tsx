@@ -108,7 +108,7 @@ const DeleteSettings: FC = () => {
             </Trans>
           </p>
           <div className="text-lg font-bold">What else you should know</div>
-          <div className="text-sm lt-text-gray-500 divide-y dark:divide-gray-700">
+          <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
             <p className="pb-3">
               <Trans>
                 You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted.
@@ -125,7 +125,7 @@ const DeleteSettings: FC = () => {
           </div>
           <Button
             variant="danger"
-            icon={isDeleting ? <Spinner variant="danger" size="xs" /> : <TrashIcon className="w-5 h-5" />}
+            icon={isDeleting ? <Spinner variant="danger" size="xs" /> : <TrashIcon className="h-5 w-5" />}
             disabled={isDeleting}
             onClick={() => setShowWarningModal(true)}
           >
@@ -133,11 +133,11 @@ const DeleteSettings: FC = () => {
           </Button>
           <Modal
             title={t`Danger Zone`}
-            icon={<ExclamationIcon className="w-5 h-5 text-red-500" />}
+            icon={<ExclamationIcon className="h-5 w-5 text-red-500" />}
             show={showWarningModal}
             onClose={() => setShowWarningModal(false)}
           >
-            <div className="p-5 space-y-3">
+            <div className="space-y-3 p-5">
               <WarningMessage
                 title="Are you sure?"
                 message={
@@ -150,7 +150,7 @@ const DeleteSettings: FC = () => {
               />
               <Button
                 variant="danger"
-                icon={<TrashIcon className="w-5 h-5" />}
+                icon={<TrashIcon className="h-5 w-5" />}
                 onClick={() => {
                   setShowWarningModal(false);
                   handleDelete();

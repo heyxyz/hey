@@ -45,7 +45,7 @@ const AccessSettings: FC = () => {
             />
           </div>
         }
-        icon={<LockClosedIcon className="w-5 h-5 text-brand" />}
+        icon={<LockClosedIcon className="text-brand h-5 w-5" />}
         show={showModal}
         onClose={() => {
           setShowModal(false);

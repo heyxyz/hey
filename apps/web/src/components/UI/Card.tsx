@@ -22,7 +22,7 @@ export const Card: FC<CardProps> = ({
     <Tag
       className={clsx(
         forceRounded ? 'rounded-xl' : 'rounded-none sm:rounded-xl',
-        'border dark:border-gray-700 bg-white dark:bg-black',
+        'border bg-white dark:border-gray-700 dark:bg-black',
         className
       )}
       data-test={dataTest}

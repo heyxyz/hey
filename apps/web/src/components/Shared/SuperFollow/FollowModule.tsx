@@ -159,15 +159,15 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
 
   return (
     <div className="p-5">
-      <div className="pb-2 space-y-1.5">
+      <div className="space-y-1.5 pb-2">
         <div className="text-lg font-bold">
           Super follow <Slug slug={formatHandle(profile?.handle)} prefix="@" /> {again ? 'again' : ''}
         </div>
         <div className="lt-text-gray-500">Follow {again ? 'again' : ''} and get some awesome perks!</div>
       </div>
-      <div className="flex items-center py-2 space-x-1.5">
+      <div className="flex items-center space-x-1.5 py-2">
         <img
-          className="w-7 h-7"
+          className="h-7 w-7"
           height={28}
           width={28}
           src={getTokenImage(followModule?.amount?.asset?.symbol)}
@@ -180,7 +180,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
         </span>
       </div>
       <div className="flex items-center space-x-2">
-        <UserIcon className="w-4 h-4 lt-text-gray-500" />
+        <UserIcon className="lt-text-gray-500 h-4 w-4" />
         <div className="space-x-1.5">
           <span>
             <Trans>Recipient:</Trans>
@@ -195,34 +195,34 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
           </a>
         </div>
       </div>
-      <div className="pt-5 space-y-2">
+      <div className="space-y-2 pt-5">
         <div className="text-lg font-bold">Perks you get</div>
-        <ul className="space-y-1 text-sm lt-text-gray-500">
-          <li className="flex space-x-2 tracking-normal leading-6">
+        <ul className="lt-text-gray-500 space-y-1 text-sm">
+          <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
               <Trans>You can comment on @{formatHandle(profile?.handle)}'s publications</Trans>
             </div>
           </li>
-          <li className="flex space-x-2 tracking-normal leading-6">
+          <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
               <Trans>You can collect @{formatHandle(profile?.handle)}'s publications</Trans>
             </div>
           </li>
-          <li className="flex space-x-2 tracking-normal leading-6">
+          <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
               <Trans>You will get super follow badge in @{formatHandle(profile?.handle)}'s profile</Trans>
             </div>
           </li>
-          <li className="flex space-x-2 tracking-normal leading-6">
+          <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
               <Trans>You will have high voting power if you followed multiple times</Trans>
             </div>
           </li>
-          <li className="flex space-x-2 tracking-normal leading-6">
+          <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
               <Trans>More coming soon™</Trans>
@@ -232,11 +232,11 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
       </div>
       {currentProfile ? (
         allowanceLoading ? (
-          <div className="mt-5 w-28 rounded-lg h-[34px] shimmer" />
+          <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
         ) : allowed ? (
           hasAmount ? (
             <Button
-              className="text-sm !px-3 !py-1.5 mt-5"
+              className="mt-5 !px-3 !py-1.5 text-sm"
               variant="super"
               outline
               onClick={createFollow}
@@ -245,7 +245,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
                 typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
                   <Spinner variant="super" size="xs" />
                 ) : (
-                  <StarIcon className="w-4 h-4" />
+                  <StarIcon className="h-4 w-4" />
                 )
               }
             >

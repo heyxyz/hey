@@ -52,14 +52,14 @@ const Followers: FC<Props> = ({ profile }) => {
             </span>
           </div>
         }
-        icon={<UsersIcon className="w-8 h-8 text-brand" />}
+        icon={<UsersIcon className="text-brand h-8 w-8" />}
         hideCard
       />
     );
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableDiv">
       <ErrorMessage className="m-5" title={t`Failed to load followers`} error={error} />
       <InfiniteScroll
         dataLength={followers?.length ?? 0}

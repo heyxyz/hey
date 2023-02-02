@@ -119,7 +119,7 @@ const SetProfile: FC = () => {
         </>
       ) : (
         <div className="flex items-center space-x-1.5 font-bold text-yellow-500">
-          <ExclamationIcon className="w-5 h-5" />
+          <ExclamationIcon className="h-5 w-5" />
           <div>
             <Trans>You don't have any default profile set!</Trans>
           </div>
@@ -137,7 +137,7 @@ const SetProfile: FC = () => {
       <div className="text-lg font-bold">
         <Trans>What else you should know</Trans>
       </div>
-      <div className="text-sm lt-text-gray-500 divide-y dark:divide-gray-700">
+      <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
           <Trans>
             Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc.
@@ -152,7 +152,7 @@ const SetProfile: FC = () => {
           <Trans>Select profile</Trans>
         </div>
         <select
-          className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
+          className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
           onChange={(e) => setSelectedUser(e.target.value)}
         >
           {sortedProfiles?.map((profile: Profile) => (
@@ -167,7 +167,7 @@ const SetProfile: FC = () => {
         type="submit"
         disabled={isLoading}
         onClick={setDefaultProfile}
-        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
       >
         <Trans>Save</Trans>
       </Button>

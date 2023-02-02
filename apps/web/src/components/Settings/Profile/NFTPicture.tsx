@@ -182,7 +182,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         <div className="label">Chain</div>
         <div>
           <select
-            className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
+            className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
             onChange={(e) => setChainId(parseInt(e.target.value))}
             value={chainId}
           >
@@ -204,7 +204,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
         className="ml-auto"
         type="submit"
         disabled={isLoading}
-        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
       >
         <Trans>Save</Trans>
       </Button>

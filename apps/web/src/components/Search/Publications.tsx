@@ -57,7 +57,7 @@ const Publications: FC<Props> = ({ query }) => {
             No publications for <b>&ldquo;{query}&rdquo;</b>
           </Trans>
         }
-        icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+        icon={<CollectionIcon className="text-brand h-8 w-8" />}
       />
     );
   }

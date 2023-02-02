@@ -20,20 +20,20 @@ const MediaFilter = () => {
     <Menu as="div" className="relative">
       <Menu.Button className="rounded-md hover:bg-gray-300 hover:bg-opacity-20">
         <Tooltip placement="top" content="Filter">
-          <AdjustmentsIcon className="w-5 h-5 text-brand" />
+          <AdjustmentsIcon className="text-brand h-5 w-5" />
         </Tooltip>
       </Menu.Button>
       <MenuTransition>
         <Menu.Items
           static
-          className="absolute right-0 py-1 z-[5] mt-1 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
+          className="absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
           <Menu.Item
             as="label"
             className={({ active }) =>
               clsx(
                 { 'dropdown-active': active },
-                'flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+                'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
           >
@@ -49,7 +49,7 @@ const MediaFilter = () => {
             className={({ active }) =>
               clsx(
                 { 'dropdown-active': active },
-                'flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+                'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
           >
@@ -65,7 +65,7 @@ const MediaFilter = () => {
             className={({ active }) =>
               clsx(
                 { 'dropdown-active': active },
-                'flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+                'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
           >

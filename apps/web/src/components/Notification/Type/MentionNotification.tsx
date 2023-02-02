@@ -39,8 +39,8 @@ const MentionNotification: FC<Props> = ({ notification }) => {
   const profile = notification?.mentionPublication?.profile;
   const typeName = notification?.mentionPublication.__typename?.toLowerCase() || '';
   return (
-    <div className="flex justify-between items-start">
-      <div className="space-y-2 w-4/5">
+    <div className="flex items-start justify-between">
+      <div className="w-4/5 space-y-2">
         <div className="flex items-center space-x-3">
           <AtSymbolIcon className="h-6 w-6 text-orange-500/70" />
           <UserPreview profile={profile}>
@@ -64,7 +64,7 @@ const MentionNotification: FC<Props> = ({ notification }) => {
           </Link>
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]" title={formatTime(notification?.createdAt)}>
+      <div className="text-[12px] text-gray-400" title={formatTime(notification?.createdAt)}>
         {dayjs(new Date(notification?.createdAt)).fromNow()}
       </div>
     </div>

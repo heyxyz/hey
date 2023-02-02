@@ -19,9 +19,9 @@ interface StatusProps {
 const Status: FC<StatusProps> = ({ finished, title }) => (
   <div className="flex items-center space-x-1.5">
     {finished ? (
-      <CheckCircleIcon className="w-5 h-5 text-green-500" />
+      <CheckCircleIcon className="h-5 w-5 text-green-500" />
     ) : (
-      <MinusCircleIcon className="w-5 h-5 text-yellow-500" />
+      <MinusCircleIcon className="h-5 w-5 text-yellow-500" />
     )}
     <div className={clsx(finished ? 'text-green-500' : 'text-yellow-500')}>{title}</div>
   </div>
@@ -44,10 +44,10 @@ const SetProfile: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 bg-green-50 dark:bg-green-900 !border-green-600 space-y-4 text-green-600 p-5"
+      className="mb-4 space-y-4 !border-green-600 bg-green-50 p-5 text-green-600 dark:bg-green-900"
     >
       <div className="flex items-center space-x-2 font-bold">
-        <PhotographIcon className="w-5 h-5" />
+        <PhotographIcon className="h-5 w-5" />
         <p>
           <Trans>Setup your {APP_NAME} profile</Trans>
         </p>
@@ -71,7 +71,7 @@ const SetProfile: FC = () => {
         </div>
       </div>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
-        <PencilAltIcon className="w-4 h-4" />
+        <PencilAltIcon className="h-4 w-4" />
         <Link onClick={() => Analytics.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE)} href="/settings">
           <Trans>Update profile now</Trans>
         </Link>

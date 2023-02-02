@@ -38,10 +38,10 @@ const Navbar: FC = () => {
       <Link href={url} aria-current={current ? 'page' : undefined}>
         <Disclosure.Button
           className={clsx(
-            'w-full text-left px-2 md:px-3 py-1 rounded-md font-bold cursor-pointer text-sm tracking-wide',
+            'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
             {
-              'text-black dark:text-white bg-gray-200 dark:bg-gray-800': current,
-              'text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-gray-200 dark:hover:bg-gray-800':
+              'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
+              'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
                 !current
             }
           )}
@@ -67,27 +67,27 @@ const Navbar: FC = () => {
   return (
     <Disclosure
       as="header"
-      className="sticky top-0 z-10 w-full bg-white border-b dark:bg-black dark:border-b-gray-700"
+      className="sticky top-0 z-10 w-full border-b bg-white dark:border-b-gray-700 dark:bg-black"
     >
       {({ open }) => (
         <>
           {staffMode && <StaffBar />}
-          <div className="container px-5 mx-auto max-w-screen-xl">
-            <div className="flex relative justify-between items-center h-14 sm:h-16">
-              <div className="flex justify-start items-center">
-                <Disclosure.Button className="inline-flex justify-center items-center text-gray-500 rounded-md md:hidden focus:outline-none">
-                  {open ? <XIcon className="w-6 h-6" /> : <SearchIcon className="w-6 h-6" />}
+          <div className="container mx-auto max-w-screen-xl px-5">
+            <div className="relative flex h-14 items-center justify-between sm:h-16">
+              <div className="flex items-center justify-start">
+                <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-500 focus:outline-none md:hidden">
+                  {open ? <XIcon className="h-6 w-6" /> : <SearchIcon className="h-6 w-6" />}
                 </Disclosure.Button>
                 <Link href="/" className="hidden md:block">
                   <img
-                    className="w-8 h-8"
+                    className="h-8 w-8"
                     height={32}
                     width={32}
                     src={currentProfile && hasPrideLogo(currentProfile) ? '/pride.svg' : '/logo.svg'}
                     alt="Logo"
                   />
                 </Link>
-                <div className="hidden md:block sm:ml-6">
+                <div className="hidden sm:ml-6 md:block">
                   <div className="flex items-center space-x-4">
                     <div className="hidden md:block">
                       <Search onProfileSelected={onProfileSelected} />
@@ -98,14 +98,14 @@ const Navbar: FC = () => {
               </div>
               <Link href="/" className={clsx('md:hidden', !currentProfile?.id && 'ml-[60px]')}>
                 <img
-                  className="w-7 h-7"
+                  className="h-7 w-7"
                   height={32}
                   width={32}
                   src={currentProfile && hasPrideLogo(currentProfile) ? '/pride.svg' : '/logo.svg'}
                   alt="Logo"
                 />
               </Link>
-              <div className="flex gap-4 items-center">
+              <div className="flex items-center gap-4">
                 {currentProfile ? (
                   <>
                     <MessageIcon />

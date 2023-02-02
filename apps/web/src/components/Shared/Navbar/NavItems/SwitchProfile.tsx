@@ -16,13 +16,13 @@ const SwitchProfile: FC<Props> = ({ className = '' }) => {
     <button
       type="button"
       className={clsx(
-        'flex px-4 py-1.5 focus:outline-none text-sm w-full text-gray-700 dark:text-gray-200',
+        'flex w-full px-4 py-1.5 text-sm text-gray-700 focus:outline-none dark:text-gray-200',
         className
       )}
       onClick={() => setShowProfileSwitchModal(true)}
     >
       <div className="flex items-center space-x-2">
-        <SwitchHorizontalIcon className="w-4 h-4" />
+        <SwitchHorizontalIcon className="h-4 w-4" />
         <span>
           <Trans>Switch Profile</Trans>
         </span>

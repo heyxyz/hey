@@ -89,14 +89,14 @@ const ViewProfile: NextPage = () => {
     <>
       <Modal show={showFollowModal} onClose={() => setShowFollowModal(false)}>
         <div className="p-5">
-          <div className="flex text-lg font-bold justify-between">
+          <div className="flex justify-between text-lg font-bold">
             <span className="flex">
               <img
                 onError={({ currentTarget }) => {
                   currentTarget.src = getAvatar(profile, false);
                 }}
                 src={getAvatar(profile)}
-                className="h-10 w-10 bg-gray-200 rounded-full border dark:border-gray-700 mr-2"
+                className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
                 alt={formatHandle(profile?.handle)}
               />
               <Slug className="flex items-center" slug={formatHandle(profile?.handle)} prefix="@" />{' '}
@@ -112,7 +112,7 @@ const ViewProfile: NextPage = () => {
                 </div>
               )}
               <Button
-                className="text-sm !px-3 !py-1.5 ml-3"
+                className="ml-3 !px-3 !py-1.5 text-sm"
                 outline
                 onClick={() => {
                   setShowFollowModal(false);
