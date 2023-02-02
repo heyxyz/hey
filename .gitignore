@@ -39,10 +39,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# next-pwa
-**/public/workbox-*.js
-**/public/sw.js
-**/public/worker-*.js
-
 # cloudflare workers
 .dev.vars
