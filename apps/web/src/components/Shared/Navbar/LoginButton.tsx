@@ -1,8 +1,10 @@
 import { Button } from '@components/UI/Button';
+import { Spinner } from '@components/UI/Spinner';
 import { Analytics } from '@lib/analytics';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
+import { useAuthStore } from 'src/store/auth';
 import { USER } from 'src/tracking';
 import { useAccount, useDisconnect } from 'wagmi';
 
@@ -16,11 +18,19 @@ const LoginButton: FC = () => {
       toast.error(error?.message);
     }
   });
+  const signingInProgress = useAuthStore((state) => state.signingInProgress);
 
   return (
     <>
       <Button
-        icon={<img className="mr-0.5 h-4 w-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />}
+        disabled={signingInProgress}
+        icon={
+          signingInProgress ? (
+            <Spinner className="mr-0.5" size="xs" />
+          ) : (
+            <img className="mr-0.5 h-4 w-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />
+          )
+        }
         onClick={() => {
           showLoginFlow();
           Analytics.track(USER.LOGIN);

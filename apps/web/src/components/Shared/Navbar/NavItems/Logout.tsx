@@ -7,8 +7,8 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import React from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
-import { useDisconnect } from 'wagmi';
 
 interface Props {
   onClick?: () => void;
@@ -16,11 +16,11 @@ interface Props {
 }
 
 const Logout: FC<Props> = ({ onClick, className = '' }) => {
-  const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();
 
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const setLoginRequested = useAuthStore((state) => state.setLoginRequested);
 
   const logout = () => {
     Analytics.track(PROFILE.LOGOUT);
@@ -28,7 +28,7 @@ const Logout: FC<Props> = ({ onClick, className = '' }) => {
     setCurrentProfile(null);
     setProfileId(null);
     resetAuthData();
-    disconnect?.();
+    setLoginRequested(false);
   };
 
   return (

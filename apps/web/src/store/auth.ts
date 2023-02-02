@@ -1,11 +1,19 @@
 import { create } from 'zustand';
 
 interface AuthState {
-  showAuthModal: boolean;
-  setShowAuthModal: (showAuthModal: boolean) => void;
+  showSignupModal: boolean;
+  setShowSignupModal: (showSignupModal: boolean) => void;
+  loginRequested: boolean;
+  setLoginRequested: (loginRequested: boolean) => void;
+  signingInProgress: boolean;
+  setSigningInProgress: (signingInProgress: boolean) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  showAuthModal: false,
-  setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal: showAuthModal }))
+  showSignupModal: false,
+  setShowSignupModal: (showSignupModal) => set(() => ({ showSignupModal: showSignupModal })),
+  loginRequested: false,
+  setLoginRequested: (loginRequested) => set(() => ({ loginRequested: loginRequested })),
+  signingInProgress: false,
+  setSigningInProgress: (signingInProgress) => set(() => ({ signingInProgress: signingInProgress }))
 }));

@@ -8,7 +8,7 @@ import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { ERROR_MESSAGE } from 'data/constants';
 import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from 'lens';
 import type { FC } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -22,24 +22,14 @@ import Status from './Status';
 import SwitchProfiles from './SwitchProfiles';
 
 export const useLoginFlow = () => {
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const { openConnectModal } = useConnectModal();
 
-  const showLoginFlow = useCallback(() => {
-    openConnectModal?.();
-    setShowAuthModal(true);
-  }, [openConnectModal, setShowAuthModal]);
-  return { showLoginFlow };
-};
-
-export const useSignerFlow = () => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const showAuthModal = useAuthStore((state) => state.showAuthModal);
-  const { openConnectModal } = useConnectModal();
-
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const setShowSignupModal = useAuthStore((state) => state.setShowSignupModal);
+  const setLoginRequested = useAuthStore((state) => state.setLoginRequested);
+  const setSigningInProgress = useAuthStore((state) => state.setSigningInProgress);
 
   const { chain } = useNetwork();
   const { address, connector, isConnected } = useAccount();
@@ -50,15 +40,11 @@ export const useSignerFlow = () => {
   });
   const [authenticate] = useAuthenticateMutation();
   const [getProfiles] = useUserProfilesLazyQuery();
-  const [hasProfile, setHasProfile] = useState(true);
 
-  // todo, errorChallenge, errorAuthenticate, errorProfiles
-
-  const active = showAuthModal && !openConnectModal;
-
-  const handleSign = async () => {
-    let keepModal = false;
+  const handleSign = useCallback(async () => {
+    console.log('handleSign gm');
     try {
+      setSigningInProgress(true);
       // Get challenge
       const challenge = await loadChallenge({
         variables: { request: { address } }
@@ -86,8 +72,7 @@ export const useSignerFlow = () => {
       });
 
       if (profilesData?.profiles?.items?.length === 0) {
-        setHasProfile(false);
-        keepModal = true;
+        setShowSignupModal(true);
       } else {
         const profiles: any = profilesData?.profiles?.items
           ?.slice()
@@ -102,14 +87,26 @@ export const useSignerFlow = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      if (!keepModal) {
-        setShowAuthModal(false);
-      }
+      setSigningInProgress(false);
     }
-  };
+  }, [
+    address,
+    authenticate,
+    getProfiles,
+    loadChallenge,
+    setCurrentProfile,
+    setProfileId,
+    setProfiles,
+    setShowSignupModal,
+    setSigningInProgress,
+    signMessageAsync
+  ]);
 
-  useEffect(() => {
-    if (!active) {
+  const showLoginFlow = useCallback(() => {
+    console.log('showLoginFlow gm');
+    setLoginRequested(true);
+    if (openConnectModal) {
+      openConnectModal();
       return;
     }
 
@@ -120,10 +117,9 @@ export const useSignerFlow = () => {
     } else {
       switchNetwork?.(CHAIN_ID);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, chain, active, showAuthModal, hasProfile]);
+  }, [chain?.id, connector?.id, handleSign, isConnected, openConnectModal, setLoginRequested, switchNetwork]);
 
-  return { hasProfile };
+  return { showLoginFlow, handleSign };
 };
 
 const GlobalModals: FC = () => {
@@ -135,11 +131,19 @@ const GlobalModals: FC = () => {
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const showProfileSwitchModal = useGlobalModalStateStore((state) => state.showProfileSwitchModal);
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
-  const showAuthModal = useAuthStore((state) => state.showAuthModal);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
-  const { openConnectModal } = useConnectModal();
+  const setShowSignupModal = useAuthStore((state) => state.setShowSignupModal);
+  const showSignupModal = useAuthStore((state) => state.showSignupModal);
+  const loginRequested = useAuthStore((state) => state.loginRequested);
+  const { isConnected } = useAccount();
+  const { handleSign } = useLoginFlow();
 
-  const { hasProfile } = useSignerFlow();
+  useEffect(() => {
+    if (isConnected && loginRequested) {
+      handleSign();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected]);
 
   return (
     <>
@@ -172,8 +176,8 @@ const GlobalModals: FC = () => {
       <Modal
         title={t`Login`}
         icon={<ArrowCircleRightIcon className="text-brand h-5 w-5" />}
-        show={showAuthModal && !openConnectModal && !hasProfile}
-        onClose={() => setShowAuthModal(false)}
+        show={showSignupModal}
+        onClose={() => setShowSignupModal(false)}
       >
         <Login />
       </Modal>
