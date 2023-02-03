@@ -63,10 +63,6 @@ const Thanks: FC = () => {
                 Vercel combines the best developer experience with an obsessive focus on end-user performance.
                 Vercel platform enables frontend teams to do their best work.
               </Brand>
-              <Brand name="Imagekit" logo="imagekit" url="https://imagekit.io" size={50} type="svg">
-                Image CDN with automatic optimization, real-time transformation, and storage that you can
-                integrate with existing setup in minutes.
-              </Brand>
               <Brand name="4EVERLAND" logo="4everland" url="https://4everland.org" size={50} type="png">
                 4EVERLAND is a Web 3.0 cloud computing platform that integrates storage, computing, and
                 network core capabilities.
