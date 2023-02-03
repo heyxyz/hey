@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "lingui compile; next dev --port 4783",
     "build": "lingui compile; next build",
-    "start": "next start",
+    "start": "next build; next start --port 4783",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
-    "extract": "lingui compile; NODE_ENV=development lingui extract"
+    "extract": "lingui compile; NODE_ENV=development lingui extract",
+    "test:dev": "playwright test",
+    "test:e2e": "start-server-and-test start http://localhost:4783 test:dev"
   },
   "dependencies": {
     "@apollo/client": "^3.7.6",
@@ -61,9 +63,11 @@
     "@babel/core": "^7.20.12",
     "@giphy/js-types": "^4.2.1",
     "@lingui/cli": "^3.17.0",
+    "@playwright/test": "^1.30.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@types/node": "^18.11.18",
     "@types/react": "^18.0.27",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.10",
@@ -76,6 +80,7 @@
     "lens": "*",
     "postcss": "^8.4.21",
     "prettier-plugin-tailwindcss": "^0.2.2",
+    "start-server-and-test": "^1.15.3",
     "tailwindcss": "^3.2.1",
     "tsconfig": "*",
     "typescript": "^4.9.5"
