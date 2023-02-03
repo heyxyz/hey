@@ -5,9 +5,10 @@ import { ArrowCircleRightIcon, EmojiHappyIcon, ShieldCheckIcon } from '@heroicon
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useEffect } from 'react';
+import { CHAIN_ID } from 'src/constants';
 import { useAuthStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
 
 import Login from './Login';
 import Status from './Status';
@@ -27,14 +28,20 @@ const GlobalModals: FC = () => {
   const loginRequested = useAuthStore((state) => state.loginRequested);
   const { isConnected } = useAccount();
   const { handleSign } = useLoginFlow();
+  const { chain } = useNetwork();
+  const { switchNetwork } = useSwitchNetwork();
 
   useEffect(() => {
-    if (isConnected && loginRequested) {
-      handleSign();
+    if (isConnected) {
+      if (chain?.id != CHAIN_ID) {
+        switchNetwork?.(CHAIN_ID);
+      } else if (loginRequested) {
+        handleSign();
+      }
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected]);
+  }, [isConnected, chain]);
 
   return (
     <>
