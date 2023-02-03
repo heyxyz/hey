@@ -2313,32 +2313,32 @@ msgid "The Unknown Collect Module is unknown and not type supported in the API."
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Fee Collect"
-msgstr ""
+msgid "Paid Collect"
+msgstr "Paid Collect"
 
 #: src/lib/getModule.ts
 msgid "The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster."
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Limited Fee Collect"
-msgstr ""
+msgid "Rare Paid Collect"
+msgstr "Rare Paid Collect"
 
 #: src/lib/getModule.ts
 msgid "The Limited Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific limit of mints."
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Timed Fee Collect"
-msgstr ""
+msgid "24 Hour Collect"
+msgstr "24 Hour Collect"
 
 #: src/lib/getModule.ts
 msgid "The Timed Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency."
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Limited Time Fee Collect"
-msgstr ""
+msgid "Rare 24 Hour Collect"
+msgstr "Rare 24 Hour Collect"
 
 #: src/lib/getModule.ts
 msgid "The Limited Timed Fee Collect Module allows for any follower to collect the associate publication, provided they pay a fee, up to a specific time limit and mint cap. It is essentially a combination of the Timed Fee Collect Module and the Limited Fee Collect Module."
@@ -2349,8 +2349,8 @@ msgid "The Free Collect Module allows any profile to collect the publication thi
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Revert Collect"
-msgstr ""
+msgid "No Collect"
+msgstr "No Collect"
 
 #: src/lib/getModule.ts
 msgid "The Revert Collect Module causes all collect actions on a given publication to fail, thus making the publication uncollectable."
@@ -2371,6 +2371,26 @@ msgstr ""
 #: src/lib/getModule.ts
 msgid "The Follower Only Reference Module ensures that only a profile is only allowed to mirror or comment on content."
 msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Fee Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Limited Fee Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Timed Fee Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Limited Time Fee Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Revert Collect"
+#~ msgstr ""
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"

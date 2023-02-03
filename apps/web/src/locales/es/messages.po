@@ -2313,7 +2313,7 @@ msgid "The Unknown Collect Module is unknown and not type supported in the API."
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Fee Collect"
+msgid "Paid Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2321,7 +2321,7 @@ msgid "The Fee Collect Module allows for any follower to collect the associated 
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Limited Fee Collect"
+msgid "Rare Paid Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2329,7 +2329,7 @@ msgid "The Limited Fee Collect Module allows for any follower to collect the ass
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Timed Fee Collect"
+msgid "24 Hour Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2337,7 +2337,7 @@ msgid "The Timed Fee Collect Module allows for any follower to collect the assoc
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Limited Time Fee Collect"
+msgid "Rare 24 Hour Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2349,7 +2349,7 @@ msgid "The Free Collect Module allows any profile to collect the publication thi
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Revert Collect"
+msgid "No Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2371,6 +2371,26 @@ msgstr ""
 #: src/lib/getModule.ts
 msgid "The Follower Only Reference Module ensures that only a profile is only allowed to mirror or comment on content."
 msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Fee Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Limited Fee Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Timed Fee Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Limited Time Fee Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Revert Collect"
+#~ msgstr ""
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
