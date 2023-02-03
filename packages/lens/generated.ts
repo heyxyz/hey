@@ -1906,7 +1906,7 @@ export type Mutation = {
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult;
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
   /** Delete an NFT Gallery */
-  deleteNftGallery: Scalars['Void'];
+  deleteNftGallery?: Maybe<Scalars['Void']>;
   dismissRecommendedProfiles: Scalars['Void'];
   hel?: Maybe<Scalars['Void']>;
   hidePublication?: Maybe<Scalars['Void']>;
@@ -1918,11 +1918,11 @@ export type Mutation = {
   removeReaction?: Maybe<Scalars['Void']>;
   reportPublication?: Maybe<Scalars['Void']>;
   /** Update the name of an NFT gallery */
-  updateNftGalleryInfo: Scalars['Void'];
+  updateNftGalleryInfo?: Maybe<Scalars['Void']>;
   /** Add and/or remove NFTs to a gallery */
-  updateNftGalleryItems: Scalars['Void'];
+  updateNftGalleryItems?: Maybe<Scalars['Void']>;
   /** Update the order of NFTs in a gallery */
-  updateNftGalleryOrder: Scalars['Void'];
+  updateNftGalleryOrder?: Maybe<Scalars['Void']>;
 };
 
 export type MutationAchArgs = {
@@ -2402,7 +2402,6 @@ export type NotificationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
-  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
   notificationTypes?: InputMaybe<Array<NotificationTypes>>;
   /** The profile id */
@@ -2520,7 +2519,10 @@ export type PaginatedResultInfo = {
   next?: Maybe<Scalars['Cursor']>;
   /** Cursor to query the actual results */
   prev?: Maybe<Scalars['Cursor']>;
-  /** The total number of entities the pagination iterates over. If its null then its not been worked out due to it being an expensive query and not really needed for the client. All main counters are in counter tables to allow them to be faster fetching. */
+  /**
+   * The total number of entities the pagination iterates over. If its null then its not been worked out due to it being an expensive query and not really needed for the client. All main counters are in counter tables to allow them to be faster fetching.
+   * @deprecated Total counts is expensive and in dynamic nature of queries it slows stuff down. Most the time you do not need this you can just use the `next` property to see if there is more data. This will be removed soon. The only use case anyone is using this right now is on notification query, this should be changed to query the notifications and cache the last notification id. You can then keep checking if the id changes you know more notifications.
+   */
   totalCount?: Maybe<Scalars['Int']>;
 };
 
@@ -7090,7 +7092,24 @@ export type CreateNftGalleryMutationVariables = Exact<{
 
 export type CreateNftGalleryMutation = {
   __typename?: 'Mutation';
-  createNftGallery: { __typename?: 'NftGallery'; id: any; name: string };
+  createNftGallery: {
+    __typename?: 'NftGallery';
+    id: any;
+    name: string;
+    profileId: any;
+    createdAt: any;
+    updatedAt: any;
+    items: Array<{
+      __typename?: 'NFT';
+      name: string;
+      description: string;
+      collectionName: string;
+      contractAddress: any;
+      tokenId: string;
+      chainId: any;
+      originalContent: { __typename?: 'NFTContent'; uri: string; animatedUrl?: string | null };
+    }>;
+  };
 };
 
 export type CreatePostTypedDataMutationVariables = Exact<{
@@ -7388,7 +7407,7 @@ export type DeleteNftGalleryMutationVariables = Exact<{
   request: NftGalleryDeleteRequest;
 }>;
 
-export type DeleteNftGalleryMutation = { __typename?: 'Mutation'; deleteNftGallery: any };
+export type DeleteNftGalleryMutation = { __typename?: 'Mutation'; deleteNftGallery?: any | null };
 
 export type HidePublicationMutationVariables = Exact<{
   request: HidePublicationRequest;
@@ -7424,19 +7443,19 @@ export type UpdateNftGalleryInfoMutationVariables = Exact<{
   request: NftGalleryUpdateInfoRequest;
 }>;
 
-export type UpdateNftGalleryInfoMutation = { __typename?: 'Mutation'; updateNftGalleryInfo: any };
+export type UpdateNftGalleryInfoMutation = { __typename?: 'Mutation'; updateNftGalleryInfo?: any | null };
 
 export type UpdateNftGalleryItemsMutationVariables = Exact<{
   request: NftGalleryUpdateItemsRequest;
 }>;
 
-export type UpdateNftGalleryItemsMutation = { __typename?: 'Mutation'; updateNftGalleryItems: any };
+export type UpdateNftGalleryItemsMutation = { __typename?: 'Mutation'; updateNftGalleryItems?: any | null };
 
 export type UpdateNftGalleryOrderMutationVariables = Exact<{
   request: NftGalleryUpdateItemOrderRequest;
 }>;
 
-export type UpdateNftGalleryOrderMutation = { __typename?: 'Mutation'; updateNftGalleryOrder: any };
+export type UpdateNftGalleryOrderMutation = { __typename?: 'Mutation'; updateNftGalleryOrder?: any | null };
 
 export type ApprovedModuleAllowanceAmountQueryVariables = Exact<{
   request: ApprovedModuleAllowanceAmountRequest;
@@ -30156,6 +30175,21 @@ export const CreateNftGalleryDocument = gql`
     createNftGallery(request: $request) {
       id
       name
+      profileId
+      items {
+        name
+        description
+        collectionName
+        contractAddress
+        tokenId
+        chainId
+        originalContent {
+          uri
+          animatedUrl
+        }
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

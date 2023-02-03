@@ -58,7 +58,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
               Save
             </Button>
           </div>
-        ) : (
+        ) : currentProfile ? (
           <Menu as="div" className="relative">
             <Menu.Button className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20">
               <DotsVerticalIcon className="h-4 w-4" />
@@ -114,7 +114,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
               </Menu.Items>
             </Transition>
           </Menu>
-        )}
+        ) : null}
       </div>
       {isRearrange ? (
         <ReArrange nfts={nfts as Nft[]} />
