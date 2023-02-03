@@ -16,7 +16,9 @@
     "workers:deploy": "turbo run worker:deploy",
     "prettier": "prettier --check \"**/*.{ts,tsx,md}\"",
     "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test:dev": "turbo run test:dev",
+    "test:e2e": "turbo run test:e2e"
   },
   "devDependencies": {
     "husky": "^8.0.3",

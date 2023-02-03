@@ -41,3 +41,10 @@ yarn-error.log*
 
 # cloudflare workers
 .dev.vars
+
+# playwright
+.gitsigners
+
+test-results/
+playwright-report/
+playwright/.cache/
