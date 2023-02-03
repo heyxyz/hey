@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.6",
-    "@aws-sdk/client-s3": "^3.262.0",
+    "@aws-sdk/client-s3": "^3.264.0",
     "@giphy/js-fetch-api": "^4.7.1",
     "@giphy/react-components": "^6.5.2",
     "@headlessui/react": "^1.7.8",
@@ -37,7 +37,7 @@
     "dayjs-twitter": "^0.5.0",
     "dotenv": "^16.0.3",
     "ethers": "5.6.0",
-    "framer-motion": "^9.0.0",
+    "framer-motion": "^9.0.1",
     "graphql": "^16.6.0",
     "immutability-helper": "^3.1.1",
     "interweave": "^13.0.0",
@@ -55,7 +55,7 @@
     "react-hot-toast": "^2.4.0",
     "react-infinite-scroll-component": "^6.1.0",
     "uuid": "^9.0.0",
-    "wagmi": "0.11.2",
+    "wagmi": "^0.11.3",
     "zod": "^3.20.2",
     "zustand": "^4.3.2"
   },
