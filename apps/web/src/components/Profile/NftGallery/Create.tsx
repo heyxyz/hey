@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
@@ -5,7 +6,8 @@ import { Spinner } from '@components/UI/Spinner';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import trimify from '@lib/trimify';
 import { t, Trans } from '@lingui/macro';
-import { useCreateNftGalleryMutation } from 'lens';
+import type { NftGallery } from 'lens';
+import { NftGalleriesDocument, useCreateNftGalleryMutation, useNftGalleriesLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -33,7 +35,9 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
   const setGallery = useNftGalleryStore((state) => state.setGallery);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
+  const { cache } = useApolloClient();
   const [createGallery, { loading }] = useCreateNftGalleryMutation();
+  const [fetchNftGalleries] = useNftGalleriesLazyQuery();
 
   const closeModal = () => {
     setShowModal(false);
@@ -56,6 +60,16 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
         }
       });
       if (data?.createNftGallery) {
+        const { data } = await fetchNftGalleries({
+          variables: { request: { profileId: currentProfile?.id } }
+        });
+        cache.modify({
+          fields: {
+            nftGalleries() {
+              cache.writeQuery({ data: data?.nftGalleries as NftGallery[], query: NftGalleriesDocument });
+            }
+          }
+        });
         closeModal();
         toast.success(t`Gallery created`);
       }
