@@ -4921,28 +4921,28 @@
     "@walletconnect/window-getters" "^1.0.1"
     tslib "1.14.1"
 
-"@web3modal/core@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@web3modal/core/-/core-2.1.0.tgz#170b9fe5d8aceb48b4aae18fa18ddf6781c8b912"
-  integrity sha512-MaKWlWleEtqSwcGEGFqP2FM4oewGcVmSZ+nQ/yUGlKN1HUWIlubcL7MgjShxGEqYHDLzbSRImu5y662s5fH2Mg==
+"@web3modal/core@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@web3modal/core/-/core-2.1.1.tgz#e1ebe8faaae6e4b74df911fd5ac6023f280b12c1"
+  integrity sha512-GAZAvfkPHoX2/fghQmf+y36uDspk9wBJxG7qLPUNTHzvIfRoNHWbTt3iEvRdPmUZwbTGDn1jvz9z0uU67gvZdw==
   dependencies:
     buffer "6.0.3"
     valtio "1.9.0"
 
 "@web3modal/standalone@^2.0.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@web3modal/standalone/-/standalone-2.1.0.tgz#77f8eb11ca8fae9388b1d5c2df0af6e6f12abae6"
-  integrity sha512-v5gpU7/TCgITqBfzjiUOWK4kxMWcizvsxes3sT8VW6Xw2UWYphvbD1x6lTjMdrY82WdxNl0NKPx4cBBt5Mdatg==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@web3modal/standalone/-/standalone-2.1.1.tgz#e496e54af5ecf6e282ff7f287eebce7f1ac90bd2"
+  integrity sha512-K06VkZqltLIBKpnLeM2oszRDSdLnwXJWCcItWEOkH4LDFQIiq8lSeLhcamuadRxRKF4ZyTSLHHJ5MFcMfZEHQQ==
   dependencies:
-    "@web3modal/core" "2.1.0"
-    "@web3modal/ui" "2.1.0"
+    "@web3modal/core" "2.1.1"
+    "@web3modal/ui" "2.1.1"
 
-"@web3modal/ui@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@web3modal/ui/-/ui-2.1.0.tgz#0d076a99fe099216770d0d55012ec9c3f2042086"
-  integrity sha512-wu1AP8PryPcgMHoLaflm0vxWr9NGkP+/y843wDDhwln0cGJ0YQToo28TgGJ6zLx2KDHYrGpSsDig3J/WB4D/6w==
+"@web3modal/ui@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@web3modal/ui/-/ui-2.1.1.tgz#300dceeee8a54be70aad74fb4a781ac22439eded"
+  integrity sha512-0jRDxgPc/peaE5KgqnzzriXhdVu5xNyCMP5Enqdpd77VkknJIs7h16MYKidxgFexieyHpCOssWySsryWcP2sXA==
   dependencies:
-    "@web3modal/core" "2.1.0"
+    "@web3modal/core" "2.1.1"
     lit "2.6.1"
     motion "10.15.5"
     qrcode "1.5.1"
@@ -4952,7 +4952,7 @@
   resolved "https://registry.yarnpkg.com/@whatwg-node/events/-/events-0.0.2.tgz#7b7107268d2982fc7b7aff5ee6803c64018f84dd"
   integrity sha512-WKj/lI4QjnLuPrim0cfO7i+HsDSXHxNv1y0CrJhdntuO3hxWZmnXCwNDnwOvry11OjRin6cgWNF+j/9Pn8TN4w==
 
-"@whatwg-node/fetch@0.6.5", "@whatwg-node/fetch@^0.6.0":
+"@whatwg-node/fetch@0.6.5":
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/@whatwg-node/fetch/-/fetch-0.6.5.tgz#ff96288e9a6295faafac79f13e3b3fd831cad11f"
   integrity sha512-3XQ78RAMX8Az0LlUqMoGM3jbT+FE0S+IKr4yiTiqzQ5S/pNxD52K/kFLcLQiEbL+3rkk/glCHqjxF1QI5155Ig==
@@ -4963,10 +4963,30 @@
     urlpattern-polyfill "^6.0.2"
     web-streams-polyfill "^3.2.1"
 
+"@whatwg-node/fetch@^0.6.0":
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/@whatwg-node/fetch/-/fetch-0.6.6.tgz#a7e4000847e2534ae56b97b6713cd8d4c96a6dcd"
+  integrity sha512-8kB/Pp0knQVjbm3O15h1ATKOZ7n8GXMow3z8ptVTaRmiOMnCnA9bn7gKTLWFBdD84zzWFzPp6C9pB3vsndJKlQ==
+  dependencies:
+    "@peculiar/webcrypto" "^1.4.0"
+    "@whatwg-node/node-fetch" "0.0.2"
+    busboy "^1.6.0"
+    urlpattern-polyfill "^6.0.2"
+    web-streams-polyfill "^3.2.1"
+
 "@whatwg-node/node-fetch@0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@whatwg-node/node-fetch/-/node-fetch-0.0.1.tgz#ffad65f3f8b73d6d2c2e8b179d557a5863b0db13"
   integrity sha512-dMbh604yf2jl37IzvYGA6z3heQg3dMzlqoNsiNToe46SVmKusfJXGf4KYIuiJTzh9mEEu/uVF//QakUfsLJpwA==
+  dependencies:
+    "@whatwg-node/events" "0.0.2"
+    busboy "1.6.0"
+    tslib "^2.3.1"
+
+"@whatwg-node/node-fetch@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@whatwg-node/node-fetch/-/node-fetch-0.0.2.tgz#f69c4dfdb3f8cbe9b0cf071f4a58da50e728fc0a"
+  integrity sha512-Xs3kunumaSWTHDjKJATP9r2AhwhwPh8miQQHi3aI64MwBSrFsolBUUyCkOJe2geDuHggoNycfnU85HP528odWg==
   dependencies:
     "@whatwg-node/events" "0.0.2"
     busboy "1.6.0"
