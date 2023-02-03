@@ -1,21 +1,5 @@
 mutation CreateNftGallery($request: NftGalleryCreateRequest!) {
   createNftGallery(request: $request) {
     id
-    name
-    profileId
-    items {
-      name
-      description
-      collectionName
-      contractAddress
-      tokenId
-      chainId
-      originalContent {
-        uri
-        animatedUrl
-      }
-    }
-    createdAt
-    updatedAt
   }
 }

@@ -7092,24 +7092,7 @@ export type CreateNftGalleryMutationVariables = Exact<{
 
 export type CreateNftGalleryMutation = {
   __typename?: 'Mutation';
-  createNftGallery: {
-    __typename?: 'NftGallery';
-    id: any;
-    name: string;
-    profileId: any;
-    createdAt: any;
-    updatedAt: any;
-    items: Array<{
-      __typename?: 'NFT';
-      name: string;
-      description: string;
-      collectionName: string;
-      contractAddress: any;
-      tokenId: string;
-      chainId: any;
-      originalContent: { __typename?: 'NFTContent'; uri: string; animatedUrl?: string | null };
-    }>;
-  };
+  createNftGallery: { __typename?: 'NftGallery'; id: any };
 };
 
 export type CreatePostTypedDataMutationVariables = Exact<{
@@ -30174,22 +30157,6 @@ export const CreateNftGalleryDocument = gql`
   mutation CreateNftGallery($request: NftGalleryCreateRequest!) {
     createNftGallery(request: $request) {
       id
-      name
-      profileId
-      items {
-        name
-        description
-        collectionName
-        contractAddress
-        tokenId
-        chainId
-        originalContent {
-          uri
-          animatedUrl
-        }
-      }
-      createdAt
-      updatedAt
     }
   }
 `;

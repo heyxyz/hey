@@ -1,6 +1,7 @@
 import { Button } from '@components/UI/Button';
 import { Menu, Transition } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Nft, NftGallery } from 'lens';
 import { useDeleteNftGalleryMutation } from 'lens';
@@ -25,14 +26,18 @@ const Gallery: FC<Props> = ({ galleries }) => {
 
   const [deleteNftGallery] = useDeleteNftGalleryMutation({
     onCompleted: () => {
-      toast.success('Gallery deleted');
-      location.reload();
+      toast.success(t`Gallery deleted`);
+    },
+    update(cache) {
+      const normalizedId = cache.identify({ id: gallery.id, __typename: 'NftGallery' });
+      cache.evict({ id: normalizedId });
+      cache.gc();
     }
   });
 
   const onDelete = async () => {
     try {
-      if (confirm('Are you sure you want to delete?')) {
+      if (confirm(t`Are you sure you want to delete?`)) {
         deleteNftGallery({
           variables: {
             request: {
@@ -52,10 +57,10 @@ const Gallery: FC<Props> = ({ galleries }) => {
         {isRearrange ? (
           <div className="flex items-center space-x-2">
             <Button onClick={() => setIsRearrange(false)} size="sm" variant="secondary">
-              Cancel
+              <Trans>Cancel</Trans>
             </Button>
             <Button onClick={() => setIsRearrange(false)} size="sm">
-              Save
+              <Trans>Save</Trans>
             </Button>
           </div>
         ) : currentProfile ? (
@@ -85,7 +90,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
                     )
                   }
                 >
-                  Edit
+                  <Trans>Edit</Trans>
                 </Menu.Item>
                 <Menu.Item
                   as="label"
@@ -97,7 +102,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
                     )
                   }
                 >
-                  Rearrrange
+                  <Trans>Rearrrange</Trans>
                 </Menu.Item>
                 <Menu.Item
                   as="label"
@@ -109,7 +114,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
                     )
                   }
                 >
-                  Delete
+                  <Trans>Delete</Trans>
                 </Menu.Item>
               </Menu.Items>
             </Transition>

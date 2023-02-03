@@ -4,7 +4,7 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import trimify from '@lib/trimify';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useCreateNftGalleryMutation } from 'lens';
 import type { Dispatch, FC } from 'react';
 import React, { useState } from 'react';
@@ -20,9 +20,15 @@ interface Props {
   setShowModal: Dispatch<boolean>;
 }
 
+enum CreateSteps {
+  NAME = 'NAME',
+  PICK_NFTS = 'PICK_NFTS',
+  REVIEW = 'REVIEW'
+}
+
 const Create: FC<Props> = ({ showModal, setShowModal }) => {
   const [emoji, setEmoji] = useState('');
-  const [currentStep, setCurrentStep] = useState('NAME');
+  const [currentStep, setCurrentStep] = useState<CreateSteps>(CreateSteps.NAME);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -31,7 +37,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
 
   const closeModal = () => {
     setShowModal(false);
-    setCurrentStep('NAME');
+    setCurrentStep(CreateSteps.NAME);
     setGallery({ name: '', items: [] });
   };
 
@@ -51,7 +57,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
       });
       if (result) {
         closeModal();
-        toast.success('Gallery created');
+        toast.success(t`Gallery created`);
       }
     } catch {}
   };
@@ -59,23 +65,23 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
   const validateInputs = () => {
     const galleryName = trimify(gallery.name);
     if (!galleryName.length) {
-      toast.error('Gallery name required');
-    } else if (!gallery.items.length && currentStep === 'PICK_NFTS') {
-      toast.error('Select collectibles for your gallery');
+      toast.error(t`Gallery name required`);
+    } else if (!gallery.items.length && currentStep === CreateSteps.PICK_NFTS) {
+      toast.error(t`Select collectibles for your gallery`);
     }
   };
 
   const onClickNext = async () => {
     validateInputs();
     const galleryName = trimify(gallery.name);
-    if (galleryName.length && gallery.items.length && currentStep === 'REVIEW') {
+    if (galleryName.length && gallery.items.length && currentStep === CreateSteps.REVIEW) {
       create();
     } else if (galleryName.length && gallery.items.length) {
-      setCurrentStep('REVIEW');
+      setCurrentStep(CreateSteps.REVIEW);
     } else if (galleryName.length && !gallery.items.length) {
-      setCurrentStep('PICK_NFTS');
+      setCurrentStep(CreateSteps.PICK_NFTS);
     } else {
-      setCurrentStep('NAME');
+      setCurrentStep(CreateSteps.NAME);
     }
   };
 
@@ -84,29 +90,32 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
     setGallery({ ...gallery, name: gallery.name + emoji });
   };
 
+  const getBackStep = () => {
+    if (currentStep === CreateSteps.REVIEW) {
+      return CreateSteps.PICK_NFTS;
+    } else if (currentStep === CreateSteps.PICK_NFTS) {
+      return CreateSteps.NAME;
+    } else {
+      return CreateSteps.NAME;
+    }
+  };
+
   const getModalTitle = () => {
-    if (currentStep === 'PICK_NFTS' || currentStep === 'REVIEW') {
+    if (currentStep === CreateSteps.PICK_NFTS || currentStep === CreateSteps.REVIEW) {
       return (
         <div className="flex items-center space-x-1">
-          <button
-            type="button"
-            onClick={() =>
-              setCurrentStep(
-                currentStep === 'REVIEW' ? 'PICK_NFTS' : currentStep === 'PICK_NFTS' ? 'NAME' : 'NAME'
-              )
-            }
-          >
+          <button type="button" onClick={() => setCurrentStep(getBackStep())}>
             <ChevronLeftIcon className="h-4 w-4" />
           </button>
           <span>
-            <Trans>
-              {currentStep === 'REVIEW' ? 'Review collection' : 'Select collectibles you want others to see'}
-            </Trans>
+            {currentStep === CreateSteps.REVIEW
+              ? t`Review collection`
+              : t`Select collectibles you want others to see`}
           </span>
         </div>
       );
     }
-    return "What's your gallery name?";
+    return t`What's your gallery name?`;
   };
 
   return (
@@ -114,12 +123,12 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
       size={currentStep === 'NAME' ? 'sm' : 'lg'}
       title={getModalTitle()}
       show={showModal}
-      onClose={() => closeModal()}
+      onClose={closeModal}
     >
       <div className="max-h-[80vh] overflow-y-auto pb-16">
-        {currentStep === 'REVIEW' ? (
+        {currentStep === CreateSteps.REVIEW ? (
           <ReviewSelection />
-        ) : currentStep === 'PICK_NFTS' ? (
+        ) : currentStep === CreateSteps.PICK_NFTS ? (
           <Picker />
         ) : (
           <textarea
@@ -133,10 +142,10 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
           {currentStep === 'NAME' ? (
             <EmojiPicker emoji={emoji} setEmoji={(emoji) => onPickEmoji(emoji)} />
           ) : (
-            `${gallery.items.length} selected`
+            <Trans>{gallery.items.length} selected</Trans>
           )}
           <Button disabled={loading} onClick={() => onClickNext()} icon={loading && <Spinner size="xs" />}>
-            Next
+            <Trans>Next</Trans>
           </Button>
         </div>
       </div>
