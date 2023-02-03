@@ -12,8 +12,8 @@ class LensterDocument extends Document {
           {/* Prefetch and Preconnect */}
           <link rel="preconnect" href="https://media.lenster.xyz" />
           <link rel="dns-prefetch" href="https://media.lenster.xyz" />
-          <link rel="preconnect" href="https://assets.lenster.xyz" />
-          <link rel="dns-prefetch" href="https://assets.lenster.xyz" />
+          <link rel="preconnect" href="https://static-assets.lenster.xyz" />
+          <link rel="dns-prefetch" href="https://static-assets.lenster.xyz" />
 
           {/* Misc */}
           <meta name="application-name" content="Lenster" />

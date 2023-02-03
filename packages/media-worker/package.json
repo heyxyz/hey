@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "wrangler dev --port 8081",
+    "dev": "wrangler dev --port 8081 --local",
     "worker:deploy": "wrangler publish",
     "lint": "eslint . --ext .ts"
   },
