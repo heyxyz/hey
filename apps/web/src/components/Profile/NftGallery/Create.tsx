@@ -120,7 +120,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
 
   return (
     <Modal
-      size={currentStep === 'NAME' ? 'sm' : 'lg'}
+      size={currentStep === CreateSteps.NAME ? 'sm' : 'lg'}
       title={getModalTitle()}
       show={showModal}
       onClose={closeModal}
