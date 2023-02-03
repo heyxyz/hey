@@ -7,6 +7,12 @@
       ]
     }
   ],
+  "extractBabelOptions": {
+    "presets": [
+      "@babel/preset-typescript",
+      "@babel/preset-react"
+    ]
+  },
   "format": "po",
   "formatOptions": {
     "origins": true,
