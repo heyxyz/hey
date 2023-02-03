@@ -22,6 +22,9 @@ jobs:
       - name: Install 📦
         run: yarn install --frozen-lockfile
 
+      - name: Install Playwright 🕹️
+        run: npx playwright install --with-deps
+
       - name: GraphQL Codegen 🕸
         run: yarn codegen
 
@@ -36,3 +39,6 @@ jobs:
 
       - name: Build 🎁
         run: yarn build
+
+      - name: Test 🧪
+        run: yarn e2e:test
