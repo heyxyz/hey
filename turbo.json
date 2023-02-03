@@ -10,6 +10,8 @@
     "codegen": { "outputs": [] },
     "extract": { "outputs": [] },
     "worker:deploy": { "outputs": [] },
-    "dev": { "cache": false }
+    "dev": { "cache": false },
+    "test:dev": { "cache": false },
+    "test:e2e": { "dependsOn": ["^build"] }
   }
 }
