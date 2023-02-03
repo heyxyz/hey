@@ -27,7 +27,6 @@
     "@lexical/markdown": "^0.7.6",
     "@lexical/react": "^0.7.6",
     "@lingui/core": "^3.17.0",
-    "@lingui/loader": "^3.17.0",
     "@lingui/macro": "^3.17.0",
     "@lingui/react": "^3.17.0",
     "@lingui/swc-plugin": "^0.2.0",
