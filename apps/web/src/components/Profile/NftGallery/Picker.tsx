@@ -45,7 +45,6 @@ const Picker: FC = () => {
   const hasMore = Boolean(pageInfo?.next);
 
   const loadMore = async () => {
-    alert();
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
     });
