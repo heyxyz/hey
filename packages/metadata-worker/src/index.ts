@@ -1,4 +1,4 @@
-import { createData, signers } from 'arbundles';
+import { createData, EthereumSigner } from './module';
 
 type EnvType = {
   BUNDLR_PRIVATE_KEY: string;
@@ -12,10 +12,11 @@ export default {
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'Content-Type',
   'Content-Type': 'application/json'
 };
 
-async function handleRequest(request: Request, env: EnvType) {
+const handleRequest = async (request: Request, env: EnvType) => {
   if (request.method !== 'POST') {
     return new Response(JSON.stringify({ success: false, message: 'Only POST requests are supported' }), {
       headers
@@ -29,13 +30,28 @@ async function handleRequest(request: Request, env: EnvType) {
   }
 
   try {
-    const { EthereumSigner } = signers;
     const signer = new EthereumSigner(env.BUNDLR_PRIVATE_KEY);
-    const tx = await createData(JSON.stringify(payload), signer);
-    tx.sign(signer).catch((error) => console.log(error));
+    const tx = createData(JSON.stringify(payload), signer, {
+      tags: [
+        { name: 'content-type', value: 'application/json' },
+        { name: 'App-Name', value: 'Lenster' }
+      ]
+    });
+    await tx.sign(signer);
+    const bundlrRes = await fetch('http://node2.bundlr.network/tx/matic', {
+      method: 'POST',
+      headers: { 'content-type': 'application/octet-stream' },
+      body: tx.getRaw()
+    });
 
-    return new Response(JSON.stringify({ success: tx.getRaw() }), { headers });
+    if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
+      return new Response(JSON.stringify({ success: true, id: tx.id }), { headers });
+    } else {
+      return new Response(JSON.stringify({ success: false, message: 'Something went wrong!', bundlrRes }), {
+        headers
+      });
+    }
   } catch {
     return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), { headers });
   }
-}
+};

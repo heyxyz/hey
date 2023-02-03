@@ -38,12 +38,6 @@ const params = {
 };
 
 async function handleRequest(request: Request, env: EnvType) {
-  if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ success: false, message: 'Only POST requests are supported' }), {
-      headers
-    });
-  }
-
   try {
     const accessKeyId = env.EVER_ACCESS_KEY;
     const secretAccessKey = env.EVER_ACCESS_SECRET;
