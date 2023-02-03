@@ -1,5 +1,5 @@
 import SingleNFT from '@components/NFT/SingleNFT';
-import NFTShimmer from '@components/Shared/Shimmer/NFTShimmer';
+import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
@@ -42,7 +42,7 @@ const Picker: FC = () => {
 
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
-  const hasMore = pageInfo?.next && nfts?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({
@@ -51,16 +51,7 @@ const Picker: FC = () => {
   };
 
   if (loading) {
-    return (
-      <div className="m-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <NFTShimmer />
-        <NFTShimmer />
-        <NFTShimmer />
-        <NFTShimmer />
-        <NFTShimmer />
-        <NFTShimmer />
-      </div>
-    );
+    return <NftPickerShimmer />;
   }
 
   if (nfts?.length === 0) {
