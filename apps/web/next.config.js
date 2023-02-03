@@ -5,6 +5,7 @@ module.exports = {
   reactStrictMode: false,
   transpilePackages: ['data'],
   experimental: {
+    esmExternals: 'loose',
     scrollRestoration: true,
     newNextLinkBehavior: true
   },
