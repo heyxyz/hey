@@ -13,14 +13,6 @@ export const SANDBOX_API_URL = 'https://api-sandbox-mumbai.lens.dev';
 export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
 export const STAGING_SANDBOX_API_URL = 'https://staging-api-social-mumbai.sandbox.crtlkey.com';
 
-export const SERVERLESS_MAINNET_API_URL = 'https://api.lenster.xyz';
-export const SERVERLESS_TESTNET_API_URL = 'https://api-testnet.lenster.xyz';
-export const SERVERLESS_STAGING_API_URL = 'https://api-staging.lenster.xyz';
-export const SERVERLESS_STAGING_SANDBOX_API_URL = 'https://api-staging-sandbox.lenster.xyz';
-export const SERVERLESS_SANDBOX_API_URL = 'https://api-sandbox.lenster.xyz';
-export const SERVERLESS_DEVELOPMENT_API_URL = 'http://localhost:4784';
-
-export const SERVERLESS_URL = getEnvConfig().serverlessEndpoint;
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
@@ -70,6 +62,7 @@ export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 // Workers
 export const MEDIA_PROXY_URL = IS_PRODUCTION ? 'https://media.lenster.xyz' : 'http://localhost:8081';
 export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
+export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
 
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
