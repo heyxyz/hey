@@ -42,9 +42,10 @@ const Picker: FC = () => {
 
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
-  const hasMore = pageInfo?.next;
+  const hasMore = Boolean(pageInfo?.next);
 
   const loadMore = async () => {
+    alert();
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
     });
@@ -135,6 +136,7 @@ const Picker: FC = () => {
       <InfiniteScroll
         dataLength={nfts?.length ?? 0}
         scrollThreshold={SCROLL_THRESHOLD}
+        scrollableTarget="scrollableNftGalleryDiv"
         hasMore={hasMore}
         next={loadMore}
         loader={<InfiniteLoader />}
