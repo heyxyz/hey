@@ -3,7 +3,7 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 module.exports = {
   reactStrictMode: false,
-  transpilePackages: ['data', 'wagmi'],
+  transpilePackages: ['data'],
   experimental: {
     scrollRestoration: true,
     newNextLinkBehavior: true
