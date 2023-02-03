@@ -9,13 +9,13 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230115.0",
-    "eslint-config-weblint": "*",
     "data": "*",
+    "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^4.9.5",
     "wrangler": "2.9.0"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.262.0"
+    "@aws-sdk/client-sts": "^3.264.0"
   }
 }
