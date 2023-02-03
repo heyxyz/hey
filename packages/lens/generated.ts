@@ -1890,7 +1890,7 @@ export type Mutation = {
   createMirrorTypedData: CreateMirrorBroadcastItemResult;
   createMirrorViaDispatcher: RelayResult;
   /** Create a new NFT gallery */
-  createNftGallery: NftGallery;
+  createNftGallery: Scalars['NftGalleryId'];
   createPostTypedData: CreatePostBroadcastItemResult;
   createPostViaDispatcher: RelayResult;
   createProfile: RelayResult;
@@ -7090,10 +7090,7 @@ export type CreateNftGalleryMutationVariables = Exact<{
   request: NftGalleryCreateRequest;
 }>;
 
-export type CreateNftGalleryMutation = {
-  __typename?: 'Mutation';
-  createNftGallery: { __typename?: 'NftGallery'; id: any };
-};
+export type CreateNftGalleryMutation = { __typename?: 'Mutation'; createNftGallery: any };
 
 export type CreatePostTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
@@ -30155,9 +30152,7 @@ export type CreateMirrorViaDispatcherMutationOptions = Apollo.BaseMutationOption
 >;
 export const CreateNftGalleryDocument = gql`
   mutation CreateNftGallery($request: NftGalleryCreateRequest!) {
-    createNftGallery(request: $request) {
-      id
-    }
+    createNftGallery(request: $request)
   }
 `;
 export type CreateNftGalleryMutationFn = Apollo.MutationFunction<

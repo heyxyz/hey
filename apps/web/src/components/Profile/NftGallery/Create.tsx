@@ -46,7 +46,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
       const sanitizedItems = gallery.items.map((el) => {
         return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
       });
-      const result = await createGallery({
+      const { data } = await createGallery({
         variables: {
           request: {
             items: sanitizedItems,
@@ -55,7 +55,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
           }
         }
       });
-      if (result) {
+      if (data?.createNftGallery) {
         closeModal();
         toast.success(t`Gallery created`);
       }
