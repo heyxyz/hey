@@ -12,6 +12,7 @@ import {
 } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { t, Trans } from '@lingui/macro';
+import { ethers } from 'ethers';
 import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -98,9 +99,23 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         setPayload({ timedFeeCollectModule: { ...baseFeeData } });
         break;
       case UnknownCollectModule:
+        const encodedQuadraticData = ethers.utils.defaultAbiCoder.encode(
+          ['address', 'uint16', 'address', 'address'],
+          [
+            selectedCurrency,
+            referralFee,
+            '0xCb964E66dD4868e7C71191D3A1353529Ad1ED2F5',
+            '0x10c5e410A0b28D80144099741ae6FcAE4a77833c'
+          ]
+        );
+
         setPayload({
-          unknownCollectModule: { ...baseFeeData }
+          unknownCollectModule: {
+            contractAddress: '0x4Ff23872ca1C46410514f29FFA44F1e9a978fb1C',
+            data: encodedQuadraticData
+          }
         });
+        break;
       default:
         setPayload({ revertCollectModule: true });
     }
@@ -142,7 +157,6 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   if (error) {
     return <ErrorMessage className="p-5" title={t`Failed to load modules`} error={error} />;
   }
-
   const toggleQuadratic = () => {
     setToggleQuadraticEnabled(!toggleQuadraticEnabled);
     Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
@@ -153,6 +167,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
 
     if (!toggleQuadraticEnabled) {
       setQuadraticRound(true);
+      setReferralFee('0');
       setSelectedCollectModule(UnknownCollectModule);
     } else {
       reset();
