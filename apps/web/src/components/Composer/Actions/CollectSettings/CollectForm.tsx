@@ -15,7 +15,7 @@ import { t, Trans } from '@lingui/macro';
 import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -41,9 +41,13 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
   const followerOnly = useCollectModuleStore((state) => state.followerOnly);
   const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
+  const quadraticRound = useCollectModuleStore((state) => state.quadraticRound);
+  const setQuadraticRound = useCollectModuleStore((state) => state.setQuadraticRound);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
   const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
+  const [toggleCollectEnabled, setToggleCollectEnabled] = useState(false);
+  const [toggleQuadraticEnabled, setToggleQuadraticEnabled] = useState(false);
 
   const {
     RevertCollectModule,
@@ -51,7 +55,8 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     FeeCollectModule,
     LimitedFeeCollectModule,
     LimitedTimedFeeCollectModule,
-    TimedFeeCollectModule
+    TimedFeeCollectModule,
+    UnknownCollectModule
   } = CollectModules;
 
   useEffect(() => {
@@ -92,6 +97,10 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
       case TimedFeeCollectModule:
         setPayload({ timedFeeCollectModule: { ...baseFeeData } });
         break;
+      case UnknownCollectModule:
+        setPayload({
+          unknownCollectModule: { ...baseFeeData }
+        });
       default:
         setPayload({ revertCollectModule: true });
     }
@@ -134,25 +143,86 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     return <ErrorMessage className="p-5" title={t`Failed to load modules`} error={error} />;
   }
 
-  const toggleCollect = () => {
+  const toggleQuadratic = () => {
+    setToggleQuadraticEnabled(!toggleQuadraticEnabled);
     Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
-    if (selectedCollectModule === RevertCollectModule) {
-      return setSelectedCollectModule(FreeCollectModule);
+
+    if (toggleCollectEnabled) {
+      setToggleCollectEnabled(false);
+    }
+
+    if (!toggleQuadraticEnabled) {
+      setQuadraticRound(true);
+      setSelectedCollectModule(UnknownCollectModule);
     } else {
       reset();
-      return setSelectedCollectModule(RevertCollectModule);
+      setSelectedCollectModule(RevertCollectModule);
+    }
+  };
+
+  const toggleCollect = () => {
+    setToggleCollectEnabled(!toggleCollectEnabled);
+    Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
+
+    if (toggleQuadraticEnabled) {
+      setToggleQuadraticEnabled(false);
+    }
+
+    if (!toggleCollectEnabled) {
+      setSelectedCollectModule(FreeCollectModule);
+    } else {
+      reset();
+      setSelectedCollectModule(RevertCollectModule);
     }
   };
 
   return (
     <div className="p-5 space-y-3">
       <div className="flex items-center space-x-2">
-        <Toggle on={selectedCollectModule !== RevertCollectModule} setOn={toggleCollect} />
+        <Toggle
+          on={selectedCollectModule !== RevertCollectModule && toggleQuadraticEnabled}
+          setOn={toggleQuadratic}
+        />
+
+        <div className="lt-text-gray-500 text-sm font-bold">
+          <Trans>Quadratic Tipping </Trans>
+        </div>
+      </div>
+      {selectedCollectModule !== RevertCollectModule && toggleQuadraticEnabled && (
+        <div className="ml-5">
+          <div>lorem ipsum lots of text</div>
+          <div className="space-y-2 pt-5">
+            <div className="flex items-center space-x-2">
+              <UserGroupIcon className="h-4 w-4 text-brand-500" />
+              <span>
+                <Trans>Who can tip this post</Trans>
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Toggle
+                on={followerOnly}
+                setOn={() => {
+                  setFollowerOnly(!followerOnly);
+                  Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
+                }}
+              />
+              <div className="lt-text-gray-500 text-sm font-bold">
+                <Trans>Only followers can collect</Trans>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="flex items-center space-x-2">
+        <Toggle
+          on={selectedCollectModule !== RevertCollectModule && toggleCollectEnabled}
+          setOn={toggleCollect}
+        />
         <div className="lt-text-gray-500 text-sm font-bold">
           <Trans>This post can be collected</Trans>
         </div>
       </div>
-      {selectedCollectModule !== RevertCollectModule && (
+      {selectedCollectModule !== RevertCollectModule && toggleCollectEnabled && (
         <div className="ml-5">
           <div className="space-y-2 pt-3">
             <div className="flex items-center space-x-2">
@@ -235,7 +305,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               </div>
             ) : null}
           </div>
-          {selectedCollectModule !== FreeCollectModule && amount && (
+          {selectedCollectModule !== FreeCollectModule && amount && toggleCollectEnabled && (
             <>
               <div className="space-y-2 pt-5">
                 <div className="flex items-center space-x-2">
