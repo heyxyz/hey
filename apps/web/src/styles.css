@@ -21,7 +21,7 @@ body {
 }
 
 .menu-item {
-  @apply block px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200 m-2 rounded-lg cursor-pointer;
+  @apply m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200;
 }
 
 .text-brand {
@@ -52,7 +52,7 @@ body {
 }
 
 ::-webkit-file-upload-button {
-  @apply px-3 py-2 mr-2 border-0 cursor-pointer rounded-l-xl;
+  @apply mr-2 cursor-pointer rounded-l-xl border-0 px-3 py-2;
   @apply bg-gray-200 dark:bg-gray-900;
 }
 
@@ -91,7 +91,7 @@ body {
 }
 
 .page-center {
-  @apply flex justify-center items-center h-[calc(100vh-65px)];
+  @apply flex h-[calc(100vh-65px)] items-center justify-center;
 }
 
 .tippy-content {
@@ -157,11 +157,11 @@ iframe {
 }
 
 .toolbar-icons button {
-  @apply hover:bg-brand-100 text-brand p-1.5 rounded-lg;
+  @apply hover:bg-brand-100 text-brand rounded-lg p-1.5;
 }
 
 .toolbar-icon {
-  @apply flex bg-contain bg-center bg-no-repeat w-[20px] h-[20px];
+  @apply flex h-[20px] w-[20px] bg-contain bg-center bg-no-repeat;
 }
 
 i.bold {
