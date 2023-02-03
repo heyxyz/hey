@@ -9,5 +9,6 @@ export const apps = [
   'memester',
   'pinsta',
   'chainjet',
-  'wav3s'
+  'wav3s',
+  'lensta'
 ];
