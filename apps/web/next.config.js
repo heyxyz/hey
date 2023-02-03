@@ -2,11 +2,12 @@
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 module.exports = {
-  reactStrictMode: false,
   transpilePackages: ['data'],
+  reactStrictMode: false,
   experimental: {
     scrollRestoration: true,
-    newNextLinkBehavior: true
+    newNextLinkBehavior: true,
+    swcPlugins: [['@lingui/swc-plugin', {}]]
   },
   async redirects() {
     return [

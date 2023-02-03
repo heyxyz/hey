@@ -8,7 +8,7 @@
     "start": "next build; next start --port 4783",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
-    "extract": "lingui compile; NODE_ENV=development lingui extract",
+    "extract": "lingui compile; lingui extract",
     "test:dev": "playwright test",
     "test:e2e": "start-server-and-test start http://localhost:4783 test:dev"
   },
@@ -26,8 +26,10 @@
     "@lexical/link": "^0.7.6",
     "@lexical/markdown": "^0.7.6",
     "@lexical/react": "^0.7.6",
+    "@lingui/core": "^3.17.0",
     "@lingui/macro": "^3.17.0",
     "@lingui/react": "^3.17.0",
+    "@lingui/swc-plugin": "^0.2.0",
     "@tanstack/react-query": "^4.24.4",
     "@tippyjs/react": "^4.2.6",
     "@xmtp/xmtp-js": "^7.8.0",
@@ -60,7 +62,8 @@
     "zustand": "^4.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
     "@giphy/js-types": "^4.2.1",
     "@lingui/cli": "^3.17.0",
     "@playwright/test": "^1.30.0",
@@ -74,7 +77,6 @@
     "@types/uuid": "^9.0.0",
     "abis": "*",
     "autoprefixer": "^10.4.13",
-    "babel-plugin-macros": "^3.1.0",
     "data": "*",
     "eslint-config-weblint": "*",
     "lens": "*",

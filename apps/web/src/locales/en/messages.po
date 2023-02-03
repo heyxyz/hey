@@ -74,13 +74,10 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr ""
 
-#: src/components/Composer/Actions/Attachment.tsx
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
 msgstr ""
@@ -1698,7 +1695,6 @@ msgid "Token Id"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar can't be empty!"
 msgstr ""
 
@@ -2396,15 +2392,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
-#: src/pages/_offline.tsx
-msgid "Oops, You are offline!"
-msgstr "Oops, You are offline!"
-
-#: src/pages/_offline.tsx
-msgid "Check your internet connection and try again"
-msgstr "Check your internet connection and try again"
-
-#: src/pages/_offline.tsx
-msgid "Retry"
-msgstr "Retry"
