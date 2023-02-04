@@ -43,5 +43,3 @@ jobs:
 
       - name: Test 🧪
         run: yarn test:e2e
-        env:
-          CI: true
