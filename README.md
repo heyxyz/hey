@@ -3,7 +3,7 @@
     <h1>Lenster</h1>
     <strong>Decentralized, and permissionless social media app 🌿</strong>
 </div>
-
+<br>
 <div align="center">
     <a href="https://lenster.xyz/u/yoginth.lens">
         <img src="https://lens-badge.vercel.app/api/badge/yoginth.lens" alt="Lens">
@@ -43,9 +43,9 @@
     </a>
 </div>
 <div align="center">
-    
+    <br>
     <a href="https://lenster.xyz"><b>lenster.xyz »</b></a>
-    
+    <br><br>
     <a href="https://discord.gg/B8eKhSSUwX"><b>Discord</b></a>
     •
     <a href="https://github.com/lensterxyz/lenster/issues/new"><b>Issues</b></a>
@@ -68,6 +68,7 @@ Lenster is a decentralized and permissionless social media app built with [Lens 
 ## ✅ Community
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenster.xyz/discord).
+
 ## 💕 Contributors
 
 We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
