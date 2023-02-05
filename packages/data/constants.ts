@@ -103,7 +103,7 @@ export const MIN_WIDTH_DESKTOP = 1024;
 // Named transforms
 export const AVATAR = '300x300';
 export const COVER = '1500x500';
-export const ATTACHMENT = '1000x1000';
+export const ATTACHMENT = '1000,fit';
 
 // Localstorage keys
 export const LS_KEYS = {
