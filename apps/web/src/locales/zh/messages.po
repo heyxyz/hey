@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-04 07:23\n"
+"PO-Revision-Date: 2023-02-05 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Collectors can view"
-msgstr ""
+msgstr "仅收藏者可见"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
-msgstr ""
+msgstr "用户需要先收藏才可见内容"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Followers can view"
@@ -88,7 +88,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
-msgstr ""
+msgstr "正在加载收藏设置"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Failed to load modules"
@@ -96,37 +96,37 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
-msgstr ""
+msgstr "这个帖子可以被收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Charge for collecting"
-msgstr ""
+msgstr "付费收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Get paid whenever someone collects your post"
-msgstr ""
+msgstr "每当有人收藏您的帖子时您将获得报酬"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Price"
-msgstr ""
+msgstr "价格"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Settings/Account/SuperFollow.tsx
 #: src/components/Settings/Allowance/index.tsx
 msgid "Select Currency"
-msgstr ""
+msgstr "选择币种"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Mirror referral reward"
-msgstr ""
+msgstr "转发奖励"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Share your collect fee with people who amplify your content"
-msgstr ""
+msgstr "分享收益给转发本文的人"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Referral fee"
-msgstr ""
+msgstr "转发费"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Limited edition"
@@ -134,31 +134,31 @@ msgstr "限量版"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Make the collects exclusive"
-msgstr ""
+msgstr "设置独家收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Collect limit"
-msgstr ""
+msgstr "收藏数量上限"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Time limit"
-msgstr ""
+msgstr "限时"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Limit collecting to the first 24h"
-msgstr ""
+msgstr "24小时限时收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Who can collect"
-msgstr ""
+msgstr "谁可以收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Only followers can collect"
-msgstr ""
+msgstr "关注者才能收藏"
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
-msgstr ""
+msgstr "收藏设置"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "Search for GIFs"
@@ -439,7 +439,7 @@ msgstr ""
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
 msgid "Collected by"
-msgstr ""
+msgstr "收藏者"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
@@ -451,7 +451,7 @@ msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected{0}"
-msgstr ""
+msgstr "已收藏{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "liked"
@@ -591,7 +591,7 @@ msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "Collects"
-msgstr ""
+msgstr "收藏"
 
 #: src/components/Notification/List.tsx
 msgid "Failed to load notifications"
@@ -603,19 +603,19 @@ msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
-msgstr ""
+msgstr "已为 {0} {1} 收藏"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/>收藏了你的<2>评论</2></0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/>收藏了你的<2>转发</2></0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> 收集了你的 <2> 帖子</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 #: src/components/Notification/Type/MirrorNotification.tsx
@@ -737,7 +737,7 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing the Site, you agree to not only this Privacy Policy, but also to our Terms of Use and any other written agreements for using the Site. And you agree to our collection and use of any personal data (as described here) as well as the features of public/permissionless blockchain technology."
-msgstr ""
+msgstr "访问本网站时，代表了您不仅同意本隐私政策，还代表了您同意我们的使用条款和任何其他关于使用本网站的书面协议。并且您同意我们收集和使用任何您的个人数据（如此处所述）以及相关的公共以及无许可的区块链技术。"
 
 #: src/components/Pages/Privacy.tsx
 msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
@@ -1192,20 +1192,20 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
-msgstr ""
+msgstr "收藏成功！"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
 msgid "Loading collect"
-msgstr ""
+msgstr "正在加载收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} collectors"
-msgstr ""
+msgstr "{0} 位收藏者"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
-msgstr ""
+msgstr "{0} 可收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0}% referral fee"
@@ -1213,11 +1213,11 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
-msgstr ""
+msgstr "收入："
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Sale Ends:"
-msgstr ""
+msgstr "销售结束："
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Token:"
@@ -1225,21 +1225,21 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collect now"
-msgstr ""
+msgstr "收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "You already collected this"
-msgstr ""
+msgstr "不要重复收藏哦！"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
-msgstr ""
+msgstr "免费收藏"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Unknown Collect"
-msgstr ""
+msgstr "未知收藏"
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
@@ -1341,7 +1341,7 @@ msgstr ""
 
 #: src/components/Publication/Type/Collected.tsx
 msgid "collected the <0>{0}</0>"
-msgstr ""
+msgstr "收藏了 <0>{0}</0>"
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -1980,15 +1980,15 @@ msgstr ""
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
-msgstr ""
+msgstr "加载收藏者列表中"
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "No collectors."
-msgstr ""
+msgstr "还没有人收藏。"
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
-msgstr ""
+msgstr "无法加载收藏者"
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
@@ -2076,19 +2076,19 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
-msgstr ""
+msgstr "虚假交互"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
-msgstr ""
+msgstr "算法操纵"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misleading"
-msgstr ""
+msgstr "误导"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
-msgstr ""
+msgstr "滥用标签"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Repetitive"
@@ -2096,27 +2096,27 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
-msgstr ""
+msgstr "其他"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Unrelated"
-msgstr ""
+msgstr "内容无关"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
-msgstr ""
+msgstr "补充信息不应超过 260 个字符"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"
-msgstr ""
+msgstr "举报失败"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Please provide additional details"
-msgstr ""
+msgstr "请提供更多详细信息"
 
 #: src/components/Shared/Navbar/MobileDrawerMenu.tsx
 #: src/components/Shared/Navbar/SignedUser.tsx
@@ -2125,11 +2125,11 @@ msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
-msgstr ""
+msgstr "更多"
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
-msgstr ""
+msgstr "联系我们"
 
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
@@ -2278,35 +2278,35 @@ msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
-msgstr ""
+msgstr "取消关注"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{0}</0>"
-msgstr ""
+msgstr "您没有足够的 <0>{0}</0>"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
-msgstr ""
+msgstr "用Uniswap进行代币转换"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools • {APP_NAME}"
-msgstr ""
+msgstr "员工工具 • {APP_NAME}"
 
 #: src/components/UI/LightBox.tsx
 msgid "Open original"
-msgstr ""
+msgstr "打开原图"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
-msgstr ""
+msgstr "图片尺寸应小于 10MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 100MB"
-msgstr ""
+msgstr "视频文件应小于 100MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
-msgstr ""
+msgstr "音频文件应小于 100MB"
 
 #: src/lib/getModule.ts
 msgid "The Unknown Collect Module is unknown and not type supported in the API."
@@ -2314,7 +2314,7 @@ msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Paid Collect"
-msgstr ""
+msgstr "付费收藏"
 
 #: src/lib/getModule.ts
 msgid "The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster."
@@ -2358,23 +2358,23 @@ msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Fee Follow"
-msgstr ""
+msgstr "付费关注"
 
 #: src/lib/getModule.ts
 msgid "The Fee Follow Module only allows addresses to follow a given profile, so long as they pay a fee specified by the profile owner. Users can set the currency and amount required to be paid."
-msgstr ""
+msgstr "付费关注模块需要关注者付费才可以关注该博主。 用户可以自定义付费关注所需要的代币币种和金额。"
 
 #: src/lib/getModule.ts
 msgid "Follower Only Reference"
-msgstr ""
+msgstr "只有账户的关注者可以评论和转发"
 
 #: src/lib/getModule.ts
 msgid "The Follower Only Reference Module ensures that only a profile is only allowed to mirror or comment on content."
-msgstr ""
+msgstr "如果启用粉丝专属模块，那么用户必须要先关注博主，才能转发或评论该博主的内容。"
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
-msgstr ""
+msgstr "网页好像消失了‽"
 
 #: src/pages/404.tsx
 msgid "This page could not be found."
@@ -2383,13 +2383,13 @@ msgstr ""
 #: src/pages/404.tsx
 #: src/pages/500.tsx
 msgid "Go to home"
-msgstr ""
+msgstr "返回主页"
 
 #: src/pages/500.tsx
 msgid "Looks like something went wrong!"
-msgstr ""
+msgstr "系统似乎出现了故障！"
 
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
-msgstr ""
+msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
 
