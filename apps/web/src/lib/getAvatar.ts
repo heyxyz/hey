@@ -36,11 +36,7 @@ const getAvatar = (profile: any, isCdn = true): string => {
     return imageProxy(getIPFSLink(avatarUrl), AVATAR);
   }
 
-  return getIPFSLink(
-    profile?.picture?.original?.url ??
-      profile?.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS)
-  );
+  return getIPFSLink(avatarUrl);
 };
 
 export default getAvatar;
