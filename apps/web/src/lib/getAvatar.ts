@@ -6,7 +6,6 @@ import imageProxy from './imageProxy';
 
 const skipList = [
   'static-assets.lenster.xyz',
-  'cdn.stamp.fyi',
   'avataaars.io',
   'avatar.tobi.sh',
   'media.giphy.com',
