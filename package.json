@@ -7,13 +7,13 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
-    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint --parallel",
+    "typecheck": "turbo run typecheck --parallel",
     "codegen": "turbo run codegen",
     "i18n:extract": "turbo run extract",
-    "workers:deploy": "turbo run worker:deploy",
+    "workers:deploy": "turbo run worker:deploy --parallel",
     "prettier": "prettier --check \"**/*.{ts,tsx,md}\"",
     "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
