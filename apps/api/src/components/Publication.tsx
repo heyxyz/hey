@@ -1,6 +1,6 @@
 import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';
-import { DEFAULT_OG, MEDIA_PROXY_URL } from 'data/constants';
+import { AVATAR, DEFAULT_OG, USER_CONTENT_URL } from 'data/constants';
 import { Publication } from 'lens';
 import type { FC } from 'react';
 
@@ -25,7 +25,7 @@ const Publication: FC<Props> = ({ publication }) => {
   const image = hasMedia
     ? getIPFSLink(publication.metadata?.media[0].original.url)
     : profile
-    ? `${MEDIA_PROXY_URL}/?name=avatar&image=${getIPFSLink(
+    ? `${USER_CONTENT_URL}/${AVATAR}/${getIPFSLink(
         profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)
       )}`
     : DEFAULT_OG;
