@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-04 07:23\n"
+"PO-Revision-Date: 2023-02-05 04:38\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -798,7 +798,7 @@ msgstr "இந்தத் தனியுரிமைக் கொள்கை,
 
 #: src/components/Pages/Privacy.tsx
 msgid "5. Analytics"
-msgstr ""
+msgstr "5. பகுப்பாய்வு"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We use <0>Simple Analytics</0> to collect various events from user actions to analyse and make decisions for Site improvements."
@@ -814,47 +814,47 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "6. Your Rights and Choices"
-msgstr ""
+msgstr "6. உங்கள் உரிமைகள் மற்றும் தேர்வுகள்"
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Cookies</0>. We will only use strictly necessary cookies. These cookies are essential for you to browse the Site and use its features, including accessing secure areas of the Site."
-msgstr ""
+msgstr "<0>குக்கீகள்</0>. கண்டிப்பாகத் தேவையான குக்கீகளை மட்டுமே பயன்படுத்துவோம். நீங்கள் தளத்தை உலாவவும், தளத்தின் பாதுகாப்பான பகுதிகளை அணுகுவது உட்பட அதன் அம்சங்களைப் பயன்படுத்தவும் இந்தக் குக்கீகள் அவசியம்."
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Do Not Track</0>. Your browser settings may allow you to automatically transmit a “Do Not Track” signal to the online services you visit. Note, however, there is no industry consensus as to what Site and app operators should do with regard to these signals. Accordingly, unless and until the law is interpreted to require us to do so, we do not monitor or take action with respect to “Do Not Track” signals. For more information on “Do Not Track,” visit <1>https://allaboutdnt.com</1>."
-msgstr ""
+msgstr "<0>கண்காணிக்க வேண்டாம்</0>. உங்கள் உலாவி அமைப்புகள் நீங்கள் பார்வையிடும் ஆன்லைன் சேவைகளுக்கு தானாக \"கண்காணிக்க வேண்டாம்\" சிக்னலை அனுப்ப அனுமதிக்கலாம். இருப்பினும், இந்த சிக்னல்கள் தொடர்பாக தளம் மற்றும் ஆப்ஸ் ஆபரேட்டர்கள் என்ன செய்ய வேண்டும் என்பதில் தொழில்துறை ஒருமித்த கருத்து இல்லை. அதன்படி, நாங்கள் அவ்வாறு செய்ய வேண்டும் என்று சட்டம் விளக்கப்படும் வரை, \"கண்காணிக்க வேண்டாம்\" சிக்னல்களை நாங்கள் கண்காணிக்கவோ அல்லது நடவடிக்கை எடுக்கவோ மாட்டோம். \"கண்காணிக்க வேண்டாம்\" பற்றிய கூடுதல் தகவலுக்கு, <1>https://allaboutdnt.com ஐப் பார்வையிடவும்</1>."
 
 #: src/components/Pages/Privacy.tsx
 msgid "7. Data Security"
-msgstr ""
+msgstr "7. தரவு பாதுகாப்பு"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We implement and maintain reasonable administrative, physical, and technical security safeguards to help protect information about you from loss, theft, misuse, unauthorised access, disclosure, alteration, and destruction. Nevertheless, transmission via the internet is not completely secure and we cannot guarantee the security of information about you."
-msgstr ""
+msgstr "இழப்பு, திருட்டு, தவறாகப் பயன்படுத்துதல், அங்கீகரிக்கப்படாத அணுகல், வெளிப்படுத்துதல், மாற்றம் செய்தல் மற்றும் அழிவு ஆகியவற்றிலிருந்து உங்களைப் பற்றிய தகவல்களைப் பாதுகாக்க உதவும் நியாயமான நிர்வாக, உடல் மற்றும் தொழில்நுட்ப பாதுகாப்புப் பாதுகாப்புகளை நாங்கள் செயல்படுத்தி பராமரிக்கிறோம். இருப்பினும், இணையம் வழியாக பரிமாற்றம் முற்றிலும் பாதுகாப்பானது அல்ல, உங்களைப் பற்றிய தகவலின் பாதுகாப்பிற்கு நாங்கள் உத்தரவாதம் அளிக்க முடியாது."
 
 #: src/components/Pages/Privacy.tsx
 msgid "8. Children"
-msgstr ""
+msgstr "8. குழந்தைகள்"
 
 #: src/components/Pages/Privacy.tsx
 msgid "The Site is intended for general audiences and are not directed at children. To use the Site, you must legally be able to enter into the Agreement. We do not knowingly collect personal information from children."
-msgstr ""
+msgstr "தளம் பொது பார்வையாளர்களுக்காக வடிவமைக்கப்பட்டுள்ளது மற்றும் குழந்தைகளை நோக்கமாகக் கொண்டது அல்ல. தளத்தைப் பயன்படுத்த, நீங்கள் சட்டப்பூர்வமாக ஒப்பந்தத்தில் நுழைய முடியும். குழந்தைகளிடமிருந்து தனிப்பட்ட தகவல்களை நாங்கள் தெரிந்தே சேகரிப்பதில்லை."
 
 #: src/components/Pages/Privacy.tsx
 msgid "9. Changes to Policy"
-msgstr ""
+msgstr "9. கொள்கையில் மாற்றங்கள்"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We reserve the right to revise and reissue this Privacy Policy at any time. Any changes will be effective immediately upon our posting of the revised Privacy Policy. For the avoidance of doubt, your continued use of the Site indicates your consent to the revised Privacy Policy then posted."
-msgstr ""
+msgstr "எந்த நேரத்திலும் இந்தத் தனியுரிமைக் கொள்கையை மறுபரிசீலனை செய்வதற்கும் மறுவெளியீடு செய்வதற்கும் எங்களுக்கு உரிமை உள்ளது. திருத்தப்பட்ட தனியுரிமைக் கொள்கையை நாங்கள் இடுகையிட்டவுடன் எந்த மாற்றங்களும் உடனடியாக நடைமுறைக்கு வரும். சந்தேகத்தைத் தவிர்ப்பதற்காக, தளத்தைத் தொடர்ந்து பயன்படுத்துவது, பின்னர் வெளியிடப்பட்ட திருத்தப்பட்ட தனியுரிமைக் கொள்கைக்கு உங்கள் ஒப்புதலைக் குறிக்கிறது."
 
 #: src/components/Pages/Privacy.tsx
 msgid "10. Contact"
-msgstr ""
+msgstr "10. தொடர்பு"
 
 #: src/components/Pages/Privacy.tsx
 msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr ""
+msgstr "இந்தத் தனியுரிமைக் கொள்கை, எங்கள் தரவு நடைமுறைகள் அல்லது பொருந்தக்கூடிய சட்டத்திற்கு இணங்குதல் பற்றி ஏதேனும் கேள்விகள் அல்லது கருத்துகள் இருந்தால், தயவுசெய்து எங்களை privacy@lenster.xyz இல் தொடர்பு கொள்ளவும்"
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -862,7 +862,7 @@ msgstr "விதிமுறைகள் & நிபந்தனைகள் �
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions"
-msgstr ""
+msgstr "விதிமுறைகள் மற்றும் நிபந்தனைகள்"
 
 #: src/components/Pages/Terms.tsx
 msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
@@ -898,7 +898,7 @@ msgstr "பயனர் லென்ஸ் சுயவிவரம் \"தள�
 
 #: src/components/Pages/Terms.tsx
 msgid "The Site allow you to interact with the Lens Protocol, including posts, mirrors, comments and other content related actions."
-msgstr ""
+msgstr "இடுகைகள், கண்ணாடிகள், கருத்துகள் மற்றும் பிற உள்ளடக்கம் தொடர்பான செயல்கள் உட்பட லென்ஸ் நெறிமுறையுடன் தொடர்புகொள்ள தளம் உங்களை அனுமதிக்கிறது."
 
 #: src/components/Pages/Terms.tsx
 msgid "We reserve the right - but are not obligated to - limit the provision of Profiles or Services to any person, geographic region or jurisdiction. We may exercise this right on a case-by-case basis in our sole discretion."
@@ -1337,7 +1337,7 @@ msgstr ""
 
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
-msgstr ""
+msgstr "தொடர்புடைய நபர்களை ஏற்ற முடியவில்லை"
 
 #: src/components/Publication/Type/Collected.tsx
 msgid "collected the <0>{0}</0>"
@@ -1663,19 +1663,19 @@ msgstr ""
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "Hide number of likes"
-msgstr ""
+msgstr "விருப்பங்களின் எண்ணிக்கையை மறை"
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
-msgstr ""
+msgstr "ஊட்டத்தில் மற்றவர்கள் பகிரும் வெளியீடுகளுக்கான மொத்த விருப்பங்களின் எண்ணிக்கையை நீங்கள் காண மாட்டீர்கள். இடுகைக்கான உங்கள் விருப்பங்கள் உங்களுக்கும் மற்ற அனைவருக்கும் தெரியும்."
 
 #: src/components/Settings/Preferences/index.tsx
 msgid "Preferences • {APP_NAME}"
-msgstr ""
+msgstr "விருப்பத்தேர்வுகள் • {APP_NAME}"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Contract address should be within 42 characters"
-msgstr ""
+msgstr "ஒப்பந்த முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Invalid Contract address"
@@ -1740,7 +1740,7 @@ msgstr "ட்விட்டர்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
-msgstr ""
+msgstr "பயோ"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
@@ -2137,7 +2137,7 @@ msgstr "வெளியேறு"
 
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
-msgstr ""
+msgstr "மிதவாக்கம்"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2314,7 +2314,7 @@ msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Paid Collect"
-msgstr ""
+msgstr "கட்டண சேகரிப்பு"
 
 #: src/lib/getModule.ts
 msgid "The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster."
@@ -2322,7 +2322,7 @@ msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Rare Paid Collect"
-msgstr ""
+msgstr "அரிய கட்டண சேகரிப்பு"
 
 #: src/lib/getModule.ts
 msgid "The Limited Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific limit of mints."
@@ -2330,7 +2330,7 @@ msgstr ""
 
 #: src/lib/getModule.ts
 msgid "24 Hour Collect"
-msgstr ""
+msgstr "24 மணி நேர சேகரிப்பு"
 
 #: src/lib/getModule.ts
 msgid "The Timed Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency."
@@ -2338,7 +2338,7 @@ msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Rare 24 Hour Collect"
-msgstr ""
+msgstr "அரிய 24 மணிநேர சேகரிப்பு"
 
 #: src/lib/getModule.ts
 msgid "The Limited Timed Fee Collect Module allows for any follower to collect the associate publication, provided they pay a fee, up to a specific time limit and mint cap. It is essentially a combination of the Timed Fee Collect Module and the Limited Fee Collect Module."
@@ -2350,7 +2350,7 @@ msgstr ""
 
 #: src/lib/getModule.ts
 msgid "No Collect"
-msgstr ""
+msgstr "சேகரிப்பு இல்லை"
 
 #: src/lib/getModule.ts
 msgid "The Revert Collect Module causes all collect actions on a given publication to fail, thus making the publication uncollectable."
