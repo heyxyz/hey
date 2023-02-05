@@ -1,4 +1,4 @@
-import { MEDIA_PROXY_URL } from 'data/constants';
+import { USER_CONTENT_URL } from 'data/constants';
 
 /**
  *
@@ -7,7 +7,7 @@ import { MEDIA_PROXY_URL } from 'data/constants';
  * @returns imgproxy URL
  */
 const imageProxy = (url: string, name?: string): string => {
-  return name ? `${MEDIA_PROXY_URL}/?name=${name}&image=${url}` : `${MEDIA_PROXY_URL}/?image=${url}`;
+  return name ? `${USER_CONTENT_URL}/${name}/${url}` : `${USER_CONTENT_URL}/${url}`;
 };
 
 export default imageProxy;

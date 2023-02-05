@@ -60,7 +60,7 @@ export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 
 // Workers
-export const MEDIA_PROXY_URL = IS_PRODUCTION ? 'https://media.lenster.xyz' : 'http://localhost:8081';
+export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
 export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
 
@@ -101,9 +101,9 @@ export const SCROLL_THRESHOLD = 0.5;
 export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms
-export const AVATAR = 'avatar';
-export const COVER = 'cover';
-export const ATTACHMENT = 'attachment';
+export const AVATAR = '300x300';
+export const COVER = '1500x500';
+export const ATTACHMENT = '1000x1000';
 
 // Localstorage keys
 export const LS_KEYS = {
