@@ -32,22 +32,19 @@ const ReviewSelection = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3">
-      {gallery.items?.map((item) => {
-        const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
-        return (
-          <div key={id}>
-            <div className="relative rounded-xl">
-              <button
-                onClick={() => onRemoveItem(item)}
-                className="bg-brand-500 absolute right-2 top-2 rounded-full"
-              >
-                <XIcon className="h-6 w-6 rounded-full bg-white p-1 text-black" />
-              </button>
-              <SingleNFT nft={item as Nft} linkToDetail={false} />
-            </div>
+      {gallery.items?.map((item) => (
+        <div key={`${item.chainId}_${item.contractAddress}_${item.tokenId}`}>
+          <div className="relative rounded-xl">
+            <button
+              onClick={() => onRemoveItem(item)}
+              className="bg-brand-500 absolute right-2 top-2 rounded-full"
+            >
+              <XIcon className="h-6 w-6 rounded-full bg-white p-1 text-black" />
+            </button>
+            <SingleNFT nft={item as Nft} linkToDetail={false} />
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 };
