@@ -52,11 +52,13 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NFTPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -570,6 +572,7 @@ msgid "doesn’t have any NFTs!"
 msgstr ""
 
 #: src/components/NFT/NFTFeed.tsx
+#: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
 msgstr ""
 
@@ -1167,8 +1170,56 @@ msgid "Create new decentralized profile"
 msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery created"
+msgstr "Gallery created"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name required"
+msgstr "Gallery name required"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Select collectibles for your gallery"
+msgstr "Select collectibles for your gallery"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Review collection"
+msgstr "Review collection"
+
+#: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles you want others to see"
 msgstr "Select collectibles you want others to see"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "What's your gallery name?"
+msgstr "What's your gallery name?"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "{0} selected"
+msgstr "{0} selected"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Next"
+msgstr "Next"
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Gallery deleted"
+msgstr "Gallery deleted"
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Are you sure you want to delete?"
+msgstr "Are you sure you want to delete?"
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Edit"
+msgstr "Edit"
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Rearrrange"
+msgstr "Rearrrange"
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Delete"
+msgstr "Delete"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
@@ -1181,6 +1232,14 @@ msgstr "Create a curated space for your digital collectibles"
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Let's do it!"
 msgstr "Let's do it!"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "doesn't have any NFTs!"
+msgstr "doesn't have any NFTs!"
+
+#: src/components/Profile/NftGallery/ReviewSelection.tsx
+msgid "No collectables selected!"
+msgstr "No collectables selected!"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx

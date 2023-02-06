@@ -1,4 +1,4 @@
-schema: https://api-mumbai.lens.dev
+schema: https://staging-api-social-mumbai.lens.crtlkey.com
 documents:
   ['./documents/queries/*.graphql', './documents/mutations/*.graphql', './documents/fragments/*.graphql']
 

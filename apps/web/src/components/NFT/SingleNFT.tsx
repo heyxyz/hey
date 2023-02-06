@@ -7,12 +7,15 @@ import getIPFSLink from 'utils/getIPFSLink';
 
 interface Props {
   nft: Nft;
+  linkToDetail?: boolean;
 }
 
-const SingleNFT: FC<Props> = ({ nft }) => {
-  const nftURL = `${RARIBLE_URL}/token/${nft.chainId === CHAIN_ID ? 'polygon/' : ''}${nft.contractAddress}:${
-    nft.tokenId
-  }`.toLowerCase();
+const SingleNFT: FC<Props> = ({ nft, linkToDetail = true }) => {
+  const nftURL = linkToDetail
+    ? `${RARIBLE_URL}/token/${nft.chainId === CHAIN_ID ? 'polygon/' : ''}${nft.contractAddress}:${
+        nft.tokenId
+      }`.toLowerCase()
+    : undefined;
 
   return (
     <Card>
