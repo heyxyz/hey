@@ -3,7 +3,6 @@ import { LightBox } from '@components/UI/LightBox';
 import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
-import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -13,6 +12,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
+import getIPFSLink from 'utils/getIPFSLink';
 
 import Audio from './Audio';
 import Video from './Video';
