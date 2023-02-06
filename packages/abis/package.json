@@ -2,6 +2,8 @@
   "name": "abis",
   "version": "0.0.0",
   "main": "index.ts",
+  "private": true,
+  "license": "GPL-3.0",
   "scripts": {
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts"

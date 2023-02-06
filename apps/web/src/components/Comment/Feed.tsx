@@ -84,13 +84,15 @@ const Feed: FC<Props> = ({ publication }) => {
                   </div>
                 )
             )}
-            {comments?.map((comment, index) => (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                publication={comment as Comment}
-                showType={false}
-              />
-            ))}
+            {comments?.map((comment, index) =>
+              comment?.__typename === 'Comment' && comment.hidden ? null : (
+                <SinglePublication
+                  key={`${publicationId}_${index}`}
+                  publication={comment as Comment}
+                  showType={false}
+                />
+              )
+            )}
           </Card>
         </InfiniteScroll>
       )}

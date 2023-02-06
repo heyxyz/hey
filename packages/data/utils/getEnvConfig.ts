@@ -2,12 +2,6 @@ import {
   LENS_NETWORK,
   MAINNET_API_URL,
   SANDBOX_API_URL,
-  SERVERLESS_DEVELOPMENT_API_URL,
-  SERVERLESS_MAINNET_API_URL,
-  SERVERLESS_SANDBOX_API_URL,
-  SERVERLESS_STAGING_API_URL,
-  SERVERLESS_STAGING_SANDBOX_API_URL,
-  SERVERLESS_TESTNET_API_URL,
   STAGING_API_URL,
   STAGING_SANDBOX_API_URL,
   TESTNET_API_URL
@@ -27,7 +21,6 @@ import {
 
 const getEnvConfig = (): {
   apiEndpoint: string;
-  serverlessEndpoint: string;
   lensHubProxyAddress: `0x${string}`;
   lensPeripheryAddress: `0x${string}`;
   defaultCollectToken: string;
@@ -38,7 +31,6 @@ const getEnvConfig = (): {
     case 'mainnet':
       return {
         apiEndpoint: MAINNET_API_URL,
-        serverlessEndpoint: SERVERLESS_MAINNET_API_URL,
         lensHubProxyAddress: MAINNET_LENSHUB_PROXY,
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         defaultCollectToken: MAINNET_DEFAULT_TOKEN,
@@ -48,7 +40,6 @@ const getEnvConfig = (): {
     case 'testnet':
       return {
         apiEndpoint: TESTNET_API_URL,
-        serverlessEndpoint: SERVERLESS_TESTNET_API_URL,
         lensHubProxyAddress: TESTNET_LENSHUB_PROXY,
         lensPeripheryAddress: TESTNET_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
@@ -58,7 +49,6 @@ const getEnvConfig = (): {
     case 'staging':
       return {
         apiEndpoint: STAGING_API_URL,
-        serverlessEndpoint: SERVERLESS_STAGING_API_URL,
         lensHubProxyAddress: TESTNET_LENSHUB_PROXY,
         lensPeripheryAddress: TESTNET_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
@@ -68,7 +58,6 @@ const getEnvConfig = (): {
     case 'sandbox':
       return {
         apiEndpoint: SANDBOX_API_URL,
-        serverlessEndpoint: SERVERLESS_SANDBOX_API_URL,
         lensHubProxyAddress: SANDBOX_LENSHUB_PROXY,
         lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
@@ -78,7 +67,6 @@ const getEnvConfig = (): {
     case 'staging-sandbox':
       return {
         apiEndpoint: STAGING_SANDBOX_API_URL,
-        serverlessEndpoint: SERVERLESS_STAGING_SANDBOX_API_URL,
         lensHubProxyAddress: SANDBOX_LENSHUB_PROXY,
         lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
@@ -88,7 +76,6 @@ const getEnvConfig = (): {
     default:
       return {
         apiEndpoint: MAINNET_API_URL,
-        serverlessEndpoint: SERVERLESS_DEVELOPMENT_API_URL,
         lensHubProxyAddress: MAINNET_LENSHUB_PROXY,
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         defaultCollectToken: MAINNET_DEFAULT_TOKEN,

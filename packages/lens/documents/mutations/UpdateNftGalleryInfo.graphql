@@ -1,0 +1,3 @@
+mutation UpdateNftGalleryInfo($request: NftGalleryUpdateInfoRequest!) {
+  updateNftGalleryInfo(request: $request)
+}

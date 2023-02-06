@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   src: local('CircularXXSub'),
-    url('https://assets.lenster.xyz/css/fonts/CircularXXSub-Book.woff') format('woff');
+    url('https://static-assets.lenster.xyz/css/fonts/CircularXXSub-Book.woff') format('woff');
   font-display: swap;
 }
 
@@ -12,7 +12,7 @@
   font-style: medium;
   font-weight: 500;
   src: local('CircularXXSub'),
-    url('https://assets.lenster.xyz/css/fonts/CircularXXSub-Medium.woff') format('woff');
+    url('https://static-assets.lenster.xyz/css/fonts/CircularXXSub-Medium.woff') format('woff');
   font-display: swap;
 }
 
@@ -21,6 +21,6 @@
   font-style: bold;
   font-weight: 700;
   src: local('CircularXXSub'),
-    url('https://assets.lenster.xyz/css/fonts/CircularXXSub-Bold.woff') format('woff');
+    url('https://static-assets.lenster.xyz/css/fonts/CircularXXSub-Bold.woff') format('woff');
   font-display: swap;
 }

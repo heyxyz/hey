@@ -2,6 +2,7 @@
   "name": "prerender-worker",
   "version": "0.0.0",
   "private": true,
+  "license": "GPL-3.0",
   "scripts": {
     "worker:deploy": "wrangler publish",
     "lint": "eslint . --ext .ts"

@@ -4,7 +4,7 @@ import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
 import { IS_MAINNET } from 'data/constants';
 import type { Profile } from 'lens';
-import { ReferenceModules, useUserProfilesQuery } from 'lens';
+import { useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -12,7 +12,6 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
@@ -34,7 +33,6 @@ const Layout: FC<Props> = ({ children }) => {
   const setIsPro = useAppStore((state) => state.setIsPro);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
 
   const { mounted } = useIsMounted();
   const { address } = useAccount();
@@ -62,12 +60,6 @@ const Layout: FC<Props> = ({ children }) => {
       }
 
       const selectedUser = profiles.find((profile) => profile.id === profileId);
-      const totalFollowing = selectedUser?.stats?.totalFollowing || 0;
-      setSelectedReferenceModule(
-        totalFollowing > 20
-          ? ReferenceModules.DegreesOfSeparationReferenceModule
-          : ReferenceModules.FollowerOnlyReferenceModule
-      );
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
