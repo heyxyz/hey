@@ -19,8 +19,8 @@ const NoGallery: FC<Props> = ({ profile }) => {
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4 py-10">
-      <Create showModal={showCreateModal} setShowModal={setShowCreateModal} />
       <div className="grid w-full max-w-sm grid-cols-3 gap-4">
+        <Create showModal={showCreateModal} setShowModal={setShowCreateModal} />
         <div className="bg-brand-100 col-span-2 flex h-[250px] items-center justify-center rounded-xl">
           <img
             width={100}
@@ -36,7 +36,7 @@ const NoGallery: FC<Props> = ({ profile }) => {
             <img
               width={50}
               height={50}
-              className="h-1w-14 w-14"
+              className="h-14 w-14"
               src="https://i.imgur.com/GdIxlDY.png"
               alt=""
               draggable={false}

@@ -53,7 +53,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableMirrorsDiv">
       <ErrorMessage className="m-5" title={t`Failed to load mirrors`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}
@@ -61,7 +61,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
         hasMore={hasMore}
         next={loadMore}
         loader={<InfiniteLoader />}
-        scrollableTarget="scrollableDiv"
+        scrollableTarget="scrollableMirrorsDiv"
       >
         <div className="divide-y dark:divide-gray-700">
           {profiles?.map((profile, index) => (

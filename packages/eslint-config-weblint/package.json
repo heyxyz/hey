@@ -2,7 +2,8 @@
   "name": "eslint-config-weblint",
   "version": "0.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "private": true,
+  "license": "GPL-3.0",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "eslint": "^8.33.0",

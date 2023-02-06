@@ -61,7 +61,7 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableFollowingDiv">
       <ErrorMessage className="m-5" title={t`Failed to load following`} error={error} />
       <InfiniteScroll
         dataLength={followings?.length ?? 0}
@@ -69,7 +69,7 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
         hasMore={hasMore}
         next={loadMore}
         loader={<InfiniteLoader />}
-        scrollableTarget="scrollableDiv"
+        scrollableTarget="scrollableFollowingDiv"
       >
         <div className="divide-y dark:divide-gray-700">
           {followings?.map((following, index) => (

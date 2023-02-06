@@ -1,10 +1,10 @@
-import getIPFSLink from '@lib/getIPFSLink';
-import getStampFyiURL from '@lib/getStampFyiURL';
 import { AVATAR, DEFAULT_OG, USER_CONTENT_URL } from 'data/constants';
 import type { MediaSet, NftImage } from 'lens';
 import { Profile } from 'lens';
 import type { FC } from 'react';
 import { JsonLd } from 'react-schemaorg';
+import getIPFSLink from 'utils/getIPFSLink';
+import getStampFyiURL from 'utils/getStampFyiURL';
 
 import DefaultTags from './Shared/DefaultTags';
 import Tags from './Shared/Tags';

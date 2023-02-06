@@ -2,6 +2,7 @@
   "name": "web",
   "version": "0.0.0",
   "private": true,
+  "license": "GPL-3.0",
   "scripts": {
     "dev": "lingui compile; next dev --port 4783",
     "build": "lingui compile; next build",
@@ -56,6 +57,7 @@
     "react-hook-form": "^7.43.0",
     "react-hot-toast": "^2.4.0",
     "react-infinite-scroll-component": "^6.1.0",
+    "utils": "*",
     "uuid": "^9.0.0",
     "wagmi": "^0.11.4",
     "zod": "^3.20.2",

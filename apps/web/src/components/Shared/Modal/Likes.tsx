@@ -49,7 +49,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableLikesDiv">
       <ErrorMessage className="m-5" title={t`Failed to load likes`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}
@@ -57,7 +57,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
         hasMore={hasMore}
         next={loadMore}
         loader={<InfiniteLoader />}
-        scrollableTarget="scrollableDiv"
+        scrollableTarget="scrollableLikesDiv"
       >
         <div className="divide-y dark:divide-gray-700">
           {profiles?.map((like, index) => (
