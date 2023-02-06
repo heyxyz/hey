@@ -34,6 +34,7 @@ const Editor: FC = () => {
     if (attachments.length === 4 || attachments.length + pastedFiles.length > 4) {
       return toast.error(t`Please choose either 1 video or up to 4 photos.`);
     }
+
     if (pastedFiles) {
       await handleUploadAttachments(pastedFiles);
     }
@@ -67,7 +68,7 @@ const Editor: FC = () => {
         onChange={(editorState) => {
           editorState.read(() => {
             const markdown = $convertToMarkdownString(TRANSFORMERS);
-            setPublicationContent(markdown.replaceAll('\n\n', '\n'));
+            setPublicationContent(markdown);
           });
         }}
       />
