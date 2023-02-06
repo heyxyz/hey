@@ -618,17 +618,14 @@ msgid "<0><1/> collected your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
 msgstr ""
 
@@ -663,6 +660,18 @@ msgstr ""
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>comment</2></0>"
+msgstr "<0><1/> mirrored your <2>comment</2></0>"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>mirror</2></0>"
+msgstr "<0><1/> mirrored your <2>mirror</2></0>"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>post</2></0>"
+msgstr "<0><1/> mirrored your <2>post</2></0>"
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
