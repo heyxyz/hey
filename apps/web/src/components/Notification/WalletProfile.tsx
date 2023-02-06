@@ -1,9 +1,9 @@
 import formatAddress from '@lib/formatAddress';
-import getStampFyiURL from '@lib/getStampFyiURL';
 import imageProxy from '@lib/imageProxy';
 import { POLYGONSCAN_URL } from 'data/constants';
 import type { Wallet } from 'lens';
 import type { FC } from 'react';
+import getStampFyiURL from 'utils/getStampFyiURL';
 
 interface Props {
   wallet: Wallet;
