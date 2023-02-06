@@ -4,10 +4,10 @@ import type { FC } from 'react';
 
 const Hero: FC = () => {
   return (
-    <div className="py-12 border-b bg-hero dark:border-b-gray-700">
-      <div className="px-5 mx-auto max-w-screen-xl flex items-stretch py-8 w-full text-center sm:py-12 sm:text-left">
+    <div className="bg-hero border-b py-12 dark:border-b-gray-700">
+      <div className="mx-auto flex w-full max-w-screen-xl items-stretch px-5 py-8 text-center sm:py-12 sm:text-left">
         <div className="flex-1 space-y-3">
-          <div className="text-2xl font-extrabold sm:text-4xl font-serif">
+          <div className="font-serif text-2xl font-extrabold sm:text-4xl">
             <Trans>Welcome to {APP_NAME} 👋</Trans>
           </div>
           <div className="leading-7 text-gray-700 dark:text-gray-300">
@@ -16,7 +16,7 @@ const Hero: FC = () => {
             </Trans>
           </div>
         </div>
-        <div className="hidden flex-1 flex-shrink-0 w-full sm:block" />
+        <div className="hidden w-full flex-1 flex-shrink-0 sm:block" />
       </div>
     </div>
   );

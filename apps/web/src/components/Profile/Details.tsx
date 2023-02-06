@@ -61,34 +61,34 @@ const Details: FC<Props> = ({ profile }) => {
   };
 
   const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
-    <div className="flex gap-2 items-center">
+    <div className="flex items-center gap-2">
       {icon}
-      <div className="truncate text-md">{children}</div>
+      <div className="text-md truncate">{children}</div>
     </div>
   );
 
   const followType = profile?.followModule?.__typename;
 
   return (
-    <div className="px-5 mb-4 space-y-5 sm:px-0">
-      <div className="relative -mt-24 w-32 h-32 sm:-mt-32 sm:w-52 sm:h-52">
+    <div className="mb-4 space-y-5 px-5 sm:px-0">
+      <div className="relative -mt-24 h-32 w-32 sm:-mt-32 sm:h-52 sm:w-52">
         <img
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(profile, false);
           }}
           src={getAvatar(profile)}
-          className="w-32 h-32 bg-gray-200 rounded-xl ring-8 ring-gray-50 sm:w-52 sm:h-52 dark:bg-gray-700 dark:ring-black"
+          className="h-32 w-32 rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
           width={128}
           alt={formatHandle(profile?.handle)}
         />
       </div>
-      <div className="py-2 space-y-1">
-        <div className="flex gap-1.5 items-center text-2xl font-bold">
+      <div className="space-y-1 py-2">
+        <div className="flex items-center gap-1.5 text-2xl font-bold">
           <div className="truncate">{profile?.name ?? formatHandle(profile?.handle)}</div>
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
-              <BadgeCheckIcon className="w-6 h-6 text-brand" />
+              <BadgeCheckIcon className="text-brand h-6 w-6" />
             </Tooltip>
           )}
         </div>
@@ -99,14 +99,14 @@ const Details: FC<Props> = ({ profile }) => {
             <Slug className="text-sm sm:text-base" slug={formatAddress(profile?.ownedBy)} />
           )}
           {currentProfile && currentProfile?.id !== profile?.id && profile?.isFollowing && (
-            <div className="py-0.5 px-2 text-xs bg-gray-200 rounded-full dark:bg-gray-700">
+            <div className="rounded-full bg-gray-200 py-0.5 px-2 text-xs dark:bg-gray-700">
               <Trans>Follows you</Trans>
             </div>
           )}
         </div>
       </div>
       {profile?.bio && (
-        <div className="mr-0 sm:mr-10 leading-md linkify text-md break-words">
+        <div className="leading-md linkify text-md mr-0 break-words sm:mr-10">
           <Markup>{profile?.bio}</Markup>
         </div>
       )}
@@ -115,7 +115,7 @@ const Details: FC<Props> = ({ profile }) => {
         <div>
           {currentProfile?.id === profile?.id ? (
             <Link href="/settings">
-              <Button variant="secondary" icon={<CogIcon className="w-5 h-5" />} outline>
+              <Button variant="secondary" icon={<CogIcon className="h-5 w-5" />} outline>
                 <Trans>Edit Profile</Trans>
               </Button>
             </Link>
@@ -146,14 +146,14 @@ const Details: FC<Props> = ({ profile }) => {
             )
           ) : null}
         </div>
-        <div className="w-full divider" />
+        <div className="divider w-full" />
         <div>{currentProfile?.id === profile?.id ? <ProfileTipsStats /> : null}</div>
         {currentProfile?.id !== profile?.id && (
           <>
             <MutualFollowers setShowMutualFollowersModal={setShowMutualFollowersModal} profile={profile} />
             <Modal
               title={t`Followers you know`}
-              icon={<UsersIcon className="w-5 h-5 text-brand" />}
+              icon={<UsersIcon className="text-brand h-5 w-5" />}
               show={showMutualFollowersModal}
               onClose={() => setShowMutualFollowersModal(false)}
             >
@@ -161,9 +161,9 @@ const Details: FC<Props> = ({ profile }) => {
             </Modal>
           </>
         )}
-        <div className="w-full divider" />
+        <div className="divider w-full" />
         <div className="space-y-2">
-          <MetaDetails icon={<HashtagIcon className="w-4 h-4" />}>
+          <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
             <Tooltip content={`#${profile?.id}`}>
               <a
                 href={`${RARIBLE_URL}/token/polygon/${getEnvConfig().lensHubProxyAddress}:${parseInt(
@@ -177,7 +177,7 @@ const Details: FC<Props> = ({ profile }) => {
             </Tooltip>
           </MetaDetails>
           {getAttribute(profile?.attributes, 'location') && (
-            <MetaDetails icon={<LocationMarkerIcon className="w-4 h-4" />}>
+            <MetaDetails icon={<LocationMarkerIcon className="h-4 w-4" />}>
               {getAttribute(profile?.attributes, 'location') as any}
             </MetaDetails>
           )}
@@ -186,7 +186,7 @@ const Details: FC<Props> = ({ profile }) => {
               icon={
                 <img
                   src={`${STATIC_IMAGES_URL}/brands/ens.svg`}
-                  className="w-4 h-4"
+                  className="h-4 w-4"
                   height={16}
                   width={16}
                   alt="ENS Logo"
@@ -206,7 +206,7 @@ const Details: FC<Props> = ({ profile }) => {
                   )
                     ?.replace('https://', '')
                     .replace('http://', '')}`}
-                  className="w-4 h-4 rounded-full"
+                  className="h-4 w-4 rounded-full"
                   height={16}
                   width={16}
                   alt="Website"
@@ -230,7 +230,7 @@ const Details: FC<Props> = ({ profile }) => {
                 resolvedTheme === 'dark' ? (
                   <img
                     src={`${STATIC_IMAGES_URL}/brands/twitter-light.svg`}
-                    className="w-4 h-4"
+                    className="h-4 w-4"
                     height={16}
                     width={16}
                     alt="Twitter Logo"
@@ -238,7 +238,7 @@ const Details: FC<Props> = ({ profile }) => {
                 ) : (
                   <img
                     src={`${STATIC_IMAGES_URL}/brands/twitter-dark.svg`}
-                    className="w-4 h-4"
+                    className="h-4 w-4"
                     height={16}
                     width={16}
                     alt="Twitter Logo"

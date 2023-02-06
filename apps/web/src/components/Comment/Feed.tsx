@@ -61,7 +61,7 @@ const Feed: FC<Props> = ({ publication }) => {
       {/* alert here */}
       {!loading && publication && (
         <NotificationBanner
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          icon={<CollectionIcon className="text-brand h-8 w-8" />}
           publication={publication}
           showCount={false}
         />
@@ -71,7 +71,7 @@ const Feed: FC<Props> = ({ publication }) => {
       {!loading && totalComments === 0 && (
         <EmptyState
           message={t`Be the first one to comment!`}
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          icon={<CollectionIcon className="text-brand h-8 w-8" />}
         />
       )}
       <ErrorMessage title={t`Failed to load comment feed`} error={error} />
@@ -93,13 +93,15 @@ const Feed: FC<Props> = ({ publication }) => {
                   </div>
                 )
             )}
-            {comments?.map((comment, index) => (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                publication={comment as Comment}
-                showType={false}
-              />
-            ))}
+            {comments?.map((comment, index) =>
+              comment?.__typename === 'Comment' && comment.hidden ? null : (
+                <SinglePublication
+                  key={`${publicationId}_${index}`}
+                  publication={comment as Comment}
+                  showType={false}
+                />
+              )
+            )}
           </Card>
         </InfiniteScroll>
       )}

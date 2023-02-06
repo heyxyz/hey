@@ -16,7 +16,7 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
     <a href={uri} className="space-y-1" target="_blank" rel="noreferrer noopener">
       <div className="flex items-center space-x-1">
         <div className="text-[10px]">{name}</div>
-        <ExternalLinkIcon className="w-4 h-4" />
+        <ExternalLinkIcon className="h-4 w-4" />
       </div>
       <div className="truncate text-xs">{hash}</div>
     </a>

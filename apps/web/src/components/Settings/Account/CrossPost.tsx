@@ -31,7 +31,7 @@ const CrossPost: FC = () => {
   }, []);
 
   return (
-    <Card className="space-y-2 linkify p-5">
+    <Card className="linkify space-y-2 p-5">
       <div className="flex items-center space-x-2">
         <div className="text-lg font-bold">
           <Trans>Cross post to Twitter</Trans>
@@ -49,7 +49,7 @@ const CrossPost: FC = () => {
                 Already reposting to <b>@{repostingTo}</b>
               </Trans>
             </span>
-            <CheckCircleIcon className="w-5 h-5 text-brand" />
+            <CheckCircleIcon className="text-brand h-5 w-5" />
           </div>
           <a
             href={REFLECT_URL}
@@ -63,7 +63,7 @@ const CrossPost: FC = () => {
             <span>
               <Trans>Disable now</Trans>
             </span>
-            <ExternalLinkIcon className="w-4 h-4" />
+            <ExternalLinkIcon className="h-4 w-4" />
           </a>
         </>
       ) : (
@@ -79,7 +79,7 @@ const CrossPost: FC = () => {
           <span>
             <Trans>Setup now</Trans>
           </span>
-          <ExternalLinkIcon className="w-4 h-4" />
+          <ExternalLinkIcon className="h-4 w-4" />
         </a>
       )}
     </Card>

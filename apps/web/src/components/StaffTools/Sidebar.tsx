@@ -8,7 +8,7 @@ const StaffToolsSidebar: FC = () => {
       items={[
         {
           title: 'Stats',
-          icon: <ChartPieIcon className="w-4 h-4" />,
+          icon: <ChartPieIcon className="h-4 w-4" />,
           url: '/stafftools'
         }
       ]}

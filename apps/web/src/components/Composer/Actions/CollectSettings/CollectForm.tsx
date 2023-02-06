@@ -145,7 +145,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
 
   if (loading) {
     return (
-      <div className="py-3.5 px-5 space-y-2 font-bold text-center">
+      <div className="space-y-2 py-3.5 px-5 text-center font-bold">
         <Spinner size="md" className="mx-auto" />
         <div>
           <Trans>Loading collect settings</Trans>
@@ -192,7 +192,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   };
 
   return (
-    <div className="p-5 space-y-3">
+    <div className="space-y-3 p-5">
       <div className="flex items-center space-x-2">
         <Toggle
           on={selectedCollectModule !== RevertCollectModule && toggleQuadraticEnabled}
@@ -208,7 +208,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
           <div>lorem ipsum lots of text</div>
           <div className="space-y-2 pt-5">
             <div className="flex items-center space-x-2">
-              <UserGroupIcon className="h-4 w-4 text-brand-500" />
+              <UserGroupIcon className="text-brand-500 h-4 w-4" />
               <span>
                 <Trans>Who can tip this post</Trans>
               </span>
@@ -241,7 +241,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         <div className="ml-5">
           <div className="space-y-2 pt-3">
             <div className="flex items-center space-x-2">
-              <CollectionIcon className="h-4 w-4 text-brand-500" />
+              <CollectionIcon className="text-brand-500 h-4 w-4" />
               <span>
                 <Trans>Charge for collecting</Trans>
               </span>
@@ -260,7 +260,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
             </div>
             {amount ? (
               <div className="pt-2">
-                <div className="text-sm flex space-x-2">
+                <div className="flex space-x-2 text-sm">
                   <Input
                     label={t`Price`}
                     type="number"
@@ -277,7 +277,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                       <Trans>Select Currency</Trans>
                     </div>
                     <select
-                      className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
+                      className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
                       onChange={(e) => setSelectedCurrency(e.target.value)}
                     >
                       {data?.enabledModuleCurrencies.map((currency: Erc20) => (
@@ -294,7 +294,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 </div>
                 <div className="space-y-2 pt-5">
                   <div className="flex items-center space-x-2">
-                    <SwitchHorizontalIcon className="h-4 w-4 text-brand-500" />
+                    <SwitchHorizontalIcon className="text-brand-500 h-4 w-4" />
                     <span>
                       <Trans>Mirror referral reward</Trans>
                     </span>
@@ -302,7 +302,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   <div className="lt-text-gray-500 text-sm font-bold">
                     <Trans>Share your collect fee with people who amplify your content</Trans>
                   </div>
-                  <div className="text-sm pt-2 flex space-x-2">
+                  <div className="flex space-x-2 pt-2 text-sm">
                     <Input
                       label={t`Referral fee`}
                       type="number"
@@ -324,7 +324,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
             <>
               <div className="space-y-2 pt-5">
                 <div className="flex items-center space-x-2">
-                  <StarIcon className="h-4 w-4 text-brand-500" />
+                  <StarIcon className="text-brand-500 h-4 w-4" />
                   <span>
                     <Trans>Limited edition</Trans>
                   </span>
@@ -342,7 +342,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   </div>
                 </div>
                 {collectLimit ? (
-                  <div className="text-sm pt-2 flex space-x-2">
+                  <div className="flex space-x-2 pt-2 text-sm">
                     <Input
                       label={t`Collect limit`}
                       type="number"
@@ -359,7 +359,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               </div>
               <div className="space-y-2 pt-5">
                 <div className="flex items-center space-x-2">
-                  <ClockIcon className="h-4 w-4 text-brand-500" />
+                  <ClockIcon className="text-brand-500 h-4 w-4" />
                   <span>
                     <Trans>Time limit</Trans>
                   </span>
@@ -381,7 +381,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
           )}
           <div className="space-y-2 pt-5">
             <div className="flex items-center space-x-2">
-              <UserGroupIcon className="h-4 w-4 text-brand-500" />
+              <UserGroupIcon className="text-brand-500 h-4 w-4" />
               <span>
                 <Trans>Who can collect</Trans>
               </span>
@@ -401,7 +401,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
           </div>
         </div>
       )}
-      <div className="pt-5 flex space-x-2">
+      <div className="flex space-x-2 pt-5">
         <Button
           className="ml-auto"
           variant="danger"

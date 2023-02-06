@@ -16,10 +16,10 @@ const EnableDispatcher: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 border-brand-400 !bg-brand-300 !bg-opacity-20 space-y-2.5 text-brand-600 p-5"
+      className="border-brand-400 !bg-brand-300 text-brand-600 mb-4 space-y-2.5 !bg-opacity-20 p-5"
     >
       <div className="flex items-center space-x-2 font-bold">
-        <HandIcon className="w-5 h-5" />
+        <HandIcon className="h-5 w-5" />
         <p>
           <Trans>Action Required</Trans>
         </p>

@@ -53,7 +53,7 @@ const Profiles: FC<Props> = ({ query }) => {
             No profiles for <b>&ldquo;{query}&rdquo;</b>
           </Trans>
         }
-        icon={<UsersIcon className="w-8 h-8 text-brand" />}
+        icon={<UsersIcon className="text-brand h-8 w-8" />}
       />
     );
   }

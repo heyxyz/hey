@@ -21,14 +21,14 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
       return <CashIcon className={`h-${size}`} />;
     case CollectModules.LimitedFeeCollectModule:
       return (
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           <StarIcon className={`h-${size}`} />
           <CashIcon className={`h-${size}`} />
         </div>
       );
     case CollectModules.LimitedTimedFeeCollectModule:
       return (
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           <StarIcon className={`h-${size}`} />
           <ClockIcon className={`h-${size}`} />
           <CashIcon className={`h-${size}`} />
@@ -36,7 +36,7 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
       );
     case CollectModules.TimedFeeCollectModule:
       return (
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           <ClockIcon className={`h-${size}`} />
           <CashIcon className={`h-${size}`} />
         </div>
@@ -47,14 +47,14 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
       return <DocumentAddIcon className={`h-${size}`} />;
     case FollowModules.FeeFollowModule:
       return (
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           <CashIcon className={`h-${size}`} />
           <PlusCircleIcon className={`h-${size}`} />
         </div>
       );
     case ReferenceModules.FollowerOnlyReferenceModule:
       return (
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           <PlusCircleIcon className={`h-${size}`} />
           <ShareIcon className={`h-${size}`} />
         </div>

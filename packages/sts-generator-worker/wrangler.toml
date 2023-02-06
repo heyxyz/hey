@@ -1,0 +1,11 @@
+name = "sts-generator-worker"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+routes = [
+	{ pattern = "sts.lenster.xyz", custom_domain = true }
+]
+keep_vars = true
+
+[env.production.vars]
+EVER_ACCESS_KEY = ""
+EVER_ACCESS_SECRET = ""

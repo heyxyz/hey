@@ -35,7 +35,7 @@ const SignedUser: FC = () => {
         currentTarget.src = getAvatar(currentProfile, false);
       }}
       src={getAvatar(currentProfile as Profile)}
-      className="w-8 h-8 rounded-full border cursor-pointer dark:border-gray-700"
+      className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
       alt={formatHandle(currentProfile?.handle)}
     />
   );
@@ -47,7 +47,7 @@ const SignedUser: FC = () => {
   return (
     <>
       {showMobileDrawer && <MobileDrawerMenu />}
-      <button className="md:hidden focus:outline-none" onClick={() => openMobileMenuDrawer()}>
+      <button className="focus:outline-none md:hidden" onClick={() => openMobileMenuDrawer()}>
         <Avatar />
       </button>
       <Menu as="div" className="hidden md:block">
@@ -57,12 +57,12 @@ const SignedUser: FC = () => {
         <MenuTransition>
           <Menu.Items
             static
-            className="absolute right-0 py-1 mt-2 w-48 bg-white rounded-xl border shadow-sm dark:bg-black focus:outline-none dark:border-gray-700"
+            className="absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
           >
             <Menu.Item
               as={NextLink}
               href={`/u/${formatHandle(currentProfile?.handle)}`}
-              className="text-sm items-center flex hover:bg-gray-100 dark:hover:bg-gray-800 m-2 px-4 text-gray-700 dark:text-gray-200 py-2 rounded-lg"
+              className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
             >
               <span>
                 <Trans>Logged in as</Trans>

@@ -64,13 +64,13 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     <GridLayout classNameChild="md:gap-8">
       <MetaTags title={title} />
       <PreviewList
-        className="lg:block md:hidden sm:hidden xs:hidden"
+        className="xs:hidden sm:hidden md:hidden lg:block"
         selectedConversationKey={conversationKey}
       />
-      <GridItemEight className="xs:h-[85vh] sm:h-[76vh] md:h-[80vh] xl:h-[84vh] mb-0 md:col-span-8 sm:mx-2 xs:mx-2">
-        <Card className="h-full flex justify-between flex-col">
+      <GridItemEight className="xs:h-[85vh] xs:mx-2 mb-0 sm:mx-2 sm:h-[76vh] md:col-span-8 md:h-[80vh] xl:h-[84vh]">
+        <Card className="flex h-full flex-col justify-between">
           {showLoading ? (
-            <div className="flex h-full flex-grow justify-center items-center">
+            <div className="flex h-full flex-grow items-center justify-center">
               <Loader message={t`Loading messages`} />
             </div>
           ) : (

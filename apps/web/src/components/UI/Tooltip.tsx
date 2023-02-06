@@ -23,7 +23,7 @@ export const Tooltip: FC<Props> = ({
       placement={placement}
       duration={0}
       delay={[withDelay ? 500 : 0, 0]}
-      className="hidden sm:block !text-xs tracking-wide !rounded-lg !leading-6"
+      className="hidden !rounded-lg !text-xs !leading-6 tracking-wide sm:block"
       content={<span className={clsx(className)}>{content}</span>}
     >
       <span>{children}</span>

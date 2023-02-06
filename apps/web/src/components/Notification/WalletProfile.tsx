@@ -1,7 +1,7 @@
 import formatAddress from '@lib/formatAddress';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import imageProxy from '@lib/imageProxy';
-import { AVATAR, POLYGONSCAN_URL } from 'data/constants';
+import { POLYGONSCAN_URL } from 'data/constants';
 import type { Wallet } from 'lens';
 import type { FC } from 'react';
 
@@ -16,8 +16,8 @@ export const NotificationWalletProfileAvatar: FC<Props> = ({ wallet }) => {
         onError={({ currentTarget }) => {
           currentTarget.src = getStampFyiURL(wallet?.address);
         }}
-        src={imageProxy(getStampFyiURL(wallet?.address), AVATAR)}
-        className="w-8 h-8 bg-gray-200 rounded-full border dark:border-gray-700"
+        src={imageProxy(getStampFyiURL(wallet?.address))}
+        className="h-8 w-8 rounded-full border bg-gray-200 dark:border-gray-700"
         height={32}
         width={32}
         alt={wallet?.address}

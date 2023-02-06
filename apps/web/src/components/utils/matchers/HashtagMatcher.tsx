@@ -25,7 +25,7 @@ export const Hashtag = ({ ...props }) => {
       </span>
       {hasHashflag && (
         <img
-          className="h-4 w-4 !mr-0.5"
+          className="!mr-0.5 h-4 w-4"
           height={16}
           width={16}
           src={`${STATIC_IMAGES_URL}/hashflags/${hashflags[hashflag]}.png`}

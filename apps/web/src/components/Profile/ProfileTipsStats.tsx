@@ -56,17 +56,17 @@ const RoundStats: FC<ChildrenProps> = ({ showDetails }) => {
             <p>980.55</p>
           </div>
         </div>
-        <div className="text-gray-500 text-xs mt-8 mb-2">Tips per post:</div>
+        <div className="mt-8 mb-2 text-xs text-gray-500">Tips per post:</div>
         <Card>
-          <div className="m-4 text-md">
+          <div className="text-md m-4">
             <div className="my-2">
               <p>Coming to Eth Denver for the first time!</p>
-              <p className="text-green-500 text-sm">67 tips by 10 voters</p>
+              <p className="text-sm text-green-500">67 tips by 10 voters</p>
             </div>
-            <div className="w-full divider" />
+            <div className="divider w-full" />
             <div className="my-2">
               <p>Some other post</p>
-              <p className="text-green-500 text-sm">4 tips by 1 voters</p>
+              <p className="text-sm text-green-500">4 tips by 1 voters</p>
             </div>
           </div>
         </Card>
@@ -78,12 +78,12 @@ const RoundStats: FC<ChildrenProps> = ({ showDetails }) => {
 // const ClaimReward: FC<ChildrenProps> = ({ icon, publication, showCount, showDetails, setShowDetails }) => {
 const ClaimReward: FC<ChildrenProps> = ({ showDetails, setShowDetails }) => {
   return (
-    <div className="flex flex-col alight-items-center">
-      <button className="text-green-400  bg-green-100 rounded-full py-2 px-4 w-60 mx-auto">
+    <div className="alight-items-center flex flex-col">
+      <button className="mx-auto  w-60 rounded-full bg-green-100 py-2 px-4 text-green-400">
         Claim Reward
       </button>
       <button onClick={() => setShowDetails(!showDetails)}>
-        <p className="underline text-xs text-gray-500 mt-4">{showDetails ? 'hide' : 'show'} details</p>
+        <p className="mt-4 text-xs text-gray-500 underline">{showDetails ? 'hide' : 'show'} details</p>
       </button>
       <div>
         <RoundStats showDetails={showDetails} setShowDetails={setShowDetails} roundOpen={false} />
@@ -100,7 +100,7 @@ export const ProfileTipsStats: FC = () => {
   const [showDetails, setShowDetails] = useState(false);
   return (
     <div>
-      <div className="justify-center px-10 py-3 flex">
+      <div className="flex justify-center px-10 py-3">
         <div className="mr-3 mt-1">
           <TipsSolidIcon size={20} />
         </div>
@@ -110,7 +110,7 @@ export const ProfileTipsStats: FC = () => {
             <p>This will be matched with 980.55 DAI.</p>
           </div>
           {roundOpen ? (
-            <div className="flex justify-between pt-3 item-center my-auto text-gray-500 text-xs">
+            <div className="item-center my-auto flex justify-between pt-3 text-xs text-gray-500">
               <div>
                 <p>Round ends in # days</p>
               </div>

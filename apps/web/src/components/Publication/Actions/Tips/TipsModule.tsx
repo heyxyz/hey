@@ -246,8 +246,8 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
       {(collectModule?.type === CollectModules.LimitedFeeCollectModule ||
         collectModule?.type === CollectModules.LimitedTimedFeeCollectModule) && (
         <Tooltip placement="top" content={`${percentageCollected.toFixed(0)}% Collected`}>
-          <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700">
-            <div className="h-2.5 bg-brand-500" style={{ width: `${percentageCollected}%` }} />
+          <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
+            <div className="bg-brand-500 h-2.5" style={{ width: `${percentageCollected}%` }} />
           </div>
         </Tooltip>
       )}
@@ -260,7 +260,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
             />
           </div>
         )}
-        <div className="pb-2 space-y-1.5">
+        <div className="space-y-1.5 pb-2">
           {publication?.metadata?.name && (
             <div className="text-xl font-bold">{publication?.metadata?.name}</div>
           )}
@@ -274,9 +274,9 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
           />
         </div>
         {collectModule?.amount && (
-          <div className="flex items-center py-2 space-x-1.5">
+          <div className="flex items-center space-x-1.5 py-2">
             <img
-              className="w-7 h-7"
+              className="h-7 w-7"
               height={28}
               width={28}
               src={getTokenImage(collectModule?.amount?.asset?.symbol)}
@@ -289,7 +289,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
               {usdPrice ? (
                 <>
                   <span className="lt-text-gray-500 px-0.5">·</span>
-                  <span className="text-xs font-bold lt-text-gray-500">
+                  <span className="lt-text-gray-500 text-xs font-bold">
                     ${(collectModule.amount.value * usdPrice).toFixed(2)}
                   </span>
                 </>
@@ -298,9 +298,9 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
           </div>
         )}
         <div className="space-y-1.5">
-          <div className="block space-y-1 sm:flex sm:space-x-5 item-center">
+          <div className="item-center block space-y-1 sm:flex sm:space-x-5">
             <div className="flex items-center space-x-2">
-              <UsersIcon className="w-4 h-4 lt-text-gray-500" />
+              <UsersIcon className="lt-text-gray-500 h-4 w-4" />
               <button
                 className="font-bold"
                 type="button"
@@ -313,7 +313,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
               </button>
               <Modal
                 title={t`Collected by`}
-                icon={<CollectionIcon className="w-5 h-5 text-brand" />}
+                icon={<CollectionIcon className="text-brand h-5 w-5" />}
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
               >
@@ -326,7 +326,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
             </div>
             {collectModule?.collectLimit && (
               <div className="flex items-center space-x-2">
-                <PhotographIcon className="w-4 h-4 lt-text-gray-500" />
+                <PhotographIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
                   <Trans>{parseInt(collectModule?.collectLimit) - count} available</Trans>
                 </div>
@@ -334,7 +334,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
             )}
             {collectModule?.referralFee ? (
               <div className="flex items-center space-x-2">
-                <CashIcon className="w-4 h-4 lt-text-gray-500" />
+                <CashIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
                   <Trans>{collectModule.referralFee}% referral fee</Trans>
                 </div>
@@ -343,7 +343,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
           </div>
           {revenueData?.publicationRevenue && (
             <div className="flex items-center space-x-2">
-              <CashIcon className="w-4 h-4 lt-text-gray-500" />
+              <CashIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="flex items-center space-x-1.5">
                 <span>
                   <Trans>Revenue:</Trans>
@@ -351,7 +351,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
                 <span className="flex items-center space-x-1">
                   <img
                     src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-                    className="w-5 h-5"
+                    className="h-5 w-5"
                     height={20}
                     width={20}
                     alt={collectModule?.amount?.asset?.symbol}
@@ -363,7 +363,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
                     {usdPrice ? (
                       <>
                         <span className="lt-text-gray-500">·</span>
-                        <span className="text-xs font-bold lt-text-gray-500">
+                        <span className="lt-text-gray-500 text-xs font-bold">
                           ${(revenue * usdPrice).toFixed(2)}
                         </span>
                       </>
@@ -375,7 +375,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
           )}
           {collectModule?.endTimestamp && (
             <div className="flex items-center space-x-2">
-              <ClockIcon className="w-4 h-4 lt-text-gray-500" />
+              <ClockIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
                 <span>
                   <Trans>Sale Ends:</Trans>
@@ -389,7 +389,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
           )}
           {data?.publication?.collectNftAddress && (
             <div className="flex items-center space-x-2">
-              <PuzzleIcon className="w-4 h-4 lt-text-gray-500" />
+              <PuzzleIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
                 <span>
                   <Trans>Token:</Trans>
@@ -406,18 +406,18 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
             </div>
           )}
         </div>
-        <div className="flex items-center space-x-2 mt-5">
+        <div className="mt-5 flex items-center space-x-2">
           {/* alert */}
           {/* {currentProfile && !hasCollectedByMe ? ( */}
           {currentProfile ? (
             allowanceLoading || balanceLoading ? (
-              <div className="w-28 rounded-lg h-[34px] shimmer" />
+              <div className="shimmer h-[34px] w-28 rounded-lg" />
             ) : allowed ? (
               hasAmount ? (
                 <Button
                   onClick={createCollect}
                   disabled={isLoading}
-                  icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="w-4 h-4" />}
+                  icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
                 >
                   <Trans>Tip! Quadratically!</Trans>
                 </Button>
@@ -435,7 +435,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
           ) : null}
         </div>
         {publication?.hasCollectedByMe && (
-          <div className="mt-3 font-bold text-green-500 flex items-center space-x-1.5">
+          <div className="mt-3 flex items-center space-x-1.5 font-bold text-green-500">
             <CheckCircleIcon className="h-5 w-5" />
             <div>
               <Trans>You already collected this</Trans>

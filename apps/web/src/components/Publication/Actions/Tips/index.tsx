@@ -89,7 +89,7 @@ const Tips: FC<Props> = ({ publication, electedMirror }) => {
         {count > 0 && <span className="font-size-14 text-green-500 ">{nFormatter(count)} +</span>}
       </div>
 
-      <div className="font-size-14 text-green-500 place-self-center ml-2"> - total tips placeholder</div>
+      <div className="font-size-14 ml-2 place-self-center text-green-500"> - total tips placeholder</div>
 
       <Modal
         title={

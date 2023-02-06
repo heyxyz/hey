@@ -8,7 +8,7 @@ import type { FC } from 'react';
 
 const Custom404: FC = () => {
   return (
-    <div className="flex-col page-center">
+    <div className="page-center flex-col">
       <MetaTags title={`404 • ${APP_NAME}`} />
       <img src={`${STATIC_IMAGES_URL}/gifs/nyan-cat.gif`} alt="Nyan Cat" className="h-60" height={240} />
       <div className="py-10 text-center">
@@ -19,7 +19,7 @@ const Custom404: FC = () => {
           <Trans>This page could not be found.</Trans>
         </div>
         <Link href="/">
-          <Button className="flex mx-auto item-center" size="lg" icon={<HomeIcon className="w-4 h-4" />}>
+          <Button className="item-center mx-auto flex" size="lg" icon={<HomeIcon className="h-4 w-4" />}>
             <Trans>Go to home</Trans>
           </Button>
         </Link>

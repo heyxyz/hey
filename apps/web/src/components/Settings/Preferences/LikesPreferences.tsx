@@ -10,7 +10,7 @@ const LikesPreferences: FC = () => {
   const setHideLikesCount = usePreferencesStore((state) => state.setHideLikesCount);
 
   return (
-    <Card className="space-y-2 linkify p-5">
+    <Card className="linkify space-y-2 p-5">
       <div className="flex items-center space-x-2">
         <div className="text-lg font-bold">
           <Trans>Hide number of likes</Trans>
@@ -19,7 +19,7 @@ const LikesPreferences: FC = () => {
       </div>
       <div className="space-y-2">
         <div className="flex items-center space-x-2">
-          <div className="mr-5 lt-text-gray-500">
+          <div className="lt-text-gray-500 mr-5">
             <Trans>
               You won't see the total number of likes for publications others share to Feed. Your likes to a
               post will still be visible to you and everyone else.

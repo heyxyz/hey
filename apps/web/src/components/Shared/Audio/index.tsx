@@ -62,7 +62,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
   };
 
   return (
-    <div className="border px-3.5 pt-3.5 md:p-0 bg-brand-500 overflow-hidden dark:border-gray-700 rounded-xl">
+    <div className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0">
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew && !txn}
@@ -73,21 +73,21 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
           imageRef={imageRef}
           expandCover={expandCover}
         />
-        <div className="flex py-1 md:px-3 flex-col justify-between w-full truncate">
-          <div className="flex justify-between mt-3 md:mt-7">
-            <div className="flex items-center space-x-2.5 w-full truncate">
+        <div className="flex w-full flex-col justify-between truncate py-1 md:px-3">
+          <div className="mt-3 flex justify-between md:mt-7">
+            <div className="flex w-full items-center space-x-2.5 truncate">
               <button type="button" onClick={handlePlayPause}>
                 {playing && !playerRef.current?.plyr.paused ? (
-                  <PauseIcon className="w-[50px] h-[50px] text-gray-100 hover:text-white" />
+                  <PauseIcon className="h-[50px] w-[50px] text-gray-100 hover:text-white" />
                 ) : (
-                  <PlayIcon className="w-[50px] h-[50px] text-gray-100 hover:text-white" />
+                  <PlayIcon className="h-[50px] w-[50px] text-gray-100 hover:text-white" />
                 )}
               </button>
-              <div className="w-full pr-3 truncate">
+              <div className="w-full truncate pr-3">
                 {isNew && !txn ? (
-                  <div className="flex flex-col w-full">
+                  <div className="flex w-full flex-col">
                     <input
-                      className="border-none text-lg text-white placeholder-white bg-transparent outline-none"
+                      className="border-none bg-transparent text-lg text-white placeholder-white outline-none"
                       placeholder={t`Add title`}
                       name="title"
                       value={audioPublication.title}
@@ -95,7 +95,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
                       onChange={handleChange}
                     />
                     <input
-                      className="border-none text-white/70 placeholder-white/70 bg-transparent outline-none"
+                      className="border-none bg-transparent text-white/70 placeholder-white/70 outline-none"
                       placeholder={t`Add author`}
                       name="author"
                       value={audioPublication.author}
@@ -105,8 +105,8 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
                   </div>
                 ) : (
                   <>
-                    <h5 className="text-lg text-white truncate">{publication?.metadata.name ?? txn.title}</h5>
-                    <h6 className="text-white/70 truncate">
+                    <h5 className="truncate text-lg text-white">{publication?.metadata.name ?? txn.title}</h5>
+                    <h6 className="truncate text-white/70">
                       {txn?.author ??
                         getAttributeFromTrait(publication?.metadata.attributes as Attribute[], 'author') ??
                         publication?.profile.name}
