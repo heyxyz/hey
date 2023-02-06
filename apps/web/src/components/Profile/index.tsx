@@ -65,7 +65,7 @@ const ViewProfile: NextPage = () => {
 
   // profile changes when user selects a new profile from search box
   useEffect(() => {
-    if (profile != undefined) {
+    if (profile) {
       setFollowing(null);
     }
   }, [profile]);
