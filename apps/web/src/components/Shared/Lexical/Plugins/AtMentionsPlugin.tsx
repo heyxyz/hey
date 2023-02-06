@@ -6,7 +6,6 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import formatHandle from '@lib/formatHandle';
-import getIPFSLink from '@lib/getIPFSLink';
 import getStampFyiURL from '@lib/getStampFyiURL';
 import imageProxy from '@lib/imageProxy';
 import { AVATAR } from 'data/constants';
@@ -16,6 +15,7 @@ import type { TextNode } from 'lexical';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import getIPFSLink from 'utils/getIPFSLink';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 

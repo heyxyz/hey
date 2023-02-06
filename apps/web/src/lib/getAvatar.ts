@@ -1,6 +1,6 @@
 import { AVATAR, ZERO_ADDRESS } from 'data/constants';
+import getIPFSLink from 'utils/getIPFSLink';
 
-import getIPFSLink from './getIPFSLink';
 import getStampFyiURL from './getStampFyiURL';
 import imageProxy from './imageProxy';
 
