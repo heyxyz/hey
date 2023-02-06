@@ -12,6 +12,11 @@ import {
 } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
 import { t, Trans } from '@lingui/macro';
+import {
+  SANDBOX_GRANTS_ROUND,
+  SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE,
+  SANDBOX_VOTING_STRATEGY
+} from 'data/contracts';
 import { ethers } from 'ethers';
 import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
@@ -101,17 +106,12 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
       case UnknownCollectModule:
         const encodedQuadraticData = ethers.utils.defaultAbiCoder.encode(
           ['address', 'uint16', 'address', 'address'],
-          [
-            selectedCurrency,
-            referralFee,
-            '0xCb964E66dD4868e7C71191D3A1353529Ad1ED2F5',
-            '0x10c5e410A0b28D80144099741ae6FcAE4a77833c'
-          ]
+          [selectedCurrency, referralFee, SANDBOX_GRANTS_ROUND, SANDBOX_VOTING_STRATEGY]
         );
 
         setPayload({
           unknownCollectModule: {
-            contractAddress: '0x4Ff23872ca1C46410514f29FFA44F1e9a978fb1C',
+            contractAddress: SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE,
             data: encodedQuadraticData
           }
         });
