@@ -5,14 +5,13 @@
   "scripts": {
     "dev": "next dev --port 4784",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --port 4784",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.6",
-    "@bundlr-network/client": "^0.10.1",
-    "axios": "^1.3.1",
+    "@apollo/client": "^3.7.7",
+    "axios": "^1.3.2",
     "dotenv": "^16.0.3",
     "next": "^13.1.6",
     "react": "^18.2.0",
