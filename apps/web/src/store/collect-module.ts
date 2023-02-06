@@ -17,6 +17,8 @@ interface CollectModuleState {
   setHasTimeLimit: (hasTimeLimit: boolean) => void;
   followerOnly: boolean;
   setFollowerOnly: (followerOnly: boolean) => void;
+  quadraticRound: boolean;
+  setQuadraticRound: (quadraticRound: boolean) => void;
   payload: any;
   setPayload: (payload: any) => void;
   reset: () => void;
@@ -37,6 +39,8 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
   setHasTimeLimit: (hasTimeLimit) => set(() => ({ hasTimeLimit })),
   followerOnly: false,
   setFollowerOnly: (followerOnly) => set(() => ({ followerOnly })),
+  quadraticRound: false,
+  setQuadraticRound: (quadraticRound) => set(() => ({ quadraticRound })),
   payload: { revertCollectModule: true },
   setPayload: (payload) => set(() => ({ payload })),
   reset: () =>
@@ -48,6 +52,7 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
       collectLimit: null,
       hasTimeLimit: false,
       followerOnly: false,
+      quadraticRound: false,
       payload: { revertCollectModule: true }
     }))
 }));

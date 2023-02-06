@@ -26,7 +26,7 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount }) => {
             <Tips publication={publication} showCount={showCount} />
           </div>
           <div className="flex justify-between text-gray-500 text-sm items-center my-auto">
-            <text className="mr-3">This matching round will end in # days</text>
+            <p className="mr-3">This matching round will end in # days</p>
             <QuestionMarkCircleIcon className={iconClassName} />
           </div>
         </div>

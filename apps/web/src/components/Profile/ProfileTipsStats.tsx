@@ -1,6 +1,6 @@
 // import type { Publication } from 'lens';
 // import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
-import TipsSolidIcon from '@components/Publication/Actions/Tips/TipIcons/TipsSolidIcon';
+import TipsSolidIcon from '@components/Composer/Actions/TipIcons/TipsSolidIcon';
 import { Card } from '@components/UI/Card';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
