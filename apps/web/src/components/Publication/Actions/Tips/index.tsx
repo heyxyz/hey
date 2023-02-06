@@ -15,8 +15,8 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-import TipsOutlineIcon from '../../../Composer/Actions/TipIcons/TipsOutlineIcon';
-import TipsSolidIcon from '../../../Composer/Actions/TipIcons/TipsSolidIcon';
+import TipsOutlineIcon from '../../../Shared/TipIcons/TipsOutlineIcon';
+import TipsSolidIcon from '../../../Shared/TipIcons/TipsSolidIcon';
 
 const TipsModule = dynamic(() => import('./TipsModule'), {
   loading: () => <Loader message={t`Loading Tips Module`} />

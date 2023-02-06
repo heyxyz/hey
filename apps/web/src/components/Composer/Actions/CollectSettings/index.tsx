@@ -6,6 +6,7 @@ import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
+import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -13,7 +14,11 @@ import { PUBLICATION } from 'src/tracking';
 
 import CollectForm from './CollectForm';
 
-const CollectSettings: FC = () => {
+interface Props {
+  publication: Publication;
+}
+
+const CollectSettings: FC<Props> = ({ publication }) => {
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const [showModal, setShowModal] = useState(false);
 
@@ -40,7 +45,7 @@ const CollectSettings: FC = () => {
         show={showModal}
         onClose={() => setShowModal(false)}
       >
-        <CollectForm setShowModal={setShowModal} />
+        <CollectForm setShowModal={setShowModal} publication={publication} />
       </Modal>
     </>
   );
