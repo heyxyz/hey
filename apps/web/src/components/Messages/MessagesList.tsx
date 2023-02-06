@@ -143,7 +143,7 @@ const MessagesList: FC<MessageListProps> = ({
   return (
     <div className="flex h-[75%] flex-grow">
       <div className="relative flex h-full w-full pl-4">
-        <div id="scrollableDiv" className="flex h-full w-full flex-col-reverse overflow-y-auto">
+        <div id="scrollableMessageListDiv" className="flex h-full w-full flex-col-reverse overflow-y-auto">
           {missingXmtpAuth && <MissingXmtpAuth />}
           <InfiniteScroll
             dataLength={messages.length}
@@ -153,7 +153,7 @@ const MessagesList: FC<MessageListProps> = ({
             endMessage={<ConversationBeginningNotice />}
             hasMore={hasMore}
             loader={<LoadingMore />}
-            scrollableTarget="scrollableDiv"
+            scrollableTarget="scrollableMessageListDiv"
           >
             {messages?.map((msg: DecodedMessage, index) => {
               const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : false;
