@@ -1,7 +1,6 @@
 {
-  "name": "abis",
+  "name": "utils",
   "version": "0.0.0",
-  "main": "index.ts",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
@@ -9,9 +8,10 @@
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {
-    "typescript": "4.9.5"
+    "data": "*"
   },
   "devDependencies": {
+    "typescript": "^4.9.5",
     "eslint-config-weblint": "*",
     "tsconfig": "*"
   }
