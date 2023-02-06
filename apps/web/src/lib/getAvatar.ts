@@ -1,7 +1,7 @@
 import { AVATAR, ZERO_ADDRESS } from 'data/constants';
 import getIPFSLink from 'utils/getIPFSLink';
+import getStampFyiURL from 'utils/getStampFyiURL';
 
-import getStampFyiURL from './getStampFyiURL';
 import imageProxy from './imageProxy';
 
 const skipList = [
