@@ -23,7 +23,6 @@ import type {
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
-import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
@@ -38,6 +37,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
+import getIPFSLink from 'utils/getIPFSLink';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
