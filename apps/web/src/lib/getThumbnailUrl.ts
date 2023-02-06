@@ -1,7 +1,6 @@
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Publication } from 'lens';
-
-import getIPFSLink from './getIPFSLink';
+import getIPFSLink from 'utils/getIPFSLink';
 
 /**
  *

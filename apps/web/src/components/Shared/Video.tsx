@@ -1,9 +1,9 @@
 import 'plyr-react/plyr.css';
 
-import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
 import Plyr from 'plyr-react';
 import type { FC } from 'react';
+import getIPFSLink from 'utils/getIPFSLink';
 
 interface Props {
   src: string;

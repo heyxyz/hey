@@ -45,7 +45,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableMutualListDiv">
       <ErrorMessage className="m-5" title={t`Failed to load mutual followers`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}
@@ -53,7 +53,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
         hasMore={hasMore}
         next={loadMore}
         loader={<InfiniteLoader />}
-        scrollableTarget="scrollableDiv"
+        scrollableTarget="scrollableMutualListDiv"
       >
         <div className="divide-y dark:divide-gray-700">
           {profiles?.map((profile, index) => (

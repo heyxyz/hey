@@ -2,6 +2,7 @@
   "name": "sts-generator-worker",
   "version": "0.0.0",
   "private": true,
+  "license": "GPL-3.0",
   "scripts": {
     "dev": "wrangler dev --port 8082 --local",
     "worker:deploy": "wrangler publish",

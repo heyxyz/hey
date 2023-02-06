@@ -21,18 +21,18 @@ interface Props {
 
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
-    id: '<0><1/> commented on your <2>comment</2></0>'
+    id: '<0><1/> mirrored your <2>comment</2></0>'
   }),
   mirror: defineMessage({
-    id: '<0><1/> commented on your <2>mirror</2></0>'
+    id: '<0><1/> mirrored your <2>mirror</2></0>'
   }),
   post: defineMessage({
-    id: '<0><1/> commented on your <2>post</2></0>'
+    id: '<0><1/> mirrored your <2>post</2></0>'
   })
 };
 
 const defaultMessage = (typeName: string): string => {
-  return '<0><1/> commented on your <2>' + typeName + '</2></0>';
+  return '<0><1/> mirrored your <2>' + typeName + '</2></0>';
 };
 
 const MirrorNotification: FC<Props> = ({ notification }) => {

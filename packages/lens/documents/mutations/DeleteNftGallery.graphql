@@ -1,0 +1,3 @@
+mutation DeleteNftGallery($request: NftGalleryDeleteRequest!) {
+  deleteNftGallery(request: $request)
+}

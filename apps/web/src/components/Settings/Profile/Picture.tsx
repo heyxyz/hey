@@ -4,7 +4,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Analytics } from '@lib/analytics';
-import getIPFSLink from '@lib/getIPFSLink';
 import getSignature from '@lib/getSignature';
 import imageProxy from '@lib/imageProxy';
 import onError from '@lib/onError';
@@ -24,6 +23,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import getIPFSLink from 'utils/getIPFSLink';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface Props {
