@@ -1,15 +1,9 @@
 import MetaTags from '@components/Common/MetaTags';
 import NFTFeed from '@components/NFT/NFTFeed';
-import Follow from '@components/Shared/Follow';
-import Slug from '@components/Shared/Slug';
-import SuperFollow from '@components/Shared/SuperFollow';
-import { Button } from '@components/UI/Button';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { t, Trans } from '@lingui/macro';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
@@ -24,6 +18,7 @@ import Cover from './Cover';
 import Details from './Details';
 import Feed, { ProfileFeedType } from './Feed';
 import FeedType from './FeedType';
+import FollowDialog from './FollowDialog';
 import NftGallery from './NftGallery';
 import ProfilePageShimmer from './Shimmer';
 
@@ -91,42 +86,11 @@ const ViewProfile: NextPage = () => {
   return (
     <>
       <Modal show={showFollowModal} onClose={() => setShowFollowModal(false)}>
-        <div className="p-5">
-          <div className="flex justify-between text-lg font-bold">
-            <span className="flex">
-              <img
-                onError={({ currentTarget }) => {
-                  currentTarget.src = getAvatar(profile, false);
-                }}
-                src={getAvatar(profile)}
-                className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
-                alt={formatHandle(profile?.handle)}
-              />
-              <Slug className="flex items-center" slug={formatHandle(profile?.handle)} prefix="@" />{' '}
-            </span>
-            <span className="flex">
-              {followType === 'FeeFollowModuleSettings' ? (
-                <div className="flex space-x-2">
-                  <SuperFollow profile={profile as any} setFollowing={setFollowing} showText />
-                </div>
-              ) : (
-                <div className="flex space-x-2">
-                  <Follow profile={profile as any} setFollowing={setFollowing} showText outline={false} />
-                </div>
-              )}
-              <Button
-                className="ml-3 !px-3 !py-1.5 text-sm"
-                outline
-                onClick={() => {
-                  setShowFollowModal(false);
-                }}
-                aria-label={t`Not now`}
-              >
-                <Trans>Not now</Trans>
-              </Button>
-            </span>
-          </div>
-        </div>
+        <FollowDialog
+          profile={profile as any}
+          setFollowing={setFollowing}
+          setShowFollowModal={setShowFollowModal}
+        />
       </Modal>
 
       {profile?.name ? (
