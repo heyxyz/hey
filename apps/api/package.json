@@ -2,6 +2,7 @@
   "name": "api",
   "version": "0.0.0",
   "private": true,
+  "license": "GPL-3.0",
   "scripts": {
     "dev": "next dev --port 4784",
     "build": "next build",
@@ -18,6 +19,7 @@
     "react-dom": "^18.2.0",
     "react-schemaorg": "^2.0.0",
     "schema-dts": "^1.1.0",
+    "utils": "*",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
