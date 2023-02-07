@@ -38,13 +38,21 @@ interface Props {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
+  outline?: boolean;
 
   // For data analytics
   followPosition?: number;
   followSource?: string;
 }
 
-const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSource, followPosition }) => {
+const Follow: FC<Props> = ({
+  profile,
+  showText = false,
+  setFollowing,
+  followSource,
+  followPosition,
+  outline = true
+}) => {
   const { pathname } = useRouter();
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -173,7 +181,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
   return (
     <Button
       className="!px-3 !py-1.5 text-sm"
-      outline
+      outline={outline}
       onClick={createFollow}
       aria-label="Follow"
       disabled={isLoading}

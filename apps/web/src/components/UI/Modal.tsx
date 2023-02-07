@@ -6,7 +6,7 @@ import { Fragment } from 'react';
 
 interface Props {
   icon?: ReactNode;
-  title: ReactNode;
+  title?: ReactNode;
   size?: 'xs' | 'sm' | 'md' | 'lg';
   show: boolean;
   children: ReactNode[] | ReactNode;
@@ -48,21 +48,23 @@ export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onC
                 'inline-block w-full transform rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
               )}
             >
-              <div className="divider flex items-center justify-between py-3.5 px-5">
-                <div className="flex items-center space-x-2 font-bold">
-                  {icon}
-                  <div>{title}</div>
+              {title && (
+                <div className="divider flex items-center justify-between py-3.5 px-5">
+                  <div className="flex items-center space-x-2 font-bold">
+                    {icon}
+                    <div>{title}</div>
+                  </div>
+                  {onClose ? (
+                    <button
+                      type="button"
+                      className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
+                      onClick={onClose}
+                    >
+                      <XIcon className="h-5 w-5" />
+                    </button>
+                  ) : null}
                 </div>
-                {onClose ? (
-                  <button
-                    type="button"
-                    className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
-                    onClick={onClose}
-                  >
-                    <XIcon className="h-5 w-5" />
-                  </button>
-                ) : null}
-              </div>
+              )}
               {children}
             </div>
           </Transition.Child>
