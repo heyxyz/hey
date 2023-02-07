@@ -1179,6 +1179,10 @@ msgid "Gallery created"
 msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery updated"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
 msgstr ""
 
@@ -2467,13 +2471,13 @@ msgid "We track these errors automatically, but if the problem persists feel fre
 msgstr ""
 
 #: src/pages/_offline.tsx
-msgid "Oops, You are offline!"
-msgstr ""
+#~ msgid "Oops, You are offline!"
+#~ msgstr ""
 
 #: src/pages/_offline.tsx
-msgid "Check your internet connection and try again"
-msgstr ""
+#~ msgid "Check your internet connection and try again"
+#~ msgstr ""
 
 #: src/pages/_offline.tsx
-msgid "Retry"
-msgstr ""
+#~ msgid "Retry"
+#~ msgstr ""

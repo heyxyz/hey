@@ -1179,6 +1179,10 @@ msgid "Gallery created"
 msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery updated"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
 msgstr ""
 
@@ -1226,38 +1230,6 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/components/Profile/NftGallery/Create.tsx
-msgid "What's your gallery name?"
-msgstr ""
-
-#: src/components/Profile/NftGallery/Create.tsx
-msgid "{0} selected"
-msgstr ""
-
-#: src/components/Profile/NftGallery/Create.tsx
-msgid "Next"
-msgstr ""
-
-#: src/components/Profile/NftGallery/Gallery.tsx
-msgid "Gallery deleted"
-msgstr ""
-
-#: src/components/Profile/NftGallery/Gallery.tsx
-msgid "Are you sure you want to delete?"
-msgstr ""
-
-#: src/components/Profile/NftGallery/Gallery.tsx
-msgid "Edit"
-msgstr ""
-
-#: src/components/Profile/NftGallery/Gallery.tsx
-msgid "Rearrrange"
-msgstr ""
-
-#: src/components/Profile/NftGallery/Gallery.tsx
-msgid "Delete"
-msgstr ""
-
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
 msgstr "உங்கள் கேலரிக்கு வரவேற்கிறோம்"
@@ -1269,14 +1241,6 @@ msgstr "உங்கள் டிஜிட்டல் சேகரிப்ப�
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Let's do it!"
 msgstr "அதைச் செய்யுங்கள்!"
-
-#: src/components/Profile/NftGallery/Picker.tsx
-msgid "doesn't have any NFTs!"
-msgstr ""
-
-#: src/components/Profile/NftGallery/ReviewSelection.tsx
-msgid "No collectables selected!"
-msgstr ""
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"

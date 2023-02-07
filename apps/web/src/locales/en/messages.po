@@ -1179,6 +1179,10 @@ msgid "Gallery created"
 msgstr "Gallery created"
 
 #: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery updated"
+msgstr "Gallery updated"
+
+#: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
 msgstr "Gallery name required"
 
