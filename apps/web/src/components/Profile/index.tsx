@@ -24,7 +24,7 @@ import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
   const {
-    query: { username, type, showFollowDialog }
+    query: { username, type, followIntent }
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
@@ -52,7 +52,7 @@ const ViewProfile: NextPage = () => {
   // profile is not defined until the second render
   if (initState && profile) {
     const canFollow = followType !== 'RevertFollowModuleSettings' && !isFollowedByMe;
-    if (showFollowDialog && canFollow) {
+    if (followIntent && canFollow) {
       setShowFollowModal(true);
     }
     setFollowing(isFollowedByMe);
