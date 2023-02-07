@@ -3,9 +3,6 @@ query UserProfiles($ownedBy: [EthereumAddress!]) {
     items {
       ...ProfileFields
       interests
-      stats {
-        totalFollowing
-      }
       isDefault
       dispatcher {
         canUseRelay

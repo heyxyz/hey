@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-01 17:31\n"
+"PO-Revision-Date: 2023-02-07 00:55\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -76,13 +76,10 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr ""
 
-#: src/components/Composer/Actions/Attachment.tsx
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
 msgstr ""
@@ -624,17 +621,14 @@ msgid "<0><1/> collected your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
 msgstr ""
 
@@ -668,6 +662,18 @@ msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>comment</2></0>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>mirror</2></0>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/index.tsx
@@ -1112,6 +1118,11 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
+msgstr ""
+
+#: src/components/Profile/FollowDialog.tsx
+#: src/components/Profile/FollowDialog.tsx
+msgid "Not now"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
@@ -1757,7 +1768,6 @@ msgid "Token Id"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar can't be empty!"
 msgstr ""
 
@@ -2376,7 +2386,7 @@ msgid "The Unknown Collect Module is unknown and not type supported in the API."
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Fee Collect"
+msgid "Paid Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2384,7 +2394,7 @@ msgid "The Fee Collect Module allows for any follower to collect the associated 
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Limited Fee Collect"
+msgid "Rare Paid Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2392,7 +2402,7 @@ msgid "The Limited Fee Collect Module allows for any follower to collect the ass
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Timed Fee Collect"
+msgid "24 Hour Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2400,7 +2410,7 @@ msgid "The Timed Fee Collect Module allows for any follower to collect the assoc
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Limited Time Fee Collect"
+msgid "Rare 24 Hour Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2412,7 +2422,7 @@ msgid "The Free Collect Module allows any profile to collect the publication thi
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Revert Collect"
+msgid "No Collect"
 msgstr ""
 
 #: src/lib/getModule.ts

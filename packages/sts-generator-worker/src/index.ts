@@ -11,7 +11,10 @@ export default {
   }
 };
 
-const corsHeaders = { 'Access-Control-Allow-Origin': '*' };
+const headers = {
+  'Access-Control-Allow-Origin': '*',
+  'Content-Type': 'application/json'
+};
 const bucketName = 'lenster-media';
 const everEndpoint = 'https://endpoint.4everland.co';
 
@@ -60,15 +63,9 @@ async function handleRequest(request: Request, env: EnvType) {
         secretAccessKey: data.Credentials?.SecretAccessKey,
         sessionToken: data.Credentials?.SessionToken
       }),
-      { headers: { ...corsHeaders, 'content-type': 'application/json' } }
+      { headers }
     );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({
-        success: false,
-        message: 'Something went wrong!'
-      }),
-      { headers: { ...corsHeaders, 'content-type': 'application/json' } }
-    );
+  } catch {
+    return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), { headers });
   }
 }

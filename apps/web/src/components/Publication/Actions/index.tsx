@@ -38,7 +38,7 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, showCount =
         )}
         <Analytics publication={publication} />
       </span>
-      {publication.isGated && (
+      {publication?.isGated && (
         <Tooltip placement="top" content={t`Gated Publication`}>
           <LockClosedIcon className="h-4 w-4 text-green-500" />
         </Tooltip>

@@ -1,10 +1,19 @@
 import { AVATAR, ZERO_ADDRESS } from 'data/constants';
+import getIPFSLink from 'utils/getIPFSLink';
+import getStampFyiURL from 'utils/getStampFyiURL';
 
-import getIPFSLink from './getIPFSLink';
-import getStampFyiURL from './getStampFyiURL';
 import imageProxy from './imageProxy';
 
-const skipList = ['assets.lenster.xyz', 'cdn.stamp.fyi', 'avataaars.io', 'avatar.tobi.sh'];
+const skipList = [
+  'static-assets.lenster.xyz',
+  'avataaars.io',
+  'avatar.tobi.sh',
+  'media.giphy.com',
+  'media1.giphy.com',
+  'media2.giphy.com',
+  'media3.giphy.com',
+  'media4.giphy.com'
+];
 
 /**
  *
@@ -27,11 +36,7 @@ const getAvatar = (profile: any, isCdn = true): string => {
     return imageProxy(getIPFSLink(avatarUrl), AVATAR);
   }
 
-  return getIPFSLink(
-    profile?.picture?.original?.url ??
-      profile?.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS)
-  );
+  return getIPFSLink(avatarUrl);
 };
 
 export default getAvatar;

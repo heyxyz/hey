@@ -15663,8 +15663,6 @@ export type NftGalleriesQuery = {
     id: any;
     name: string;
     profileId: any;
-    createdAt: any;
-    updatedAt: any;
     items: Array<{
       __typename?: 'NFT';
       name: string;
@@ -29050,8 +29048,8 @@ export type UserProfilesQuery = {
       bio?: string | null;
       ownedBy: any;
       isFollowedByMe: boolean;
-      stats: { __typename?: 'ProfileStats'; totalFollowing: number; totalFollowers: number };
       dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null;
+      stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
         | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -32499,8 +32497,6 @@ export const NftGalleriesDocument = gql`
           animatedUrl
         }
       }
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -33965,9 +33961,6 @@ export const UserProfilesDocument = gql`
       items {
         ...ProfileFields
         interests
-        stats {
-          totalFollowing
-        }
         isDefault
         dispatcher {
           canUseRelay
