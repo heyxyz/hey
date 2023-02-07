@@ -3,7 +3,7 @@ import { PhotographIcon } from '@heroicons/react/outline';
 import imageProxy from '@lib/imageProxy';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
-import { COVER, ERROR_MESSAGE } from 'data/constants';
+import { ATTACHMENT, ERROR_MESSAGE } from 'data/constants';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -48,7 +48,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef, expan
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? getIPFSLink(cover) : cover;
           }}
-          src={cover ? imageProxy(getIPFSLink(cover), COVER) : cover}
+          src={cover ? imageProxy(getIPFSLink(cover), ATTACHMENT) : cover}
           className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
           draggable={false}
           alt="cover"
