@@ -27,7 +27,8 @@ const Feed: FC = () => {
   const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useExploreFeedQuery({
-    variables: { request, reactionRequest, profileId }
+    variables: { request, reactionRequest, profileId },
+    pollInterval: 5000
   });
 
   const publications = data?.explorePublications?.items;
