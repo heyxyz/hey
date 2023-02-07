@@ -34,6 +34,15 @@ const Gallery: FC<Props> = ({ galleries }) => {
   const [deleteNftGallery] = useDeleteNftGalleryMutation({
     onCompleted: () => {
       toast.success(t`Gallery deleted`);
+      setGallery({
+        name: '',
+        items: [],
+        toAdd: [],
+        toRemove: [],
+        isEdit: false,
+        id: '',
+        alreadySelectedItems: []
+      });
     },
     update(cache) {
       const normalizedId = cache.identify({ id: gallery.id, __typename: 'NftGallery' });

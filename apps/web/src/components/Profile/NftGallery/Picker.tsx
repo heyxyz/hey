@@ -22,6 +22,7 @@ import { mainnet } from 'wagmi/chains';
 const Picker: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gallery = useNftGalleryStore((state) => state.gallery);
+  console.log('🚀 ~ file: Picker.tsx:25 ~ gallery', gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 
   // Variables
@@ -86,7 +87,7 @@ const Picker: FC = () => {
         toRemove = [...gallery.toRemove, nft];
       }
 
-      const nfts = gallery.items;
+      const nfts = [...gallery.items];
       nfts.splice(index, 1);
 
       const sanitizeRemoveDuplicates = toRemove?.filter(

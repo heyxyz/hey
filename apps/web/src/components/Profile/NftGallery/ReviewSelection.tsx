@@ -30,7 +30,7 @@ const ReviewSelection = () => {
       toRemove = [...gallery.toRemove, nft];
     }
 
-    const nfts = gallery.items;
+    const nfts = [...gallery.items];
     nfts.splice(index, 1);
 
     const sanitizeRemoveDuplicates = toRemove?.filter(
