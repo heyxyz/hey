@@ -9,7 +9,9 @@ import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNftGalleryStore } from 'src/store/nft-gallery';
 
+import Create from './Create';
 import NftCard from './NftCard';
 import ReArrange from './ReArrange';
 
@@ -19,7 +21,10 @@ interface Props {
 
 const Gallery: FC<Props> = ({ galleries }) => {
   const [isRearrange, setIsRearrange] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const galleryStore = useNftGalleryStore((state) => state.gallery);
+  const setGallery = useNftGalleryStore((state) => state.setGallery);
 
   const gallery = galleries[0];
   const nfts = gallery.items;
@@ -50,10 +55,19 @@ const Gallery: FC<Props> = ({ galleries }) => {
     } catch {}
   };
 
+  const onClickEditGallery = () => {
+    setShowCreateModal(true);
+    const items = nfts.map((nft) => {
+      return { ...nft, itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}` };
+    });
+    setGallery({ ...gallery, items, isEdit: true, toAdd: [], toRemove: [], alreadySelectedItems: items });
+  };
+
   return (
     <>
       <div className="flex items-center justify-between">
         <h6 className="text-lg font-medium">{isRearrange ? 'Arrange gallery' : gallery.name}</h6>
+        {galleryStore?.isEdit && <Create showModal={showCreateModal} setShowModal={setShowCreateModal} />}
         {isRearrange ? (
           <div className="flex items-center space-x-2">
             <Button onClick={() => setIsRearrange(false)} size="sm" variant="secondary">
@@ -83,6 +97,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
               >
                 <Menu.Item
                   as="label"
+                  onClick={onClickEditGallery}
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },

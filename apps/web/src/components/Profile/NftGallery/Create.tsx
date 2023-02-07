@@ -7,7 +7,13 @@ import { ChevronLeftIcon } from '@heroicons/react/outline';
 import trimify from '@lib/trimify';
 import { t, Trans } from '@lingui/macro';
 import type { NftGallery } from 'lens';
-import { NftGalleriesDocument, useCreateNftGalleryMutation, useNftGalleriesLazyQuery } from 'lens';
+import {
+  NftGalleriesDocument,
+  useCreateNftGalleryMutation,
+  useNftGalleriesLazyQuery,
+  useUpdateNftGalleryInfoMutation,
+  useUpdateNftGalleryItemsMutation
+} from 'lens';
 import type { Dispatch, FC } from 'react';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -37,12 +43,14 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
 
   const { cache } = useApolloClient();
   const [createGallery, { loading }] = useCreateNftGalleryMutation();
+  const [updateGallery, { loading: updating }] = useUpdateNftGalleryItemsMutation();
+  const [renameGallery, { loading: renaming }] = useUpdateNftGalleryInfoMutation();
   const [fetchNftGalleries] = useNftGalleriesLazyQuery();
 
   const closeModal = () => {
     setShowModal(false);
     setCurrentStep(CreateSteps.NAME);
-    setGallery({ name: '', items: [] });
+    setGallery({ ...gallery, name: '', items: [] });
   };
 
   const create = async () => {
@@ -76,24 +84,80 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
     } catch {}
   };
 
-  const validateInputs = () => {
-    const galleryName = trimify(gallery.name);
-    if (!galleryName.length) {
-      toast.error(t`Gallery name required`);
-    } else if (!gallery.items.length && currentStep === CreateSteps.PICK_NFTS) {
-      toast.error(t`Select collectibles for your gallery`);
+  const update = async () => {
+    try {
+      const sanitizedAdd = gallery.toAdd?.filter(
+        (value) =>
+          value.itemId !== gallery.alreadySelectedItems.find((t) => t.itemId === value.itemId)?.itemId
+      );
+      const sanitizedRemove = gallery.toRemove?.filter(
+        (value) =>
+          value.itemId === gallery.alreadySelectedItems.find((t) => t.itemId === value.itemId)?.itemId
+      );
+
+      const sanitizedAddItems = sanitizedAdd?.map((el) => {
+        return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
+      });
+      const sanitizedRemoveItems = sanitizedRemove?.map((el) => {
+        return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
+      });
+      await renameGallery({
+        variables: {
+          request: {
+            name: gallery.name,
+            galleryId: gallery.id,
+            profileId: currentProfile?.id
+          }
+        }
+      });
+      const { data } = await updateGallery({
+        variables: {
+          request: {
+            galleryId: gallery.id,
+            toAdd: sanitizedAddItems,
+            toRemove: sanitizedRemoveItems,
+            profileId: currentProfile?.id
+          }
+        }
+      });
+      if (data) {
+        const { data } = await fetchNftGalleries({
+          variables: { request: { profileId: currentProfile?.id } }
+        });
+        cache.modify({
+          fields: {
+            nftGalleries() {
+              cache.updateQuery({ query: NftGalleriesDocument }, () => ({
+                data: data?.nftGalleries as NftGallery[]
+              }));
+            }
+          }
+        });
+        closeModal();
+        toast.success(t`Gallery updated`);
+      }
+    } catch (error: any) {
+      toast.error(error?.message);
     }
   };
 
-  const onClickNext = async () => {
-    validateInputs();
+  const onClickNext = () => {
     const galleryName = trimify(gallery.name);
-    if (galleryName.length && gallery.items.length && currentStep === CreateSteps.REVIEW) {
-      create();
-    } else if (galleryName.length && gallery.items.length) {
-      setCurrentStep(CreateSteps.REVIEW);
-    } else if (galleryName.length && !gallery.items.length) {
+    if (!galleryName.length) {
+      return toast.error(t`Gallery name required`);
+    } else if (
+      !gallery.items.length &&
+      (currentStep === CreateSteps.REVIEW || currentStep === CreateSteps.PICK_NFTS)
+    ) {
+      return toast.error(t`Select collectibles for your gallery`);
+    }
+
+    if (currentStep === CreateSteps.NAME) {
       setCurrentStep(CreateSteps.PICK_NFTS);
+    } else if (currentStep === CreateSteps.PICK_NFTS) {
+      setCurrentStep(CreateSteps.REVIEW);
+    } else if (currentStep === CreateSteps.REVIEW) {
+      return gallery.isEdit ? update() : create();
     } else {
       setCurrentStep(CreateSteps.NAME);
     }
@@ -148,7 +212,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
           <textarea
             className="w-full resize-none border-none bg-white py-2 px-4 outline-none !ring-0 dark:bg-gray-800"
             value={gallery.name}
-            onChange={(e) => setGallery({ name: e.target.value, items: gallery.items })}
+            onChange={(e) => setGallery({ ...gallery, name: e.target.value, items: gallery.items })}
             rows={4}
           />
         )}
@@ -158,7 +222,11 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
           ) : (
             <Trans>{gallery.items.length} selected</Trans>
           )}
-          <Button disabled={loading} onClick={() => onClickNext()} icon={loading && <Spinner size="xs" />}>
+          <Button
+            disabled={loading || updating || renaming}
+            onClick={() => onClickNext()}
+            icon={loading || updating || renaming ? <Spinner size="xs" /> : null}
+          >
             <Trans>Next</Trans>
           </Button>
         </div>

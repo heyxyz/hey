@@ -12,10 +12,10 @@ const ReviewSelection = () => {
 
   const onRemoveItem = (item: Nft) => {
     const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
-    const index = gallery.items.findIndex((n) => n.id === id);
+    const index = gallery.items.findIndex((n) => n.itemId === id);
     const nfts = gallery.items;
     nfts.splice(index, 1);
-    setGallery({ name: gallery.name, items: nfts });
+    setGallery({ ...gallery, name: gallery.name, items: nfts });
   };
 
   if (!gallery.items.length) {
