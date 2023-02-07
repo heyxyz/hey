@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-07 00:55\n"
+"PO-Revision-Date: 2023-02-07 05:34\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -102,7 +102,7 @@ msgstr "இந்த இடுகையை சேகரிக்கலாம்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Charge for collecting"
-msgstr ""
+msgstr "சேகரிப்பதற்கான கட்டணம்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Get paid whenever someone collects your post"
@@ -140,7 +140,7 @@ msgstr "சேகரிப்புகளை பிரத்தியேகம�
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Collect limit"
-msgstr ""
+msgstr "சேகரிப்பு வரம்பு"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Time limit"
@@ -160,7 +160,7 @@ msgstr "பின்பற்றுபவர்கள் மட்டுமே �
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
-msgstr ""
+msgstr "சேகரிப்பு அமைப்புகள்"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "Search for GIFs"
@@ -229,7 +229,7 @@ msgstr "இதுவரை பதிவுகள் இல்லை!"
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
-msgstr ""
+msgstr "எக்ஸ்ப்ளோர் ஃபீடை லோடு செய்வதில் தோல்வி ஏற்பட்டது"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
@@ -273,7 +273,7 @@ msgstr "கவர்ச்சியான"
 
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
-msgstr ""
+msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 
 #: src/components/Home/BetaWarning.tsx
 msgid "Beta warning!"
@@ -301,11 +301,11 @@ msgstr "நேரடி செய்திகள் இங்கே!"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-msgstr ""
+msgstr "என்ட்-டு-எண்ட் என்க்ரிப்ட் செய்யப்பட்ட டிஎம்களை நண்பர்களுக்கு அனுப்ப லென்ஸ்டரைப் பயன்படுத்ததுவதற்கு எக்ஸ்எம்டிபியை ஆக்டிவேட் செய்யவும்."
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
-msgstr ""
+msgstr "டிஎம்களை இயக்கவும்"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Filter"
@@ -606,7 +606,7 @@ msgstr "இன்பாக்ஸ் பூஜ்யம்!"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
-msgstr ""
+msgstr "{0} {1} க்காகச் சேகரிக்கப்பட்டது"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
@@ -622,15 +622,15 @@ msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> சேகர
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>கருத்துக்கு</2></0 </0> பதில் கருத்தைத் தெரிவித்துள்ளார்"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>மிரருக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>இடுகைக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
@@ -646,7 +646,7 @@ msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> விரு
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> லைக் செய்தார்"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
@@ -654,11 +654,11 @@ msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> விரு
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> ஒரு <2>கருத்தில் </2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> ஒரு <2>மிரரில்</2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
@@ -666,15 +666,15 @@ msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2><
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> மிரர் செய்துள்ளார்"
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> மிரர் செய்துள்ளார்"
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> மிரர் செய்துள்ளார்"
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
@@ -1187,7 +1187,7 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles you want others to see"
-msgstr ""
+msgstr "பிறருக்கு காட்ட விரும்பும் உங்கள் சேகரிப்புகளைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "What's your gallery name?"
@@ -1223,15 +1223,15 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
-msgstr ""
+msgstr "உங்கள் கேலரிக்கு வரவேற்கிறோம்"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Create a curated space for your digital collectibles"
-msgstr ""
+msgstr "உங்கள் டிஜிட்டல் சேகரிப்புகளுக்கு ஒரு தனி இடத்தை உருவாக்கவும்"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Let's do it!"
-msgstr ""
+msgstr "அதைச் செய்யுங்கள்!"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
@@ -1727,7 +1727,7 @@ msgstr "ஆர்வங்கள் அமைப்புகள் • {APP_NAME
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-msgstr ""
+msgstr "லென்ஸ்டர் முழுவதும் உங்கள் அனுபவத்தைத் தனிப்பயனாக்க நீங்கள் தேர்ந்தெடுக்கும் விருப்பங்கள் பயன்படுத்தப்படும். ஏதேனும் தவறாகத் தோன்றினால் உங்கள் விருப்பங்களைச் சரிசெய்யலாம்."
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "Hide number of likes"
@@ -1968,7 +1968,7 @@ msgstr ""
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "Index Successful"
-msgstr ""
+msgstr "வெற்றிகரமாக இண்டெக்ஸ் செய்யப்பட்டது"
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Bold"
@@ -2020,7 +2020,7 @@ msgstr "லென்ஸுடன் உள்நுழை"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Change wallet"
-msgstr ""
+msgstr "வாலெட்டை மாற்றவும்"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
@@ -2120,7 +2120,7 @@ msgstr "மனித வன்கொடுமை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Threat Individual"
-msgstr ""
+msgstr "தனிநபர் அச்சுறுத்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
@@ -2144,23 +2144,23 @@ msgstr "வெறுக்கத்தக்க"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
-msgstr ""
+msgstr "போலியான ஈடுபாடு"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
-msgstr ""
+msgstr "அல்காரிதம் சூழ்ச்சிசெய்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misleading"
-msgstr ""
+msgstr "தவறாக வழிநடத்துதல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
-msgstr ""
+msgstr "ஹேஷ்டேக்குகளை தவறாகப் பயன்படுத்துதல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Repetitive"
-msgstr ""
+msgstr "தொடர்ச்சியாகச் செய்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
@@ -2257,7 +2257,7 @@ msgstr "{type} க்கு செல்க"
 
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
-msgstr ""
+msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் கிடைக்கும்"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
@@ -2294,11 +2294,11 @@ msgstr "பெறுநர்:"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can comment on @{0}'s publications"
-msgstr ""
+msgstr "@{0} இன் பப்ளிகேஷன்களில் நீங்கள் கருத்து தெரிவிக்கலாம்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can collect @{0}'s publications"
-msgstr ""
+msgstr "{0} இன் பப்ளிகேஷன்களில் நீங்கள் சேகரிக்கலாம்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will get super follow badge in @{0}'s profile"
@@ -2306,7 +2306,7 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will have high voting power if you followed multiple times"
-msgstr ""
+msgstr "நீங்கள் பலமுறை பின்பற்றப்படும்போது உங்களுக்கு அதிக வாக்களிக்கும் சக்தி கிடைக்கும்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "More coming soon™"
@@ -2330,7 +2330,7 @@ msgstr "சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
-msgstr ""
+msgstr "தயவுசெய்து உங்கள் நெட்வொர்க் வாலெட்டை மாற்றுங்கள்!"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
@@ -2354,7 +2354,7 @@ msgstr "உங்களிடம் போதுமான <0>{0}</0> இல்�
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
-msgstr ""
+msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய்யுங்கள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools • {APP_NAME}"
