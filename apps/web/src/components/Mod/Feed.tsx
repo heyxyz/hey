@@ -21,7 +21,7 @@ const Feed: FC = () => {
     sortCriteria: PublicationSortCriteria.Latest,
     publicationTypes: [PublicationTypes.Post, PublicationTypes.Comment],
     noRandomize: true,
-    limit: 10
+    limit: 50
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
