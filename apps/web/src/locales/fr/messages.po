@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-06 00:09\n"
+"PO-Revision-Date: 2023-02-07 00:55\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -52,11 +52,13 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NFTPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -570,6 +572,7 @@ msgid "doesn’t have any NFTs!"
 msgstr ""
 
 #: src/components/NFT/NFTFeed.tsx
+#: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
 msgstr ""
 
@@ -618,17 +621,14 @@ msgid "<0><1/> collected your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
 msgstr ""
 
@@ -662,6 +662,18 @@ msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>comment</2></0>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>mirror</2></0>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/index.tsx
@@ -1158,7 +1170,55 @@ msgid "Create new decentralized profile"
 msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery created"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name required"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Select collectibles for your gallery"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Review collection"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles you want others to see"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "What's your gallery name?"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "{0} selected"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Next"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Gallery deleted"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Are you sure you want to delete?"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Edit"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Rearrrange"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Delete"
 msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
@@ -1171,6 +1231,14 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Let's do it!"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "doesn't have any NFTs!"
+msgstr ""
+
+#: src/components/Profile/NftGallery/ReviewSelection.tsx
+msgid "No collectables selected!"
 msgstr ""
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
