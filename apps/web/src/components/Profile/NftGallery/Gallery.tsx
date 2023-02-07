@@ -4,11 +4,12 @@ import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Nft, NftGallery } from 'lens';
-import { useDeleteNftGalleryMutation } from 'lens';
+import { useDeleteNftGalleryMutation, useUpdateNftGalleryOrderMutation } from 'lens';
 import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import type { Item } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 
 import Create from './Create';
@@ -29,6 +30,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
   const gallery = galleries[0];
   const nfts = gallery.items;
 
+  const [orderGallery] = useUpdateNftGalleryOrderMutation();
   const [deleteNftGallery] = useDeleteNftGalleryMutation({
     onCompleted: () => {
       toast.success(t`Gallery deleted`);
@@ -55,12 +57,49 @@ const Gallery: FC<Props> = ({ galleries }) => {
     } catch {}
   };
 
+  const setItemsToGallery = (items: Item[]) => {
+    setGallery({ ...gallery, items, isEdit: true, toAdd: [], toRemove: [], alreadySelectedItems: items });
+  };
+
+  const onClickRearrange = () => {
+    const items = nfts.map((nft) => {
+      return { ...nft, itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}` };
+    });
+    setIsRearrange(true);
+    setItemsToGallery(items);
+  };
+
   const onClickEditGallery = () => {
     setShowCreateModal(true);
     const items = nfts.map((nft) => {
       return { ...nft, itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}` };
     });
-    setGallery({ ...gallery, items, isEdit: true, toAdd: [], toRemove: [], alreadySelectedItems: items });
+    setItemsToGallery(items);
+  };
+
+  const onSaveRearrange = async () => {
+    const items = galleryStore.items.map((nft, position) => {
+      return { ...nft, itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`, position };
+    });
+    setItemsToGallery(items);
+    const sanitizedItems = items?.map((el) => {
+      return {
+        tokenId: el.tokenId,
+        contractAddress: el.contractAddress,
+        chainId: el.chainId,
+        newOrder: el.position
+      };
+    });
+    await orderGallery({
+      variables: {
+        request: {
+          galleryId: gallery.id,
+          profileId: currentProfile?.id,
+          updates: sanitizedItems
+        }
+      }
+    });
+    setIsRearrange(false);
   };
 
   return (
@@ -73,7 +112,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
             <Button onClick={() => setIsRearrange(false)} size="sm" variant="secondary">
               <Trans>Cancel</Trans>
             </Button>
-            <Button onClick={() => setIsRearrange(false)} size="sm">
+            <Button onClick={onSaveRearrange} size="sm">
               <Trans>Save</Trans>
             </Button>
           </div>
@@ -109,7 +148,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
                 </Menu.Item>
                 <Menu.Item
                   as="label"
-                  onClick={() => setIsRearrange(true)}
+                  onClick={onClickRearrange}
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },
@@ -137,7 +176,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
         ) : null}
       </div>
       {isRearrange ? (
-        <ReArrange nfts={nfts as Nft[]} />
+        <ReArrange />
       ) : (
         <div className="grid gap-5 py-5 md:grid-cols-3">
           {nfts?.map((nft) => (

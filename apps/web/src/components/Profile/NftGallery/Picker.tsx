@@ -125,7 +125,7 @@ const Picker: FC = () => {
   });
 
   return (
-    <div className="m-5 space-y-4">
+    <div className="m-4 space-y-4">
       <InfiniteScroll
         dataLength={nfts?.length ?? 0}
         scrollThreshold={SCROLL_THRESHOLD}

@@ -1,19 +1,19 @@
 import update from 'immutability-helper';
 import type { Nft } from 'lens';
 import type { FC } from 'react';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useNftGalleryStore } from 'src/store/nft-gallery';
 
 import DraggableCard from './DraggableCard';
 
-interface Props {
-  nfts: Nft[];
-}
-
-const ReArrange: FC<Props> = ({ nfts }) => {
-  const [allNfts, setAllNfts] = useState(nfts);
+const ReArrange: FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
+
+  const gallery = useNftGalleryStore((state) => state.gallery);
+  const setGallery = useNftGalleryStore((state) => state.setGallery);
+  const [allNfts, setAllNfts] = useState(gallery.items);
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
     setAllNfts((prevCards: Nft[]) =>
@@ -25,6 +25,11 @@ const ReArrange: FC<Props> = ({ nfts }) => {
       })
     );
   }, []);
+
+  useEffect(() => {
+    setGallery({ ...gallery, items: allNfts });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allNfts]);
 
   const renderNftCard = useCallback((nft: Nft, index: number) => {
     return (

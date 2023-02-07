@@ -3,6 +3,7 @@ import { create } from 'zustand';
 
 export interface Item extends Nft {
   itemId?: string;
+  position?: number;
 }
 
 interface NftGallery {
