@@ -26,7 +26,7 @@ import type { Profile } from 'lens';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import type { FC, ReactElement } from 'react';
+import type { Dispatch, FC, ReactElement } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
@@ -38,11 +38,12 @@ import MutualFollowersList from './MutualFollowers/List';
 
 interface Props {
   profile: Profile;
+  following: boolean;
+  setFollowing: Dispatch<boolean>;
 }
 
-const Details: FC<Props> = ({ profile }) => {
+const Details: FC<Props> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [following, setFollowing] = useState(profile?.isFollowedByMe);
   const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
