@@ -1120,6 +1120,11 @@ msgstr ""
 msgid "NFTs"
 msgstr ""
 
+#: src/components/Profile/FollowDialog.tsx
+#: src/components/Profile/FollowDialog.tsx
+msgid "Not now"
+msgstr ""
+
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
@@ -2460,4 +2465,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
