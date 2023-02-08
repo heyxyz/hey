@@ -145,8 +145,8 @@ const Privacy: FC = () => {
               <div className="space-y-5 leading-7">
                 <p>
                   <Trans>
-                    We use <b>Simple Analytics</b> to collect various events from user actions to analyse and
-                    make decisions for Site improvements.
+                    We use <b>Datadog</b> to collect various events from user actions to analyse and make
+                    decisions for Site improvements.
                   </Trans>
                 </p>
                 <p>

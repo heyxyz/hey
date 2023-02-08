@@ -148,7 +148,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       setShowNewPostModal(false);
     }
 
-    // Track in simple analytics
+    // Track in leafwatch
     const eventProperties = {
       publication_type: restricted ? 'token_gated' : 'public',
       publication_collect_module: selectedCollectModule,

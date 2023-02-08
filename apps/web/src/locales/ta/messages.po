@@ -813,7 +813,7 @@ msgid "5. Analytics"
 msgstr "5. பகுப்பாய்வு"
 
 #: src/components/Pages/Privacy.tsx
-msgid "We use <0>Simple Analytics</0> to collect various events from user actions to analyse and make decisions for Site improvements."
+msgid "We use <0>Datadog</0> to collect various events from user actions to analyse and make decisions for Site improvements."
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
@@ -867,6 +867,10 @@ msgstr "10. தொடர்பு"
 #: src/components/Pages/Privacy.tsx
 msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
 msgstr "இந்தத் தனியுரிமைக் கொள்கை, எங்கள் தரவு நடைமுறைகள் அல்லது பொருந்தக்கூடிய சட்டத்திற்கு இணங்குதல் பற்றி ஏதேனும் கேள்விகள் அல்லது கருத்துகள் இருந்தால், தயவுசெய்து எங்களை privacy@lenster.xyz இல் தொடர்பு கொள்ளவும்"
+
+#: src/components/Pages/Privacy.tsx
+#~ msgid "We use <0>Simple Analytics</0> to collect various events from user actions to analyse and make decisions for Site improvements."
+#~ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -2465,4 +2469,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
