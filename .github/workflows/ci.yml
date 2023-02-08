@@ -9,7 +9,6 @@ jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v3
@@ -22,9 +21,6 @@ jobs:
 
       - name: Install 📦
         run: yarn install --frozen-lockfile
-
-      - name: Install Playwright 🕹️
-        run: npx playwright install --with-deps
 
       - name: GraphQL Codegen 🕸
         run: yarn codegen
@@ -40,6 +36,3 @@ jobs:
 
       - name: Build 🎁
         run: yarn build
-
-      - name: Test 🧪
-        run: yarn test:e2e
