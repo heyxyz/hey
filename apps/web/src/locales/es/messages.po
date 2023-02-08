@@ -1448,26 +1448,6 @@ msgstr ""
 msgid "Profiles"
 msgstr ""
 
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Cross post to Twitter"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site."
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Already reposting to <0>@{repostingTo}</0>"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Disable now"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Setup now"
-msgstr ""
-
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Default profile updated successfully!"
 msgstr ""
@@ -2465,4 +2445,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
