@@ -46,7 +46,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
       {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: appenedPayload
+        body: JSON.stringify(appenedPayload)
       }
     );
 
