@@ -813,8 +813,8 @@ msgid "5. Analytics"
 msgstr "5. Analytics"
 
 #: src/components/Pages/Privacy.tsx
-msgid "We use <0>Simple Analytics</0> to collect various events from user actions to analyse and make decisions for Site improvements."
-msgstr "We use <0>Simple Analytics</0> to collect various events from user actions to analyse and make decisions for Site improvements."
+msgid "We use <0>Datadog</0> to collect various events from user actions to analyse and make decisions for Site improvements."
+msgstr "We use <0>Datadog</0> to collect various events from user actions to analyse and make decisions for Site improvements."
 
 #: src/components/Pages/Privacy.tsx
 msgid "All the data are anonymous and we don’t track user details such as name, handle, email, wallet address and so on."
