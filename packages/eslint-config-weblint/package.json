@@ -5,14 +5,14 @@
   "private": true,
   "license": "GPL-3.0",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
     "eslint": "^8.33.0",
     "eslint-config-next": "^13.1.6",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unicorn": "^45.0.2",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "prettier": "^2.8.3"
+    "prettier": "^2.8.4"
   },
   "publishConfig": {
     "access": "public"
