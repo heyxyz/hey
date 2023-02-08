@@ -31,7 +31,7 @@ module.exports = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
           { key: 'Referrer-Policy', value: 'strict-origin' },
-          { key: 'Cache-Control', value: 'max-age=1, stale-while-revalidate=59' }
+          { key: 'Cache-Control', value: 'public, max-age=3600' }
         ]
       },
       { source: '/about', headers },
