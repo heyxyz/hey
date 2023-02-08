@@ -1,4 +1,4 @@
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import type { Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -21,7 +21,7 @@ const ThreadBody: FC<Props> = ({ publication }) => {
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
-          Analytics.track(PUBLICATION.OPEN);
+          Leafwatch.track(PUBLICATION.OPEN);
           push(`/posts/${publication?.id}`);
         }
       }}
