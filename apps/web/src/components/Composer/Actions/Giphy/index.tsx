@@ -3,7 +3,7 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { IGif } from '@giphy/js-types';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -32,7 +32,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Analytics.track(PUBLICATION.NEW.OPEN_GIF);
+            Leafwatch.track(PUBLICATION.NEW.OPEN_GIF);
           }}
           disabled={attachments.length >= 4}
           aria-label="Choose GIFs"
