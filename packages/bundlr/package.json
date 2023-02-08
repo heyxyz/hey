@@ -9,7 +9,6 @@
   },
   "devDependencies": {
     "eslint-config-weblint": "*",
-    "tsconfig": "*",
     "typescript": "^4.9.5"
   },
   "dependencies": {
