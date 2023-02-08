@@ -4,9 +4,9 @@ import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
@@ -33,7 +33,7 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success(t`Default profile updated successfully!`);
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    Analytics.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {

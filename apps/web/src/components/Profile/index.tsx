@@ -4,7 +4,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { Modal } from '@components/UI/Modal';
 import formatHandle from '@lib/formatHandle';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
@@ -14,7 +13,6 @@ import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import Cover from './Cover';
 import Details from './Details';
@@ -34,10 +32,6 @@ const ViewProfile: NextPage = () => {
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
   );
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'profile' });
-  }, []);
 
   const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({

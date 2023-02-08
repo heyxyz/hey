@@ -1,7 +1,7 @@
 import { Card } from '@components/UI/Card';
 import type { OG } from '@generated/types';
+import { Analytics } from '@lib/analytics';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
 import { ATTACHMENT } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -18,7 +18,7 @@ const Embed: FC<Props> = ({ og }) => {
         href={og.url}
         onClick={(event) => {
           event.stopPropagation();
-          Leafwatch.track(PUBLICATION.OEMBED_CLICK);
+          Analytics.track(PUBLICATION.OEMBED_CLICK);
         }}
         target={og.url.includes(location.host) ? '_self' : '_blank'}
         rel="noreferrer noopener"
