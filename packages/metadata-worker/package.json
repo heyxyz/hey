@@ -16,9 +16,6 @@
     "wrangler": "2.9.1"
   },
   "dependencies": {
-    "arbundles": "^0.8.0",
-    "base64url": "^3.0.1",
-    "ethers": "5.7.2",
-    "secp256k1": "^5.0.0"
+    "bundlr": "*"
   }
 }

@@ -11,7 +11,6 @@ import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import SettingsSidebar from '../Sidebar';
-import CrossPost from './CrossPost';
 import SetProfile from './SetProfile';
 import Verification from './Verification';
 
@@ -36,7 +35,6 @@ const AccountSettings: NextPage = () => {
         <SetProfile />
         <SuperFollow />
         <Verification />
-        <CrossPost />
       </GridItemEight>
     </GridLayout>
   );
