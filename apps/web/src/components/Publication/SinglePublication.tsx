@@ -1,5 +1,5 @@
 import EventType from '@components/Home/Timeline/EventType';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import type { ElectedMirror, FeedItem, Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -39,7 +39,7 @@ const SinglePublication: FC<Props> = ({
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
-          Analytics.track(PUBLICATION.OPEN);
+          Leafwatch.track(PUBLICATION.OPEN);
           push(`/posts/${rootPublication?.id}`);
         }
       }}
