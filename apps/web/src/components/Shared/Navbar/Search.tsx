@@ -3,7 +3,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
@@ -75,14 +75,14 @@ const Search: FC<Props> = ({
           className="py-2 px-3 text-sm"
           placeholder={placeholder}
           value={searchText}
-          onFocus={() => Analytics.track(SEARCH.FOCUS)}
+          onFocus={() => Leafwatch.track(SEARCH.FOCUS)}
           iconLeft={<SearchIcon />}
           iconRight={
             <XIcon
               className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
               onClick={() => {
                 setSearchText('');
-                Analytics.track(SEARCH.CLEAR);
+                Leafwatch.track(SEARCH.CLEAR);
               }}
             />
           }

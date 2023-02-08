@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
@@ -21,7 +21,7 @@ const ThemeSwitch: FC<Props> = ({ onClick, className = '' }) => {
       className={clsx('flex w-full px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200', className)}
       onClick={() => {
         setTheme(theme === 'light' ? 'dark' : 'light');
-        Analytics.track(SYSTEM.SWITCH_THEME, { mode: theme === 'light' ? 'dark' : 'light' });
+        Leafwatch.track(SYSTEM.SWITCH_THEME, { mode: theme === 'light' ? 'dark' : 'light' });
         onClick?.();
       }}
     >

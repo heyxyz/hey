@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import type { FC, MouseEvent } from 'react';
@@ -19,7 +19,7 @@ const Embed: FC<Props> = ({ publication }) => {
       }
       onClick={(event: MouseEvent<HTMLAnchorElement>) => {
         event.stopPropagation();
-        Analytics.track(PUBLICATION.EMBED);
+        Leafwatch.track(PUBLICATION.EMBED);
       }}
       href={`https://embed.withlens.app/?url=${publication?.id}`}
       target="_blank"
