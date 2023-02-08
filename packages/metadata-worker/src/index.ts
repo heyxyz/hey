@@ -1,4 +1,4 @@
-import { createData, EthereumSigner } from './module';
+import { createData, EthereumSigner } from 'bundlr';
 
 type EnvType = {
   BUNDLR_PRIVATE_KEY: string;
