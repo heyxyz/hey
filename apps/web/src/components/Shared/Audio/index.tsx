@@ -1,8 +1,8 @@
 import type { OptimisticTransaction } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
 import getAttributeFromTrait from '@lib/getAttributeFromTrait';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Attribute, Publication } from 'lens';
 import type { APITypes } from 'plyr-react';
@@ -48,13 +48,13 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Analytics.track(PUBLICATION.ATTACHEMENT.AUDIO.PLAY);
+      Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PLAY);
 
       return playerRef.current?.plyr.play();
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Analytics.track(PUBLICATION.ATTACHEMENT.AUDIO.PAUSE);
+    Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PAUSE);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -1,7 +1,7 @@
 import Slug from '@components/Shared/Slug';
 import UserPreview from '@components/Shared/UserPreview';
-import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
+import { Leafwatch } from '@lib/leafwatch';
 import { Matcher } from 'interweave';
 import type { Profile } from 'lens';
 import Link from 'next/link';
@@ -23,7 +23,7 @@ export const Mention = ({ ...props }) => {
       href={`/u/${formatHandle(props.display.slice(1))}`}
       onClick={(event) => {
         event.stopPropagation();
-        Analytics.track(PUBLICATION.MENTION_CLICK);
+        Leafwatch.track(PUBLICATION.MENTION_CLICK);
       }}
     >
       {profile?.handle ? (

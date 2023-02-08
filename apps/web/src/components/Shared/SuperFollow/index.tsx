@@ -1,8 +1,8 @@
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { StarIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import dynamic from 'next/dynamic';
@@ -43,7 +43,7 @@ const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again
             return;
           }
           setShowFollowModal(!showFollowModal);
-          Analytics.track(PROFILE.OPEN_SUPER_FOLLOW);
+          Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
         aria-label="Super Follow"
         icon={<StarIcon className="h-4 w-4" />}
