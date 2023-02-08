@@ -4,9 +4,9 @@ import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -59,7 +59,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowCollectModal(true);
-            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+            Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
           aria-label="Collect"
         >

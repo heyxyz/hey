@@ -3,25 +3,18 @@ import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
-import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, LS_KEYS } from 'data/constants';
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import SettingsSidebar from '../Sidebar';
 
 const CleanupSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const disconnectXmtp = useDisconnectXmtp();
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
-  }, []);
 
   if (!currentProfile) {
     return <Custom404 />;

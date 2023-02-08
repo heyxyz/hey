@@ -1,7 +1,7 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import type { FC, MouseEvent } from 'react';
@@ -27,7 +27,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
         className="rounded-full p-1.5 hover:bg-gray-300 hover:bg-opacity-20"
         onClick={(event: MouseEvent<HTMLButtonElement>) => {
           event.stopPropagation();
-          Leafwatch.track(PUBLICATION.MORE);
+          Analytics.track(PUBLICATION.MORE);
         }}
         aria-label="More"
       >

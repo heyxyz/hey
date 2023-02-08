@@ -5,9 +5,9 @@ import { Spinner } from '@components/UI/Spinner';
 import { Menu } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
-import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FeedItem, FeedRequest, Profile, ProfileSearchResult } from 'lens';
@@ -126,7 +126,7 @@ const SeeThroughLens: FC = () => {
                   className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
                   onClick={() => {
                     setSearchText('');
-                    Leafwatch.track(SEARCH.CLEAR);
+                    Analytics.track(SEARCH.CLEAR);
                   }}
                 />
               }
@@ -161,7 +161,7 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
-                      Leafwatch.track(MISCELLANEOUS.SELECT_USER_FEED);
+                      Analytics.track(MISCELLANEOUS.SELECT_USER_FEED);
                     }}
                   >
                     <UserProfile linkToProfile={false} profile={profile} showUserPreview={false} />
