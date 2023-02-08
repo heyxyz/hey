@@ -12,6 +12,7 @@ import type { Nft, NfTsRequest } from 'lens';
 import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -22,7 +23,6 @@ import { mainnet } from 'wagmi/chains';
 const Picker: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gallery = useNftGalleryStore((state) => state.gallery);
-  console.log('🚀 ~ file: Picker.tsx:25 ~ gallery', gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 
   // Variables
@@ -72,6 +72,9 @@ const Picker: FC = () => {
   }
 
   const onSelectItem = (item: Nft) => {
+    if (gallery.items.length === 50) {
+      return toast.error(t`Only 50 items allowed for gallery`);
+    }
     const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
     const nft = {
       itemId: id,

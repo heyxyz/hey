@@ -2,6 +2,7 @@ import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Nft } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import React from 'react';
 import getIPFSLink from 'utils/getIPFSLink';
 
 interface Props {
@@ -59,4 +60,4 @@ const NftCard: FC<Props> = ({ nft, linkToDetail = false }) => {
   );
 };
 
-export default NftCard;
+export default React.memo(NftCard);
