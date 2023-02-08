@@ -4,9 +4,9 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import getAttribute from '@lib/getAttribute';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -192,7 +192,7 @@ const Status: FC = () => {
         className="space-y-4"
         onSubmit={({ status }) => {
           editStatus(emoji, status);
-          Analytics.track(SETTINGS.PROFILE.SET_PICTURE);
+          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -210,7 +210,7 @@ const Status: FC = () => {
               setEmoji('');
               form.setValue('status', '');
               editStatus('', '');
-              Analytics.track(SETTINGS.PROFILE.CLEAR_STATUS);
+              Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
             <Trans>Clear status</Trans>

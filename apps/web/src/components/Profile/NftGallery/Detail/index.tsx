@@ -6,16 +6,22 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
+import { Leafwatch } from '@lib/leafwatch';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
+
+  useEffect(() => {
+    Leafwatch.track(PAGEVIEW, { page: 'nft' });
+  }, []);
 
   if (!isFeatureEnabled('nft-detail', currentProfile?.id) || !currentProfile) {
     return <Custom404 />;
