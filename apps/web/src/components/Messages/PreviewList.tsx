@@ -9,9 +9,9 @@ import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ERROR_MESSAGE } from 'data/constants';
@@ -58,7 +58,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
 
   const newMessageClick = () => {
     setShowSearchModal(true);
-    Analytics.track(MESSAGES.OPEN_NEW_CONVERSATION);
+    Leafwatch.track(MESSAGES.OPEN_NEW_CONVERSATION);
   };
 
   const onProfileSelected = (profile: Profile) => {

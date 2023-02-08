@@ -2,7 +2,7 @@ import New from '@components/Shared/Badges/New';
 import { Card } from '@components/UI/Card';
 import { MinusCircleIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
@@ -59,7 +59,7 @@ const SetProfile: FC = () => {
         <div>
           <Link
             className="flex items-center space-x-2"
-            onClick={() => Analytics.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE_INTERESTS)}
+            onClick={() => Leafwatch.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE_INTERESTS)}
             href="/settings/interests"
           >
             <Status
@@ -72,7 +72,7 @@ const SetProfile: FC = () => {
       </div>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilAltIcon className="h-4 w-4" />
-        <Link onClick={() => Analytics.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE)} href="/settings">
+        <Link onClick={() => Leafwatch.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE)} href="/settings">
           <Trans>Update profile now</Trans>
         </Link>
       </div>
