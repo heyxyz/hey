@@ -118,8 +118,6 @@ export const MESSAGES = {
 
 export const SETTINGS = {
   ACCOUNT: {
-    OPEN_REFLECT_ENABLE: 'open_reflect_enable',
-    OPEN_REFLECT_DISABLE: 'open_reflect_disable',
     OPEN_VERIFICATION: 'open_account_verification',
     SET_DEFAULT_PROFILE: 'set_default_profile',
     SET_SUPER_FOLLOW: 'set_super_follow'
