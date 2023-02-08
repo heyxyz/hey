@@ -2,9 +2,9 @@ import type { ApolloCache } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
+import { Analytics } from '@lib/analytics';
 import hasGm from '@lib/hasGm';
 import { publicationKeyFields } from '@lib/keyFields';
-import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
@@ -76,7 +76,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.LIKE, getEventProperties('like'));
+      Analytics.track(PUBLICATION.LIKE, getEventProperties('like'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -88,7 +88,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
+      Analytics.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
     },
     onError: (error) => {
       setLiked(!liked);

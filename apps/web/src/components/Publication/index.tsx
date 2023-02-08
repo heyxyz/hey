@@ -7,16 +7,13 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import formatHandle from '@lib/formatHandle';
-import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
@@ -26,13 +23,10 @@ import PublicationPageShimmer from './Shimmer';
 const ViewPublication: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
+
   const {
     query: { id }
   } = useRouter();
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'publication' });
-  }, []);
 
   const { data, loading, error } = usePublicationQuery({
     variables: {
