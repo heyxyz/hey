@@ -2,8 +2,8 @@ import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
 import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import imageProxy from '@lib/imageProxy';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
@@ -135,7 +135,7 @@ const Attachments: FC<Props> = ({
                   }}
                   onClick={() => {
                     setExpandedImage(url);
-                    Analytics.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
+                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
                   }}
                   src={isNew ? url : imageProxy(url, ATTACHMENT)}
                   alt={isNew ? url : imageProxy(url, ATTACHMENT)}

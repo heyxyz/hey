@@ -4,8 +4,8 @@ import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
 import getWalletLogo from '@lib/getWalletLogo';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import toSnakeCase from '@lib/toSnakeCase';
 import { t, Trans } from '@lingui/macro';
@@ -52,7 +52,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Analytics.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
+      Leafwatch.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
     } catch (error) {
       console.error(error);
     }
@@ -101,7 +101,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Analytics.track(USER.SIWL);
+      Leafwatch.track(USER.SIWL);
     } catch (error) {
       console.error(error);
     } finally {
@@ -135,7 +135,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         <button
           onClick={() => {
             disconnect?.();
-            Analytics.track(USER.CHANGE_WALLET);
+            Leafwatch.track(USER.CHANGE_WALLET);
           }}
           className="flex items-center space-x-1 text-sm underline"
         >

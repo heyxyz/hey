@@ -1,7 +1,7 @@
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
+import { Leafwatch } from '@lib/leafwatch';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import React from 'react';
@@ -28,7 +28,7 @@ const SwitchProfiles: FC = () => {
             setCurrentProfile(selectedProfile);
             setProfileId(selectedProfile.id);
             setShowProfileSwitchModal(false);
-            Analytics.track(PROFILE.SWITCH_PROFILE);
+            Leafwatch.track(PROFILE.SWITCH_PROFILE);
           }}
         >
           <span className="flex items-center space-x-2">
