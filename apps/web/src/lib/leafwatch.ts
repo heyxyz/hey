@@ -1,8 +1,6 @@
 import axios from 'axios';
-import { DATADOG_TOKEN, IS_PRODUCTION, LEAFWATCH_HOST } from 'data/constants';
-import { v4 as uuid } from 'uuid';
+import { LEAFWATCH_WORKER_URL } from 'data/constants';
 
-const enabled = DATADOG_TOKEN && IS_PRODUCTION;
 const isBrowser = typeof window !== 'undefined';
 
 /**
@@ -14,21 +12,16 @@ export const Leafwatch = {
       localStorage.getItem('lenster.store') || JSON.stringify({ state: { profileId: null } })
     );
 
-    if (isBrowser && enabled) {
-      axios(LEAFWATCH_HOST, {
+    if (isBrowser) {
+      axios(LEAFWATCH_WORKER_URL, {
         method: 'POST',
-        params: {
-          'dd-api-key': DATADOG_TOKEN,
-          'dd-request-id': uuid()
-        },
         data: {
           event: name,
           metadata,
           profile: state.profileId,
           url: location.href,
           referrer: document.referrer,
-          userAgent: navigator.userAgent,
-          ddsource: 'leafwatch'
+          userAgent: navigator.userAgent
         }
       }).catch(() => {
         console.error('Error while sending analytics event to Leafwatch');
