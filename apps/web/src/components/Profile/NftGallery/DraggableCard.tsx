@@ -3,6 +3,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { motion } from 'framer-motion';
 import type { Nft } from 'lens';
 import type { FC } from 'react';
+import React from 'react';
 
 import NftCard from './NftCard';
 
@@ -57,4 +58,4 @@ const DraggableCard: FC<CardProps> = ({ id, nft }) => {
   );
 };
 
-export default DraggableCard;
+export default React.memo(DraggableCard);

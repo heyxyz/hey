@@ -1,10 +1,16 @@
+import { useApolloClient } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Menu, Transition } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Nft, NftGallery } from 'lens';
-import { useDeleteNftGalleryMutation, useUpdateNftGalleryOrderMutation } from 'lens';
+import {
+  NftGalleriesDocument,
+  useDeleteNftGalleryMutation,
+  useNftGalleriesLazyQuery,
+  useUpdateNftGalleryOrderMutation
+} from 'lens';
 import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -27,9 +33,11 @@ const Gallery: FC<Props> = ({ galleries }) => {
   const galleryStore = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 
+  const { cache } = useApolloClient();
   const gallery = galleries[0];
   const nfts = gallery.items;
 
+  const [fetchNftGalleries] = useNftGalleriesLazyQuery();
   const [orderGallery] = useUpdateNftGalleryOrderMutation();
   const [deleteNftGallery] = useDeleteNftGalleryMutation({
     onCompleted: () => {
@@ -41,7 +49,8 @@ const Gallery: FC<Props> = ({ galleries }) => {
         toRemove: [],
         isEdit: false,
         id: '',
-        alreadySelectedItems: []
+        alreadySelectedItems: [],
+        reArrangedItems: []
       });
     },
     update(cache) {
@@ -67,7 +76,15 @@ const Gallery: FC<Props> = ({ galleries }) => {
   };
 
   const setItemsToGallery = (items: Item[]) => {
-    setGallery({ ...gallery, items, isEdit: true, toAdd: [], toRemove: [], alreadySelectedItems: items });
+    setGallery({
+      ...gallery,
+      items,
+      isEdit: true,
+      toAdd: [],
+      toRemove: [],
+      alreadySelectedItems: items,
+      reArrangedItems: []
+    });
   };
 
   const onClickRearrange = () => {
@@ -87,28 +104,30 @@ const Gallery: FC<Props> = ({ galleries }) => {
   };
 
   const onSaveRearrange = async () => {
-    const items = galleryStore.items.map((nft, position) => {
-      return { ...nft, itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`, position };
-    });
-    setItemsToGallery(items);
-    const sanitizedItems = items?.map((el) => {
-      return {
-        tokenId: el.tokenId,
-        contractAddress: el.contractAddress,
-        chainId: el.chainId,
-        newOrder: el.position
-      };
-    });
-    await orderGallery({
-      variables: {
-        request: {
-          galleryId: gallery.id,
-          profileId: currentProfile?.id,
-          updates: sanitizedItems
+    try {
+      await orderGallery({
+        variables: {
+          request: {
+            galleryId: galleryStore.id,
+            profileId: currentProfile?.id,
+            updates: galleryStore.reArrangedItems
+          }
         }
-      }
-    });
-    setIsRearrange(false);
+      });
+      const { data } = await fetchNftGalleries({
+        variables: { request: { profileId: currentProfile?.id } }
+      });
+      cache.modify({
+        fields: {
+          nftGalleries() {
+            cache.updateQuery({ query: NftGalleriesDocument }, () => ({
+              data: data?.nftGalleries as NftGallery[]
+            }));
+          }
+        }
+      });
+      setIsRearrange(false);
+    } catch {}
   };
 
   return (

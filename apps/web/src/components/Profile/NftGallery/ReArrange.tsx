@@ -2,14 +2,13 @@ import type { DragEndEvent } from '@dnd-kit/core';
 import { closestCenter, DndContext } from '@dnd-kit/core';
 import { arrayMove, rectSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import type { FC } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import type { ReArrangedItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 
 import DraggableCard from './DraggableCard';
 
 const ReArrange: FC = () => {
-  const gridRef = useRef<HTMLDivElement>(null);
-
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
   const [allNfts, setAllNfts] = useState(gallery.items);
@@ -19,18 +18,38 @@ const ReArrange: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allNfts]);
 
-  function handleDragEnd({ active, over }: DragEndEvent) {
+  const handleDragEnd = ({ active, over }: DragEndEvent) => {
     if (!over) {
       return;
     }
-    setAllNfts((items) =>
-      arrayMove(
+
+    setAllNfts((items) => {
+      const newItems = arrayMove(
         items,
         items.findIndex((i) => i.itemId === active?.id),
         items.findIndex((i) => i.itemId === over?.id)
-      )
-    );
-  }
+      ).map((item, i) => {
+        item.newOrder = i;
+        return item;
+      });
+      const movedItem = items.find((i) => i.itemId === active?.id) as ReArrangedItem;
+      if (movedItem) {
+        setGallery({
+          ...gallery,
+          reArrangedItems: [
+            ...gallery.reArrangedItems,
+            {
+              chainId: movedItem.chainId,
+              contractAddress: movedItem.contractAddress,
+              newOrder: movedItem.newOrder,
+              tokenId: movedItem.tokenId
+            }
+          ]
+        });
+      }
+      return newItems;
+    });
+  };
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
@@ -38,7 +57,7 @@ const ReArrange: FC = () => {
         strategy={rectSortingStrategy}
         items={allNfts.map((i) => `${i.chainId}_${i.contractAddress}_${i.tokenId}`)}
       >
-        <div ref={gridRef} className="grid gap-5 py-5 md:grid-cols-3">
+        <div className="grid gap-5 py-5 md:grid-cols-3">
           {allNfts.map((item) => {
             const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
             return <DraggableCard key={id} id={id} nft={item} />;
