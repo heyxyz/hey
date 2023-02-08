@@ -4,8 +4,8 @@ import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Tab } from '@headlessui/react';
+import { Analytics } from '@lib/analytics';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
@@ -13,9 +13,8 @@ import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
@@ -24,10 +23,6 @@ const Explore: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMainFocus>();
   const router = useRouter();
-
-  useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'explore' });
-  }, []);
 
   const tabs = [
     { name: t`For you`, type: PublicationSortCriteria.CuratedProfiles },
@@ -55,7 +50,7 @@ const Explore: NextPage = () => {
                 key={index}
                 defaultChecked={index === 1}
                 onClick={() => {
-                  Leafwatch.track(`switch_to_${tab.type?.toLowerCase()}_tab_in_explore`);
+                  Analytics.track(`switch_to_${tab.type?.toLowerCase()}_tab_in_explore`);
                 }}
                 className={({ selected }) =>
                   clsx(

@@ -16,11 +16,11 @@ import type {
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -148,14 +148,14 @@ const NewPublication: FC<Props> = ({ publication }) => {
       setShowNewPostModal(false);
     }
 
-    // Track in leafwatch
+    // Track in simple analytics
     const eventProperties = {
       publication_type: restricted ? 'token_gated' : 'public',
       publication_collect_module: selectedCollectModule,
       publication_reference_module: selectedReferenceModule,
       publication_has_attachments: attachments.length > 0
     };
-    Leafwatch.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
+    Analytics.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
   };
 
   useEffect(() => {
