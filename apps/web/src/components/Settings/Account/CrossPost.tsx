@@ -1,7 +1,7 @@
 import Beta from '@components/Shared/Badges/Beta';
 import { Card } from '@components/UI/Card';
 import { CheckCircleIcon, ExternalLinkIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import { APP_NAME } from 'data/constants';
@@ -55,7 +55,7 @@ const CrossPost: FC = () => {
             href={REFLECT_URL}
             className="flex items-center space-x-1.5"
             onClick={() => {
-              Analytics.track(SETTINGS.ACCOUNT.OPEN_REFLECT_DISABLE);
+              Leafwatch.track(SETTINGS.ACCOUNT.OPEN_REFLECT_DISABLE);
             }}
             target="_blank"
             rel="noreferrer noopener"
@@ -71,7 +71,7 @@ const CrossPost: FC = () => {
           href={REFLECT_URL}
           className="flex items-center space-x-1.5"
           onClick={() => {
-            Analytics.track(SETTINGS.ACCOUNT.OPEN_REFLECT_ENABLE);
+            Leafwatch.track(SETTINGS.ACCOUNT.OPEN_REFLECT_ENABLE);
           }}
           target="_blank"
           rel="noreferrer noopener"

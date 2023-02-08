@@ -10,7 +10,7 @@ import {
   SwitchHorizontalIcon,
   UserGroupIcon
 } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
@@ -135,7 +135,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   }
 
   const toggleCollect = () => {
-    Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
+    Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
     if (selectedCollectModule === RevertCollectModule) {
       return setSelectedCollectModule(FreeCollectModule);
     } else {
@@ -166,7 +166,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 on={Boolean(amount)}
                 setOn={() => {
                   setAmount(amount ? null : '0');
-                  Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
+                  Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
                 }}
               />
               <div className="lt-text-gray-500 text-sm font-bold">
@@ -249,7 +249,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                     on={Boolean(collectLimit)}
                     setOn={() => {
                       setCollectLimit(collectLimit ? null : '1');
-                      Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
+                      Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
                     }}
                   />
                   <div className="lt-text-gray-500 text-sm font-bold">
@@ -284,7 +284,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                     on={hasTimeLimit}
                     setOn={() => {
                       setHasTimeLimit(!hasTimeLimit);
-                      Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
+                      Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
                     }}
                   />
                   <div className="lt-text-gray-500 text-sm font-bold">
@@ -306,7 +306,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 on={followerOnly}
                 setOn={() => {
                   setFollowerOnly(!followerOnly);
-                  Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
+                  Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
                 }}
               />
               <div className="lt-text-gray-500 text-sm font-bold">

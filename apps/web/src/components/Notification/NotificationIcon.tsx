@@ -1,5 +1,5 @@
 import { LightningBoltIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { CustomFiltersTypes, useNotificationCountQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -33,7 +33,7 @@ const NotificationIcon: FC = () => {
       onClick={() => {
         setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
         setShowBadge(false);
-        Analytics.track(NOTIFICATION.OPEN);
+        Leafwatch.track(NOTIFICATION.OPEN);
       }}
     >
       <LightningBoltIcon className="h-5 w-5 sm:h-6 sm:w-6" />
