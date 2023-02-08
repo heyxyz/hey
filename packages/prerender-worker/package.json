@@ -5,6 +5,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "worker:deploy": "wrangler publish",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts"
   },
   "devDependencies": {
