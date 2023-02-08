@@ -1,10 +1,17 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
+import { useEffect } from 'react';
+import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {
+  useEffect(() => {
+    Leafwatch.track(PAGEVIEW, { page: 'privacy' });
+  }, []);
+
   const updatedAt = 'December 11, 2022';
 
   return (
@@ -138,8 +145,8 @@ const Privacy: FC = () => {
               <div className="space-y-5 leading-7">
                 <p>
                   <Trans>
-                    We use <b>Simple Analytics</b> to collect various events from user actions to analyse and
-                    make decisions for Site improvements.
+                    We use <b>Datadog</b> to collect various events from user actions to analyse and make
+                    decisions for Site improvements.
                   </Trans>
                 </p>
                 <p>

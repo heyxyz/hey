@@ -1,4 +1,4 @@
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { PublicationMainFocus } from 'lens';
@@ -20,7 +20,7 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
       type="button"
       onClick={() => {
         setFocus(type as PublicationMainFocus);
-        Analytics.track(`select_${(type ?? 'all_posts')?.toLowerCase()}_filter_in_explore`);
+        Leafwatch.track(`select_${(type ?? 'all_posts')?.toLowerCase()}_filter_in_explore`);
       }}
       className={clsx(
         { '!bg-brand-500 !text-white': focus === type },
