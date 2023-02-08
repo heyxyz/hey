@@ -21,10 +21,6 @@ export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 
 export const IS_MAINNET = API_URL === MAINNET_API_URL;
 
-// Leafwatch
-export const DATADOG_TOKEN = process.env.NEXT_PUBLIC_DATADOG_TOKEN ?? '';
-export const LEAFWATCH_HOST = 'https://http-intake.logs.datadoghq.com/api/v2/logs';
-
 // XMTP
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 export const XMTP_PREFIX = 'lens.dev/dm';

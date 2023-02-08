@@ -2,7 +2,7 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Analytics } from '@lib/analytics';
 import { t, Trans } from '@lingui/macro';
 import { CollectModules } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -42,7 +42,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
             reset();
           }
           setRestricted(!restricted);
-          Leafwatch.track(PUBLICATION.NEW.ACCESS.TOGGLE_RESTRICTED_ACCESS);
+          Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_RESTRICTED_ACCESS);
         }}
         label={t`Add restrictions on who can view this post`}
       />
@@ -63,7 +63,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
                     return toast.error(t`Enable collect first to use collect based token gating`);
                   }
                   setCollectToView(!collectToView);
-                  Leafwatch.track(PUBLICATION.NEW.ACCESS.TOGGLE_COLLECT_TO_VIEW_ACCESS);
+                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_COLLECT_TO_VIEW_ACCESS);
                 }}
                 label={t`People need to collect it first to be able to view it`}
               />
@@ -81,7 +81,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
                 on={followToView}
                 setOn={() => {
                   setFollowToView(!followToView);
-                  Leafwatch.track(PUBLICATION.NEW.ACCESS.TOGGLE_FOLLOW_TO_VIEW_ACCESS);
+                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_FOLLOW_TO_VIEW_ACCESS);
                 }}
                 label={t`People need to follow you to be able to view it`}
               />
