@@ -1,8 +1,8 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { UserRemoveIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
@@ -62,7 +62,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           await burnWithSig(signature, typedData);
         }
         toast.success(t`Unfollowed successfully!`);
-        Leafwatch.track(PROFILE.UNFOLLOW);
+        Analytics.track(PROFILE.UNFOLLOW);
       } catch {
         toast.error(t`User rejected request`);
       } finally {

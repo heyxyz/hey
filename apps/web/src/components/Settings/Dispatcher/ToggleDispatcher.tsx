@@ -2,8 +2,8 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
+import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
@@ -29,7 +29,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
 
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
-    Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
+    Analytics.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
