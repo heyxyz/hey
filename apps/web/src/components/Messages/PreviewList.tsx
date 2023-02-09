@@ -5,7 +5,6 @@ import Search from '@components/Shared/Navbar/Search';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { GridItemFour } from '@components/UI/GridLayout';
-import { Modal } from '@components/UI/Modal';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
@@ -21,7 +20,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import { Card } from 'web-ui';
+import { Card, Modal } from 'web-ui';
 
 interface Props {
   className?: string;

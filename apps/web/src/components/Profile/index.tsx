@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import NFTFeed from '@components/NFT/NFTFeed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Modal } from '@components/UI/Modal';
 import formatHandle from '@lib/formatHandle';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
@@ -15,6 +14,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { Modal } from 'web-ui';
 
 import Cover from './Cover';
 import Details from './Details';

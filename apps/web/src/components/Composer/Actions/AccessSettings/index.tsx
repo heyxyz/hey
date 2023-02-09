@@ -1,5 +1,4 @@
 import HelpTooltip from '@components/UI/HelpTooltip';
-import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LockClosedIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
@@ -10,6 +9,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { PUBLICATION } from 'src/tracking';
+import { Modal } from 'web-ui';
 
 import BasicSettings from './BasicSettings';
 

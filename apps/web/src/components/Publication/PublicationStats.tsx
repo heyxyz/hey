@@ -1,7 +1,6 @@
 import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
-import { Modal } from '@components/UI/Modal';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
@@ -11,6 +10,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
+import { Modal } from 'web-ui';
 
 interface Props {
   publication: Publication;

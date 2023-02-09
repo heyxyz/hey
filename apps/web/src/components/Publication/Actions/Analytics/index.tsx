@@ -1,6 +1,5 @@
 import Beta from '@components/Shared/Badges/Beta';
 import Loader from '@components/Shared/Loader';
-import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { ChartBarIcon } from '@heroicons/react/outline';
@@ -12,6 +11,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Modal } from 'web-ui';
 
 const Stats = dynamic(() => import('./Stats'), {
   loading: () => <Loader message={t`Loading analytics`} />

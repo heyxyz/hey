@@ -5,7 +5,6 @@ import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
-import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { CogIcon, HashtagIcon, LocationMarkerIcon, UsersIcon } from '@heroicons/react/outline';
@@ -29,7 +28,7 @@ import type { Dispatch, FC, ReactElement } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-import { Button } from 'web-ui';
+import { Button, Modal } from 'web-ui';
 
 import Badges from './Badges';
 import Followerings from './Followerings';

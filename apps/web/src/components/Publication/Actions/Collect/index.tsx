@@ -1,5 +1,4 @@
 import Loader from '@components/Shared/Loader';
-import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CollectionIcon } from '@heroicons/react/outline';
@@ -16,6 +15,7 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
+import { Modal } from 'web-ui';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message={t`Loading collect`} />
