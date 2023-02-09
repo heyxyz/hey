@@ -61,21 +61,20 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
     }).then((res) => {
       const data = res?.data?.generateModuleCurrencyApprovalData;
       const moduleType = getModule(selectedModule).name;
-      const abi = [
-        'function approve(address spender, uint256 value)'
-      ];
+      const abi = ['function approve(address spender, uint256 value)'];
       let iface = new ethers.utils.Interface(abi);
-      const approveUnknownCollectModule = iface.encodeFunctionData("approve", [SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE, ethers.constants.MaxUint256]);
+      const approveUnknownCollectModule = iface.encodeFunctionData('approve', [
+        SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE,
+        ethers.constants.MaxUint256
+      ]);
 
-          
-         sendTransaction?.({
-              recklesslySetUnpreparedRequest: {
-                from: data?.from,
-                to: data?.to,
-                data: (moduleType === 'Unknown Collect') ? approveUnknownCollectModule : data?.data
-              }
-            });
-   
+      sendTransaction?.({
+        recklesslySetUnpreparedRequest: {
+          from: data?.from,
+          to: data?.to,
+          data: moduleType === 'Unknown Collect' ? approveUnknownCollectModule : data?.data
+        }
+      });
     });
   };
 
