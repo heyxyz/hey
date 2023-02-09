@@ -1,1 +1,2 @@
-export { Button } from './Button';
+export { Button } from './src/Button';
+export { Card } from './src/Card';

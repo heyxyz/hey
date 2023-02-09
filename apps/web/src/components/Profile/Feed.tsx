@@ -1,6 +1,5 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
@@ -14,6 +13,7 @@ import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
+import { Card } from 'web-ui';
 
 export enum ProfileFeedType {
   Feed = 'FEED',

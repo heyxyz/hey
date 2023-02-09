@@ -1,4 +1,3 @@
-import { Card } from '@components/UI/Card';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
@@ -23,7 +22,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
-import { Button } from 'web-ui';
+import { Button, Card } from 'web-ui';
 import { object, string } from 'zod';
 
 const newSuperFollowSchema = object({

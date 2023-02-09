@@ -1,6 +1,6 @@
-import { Card } from '@components/UI/Card';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
+import { Card } from 'web-ui';
 
 interface Props {
   type?: string;

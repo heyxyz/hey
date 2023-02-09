@@ -1,5 +1,4 @@
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
-import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
@@ -10,6 +9,7 @@ import { TagSortCriteria, useTrendingQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
+import { Card } from 'web-ui';
 
 const Title = () => {
   return (

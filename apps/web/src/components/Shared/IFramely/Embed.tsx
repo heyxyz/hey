@@ -1,4 +1,3 @@
-import { Card } from '@components/UI/Card';
 import type { OG } from '@generated/types';
 import imageProxy from '@lib/imageProxy';
 import { Leafwatch } from '@lib/leafwatch';
@@ -6,6 +5,7 @@ import { ATTACHMENT } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
+import { Card } from 'web-ui';
 
 interface Props {
   og: OG;

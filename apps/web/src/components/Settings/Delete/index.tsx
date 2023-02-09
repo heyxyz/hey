@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import UserProfile from '@components/Shared/UserProfile';
-import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
@@ -23,7 +22,7 @@ import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
-import { Button } from 'web-ui';
+import { Button, Card } from 'web-ui';
 
 import SettingsSidebar from '../Sidebar';
 

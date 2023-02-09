@@ -1,5 +1,4 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
@@ -20,7 +19,7 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
-import { Button } from 'web-ui';
+import { Button, Card } from 'web-ui';
 
 const SetProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);

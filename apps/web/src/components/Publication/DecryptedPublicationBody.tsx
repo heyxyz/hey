@@ -1,7 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Tooltip } from '@components/UI/Tooltip';
 import useNFT from '@components/utils/hooks/useNFT';
@@ -39,6 +38,7 @@ import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
 import { useProvider, useSigner, useToken } from 'wagmi';
+import { Card } from 'web-ui';
 
 interface DecryptMessageProps {
   icon: ReactNode;

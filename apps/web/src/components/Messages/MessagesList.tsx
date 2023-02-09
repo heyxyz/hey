@@ -1,5 +1,4 @@
 import Markup from '@components/Shared/Markup';
-import { Card } from '@components/UI/Card';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import formatTime from '@lib/formatTime';
@@ -12,6 +11,7 @@ import type { Profile } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Card } from 'web-ui';
 
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');

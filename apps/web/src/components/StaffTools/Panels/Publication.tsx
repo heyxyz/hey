@@ -1,9 +1,9 @@
-import { Card } from '@components/UI/Card';
 import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 import getIPFSLink from 'utils/getIPFSLink';
+import { Card } from 'web-ui';
 
 import MetaDetails from './MetaDetails';
 

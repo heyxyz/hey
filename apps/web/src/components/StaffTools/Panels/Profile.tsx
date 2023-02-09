@@ -1,4 +1,3 @@
-import { Card } from '@components/UI/Card';
 import {
   AtSymbolIcon,
   CashIcon,
@@ -17,6 +16,7 @@ import hasPrideLogo from '@lib/hasPrideLogo';
 import { APP_NAME } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
+import { Card } from 'web-ui';
 
 import MetaDetails from './MetaDetails';
 

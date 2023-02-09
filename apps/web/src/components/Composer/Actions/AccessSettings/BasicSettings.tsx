@@ -1,5 +1,4 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Card } from '@components/UI/Card';
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -9,7 +8,7 @@ import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { PUBLICATION } from 'src/tracking';
-import { Button } from 'web-ui';
+import { Button, Card } from 'web-ui';
 
 interface Props {
   setShowModal: Dispatch<boolean>;

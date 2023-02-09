@@ -1,7 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import type { LensterAttachment } from '@generated/types';
@@ -66,7 +65,7 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import { COMMENT, POST } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
-import { Button } from 'web-ui';
+import { Button, Card } from 'web-ui';
 
 import Editor from './Editor';
 

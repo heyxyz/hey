@@ -1,4 +1,3 @@
-import { Card } from '@components/UI/Card';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
@@ -12,6 +11,7 @@ import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { SEARCH } from 'src/tracking';
+import { Card } from 'web-ui';
 
 import UserProfile from '../UserProfile';
 

@@ -1,8 +1,8 @@
-import { Card } from '@components/UI/Card';
 import { BeakerIcon, CurrencyDollarIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import { APP_NAME, IS_MAINNET } from 'data/constants';
 import type { FC } from 'react';
+import { Card } from 'web-ui';
 
 const BetaWarning: FC = () => {
   return (

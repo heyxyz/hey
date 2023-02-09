@@ -1,6 +1,5 @@
 import type { FC, ReactNode } from 'react';
-
-import { Card } from './Card';
+import { Card } from 'web-ui';
 
 interface Props {
   message: ReactNode;
