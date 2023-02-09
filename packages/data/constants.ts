@@ -63,7 +63,7 @@ export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
 export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
-export const LEAFWATCH_WORKER_URL = IS_PRODUCTION ? 'https://leafwatch.lenster.xyz' : 'http://localhost:8084';
+export const RAVEN_WORKER_URL = IS_PRODUCTION ? 'https://raven.lenster.xyz' : 'http://localhost:8084';
 
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';

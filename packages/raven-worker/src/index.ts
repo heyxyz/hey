@@ -1,5 +1,3 @@
-import { uuid } from '@cfworker/uuid';
-
 type EnvType = {
   DATADOG_TOKEN: string;
 };
@@ -23,7 +21,9 @@ const handleRequest = async (request: Request, env: EnvType) => {
     });
   }
 
-  if (request.headers.get('origin') !== 'https://lenster.xyz') {
+  const allowedOrigins = ['https://lenster.xyz', 'https://www.lenster.xyz', 'https://lenster.vercel.app'];
+
+  if (!allowedOrigins.includes(request.headers.get('origin') || '')) {
     return new Response(JSON.stringify({ success: false, message: 'Origin not allowed' }), { headers });
   }
 
@@ -36,13 +36,12 @@ const handleRequest = async (request: Request, env: EnvType) => {
   try {
     const appenedPayload = {
       ...payload,
-      ddsource: 'leafwatch',
       ip: request.headers.get('cf-connecting-ip') || 'unknown'
     };
     const datadogRes = await fetch(
       `https://http-intake.logs.datadoghq.com/api/v2/logs?dd-api-key=${
         env.DATADOG_TOKEN
-      }&dd-request-id=${uuid()}`,
+      }&dd-request-id=${crypto.randomUUID()}`,
       {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
