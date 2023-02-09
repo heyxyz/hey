@@ -1,6 +1,5 @@
 import SingleNFT from '@components/NFT/SingleNFT';
 import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
-import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { Input } from '@components/UI/Input';
@@ -18,6 +17,7 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { mainnet } from 'wagmi/chains';
+import { EmptyState } from 'web-ui';
 
 const Picker: FC = () => {
   const [searchText, setSearchText] = useState('');

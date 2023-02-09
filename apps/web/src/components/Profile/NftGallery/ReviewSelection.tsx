@@ -1,10 +1,10 @@
 import SingleNFT from '@components/NFT/SingleNFT';
-import { EmptyState } from '@components/UI/EmptyState';
 import { CollectionIcon, XIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Nft } from 'lens';
 import React from 'react';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
+import { EmptyState } from 'web-ui';
 
 const ReviewSelection = () => {
   const gallery = useNftGalleryStore((state) => state.gallery);

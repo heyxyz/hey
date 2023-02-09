@@ -1,6 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
-import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
@@ -10,6 +9,7 @@ import type { Profile, Wallet, WhoCollectedPublicationRequest } from 'lens';
 import { useCollectorsQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { EmptyState } from 'web-ui';
 
 import { FollowSource } from '../Follow';
 import Loader from '../Loader';

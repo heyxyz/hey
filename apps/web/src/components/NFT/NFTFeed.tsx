@@ -1,6 +1,5 @@
 import SingleNFT from '@components/NFT/SingleNFT';
 import NFTSShimmer from '@components/Shared/Shimmer/NFTSShimmer';
-import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
@@ -13,6 +12,7 @@ import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
 import { mainnet } from 'wagmi/chains';
+import { EmptyState } from 'web-ui';
 
 interface Props {
   profile: Profile;

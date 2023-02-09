@@ -1,4 +1,3 @@
-import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Spinner } from '@components/UI/Spinner';
@@ -13,7 +12,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PAGEVIEW, PUBLICATION } from 'src/tracking';
-import { Button } from 'web-ui';
+import { Button, EmptyState } from 'web-ui';
 import { object, string } from 'zod';
 
 import Reason from './Reason';

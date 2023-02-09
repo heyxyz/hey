@@ -1,5 +1,4 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { HeartIcon } from '@heroicons/react/outline';
@@ -9,6 +8,7 @@ import type { Profile, WhoReactedPublicationRequest } from 'lens';
 import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { EmptyState } from 'web-ui';
 
 import { FollowSource } from '../Follow';
 import Loader from '../Loader';

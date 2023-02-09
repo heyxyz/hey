@@ -1,7 +1,6 @@
 import { FollowSource } from '@components/Shared/Follow';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
@@ -12,7 +11,7 @@ import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
-import { Card, Modal } from 'web-ui';
+import { Card, EmptyState, Modal } from 'web-ui';
 
 import Suggested from './Suggested';
 

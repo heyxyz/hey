@@ -1,4 +1,3 @@
-import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { LightningBoltIcon } from '@heroicons/react/outline';
@@ -17,7 +16,7 @@ import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'le
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
-import { Card } from 'web-ui';
+import { Card, EmptyState } from 'web-ui';
 
 import NotificationShimmer from './Shimmer';
 import CollectNotification from './Type/CollectNotification';

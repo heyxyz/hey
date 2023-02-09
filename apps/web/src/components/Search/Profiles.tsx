@@ -1,6 +1,5 @@
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
@@ -10,7 +9,7 @@ import type { Profile, ProfileSearchResult, SearchQueryRequest } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Card } from 'web-ui';
+import { Card, EmptyState } from 'web-ui';
 
 interface Props {
   query: string | string[];
