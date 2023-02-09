@@ -1552,11 +1552,6 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@cfworker/uuid@^1.12.4":
-  version "1.12.4"
-  resolved "https://registry.yarnpkg.com/@cfworker/uuid/-/uuid-1.12.4.tgz#178a2126ce91bfd2fb58c1a14c991502bb69e8ef"
-  integrity sha512-aw4lxCT4NLbGqlTScWPtPrZrg4TO6HCZCnNUAeC4yTOvkXjJGdJP6S5NCY9vtP2FruLIC+vYCvUP98fHXtF7kg==
-
 "@cloudflare/kv-asset-handler@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@cloudflare/kv-asset-handler/-/kv-asset-handler-0.2.0.tgz#c9959bbd7a1c40bd7c674adae98aa8c8d0e5ca68"
