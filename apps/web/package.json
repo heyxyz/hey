@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.7",
-    "@aws-sdk/client-s3": "^3.266.1",
+    "@aws-sdk/client-s3": "^3.267.0",
     "@giphy/js-fetch-api": "^4.7.1",
     "@giphy/react-components": "^6.5.2",
     "@headlessui/react": "^1.7.10",
@@ -60,7 +60,7 @@
     "utils": "*",
     "uuid": "^9.0.0",
     "wagmi": "^0.11.5",
-    "zod": "^3.20.3",
+    "zod": "^3.20.6",
     "zustand": "^4.3.2"
   },
   "devDependencies": {
@@ -85,7 +85,7 @@
     "postcss": "^8.4.21",
     "prettier-plugin-tailwindcss": "^0.2.2",
     "start-server-and-test": "^1.15.3",
-    "tailwindcss": "^3.2.1",
+    "tailwindcss": "^3.2.6",
     "tsconfig": "*",
     "typescript": "^4.9.5"
   }
