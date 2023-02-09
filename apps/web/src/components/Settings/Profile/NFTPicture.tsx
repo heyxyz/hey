@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
@@ -25,6 +24,7 @@ import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
+import { Button } from 'web-ui';
 import { object, string } from 'zod';
 
 const editNftPictureSchema = object({

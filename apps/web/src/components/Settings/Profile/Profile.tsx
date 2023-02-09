@@ -1,5 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
@@ -34,6 +33,7 @@ import { SETTINGS } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import { Button } from 'web-ui';
 import { object, string, union } from 'zod';
 
 const editProfileSchema = object({

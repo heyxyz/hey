@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
 import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
@@ -13,6 +12,7 @@ import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
+import { Button } from 'web-ui';
 
 import Audio from './Audio';
 import Video from './Video';

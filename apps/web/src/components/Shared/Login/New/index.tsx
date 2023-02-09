@@ -1,5 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
@@ -13,6 +12,7 @@ import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import getStampFyiURL from 'utils/getStampFyiURL';
 import { useAccount } from 'wagmi';
+import { Button } from 'web-ui';
 import { object, string } from 'zod';
 
 import Pending from './Pending';

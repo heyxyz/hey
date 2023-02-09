@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
@@ -20,6 +19,7 @@ import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { PUBLICATION } from 'src/tracking';
+import { Button } from 'web-ui';
 
 interface Props {
   setShowModal: Dispatch<boolean>;

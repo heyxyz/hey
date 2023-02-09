@@ -1,5 +1,4 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
-import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
@@ -27,6 +26,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
+import { Button } from 'web-ui';
 
 import Loader from '../Loader';
 import Slug from '../Slug';

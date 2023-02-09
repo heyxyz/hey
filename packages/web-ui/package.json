@@ -1,0 +1,20 @@
+{
+  "name": "web-ui",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "main": "./index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts"
+  },
+  "devDependencies": {
+    "eslint-config-weblint": "*",
+    "tsconfig": "*",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "clsx": "^1.2.1",
+    "react": "^18.2.0"
+  }
+}

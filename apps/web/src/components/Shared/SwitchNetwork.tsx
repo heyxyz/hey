@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -7,6 +6,7 @@ import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { SYSTEM } from 'src/tracking';
 import { useSwitchNetwork } from 'wagmi';
+import { Button } from 'web-ui';
 
 interface Props {
   className?: string;

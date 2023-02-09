@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { Menu, Transition } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
@@ -9,6 +8,7 @@ import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { Button } from 'web-ui';
 
 import NftCard from './NftCard';
 import ReArrange from './ReArrange';

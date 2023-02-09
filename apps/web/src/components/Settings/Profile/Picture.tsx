@@ -1,5 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
@@ -25,6 +24,7 @@ import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import { Button } from 'web-ui';
 
 interface Props {
   profile: Profile & { picture: MediaSet & NftImage };

@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { ExclamationCircleIcon, ExternalLinkIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
@@ -6,6 +5,7 @@ import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
+import { Button } from 'web-ui';
 
 interface Props {
   publication: Publication;

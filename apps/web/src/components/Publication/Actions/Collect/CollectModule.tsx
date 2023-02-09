@@ -5,7 +5,6 @@ import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
-import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
@@ -54,6 +53,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
+import { Button } from 'web-ui';
 
 interface Props {
   count: number;

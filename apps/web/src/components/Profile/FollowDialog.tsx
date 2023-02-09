@@ -1,12 +1,12 @@
 import Follow from '@components/Shared/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import { Button } from '@components/UI/Button';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { Dispatch, FC } from 'react';
+import { Button } from 'web-ui';
 
 interface Props {
   setShowFollowModal: Dispatch<boolean>;

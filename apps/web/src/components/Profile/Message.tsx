@@ -1,6 +1,6 @@
-import { Button } from '@components/UI/Button';
 import { MailIcon } from '@heroicons/react/outline';
 import type { FC } from 'react';
+import { Button } from 'web-ui';
 
 interface Props {
   onClick: () => void;

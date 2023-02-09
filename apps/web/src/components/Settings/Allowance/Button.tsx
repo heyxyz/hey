@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
@@ -13,6 +12,7 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
+import { Button } from 'web-ui';
 
 interface Props {
   title?: string;

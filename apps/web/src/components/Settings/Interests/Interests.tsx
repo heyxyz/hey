@@ -1,5 +1,4 @@
 import { useApolloClient } from '@apollo/client';
-import { Button } from '@components/UI/Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
@@ -13,6 +12,7 @@ import {
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import { Button } from 'web-ui';
 
 import Loader from '../../Shared/Loader';
 

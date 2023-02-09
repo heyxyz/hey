@@ -1,5 +1,4 @@
 import type { ApolloCache } from '@apollo/client';
-import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -18,6 +17,7 @@ import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
+import { Button } from 'web-ui';
 
 export enum FollowSource {
   WHO_TO_FOLLOW = 'who_to_follow',

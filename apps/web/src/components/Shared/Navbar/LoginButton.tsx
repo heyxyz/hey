@@ -1,9 +1,9 @@
-import { Button } from '@components/UI/Button';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAuthStore } from 'src/store/auth';
 import { USER } from 'src/tracking';
+import { Button } from 'web-ui';
 
 const LoginButton: FC = () => {
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);

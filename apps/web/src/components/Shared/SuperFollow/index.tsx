@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { StarIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
@@ -11,6 +10,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
+import { Button } from 'web-ui';
 
 import Loader from '../Loader';
 import Slug from '../Slug';

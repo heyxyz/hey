@@ -1,6 +1,5 @@
 import { useApolloClient } from '@apollo/client';
 import EmojiPicker from '@components/Shared/EmojiPicker';
-import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
@@ -13,6 +12,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
+import { Button } from 'web-ui';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';

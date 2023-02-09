@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -18,6 +17,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useSigner, useSignTypedData } from 'wagmi';
+import { Button } from 'web-ui';
 
 interface Props {
   profile: Profile;

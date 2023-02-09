@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
@@ -27,6 +26,7 @@ import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import { Button } from 'web-ui';
 import { object, string } from 'zod';
 
 import EmojiPicker from './EmojiPicker';

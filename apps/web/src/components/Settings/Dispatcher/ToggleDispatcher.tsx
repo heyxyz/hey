@@ -1,5 +1,4 @@
 import IndexStatus from '@components/Shared/IndexStatus';
-import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -16,6 +15,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import { Button } from 'web-ui';
 
 interface Props {
   buttonSize?: 'sm';

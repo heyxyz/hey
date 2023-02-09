@@ -1,5 +1,4 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
@@ -21,6 +20,7 @@ import { useAuthStore } from 'src/store/auth';
 import { USER } from 'src/tracking';
 import type { Connector } from 'wagmi';
 import { useAccount, useConnect, useDisconnect, useNetwork, useSignMessage } from 'wagmi';
+import { Button } from 'web-ui';
 
 interface Props {
   setHasConnected: Dispatch<boolean>;

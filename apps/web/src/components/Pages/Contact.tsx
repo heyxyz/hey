@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { Form, useZodForm } from '@components/UI/Form';
@@ -16,6 +15,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { PAGEVIEW } from 'src/tracking';
+import { Button } from 'web-ui';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
