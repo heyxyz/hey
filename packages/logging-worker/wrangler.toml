@@ -1,9 +1,9 @@
-name = "leafwatch-worker"
+name = "logging-worker"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
 logpush = true
 routes = [
-	{ pattern = "leafwatch.lenster.xyz", custom_domain = true }
+	{ pattern = "logging.lenster.xyz", custom_domain = true }
 ]
 keep_vars = true
 
