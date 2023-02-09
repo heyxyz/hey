@@ -3,7 +3,6 @@ import { closestCenter, DndContext } from '@dnd-kit/core';
 import { arrayMove, rectSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
-import type { ReArrangedItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 
 import DraggableCard from './DraggableCard';
@@ -32,19 +31,18 @@ const ReArrange: FC = () => {
         item.newOrder = i;
         return item;
       });
-      const movedItem = items.find((i) => i.itemId === active?.id) as ReArrangedItem;
+      const movedItem = items.find((i) => i.itemId === active?.id);
       if (movedItem) {
+        let reArranged = gallery.reArrangedItems;
+        let alreadyExistsIndex = gallery.reArrangedItems.findIndex((i) => i.itemId === active?.id);
+        if (alreadyExistsIndex >= 0) {
+          reArranged[alreadyExistsIndex].newOrder = movedItem.newOrder;
+        } else {
+          reArranged.push(movedItem);
+        }
         setGallery({
           ...gallery,
-          reArrangedItems: [
-            ...gallery.reArrangedItems,
-            {
-              chainId: movedItem.chainId,
-              contractAddress: movedItem.contractAddress,
-              newOrder: movedItem.newOrder,
-              tokenId: movedItem.tokenId
-            }
-          ]
+          reArrangedItems: reArranged
         });
       }
       return newItems;

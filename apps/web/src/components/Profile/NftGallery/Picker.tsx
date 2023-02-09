@@ -75,24 +75,24 @@ const Picker: FC = () => {
     if (gallery.items.length === 50) {
       return toast.error(t`Only 50 items allowed for gallery`);
     }
-    const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
+    const customId = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
     const nft = {
-      itemId: id,
+      itemId: customId,
       ...item
     };
-    const index = gallery.items.findIndex((n) => n.itemId === id);
-    if (index !== -1) {
+    const alreadySelectedIndex = gallery.items.findIndex((n) => n.itemId === customId);
+    if (alreadySelectedIndex !== -1) {
       // remove selection from gallery items
-      const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => i.itemId === id);
+      const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => i.itemId === customId);
       let toRemove: Item[] = [];
       // if exists
       if (alreadyExistsIndex >= 0) {
         toRemove = [...gallery.toRemove, nft];
       }
-
+      // Removing selected item
       const nfts = [...gallery.items];
-      nfts.splice(index, 1);
-
+      nfts.splice(alreadySelectedIndex, 1);
+      // removing duplicates in the selection
       const sanitizeRemoveDuplicates = toRemove?.filter(
         (value, index, self) => index === self.findIndex((t) => t.itemId === value.itemId)
       );
@@ -105,12 +105,13 @@ const Picker: FC = () => {
       });
     } else {
       // add selection to gallery items
-      const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => i.itemId === id);
+      const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => i.itemId === customId);
       let toAdd: Item[] = [];
       // if not exists
       if (alreadyExistsIndex < 0) {
         toAdd = [...gallery.toAdd, nft];
       }
+      // removing duplicates in the selection
       const sanitizeAddDuplicates = toAdd?.filter(
         (value, index, self) => index === self.findIndex((t) => t.itemId === value.itemId)
       );

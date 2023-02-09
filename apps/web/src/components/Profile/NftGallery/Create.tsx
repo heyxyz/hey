@@ -86,19 +86,18 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
 
   const update = async () => {
     try {
-      const sanitizedAdd = gallery.toAdd?.filter(
+      const newlyAddedItems = gallery.toAdd?.filter(
         (value) =>
           value.itemId !== gallery.alreadySelectedItems.find((t) => t.itemId === value.itemId)?.itemId
       );
-      const sanitizedRemove = gallery.toRemove?.filter(
+      const newlyRemovedItems = gallery.toRemove?.filter(
         (value) =>
           value.itemId === gallery.alreadySelectedItems.find((t) => t.itemId === value.itemId)?.itemId
       );
-
-      const sanitizedAddItems = sanitizedAdd?.map((el) => {
+      const sanitizedAddItems = newlyAddedItems?.map((el) => {
         return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
       });
-      const sanitizedRemoveItems = sanitizedRemove?.map((el) => {
+      const sanitizedRemoveItems = newlyRemovedItems?.map((el) => {
         return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
       });
       await renameGallery({
@@ -196,6 +195,8 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
     return t`What's your gallery name?`;
   };
 
+  const loadingNext = loading || updating || renaming;
+
   return (
     <Modal
       size={currentStep === CreateSteps.NAME ? 'sm' : 'lg'}
@@ -223,9 +224,9 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
             <Trans>{gallery.items.length} selected</Trans>
           )}
           <Button
-            disabled={loading || updating || renaming}
+            disabled={loadingNext}
             onClick={() => onClickNext()}
-            icon={loading || updating || renaming ? <Spinner size="xs" /> : null}
+            icon={loadingNext ? <Spinner size="xs" /> : null}
           >
             <Trans>Next</Trans>
           </Button>

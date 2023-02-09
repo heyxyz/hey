@@ -6,13 +6,6 @@ export interface Item extends Nft {
   newOrder?: number;
 }
 
-export interface ReArrangedItem {
-  tokenId: string;
-  contractAddress: string;
-  chainId: string;
-  newOrder: number;
-}
-
 interface NftGallery {
   name: string;
   items: Item[];
@@ -21,7 +14,7 @@ interface NftGallery {
   isEdit: boolean;
   toAdd: Item[];
   toRemove: Item[];
-  reArrangedItems: ReArrangedItem[];
+  reArrangedItems: Item[];
 }
 
 interface NftGalleryState {
@@ -29,16 +22,18 @@ interface NftGalleryState {
   setGallery: (gallery: NftGallery) => void;
 }
 
+export const GALLERY_DEFAULTS = {
+  name: '',
+  items: [],
+  toAdd: [],
+  toRemove: [],
+  isEdit: false,
+  id: '',
+  alreadySelectedItems: [],
+  reArrangedItems: []
+};
+
 export const useNftGalleryStore = create<NftGalleryState>((set) => ({
-  gallery: {
-    name: '',
-    items: [],
-    toAdd: [],
-    toRemove: [],
-    isEdit: false,
-    id: '',
-    alreadySelectedItems: [],
-    reArrangedItems: []
-  },
+  gallery: GALLERY_DEFAULTS,
   setGallery: (gallery) => set(() => ({ gallery }))
 }));

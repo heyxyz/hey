@@ -27,7 +27,7 @@ const NFTImage: FC<Props> = ({ nft }) => {
           title={`${nft.contractAddress}:${nft.tokenId}`}
           sandbox=""
           className="h-full w-full rounded-xl bg-gray-200 object-cover dark:bg-gray-800"
-          src={nft?.originalContent?.animatedUrl}
+          src={getIPFSLink(nft?.originalContent?.animatedUrl)}
         />
       )}
     </div>

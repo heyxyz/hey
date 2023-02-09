@@ -16,7 +16,7 @@ import React, { Fragment, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import type { Item } from 'src/store/nft-gallery';
-import { useNftGalleryStore } from 'src/store/nft-gallery';
+import { GALLERY_DEFAULTS, useNftGalleryStore } from 'src/store/nft-gallery';
 
 import Create from './Create';
 import NftCard from './NftCard';
@@ -42,16 +42,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
   const [deleteNftGallery] = useDeleteNftGalleryMutation({
     onCompleted: () => {
       toast.success(t`Gallery deleted`);
-      setGallery({
-        name: '',
-        items: [],
-        toAdd: [],
-        toRemove: [],
-        isEdit: false,
-        id: '',
-        alreadySelectedItems: [],
-        reArrangedItems: []
-      });
+      setGallery(GALLERY_DEFAULTS);
     },
     update(cache) {
       const normalizedId = cache.identify({ id: gallery.id, __typename: 'NftGallery' });
@@ -105,12 +96,17 @@ const Gallery: FC<Props> = ({ galleries }) => {
 
   const onSaveRearrange = async () => {
     try {
+      const updates = galleryStore.reArrangedItems?.map(
+        ({ tokenId, contractAddress, chainId, newOrder }, i) => {
+          return { tokenId, contractAddress, chainId, newOrder: newOrder ?? i };
+        }
+      );
       await orderGallery({
         variables: {
           request: {
             galleryId: galleryStore.id,
             profileId: currentProfile?.id,
-            updates: galleryStore.reArrangedItems
+            updates
           }
         }
       });

@@ -18,40 +18,43 @@ const DraggableCard: FC<CardProps> = ({ id, nft }) => {
     transition: null
   });
 
+  const animateStyles = transform
+    ? {
+        x: transform.x,
+        y: transform.y,
+        scale: isDragging ? 1.05 : 1,
+        zIndex: isDragging ? 1 : 0
+      }
+    : {
+        x: 0,
+        y: 0,
+        scale: 1
+      };
+
+  const transitionStyles = {
+    duration: !isDragging ? 0.25 : 0,
+    easings: {
+      type: 'spring'
+    },
+    scale: {
+      duration: 0.25
+    },
+    zIndex: {
+      delay: isDragging ? 0 : 0.25
+    }
+  };
+
   return (
     <motion.div
       className="relative cursor-move"
       ref={setNodeRef}
       layoutId={String(id)}
-      animate={
-        transform
-          ? {
-              x: transform.x,
-              y: transform.y,
-              scale: isDragging ? 1.05 : 1,
-              zIndex: isDragging ? 1 : 0
-            }
-          : {
-              x: 0,
-              y: 0,
-              scale: 1
-            }
-      }
-      transition={{
-        duration: !isDragging ? 0.25 : 0,
-        easings: {
-          type: 'spring'
-        },
-        scale: {
-          duration: 0.25
-        },
-        zIndex: {
-          delay: isDragging ? 0 : 0.25
-        }
-      }}
+      animate={animateStyles}
+      transition={transitionStyles}
       {...attributes}
       {...listeners}
     >
+      {/* overlay to drag iframe elements */}
       <span className="absolute inset-0" />
       <NftCard nft={nft} />
     </motion.div>

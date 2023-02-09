@@ -14,6 +14,7 @@ const getIPFSLink = (hash: string): string => {
   return hash
     .replace(/^Qm[1-9A-Za-z]{44}/gm, `${gateway}${hash}`)
     .replace('https://ipfs.io/ipfs/', gateway)
+    .replace('ipfs://ipfs/', gateway)
     .replace('ipfs://', gateway);
 };
 
