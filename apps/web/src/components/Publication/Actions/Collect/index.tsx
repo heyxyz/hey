@@ -23,6 +23,10 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message={t`Loading collect`} />
 });
 
+const QuadraticModule = dynamic(() => import('./QuadraticModule'), {
+  loading: () => <Loader message={t`Loading Tips`} />
+});
+
 interface Props {
   publication: Publication;
   electedMirror?: ElectedMirror;
@@ -72,7 +76,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
               <div className="rounded-full p-1.5 hover:bg-green-300 hover:bg-opacity-20">
                 <Tooltip
                   placement="top"
-                  content={count > 0 ? `${humanize(count)} Total Tips by YOU!` : 'Quadratically Tip'}
+                  content={count > 0 ? `${humanize(count)} Total Tips by YOU!` : 'Quadratically Tip!'}
                   withDelay
                 >
                   <div className="flex">
@@ -107,7 +111,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
           isFreeCollect
             ? t`Free Collect`
             : isUnknownCollect
-            ? t`Unknown Collect`
+            ? t`Quadratically Tip`
             : getModule(publication?.collectModule?.type).name
         }
         icon={
@@ -121,12 +125,21 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >
-        <CollectModule
-          electedMirror={electedMirror}
-          publication={publication}
-          count={count}
-          setCount={setCount}
-        />
+        {isUnknownCollect ? (
+          <QuadraticModule
+            electedMirror={electedMirror}
+            publication={publication}
+            count={count}
+            setCount={setCount}
+          />
+        ) : (
+          <CollectModule
+            electedMirror={electedMirror}
+            publication={publication}
+            count={count}
+            setCount={setCount}
+          />
+        )}
       </Modal>
     </>
   );
