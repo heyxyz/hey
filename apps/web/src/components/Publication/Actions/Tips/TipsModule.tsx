@@ -32,10 +32,12 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHubProxy, QuadraticVoteCollectModule } from 'abis';
+import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
+import type { BigNumber } from 'ethers';
+import { defaultAbiCoder } from 'ethers/lib/utils';
 import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
 import {
   CollectModules,
@@ -75,13 +77,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
     variables: { request: { publicationId: publication?.id } }
   });
 
-  const collectModuleREAL: any = data?.publication?.collectModule;
-  const collectModule: any = {
-    contractAddress: '0x4Ff23872ca1C46410514f29FFA44F1e9a978fb1C',
-    followerOnly: false,
-    type: 'FeeCollectModule',
-    __typename: 'QuadraticVoteCollectModule'
-  };
+  const collectModule: any = data?.publication?.collectModule;
 
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
@@ -93,28 +89,11 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
 
   const { isFetching, refetch } = useContractRead({
     address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
-    abi: QuadraticVoteCollectModule,
+    abi: UpdateOwnableFeeCollectModule,
     functionName: 'getPublicationData',
     args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
     enabled: false
   });
-
-  // const { isFetching, refetch } = useContractRead({
-  //   address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
-  //   abi: UpdateOwnableFeeCollectModule,
-  //   functionName: 'getPublicationData',
-  //   args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
-  //   enabled: false
-  // });
-
-  // const { isLoading: writeLoading, write } = useContractWrite({
-  //   address: getEnvConfig().quadraticVoteModuleAddress,
-  //   abi: QuadraticVoteCollectModule,
-  //   functionName: 'processCollect',
-  //   mode: 'recklesslyUnprepared',
-  //   onSuccess: onCompleted,
-  //   onError
-  // });
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -223,23 +202,45 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
+
     try {
-      await createCollectTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
-        }
-      });
-    } catch {
-      (error: any) => console.log('createCollectTypedData error', error);
-    }
+      if (collectModule?.type === CollectModules.FreeCollectModule) {
+        await createViaProxyAction({
+          request: { collect: { freeCollect: { publicationId: publication?.id } } }
+        });
+      } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
+        refetch().then(async ({ data }) => {
+          if (data) {
+            const decodedData: any = data;
+            const encodedData = defaultAbiCoder.encode(
+              ['address', 'uint256'],
+              [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
+            );
+            await createCollectTypedData({
+              variables: {
+                options: { overrideSigNonce: userSigNonce },
+                request: { publicationId: publication?.id, unknownModuleData: encodedData }
+              }
+            });
+          }
+        });
+      } else {
+        await createCollectTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
+          }
+        });
+      }
+    } catch {}
   };
 
   if (loading || revenueLoading) {
-    return <Loader message={t`Loading tips modal`} />;
+    return <Loader message={t`Loading collect`} />;
   }
 
-  const isLoading = typedDataLoading || signLoading || isFetching || writeLoading || broadcastLoading;
+  const isLoading =
+    typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
 
   return (
     <>
@@ -407,9 +408,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
           )}
         </div>
         <div className="mt-5 flex items-center space-x-2">
-          {/* alert */}
-          {/* {currentProfile && !hasCollectedByMe ? ( */}
-          {currentProfile ? (
+          {currentProfile && !hasCollectedByMe ? (
             allowanceLoading || balanceLoading ? (
               <div className="shimmer h-[34px] w-28 rounded-lg" />
             ) : allowed ? (
@@ -419,7 +418,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
                   disabled={isLoading}
                   icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
                 >
-                  <Trans>Tip! Quadratically!</Trans>
+                  <Trans>Collect now</Trans>
                 </Button>
               ) : (
                 <WarningMessage message={<Uniswap module={collectModule} />} />
