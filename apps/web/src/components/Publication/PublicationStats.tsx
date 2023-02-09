@@ -3,7 +3,7 @@ import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
 import { Modal } from '@components/UI/Modal';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
@@ -45,7 +45,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowMirrorsModal(true);
-              Analytics.track(PUBLICATION.STATS.MIRRORED_BY);
+              Leafwatch.track(PUBLICATION.STATS.MIRRORED_BY);
             }}
           >
             <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
@@ -66,7 +66,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowLikesModal(true);
-              Analytics.track(PUBLICATION.STATS.LIKED_BY);
+              Leafwatch.track(PUBLICATION.STATS.LIKED_BY);
             }}
           >
             <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
@@ -87,7 +87,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowCollectorsModal(true);
-              Analytics.track(PUBLICATION.STATS.COLLECTED_BY);
+              Leafwatch.track(PUBLICATION.STATS.COLLECTED_BY);
             }}
           >
             <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
@@ -108,7 +108,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowCollectorsModal(true);
-              Analytics.track(PUBLICATION.STATS.COLLECTED_BY);
+              Leafwatch.track(PUBLICATION.STATS.COLLECTED_BY);
             }}
           >
             <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Tips

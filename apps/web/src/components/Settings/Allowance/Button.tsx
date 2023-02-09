@@ -3,8 +3,8 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
 import { SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE } from 'data/contracts';
@@ -44,7 +44,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       toast.success(t`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Analytics.track(`module_${allowed ? 'disabled' : 'enabled'}`);
+      Leafwatch.track(`module_${allowed ? 'disabled' : 'enabled'}`);
     },
     onError
   });

@@ -9,6 +9,7 @@ import { WarningMessage } from '@components/UI/WarningMessage';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
@@ -17,10 +18,11 @@ import { LensHubProxy } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
@@ -35,6 +37,10 @@ const DeleteSettings: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
+
+  useEffect(() => {
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
+  }, []);
 
   const onCompleted = () => {
     setCurrentProfile(null);

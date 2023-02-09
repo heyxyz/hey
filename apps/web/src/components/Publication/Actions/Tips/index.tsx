@@ -2,9 +2,9 @@ import Loader from '@components/Shared/Loader';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
-import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -72,7 +72,7 @@ const Tips: FC<Props> = ({ publication, electedMirror }) => {
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowVotesModal(true);
-            Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
           aria-label="Clap"
         >

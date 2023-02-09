@@ -1,11 +1,13 @@
 import MetaTags from '@components/Common/MetaTags';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import FeedType from './FeedType';
 import List from './List';
@@ -20,6 +22,10 @@ const Notification: FC = () => {
       ? type.toString().toUpperCase()
       : 'ALL'
   );
+
+  useEffect(() => {
+    Leafwatch.track(PAGEVIEW, { page: 'notifications' });
+  }, []);
 
   if (!currentProfile) {
     return <Custom404 />;

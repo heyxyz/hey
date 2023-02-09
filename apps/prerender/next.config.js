@@ -3,12 +3,6 @@ module.exports = {
   reactStrictMode: false,
   trailingSlash: false,
   transpilePackages: ['data'],
-  async rewrites() {
-    return [
-      { source: '/prerender/:path*', destination: '/prerender/:path*' },
-      { source: '/:path*', destination: '/api/:path*' }
-    ];
-  },
   async headers() {
     return [
       {

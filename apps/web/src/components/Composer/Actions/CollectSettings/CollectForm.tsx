@@ -10,7 +10,7 @@ import {
   SwitchHorizontalIcon,
   UserGroupIcon
 } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import {
   SANDBOX_GRANTS_ROUND,
@@ -160,7 +160,7 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
   }
   const toggleQuadratic = () => {
     setToggleQuadraticEnabled(!toggleQuadraticEnabled);
-    Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
+    Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
 
     if (toggleCollectEnabled) {
       setToggleCollectEnabled(false);
@@ -177,15 +177,9 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
   };
 
   const toggleCollect = () => {
-    setToggleCollectEnabled(!toggleCollectEnabled);
-    Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
-
-    if (toggleQuadraticEnabled) {
-      setToggleQuadraticEnabled(false);
-    }
-
-    if (!toggleCollectEnabled) {
-      setSelectedCollectModule(FreeCollectModule);
+    Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
+    if (selectedCollectModule === RevertCollectModule) {
+      return setSelectedCollectModule(FreeCollectModule);
     } else {
       reset();
       setSelectedCollectModule(RevertCollectModule);
@@ -221,7 +215,7 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
                     on={followerOnly}
                     setOn={() => {
                       setFollowerOnly(!followerOnly);
-                      Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
+                      Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
                     }}
                   />
                   <div className="lt-text-gray-500 text-sm font-bold">
@@ -256,7 +250,7 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
                 on={Boolean(amount)}
                 setOn={() => {
                   setAmount(amount ? null : '0');
-                  Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
+                  Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
                 }}
               />
               <div className="lt-text-gray-500 text-sm font-bold">
@@ -339,7 +333,7 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
                     on={Boolean(collectLimit)}
                     setOn={() => {
                       setCollectLimit(collectLimit ? null : '1');
-                      Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
+                      Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
                     }}
                   />
                   <div className="lt-text-gray-500 text-sm font-bold">
@@ -374,7 +368,7 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
                     on={hasTimeLimit}
                     setOn={() => {
                       setHasTimeLimit(!hasTimeLimit);
-                      Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
+                      Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
                     }}
                   />
                   <div className="lt-text-gray-500 text-sm font-bold">
@@ -396,7 +390,7 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
                 on={followerOnly}
                 setOn={() => {
                   setFollowerOnly(!followerOnly);
-                  Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
+                  Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
                 }}
               />
               <div className="lt-text-gray-500 text-sm font-bold">

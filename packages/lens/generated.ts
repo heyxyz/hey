@@ -15482,7 +15482,9 @@ export type HasTxHashBeenIndexedQuery = {
       };
 };
 
-export type LensterStatsQueryVariables = Exact<{ [key: string]: never }>;
+export type LensterStatsQueryVariables = Exact<{
+  request?: InputMaybe<GlobalProtocolStatsRequest>;
+}>;
 
 export type LensterStatsQuery = {
   __typename?: 'Query';
@@ -32132,8 +32134,8 @@ export type HasTxHashBeenIndexedQueryResult = Apollo.QueryResult<
   HasTxHashBeenIndexedQueryVariables
 >;
 export const LensterStatsDocument = gql`
-  query LensterStats {
-    globalProtocolStats(request: { sources: "Lenster" }) {
+  query LensterStats($request: GlobalProtocolStatsRequest) {
+    globalProtocolStats(request: $request) {
       totalProfiles
       totalPosts
       totalBurntProfiles
@@ -32157,6 +32159,7 @@ export const LensterStatsDocument = gql`
  * @example
  * const { data, loading, error } = useLensterStatsQuery({
  *   variables: {
+ *      request: // value for 'request'
  *   },
  * });
  */

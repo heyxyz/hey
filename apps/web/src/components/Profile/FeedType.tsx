@@ -6,7 +6,7 @@ import {
   PencilAltIcon,
   PhotographIcon
 } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { PROFILE } from 'src/tracking';
@@ -30,7 +30,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="feed"
           onClick={() => {
             setFeedType(ProfileFeedType.Feed);
-            Analytics.track(PROFILE.SWITCH_FEED);
+            Leafwatch.track(PROFILE.SWITCH_FEED);
           }}
         />
         <TabButton
@@ -40,7 +40,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="replies"
           onClick={() => {
             setFeedType(ProfileFeedType.Replies);
-            Analytics.track(PROFILE.SWITCH_REPLIES);
+            Leafwatch.track(PROFILE.SWITCH_REPLIES);
           }}
         />
         <TabButton
@@ -50,7 +50,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="media"
           onClick={() => {
             setFeedType(ProfileFeedType.Media);
-            Analytics.track(PROFILE.SWITCH_MEDIA);
+            Leafwatch.track(PROFILE.SWITCH_MEDIA);
           }}
         />
         <TabButton
@@ -60,7 +60,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="collects"
           onClick={() => {
             setFeedType(ProfileFeedType.Collects);
-            Analytics.track(PROFILE.SWITCH_MEDIA);
+            Leafwatch.track(PROFILE.SWITCH_MEDIA);
           }}
         />
         <TabButton
@@ -70,7 +70,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="nft"
           onClick={() => {
             setFeedType(ProfileFeedType.Nft);
-            Analytics.track(PROFILE.SWITCH_NFTS);
+            Leafwatch.track(PROFILE.SWITCH_NFTS);
           }}
         />
       </div>

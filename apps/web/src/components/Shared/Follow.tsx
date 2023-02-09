@@ -2,8 +2,8 @@ import type { ApolloCache } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { UserAddIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
@@ -38,13 +38,21 @@ interface Props {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
+  outline?: boolean;
 
   // For data analytics
   followPosition?: number;
   followSource?: string;
 }
 
-const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSource, followPosition }) => {
+const Follow: FC<Props> = ({
+  profile,
+  showText = false,
+  setFollowing,
+  followSource,
+  followPosition,
+  outline = true
+}) => {
   const { pathname } = useRouter();
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -57,7 +65,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
   const onCompleted = () => {
     setFollowing(true);
     toast.success(t`Followed successfully!`);
-    Analytics.track(PROFILE.FOLLOW, {
+    Leafwatch.track(PROFILE.FOLLOW, {
       follow_path: pathname,
       ...(followSource && { follow_source: followSource }),
       ...(followPosition && { follow_position: followPosition }),
@@ -173,7 +181,7 @@ const Follow: FC<Props> = ({ profile, showText = false, setFollowing, followSour
   return (
     <Button
       className="!px-3 !py-1.5 text-sm"
-      outline
+      outline={outline}
       onClick={createFollow}
       aria-label="Follow"
       disabled={isLoading}

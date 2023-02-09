@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -27,7 +27,7 @@ const SwitchNetwork: FC<Props> = ({ className = '' }) => {
         } else {
           toast.error(t`Please change your network wallet!`);
         }
-        Analytics.track(SYSTEM.SWITCH_NETWORK);
+        Leafwatch.track(SYSTEM.SWITCH_NETWORK);
       }}
     >
       <Trans>Switch Network</Trans>

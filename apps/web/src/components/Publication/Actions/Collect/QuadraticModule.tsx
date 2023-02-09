@@ -11,7 +11,6 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { CashIcon, ClockIcon, CollectionIcon, PuzzleIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
 import formatAddress from '@lib/formatAddress';
 import formatHandle from '@lib/formatHandle';
 import formatTime from '@lib/formatTime';
@@ -20,6 +19,7 @@ import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
@@ -106,7 +106,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
-    Analytics.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const { isFetching, refetch } = useContractRead({
@@ -364,7 +364,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal);
-                  Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+                  Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
                 }}
               >
                 <Trans>{humanize(count)} collectors</Trans>
