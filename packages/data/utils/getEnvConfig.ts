@@ -11,8 +11,10 @@ import {
   MAINNET_LENS_PERIPHERY,
   MAINNET_LENSHUB_PROXY,
   MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
+  QUADRATIC_MODULE_NOT_SUPPORTED,
   SANDBOX_LENS_PERIPHERY,
   SANDBOX_LENSHUB_PROXY,
+  SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE,
   TESTNET_DEFAULT_TOKEN,
   TESTNET_LENS_PERIPHERY,
   TESTNET_LENSHUB_PROXY,
@@ -26,6 +28,7 @@ const getEnvConfig = (): {
   defaultCollectToken: string;
   UpdateOwnableFeeCollectModuleAddress: `0x${string}`;
   litProtocolEnvironment: string;
+  QuadraticVoteCollectModuleAddress: `0x${string}`;
 } => {
   switch (LENS_NETWORK) {
     case 'mainnet':
@@ -35,7 +38,8 @@ const getEnvConfig = (): {
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         defaultCollectToken: MAINNET_DEFAULT_TOKEN,
         UpdateOwnableFeeCollectModuleAddress: MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
-        litProtocolEnvironment: 'polygon'
+        litProtocolEnvironment: 'polygon',
+        QuadraticVoteCollectModuleAddress: QUADRATIC_MODULE_NOT_SUPPORTED
       };
     case 'testnet':
       return {
@@ -44,7 +48,8 @@ const getEnvConfig = (): {
         lensPeripheryAddress: TESTNET_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
         UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
-        litProtocolEnvironment: 'mumbai'
+        litProtocolEnvironment: 'mumbai',
+        QuadraticVoteCollectModuleAddress: QUADRATIC_MODULE_NOT_SUPPORTED
       };
     case 'staging':
       return {
@@ -53,7 +58,8 @@ const getEnvConfig = (): {
         lensPeripheryAddress: TESTNET_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
         UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
-        litProtocolEnvironment: 'mumbai'
+        litProtocolEnvironment: 'mumbai',
+        QuadraticVoteCollectModuleAddress: QUADRATIC_MODULE_NOT_SUPPORTED
       };
     case 'sandbox':
       return {
@@ -62,7 +68,8 @@ const getEnvConfig = (): {
         lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
         UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
-        litProtocolEnvironment: 'mumbai-sandbox'
+        litProtocolEnvironment: 'mumbai-sandbox',
+        QuadraticVoteCollectModuleAddress: SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE
       };
     case 'staging-sandbox':
       return {
@@ -71,7 +78,8 @@ const getEnvConfig = (): {
         lensPeripheryAddress: SANDBOX_LENS_PERIPHERY,
         defaultCollectToken: TESTNET_DEFAULT_TOKEN,
         UpdateOwnableFeeCollectModuleAddress: TESTNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
-        litProtocolEnvironment: 'mumbai-sandbox'
+        litProtocolEnvironment: 'mumbai-sandbox',
+        QuadraticVoteCollectModuleAddress: QUADRATIC_MODULE_NOT_SUPPORTED
       };
     default:
       return {
@@ -80,7 +88,8 @@ const getEnvConfig = (): {
         lensPeripheryAddress: MAINNET_LENS_PERIPHERY,
         defaultCollectToken: MAINNET_DEFAULT_TOKEN,
         UpdateOwnableFeeCollectModuleAddress: MAINNET_UPDATE_OWNABLE_FEE_COLLECT_MODULE_ADDRESS,
-        litProtocolEnvironment: 'polygon'
+        litProtocolEnvironment: 'polygon',
+        QuadraticVoteCollectModuleAddress: QUADRATIC_MODULE_NOT_SUPPORTED
       };
   }
 };
