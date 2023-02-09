@@ -21,7 +21,9 @@ const handleRequest = async (request: Request, env: EnvType) => {
     });
   }
 
-  if (request.headers.get('origin') !== 'https://lenster.xyz') {
+  const allowedOrigins = ['https://lenster.xyz', 'https://www.lenster.xyz', 'https://lenster.vercel.app'];
+
+  if (!allowedOrigins.includes(request.headers.get('origin') || '')) {
     return new Response(JSON.stringify({ success: false, message: 'Origin not allowed' }), { headers });
   }
 
@@ -34,7 +36,6 @@ const handleRequest = async (request: Request, env: EnvType) => {
   try {
     const appenedPayload = {
       ...payload,
-      ddsource: 'leafwatch',
       ip: request.headers.get('cf-connecting-ip') || 'unknown'
     };
     const datadogRes = await fetch(
