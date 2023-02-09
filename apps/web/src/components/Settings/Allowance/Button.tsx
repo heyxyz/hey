@@ -7,6 +7,8 @@ import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
+import { SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE } from 'data/contracts';
+import { ethers } from 'ethers';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -58,13 +60,22 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       }
     }).then((res) => {
       const data = res?.data?.generateModuleCurrencyApprovalData;
-      sendTransaction?.({
-        recklesslySetUnpreparedRequest: {
-          from: data?.from,
-          to: data?.to,
-          data: data?.data
-        }
-      });
+      const moduleType = getModule(selectedModule).name;
+      const abi = [
+        'function approve(address spender, uint256 value)'
+      ];
+      let iface = new ethers.utils.Interface(abi);
+      const approveUnknownCollectModule = iface.encodeFunctionData("approve", [SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE, ethers.constants.MaxUint256]);
+
+          
+         sendTransaction?.({
+              recklesslySetUnpreparedRequest: {
+                from: data?.from,
+                to: data?.to,
+                data: (moduleType === 'Unknown Collect') ? approveUnknownCollectModule : data?.data
+              }
+            });
+   
     });
   };
 
