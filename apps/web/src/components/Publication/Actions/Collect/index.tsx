@@ -57,10 +57,14 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
   }, [publication]);
 
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
-
+  {
+    /* {console.log('HAS COLLECTED: ', hasCollected)} */
+  }
+  {
+    /* {console.log('Publication: ', publication)} */
+  }
   return (
     <>
-      {/* {console.log('Publication: ', publication)} */}
       <div className="flex items-center space-x-1 text-red-500">
         <motion.button
           whileTap={{ scale: 0.9 }}
