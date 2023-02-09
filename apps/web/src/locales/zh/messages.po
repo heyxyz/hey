@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-08 00:56\n"
+"PO-Revision-Date: 2023-02-09 06:45\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -813,7 +813,7 @@ msgid "5. Analytics"
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
-msgid "We use <0>Simple Analytics</0> to collect various events from user actions to analyse and make decisions for Site improvements."
+msgid "We use <0>Datadog</0> to collect various events from user actions to analyse and make decisions for Site improvements."
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
@@ -1446,26 +1446,6 @@ msgstr ""
 
 #: src/components/Search/Sidebar.tsx
 msgid "Profiles"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Cross post to Twitter"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site."
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Already reposting to <0>@{repostingTo}</0>"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Disable now"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Setup now"
 msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
