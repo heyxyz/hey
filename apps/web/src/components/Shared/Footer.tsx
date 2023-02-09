@@ -2,6 +2,7 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
 import { setLocale, supportedLocales } from '@lib/i18n';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
@@ -9,13 +10,21 @@ import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { useAppStore } from 'src/store/app';
 import { FOOTER } from 'src/tracking';
 
 import MenuTransition from './MenuTransition';
 
 const Footer: FC = () => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
   const { i18n } = useLingui();
+  const gatedLocales = ['zh', 'es'];
+  const locales = Object.fromEntries(
+    Object.entries(supportedLocales).filter(([key]) =>
+      isFeatureEnabled('gated-locales', currentProfile?.id) ? true : !gatedLocales.includes(key)
+    )
+  );
 
   return (
     <footer className={`sticky text-sm leading-7 ${staffMode ? 'top-28' : 'top-20'}`} data-test="footer">
@@ -85,14 +94,14 @@ const Footer: FC = () => {
         <Menu as="span">
           <Menu.Button className="inline-flex items-center space-x-1">
             <GlobeAltIcon className="h-4 w-4" />
-            <span>{supportedLocales[i18n.locale]}</span>
+            <span>{locales[i18n.locale]}</span>
           </Menu.Button>
           <MenuTransition>
             <Menu.Items
               static
               className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             >
-              {Object.entries(supportedLocales).map(([localeCode, localeName]) => (
+              {Object.entries(locales).map(([localeCode, localeName]) => (
                 <Menu.Item
                   key={localeCode}
                   as="div"
