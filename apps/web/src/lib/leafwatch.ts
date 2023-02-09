@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGGING_WORKER_URL } from 'data/constants';
+import { RAVEN_WORKER_URL } from 'data/constants';
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -13,7 +13,7 @@ export const Leafwatch = {
     );
 
     if (isBrowser) {
-      axios(LOGGING_WORKER_URL, {
+      axios(RAVEN_WORKER_URL, {
         method: 'POST',
         data: {
           event: name,
