@@ -15,11 +15,11 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-import TipsOutlineIcon from '../../../Composer/Actions/TipIcons/TipsOutlineIcon';
-import TipsSolidIcon from '../../../Composer/Actions/TipIcons/TipsSolidIcon';
+import TipsOutlineIcon from './TipIcons/TipsOutlineIcon';
+import TipsSolidIcon from './TipIcons/TipsSolidIcon';
 
 const TipsModule = dynamic(() => import('./TipsModule'), {
-  loading: () => <Loader message={t`Loading Tips Module`} />
+  loading: () => <Loader message={t`Loading collect`} />
 });
 
 interface Props {
@@ -31,7 +31,7 @@ interface Props {
 // const Votes: FC<Props> = ({ publication, electedMirror, showCount }) => {
 const Tips: FC<Props> = ({ publication, electedMirror }) => {
   const [count, setCount] = useState(0);
-  const [showTipModal, setShowTipModal] = useState(false);
+  const [showVotesModal, setShowVotesModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
   const isUnknownCollect = publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
   const isMirror = publication.__typename === 'Mirror';
@@ -71,7 +71,7 @@ const Tips: FC<Props> = ({ publication, electedMirror }) => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => {
-            setShowTipModal(true);
+            setShowVotesModal(true);
             Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
           aria-label="Clap"
@@ -107,8 +107,8 @@ const Tips: FC<Props> = ({ publication, electedMirror }) => {
             />
           </div>
         }
-        show={showTipModal}
-        onClose={() => setShowTipModal(false)}
+        show={showVotesModal}
+        onClose={() => setShowVotesModal(false)}
       >
         <TipsModule
           electedMirror={electedMirror}

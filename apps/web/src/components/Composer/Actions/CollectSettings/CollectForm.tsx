@@ -18,7 +18,7 @@ import {
   SANDBOX_VOTING_STRATEGY
 } from 'data/contracts';
 import { ethers } from 'ethers';
-import type { Erc20 } from 'lens';
+import type { Erc20, Publication } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -29,9 +29,10 @@ import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   setShowModal: Dispatch<boolean>;
+  publication: Publication;
 }
 
-const CollectForm: FC<Props> = ({ setShowModal }) => {
+const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
@@ -193,41 +194,45 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
 
   return (
     <div className="space-y-3 p-5">
-      <div className="flex items-center space-x-2">
-        <Toggle
-          on={selectedCollectModule !== RevertCollectModule && toggleQuadraticEnabled}
-          setOn={toggleQuadratic}
-        />
+      {publication?.__typename !== 'Comment' ? (
+        <>
+          <div className="flex items-center space-x-2">
+            <Toggle
+              on={selectedCollectModule !== RevertCollectModule && toggleQuadraticEnabled}
+              setOn={toggleQuadratic}
+            />
 
-        <div className="lt-text-gray-500 text-sm font-bold">
-          <Trans>Quadratic Tipping </Trans>
-        </div>
-      </div>
-      {selectedCollectModule !== RevertCollectModule && toggleQuadraticEnabled && (
-        <div className="ml-5">
-          <div>lorem ipsum lots of text</div>
-          <div className="space-y-2 pt-5">
-            <div className="flex items-center space-x-2">
-              <UserGroupIcon className="text-brand-500 h-4 w-4" />
-              <span>
-                <Trans>Who can tip this post</Trans>
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Toggle
-                on={followerOnly}
-                setOn={() => {
-                  setFollowerOnly(!followerOnly);
-                  Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
-                }}
-              />
-              <div className="lt-text-gray-500 text-sm font-bold">
-                <Trans>Only followers can collect</Trans>
-              </div>
+            <div className="lt-text-gray-500 text-sm font-bold">
+              <Trans>Quadratic Tipping </Trans>
             </div>
           </div>
-        </div>
-      )}
+          {selectedCollectModule !== RevertCollectModule && toggleQuadraticEnabled && (
+            <div className="ml-5">
+              <div>lorem ipsum lots of text</div>
+              <div className="space-y-2 pt-5">
+                <div className="flex items-center space-x-2">
+                  <UserGroupIcon className="text-brand-500 h-4 w-4" />
+                  <span>
+                    <Trans>Who can tip this post</Trans>
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Toggle
+                    on={followerOnly}
+                    setOn={() => {
+                      setFollowerOnly(!followerOnly);
+                      Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
+                    }}
+                  />
+                  <div className="lt-text-gray-500 text-sm font-bold">
+                    <Trans>Only followers can collect</Trans>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      ) : null}
       <div className="flex items-center space-x-2">
         <Toggle
           on={selectedCollectModule !== RevertCollectModule && toggleCollectEnabled}

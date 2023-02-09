@@ -8,16 +8,8 @@ import Uniswap from '@components/Shared/Uniswap';
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
-import { Tooltip } from '@components/UI/Tooltip';
 import { WarningMessage } from '@components/UI/WarningMessage';
-import {
-  CashIcon,
-  ClockIcon,
-  CollectionIcon,
-  PhotographIcon,
-  PuzzleIcon,
-  UsersIcon
-} from '@heroicons/react/outline';
+import { CashIcon, ClockIcon, CollectionIcon, PuzzleIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Analytics } from '@lib/analytics';
 import formatAddress from '@lib/formatAddress';
@@ -32,11 +24,11 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
+import { LensHubProxy, QuadraticVoteCollectModule } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
-import type { BigNumber } from 'ethers';
+import { ethers } from 'ethers';
 import { defaultAbiCoder } from 'ethers/lib/utils';
 import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
 import {
@@ -62,7 +54,35 @@ interface Props {
   electedMirror?: ElectedMirror;
 }
 
-const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
+interface CollectModuleData {
+  __typename?: string;
+  type: CollectModules;
+  referralFee: number;
+  contractAddress: any;
+  followerOnly: boolean;
+  endTimestamp: Date;
+  amount: {
+    __typename?: string;
+    value: string;
+    asset: { __typename?: string; symbol: string; decimals: number; address: any };
+  };
+}
+
+const quadraticModuleSettings: CollectModuleData = {
+  __typename: 'UnknownCollectModuleSettings',
+  type: CollectModules.UnknownCollectModule,
+  referralFee: 0,
+  contractAddress: '',
+  followerOnly: false,
+  endTimestamp: new Date('2021-01-01T00:00:00.000Z'),
+  amount: {
+    __typename: 'ModuleFeeAmount',
+    value: '0',
+    asset: { __typename: 'Erc20', symbol: 'WMATIC', decimals: 18, address: '' }
+  }
+};
+
+const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -72,12 +92,14 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const [collectModule, setCollectModule] = useState<CollectModuleData>(quadraticModuleSettings);
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
   });
 
-  const collectModule: any = data?.publication?.collectModule;
+  // const collectModule: any = data?.publication?.collectModule;
+  // console.log("module data", data?.publication?.collectModule)
 
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
@@ -88,8 +110,8 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
   };
 
   const { isFetching, refetch } = useContractRead({
-    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
-    abi: UpdateOwnableFeeCollectModule,
+    address: getEnvConfig().QuadraticVoteCollectModuleAddress,
+    abi: QuadraticVoteCollectModule,
     functionName: 'getPublicationData',
     args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
     enabled: false
@@ -104,14 +126,37 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
     onError
   });
 
-  const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
+  useEffect(() => {
+    if (!isFetching && collectModule === quadraticModuleSettings) {
+      refetch().then((res: { data: any }) => {
+        if (res) {
+          const { currency, referral } = res.data;
+          setCollectModule({
+            __typename: 'UnknownCollectModuleSettings',
+            type: CollectModules.UnknownCollectModule,
+            referralFee: referral,
+            contractAddress: getEnvConfig().QuadraticVoteCollectModuleAddress,
+            followerOnly: false,
+            endTimestamp: new Date('2022-10-10T00:00:00.000Z'),
+            amount: {
+              __typename: 'ModuleFeeAmount',
+              value: '.0001',
+              asset: { __typename: 'Erc20', symbol: 'WMATIC', decimals: 18, address: currency }
+            }
+          });
+        }
+      });
+    }
+  }, [isFetching, collectModule, refetch]);
 
+  // const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
+  // console.log(collectModule)
   const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: collectModule?.amount?.asset?.address,
         followModules: [],
-        collectModules: collectModule?.type,
+        unknownCollectModules: [getEnvConfig().QuadraticVoteCollectModuleAddress],
         referenceModules: []
       }
     },
@@ -120,6 +165,8 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
       setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
   });
+
+  console.log('allowance limit', allowanceData?.approvedModuleAllowanceAmount[0]?.allowance);
 
   const { data: revenueData, loading: revenueLoading } = usePublicationRevenueQuery({
     variables: {
@@ -149,7 +196,8 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
   });
 
   let hasAmount = false;
-  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(collectModule?.amount?.value)) {
+
+  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(collectModule?.amount.value)) {
     hasAmount = false;
   } else {
     hasAmount = true;
@@ -161,6 +209,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
   const [createCollectTypedData, { loading: typedDataLoading }] = useCreateCollectTypedDataMutation({
     onCompleted: async ({ createCollectTypedData }) => {
       const { id, typedData } = createCollectTypedData;
+      console.log(typedData);
       const { profileId, pubId, data: collectData, deadline } = typedData.value;
       const signature = await signTypedDataAsync(getSignature(typedData));
       const { v, r, s } = splitSignature(signature);
@@ -172,6 +221,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
         data: collectData,
         sig
       };
+      console.log('INPUT STRUCT', inputStruct);
       setUserSigNonce(userSigNonce + 1);
       const { data } = await broadcast({ variables: { request: { id, signature } } });
       if (data?.broadcast.__typename === 'RelayError') {
@@ -212,16 +262,23 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
         refetch().then(async ({ data }) => {
           if (data) {
             const decodedData: any = data;
+            // below needs to be input || set amount with auto add button by user
+
+            const uint256Value = ethers.utils.parseEther(collectModule.amount.value);
+            console.log('uint256value', uint256Value);
+            // alert problem, might be here with uint256 value
+            console.log(decodedData?.[0], uint256Value);
             const encodedData = defaultAbiCoder.encode(
               ['address', 'uint256'],
-              [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
+              [decodedData?.[0] as string, uint256Value]
             );
-            await createCollectTypedData({
+            const result = await createCollectTypedData({
               variables: {
                 options: { overrideSigNonce: userSigNonce },
                 request: { publicationId: publication?.id, unknownModuleData: encodedData }
               }
             });
+            console.log('RESULT', result);
           }
         });
       } else {
@@ -236,22 +293,22 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
   };
 
   if (loading || revenueLoading) {
-    return <Loader message={t`Loading collect`} />;
+    return <Loader message={t`Loading tips`} />;
   }
 
   const isLoading =
     typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
-
+  // console.log("COLLECT MODULE: ", collectModule);
   return (
     <>
-      {(collectModule?.type === CollectModules.LimitedFeeCollectModule ||
+      {/* {(collectModule?.type === CollectModules.LimitedFeeCollectModule ||
         collectModule?.type === CollectModules.LimitedTimedFeeCollectModule) && (
         <Tooltip placement="top" content={`${percentageCollected.toFixed(0)}% Collected`}>
           <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
             <div className="bg-brand-500 h-2.5" style={{ width: `${percentageCollected}%` }} />
           </div>
         </Tooltip>
-      )}
+      )} */}
       <div className="p-5">
         {collectModule?.followerOnly && (
           <div className="pb-5">
@@ -291,7 +348,7 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
                 <>
                   <span className="lt-text-gray-500 px-0.5">·</span>
                   <span className="lt-text-gray-500 text-xs font-bold">
-                    ${(collectModule.amount.value * usdPrice).toFixed(2)}
+                    ${(parseFloat(collectModule.amount.value) * usdPrice).toFixed(2)}
                   </span>
                 </>
               ) : null}
@@ -325,14 +382,6 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
                 />
               </Modal>
             </div>
-            {collectModule?.collectLimit && (
-              <div className="flex items-center space-x-2">
-                <PhotographIcon className="lt-text-gray-500 h-4 w-4" />
-                <div className="font-bold">
-                  <Trans>{parseInt(collectModule?.collectLimit) - count} available</Trans>
-                </div>
-              </div>
-            )}
             {collectModule?.referralFee ? (
               <div className="flex items-center space-x-2">
                 <CashIcon className="lt-text-gray-500 h-4 w-4" />
@@ -408,6 +457,10 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
           )}
         </div>
         <div className="mt-5 flex items-center space-x-2">
+          {/* {console.log("hasCollectedByMe", hasCollectedByMe)}
+           {console.log("allowanceLoading", allowanceLoading)}
+           {console.log("balanceLoading", balanceLoading)}
+           {console.log("allowed", allowed)} */}
           {currentProfile && !hasCollectedByMe ? (
             allowanceLoading || balanceLoading ? (
               <div className="shimmer h-[34px] w-28 rounded-lg" />
@@ -446,4 +499,4 @@ const TipsModule: FC<Props> = ({ count, setCount, publication, electedMirror }) 
   );
 };
 
-export default TipsModule;
+export default QuadraticModule;

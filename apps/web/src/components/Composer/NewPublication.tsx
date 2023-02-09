@@ -533,7 +533,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          <CollectSettings />
+          <CollectSettings publication={publication} />
           <ReferenceSettings />
           <AccessSettings />
         </div>

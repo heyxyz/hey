@@ -1,4 +1,6 @@
 import Loader from '@components/Shared/Loader';
+import TipsOutlineIcon from '@components/Shared/TipIcons/TipsOutlineIcon';
+import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
@@ -19,6 +21,10 @@ import { PUBLICATION } from 'src/tracking';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message={t`Loading collect`} />
+});
+
+const QuadraticModule = dynamic(() => import('./QuadraticModule'), {
+  loading: () => <Loader message={t`Loading Tips`} />
 });
 
 interface Props {
@@ -51,7 +57,12 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
   }, [publication]);
 
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
-
+  {
+    /* {console.log('HAS COLLECTED: ', hasCollected)} */
+  }
+  {
+    /* {console.log('Publication: ', publication)} */
+  }
   return (
     <>
       <div className="flex items-center space-x-1 text-red-500">
@@ -63,19 +74,39 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
           }}
           aria-label="Collect"
         >
-          <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
-            <Tooltip
-              placement="top"
-              content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}
-              withDelay
-            >
-              {hasCollected ? (
-                <CollectionIconSolid className={iconClassName} />
-              ) : (
-                <CollectionIcon className={iconClassName} />
-              )}
-            </Tooltip>
-          </div>
+          {/* <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20"> */}
+          {isUnknownCollect ? (
+            <div className="flex items-center">
+              <div className="rounded-full p-1.5 hover:bg-green-300 hover:bg-opacity-20">
+                <Tooltip
+                  placement="top"
+                  content={count > 0 ? `${humanize(count)} Total Tips by YOU!` : 'Quadratically Tip!'}
+                  withDelay
+                >
+                  <div className="flex">
+                    {hasCollected ? <TipsSolidIcon size={20} /> : <TipsOutlineIcon size={20} />}
+                    <p className="ml-3 text-center text-green-500">-user tips ph</p>
+                  </div>
+                </Tooltip>
+              </div>
+              <p className="ml-3 text-center text-xs text-green-500"> -total tips ph</p>
+            </div>
+          ) : (
+            <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
+              <Tooltip
+                placement="top"
+                content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}
+                withDelay
+              >
+                {hasCollected ? (
+                  <CollectionIconSolid className={iconClassName} />
+                ) : (
+                  <CollectionIcon className={iconClassName} />
+                )}
+              </Tooltip>
+            </div>
+          )}
+          {/* </div> */}
         </motion.button>
         {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
       </div>
@@ -84,7 +115,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
           isFreeCollect
             ? t`Free Collect`
             : isUnknownCollect
-            ? t`Unknown Collect`
+            ? t`Quadratically Tip`
             : getModule(publication?.collectModule?.type).name
         }
         icon={
@@ -98,12 +129,21 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >
-        <CollectModule
-          electedMirror={electedMirror}
-          publication={publication}
-          count={count}
-          setCount={setCount}
-        />
+        {isUnknownCollect ? (
+          <QuadraticModule
+            electedMirror={electedMirror}
+            publication={publication}
+            count={count}
+            setCount={setCount}
+          />
+        ) : (
+          <CollectModule
+            electedMirror={electedMirror}
+            publication={publication}
+            count={count}
+            setCount={setCount}
+          />
+        )}
       </Modal>
     </>
   );
