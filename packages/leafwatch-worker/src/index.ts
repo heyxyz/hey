@@ -1,5 +1,3 @@
-import { uuid } from '@cfworker/uuid';
-
 type EnvType = {
   DATADOG_TOKEN: string;
 };
@@ -42,7 +40,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
     const datadogRes = await fetch(
       `https://http-intake.logs.datadoghq.com/api/v2/logs?dd-api-key=${
         env.DATADOG_TOKEN
-      }&dd-request-id=${uuid()}`,
+      }&dd-request-id=${crypto.randomUUID()}`,
       {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
