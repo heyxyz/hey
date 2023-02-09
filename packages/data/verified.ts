@@ -2,6 +2,8 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x01ac9b', // gho.lens
+  '0x01aca7', // finiliar.lens
   '0x8d68', // avadi.lens
   '0xadb2', // jameslondon.lens
   '0x1044', // south.lens
