@@ -140,7 +140,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
               <Trans>Save</Trans>
             </Button>
           </div>
-        ) : currentProfile ? (
+        ) : currentProfile && currentProfile?.id === gallery.profileId ? (
           <Menu as="div" className="relative">
             <Menu.Button className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20">
               <DotsVerticalIcon className="h-4 w-4" />
