@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-08 00:56\n"
+"PO-Revision-Date: 2023-02-09 06:45\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -818,7 +818,7 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "All the data are anonymous and we don’t track user details such as name, handle, email, wallet address and so on."
-msgstr ""
+msgstr "எல்லா தரவும் அநாமதேயமானது மற்றும் பெயர், பயனர்பெயர், மின்னஞ்சல், வாலெட் முகவரி மற்றும் பல பயனர் விவரங்களை நாங்கள் கண்காணிப்பதில்லை."
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may change to other third-party analytics service provider. The Privacy Policy of Analytics subjects to the every provider. You should review everything before using the Site."
@@ -1123,7 +1123,7 @@ msgstr "NFTகள்"
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
 msgid "Not now"
-msgstr ""
+msgstr "இப்போது வேண்டாம்"
 
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
@@ -1402,7 +1402,7 @@ msgstr "<0>{0}</0> விருப்பங்கள்"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
-msgstr ""
+msgstr "<0>{0}</0> சேகரிப்புகள்"
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -1977,15 +1977,15 @@ msgstr "சுயவிவரத்திற்குச் செல்லவ�
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should be at least 2 characters"
-msgstr ""
+msgstr "பயனர்பெயர் குறைந்தது 2 எழுத்துகள் இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should not exceed 32 characters"
-msgstr ""
+msgstr "பயனர்பெயர் 32 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
-msgstr ""
+msgstr "பயனர்பெயர் எண்ணெழுத்து எழுத்துக்கள் மட்டுமே இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
@@ -1993,7 +1993,7 @@ msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle"
-msgstr ""
+msgstr "பயனர்பெயர்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up"
@@ -2445,3 +2445,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+
