@@ -1,32 +1,22 @@
 import axios from 'axios';
-import { IS_PRODUCTION } from 'data/constants';
-import { v4 as uuid } from 'uuid';
+import { RAVEN_WORKER_URL } from 'data/constants';
 
-const enabled = process.env.NEXT_PUBLIC_DATADOG_TOKEN && IS_PRODUCTION;
 const isBrowser = typeof window !== 'undefined';
 
 const uploadError = (error: Error) => {
-  if (isBrowser && enabled) {
-    const reqId = uuid();
-    console.log('Error request id:', reqId);
-    axios('https://http-intake.logs.datadoghq.eu/api/v2/logs', {
+  if (isBrowser) {
+    axios(RAVEN_WORKER_URL, {
       method: 'POST',
-      params: {
-        'dd-api-key': process.env.NEXT_PUBLIC_DATADOG_TOKEN,
-        'dd-request-id': reqId
-      },
       data: {
-        ddsource: 'browser',
+        ddsource: 'error',
         status: 'error',
-        error: error.toString(),
+        error: { message: error.message, stack: error?.stack },
         url: location.href,
         sha: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
       }
-    })
-      .then(() => reqId)
-      .catch(() => {
-        console.error('Error while sending error to Datadog');
-      });
+    }).catch(() => {
+      console.error('Error while sending error to Datadog');
+    });
   }
 };
 

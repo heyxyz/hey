@@ -22,7 +22,8 @@
   "locales": [
     "en",
     "es",
-    "ta"
+    "ta",
+    "zh"
   ],
   "sourceLocale": "en",
   "fallbackLocales": {
