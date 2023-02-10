@@ -69,10 +69,6 @@ Lenster is a decentralized and permissionless social media app built with [Lens 
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenster.xyz/discord).
 
-## 🤝 Supporting Repos
-
-- [Lenster Assets](https://github.com/lensterxyz/assets) - Static assets hosted in Vercel edge CDN
-
 ## 💕 Contributors
 
 We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.

@@ -6,14 +6,14 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { PUBLICATION } from 'src/tracking';
+import { PAGEVIEW, PUBLICATION } from 'src/tracking';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -33,10 +33,14 @@ const Report: FC<Props> = ({ publication }) => {
   const [type, setType] = useState(reportConfig?.type ?? '');
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
 
+  useEffect(() => {
+    Leafwatch.track(PAGEVIEW, { page: 'report' });
+  }, []);
+
   const [createReport, { data: submitData, loading: submitLoading, error: submitError }] =
     useReportPublicationMutation({
       onCompleted: () => {
-        Analytics.track(PUBLICATION.REPORT);
+        Leafwatch.track(PUBLICATION.REPORT);
       }
     });
 
@@ -66,7 +70,7 @@ const Report: FC<Props> = ({ publication }) => {
       {submitData?.reportPublication === null ? (
         <EmptyState
           message={t`Publication reported successfully!`}
-          icon={<CheckCircleIcon className="w-14 h-14 text-green-500" />}
+          icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
           hideCard
         />
       ) : publication ? (
@@ -91,7 +95,7 @@ const Report: FC<Props> = ({ publication }) => {
                   <Button
                     type="submit"
                     disabled={submitLoading}
-                    icon={submitLoading ? <Spinner size="xs" /> : <PencilAltIcon className="w-4 h-4" />}
+                    icon={submitLoading ? <Spinner size="xs" /> : <PencilAltIcon className="h-4 w-4" />}
                   >
                     <Trans>Report</Trans>
                   </Button>

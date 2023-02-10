@@ -1,7 +1,7 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import type { FC, MouseEvent } from 'react';
@@ -24,10 +24,10 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
   return (
     <Menu as="div" className="relative">
       <Menu.Button
-        className="p-1.5 rounded-full hover:bg-gray-300 hover:bg-opacity-20"
+        className="rounded-full p-1.5 hover:bg-gray-300 hover:bg-opacity-20"
         onClick={(event: MouseEvent<HTMLButtonElement>) => {
           event.stopPropagation();
-          Analytics.track(PUBLICATION.MORE);
+          Leafwatch.track(PUBLICATION.MORE);
         }}
         aria-label="More"
       >
@@ -36,7 +36,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
       <MenuTransition>
         <Menu.Items
           static
-          className="absolute right-0 mt-1 w-max bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none z-[5] dark:border-gray-700"
+          className="absolute right-0 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
           {currentProfile?.id === publication?.profile?.id ? (
             <Delete publication={publication} />

@@ -1,12 +1,13 @@
 import { i18n } from '@lingui/core';
 import { LS_KEYS } from 'data/constants';
 import dayjs from 'dayjs';
-import { en, es, ta } from 'make-plural/plurals';
+import { en, es, ta, zh } from 'make-plural/plurals';
 
 export const supportedLocales: Record<string, string> = {
   en: 'English',
-  es: 'Español',
-  ta: 'தமிழ்'
+  es: 'Spanish - Español',
+  ta: 'Tamil - தமிழ்',
+  zh: 'Chinese - 中文'
 };
 
 const defaultLocale = 'en';
@@ -14,7 +15,8 @@ const defaultLocale = 'en';
 i18n.loadLocaleData({
   en: { plurals: en },
   es: { plurals: es },
-  ta: { plurals: ta }
+  ta: { plurals: ta },
+  zh: { plurals: zh }
 });
 
 /**
@@ -23,7 +25,6 @@ i18n.loadLocaleData({
  */
 export async function setLocale(locale: string) {
   if (!supportedLocales.hasOwnProperty(locale)) {
-    console.error('warning: unknown locale', locale);
     locale = defaultLocale;
   }
   localStorage.setItem(LS_KEYS.SELECTED_LOCALE, JSON.stringify(locale));

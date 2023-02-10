@@ -14,34 +14,34 @@ const BottomNavigation = () => {
   const isActivePath = (path: string) => router.pathname === path;
 
   return (
-    <div className="fixed pb-safe inset-x-0 bg-white border-t border-gray-200 dark:border-gray-800 dark:bg-black bottom-0 z-[5] md:hidden">
+    <div className="pb-safe fixed inset-x-0 bottom-0 z-[5] border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-black md:hidden">
       <div className="grid grid-cols-4">
         <Link href="/" className="my-3 mx-auto">
           {isActivePath('/') ? (
-            <HomeIconSolid className="w-6 h-6 text-brand-500" />
+            <HomeIconSolid className="text-brand-500 h-6 w-6" />
           ) : (
-            <HomeIcon className="w-6 h-6" />
+            <HomeIcon className="h-6 w-6" />
           )}
         </Link>
         <Link href="/explore" className="my-3 mx-auto">
           {isActivePath('/explore') ? (
-            <ViewGridIconSolid className="w-6 h-6 text-brand-500" />
+            <ViewGridIconSolid className="text-brand-500 h-6 w-6" />
           ) : (
-            <ViewGridIcon className="w-6 h-6" />
+            <ViewGridIcon className="h-6 w-6" />
           )}
         </Link>
         <Link href="/notifications" className="my-3 mx-auto">
           {isActivePath('/notifications') ? (
-            <LightningBoltIconSolid className="w-6 h-6 text-brand-500" />
+            <LightningBoltIconSolid className="text-brand-500 h-6 w-6" />
           ) : (
-            <LightningBoltIcon className="w-6 h-6" />
+            <LightningBoltIcon className="h-6 w-6" />
           )}
         </Link>
         <Link href="/messages" className="my-3 mx-auto">
           {isActivePath('/messages') ? (
-            <MailIconSolid className="w-6 h-6 text-brand-500" />
+            <MailIconSolid className="text-brand-500 h-6 w-6" />
           ) : (
-            <MailIcon className="w-6 h-6" />
+            <MailIcon className="h-6 w-6" />
           )}
         </Link>
       </div>

@@ -1,4 +1,4 @@
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { PublicationMainFocus } from 'lens';
@@ -20,11 +20,11 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
       type="button"
       onClick={() => {
         setFocus(type as PublicationMainFocus);
-        Analytics.track(`select_${(type ?? 'all_posts')?.toLowerCase()}_filter_in_explore`);
+        Leafwatch.track(`select_${(type ?? 'all_posts')?.toLowerCase()}_filter_in_explore`);
       }}
       className={clsx(
         { '!bg-brand-500 !text-white': focus === type },
-        'text-xs bg-brand-100 dark:bg-opacity-10 rounded-full px-3 sm:px-4 py-1.5 text-brand border border-brand-300 dark:border-brand-500'
+        'bg-brand-100 text-brand border-brand-300 dark:border-brand-500 rounded-full border px-3 py-1.5 text-xs dark:bg-opacity-10 sm:px-4'
       )}
       aria-label={name}
     >
@@ -33,7 +33,7 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
   );
 
   return (
-    <div className="flex flex-wrap gap-3 px-5 mt-3 sm:px-0 sm:mt-0">
+    <div className="mt-3 flex flex-wrap gap-3 px-5 sm:mt-0 sm:px-0">
       <FeedLink name={t`All posts`} />
       <FeedLink name={t`Text`} type={PublicationMainFocus.TextOnly} />
       <FeedLink name={t`Video`} type={PublicationMainFocus.Video} />

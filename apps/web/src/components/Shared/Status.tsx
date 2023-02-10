@@ -4,9 +4,9 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import getAttribute from '@lib/getAttribute';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -186,13 +186,13 @@ const Status: FC = () => {
     isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <div className="p-5 space-y-5">
+    <div className="space-y-5 p-5">
       <Form
         form={form}
         className="space-y-4"
         onSubmit={({ status }) => {
           editStatus(emoji, status);
-          Analytics.track(SETTINGS.PROFILE.SET_PICTURE);
+          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -200,7 +200,7 @@ const Status: FC = () => {
           placeholder={t`What's happening?`}
           {...form.register('status')}
         />
-        <div className="flex items-center space-x-2 ml-auto">
+        <div className="ml-auto flex items-center space-x-2">
           <Button
             type="submit"
             variant="danger"
@@ -210,7 +210,7 @@ const Status: FC = () => {
               setEmoji('');
               form.setValue('status', '');
               editStatus('', '');
-              Analytics.track(SETTINGS.PROFILE.CLEAR_STATUS);
+              Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
             <Trans>Clear status</Trans>
@@ -218,7 +218,7 @@ const Status: FC = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="w-4 h-4" />}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
           >
             <Trans>Save</Trans>
           </Button>

@@ -1,7 +1,7 @@
 import { Card } from '@components/UI/Card';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
 import isVerified from '@lib/isVerified';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -11,14 +11,14 @@ const Verification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
-    <Card className="space-y-2 linkify p-5">
+    <Card className="linkify space-y-2 p-5">
       <div className="text-lg font-bold">
         <Trans>Verified</Trans>
       </div>
       {isVerified(currentProfile?.id) ? (
         <div className="flex items-center space-x-1.5">
           <span>Believe it. Yes, you're really verified.</span>
-          <BadgeCheckIcon className="w-5 h-5 text-brand" />
+          <BadgeCheckIcon className="text-brand h-5 w-5" />
         </div>
       ) : (
         <div>
@@ -26,7 +26,7 @@ const Verification: FC = () => {
           <a
             href="https://tally.so/r/wgDajK"
             onClick={() => {
-              Analytics.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
+              Leafwatch.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
             }}
             target="_blank"
             rel="noreferrer noopener"

@@ -46,7 +46,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
       <div className="p-5">
         <EmptyState
           message={t`No collectors.`}
-          icon={<CollectionIcon className="w-8 h-8 text-brand" />}
+          icon={<CollectionIcon className="text-brand h-8 w-8" />}
           hideCard
         />
       </div>
@@ -54,7 +54,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
   }
 
   return (
-    <div className="overflow-y-auto max-h-[80vh]" id="scrollableDiv">
+    <div className="max-h-[80vh] overflow-y-auto" id="scrollableCollectorsDiv">
       <ErrorMessage className="m-5" title={t`Failed to load collectors`} error={error} />
       <InfiniteScroll
         dataLength={profiles?.length ?? 0}
@@ -62,7 +62,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
         hasMore={hasMore}
         next={loadMore}
         loader={<InfiniteLoader />}
-        scrollableTarget="scrollableDiv"
+        scrollableTarget="scrollableCollectorsDiv"
       >
         <div className="divide-y dark:divide-gray-700">
           {profiles?.map((wallet, index) => (

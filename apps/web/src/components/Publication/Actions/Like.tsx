@@ -2,9 +2,9 @@ import type { ApolloCache } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
 import hasGm from '@lib/hasGm';
 import { publicationKeyFields } from '@lib/keyFields';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
@@ -18,6 +18,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -29,6 +30,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
   const [liked, setLiked] = useState(
     (isMirror ? publication?.mirrorOf?.reaction : publication?.reaction) === 'UPVOTE'
   );
@@ -37,7 +39,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
   );
 
   const updateCache = (cache: ApolloCache<any>, type: ReactionTypes.Upvote | ReactionTypes.Downvote) => {
-    if (showCount) {
+    if (showCount || hideLikesCount) {
       cache.modify({
         id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
         fields: {
@@ -74,7 +76,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Analytics.track(PUBLICATION.LIKE, getEventProperties('like'));
+      Leafwatch.track(PUBLICATION.LIKE, getEventProperties('like'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -86,7 +88,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Analytics.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
+      Leafwatch.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -139,7 +141,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
         <div
           className={clsx(
             isGM ? 'hover:bg-yellow-400' : 'hover:bg-pink-300',
-            'p-1.5 rounded-full hover:bg-opacity-20'
+            'rounded-full p-1.5 hover:bg-opacity-20'
           )}
         >
           <Tooltip placement="top" content={liked ? t`Dislike` : t`Like`} withDelay>
@@ -157,7 +159,9 @@ const Like: FC<Props> = ({ publication, showCount }) => {
           </Tooltip>
         </div>
       </motion.button>
-      {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+      {count > 0 && !showCount && !hideLikesCount && (
+        <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+      )}
     </div>
   );
 };

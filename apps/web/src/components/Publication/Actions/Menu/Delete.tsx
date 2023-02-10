@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import { useHidePublicationMutation } from 'lens';
@@ -16,7 +16,7 @@ const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter();
   const [hidePost] = useHidePublicationMutation({
     onCompleted: () => {
-      Analytics.track(PUBLICATION.DELETE);
+      Leafwatch.track(PUBLICATION.DELETE);
       pathname === '/posts/[id]' ? push('/') : location.reload();
     }
   });
@@ -27,7 +27,7 @@ const Delete: FC<Props> = ({ publication }) => {
       className={({ active }) =>
         clsx(
           { 'dropdown-active': active },
-          'block px-4 py-1.5 text-sm text-red-500 m-2 rounded-lg cursor-pointer'
+          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
         )
       }
       onClick={(event: MouseEvent<HTMLDivElement>) => {
@@ -40,7 +40,7 @@ const Delete: FC<Props> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <TrashIcon className="w-4 h-4" />
+        <TrashIcon className="h-4 w-4" />
         <div>Delete</div>
       </div>
     </Menu.Item>

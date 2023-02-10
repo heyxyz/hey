@@ -2,7 +2,7 @@ import HelpTooltip from '@components/UI/HelpTooltip';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LockClosedIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
@@ -27,7 +27,7 @@ const AccessSettings: FC = () => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Analytics.track(PUBLICATION.NEW.ACCESS.OPEN_ACCESS_SETTINGS);
+            Leafwatch.track(PUBLICATION.NEW.ACCESS.OPEN_ACCESS_SETTINGS);
           }}
           aria-label="Access"
         >
@@ -45,7 +45,7 @@ const AccessSettings: FC = () => {
             />
           </div>
         }
-        icon={<LockClosedIcon className="w-5 h-5 text-brand" />}
+        icon={<LockClosedIcon className="text-brand h-5 w-5" />}
         show={showModal}
         onClose={() => {
           setShowModal(false);

@@ -23,7 +23,7 @@ const Badges: FC<Props> = ({ profile }) => {
 
   return (
     <>
-      <div className="w-full divider" />
+      <div className="divider w-full" />
       <div className="flex flex-wrap gap-3">
         <ProofOfHumanity profile={profile} />
         <Ens profile={profile} />

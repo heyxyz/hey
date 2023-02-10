@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
@@ -7,10 +7,10 @@ import type { FC } from 'react';
 import React from 'react';
 import { SYSTEM } from 'src/tracking';
 
-type Props = {
+interface Props {
   onClick?: () => void;
   className?: string;
-};
+}
 
 const ThemeSwitch: FC<Props> = ({ onClick, className = '' }) => {
   const { theme, setTheme } = useTheme();
@@ -18,24 +18,24 @@ const ThemeSwitch: FC<Props> = ({ onClick, className = '' }) => {
   return (
     <button
       type="button"
-      className={clsx('flex px-4 py-1.5 text-sm w-full text-gray-700 dark:text-gray-200', className)}
+      className={clsx('flex w-full px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200', className)}
       onClick={() => {
         setTheme(theme === 'light' ? 'dark' : 'light');
-        Analytics.track(SYSTEM.SWITCH_THEME, { mode: theme === 'light' ? 'dark' : 'light' });
+        Leafwatch.track(SYSTEM.SWITCH_THEME, { mode: theme === 'light' ? 'dark' : 'light' });
         onClick?.();
       }}
     >
       <div className="flex items-center space-x-1.5">
         {theme === 'light' ? (
           <>
-            <MoonIcon className="w-4 h-4" />
+            <MoonIcon className="h-4 w-4" />
             <div>
               <Trans>Dark mode</Trans>
             </div>
           </>
         ) : (
           <>
-            <SunIcon className="w-4 h-4" />
+            <SunIcon className="h-4 w-4" />
             <div>
               <Trans>Light mode</Trans>
             </div>

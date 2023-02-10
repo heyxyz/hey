@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import type { FC, MouseEvent } from 'react';
@@ -15,17 +15,17 @@ const Embed: FC<Props> = ({ publication }) => {
     <Menu.Item
       as="a"
       className={({ active }) =>
-        clsx({ 'dropdown-active': active }, 'block px-4 py-1.5 text-sm m-2 rounded-lg cursor-pointer')
+        clsx({ 'dropdown-active': active }, 'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm')
       }
       onClick={(event: MouseEvent<HTMLAnchorElement>) => {
         event.stopPropagation();
-        Analytics.track(PUBLICATION.EMBED);
+        Leafwatch.track(PUBLICATION.EMBED);
       }}
       href={`https://embed.withlens.app/?url=${publication?.id}`}
       target="_blank"
     >
       <div className="flex items-center space-x-2">
-        <CodeIcon className="w-4 h-4" />
+        <CodeIcon className="h-4 w-4" />
         <div>Embed</div>
       </div>
     </Menu.Item>

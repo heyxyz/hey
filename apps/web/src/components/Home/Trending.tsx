@@ -2,7 +2,7 @@ import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TrendingUpIcon } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import nFormatter from '@lib/nFormatter';
 import { t, Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
@@ -13,8 +13,8 @@ import { MISCELLANEOUS } from 'src/tracking';
 
 const Title = () => {
   return (
-    <div className="flex gap-2 items-center px-5 mb-2 sm:px-0">
-      <TrendingUpIcon className="w-4 h-4 text-green-500" />
+    <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
+      <TrendingUpIcon className="h-4 w-4 text-green-500" />
       <div>
         <Trans>Trending</Trans>
       </div>
@@ -53,10 +53,10 @@ const Trending: FC = () => {
             <div key={tag?.tag}>
               <Link
                 href={`/search?q=${tag?.tag}&type=pubs`}
-                onClick={() => Analytics.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
+                onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
               >
                 <div className="font-bold">{tag?.tag}</div>
-                <div className="text-[12px] lt-text-gray-500">
+                <div className="lt-text-gray-500 text-[12px]">
                   <Trans>{nFormatter(tag?.total)} Publications</Trans>
                 </div>
               </Link>

@@ -2,8 +2,8 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CashIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -25,7 +25,7 @@ const CollectSettings: FC = () => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Analytics.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_SETTINGS);
+            Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_SETTINGS);
           }}
           aria-label="Choose Collect Module"
         >
@@ -36,7 +36,7 @@ const CollectSettings: FC = () => {
       </Tooltip>
       <Modal
         title={t`Collect settings`}
-        icon={<CashIcon className="w-5 h-5 text-brand" />}
+        icon={<CashIcon className="text-brand h-5 w-5" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >

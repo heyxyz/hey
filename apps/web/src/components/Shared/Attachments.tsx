@@ -2,9 +2,8 @@ import { Button } from '@components/UI/Button';
 import { LightBox } from '@components/UI/LightBox';
 import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
-import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
@@ -13,6 +12,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
+import getIPFSLink from 'utils/getIPFSLink';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -126,7 +126,7 @@ const Attachments: FC<Props> = ({
                 />
               ) : (
                 <img
-                  className="object-cover bg-gray-100 rounded-lg border cursor-pointer dark:bg-gray-800 dark:border-gray-700"
+                  className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
                   loading="lazy"
                   height={1000}
                   width={1000}
@@ -135,7 +135,7 @@ const Attachments: FC<Props> = ({
                   }}
                   onClick={() => {
                     setExpandedImage(url);
-                    Analytics.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
+                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
                   }}
                   src={isNew ? url : imageProxy(url, ATTACHMENT)}
                   alt={isNew ? url : imageProxy(url, ATTACHMENT)}
@@ -147,10 +147,10 @@ const Attachments: FC<Props> = ({
                 >
                   <button
                     type="button"
-                    className="p-1.5 bg-gray-900 rounded-full opacity-75"
+                    className="rounded-full bg-gray-900 p-1.5 opacity-75"
                     onClick={() => removeAttachment(attachment)}
                   >
-                    <XIcon className="w-4 h-4 text-white" />
+                    <XIcon className="h-4 w-4 text-white" />
                   </button>
                 </div>
               )}

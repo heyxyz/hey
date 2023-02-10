@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-23 08:22\n"
+"PO-Revision-Date: 2023-02-09 06:45\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -20,43 +20,45 @@ msgstr ""
 
 #: src/components/Comment/Feed.tsx
 msgid "Be the first one to comment!"
-msgstr ""
+msgstr "还没有人评论哦~快来抢沙发！"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
-msgstr ""
+msgstr "评论加载失败"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
-msgstr ""
+msgstr "限制谁可以看到这个帖子"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Collectors can view"
-msgstr ""
+msgstr "仅收藏者可见"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
-msgstr ""
+msgstr "您需要先启用收藏模块以便使用基于令牌的权限控制功能"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
-msgstr ""
+msgstr "用户需要先收藏才可见内容"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Followers can view"
-msgstr ""
+msgstr "仅粉丝可见"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to follow you to be able to view it"
-msgstr ""
+msgstr "用户需要先关注你才能浏览它"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "取消"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NFTPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -67,69 +69,66 @@ msgstr "保存"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
-msgstr ""
+msgstr "访问权限设置"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
-msgstr ""
+msgstr "添加对谁可以查看您的内容的限制。例如 - 只有拥有特定 NFT 或代币才可以查看您的帖子。"
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
-msgstr ""
+msgstr "请选择 1 个视频或最多 4 张照片。"
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
-msgstr ""
+msgstr "文件格式不兼容。"
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Something went wrong while uploading!"
-msgstr ""
+msgstr "上传失败!"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
-msgstr ""
+msgstr "正在加载收藏设置"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Failed to load modules"
-msgstr ""
+msgstr "模块加载失败"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
-msgstr ""
+msgstr "这个帖子可以被收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Charge for collecting"
-msgstr ""
+msgstr "付费收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Get paid whenever someone collects your post"
-msgstr ""
+msgstr "每当有人收藏您的帖子时您将获得报酬"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Price"
-msgstr ""
+msgstr "价格"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Settings/Account/SuperFollow.tsx
 #: src/components/Settings/Allowance/index.tsx
 msgid "Select Currency"
-msgstr ""
+msgstr "选择币种"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Mirror referral reward"
-msgstr ""
+msgstr "转发奖励"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Share your collect fee with people who amplify your content"
-msgstr ""
+msgstr "分享收益给转发本文的人"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Referral fee"
-msgstr ""
+msgstr "转发费"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Limited edition"
@@ -137,31 +136,31 @@ msgstr "限量版"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Make the collects exclusive"
-msgstr ""
+msgstr "设置独家收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Collect limit"
-msgstr ""
+msgstr "收藏数量上限"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Time limit"
-msgstr ""
+msgstr "限时"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Limit collecting to the first 24h"
-msgstr ""
+msgstr "24小时限时收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Who can collect"
-msgstr ""
+msgstr "谁可以收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Only followers can collect"
-msgstr ""
+msgstr "关注者才能收藏"
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
-msgstr ""
+msgstr "收藏设置"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "Search for GIFs"
@@ -169,37 +168,37 @@ msgstr "搜索动图"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "No GIFs found."
-msgstr ""
+msgstr "未找到GIF图片"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Loading GIFs"
-msgstr ""
+msgstr "正在加载动图"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
-msgstr ""
+msgstr "请选择GIF图片"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
-msgstr ""
+msgstr "我关注的人"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers"
-msgstr ""
+msgstr "我的粉丝们"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friends of friends"
-msgstr ""
+msgstr "好友的好友"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone"
-msgstr ""
+msgstr "所有人"
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
-msgstr ""
+msgstr "正在发生什么？"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
@@ -207,34 +206,34 @@ msgstr ""
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
-msgstr ""
+msgstr "交易失败！"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Comment"
-msgstr ""
+msgstr "[cta]评论"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Post"
-msgstr ""
+msgstr "[cta]帖子"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
-msgstr ""
+msgstr "创建贴子"
 
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
-msgstr ""
+msgstr "暂无动态！"
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
-msgstr ""
+msgstr "加载探索信息流失败"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
-msgstr ""
+msgstr "所有帖子"
 
 #: src/components/Explore/FeedType.tsx
 msgid "Text"
@@ -243,409 +242,415 @@ msgstr "文本"
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Video"
-msgstr ""
+msgstr "视频"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
-msgstr ""
+msgstr "音频"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
-msgstr ""
+msgstr "图像"
 
 #: src/components/Explore/index.tsx
 msgid "For you"
-msgstr ""
+msgstr "为您推荐"
 
 #: src/components/Explore/index.tsx
 msgid "Popular"
-msgstr ""
+msgstr "热门"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/Trending.tsx
 msgid "Trending"
-msgstr ""
+msgstr "热搜"
 
 #: src/components/Explore/index.tsx
 msgid "Interesting"
-msgstr ""
+msgstr "有趣的内容"
 
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
-msgstr ""
+msgstr "看看别人都在干吗？ • {APP_NAME}"
 
 #: src/components/Home/BetaWarning.tsx
 msgid "Beta warning!"
-msgstr ""
+msgstr "这是测试版！"
 
 #: src/components/Home/BetaWarning.tsx
 msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr ""
+msgstr "{APP_NAME} 仍处于测试阶段，可能会出现问题，请谨慎使用。"
 
 #: src/components/Home/BetaWarning.tsx
 msgid "Get testnet tokens"
-msgstr ""
+msgstr "获取测试网代币"
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
-msgstr ""
+msgstr "需要您的操作"
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
-msgstr ""
+msgstr "您可以通过启用 dispatcher 功能使得您今后与 {APP_NAME} 进行交互时不需要签名任何交易。"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
-msgstr ""
+msgstr "私信在这里！"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-msgstr ""
+msgstr "激活XMTP以开始使用Lenster将端到端加密的私信发送给朋友。"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
-msgstr ""
+msgstr "启用私信功能"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Filter"
-msgstr ""
+msgstr "筛选"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Posts"
-msgstr ""
+msgstr "显示帖子"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Mirrors"
-msgstr ""
+msgstr "显示转发"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Likes"
-msgstr ""
+msgstr "显示点赞"
 
 #: src/components/Home/FeedType.tsx
 msgid "Timeline"
-msgstr ""
+msgstr "时间线"
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
-msgstr ""
+msgstr "精彩内容"
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
-msgstr ""
+msgstr "欢迎来到 {APP_NAME} 👋"
 
 #: src/components/Home/Hero.tsx
 msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr ""
+msgstr "{APP_NAME} 是一个基于Lens Protocol🌿开发的去中心化的、无需许可的社交媒体应用程序。"
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
-msgstr ""
+msgstr "加载精彩内容失败"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
-msgstr ""
+msgstr "关注推荐"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "No recommendations!"
-msgstr ""
+msgstr "暂无推荐内容"
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
-msgstr ""
+msgstr "推荐加载失败"
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Publication/DecryptedPublicationBody.tsx
 #: src/components/Publication/PublicationBody.tsx
 msgid "Show more"
-msgstr ""
+msgstr "显示更多"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Suggested for you"
-msgstr ""
+msgstr "为您推荐"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
-msgstr ""
+msgstr "我的信息流"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "👀 See the feed through..."
-msgstr ""
+msgstr "👀 通过其他人查看内容流..."
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
-msgstr ""
+msgstr "返回您自己的信息流"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Searching users"
-msgstr ""
+msgstr "查找用户"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
 msgid "No matching users"
-msgstr ""
+msgstr "没有匹配的用户"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile"
-msgstr ""
+msgstr "设置默认的个人资料"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "You own {count} {0} but you don't have a default one."
-msgstr ""
+msgstr "您拥有 {count} 个 {0}，但没有设置默认的账户。"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile here"
-msgstr ""
+msgstr "在此处设置默认的个人资料"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Setup your {APP_NAME} profile"
-msgstr ""
+msgstr "设置您的 {APP_NAME} 个人资料"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile name"
-msgstr ""
+msgstr "设置个人账户名称"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile bio"
-msgstr ""
+msgstr "设置个人资料简介"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set your avatar"
-msgstr ""
+msgstr "设置头像"
 
 #: src/components/Home/SetProfile.tsx
 #: src/components/Settings/Interests/index.tsx
 msgid "Select profile interests"
-msgstr ""
+msgstr "选择您感兴趣的主题"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
-msgstr ""
+msgstr "更新个人资料"
 
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
-msgstr ""
+msgstr "正在加载推荐"
 
 #: src/components/Home/Suggested.tsx
 msgid "Nothing to suggest"
-msgstr ""
+msgstr "没有可以推荐的内容"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
 msgid "Collected by"
-msgstr ""
+msgstr "收藏者"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
-msgstr ""
+msgstr "已转发{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "commented{0}{1}"
-msgstr ""
+msgstr "已评论{0}{1}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected{0}"
-msgstr ""
+msgstr "已收藏{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "liked"
-msgstr ""
+msgstr "已点赞"
 
 #: src/components/Home/Timeline/EventType/Liked.tsx
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
-msgstr ""
+msgstr "点赞过的人"
 
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
-msgstr ""
+msgstr "转发过的人"
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
-msgstr ""
+msgstr "加载时间线失败"
 
 #: src/components/Home/Trending.tsx
 msgid "Failed to load trending"
-msgstr ""
+msgstr "无法加载热搜"
 
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
-msgstr ""
+msgstr "{0} 帖子"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
-msgstr ""
+msgstr "发送消息时出错"
 
 #: src/components/Messages/Composer.tsx
 msgid "Type Something"
-msgstr ""
+msgstr "在此输入文本…"
 
 #: src/components/Messages/Composer.tsx
 msgid "Send"
-msgstr ""
+msgstr "发送"
 
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
-msgstr ""
+msgstr "正在加载消息"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
-msgstr ""
+msgstr "这位用户还没开启私信功能"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "You can't send them a message until they enable DMs."
-msgstr ""
+msgstr "在他们启用私信之前，您无法向他们发送消息。"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This is the beginning of the conversation"
-msgstr ""
+msgstr "这是对话的开始"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
+msgstr "加载中..."
 
 #: src/components/Messages/PreviewList.tsx
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
-msgstr ""
+msgstr "正在关注"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Requested"
-msgstr ""
+msgstr "已请求"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
-msgstr ""
+msgstr "这些消息来自您目前未关注的Lens用户。"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
-msgstr ""
+msgstr "正在加载对话"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
-msgstr ""
+msgstr "加载消息失败"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Start messaging your Lens frens"
-msgstr ""
+msgstr "给你的Lens朋友们发个消息"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
-msgstr ""
+msgstr "新消息"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
-msgstr ""
+msgstr "搜索要发消息的人..."
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
-msgstr ""
+msgstr "选择一个对话"
 
 #: src/components/Messages/index.tsx
 msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
+msgstr "选择现有的对话或创建新的对话以开始发送消息"
 
 #: src/components/Messages/index.tsx
 msgid "Messages • {APP_NAME}"
-msgstr ""
+msgstr "私信 • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
-msgstr ""
+msgstr "评论加载失败"
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
-msgstr ""
+msgstr "模块中心 • {APP_NAME}"
+
+#: src/components/NFT/NFTFeed.tsx
+msgid "doesn’t have any NFTs!"
+msgstr "没有任何NFT！"
+
+#: src/components/NFT/NFTFeed.tsx
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Failed to load nft feed"
+msgstr "加载NFT信息失败"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
-msgstr ""
+msgstr "所有通知"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
-msgstr ""
+msgstr "提及您的"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Comments"
-msgstr ""
+msgstr "评论您的"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
-msgstr ""
+msgstr "点赞您的"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Collects"
-msgstr ""
+msgstr "收藏"
 
 #: src/components/Notification/List.tsx
 msgid "Failed to load notifications"
-msgstr ""
+msgstr "无法加载通知"
 
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
-msgstr ""
+msgstr "收件箱消息为零！"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
-msgstr ""
+msgstr "已为 {0} {1} 收藏"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/>收藏了你的<2>评论</2></0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/>收藏了你的<2>转发</2></0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> 收集了你的 <2> 帖子</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> 评论了您的<2>评论</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> 评论了您的<2>转帖</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> 评论了您的<2>帖子</2></0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
-msgstr ""
+msgstr "<0><1/>关注了您</0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
-msgstr ""
+msgstr "<0><1/> 超级关注您</0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> 赞了您的<2>评论</2></0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> 点赞了您的<2>转帖中</2></0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> 点赞了您的<2>帖子</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
@@ -657,6 +662,18 @@ msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>comment</2></0>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>mirror</2></0>"
+msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/index.tsx
@@ -732,7 +749,7 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing the Site, you agree to not only this Privacy Policy, but also to our Terms of Use and any other written agreements for using the Site. And you agree to our collection and use of any personal data (as described here) as well as the features of public/permissionless blockchain technology."
-msgstr ""
+msgstr "访问本网站时，代表了您不仅同意本隐私政策，还代表了您同意我们的使用条款和任何其他关于使用本网站的书面协议。并且您同意我们收集和使用任何您的个人数据（如此处所述）以及相关的公共以及无许可的区块链技术。"
 
 #: src/components/Pages/Privacy.tsx
 msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
@@ -796,7 +813,7 @@ msgid "5. Analytics"
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
-msgid "We use <0>Simple Analytics</0> to collect various events from user actions to analyse and make decisions for Site improvements."
+msgid "We use <0>Datadog</0> to collect various events from user actions to analyse and make decisions for Site improvements."
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
@@ -1068,6 +1085,10 @@ msgid "Worldcoin verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
+msgid "Follows you"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
 msgid "Edit Profile"
 msgstr ""
 
@@ -1097,6 +1118,11 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
+msgstr ""
+
+#: src/components/Profile/FollowDialog.tsx
+#: src/components/Profile/FollowDialog.tsx
+msgid "Not now"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
@@ -1140,20 +1166,84 @@ msgstr ""
 msgid "Followed by"
 msgstr ""
 
-#: src/components/Profile/NFTFeed.tsx
-msgid "doesn’t have any NFTs!"
-msgstr ""
-
-#: src/components/Profile/NFTFeed.tsx
-msgid "Failed to load nft feed"
-msgstr ""
-
 #: src/components/Profile/New.tsx
 msgid "Create Profile • {APP_NAME}"
 msgstr ""
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery created"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name required"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Select collectibles for your gallery"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Review collection"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Select collectibles you want others to see"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "What's your gallery name?"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "{0} selected"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Next"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Gallery deleted"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Are you sure you want to delete?"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Edit"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Rearrrange"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Delete"
+msgstr ""
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Welcome to your gallery"
+msgstr ""
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Create a curated space for your digital collectibles"
+msgstr ""
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Let's do it!"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "doesn't have any NFTs!"
+msgstr ""
+
+#: src/components/Profile/NftGallery/ReviewSelection.tsx
+msgid "No collectables selected!"
 msgstr ""
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
@@ -1175,20 +1265,20 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
-msgstr ""
+msgstr "收藏成功！"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
 msgid "Loading collect"
-msgstr ""
+msgstr "正在加载收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} collectors"
-msgstr ""
+msgstr "{0} 位收藏者"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
-msgstr ""
+msgstr "{0} 可收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0}% referral fee"
@@ -1196,11 +1286,11 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
-msgstr ""
+msgstr "收入："
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Sale Ends:"
-msgstr ""
+msgstr "销售结束："
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Token:"
@@ -1208,21 +1298,21 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collect now"
-msgstr ""
+msgstr "收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "You already collected this"
-msgstr ""
+msgstr "不要重复收藏哦！"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
-msgstr ""
+msgstr "免费收藏"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Unknown Collect"
-msgstr ""
+msgstr "未知收藏"
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
@@ -1324,7 +1414,7 @@ msgstr ""
 
 #: src/components/Publication/Type/Collected.tsx
 msgid "collected the <0>{0}</0>"
-msgstr ""
+msgstr "收藏了 <0>{0}</0>"
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -1356,26 +1446,6 @@ msgstr ""
 
 #: src/components/Search/Sidebar.tsx
 msgid "Profiles"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Cross post to Twitter"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site."
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Already reposting to <0>@{repostingTo}</0>"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Disable now"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Setup now"
 msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
@@ -1644,6 +1714,18 @@ msgstr ""
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr ""
 
+#: src/components/Settings/Preferences/LikesPreferences.tsx
+msgid "Hide number of likes"
+msgstr ""
+
+#: src/components/Settings/Preferences/LikesPreferences.tsx
+msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
+msgstr ""
+
+#: src/components/Settings/Preferences/index.tsx
+msgid "Preferences • {APP_NAME}"
+msgstr ""
+
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr ""
@@ -1665,7 +1747,6 @@ msgstr ""
 msgid "Token Id"
 msgstr ""
 
-#: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar can't be empty!"
 msgstr ""
@@ -1740,6 +1821,10 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Preferences"
 msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
@@ -1948,15 +2033,15 @@ msgstr ""
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
-msgstr ""
+msgstr "加载收藏者列表中"
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "No collectors."
-msgstr ""
+msgstr "还没有人收藏。"
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
-msgstr ""
+msgstr "无法加载收藏者"
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
@@ -2044,19 +2129,19 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
-msgstr ""
+msgstr "虚假交互"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
-msgstr ""
+msgstr "算法操纵"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misleading"
-msgstr ""
+msgstr "误导"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
-msgstr ""
+msgstr "滥用标签"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Repetitive"
@@ -2064,27 +2149,27 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
-msgstr ""
+msgstr "其他"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Unrelated"
-msgstr ""
+msgstr "内容无关"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
-msgstr ""
+msgstr "补充信息不应超过 260 个字符"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"
-msgstr ""
+msgstr "举报失败"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Please provide additional details"
-msgstr ""
+msgstr "请提供更多详细信息"
 
 #: src/components/Shared/Navbar/MobileDrawerMenu.tsx
 #: src/components/Shared/Navbar/SignedUser.tsx
@@ -2093,11 +2178,11 @@ msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
-msgstr ""
+msgstr "更多"
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
-msgstr ""
+msgstr "联系我们"
 
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
@@ -2246,50 +2331,50 @@ msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
-msgstr ""
+msgstr "取消关注"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{0}</0>"
-msgstr ""
+msgstr "您没有足够的 <0>{0}</0>"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
-msgstr ""
+msgstr "用Uniswap进行代币转换"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools • {APP_NAME}"
-msgstr ""
+msgstr "员工工具 • {APP_NAME}"
 
 #: src/components/UI/LightBox.tsx
 msgid "Open original"
-msgstr ""
+msgstr "打开原图"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
-msgstr ""
+msgstr "图片尺寸应小于 10MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 100MB"
-msgstr ""
+msgstr "视频文件应小于 100MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
-msgstr ""
+msgstr "音频文件应小于 100MB"
 
 #: src/lib/getModule.ts
 msgid "The Unknown Collect Module is unknown and not type supported in the API."
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Fee Collect"
-msgstr ""
+msgid "Paid Collect"
+msgstr "付费收藏"
 
 #: src/lib/getModule.ts
 msgid "The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster."
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Limited Fee Collect"
+msgid "Rare Paid Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2297,7 +2382,7 @@ msgid "The Limited Fee Collect Module allows for any follower to collect the ass
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Timed Fee Collect"
+msgid "24 Hour Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2305,7 +2390,7 @@ msgid "The Timed Fee Collect Module allows for any follower to collect the assoc
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Limited Time Fee Collect"
+msgid "Rare 24 Hour Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2317,7 +2402,7 @@ msgid "The Free Collect Module allows any profile to collect the publication thi
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "Revert Collect"
+msgid "No Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2326,23 +2411,23 @@ msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Fee Follow"
-msgstr ""
+msgstr "付费关注"
 
 #: src/lib/getModule.ts
 msgid "The Fee Follow Module only allows addresses to follow a given profile, so long as they pay a fee specified by the profile owner. Users can set the currency and amount required to be paid."
-msgstr ""
+msgstr "付费关注模块需要关注者付费才可以关注该博主。 用户可以自定义付费关注所需要的代币币种和金额。"
 
 #: src/lib/getModule.ts
 msgid "Follower Only Reference"
-msgstr ""
+msgstr "只有账户的关注者可以评论和转发"
 
 #: src/lib/getModule.ts
 msgid "The Follower Only Reference Module ensures that only a profile is only allowed to mirror or comment on content."
-msgstr ""
+msgstr "如果启用粉丝专属模块，那么用户必须要先关注博主，才能转发或评论该博主的内容。"
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
-msgstr ""
+msgstr "网页好像消失了‽"
 
 #: src/pages/404.tsx
 msgid "This page could not be found."
@@ -2351,13 +2436,13 @@ msgstr ""
 #: src/pages/404.tsx
 #: src/pages/500.tsx
 msgid "Go to home"
-msgstr ""
+msgstr "回到主页"
 
 #: src/pages/500.tsx
 msgid "Looks like something went wrong!"
-msgstr ""
+msgstr "系统似乎出现了故障！"
 
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
-msgstr ""
+msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
 

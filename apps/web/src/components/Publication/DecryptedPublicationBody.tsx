@@ -21,10 +21,9 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
-import getIPFSLink from '@lib/getIPFSLink';
 import getURLs from '@lib/getURLs';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -38,6 +37,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
+import getIPFSLink from 'utils/getIPFSLink';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
@@ -172,7 +172,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
           setShowAuthModal(true);
         }}
       >
-        <div className="text-white font-bold flex items-center space-x-1">
+        <div className="flex items-center space-x-1 font-bold text-white">
           <LogoutIcon className="h-5 w-5" />
           <span>Login to decrypt</span>
         </div>
@@ -183,13 +183,13 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   if (!canDecrypt) {
     return (
       <Card className={clsx(cardClasses, 'cursor-text')} onClick={(event) => event.stopPropagation()}>
-        <div className="font-bold flex items-center space-x-2">
+        <div className="flex items-center space-x-2 font-bold">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
-          <span className="text-white font-black text-base">
+          <span className="text-base font-black text-white">
             <Trans>To view this...</Trans>
           </span>
         </div>
-        <div className="pt-3.5 space-y-2 text-white">
+        <div className="space-y-2 pt-3.5 text-white">
           {/* Collect checks */}
           {hasNotCollectedPublication && (
             <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
@@ -197,14 +197,14 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
               <Link
                 href={`/posts/${collectCondition?.publicationId}`}
                 className="font-bold lowercase underline"
-                onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT)}
+                onClick={() => Leafwatch.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT)}
               >
                 {encryptedPublication?.__typename}
               </Link>
             </DecryptMessage>
           )}
           {collectNotFinalisedOnChain && (
-            <DecryptMessage icon={<CollectionIcon className="animate-pulse h-4 w-4" />}>
+            <DecryptMessage icon={<CollectionIcon className="h-4 w-4 animate-pulse" />}>
               <Trans>Collect finalizing on chain...</Trans>
             </DecryptMessage>
           )}
@@ -219,7 +219,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
             </DecryptMessage>
           )}
           {followNotFinalisedOnChain && (
-            <DecryptMessage icon={<UserAddIcon className="animate-pulse h-4 w-4" />}>
+            <DecryptMessage icon={<UserAddIcon className="h-4 w-4 animate-pulse" />}>
               <Trans>Follow finalizing on chain...</Trans>
             </DecryptMessage>
           )}
@@ -231,7 +231,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
               <a
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
                 className="font-bold underline"
-                onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
+                onClick={() => Leafwatch.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -249,7 +249,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
                 <a
                   href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
-                  onClick={() => Analytics.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
+                  onClick={() => Leafwatch.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -271,8 +271,8 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
   if (!decryptedData && isDecrypting) {
     return (
       <div className="space-y-2">
-        <div className="w-7/12 h-3 rounded-lg shimmer" />
-        <div className="w-1/3 h-3 rounded-lg shimmer" />
+        <div className="shimmer h-3 w-7/12 rounded-lg" />
+        <div className="shimmer h-3 w-1/3 rounded-lg" />
       </div>
     );
   }
@@ -284,10 +284,10 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
         onClick={(event) => {
           event.stopPropagation();
           getDecryptedData();
-          Analytics.track(PUBLICATION.TOKEN_GATED.DECRYPT);
+          Leafwatch.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
       >
-        <div className="text-white font-bold flex items-center space-x-1">
+        <div className="flex items-center space-x-1 font-bold text-white">
           <FingerPrintIcon className="h-5 w-5" />
           <span>
             Decrypt <span className="lowercase">{encryptedPublication.__typename}</span>
@@ -304,13 +304,13 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Markup
         className={clsx(
           { 'line-clamp-5': showMore },
-          'whitespace-pre-wrap break-words leading-md linkify text-md'
+          'leading-md linkify text-md whitespace-pre-wrap break-words'
         )}
       >
         {publication?.content}
       </Markup>
       {showMore && (
-        <div className="mt-4 text-sm text-gray-500 font-bold flex items-center space-x-1">
+        <div className="mt-4 flex items-center space-x-1 text-sm font-bold text-gray-500">
           <EyeIcon className="h-4 w-4" />
           <Link href={`/posts/${encryptedPublication?.id}`}>
             <Trans>Show more</Trans>

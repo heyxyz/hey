@@ -2,8 +2,8 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
@@ -67,7 +67,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
 
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
-    Analytics.track(SETTINGS.DISPATCHER.TOGGLE);
+    Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
 
     if (!idKitData?.isIDKitPhoneVerified) {
       setIDKitOpen(true);
@@ -144,9 +144,9 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
         isLoading ? (
           <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
         ) : canUseRelay ? (
-          <XIcon className="w-4 h-4" />
+          <XIcon className="h-4 w-4" />
         ) : (
-          <CheckCircleIcon className="w-4 h-4" />
+          <CheckCircleIcon className="h-4 w-4" />
         )
       }
       onClick={toggleDispatcher}

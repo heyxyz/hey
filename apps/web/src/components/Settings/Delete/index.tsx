@@ -9,6 +9,7 @@ import { WarningMessage } from '@components/UI/WarningMessage';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
@@ -17,10 +18,11 @@ import { LensHubProxy } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
@@ -35,6 +37,10 @@ const DeleteSettings: FC = () => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
+
+  useEffect(() => {
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
+  }, []);
 
   const onCompleted = () => {
     setCurrentProfile(null);
@@ -108,7 +114,7 @@ const DeleteSettings: FC = () => {
             </Trans>
           </p>
           <div className="text-lg font-bold">What else you should know</div>
-          <div className="text-sm lt-text-gray-500 divide-y dark:divide-gray-700">
+          <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
             <p className="pb-3">
               <Trans>
                 You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted.
@@ -125,7 +131,7 @@ const DeleteSettings: FC = () => {
           </div>
           <Button
             variant="danger"
-            icon={isDeleting ? <Spinner variant="danger" size="xs" /> : <TrashIcon className="w-5 h-5" />}
+            icon={isDeleting ? <Spinner variant="danger" size="xs" /> : <TrashIcon className="h-5 w-5" />}
             disabled={isDeleting}
             onClick={() => setShowWarningModal(true)}
           >
@@ -133,11 +139,11 @@ const DeleteSettings: FC = () => {
           </Button>
           <Modal
             title={t`Danger Zone`}
-            icon={<ExclamationIcon className="w-5 h-5 text-red-500" />}
+            icon={<ExclamationIcon className="h-5 w-5 text-red-500" />}
             show={showWarningModal}
             onClose={() => setShowWarningModal(false)}
           >
-            <div className="p-5 space-y-3">
+            <div className="space-y-3 p-5">
               <WarningMessage
                 title="Are you sure?"
                 message={
@@ -150,7 +156,7 @@ const DeleteSettings: FC = () => {
               />
               <Button
                 variant="danger"
-                icon={<TrashIcon className="w-5 h-5" />}
+                icon={<TrashIcon className="h-5 w-5" />}
                 onClick={() => {
                   setShowWarningModal(false);
                   handleDelete();

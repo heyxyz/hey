@@ -1,7 +1,6 @@
-import { MEDIA_PROXY_URL } from 'data/constants';
+import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Publication } from 'lens';
-
-import getIPFSLink from './getIPFSLink';
+import getIPFSLink from 'utils/getIPFSLink';
 
 /**
  *
@@ -15,7 +14,7 @@ const getThumbnailUrl = (publication: Publication | undefined): string => {
   const url =
     publication.metadata?.cover?.original.url ||
     publication.metadata?.image ||
-    `${MEDIA_PROXY_URL}/placeholder.webp`;
+    `${STATIC_IMAGES_URL}/placeholder.webp`;
 
   return getIPFSLink(url);
 };

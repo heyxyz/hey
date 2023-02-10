@@ -1,5 +1,5 @@
 import EventType from '@components/Home/Timeline/EventType';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import type { ElectedMirror, FeedItem, Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -35,11 +35,11 @@ const SinglePublication: FC<Props> = ({
 
   return (
     <article
-      className="hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer first:rounded-t-xl last:rounded-b-xl p-5"
+      className="cursor-pointer p-5 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
-          Analytics.track(PUBLICATION.OPEN);
+          Leafwatch.track(PUBLICATION.OPEN);
           push(`/posts/${rootPublication?.id}`);
         }
       }}

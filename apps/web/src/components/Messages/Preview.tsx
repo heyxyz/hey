@@ -33,7 +33,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
   return (
     <div
       className={clsx(
-        'py-3 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800',
+        'cursor-pointer py-3 hover:bg-gray-100 dark:hover:bg-gray-800',
         isSelected && 'bg-gray-50 dark:bg-gray-800'
       )}
       onClick={() => onConversationSelected(profile.id)}
@@ -45,24 +45,24 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
           }}
           src={getAvatar(profile)}
           loading="lazy"
-          className="w-10 h-10 bg-gray-200 rounded-full border dark:border-gray-700"
+          className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
           height={40}
           width={40}
           alt={formatHandle(profile?.handle)}
         />
         <div className="w-full">
           <div className="flex w-full justify-between space-x-1">
-            <div className="flex gap-1 items-center max-w-sm">
+            <div className="flex max-w-sm items-center gap-1">
               <div className="line-clamp-1 text-md">{profile?.name ?? formatHandle(profile.handle)}</div>
-              {isVerified(profile?.id) && <BadgeCheckIcon className="min-w-fit w-4 h-4 text-brand" />}
+              {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />}
             </div>
             {message.sent && (
-              <span className="min-w-fit pt-0.5 text-xs lt-text-gray-500" title={formatTime(message.sent)}>
+              <span className="lt-text-gray-500 min-w-fit pt-0.5 text-xs" title={formatTime(message.sent)}>
                 {dayjs(new Date(message.sent)).fromNow()}
               </span>
             )}
           </div>
-          <span className="text-sm lt-text-gray-500 line-clamp-1 break-all">
+          <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
             {address === message.senderAddress && 'You: '} {message.content}
           </span>
         </div>

@@ -3,16 +3,18 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import { PhotographIcon } from '@heroicons/react/outline';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import { useProfileSettingsQuery } from 'lens';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import SettingsSidebar from '../Sidebar';
 import NFTPicture from './NFTPicture';
@@ -22,6 +24,10 @@ import ProfileSettingsForm from './Profile';
 const ProfileSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
+
+  useEffect(() => {
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
+  }, []);
 
   const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
@@ -58,9 +64,9 @@ const ProfileSettings: NextPage = () => {
       onClick={() => setSettingsType(type)}
       className={clsx(
         {
-          'text-brand bg-brand-100 dark:bg-opacity-20 bg-opacity-100 font-bold': settingsType === type
+          'text-brand bg-brand-100 bg-opacity-100 font-bold dark:bg-opacity-20': settingsType === type
         },
-        'flex items-center space-x-2 rounded-lg px-4 sm:px-3 py-2 sm:py-1 text-brand hover:bg-brand-100 dark:hover:bg-opacity-20 hover:bg-opacity-100'
+        'text-brand hover:bg-brand-100 flex items-center space-x-2 rounded-lg px-4 py-2 hover:bg-opacity-100 dark:hover:bg-opacity-20 sm:px-3 sm:py-1'
       )}
     >
       {icon}
@@ -78,8 +84,8 @@ const ProfileSettings: NextPage = () => {
         <ProfileSettingsForm profile={profile as any} />
         <Card className="space-y-5 p-5">
           <div className="flex items-center space-x-2">
-            <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="AVATAR" name="Upload avatar" />
-            <TypeButton icon={<PhotographIcon className="w-5 h-5" />} type="NFT" name="NFT Avatar" />
+            <TypeButton icon={<PhotographIcon className="h-5 w-5" />} type="AVATAR" name="Upload avatar" />
+            <TypeButton icon={<PhotographIcon className="h-5 w-5" />} type="NFT" name="NFT Avatar" />
           </div>
           {settingsType === 'NFT' ? (
             <NFTPicture profile={profile as any} />

@@ -18,7 +18,7 @@ const Pending: FC<Props> = ({ handle, txHash }) => {
   });
 
   return (
-    <div className="p-5 font-bold text-center">
+    <div className="p-5 text-center font-bold">
       {loading ||
       (data?.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
         !data?.hasTxHashBeenIndexed.indexed) ? (
@@ -34,7 +34,7 @@ const Pending: FC<Props> = ({ handle, txHash }) => {
           <div>Account created successfully</div>
           <div className="pt-3">
             <a href={`/u/${handle}${HANDLE_SUFFIX}`}>
-              <Button className="mx-auto" icon={<ArrowRightIcon className="mr-1 w-4 h-4" />}>
+              <Button className="mx-auto" icon={<ArrowRightIcon className="mr-1 h-4 w-4" />}>
                 <Trans>Go to profile</Trans>
               </Button>
             </a>

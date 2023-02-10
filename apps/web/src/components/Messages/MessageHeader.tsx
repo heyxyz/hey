@@ -29,9 +29,9 @@ const MessageHeader: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <div className="dark:border-gray-700 flex items-center justify-between px-4 py-2 border-b-[1px]">
+    <div className="flex items-center justify-between border-b-[1px] px-4 py-2 dark:border-gray-700">
       <div className="flex items-center">
-        <ChevronLeftIcon onClick={onBackClick} className="w-6 h-6 mr-1 lg:hidden cursor-pointer" />
+        <ChevronLeftIcon onClick={onBackClick} className="mr-1 h-6 w-6 cursor-pointer lg:hidden" />
         <UserProfile profile={profile} />
       </div>
       {!following ? (

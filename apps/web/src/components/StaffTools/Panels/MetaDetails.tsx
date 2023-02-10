@@ -17,9 +17,9 @@ const MetaDetails: FC<Props> = ({ children, title, value, icon }) => (
       toast.success(t`Copied to clipboard!`);
     }}
   >
-    <div className="flex gap-2 items-center font-bold cursor-pointer linkify">
+    <div className="linkify flex cursor-pointer items-center gap-2 font-bold">
       {icon}
-      {title ? <div className="text-sm lt-text-gray-500">{title}:</div> : null}
+      {title ? <div className="lt-text-gray-500 text-sm">{title}:</div> : null}
       <div>{children}</div>
     </div>
   </CopyToClipboard>

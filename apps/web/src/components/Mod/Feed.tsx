@@ -21,7 +21,7 @@ const Feed: FC = () => {
     sortCriteria: PublicationSortCriteria.Latest,
     publicationTypes: [PublicationTypes.Post, PublicationTypes.Comment],
     noRandomize: true,
-    limit: 10
+    limit: 50
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
@@ -45,7 +45,7 @@ const Feed: FC = () => {
   }
 
   if (publications?.length === 0) {
-    return <EmptyState message={t`No posts yet!`} icon={<CollectionIcon className="w-8 h-8 text-brand" />} />;
+    return <EmptyState message={t`No posts yet!`} icon={<CollectionIcon className="text-brand h-8 w-8" />} />;
   }
 
   if (error) {

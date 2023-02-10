@@ -3,7 +3,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
@@ -75,14 +75,14 @@ const Search: FC<Props> = ({
           className="py-2 px-3 text-sm"
           placeholder={placeholder}
           value={searchText}
-          onFocus={() => Analytics.track(SEARCH.FOCUS)}
+          onFocus={() => Leafwatch.track(SEARCH.FOCUS)}
           iconLeft={<SearchIcon />}
           iconRight={
             <XIcon
               className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
               onClick={() => {
                 setSearchText('');
-                Analytics.track(SEARCH.CLEAR);
+                Leafwatch.track(SEARCH.CLEAR);
               }}
             />
           }
@@ -90,10 +90,10 @@ const Search: FC<Props> = ({
         />
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
-        <div className={clsx('flex absolute flex-col mt-2 w-[94%]', modalWidthClassName)} ref={dropdownRef}>
-          <Card className="overflow-y-auto py-2 max-h-[80vh]">
+        <div className={clsx('absolute mt-2 flex w-[94%] flex-col', modalWidthClassName)} ref={dropdownRef}>
+          <Card className="max-h-[80vh] overflow-y-auto py-2">
             {searchUsersLoading ? (
-              <div className="py-2 px-4 space-y-2 text-sm font-bold text-center">
+              <div className="space-y-2 py-2 px-4 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>
                   <Trans>Searching users</Trans>
@@ -104,7 +104,7 @@ const Search: FC<Props> = ({
                 {profiles.map((profile: Profile) => (
                   <div
                     key={profile?.handle}
-                    className="py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                    className="cursor-pointer py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => {
                       if (onProfileSelected) {
                         onProfileSelected(profile);

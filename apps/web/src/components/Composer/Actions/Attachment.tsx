@@ -5,7 +5,7 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import {
@@ -107,7 +107,7 @@ const Attachment: FC = () => {
           <Spinner size="sm" />
         ) : (
           <Tooltip placement="top" content="Media">
-            <PhotographIcon className="w-5 h-5 text-brand" />
+            <PhotographIcon className="text-brand h-5 w-5" />
           </Tooltip>
         )}
       </Menu.Button>
@@ -115,19 +115,19 @@ const Attachment: FC = () => {
         <Menu.Items
           ref={dropdownRef}
           static
-          className="absolute py-1 z-[5] mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
+          className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
           <Menu.Item
             as="label"
             className={({ active }) =>
               clsx(
                 { 'dropdown-active': active },
-                '!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
             htmlFor={`image_${id}`}
           >
-            <PhotographIcon className="w-4 h-4 text-brand" />
+            <PhotographIcon className="text-brand h-4 w-4" />
             <span className="text-sm">Upload image(s)</span>
             <input
               id={`image_${id}`}
@@ -135,7 +135,7 @@ const Attachment: FC = () => {
               multiple
               accept={ALLOWED_IMAGE_TYPES.join(',')}
               className="hidden"
-              onClick={() => Analytics.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_IMAGES)}
+              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_IMAGES)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -145,19 +145,19 @@ const Attachment: FC = () => {
             className={({ active }) =>
               clsx(
                 { 'dropdown-active': active },
-                '!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
             htmlFor={`video_${id}`}
           >
-            <VideoCameraIcon className="w-4 h-4 text-brand" />
+            <VideoCameraIcon className="text-brand h-4 w-4" />
             <span className="text-sm">Upload video</span>
             <input
               id={`video_${id}`}
               type="file"
               accept={ALLOWED_VIDEO_TYPES.join(',')}
               className="hidden"
-              onClick={() => Analytics.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_VIDEO)}
+              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_VIDEO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -167,19 +167,19 @@ const Attachment: FC = () => {
             className={({ active }) =>
               clsx(
                 { 'dropdown-active': active },
-                '!flex rounded-lg gap-1 space-x-1 items-center cursor-pointer menu-item'
+                'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
             htmlFor={`audio_${id}`}
           >
-            <MusicNoteIcon className="w-4 h-4 text-brand" />
+            <MusicNoteIcon className="text-brand h-4 w-4" />
             <span className="text-sm">Upload audio</span>
             <input
               id={`audio_${id}`}
               type="file"
               accept={ALLOWED_AUDIO_TYPES.join(',')}
               className="hidden"
-              onClick={() => Analytics.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_AUDIO)}
+              onClick={() => Leafwatch.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_AUDIO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
