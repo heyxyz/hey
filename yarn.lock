@@ -3443,11 +3443,6 @@
   dependencies:
     client-only "^0.0.1"
 
-"@heroicons/react@^2.0.13":
-  version "2.0.13"
-  resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-2.0.13.tgz#9b1cc54ff77d6625c9565efdce0054a4bcd9074c"
-  integrity sha512-iSN5XwmagrnirWlYEWNPdCDj9aRYVD/lnK3JlsC9/+fqGF80k8C7rl+1HCvBX0dBoagKqOFBs6fMhJJ1hOg1EQ==
-
 "@heroicons/react@v1":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-1.0.6.tgz#35dd26987228b39ef2316db3b1245c42eb19e324"
@@ -5495,22 +5490,23 @@
     urlpattern-polyfill "^6.0.2"
     web-streams-polyfill "^3.2.0"
 
-"@worldcoin/idkit@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@worldcoin/idkit/-/idkit-0.2.4.tgz#282fffb73a74e731eb2b30833262f791ca643c1d"
-  integrity sha512-lmwJPXoqv08QMfduePe/AkHYhSWAo3Ts573jJb6K7/zSslnLmaahDmn+nA1bYeZ73KgvT/00N+3moWi6Wrdb7A==
+"@worldcoin/idkit@^0.2.15":
+  version "0.2.15"
+  resolved "https://registry.yarnpkg.com/@worldcoin/idkit/-/idkit-0.2.15.tgz#f8a13df65d2dae5cb9ee20be198b105c9b132ad5"
+  integrity sha512-VUsHhKy+kWkcvfooXt43tngZLje81/eymAxIYw+HQYvnhFTo+HwyOojAEFEzgVtF6/LxYf9ir6bqFC1vUuxZ9Q==
   dependencies:
     "@ethersproject/bytes" "^5.7.0"
     "@ethersproject/solidity" "^5.7.0"
     "@fontsource/rubik" "^4.5.11"
     "@headlessui/react" "^1.7.4"
-    "@heroicons/react" "^2.0.13"
     "@radix-ui/react-dialog" "^1.0.2"
     "@radix-ui/react-scroll-area" "^1.0.2"
     "@radix-ui/react-select" "^1.1.2"
     "@radix-ui/react-toast" "^1.1.2"
     "@tailwindcss/forms" "^0.5.3"
     "@walletconnect/client" "^1.8.0"
+    bufferutil "^4.0.7"
+    copy-to-clipboard "^3.3.3"
     country-telephone-data "^0.6.3"
     framer-motion "^7.6.7"
     js-sha3 "^0.8.0"
@@ -5521,7 +5517,8 @@
     react-country-flag "^3.0.2"
     react-frame-component "^5.2.3"
     react-shadow "^19.0.3"
-    zustand "^4.1.4"
+    utf-8-validate "^6.0.2"
+    zustand "^4.3.2"
 
 "@wry/context@^0.7.0":
   version "0.7.0"
@@ -6456,7 +6453,7 @@ buffer@^5.4.3, buffer@^5.5.0:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
 
-bufferutil@^4.0.1:
+bufferutil@^4.0.1, bufferutil@^4.0.7:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/bufferutil/-/bufferutil-4.0.7.tgz#60c0d19ba2c992dd8273d3f73772ffc894c153ad"
   integrity sha512-kukuqc39WOHtdxtw4UScxF/WVnMFVSQVKhtx3AjZJzhd0RGZZldcrfSEbVsWWe6KNH253574cq5F+wpv0G9pJw==
@@ -6860,7 +6857,7 @@ convert-source-map@^1.5.0, convert-source-map@^1.7.0:
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.9.0.tgz#7faae62353fb4213366d0ca98358d22e8368b05f"
   integrity sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==
 
-copy-to-clipboard@^3.2.0, copy-to-clipboard@^3.3.1:
+copy-to-clipboard@^3.2.0, copy-to-clipboard@^3.3.1, copy-to-clipboard@^3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.3.3.tgz#55ac43a1db8ae639a4bd99511c148cdd1b83a1b0"
   integrity sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA==
@@ -12515,6 +12512,13 @@ utf-8-validate@^5.0.2:
   dependencies:
     node-gyp-build "^4.3.0"
 
+utf-8-validate@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/utf-8-validate/-/utf-8-validate-6.0.2.tgz#2d80529963e4cc55ac5a1ca9dafdaa990d5ea16b"
+  integrity sha512-yd7PQEOW+EgecUzSD7XUXTyq/vREGXk7t7fzGfOvwOAr0Z64h5rfGrmkNk8+ddVmf/FrkjPPhVyYBa7fuSPVTg==
+  dependencies:
+    node-gyp-build "^4.3.0"
+
 util-deprecate@^1.0.1, util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
@@ -13097,7 +13101,7 @@ zod@^3.20.2:
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.20.2.tgz#068606642c8f51b3333981f91c0a8ab37dfc2807"
   integrity sha512-1MzNQdAvO+54H+EaK5YpyEy0T+Ejo/7YLHS93G3RnYWh5gaotGHwGeN/ZO687qEDU2y4CdStQYXVHIgrUl5UVQ==
 
-zustand@^4.1.4, zustand@^4.3.1, zustand@^4.3.2:
+zustand@^4.3.1, zustand@^4.3.2:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.3.2.tgz#bb121fcad84c5a569e94bd1a2695e1a93ba85d39"
   integrity sha512-rd4haDmlwMTVWVqwvgy00ny8rtti/klRoZjFbL/MAcDnmD5qSw/RZc+Vddstdv90M5Lv6RPgWvm1Hivyn0QgJw==
