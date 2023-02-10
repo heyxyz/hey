@@ -2362,15 +2362,7 @@ msgid "Audio size should be less than 100MB"
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "The Unknown Collect Module is unknown and not type supported in the API."
-msgstr ""
-
-#: src/lib/getModule.ts
 msgid "Paid Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster."
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2378,15 +2370,7 @@ msgid "Rare Paid Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "The Limited Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific limit of mints."
-msgstr ""
-
-#: src/lib/getModule.ts
 msgid "24 Hour Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Timed Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency."
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2394,19 +2378,7 @@ msgid "Rare 24 Hour Collect"
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "The Limited Timed Fee Collect Module allows for any follower to collect the associate publication, provided they pay a fee, up to a specific time limit and mint cap. It is essentially a combination of the Timed Fee Collect Module and the Limited Fee Collect Module."
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Free Collect Module allows any profile to collect the publication this module is attached to."
-msgstr ""
-
-#: src/lib/getModule.ts
 msgid "No Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Revert Collect Module causes all collect actions on a given publication to fail, thus making the publication uncollectable."
 msgstr ""
 
 #: src/lib/getModule.ts
@@ -2414,15 +2386,7 @@ msgid "Fee Follow"
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "The Fee Follow Module only allows addresses to follow a given profile, so long as they pay a fee specified by the profile owner. Users can set the currency and amount required to be paid."
-msgstr ""
-
-#: src/lib/getModule.ts
 msgid "Follower Only Reference"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Follower Only Reference Module ensures that only a profile is only allowed to mirror or comment on content."
 msgstr ""
 
 #: src/pages/404.tsx
@@ -2445,4 +2409,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
