@@ -30,7 +30,7 @@ yarn i18n:extract
 - Drop a message in the Translators channel of our Discord to introduce yourself and let us know you’ve requested access.
 - Once you’ve been given access, you can start making translations.
 - Once your translations have been approved by a proofreader they’ll be automatically synced with the Lenster site!
-- You are a proofreader too but, you can’t appove your translations.
+- You are a proofreader too but, you can’t approve your translations.
 - If you identify some error in any translation please, comment your revision proposal on the comments in the right column before approve and wait for the translator answer!
 
 ## Adding a language (for devs)
