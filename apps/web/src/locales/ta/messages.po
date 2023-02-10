@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-10 00:59\n"
+"PO-Revision-Date: 2023-02-10 16:44\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -529,7 +529,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
-msgstr ""
+msgstr "உரையாடல்களை ஏற்றுகிறது"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
@@ -1765,7 +1765,7 @@ msgstr "தவறான இணையதளம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Twitter should not exceed 100 characters"
-msgstr ""
+msgstr "ட்விட்டர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -1989,7 +1989,7 @@ msgstr "பயனர்பெயர் எண்ணெழுத்து எழ�
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
-msgstr ""
+msgstr "{APP_NAME} வரை பதிவு செய்யவும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle"
@@ -2033,7 +2033,7 @@ msgstr "எங்களிடம் இருக்கும் வாலட் 
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
-msgstr ""
+msgstr "சேகரிப்பாளர்களை ஏற்றுகிறது"
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "No collectors."
@@ -2271,7 +2271,7 @@ msgstr ""
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Loading super follow"
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ ஏற்றுகிறது"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
@@ -2287,7 +2287,7 @@ msgstr "{0} இன் பப்ளிகேஷன்களில் நீங்
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will get super follow badge in @{0}'s profile"
-msgstr ""
+msgstr "@{0} இன் சுயவிவரத்தில் சூப்பர் ஃபாலோ பேட்ஜைப் பெறுவீர்கள்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will have high voting power if you followed multiple times"
@@ -2299,11 +2299,11 @@ msgstr "மேலும் விரைவில்™"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow again"
-msgstr ""
+msgstr "மீண்டும் சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow now"
-msgstr ""
+msgstr "இப்போது சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Allow follow module"
@@ -2409,3 +2409,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+
