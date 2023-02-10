@@ -8,7 +8,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import type { ISuccessResult } from '@worldcoin/idkit';
-import { IDKitWidget } from '@worldcoin/idkit';
+import { useIDKit } from '@worldcoin/idkit';
 import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
 import { IDKIT_ACTION_ID, IDKIT_BRIDGE, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
@@ -30,9 +30,48 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
 
+  const { setOpen: setIDKitOpen } = useIDKit({
+    autoClose: true,
+    enableTelemetry: true,
+    actionId: IDKIT_ACTION_ID,
+    handleVerify: async (result: ISuccessResult) => {
+      const response = await fetch(IDKIT_BRIDGE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...result,
+          is_production: IS_MAINNET,
+          action_id: IDKIT_ACTION_ID,
+          signal: currentProfile?.ownedBy
+        })
+      });
+
+      if (response.ok) {
+        return;
+      }
+
+      if (response.status === 400 && (await response.json()).code === 'already_verified') {
+        throw new Error(
+          'You have already verified this phone number with Lens. You can only verify one wallet with one phone number.'
+        );
+      }
+
+      throw new Error('Something went wrong. Please try again.');
+    },
+    signal: currentProfile?.ownedBy,
+    copy: {
+      title: 'Lens Dispatcher',
+      heading: t`Verify your phone number to increase gassless limits`
+    }
+  });
+
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
     Analytics.track(SETTINGS.DISPATCHER.TOGGLE);
+
+    if (!idKitData?.isIDKitPhoneVerified) {
+      setIDKitOpen(true);
+    }
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -88,31 +127,6 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
     } catch {}
   };
 
-  const handleIDKitProof = async (result: ISuccessResult) => {
-    const response = await fetch(IDKIT_BRIDGE, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...result,
-        is_production: IS_MAINNET,
-        action_id: IDKIT_ACTION_ID,
-        signal: currentProfile?.ownedBy
-      })
-    });
-
-    if (response.ok) {
-      return;
-    }
-
-    if (response.status === 400 && (await response.json()).code === 'already_verified') {
-      throw new Error(
-        'You have already verified this phone number with Lens. You can only verify one wallet with one phone number.'
-      );
-    }
-
-    throw new Error('Something went wrong. Please try again.');
-  };
-
   const isLoading = signLoading || writeLoading || broadcastLoading || typedDataLoading;
   const broadcastTxHash =
     broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
@@ -122,37 +136,23 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
       <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} reload />
     </div>
   ) : (
-    <IDKitWidget
-      autoClose
-      actionId={IDKIT_ACTION_ID}
-      onSuccess={toggleDispatcher}
-      handleVerify={handleIDKitProof}
-      signal={currentProfile?.ownedBy}
-      copy={{
-        title: 'Lens Dispatcher',
-        heading: t`Verify your phone number for free gassless transactions`
-      }}
+    <Button
+      variant={canUseRelay ? 'danger' : 'primary'}
+      className={clsx({ 'text-sm': buttonSize === 'sm' }, `mr-auto`)}
+      disabled={isLoading}
+      icon={
+        isLoading ? (
+          <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
+        ) : canUseRelay ? (
+          <XIcon className="w-4 h-4" />
+        ) : (
+          <CheckCircleIcon className="w-4 h-4" />
+        )
+      }
+      onClick={toggleDispatcher}
     >
-      {({ open }) => (
-        <Button
-          variant={canUseRelay ? 'danger' : 'primary'}
-          className={clsx({ 'text-sm': buttonSize === 'sm' }, `mr-auto`)}
-          disabled={isLoading}
-          icon={
-            isLoading ? (
-              <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
-            ) : canUseRelay ? (
-              <XIcon className="w-4 h-4" />
-            ) : (
-              <CheckCircleIcon className="w-4 h-4" />
-            )
-          }
-          onClick={idKitData?.isIDKitPhoneVerified ? toggleDispatcher : open}
-        >
-          {canUseRelay ? t`Disable dispatcher` : t`Enable dispatcher`}
-        </Button>
-      )}
-    </IDKitWidget>
+      {canUseRelay ? t`Disable dispatcher` : t`Enable dispatcher`}
+    </Button>
   );
 };
 
