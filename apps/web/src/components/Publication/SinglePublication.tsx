@@ -1,9 +1,7 @@
 import EventType from '@components/Home/Timeline/EventType';
-import { Leafwatch } from '@lib/leafwatch';
 import type { ElectedMirror, FeedItem, Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
@@ -39,7 +37,6 @@ const SinglePublication: FC<Props> = ({
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
-          Leafwatch.track(PUBLICATION.OPEN);
           push(`/posts/${rootPublication?.id}`);
         }
       }}
