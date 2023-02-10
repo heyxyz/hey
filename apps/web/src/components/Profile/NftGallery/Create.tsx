@@ -86,6 +86,35 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
     }
   };
 
+  const rename = async () => {
+    try {
+      const { data } = await renameGallery({
+        variables: {
+          request: {
+            name: gallery.name,
+            galleryId: gallery.id,
+            profileId: currentProfile?.id
+          }
+        }
+      });
+      if (data) {
+        cache.modify({
+          fields: {
+            nftGalleries() {
+              cache.updateQuery({ query: NftGalleriesDocument }, () => ({
+                data: gallery as any
+              }));
+            }
+          }
+        });
+        closeModal();
+        toast.success(t`Gallery name updated`);
+      }
+    } catch (error: any) {
+      toast.error(error?.messaage ?? ERROR_MESSAGE);
+    }
+  };
+
   const update = async () => {
     try {
       const newlyAddedItems = gallery.toAdd?.filter(
@@ -102,15 +131,10 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
       const sanitizedRemoveItems = newlyRemovedItems?.map((el) => {
         return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
       });
-      await renameGallery({
-        variables: {
-          request: {
-            name: gallery.name,
-            galleryId: gallery.id,
-            profileId: currentProfile?.id
-          }
-        }
-      });
+      // if gallery name only update
+      if (!sanitizedAddItems.length && !sanitizedRemoveItems.length) {
+        return rename();
+      }
       const { data } = await updateGallery({
         variables: {
           request: {
