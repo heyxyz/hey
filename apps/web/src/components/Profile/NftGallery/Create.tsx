@@ -6,6 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import trimify from '@lib/trimify';
 import { t, Trans } from '@lingui/macro';
+import { ERROR_MESSAGE } from 'data/constants';
 import type { NftGallery } from 'lens';
 import {
   NftGalleriesDocument,
@@ -35,7 +36,6 @@ enum CreateSteps {
 }
 
 const Create: FC<Props> = ({ showModal, setShowModal }) => {
-  const [emoji, setEmoji] = useState('');
   const [currentStep, setCurrentStep] = useState<CreateSteps>(CreateSteps.NAME);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
@@ -81,7 +81,9 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
         closeModal();
         toast.success(t`Gallery created`);
       }
-    } catch {}
+    } catch (error: any) {
+      toast.error(error?.messaage ?? ERROR_MESSAGE);
+    }
   };
 
   const update = async () => {
@@ -142,7 +144,9 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
 
   const onClickNext = () => {
     const galleryName = trimify(gallery.name);
-    if (!galleryName.length) {
+    if (galleryName.length > 255) {
+      return toast.error(t`Gallery name should be less than 255 characters`);
+    } else if (!galleryName.length) {
       return toast.error(t`Gallery name required`);
     } else if (
       !gallery.items.length &&
@@ -163,7 +167,6 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
   };
 
   const onPickEmoji = (emoji: string) => {
-    setEmoji(emoji);
     setGallery({ ...gallery, name: gallery.name + emoji });
   };
 
@@ -219,7 +222,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
         )}
         <div className="absolute bottom-0 flex w-full items-center justify-between rounded-b-lg bg-white p-4 dark:bg-gray-800">
           {currentStep === 'NAME' ? (
-            <EmojiPicker emoji={emoji} setEmoji={(emoji) => onPickEmoji(emoji)} />
+            <EmojiPicker setEmoji={(emoji) => onPickEmoji(emoji)} />
           ) : (
             <Trans>{gallery.items.length} selected</Trans>
           )}

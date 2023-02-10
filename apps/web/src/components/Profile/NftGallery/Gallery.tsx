@@ -4,6 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { ERROR_MESSAGE } from 'data/constants';
 import type { Nft, NftGallery } from 'lens';
 import {
   NftGalleriesDocument,
@@ -63,7 +64,9 @@ const Gallery: FC<Props> = ({ galleries }) => {
           }
         });
       }
-    } catch {}
+    } catch (error: any) {
+      toast.error(error?.messaage ?? ERROR_MESSAGE);
+    }
   };
 
   const setItemsToGallery = (items: Item[]) => {
@@ -123,13 +126,15 @@ const Gallery: FC<Props> = ({ galleries }) => {
         }
       });
       setIsRearrange(false);
-    } catch {}
+    } catch (error: any) {
+      toast.error(error?.messaage ?? ERROR_MESSAGE);
+    }
   };
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <h6 className="text-lg font-medium">{isRearrange ? 'Arrange gallery' : gallery.name}</h6>
+        <h6 className="line-clamp-1 text-lg font-medium">{isRearrange ? 'Arrange gallery' : gallery.name}</h6>
         {galleryStore?.isEdit && <Create showModal={showCreateModal} setShowModal={setShowCreateModal} />}
         {isRearrange ? (
           <div className="flex items-center space-x-2">
