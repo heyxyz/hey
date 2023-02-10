@@ -25,7 +25,6 @@ export const PROFILE = {
 };
 
 export const PUBLICATION = {
-  OPEN: 'open_publication',
   LIKE: 'like_publication',
   DISLIKE: 'dislike_publication',
   MIRROR: 'mirror_publication',
