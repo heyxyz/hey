@@ -77,19 +77,17 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
           {/* <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20"> */}
           {isUnknownCollect ? (
             <div className="flex items-center">
-              <div className="rounded-full p-1.5 hover:bg-green-300 hover:bg-opacity-20">
+              <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
                 <Tooltip
                   placement="top"
                   content={count > 0 ? `${humanize(count)} Total Tips by YOU!` : 'Quadratically Tip!'}
                   withDelay
                 >
-                  <div className="flex">
-                    {hasCollected ? <TipsSolidIcon size={20} /> : <TipsOutlineIcon size={20} />}
-                    <p className="ml-3 text-center text-green-500">-user tips ph</p>
-                  </div>
+                  <div className="flex">{hasCollected ? <TipsSolidIcon /> : <TipsOutlineIcon />}</div>
                 </Tooltip>
               </div>
-              <p className="ml-3 text-center text-xs text-green-500"> -total tips ph</p>
+              {hasCollected ? <p className="ml-2 text-center text-xs text-red-500">100 |</p> : null}
+              <p className="ml-1 text-center text-xs text-red-500">9884</p>
             </div>
           ) : (
             <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
@@ -115,7 +113,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
           isFreeCollect
             ? t`Free Collect`
             : isUnknownCollect
-            ? t`Quadratically Tip`
+            ? t`Tipping`
             : getModule(publication?.collectModule?.type).name
         }
         icon={

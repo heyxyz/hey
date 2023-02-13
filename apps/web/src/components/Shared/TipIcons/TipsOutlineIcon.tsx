@@ -1,58 +1,45 @@
 import React from 'react';
 
-export default function TipsOutlineIcon({
-  size,
-  className,
-  color = '#10b981'
-}: {
-  size: number;
-  color?: string;
-  className?: string;
-}) {
+export default function TipsOutlineIcon() {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="42 20 400 400"
+      className="icon"
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
       fill="none"
-      className={className}
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M 216.623 207.24 C 212.128 214.798 142.01 216.068 103.757 194.63 C 65.504 173.192 84.089 107.644 122.888 90.432 C 161.688 73.219 221.118 199.683 216.623 207.24 Z"
-        stroke={color}
-        strokeWidth="20px"
-        fillOpacity="0"
+        d="M9.07499 13.8C8.92499 14.475 8.62499 15.075 8.17499 15.525"
+        stroke="#EF4444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
-        d="M 216.092 233.474 C 220.587 241.032 186.662 300.61 148.409 322.048 C 110.156 343.486 60.967 295.089 65.011 253.867 C 69.054 212.644 211.597 225.916 216.092 233.474 Z"
-        stroke={color}
-        strokeWidth="20px"
-        fillOpacity="0"
+        d="M3.60001 15.75C2.85001 15.075 2.47501 14.175 2.47501 13.2C2.47501 11.325 3.97501 9.82501 5.85001 9.82501C7.72501 9.82501 7.42501 10.125 8.02501 10.575"
+        stroke="#EF4444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M1.8 15.75H14.85" stroke="#EF4444" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M10.2 8.10001C10.65 8.70001 7.72501 10.65 7.35001 11.7C6.97501 12.75 8.55001 13.725 9.67501 13.35C10.8 12.975 13.425 10.425 13.8 9.82501C14.175 9.22501 13.95 7.35001 14.325 6.82501C14.7 6.30001 15.375 5.92501 16.2 5.10001"
+        stroke="#EF4444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
-        d="M 239.232 247.036 C 248.223 247.036 284.414 305.345 284.414 348.221 C 284.414 391.096 216.641 408.248 181.885 384.237 C 147.129 360.227 230.242 247.035 239.232 247.036 Z"
-        stroke={color}
-        strokeWidth="20px"
-        fillOpacity="0"
+        d="M7.20001 8.025C7.42501 7.8 10.05 7.875 10.2 8.025"
+        stroke="#EF4444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
-        d="M 262.903 234.369 C 267.398 226.81 337.517 225.541 375.769 246.979 C 414.022 268.417 395.438 333.965 356.638 351.177 C 317.837 368.389 258.408 241.926 262.903 234.369 Z"
-        stroke={color}
-        strokeWidth="20px"
-        fillOpacity="0"
-      />
-      <path
-        d="M 263.434 208.13 C 258.939 200.572 292.864 140.994 331.117 119.555 C 369.371 98.118 418.559 146.515 414.516 187.737 C 410.472 228.96 267.929 215.688 263.434 208.13 Z"
-        stroke={color}
-        strokeWidth="20px"
-        fillOpacity="0"
-      />
-      <path
-        d="M 240.293 194.568 C 231.302 194.568 195.111 136.259 195.111 93.383 C 195.111 50.508 262.884 33.356 297.64 57.367 C 332.397 81.378 249.283 194.569 240.293 194.568 Z"
-        stroke={color}
-        strokeWidth="20px"
-        fillOpacity="0"
+        d="M13.65 2.25C13.65 2.25 12.15 3.45 11.7 3.675C10.95 3.975 6.97499 4.125 6.07499 4.275C5.24999 4.5 4.72499 4.95 4.42499 5.55C4.12499 6.15 3.67499 10.2 3.67499 10.2C3.67499 10.2 4.87499 9.375 6.89999 9.675C6.89999 9.675 6.89999 8.175 7.19999 8.025"
+        stroke="#EF4444"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
