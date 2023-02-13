@@ -1,5 +1,4 @@
 import { Card } from '@components/UI/Card';
-import HelpTooltip from '@components/UI/HelpTooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { getModule } from '@lib/getModule';
 import { POLYGONSCAN_URL } from 'data/constants';
@@ -24,7 +23,6 @@ const Module: FC<Props> = ({ module }) => {
             <GetModuleIcon module={module?.module} size={4} />
           </div>
           <div className="whitespace-nowrap font-bold">{getModule(module?.module).name}</div>
-          <HelpTooltip content={getModule(module?.module).helper} />
         </div>
         <a
           href={`${POLYGONSCAN_URL}/address/${module?.contractAddress}`}
