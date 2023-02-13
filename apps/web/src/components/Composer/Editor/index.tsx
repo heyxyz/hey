@@ -1,3 +1,4 @@
+import MentionsPlugin from '@components/Shared/Lexical/Plugins/AtMentionsPlugin';
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
 import EmojisPlugin from '@components/Shared/Lexical/Plugins/EmojisPlugin';
@@ -19,8 +20,6 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
-
-import MentionsPlugin from '../../Shared/Lexical/Plugins/AtMentionsPlugin';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
