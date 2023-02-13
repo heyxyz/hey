@@ -21,10 +21,9 @@ jobs:
           body: |
             ### List to do
 
-            - [ ] Sync all branches `script/sync-branches`
             - [ ] Extract all i18n strings `yarn i18n:extract`
             - [ ] Clear all deprecated strings (search by `#~` in vscode)
-            - [ ] Update `yarn.lock` file `rm yarn.lock && yarn`
+            - [ ] Sync all branches `script/sync-branches`
           pinned: false
           close-previous: true
         env:
