@@ -7,7 +7,7 @@ import { getModule } from '@lib/getModule';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
-import { SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE } from 'data/contracts';
+import { SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE, SANDBOX_VOTING_STRATEGY } from 'data/contracts';
 import { ethers } from 'ethers';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
@@ -63,11 +63,16 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       const moduleType = getModule(selectedModule).name;
       const abi = ['function approve(address spender, uint256 value)'];
       let iface = new ethers.utils.Interface(abi);
+
       const approveUnknownCollectModule = iface.encodeFunctionData('approve', [
         SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE,
-        ethers.constants.MaxUint256
+        value === '0' ? 0 : ethers.constants.MaxUint256
       ]);
 
+      const approveVotingStrategy = iface.encodeFunctionData('approve', [
+        SANDBOX_VOTING_STRATEGY,
+        value === '0' ? 0 : ethers.constants.MaxUint256
+      ]);
       sendTransaction?.({
         recklesslySetUnpreparedRequest: {
           from: data?.from,
@@ -75,6 +80,16 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
           data: moduleType === 'Unknown Collect' ? approveUnknownCollectModule : data?.data
         }
       });
+      // alert change to field to result from subgraph query
+      if (moduleType === 'Unknown Collect') {
+        sendTransaction?.({
+          recklesslySetUnpreparedRequest: {
+            from: data?.from,
+            to: data?.to,
+            data: approveVotingStrategy
+          }
+        });
+      }
     });
   };
 

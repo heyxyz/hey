@@ -61,12 +61,12 @@ const RoundStats: FC<ChildrenProps> = ({ showDetails }) => {
           <div className="text-md m-4">
             <div className="my-2">
               <p>Coming to Eth Denver for the first time!</p>
-              <p className="text-sm text-green-500">67 tips by 10 voters</p>
+              <p className="text-sm text-red-500">67 tips by 10 voters</p>
             </div>
             <div className="divider w-full" />
             <div className="my-2">
               <p>Some other post</p>
-              <p className="text-sm text-green-500">4 tips by 1 voters</p>
+              <p className="text-sm text-red-500">4 tips by 1 voters</p>
             </div>
           </div>
         </Card>
@@ -102,7 +102,7 @@ export const ProfileTipsStats: FC = () => {
     <div>
       <div className="flex justify-center px-10 py-3">
         <div className="mr-3 mt-1">
-          <TipsSolidIcon size={20} />
+          <TipsSolidIcon />
         </div>
         <div>
           <div className="flex flex-col justify-between">
