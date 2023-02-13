@@ -44,17 +44,15 @@ const Gallery: FC<Props> = ({ galleries }) => {
     onCompleted: () => {
       toast.success(t`Gallery deleted`);
       setGallery(GALLERY_DEFAULTS);
-    },
-    update(cache) {
-      const normalizedId = cache.identify({ id: gallery.id, __typename: 'NftGallery' });
-      cache.evict({ id: normalizedId });
-      cache.gc();
     }
   });
 
   const onDelete = async () => {
     try {
       if (confirm(t`Are you sure you want to delete?`)) {
+        const normalizedId = cache.identify({ id: gallery.id, __typename: 'NftGallery' });
+        cache.evict({ id: normalizedId });
+        cache.gc();
         deleteNftGallery({
           variables: {
             request: {

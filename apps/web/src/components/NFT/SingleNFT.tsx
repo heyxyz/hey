@@ -38,7 +38,7 @@ const SingleNFT: FC<Props> = ({ nft, linkToDetail = true }) => {
               title={`${nft.contractAddress}:${nft.tokenId}`}
               sandbox=""
               className="h-full w-full sm:rounded-t-[10px]"
-              src={nft?.originalContent?.animatedUrl}
+              src={getIPFSLink(nft?.originalContent?.animatedUrl)}
             />
           )}
         </div>
