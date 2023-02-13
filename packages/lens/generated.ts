@@ -4829,6 +4829,7 @@ export type CommentFieldsFragment = {
                 | {
                     __typename?: 'Comment';
                     id: any;
+                    collectNftAddress?: any | null;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     onChainContentURI: string;
@@ -5580,6 +5581,7 @@ export type CommentFieldsFragment = {
           | {
               __typename?: 'Comment';
               id: any;
+              collectNftAddress?: any | null;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               onChainContentURI: string;
@@ -6433,6 +6435,7 @@ export type MirrorFieldsFragment = {
     | {
         __typename?: 'Comment';
         id: any;
+        collectNftAddress?: any | null;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         onChainContentURI: string;
@@ -8629,6 +8632,7 @@ export type CommentFeedQuery = {
                         | {
                             __typename?: 'Comment';
                             id: any;
+                            collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
@@ -9440,6 +9444,7 @@ export type CommentFeedQuery = {
                   | {
                       __typename?: 'Comment';
                       id: any;
+                      collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
@@ -10742,6 +10747,7 @@ export type ExploreFeedQuery = {
                         | {
                             __typename?: 'Comment';
                             id: any;
+                            collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
@@ -11553,6 +11559,7 @@ export type ExploreFeedQuery = {
                   | {
                       __typename?: 'Comment';
                       id: any;
+                      collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
@@ -12313,6 +12320,7 @@ export type ExploreFeedQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                collectNftAddress?: any | null;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 onChainContentURI: string;
@@ -13542,6 +13550,7 @@ export type FeedHighlightsQuery = {
                         | {
                             __typename?: 'Comment';
                             id: any;
+                            collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
@@ -14353,6 +14362,7 @@ export type FeedHighlightsQuery = {
                   | {
                       __typename?: 'Comment';
                       id: any;
+                      collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
@@ -15113,6 +15123,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                collectNftAddress?: any | null;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 onChainContentURI: string;
@@ -17222,6 +17233,7 @@ export type ProfileFeedQuery = {
                         | {
                             __typename?: 'Comment';
                             id: any;
+                            collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             onChainContentURI: string;
@@ -18033,6 +18045,7 @@ export type ProfileFeedQuery = {
                   | {
                       __typename?: 'Comment';
                       id: any;
+                      collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       onChainContentURI: string;
@@ -18793,6 +18806,7 @@ export type ProfileFeedQuery = {
             | {
                 __typename?: 'Comment';
                 id: any;
+                collectNftAddress?: any | null;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 onChainContentURI: string;
@@ -20088,6 +20102,7 @@ export type PublicationQuery = {
                       | {
                           __typename?: 'Comment';
                           id: any;
+                          collectNftAddress?: any | null;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           onChainContentURI: string;
@@ -20892,6 +20907,7 @@ export type PublicationQuery = {
                 | {
                     __typename?: 'Comment';
                     id: any;
+                    collectNftAddress?: any | null;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     onChainContentURI: string;
@@ -21650,6 +21666,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'Comment';
               id: any;
+              collectNftAddress?: any | null;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               onChainContentURI: string;
@@ -23026,6 +23043,7 @@ export type SearchPublicationsQuery = {
                             | {
                                 __typename?: 'Comment';
                                 id: any;
+                                collectNftAddress?: any | null;
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
                                 onChainContentURI: string;
@@ -23889,6 +23907,7 @@ export type SearchPublicationsQuery = {
                       | {
                           __typename?: 'Comment';
                           id: any;
+                          collectNftAddress?: any | null;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           onChainContentURI: string;
@@ -25659,6 +25678,7 @@ export type TimelineQuery = {
                           | {
                               __typename?: 'Comment';
                               id: any;
+                              collectNftAddress?: any | null;
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
                               onChainContentURI: string;
@@ -26503,6 +26523,7 @@ export type TimelineQuery = {
                     | {
                         __typename?: 'Comment';
                         id: any;
+                        collectNftAddress?: any | null;
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         onChainContentURI: string;
@@ -28103,6 +28124,7 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'Comment';
                           id: any;
+                          collectNftAddress?: any | null;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           onChainContentURI: string;
@@ -28907,6 +28929,7 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'Comment';
                     id: any;
+                    collectNftAddress?: any | null;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     onChainContentURI: string;
@@ -29808,6 +29831,7 @@ export const MirrorFieldsFragmentDoc = gql`
         profile {
           ...ProfileFields
         }
+        collectNftAddress
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
         onChainContentURI

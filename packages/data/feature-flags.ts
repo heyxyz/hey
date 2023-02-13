@@ -27,6 +27,6 @@ export const featureFlags = [
   {
     key: 'gated-locales',
     name: 'Gated locales',
-    enabledFor: [...lensterMembers, ...aaveMembers]
+    enabledFor: ['0x01adb7', '0x216f', '0x6b66', '0x6b15', '0x01adb3', ...lensterMembers, ...aaveMembers]
   }
 ];
