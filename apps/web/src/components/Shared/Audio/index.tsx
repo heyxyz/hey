@@ -1,10 +1,10 @@
 import type { OptimisticTransaction } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
-import getAttributeFromTrait from '@lib/getAttributeFromTrait';
+import getPublicationAttribute from '@lib/getPublicationAttribute';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import type { Attribute, Publication } from 'lens';
+import type { Publication } from 'lens';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
@@ -108,7 +108,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
                     <h5 className="truncate text-lg text-white">{publication?.metadata.name ?? txn.title}</h5>
                     <h6 className="truncate text-white/70">
                       {txn?.author ??
-                        getAttributeFromTrait(publication?.metadata.attributes as Attribute[], 'author') ??
+                        getPublicationAttribute(publication?.metadata.attributes, 'author') ??
                         publication?.profile.name}
                     </h6>
                   </>
