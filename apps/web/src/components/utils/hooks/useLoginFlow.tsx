@@ -1,4 +1,4 @@
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { ERROR_MESSAGE } from 'data/constants';
@@ -72,7 +72,7 @@ export const useLoginFlow = () => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Analytics.track(USER.SIWL);
+      Leafwatch.track(USER.SIWL);
     } catch (error) {
       console.error(error);
     } finally {

@@ -1,8 +1,6 @@
-import { Analytics } from '@lib/analytics';
 import type { Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { PUBLICATION } from 'src/tracking';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -21,7 +19,6 @@ const ThreadBody: FC<Props> = ({ publication }) => {
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
-          Analytics.track(PUBLICATION.OPEN);
           push(`/posts/${publication?.id}`);
         }
       }}

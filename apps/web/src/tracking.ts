@@ -1,5 +1,6 @@
 // Strings used for events tracking
 
+export const PAGEVIEW = 'pageview';
 export const USER = {
   LOGIN: 'user_login',
   LOGOUT: 'user_logout',
@@ -24,7 +25,6 @@ export const PROFILE = {
 };
 
 export const PUBLICATION = {
-  OPEN: 'open_publication',
   LIKE: 'like_publication',
   DISLIKE: 'dislike_publication',
   MIRROR: 'mirror_publication',
@@ -118,8 +118,6 @@ export const MESSAGES = {
 
 export const SETTINGS = {
   ACCOUNT: {
-    OPEN_REFLECT_ENABLE: 'open_reflect_enable',
-    OPEN_REFLECT_DISABLE: 'open_reflect_disable',
     OPEN_VERIFICATION: 'open_account_verification',
     SET_DEFAULT_PROFILE: 'set_default_profile',
     SET_SUPER_FOLLOW: 'set_super_follow'

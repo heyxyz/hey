@@ -28,11 +28,18 @@ interface Props {
 }
 
 const OnchainMeta: FC<Props> = ({ publication }) => {
-  const hash = publication.onChainContentURI?.split('/').pop();
+  const hash =
+    publication?.__typename === 'Mirror'
+      ? publication.mirrorOf.onChainContentURI?.split('/').pop()
+      : publication.onChainContentURI?.split('/').pop();
+  const collectNftAddress =
+    publication?.__typename === 'Mirror'
+      ? publication.mirrorOf?.collectNftAddress
+      : publication?.collectNftAddress;
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 
-  if (!isArweaveHash && !isIPFSHash && !publication?.collectNftAddress) {
+  if (!isArweaveHash && !isIPFSHash && !collectNftAddress) {
     return null;
   }
 
@@ -43,11 +50,11 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
           <Meta name={t`ARWEAVE TRANSACTION`} uri={`https://arweave.app/tx/${hash}`} hash={hash} />
         ) : null}
         {isIPFSHash ? <Meta name="IPFS TRANSACTION" uri={`${IPFS_GATEWAY}${hash}`} hash={hash} /> : null}
-        {publication?.collectNftAddress ? (
+        {collectNftAddress ? (
           <Meta
             name={t`NFT ADDRESS`}
-            uri={`${POLYGONSCAN_URL}/token/${publication?.collectNftAddress}`}
-            hash={publication?.collectNftAddress}
+            uri={`${POLYGONSCAN_URL}/token/${collectNftAddress}`}
+            hash={collectNftAddress}
           />
         ) : null}
       </div>

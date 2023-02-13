@@ -1,7 +1,7 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useLoginFlow from '@components/utils/hooks/useLoginFlow';
-import { Analytics } from '@lib/analytics';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -32,7 +32,7 @@ const LoginButton: FC = () => {
         }
         onClick={() => {
           showLoginFlow();
-          Analytics.track(USER.LOGIN);
+          Leafwatch.track(USER.LOGIN);
         }}
       >
         <Trans>Login</Trans>

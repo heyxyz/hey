@@ -1,7 +1,7 @@
 {
   "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "types": ["@cloudflare/workers-types"],
     "noEmit": true
   }
 }

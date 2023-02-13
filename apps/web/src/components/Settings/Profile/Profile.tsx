@@ -8,11 +8,11 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import { PencilIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import getAttribute from '@lib/getAttribute';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import imageProxy from '@lib/imageProxy';
+import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -61,7 +61,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
-    Analytics.track(SETTINGS.PROFILE.UPDATE);
+    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
