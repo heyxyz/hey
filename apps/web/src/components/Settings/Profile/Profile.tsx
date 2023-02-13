@@ -8,7 +8,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import { PencilIcon } from '@heroicons/react/outline';
-import getAttribute from '@lib/getAttribute';
+import getProfileAttribute from '@lib/getProfileAttribute';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import imageProxy from '@lib/imageProxy';
@@ -142,9 +142,12 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
     schema: editProfileSchema,
     defaultValues: {
       name: profile?.name ?? '',
-      location: getAttribute(profile?.attributes, 'location'),
-      website: getAttribute(profile?.attributes, 'website'),
-      twitter: getAttribute(profile?.attributes, 'twitter')?.replace(/(https:\/\/)?twitter\.com\//, ''),
+      location: getProfileAttribute(profile?.attributes, 'location'),
+      website: getProfileAttribute(profile?.attributes, 'website'),
+      twitter: getProfileAttribute(profile?.attributes, 'twitter')?.replace(
+        /(https:\/\/)?twitter\.com\//,
+        ''
+      ),
       bio: profile?.bio ?? ''
     }
   });
@@ -185,8 +188,8 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
           { key: 'website', value: website },
           { key: 'twitter', value: twitter },
           { key: 'hasPrideLogo', value: pride },
-          { key: 'statusEmoji', value: getAttribute(profile?.attributes, 'statusEmoji') },
-          { key: 'statusMessage', value: getAttribute(profile?.attributes, 'statusMessage') },
+          { key: 'statusEmoji', value: getProfileAttribute(profile?.attributes, 'statusEmoji') },
+          { key: 'statusMessage', value: getProfileAttribute(profile?.attributes, 'statusMessage') },
           { key: 'app', value: APP_NAME }
         ],
         version: '1.0.0',
