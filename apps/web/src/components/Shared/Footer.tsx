@@ -19,7 +19,7 @@ const Footer: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
   const { i18n } = useLingui();
-  const gatedLocales = ['zh', 'es'];
+  const gatedLocales = ['ta', 'zh', 'es'];
   const locales = Object.fromEntries(
     Object.entries(supportedLocales).filter(([key]) =>
       isFeatureEnabled('gated-locales', currentProfile?.id) ? true : !gatedLocales.includes(key)
