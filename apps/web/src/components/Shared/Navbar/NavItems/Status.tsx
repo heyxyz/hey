@@ -1,5 +1,5 @@
 import { EmojiHappyIcon } from '@heroicons/react/outline';
-import getAttribute from '@lib/getAttribute';
+import getProfileAttribute from '@lib/getProfileAttribute';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -15,8 +15,8 @@ const Status: FC<Props> = ({ className = '' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
 
-  const statusEmoji = getAttribute(currentProfile?.attributes, 'statusEmoji');
-  const statusMessage = getAttribute(currentProfile?.attributes, 'statusMessage');
+  const statusEmoji = getProfileAttribute(currentProfile?.attributes, 'statusEmoji');
+  const statusMessage = getProfileAttribute(currentProfile?.attributes, 'statusMessage');
   const hasStatus = statusEmoji && statusMessage;
 
   return (
