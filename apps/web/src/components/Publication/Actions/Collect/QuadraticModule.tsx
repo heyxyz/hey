@@ -151,7 +151,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   }, [isFetching, collectModule, refetch]);
 
   // const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
-  // console.log(collectModule)
+
   const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
@@ -166,6 +166,13 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
       setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
   });
+  // const { isFetching, refetch } = useContractRead({
+  //   address: getEnvConfig().QuadraticVoteCollectModuleAddress,
+  //   abi: QuadraticVoteCollectModule,
+  //   functionName: 'getPublicationData',
+  //   args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
+  //   enabled: false
+  // });
 
   const { data: revenueData, loading: revenueLoading } = usePublicationRevenueQuery({
     variables: {
