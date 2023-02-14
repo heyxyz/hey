@@ -32,12 +32,7 @@ const PublicationHeader: FC<Props> = ({ publication, className = '', feedItem })
   return (
     <div className={clsx('flex justify-between space-x-1.5', className)}>
       <span onClick={(event) => event.stopPropagation()}>
-        <UserProfile
-          // @ts-ignore
-          profile={profile ?? publication?.collectedBy?.defaultProfile}
-          timestamp={timestamp}
-          showStatus
-        />
+        <UserProfile profile={profile} timestamp={timestamp} showStatus />
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
         {staffMode && <Source publication={publication} />}
