@@ -4,7 +4,7 @@ import { CollectionIcon, XIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Nft } from 'lens';
 import React from 'react';
-import type { Item } from 'src/store/nft-gallery';
+import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 
 const ReviewSelection = () => {
@@ -24,7 +24,7 @@ const ReviewSelection = () => {
     const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => {
       return i.itemId === id;
     });
-    let toRemove: Item[] = [];
+    let toRemove: NftGalleryItem[] = [];
     // if exists
     if (alreadyExistsIndex >= 0) {
       toRemove = [...gallery.toRemove, nft];
