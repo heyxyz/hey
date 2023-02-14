@@ -1,20 +1,20 @@
 import type { Nft } from 'lens';
 import { create } from 'zustand';
 
-export interface Item extends Nft {
+export interface NftGalleryItem extends Nft {
   itemId?: string;
   newOrder?: number;
 }
 
 interface NftGallery {
   name: string;
-  items: Item[];
-  alreadySelectedItems: Item[];
+  items: NftGalleryItem[];
+  alreadySelectedItems: NftGalleryItem[];
   id: string;
   isEdit: boolean;
-  toAdd: Item[];
-  toRemove: Item[];
-  reArrangedItems: Item[];
+  toAdd: NftGalleryItem[];
+  toRemove: NftGalleryItem[];
+  reArrangedItems: NftGalleryItem[];
 }
 
 interface NftGalleryState {

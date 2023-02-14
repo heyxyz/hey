@@ -16,7 +16,7 @@ import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import type { Item } from 'src/store/nft-gallery';
+import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { GALLERY_DEFAULTS, useNftGalleryStore } from 'src/store/nft-gallery';
 
 import Create from './Create';
@@ -67,7 +67,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
     }
   };
 
-  const setItemsToGallery = (items: Item[]) => {
+  const setItemsToGallery = (items: NftGalleryItem[]) => {
     setGallery({
       ...gallery,
       items,
