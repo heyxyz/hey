@@ -54,6 +54,7 @@ interface Props {
   setCount: Dispatch<number>;
   publication: Publication;
   electedMirror?: ElectedMirror;
+  setShowCollectModal?: Dispatch<boolean>;
 }
 
 export interface QuadraticCollectModuleData {
@@ -88,7 +89,7 @@ const quadraticModuleSettings: QuadraticCollectModuleData = {
   }
 };
 
-const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
+const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirror, setShowCollectModal }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -99,7 +100,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const [collectModule, setCollectModule] = useState<QuadraticCollectModuleData>(quadraticModuleSettings);
-  const [customTipAmount, setCustomTipAmount] = useState(0);
 
   const [moduleAllowed, setModuleAllowed] = useState(false);
   const [votingStrategyAllowed, setVotingStrategyAllowed] = useState(false);
@@ -114,6 +114,9 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
+    setTimeout(() => {
+      setShowCollectModal && setShowCollectModal(false);
+    }, 2000);
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
@@ -145,6 +148,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
         if (res) {
           const { currency, referral, grantsRoundAddress } = res.data;
           fetchRoundInfo(grantsRoundAddress).then((round) => {
+            console.log('round', round);
             const roundEnd = new Date(round.roundEndTime * 1000);
             const roundVotingStrategyAddress = round.votingStrategy.id;
             setCollectModule({
@@ -156,7 +160,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
               endTimestamp: roundEnd,
               votingStrategy: roundVotingStrategyAddress,
               grantsRound: grantsRoundAddress,
-              // alert, will need custom function here for this info as this data doesn't exist on UnkownCollectModuleSettings
+              // alert, will need custom function/api here for this info as this data doesn't exist on UnkownCollectModuleSettings, esp for mumbai
               amount: {
                 __typename: 'ModuleFeeAmount',
                 value: '.0001',
@@ -196,12 +200,11 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   });
 
   useEffect(() => {
-    if (moduleAllowed && votingStrategyAllowed) {
+    if (moduleAllowed && votingStrategyAllowed && votingApprovalFetched) {
       setAllowed(true);
     } else {
       setAllowed(false);
     }
-
     if (allowanceLoading || !votingApprovalFetched) {
       setAllAllowancesLoading(true);
     } else {
@@ -340,6 +343,16 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     broadcastLoading ||
     allAllowancesLoading;
 
+  const resetAmount = () => {
+    setCollectModule((prevState) => ({
+      ...prevState,
+      amount: {
+        ...prevState.amount,
+        value: quadraticModuleSettings.amount.value
+      }
+    }));
+  };
+
   return (
     <div className="p-5">
       {collectModule?.followerOnly && (
@@ -360,9 +373,29 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
                 <input
                   className="mr-2 w-4/6 rounded"
                   type="number"
+                  step="0.0001"
                   placeholder="How much do you want to tip?"
-                  value={customTipAmount}
-                  onChange={(e) => setCustomTipAmount(parseFloat(e.target.value))}
+                  value={collectModule.amount.value}
+                  onChange={(e) => {
+                    const value = e.target.value.trim();
+                    if (value === '' || value === '.') {
+                      setCollectModule((prevState) => ({
+                        ...prevState,
+                        amount: {
+                          ...prevState.amount,
+                          value: '0'
+                        }
+                      }));
+                    } else {
+                      setCollectModule((prevState) => ({
+                        ...prevState,
+                        amount: {
+                          ...prevState.amount,
+                          value: Math.max(parseFloat(value), 0).toString()
+                        }
+                      }));
+                    }
+                  }}
                 />
 
                 <Button
@@ -377,7 +410,19 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
                 </Button>
               </div>
             ) : (
-              <WarningMessage message={<Uniswap module={collectModule} />} />
+              <div className="flex flex-1 items-center">
+                <div>
+                  <WarningMessage message={<Uniswap module={collectModule} />} />
+                </div>
+
+                <div className="mx-auto flex items-center">
+                  <div className="flex w-full justify-center">
+                    <Button className="text-center" onClick={resetAmount}>
+                      Reset Amount
+                    </Button>
+                  </div>
+                </div>
+              </div>
             )
           ) : null)}
       </div>
@@ -392,7 +437,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
           {...(collectModule ? { collectModule: collectModule } : {})}
         />
       )}
-
       <div className="space-y-1.5 pb-2">
         {publication?.metadata?.name && (
           <div className="text-xl font-bold">{publication?.metadata?.name}</div>
@@ -423,7 +467,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
               <>
                 <span className="lt-text-gray-500 px-0.5">·</span>
                 <span className="lt-text-gray-500 text-xs font-bold">
-                  ${(parseFloat(collectModule.amount.value) * usdPrice).toFixed(2)}
+                  ${(parseFloat(collectModule.amount.value) * usdPrice).toFixed(5)}
                 </span>
               </>
             ) : null}
@@ -442,7 +486,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
                 Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
               }}
             >
-              <Trans>{humanize(count)} collectors</Trans>
+              <Trans>{humanize(count)} total tips</Trans>
             </button>
             <Modal
               title={t`Collected by`}
@@ -535,7 +579,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
         <div className="mt-3 flex items-center space-x-1.5 font-bold text-green-500">
           <CheckCircleIcon className="h-5 w-5" />
           <div>
-            <Trans>You already collected this</Trans>
+            <Trans>You have tipped this post!</Trans>
           </div>
         </div>
       )}

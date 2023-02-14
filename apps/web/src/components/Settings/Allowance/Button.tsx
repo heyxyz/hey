@@ -122,10 +122,16 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       >
         <div className="space-y-3 p-5">
           <WarningMessage
-            title={t`Handle with care!`}
+            title={t`Important Note:`}
             message={
               <div className="leading-6">
                 <Trans>
+                  <div>
+                    <span className="my-4 block text-center">
+                      <b>YOU WILL NEED TO APPROVE TWO (2) TRANSACTIONS IN ORDER TO TIP.</b>
+                    </span>
+                  </div>
+                  <br />
                   Please be aware that by allowing this module, the amount indicated will be automatically
                   deducted when you <b>collect</b> and <b>super follow</b>.
                 </Trans>

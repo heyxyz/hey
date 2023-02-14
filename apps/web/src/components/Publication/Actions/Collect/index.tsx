@@ -57,12 +57,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
   }, [publication]);
 
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
-  {
-    /* {console.log('HAS COLLECTED: ', hasCollected)} */
-  }
-  {
-    /* {console.log('Publication: ', publication)} */
-  }
+
   return (
     <>
       <div className="flex items-center space-x-1 text-red-500">
@@ -74,7 +69,6 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
           }}
           aria-label="Collect"
         >
-          {/* <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20"> */}
           {isUnknownCollect ? (
             <div className="flex items-center">
               <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
@@ -87,7 +81,6 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
                 </Tooltip>
               </div>
               {hasCollected ? <p className="ml-2 text-center text-xs text-red-500">100 |</p> : null}
-              <p className="ml-1 text-center text-xs text-red-500">9884</p>
             </div>
           ) : (
             <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
@@ -133,6 +126,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
             publication={publication}
             count={count}
             setCount={setCount}
+            setShowCollectModal={setShowCollectModal}
           />
         ) : (
           <CollectModule
