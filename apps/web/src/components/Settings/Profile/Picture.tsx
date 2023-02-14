@@ -4,6 +4,8 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
+import { getCroppedImg } from '@lib/image-cropper/cropUtils';
+import type { Area } from '@lib/image-cropper/types';
 import imageProxy from '@lib/imageProxy';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
@@ -20,14 +22,12 @@ import {
 } from 'lens';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
-import type { Area } from 'react-easy-crop';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import { getCroppedImg } from './canvasUtils';
 import ImageCropper from './ImageCropper';
 
 interface Props {
@@ -183,20 +183,26 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   };
 
+  const avatarPreviewSize = 240;
+
   return (
     <>
       <div className="space-y-1.5">
         {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
         <div className="space-y-3">
           {imageSrc ? (
-            <ImageCropper imageSrc={imageSrc} setCroppedAreaPixels={setCroppedAreaPixels} />
+            <ImageCropper
+              imageSrc={imageSrc}
+              setCroppedAreaPixels={setCroppedAreaPixels}
+              size={avatarPreviewSize}
+            />
           ) : (
             avatar && (
               <div>
                 <img
-                  className="h-60 w-60 rounded-lg"
-                  height={240}
-                  width={240}
+                  className="rounded-lg"
+                  height={avatarPreviewSize}
+                  width={avatarPreviewSize}
                   onError={({ currentTarget }) => {
                     currentTarget.src = getIPFSLink(avatar);
                   }}

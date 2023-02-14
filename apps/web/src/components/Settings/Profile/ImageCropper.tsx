@@ -1,34 +1,33 @@
+import Cropper from '@lib/image-cropper/Cropper';
+import type { Area, Point } from '@lib/image-cropper/types';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
-import type { Area, Point } from 'react-easy-crop';
-import Cropper from 'react-easy-crop';
 
 interface Props {
+  size: number;
   imageSrc: string;
   setCroppedAreaPixels: Dispatch<Area>;
 }
 
-const ImageCropper: FC<Props> = ({ imageSrc, setCroppedAreaPixels }) => {
+const ImageCropper: FC<Props> = ({ size, imageSrc, setCroppedAreaPixels }) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
 
   return (
-    <div className="relative h-60 w-60">
-      <Cropper
-        image={imageSrc}
-        crop={crop}
-        zoom={zoom}
-        zoomSpeed={0.2}
-        aspect={1.0}
-        cropShape="round"
-        showGrid={false}
-        onCropChange={setCrop}
-        onCropComplete={(_croppedArea, croppedAreaPixels) => {
-          setCroppedAreaPixels(croppedAreaPixels);
-        }}
-        onZoomChange={setZoom}
-      />
-    </div>
+    <Cropper
+      image={imageSrc}
+      size={size}
+      borderSize={20}
+      crop={crop}
+      zoom={zoom}
+      zoomSpeed={1.2}
+      showGrid={false}
+      onCropChange={setCrop}
+      onCropComplete={(croppedAreaPixels) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+      }}
+      onZoomChange={setZoom}
+    />
   );
 };
 

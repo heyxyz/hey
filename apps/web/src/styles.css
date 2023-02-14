@@ -1,4 +1,5 @@
 @import url('fonts.css');
+@import url('lib/image-cropper/styles.css');
 
 @tailwind base;
 @tailwind components;
