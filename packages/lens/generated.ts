@@ -2637,7 +2637,7 @@ export type PaginatedResultInfo = {
   totalCount?: Maybe<Scalars['Int']>;
 };
 
-/** The paginated timeline result */
+/** The paginated result */
 export type PaginatedTimelineResult = {
   __typename?: 'PaginatedTimelineResult';
   items: Array<Publication>;
@@ -3354,8 +3354,6 @@ export type Query = {
   recommendedProfiles: Array<Profile>;
   rel?: Maybe<Scalars['Void']>;
   search: SearchResult;
-  /** @deprecated You should be using feed, this will not be supported after 15th November 2021, please migrate. */
-  timeline: PaginatedTimelineResult;
   txIdToTxHash: Scalars['TxHash'];
   unknownEnabledModules: EnabledModules;
   userSigNonces: UserSigNonces;
@@ -3515,10 +3513,6 @@ export type QueryRelArgs = {
 
 export type QuerySearchArgs = {
   request: SearchQueryRequest;
-};
-
-export type QueryTimelineArgs = {
-  request: TimelineRequest;
 };
 
 export type QueryTxIdToTxHashArgs = {
@@ -3855,27 +3849,6 @@ export type TimedFeeCollectModuleSettings = {
   type: CollectModules;
 };
 
-export type TimelineRequest = {
-  cursor?: InputMaybe<Scalars['Cursor']>;
-  limit?: InputMaybe<Scalars['LimitScalar']>;
-  metadata?: InputMaybe<PublicationMetadataFilters>;
-  /** The profile id */
-  profileId: Scalars['ProfileId'];
-  /** The App Id */
-  sources?: InputMaybe<Array<Scalars['Sources']>>;
-  /** The timeline types you wish to include, if nothing passed in will bring back all */
-  timelineTypes?: InputMaybe<Array<TimelineType>>;
-};
-
-/** Timeline types */
-export enum TimelineType {
-  CollectComment = 'COLLECT_COMMENT',
-  CollectPost = 'COLLECT_POST',
-  Comment = 'COMMENT',
-  Mirror = 'MIRROR',
-  Post = 'POST'
-}
-
 export type TransactionError = {
   __typename?: 'TransactionError';
   reason: TransactionErrorReasons;
@@ -4188,31 +4161,6 @@ export type CommentFieldsFragment = {
     result: boolean;
     reasons?: Array<DecryptFailReason> | null;
   };
-  collectedBy?: {
-    __typename?: 'Wallet';
-    address: any;
-    defaultProfile?: {
-      __typename?: 'Profile';
-      id: any;
-      name?: string | null;
-      handle: any;
-      bio?: string | null;
-      ownedBy: any;
-      isFollowedByMe: boolean;
-      stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-      attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-      picture?:
-        | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-        | { __typename?: 'NftImage'; uri: any }
-        | null;
-      followModule?:
-        | { __typename: 'FeeFollowModuleSettings' }
-        | { __typename: 'ProfileFollowModuleSettings' }
-        | { __typename: 'RevertFollowModuleSettings' }
-        | { __typename: 'UnknownFollowModuleSettings' }
-        | null;
-    } | null;
-  } | null;
   collectModule:
     | { __typename?: 'AaveFeeCollectModuleSettings' }
     | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -4429,11 +4377,6 @@ export type CommentFieldsFragment = {
           result: boolean;
           reasons?: Array<DecryptFailReason> | null;
         };
-        collectedBy?: {
-          __typename?: 'Wallet';
-          address: any;
-          defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
-        } | null;
         collectModule:
           | { __typename?: 'AaveFeeCollectModuleSettings' }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -4910,35 +4853,6 @@ export type CommentFieldsFragment = {
                       result: boolean;
                       reasons?: Array<DecryptFailReason> | null;
                     };
-                    collectedBy?: {
-                      __typename?: 'Wallet';
-                      address: any;
-                      defaultProfile?: {
-                        __typename?: 'Profile';
-                        id: any;
-                        name?: string | null;
-                        handle: any;
-                        bio?: string | null;
-                        ownedBy: any;
-                        isFollowedByMe: boolean;
-                        stats: {
-                          __typename?: 'ProfileStats';
-                          totalFollowers: number;
-                          totalFollowing: number;
-                        };
-                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                        picture?:
-                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                          | { __typename?: 'NftImage'; uri: any }
-                          | null;
-                        followModule?:
-                          | { __typename: 'FeeFollowModuleSettings' }
-                          | { __typename: 'ProfileFollowModuleSettings' }
-                          | { __typename: 'RevertFollowModuleSettings' }
-                          | { __typename: 'UnknownFollowModuleSettings' }
-                          | null;
-                      } | null;
-                    } | null;
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -5160,31 +5074,6 @@ export type CommentFieldsFragment = {
                 result: boolean;
                 reasons?: Array<DecryptFailReason> | null;
               };
-              collectedBy?: {
-                __typename?: 'Wallet';
-                address: any;
-                defaultProfile?: {
-                  __typename?: 'Profile';
-                  id: any;
-                  name?: string | null;
-                  handle: any;
-                  bio?: string | null;
-                  ownedBy: any;
-                  isFollowedByMe: boolean;
-                  stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                  picture?:
-                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                    | { __typename?: 'NftImage'; uri: any }
-                    | null;
-                  followModule?:
-                    | { __typename: 'FeeFollowModuleSettings' }
-                    | { __typename: 'ProfileFollowModuleSettings' }
-                    | { __typename: 'RevertFollowModuleSettings' }
-                    | { __typename: 'UnknownFollowModuleSettings' }
-                    | null;
-                } | null;
-              } | null;
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -5662,31 +5551,6 @@ export type CommentFieldsFragment = {
                 result: boolean;
                 reasons?: Array<DecryptFailReason> | null;
               };
-              collectedBy?: {
-                __typename?: 'Wallet';
-                address: any;
-                defaultProfile?: {
-                  __typename?: 'Profile';
-                  id: any;
-                  name?: string | null;
-                  handle: any;
-                  bio?: string | null;
-                  ownedBy: any;
-                  isFollowedByMe: boolean;
-                  stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                  picture?:
-                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                    | { __typename?: 'NftImage'; uri: any }
-                    | null;
-                  followModule?:
-                    | { __typename: 'FeeFollowModuleSettings' }
-                    | { __typename: 'ProfileFollowModuleSettings' }
-                    | { __typename: 'RevertFollowModuleSettings' }
-                    | { __typename: 'UnknownFollowModuleSettings' }
-                    | null;
-                } | null;
-              } | null;
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -5905,31 +5769,6 @@ export type CommentFieldsFragment = {
           result: boolean;
           reasons?: Array<DecryptFailReason> | null;
         };
-        collectedBy?: {
-          __typename?: 'Wallet';
-          address: any;
-          defaultProfile?: {
-            __typename?: 'Profile';
-            id: any;
-            name?: string | null;
-            handle: any;
-            bio?: string | null;
-            ownedBy: any;
-            isFollowedByMe: boolean;
-            stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-            picture?:
-              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-              | { __typename?: 'NftImage'; uri: any }
-              | null;
-            followModule?:
-              | { __typename: 'FeeFollowModuleSettings' }
-              | { __typename: 'ProfileFollowModuleSettings' }
-              | { __typename: 'RevertFollowModuleSettings' }
-              | { __typename: 'UnknownFollowModuleSettings' }
-              | null;
-          } | null;
-        } | null;
         collectModule:
           | { __typename?: 'AaveFeeCollectModuleSettings' }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -6516,31 +6355,6 @@ export type MirrorFieldsFragment = {
           result: boolean;
           reasons?: Array<DecryptFailReason> | null;
         };
-        collectedBy?: {
-          __typename?: 'Wallet';
-          address: any;
-          defaultProfile?: {
-            __typename?: 'Profile';
-            id: any;
-            name?: string | null;
-            handle: any;
-            bio?: string | null;
-            ownedBy: any;
-            isFollowedByMe: boolean;
-            stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-            picture?:
-              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-              | { __typename?: 'NftImage'; uri: any }
-              | null;
-            followModule?:
-              | { __typename: 'FeeFollowModuleSettings' }
-              | { __typename: 'ProfileFollowModuleSettings' }
-              | { __typename: 'RevertFollowModuleSettings' }
-              | { __typename: 'UnknownFollowModuleSettings' }
-              | null;
-          } | null;
-        } | null;
         collectModule:
           | { __typename?: 'AaveFeeCollectModuleSettings' }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -6760,31 +6574,6 @@ export type PostFieldsFragment = {
     result: boolean;
     reasons?: Array<DecryptFailReason> | null;
   };
-  collectedBy?: {
-    __typename?: 'Wallet';
-    address: any;
-    defaultProfile?: {
-      __typename?: 'Profile';
-      id: any;
-      name?: string | null;
-      handle: any;
-      bio?: string | null;
-      ownedBy: any;
-      isFollowedByMe: boolean;
-      stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-      attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-      picture?:
-        | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-        | { __typename?: 'NftImage'; uri: any }
-        | null;
-      followModule?:
-        | { __typename: 'FeeFollowModuleSettings' }
-        | { __typename: 'ProfileFollowModuleSettings' }
-        | { __typename: 'RevertFollowModuleSettings' }
-        | { __typename: 'UnknownFollowModuleSettings' }
-        | null;
-    } | null;
-  } | null;
   collectModule:
     | { __typename?: 'AaveFeeCollectModuleSettings' }
     | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -7984,31 +7773,6 @@ export type CommentFeedQuery = {
             result: boolean;
             reasons?: Array<DecryptFailReason> | null;
           };
-          collectedBy?: {
-            __typename?: 'Wallet';
-            address: any;
-            defaultProfile?: {
-              __typename?: 'Profile';
-              id: any;
-              name?: string | null;
-              handle: any;
-              bio?: string | null;
-              ownedBy: any;
-              isFollowedByMe: boolean;
-              stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-              picture?:
-                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                | { __typename?: 'NftImage'; uri: any }
-                | null;
-              followModule?:
-                | { __typename: 'FeeFollowModuleSettings' }
-                | { __typename: 'ProfileFollowModuleSettings' }
-                | { __typename: 'RevertFollowModuleSettings' }
-                | { __typename: 'UnknownFollowModuleSettings' }
-                | null;
-            } | null;
-          } | null;
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -8225,11 +7989,6 @@ export type CommentFeedQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -8729,39 +8488,6 @@ export type CommentFeedQuery = {
                               result: boolean;
                               reasons?: Array<DecryptFailReason> | null;
                             };
-                            collectedBy?: {
-                              __typename?: 'Wallet';
-                              address: any;
-                              defaultProfile?: {
-                                __typename?: 'Profile';
-                                id: any;
-                                name?: string | null;
-                                handle: any;
-                                bio?: string | null;
-                                ownedBy: any;
-                                isFollowedByMe: boolean;
-                                stats: {
-                                  __typename?: 'ProfileStats';
-                                  totalFollowers: number;
-                                  totalFollowing: number;
-                                };
-                                attributes?: Array<{
-                                  __typename?: 'Attribute';
-                                  key: string;
-                                  value: string;
-                                }> | null;
-                                picture?:
-                                  | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                                  | { __typename?: 'NftImage'; uri: any }
-                                  | null;
-                                followModule?:
-                                  | { __typename: 'FeeFollowModuleSettings' }
-                                  | { __typename: 'ProfileFollowModuleSettings' }
-                                  | { __typename: 'RevertFollowModuleSettings' }
-                                  | { __typename: 'UnknownFollowModuleSettings' }
-                                  | null;
-                              } | null;
-                            } | null;
                             collectModule:
                               | { __typename?: 'AaveFeeCollectModuleSettings' }
                               | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -9016,35 +8742,6 @@ export type CommentFeedQuery = {
                         result: boolean;
                         reasons?: Array<DecryptFailReason> | null;
                       };
-                      collectedBy?: {
-                        __typename?: 'Wallet';
-                        address: any;
-                        defaultProfile?: {
-                          __typename?: 'Profile';
-                          id: any;
-                          name?: string | null;
-                          handle: any;
-                          bio?: string | null;
-                          ownedBy: any;
-                          isFollowedByMe: boolean;
-                          stats: {
-                            __typename?: 'ProfileStats';
-                            totalFollowers: number;
-                            totalFollowing: number;
-                          };
-                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                          picture?:
-                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                            | { __typename?: 'NftImage'; uri: any }
-                            | null;
-                          followModule?:
-                            | { __typename: 'FeeFollowModuleSettings' }
-                            | { __typename: 'ProfileFollowModuleSettings' }
-                            | { __typename: 'RevertFollowModuleSettings' }
-                            | { __typename: 'UnknownFollowModuleSettings' }
-                            | null;
-                        } | null;
-                      } | null;
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -9533,35 +9230,6 @@ export type CommentFeedQuery = {
                         result: boolean;
                         reasons?: Array<DecryptFailReason> | null;
                       };
-                      collectedBy?: {
-                        __typename?: 'Wallet';
-                        address: any;
-                        defaultProfile?: {
-                          __typename?: 'Profile';
-                          id: any;
-                          name?: string | null;
-                          handle: any;
-                          bio?: string | null;
-                          ownedBy: any;
-                          isFollowedByMe: boolean;
-                          stats: {
-                            __typename?: 'ProfileStats';
-                            totalFollowers: number;
-                            totalFollowing: number;
-                          };
-                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                          picture?:
-                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                            | { __typename?: 'NftImage'; uri: any }
-                            | null;
-                          followModule?:
-                            | { __typename: 'FeeFollowModuleSettings' }
-                            | { __typename: 'ProfileFollowModuleSettings' }
-                            | { __typename: 'RevertFollowModuleSettings' }
-                            | { __typename: 'UnknownFollowModuleSettings' }
-                            | null;
-                        } | null;
-                      } | null;
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -9783,31 +9451,6 @@ export type CommentFeedQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: {
-                    __typename?: 'Profile';
-                    id: any;
-                    name?: string | null;
-                    handle: any;
-                    bio?: string | null;
-                    ownedBy: any;
-                    isFollowedByMe: boolean;
-                    stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                    picture?:
-                      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                      | { __typename?: 'NftImage'; uri: any }
-                      | null;
-                    followModule?:
-                      | { __typename: 'FeeFollowModuleSettings' }
-                      | { __typename: 'ProfileFollowModuleSettings' }
-                      | { __typename: 'RevertFollowModuleSettings' }
-                      | { __typename: 'UnknownFollowModuleSettings' }
-                      | null;
-                  } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -10099,31 +9742,6 @@ export type ExploreFeedQuery = {
             result: boolean;
             reasons?: Array<DecryptFailReason> | null;
           };
-          collectedBy?: {
-            __typename?: 'Wallet';
-            address: any;
-            defaultProfile?: {
-              __typename?: 'Profile';
-              id: any;
-              name?: string | null;
-              handle: any;
-              bio?: string | null;
-              ownedBy: any;
-              isFollowedByMe: boolean;
-              stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-              picture?:
-                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                | { __typename?: 'NftImage'; uri: any }
-                | null;
-              followModule?:
-                | { __typename: 'FeeFollowModuleSettings' }
-                | { __typename: 'ProfileFollowModuleSettings' }
-                | { __typename: 'RevertFollowModuleSettings' }
-                | { __typename: 'UnknownFollowModuleSettings' }
-                | null;
-            } | null;
-          } | null;
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -10340,11 +9958,6 @@ export type ExploreFeedQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -10844,39 +10457,6 @@ export type ExploreFeedQuery = {
                               result: boolean;
                               reasons?: Array<DecryptFailReason> | null;
                             };
-                            collectedBy?: {
-                              __typename?: 'Wallet';
-                              address: any;
-                              defaultProfile?: {
-                                __typename?: 'Profile';
-                                id: any;
-                                name?: string | null;
-                                handle: any;
-                                bio?: string | null;
-                                ownedBy: any;
-                                isFollowedByMe: boolean;
-                                stats: {
-                                  __typename?: 'ProfileStats';
-                                  totalFollowers: number;
-                                  totalFollowing: number;
-                                };
-                                attributes?: Array<{
-                                  __typename?: 'Attribute';
-                                  key: string;
-                                  value: string;
-                                }> | null;
-                                picture?:
-                                  | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                                  | { __typename?: 'NftImage'; uri: any }
-                                  | null;
-                                followModule?:
-                                  | { __typename: 'FeeFollowModuleSettings' }
-                                  | { __typename: 'ProfileFollowModuleSettings' }
-                                  | { __typename: 'RevertFollowModuleSettings' }
-                                  | { __typename: 'UnknownFollowModuleSettings' }
-                                  | null;
-                              } | null;
-                            } | null;
                             collectModule:
                               | { __typename?: 'AaveFeeCollectModuleSettings' }
                               | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -11131,35 +10711,6 @@ export type ExploreFeedQuery = {
                         result: boolean;
                         reasons?: Array<DecryptFailReason> | null;
                       };
-                      collectedBy?: {
-                        __typename?: 'Wallet';
-                        address: any;
-                        defaultProfile?: {
-                          __typename?: 'Profile';
-                          id: any;
-                          name?: string | null;
-                          handle: any;
-                          bio?: string | null;
-                          ownedBy: any;
-                          isFollowedByMe: boolean;
-                          stats: {
-                            __typename?: 'ProfileStats';
-                            totalFollowers: number;
-                            totalFollowing: number;
-                          };
-                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                          picture?:
-                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                            | { __typename?: 'NftImage'; uri: any }
-                            | null;
-                          followModule?:
-                            | { __typename: 'FeeFollowModuleSettings' }
-                            | { __typename: 'ProfileFollowModuleSettings' }
-                            | { __typename: 'RevertFollowModuleSettings' }
-                            | { __typename: 'UnknownFollowModuleSettings' }
-                            | null;
-                        } | null;
-                      } | null;
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -11648,35 +11199,6 @@ export type ExploreFeedQuery = {
                         result: boolean;
                         reasons?: Array<DecryptFailReason> | null;
                       };
-                      collectedBy?: {
-                        __typename?: 'Wallet';
-                        address: any;
-                        defaultProfile?: {
-                          __typename?: 'Profile';
-                          id: any;
-                          name?: string | null;
-                          handle: any;
-                          bio?: string | null;
-                          ownedBy: any;
-                          isFollowedByMe: boolean;
-                          stats: {
-                            __typename?: 'ProfileStats';
-                            totalFollowers: number;
-                            totalFollowing: number;
-                          };
-                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                          picture?:
-                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                            | { __typename?: 'NftImage'; uri: any }
-                            | null;
-                          followModule?:
-                            | { __typename: 'FeeFollowModuleSettings' }
-                            | { __typename: 'ProfileFollowModuleSettings' }
-                            | { __typename: 'RevertFollowModuleSettings' }
-                            | { __typename: 'UnknownFollowModuleSettings' }
-                            | null;
-                        } | null;
-                      } | null;
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -11898,31 +11420,6 @@ export type ExploreFeedQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: {
-                    __typename?: 'Profile';
-                    id: any;
-                    name?: string | null;
-                    handle: any;
-                    bio?: string | null;
-                    ownedBy: any;
-                    isFollowedByMe: boolean;
-                    stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                    picture?:
-                      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                      | { __typename?: 'NftImage'; uri: any }
-                      | null;
-                    followModule?:
-                      | { __typename: 'FeeFollowModuleSettings' }
-                      | { __typename: 'ProfileFollowModuleSettings' }
-                      | { __typename: 'RevertFollowModuleSettings' }
-                      | { __typename: 'UnknownFollowModuleSettings' }
-                      | null;
-                  } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -12401,31 +11898,6 @@ export type ExploreFeedQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: {
-                    __typename?: 'Profile';
-                    id: any;
-                    name?: string | null;
-                    handle: any;
-                    bio?: string | null;
-                    ownedBy: any;
-                    isFollowedByMe: boolean;
-                    stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                    picture?:
-                      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                      | { __typename?: 'NftImage'; uri: any }
-                      | null;
-                    followModule?:
-                      | { __typename: 'FeeFollowModuleSettings' }
-                      | { __typename: 'ProfileFollowModuleSettings' }
-                      | { __typename: 'RevertFollowModuleSettings' }
-                      | { __typename: 'UnknownFollowModuleSettings' }
-                      | null;
-                  } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -12644,31 +12116,6 @@ export type ExploreFeedQuery = {
             result: boolean;
             reasons?: Array<DecryptFailReason> | null;
           };
-          collectedBy?: {
-            __typename?: 'Wallet';
-            address: any;
-            defaultProfile?: {
-              __typename?: 'Profile';
-              id: any;
-              name?: string | null;
-              handle: any;
-              bio?: string | null;
-              ownedBy: any;
-              isFollowedByMe: boolean;
-              stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-              picture?:
-                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                | { __typename?: 'NftImage'; uri: any }
-                | null;
-              followModule?:
-                | { __typename: 'FeeFollowModuleSettings' }
-                | { __typename: 'ProfileFollowModuleSettings' }
-                | { __typename: 'RevertFollowModuleSettings' }
-                | { __typename: 'UnknownFollowModuleSettings' }
-                | null;
-            } | null;
-          } | null;
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -12902,31 +12349,6 @@ export type FeedHighlightsQuery = {
             result: boolean;
             reasons?: Array<DecryptFailReason> | null;
           };
-          collectedBy?: {
-            __typename?: 'Wallet';
-            address: any;
-            defaultProfile?: {
-              __typename?: 'Profile';
-              id: any;
-              name?: string | null;
-              handle: any;
-              bio?: string | null;
-              ownedBy: any;
-              isFollowedByMe: boolean;
-              stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-              picture?:
-                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                | { __typename?: 'NftImage'; uri: any }
-                | null;
-              followModule?:
-                | { __typename: 'FeeFollowModuleSettings' }
-                | { __typename: 'ProfileFollowModuleSettings' }
-                | { __typename: 'RevertFollowModuleSettings' }
-                | { __typename: 'UnknownFollowModuleSettings' }
-                | null;
-            } | null;
-          } | null;
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -13143,11 +12565,6 @@ export type FeedHighlightsQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -13647,39 +13064,6 @@ export type FeedHighlightsQuery = {
                               result: boolean;
                               reasons?: Array<DecryptFailReason> | null;
                             };
-                            collectedBy?: {
-                              __typename?: 'Wallet';
-                              address: any;
-                              defaultProfile?: {
-                                __typename?: 'Profile';
-                                id: any;
-                                name?: string | null;
-                                handle: any;
-                                bio?: string | null;
-                                ownedBy: any;
-                                isFollowedByMe: boolean;
-                                stats: {
-                                  __typename?: 'ProfileStats';
-                                  totalFollowers: number;
-                                  totalFollowing: number;
-                                };
-                                attributes?: Array<{
-                                  __typename?: 'Attribute';
-                                  key: string;
-                                  value: string;
-                                }> | null;
-                                picture?:
-                                  | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                                  | { __typename?: 'NftImage'; uri: any }
-                                  | null;
-                                followModule?:
-                                  | { __typename: 'FeeFollowModuleSettings' }
-                                  | { __typename: 'ProfileFollowModuleSettings' }
-                                  | { __typename: 'RevertFollowModuleSettings' }
-                                  | { __typename: 'UnknownFollowModuleSettings' }
-                                  | null;
-                              } | null;
-                            } | null;
                             collectModule:
                               | { __typename?: 'AaveFeeCollectModuleSettings' }
                               | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -13934,35 +13318,6 @@ export type FeedHighlightsQuery = {
                         result: boolean;
                         reasons?: Array<DecryptFailReason> | null;
                       };
-                      collectedBy?: {
-                        __typename?: 'Wallet';
-                        address: any;
-                        defaultProfile?: {
-                          __typename?: 'Profile';
-                          id: any;
-                          name?: string | null;
-                          handle: any;
-                          bio?: string | null;
-                          ownedBy: any;
-                          isFollowedByMe: boolean;
-                          stats: {
-                            __typename?: 'ProfileStats';
-                            totalFollowers: number;
-                            totalFollowing: number;
-                          };
-                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                          picture?:
-                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                            | { __typename?: 'NftImage'; uri: any }
-                            | null;
-                          followModule?:
-                            | { __typename: 'FeeFollowModuleSettings' }
-                            | { __typename: 'ProfileFollowModuleSettings' }
-                            | { __typename: 'RevertFollowModuleSettings' }
-                            | { __typename: 'UnknownFollowModuleSettings' }
-                            | null;
-                        } | null;
-                      } | null;
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -14451,35 +13806,6 @@ export type FeedHighlightsQuery = {
                         result: boolean;
                         reasons?: Array<DecryptFailReason> | null;
                       };
-                      collectedBy?: {
-                        __typename?: 'Wallet';
-                        address: any;
-                        defaultProfile?: {
-                          __typename?: 'Profile';
-                          id: any;
-                          name?: string | null;
-                          handle: any;
-                          bio?: string | null;
-                          ownedBy: any;
-                          isFollowedByMe: boolean;
-                          stats: {
-                            __typename?: 'ProfileStats';
-                            totalFollowers: number;
-                            totalFollowing: number;
-                          };
-                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                          picture?:
-                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                            | { __typename?: 'NftImage'; uri: any }
-                            | null;
-                          followModule?:
-                            | { __typename: 'FeeFollowModuleSettings' }
-                            | { __typename: 'ProfileFollowModuleSettings' }
-                            | { __typename: 'RevertFollowModuleSettings' }
-                            | { __typename: 'UnknownFollowModuleSettings' }
-                            | null;
-                        } | null;
-                      } | null;
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -14701,31 +14027,6 @@ export type FeedHighlightsQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: {
-                    __typename?: 'Profile';
-                    id: any;
-                    name?: string | null;
-                    handle: any;
-                    bio?: string | null;
-                    ownedBy: any;
-                    isFollowedByMe: boolean;
-                    stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                    picture?:
-                      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                      | { __typename?: 'NftImage'; uri: any }
-                      | null;
-                    followModule?:
-                      | { __typename: 'FeeFollowModuleSettings' }
-                      | { __typename: 'ProfileFollowModuleSettings' }
-                      | { __typename: 'RevertFollowModuleSettings' }
-                      | { __typename: 'UnknownFollowModuleSettings' }
-                      | null;
-                  } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -15204,31 +14505,6 @@ export type FeedHighlightsQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: {
-                    __typename?: 'Profile';
-                    id: any;
-                    name?: string | null;
-                    handle: any;
-                    bio?: string | null;
-                    ownedBy: any;
-                    isFollowedByMe: boolean;
-                    stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                    picture?:
-                      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                      | { __typename?: 'NftImage'; uri: any }
-                      | null;
-                    followModule?:
-                      | { __typename: 'FeeFollowModuleSettings' }
-                      | { __typename: 'ProfileFollowModuleSettings' }
-                      | { __typename: 'RevertFollowModuleSettings' }
-                      | { __typename: 'UnknownFollowModuleSettings' }
-                      | null;
-                  } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -15447,31 +14723,6 @@ export type FeedHighlightsQuery = {
             result: boolean;
             reasons?: Array<DecryptFailReason> | null;
           };
-          collectedBy?: {
-            __typename?: 'Wallet';
-            address: any;
-            defaultProfile?: {
-              __typename?: 'Profile';
-              id: any;
-              name?: string | null;
-              handle: any;
-              bio?: string | null;
-              ownedBy: any;
-              isFollowedByMe: boolean;
-              stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-              picture?:
-                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                | { __typename?: 'NftImage'; uri: any }
-                | null;
-              followModule?:
-                | { __typename: 'FeeFollowModuleSettings' }
-                | { __typename: 'ProfileFollowModuleSettings' }
-                | { __typename: 'RevertFollowModuleSettings' }
-                | { __typename: 'UnknownFollowModuleSettings' }
-                | null;
-            } | null;
-          } | null;
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -16585,31 +15836,6 @@ export type ProfileFeedQuery = {
             result: boolean;
             reasons?: Array<DecryptFailReason> | null;
           };
-          collectedBy?: {
-            __typename?: 'Wallet';
-            address: any;
-            defaultProfile?: {
-              __typename?: 'Profile';
-              id: any;
-              name?: string | null;
-              handle: any;
-              bio?: string | null;
-              ownedBy: any;
-              isFollowedByMe: boolean;
-              stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-              picture?:
-                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                | { __typename?: 'NftImage'; uri: any }
-                | null;
-              followModule?:
-                | { __typename: 'FeeFollowModuleSettings' }
-                | { __typename: 'ProfileFollowModuleSettings' }
-                | { __typename: 'RevertFollowModuleSettings' }
-                | { __typename: 'UnknownFollowModuleSettings' }
-                | null;
-            } | null;
-          } | null;
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -16826,11 +16052,6 @@ export type ProfileFeedQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -17330,39 +16551,6 @@ export type ProfileFeedQuery = {
                               result: boolean;
                               reasons?: Array<DecryptFailReason> | null;
                             };
-                            collectedBy?: {
-                              __typename?: 'Wallet';
-                              address: any;
-                              defaultProfile?: {
-                                __typename?: 'Profile';
-                                id: any;
-                                name?: string | null;
-                                handle: any;
-                                bio?: string | null;
-                                ownedBy: any;
-                                isFollowedByMe: boolean;
-                                stats: {
-                                  __typename?: 'ProfileStats';
-                                  totalFollowers: number;
-                                  totalFollowing: number;
-                                };
-                                attributes?: Array<{
-                                  __typename?: 'Attribute';
-                                  key: string;
-                                  value: string;
-                                }> | null;
-                                picture?:
-                                  | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                                  | { __typename?: 'NftImage'; uri: any }
-                                  | null;
-                                followModule?:
-                                  | { __typename: 'FeeFollowModuleSettings' }
-                                  | { __typename: 'ProfileFollowModuleSettings' }
-                                  | { __typename: 'RevertFollowModuleSettings' }
-                                  | { __typename: 'UnknownFollowModuleSettings' }
-                                  | null;
-                              } | null;
-                            } | null;
                             collectModule:
                               | { __typename?: 'AaveFeeCollectModuleSettings' }
                               | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -17617,35 +16805,6 @@ export type ProfileFeedQuery = {
                         result: boolean;
                         reasons?: Array<DecryptFailReason> | null;
                       };
-                      collectedBy?: {
-                        __typename?: 'Wallet';
-                        address: any;
-                        defaultProfile?: {
-                          __typename?: 'Profile';
-                          id: any;
-                          name?: string | null;
-                          handle: any;
-                          bio?: string | null;
-                          ownedBy: any;
-                          isFollowedByMe: boolean;
-                          stats: {
-                            __typename?: 'ProfileStats';
-                            totalFollowers: number;
-                            totalFollowing: number;
-                          };
-                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                          picture?:
-                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                            | { __typename?: 'NftImage'; uri: any }
-                            | null;
-                          followModule?:
-                            | { __typename: 'FeeFollowModuleSettings' }
-                            | { __typename: 'ProfileFollowModuleSettings' }
-                            | { __typename: 'RevertFollowModuleSettings' }
-                            | { __typename: 'UnknownFollowModuleSettings' }
-                            | null;
-                        } | null;
-                      } | null;
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -18134,35 +17293,6 @@ export type ProfileFeedQuery = {
                         result: boolean;
                         reasons?: Array<DecryptFailReason> | null;
                       };
-                      collectedBy?: {
-                        __typename?: 'Wallet';
-                        address: any;
-                        defaultProfile?: {
-                          __typename?: 'Profile';
-                          id: any;
-                          name?: string | null;
-                          handle: any;
-                          bio?: string | null;
-                          ownedBy: any;
-                          isFollowedByMe: boolean;
-                          stats: {
-                            __typename?: 'ProfileStats';
-                            totalFollowers: number;
-                            totalFollowing: number;
-                          };
-                          attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                          picture?:
-                            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                            | { __typename?: 'NftImage'; uri: any }
-                            | null;
-                          followModule?:
-                            | { __typename: 'FeeFollowModuleSettings' }
-                            | { __typename: 'ProfileFollowModuleSettings' }
-                            | { __typename: 'RevertFollowModuleSettings' }
-                            | { __typename: 'UnknownFollowModuleSettings' }
-                            | null;
-                        } | null;
-                      } | null;
                       collectModule:
                         | { __typename?: 'AaveFeeCollectModuleSettings' }
                         | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -18384,31 +17514,6 @@ export type ProfileFeedQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: {
-                    __typename?: 'Profile';
-                    id: any;
-                    name?: string | null;
-                    handle: any;
-                    bio?: string | null;
-                    ownedBy: any;
-                    isFollowedByMe: boolean;
-                    stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                    picture?:
-                      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                      | { __typename?: 'NftImage'; uri: any }
-                      | null;
-                    followModule?:
-                      | { __typename: 'FeeFollowModuleSettings' }
-                      | { __typename: 'ProfileFollowModuleSettings' }
-                      | { __typename: 'RevertFollowModuleSettings' }
-                      | { __typename: 'UnknownFollowModuleSettings' }
-                      | null;
-                  } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -18887,31 +17992,6 @@ export type ProfileFeedQuery = {
                   result: boolean;
                   reasons?: Array<DecryptFailReason> | null;
                 };
-                collectedBy?: {
-                  __typename?: 'Wallet';
-                  address: any;
-                  defaultProfile?: {
-                    __typename?: 'Profile';
-                    id: any;
-                    name?: string | null;
-                    handle: any;
-                    bio?: string | null;
-                    ownedBy: any;
-                    isFollowedByMe: boolean;
-                    stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                    attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                    picture?:
-                      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                      | { __typename?: 'NftImage'; uri: any }
-                      | null;
-                    followModule?:
-                      | { __typename: 'FeeFollowModuleSettings' }
-                      | { __typename: 'ProfileFollowModuleSettings' }
-                      | { __typename: 'RevertFollowModuleSettings' }
-                      | { __typename: 'UnknownFollowModuleSettings' }
-                      | null;
-                  } | null;
-                } | null;
                 collectModule:
                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -19130,31 +18210,6 @@ export type ProfileFeedQuery = {
             result: boolean;
             reasons?: Array<DecryptFailReason> | null;
           };
-          collectedBy?: {
-            __typename?: 'Wallet';
-            address: any;
-            defaultProfile?: {
-              __typename?: 'Profile';
-              id: any;
-              name?: string | null;
-              handle: any;
-              bio?: string | null;
-              ownedBy: any;
-              isFollowedByMe: boolean;
-              stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-              attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-              picture?:
-                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                | { __typename?: 'NftImage'; uri: any }
-                | null;
-              followModule?:
-                | { __typename: 'FeeFollowModuleSettings' }
-                | { __typename: 'ProfileFollowModuleSettings' }
-                | { __typename: 'RevertFollowModuleSettings' }
-                | { __typename: 'UnknownFollowModuleSettings' }
-                | null;
-            } | null;
-          } | null;
           collectModule:
             | { __typename?: 'AaveFeeCollectModuleSettings' }
             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -19458,31 +18513,6 @@ export type PublicationQuery = {
           result: boolean;
           reasons?: Array<DecryptFailReason> | null;
         };
-        collectedBy?: {
-          __typename?: 'Wallet';
-          address: any;
-          defaultProfile?: {
-            __typename?: 'Profile';
-            id: any;
-            name?: string | null;
-            handle: any;
-            bio?: string | null;
-            ownedBy: any;
-            isFollowedByMe: boolean;
-            stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-            picture?:
-              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-              | { __typename?: 'NftImage'; uri: any }
-              | null;
-            followModule?:
-              | { __typename: 'FeeFollowModuleSettings' }
-              | { __typename: 'ProfileFollowModuleSettings' }
-              | { __typename: 'RevertFollowModuleSettings' }
-              | { __typename: 'UnknownFollowModuleSettings' }
-              | null;
-          } | null;
-        } | null;
         collectModule:
           | { __typename?: 'AaveFeeCollectModuleSettings' }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -19699,11 +18729,6 @@ export type PublicationQuery = {
                 result: boolean;
                 reasons?: Array<DecryptFailReason> | null;
               };
-              collectedBy?: {
-                __typename?: 'Wallet';
-                address: any;
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
-              } | null;
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -20199,39 +19224,6 @@ export type PublicationQuery = {
                             result: boolean;
                             reasons?: Array<DecryptFailReason> | null;
                           };
-                          collectedBy?: {
-                            __typename?: 'Wallet';
-                            address: any;
-                            defaultProfile?: {
-                              __typename?: 'Profile';
-                              id: any;
-                              name?: string | null;
-                              handle: any;
-                              bio?: string | null;
-                              ownedBy: any;
-                              isFollowedByMe: boolean;
-                              stats: {
-                                __typename?: 'ProfileStats';
-                                totalFollowers: number;
-                                totalFollowing: number;
-                              };
-                              attributes?: Array<{
-                                __typename?: 'Attribute';
-                                key: string;
-                                value: string;
-                              }> | null;
-                              picture?:
-                                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                                | { __typename?: 'NftImage'; uri: any }
-                                | null;
-                              followModule?:
-                                | { __typename: 'FeeFollowModuleSettings' }
-                                | { __typename: 'ProfileFollowModuleSettings' }
-                                | { __typename: 'RevertFollowModuleSettings' }
-                                | { __typename: 'UnknownFollowModuleSettings' }
-                                | null;
-                            } | null;
-                          } | null;
                           collectModule:
                             | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -20479,35 +19471,6 @@ export type PublicationQuery = {
                       result: boolean;
                       reasons?: Array<DecryptFailReason> | null;
                     };
-                    collectedBy?: {
-                      __typename?: 'Wallet';
-                      address: any;
-                      defaultProfile?: {
-                        __typename?: 'Profile';
-                        id: any;
-                        name?: string | null;
-                        handle: any;
-                        bio?: string | null;
-                        ownedBy: any;
-                        isFollowedByMe: boolean;
-                        stats: {
-                          __typename?: 'ProfileStats';
-                          totalFollowers: number;
-                          totalFollowing: number;
-                        };
-                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                        picture?:
-                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                          | { __typename?: 'NftImage'; uri: any }
-                          | null;
-                        followModule?:
-                          | { __typename: 'FeeFollowModuleSettings' }
-                          | { __typename: 'ProfileFollowModuleSettings' }
-                          | { __typename: 'RevertFollowModuleSettings' }
-                          | { __typename: 'UnknownFollowModuleSettings' }
-                          | null;
-                      } | null;
-                    } | null;
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -20988,35 +19951,6 @@ export type PublicationQuery = {
                       result: boolean;
                       reasons?: Array<DecryptFailReason> | null;
                     };
-                    collectedBy?: {
-                      __typename?: 'Wallet';
-                      address: any;
-                      defaultProfile?: {
-                        __typename?: 'Profile';
-                        id: any;
-                        name?: string | null;
-                        handle: any;
-                        bio?: string | null;
-                        ownedBy: any;
-                        isFollowedByMe: boolean;
-                        stats: {
-                          __typename?: 'ProfileStats';
-                          totalFollowers: number;
-                          totalFollowing: number;
-                        };
-                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                        picture?:
-                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                          | { __typename?: 'NftImage'; uri: any }
-                          | null;
-                        followModule?:
-                          | { __typename: 'FeeFollowModuleSettings' }
-                          | { __typename: 'ProfileFollowModuleSettings' }
-                          | { __typename: 'RevertFollowModuleSettings' }
-                          | { __typename: 'UnknownFollowModuleSettings' }
-                          | null;
-                      } | null;
-                    } | null;
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -21238,31 +20172,6 @@ export type PublicationQuery = {
                 result: boolean;
                 reasons?: Array<DecryptFailReason> | null;
               };
-              collectedBy?: {
-                __typename?: 'Wallet';
-                address: any;
-                defaultProfile?: {
-                  __typename?: 'Profile';
-                  id: any;
-                  name?: string | null;
-                  handle: any;
-                  bio?: string | null;
-                  ownedBy: any;
-                  isFollowedByMe: boolean;
-                  stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                  picture?:
-                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                    | { __typename?: 'NftImage'; uri: any }
-                    | null;
-                  followModule?:
-                    | { __typename: 'FeeFollowModuleSettings' }
-                    | { __typename: 'ProfileFollowModuleSettings' }
-                    | { __typename: 'RevertFollowModuleSettings' }
-                    | { __typename: 'UnknownFollowModuleSettings' }
-                    | null;
-                } | null;
-              } | null;
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -21747,31 +20656,6 @@ export type PublicationQuery = {
                 result: boolean;
                 reasons?: Array<DecryptFailReason> | null;
               };
-              collectedBy?: {
-                __typename?: 'Wallet';
-                address: any;
-                defaultProfile?: {
-                  __typename?: 'Profile';
-                  id: any;
-                  name?: string | null;
-                  handle: any;
-                  bio?: string | null;
-                  ownedBy: any;
-                  isFollowedByMe: boolean;
-                  stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                  picture?:
-                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                    | { __typename?: 'NftImage'; uri: any }
-                    | null;
-                  followModule?:
-                    | { __typename: 'FeeFollowModuleSettings' }
-                    | { __typename: 'ProfileFollowModuleSettings' }
-                    | { __typename: 'RevertFollowModuleSettings' }
-                    | { __typename: 'UnknownFollowModuleSettings' }
-                    | null;
-                } | null;
-              } | null;
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -21996,31 +20880,6 @@ export type PublicationQuery = {
           result: boolean;
           reasons?: Array<DecryptFailReason> | null;
         };
-        collectedBy?: {
-          __typename?: 'Wallet';
-          address: any;
-          defaultProfile?: {
-            __typename?: 'Profile';
-            id: any;
-            name?: string | null;
-            handle: any;
-            bio?: string | null;
-            ownedBy: any;
-            isFollowedByMe: boolean;
-            stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-            picture?:
-              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-              | { __typename?: 'NftImage'; uri: any }
-              | null;
-            followModule?:
-              | { __typename: 'FeeFollowModuleSettings' }
-              | { __typename: 'ProfileFollowModuleSettings' }
-              | { __typename: 'RevertFollowModuleSettings' }
-              | { __typename: 'UnknownFollowModuleSettings' }
-              | null;
-          } | null;
-        } | null;
         collectModule:
           | { __typename?: 'AaveFeeCollectModuleSettings' }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -22362,31 +21221,6 @@ export type SearchPublicationsQuery = {
                 result: boolean;
                 reasons?: Array<DecryptFailReason> | null;
               };
-              collectedBy?: {
-                __typename?: 'Wallet';
-                address: any;
-                defaultProfile?: {
-                  __typename?: 'Profile';
-                  id: any;
-                  name?: string | null;
-                  handle: any;
-                  bio?: string | null;
-                  ownedBy: any;
-                  isFollowedByMe: boolean;
-                  stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                  picture?:
-                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                    | { __typename?: 'NftImage'; uri: any }
-                    | null;
-                  followModule?:
-                    | { __typename: 'FeeFollowModuleSettings' }
-                    | { __typename: 'ProfileFollowModuleSettings' }
-                    | { __typename: 'RevertFollowModuleSettings' }
-                    | { __typename: 'UnknownFollowModuleSettings' }
-                    | null;
-                } | null;
-              } | null;
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -22603,11 +21437,6 @@ export type SearchPublicationsQuery = {
                       result: boolean;
                       reasons?: Array<DecryptFailReason> | null;
                     };
-                    collectedBy?: {
-                      __typename?: 'Wallet';
-                      address: any;
-                      defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
-                    } | null;
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -23146,42 +21975,6 @@ export type SearchPublicationsQuery = {
                                   result: boolean;
                                   reasons?: Array<DecryptFailReason> | null;
                                 };
-                                collectedBy?: {
-                                  __typename?: 'Wallet';
-                                  address: any;
-                                  defaultProfile?: {
-                                    __typename?: 'Profile';
-                                    id: any;
-                                    name?: string | null;
-                                    handle: any;
-                                    bio?: string | null;
-                                    ownedBy: any;
-                                    isFollowedByMe: boolean;
-                                    stats: {
-                                      __typename?: 'ProfileStats';
-                                      totalFollowers: number;
-                                      totalFollowing: number;
-                                    };
-                                    attributes?: Array<{
-                                      __typename?: 'Attribute';
-                                      key: string;
-                                      value: string;
-                                    }> | null;
-                                    picture?:
-                                      | {
-                                          __typename?: 'MediaSet';
-                                          original: { __typename?: 'Media'; url: any };
-                                        }
-                                      | { __typename?: 'NftImage'; uri: any }
-                                      | null;
-                                    followModule?:
-                                      | { __typename: 'FeeFollowModuleSettings' }
-                                      | { __typename: 'ProfileFollowModuleSettings' }
-                                      | { __typename: 'RevertFollowModuleSettings' }
-                                      | { __typename: 'UnknownFollowModuleSettings' }
-                                      | null;
-                                  } | null;
-                                } | null;
                                 collectModule:
                                   | { __typename?: 'AaveFeeCollectModuleSettings' }
                                   | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -23446,39 +22239,6 @@ export type SearchPublicationsQuery = {
                             result: boolean;
                             reasons?: Array<DecryptFailReason> | null;
                           };
-                          collectedBy?: {
-                            __typename?: 'Wallet';
-                            address: any;
-                            defaultProfile?: {
-                              __typename?: 'Profile';
-                              id: any;
-                              name?: string | null;
-                              handle: any;
-                              bio?: string | null;
-                              ownedBy: any;
-                              isFollowedByMe: boolean;
-                              stats: {
-                                __typename?: 'ProfileStats';
-                                totalFollowers: number;
-                                totalFollowing: number;
-                              };
-                              attributes?: Array<{
-                                __typename?: 'Attribute';
-                                key: string;
-                                value: string;
-                              }> | null;
-                              picture?:
-                                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                                | { __typename?: 'NftImage'; uri: any }
-                                | null;
-                              followModule?:
-                                | { __typename: 'FeeFollowModuleSettings' }
-                                | { __typename: 'ProfileFollowModuleSettings' }
-                                | { __typename: 'RevertFollowModuleSettings' }
-                                | { __typename: 'UnknownFollowModuleSettings' }
-                                | null;
-                            } | null;
-                          } | null;
                           collectModule:
                             | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -24004,39 +22764,6 @@ export type SearchPublicationsQuery = {
                             result: boolean;
                             reasons?: Array<DecryptFailReason> | null;
                           };
-                          collectedBy?: {
-                            __typename?: 'Wallet';
-                            address: any;
-                            defaultProfile?: {
-                              __typename?: 'Profile';
-                              id: any;
-                              name?: string | null;
-                              handle: any;
-                              bio?: string | null;
-                              ownedBy: any;
-                              isFollowedByMe: boolean;
-                              stats: {
-                                __typename?: 'ProfileStats';
-                                totalFollowers: number;
-                                totalFollowing: number;
-                              };
-                              attributes?: Array<{
-                                __typename?: 'Attribute';
-                                key: string;
-                                value: string;
-                              }> | null;
-                              picture?:
-                                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                                | { __typename?: 'NftImage'; uri: any }
-                                | null;
-                              followModule?:
-                                | { __typename: 'FeeFollowModuleSettings' }
-                                | { __typename: 'ProfileFollowModuleSettings' }
-                                | { __typename: 'RevertFollowModuleSettings' }
-                                | { __typename: 'UnknownFollowModuleSettings' }
-                                | null;
-                            } | null;
-                          } | null;
                           collectModule:
                             | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -24284,35 +23011,6 @@ export type SearchPublicationsQuery = {
                       result: boolean;
                       reasons?: Array<DecryptFailReason> | null;
                     };
-                    collectedBy?: {
-                      __typename?: 'Wallet';
-                      address: any;
-                      defaultProfile?: {
-                        __typename?: 'Profile';
-                        id: any;
-                        name?: string | null;
-                        handle: any;
-                        bio?: string | null;
-                        ownedBy: any;
-                        isFollowedByMe: boolean;
-                        stats: {
-                          __typename?: 'ProfileStats';
-                          totalFollowers: number;
-                          totalFollowing: number;
-                        };
-                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                        picture?:
-                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                          | { __typename?: 'NftImage'; uri: any }
-                          | null;
-                        followModule?:
-                          | { __typename: 'FeeFollowModuleSettings' }
-                          | { __typename: 'ProfileFollowModuleSettings' }
-                          | { __typename: 'RevertFollowModuleSettings' }
-                          | { __typename: 'UnknownFollowModuleSettings' }
-                          | null;
-                      } | null;
-                    } | null;
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -24535,31 +23233,6 @@ export type SearchPublicationsQuery = {
                 result: boolean;
                 reasons?: Array<DecryptFailReason> | null;
               };
-              collectedBy?: {
-                __typename?: 'Wallet';
-                address: any;
-                defaultProfile?: {
-                  __typename?: 'Profile';
-                  id: any;
-                  name?: string | null;
-                  handle: any;
-                  bio?: string | null;
-                  ownedBy: any;
-                  isFollowedByMe: boolean;
-                  stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                  picture?:
-                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                    | { __typename?: 'NftImage'; uri: any }
-                    | null;
-                  followModule?:
-                    | { __typename: 'FeeFollowModuleSettings' }
-                    | { __typename: 'ProfileFollowModuleSettings' }
-                    | { __typename: 'RevertFollowModuleSettings' }
-                    | { __typename: 'UnknownFollowModuleSettings' }
-                    | null;
-                } | null;
-              } | null;
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -25004,31 +23677,6 @@ export type TimelineQuery = {
               result: boolean;
               reasons?: Array<DecryptFailReason> | null;
             };
-            collectedBy?: {
-              __typename?: 'Wallet';
-              address: any;
-              defaultProfile?: {
-                __typename?: 'Profile';
-                id: any;
-                name?: string | null;
-                handle: any;
-                bio?: string | null;
-                ownedBy: any;
-                isFollowedByMe: boolean;
-                stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                picture?:
-                  | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                  | { __typename?: 'NftImage'; uri: any }
-                  | null;
-                followModule?:
-                  | { __typename: 'FeeFollowModuleSettings' }
-                  | { __typename: 'ProfileFollowModuleSettings' }
-                  | { __typename: 'RevertFollowModuleSettings' }
-                  | { __typename: 'UnknownFollowModuleSettings' }
-                  | null;
-              } | null;
-            } | null;
             collectModule:
               | { __typename?: 'AaveFeeCollectModuleSettings' }
               | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -25245,11 +23893,6 @@ export type TimelineQuery = {
                     result: boolean;
                     reasons?: Array<DecryptFailReason> | null;
                   };
-                  collectedBy?: {
-                    __typename?: 'Wallet';
-                    address: any;
-                    defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
-                  } | null;
                   collectModule:
                     | { __typename?: 'AaveFeeCollectModuleSettings' }
                     | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -25775,42 +24418,6 @@ export type TimelineQuery = {
                                 result: boolean;
                                 reasons?: Array<DecryptFailReason> | null;
                               };
-                              collectedBy?: {
-                                __typename?: 'Wallet';
-                                address: any;
-                                defaultProfile?: {
-                                  __typename?: 'Profile';
-                                  id: any;
-                                  name?: string | null;
-                                  handle: any;
-                                  bio?: string | null;
-                                  ownedBy: any;
-                                  isFollowedByMe: boolean;
-                                  stats: {
-                                    __typename?: 'ProfileStats';
-                                    totalFollowers: number;
-                                    totalFollowing: number;
-                                  };
-                                  attributes?: Array<{
-                                    __typename?: 'Attribute';
-                                    key: string;
-                                    value: string;
-                                  }> | null;
-                                  picture?:
-                                    | {
-                                        __typename?: 'MediaSet';
-                                        original: { __typename?: 'Media'; url: any };
-                                      }
-                                    | { __typename?: 'NftImage'; uri: any }
-                                    | null;
-                                  followModule?:
-                                    | { __typename: 'FeeFollowModuleSettings' }
-                                    | { __typename: 'ProfileFollowModuleSettings' }
-                                    | { __typename: 'RevertFollowModuleSettings' }
-                                    | { __typename: 'UnknownFollowModuleSettings' }
-                                    | null;
-                                } | null;
-                              } | null;
                               collectModule:
                                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -26065,39 +24672,6 @@ export type TimelineQuery = {
                           result: boolean;
                           reasons?: Array<DecryptFailReason> | null;
                         };
-                        collectedBy?: {
-                          __typename?: 'Wallet';
-                          address: any;
-                          defaultProfile?: {
-                            __typename?: 'Profile';
-                            id: any;
-                            name?: string | null;
-                            handle: any;
-                            bio?: string | null;
-                            ownedBy: any;
-                            isFollowedByMe: boolean;
-                            stats: {
-                              __typename?: 'ProfileStats';
-                              totalFollowers: number;
-                              totalFollowing: number;
-                            };
-                            attributes?: Array<{
-                              __typename?: 'Attribute';
-                              key: string;
-                              value: string;
-                            }> | null;
-                            picture?:
-                              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                              | { __typename?: 'NftImage'; uri: any }
-                              | null;
-                            followModule?:
-                              | { __typename: 'FeeFollowModuleSettings' }
-                              | { __typename: 'ProfileFollowModuleSettings' }
-                              | { __typename: 'RevertFollowModuleSettings' }
-                              | { __typename: 'UnknownFollowModuleSettings' }
-                              | null;
-                          } | null;
-                        } | null;
                         collectModule:
                           | { __typename?: 'AaveFeeCollectModuleSettings' }
                           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -26612,39 +25186,6 @@ export type TimelineQuery = {
                           result: boolean;
                           reasons?: Array<DecryptFailReason> | null;
                         };
-                        collectedBy?: {
-                          __typename?: 'Wallet';
-                          address: any;
-                          defaultProfile?: {
-                            __typename?: 'Profile';
-                            id: any;
-                            name?: string | null;
-                            handle: any;
-                            bio?: string | null;
-                            ownedBy: any;
-                            isFollowedByMe: boolean;
-                            stats: {
-                              __typename?: 'ProfileStats';
-                              totalFollowers: number;
-                              totalFollowing: number;
-                            };
-                            attributes?: Array<{
-                              __typename?: 'Attribute';
-                              key: string;
-                              value: string;
-                            }> | null;
-                            picture?:
-                              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                              | { __typename?: 'NftImage'; uri: any }
-                              | null;
-                            followModule?:
-                              | { __typename: 'FeeFollowModuleSettings' }
-                              | { __typename: 'ProfileFollowModuleSettings' }
-                              | { __typename: 'RevertFollowModuleSettings' }
-                              | { __typename: 'UnknownFollowModuleSettings' }
-                              | null;
-                          } | null;
-                        } | null;
                         collectModule:
                           | { __typename?: 'AaveFeeCollectModuleSettings' }
                           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -26892,31 +25433,6 @@ export type TimelineQuery = {
                     result: boolean;
                     reasons?: Array<DecryptFailReason> | null;
                   };
-                  collectedBy?: {
-                    __typename?: 'Wallet';
-                    address: any;
-                    defaultProfile?: {
-                      __typename?: 'Profile';
-                      id: any;
-                      name?: string | null;
-                      handle: any;
-                      bio?: string | null;
-                      ownedBy: any;
-                      isFollowedByMe: boolean;
-                      stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                      attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                      picture?:
-                        | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                        | { __typename?: 'NftImage'; uri: any }
-                        | null;
-                      followModule?:
-                        | { __typename: 'FeeFollowModuleSettings' }
-                        | { __typename: 'ProfileFollowModuleSettings' }
-                        | { __typename: 'RevertFollowModuleSettings' }
-                        | { __typename: 'UnknownFollowModuleSettings' }
-                        | null;
-                    } | null;
-                  } | null;
                   collectModule:
                     | { __typename?: 'AaveFeeCollectModuleSettings' }
                     | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -27136,31 +25652,6 @@ export type TimelineQuery = {
               result: boolean;
               reasons?: Array<DecryptFailReason> | null;
             };
-            collectedBy?: {
-              __typename?: 'Wallet';
-              address: any;
-              defaultProfile?: {
-                __typename?: 'Profile';
-                id: any;
-                name?: string | null;
-                handle: any;
-                bio?: string | null;
-                ownedBy: any;
-                isFollowedByMe: boolean;
-                stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                picture?:
-                  | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                  | { __typename?: 'NftImage'; uri: any }
-                  | null;
-                followModule?:
-                  | { __typename: 'FeeFollowModuleSettings' }
-                  | { __typename: 'ProfileFollowModuleSettings' }
-                  | { __typename: 'RevertFollowModuleSettings' }
-                  | { __typename: 'UnknownFollowModuleSettings' }
-                  | null;
-              } | null;
-            } | null;
             collectModule:
               | { __typename?: 'AaveFeeCollectModuleSettings' }
               | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -27480,31 +25971,6 @@ export type TimelineQuery = {
           result: boolean;
           reasons?: Array<DecryptFailReason> | null;
         };
-        collectedBy?: {
-          __typename?: 'Wallet';
-          address: any;
-          defaultProfile?: {
-            __typename?: 'Profile';
-            id: any;
-            name?: string | null;
-            handle: any;
-            bio?: string | null;
-            ownedBy: any;
-            isFollowedByMe: boolean;
-            stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-            attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-            picture?:
-              | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-              | { __typename?: 'NftImage'; uri: any }
-              | null;
-            followModule?:
-              | { __typename: 'FeeFollowModuleSettings' }
-              | { __typename: 'ProfileFollowModuleSettings' }
-              | { __typename: 'RevertFollowModuleSettings' }
-              | { __typename: 'UnknownFollowModuleSettings' }
-              | null;
-          } | null;
-        } | null;
         collectModule:
           | { __typename?: 'AaveFeeCollectModuleSettings' }
           | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -27721,11 +26187,6 @@ export type TimelineQuery = {
                 result: boolean;
                 reasons?: Array<DecryptFailReason> | null;
               };
-              collectedBy?: {
-                __typename?: 'Wallet';
-                address: any;
-                defaultProfile?: { __typename?: 'Profile'; handle: any } | null;
-              } | null;
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -28221,39 +26682,6 @@ export type TimelineQuery = {
                             result: boolean;
                             reasons?: Array<DecryptFailReason> | null;
                           };
-                          collectedBy?: {
-                            __typename?: 'Wallet';
-                            address: any;
-                            defaultProfile?: {
-                              __typename?: 'Profile';
-                              id: any;
-                              name?: string | null;
-                              handle: any;
-                              bio?: string | null;
-                              ownedBy: any;
-                              isFollowedByMe: boolean;
-                              stats: {
-                                __typename?: 'ProfileStats';
-                                totalFollowers: number;
-                                totalFollowing: number;
-                              };
-                              attributes?: Array<{
-                                __typename?: 'Attribute';
-                                key: string;
-                                value: string;
-                              }> | null;
-                              picture?:
-                                | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                                | { __typename?: 'NftImage'; uri: any }
-                                | null;
-                              followModule?:
-                                | { __typename: 'FeeFollowModuleSettings' }
-                                | { __typename: 'ProfileFollowModuleSettings' }
-                                | { __typename: 'RevertFollowModuleSettings' }
-                                | { __typename: 'UnknownFollowModuleSettings' }
-                                | null;
-                            } | null;
-                          } | null;
                           collectModule:
                             | { __typename?: 'AaveFeeCollectModuleSettings' }
                             | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -28501,35 +26929,6 @@ export type TimelineQuery = {
                       result: boolean;
                       reasons?: Array<DecryptFailReason> | null;
                     };
-                    collectedBy?: {
-                      __typename?: 'Wallet';
-                      address: any;
-                      defaultProfile?: {
-                        __typename?: 'Profile';
-                        id: any;
-                        name?: string | null;
-                        handle: any;
-                        bio?: string | null;
-                        ownedBy: any;
-                        isFollowedByMe: boolean;
-                        stats: {
-                          __typename?: 'ProfileStats';
-                          totalFollowers: number;
-                          totalFollowing: number;
-                        };
-                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                        picture?:
-                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                          | { __typename?: 'NftImage'; uri: any }
-                          | null;
-                        followModule?:
-                          | { __typename: 'FeeFollowModuleSettings' }
-                          | { __typename: 'ProfileFollowModuleSettings' }
-                          | { __typename: 'RevertFollowModuleSettings' }
-                          | { __typename: 'UnknownFollowModuleSettings' }
-                          | null;
-                      } | null;
-                    } | null;
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -29010,35 +27409,6 @@ export type TimelineQuery = {
                       result: boolean;
                       reasons?: Array<DecryptFailReason> | null;
                     };
-                    collectedBy?: {
-                      __typename?: 'Wallet';
-                      address: any;
-                      defaultProfile?: {
-                        __typename?: 'Profile';
-                        id: any;
-                        name?: string | null;
-                        handle: any;
-                        bio?: string | null;
-                        ownedBy: any;
-                        isFollowedByMe: boolean;
-                        stats: {
-                          __typename?: 'ProfileStats';
-                          totalFollowers: number;
-                          totalFollowing: number;
-                        };
-                        attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                        picture?:
-                          | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                          | { __typename?: 'NftImage'; uri: any }
-                          | null;
-                        followModule?:
-                          | { __typename: 'FeeFollowModuleSettings' }
-                          | { __typename: 'ProfileFollowModuleSettings' }
-                          | { __typename: 'RevertFollowModuleSettings' }
-                          | { __typename: 'UnknownFollowModuleSettings' }
-                          | null;
-                      } | null;
-                    } | null;
                     collectModule:
                       | { __typename?: 'AaveFeeCollectModuleSettings' }
                       | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -29260,31 +27630,6 @@ export type TimelineQuery = {
                 result: boolean;
                 reasons?: Array<DecryptFailReason> | null;
               };
-              collectedBy?: {
-                __typename?: 'Wallet';
-                address: any;
-                defaultProfile?: {
-                  __typename?: 'Profile';
-                  id: any;
-                  name?: string | null;
-                  handle: any;
-                  bio?: string | null;
-                  ownedBy: any;
-                  isFollowedByMe: boolean;
-                  stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
-                  attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-                  picture?:
-                    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                    | { __typename?: 'NftImage'; uri: any }
-                    | null;
-                  followModule?:
-                    | { __typename: 'FeeFollowModuleSettings' }
-                    | { __typename: 'ProfileFollowModuleSettings' }
-                    | { __typename: 'RevertFollowModuleSettings' }
-                    | { __typename: 'UnknownFollowModuleSettings' }
-                    | null;
-                } | null;
-              } | null;
               collectModule:
                 | { __typename?: 'AaveFeeCollectModuleSettings' }
                 | { __typename?: 'ERC4626FeeCollectModuleSettings' }
@@ -29770,12 +28115,6 @@ export const PostFieldsFragmentDoc = gql`
       result
       reasons
     }
-    collectedBy {
-      address
-      defaultProfile {
-        ...ProfileFields
-      }
-    }
     collectModule {
       ...CollectModuleFields
     }
@@ -29882,12 +28221,6 @@ export const CommentFieldsFragmentDoc = gql`
       result
       reasons
     }
-    collectedBy {
-      address
-      defaultProfile {
-        ...ProfileFields
-      }
-    }
     collectModule {
       ...CollectModuleFields
     }
@@ -29923,12 +28256,6 @@ export const CommentFieldsFragmentDoc = gql`
         canDecrypt(profileId: $profileId) {
           result
           reasons
-        }
-        collectedBy {
-          address
-          defaultProfile {
-            handle
-          }
         }
         collectModule {
           ...CollectModuleFields

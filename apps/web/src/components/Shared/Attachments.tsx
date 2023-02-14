@@ -135,7 +135,7 @@ const Attachments: FC<Props> = ({
                   }}
                   onClick={() => {
                     setExpandedImage(url);
-                    Leafwatch.track(PUBLICATION.ATTACHEMENT.IMAGE.OPEN);
+                    Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
                   }}
                   src={isNew ? url : imageProxy(url, ATTACHMENT)}
                   alt={isNew ? url : imageProxy(url, ATTACHMENT)}
