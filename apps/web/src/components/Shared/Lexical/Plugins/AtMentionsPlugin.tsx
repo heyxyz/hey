@@ -1,3 +1,4 @@
+import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { QueryMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
@@ -7,6 +8,8 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import formatHandle from '@lib/formatHandle';
 import imageProxy from '@lib/imageProxy';
+import isVerified from '@lib/isVerified';
+import clsx from 'clsx';
 import { AVATAR } from 'data/constants';
 import type { MediaSet, NftImage, Profile, ProfileSearchResult } from 'lens';
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
@@ -81,12 +84,14 @@ const getPossibleQueryMatch = (text: string): QueryMatch | null => {
 };
 
 class MentionTypeaheadOption extends TypeaheadOption {
+  id: string;
   name: string;
   picture: string;
   handle: string;
 
-  constructor(name: string, picture: string, handle: string) {
+  constructor(id: string, name: string, picture: string, handle: string) {
     super(name);
+    this.id = id;
     this.name = name;
     this.handle = handle;
     this.picture = picture;
@@ -113,7 +118,12 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
       onMouseEnter={onMouseEnter}
       onClick={onClick}
     >
-      <div className="m-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800">
+      <div
+        className={clsx(
+          { 'bg-gray-200 dark:bg-gray-800': isSelected },
+          'm-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800'
+        )}
+      >
         <img
           className="h-7 w-7 rounded-full"
           height="32"
@@ -122,7 +132,10 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
           alt={option.handle}
         />
         <div className="flex flex-col truncate">
-          <div className="truncate text-sm">{option.name}</div>
+          <div className="flex items-center space-x-1 text-sm">
+            <span>{option.name}</span>
+            {isVerified(option.id) && <BadgeCheckIcon className="text-brand h-4 w-4" />}
+          </div>
           <span className="text-xs">{formatHandle(option.handle)}</span>
         </div>
       </div>
@@ -130,7 +143,7 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
   );
 };
 
-const NewMentionsPlugin: FC = () => {
+const MentionsPlugin: FC = () => {
   const [queryString, setQueryString] = useState<string | null>(null);
   const [results, setResults] = useState<Record<string, string>[]>([]);
   const [editor] = useLexicalComposerContext();
@@ -163,6 +176,7 @@ const NewMentionsPlugin: FC = () => {
         const profilesResults = profiles.map(
           (user: Profile) =>
             ({
+              id: user?.id,
               name: user?.name,
               handle: user?.handle,
               picture: getUserPicture(user)
@@ -181,8 +195,13 @@ const NewMentionsPlugin: FC = () => {
   const options = useMemo(
     () =>
       results
-        .map(({ name, picture, handle }) => {
-          return new MentionTypeaheadOption(name ?? handle, imageProxy(getIPFSLink(picture), AVATAR), handle);
+        .map(({ id, name, picture, handle }) => {
+          return new MentionTypeaheadOption(
+            id,
+            name ?? handle,
+            imageProxy(getIPFSLink(picture), AVATAR),
+            handle
+          );
         })
         .slice(0, SUGGESTION_LIST_LENGTH_LIMIT),
     [results]
@@ -247,4 +266,4 @@ const NewMentionsPlugin: FC = () => {
   );
 };
 
-export default NewMentionsPlugin;
+export default MentionsPlugin;

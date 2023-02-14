@@ -23,5 +23,10 @@ export const featureFlags = [
     key: 'preferences-settings',
     name: 'Preferences settings',
     enabledFor: [...lensterMembers, ...aaveMembers]
+  },
+  {
+    key: 'gated-locales',
+    name: 'Gated locales',
+    enabledFor: ['0x01adb7', '0x216f', '0x6b66', '0x6b15', '0x01adb3', ...lensterMembers, ...aaveMembers]
   }
 ];

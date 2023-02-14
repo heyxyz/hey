@@ -1,9 +1,8 @@
-name = "leafwatch-worker"
+name = "raven-worker"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
-logpush = true
 routes = [
-	{ pattern = "leafwatch.lenster.xyz", custom_domain = true }
+	{ pattern = "raven.lenster.xyz", custom_domain = true }
 ]
 keep_vars = true
 

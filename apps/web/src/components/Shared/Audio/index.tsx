@@ -1,10 +1,10 @@
 import type { OptimisticTransaction } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
-import getAttributeFromTrait from '@lib/getAttributeFromTrait';
+import getPublicationAttribute from '@lib/getPublicationAttribute';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import type { Attribute, Publication } from 'lens';
+import type { Publication } from 'lens';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
@@ -48,13 +48,13 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PLAY);
+      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY);
 
       return playerRef.current?.plyr.play();
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Leafwatch.track(PUBLICATION.ATTACHEMENT.AUDIO.PAUSE);
+    Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +66,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew && !txn}
-          cover={isNew ? txn?.cover ?? audioPublication.cover : getThumbnailUrl(publication)}
+          cover={isNew ? txn?.cover ?? audioPublication.cover : getThumbnailUrl(publication?.metadata)}
           setCover={(url, mimeType) =>
             setAudioPublication({ ...audioPublication, cover: url, coverMimeType: mimeType })
           }
@@ -108,7 +108,7 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
                     <h5 className="truncate text-lg text-white">{publication?.metadata.name ?? txn.title}</h5>
                     <h6 className="truncate text-white/70">
                       {txn?.author ??
-                        getAttributeFromTrait(publication?.metadata.attributes as Attribute[], 'author') ??
+                        getPublicationAttribute(publication?.metadata.attributes, 'author') ??
                         publication?.profile.name}
                     </h6>
                   </>
