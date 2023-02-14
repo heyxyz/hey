@@ -3,7 +3,7 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { PageLoading } from '@components/UI/PageLoading';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
@@ -26,7 +26,7 @@ const ProfileSettings: NextPage = () => {
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
   }, []);
 
   const { data, loading, error } = useProfileSettingsQuery({

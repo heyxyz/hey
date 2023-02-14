@@ -1,6 +1,6 @@
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -40,7 +40,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
       })}
       onClick={() => {
         setShowMutualFollowersModal?.(true);
-        Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+        Mixpanel.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
       }}
     >
       <div className="contents -space-x-2">

@@ -3,7 +3,7 @@ import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CashIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -25,7 +25,7 @@ const CollectSettings: FC = () => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_SETTINGS);
+            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_SETTINGS);
           }}
           aria-label="Choose Collect Module"
         >

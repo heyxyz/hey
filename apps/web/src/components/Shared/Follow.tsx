@@ -3,7 +3,7 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
@@ -65,7 +65,7 @@ const Follow: FC<Props> = ({
   const onCompleted = () => {
     setFollowing(true);
     toast.success(t`Followed successfully!`);
-    Leafwatch.track(PROFILE.FOLLOW, {
+    Mixpanel.track(PROFILE.FOLLOW, {
       follow_path: pathname,
       ...(followSource && { follow_source: followSource }),
       ...(followPosition && { follow_position: followPosition }),
