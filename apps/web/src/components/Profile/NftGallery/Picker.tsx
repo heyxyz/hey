@@ -16,7 +16,7 @@ import { toast } from 'react-hot-toast';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import type { Item } from 'src/store/nft-gallery';
+import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { mainnet } from 'wagmi/chains';
 
@@ -84,7 +84,7 @@ const Picker: FC = () => {
     if (alreadySelectedIndex !== -1) {
       // remove selection from gallery items
       const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => i.itemId === customId);
-      let toRemove: Item[] = [];
+      let toRemove: NftGalleryItem[] = [];
       // if exists
       if (alreadyExistsIndex >= 0) {
         toRemove = [...gallery.toRemove, nft];
@@ -106,7 +106,7 @@ const Picker: FC = () => {
     } else {
       // add selection to gallery items
       const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => i.itemId === customId);
-      let toAdd: Item[] = [];
+      let toAdd: NftGalleryItem[] = [];
       // if not exists
       if (alreadyExistsIndex < 0) {
         toAdd = [...gallery.toAdd, nft];
