@@ -41,8 +41,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
       <PublicationType publication={publication} showType />
       <div>
         <div className="flex justify-between space-x-1.5 pb-4">
-          {/* @ts-ignore */}
-          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
+          <UserProfile profile={profile} showStatus />
           <PublicationMenu publication={publication} />
         </div>
         <div className="ml-[53px]">
