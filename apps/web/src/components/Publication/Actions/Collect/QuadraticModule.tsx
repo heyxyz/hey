@@ -47,20 +47,25 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
+import { getRoundInfo } from './quadraticUtils/utils';
+
 interface Props {
   count: number;
   setCount: Dispatch<number>;
   publication: Publication;
   electedMirror?: ElectedMirror;
+  setShowCollectModal?: Dispatch<boolean>;
 }
 
-interface CollectModuleData {
+export interface QuadraticCollectModuleData {
   __typename?: string;
   type: CollectModules;
   referralFee: number;
   contractAddress: any;
   followerOnly: boolean;
   endTimestamp: Date;
+  votingStrategy: string;
+  grantsRound: string;
   amount: {
     __typename?: string;
     value: string;
@@ -68,13 +73,15 @@ interface CollectModuleData {
   };
 }
 
-const quadraticModuleSettings: CollectModuleData = {
+const quadraticModuleSettings: QuadraticCollectModuleData = {
   __typename: 'UnknownCollectModuleSettings',
   type: CollectModules.UnknownCollectModule,
   referralFee: 0,
   contractAddress: '',
   followerOnly: false,
-  endTimestamp: new Date('2021-01-01T00:00:00.000Z'),
+  endTimestamp: new Date(0),
+  votingStrategy: '',
+  grantsRound: '',
   amount: {
     __typename: 'ModuleFeeAmount',
     value: '0',
@@ -82,7 +89,7 @@ const quadraticModuleSettings: CollectModuleData = {
   }
 };
 
-const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
+const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirror, setShowCollectModal }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -92,21 +99,24 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
-  const [collectModule, setCollectModule] = useState<CollectModuleData>(quadraticModuleSettings);
-  const [customTipAmount, setCustomTipAmount] = useState(0);
+  const [collectModule, setCollectModule] = useState<QuadraticCollectModuleData>(quadraticModuleSettings);
+
+  const [moduleAllowed, setModuleAllowed] = useState(false);
+  const [votingStrategyAllowed, setVotingStrategyAllowed] = useState(false);
+  const [allAllowancesLoading, setAllAllowancesLoading] = useState(true);
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
   });
-
-  // const collectModule: any = data?.publication?.collectModule;
-  // console.log("module data", data?.publication?.collectModule)
 
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
+    setTimeout(() => {
+      setShowCollectModal && setShowCollectModal(false);
+    }, 2000);
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
@@ -128,22 +138,35 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   });
 
   useEffect(() => {
+    async function fetchRoundInfo(grantsRound: string) {
+      const roundInfo = await getRoundInfo(grantsRound);
+      return roundInfo;
+    }
+
     if (!isFetching && collectModule === quadraticModuleSettings) {
       refetch().then((res: { data: any }) => {
         if (res) {
-          const { currency, referral } = res.data;
-          setCollectModule({
-            __typename: 'UnknownCollectModuleSettings',
-            type: CollectModules.UnknownCollectModule,
-            referralFee: referral,
-            contractAddress: getEnvConfig().QuadraticVoteCollectModuleAddress,
-            followerOnly: false,
-            endTimestamp: new Date('2023-10-10T00:00:00.000Z'),
-            amount: {
-              __typename: 'ModuleFeeAmount',
-              value: '.0001',
-              asset: { __typename: 'Erc20', symbol: 'WMATIC', decimals: 18, address: currency }
-            }
+          const { currency, referral, grantsRoundAddress } = res.data;
+          fetchRoundInfo(grantsRoundAddress).then((round) => {
+            console.log('round', round);
+            const roundEnd = new Date(round.roundEndTime * 1000);
+            const roundVotingStrategyAddress = round.votingStrategy.id;
+            setCollectModule({
+              __typename: 'UnknownCollectModuleSettings',
+              type: CollectModules.UnknownCollectModule,
+              referralFee: referral,
+              contractAddress: getEnvConfig().QuadraticVoteCollectModuleAddress,
+              followerOnly: false,
+              endTimestamp: roundEnd,
+              votingStrategy: roundVotingStrategyAddress,
+              grantsRound: grantsRoundAddress,
+              // alert, will need custom function/api here for this info as this data doesn't exist on UnkownCollectModuleSettings, esp for mumbai
+              amount: {
+                __typename: 'ModuleFeeAmount',
+                value: '.0001',
+                asset: { __typename: 'Erc20', symbol: 'WMATIC', decimals: 18, address: currency }
+              }
+            });
           });
         }
       });
@@ -151,7 +174,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   }, [isFetching, collectModule, refetch]);
 
   // const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
-
   const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
@@ -163,16 +185,32 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     },
     skip: !collectModule?.amount?.asset?.address || !currentProfile,
     onCompleted: (data) => {
-      setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
+      setModuleAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
   });
-  // const { isFetching, refetch } = useContractRead({
-  //   address: getEnvConfig().QuadraticVoteCollectModuleAddress,
-  //   abi: QuadraticVoteCollectModule,
-  //   functionName: 'getPublicationData',
-  //   args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
-  //   enabled: false
-  // });
+
+  const { isFetched: votingApprovalFetched } = useContractRead({
+    address: collectModule?.amount?.asset?.address,
+    abi: ['function allowance(address owner, address spender) view returns (uint256)'],
+    functionName: 'allowance',
+    args: [address, collectModule?.votingStrategy],
+    onSettled(data: any) {
+      setVotingStrategyAllowed(data?._hex !== '0x00');
+    }
+  });
+
+  useEffect(() => {
+    if (moduleAllowed && votingStrategyAllowed && votingApprovalFetched) {
+      setAllowed(true);
+    } else {
+      setAllowed(false);
+    }
+    if (allowanceLoading || !votingApprovalFetched) {
+      setAllAllowancesLoading(true);
+    } else {
+      setAllAllowancesLoading(false);
+    }
+  }, [moduleAllowed, votingStrategyAllowed, allowanceLoading, votingApprovalFetched]);
 
   const { data: revenueData, loading: revenueLoading } = usePublicationRevenueQuery({
     variables: {
@@ -215,7 +253,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   const [createCollectTypedData, { loading: typedDataLoading }] = useCreateCollectTypedDataMutation({
     onCompleted: async ({ createCollectTypedData }) => {
       const { id, typedData } = createCollectTypedData;
-      console.log(typedData);
       const { profileId, pubId, data: collectData, deadline } = typedData.value;
       const signature = await signTypedDataAsync(getSignature(typedData));
       const { v, r, s } = splitSignature(signature);
@@ -227,7 +264,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
         data: collectData,
         sig
       };
-      console.log('INPUT STRUCT', inputStruct);
       setUserSigNonce(userSigNonce + 1);
       const { data } = await broadcast({ variables: { request: { id, signature } } });
       if (data?.broadcast.__typename === 'RelayError') {
@@ -241,7 +277,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     onCompleted,
     onError
   });
-
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
     if (!data?.proxyAction) {
@@ -271,9 +306,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
             // below needs to be input || set amount with auto add button by user
 
             const uint256Value = ethers.utils.parseEther(collectModule.amount.value);
-            console.log('uint256value', uint256Value);
-            // alert problem, might be here with uint256 value
-            console.log(decodedData?.[0], uint256Value);
             const encodedData = defaultAbiCoder.encode(
               ['address', 'uint256'],
               [decodedData?.[0] as string, uint256Value]
@@ -284,7 +316,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
                 request: { publicationId: publication?.id, unknownModuleData: encodedData }
               }
             });
-            console.log('RESULT', result);
+            console.log('createCollectTypedData: ', result);
           }
         });
       } else {
@@ -303,225 +335,255 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   }
 
   const isLoading =
-    typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
-  // console.log("COLLECT MODULE: ", collectModule);
-  return (
-    <>
-      {/* {(collectModule?.type === CollectModules.LimitedFeeCollectModule ||
-        collectModule?.type === CollectModules.LimitedTimedFeeCollectModule) && (
-        <Tooltip placement="top" content={`${percentageCollected.toFixed(0)}% Collected`}>
-          <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
-            <div className="bg-brand-500 h-2.5" style={{ width: `${percentageCollected}%` }} />
-          </div>
-        </Tooltip>
-      )} */}
-      <div className="p-5">
-        {collectModule?.followerOnly && (
-          <div className="pb-5">
-            <CollectWarning
-              handle={formatHandle(publication?.profile?.handle)}
-              isSuperFollow={publication?.profile?.followModule?.__typename === 'FeeFollowModuleSettings'}
-            />
-          </div>
-        )}
-        <div className="mb-2 flex items-center space-x-2">
-          {/* {console.log("hasCollectedByMe", hasCollectedByMe)}
-           {console.log("allowanceLoading", allowanceLoading)}
-           {console.log("balanceLoading", balanceLoading)}
-           {console.log("allowed", allowed)} */}
-          {currentProfile && !hasCollectedByMe ? (
-            allowanceLoading || balanceLoading ? (
-              <div className="shimmer h-[34px] w-28 rounded-lg" />
-            ) : allowed ? (
-              hasAmount ? (
-                <div className="flex w-full justify-between">
-                  <input
-                    className="mr-2 w-4/6 rounded"
-                    type="number"
-                    placeholder="How much do you want to tip?"
-                    value={customTipAmount}
-                    onChange={(e) => setCustomTipAmount(parseFloat(e.target.value))}
-                  />
+    typedDataLoading ||
+    proxyActionLoading ||
+    signLoading ||
+    isFetching ||
+    writeLoading ||
+    broadcastLoading ||
+    allAllowancesLoading;
 
-                  <Button
-                    onClick={createCollect}
-                    disabled={isLoading}
-                    icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
-                    className="flex w-2/6 justify-center"
-                  >
-                    <div className="flex items-center">
-                      <Trans>Tip</Trans>
-                    </div>
-                  </Button>
-                </div>
-              ) : (
-                <WarningMessage message={<Uniswap module={collectModule} />} />
-              )
-            ) : (
-              <AllowanceButton
-                title="Allow collect module"
-                module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
-                allowed={allowed}
-                setAllowed={setAllowed}
-              />
-            )
-          ) : null}
+  const resetAmount = () => {
+    setCollectModule((prevState) => ({
+      ...prevState,
+      amount: {
+        ...prevState.amount,
+        value: quadraticModuleSettings.amount.value
+      }
+    }));
+  };
+
+  return (
+    <div className="p-5">
+      {collectModule?.followerOnly && (
+        <div className="pb-5">
+          <CollectWarning
+            handle={formatHandle(publication?.profile?.handle)}
+            isSuperFollow={publication?.profile?.followModule?.__typename === 'FeeFollowModuleSettings'}
+          />
         </div>
+      )}
+      <div className="mb-2 flex items-center space-x-2">
+        {currentProfile &&
+          (allowanceLoading || balanceLoading ? (
+            <div className="shimmer h-[34px] w-28 rounded-lg" />
+          ) : allowed ? (
+            hasAmount ? (
+              <div className="flex w-full justify-between">
+                <input
+                  className="mr-2 w-4/6 rounded"
+                  type="number"
+                  step="0.0001"
+                  placeholder="How much do you want to tip?"
+                  value={collectModule.amount.value}
+                  onChange={(e) => {
+                    const value = e.target.value.trim();
+                    if (value === '' || value === '.') {
+                      setCollectModule((prevState) => ({
+                        ...prevState,
+                        amount: {
+                          ...prevState.amount,
+                          value: '0'
+                        }
+                      }));
+                    } else {
+                      setCollectModule((prevState) => ({
+                        ...prevState,
+                        amount: {
+                          ...prevState.amount,
+                          value: Math.max(parseFloat(value), 0).toString()
+                        }
+                      }));
+                    }
+                  }}
+                />
+
+                <Button
+                  onClick={createCollect}
+                  disabled={isLoading}
+                  icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
+                  className="flex w-2/6 justify-center"
+                >
+                  <div className="flex items-center">
+                    <Trans>Tip</Trans>
+                  </div>
+                </Button>
+              </div>
+            ) : (
+              <div className="flex flex-1 items-center">
+                <div>
+                  <WarningMessage message={<Uniswap module={collectModule} />} />
+                </div>
+
+                <div className="mx-auto flex items-center">
+                  <div className="flex w-full justify-center">
+                    <Button className="text-center" onClick={resetAmount}>
+                      Reset Amount
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            )
+          ) : null)}
+      </div>
+      {allAllowancesLoading ? (
+        <Spinner />
+      ) : (
         <AllowanceButton
           title="Allow collect module"
           module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
           allowed={allowed}
           setAllowed={setAllowed}
+          {...(collectModule ? { collectModule: collectModule } : {})}
         />
-        <div className="space-y-1.5 pb-2">
-          {publication?.metadata?.name && (
-            <div className="text-xl font-bold">{publication?.metadata?.name}</div>
-          )}
-          {publication?.metadata?.content && (
-            <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.content}</Markup>
-          )}
-          <ReferralAlert
-            electedMirror={electedMirror}
-            mirror={publication}
-            referralFee={collectModule?.referralFee}
-          />
-        </div>
-        {collectModule?.amount && (
-          <div className="flex items-center space-x-1.5 py-2">
-            <img
-              className="h-7 w-7"
-              height={28}
-              width={28}
-              src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-              alt={collectModule?.amount?.asset?.symbol}
-              title={collectModule?.amount?.asset?.symbol}
-            />
-            <span className="space-x-1">
-              <span className="text-2xl font-bold">{collectModule.amount.value}</span>
-              <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
-              {usdPrice ? (
-                <>
-                  <span className="lt-text-gray-500 px-0.5">·</span>
-                  <span className="lt-text-gray-500 text-xs font-bold">
-                    ${(parseFloat(collectModule.amount.value) * usdPrice).toFixed(2)}
-                  </span>
-                </>
-              ) : null}
-            </span>
-          </div>
+      )}
+      <div className="space-y-1.5 pb-2">
+        {publication?.metadata?.name && (
+          <div className="text-xl font-bold">{publication?.metadata?.name}</div>
         )}
-        <div className="space-y-1.5">
-          <div className="item-center block space-y-1 sm:flex sm:space-x-5">
-            <div className="flex items-center space-x-2">
-              <UsersIcon className="lt-text-gray-500 h-4 w-4" />
-              <button
-                className="font-bold"
-                type="button"
-                onClick={() => {
-                  setShowCollectorsModal(!showCollectorsModal);
-                  Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
-                }}
-              >
-                <Trans>{humanize(count)} collectors</Trans>
-              </button>
-              <Modal
-                title={t`Collected by`}
-                icon={<CollectionIcon className="text-brand h-5 w-5" />}
-                show={showCollectorsModal}
-                onClose={() => setShowCollectorsModal(false)}
-              >
-                <Collectors
-                  publicationId={
-                    publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
-                  }
-                />
-              </Modal>
-            </div>
-            {collectModule?.referralFee ? (
-              <div className="flex items-center space-x-2">
-                <CashIcon className="lt-text-gray-500 h-4 w-4" />
-                <div className="font-bold">
-                  <Trans>{collectModule.referralFee}% referral fee</Trans>
-                </div>
-              </div>
+        {publication?.metadata?.content && (
+          <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.content}</Markup>
+        )}
+        <ReferralAlert
+          electedMirror={electedMirror}
+          mirror={publication}
+          referralFee={collectModule?.referralFee}
+        />
+      </div>
+      {collectModule?.amount && (
+        <div className="flex items-center space-x-1.5 py-2">
+          <img
+            className="h-7 w-7"
+            height={28}
+            width={28}
+            src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+            alt={collectModule?.amount?.asset?.symbol}
+            title={collectModule?.amount?.asset?.symbol}
+          />
+          <span className="space-x-1">
+            <span className="text-2xl font-bold">{collectModule.amount.value}</span>
+            <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
+            {usdPrice ? (
+              <>
+                <span className="lt-text-gray-500 px-0.5">·</span>
+                <span className="lt-text-gray-500 text-xs font-bold">
+                  ${(parseFloat(collectModule.amount.value) * usdPrice).toFixed(5)}
+                </span>
+              </>
             ) : null}
+          </span>
+        </div>
+      )}
+      <div className="space-y-1.5">
+        <div className="item-center block space-y-1 sm:flex sm:space-x-5">
+          <div className="flex items-center space-x-2">
+            <UsersIcon className="lt-text-gray-500 h-4 w-4" />
+            <button
+              className="font-bold"
+              type="button"
+              onClick={() => {
+                setShowCollectorsModal(!showCollectorsModal);
+                Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+              }}
+            >
+              <Trans>{humanize(count)} total tips</Trans>
+            </button>
+            <Modal
+              title={t`Collected by`}
+              icon={<CollectionIcon className="text-brand h-5 w-5" />}
+              show={showCollectorsModal}
+              onClose={() => setShowCollectorsModal(false)}
+            >
+              <Collectors
+                publicationId={
+                  publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+                }
+              />
+            </Modal>
           </div>
-          {revenueData?.publicationRevenue && (
+          {collectModule?.referralFee ? (
             <div className="flex items-center space-x-2">
               <CashIcon className="lt-text-gray-500 h-4 w-4" />
-              <div className="flex items-center space-x-1.5">
-                <span>
-                  <Trans>Revenue:</Trans>
-                </span>
-                <span className="flex items-center space-x-1">
-                  <img
-                    src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-                    className="h-5 w-5"
-                    height={20}
-                    width={20}
-                    alt={collectModule?.amount?.asset?.symbol}
-                    title={collectModule?.amount?.asset?.symbol}
-                  />
-                  <div className="flex items-baseline space-x-1.5">
-                    <div className="font-bold">{revenue}</div>
-                    <div className="text-[10px]">{collectModule?.amount?.asset?.symbol}</div>
-                    {usdPrice ? (
-                      <>
-                        <span className="lt-text-gray-500">·</span>
-                        <span className="lt-text-gray-500 text-xs font-bold">
-                          ${(revenue * usdPrice).toFixed(2)}
-                        </span>
-                      </>
-                    ) : null}
-                  </div>
-                </span>
+              <div className="font-bold">
+                <Trans>{collectModule.referralFee}% referral fee</Trans>
               </div>
             </div>
-          )}
-          {collectModule?.endTimestamp && (
-            <div className="flex items-center space-x-2">
-              <ClockIcon className="lt-text-gray-500 h-4 w-4" />
-              <div className="space-x-1.5">
-                <span>
-                  <Trans>Round Ends:</Trans>
-                </span>
-                {/* {console.log('COLLECT', collectModule)} */}
-                <span className="font-bold text-gray-600" title={formatTime(collectModule.endTimestamp)}>
-                  {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
-                  {dayjs(collectModule.endTimestamp).format('hh:mm a')}
-                </span>
-              </div>
-            </div>
-          )}
-          {data?.publication?.collectNftAddress && (
-            <div className="flex items-center space-x-2">
-              <PuzzleIcon className="lt-text-gray-500 h-4 w-4" />
-              <div className="space-x-1.5">
-                <span>
-                  <Trans>Token:</Trans>
-                </span>
-                <a
-                  href={`${POLYGONSCAN_URL}/token/${data?.publication?.collectNftAddress}`}
-                  target="_blank"
-                  className="font-bold text-gray-600"
-                  rel="noreferrer noopener"
-                >
-                  {formatAddress(data?.publication?.collectNftAddress)}
-                </a>
-              </div>
-            </div>
-          )}
+          ) : null}
         </div>
-        {publication?.hasCollectedByMe && (
-          <div className="mt-3 flex items-center space-x-1.5 font-bold text-green-500">
-            <CheckCircleIcon className="h-5 w-5" />
-            <div>
-              <Trans>You already collected this</Trans>
+        {revenueData?.publicationRevenue && (
+          <div className="flex items-center space-x-2">
+            <CashIcon className="lt-text-gray-500 h-4 w-4" />
+            <div className="flex items-center space-x-1.5">
+              <span>
+                <Trans>Revenue:</Trans>
+              </span>
+              <span className="flex items-center space-x-1">
+                <img
+                  src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+                  className="h-5 w-5"
+                  height={20}
+                  width={20}
+                  alt={collectModule?.amount?.asset?.symbol}
+                  title={collectModule?.amount?.asset?.symbol}
+                />
+                <div className="flex items-baseline space-x-1.5">
+                  <div className="font-bold">{revenue}</div>
+                  <div className="text-[10px]">{collectModule?.amount?.asset?.symbol}</div>
+                  {usdPrice ? (
+                    <>
+                      <span className="lt-text-gray-500">·</span>
+                      <span className="lt-text-gray-500 text-xs font-bold">
+                        ${(revenue * usdPrice).toFixed(2)}
+                      </span>
+                    </>
+                  ) : null}
+                </div>
+              </span>
+            </div>
+          </div>
+        )}
+        {collectModule?.endTimestamp && (
+          <div className="flex items-center space-x-2">
+            <ClockIcon className="lt-text-gray-500 h-4 w-4" />
+            <div className="space-x-1.5">
+              <span>
+                <Trans>Round Ends:</Trans>
+              </span>
+              <span className="font-bold text-gray-600" title={formatTime(collectModule?.endTimestamp)}>
+                {dayjs(collectModule?.endTimestamp).format('MMMM DD, YYYY')} at{' '}
+                {dayjs(collectModule?.endTimestamp).format('hh:mm a')}
+              </span>
+            </div>
+          </div>
+        )}
+        {data?.publication?.collectNftAddress && (
+          <div className="flex items-center space-x-2">
+            <PuzzleIcon className="lt-text-gray-500 h-4 w-4" />
+            <div className="space-x-1.5">
+              <span>
+                <Trans>Token:</Trans>
+              </span>
+              <a
+                href={`${POLYGONSCAN_URL}/token/${data?.publication?.collectNftAddress}`}
+                target="_blank"
+                className="font-bold text-gray-600"
+                rel="noreferrer noopener"
+              >
+                {formatAddress(data?.publication?.collectNftAddress)}
+              </a>
             </div>
           </div>
         )}
       </div>
-    </>
+      {publication?.hasCollectedByMe && (
+        <div className="mt-3 flex items-center space-x-1.5 font-bold text-green-500">
+          <CheckCircleIcon className="h-5 w-5" />
+          <div>
+            <Trans>You have tipped this post!</Trans>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

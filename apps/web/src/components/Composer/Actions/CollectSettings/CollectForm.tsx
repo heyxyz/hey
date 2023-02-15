@@ -48,8 +48,6 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
   const followerOnly = useCollectModuleStore((state) => state.followerOnly);
   const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
-  const quadraticRound = useCollectModuleStore((state) => state.quadraticRound);
-  const setQuadraticRound = useCollectModuleStore((state) => state.setQuadraticRound);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
   const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
@@ -167,7 +165,6 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
     }
 
     if (!toggleQuadraticEnabled) {
-      setQuadraticRound(true);
       setReferralFee('0');
       setSelectedCollectModule(UnknownCollectModule);
     } else {

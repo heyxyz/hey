@@ -7,7 +7,7 @@ import { getModule } from '@lib/getModule';
 import { Leafwatch } from '@lib/leafwatch';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
-import { SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE, SANDBOX_VOTING_STRATEGY } from 'data/contracts';
+import { SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE } from 'data/contracts';
 import { ethers } from 'ethers';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
@@ -16,15 +16,19 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
+import type { QuadraticCollectModuleData } from '../../Publication/Actions/Collect/QuadraticModule';
+
 interface Props {
   title?: string;
   module: ApprovedAllowanceAmount;
   allowed: boolean;
   setAllowed: Dispatch<boolean>;
+  collectModule?: QuadraticCollectModuleData;
 }
 
-const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllowed }) => {
+const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllowed, collectModule }) => {
   const [showWarningModal, setShowWarningModal] = useState(false);
+
   const [generateAllowanceQuery, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
 
@@ -37,7 +41,6 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
     mode: 'recklesslyUnprepared',
     onError
   });
-
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
     onSuccess: () => {
@@ -70,7 +73,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       ]);
 
       const approveVotingStrategy = iface.encodeFunctionData('approve', [
-        SANDBOX_VOTING_STRATEGY,
+        collectModule?.votingStrategy,
         value === '0' ? 0 : ethers.constants.MaxUint256
       ]);
       sendTransaction?.({
@@ -80,7 +83,6 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
           data: moduleType === 'Unknown Collect' ? approveUnknownCollectModule : data?.data
         }
       });
-      // alert change to field to result from subgraph query
       if (moduleType === 'Unknown Collect') {
         sendTransaction?.({
           recklesslySetUnpreparedRequest: {
@@ -120,10 +122,16 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       >
         <div className="space-y-3 p-5">
           <WarningMessage
-            title={t`Handle with care!`}
+            title={t`Important Note:`}
             message={
               <div className="leading-6">
                 <Trans>
+                  <div>
+                    <span className="my-4 block text-center">
+                      <b>YOU WILL NEED TO APPROVE TWO (2) TRANSACTIONS IN ORDER TO TIP.</b>
+                    </span>
+                  </div>
+                  <br />
                   Please be aware that by allowing this module, the amount indicated will be automatically
                   deducted when you <b>collect</b> and <b>super follow</b>.
                 </Trans>
