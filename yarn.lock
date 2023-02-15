@@ -5398,10 +5398,10 @@
     fast-url-parser "^1.1.3"
     tslib "^2.3.1"
 
-"@worldcoin/idkit@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@worldcoin/idkit/-/idkit-0.3.0.tgz#30012ed1c4eec9957aa2682bcb0abf48d88fe490"
-  integrity sha512-1dsGonmI6SDCKGfKYGKjM/oe3Vb059BMfz/k5YNtcSO+jx6vocj89qaObw4e75oc2vHPbYDZOqxaXJ/azJMDEg==
+"@worldcoin/idkit@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@worldcoin/idkit/-/idkit-0.3.1.tgz#e5f996947c80ba8545741453b57a336e4cd4873e"
+  integrity sha512-5v92ok+fsg/edDkUTXwVhK4Je6wYbaykwf8LIHZk3NpRhTLv52KtW7LLTIPF4rCwgVv6thtunUqEskz3RsQtIw==
   dependencies:
     "@ethersproject/bytes" "^5.7.0"
     "@ethersproject/solidity" "^5.7.0"
