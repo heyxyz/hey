@@ -42,7 +42,7 @@ export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
 
 // Mixpanel
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
-export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && true;
+export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
