@@ -97,7 +97,6 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
               </Tooltip>
             </div>
           )}
-          {/* </div> */}
         </motion.button>
         {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
       </div>

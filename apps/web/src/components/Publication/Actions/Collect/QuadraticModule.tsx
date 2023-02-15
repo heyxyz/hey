@@ -47,7 +47,7 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
-import { getRoundInfo } from './quadraticUtils/utils';
+import { getPostInfo, getRoundInfo } from './quadraticUtils/utils';
 
 interface Props {
   count: number;
@@ -104,6 +104,23 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   const [moduleAllowed, setModuleAllowed] = useState(false);
   const [votingStrategyAllowed, setVotingStrategyAllowed] = useState(false);
   const [allAllowancesLoading, setAllAllowancesLoading] = useState(true);
+  const [postInfo, setPostInfo] = useState(null);
+
+  useEffect(() => {
+    const fetchPostInfo = async () => {
+      if (address && publication?.id) {
+        const info = await getPostInfo(address, publication?.id);
+        setPostInfo(info);
+      }
+    };
+
+    fetchPostInfo();
+  }, [address, publication?.id]);
+
+  useEffect(() => {
+    console.log('publication', publication);
+    console.log('postInfo', postInfo);
+  }, [publication, postInfo]);
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
@@ -196,14 +213,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
       setVotingStrategyAllowed(data?._hex !== '0x00');
     }
   });
-
-  // const { data: votingApprovalData, isFetched: votingApprovalFetched } = getStrategyAllowance({
-  //   address: collectModule?.amount?.asset?.address,
-  //   abi: ['function allowance(address owner, address spender) view returns (uint256)'],
-  //   functionName: 'allowance',
-  //   args: [address, collectModule?.votingStrategy]
-  // });
-  // console.log(votingApprovalData)
 
   useEffect(() => {
     if (moduleAllowed && votingStrategyAllowed && votingApprovalFetched) {
