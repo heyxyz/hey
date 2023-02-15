@@ -24,6 +24,7 @@ import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
 if (MIXPANEL_ENABLED) {
   mixpanel.init(MIXPANEL_TOKEN, {
     ignore_dnt: true,
+    api_host: '/collect',
     batch_requests: false
   });
 }
