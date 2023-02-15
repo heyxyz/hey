@@ -9,7 +9,7 @@ import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { parseConversationKey } from '@lib/conversationKey';
 import formatHandle from '@lib/formatHandle';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
@@ -106,7 +106,7 @@ const MessagePage: NextPage = () => {
   } = useRouter();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'conversation' });
+    Mixpanel.track(PAGEVIEW, { page: 'conversation' });
   }, []);
 
   // Need to have a login page for when there is no currentProfileId

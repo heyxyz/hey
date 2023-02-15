@@ -3,7 +3,7 @@ import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, LS_KEYS } from 'data/constants';
 import type { NextPage } from 'next';
@@ -20,7 +20,7 @@ const CleanupSettings: NextPage = () => {
   const disconnectXmtp = useDisconnectXmtp();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
   }, []);
 
   if (!currentProfile) {

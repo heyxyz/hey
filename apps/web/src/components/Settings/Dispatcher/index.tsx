@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
@@ -17,7 +17,7 @@ const DispatcherSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'dispatcher' });
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'dispatcher' });
   }, []);
 
   if (!currentProfile) {

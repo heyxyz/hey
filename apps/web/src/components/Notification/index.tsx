@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import { useRouter } from 'next/router';
@@ -24,7 +24,7 @@ const Notification: FC = () => {
   );
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'notifications' });
+    Mixpanel.track(PAGEVIEW, { page: 'notifications' });
   }, []);
 
   if (!currentProfile) {

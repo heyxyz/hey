@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import type { FC, MouseEvent } from 'react';
@@ -19,7 +19,7 @@ const Embed: FC<Props> = ({ publication }) => {
       }
       onClick={(event: MouseEvent<HTMLAnchorElement>) => {
         event.stopPropagation();
-        Leafwatch.track(PUBLICATION.EMBED);
+        Mixpanel.track(PUBLICATION.EMBED);
       }}
       href={`https://embed.withlens.app/?url=${publication?.id}`}
       target="_blank"

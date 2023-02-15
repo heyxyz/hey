@@ -3,7 +3,7 @@ import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
 import { setLocale, supportedLocales } from '@lib/i18n';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
@@ -42,7 +42,7 @@ const Footer: FC = () => {
           href="https://lenster.xyz/discord"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(FOOTER.DISCORD)}
+          onClick={() => Mixpanel.track(FOOTER.DISCORD)}
         >
           <Trans>Discord</Trans>
         </a>
@@ -50,7 +50,7 @@ const Footer: FC = () => {
           href="https://lenster.xyz/donate"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(FOOTER.DONATE)}
+          onClick={() => Mixpanel.track(FOOTER.DONATE)}
         >
           <Trans>Donate</Trans>
         </a>
@@ -58,7 +58,7 @@ const Footer: FC = () => {
           href="https://status.lenster.xyz"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(FOOTER.STATUS)}
+          onClick={() => Mixpanel.track(FOOTER.STATUS)}
         >
           <Trans>Status</Trans>
         </a>
@@ -66,7 +66,7 @@ const Footer: FC = () => {
           href="https://feedback.lenster.xyz"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(FOOTER.FEEDBACK)}
+          onClick={() => Mixpanel.track(FOOTER.FEEDBACK)}
         >
           <Trans>Feedback</Trans>
         </a>
@@ -77,7 +77,7 @@ const Footer: FC = () => {
           href="https://github.com/lensterxyz/lenster"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(FOOTER.GITHUB)}
+          onClick={() => Mixpanel.track(FOOTER.GITHUB)}
         >
           <Trans>GitHub</Trans>
         </a>
@@ -85,7 +85,7 @@ const Footer: FC = () => {
           href="https://translate.lenster.xyz"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(FOOTER.TRANSLATE)}
+          onClick={() => Mixpanel.track(FOOTER.TRANSLATE)}
         >
           <Trans>Translate</Trans>
         </a>
@@ -107,7 +107,9 @@ const Footer: FC = () => {
                   as="div"
                   onClick={() => {
                     setLocale(localeCode);
-                    Leafwatch.track(`locale_changed_to_${localeCode}`);
+                    Mixpanel.track('Locale changed', {
+                      locale: localeCode
+                    });
                   }}
                   className={({ active }: { active: boolean }) =>
                     clsx({ 'dropdown-active': active }, 'menu-item')
@@ -124,7 +126,7 @@ const Footer: FC = () => {
           href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(FOOTER.VERCEL)}
+          onClick={() => Mixpanel.track(FOOTER.VERCEL)}
         >
           <Trans>▲ Powered by Vercel</Trans>
         </a>

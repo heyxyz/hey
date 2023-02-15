@@ -6,7 +6,7 @@ import {
   HeartIcon,
   LightningBoltIcon
 } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { NOTIFICATION } from 'src/tracking';
@@ -27,7 +27,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="all"
           onClick={() => {
             setFeedType('ALL');
-            Leafwatch.track(NOTIFICATION.SWITCH_ALL);
+            Mixpanel.track(NOTIFICATION.SWITCH_ALL);
           }}
         />
         <TabButton
@@ -37,7 +37,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="mentions"
           onClick={() => {
             setFeedType('MENTIONS');
-            Leafwatch.track(NOTIFICATION.SWITCH_MENTIONS);
+            Mixpanel.track(NOTIFICATION.SWITCH_MENTIONS);
           }}
         />
         <TabButton
@@ -47,7 +47,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="comments"
           onClick={() => {
             setFeedType('COMMENTS');
-            Leafwatch.track(NOTIFICATION.SWITCH_COMMENTS);
+            Mixpanel.track(NOTIFICATION.SWITCH_COMMENTS);
           }}
         />
         <TabButton
@@ -57,7 +57,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="likes"
           onClick={() => {
             setFeedType('LIKES');
-            Leafwatch.track(NOTIFICATION.SWITCH_LIKES);
+            Mixpanel.track(NOTIFICATION.SWITCH_LIKES);
           }}
         />
         <TabButton
@@ -67,7 +67,7 @@ const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
           type="collects"
           onClick={() => {
             setFeedType('COLLECTS');
-            Leafwatch.track(NOTIFICATION.SWITCH_COLLECTS);
+            Mixpanel.track(NOTIFICATION.SWITCH_COLLECTS);
           }}
         />
       </div>
