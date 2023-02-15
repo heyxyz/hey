@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-13 15:19\n"
+"PO-Revision-Date: 2023-02-15 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -210,11 +210,11 @@ msgstr "交易失败！"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Comment"
-msgstr "[cta]评论"
+msgstr "评论"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Post"
-msgstr "[cta] 发帖"
+msgstr "发帖"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"

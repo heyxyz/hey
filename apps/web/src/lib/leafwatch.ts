@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { RAVEN_WORKER_URL } from 'data/constants';
+import { LEAFWATCH_TOKEN, LEAFWATCH_URL } from 'data/constants';
+import posthog from 'posthog-js';
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -8,24 +8,30 @@ const isBrowser = typeof window !== 'undefined';
  */
 export const Leafwatch = {
   track: (name: string, metadata?: Record<string, any>) => {
-    const { state } = JSON.parse(
-      localStorage.getItem('lenster.store') || JSON.stringify({ state: { profileId: null } })
-    );
-
     if (isBrowser) {
-      axios(RAVEN_WORKER_URL, {
-        method: 'POST',
-        data: {
-          event: name,
-          metadata,
-          profile: state.profileId,
-          url: location.href,
-          referrer: document.referrer,
-          userAgent: navigator.userAgent,
-          ddsource: 'leafwatch'
-        }
-      }).catch(() => {
-        console.error('Error while sending analytics event to Leafwatch');
+      posthog.capture(name, metadata);
+    }
+  },
+  identify: (id: string, metadata?: Record<string, any>) => {
+    if (isBrowser) {
+      posthog.identify(id, metadata);
+    }
+  },
+  init: () => {
+    if (isBrowser) {
+      posthog.init(LEAFWATCH_TOKEN, {
+        api_host: LEAFWATCH_URL,
+        capture_pageview: false,
+        capture_pageleave: false,
+        disable_session_recording: true,
+        advanced_disable_decide: true,
+        advanced_disable_toolbar_metrics: true,
+        request_batching: false,
+        autocapture: false,
+        cookie_name: 'leafwatch',
+        secure_cookie: true,
+        persistence: 'localStorage',
+        persistence_name: 'leafwatch_features'
       });
     }
   }

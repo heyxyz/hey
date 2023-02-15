@@ -107,7 +107,7 @@ const Footer: FC = () => {
                   as="div"
                   onClick={() => {
                     setLocale(localeCode);
-                    Leafwatch.track(`locale_changed_to_${localeCode}`);
+                    Leafwatch.track(`Locale changed to ${localeCode}`);
                   }}
                   className={({ active }: { active: boolean }) =>
                     clsx({ 'dropdown-active': active }, 'menu-item')
