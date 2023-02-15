@@ -276,16 +276,16 @@ msgid "Explore • {APP_NAME}"
 msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Beta warning!"
-msgstr "பீட்டா எச்சரிக்கை!"
+#~ msgid "Beta warning!"
+#~ msgstr "பீட்டா எச்சரிக்கை!"
 
 #: src/components/Home/BetaWarning.tsx
-msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr "{APP_NAME} இன்னும் பீட்டா கட்டத்தில் உள்ளது, விஷயங்கள் உடைந்து போகலாம், தயவுசெய்து கவனமாகக் கையாளவும்."
+#~ msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
+#~ msgstr "{APP_NAME} இன்னும் பீட்டா கட்டத்தில் உள்ளது, விஷயங்கள் உடைந்து போகலாம், தயவுசெய்து கவனமாகக் கையாளவும்."
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Get testnet tokens"
-msgstr "டெஸ்ட்நெட் டோக்கன்களைப் பெறுங்கள்"
+#~ msgid "Get testnet tokens"
+#~ msgstr "டெஸ்ட்நெட் டோக்கன்களைப் பெறுங்கள்"
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
@@ -1413,8 +1413,8 @@ msgid "Failed to load relevant people"
 msgstr "தொடர்புடைய நபர்களை ஏற்ற முடியவில்லை"
 
 #: src/components/Publication/Type/Collected.tsx
-msgid "collected the <0>{0}</0>"
-msgstr ""
+#~ msgid "collected the <0>{0}</0>"
+#~ msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -1691,7 +1691,8 @@ msgid "Profile updated successfully!"
 msgstr "சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
-msgid "Verify your phone number for free gassless transactions"
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Verify your phone number to increase gassless limits"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
@@ -1702,6 +1703,10 @@ msgstr "டிஸ்பெட்சேரை முடக்கு"
 msgid "Enable dispatcher"
 msgstr "டிஸ்பெட்சேரை இயக்கு"
 
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#~ msgid "Verify your phone number for free gassless transactions"
+#~ msgstr ""
+
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
@@ -1709,6 +1714,18 @@ msgstr ""
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
 msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "By verifying your phone number, we'll relax the gass-less limits."
+msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Verify with IDKit"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
+#~ msgid "By verifying your phone number, we'll relax the gass-less limits. {APP_NAME}."
+#~ msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2413,4 +2430,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

@@ -276,16 +276,16 @@ msgid "Explore • {APP_NAME}"
 msgstr "看看别人都在干吗？ • {APP_NAME}"
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Beta warning!"
-msgstr "这是测试版！"
+#~ msgid "Beta warning!"
+#~ msgstr "这是测试版！"
 
 #: src/components/Home/BetaWarning.tsx
-msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr "{APP_NAME} 仍处于测试阶段，可能会出现问题，请谨慎使用。"
+#~ msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
+#~ msgstr "{APP_NAME} 仍处于测试阶段，可能会出现问题，请谨慎使用。"
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Get testnet tokens"
-msgstr "获取测试网代币"
+#~ msgid "Get testnet tokens"
+#~ msgstr "获取测试网代币"
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
@@ -1413,8 +1413,8 @@ msgid "Failed to load relevant people"
 msgstr "加载相关人员失败"
 
 #: src/components/Publication/Type/Collected.tsx
-msgid "collected the <0>{0}</0>"
-msgstr "收藏了 <0>{0}</0>"
+#~ msgid "collected the <0>{0}</0>"
+#~ msgstr "收藏了 <0>{0}</0>"
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -1691,6 +1691,11 @@ msgid "Profile updated successfully!"
 msgstr "个人资料更新成功！"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Verify your phone number to increase gassless limits"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable dispatcher"
 msgstr "禁用调度员"
 
@@ -1705,6 +1710,18 @@ msgstr "调度员 • {APP_NAME}"
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
 msgstr "我们建议您启用调度员，这样您就不需要在 {APP_NAME} 中签署所有交易。"
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "By verifying your phone number, we'll relax the gass-less limits."
+msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Verify with IDKit"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
+#~ msgid "By verifying your phone number, we'll relax the gass-less limits. {APP_NAME}."
+#~ msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2409,4 +2426,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

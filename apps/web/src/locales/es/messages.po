@@ -276,16 +276,16 @@ msgid "Explore • {APP_NAME}"
 msgstr ""
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Beta warning!"
-msgstr ""
+#~ msgid "Beta warning!"
+#~ msgstr ""
 
 #: src/components/Home/BetaWarning.tsx
-msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr ""
+#~ msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
+#~ msgstr ""
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Get testnet tokens"
-msgstr ""
+#~ msgid "Get testnet tokens"
+#~ msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
@@ -1413,8 +1413,8 @@ msgid "Failed to load relevant people"
 msgstr ""
 
 #: src/components/Publication/Type/Collected.tsx
-msgid "collected the <0>{0}</0>"
-msgstr ""
+#~ msgid "collected the <0>{0}</0>"
+#~ msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -1691,8 +1691,9 @@ msgid "Profile updated successfully!"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
-msgid "Verify your phone number for free gassless transactions"
-msgstr "Verifica tu número de teléfono para que cubramos el gas de tus transacciones"
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Verify your phone number to increase gassless limits"
+msgstr "Verifica tu teléfono para aumentar los límites libres de gas"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable dispatcher"
@@ -1702,6 +1703,10 @@ msgstr ""
 msgid "Enable dispatcher"
 msgstr ""
 
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#~ msgid "Verify your phone number for free gassless transactions"
+#~ msgstr "Verifica tu número de teléfono para que cubramos el gas de tus transacciones"
+
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
@@ -1709,6 +1714,14 @@ msgstr ""
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
 msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "By verifying your phone number, we'll relax the gass-less limits."
+msgstr "Al verificar tu teléfono, amuentaremos los límites libres de gas"
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Verify with IDKit"
+msgstr "Verifica con IDKit"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2413,4 +2426,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
