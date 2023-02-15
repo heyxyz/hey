@@ -25,14 +25,13 @@ const initialConfig = {
   }
 };
 
-const withLexicalContext = (Component: FC<any>, editable = true) => {
+const withLexicalContext = (Component: FC<any>) => {
   const LexicalContext = (props: any) => (
-    <LexicalComposer initialConfig={{ ...initialConfig, editable }}>
+    <LexicalComposer initialConfig={{ ...initialConfig }}>
       <Component {...props} />
     </LexicalComposer>
   );
 
-  LexicalContext.displayName = 'EditorContext';
   return LexicalContext;
 };
 
