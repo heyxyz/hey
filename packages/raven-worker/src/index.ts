@@ -34,7 +34,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
   }
 
   try {
-    const appenedPayload = {
+    const appendedPayload = {
       ...payload,
       ip: request.headers.get('cf-connecting-ip') || 'unknown'
     };
@@ -45,14 +45,14 @@ const handleRequest = async (request: Request, env: EnvType) => {
       {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(appenedPayload)
+        body: JSON.stringify(appendedPayload)
       }
     );
 
     return new Response(
       JSON.stringify({
         success: true,
-        payload: appenedPayload,
+        payload: appendedPayload,
         ddResponse: await datadogRes.json()
       }),
       { headers }
