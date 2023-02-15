@@ -52,7 +52,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Leafwatch.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
+      Leafwatch.track(`Connect with ${toSnakeCase(connector.name.toLowerCase())}`);
     } catch (error) {
       console.error(error);
     }
