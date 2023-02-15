@@ -1,6 +1,7 @@
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
+import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
 import { IS_MAINNET } from 'data/constants';
 import type { Profile } from 'lens';
@@ -19,6 +20,8 @@ import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
+
+Leafwatch.init();
 
 interface Props {
   children: ReactNode;
@@ -89,6 +92,16 @@ const Layout: FC<Props> = ({ children }) => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chain, disconnect, profileId]);
+
+  // Set leafwatch profile
+  useEffect(() => {
+    if (currentProfile?.id) {
+      Leafwatch.identify(currentProfile?.id, {
+        handle: currentProfile?.handle
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile?.id]);
 
   // set pro status
   useEffect(() => {
