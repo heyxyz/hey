@@ -97,6 +97,7 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     if (currentProfile?.id) {
       Leafwatch.identify(currentProfile?.id, {
+        id: currentProfile?.id,
         handle: currentProfile?.handle
       });
     }
