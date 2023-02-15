@@ -24,8 +24,6 @@ export const Leafwatch = {
         capture_pageview: false,
         capture_pageleave: false,
         disable_session_recording: true,
-        opt_out_capturing_by_default: true,
-        advanced_disable_decide: true,
         advanced_disable_toolbar_metrics: true,
         request_batching: false,
         autocapture: false,
