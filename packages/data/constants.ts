@@ -66,7 +66,9 @@ export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz
 export const RAVEN_WORKER_URL = IS_PRODUCTION ? 'https://raven.lenster.xyz' : 'http://localhost:8084';
 
 // Web3
-export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
+// export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
+
+export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_ID;
 
 // Errors
 export const ERRORS = {

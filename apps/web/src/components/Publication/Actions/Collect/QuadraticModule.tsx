@@ -124,8 +124,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     address: getEnvConfig().QuadraticVoteCollectModuleAddress,
     abi: QuadraticVoteCollectModule,
     functionName: 'getPublicationData',
-    args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
-    enabled: false
+    args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])]
   });
 
   const { isLoading: writeLoading, write } = useContractWrite({

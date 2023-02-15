@@ -17,6 +17,10 @@ import client from '../../apollo';
 import ErrorBoundary from './ErrorBoundary';
 import Layout from './Layout';
 
+if (!ALCHEMY_KEY) {
+  throw new Error('Alchemy API key not found');
+}
+
 const { chains, provider } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai, mainnet],
   [alchemyProvider({ apiKey: ALCHEMY_KEY })]
