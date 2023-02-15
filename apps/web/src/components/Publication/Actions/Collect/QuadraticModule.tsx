@@ -148,7 +148,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
         if (res) {
           const { currency, referral, grantsRoundAddress } = res.data;
           fetchRoundInfo(grantsRoundAddress).then((round) => {
-            console.log('round', round);
             const roundEnd = new Date(round.roundEndTime * 1000);
             const roundVotingStrategyAddress = round.votingStrategy.id;
             setCollectModule({
@@ -198,6 +197,14 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
       setVotingStrategyAllowed(data?._hex !== '0x00');
     }
   });
+
+  // const { data: votingApprovalData, isFetched: votingApprovalFetched } = getStrategyAllowance({
+  //   address: collectModule?.amount?.asset?.address,
+  //   abi: ['function allowance(address owner, address spender) view returns (uint256)'],
+  //   functionName: 'allowance',
+  //   args: [address, collectModule?.votingStrategy]
+  // });
+  // console.log(votingApprovalData)
 
   useEffect(() => {
     if (moduleAllowed && votingStrategyAllowed && votingApprovalFetched) {
@@ -335,13 +342,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   }
 
   const isLoading =
-    typedDataLoading ||
-    proxyActionLoading ||
-    signLoading ||
-    isFetching ||
-    writeLoading ||
-    broadcastLoading ||
-    allAllowancesLoading;
+    typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
 
   const resetAmount = () => {
     setCollectModule((prevState) => ({
