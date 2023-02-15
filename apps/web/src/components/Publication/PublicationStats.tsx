@@ -3,7 +3,7 @@ import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
 import { Modal } from '@components/UI/Modal';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
@@ -50,7 +50,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowMirrorsModal(true);
-              Leafwatch.track(PUBLICATION.STATS.MIRRORED_BY);
+              Mixpanel.track(PUBLICATION.STATS.MIRRORED_BY);
             }}
           >
             <Trans>
@@ -73,7 +73,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowLikesModal(true);
-              Leafwatch.track(PUBLICATION.STATS.LIKED_BY);
+              Mixpanel.track(PUBLICATION.STATS.LIKED_BY);
             }}
           >
             <Trans>
@@ -96,7 +96,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowCollectorsModal(true);
-              Leafwatch.track(PUBLICATION.STATS.COLLECTED_BY);
+              Mixpanel.track(PUBLICATION.STATS.COLLECTED_BY);
             }}
           >
             <Trans>

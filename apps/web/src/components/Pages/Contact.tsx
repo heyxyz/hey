@@ -9,7 +9,7 @@ import { Input } from '@components/UI/Input';
 import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, CONTACT_EMAIL } from 'data/constants';
 import { useRouter } from 'next/router';
@@ -35,7 +35,7 @@ const Contact: FC = () => {
   const { push } = useRouter();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'contact' });
+    Mixpanel.track(PAGEVIEW, { page: 'contact' });
   }, []);
 
   const form = useZodForm({

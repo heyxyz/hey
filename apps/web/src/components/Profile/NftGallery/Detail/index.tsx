@@ -6,7 +6,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -20,7 +20,7 @@ const NFTDetail: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'nft' });
+    Mixpanel.track(PAGEVIEW, { page: 'nft' });
   }, []);
 
   if (!isFeatureEnabled('nft-detail', currentProfile?.id) || !currentProfile) {

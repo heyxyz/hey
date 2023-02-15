@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
 import type { ApprovedAllowanceAmount } from 'lens';
@@ -42,7 +42,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       toast.success(t`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Leafwatch.track(`module_${allowed ? 'disabled' : 'enabled'}`);
+      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
     },
     onError
   });

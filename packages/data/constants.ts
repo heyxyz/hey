@@ -40,6 +40,10 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
 
+// Mixpanel
+export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
+export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
+
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
 export const SIGN_WALLET = 'Please sign in your wallet.';
@@ -63,7 +67,6 @@ export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
 export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
-export const RAVEN_WORKER_URL = IS_PRODUCTION ? 'https://raven.lenster.xyz' : 'http://localhost:8084';
 
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';

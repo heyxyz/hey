@@ -9,7 +9,7 @@ import { WarningMessage } from '@components/UI/WarningMessage';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
@@ -39,7 +39,7 @@ const DeleteSettings: FC = () => {
   const { disconnect } = useDisconnect();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
   }, []);
 
   const onCompleted = () => {

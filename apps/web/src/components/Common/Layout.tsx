@@ -2,9 +2,10 @@ import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import { IS_MAINNET } from 'data/constants';
+import { IS_MAINNET, MIXPANEL_ENABLED, MIXPANEL_TOKEN } from 'data/constants';
 import type { Profile } from 'lens';
 import { useUserProfilesQuery } from 'lens';
+import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -19,6 +20,14 @@ import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
+
+if (MIXPANEL_ENABLED) {
+  mixpanel.init(MIXPANEL_TOKEN, {
+    ignore_dnt: true,
+    api_host: '/collect',
+    batch_requests: false
+  });
+}
 
 interface Props {
   children: ReactNode;
@@ -100,6 +109,13 @@ const Layout: FC<Props> = ({ children }) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile?.id]);
+
+  // Mixpanel identify
+  useEffect(() => {
+    if (MIXPANEL_ENABLED && currentProfile?.id) {
+      mixpanel.identify(currentProfile?.id);
+    }
   }, [currentProfile?.id]);
 
   if (loading || !mounted) {
