@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
@@ -9,7 +9,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'privacy' });
+    Mixpanel.track(PAGEVIEW, { page: 'privacy' });
   }, []);
 
   const updatedAt = 'December 11, 2022';

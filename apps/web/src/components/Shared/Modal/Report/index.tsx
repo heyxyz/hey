@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
@@ -34,13 +34,13 @@ const Report: FC<Props> = ({ publication }) => {
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'report' });
+    Mixpanel.track(PAGEVIEW, { page: 'report' });
   }, []);
 
   const [createReport, { data: submitData, loading: submitLoading, error: submitError }] =
     useReportPublicationMutation({
       onCompleted: () => {
-        Leafwatch.track(PUBLICATION.REPORT);
+        Mixpanel.track(PUBLICATION.REPORT);
       }
     });
 

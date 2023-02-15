@@ -9,6 +9,14 @@ module.exports = {
     newNextLinkBehavior: true,
     swcPlugins: [['@lingui/swc-plugin', {}]]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/collect/:match*',
+        destination: 'https://api.mixpanel.com/:match*'
+      }
+    ];
+  },
   async redirects() {
     return [
       { source: '/u/:handle(.+).lens', destination: '/u/:handle', permanent: true },

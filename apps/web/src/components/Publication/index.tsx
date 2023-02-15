@@ -7,7 +7,7 @@ import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import formatHandle from '@lib/formatHandle';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
 import type { NextPage } from 'next';
@@ -31,7 +31,7 @@ const ViewPublication: NextPage = () => {
   } = useRouter();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'publication' });
+    Mixpanel.track(PAGEVIEW, { page: 'publication' });
   }, []);
 
   const { data, loading, error } = usePublicationQuery({

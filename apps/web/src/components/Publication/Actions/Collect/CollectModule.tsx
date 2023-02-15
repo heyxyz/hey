@@ -27,7 +27,7 @@ import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
@@ -84,7 +84,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const { isFetching, refetch } = useContractRead({
@@ -307,7 +307,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                 type="button"
                 onClick={() => {
                   setShowCollectorsModal(!showCollectorsModal);
-                  Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+                  Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
                 }}
               >
                 <Trans>{humanize(count)} collectors</Trans>

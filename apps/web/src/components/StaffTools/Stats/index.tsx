@@ -14,7 +14,7 @@ import {
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
@@ -73,7 +73,7 @@ const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
+    Mixpanel.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
   }, []);
 
   const { data, loading, error } = useLensterStatsQuery({
