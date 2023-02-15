@@ -25,7 +25,6 @@ export const PROFILE = {
 };
 
 export const PUBLICATION = {
-  OPEN: 'open_publication',
   LIKE: 'like_publication',
   DISLIKE: 'dislike_publication',
   MIRROR: 'mirror_publication',
@@ -34,7 +33,7 @@ export const PUBLICATION = {
   MORE: 'more_publication_options',
   DELETE: 'delete_publication',
   REPORT: 'report_publication',
-  OEMBED_CLICK: 'click_publication_oemebed',
+  OEMBED_CLICK: 'click_publication_oembed',
   MENTION_CLICK: 'click_publication_mention',
   HASHTAG_CLICK: 'click_publication_hashtag',
   STATS: {
@@ -42,7 +41,7 @@ export const PUBLICATION = {
     LIKED_BY: 'open_liked_by_list',
     COLLECTED_BY: 'open_collected_by_list'
   },
-  ATTACHEMENT: {
+  ATTACHMENT: {
     IMAGE: {
       OPEN: 'open_image_attachment'
     },

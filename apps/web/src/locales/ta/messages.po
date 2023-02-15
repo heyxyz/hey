@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-09 06:45\n"
+"PO-Revision-Date: 2023-02-10 16:44\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -529,7 +529,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
-msgstr ""
+msgstr "உரையாடல்களை ஏற்றுகிறது"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
@@ -1765,7 +1765,7 @@ msgstr "தவறான இணையதளம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Twitter should not exceed 100 characters"
-msgstr ""
+msgstr "ட்விட்டர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -1989,7 +1989,7 @@ msgstr "பயனர்பெயர் எண்ணெழுத்து எழ�
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
-msgstr ""
+msgstr "{APP_NAME} வரை பதிவு செய்யவும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle"
@@ -2033,7 +2033,7 @@ msgstr "எங்களிடம் இருக்கும் வாலட் 
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
-msgstr ""
+msgstr "சேகரிப்பாளர்களை ஏற்றுகிறது"
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "No collectors."
@@ -2271,7 +2271,7 @@ msgstr ""
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Loading super follow"
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ ஏற்றுகிறது"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
@@ -2287,7 +2287,7 @@ msgstr "{0} இன் பப்ளிகேஷன்களில் நீங்
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will get super follow badge in @{0}'s profile"
-msgstr ""
+msgstr "@{0} இன் சுயவிவரத்தில் சூப்பர் ஃபாலோ பேட்ஜைப் பெறுவீர்கள்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will have high voting power if you followed multiple times"
@@ -2299,11 +2299,11 @@ msgstr "மேலும் விரைவில்™"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow again"
-msgstr ""
+msgstr "மீண்டும் சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow now"
-msgstr ""
+msgstr "இப்போது சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Allow follow module"
@@ -2362,67 +2362,31 @@ msgid "Audio size should be less than 100MB"
 msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/lib/getModule.ts
-msgid "The Unknown Collect Module is unknown and not type supported in the API."
-msgstr ""
-
-#: src/lib/getModule.ts
 msgid "Paid Collect"
 msgstr "கட்டண சேகரிப்பு"
-
-#: src/lib/getModule.ts
-msgid "The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster."
-msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Rare Paid Collect"
 msgstr "அரிய கட்டண சேகரிப்பு"
 
 #: src/lib/getModule.ts
-msgid "The Limited Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific limit of mints."
-msgstr ""
-
-#: src/lib/getModule.ts
 msgid "24 Hour Collect"
 msgstr "24 மணி நேர சேகரிப்பு"
-
-#: src/lib/getModule.ts
-msgid "The Timed Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency."
-msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Rare 24 Hour Collect"
 msgstr "அரிய 24 மணிநேர சேகரிப்பு"
 
 #: src/lib/getModule.ts
-msgid "The Limited Timed Fee Collect Module allows for any follower to collect the associate publication, provided they pay a fee, up to a specific time limit and mint cap. It is essentially a combination of the Timed Fee Collect Module and the Limited Fee Collect Module."
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Free Collect Module allows any profile to collect the publication this module is attached to."
-msgstr ""
-
-#: src/lib/getModule.ts
 msgid "No Collect"
 msgstr "சேகரிப்பு இல்லை"
-
-#: src/lib/getModule.ts
-msgid "The Revert Collect Module causes all collect actions on a given publication to fail, thus making the publication uncollectable."
-msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Fee Follow"
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "The Fee Follow Module only allows addresses to follow a given profile, so long as they pay a fee specified by the profile owner. Users can set the currency and amount required to be paid."
-msgstr ""
-
-#: src/lib/getModule.ts
 msgid "Follower Only Reference"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Follower Only Reference Module ensures that only a profile is only allowed to mirror or comment on content."
 msgstr ""
 
 #: src/pages/404.tsx

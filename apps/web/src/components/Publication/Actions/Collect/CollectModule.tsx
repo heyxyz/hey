@@ -204,7 +204,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
 
     try {
-      if (collectModule?.type === CollectModules.FreeCollectModule) {
+      if (collectModule?.type === CollectModules.FreeCollectModule && !collectModule?.followerOnly) {
         await createViaProxyAction({
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
         });
