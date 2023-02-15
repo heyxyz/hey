@@ -7,7 +7,6 @@ import { XCircleIcon } from '@heroicons/react/solid';
 import getWalletLogo from '@lib/getWalletLogo';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
-import toSnakeCase from '@lib/toSnakeCase';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ERROR_MESSAGE } from 'data/constants';
@@ -52,7 +51,9 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Mixpanel.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
+      Mixpanel.track('Connect wallet', {
+        wallet: connector.name.toLowerCase()
+      });
     } catch (error) {
       console.error(error);
     }

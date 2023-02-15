@@ -107,7 +107,9 @@ const Footer: FC = () => {
                   as="div"
                   onClick={() => {
                     setLocale(localeCode);
-                    Mixpanel.track(`locale_changed_to_${localeCode}`);
+                    Mixpanel.track('Locale changed', {
+                      locale: localeCode
+                    });
                   }}
                   className={({ active }: { active: boolean }) =>
                     clsx({ 'dropdown-active': active }, 'menu-item')

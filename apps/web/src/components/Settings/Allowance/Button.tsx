@@ -42,7 +42,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       toast.success(t`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Mixpanel.track(`module_${allowed ? 'disabled' : 'enabled'}`);
+      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
     },
     onError
   });
