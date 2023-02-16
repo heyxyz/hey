@@ -115,7 +115,11 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     if (MIXPANEL_ENABLED && currentProfile?.id) {
       mixpanel.identify(currentProfile?.id);
+      mixpanel.people.set({
+        $name: currentProfile?.handle
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile?.id]);
 
   if (loading || !mounted) {
