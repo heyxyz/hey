@@ -20,8 +20,7 @@ export const Leafwatch = {
           metadata,
           profile: state.profileId,
           url: location.href,
-          referrer: document.referrer,
-          userAgent: navigator.userAgent
+          referrer: document.referrer
         }
       }).catch(() => {
         console.error('Error while sending analytics event to Leafwatch');
