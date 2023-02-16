@@ -495,7 +495,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
                 Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
               }}
             >
-              <Trans>{humanize(count)} total tips</Trans>
+              <div>{humanize(count)} total tips</div>
             </button>
             <Modal
               title={t`Collected by`}
