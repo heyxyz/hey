@@ -80,7 +80,6 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
                   <div className="flex">{hasCollected ? <TipsSolidIcon /> : <TipsOutlineIcon />}</div>
                 </Tooltip>
               </div>
-              {hasCollected ? <p className="ml-2 text-center text-xs text-red-500">100 |</p> : null}
             </div>
           ) : (
             <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
@@ -98,7 +97,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
             </div>
           )}
         </motion.button>
-        {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+        {count > 0 && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
       </div>
       <Modal
         title={
@@ -119,6 +118,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >
+        {/* {isUnknownCollect && count ? ( */}
         {isUnknownCollect ? (
           <QuadraticModule
             electedMirror={electedMirror}

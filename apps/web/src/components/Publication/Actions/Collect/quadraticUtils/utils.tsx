@@ -41,30 +41,27 @@ export async function getRoundInfo(grantsRound: string) {
   }
 }
 
-export async function getVotingInfo(grantsRound: string, account: string) {
-  const roundLower = grantsRound.toLowerCase();
-
+export async function getRoundTippingData(grantsRound: string) {
   const query = `
-  {
-    round(id: ${roundLower}) {
-      createdAt
-      token
-      id
-      votingStrategy {
+    query getRoundTippingData($id: String!) {
+      round(id: $id) {
         id
-        votes(
-          orderDirection: desc
-          where: {from: ${account}}
-        ) {
-          amount
-          from
-          to
-          version
-          token
+        createdAt
+        token
+        votingStrategy {
+          id
+          votes {
+            id
+            amount
+            from
+            to
+            version
+            token
+          }
         }
+        roundEndTime
       }
     }
-  }
   `;
 
   const headers = {
@@ -72,8 +69,12 @@ export async function getVotingInfo(grantsRound: string, account: string) {
   };
 
   try {
-    const response = await axios.post(SANDBOX_GRANTS_URL, { query }, { headers });
-    return response.data.data.rounds[0];
+    const response = await axios.post(
+      SANDBOX_GRANTS_URL,
+      { query, variables: { id: grantsRound } },
+      { headers }
+    );
+    return response.data.data.round;
   } catch (error) {
     console.error('Subgraph fetch error: ', error);
   }
@@ -104,6 +105,31 @@ export async function getPostInfo(address: string, postId: string) {
   try {
     const response = await axios.post(SANDBOX_GRANTS_URL, { query }, { headers });
     return response.data.data.qfvotes;
+  } catch (error) {
+    console.error('Subgraph fetch error: ', error);
+  }
+}
+
+export async function getCurrentRound(blockTimestamp: number) {
+  const query = `
+  {
+    rounds(
+      where: {roundEndTime_gt: "${blockTimestamp}"}
+      orderBy: createdAt
+      orderDirection: desc
+    ) {
+      id
+    }
+  }
+  `;
+
+  const headers = {
+    'Content-Type': 'application/json'
+  };
+
+  try {
+    const response = await axios.post(SANDBOX_GRANTS_URL, { query }, { headers });
+    return response.data.data.rounds;
   } catch (error) {
     console.error('Subgraph fetch error: ', error);
   }
