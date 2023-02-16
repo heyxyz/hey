@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RAVEN_WORKER_URL } from 'data/constants';
+import { LEAFWATCH_WORKER_URL } from 'data/constants';
 
 const isBrowser = typeof window !== 'undefined';
 
@@ -13,7 +13,7 @@ export const Leafwatch = {
     );
 
     if (isBrowser) {
-      axios(RAVEN_WORKER_URL, {
+      axios(LEAFWATCH_WORKER_URL, {
         method: 'POST',
         data: {
           event: name,
@@ -21,8 +21,7 @@ export const Leafwatch = {
           profile: state.profileId,
           url: location.href,
           referrer: document.referrer,
-          userAgent: navigator.userAgent,
-          ddsource: 'leafwatch'
+          userAgent: navigator.userAgent
         }
       }).catch(() => {
         console.error('Error while sending analytics event to Leafwatch');

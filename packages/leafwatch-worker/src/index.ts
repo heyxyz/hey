@@ -1,5 +1,5 @@
 type EnvType = {
-  DATADOG_TOKEN: string;
+  AXIOM_TOKEN: string;
 };
 
 export default {
@@ -38,16 +38,14 @@ const handleRequest = async (request: Request, env: EnvType) => {
       ...payload,
       ip: request.headers.get('cf-connecting-ip') || 'unknown'
     };
-    const datadogRes = await fetch(
-      `https://http-intake.logs.datadoghq.com/api/v2/logs?dd-api-key=${
-        env.DATADOG_TOKEN
-      }&dd-request-id=${crypto.randomUUID()}`,
-      {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(appenedPayload)
-      }
-    );
+    const datadogRes = await fetch('https://api.axiom.co/v1/datasets/leafwatch/ingest', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${env.AXIOM_TOKEN}`,
+        'Content-Type': 'application/x-ndjson'
+      },
+      body: JSON.stringify(appenedPayload)
+    });
 
     return new Response(
       JSON.stringify({
