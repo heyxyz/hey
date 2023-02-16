@@ -12,11 +12,7 @@ import {
 } from '@heroicons/react/outline';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import {
-  SANDBOX_GRANTS_ROUND,
-  SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE,
-  SANDBOX_VOTING_STRATEGY
-} from 'data/contracts';
+import { SANDBOX_GRANTS_ROUND, SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE } from 'data/contracts';
 import { ethers } from 'ethers';
 import type { Erc20, Publication } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
@@ -104,8 +100,8 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
         break;
       case UnknownCollectModule:
         const encodedQuadraticData = ethers.utils.defaultAbiCoder.encode(
-          ['address', 'uint16', 'address', 'address'],
-          [selectedCurrency, referralFee, SANDBOX_GRANTS_ROUND, SANDBOX_VOTING_STRATEGY]
+          ['address', 'uint16', 'address'],
+          [selectedCurrency, referralFee, SANDBOX_GRANTS_ROUND]
         );
 
         setPayload({

@@ -10,6 +10,18 @@ export const QuadraticVoteCollectModule = [
   { inputs: [], name: 'InitParamsInvalid', type: 'error' },
   { inputs: [], name: 'ModuleDataMismatch', type: 'error' },
   {
+    anonymous: false,
+    inputs: [
+      { indexed: false, internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { indexed: false, internalType: 'uint256', name: 'pubId', type: 'uint256' },
+      { indexed: false, internalType: 'address', name: 'collector', type: 'address' },
+      { indexed: false, internalType: 'address', name: 'currency', type: 'address' },
+      { indexed: false, internalType: 'uint256', name: 'amount', type: 'uint256' }
+    ],
+    name: 'CollectWithVote',
+    type: 'event'
+  },
+  {
     inputs: [],
     name: 'HUB',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
@@ -33,6 +45,7 @@ export const QuadraticVoteCollectModule = [
       {
         components: [
           { internalType: 'address', name: 'currency', type: 'address' },
+          { internalType: 'address', name: 'recipient', type: 'address' },
           { internalType: 'uint16', name: 'referralFee', type: 'uint16' },
           { internalType: 'address', name: 'grantsRoundAddress', type: 'address' },
           { internalType: 'uint256', name: 'endTimestamp', type: 'uint256' }
