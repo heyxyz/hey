@@ -23,9 +23,9 @@ const handleRequest = async (request: Request, env: EnvType) => {
 
   const allowedOrigins = ['https://lenster.xyz', 'https://www.lenster.xyz', 'https://lenster.vercel.app'];
 
-  if (!allowedOrigins.includes(request.headers.get('origin') || '')) {
-    return new Response(JSON.stringify({ success: false, message: 'Origin not allowed' }), { headers });
-  }
+  // if (!allowedOrigins.includes(request.headers.get('origin') || '')) {
+  //   return new Response(JSON.stringify({ success: false, message: 'Origin not allowed' }), { headers });
+  // }
 
   const payload = await request.json();
 
@@ -51,7 +51,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
       JSON.stringify({
         success: true,
         payload: appenedPayload,
-        ddResponse: await datadogRes.json()
+        response: await datadogRes.json()
       }),
       { headers }
     );
