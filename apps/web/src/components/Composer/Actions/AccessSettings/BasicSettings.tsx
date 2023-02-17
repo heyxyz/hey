@@ -2,7 +2,7 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { CollectModules } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -42,16 +42,16 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
             reset();
           }
           setRestricted(!restricted);
-          Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_RESTRICTED_ACCESS);
+          Mixpanel.track(PUBLICATION.NEW.ACCESS.TOGGLE_RESTRICTED_ACCESS);
         }}
         label={t`Add restrictions on who can view this post`}
       />
       {restricted && (
         <>
-          <Card className="p-5 mt-5">
+          <Card className="mt-5 p-5">
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
-                <CollectionIcon className="h-4 w-4 text-brand-500" />
+                <CollectionIcon className="text-brand-500 h-4 w-4" />
                 <span>
                   <Trans>Collectors can view</Trans>
                 </span>
@@ -63,16 +63,16 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
                     return toast.error(t`Enable collect first to use collect based token gating`);
                   }
                   setCollectToView(!collectToView);
-                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_COLLECT_TO_VIEW_ACCESS);
+                  Mixpanel.track(PUBLICATION.NEW.ACCESS.TOGGLE_COLLECT_TO_VIEW_ACCESS);
                 }}
                 label={t`People need to collect it first to be able to view it`}
               />
             </div>
           </Card>
-          <Card className="p-5 mt-5">
+          <Card className="mt-5 p-5">
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
-                <UsersIcon className="h-4 w-4 text-brand-500" />
+                <UsersIcon className="text-brand-500 h-4 w-4" />
                 <span>
                   <Trans>Followers can view</Trans>
                 </span>
@@ -81,7 +81,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
                 on={followToView}
                 setOn={() => {
                   setFollowToView(!followToView);
-                  Analytics.track(PUBLICATION.NEW.ACCESS.TOGGLE_FOLLOW_TO_VIEW_ACCESS);
+                  Mixpanel.track(PUBLICATION.NEW.ACCESS.TOGGLE_FOLLOW_TO_VIEW_ACCESS);
                 }}
                 label={t`People need to follow you to be able to view it`}
               />
@@ -89,7 +89,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
           </Card>
         </>
       )}
-      <div className="pt-5 flex space-x-2">
+      <div className="flex space-x-2 pt-5">
         <Button className="ml-auto" variant="danger" outline onClick={onSave}>
           <Trans>Cancel</Trans>
         </Button>

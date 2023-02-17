@@ -1,6 +1,6 @@
 import type { Profile } from 'lens';
 
-import getAttribute from './getAttribute';
+import getProfileAttribute from './getProfileAttribute';
 
 /**
  *
@@ -8,6 +8,6 @@ import getAttribute from './getAttribute';
  * @returns hasPrideLogo attribute
  */
 const hasPrideLogo = (profile: Profile): boolean =>
-  getAttribute(profile?.attributes, 'hasPrideLogo') === 'true';
+  getProfileAttribute(profile?.attributes, 'hasPrideLogo') === 'true';
 
 export default hasPrideLogo;

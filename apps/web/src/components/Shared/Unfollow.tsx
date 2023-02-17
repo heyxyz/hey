@@ -1,8 +1,8 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { UserRemoveIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
@@ -62,7 +62,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
           await burnWithSig(signature, typedData);
         }
         toast.success(t`Unfollowed successfully!`);
-        Analytics.track(PROFILE.UNFOLLOW);
+        Mixpanel.track(PROFILE.UNFOLLOW);
       } catch {
         toast.error(t`User rejected request`);
       } finally {
@@ -84,7 +84,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
 
   return (
     <Button
-      className="text-sm !px-3 !py-1.5"
+      className="!px-3 !py-1.5 text-sm"
       outline
       onClick={createUnfollow}
       disabled={typedDataLoading || signLoading || writeLoading}
@@ -94,7 +94,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
         typedDataLoading || signLoading || writeLoading ? (
           <Spinner variant="danger" size="xs" />
         ) : (
-          <UserRemoveIcon className="w-4 h-4" />
+          <UserRemoveIcon className="h-4 w-4" />
         )
       }
     >

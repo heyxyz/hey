@@ -1,13 +1,13 @@
 import { Spinner } from '@components/UI/Spinner';
 import { PhotographIcon } from '@heroicons/react/outline';
-import getIPFSLink from '@lib/getIPFSLink';
 import imageProxy from '@lib/imageProxy';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
-import { COVER, ERROR_MESSAGE } from 'data/constants';
+import { ATTACHMENT, ERROR_MESSAGE } from 'data/constants';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import getIPFSLink from 'utils/getIPFSLink';
 
 interface Props {
   isNew: boolean;
@@ -38,7 +38,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef, expan
   };
 
   return (
-    <div className="relative flex-none overflow-hidden group">
+    <div className="group relative flex-none overflow-hidden">
       <button
         type="button"
         className="flex focus:outline-none"
@@ -48,8 +48,8 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef, expan
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? getIPFSLink(cover) : cover;
           }}
-          src={cover ? imageProxy(getIPFSLink(cover), COVER) : cover}
-          className="object-cover md:w-40 md:h-40 h-24 w-24 rounded-xl md:rounded-none"
+          src={cover ? imageProxy(getIPFSLink(cover), ATTACHMENT) : cover}
+          className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
           draggable={false}
           alt="cover"
           ref={imageRef}
@@ -59,14 +59,14 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef, expan
         <label
           className={clsx(
             { visible: loading && !cover, invisible: cover },
-            'absolute top-0 grid md:w-40 md:h-40 h-24 w-24 bg-gray-100 dark:bg-gray-900 cursor-pointer place-items-center group-hover:visible backdrop-blur-lg'
+            'absolute top-0 grid h-24 w-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900 md:h-40 md:w-40'
           )}
         >
           {loading && !cover ? (
             <Spinner size="sm" />
           ) : (
-            <div className="text-sm dark:text-white text-black flex flex-col opacity-60 items-center">
-              <PhotographIcon className="w-5 h-5" />
+            <div className="flex flex-col items-center text-sm text-black opacity-60 dark:text-white">
+              <PhotographIcon className="h-5 w-5" />
               <span>Add cover</span>
             </div>
           )}

@@ -4,9 +4,9 @@ import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
 import humanize from '@lib/humanize';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -54,16 +54,16 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
 
   return (
     <>
-      <div className="text-red-500 flex items-center space-x-1">
+      <div className="flex items-center space-x-1 text-red-500">
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowCollectModal(true);
-            Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+            Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
           aria-label="Collect"
         >
-          <div className="p-1.5 rounded-full hover:bg-red-300 hover:bg-opacity-20">
+          <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
             <Tooltip
               placement="top"
               content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}

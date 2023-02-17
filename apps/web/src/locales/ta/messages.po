@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-01-26 09:33\n"
+"PO-Revision-Date: 2023-02-10 16:44\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -52,11 +52,13 @@ msgstr "அதைப் பார்க்க மக்கள் உங்கள
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "ரத்து"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NFTPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -74,13 +76,10 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr "உங்கள் உள்ளடக்கத்தை யார் பார்க்கலாம், யார் பார்க்கக்கூடாது என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும். உதாரணமாக - குறிப்பிட்ட NFTகள் அல்லது டோக்கன்களை வைத்திருக்கும் நிலையில் உங்கள் இடுகைகளை டோக்கன் கேட் செய்யவும்."
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
 
-#: src/components/Composer/Actions/Attachment.tsx
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
 msgstr "கோப்பு வடிவம் அனுமதிக்கப்படவில்லை."
@@ -103,7 +102,7 @@ msgstr "இந்த இடுகையை சேகரிக்கலாம்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Charge for collecting"
-msgstr ""
+msgstr "சேகரிப்பதற்கான கட்டணம்"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Get paid whenever someone collects your post"
@@ -141,7 +140,7 @@ msgstr "சேகரிப்புகளை பிரத்தியேகம�
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Collect limit"
-msgstr ""
+msgstr "சேகரிப்பு வரம்பு"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Time limit"
@@ -161,7 +160,7 @@ msgstr "பின்பற்றுபவர்கள் மட்டுமே �
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
-msgstr ""
+msgstr "சேகரிப்பு அமைப்புகள்"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "Search for GIFs"
@@ -230,7 +229,7 @@ msgstr "இதுவரை பதிவுகள் இல்லை!"
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
-msgstr ""
+msgstr "எக்ஸ்ப்ளோர் ஃபீடை லோடு செய்வதில் தோல்வி ஏற்பட்டது"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
@@ -274,7 +273,7 @@ msgstr "கவர்ச்சியான"
 
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
-msgstr ""
+msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 
 #: src/components/Home/BetaWarning.tsx
 msgid "Beta warning!"
@@ -302,11 +301,11 @@ msgstr "நேரடி செய்திகள் இங்கே!"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-msgstr ""
+msgstr "என்ட்-டு-எண்ட் என்க்ரிப்ட் செய்யப்பட்ட டிஎம்களை நண்பர்களுக்கு அனுப்ப லென்ஸ்டரைப் பயன்படுத்ததுவதற்கு எக்ஸ்எம்டிபியை ஆக்டிவேட் செய்யவும்."
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
-msgstr ""
+msgstr "டிஎம்களை இயக்கவும்"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Filter"
@@ -530,7 +529,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
-msgstr ""
+msgstr "உரையாடல்களை ஏற்றுகிறது"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
@@ -568,6 +567,15 @@ msgstr ""
 msgid "Mod Center • {APP_NAME}"
 msgstr ""
 
+#: src/components/NFT/NFTFeed.tsx
+msgid "doesn’t have any NFTs!"
+msgstr ""
+
+#: src/components/NFT/NFTFeed.tsx
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Failed to load nft feed"
+msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
+
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
 msgstr "அனைத்து அறிவிப்புகளும்"
@@ -598,7 +606,7 @@ msgstr "இன்பாக்ஸ் பூஜ்யம்!"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
-msgstr ""
+msgstr "{0} {1} க்காகச் சேகரிக்கப்பட்டது"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
@@ -613,19 +621,16 @@ msgid "<0><1/> collected your <2>post</2></0>"
 msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> சேகரித்தார்"
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>கருத்துக்கு</2></0 </0> பதில் கருத்தைத் தெரிவித்துள்ளார்"
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>மிரருக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>இடுகைக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
@@ -641,7 +646,7 @@ msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> விரு
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> லைக் செய்தார்"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
@@ -649,15 +654,27 @@ msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> விரு
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> ஒரு <2>கருத்தில் </2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> ஒரு <2>மிரரில்</2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2></0> குறிப்பிட்டுள்ளார்"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>comment</2></0>"
+msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> மிரர் செய்துள்ளார்"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>mirror</2></0>"
+msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> மிரர் செய்துள்ளார்"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+msgid "<0><1/> mirrored your <2>post</2></0>"
+msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> மிரர் செய்துள்ளார்"
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
@@ -793,15 +810,15 @@ msgstr "இந்தத் தனியுரிமைக் கொள்கை,
 
 #: src/components/Pages/Privacy.tsx
 msgid "5. Analytics"
-msgstr ""
+msgstr "5. பகுப்பாய்வு"
 
 #: src/components/Pages/Privacy.tsx
-msgid "We use <0>Simple Analytics</0> to collect various events from user actions to analyse and make decisions for Site improvements."
+msgid "We use <0>Datadog</0> to collect various events from user actions to analyse and make decisions for Site improvements."
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "All the data are anonymous and we don’t track user details such as name, handle, email, wallet address and so on."
-msgstr ""
+msgstr "எல்லா தரவும் அநாமதேயமானது மற்றும் பெயர், பயனர்பெயர், மின்னஞ்சல், வாலெட் முகவரி மற்றும் பல பயனர் விவரங்களை நாங்கள் கண்காணிப்பதில்லை."
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may change to other third-party analytics service provider. The Privacy Policy of Analytics subjects to the every provider. You should review everything before using the Site."
@@ -809,47 +826,47 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "6. Your Rights and Choices"
-msgstr ""
+msgstr "6. உங்கள் உரிமைகள் மற்றும் தேர்வுகள்"
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Cookies</0>. We will only use strictly necessary cookies. These cookies are essential for you to browse the Site and use its features, including accessing secure areas of the Site."
-msgstr ""
+msgstr "<0>குக்கீகள்</0>. கண்டிப்பாகத் தேவையான குக்கீகளை மட்டுமே பயன்படுத்துவோம். நீங்கள் தளத்தை உலாவவும், தளத்தின் பாதுகாப்பான பகுதிகளை அணுகுவது உட்பட அதன் அம்சங்களைப் பயன்படுத்தவும் இந்தக் குக்கீகள் அவசியம்."
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Do Not Track</0>. Your browser settings may allow you to automatically transmit a “Do Not Track” signal to the online services you visit. Note, however, there is no industry consensus as to what Site and app operators should do with regard to these signals. Accordingly, unless and until the law is interpreted to require us to do so, we do not monitor or take action with respect to “Do Not Track” signals. For more information on “Do Not Track,” visit <1>https://allaboutdnt.com</1>."
-msgstr ""
+msgstr "<0>கண்காணிக்க வேண்டாம்</0>. உங்கள் உலாவி அமைப்புகள் நீங்கள் பார்வையிடும் ஆன்லைன் சேவைகளுக்கு தானாக \"கண்காணிக்க வேண்டாம்\" சிக்னலை அனுப்ப அனுமதிக்கலாம். இருப்பினும், இந்த சிக்னல்கள் தொடர்பாக தளம் மற்றும் ஆப்ஸ் ஆபரேட்டர்கள் என்ன செய்ய வேண்டும் என்பதில் தொழில்துறை ஒருமித்த கருத்து இல்லை. அதன்படி, நாங்கள் அவ்வாறு செய்ய வேண்டும் என்று சட்டம் விளக்கப்படும் வரை, \"கண்காணிக்க வேண்டாம்\" சிக்னல்களை நாங்கள் கண்காணிக்கவோ அல்லது நடவடிக்கை எடுக்கவோ மாட்டோம். \"கண்காணிக்க வேண்டாம்\" பற்றிய கூடுதல் தகவலுக்கு, <1>https://allaboutdnt.com ஐப் பார்வையிடவும்</1>."
 
 #: src/components/Pages/Privacy.tsx
 msgid "7. Data Security"
-msgstr ""
+msgstr "7. தரவு பாதுகாப்பு"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We implement and maintain reasonable administrative, physical, and technical security safeguards to help protect information about you from loss, theft, misuse, unauthorised access, disclosure, alteration, and destruction. Nevertheless, transmission via the internet is not completely secure and we cannot guarantee the security of information about you."
-msgstr ""
+msgstr "இழப்பு, திருட்டு, தவறாகப் பயன்படுத்துதல், அங்கீகரிக்கப்படாத அணுகல், வெளிப்படுத்துதல், மாற்றம் செய்தல் மற்றும் அழிவு ஆகியவற்றிலிருந்து உங்களைப் பற்றிய தகவல்களைப் பாதுகாக்க உதவும் நியாயமான நிர்வாக, உடல் மற்றும் தொழில்நுட்ப பாதுகாப்புப் பாதுகாப்புகளை நாங்கள் செயல்படுத்தி பராமரிக்கிறோம். இருப்பினும், இணையம் வழியாக பரிமாற்றம் முற்றிலும் பாதுகாப்பானது அல்ல, உங்களைப் பற்றிய தகவலின் பாதுகாப்பிற்கு நாங்கள் உத்தரவாதம் அளிக்க முடியாது."
 
 #: src/components/Pages/Privacy.tsx
 msgid "8. Children"
-msgstr ""
+msgstr "8. குழந்தைகள்"
 
 #: src/components/Pages/Privacy.tsx
 msgid "The Site is intended for general audiences and are not directed at children. To use the Site, you must legally be able to enter into the Agreement. We do not knowingly collect personal information from children."
-msgstr ""
+msgstr "தளம் பொது பார்வையாளர்களுக்காக வடிவமைக்கப்பட்டுள்ளது மற்றும் குழந்தைகளை நோக்கமாகக் கொண்டது அல்ல. தளத்தைப் பயன்படுத்த, நீங்கள் சட்டப்பூர்வமாக ஒப்பந்தத்தில் நுழைய முடியும். குழந்தைகளிடமிருந்து தனிப்பட்ட தகவல்களை நாங்கள் தெரிந்தே சேகரிப்பதில்லை."
 
 #: src/components/Pages/Privacy.tsx
 msgid "9. Changes to Policy"
-msgstr ""
+msgstr "9. கொள்கையில் மாற்றங்கள்"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We reserve the right to revise and reissue this Privacy Policy at any time. Any changes will be effective immediately upon our posting of the revised Privacy Policy. For the avoidance of doubt, your continued use of the Site indicates your consent to the revised Privacy Policy then posted."
-msgstr ""
+msgstr "எந்த நேரத்திலும் இந்தத் தனியுரிமைக் கொள்கையை மறுபரிசீலனை செய்வதற்கும் மறுவெளியீடு செய்வதற்கும் எங்களுக்கு உரிமை உள்ளது. திருத்தப்பட்ட தனியுரிமைக் கொள்கையை நாங்கள் இடுகையிட்டவுடன் எந்த மாற்றங்களும் உடனடியாக நடைமுறைக்கு வரும். சந்தேகத்தைத் தவிர்ப்பதற்காக, தளத்தைத் தொடர்ந்து பயன்படுத்துவது, பின்னர் வெளியிடப்பட்ட திருத்தப்பட்ட தனியுரிமைக் கொள்கைக்கு உங்கள் ஒப்புதலைக் குறிக்கிறது."
 
 #: src/components/Pages/Privacy.tsx
 msgid "10. Contact"
-msgstr ""
+msgstr "10. தொடர்பு"
 
 #: src/components/Pages/Privacy.tsx
 msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr ""
+msgstr "இந்தத் தனியுரிமைக் கொள்கை, எங்கள் தரவு நடைமுறைகள் அல்லது பொருந்தக்கூடிய சட்டத்திற்கு இணங்குதல் பற்றி ஏதேனும் கேள்விகள் அல்லது கருத்துகள் இருந்தால், தயவுசெய்து எங்களை privacy@lenster.xyz இல் தொடர்பு கொள்ளவும்"
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -857,7 +874,7 @@ msgstr "விதிமுறைகள் & நிபந்தனைகள் �
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions"
-msgstr ""
+msgstr "விதிமுறைகள் மற்றும் நிபந்தனைகள்"
 
 #: src/components/Pages/Terms.tsx
 msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
@@ -893,7 +910,7 @@ msgstr "பயனர் லென்ஸ் சுயவிவரம் \"தள�
 
 #: src/components/Pages/Terms.tsx
 msgid "The Site allow you to interact with the Lens Protocol, including posts, mirrors, comments and other content related actions."
-msgstr ""
+msgstr "இடுகைகள், கண்ணாடிகள், கருத்துகள் மற்றும் பிற உள்ளடக்கம் தொடர்பான செயல்கள் உட்பட லென்ஸ் நெறிமுறையுடன் தொடர்புகொள்ள தளம் உங்களை அனுமதிக்கிறது."
 
 #: src/components/Pages/Terms.tsx
 msgid "We reserve the right - but are not obligated to - limit the provision of Profiles or Services to any person, geographic region or jurisdiction. We may exercise this right on a case-by-case basis in our sole discretion."
@@ -1103,6 +1120,11 @@ msgstr "சேகரிக்கப்பட்டது"
 msgid "NFTs"
 msgstr "NFTகள்"
 
+#: src/components/Profile/FollowDialog.tsx
+#: src/components/Profile/FollowDialog.tsx
+msgid "Not now"
+msgstr "இப்போது வேண்டாம்"
+
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
@@ -1144,14 +1166,6 @@ msgstr ""
 msgid "Followed by"
 msgstr "பின்பற்றுபவர்கள்"
 
-#: src/components/Profile/NFTFeed.tsx
-msgid "doesn’t have any NFTs!"
-msgstr ""
-
-#: src/components/Profile/NFTFeed.tsx
-msgid "Failed to load nft feed"
-msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
-
 #: src/components/Profile/New.tsx
 msgid "Create Profile • {APP_NAME}"
 msgstr "சுயவிவரத்தை உருவாக்கவும் • {APP_NAME}"
@@ -1159,6 +1173,78 @@ msgstr "சுயவிவரத்தை உருவாக்கவும் �
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
 msgstr "புதிய பரவலாக்கப்பட்ட சுயவிவரத்தை உருவாக்கவும்"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery created"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name required"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Select collectibles for your gallery"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Review collection"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Select collectibles you want others to see"
+msgstr "பிறருக்கு காட்ட விரும்பும் உங்கள் சேகரிப்புகளைத் தேர்ந்தெடுக்கவும்"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "What's your gallery name?"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "{0} selected"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Next"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Gallery deleted"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Are you sure you want to delete?"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Edit"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Rearrrange"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Gallery.tsx
+msgid "Delete"
+msgstr ""
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Welcome to your gallery"
+msgstr "உங்கள் கேலரிக்கு வரவேற்கிறோம்"
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Create a curated space for your digital collectibles"
+msgstr "உங்கள் டிஜிட்டல் சேகரிப்புகளுக்கு ஒரு தனி இடத்தை உருவாக்கவும்"
+
+#: src/components/Profile/NftGallery/NoGallery.tsx
+msgid "Let's do it!"
+msgstr "அதைச் செய்யுங்கள்!"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "doesn't have any NFTs!"
+msgstr ""
+
+#: src/components/Profile/NftGallery/ReviewSelection.tsx
+msgid "No collectables selected!"
+msgstr ""
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx
@@ -1316,7 +1402,7 @@ msgstr "<0>{0}</0> விருப்பங்கள்"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
-msgstr ""
+msgstr "<0>{0}</0> சேகரிப்புகள்"
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -1324,7 +1410,7 @@ msgstr ""
 
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
-msgstr ""
+msgstr "தொடர்புடைய நபர்களை ஏற்ற முடியவில்லை"
 
 #: src/components/Publication/Type/Collected.tsx
 msgid "collected the <0>{0}</0>"
@@ -1361,26 +1447,6 @@ msgstr "வெளியீடுகள்"
 #: src/components/Search/Sidebar.tsx
 msgid "Profiles"
 msgstr "சுயவிவரங்கள்"
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Cross post to Twitter"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Reflect will auto-tweet new {APP_NAME} posts, so you can finally escape the bird site."
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Already reposting to <0>@{repostingTo}</0>"
-msgstr ""
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Disable now"
-msgstr "இப்போது முடக்கு"
-
-#: src/components/Settings/Account/CrossPost.tsx
-msgid "Setup now"
-msgstr "இப்போது அமைக்கவும்"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Default profile updated successfully!"
@@ -1646,23 +1712,23 @@ msgstr "ஆர்வங்கள் அமைப்புகள் • {APP_NAME
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-msgstr ""
+msgstr "லென்ஸ்டர் முழுவதும் உங்கள் அனுபவத்தைத் தனிப்பயனாக்க நீங்கள் தேர்ந்தெடுக்கும் விருப்பங்கள் பயன்படுத்தப்படும். ஏதேனும் தவறாகத் தோன்றினால் உங்கள் விருப்பங்களைச் சரிசெய்யலாம்."
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "Hide number of likes"
-msgstr ""
+msgstr "விருப்பங்களின் எண்ணிக்கையை மறை"
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
-msgstr ""
+msgstr "ஊட்டத்தில் மற்றவர்கள் பகிரும் வெளியீடுகளுக்கான மொத்த விருப்பங்களின் எண்ணிக்கையை நீங்கள் காண மாட்டீர்கள். இடுகைக்கான உங்கள் விருப்பங்கள் உங்களுக்கும் மற்ற அனைவருக்கும் தெரியும்."
 
 #: src/components/Settings/Preferences/index.tsx
 msgid "Preferences • {APP_NAME}"
-msgstr ""
+msgstr "விருப்பத்தேர்வுகள் • {APP_NAME}"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Contract address should be within 42 characters"
-msgstr ""
+msgstr "ஒப்பந்த முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/NFTPicture.tsx
 msgid "Invalid Contract address"
@@ -1682,7 +1748,6 @@ msgid "Token Id"
 msgstr "டோக்கன் ஐடி"
 
 #: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar can't be empty!"
 msgstr "அவதார் காலியாக இருக்க முடியாது!"
 
@@ -1700,7 +1765,7 @@ msgstr "தவறான இணையதளம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Twitter should not exceed 100 characters"
-msgstr ""
+msgstr "ட்விட்டர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -1728,7 +1793,7 @@ msgstr "ட்விட்டர்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
-msgstr ""
+msgstr "பயோ"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
@@ -1888,7 +1953,7 @@ msgstr ""
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "Index Successful"
-msgstr ""
+msgstr "வெற்றிகரமாக இண்டெக்ஸ் செய்யப்பட்டது"
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Bold"
@@ -1912,23 +1977,23 @@ msgstr "சுயவிவரத்திற்குச் செல்லவ�
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should be at least 2 characters"
-msgstr ""
+msgstr "பயனர்பெயர் குறைந்தது 2 எழுத்துகள் இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should not exceed 32 characters"
-msgstr ""
+msgstr "பயனர்பெயர் 32 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
-msgstr ""
+msgstr "பயனர்பெயர் எண்ணெழுத்து எழுத்துக்கள் மட்டுமே இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
-msgstr ""
+msgstr "{APP_NAME} வரை பதிவு செய்யவும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle"
-msgstr ""
+msgstr "பயனர்பெயர்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up"
@@ -1940,7 +2005,7 @@ msgstr "லென்ஸுடன் உள்நுழை"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Change wallet"
-msgstr ""
+msgstr "வாலெட்டை மாற்றவும்"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
@@ -1968,7 +2033,7 @@ msgstr "எங்களிடம் இருக்கும் வாலட் 
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
-msgstr ""
+msgstr "சேகரிப்பாளர்களை ஏற்றுகிறது"
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "No collectors."
@@ -2040,7 +2105,7 @@ msgstr "மனித வன்கொடுமை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Threat Individual"
-msgstr ""
+msgstr "தனிநபர் அச்சுறுத்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
@@ -2064,23 +2129,23 @@ msgstr "வெறுக்கத்தக்க"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
-msgstr ""
+msgstr "போலியான ஈடுபாடு"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
-msgstr ""
+msgstr "அல்காரிதம் சூழ்ச்சிசெய்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misleading"
-msgstr ""
+msgstr "தவறாக வழிநடத்துதல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
-msgstr ""
+msgstr "ஹேஷ்டேக்குகளை தவறாகப் பயன்படுத்துதல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Repetitive"
-msgstr ""
+msgstr "தொடர்ச்சியாகச் செய்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
@@ -2125,7 +2190,7 @@ msgstr "வெளியேறு"
 
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
-msgstr ""
+msgstr "மிதவாக்கம்"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2177,7 +2242,7 @@ msgstr "{type} க்கு செல்க"
 
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
-msgstr ""
+msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் கிடைக்கும்"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
@@ -2206,7 +2271,7 @@ msgstr ""
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Loading super follow"
-msgstr ""
+msgstr "சூப்பர் ஃபாலோ ஏற்றுகிறது"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
@@ -2214,19 +2279,19 @@ msgstr "பெறுநர்:"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can comment on @{0}'s publications"
-msgstr ""
+msgstr "@{0} இன் பப்ளிகேஷன்களில் நீங்கள் கருத்து தெரிவிக்கலாம்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can collect @{0}'s publications"
-msgstr ""
+msgstr "{0} இன் பப்ளிகேஷன்களில் நீங்கள் சேகரிக்கலாம்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will get super follow badge in @{0}'s profile"
-msgstr ""
+msgstr "@{0} இன் சுயவிவரத்தில் சூப்பர் ஃபாலோ பேட்ஜைப் பெறுவீர்கள்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will have high voting power if you followed multiple times"
-msgstr ""
+msgstr "நீங்கள் பலமுறை பின்பற்றப்படும்போது உங்களுக்கு அதிக வாக்களிக்கும் சக்தி கிடைக்கும்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "More coming soon™"
@@ -2234,11 +2299,11 @@ msgstr "மேலும் விரைவில்™"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow again"
-msgstr ""
+msgstr "மீண்டும் சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow now"
-msgstr ""
+msgstr "இப்போது சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Allow follow module"
@@ -2250,7 +2315,7 @@ msgstr "சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
-msgstr ""
+msgstr "தயவுசெய்து உங்கள் நெட்வொர்க் வாலெட்டை மாற்றுங்கள்!"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
@@ -2274,7 +2339,7 @@ msgstr "உங்களிடம் போதுமான <0>{0}</0> இல்�
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
-msgstr ""
+msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய்யுங்கள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools • {APP_NAME}"
@@ -2297,67 +2362,31 @@ msgid "Audio size should be less than 100MB"
 msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/lib/getModule.ts
-msgid "The Unknown Collect Module is unknown and not type supported in the API."
-msgstr ""
+msgid "Paid Collect"
+msgstr "கட்டண சேகரிப்பு"
 
 #: src/lib/getModule.ts
-msgid "Fee Collect"
-msgstr ""
+msgid "Rare Paid Collect"
+msgstr "அரிய கட்டண சேகரிப்பு"
 
 #: src/lib/getModule.ts
-msgid "The Fee Collect Module allows for any follower to collect the associated publication provided they pay a fee set by the poster."
-msgstr ""
+msgid "24 Hour Collect"
+msgstr "24 மணி நேர சேகரிப்பு"
 
 #: src/lib/getModule.ts
-msgid "Limited Fee Collect"
-msgstr ""
+msgid "Rare 24 Hour Collect"
+msgstr "அரிய 24 மணிநேர சேகரிப்பு"
 
 #: src/lib/getModule.ts
-msgid "The Limited Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific limit of mints."
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "Timed Fee Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Timed Fee Collect Module allows for any follower to collect the associated publication, provided they pay a fee, up to a specific time limit. The present whitelisted Timed Fee Collect module only has a 24-hour time limit to reduce gas usage and optimize efficiency."
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "Limited Time Fee Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Limited Timed Fee Collect Module allows for any follower to collect the associate publication, provided they pay a fee, up to a specific time limit and mint cap. It is essentially a combination of the Timed Fee Collect Module and the Limited Fee Collect Module."
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Free Collect Module allows any profile to collect the publication this module is attached to."
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "Revert Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Revert Collect Module causes all collect actions on a given publication to fail, thus making the publication uncollectable."
-msgstr ""
+msgid "No Collect"
+msgstr "சேகரிப்பு இல்லை"
 
 #: src/lib/getModule.ts
 msgid "Fee Follow"
 msgstr ""
 
 #: src/lib/getModule.ts
-msgid "The Fee Follow Module only allows addresses to follow a given profile, so long as they pay a fee specified by the profile owner. Users can set the currency and amount required to be paid."
-msgstr ""
-
-#: src/lib/getModule.ts
 msgid "Follower Only Reference"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "The Follower Only Reference Module ensures that only a profile is only allowed to mirror or comment on content."
 msgstr ""
 
 #: src/pages/404.tsx
@@ -2380,16 +2409,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
-#: src/pages/_offline.tsx
-msgid "Oops, You are offline!"
-msgstr ""
-
-#: src/pages/_offline.tsx
-msgid "Check your internet connection and try again"
-msgstr ""
-
-#: src/pages/_offline.tsx
-msgid "Retry"
-msgstr ""
 

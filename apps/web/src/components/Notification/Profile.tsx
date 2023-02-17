@@ -18,7 +18,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
           currentTarget.src = getAvatar(profile, false);
         }}
         src={getAvatar(profile)}
-        className="w-8 h-8 bg-gray-200 rounded-full border dark:border-gray-700"
+        className="h-8 w-8 rounded-full border bg-gray-200 dark:border-gray-700"
         height={32}
         width={32}
         alt={formatHandle(profile?.handle)}
@@ -34,7 +34,7 @@ export const NotificationProfileName: FC<Props> = ({ profile }) => {
       className="inline-flex items-center space-x-1 font-bold"
     >
       <div>{profile?.name ?? formatHandle(profile?.handle)}</div>
-      {isVerified(profile?.id) && <BadgeCheckIcon className="w-4 h-4 text-brand" />}
+      {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand h-4 w-4" />}
     </Link>
   );
 };

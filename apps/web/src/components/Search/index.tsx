@@ -1,8 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
+import { PAGEVIEW } from 'src/tracking';
 
 import Profiles from './Profiles';
 import Publications from './Publications';
@@ -10,6 +13,10 @@ import Sidebar from './Sidebar';
 
 const Search: NextPage = () => {
   const { query } = useRouter();
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'search' });
+  }, []);
 
   if (!query.q || !['pubs', 'profiles'].includes(query.type as any)) {
     return <Custom404 />;

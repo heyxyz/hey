@@ -2,10 +2,10 @@ import type { ApolloCache } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
 import { publicationKeyFields } from '@lib/keyFields';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -62,7 +62,7 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
   const onCompleted = () => {
     setMirrored(true);
     toast.success(t`Post has been mirrored!`);
-    Analytics.track(PUBLICATION.MIRROR);
+    Mixpanel.track(PUBLICATION.MIRROR);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -173,7 +173,7 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
         <div
           className={clsx(
             mirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
-            'p-1.5 rounded-full hover:bg-opacity-20'
+            'rounded-full p-1.5 hover:bg-opacity-20'
           )}
         >
           {isLoading ? (

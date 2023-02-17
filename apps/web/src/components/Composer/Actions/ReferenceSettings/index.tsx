@@ -2,7 +2,7 @@ import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Analytics } from '@lib/analytics';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
@@ -58,7 +58,7 @@ const ReferenceSettings: FC = () => {
         as={motion.button}
         whileTap={{ scale: 0.9 }}
         onClick={() => {
-          Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
+          Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
         }}
       >
         <div className="text-brand">
@@ -71,46 +71,46 @@ const ReferenceSettings: FC = () => {
       <MenuTransition>
         <Menu.Items
           static
-          className="absolute py-1 z-[5] mt-2 bg-white rounded-xl border shadow-sm dark:bg-gray-900 focus:outline-none dark:border-gray-700"
+          className="absolute z-[5] mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
           <Module
             title={EVERYONE}
             selected={isEveryone}
-            icon={<GlobeAltIcon className="w-4 h-4" />}
+            icon={<GlobeAltIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
               setOnlyFollowers(false);
-              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
             }}
           />
           <Module
             title={MY_FOLLOWERS}
             selected={isMyFollowers}
-            icon={<UsersIcon className="w-4 h-4" />}
+            icon={<UsersIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
               setOnlyFollowers(true);
-              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
             }}
           />
           <Module
             title={MY_FOLLOWS}
             selected={isMyFollows}
-            icon={<UserAddIcon className="w-4 h-4" />}
+            icon={<UserAddIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
               setDegreesOfSeparation(1);
-              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
             }}
           />
           <Module
             title={FRIENDS_OF_FRIENDS}
             selected={isFriendsOfFriends}
-            icon={<UserGroupIcon className="w-4 h-4" />}
+            icon={<UserGroupIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
               setDegreesOfSeparation(2);
-              Analytics.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
+              Mixpanel.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
             }}
           />
         </Menu.Items>

@@ -64,7 +64,7 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
           onChange={handleSearch}
         />
       </div>
-      <div className="flex overflow-y-auto overflow-x-hidden h-[45vh]">
+      <div className="flex h-[45vh] overflow-y-auto overflow-x-hidden">
         {debouncedGifInput ? (
           <Grid
             onGifClick={(item) => onSelectGif(item)}
@@ -73,7 +73,7 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
             hideAttribution
             columns={3}
             noResultsMessage={
-              <div className="grid place-items-center h-full">
+              <div className="grid h-full place-items-center">
                 <Trans>No GIFs found.</Trans>
               </div>
             }
@@ -81,22 +81,22 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
             key={searchText}
           />
         ) : (
-          <div className="grid grid-cols-2 gap-1 w-full">
+          <div className="grid w-full grid-cols-2 gap-1">
             {categories.map((category) => (
               <button
                 type="button"
                 key={category.name_encoded}
-                className="flex relative outline-none"
+                className="relative flex outline-none"
                 onClick={() => setDebouncedGifInput(category.name)}
               >
                 <img
-                  className="object-cover w-full h-32 cursor-pointer"
+                  className="h-32 w-full cursor-pointer object-cover"
                   height={128}
                   src={category.gif?.images?.original_still.url}
                   alt=""
                   draggable={false}
                 />
-                <div className="absolute right-0 bottom-0 py-1 px-2 w-full text-lg font-bold text-right text-white bg-gradient-to-b from-transparent to-gray-800">
+                <div className="absolute right-0 bottom-0 w-full bg-gradient-to-b from-transparent to-gray-800 py-1 px-2 text-right text-lg font-bold text-white">
                   <span className="capitalize">{category.name}</span>
                 </div>
               </button>

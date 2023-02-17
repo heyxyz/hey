@@ -1,5 +1,5 @@
-query LensterStats {
-  globalProtocolStats(request: { sources: "Lenster" }) {
+query LensterStats($request: GlobalProtocolStatsRequest) {
+  globalProtocolStats(request: $request) {
     totalProfiles
     totalPosts
     totalBurntProfiles

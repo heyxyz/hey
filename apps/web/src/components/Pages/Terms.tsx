@@ -1,23 +1,30 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { useEffect } from 'react';
+import { PAGEVIEW } from 'src/tracking';
 
 const Terms: FC = () => {
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'terms' });
+  }, []);
+
   const updatedAt = 'December 11, 2022';
 
   return (
     <>
       <MetaTags title={t`Terms & Conditions • ${APP_NAME}`} />
-      <div className="flex justify-center items-center w-full h-48 bg-brand-400">
+      <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">
             <Trans>Terms & Conditions</Trans>
           </h1>
-          <div className="flex justify-center mt-4">
-            <div className="py-0.5 px-2 text-xs text-white bg-gray-800 rounded-md">
+          <div className="mt-4 flex justify-center">
+            <div className="rounded-md bg-gray-800 py-0.5 px-2 text-xs text-white">
               <Trans>Updated {updatedAt}</Trans>
             </div>
           </div>
@@ -25,8 +32,8 @@ const Terms: FC = () => {
       </div>
       <div className="relative">
         <div className="flex justify-center">
-          <div className="relative mx-auto rounded-lg sm:w-2/4 max-w-3/4">
-            <div className="!p-8 max-w-none lt-text-gray-500">
+          <div className="max-w-3/4 relative mx-auto rounded-lg sm:w-2/4">
+            <div className="lt-text-gray-500 max-w-none !p-8">
               {/* 1. Overview beings */}
               <div className="mb-5 text-xl font-bold text-black dark:text-white">
                 <Trans>1. Overview</Trans>
@@ -102,7 +109,7 @@ const Terms: FC = () => {
                     case-by-case basis in our sole discretion.
                   </Trans>
                 </p>
-                <ul className="space-y-3 list-disc list-inside">
+                <ul className="list-inside list-disc space-y-3">
                   <li>
                     <Trans>Your profile your responsibility.</Trans>
                   </li>
@@ -211,7 +218,7 @@ const Terms: FC = () => {
               <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
                 <Trans>7. Personal Information</Trans>
               </div>
-              <p className="leading-7 linkify">
+              <p className="linkify leading-7">
                 <Trans>
                   Your submission of personal information through the Site is governed by our{' '}
                   <Link href="/privacy">Privacy Policy</Link>.
@@ -234,7 +241,7 @@ const Terms: FC = () => {
                 <p>
                   <Trans>You are prohibited from using the Site,</Trans>
                 </p>
-                <ul className="space-y-2 list-disc list-inside">
+                <ul className="list-inside list-disc space-y-2">
                   <li>
                     <Trans>
                       for any unlawful purpose and to solicit others to perform or participate in any unlawful

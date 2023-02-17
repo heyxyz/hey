@@ -16,11 +16,11 @@ import type {
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { Analytics } from '@lib/analytics';
 import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -71,19 +71,19 @@ import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagm
 import Editor from './Editor';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 const Giphy = dynamic(() => import('@components/Composer/Actions/Giphy'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 const CollectSettings = dynamic(() => import('@components/Composer/Actions/CollectSettings'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 const ReferenceSettings = dynamic(() => import('@components/Composer/Actions/ReferenceSettings'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 const AccessSettings = dynamic(() => import('@components/Composer/Actions/AccessSettings'), {
-  loading: () => <div className="mb-1 w-5 h-5 rounded-lg shimmer" />
+  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 
 interface Props {
@@ -148,14 +148,14 @@ const NewPublication: FC<Props> = ({ publication }) => {
       setShowNewPostModal(false);
     }
 
-    // Track in simple analytics
+    // Track in mixpanel
     const eventProperties = {
       publication_type: restricted ? 'token_gated' : 'public',
       publication_collect_module: selectedCollectModule,
       publication_reference_module: selectedReferenceModule,
       publication_has_attachments: attachments.length > 0
     };
-    Analytics.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
+    Mixpanel.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
   };
 
   useEffect(() => {
@@ -523,13 +523,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const isLoading = loading || typedDataLoading;
 
   return (
-    <Card className={clsx({ 'border-none rounded-none': !isComment }, 'pb-3')}>
+    <Card className={clsx({ 'rounded-none border-none': !isComment }, 'pb-3')}>
       {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
       <Editor />
       {publicationContentError && (
-        <div className="px-5 pb-3 mt-1 text-sm font-bold text-red-500">{publicationContentError}</div>
+        <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">{publicationContentError}</div>
       )}
-      <div className="block items-center sm:flex px-5">
+      <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
@@ -544,9 +544,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (
-                <ChatAlt2Icon className="w-4 h-4" />
+                <ChatAlt2Icon className="h-4 w-4" />
               ) : (
-                <PencilAltIcon className="w-4 h-4" />
+                <PencilAltIcon className="h-4 w-4" />
               )
             }
             onClick={createPublication}

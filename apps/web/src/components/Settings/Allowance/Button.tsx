@@ -3,8 +3,8 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
 import { getModule } from '@lib/getModule';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
 import type { ApprovedAllowanceAmount } from 'lens';
@@ -42,7 +42,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       toast.success(t`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Analytics.track(`module_${allowed ? 'disabled' : 'enabled'}`);
+      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
     },
     onError
   });
@@ -75,7 +75,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
         queryLoading || transactionLoading || waitLoading ? (
           <Spinner variant="warning" size="xs" />
         ) : (
-          <MinusIcon className="w-4 h-4" />
+          <MinusIcon className="h-4 w-4" />
         )
       }
       onClick={() => handleAllowance(module.currency, '0', module.module)}
@@ -84,16 +84,16 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
     </Button>
   ) : (
     <>
-      <Button icon={<PlusIcon className="w-4 h-4" />} onClick={() => setShowWarningModal(!showWarningModal)}>
+      <Button icon={<PlusIcon className="h-4 w-4" />} onClick={() => setShowWarningModal(!showWarningModal)}>
         {title}
       </Button>
       <Modal
         title={t`Warning`}
-        icon={<ExclamationIcon className="w-5 h-5 text-yellow-500" />}
+        icon={<ExclamationIcon className="h-5 w-5 text-yellow-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}
       >
-        <div className="p-5 space-y-3">
+        <div className="space-y-3 p-5">
           <WarningMessage
             title={t`Handle with care!`}
             message={
@@ -110,7 +110,7 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
               queryLoading || transactionLoading || waitLoading ? (
                 <Spinner size="xs" />
               ) : (
-                <PlusIcon className="w-4 h-4" />
+                <PlusIcon className="h-4 w-4" />
               )
             }
             onClick={() =>

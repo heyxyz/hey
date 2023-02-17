@@ -1,6 +1,6 @@
-import { Analytics } from '@lib/analytics';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -34,20 +34,20 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className={clsx('lt-text-gray-500 flex items-center space-x-2.5 cursor-pointer', {
+      className={clsx('lt-text-gray-500 flex cursor-pointer items-center space-x-2.5', {
         'text-sm': variant === 'sm',
         'text-xs': variant === 'xs'
       })}
       onClick={() => {
         setShowMutualFollowersModal?.(true);
-        Analytics.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
+        Mixpanel.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
       }}
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (
           <img
             key={profile.handle}
-            className="w-5 h-5 rounded-full border dark:border-gray-700"
+            className="h-5 w-5 rounded-full border dark:border-gray-700"
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
             }}

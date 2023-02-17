@@ -43,12 +43,12 @@ const Analytics: FC<Props> = ({ publication }) => {
         whileTap={{ scale: 0.9 }}
         onClick={() => {
           setShowCollectModal(true);
-          // Analytics.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+          // Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
         }}
         aria-label="Analytics"
       >
         <div className="flex items-center space-x-1 text-blue-500">
-          <div className="p-1.5 rounded-full hover:bg-blue-300 hover:bg-opacity-20">
+          <div className="rounded-full p-1.5 hover:bg-blue-300 hover:bg-opacity-20">
             <Tooltip placement="top" content="Analytics" withDelay>
               <ChartBarIcon className={iconClassName} />
             </Tooltip>

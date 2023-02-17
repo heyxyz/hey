@@ -8,6 +8,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import formatHandle from '@lib/formatHandle';
 import getURLs from '@lib/getURLs';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
@@ -17,6 +18,7 @@ import { useEffect, useRef, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
@@ -29,10 +31,13 @@ const ViewPublication: NextPage = () => {
 
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
-
   const {
     query: { id }
   } = useRouter();
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'publication' });
+  }, []);
 
   const { data, loading, error } = usePublicationQuery({
     variables: {
@@ -98,7 +103,7 @@ const ViewPublication: NextPage = () => {
         <Feed publication={publication} />
       </GridItemEight>
       <GridItemFour className="relative">
-        <div className="fixed space-y-5 max-w-[392px]">
+        <div className="fixed max-w-[392px] space-y-5">
           <Card as="aside" className="p-5">
             <UserProfile
               profile={

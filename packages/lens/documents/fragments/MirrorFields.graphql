@@ -34,6 +34,7 @@ fragment MirrorFields on Mirror {
       profile {
         ...ProfileFields
       }
+      collectNftAddress
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
       onChainContentURI

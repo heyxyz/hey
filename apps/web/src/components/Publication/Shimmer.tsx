@@ -27,8 +27,8 @@ const PublicationPageShimmer: FC = () => {
           <UserProfileShimmer showFollow />
         </Card>
         <Card className="flex justify-between p-5">
-          <div className="w-1/2 h-3 rounded-lg shimmer" />
-          <div className="w-1/4 h-3 rounded-lg shimmer" />
+          <div className="shimmer h-3 w-1/2 rounded-lg" />
+          <div className="shimmer h-3 w-1/4 rounded-lg" />
         </Card>
         <Footer />
       </GridItemFour>

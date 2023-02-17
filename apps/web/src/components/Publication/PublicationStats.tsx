@@ -3,7 +3,7 @@ import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
 import { Modal } from '@components/UI/Modal';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
@@ -38,7 +38,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
   const publicationId = isMirror ? publication?.mirrorOf?.id : publication?.id;
 
   return (
-    <div className="flex flex-wrap gap-6 text-sm items-center py-3 lt-text-gray-500 sm:gap-8">
+    <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
       {mirrorCount > 0 && (
         <>
           <span>
@@ -50,7 +50,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowMirrorsModal(true);
-              Analytics.track(PUBLICATION.STATS.MIRRORED_BY);
+              Mixpanel.track(PUBLICATION.STATS.MIRRORED_BY);
             }}
           >
             <Trans>
@@ -59,7 +59,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
           </button>
           <Modal
             title={t`Mirrored by`}
-            icon={<SwitchHorizontalIcon className="w-5 h-5 text-brand" />}
+            icon={<SwitchHorizontalIcon className="text-brand h-5 w-5" />}
             show={showMirrorsModal}
             onClose={() => setShowMirrorsModal(false)}
           >
@@ -73,7 +73,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowLikesModal(true);
-              Analytics.track(PUBLICATION.STATS.LIKED_BY);
+              Mixpanel.track(PUBLICATION.STATS.LIKED_BY);
             }}
           >
             <Trans>
@@ -82,7 +82,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
           </button>
           <Modal
             title={t`Liked by`}
-            icon={<HeartIcon className="w-5 h-5 text-brand" />}
+            icon={<HeartIcon className="text-brand h-5 w-5" />}
             show={showLikesModal}
             onClose={() => setShowLikesModal(false)}
           >
@@ -96,7 +96,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowCollectorsModal(true);
-              Analytics.track(PUBLICATION.STATS.COLLECTED_BY);
+              Mixpanel.track(PUBLICATION.STATS.COLLECTED_BY);
             }}
           >
             <Trans>
@@ -105,7 +105,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
           </button>
           <Modal
             title={t`Collected by`}
-            icon={<CollectionIcon className="w-5 h-5 text-brand" />}
+            icon={<CollectionIcon className="text-brand h-5 w-5" />}
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}
           >

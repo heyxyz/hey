@@ -100,9 +100,8 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
         <PublicationType publication={publication} showType />
       )}
       <div ref={commentRef} className={clsx(staffMode ? 'scroll-mt-28' : 'scroll-mt-20')}>
-        <div className="flex justify-between pb-4 space-x-1.5">
-          {/* @ts-ignore */}
-          <UserProfile profile={profile ?? publication?.collectedBy?.defaultProfile} showStatus />
+        <div className="flex justify-between space-x-1.5 pb-4">
+          <UserProfile profile={profile} showStatus />
           <PublicationMenu publication={publication} />
         </div>
         <div className="ml-[53px]">
@@ -111,7 +110,7 @@ const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              <div className="text-sm lt-text-gray-500 my-3">
+              <div className="lt-text-gray-500 my-3 text-sm">
                 <span title={formatTime(timestamp)}>
                   {dayjs(new Date(timestamp)).format('hh:mm A · MMM D, YYYY')}
                 </span>

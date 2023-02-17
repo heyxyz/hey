@@ -1,3 +1,4 @@
+import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { QueryMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
@@ -6,9 +7,9 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import formatHandle from '@lib/formatHandle';
-import getIPFSLink from '@lib/getIPFSLink';
-import getStampFyiURL from '@lib/getStampFyiURL';
 import imageProxy from '@lib/imageProxy';
+import isVerified from '@lib/isVerified';
+import clsx from 'clsx';
 import { AVATAR } from 'data/constants';
 import type { MediaSet, NftImage, Profile, ProfileSearchResult } from 'lens';
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
@@ -16,6 +17,8 @@ import type { TextNode } from 'lexical';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import getIPFSLink from 'utils/getIPFSLink';
+import getStampFyiURL from 'utils/getStampFyiURL';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 
@@ -81,12 +84,14 @@ const getPossibleQueryMatch = (text: string): QueryMatch | null => {
 };
 
 class MentionTypeaheadOption extends TypeaheadOption {
+  id: string;
   name: string;
   picture: string;
   handle: string;
 
-  constructor(name: string, picture: string, handle: string) {
+  constructor(id: string, name: string, picture: string, handle: string) {
     super(name);
+    this.id = id;
     this.name = name;
     this.handle = handle;
     this.picture = picture;
@@ -113,16 +118,24 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
       onMouseEnter={onMouseEnter}
       onClick={onClick}
     >
-      <div className="dark:hover:bg-gray-800 hover:bg-gray-200 dark:text-white flex items-center space-x-2 m-1.5 px-3 py-1 rounded-xl">
+      <div
+        className={clsx(
+          { 'bg-gray-200 dark:bg-gray-800': isSelected },
+          'm-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800'
+        )}
+      >
         <img
-          className="rounded-full w-7 h-7"
+          className="h-7 w-7 rounded-full"
           height="32"
           width="32"
           src={option.picture}
           alt={option.handle}
         />
         <div className="flex flex-col truncate">
-          <div className="text-sm truncate">{option.name}</div>
+          <div className="flex items-center space-x-1 text-sm">
+            <span>{option.name}</span>
+            {isVerified(option.id) && <BadgeCheckIcon className="text-brand h-4 w-4" />}
+          </div>
           <span className="text-xs">{formatHandle(option.handle)}</span>
         </div>
       </div>
@@ -130,7 +143,7 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
   );
 };
 
-const NewMentionsPlugin: FC = () => {
+const MentionsPlugin: FC = () => {
   const [queryString, setQueryString] = useState<string | null>(null);
   const [results, setResults] = useState<Record<string, string>[]>([]);
   const [editor] = useLexicalComposerContext();
@@ -163,6 +176,7 @@ const NewMentionsPlugin: FC = () => {
         const profilesResults = profiles.map(
           (user: Profile) =>
             ({
+              id: user?.id,
               name: user?.name,
               handle: user?.handle,
               picture: getUserPicture(user)
@@ -181,8 +195,13 @@ const NewMentionsPlugin: FC = () => {
   const options = useMemo(
     () =>
       results
-        .map(({ name, picture, handle }) => {
-          return new MentionTypeaheadOption(name ?? handle, imageProxy(getIPFSLink(picture), AVATAR), handle);
+        .map(({ id, name, picture, handle }) => {
+          return new MentionTypeaheadOption(
+            id,
+            name ?? handle,
+            imageProxy(getIPFSLink(picture), AVATAR),
+            handle
+          );
         })
         .slice(0, SUGGESTION_LIST_LENGTH_LIMIT),
     [results]
@@ -220,7 +239,7 @@ const NewMentionsPlugin: FC = () => {
       menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
-              <div className="bg-white dark:bg-gray-900 mt-8 border dark:border-gray-700 rounded-xl shadow-sm w-52 sticky z-40 bg-brand min-w-full">
+              <div className="bg-brand sticky z-40 mt-8 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
                 <ul className="divide-y dark:divide-gray-700">
                   {options.map((option, i: number) => (
                     <MentionsTypeaheadMenuItem
@@ -247,4 +266,4 @@ const NewMentionsPlugin: FC = () => {
   );
 };
 
-export default NewMentionsPlugin;
+export default MentionsPlugin;

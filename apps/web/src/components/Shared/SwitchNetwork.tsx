@@ -1,6 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Analytics } from '@lib/analytics';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -20,14 +20,14 @@ const SwitchNetwork: FC<Props> = ({ className = '' }) => {
       className={className}
       type="button"
       variant="danger"
-      icon={<SwitchHorizontalIcon className="w-4 h-4" />}
+      icon={<SwitchHorizontalIcon className="h-4 w-4" />}
       onClick={() => {
         if (switchNetwork) {
           switchNetwork(CHAIN_ID);
         } else {
           toast.error(t`Please change your network wallet!`);
         }
-        Analytics.track(SYSTEM.SWITCH_NETWORK);
+        Mixpanel.track(SYSTEM.SWITCH_NETWORK);
       }}
     >
       <Trans>Switch Network</Trans>

@@ -13,14 +13,6 @@ export const SANDBOX_API_URL = 'https://api-sandbox-mumbai.lens.dev';
 export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
 export const STAGING_SANDBOX_API_URL = 'https://staging-api-social-mumbai.sandbox.crtlkey.com';
 
-export const SERVERLESS_MAINNET_API_URL = 'https://api.lenster.xyz';
-export const SERVERLESS_TESTNET_API_URL = 'https://api-testnet.lenster.xyz';
-export const SERVERLESS_STAGING_API_URL = 'https://api-staging.lenster.xyz';
-export const SERVERLESS_STAGING_SANDBOX_API_URL = 'https://api-staging-sandbox.lenster.xyz';
-export const SERVERLESS_SANDBOX_API_URL = 'https://api-sandbox.lenster.xyz';
-export const SERVERLESS_DEVELOPMENT_API_URL = 'http://localhost:4784';
-
-export const SERVERLESS_URL = getEnvConfig().serverlessEndpoint;
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
@@ -37,7 +29,6 @@ export const XMTP_PREFIX = 'lens.dev/dm';
 export const APP_NAME = 'Lenster';
 export const DESCRIPTION =
   'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
-export const DEFAULT_OG = 'https://assets.lenster.xyz/images/og/logo.jpeg';
 export const APP_VERSION = packageJson.version;
 
 // Git
@@ -49,6 +40,10 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
 
+// Mixpanel
+export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
+export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
+
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
 export const SIGN_WALLET = 'Please sign in your wallet.';
@@ -58,16 +53,20 @@ export const WRONG_NETWORK = IS_MAINNET
 export const SIGN_ERROR = 'Failed to sign data';
 
 // URLs
-export const STATIC_ASSETS_URL = 'https://assets.lenster.xyz';
+export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://testnet.rarible.com';
-export const MEDIA_PROXY_URL = 'https://media.lenster.xyz';
-export const OG_MEDIA_PROXY_URL = 'https://og-media.lenster.xyz';
 export const ARWEAVE_GATEWAY = 'https://arweave.net';
-export const IPFS_GATEWAY = 'https://lens.infura-ipfs.io/ipfs/';
+export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
+export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
+
+// Workers
+export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
+export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
+export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
 
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
@@ -106,9 +105,9 @@ export const SCROLL_THRESHOLD = 0.5;
 export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms
-export const AVATAR = 'avatar';
-export const COVER = 'cover';
-export const ATTACHMENT = 'attachment';
+export const AVATAR = '300x300';
+export const COVER = '1500x500';
+export const ATTACHMENT = '1000,fit';
 
 // Localstorage keys
 export const LS_KEYS = {

@@ -2,22 +2,24 @@
   "name": "lens",
   "version": "0.0.0",
   "main": "generated.ts",
+  "private": true,
+  "license": "GPL-3.0",
   "scripts": {
     "codegen": "graphql-codegen",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.5"
+    "@apollo/client": "^3.7.8"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.16.4",
-    "@graphql-codegen/fragment-matcher": "^3.3.1",
-    "@graphql-codegen/typescript": "^2.8.7",
-    "@graphql-codegen/typescript-operations": "^2.5.12",
+    "@graphql-codegen/cli": "^3.0.0",
+    "@graphql-codegen/fragment-matcher": "^4.0.0",
+    "@graphql-codegen/typescript": "^3.0.0",
+    "@graphql-codegen/typescript-operations": "^3.0.0",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "eslint-config-weblint": "*",
-    "prettier": "^2.8.3",
+    "prettier": "^2.8.4",
     "tsconfig": "*",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   }
 }

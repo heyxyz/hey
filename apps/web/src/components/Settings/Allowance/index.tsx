@@ -2,15 +2,17 @@ import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { Erc20 } from 'lens';
 import { CollectModules, FollowModules, ReferenceModules, useApprovedModuleAllowanceAmountQuery } from 'lens';
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import SettingsSidebar from '../Sidebar';
 import Allowance from './Allowance';
@@ -41,6 +43,10 @@ const AllowanceSettings: NextPage = () => {
     skip: !currentProfile?.id
   });
 
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
+  }, []);
+
   if (error) {
     return <Custom500 />;
   }
@@ -70,11 +76,11 @@ const AllowanceSettings: NextPage = () => {
               </p>
             </div>
             <div className="divider my-5" />
-            <div className="mt-6 label">
+            <div className="label mt-6">
               <Trans>Select Currency</Trans>
             </div>
             <select
-              className="w-full bg-white rounded-xl border border-gray-300 outline-none dark:bg-gray-800 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-400"
+              className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
               onChange={(e) => {
                 setCurrencyLoading(true);
                 refetch({

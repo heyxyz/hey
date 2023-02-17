@@ -3,18 +3,25 @@ import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, LS_KEYS } from 'data/constants';
 import type { NextPage } from 'next';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 
 import SettingsSidebar from '../Sidebar';
 
 const CleanupSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const disconnectXmtp = useDisconnectXmtp();
+
+  useEffect(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
+  }, []);
 
   if (!currentProfile) {
     return <Custom404 />;
@@ -51,7 +58,7 @@ const CleanupSettings: NextPage = () => {
                 <b>
                   <Trans>Optimistic publications</Trans>
                 </b>
-                <div className="font-bold text-xs lt-text-gray-500">
+                <div className="lt-text-gray-500 text-xs font-bold">
                   <Trans>Clean your posts or comments that are not indexed</Trans>
                 </div>
               </div>
@@ -64,7 +71,7 @@ const CleanupSettings: NextPage = () => {
                 <b>
                   <Trans>Timeline settings</Trans>
                 </b>
-                <div className="font-bold text-xs lt-text-gray-500">
+                <div className="lt-text-gray-500 text-xs font-bold">
                   <Trans>Clean your timeline filter settings</Trans>
                 </div>
               </div>
@@ -77,7 +84,7 @@ const CleanupSettings: NextPage = () => {
                 <b>
                   <Trans>Direct message keys</Trans>
                 </b>
-                <div className="font-bold text-xs lt-text-gray-500">
+                <div className="lt-text-gray-500 text-xs font-bold">
                   <Trans>Clean your DM encryption key</Trans>
                 </div>
               </div>
@@ -95,7 +102,7 @@ const CleanupSettings: NextPage = () => {
                 <b className="text-red-500">
                   <Trans>App settings</Trans>
                 </b>
-                <div className="font-bold text-xs lt-text-gray-500">
+                <div className="lt-text-gray-500 text-xs font-bold">
                   <Trans>Note: Cleaning will log you out</Trans>
                 </div>
               </div>

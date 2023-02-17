@@ -2,9 +2,10 @@ import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import { IS_MAINNET } from 'data/constants';
+import { IS_MAINNET, MIXPANEL_ENABLED, MIXPANEL_TOKEN } from 'data/constants';
 import type { Profile } from 'lens';
-import { ReferenceModules, useUserProfilesQuery } from 'lens';
+import { useUserProfilesQuery } from 'lens';
+import mixpanel from 'mixpanel-browser';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -12,7 +13,6 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
@@ -20,6 +20,14 @@ import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
+
+if (MIXPANEL_ENABLED) {
+  mixpanel.init(MIXPANEL_TOKEN, {
+    ignore_dnt: true,
+    api_host: '/collect',
+    batch_requests: false
+  });
+}
 
 interface Props {
   children: ReactNode;
@@ -34,7 +42,6 @@ const Layout: FC<Props> = ({ children }) => {
   const setIsPro = useAppStore((state) => state.setIsPro);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
 
   const { mounted } = useIsMounted();
   const { address } = useAccount();
@@ -62,12 +69,6 @@ const Layout: FC<Props> = ({ children }) => {
       }
 
       const selectedUser = profiles.find((profile) => profile.id === profileId);
-      const totalFollowing = selectedUser?.stats?.totalFollowing || 0;
-      setSelectedReferenceModule(
-        totalFollowing > 20
-          ? ReferenceModules.DegreesOfSeparationReferenceModule
-          : ReferenceModules.FollowerOnlyReferenceModule
-      );
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
@@ -110,6 +111,17 @@ const Layout: FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile?.id]);
 
+  // Mixpanel identify
+  useEffect(() => {
+    if (MIXPANEL_ENABLED && currentProfile?.id) {
+      mixpanel.identify(currentProfile?.id);
+      mixpanel.people.set({
+        $name: currentProfile?.handle
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile?.id]);
+
   if (loading || !mounted) {
     return <Loading />;
   }
@@ -121,7 +133,7 @@ const Layout: FC<Props> = ({ children }) => {
       </Head>
       <Toaster position="bottom-right" toastOptions={getToastOptions(resolvedTheme)} />
       <GlobalModals />
-      <div className="flex flex-col min-h-screen md:pb-0 pb-14">
+      <div className="flex min-h-screen flex-col pb-14 md:pb-0">
         <Navbar />
         <BottomNavigation />
         {children}

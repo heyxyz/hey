@@ -20,7 +20,7 @@ const SettingsSidebar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
-    <div className="px-3 mb-4 space-y-1.5 sm:px-0">
+    <div className="mb-4 space-y-1.5 px-3 sm:px-0">
       <div className="pb-3">
         <UserProfile profile={currentProfile as Profile} showUserPreview={false} />
       </div>
@@ -28,38 +28,38 @@ const SettingsSidebar: FC = () => {
         items={[
           {
             title: t`Profile`,
-            icon: <UserIcon className="w-4 h-4" />,
+            icon: <UserIcon className="h-4 w-4" />,
             url: '/settings'
           },
           {
             title: t`Account`,
-            icon: <ChipIcon className="w-4 h-4" />,
+            icon: <ChipIcon className="h-4 w-4" />,
             url: '/settings/account'
           },
           {
             title: t`Preferences`,
-            icon: <AdjustmentsIcon className="w-4 h-4" />,
+            icon: <AdjustmentsIcon className="h-4 w-4" />,
             url: '/settings/preferences',
             enabled: isFeatureEnabled('preferences-settings', currentProfile?.id)
           },
           {
             title: t`Interests`,
-            icon: <BookmarkIcon className="w-4 h-4" />,
+            icon: <BookmarkIcon className="h-4 w-4" />,
             url: '/settings/interests'
           },
           {
             title: t`Dispatcher`,
-            icon: <FingerPrintIcon className="w-4 h-4" />,
+            icon: <FingerPrintIcon className="h-4 w-4" />,
             url: '/settings/dispatcher'
           },
           {
             title: t`Allowance`,
-            icon: <ShareIcon className="w-4 h-4" />,
+            icon: <ShareIcon className="h-4 w-4" />,
             url: '/settings/allowance'
           },
           {
             title: t`Cleanup`,
-            icon: <SparklesIcon className="w-4 h-4" />,
+            icon: <SparklesIcon className="h-4 w-4" />,
             url: '/settings/cleanup'
           },
           {
@@ -68,7 +68,7 @@ const SettingsSidebar: FC = () => {
                 <Trans>Danger Zone</Trans>
               </div>
             ),
-            icon: <ExclamationIcon className="w-4 h-4 text-red-500" />,
+            icon: <ExclamationIcon className="h-4 w-4 text-red-500" />,
             url: '/settings/delete'
           }
         ]}

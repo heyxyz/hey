@@ -2,8 +2,8 @@ import type { FC } from 'react';
 
 const NotificationShimmer: FC = () => {
   return (
-    <div className="flex justify-between items-start p-5">
-      <div className="space-y-4 w-4/5">
+    <div className="flex items-start justify-between p-5">
+      <div className="w-4/5 space-y-4">
         <div className="flex items-center space-x-3">
           <div className="shimmer h-6 w-6 rounded-lg" />
           <div className="shimmer h-8 w-8 rounded-full" />
@@ -13,7 +13,7 @@ const NotificationShimmer: FC = () => {
           <div className="shimmer h-3 w-3/5 rounded-lg" />
         </div>
       </div>
-      <div className="text-gray-400 text-[12px]">
+      <div className="text-[12px] text-gray-400">
         <div className="shimmer h-3 w-16 rounded-lg" />
       </div>
     </div>
