@@ -6,6 +6,7 @@ import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 interface Props {
@@ -13,7 +14,22 @@ interface Props {
   showCount: boolean;
 }
 
+interface CommentIconProps {
+  count: number;
+  iconClassName: string;
+}
+
+const CommentIcon: FC<CommentIconProps> = ({ count, iconClassName }) => (
+  <div className="rounded-full p-1.5 hover:bg-blue-300 hover:bg-opacity-20">
+    <Tooltip placement="top" content={count > 0 ? t`${humanize(count)} Comments` : t`Comment`} withDelay>
+      <ChatAlt2Icon className={iconClassName} />
+    </Tooltip>
+  </div>
+);
+
 const Comment: FC<Props> = ({ publication, showCount }) => {
+  const { asPath } = useRouter();
+
   const count =
     publication.__typename === 'Mirror'
       ? publication?.mirrorOf?.stats?.totalAmountOfComments
@@ -23,17 +39,13 @@ const Comment: FC<Props> = ({ publication, showCount }) => {
   return (
     <div className="flex items-center space-x-1 text-blue-500">
       <motion.button whileTap={{ scale: 0.9 }} aria-label="Comment">
-        <Link href={`/posts/${publication.id}`}>
-          <div className="rounded-full p-1.5 hover:bg-blue-300 hover:bg-opacity-20">
-            <Tooltip
-              placement="top"
-              content={count > 0 ? t`${humanize(count)} Comments` : t`Comment`}
-              withDelay
-            >
-              <ChatAlt2Icon className={iconClassName} />
-            </Tooltip>
-          </div>
-        </Link>
+        {asPath !== `/posts/${publication.id}` ? (
+          <Link href={`/posts/${publication.id}`}>
+            <CommentIcon count={count} iconClassName={iconClassName} />
+          </Link>
+        ) : (
+          <CommentIcon count={count} iconClassName={iconClassName} />
+        )}
       </motion.button>
       {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
     </div>
