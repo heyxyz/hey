@@ -2,7 +2,7 @@ import type { OptimisticTransaction } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import getPublicationAttribute from '@lib/getPublicationAttribute';
 import getThumbnailUrl from '@lib/getThumbnailUrl';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
 import type { APITypes } from 'plyr-react';
@@ -48,13 +48,13 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY);
+      Mixpanel.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY);
 
       return playerRef.current?.plyr.play();
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE);
+    Mixpanel.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

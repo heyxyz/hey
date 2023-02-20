@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import getProfileAttribute from '@lib/getProfileAttribute';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -192,7 +192,7 @@ const Status: FC = () => {
         className="space-y-4"
         onSubmit={({ status }) => {
           editStatus(emoji, status);
-          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
+          Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -210,7 +210,7 @@ const Status: FC = () => {
               setEmoji('');
               form.setValue('status', '');
               editStatus('', '');
-              Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
+              Mixpanel.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
             <Trans>Clear status</Trans>

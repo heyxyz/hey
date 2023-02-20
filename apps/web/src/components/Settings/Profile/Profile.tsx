@@ -12,7 +12,7 @@ import getProfileAttribute from '@lib/getProfileAttribute';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -61,7 +61,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
-    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
+    Mixpanel.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });

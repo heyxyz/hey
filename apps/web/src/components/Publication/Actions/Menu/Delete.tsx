@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import { useHidePublicationMutation } from 'lens';
@@ -16,7 +16,7 @@ const Delete: FC<Props> = ({ publication }) => {
   const { pathname, push } = useRouter();
   const [hidePost] = useHidePublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.DELETE);
+      Mixpanel.track(PUBLICATION.DELETE);
       pathname === '/posts/[id]' ? push('/') : location.reload();
     }
   });

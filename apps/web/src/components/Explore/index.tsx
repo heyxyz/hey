@@ -5,7 +5,7 @@ import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Tab } from '@headlessui/react';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
@@ -26,7 +26,7 @@ const Explore: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'explore' });
+    Mixpanel.track(PAGEVIEW, { page: 'explore' });
   }, []);
 
   const tabs = [
@@ -55,7 +55,7 @@ const Explore: NextPage = () => {
                 key={index}
                 defaultChecked={index === 1}
                 onClick={() => {
-                  Leafwatch.track(`switch_to_${tab.type?.toLowerCase()}_tab_in_explore`);
+                  Mixpanel.track(`Switch to ${tab.type?.toLowerCase()} tab in explore`);
                 }}
                 className={({ selected }) =>
                   clsx(

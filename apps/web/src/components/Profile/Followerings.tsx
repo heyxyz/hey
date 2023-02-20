@@ -1,7 +1,7 @@
 import { Modal } from '@components/UI/Modal';
 import { UsersIcon } from '@heroicons/react/outline';
 import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
@@ -26,7 +26,7 @@ const Followerings: FC<Props> = ({ profile }) => {
         className="text-left"
         onClick={() => {
           setShowFollowingModal(!showFollowingModal);
-          Leafwatch.track(PROFILE.OPEN_FOLLOWING);
+          Mixpanel.track(PROFILE.OPEN_FOLLOWING);
         }}
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowing)}</div>
@@ -39,7 +39,7 @@ const Followerings: FC<Props> = ({ profile }) => {
         className="text-left"
         onClick={() => {
           setShowFollowersModal(!showFollowersModal);
-          Leafwatch.track(PROFILE.OPEN_FOLLOWERS);
+          Mixpanel.track(PROFILE.OPEN_FOLLOWERS);
         }}
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>

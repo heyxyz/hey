@@ -5,7 +5,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
@@ -48,7 +48,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success(t`Avatar updated successfully!`);
-    Leafwatch.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
+    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
 
   const form = useZodForm({

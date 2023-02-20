@@ -2,7 +2,7 @@ import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TrendingUpIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { t, Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
@@ -53,7 +53,7 @@ const Trending: FC = () => {
             <div key={tag?.tag}>
               <Link
                 href={`/search?q=${tag?.tag}&type=pubs`}
-                onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
+                onClick={() => Mixpanel.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
               >
                 <div className="font-bold">{tag?.tag}</div>
                 <div className="lt-text-gray-500 text-[12px]">
