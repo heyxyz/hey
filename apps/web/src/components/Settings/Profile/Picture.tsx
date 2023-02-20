@@ -1,6 +1,7 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -43,6 +44,7 @@ const Picture: FC<Props> = ({ profile }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [imageSrc, setImageSrc] = useState('');
+  const [showCropModal, setShowCropModal] = useState(false);
 
   const onCompleted = () => {
     toast.success(t`Avatar updated successfully!`);
@@ -112,6 +114,7 @@ const Picture: FC<Props> = ({ profile }) => {
   };
 
   const cropAndUpload = async (): Promise<string> => {
+    setUploading(true);
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
     if (!croppedImage) {
       return '';
@@ -119,7 +122,6 @@ const Picture: FC<Props> = ({ profile }) => {
     const blob = await new Promise((resolve) => croppedImage.toBlob(resolve));
     let file = new File([blob as Blob], 'cropped_image.png', { type: (blob as Blob).type });
     let url = '';
-    setUploading(true);
     try {
       const attachment = await uploadToIPFS([file]);
       if (attachment[0]?.item) {
@@ -127,6 +129,7 @@ const Picture: FC<Props> = ({ profile }) => {
       }
     } finally {
       setAvatar(croppedImage.toDataURL('image/png'));
+      setShowCropModal(false);
       setImageSrc('');
       setUploading(false);
     }
@@ -178,6 +181,7 @@ const Picture: FC<Props> = ({ profile }) => {
   const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
     if (evt.target.files && evt.target.files.length > 0) {
       const file = evt.target.files[0];
+      setShowCropModal(true);
       let imageDataUrl = await readFile(file);
       setImageSrc(imageDataUrl);
     }
@@ -187,44 +191,52 @@ const Picture: FC<Props> = ({ profile }) => {
 
   return (
     <>
+      <Modal
+        title={t`Crop image`}
+        show={showCropModal}
+        onClose={() => {
+          setImageSrc('');
+          setShowCropModal(false);
+        }}
+      >
+        <div className="p-5">
+          <ImageCropper
+            imageSrc={imageSrc}
+            setCroppedAreaPixels={setCroppedAreaPixels}
+            size={avatarPreviewSize}
+          />
+          <Button
+            type="submit"
+            disabled={isLoading || !imageSrc}
+            onClick={() => uploadAndSave()}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+          >
+            <Trans>Save</Trans>
+          </Button>
+        </div>
+      </Modal>
       <div className="space-y-1.5">
         {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
         <div className="space-y-3">
-          {imageSrc ? (
-            <ImageCropper
-              imageSrc={imageSrc}
-              setCroppedAreaPixels={setCroppedAreaPixels}
-              size={avatarPreviewSize}
-            />
-          ) : (
-            avatar && (
-              <div>
-                <img
-                  className="rounded-lg"
-                  height={avatarPreviewSize}
-                  width={avatarPreviewSize}
-                  onError={({ currentTarget }) => {
-                    currentTarget.src = getIPFSLink(avatar);
-                  }}
-                  src={imageProxy(getIPFSLink(avatar), AVATAR)}
-                  alt={avatar}
-                />
-              </div>
-            )
+          {avatar && (
+            <div>
+              <img
+                className="rounded-lg"
+                height={avatarPreviewSize}
+                width={avatarPreviewSize}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = getIPFSLink(avatar);
+                }}
+                src={imageProxy(getIPFSLink(avatar), AVATAR)}
+                alt={avatar}
+              />
+            </div>
           )}
           <div className="flex items-center space-x-3">
             <ChooseFile onChange={(evt: ChangeEvent<HTMLInputElement>) => onFileChange(evt)} />
           </div>
         </div>
       </div>
-      <Button
-        type="submit"
-        disabled={isLoading || !imageSrc}
-        onClick={() => uploadAndSave()}
-        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
-      >
-        <Trans>Upload and save</Trans>
-      </Button>
     </>
   );
 };
