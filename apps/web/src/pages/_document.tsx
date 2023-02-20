@@ -21,6 +21,10 @@ class LensterDocument extends Document {
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
           <meta name="apple-mobile-web-app-title" content="Lenster" />
 
+          {/* SEO */}
+          <meta name="description" content="Lenster is a decentralized, and permissionless social media app built with Lens Protocol." />
+          <meta property="og:description" content="Lenster is a decentralized, and permissionless social media app built with Lens Protocol." />
+
           {/* Icons */}
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
