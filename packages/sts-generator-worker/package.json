@@ -13,7 +13,7 @@
     "@aws-sdk/client-sts": "^3.272.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230214.0",
+    "@cloudflare/workers-types": "^4.20230215.0",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^4.9.5",
