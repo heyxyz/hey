@@ -198,7 +198,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
 
       const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
-        metadata: `ar://${id}`
+        metadata: `https://arweave.net/${id}`
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
