@@ -471,7 +471,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
       const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
         profileId: currentProfile?.id,
-        contentURI: `https://arweave.net/${arweaveId}`,
+        contentURI: `ar://${arweaveId}`,
         ...(isComment && {
           publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }),
