@@ -157,7 +157,7 @@ const Status: FC = () => {
 
       const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
-        metadata: `https://arweave.net/${id}`
+        metadata: `ar://${id}`
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
