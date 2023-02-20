@@ -117,7 +117,7 @@ const Navbar: FC = () => {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="md:hidden">
             <div className="m-3">
               <Search hideDropdown onProfileSelected={onProfileSelected} />
             </div>
