@@ -102,7 +102,14 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         setPayload({ timedFeeCollectModule: { ...baseFeeData } });
         break;
       case MultirecipientFeeCollectModule:
-        setPayload({ multirecipientFeeCollectModule: { ...baseFeeData } });
+        setPayload({
+          multirecipientFeeCollectModule: {
+            ...baseFeeData,
+            ...(hasTimeLimit && {
+              endTimestamp: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString()
+            })
+          }
+        });
         break;
       default:
         setPayload({ revertCollectModule: true });
