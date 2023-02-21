@@ -431,9 +431,13 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                         Split evenly
                       </Button>
                     </div>
-                    {/* show error if split is above 100 */}
                     {recipients.reduce((acc, curr) => acc + curr.split, 0) > 100 ? (
-                      <div className="text-sm text-red-500">Error</div>
+                      <div className="text-sm font-bold text-red-500">
+                        <Trans>
+                          Splits cannot exceed 100%. Total:
+                          <span> {recipients.reduce((acc, curr) => acc + curr.split, 0)}</span>%
+                        </Trans>
+                      </div>
                     ) : null}
                   </div>
                 ) : null}
