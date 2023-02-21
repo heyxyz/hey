@@ -57,6 +57,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     TimedFeeCollectModule,
     MultirecipientFeeCollectModule
   } = CollectModules;
+  const hasRecipients = recipients.length > 0;
 
   useEffect(() => {
     const baseFeeData = {
@@ -64,7 +65,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         currency: selectedCurrency,
         value: amount
       },
-      [recipients ? 'recipients' : 'recipient']: recipients ? recipients : currentProfile?.ownedBy,
+      [hasRecipients ? 'recipients' : 'recipient']: hasRecipients ? recipients : currentProfile?.ownedBy,
       referralFee: parseFloat(referralFee ?? '0'),
       followerOnly
     };
@@ -106,7 +107,6 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, selectedCollectModule]);
 
   useEffect(() => {
-    const hasRecipients = recipients.length > 0;
     if (hasTimeLimit) {
       if (amount) {
         if (collectLimit) {
@@ -212,6 +212,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               on={Boolean(amount)}
               setOn={() => {
                 setAmount(amount ? null : '0');
+                setRecipients([]);
                 Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
               }}
               label={t`Get paid whenever someone collects your post`}
