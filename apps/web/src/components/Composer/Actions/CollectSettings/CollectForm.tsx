@@ -6,12 +6,15 @@ import { Spinner } from '@components/UI/Spinner';
 import {
   ClockIcon,
   CollectionIcon,
+  PlusIcon,
   StarIcon,
   SwitchHorizontalIcon,
   UserGroupIcon,
-  UsersIcon
+  UsersIcon,
+  XCircleIcon
 } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
+import splitNumber from '@lib/splitNumber';
 import { t, Trans } from '@lingui/macro';
 import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
@@ -192,6 +195,17 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     }
   };
 
+  const splitEvenly = () => {
+    const equalSplits = splitNumber(100, recipients.length);
+    const splits = recipients.map((recipient, i) => {
+      return {
+        recipient: recipient.recipient,
+        split: equalSplits[i]
+      };
+    });
+    setRecipients([...splits]);
+  };
+
   return (
     <div className="space-y-3 p-5">
       <ToggleWithHelper
@@ -297,7 +311,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   label={t`Make the collects exclusive`}
                 />
                 {collectLimit ? (
-                  <div className="flex space-x-2 pt-2 text-sm">
+                  <div className="pt-2 text-sm">
                     <Input
                       label={t`Collect limit`}
                       type="number"
@@ -332,7 +346,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 <div className="flex items-center space-x-2">
                   <UsersIcon className="text-brand-500 h-4 w-4" />
                   <span>
-                    <Trans>Set recipients</Trans>
+                    <Trans>Split revenue</Trans>
                   </span>
                 </div>
                 <ToggleWithHelper
@@ -347,6 +361,82 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                   }}
                   label={t`Set multiple recipients for the collect fee`}
                 />
+                {hasRecipients ? (
+                  <div className="space-y-3">
+                    <div className="no-scrollbar max-h-[20vh] overflow-auto">
+                      {recipients.map((recipient, index) => (
+                        <div key={index} className="flex items-center space-x-2 py-2 pt-2 text-sm">
+                          <Input
+                            placeholder="0x1234..."
+                            value={recipient.recipient}
+                            disabled={index === 0}
+                            onChange={(event) => {
+                              setRecipients(
+                                recipients.map((r, i) => {
+                                  if (i === index) {
+                                    return { ...r, recipient: event.target.value };
+                                  }
+                                  return r;
+                                })
+                              );
+                            }}
+                          />
+                          <div className="w-1/3">
+                            <Input
+                              type="number"
+                              placeholder="5"
+                              min="1"
+                              max="100"
+                              value={recipient.split}
+                              iconRight="%"
+                              onChange={(event) => {
+                                setRecipients(
+                                  recipients.map((r, i) => {
+                                    if (i === index) {
+                                      return { ...r, split: parseInt(event.target.value) };
+                                    }
+                                    return r;
+                                  })
+                                );
+                              }}
+                            />
+                          </div>
+                          <button
+                            onClick={() => {
+                              setRecipients(recipients.filter((_, i) => i !== index));
+                            }}
+                          >
+                            <XCircleIcon className="h-5 w-5 text-red-500" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Button
+                        size="sm"
+                        outline
+                        icon={<PlusIcon className="h-3 w-3" />}
+                        onClick={() => {
+                          setRecipients([...recipients, { recipient: '', split: 0 }]);
+                        }}
+                      >
+                        Add recipient
+                      </Button>
+                      <Button
+                        size="sm"
+                        outline
+                        icon={<SwitchHorizontalIcon className="h-3 w-3" />}
+                        onClick={splitEvenly}
+                      >
+                        Split evenly
+                      </Button>
+                    </div>
+                    {/* show error if split is above 100 */}
+                    {recipients.reduce((acc, curr) => acc + curr.split, 0) > 100 ? (
+                      <div className="text-sm text-red-500">Error</div>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
             </>
           )}
