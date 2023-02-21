@@ -61,6 +61,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     MultirecipientFeeCollectModule
   } = CollectModules;
   const hasRecipients = recipients.length > 0;
+  const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
 
   useEffect(() => {
     const baseFeeData = {
@@ -431,11 +432,10 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                         Split evenly
                       </Button>
                     </div>
-                    {recipients.reduce((acc, curr) => acc + curr.split, 0) > 100 ? (
+                    {splitTotal > 100 ? (
                       <div className="text-sm font-bold text-red-500">
                         <Trans>
-                          Splits cannot exceed 100%. Total:
-                          <span> {recipients.reduce((acc, curr) => acc + curr.split, 0)}</span>%
+                          Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
                         </Trans>
                       </div>
                     ) : null}
@@ -474,7 +474,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         >
           <Trans>Cancel</Trans>
         </Button>
-        <Button onClick={() => setShowModal(false)}>
+        <Button disabled={splitTotal > 100} onClick={() => setShowModal(false)}>
           <Trans>Save</Trans>
         </Button>
       </div>
