@@ -76,7 +76,8 @@ export const PUBLICATION = {
       TOGGLE_CHARGE_FOR_COLLECT: 'Toggle charge for collect',
       TOGGLE_LIMITED_EDITION_COLLECT: 'Toggle limited edition collect',
       TOGGLE_TIME_LIMIT_COLLECT: 'Toggle time limit collect',
-      TOGGLE_FOLLOWERS_ONLY_COLLECT: 'Toggle followers only collect'
+      TOGGLE_FOLLOWERS_ONLY_COLLECT: 'Toggle followers only collect',
+      TOGGLE_MULTIPLE_RECIPIENTS_COLLECT: 'Toggle multiple recipients collect'
     },
     REFERENCE_MODULE: {
       OPEN_REFERENCE_SETTINGS: 'Open reference module settings',

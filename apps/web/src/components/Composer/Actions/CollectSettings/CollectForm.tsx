@@ -317,7 +317,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                     } else {
                       setRecipients([{ recipient: currentProfile?.ownedBy, split: 100 }]);
                     }
-                    // Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
+                    Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_MULTIPLE_RECIPIENTS_COLLECT);
                   }}
                   label={t`Set multiple recipients for the collect fee`}
                 />
