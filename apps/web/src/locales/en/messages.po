@@ -151,6 +151,14 @@ msgid "Limit collecting to the first 24h"
 msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Set recipients"
+msgstr "Set recipients"
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Set multiple recipients for the collect fee"
+msgstr "Set multiple recipients for the collect fee"
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Who can collect"
 msgstr ""
 
@@ -276,16 +284,16 @@ msgid "Explore • {APP_NAME}"
 msgstr "Explore • {APP_NAME}"
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Beta warning!"
-msgstr ""
+#~ msgid "Beta warning!"
+#~ msgstr ""
 
 #: src/components/Home/BetaWarning.tsx
-msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr ""
+#~ msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
+#~ msgstr ""
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Get testnet tokens"
-msgstr ""
+#~ msgid "Get testnet tokens"
+#~ msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
@@ -1413,8 +1421,8 @@ msgid "Failed to load relevant people"
 msgstr ""
 
 #: src/components/Publication/Type/Collected.tsx
-msgid "collected the <0>{0}</0>"
-msgstr ""
+#~ msgid "collected the <0>{0}</0>"
+#~ msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -2360,6 +2368,10 @@ msgstr "Video size should be less than 100MB"
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "Audio size should be less than 100MB"
+
+#: src/lib/getModule.ts
+msgid "Multirecipient Paid Collect"
+msgstr "Multirecipient Paid Collect"
 
 #: src/lib/getModule.ts
 msgid "Paid Collect"

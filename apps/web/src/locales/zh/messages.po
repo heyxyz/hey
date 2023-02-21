@@ -151,6 +151,14 @@ msgid "Limit collecting to the first 24h"
 msgstr "24小时限时收藏"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Set recipients"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+msgid "Set multiple recipients for the collect fee"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Who can collect"
 msgstr "谁可以收藏"
 
@@ -276,16 +284,16 @@ msgid "Explore • {APP_NAME}"
 msgstr "看看别人都在干吗？ • {APP_NAME}"
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Beta warning!"
-msgstr "这是测试版！"
+#~ msgid "Beta warning!"
+#~ msgstr "这是测试版！"
 
 #: src/components/Home/BetaWarning.tsx
-msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr "{APP_NAME} 仍处于测试阶段，可能会出现问题，请谨慎使用。"
+#~ msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
+#~ msgstr "{APP_NAME} 仍处于测试阶段，可能会出现问题，请谨慎使用。"
 
 #: src/components/Home/BetaWarning.tsx
-msgid "Get testnet tokens"
-msgstr "获取测试网代币"
+#~ msgid "Get testnet tokens"
+#~ msgstr "获取测试网代币"
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
@@ -1413,8 +1421,8 @@ msgid "Failed to load relevant people"
 msgstr "加载相关人员失败"
 
 #: src/components/Publication/Type/Collected.tsx
-msgid "collected the <0>{0}</0>"
-msgstr "收藏了 <0>{0}</0>"
+#~ msgid "collected the <0>{0}</0>"
+#~ msgstr "收藏了 <0>{0}</0>"
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -2362,6 +2370,10 @@ msgid "Audio size should be less than 100MB"
 msgstr "音频文件应小于 100MB"
 
 #: src/lib/getModule.ts
+msgid "Multirecipient Paid Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
 msgid "Paid Collect"
 msgstr "付费收藏"
 
@@ -2409,4 +2421,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
