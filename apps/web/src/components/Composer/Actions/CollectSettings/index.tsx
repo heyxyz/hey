@@ -15,6 +15,7 @@ import CollectForm from './CollectForm';
 
 const CollectSettings: FC = () => {
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
+  const reset = useCollectModuleStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -38,7 +39,10 @@ const CollectSettings: FC = () => {
         title={t`Collect settings`}
         icon={<CashIcon className="text-brand h-5 w-5" />}
         show={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          setShowModal(false);
+          reset();
+        }}
       >
         <CollectForm setShowModal={setShowModal} />
       </Modal>
