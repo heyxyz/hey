@@ -283,18 +283,6 @@ msgstr ""
 msgid "Explore • {APP_NAME}"
 msgstr "Explore • {APP_NAME}"
 
-#: src/components/Home/BetaWarning.tsx
-#~ msgid "Beta warning!"
-#~ msgstr ""
-
-#: src/components/Home/BetaWarning.tsx
-#~ msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-#~ msgstr ""
-
-#: src/components/Home/BetaWarning.tsx
-#~ msgid "Get testnet tokens"
-#~ msgstr ""
-
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
 msgstr ""
@@ -1419,10 +1407,6 @@ msgstr ""
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
 msgstr ""
-
-#: src/components/Publication/Type/Collected.tsx
-#~ msgid "collected the <0>{0}</0>"
-#~ msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"

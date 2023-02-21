@@ -283,18 +283,6 @@ msgstr "கவர்ச்சியான"
 msgid "Explore • {APP_NAME}"
 msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 
-#: src/components/Home/BetaWarning.tsx
-#~ msgid "Beta warning!"
-#~ msgstr "பீட்டா எச்சரிக்கை!"
-
-#: src/components/Home/BetaWarning.tsx
-#~ msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-#~ msgstr "{APP_NAME} இன்னும் பீட்டா கட்டத்தில் உள்ளது, விஷயங்கள் உடைந்து போகலாம், தயவுசெய்து கவனமாகக் கையாளவும்."
-
-#: src/components/Home/BetaWarning.tsx
-#~ msgid "Get testnet tokens"
-#~ msgstr "டெஸ்ட்நெட் டோக்கன்களைப் பெறுங்கள்"
-
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
 msgstr "நடவடிக்கை தேவை"
@@ -1419,10 +1407,6 @@ msgstr ""
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
 msgstr "தொடர்புடைய நபர்களை ஏற்ற முடியவில்லை"
-
-#: src/components/Publication/Type/Collected.tsx
-#~ msgid "collected the <0>{0}</0>"
-#~ msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
