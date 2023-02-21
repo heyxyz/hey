@@ -64,7 +64,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         currency: selectedCurrency,
         value: amount
       },
-      recipient: currentProfile?.ownedBy,
+      [recipients ? 'recipients' : 'recipient']: recipients ? recipients : currentProfile?.ownedBy,
       referralFee: parseFloat(referralFee ?? '0'),
       followerOnly
     };
@@ -106,17 +106,30 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, selectedCollectModule]);
 
   useEffect(() => {
+    const hasRecipients = recipients.length > 0;
     if (hasTimeLimit) {
       if (amount) {
         if (collectLimit) {
-          setSelectedCollectModule(LimitedTimedFeeCollectModule);
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(LimitedTimedFeeCollectModule);
+          }
         } else {
-          setSelectedCollectModule(TimedFeeCollectModule);
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(TimedFeeCollectModule);
+          }
         }
       } else {
         setHasTimeLimit(false);
         if (collectLimit) {
-          setSelectedCollectModule(LimitedFeeCollectModule);
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(LimitedFeeCollectModule);
+          }
         } else {
           setSelectedCollectModule(FreeCollectModule);
         }
@@ -124,21 +137,33 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     } else {
       if (amount) {
         if (collectLimit) {
-          setSelectedCollectModule(LimitedFeeCollectModule);
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(LimitedFeeCollectModule);
+          }
         } else {
-          setSelectedCollectModule(FeeCollectModule);
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(FeeCollectModule);
+          }
         }
       } else {
         setCollectLimit(null);
         if (collectLimit) {
-          setSelectedCollectModule(LimitedFeeCollectModule);
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(LimitedFeeCollectModule);
+          }
         } else {
           setSelectedCollectModule(FreeCollectModule);
         }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, collectLimit, hasTimeLimit]);
+  }, [amount, collectLimit, hasTimeLimit, recipients]);
 
   const { error, data, loading } = useEnabledModulesQuery();
 
