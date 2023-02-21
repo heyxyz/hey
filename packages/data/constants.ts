@@ -13,6 +13,8 @@ export const SANDBOX_API_URL = 'https://api-sandbox-mumbai.lens.dev';
 export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
 export const STAGING_SANDBOX_API_URL = 'https://staging-api-social-mumbai.sandbox.crtlkey.com';
 export const SANDBOX_GRANTS_URL = 'https://api.thegraph.com/subgraphs/name/bitbeckers/ql-dev';
+export const SANDBOX_VOTES_COLLECT_URL =
+  'https://api.thegraph.com/subgraphs/name/bitbeckers/vote-collect-dev';
 
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;

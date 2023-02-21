@@ -1,6 +1,6 @@
 // import type { Publication } from 'lens';
 // import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
-import { getRoundTippingData } from '@components/Publication/Actions/Collect/quadraticUtils/utils';
+import { getRoundTippingData } from '@components/Publication/Actions/Collect/QuadraticQueries/grantsQueries';
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
 import { Card } from '@components/UI/Card';
 import { SANDBOX_GRANTS_ROUND } from 'data/contracts';

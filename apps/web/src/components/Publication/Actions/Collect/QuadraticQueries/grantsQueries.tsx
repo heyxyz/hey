@@ -110,6 +110,7 @@ export async function getPostInfo(address: string, postId: string) {
   }
 }
 
+// temp function to get unexpired round, until round selector is implemented in next iteration
 export async function getCurrentRound(blockTimestamp: number) {
   const query = `
   {

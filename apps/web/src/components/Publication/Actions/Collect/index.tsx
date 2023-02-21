@@ -109,10 +109,14 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
         }
         icon={
           <div className="text-brand">
-            <GetModuleIcon
-              module={isFreeCollect ? CollectModules.FreeCollectModule : publication?.collectModule?.type}
-              size={5}
-            />
+            {publication?.collectModule?.__typename === 'UnknownCollectModuleSettings' ? (
+              <TipsOutlineIcon color="#8B5CF6" />
+            ) : (
+              <GetModuleIcon
+                module={isFreeCollect ? CollectModules.FreeCollectModule : publication?.collectModule?.type}
+                size={5}
+              />
+            )}
           </div>
         }
         show={showCollectModal}

@@ -1,7 +1,9 @@
-import { getRoundTippingData } from '@components/Publication/Actions/Collect/quadraticUtils/utils';
+import { getRoundTippingData } from '@components/Publication/Actions/Collect/QuadraticQueries/grantsQueries';
+import { getVotesbyPubId } from '@components/Publication/Actions/Collect/QuadraticQueries/voteCollectQueries';
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
 import { QuestionMarkCircleIcon } from '@heroicons/react/outline';
 import { SANDBOX_GRANTS_ROUND } from 'data/contracts';
+import { ethers } from 'ethers';
 import type { Publication } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
@@ -18,9 +20,9 @@ interface Props {
 export const NotificationBanner: FC<Props> = ({ publication, showCount }) => {
   const [count, setCount] = useState(0);
   const [roundInfo, setRoundInfo] = useState<any>();
+  const [votes, setVotes] = useState<any>([]);
+  const [postTipTotal, setPostTipTotal] = useState(0);
   const isMirror = publication.__typename === 'Mirror';
-  const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
-  const totalUpvotes = publication?.stats?.totalUpvotes;
   const grantsRound = SANDBOX_GRANTS_ROUND.toLowerCase();
 
   useEffect(() => {
@@ -38,13 +40,24 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
   useEffect(() => {
-    const getRoundStats = async () => {
+    const getPostInfo = async () => {
       const roundResults = await getRoundTippingData(grantsRound);
       setRoundInfo(roundResults);
+
+      const votes = await getVotesbyPubId(publication.id);
+      setVotes(votes);
+      let voteTipTotal = 0;
+      for (const vote of votes) {
+        voteTipTotal += parseFloat(vote?.amount);
+      }
+      setPostTipTotal(voteTipTotal);
     };
-    getRoundStats();
-  }, [grantsRound]);
+    getPostInfo();
+  }, [grantsRound, publication.id]);
+
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+
+  const uniqueCollectors = new Set(votes.map((vote: any) => vote?.collector)).size;
 
   function getTimeLeft(timestamp: number): string {
     const now = new Date();
@@ -67,13 +80,13 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount }) => {
           <div className="mt-1 flex">
             <TipsSolidIcon />
           </div>
-          <div className="ml-3 text-red-500">{`This post has received ${publication.stats.totalAmountOfCollects} tips!`}</div>
+          <div className="ml-3 text-red-500">{`This post has received ${votes.length} tips!`}</div>
         </div>
 
-        {/* <div>
-          This post has received 9885 tips of 44 users in total for 10,500 DAI. It will be matched with 20000
-          DAI.
-        </div> */}
+        <div>
+          This post has received {ethers.utils.formatEther(postTipTotal)} in tips from {uniqueCollectors}{' '}
+          users.
+        </div>
         {roundInfo && (
           <div className="flex justify-between pt-3">
             <div className="my-auto flex items-center justify-between text-sm text-gray-500">
