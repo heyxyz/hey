@@ -8,7 +8,8 @@ import {
   CollectionIcon,
   StarIcon,
   SwitchHorizontalIcon,
-  UserGroupIcon
+  UserGroupIcon,
+  UsersIcon
 } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
@@ -40,6 +41,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
   const recipients = useCollectModuleStore((state) => state.recipients);
+  const setRecipients = useCollectModuleStore((state) => state.setRecipients);
   const followerOnly = useCollectModuleStore((state) => state.followerOnly);
   const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
@@ -106,17 +108,33 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   useEffect(() => {
     if (hasTimeLimit) {
       if (amount) {
-        setSelectedCollectModule(collectLimit ? LimitedTimedFeeCollectModule : TimedFeeCollectModule);
+        if (collectLimit) {
+          setSelectedCollectModule(LimitedTimedFeeCollectModule);
+        } else {
+          setSelectedCollectModule(TimedFeeCollectModule);
+        }
       } else {
         setHasTimeLimit(false);
-        setSelectedCollectModule(collectLimit ? LimitedTimedFeeCollectModule : FreeCollectModule);
+        if (collectLimit) {
+          setSelectedCollectModule(LimitedFeeCollectModule);
+        } else {
+          setSelectedCollectModule(FreeCollectModule);
+        }
       }
     } else {
       if (amount) {
-        setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FeeCollectModule);
+        if (collectLimit) {
+          setSelectedCollectModule(LimitedFeeCollectModule);
+        } else {
+          setSelectedCollectModule(FeeCollectModule);
+        }
       } else {
         setCollectLimit(null);
-        setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FreeCollectModule);
+        if (collectLimit) {
+          setSelectedCollectModule(LimitedFeeCollectModule);
+        } else {
+          setSelectedCollectModule(FreeCollectModule);
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -282,6 +300,26 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                     Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
                   }}
                   label={t`Limit collecting to the first 24h`}
+                />
+              </div>
+              <div className="space-y-2 pt-5">
+                <div className="flex items-center space-x-2">
+                  <UsersIcon className="text-brand-500 h-4 w-4" />
+                  <span>
+                    <Trans>Set recipients</Trans>
+                  </span>
+                </div>
+                <ToggleWithHelper
+                  on={recipients.length > 0}
+                  setOn={() => {
+                    if (recipients.length > 0) {
+                      setRecipients([]);
+                    } else {
+                      setRecipients([{ recipient: currentProfile?.ownedBy, split: 100 }]);
+                    }
+                    // Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
+                  }}
+                  label={t`Set multiple recipients for the collect fee`}
                 />
               </div>
             </>

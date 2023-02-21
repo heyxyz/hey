@@ -15,8 +15,8 @@ interface CollectModuleState {
   setCollectLimit: (collectLimit: null | string) => void;
   hasTimeLimit: boolean;
   setHasTimeLimit: (hasTimeLimit: boolean) => void;
-  recipients: { recipient: string; split: string }[];
-  setRecipients: (recipients: { recipient: string; split: string }[]) => void;
+  recipients: { recipient: string; split: number }[];
+  setRecipients: (recipients: { recipient: string; split: number }[]) => void;
   followerOnly: boolean;
   setFollowerOnly: (followerOnly: boolean) => void;
   payload: any;
