@@ -4090,6 +4090,8 @@ type CollectModuleFields_MultirecipientFeeCollectModuleSettings_Fragment = {
   contractAddress: any;
   referralFee: number;
   followerOnly: boolean;
+  optionalCollectLimit?: string | null;
+  optionalEndTimestamp?: any | null;
   amount: {
     __typename?: 'ModuleFeeAmount';
     value: string;
@@ -4224,6 +4226,8 @@ export type CommentFieldsFragment = {
         contractAddress: any;
         referralFee: number;
         followerOnly: boolean;
+        optionalCollectLimit?: string | null;
+        optionalEndTimestamp?: any | null;
         amount: {
           __typename?: 'ModuleFeeAmount';
           value: string;
@@ -4451,6 +4455,8 @@ export type CommentFieldsFragment = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -4676,6 +4682,8 @@ export type CommentFieldsFragment = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -4949,6 +4957,8 @@ export type CommentFieldsFragment = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -5181,6 +5191,8 @@ export type CommentFieldsFragment = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -5407,6 +5419,8 @@ export type CommentFieldsFragment = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -5680,6 +5694,8 @@ export type CommentFieldsFragment = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -5909,6 +5925,8 @@ export type CommentFieldsFragment = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -6244,6 +6262,8 @@ export type MirrorFieldsFragment = {
         contractAddress: any;
         referralFee: number;
         followerOnly: boolean;
+        optionalCollectLimit?: string | null;
+        optionalEndTimestamp?: any | null;
         amount: {
           __typename?: 'ModuleFeeAmount';
           value: string;
@@ -6517,6 +6537,8 @@ export type MirrorFieldsFragment = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -6753,6 +6775,8 @@ export type PostFieldsFragment = {
         contractAddress: any;
         referralFee: number;
         followerOnly: boolean;
+        optionalCollectLimit?: string | null;
+        optionalEndTimestamp?: any | null;
         amount: {
           __typename?: 'ModuleFeeAmount';
           value: string;
@@ -7672,6 +7696,8 @@ export type CollectModuleQuery = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -7751,6 +7777,8 @@ export type CollectModuleQuery = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -7830,6 +7858,8 @@ export type CollectModuleQuery = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -7996,6 +8026,8 @@ export type CommentFeedQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -8223,6 +8255,8 @@ export type CommentFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -8452,6 +8486,8 @@ export type CommentFeedQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -8759,6 +8795,8 @@ export type CommentFeedQuery = {
                                   contractAddress: any;
                                   referralFee: number;
                                   followerOnly: boolean;
+                                  optionalCollectLimit?: string | null;
+                                  optionalEndTimestamp?: any | null;
                                   amount: {
                                     __typename?: 'ModuleFeeAmount';
                                     value: string;
@@ -9014,6 +9052,8 @@ export type CommentFeedQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -9243,6 +9283,8 @@ export type CommentFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -9524,6 +9566,8 @@ export type CommentFeedQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -9756,6 +9800,8 @@ export type CommentFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -10058,6 +10104,8 @@ export type ExploreFeedQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -10285,6 +10333,8 @@ export type ExploreFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -10514,6 +10564,8 @@ export type ExploreFeedQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -10821,6 +10873,8 @@ export type ExploreFeedQuery = {
                                   contractAddress: any;
                                   referralFee: number;
                                   followerOnly: boolean;
+                                  optionalCollectLimit?: string | null;
+                                  optionalEndTimestamp?: any | null;
                                   amount: {
                                     __typename?: 'ModuleFeeAmount';
                                     value: string;
@@ -11076,6 +11130,8 @@ export type ExploreFeedQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -11305,6 +11361,8 @@ export type ExploreFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -11586,6 +11644,8 @@ export type ExploreFeedQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -11818,6 +11878,8 @@ export type ExploreFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -12045,6 +12107,8 @@ export type ExploreFeedQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -12318,6 +12382,8 @@ export type ExploreFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -12547,6 +12613,8 @@ export type ExploreFeedQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -12791,6 +12859,8 @@ export type FeedHighlightsQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -13018,6 +13088,8 @@ export type FeedHighlightsQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -13247,6 +13319,8 @@ export type FeedHighlightsQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -13554,6 +13628,8 @@ export type FeedHighlightsQuery = {
                                   contractAddress: any;
                                   referralFee: number;
                                   followerOnly: boolean;
+                                  optionalCollectLimit?: string | null;
+                                  optionalEndTimestamp?: any | null;
                                   amount: {
                                     __typename?: 'ModuleFeeAmount';
                                     value: string;
@@ -13809,6 +13885,8 @@ export type FeedHighlightsQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -14038,6 +14116,8 @@ export type FeedHighlightsQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -14319,6 +14399,8 @@ export type FeedHighlightsQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -14551,6 +14633,8 @@ export type FeedHighlightsQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -14778,6 +14862,8 @@ export type FeedHighlightsQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -15051,6 +15137,8 @@ export type FeedHighlightsQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -15280,6 +15368,8 @@ export type FeedHighlightsQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -15836,6 +15926,8 @@ export type NotificationsQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -15917,6 +16009,8 @@ export type NotificationsQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -16422,6 +16516,8 @@ export type ProfileFeedQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -16649,6 +16745,8 @@ export type ProfileFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -16878,6 +16976,8 @@ export type ProfileFeedQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -17185,6 +17285,8 @@ export type ProfileFeedQuery = {
                                   contractAddress: any;
                                   referralFee: number;
                                   followerOnly: boolean;
+                                  optionalCollectLimit?: string | null;
+                                  optionalEndTimestamp?: any | null;
                                   amount: {
                                     __typename?: 'ModuleFeeAmount';
                                     value: string;
@@ -17440,6 +17542,8 @@ export type ProfileFeedQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -17669,6 +17773,8 @@ export type ProfileFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -17950,6 +18056,8 @@ export type ProfileFeedQuery = {
                             contractAddress: any;
                             referralFee: number;
                             followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
                             amount: {
                               __typename?: 'ModuleFeeAmount';
                               value: string;
@@ -18182,6 +18290,8 @@ export type ProfileFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -18409,6 +18519,8 @@ export type ProfileFeedQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -18682,6 +18794,8 @@ export type ProfileFeedQuery = {
                       contractAddress: any;
                       referralFee: number;
                       followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
                       amount: {
                         __typename?: 'ModuleFeeAmount';
                         value: string;
@@ -18911,6 +19025,8 @@ export type ProfileFeedQuery = {
                 contractAddress: any;
                 referralFee: number;
                 followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
                 amount: {
                   __typename?: 'ModuleFeeAmount';
                   value: string;
@@ -19225,6 +19341,8 @@ export type PublicationQuery = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -19452,6 +19570,8 @@ export type PublicationQuery = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -19677,6 +19797,8 @@ export type PublicationQuery = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -19984,6 +20106,8 @@ export type PublicationQuery = {
                                 contractAddress: any;
                                 referralFee: number;
                                 followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
                                 amount: {
                                   __typename?: 'ModuleFeeAmount';
                                   value: string;
@@ -20232,6 +20356,8 @@ export type PublicationQuery = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -20461,6 +20587,8 @@ export type PublicationQuery = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -20734,6 +20862,8 @@ export type PublicationQuery = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -20966,6 +21096,8 @@ export type PublicationQuery = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -21199,6 +21331,8 @@ export type PublicationQuery = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -21472,6 +21606,8 @@ export type PublicationQuery = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -21707,6 +21843,8 @@ export type PublicationQuery = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -22059,6 +22197,8 @@ export type SearchPublicationsQuery = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -22286,6 +22426,8 @@ export type SearchPublicationsQuery = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -22537,6 +22679,8 @@ export type SearchPublicationsQuery = {
                                 contractAddress: any;
                                 referralFee: number;
                                 followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
                                 amount: {
                                   __typename?: 'ModuleFeeAmount';
                                   value: string;
@@ -22866,6 +23010,8 @@ export type SearchPublicationsQuery = {
                                       contractAddress: any;
                                       referralFee: number;
                                       followerOnly: boolean;
+                                      optionalCollectLimit?: string | null;
+                                      optionalEndTimestamp?: any | null;
                                       amount: {
                                         __typename?: 'ModuleFeeAmount';
                                         value: string;
@@ -23146,6 +23292,8 @@ export type SearchPublicationsQuery = {
                                 contractAddress: any;
                                 referralFee: number;
                                 followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
                                 amount: {
                                   __typename?: 'ModuleFeeAmount';
                                   value: string;
@@ -23391,6 +23539,8 @@ export type SearchPublicationsQuery = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -23698,6 +23848,8 @@ export type SearchPublicationsQuery = {
                                 contractAddress: any;
                                 referralFee: number;
                                 followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
                                 amount: {
                                   __typename?: 'ModuleFeeAmount';
                                   value: string;
@@ -23946,6 +24098,8 @@ export type SearchPublicationsQuery = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -24179,6 +24333,8 @@ export type SearchPublicationsQuery = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -24634,6 +24790,8 @@ export type TimelineQuery = {
                   contractAddress: any;
                   referralFee: number;
                   followerOnly: boolean;
+                  optionalCollectLimit?: string | null;
+                  optionalEndTimestamp?: any | null;
                   amount: {
                     __typename?: 'ModuleFeeAmount';
                     value: string;
@@ -24861,6 +25019,8 @@ export type TimelineQuery = {
                         contractAddress: any;
                         referralFee: number;
                         followerOnly: boolean;
+                        optionalCollectLimit?: string | null;
+                        optionalEndTimestamp?: any | null;
                         amount: {
                           __typename?: 'ModuleFeeAmount';
                           value: string;
@@ -25105,6 +25265,8 @@ export type TimelineQuery = {
                               contractAddress: any;
                               referralFee: number;
                               followerOnly: boolean;
+                              optionalCollectLimit?: string | null;
+                              optionalEndTimestamp?: any | null;
                               amount: {
                                 __typename?: 'ModuleFeeAmount';
                                 value: string;
@@ -25428,6 +25590,8 @@ export type TimelineQuery = {
                                     contractAddress: any;
                                     referralFee: number;
                                     followerOnly: boolean;
+                                    optionalCollectLimit?: string | null;
+                                    optionalEndTimestamp?: any | null;
                                     amount: {
                                       __typename?: 'ModuleFeeAmount';
                                       value: string;
@@ -25698,6 +25862,8 @@ export type TimelineQuery = {
                               contractAddress: any;
                               referralFee: number;
                               followerOnly: boolean;
+                              optionalCollectLimit?: string | null;
+                              optionalEndTimestamp?: any | null;
                               amount: {
                                 __typename?: 'ModuleFeeAmount';
                                 value: string;
@@ -25943,6 +26109,8 @@ export type TimelineQuery = {
                         contractAddress: any;
                         referralFee: number;
                         followerOnly: boolean;
+                        optionalCollectLimit?: string | null;
+                        optionalEndTimestamp?: any | null;
                         amount: {
                           __typename?: 'ModuleFeeAmount';
                           value: string;
@@ -26239,6 +26407,8 @@ export type TimelineQuery = {
                               contractAddress: any;
                               referralFee: number;
                               followerOnly: boolean;
+                              optionalCollectLimit?: string | null;
+                              optionalEndTimestamp?: any | null;
                               amount: {
                                 __typename?: 'ModuleFeeAmount';
                                 value: string;
@@ -26487,6 +26657,8 @@ export type TimelineQuery = {
                         contractAddress: any;
                         referralFee: number;
                         followerOnly: boolean;
+                        optionalCollectLimit?: string | null;
+                        optionalEndTimestamp?: any | null;
                         amount: {
                           __typename?: 'ModuleFeeAmount';
                           value: string;
@@ -26717,6 +26889,8 @@ export type TimelineQuery = {
                   contractAddress: any;
                   referralFee: number;
                   followerOnly: boolean;
+                  optionalCollectLimit?: string | null;
+                  optionalEndTimestamp?: any | null;
                   amount: {
                     __typename?: 'ModuleFeeAmount';
                     value: string;
@@ -27047,6 +27221,8 @@ export type TimelineQuery = {
               contractAddress: any;
               referralFee: number;
               followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
               amount: {
                 __typename?: 'ModuleFeeAmount';
                 value: string;
@@ -27274,6 +27450,8 @@ export type TimelineQuery = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -27499,6 +27677,8 @@ export type TimelineQuery = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -27806,6 +27986,8 @@ export type TimelineQuery = {
                                 contractAddress: any;
                                 referralFee: number;
                                 followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
                                 amount: {
                                   __typename?: 'ModuleFeeAmount';
                                   value: string;
@@ -28054,6 +28236,8 @@ export type TimelineQuery = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -28283,6 +28467,8 @@ export type TimelineQuery = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -28556,6 +28742,8 @@ export type TimelineQuery = {
                           contractAddress: any;
                           referralFee: number;
                           followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
                           amount: {
                             __typename?: 'ModuleFeeAmount';
                             value: string;
@@ -28788,6 +28976,8 @@ export type TimelineQuery = {
                     contractAddress: any;
                     referralFee: number;
                     followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
                     amount: {
                       __typename?: 'ModuleFeeAmount';
                       value: string;
@@ -29126,8 +29316,10 @@ export const CollectModuleFieldsFragmentDoc = gql`
       amount {
         ...ModuleFeeAmountFields
       }
+      optionalCollectLimit: collectLimit
       referralFee
       followerOnly
+      optionalEndTimestamp: endTimestamp
     }
   }
   ${ModuleFeeAmountFieldsFragmentDoc}
