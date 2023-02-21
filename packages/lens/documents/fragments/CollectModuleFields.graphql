@@ -50,11 +50,13 @@ fragment CollectModuleFields on CollectModule {
     amount {
       ...ModuleFeeAmountFields
     }
+    # collectLimit
     referralFee
     followerOnly
-    # recipients {
-    #   recipient
-    #   split
-    # }
+    # endTimestamp
+    recipients {
+      recipient
+      split
+    }
   }
 }
