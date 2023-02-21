@@ -47,8 +47,9 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
-import { getPostInfo, getRoundInfo } from './quadraticUtils/utils';
-
+import TipsOutlineIcon from '../../../Shared/TipIcons/TipsOutlineIcon';
+import { getRoundInfo } from './QuadraticQueries/grantsQueries';
+import { getVotesbyPubId } from './QuadraticQueries/voteCollectQueries';
 interface Props {
   count: number;
   setCount: Dispatch<number>;
@@ -104,23 +105,21 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   const [moduleAllowed, setModuleAllowed] = useState(false);
   const [votingStrategyAllowed, setVotingStrategyAllowed] = useState(false);
   const [allAllowancesLoading, setAllAllowancesLoading] = useState(true);
-  const [postInfo, setPostInfo] = useState(null);
+  const [postTipTotal, setPostTipTotal] = useState(0);
 
   useEffect(() => {
     const fetchPostInfo = async () => {
       if (address && publication?.id) {
-        const info = await getPostInfo(address, publication?.id);
-        setPostInfo(info);
+        const votes = await getVotesbyPubId(publication?.id);
+        let voteTipTotal = 0;
+        for (const vote of votes) {
+          voteTipTotal += parseFloat(vote?.amount);
+        }
+        setPostTipTotal(voteTipTotal);
       }
     };
-
     fetchPostInfo();
   }, [address, publication?.id]);
-
-  useEffect(() => {
-    console.log('publication', publication);
-    console.log('postInfo', postInfo);
-  }, [publication, postInfo]);
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
@@ -410,7 +409,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
                 <Button
                   onClick={createCollect}
                   disabled={isLoading}
-                  icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
+                  icon={isLoading ? <Spinner size="xs" /> : <TipsOutlineIcon color="white" />}
                   className="flex w-2/6 justify-center"
                 >
                   <div className="flex items-center">
@@ -495,7 +494,10 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
                 Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
               }}
             >
-              <div>{humanize(count)} total tips</div>
+              <div>
+                {humanize(count)} tips totaling {ethers.utils.formatEther(postTipTotal)}{' '}
+                {collectModule?.amount?.asset?.symbol}
+              </div>
             </button>
             <Modal
               title={t`Collected by`}
