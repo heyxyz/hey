@@ -51,7 +51,8 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     FeeCollectModule,
     LimitedFeeCollectModule,
     LimitedTimedFeeCollectModule,
-    TimedFeeCollectModule
+    TimedFeeCollectModule,
+    MultirecipientFeeCollectModule
   } = CollectModules;
 
   useEffect(() => {
@@ -91,6 +92,9 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         break;
       case TimedFeeCollectModule:
         setPayload({ timedFeeCollectModule: { ...baseFeeData } });
+        break;
+      case MultirecipientFeeCollectModule:
+        setPayload({ multirecipientFeeCollectModule: { ...baseFeeData } });
         break;
       default:
         setPayload({ revertCollectModule: true });

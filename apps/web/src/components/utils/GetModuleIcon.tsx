@@ -5,7 +5,8 @@ import {
   PlusCircleIcon,
   ReceiptRefundIcon,
   ShareIcon,
-  StarIcon
+  StarIcon,
+  UsersIcon
 } from '@heroicons/react/outline';
 import { CollectModules, FollowModules, ReferenceModules } from 'lens';
 import type { FC } from 'react';
@@ -45,6 +46,8 @@ const GetModuleIcon: FC<Props> = ({ module, size }) => {
       return <ReceiptRefundIcon className={`h-${size}`} />;
     case CollectModules.FreeCollectModule:
       return <DocumentAddIcon className={`h-${size}`} />;
+    case CollectModules.MultirecipientFeeCollectModule:
+      return <UsersIcon className={`h-${size}`} />;
     case FollowModules.FeeFollowModule:
       return (
         <div className="flex items-center gap-1">
