@@ -1,8 +1,8 @@
+import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import { Toggle } from '@components/UI/Toggle';
 import {
   ClockIcon,
   CollectionIcon,
@@ -39,6 +39,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const setCollectLimit = useCollectModuleStore((state) => state.setCollectLimit);
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
+  const recipients = useCollectModuleStore((state) => state.recipients);
   const followerOnly = useCollectModuleStore((state) => state.followerOnly);
   const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
@@ -150,12 +151,11 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
 
   return (
     <div className="space-y-3 p-5">
-      <div className="flex items-center space-x-2">
-        <Toggle on={selectedCollectModule !== RevertCollectModule} setOn={toggleCollect} />
-        <div className="lt-text-gray-500 text-sm font-bold">
-          <Trans>This post can be collected</Trans>
-        </div>
-      </div>
+      <ToggleWithHelper
+        on={selectedCollectModule !== RevertCollectModule}
+        setOn={toggleCollect}
+        label={t`This post can be collected`}
+      />
       {selectedCollectModule !== RevertCollectModule && (
         <div className="ml-5">
           <div className="space-y-2 pt-3">
@@ -165,18 +165,14 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 <Trans>Charge for collecting</Trans>
               </span>
             </div>
-            <div className="flex items-center space-x-2">
-              <Toggle
-                on={Boolean(amount)}
-                setOn={() => {
-                  setAmount(amount ? null : '0');
-                  Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
-                }}
-              />
-              <div className="lt-text-gray-500 text-sm font-bold">
-                <Trans>Get paid whenever someone collects your post</Trans>
-              </div>
-            </div>
+            <ToggleWithHelper
+              on={Boolean(amount)}
+              setOn={() => {
+                setAmount(amount ? null : '0');
+                Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
+              }}
+              label={t`Get paid whenever someone collects your post`}
+            />
             {amount ? (
               <div className="pt-2">
                 <div className="flex space-x-2 text-sm">
@@ -248,18 +244,14 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                     <Trans>Limited edition</Trans>
                   </span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Toggle
-                    on={Boolean(collectLimit)}
-                    setOn={() => {
-                      setCollectLimit(collectLimit ? null : '1');
-                      Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
-                    }}
-                  />
-                  <div className="lt-text-gray-500 text-sm font-bold">
-                    <Trans>Make the collects exclusive</Trans>
-                  </div>
-                </div>
+                <ToggleWithHelper
+                  on={Boolean(collectLimit)}
+                  setOn={() => {
+                    setCollectLimit(collectLimit ? null : '1');
+                    Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
+                  }}
+                  label={t`Make the collects exclusive`}
+                />
                 {collectLimit ? (
                   <div className="flex space-x-2 pt-2 text-sm">
                     <Input
@@ -283,18 +275,14 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                     <Trans>Time limit</Trans>
                   </span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Toggle
-                    on={hasTimeLimit}
-                    setOn={() => {
-                      setHasTimeLimit(!hasTimeLimit);
-                      Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
-                    }}
-                  />
-                  <div className="lt-text-gray-500 text-sm font-bold">
-                    <Trans>Limit collecting to the first 24h</Trans>
-                  </div>
-                </div>
+                <ToggleWithHelper
+                  on={hasTimeLimit}
+                  setOn={() => {
+                    setHasTimeLimit(!hasTimeLimit);
+                    Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
+                  }}
+                  label={t`Limit collecting to the first 24h`}
+                />
               </div>
             </>
           )}
@@ -305,18 +293,14 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                 <Trans>Who can collect</Trans>
               </span>
             </div>
-            <div className="flex items-center space-x-2">
-              <Toggle
-                on={followerOnly}
-                setOn={() => {
-                  setFollowerOnly(!followerOnly);
-                  Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
-                }}
-              />
-              <div className="lt-text-gray-500 text-sm font-bold">
-                <Trans>Only followers can collect</Trans>
-              </div>
-            </div>
+            <ToggleWithHelper
+              on={followerOnly}
+              setOn={() => {
+                setFollowerOnly(!followerOnly);
+                Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
+              }}
+              label={t`Only followers can collect`}
+            />
           </div>
         </div>
       )}
