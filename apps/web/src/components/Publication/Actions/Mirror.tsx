@@ -18,7 +18,8 @@ import type { CreateMirrorRequest, Publication } from 'lens';
 import {
   useBroadcastMutation,
   useCreateMirrorTypedDataMutation,
-  useCreateMirrorViaDispatcherMutation
+  useCreateMirrorViaDispatcherMutation,
+  useHidePublicationMutation
 } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -44,6 +45,12 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
     // @ts-ignore
     isMirror ? publication?.mirrorOf?.mirrors?.length > 0 : publication?.mirrors?.length > 0
   );
+
+  const [hidePost] = useHidePublicationMutation({
+    onCompleted: () => {
+      // Mixpanel.track(PUBLICATION.DELETE);
+    }
+  });
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
@@ -135,6 +142,10 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
   const createMirror = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
+    }
+
+    if (mirrored) {
+      return hidePost({ variables: { request: { publicationId: publication?.id } } });
     }
 
     try {
