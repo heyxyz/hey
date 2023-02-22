@@ -2,9 +2,12 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { Input } from '@components/UI/Input';
 import { PlusIcon, SwitchHorizontalIcon, UsersIcon, XCircleIcon } from '@heroicons/react/outline';
+import isValidEthAddress from '@lib/isValidEthAddress';
 import { Mixpanel } from '@lib/mixpanel';
 import splitNumber from '@lib/splitNumber';
 import { t, Trans } from '@lingui/macro';
+import { HANDLE_SUFFIX } from 'data/constants';
+import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -18,6 +21,8 @@ const SplitConfig: FC = () => {
   const hasRecipients = recipients.length > 0;
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
 
+  const [getProfileByHandle, { loading }] = useProfileLazyQuery();
+
   const splitEvenly = () => {
     const equalSplits = splitNumber(100, recipients.length);
     const splits = recipients.map((recipient, i) => {
@@ -30,17 +35,30 @@ const SplitConfig: FC = () => {
   };
 
   const onChangeRecipientOrSplit = (index: number, value: string, type: 'recipient' | 'split') => {
-    setRecipients(
-      recipients.map((recipient, i) => {
+    const getRecipients = (value: string) => {
+      return recipients.map((recipient, i) => {
         if (i === index) {
           return {
             ...recipient,
-            [type]: value
+            [type]: type === 'split' ? parseInt(value) : value
           };
         }
         return recipient;
-      })
-    );
+      });
+    };
+
+    if (type === 'recipient' && value.includes(HANDLE_SUFFIX)) {
+      getProfileByHandle({
+        variables: { request: { handle: value } },
+        onCompleted: (data) => {
+          if (data.profile) {
+            setRecipients(getRecipients(data.profile.ownedBy));
+          }
+        }
+      });
+    }
+
+    setRecipients(getRecipients(value));
   };
 
   return (
@@ -61,12 +79,14 @@ const SplitConfig: FC = () => {
       />
       {hasRecipients ? (
         <div className="space-y-3 pt-4">
-          <div className="no-scrollbar max-h-[20vh] overflow-auto">
+          <div className="space-y-2">
             {recipients.map((recipient, index) => (
-              <div key={index} className="flex items-center space-x-2 py-2 pt-2 text-sm">
+              <div key={index} className="flex items-center space-x-2 text-sm">
                 <Input
                   placeholder="0x1234..."
                   value={recipient.recipient}
+                  disabled={loading}
+                  error={recipient.recipient.length > 0 && !isValidEthAddress(recipient.recipient)}
                   onChange={(event) => onChangeRecipientOrSplit(index, event.target.value, 'recipient')}
                 />
                 <div className="w-1/3">
@@ -91,16 +111,21 @@ const SplitConfig: FC = () => {
             ))}
           </div>
           <div className="flex items-center justify-between">
-            <Button
-              size="sm"
-              outline
-              icon={<PlusIcon className="h-3 w-3" />}
-              onClick={() => {
-                setRecipients([...recipients, { recipient: '', split: 0 }]);
-              }}
-            >
-              Add recipient
-            </Button>
+            {recipients.length >= 5 ? (
+              <div />
+            ) : (
+              <Button
+                size="sm"
+                outline
+                icon={<PlusIcon className="h-3 w-3" />}
+                onClick={() => {
+                  setRecipients([...recipients, { recipient: '', split: 0 }]);
+                }}
+              >
+                Add recipient
+              </Button>
+            )}
+
             <Button
               size="sm"
               outline
