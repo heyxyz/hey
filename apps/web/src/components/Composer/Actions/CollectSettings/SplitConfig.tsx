@@ -29,6 +29,20 @@ const SplitConfig: FC = () => {
     setRecipients([...splits]);
   };
 
+  const onChangeRecipientOrSplit = (index: number, value: string, type: 'recipient' | 'split') => {
+    setRecipients(
+      recipients.map((recipient, i) => {
+        if (i === index) {
+          return {
+            ...recipient,
+            [type]: value
+          };
+        }
+        return recipient;
+      })
+    );
+  };
+
   return (
     <div className="pt-5">
       <ToggleWithHelper
@@ -53,17 +67,7 @@ const SplitConfig: FC = () => {
                 <Input
                   placeholder="0x1234..."
                   value={recipient.recipient}
-                  disabled={index === 0}
-                  onChange={(event) => {
-                    setRecipients(
-                      recipients.map((r, i) => {
-                        if (i === index) {
-                          return { ...r, recipient: event.target.value };
-                        }
-                        return r;
-                      })
-                    );
-                  }}
+                  onChange={(event) => onChangeRecipientOrSplit(index, event.target.value, 'recipient')}
                 />
                 <div className="w-1/3">
                   <Input
@@ -73,16 +77,7 @@ const SplitConfig: FC = () => {
                     max="100"
                     value={recipient.split}
                     iconRight="%"
-                    onChange={(event) => {
-                      setRecipients(
-                        recipients.map((r, i) => {
-                          if (i === index) {
-                            return { ...r, split: parseInt(event.target.value) };
-                          }
-                          return r;
-                        })
-                      );
-                    }}
+                    onChange={(event) => onChangeRecipientOrSplit(index, event.target.value, 'split')}
                   />
                 </div>
                 <button
