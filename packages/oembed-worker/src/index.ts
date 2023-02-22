@@ -28,7 +28,12 @@ const handleRequest = async (request: Request) => {
 
   try {
     const { og } = await getMetaTags(query, {
-      headers: { 'User-Agent': 'Twitterbot/2' }
+      headers: { 'User-Agent': 'Twitterbot/2' },
+      cf: {
+        cacheEverything: true,
+        cacheKey: query,
+        cacheTtl: 31536000
+      }
     });
 
     return new Response(JSON.stringify({ success: true, og }), {
