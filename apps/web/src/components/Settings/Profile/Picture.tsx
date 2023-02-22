@@ -130,7 +130,6 @@ const Picture: FC<Props> = ({ profile }) => {
     } finally {
       setAvatar(croppedImage.toDataURL('image/png'));
       setShowCropModal(false);
-      setImageSrc('');
       setUploading(false);
     }
     return url;

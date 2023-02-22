@@ -153,6 +153,10 @@ class Cropper extends React.Component<CropperProps, State> {
 
     if (mediaRef && this.containerRef) {
       this.containerRect = this.containerRef.getBoundingClientRect();
+
+      const width = this.props.size;
+      const height = this.props.size;
+
       const naturalWidth = this.imageRef.current?.naturalWidth || 0;
       const naturalHeight = this.imageRef.current?.naturalHeight || 0;
       const isMediaScaledDown = mediaRef.offsetWidth < naturalWidth || mediaRef.offsetHeight < naturalHeight;
@@ -169,12 +173,12 @@ class Cropper extends React.Component<CropperProps, State> {
         renderedMediaSize =
           naturalWidth < naturalHeight
             ? {
-                width: this.containerRect.width,
-                height: this.containerRect.width / mediaAspect
+                width: width,
+                height: width / mediaAspect
               }
             : {
-                width: this.containerRect.height * mediaAspect,
-                height: this.containerRect.height
+                width: height * mediaAspect,
+                height: height
               };
       } else {
         renderedMediaSize = {
@@ -189,7 +193,7 @@ class Cropper extends React.Component<CropperProps, State> {
         naturalHeight
       };
 
-      const cropSize = this.props.cropSize ? this.props.cropSize : this.containerRect;
+      const cropSize = this.props.cropSize ? this.props.cropSize : { width: width, height: height };
       this.setState({ cropSize }, this.recomputeCropPosition);
       return cropSize;
     }
@@ -490,8 +494,8 @@ class Cropper extends React.Component<CropperProps, State> {
                 style={{
                   color: '#bbba',
                   boxShadow: `0 0 0 ${borderSize}px`,
-                  width: this.state.cropSize.width,
-                  height: this.state.cropSize.height
+                  width: size,
+                  height: size
                 }}
                 data-testid="cropper"
                 className={clsx(
