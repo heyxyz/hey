@@ -51,7 +51,6 @@ class Cropper extends React.Component<CropperProps, State> {
   imageRef: React.RefObject<HTMLImageElement> = React.createRef();
   containerRef: HTMLDivElement | null = null;
   styleRef: HTMLStyleElement | null = null;
-  containerRect: DOMRect | null = null;
   mediaSize: MediaSize = { width: 0, height: 0, naturalWidth: 0, naturalHeight: 0 };
   dragStartPosition: Point = { x: 0, y: 0 };
   dragStartCrop: Point = { x: 0, y: 0 };
@@ -150,10 +149,7 @@ class Cropper extends React.Component<CropperProps, State> {
 
   computeSizes = () => {
     const mediaRef = this.imageRef.current;
-
     if (mediaRef && this.containerRef) {
-      this.containerRect = this.containerRef.getBoundingClientRect();
-
       const width = this.props.size;
       const height = this.props.size;
 
@@ -348,12 +344,13 @@ class Cropper extends React.Component<CropperProps, State> {
   };
 
   getPointOnContainer = ({ x, y }: Point) => {
-    if (!this.containerRect) {
+    const containerRect = this.containerRef?.getBoundingClientRect();
+    if (!containerRect) {
       throw new Error('The Cropper is not mounted');
     }
     return {
-      x: this.containerRect.width / 2 - (x - this.containerRect.left),
-      y: this.containerRect.height / 2 - (y - this.containerRect.top)
+      x: containerRect.width / 2 - (x - containerRect.left),
+      y: containerRect.height / 2 - (y - containerRect.top)
     };
   };
 
