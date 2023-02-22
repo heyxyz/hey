@@ -110,7 +110,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         setPayload({ revertCollectModule: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, selectedCollectModule]);
+  }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, recipients, selectedCollectModule]);
 
   useEffect(() => {
     if (hasTimeLimit) {
