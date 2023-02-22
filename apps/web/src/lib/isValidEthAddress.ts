@@ -1,7 +1,7 @@
-import { ethers } from 'ethers';
+import { utils } from 'ethers';
 
 const isValidEthAddress = (address: string) => {
-  return ethers.utils.isAddress(address);
+  return utils.isAddress(address);
 };
 
 export default isValidEthAddress;
