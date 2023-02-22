@@ -151,19 +151,27 @@ msgid "Limit collecting to the first 24h"
 msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Set recipients"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Set multiple recipients for the collect fee"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Who can collect"
 msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Only followers can collect"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#~ msgid "Set recipients"
+#~ msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Split revenue"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Set multiple recipients for the collect fee"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
 msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
