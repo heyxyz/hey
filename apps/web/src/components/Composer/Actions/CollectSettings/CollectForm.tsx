@@ -191,7 +191,6 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
 
   const toggleCollect = () => {
     Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
-    console.log(selectedCollectModule);
     if (selectedCollectModule === RevertCollectModule) {
       return setSelectedCollectModule(FreeCollectModule);
     } else {
@@ -214,7 +213,6 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               setOn={() => {
                 setAmount(amount ? null : '1');
                 setRecipients([]);
-                console.log(selectedCollectModule);
                 Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
               }}
               heading={t`Charge for collecting`}
