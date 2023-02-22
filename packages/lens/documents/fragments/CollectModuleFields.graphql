@@ -54,9 +54,9 @@ fragment CollectModuleFields on CollectModule {
     referralFee
     followerOnly
     optionalEndTimestamp: endTimestamp
-    # recipients {
-    #   recipient
-    #   split
-    # }
+    recipients {
+      recipient
+      split
+    }
   }
 }
