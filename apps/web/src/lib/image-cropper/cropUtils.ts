@@ -21,21 +21,25 @@ export function getDistanceBetweenPoints(pointA: Point, pointB: Point) {
 }
 
 export function computeCroppedArea(
-  crop: Point,
+  cropPosition: Point,
+  cropSize: Size,
   mediaSize: MediaSize,
   zoom: number
 ): { croppedAreaPixels: Area } {
-  const sideLength = Math.min(mediaSize.height, mediaSize.width);
-  const sidePx = Math.min(mediaSize.naturalHeight, mediaSize.naturalWidth);
+  const mediaScale = mediaSize.naturalWidth / mediaSize.width;
+  const fitWidth = mediaSize.width / mediaSize.height < cropSize.width / cropSize.height;
+  const cropSizePixels = fitWidth
+    ? {
+        width: mediaSize.naturalWidth / zoom,
+        height: (mediaSize.naturalWidth * (cropSize.height / cropSize.width)) / zoom
+      }
+    : {
+        width: (mediaSize.naturalHeight * (cropSize.width / cropSize.height)) / zoom,
+        height: mediaSize.naturalHeight / zoom
+      };
 
-  const cropSizePixels = {
-    width: sidePx / zoom,
-    height: sidePx / zoom
-  };
-
-  const cropAreaCenterPixelX = ((-crop.x / sideLength) * sidePx) / zoom;
-  const cropAreaCenterPixelY = ((-crop.y / sideLength) * sidePx) / zoom;
-
+  const cropAreaCenterPixelX = (-cropPosition.x * mediaScale) / zoom;
+  const cropAreaCenterPixelY = (-cropPosition.y * mediaScale) / zoom;
   const croppedAreaPixels = {
     ...cropSizePixels,
     x: cropAreaCenterPixelX - cropSizePixels.width / 2 + mediaSize.naturalWidth / 2,

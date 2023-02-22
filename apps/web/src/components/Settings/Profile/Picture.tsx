@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { getCroppedImg } from '@lib/image-cropper/cropUtils';
-import type { Area } from '@lib/image-cropper/types';
+import type { Area, Size } from '@lib/image-cropper/types';
 import imageProxy from '@lib/imageProxy';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -185,7 +185,7 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   };
 
-  const avatarPreviewSize = 240;
+  const avatarPreviewSize: Size = { width: 240, height: 240 };
 
   return (
     <>
@@ -220,8 +220,8 @@ const Picture: FC<Props> = ({ profile }) => {
             <div>
               <img
                 className="rounded-lg"
-                height={avatarPreviewSize}
-                width={avatarPreviewSize}
+                height={avatarPreviewSize.height}
+                width={avatarPreviewSize.width}
                 onError={({ currentTarget }) => {
                   currentTarget.src = getIPFSLink(avatar);
                 }}

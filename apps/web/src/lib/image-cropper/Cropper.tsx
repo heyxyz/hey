@@ -13,7 +13,7 @@ import type { Area, MediaSize, Point, Size } from './types';
 
 export type CropperProps = {
   image?: string;
-  size: number;
+  size: Size;
   borderSize: number;
   crop: Point;
   zoom: number;
@@ -150,9 +150,6 @@ class Cropper extends React.Component<CropperProps, State> {
   computeSizes = () => {
     const mediaRef = this.imageRef.current;
     if (mediaRef && this.containerRef) {
-      const width = this.props.size;
-      const height = this.props.size;
-
       const naturalWidth = this.imageRef.current?.naturalWidth || 0;
       const naturalHeight = this.imageRef.current?.naturalHeight || 0;
       const mediaAspect = naturalWidth / naturalHeight;
@@ -160,12 +157,12 @@ class Cropper extends React.Component<CropperProps, State> {
       let renderedMediaSize: Size =
         naturalWidth < naturalHeight
           ? {
-              width: width,
-              height: width / mediaAspect
+              width: this.props.size.width,
+              height: this.props.size.width / mediaAspect
             }
           : {
-              width: height * mediaAspect,
-              height: height
+              width: this.props.size.height * mediaAspect,
+              height: this.props.size.height
             };
 
       this.mediaSize = {
@@ -174,7 +171,9 @@ class Cropper extends React.Component<CropperProps, State> {
         naturalHeight
       };
 
-      const cropSize = this.props.cropSize ? this.props.cropSize : { width: width, height: height };
+      const cropSize = this.props.cropSize
+        ? this.props.cropSize
+        : { width: this.props.size.width, height: this.props.size.height };
       this.setState({ cropSize }, this.recomputeCropPosition);
       return cropSize;
     }
@@ -351,14 +350,19 @@ class Cropper extends React.Component<CropperProps, State> {
     if (!this.state.cropSize || !this.props.onZoomChange) {
       return;
     }
-    const sideLength = Math.min(this.mediaSize.height, this.mediaSize.width);
-    const zoomScale = this.props.size / sideLength;
-    const sidePx = Math.min(this.mediaSize.naturalHeight, this.mediaSize.naturalWidth);
+    const fitWidth =
+      this.mediaSize.width / this.mediaSize.height < this.props.size.width / this.props.size.height;
+    const zoomScale = fitWidth
+      ? this.props.size.width / this.mediaSize.width
+      : this.props.size.height / this.mediaSize.height;
     const maxEffectiveZoom = 3;
     const minZoom = 1;
 
     // allow different zoom level depending on image resolution
-    const maxZoom = Math.max(1, (sidePx / this.props.size) * maxEffectiveZoom);
+    const pixelScale = fitWidth
+      ? this.mediaSize.naturalWidth / this.props.size.width
+      : this.mediaSize.naturalHeight / this.props.size.height;
+    const maxZoom = Math.max(1, pixelScale * maxEffectiveZoom);
 
     const newZoom = restrictValue(zoom, minZoom * zoomScale, maxZoom * zoomScale);
 
@@ -389,7 +393,7 @@ class Cropper extends React.Component<CropperProps, State> {
       this.state.cropSize,
       this.props.zoom
     );
-    return computeCroppedArea(restrictedPosition, this.mediaSize, this.props.zoom);
+    return computeCroppedArea(restrictedPosition, this.props.size, this.mediaSize, this.props.zoom);
   };
 
   emitCropData = () => {
@@ -435,16 +439,16 @@ class Cropper extends React.Component<CropperProps, State> {
         className="rounded-lg"
         style={{
           overflow: 'hidden',
-          width: size + borderSize * 2,
-          height: size + borderSize * 2,
+          width: size.width + borderSize * 2,
+          height: size.height + borderSize * 2,
           padding: borderSize
         }}
       >
         <div
           className="relative"
           style={{
-            width: size,
-            height: size
+            width: size.width,
+            height: size.height
           }}
         >
           <div
@@ -476,8 +480,8 @@ class Cropper extends React.Component<CropperProps, State> {
                 style={{
                   color: '#bbba',
                   boxShadow: `0 0 0 ${borderSize}px`,
-                  width: size,
-                  height: size
+                  width: size.width,
+                  height: size.height
                 }}
                 data-testid="cropper"
                 className={clsx(

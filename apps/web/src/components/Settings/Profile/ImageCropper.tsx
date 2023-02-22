@@ -1,10 +1,10 @@
 import Cropper from '@lib/image-cropper/Cropper';
-import type { Area, Point } from '@lib/image-cropper/types';
+import type { Area, Point, Size } from '@lib/image-cropper/types';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 
 interface Props {
-  size: number;
+  size: Size;
   imageSrc: string;
   setCroppedAreaPixels: Dispatch<Area>;
 }
