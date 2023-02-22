@@ -21,7 +21,7 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
+import { formatTime } from '@lib/formatTime';
 import getAssetAddress from '@lib/getAssetAddress';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getSignature from '@lib/getSignature';

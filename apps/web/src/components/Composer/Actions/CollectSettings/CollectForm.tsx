@@ -2,6 +2,7 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
+import { getTimeAddedOneDay } from '@lib/formatTime';
 import isValidEthAddress from '@lib/isValidEthAddress';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
@@ -100,7 +101,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
             ...baseFeeData,
             ...(collectLimit && { collectLimit }),
             ...(hasTimeLimit && {
-              endTimestamp: new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString()
+              endTimestamp: getTimeAddedOneDay()
             })
           }
         });
