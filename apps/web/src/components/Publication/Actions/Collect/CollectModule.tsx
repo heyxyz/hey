@@ -413,13 +413,14 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           )}
           {isMultirecipientFeeCollectModule && <Splits recipients={collectModule?.recipients} />}
         </div>
-        <div className="mt-5 flex items-center space-x-2">
+        <div className="flex items-center space-x-2">
           {currentProfile && !hasCollectedByMe ? (
             allowanceLoading || balanceLoading ? (
-              <div className="shimmer h-[34px] w-28 rounded-lg" />
+              <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
             ) : allowed ? (
               hasAmount ? (
                 <Button
+                  className="mt-5"
                   onClick={createCollect}
                   disabled={isLoading}
                   icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
@@ -427,15 +428,17 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                   <Trans>Collect now</Trans>
                 </Button>
               ) : (
-                <WarningMessage message={<Uniswap module={collectModule} />} />
+                <WarningMessage className="mt-5" message={<Uniswap module={collectModule} />} />
               )
             ) : (
-              <AllowanceButton
-                title="Allow collect module"
-                module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
-                allowed={allowed}
-                setAllowed={setAllowed}
-              />
+              <span className="mt-5">
+                <AllowanceButton
+                  title="Allow collect module"
+                  module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
+                  allowed={allowed}
+                  setAllowed={setAllowed}
+                />
+              </span>
             )
           ) : null}
         </div>
