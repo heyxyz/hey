@@ -1,6 +1,6 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
+import { formatTime } from '@lib/formatTime';
 import getAvatar from '@lib/getAvatar';
 import getProfileAttribute from '@lib/getProfileAttribute';
 import isVerified from '@lib/isVerified';
