@@ -14,7 +14,7 @@ import splitSignature from '@lib/splitSignature';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { LensHubProxy } from 'abis';
-import { AVATAR, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { AVATAR, ERROR_MESSAGE, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from 'lens';
 import {
   useBroadcastMutation,
@@ -113,13 +113,8 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   };
 
-  const cropAndUpload = async (): Promise<string> => {
-    setUploading(true);
-    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-    if (!croppedImage) {
-      return '';
-    }
-    const blob = await new Promise((resolve) => croppedImage.toBlob(resolve));
+  const uploadImage = async (image: HTMLCanvasElement): Promise<string> => {
+    const blob = await new Promise((resolve) => image.toBlob(resolve));
     let file = new File([blob as Blob], 'cropped_image.png', { type: (blob as Blob).type });
     let url = '';
     try {
@@ -128,9 +123,8 @@ const Picture: FC<Props> = ({ profile }) => {
         url = attachment[0].item;
       }
     } finally {
-      setAvatar(croppedImage.toDataURL('image/png'));
+      setAvatar(image.toDataURL('image/png'));
       setShowCropModal(false);
-      setUploading(false);
     }
     return url;
   };
@@ -139,8 +133,13 @@ const Picture: FC<Props> = ({ profile }) => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
     }
-
-    let avatar = await cropAndUpload();
+    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+    if (!croppedImage) {
+      return toast.error(ERROR_MESSAGE);
+    }
+    setUploading(true);
+    let avatar = await uploadImage(croppedImage);
+    setUploading(false);
     if (!avatar) {
       return toast.error(t`Upload failed`);
     }
