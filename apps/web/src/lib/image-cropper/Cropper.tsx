@@ -155,33 +155,18 @@ class Cropper extends React.Component<CropperProps, State> {
 
       const naturalWidth = this.imageRef.current?.naturalWidth || 0;
       const naturalHeight = this.imageRef.current?.naturalHeight || 0;
-      const isMediaScaledDown = mediaRef.offsetWidth < naturalWidth || mediaRef.offsetHeight < naturalHeight;
       const mediaAspect = naturalWidth / naturalHeight;
 
-      // We do not rely on the offsetWidth/offsetHeight if the media is scaled down
-      // as the values they report are rounded. That will result in precision losses
-      // when calculating zoom. We use the fact that the media is positioned relative
-      // to the container. That allows us to use the container's dimensions
-      // and natural aspect ratio of the media to calculate accurate media size.
-      let renderedMediaSize: Size;
-
-      if (isMediaScaledDown) {
-        renderedMediaSize =
-          naturalWidth < naturalHeight
-            ? {
-                width: width,
-                height: width / mediaAspect
-              }
-            : {
-                width: height * mediaAspect,
-                height: height
-              };
-      } else {
-        renderedMediaSize = {
-          width: mediaRef.offsetWidth,
-          height: mediaRef.offsetHeight
-        };
-      }
+      let renderedMediaSize: Size =
+        naturalWidth < naturalHeight
+          ? {
+              width: width,
+              height: width / mediaAspect
+            }
+          : {
+              width: height * mediaAspect,
+              height: height
+            };
 
       this.mediaSize = {
         ...renderedMediaSize,
