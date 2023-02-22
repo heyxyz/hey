@@ -118,14 +118,6 @@ msgstr "模块加载失败"
 msgid "This post can be collected"
 msgstr "这个帖子可以被收藏"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#~ msgid "Share your collect fee with people who amplify your content"
-#~ msgstr "分享收益给转发本文的人"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#~ msgid "Set recipients"
-#~ msgstr ""
-
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
 msgstr "限量版"
@@ -1311,6 +1303,10 @@ msgstr "收藏"
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "You already collected this"
 msgstr "不要重复收藏哦！"
+
+#: src/components/Publication/Actions/Collect/Splits.tsx
+msgid "Fee recipients"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
