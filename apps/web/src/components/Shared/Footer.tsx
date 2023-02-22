@@ -8,6 +8,7 @@ import { Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
+import { FeatureFlag } from 'data/feature-flags';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -22,7 +23,7 @@ const Footer: FC = () => {
   const gatedLocales = ['ta', 'zh', 'es'];
   const locales = Object.fromEntries(
     Object.entries(supportedLocales).filter(([key]) =>
-      isFeatureEnabled('gated-locales', currentProfile?.id) ? true : !gatedLocales.includes(key)
+      isFeatureEnabled(FeatureFlag.GatedLocales, currentProfile?.id) ? true : !gatedLocales.includes(key)
     )
   );
 

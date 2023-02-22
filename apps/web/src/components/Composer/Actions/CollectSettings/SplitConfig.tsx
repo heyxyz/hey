@@ -1,12 +1,15 @@
+import Beta from '@components/Shared/Badges/Beta';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { Input } from '@components/UI/Input';
 import { PlusIcon, SwitchHorizontalIcon, UsersIcon, XCircleIcon } from '@heroicons/react/outline';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isValidEthAddress from '@lib/isValidEthAddress';
 import { Mixpanel } from '@lib/mixpanel';
 import splitNumber from '@lib/splitNumber';
 import { t, Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX } from 'data/constants';
+import { FeatureFlag } from 'data/feature-flags';
 import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -22,6 +25,10 @@ const SplitConfig: FC = () => {
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
 
   const [getProfileByHandle, { loading }] = useProfileLazyQuery();
+
+  if (!isFeatureEnabled(FeatureFlag.MultipleRecipientCollect, currentProfile?.id)) {
+    return null;
+  }
 
   const splitEvenly = () => {
     const equalSplits = splitNumber(100, recipients.length);
@@ -73,7 +80,14 @@ const SplitConfig: FC = () => {
           }
           Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_MULTIPLE_RECIPIENTS_COLLECT);
         }}
-        heading={t`Split revenue`}
+        heading={
+          <div className="flex items-center space-x-2">
+            <span>
+              <Trans>Split revenue</Trans>
+            </span>
+            <Beta />
+          </div>
+        }
         description={t`Set multiple recipients for the collect fee`}
         icon={<UsersIcon className="h-4 w-4" />}
       />
