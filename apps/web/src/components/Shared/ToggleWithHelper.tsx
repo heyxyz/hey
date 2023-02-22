@@ -4,8 +4,8 @@ import type { FC, ReactNode } from 'react';
 interface Props {
   on: boolean;
   setOn: (on: boolean) => void;
-  heading?: string;
-  description: string;
+  heading?: ReactNode;
+  description: ReactNode;
   icon?: ReactNode;
 }
 
