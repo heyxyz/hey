@@ -118,14 +118,6 @@ msgstr "தொகுதிகளை ஏற்றுவதில் தோல்�
 msgid "This post can be collected"
 msgstr "இந்த இடுகையை சேகரிக்கலாம்"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#~ msgid "Share your collect fee with people who amplify your content"
-#~ msgstr "உங்கள் உள்ளடக்கத்தை பெருக்கும் நபர்களுடன் உங்கள் சேகரிப்புக் கட்டணத்தை பகிர்ந்து கொள்ளுங்கள்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#~ msgid "Set recipients"
-#~ msgstr ""
-
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
 msgstr "வரையறுக்கப்பட்ட பதிப்பு"
@@ -1311,6 +1303,10 @@ msgstr "இப்போது சேகரிக்கவும்"
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "You already collected this"
 msgstr "நீங்கள் ஏற்கனவே இதை சேகரித்துள்ளீர்கள்"
+
+#: src/components/Publication/Actions/Collect/Splits.tsx
+msgid "Fee recipients"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
