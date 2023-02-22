@@ -12,8 +12,16 @@ export const formatTime = (date: Date | undefined): string => {
   return date ? i18n.date(date, { dateStyle: 'medium', timeStyle: 'medium' }) : '';
 };
 
-export const getTimeAddedOneDay = () => {
-  return dayjs().add(1, 'day').utc().format();
+export const getTimeAddedNDay = (day: number) => {
+  return dayjs().add(day, 'day').utc().format();
+};
+
+export const getTimeAddedNDayUnix = (day: number) => {
+  return dayjs().add(day, 'day').unix();
+};
+
+export const getTimeMinusNDayUnix = (day: number) => {
+  return dayjs().subtract(day, 'day').unix();
 };
 
 export const getTimeFromNow = (date: Date) => {
