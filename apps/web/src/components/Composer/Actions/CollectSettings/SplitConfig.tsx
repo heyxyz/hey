@@ -30,13 +30,7 @@ const SplitConfig: FC = () => {
   };
 
   return (
-    <div className="space-y-2 pt-5">
-      <div className="flex items-center space-x-2">
-        <UsersIcon className="text-brand-500 h-4 w-4" />
-        <span>
-          <Trans>Split revenue</Trans>
-        </span>
-      </div>
+    <div className="pt-5">
       <ToggleWithHelper
         on={recipients.length > 0}
         setOn={() => {
@@ -47,10 +41,12 @@ const SplitConfig: FC = () => {
           }
           Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_MULTIPLE_RECIPIENTS_COLLECT);
         }}
-        label={t`Set multiple recipients for the collect fee`}
+        heading={t`Split revenue`}
+        description={t`Set multiple recipients for the collect fee`}
+        icon={<UsersIcon className="h-4 w-4" />}
       />
       {hasRecipients ? (
-        <div className="space-y-3">
+        <div className="space-y-3 pt-4">
           <div className="no-scrollbar max-h-[20vh] overflow-auto">
             {recipients.map((recipient, index) => (
               <div key={index} className="flex items-center space-x-2 py-2 pt-2 text-sm">

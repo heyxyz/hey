@@ -3,13 +3,7 @@ import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import {
-  ClockIcon,
-  CollectionIcon,
-  StarIcon,
-  SwitchHorizontalIcon,
-  UserGroupIcon
-} from '@heroicons/react/outline';
+import { CollectionIcon, UserGroupIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { Erc20 } from 'lens';
@@ -21,7 +15,10 @@ import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { PUBLICATION } from 'src/tracking';
 
+import CollectLimitConfig from './CollectLimitConfig';
+import ReferralConfig from './ReferralConfig';
 import SplitConfig from './SplitConfig';
+import TimeLimitConfig from './TimeLimitConfig';
 
 interface Props {
   setShowModal: Dispatch<boolean>;
@@ -194,11 +191,11 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
 
   const toggleCollect = () => {
     Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
+    console.log(selectedCollectModule);
     if (selectedCollectModule === RevertCollectModule) {
       return setSelectedCollectModule(FreeCollectModule);
     } else {
-      reset();
-      return setSelectedCollectModule(RevertCollectModule);
+      return reset();
     }
   };
 
@@ -207,28 +204,25 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
       <ToggleWithHelper
         on={selectedCollectModule !== RevertCollectModule}
         setOn={toggleCollect}
-        label={t`This post can be collected`}
+        description={t`This post can be collected`}
       />
       {selectedCollectModule !== RevertCollectModule && (
         <div className="ml-5">
-          <div className="space-y-2 pt-3">
-            <div className="flex items-center space-x-2">
-              <CollectionIcon className="text-brand-500 h-4 w-4" />
-              <span>
-                <Trans>Charge for collecting</Trans>
-              </span>
-            </div>
+          <div className="pt-3">
             <ToggleWithHelper
               on={Boolean(amount)}
               setOn={() => {
-                setAmount(amount ? null : '0');
+                setAmount(amount ? null : '1');
                 setRecipients([]);
+                console.log(selectedCollectModule);
                 Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
               }}
-              label={t`Get paid whenever someone collects your post`}
+              heading={t`Charge for collecting`}
+              description={t`Get paid whenever someone collects your post`}
+              icon={<CollectionIcon className="h-4 w-4" />}
             />
             {amount ? (
-              <div className="pt-2">
+              <div className="pt-4">
                 <div className="flex space-x-2 text-sm">
                   <Input
                     label={t`Price`}
@@ -261,100 +255,27 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
                     </select>
                   </div>
                 </div>
-                <div className="space-y-2 pt-5">
-                  <div className="flex items-center space-x-2">
-                    <SwitchHorizontalIcon className="text-brand-500 h-4 w-4" />
-                    <span>
-                      <Trans>Mirror referral reward</Trans>
-                    </span>
-                  </div>
-                  <div className="lt-text-gray-500 text-sm font-bold">
-                    <Trans>Share your collect fee with people who amplify your content</Trans>
-                  </div>
-                  <div className="flex space-x-2 pt-2 text-sm">
-                    <Input
-                      label={t`Referral fee`}
-                      type="number"
-                      placeholder="5"
-                      iconRight="%"
-                      min="0"
-                      max="100"
-                      value={parseFloat(referralFee ?? '0')}
-                      onChange={(event) => {
-                        setReferralFee(event.target.value ? event.target.value : '0');
-                      }}
-                    />
-                  </div>
-                </div>
+                <ReferralConfig />
               </div>
             ) : null}
           </div>
           {selectedCollectModule !== FreeCollectModule && amount && (
             <>
-              <div className="space-y-2 pt-5">
-                <div className="flex items-center space-x-2">
-                  <StarIcon className="text-brand-500 h-4 w-4" />
-                  <span>
-                    <Trans>Limited edition</Trans>
-                  </span>
-                </div>
-                <ToggleWithHelper
-                  on={Boolean(collectLimit)}
-                  setOn={() => {
-                    setCollectLimit(collectLimit ? null : '1');
-                    Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
-                  }}
-                  label={t`Make the collects exclusive`}
-                />
-                {collectLimit ? (
-                  <div className="pt-2 text-sm">
-                    <Input
-                      label={t`Collect limit`}
-                      type="number"
-                      placeholder="5"
-                      min="1"
-                      max="100000"
-                      value={parseFloat(collectLimit)}
-                      onChange={(event) => {
-                        setCollectLimit(event.target.value ? event.target.value : '1');
-                      }}
-                    />
-                  </div>
-                ) : null}
-              </div>
-              <div className="space-y-2 pt-5">
-                <div className="flex items-center space-x-2">
-                  <ClockIcon className="text-brand-500 h-4 w-4" />
-                  <span>
-                    <Trans>Time limit</Trans>
-                  </span>
-                </div>
-                <ToggleWithHelper
-                  on={hasTimeLimit}
-                  setOn={() => {
-                    setHasTimeLimit(!hasTimeLimit);
-                    Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
-                  }}
-                  label={t`Limit collecting to the first 24h`}
-                />
-              </div>
+              <CollectLimitConfig />
+              <TimeLimitConfig />
               <SplitConfig />
             </>
           )}
-          <div className="space-y-2 pt-5">
-            <div className="flex items-center space-x-2">
-              <UserGroupIcon className="text-brand-500 h-4 w-4" />
-              <span>
-                <Trans>Who can collect</Trans>
-              </span>
-            </div>
+          <div className="pt-5">
             <ToggleWithHelper
               on={followerOnly}
               setOn={() => {
                 setFollowerOnly(!followerOnly);
                 Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
               }}
-              label={t`Only followers can collect`}
+              heading={t`Who can collect`}
+              description={t`Only followers can collect`}
+              icon={<UserGroupIcon className="h-4 w-4" />}
             />
           </div>
         </div>

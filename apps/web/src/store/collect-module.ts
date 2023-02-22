@@ -51,7 +51,6 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
       referralFee: null,
       collectLimit: null,
       hasTimeLimit: false,
-      recipients: [],
       followerOnly: false,
       payload: { revertCollectModule: true }
     }))
