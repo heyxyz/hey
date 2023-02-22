@@ -4097,6 +4097,7 @@ type CollectModuleFields_MultirecipientFeeCollectModuleSettings_Fragment = {
     value: string;
     asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
   };
+  recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
 };
 
 type CollectModuleFields_RevertCollectModuleSettings_Fragment = {
@@ -4233,6 +4234,7 @@ export type CommentFieldsFragment = {
           value: string;
           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
         };
+        recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
       }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
@@ -4462,6 +4464,7 @@ export type CommentFieldsFragment = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -4689,6 +4692,7 @@ export type CommentFieldsFragment = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -4964,6 +4968,11 @@ export type CommentFieldsFragment = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -5198,6 +5207,7 @@ export type CommentFieldsFragment = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -5426,6 +5436,7 @@ export type CommentFieldsFragment = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -5701,6 +5712,7 @@ export type CommentFieldsFragment = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -5932,6 +5944,7 @@ export type CommentFieldsFragment = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -6269,6 +6282,7 @@ export type MirrorFieldsFragment = {
           value: string;
           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
         };
+        recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
       }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
@@ -6544,6 +6558,7 @@ export type MirrorFieldsFragment = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -6782,6 +6797,7 @@ export type PostFieldsFragment = {
           value: string;
           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
         };
+        recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
       }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
@@ -7703,6 +7719,7 @@ export type CollectModuleQuery = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -7784,6 +7801,7 @@ export type CollectModuleQuery = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -7865,6 +7883,7 @@ export type CollectModuleQuery = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -8033,6 +8052,7 @@ export type CommentFeedQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -8262,6 +8282,11 @@ export type CommentFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -8493,6 +8518,11 @@ export type CommentFeedQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -8807,6 +8837,11 @@ export type CommentFeedQuery = {
                                       address: any;
                                     };
                                   };
+                                  recipients: Array<{
+                                    __typename?: 'RecipientDataOutput';
+                                    recipient: any;
+                                    split: number;
+                                  }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
                               | {
@@ -9059,6 +9094,11 @@ export type CommentFeedQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -9290,6 +9330,11 @@ export type CommentFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -9573,6 +9618,11 @@ export type CommentFeedQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -9807,6 +9857,11 @@ export type CommentFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -10111,6 +10166,7 @@ export type ExploreFeedQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -10340,6 +10396,11 @@ export type ExploreFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -10571,6 +10632,11 @@ export type ExploreFeedQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -10885,6 +10951,11 @@ export type ExploreFeedQuery = {
                                       address: any;
                                     };
                                   };
+                                  recipients: Array<{
+                                    __typename?: 'RecipientDataOutput';
+                                    recipient: any;
+                                    split: number;
+                                  }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
                               | {
@@ -11137,6 +11208,11 @@ export type ExploreFeedQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -11368,6 +11444,11 @@ export type ExploreFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -11651,6 +11732,11 @@ export type ExploreFeedQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -11885,6 +11971,11 @@ export type ExploreFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -12114,6 +12205,7 @@ export type ExploreFeedQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -12389,6 +12481,11 @@ export type ExploreFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -12620,6 +12717,7 @@ export type ExploreFeedQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -12866,6 +12964,7 @@ export type FeedHighlightsQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -13095,6 +13194,11 @@ export type FeedHighlightsQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -13326,6 +13430,11 @@ export type FeedHighlightsQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -13640,6 +13749,11 @@ export type FeedHighlightsQuery = {
                                       address: any;
                                     };
                                   };
+                                  recipients: Array<{
+                                    __typename?: 'RecipientDataOutput';
+                                    recipient: any;
+                                    split: number;
+                                  }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
                               | {
@@ -13892,6 +14006,11 @@ export type FeedHighlightsQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -14123,6 +14242,11 @@ export type FeedHighlightsQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -14406,6 +14530,11 @@ export type FeedHighlightsQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -14640,6 +14769,11 @@ export type FeedHighlightsQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -14869,6 +15003,7 @@ export type FeedHighlightsQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -15144,6 +15279,11 @@ export type FeedHighlightsQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -15375,6 +15515,7 @@ export type FeedHighlightsQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -15933,6 +16074,11 @@ export type NotificationsQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -16016,6 +16162,11 @@ export type NotificationsQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -16523,6 +16674,7 @@ export type ProfileFeedQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -16752,6 +16904,11 @@ export type ProfileFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -16983,6 +17140,11 @@ export type ProfileFeedQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -17297,6 +17459,11 @@ export type ProfileFeedQuery = {
                                       address: any;
                                     };
                                   };
+                                  recipients: Array<{
+                                    __typename?: 'RecipientDataOutput';
+                                    recipient: any;
+                                    split: number;
+                                  }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
                               | {
@@ -17549,6 +17716,11 @@ export type ProfileFeedQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -17780,6 +17952,11 @@ export type ProfileFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -18063,6 +18240,11 @@ export type ProfileFeedQuery = {
                               value: string;
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
@@ -18297,6 +18479,11 @@ export type ProfileFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -18526,6 +18713,7 @@ export type ProfileFeedQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -18801,6 +18989,11 @@ export type ProfileFeedQuery = {
                         value: string;
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
@@ -19032,6 +19225,7 @@ export type ProfileFeedQuery = {
                   value: string;
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
@@ -19348,6 +19542,7 @@ export type PublicationQuery = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -19577,6 +19772,7 @@ export type PublicationQuery = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -19804,6 +20000,11 @@ export type PublicationQuery = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -20118,6 +20319,11 @@ export type PublicationQuery = {
                                     address: any;
                                   };
                                 };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
@@ -20363,6 +20569,11 @@ export type PublicationQuery = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -20594,6 +20805,7 @@ export type PublicationQuery = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -20869,6 +21081,11 @@ export type PublicationQuery = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -21103,6 +21320,7 @@ export type PublicationQuery = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -21338,6 +21556,7 @@ export type PublicationQuery = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -21613,6 +21832,7 @@ export type PublicationQuery = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -21850,6 +22070,7 @@ export type PublicationQuery = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -22204,6 +22425,7 @@ export type SearchPublicationsQuery = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -22433,6 +22655,11 @@ export type SearchPublicationsQuery = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -22691,6 +22918,11 @@ export type SearchPublicationsQuery = {
                                     address: any;
                                   };
                                 };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
@@ -23022,6 +23254,11 @@ export type SearchPublicationsQuery = {
                                           address: any;
                                         };
                                       };
+                                      recipients: Array<{
+                                        __typename?: 'RecipientDataOutput';
+                                        recipient: any;
+                                        split: number;
+                                      }>;
                                     }
                                   | { __typename?: 'RevertCollectModuleSettings' }
                                   | {
@@ -23304,6 +23541,11 @@ export type SearchPublicationsQuery = {
                                     address: any;
                                   };
                                 };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
@@ -23546,6 +23788,11 @@ export type SearchPublicationsQuery = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -23860,6 +24107,11 @@ export type SearchPublicationsQuery = {
                                     address: any;
                                   };
                                 };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
@@ -24105,6 +24357,11 @@ export type SearchPublicationsQuery = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -24340,6 +24597,7 @@ export type SearchPublicationsQuery = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -24797,6 +25055,7 @@ export type TimelineQuery = {
                     value: string;
                     asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                   };
+                  recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                 }
               | { __typename?: 'RevertCollectModuleSettings' }
               | {
@@ -25026,6 +25285,11 @@ export type TimelineQuery = {
                           value: string;
                           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                         };
+                        recipients: Array<{
+                          __typename?: 'RecipientDataOutput';
+                          recipient: any;
+                          split: number;
+                        }>;
                       }
                     | { __typename?: 'RevertCollectModuleSettings' }
                     | {
@@ -25277,6 +25541,11 @@ export type TimelineQuery = {
                                   address: any;
                                 };
                               };
+                              recipients: Array<{
+                                __typename?: 'RecipientDataOutput';
+                                recipient: any;
+                                split: number;
+                              }>;
                             }
                           | { __typename?: 'RevertCollectModuleSettings' }
                           | {
@@ -25602,6 +25871,11 @@ export type TimelineQuery = {
                                         address: any;
                                       };
                                     };
+                                    recipients: Array<{
+                                      __typename?: 'RecipientDataOutput';
+                                      recipient: any;
+                                      split: number;
+                                    }>;
                                   }
                                 | { __typename?: 'RevertCollectModuleSettings' }
                                 | {
@@ -25874,6 +26148,11 @@ export type TimelineQuery = {
                                   address: any;
                                 };
                               };
+                              recipients: Array<{
+                                __typename?: 'RecipientDataOutput';
+                                recipient: any;
+                                split: number;
+                              }>;
                             }
                           | { __typename?: 'RevertCollectModuleSettings' }
                           | {
@@ -26116,6 +26395,11 @@ export type TimelineQuery = {
                           value: string;
                           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                         };
+                        recipients: Array<{
+                          __typename?: 'RecipientDataOutput';
+                          recipient: any;
+                          split: number;
+                        }>;
                       }
                     | { __typename?: 'RevertCollectModuleSettings' }
                     | {
@@ -26419,6 +26703,11 @@ export type TimelineQuery = {
                                   address: any;
                                 };
                               };
+                              recipients: Array<{
+                                __typename?: 'RecipientDataOutput';
+                                recipient: any;
+                                split: number;
+                              }>;
                             }
                           | { __typename?: 'RevertCollectModuleSettings' }
                           | {
@@ -26664,6 +26953,11 @@ export type TimelineQuery = {
                           value: string;
                           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                         };
+                        recipients: Array<{
+                          __typename?: 'RecipientDataOutput';
+                          recipient: any;
+                          split: number;
+                        }>;
                       }
                     | { __typename?: 'RevertCollectModuleSettings' }
                     | {
@@ -26896,6 +27190,7 @@ export type TimelineQuery = {
                     value: string;
                     asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                   };
+                  recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                 }
               | { __typename?: 'RevertCollectModuleSettings' }
               | {
@@ -27228,6 +27523,7 @@ export type TimelineQuery = {
                 value: string;
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
@@ -27457,6 +27753,7 @@ export type TimelineQuery = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -27684,6 +27981,11 @@ export type TimelineQuery = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -27998,6 +28300,11 @@ export type TimelineQuery = {
                                     address: any;
                                   };
                                 };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
@@ -28243,6 +28550,11 @@ export type TimelineQuery = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -28474,6 +28786,7 @@ export type TimelineQuery = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -28749,6 +29062,11 @@ export type TimelineQuery = {
                             value: string;
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
@@ -28983,6 +29301,7 @@ export type TimelineQuery = {
                       value: string;
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
@@ -29320,6 +29639,10 @@ export const CollectModuleFieldsFragmentDoc = gql`
       referralFee
       followerOnly
       optionalEndTimestamp: endTimestamp
+      recipients {
+        recipient
+        split
+      }
     }
   }
   ${ModuleFeeAmountFieldsFragmentDoc}
