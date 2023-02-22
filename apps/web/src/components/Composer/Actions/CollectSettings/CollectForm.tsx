@@ -1,12 +1,9 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import { CollectionIcon, UserGroupIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
-import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useEffect } from 'react';
@@ -15,8 +12,9 @@ import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { PUBLICATION } from 'src/tracking';
 
+import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';
-import ReferralConfig from './ReferralConfig';
+import FollowersConfig from './FollowersConfig';
 import SplitConfig from './SplitConfig';
 import TimeLimitConfig from './TimeLimitConfig';
 
@@ -29,19 +27,14 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const amount = useCollectModuleStore((state) => state.amount);
-  const setAmount = useCollectModuleStore((state) => state.setAmount);
   const selectedCurrency = useCollectModuleStore((state) => state.selectedCurrency);
-  const setSelectedCurrency = useCollectModuleStore((state) => state.setSelectedCurrency);
   const referralFee = useCollectModuleStore((state) => state.referralFee);
-  const setReferralFee = useCollectModuleStore((state) => state.setReferralFee);
   const collectLimit = useCollectModuleStore((state) => state.collectLimit);
   const setCollectLimit = useCollectModuleStore((state) => state.setCollectLimit);
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
   const recipients = useCollectModuleStore((state) => state.recipients);
-  const setRecipients = useCollectModuleStore((state) => state.setRecipients);
   const followerOnly = useCollectModuleStore((state) => state.followerOnly);
-  const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
   const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
@@ -207,56 +200,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
       />
       {selectedCollectModule !== RevertCollectModule && (
         <div className="ml-5">
-          <div className="pt-3">
-            <ToggleWithHelper
-              on={Boolean(amount)}
-              setOn={() => {
-                setAmount(amount ? null : '1');
-                setRecipients([]);
-                Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
-              }}
-              heading={t`Charge for collecting`}
-              description={t`Get paid whenever someone collects your post`}
-              icon={<CollectionIcon className="h-4 w-4" />}
-            />
-            {amount ? (
-              <div className="pt-4">
-                <div className="flex space-x-2 text-sm">
-                  <Input
-                    label={t`Price`}
-                    type="number"
-                    placeholder="0.5"
-                    min="0"
-                    max="100000"
-                    value={parseFloat(amount)}
-                    onChange={(event) => {
-                      setAmount(event.target.value ? event.target.value : '0');
-                    }}
-                  />
-                  <div>
-                    <div className="label">
-                      <Trans>Select Currency</Trans>
-                    </div>
-                    <select
-                      className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
-                      onChange={(e) => setSelectedCurrency(e.target.value)}
-                    >
-                      {data?.enabledModuleCurrencies.map((currency: Erc20) => (
-                        <option
-                          key={currency.address}
-                          value={currency.address}
-                          selected={currency?.address === selectedCurrency}
-                        >
-                          {currency.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <ReferralConfig />
-              </div>
-            ) : null}
-          </div>
+          <AmountConfig enabledModuleCurrencies={data?.enabledModuleCurrencies} />
           {selectedCollectModule !== FreeCollectModule && amount && (
             <>
               <CollectLimitConfig />
@@ -264,18 +208,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
               <SplitConfig />
             </>
           )}
-          <div className="pt-5">
-            <ToggleWithHelper
-              on={followerOnly}
-              setOn={() => {
-                setFollowerOnly(!followerOnly);
-                Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
-              }}
-              heading={t`Who can collect`}
-              description={t`Only followers can collect`}
-              icon={<UserGroupIcon className="h-4 w-4" />}
-            />
-          </div>
+          <FollowersConfig />
         </div>
       )}
       <div className="flex space-x-2 pt-5">
