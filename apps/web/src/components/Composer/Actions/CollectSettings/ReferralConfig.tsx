@@ -17,7 +17,7 @@ const ReferralConfig: FC = () => {
         on={Boolean(referralFee)}
         setOn={() => {
           setReferralFee(referralFee ? null : '25');
-          Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
+          Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_MIRROR_REFERRAL_REWARD);
         }}
         heading={t`Mirror referral reward`}
         description={t`Share your fee with people who amplify your content`}

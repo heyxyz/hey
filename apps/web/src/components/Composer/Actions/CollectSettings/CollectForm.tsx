@@ -2,6 +2,7 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
+import isValidEthAddress from '@lib/isValidEthAddress';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
@@ -50,6 +51,10 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   } = CollectModules;
   const hasRecipients = recipients.length > 0;
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
+  const hasEmptyRecipients = recipients.some((recipient) => !recipient.recipient);
+  const hasInvalidEthAddressInRecipients = recipients.some(
+    (recipient) => recipient.recipient && !isValidEthAddress(recipient.recipient)
+  );
 
   useEffect(() => {
     const baseFeeData = {
@@ -223,7 +228,10 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         >
           <Trans>Cancel</Trans>
         </Button>
-        <Button disabled={splitTotal > 100} onClick={() => setShowModal(false)}>
+        <Button
+          disabled={splitTotal > 100 || hasEmptyRecipients || hasInvalidEthAddressInRecipients}
+          onClick={() => setShowModal(false)}
+        >
           <Trans>Save</Trans>
         </Button>
       </div>
