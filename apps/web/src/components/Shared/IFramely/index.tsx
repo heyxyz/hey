@@ -11,7 +11,7 @@ interface Props {
 }
 
 const IFramely: FC<Props> = ({ url }) => {
-  const allowedSites = ['YouTube', 'Spotify', 'SoundCloud', 'oohlala_xyz', 'Lenstube'];
+  const allowedSites = ['YouTube', 'Spotify', 'SoundCloud', 'oohlala_xyz', 'Lenstube', 'OpenSea'];
 
   const { isLoading, error, data } = useQuery(
     [url],
