@@ -10,12 +10,7 @@ fragment CollectModuleFields on CollectModule {
     contractAddress
     followerOnly
     amount {
-      asset {
-        symbol
-        decimals
-        address
-      }
-      value
+      ...ModuleFeeAmountFields
     }
   }
   ... on LimitedFeeCollectModuleSettings {
@@ -25,12 +20,7 @@ fragment CollectModuleFields on CollectModule {
     contractAddress
     followerOnly
     amount {
-      asset {
-        symbol
-        decimals
-        address
-      }
-      value
+      ...ModuleFeeAmountFields
     }
   }
   ... on LimitedTimedFeeCollectModuleSettings {
@@ -41,12 +31,7 @@ fragment CollectModuleFields on CollectModule {
     contractAddress
     followerOnly
     amount {
-      asset {
-        symbol
-        decimals
-        address
-      }
-      value
+      ...ModuleFeeAmountFields
     }
   }
   ... on TimedFeeCollectModuleSettings {
@@ -56,12 +41,22 @@ fragment CollectModuleFields on CollectModule {
     contractAddress
     followerOnly
     amount {
-      asset {
-        symbol
-        decimals
-        address
-      }
-      value
+      ...ModuleFeeAmountFields
+    }
+  }
+  ... on MultirecipientFeeCollectModuleSettings {
+    type
+    contractAddress
+    amount {
+      ...ModuleFeeAmountFields
+    }
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    optionalEndTimestamp: endTimestamp
+    recipients {
+      recipient
+      split
     }
   }
 }
