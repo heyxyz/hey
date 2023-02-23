@@ -3,6 +3,7 @@ import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { Image } from '@components/UI/Image';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
@@ -49,7 +50,7 @@ const NFTDetail: FC = () => {
           <div className="flex items-center space-x-1 pt-3">
             <div className="contents -space-x-2">
               {profiles?.map((profile) => (
-                <img
+                <Image
                   key={profile.handle}
                   className="h-5 w-5 rounded-full border dark:border-gray-700"
                   onError={({ currentTarget }) => {
