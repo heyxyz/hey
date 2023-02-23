@@ -227,7 +227,7 @@ const Picture: FC<Props> = ({ profile }) => {
                   currentTarget.src = getIPFSLink(avatar);
                 }}
                 src={imageProxy(getIPFSLink(avatar), AVATAR)}
-                alt={avatar}
+                alt={t`Profile picture crop preview`}
               />
             </div>
           )}
