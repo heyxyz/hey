@@ -26,7 +26,6 @@ export const PUBLICATION = {
   MIRROR: 'Mirror publication',
   EMBED: 'Embed publication',
   PERMALINK: 'Permalink publication',
-  MORE: 'More publication options',
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   OEMBED_CLICK: 'Click publication oembed',

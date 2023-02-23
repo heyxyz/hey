@@ -1,12 +1,10 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import type { FC, MouseEvent } from 'react';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
 
 import Delete from './Delete';
 import Embed from './Embed';
@@ -25,10 +23,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
     <Menu as="div" className="relative">
       <Menu.Button
         className="rounded-full p-1.5 hover:bg-gray-300 hover:bg-opacity-20"
-        onClick={(event: MouseEvent<HTMLButtonElement>) => {
-          event.stopPropagation();
-          Mixpanel.track(PUBLICATION.MORE);
-        }}
+        onClick={(event: MouseEvent<HTMLButtonElement>) => event.stopPropagation()}
         aria-label="More"
       >
         <DotsVerticalIcon className={clsx('lt-text-gray-500', iconClassName)} />
