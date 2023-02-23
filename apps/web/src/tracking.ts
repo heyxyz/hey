@@ -79,12 +79,6 @@ export const PUBLICATION = {
       TOGGLE_TIME_LIMIT_COLLECT: 'Toggle time limit collect',
       TOGGLE_FOLLOWERS_ONLY_COLLECT: 'Toggle followers only collect',
       TOGGLE_MULTIPLE_RECIPIENTS_COLLECT: 'Toggle multiple recipients collect'
-    },
-    ACCESS: {
-      OPEN_ACCESS_SETTINGS: 'Open access settings',
-      TOGGLE_RESTRICTED_ACCESS: 'Toggle restricted access',
-      TOGGLE_COLLECT_TO_VIEW_ACCESS: 'Toggle collect to view access',
-      TOGGLE_FOLLOW_TO_VIEW_ACCESS: 'Toggle follow to view access'
     }
   }
 };
