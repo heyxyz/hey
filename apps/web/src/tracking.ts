@@ -1,6 +1,6 @@
 // Strings used for events tracking
 
-export const PAGEVIEW = 'pageview';
+export const PAGEVIEW = 'Pageview';
 export const USER = {
   LOGIN: 'User login',
   LOGOUT: 'User logout',
