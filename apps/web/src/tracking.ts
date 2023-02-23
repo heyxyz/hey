@@ -69,16 +69,6 @@ export const PUBLICATION = {
       UPLOAD_IMAGES: 'Select upload images',
       UPLOAD_VIDEO: 'Select upload video',
       UPLOAD_AUDIO: 'Select upload audio'
-    },
-    COLLECT_MODULE: {
-      OPEN_COLLECT_SETTINGS: 'Open collect module settings',
-      TOGGLE_COLLECT_MODULE: 'Toggle collect module',
-      TOGGLE_CHARGE_FOR_COLLECT: 'Toggle charge for collect',
-      TOGGLE_MIRROR_REFERRAL_REWARD: 'Toggle mirror referral reward',
-      TOGGLE_LIMITED_EDITION_COLLECT: 'Toggle limited edition collect',
-      TOGGLE_TIME_LIMIT_COLLECT: 'Toggle time limit collect',
-      TOGGLE_FOLLOWERS_ONLY_COLLECT: 'Toggle followers only collect',
-      TOGGLE_MULTIPLE_RECIPIENTS_COLLECT: 'Toggle multiple recipients collect'
     }
   }
 };
