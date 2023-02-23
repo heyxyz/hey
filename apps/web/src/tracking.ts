@@ -53,7 +53,7 @@ export const PUBLICATION = {
 };
 
 export const NOTIFICATION = {
-  SWITCH_NOTIFICATION_TAB: 'Switch to notifications tab'
+  SWITCH_NOTIFICATION_TAB: 'Switch notifications tab'
 };
 
 export const MESSAGES = {
