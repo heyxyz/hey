@@ -26,7 +26,7 @@ const initialConfig = {
   }
 };
 
-const withLexicalContext = (Component: FC<any>, editable = true) => {
+const withLexicalContext = (Component: FC<any>, editable = false) => {
   const LexicalContext = (props: any) => (
     <LexicalComposer initialConfig={{ ...initialConfig, editable }}>
       <Component {...props} />

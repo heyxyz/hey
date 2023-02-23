@@ -460,4 +460,4 @@ const NewPublication: FC<Props> = ({ publication }) => {
   );
 };
 
-export default withLexicalContext(NewPublication);
+export default withLexicalContext(NewPublication, true);

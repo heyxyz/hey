@@ -1,3 +1,4 @@
+import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import { MentionsRenderPlugin } from '@components/Shared/Lexical/Plugins/MentionsRenderPlugin';
 import type { LensterPublication } from '@generated/types';
 import { $convertFromMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
@@ -19,7 +20,8 @@ const MarkdownRenderer: FC<Props> = ({ publication }) => {
   const [editor] = useLexicalComposerContext();
 
   editor.update(() => {
-    $convertFromMarkdownString(publication?.metadata?.content, TRANSFORMERS);
+    const content = publication?.metadata?.content;
+    $convertFromMarkdownString(content, TRANSFORMERS);
   });
 
   return (
@@ -29,10 +31,9 @@ const MarkdownRenderer: FC<Props> = ({ publication }) => {
         placeholder=""
         ErrorBoundary={() => <div>{ERROR_MESSAGE}</div>}
       />
-      {/* <LexicalAutoLinkPlugin /> */}
+      <LexicalAutoLinkPlugin />
       <HistoryPlugin />
       <HashtagPlugin />
-      {/* <MentionsPlugin /> */}
       <MentionsRenderPlugin />
     </div>
   );
