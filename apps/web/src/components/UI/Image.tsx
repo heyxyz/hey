@@ -6,7 +6,7 @@ export const Image = forwardRef(function Image(
   { onError, ...props }: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
   ref: Ref<HTMLImageElement>
 ) {
-  const [imageLoadFailed, setImageLoadFailed] = useState<boolean>(false);
+  const [imageLoadFailed, setImageLoadFailed] = useState(false);
 
   const handleError = useCallback(
     (e: SyntheticEvent<HTMLImageElement, Event>) => {
