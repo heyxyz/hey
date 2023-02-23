@@ -3,7 +3,7 @@ import { Card } from '@components/UI/Card';
 import { Image } from '@components/UI/Image';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
+import { formatTime } from '@lib/formatTime';
 import getAvatar from '@lib/getAvatar';
 import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';

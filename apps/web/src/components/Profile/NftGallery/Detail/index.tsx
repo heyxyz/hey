@@ -8,6 +8,7 @@ import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
+import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -24,7 +25,7 @@ const NFTDetail: FC = () => {
     Mixpanel.track(PAGEVIEW, { page: 'nft' });
   }, []);
 
-  if (!isFeatureEnabled('nft-detail', currentProfile?.id) || !currentProfile) {
+  if (!isFeatureEnabled(FeatureFlag.NftDetail, currentProfile?.id) || !currentProfile) {
     return <Custom404 />;
   }
 

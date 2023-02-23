@@ -31,12 +31,12 @@ msgid "Add restrictions on who can view this post"
 msgstr "இந்த இடுகையை யார் பார்க்கலாம் என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-msgid "Collectors can view"
-msgstr "சேகரிப்பாளர்கள் பார்க்க முடியும்"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
 msgstr "சேகரிப்பு அடிப்படையிலான டோக்கன் கேட்டிங்கைப் பயன்படுத்த முதலில் சேகரிப்பை இயக்கவும்"
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Collectors can view"
+msgstr "சேகரிப்பாளர்கள் பார்க்க முடியும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
@@ -88,6 +88,24 @@ msgstr "கோப்பு வடிவம் அனுமதிக்கப்�
 msgid "Something went wrong while uploading!"
 msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏற்பட்டது!"
 
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Charge for collecting"
+msgstr "சேகரிப்பதற்கான கட்டணம்"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Get paid whenever someone collects your post"
+msgstr "உங்கள் இடுகையை யாராவது சேகரிக்கும் போதெல்லாம் பணம் பெறுங்கள்"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Price"
+msgstr "விலை"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+#: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Settings/Allowance/index.tsx
+msgid "Select Currency"
+msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
+
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
 msgstr "சேகரிப்பு அமைப்புகளை ஏற்றுகிறது"
@@ -100,63 +118,57 @@ msgstr "தொகுதிகளை ஏற்றுவதில் தோல்�
 msgid "This post can be collected"
 msgstr "இந்த இடுகையை சேகரிக்கலாம்"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Charge for collecting"
-msgstr "சேகரிப்பதற்கான கட்டணம்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Get paid whenever someone collects your post"
-msgstr "உங்கள் இடுகையை யாராவது சேகரிக்கும் போதெல்லாம் பணம் பெறுங்கள்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Price"
-msgstr "விலை"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#: src/components/Settings/Account/SuperFollow.tsx
-#: src/components/Settings/Allowance/index.tsx
-msgid "Select Currency"
-msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Mirror referral reward"
-msgstr "மிரர் பரிந்துரை வெகுமதி"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Share your collect fee with people who amplify your content"
-msgstr "உங்கள் உள்ளடக்கத்தை பெருக்கும் நபர்களுடன் உங்கள் சேகரிப்புக் கட்டணத்தை பகிர்ந்து கொள்ளுங்கள்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Referral fee"
-msgstr "பரிந்துரை கட்டணம்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
 msgstr "வரையறுக்கப்பட்ட பதிப்பு"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
 msgstr "சேகரிப்புகளை பிரத்தியேகமாக்குங்கள்"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
 msgstr "சேகரிப்பு வரம்பு"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Time limit"
-msgstr "நேர வரம்பு"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Limit collecting to the first 24h"
-msgstr "முதல் 24 மணிநேரத்திற்கு சேகரிப்பதை வரம்பிடவும்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Who can collect"
 msgstr "யார் சேகரிக்க முடியும்"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Only followers can collect"
 msgstr "பின்பற்றுபவர்கள் மட்டுமே சேகரிக்க முடியும்"
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Mirror referral reward"
+msgstr "மிரர் பரிந்துரை வெகுமதி"
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Share your fee with people who amplify your content"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Referral fee"
+msgstr "பரிந்துரை கட்டணம்"
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Split revenue"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Set multiple recipients for the collect fee"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
+msgid "Time limit"
+msgstr "நேர வரம்பு"
+
+#: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
+msgid "Limit collecting to the first 24h"
+msgstr "முதல் 24 மணிநேரத்திற்கு சேகரிப்பதை வரம்பிடவும்"
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
@@ -274,18 +286,6 @@ msgstr "கவர்ச்சியான"
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
 msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
-
-#: src/components/Home/BetaWarning.tsx
-msgid "Beta warning!"
-msgstr "பீட்டா எச்சரிக்கை!"
-
-#: src/components/Home/BetaWarning.tsx
-msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr "{APP_NAME} இன்னும் பீட்டா கட்டத்தில் உள்ளது, விஷயங்கள் உடைந்து போகலாம், தயவுசெய்து கவனமாகக் கையாளவும்."
-
-#: src/components/Home/BetaWarning.tsx
-msgid "Get testnet tokens"
-msgstr "டெஸ்ட்நெட் டோக்கன்களைப் பெறுங்கள்"
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
@@ -1304,6 +1304,10 @@ msgstr "இப்போது சேகரிக்கவும்"
 msgid "You already collected this"
 msgstr "நீங்கள் ஏற்கனவே இதை சேகரித்துள்ளீர்கள்"
 
+#: src/components/Publication/Actions/Collect/Splits.tsx
+msgid "Fee recipients"
+msgstr ""
+
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
@@ -1411,10 +1415,6 @@ msgstr ""
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
 msgstr "தொடர்புடைய நபர்களை ஏற்ற முடியவில்லை"
-
-#: src/components/Publication/Type/Collected.tsx
-msgid "collected the <0>{0}</0>"
-msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -2362,6 +2362,10 @@ msgid "Audio size should be less than 100MB"
 msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/lib/getModule.ts
+msgid "Multirecipient Paid Collect"
+msgstr ""
+
+#: src/lib/getModule.ts
 msgid "Paid Collect"
 msgstr "கட்டண சேகரிப்பு"
 
@@ -2409,4 +2413,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

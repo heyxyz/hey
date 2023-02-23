@@ -21,7 +21,7 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
+import { formatTime } from '@lib/formatTime';
 import getAssetAddress from '@lib/getAssetAddress';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getSignature from '@lib/getSignature';
@@ -55,6 +55,8 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
+import Splits from './Splits';
+
 interface Props {
   count: number;
   setCount: Dispatch<number>;
@@ -78,6 +80,11 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   });
 
   const collectModule: any = data?.publication?.collectModule;
+  const isMultirecipientFeeCollectModule =
+    collectModule?.type === CollectModules.MultirecipientFeeCollectModule;
+  const isFreeCollectModule = collectModule?.type === CollectModules.FreeCollectModule;
+  const endTimestamp = collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
+  const collectLimit = collectModule?.collectLimit ?? collectModule?.optionalCollectLimit;
 
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
@@ -104,7 +111,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     onError
   });
 
-  const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
+  const percentageCollected = (count / parseInt(collectLimit)) * 100;
 
   const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
     variables: {
@@ -204,7 +211,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
 
     try {
-      if (collectModule?.type === CollectModules.FreeCollectModule && !collectModule?.followerOnly) {
+      if (isFreeCollectModule && !collectModule?.followerOnly) {
         await createViaProxyAction({
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
         });
@@ -244,8 +251,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   return (
     <>
-      {(collectModule?.type === CollectModules.LimitedFeeCollectModule ||
-        collectModule?.type === CollectModules.LimitedTimedFeeCollectModule) && (
+      {Boolean(collectLimit) && (
         <Tooltip placement="top" content={`${percentageCollected.toFixed(0)}% Collected`}>
           <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
             <div className="bg-brand-500 h-2.5" style={{ width: `${percentageCollected}%` }} />
@@ -325,11 +331,11 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                 />
               </Modal>
             </div>
-            {collectModule?.collectLimit && (
+            {collectLimit && (
               <div className="flex items-center space-x-2">
                 <PhotographIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
-                  <Trans>{parseInt(collectModule?.collectLimit) - count} available</Trans>
+                  <Trans>{parseInt(collectLimit) - count} available</Trans>
                 </div>
               </div>
             )}
@@ -374,16 +380,15 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               </div>
             </div>
           )}
-          {collectModule?.endTimestamp && (
+          {endTimestamp && (
             <div className="flex items-center space-x-2">
               <ClockIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
                 <span>
                   <Trans>Sale Ends:</Trans>
                 </span>
-                <span className="font-bold text-gray-600" title={formatTime(collectModule.endTimestamp)}>
-                  {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
-                  {dayjs(collectModule.endTimestamp).format('hh:mm a')}
+                <span className="font-bold text-gray-600" title={formatTime(endTimestamp)}>
+                  {dayjs(endTimestamp).format('MMMM DD, YYYY')} at {dayjs(endTimestamp).format('hh:mm a')}
                 </span>
               </div>
             </div>
@@ -406,14 +411,16 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               </div>
             </div>
           )}
+          {isMultirecipientFeeCollectModule && <Splits recipients={collectModule?.recipients} />}
         </div>
-        <div className="mt-5 flex items-center space-x-2">
+        <div className="flex items-center space-x-2">
           {currentProfile && !hasCollectedByMe ? (
             allowanceLoading || balanceLoading ? (
-              <div className="shimmer h-[34px] w-28 rounded-lg" />
+              <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
             ) : allowed ? (
               hasAmount ? (
                 <Button
+                  className="mt-5"
                   onClick={createCollect}
                   disabled={isLoading}
                   icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
@@ -421,15 +428,17 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                   <Trans>Collect now</Trans>
                 </Button>
               ) : (
-                <WarningMessage message={<Uniswap module={collectModule} />} />
+                <WarningMessage className="mt-5" message={<Uniswap module={collectModule} />} />
               )
             ) : (
-              <AllowanceButton
-                title="Allow collect module"
-                module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
-                allowed={allowed}
-                setAllowed={setAllowed}
-              />
+              <span className="mt-5">
+                <AllowanceButton
+                  title="Allow collect module"
+                  module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
+                  allowed={allowed}
+                  setAllowed={setAllowed}
+                />
+              </span>
             )
           ) : null}
         </div>

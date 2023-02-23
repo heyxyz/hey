@@ -1,14 +1,11 @@
 import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
+import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import getAvatar from '@lib/getAvatar';
 import getProfileAttribute from '@lib/getProfileAttribute';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
-import dayjs from 'dayjs';
-// @ts-ignore
-import dayjsTwitter from 'dayjs-twitter';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -19,8 +16,6 @@ import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
-
-dayjs.extend(dayjsTwitter);
 
 interface Props {
   profile: Profile;
@@ -99,8 +94,7 @@ const UserProfile: FC<Props> = ({
           <span className="lt-text-gray-500">
             <span className="mx-1.5">·</span>
             <span className="text-xs" title={formatTime(timestamp as Date)}>
-              {/* @ts-ignore */}
-              {dayjs(new Date(timestamp)).twitter()}
+              {getTwitterFormat(timestamp)}
             </span>
           </span>
         ) : null}
