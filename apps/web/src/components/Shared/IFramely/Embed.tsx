@@ -26,7 +26,7 @@ const Embed: FC<Props> = ({ og }) => {
         <Card forceRounded>
           {!og.isSquare && og.thumbnail && (
             <img
-              className="w-full rounded-t-xl"
+              className="w-full rounded-t-xl border-b"
               onError={({ currentTarget }) => {
                 currentTarget.src = og.thumbnail;
               }}
@@ -37,7 +37,7 @@ const Embed: FC<Props> = ({ og }) => {
           <div className="flex items-center">
             {og.isSquare && og.thumbnail && (
               <img
-                className="h-36 w-36 rounded-l-xl"
+                className="h-36 w-36 rounded-l-xl border-r"
                 height={144}
                 width={144}
                 onError={({ currentTarget }) => {
@@ -52,7 +52,7 @@ const Embed: FC<Props> = ({ og }) => {
                 {og.title && <div className="line-clamp-1 font-bold">{og.title}</div>}
                 {og.description && <div className="lt-text-gray-500 line-clamp-2">{og.description}</div>}
                 {og.site && (
-                  <div className="flex items-center space-x-1 pt-1.5">
+                  <div className="flex items-center space-x-2 pt-1.5">
                     {og.favicon && (
                       <img
                         className="h-4 w-4 rounded-full"
