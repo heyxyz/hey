@@ -61,10 +61,6 @@ export const PUBLICATION = {
     CHECKLIST_NAVIGATED_TO_COLLECT: 'Decrypt checklist navigated to collect',
     CHECKLIST_NAVIGATED_TO_TOKEN: 'Decrypt checklist navigated to token',
     CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT'
-  },
-  NEW: {
-    MARKDOWN_PREVIEW: 'Preview markdown',
-    OPEN_GIF: 'Open GIF modal'
   }
 };
 
