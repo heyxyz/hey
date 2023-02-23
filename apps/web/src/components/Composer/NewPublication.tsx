@@ -64,7 +64,7 @@ import { useCollectModuleStore } from 'src/store/collect-module';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { COMMENT, POST } from 'src/tracking';
+import { PUBLICATION } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
@@ -161,7 +161,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       publication_attachment_types:
         attachments.length > 0 ? attachments.map((attachment) => attachment.type) : null
     };
-    Mixpanel.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
+    Mixpanel.track(isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST, eventProperties);
   };
 
   useEffect(() => {

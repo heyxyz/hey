@@ -22,6 +22,8 @@ export const PROFILE = {
 };
 
 export const PUBLICATION = {
+  NEW_POST: 'New post',
+  NEW_COMMENT: 'New comment',
   LIKE: 'Like publication',
   DISLIKE: 'Dislike publication',
   MIRROR: 'Mirror publication',
@@ -31,8 +33,6 @@ export const PUBLICATION = {
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   OEMBED_CLICK: 'Click publication oembed',
-  MENTION_CLICK: 'Click publication mention',
-  HASHTAG_CLICK: 'Click publication hashtag',
   ATTACHMENT: {
     IMAGE: {
       OPEN: 'Open image attachment'
@@ -43,24 +43,16 @@ export const PUBLICATION = {
     }
   },
   COLLECT_MODULE: {
-    COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',
+    COLLECT: 'Collect publication',
     OPEN_UNISWAP: 'Open Uniswap'
   },
   TOKEN_GATED: {
-    DECRYPT: 'Decrypt token gated publication',
     CHECKLIST_NAVIGATED_TO_COLLECT: 'Decrypt checklist navigated to collect',
     CHECKLIST_NAVIGATED_TO_TOKEN: 'Decrypt checklist navigated to token',
-    CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT'
+    CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT',
+    DECRYPT: 'Decrypt token gated publication'
   }
-};
-
-export const POST = {
-  NEW: 'New post'
-};
-
-export const COMMENT = {
-  NEW: 'New comment'
 };
 
 export const NOTIFICATION = {
