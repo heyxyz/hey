@@ -13,9 +13,9 @@ import type { Area, MediaSize, Point, Size } from './types';
 
 export type CropperProps = {
   image?: string;
-  size: Size;
+  cropSize: Size;
+  cropPosition: Point;
   borderSize: number;
-  crop: Point;
   zoom: number;
   zoomSpeed: number;
   onCropChange: (location: Point) => void;
@@ -142,12 +142,12 @@ class Cropper extends React.Component<CropperProps, State> {
       let renderedMediaSize: Size =
         naturalWidth < naturalHeight
           ? {
-              width: this.props.size.width,
-              height: this.props.size.width / mediaAspect
+              width: this.props.cropSize.width,
+              height: this.props.cropSize.width / mediaAspect
             }
           : {
-              width: this.props.size.height * mediaAspect,
-              height: this.props.size.height
+              width: this.props.cropSize.height * mediaAspect,
+              height: this.props.cropSize.height
             };
 
       this.mediaSize = {
@@ -156,7 +156,7 @@ class Cropper extends React.Component<CropperProps, State> {
         naturalHeight
       };
 
-      const cropSize = { width: this.props.size.width, height: this.props.size.height };
+      const cropSize = { width: this.props.cropSize.width, height: this.props.cropSize.height };
       this.recomputeCropPosition();
       return cropSize;
     }
@@ -228,7 +228,7 @@ class Cropper extends React.Component<CropperProps, State> {
 
   onDragStart = ({ x, y }: Point) => {
     this.dragStartPosition = { x, y };
-    this.dragStartCrop = { ...this.props.crop };
+    this.dragStartCrop = { ...this.props.cropPosition };
   };
 
   onDrag = ({ x, y }: Point) => {
@@ -250,7 +250,7 @@ class Cropper extends React.Component<CropperProps, State> {
       const newPosition = restrictPosition(
         requestedPosition,
         this.mediaSize,
-        this.props.size,
+        this.props.cropSize,
         this.props.zoom
       );
       this.props.onCropChange(newPosition);
@@ -319,10 +319,10 @@ class Cropper extends React.Component<CropperProps, State> {
   };
 
   getPointOnMedia = ({ x, y }: Point) => {
-    const { crop, zoom } = this.props;
+    const { cropPosition, zoom } = this.props;
     return {
-      x: (x + crop.x) / zoom,
-      y: (y + crop.y) / zoom
+      x: (x + cropPosition.x) / zoom,
+      y: (y + cropPosition.y) / zoom
     };
   };
 
@@ -331,17 +331,17 @@ class Cropper extends React.Component<CropperProps, State> {
       return;
     }
     const fitWidth =
-      this.mediaSize.width / this.mediaSize.height < this.props.size.width / this.props.size.height;
+      this.mediaSize.width / this.mediaSize.height < this.props.cropSize.width / this.props.cropSize.height;
     const zoomScale = fitWidth
-      ? this.props.size.width / this.mediaSize.width
-      : this.props.size.height / this.mediaSize.height;
+      ? this.props.cropSize.width / this.mediaSize.width
+      : this.props.cropSize.height / this.mediaSize.height;
     const maxEffectiveZoom = 3;
     const minZoom = 1;
 
     // allow different zoom level depending on image resolution
     const pixelScale = fitWidth
-      ? this.mediaSize.naturalWidth / this.props.size.width
-      : this.mediaSize.naturalHeight / this.props.size.height;
+      ? this.mediaSize.naturalWidth / this.props.cropSize.width
+      : this.mediaSize.naturalHeight / this.props.cropSize.height;
     const maxZoom = Math.max(1, pixelScale * maxEffectiveZoom);
 
     const newZoom = restrictValue(zoom, minZoom * zoomScale, maxZoom * zoomScale);
@@ -354,7 +354,7 @@ class Cropper extends React.Component<CropperProps, State> {
         y: zoomTarget.y * newZoom - zoomPoint.y
       };
 
-      const newPosition = restrictPosition(requestedPosition, this.mediaSize, this.props.size, newZoom);
+      const newPosition = restrictPosition(requestedPosition, this.mediaSize, this.props.cropSize, newZoom);
 
       this.props.onCropChange(newPosition);
     }
@@ -364,12 +364,12 @@ class Cropper extends React.Component<CropperProps, State> {
   getCropData = () => {
     // ensure the crop is correctly restricted after a zoom back (https://github.com/ValentinH/react-easy-crop/issues/6)
     const restrictedPosition = restrictPosition(
-      this.props.crop,
+      this.props.cropPosition,
       this.mediaSize,
-      this.props.size,
+      this.props.cropSize,
       this.props.zoom
     );
-    return computeCroppedArea(restrictedPosition, this.props.size, this.mediaSize, this.props.zoom);
+    return computeCroppedArea(restrictedPosition, this.props.cropSize, this.mediaSize, this.props.zoom);
   };
 
   emitCropData = () => {
@@ -385,7 +385,12 @@ class Cropper extends React.Component<CropperProps, State> {
   };
 
   recomputeCropPosition = () => {
-    const newPosition = restrictPosition(this.props.crop, this.mediaSize, this.props.size, this.props.zoom);
+    const newPosition = restrictPosition(
+      this.props.cropPosition,
+      this.mediaSize,
+      this.props.cropSize,
+      this.props.zoom
+    );
     this.props.onCropChange(newPosition);
     this.emitCropData();
   };
@@ -393,9 +398,9 @@ class Cropper extends React.Component<CropperProps, State> {
   render() {
     const {
       image,
-      size,
+      cropSize: size,
       borderSize,
-      crop: { x, y },
+      cropPosition: { x, y },
       zoom
     } = this.props;
 
