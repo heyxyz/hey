@@ -1,5 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
+import { Image } from '@components/UI/Image';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import formatTime from '@lib/formatTime';
@@ -37,7 +38,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
     >
       <div className="flex max-w-[60%]">
         {address !== message.senderAddress && (
-          <img
+          <Image
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
             }}

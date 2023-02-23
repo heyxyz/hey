@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import { Mixpanel } from '@lib/mixpanel';
@@ -45,7 +46,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (
-          <img
+          <Image
             key={profile.handle}
             className="h-5 w-5 rounded-full border dark:border-gray-700"
             onError={({ currentTarget }) => {
