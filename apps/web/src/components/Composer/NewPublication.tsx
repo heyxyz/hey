@@ -153,10 +153,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
       publication_type: restricted ? 'token_gated' : 'public',
       publication_collect_module: selectedCollectModule,
       publication_reference_module: selectedReferenceModule,
-      ...(selectedReferenceModule === ReferenceModules.DegreesOfSeparationReferenceModule && {
-        publication_reference_module_degrees_of_separation: degreesOfSeparation
-      }),
-      publication_has_attachments: attachments.length > 0
+      publication_reference_module_degrees_of_separation:
+        selectedReferenceModule === ReferenceModules.DegreesOfSeparationReferenceModule
+          ? degreesOfSeparation
+          : null,
+      publication_has_attachments: attachments.length > 0,
+      publication_attachment_types:
+        attachments.length > 0 ? attachments.map((attachment) => attachment.type) : null
     };
     Mixpanel.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
   };

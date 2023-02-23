@@ -64,12 +64,7 @@ export const PUBLICATION = {
   },
   NEW: {
     MARKDOWN_PREVIEW: 'Preview markdown',
-    OPEN_GIF: 'Open GIF modal',
-    ATTACHMENT: {
-      UPLOAD_IMAGES: 'Select upload images',
-      UPLOAD_VIDEO: 'Select upload video',
-      UPLOAD_AUDIO: 'Select upload audio'
-    }
+    OPEN_GIF: 'Open GIF modal'
   }
 };
 
