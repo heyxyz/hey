@@ -1,12 +1,15 @@
 {
-  "name": "prerender-worker",
+  "name": "@workers/metadata",
   "version": "0.0.0",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
+    "dev": "wrangler dev --port 8083 --local",
     "worker:deploy": "wrangler publish",
-    "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "bundlr": "*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230221.0",
