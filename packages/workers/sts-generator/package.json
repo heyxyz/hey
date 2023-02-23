@@ -1,15 +1,16 @@
 {
-  "name": "metadata-worker",
+  "name": "@workers/sts-generator",
   "version": "0.0.0",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "wrangler dev --port 8083 --local",
+    "dev": "wrangler dev --port 8082 --local",
     "worker:deploy": "wrangler publish",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {
-    "bundlr": "*"
+    "@aws-sdk/client-sts": "^3.276.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230221.0",
