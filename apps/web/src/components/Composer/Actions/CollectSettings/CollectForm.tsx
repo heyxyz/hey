@@ -190,12 +190,17 @@ const CollectForm: FC<Props> = ({ setShowModal, publication }) => {
             />
 
             <div className="lt-text-gray-500 text-sm font-bold">
-              <Trans>Quadratic Tipping </Trans>
+              <Trans>Allow quadratic tipping!</Trans>
             </div>
           </div>
           {selectedCollectModule !== RevertCollectModule && toggleQuadraticEnabled && (
             <div className="ml-5">
-              <div>lorem ipsum lots of text</div>
+              <div className="lt-text-gray-500 text-sm font-bold">
+                <Trans>
+                  All tips collected by this post will be quadratically matched in the current matching round
+                </Trans>
+              </div>
+
               <div className="space-y-2 pt-5">
                 <div className="flex items-center space-x-2">
                   <UserGroupIcon className="text-brand-500 h-4 w-4" />
