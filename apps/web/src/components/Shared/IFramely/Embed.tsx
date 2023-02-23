@@ -1,4 +1,5 @@
 import { Card } from '@components/UI/Card';
+import { Image } from '@components/UI/Image';
 import type { OG } from '@generated/types';
 import imageProxy from '@lib/imageProxy';
 import { Mixpanel } from '@lib/mixpanel';
@@ -25,7 +26,7 @@ const Embed: FC<Props> = ({ og }) => {
       >
         <Card forceRounded>
           {!og.isSquare && og.thumbnail && (
-            <img
+            <Image
               className="w-full rounded-t-xl border-b"
               onError={({ currentTarget }) => {
                 currentTarget.src = og.thumbnail;
@@ -36,7 +37,7 @@ const Embed: FC<Props> = ({ og }) => {
           )}
           <div className="flex items-center">
             {og.isSquare && og.thumbnail && (
-              <img
+              <Image
                 className="h-36 w-36 rounded-l-xl border-r"
                 height={144}
                 width={144}

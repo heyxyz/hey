@@ -26,7 +26,8 @@ const getAllowancePayload = (currency: string) => {
       CollectModules.LimitedTimedFeeCollectModule,
       CollectModules.TimedFeeCollectModule,
       CollectModules.FreeCollectModule,
-      CollectModules.RevertCollectModule
+      CollectModules.RevertCollectModule,
+      CollectModules.MultirecipientFeeCollectModule
     ],
     followModules: [FollowModules.FeeFollowModule],
     referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]

@@ -1,7 +1,7 @@
 import type { DataItemCreateOptions } from 'arbundles';
 import base64url from 'base64url';
-import { ethers } from 'ethers';
-import secp256k1 from 'secp256k1';
+import { Wallet } from 'ethers';
+import { publicKeyCreate } from 'secp256k1';
 
 import {
   byteArrayToLong,
@@ -40,12 +40,12 @@ export class EthereumSigner extends Secp256k1 {
 
   constructor(key: string) {
     const b = Buffer.from(key, 'hex');
-    const pub = secp256k1.publicKeyCreate(b, false);
+    const pub = publicKeyCreate(b, false);
     super(key, Buffer.from(pub));
   }
 
   sign(message: Uint8Array): Uint8Array {
-    const wallet = new ethers.Wallet(this._key);
+    const wallet = new Wallet(this._key);
     return wallet.signMessage(message).then((r) => Buffer.from(r.slice(2), 'hex')) as any;
   }
 }

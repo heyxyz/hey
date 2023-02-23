@@ -1,6 +1,7 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Image } from '@components/UI/Image';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
@@ -155,7 +156,7 @@ const Picture: FC<Props> = ({ profile }) => {
         <div className="space-y-3">
           {avatar && (
             <div>
-              <img
+              <Image
                 className="h-60 w-60 rounded-lg"
                 height={240}
                 width={240}

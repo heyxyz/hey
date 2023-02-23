@@ -6,6 +6,7 @@ import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import { Button } from '@components/UI/Button';
+import { Image } from '@components/UI/Image';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
@@ -72,7 +73,7 @@ const Details: FC<Props> = ({ profile, following, setFollowing }) => {
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
       <div className="relative -mt-24 h-32 w-32 sm:-mt-32 sm:h-52 sm:w-52">
-        <img
+        <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(profile, false);
           }}

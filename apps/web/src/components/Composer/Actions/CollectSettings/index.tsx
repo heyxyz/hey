@@ -3,18 +3,17 @@ import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CashIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
-import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PUBLICATION } from 'src/tracking';
 
 import CollectForm from './CollectForm';
 
 const CollectSettings: FC = () => {
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
+  const reset = useCollectModuleStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -23,10 +22,7 @@ const CollectSettings: FC = () => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          onClick={() => {
-            setShowModal(!showModal);
-            Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.OPEN_COLLECT_SETTINGS);
-          }}
+          onClick={() => setShowModal(!showModal)}
           aria-label="Choose Collect Module"
         >
           <div className="text-brand">
@@ -38,7 +34,10 @@ const CollectSettings: FC = () => {
         title={t`Collect settings`}
         icon={<CashIcon className="text-brand h-5 w-5" />}
         show={showModal}
-        onClose={() => setShowModal(false)}
+        onClose={() => {
+          setShowModal(false);
+          reset();
+        }}
       >
         <CollectForm setShowModal={setShowModal} />
       </Modal>

@@ -1,4 +1,4 @@
-name = "metadata-worker"
+name = "metadata"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
 routes = [

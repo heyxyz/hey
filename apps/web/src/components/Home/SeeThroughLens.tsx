@@ -1,5 +1,6 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
+import { Image } from '@components/UI/Image';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { Menu } from '@headlessui/react';
@@ -21,7 +22,7 @@ import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
-import { MISCELLANEOUS, SEARCH } from 'src/tracking';
+import { MISCELLANEOUS } from 'src/tracking';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -90,7 +91,7 @@ const SeeThroughLens: FC = () => {
         className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20"
       >
         <span className="flex items-center space-x-1 pl-1 text-sm">
-          <img
+          <Image
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
             }}
@@ -124,10 +125,7 @@ const SeeThroughLens: FC = () => {
               iconRight={
                 <XIcon
                   className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
-                  onClick={() => {
-                    setSearchText('');
-                    Mixpanel.track(SEARCH.CLEAR);
-                  }}
+                  onClick={() => setSearchText('')}
                 />
               }
               onChange={handleSearch}
