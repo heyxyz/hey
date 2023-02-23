@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
@@ -54,7 +55,7 @@ const UserProfile: FC<Props> = ({
   const hasStatus = statusEmoji && statusMessage;
 
   const UserAvatar = () => (
-    <img
+    <Image
       onError={({ currentTarget }) => {
         currentTarget.src = getAvatar(profile, false);
       }}
