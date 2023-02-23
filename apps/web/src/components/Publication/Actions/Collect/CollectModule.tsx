@@ -311,10 +311,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               <button
                 className="font-bold"
                 type="button"
-                onClick={() => {
-                  setShowCollectorsModal(!showCollectorsModal);
-                  Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
-                }}
+                onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
                 <Trans>{humanize(count)} collectors</Trans>
               </button>

@@ -13,9 +13,6 @@ export const PROFILE = {
   SUPER_FOLLOW: 'Super follow profile',
   UNFOLLOW: 'Unfollow profile',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
-  OPEN_FOLLOWING: 'Open following list',
-  OPEN_FOLLOWERS: 'Open followers list',
-  OPEN_MUTUAL_FOLLOWERS: 'Open mutual followers list',
   SWITCH_FEED: 'Switch to feed tab in profile',
   SWITCH_REPLIES: 'Switch to replies tab in profile',
   SWITCH_MEDIA: 'Switch to media tab in profile',
@@ -36,11 +33,6 @@ export const PUBLICATION = {
   OEMBED_CLICK: 'Click publication oembed',
   MENTION_CLICK: 'Click publication mention',
   HASHTAG_CLICK: 'Click publication hashtag',
-  STATS: {
-    MIRRORED_BY: 'Open mirrored by list',
-    LIKED_BY: 'Open liked by list',
-    COLLECTED_BY: 'Open collected by list'
-  },
   ATTACHMENT: {
     IMAGE: {
       OPEN: 'Open image attachment'
@@ -53,7 +45,6 @@ export const PUBLICATION = {
   COLLECT_MODULE: {
     COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',
-    OPEN_COLLECTORS: 'Open collectors list',
     OPEN_UNISWAP: 'Open Uniswap'
   },
   TOKEN_GATED: {
