@@ -66,7 +66,6 @@ export const MESSAGES = {
 
 export const SETTINGS = {
   ACCOUNT: {
-    OPEN_VERIFICATION: 'Open account verification',
     SET_DEFAULT_PROFILE: 'Set default profile',
     SET_SUPER_FOLLOW: 'Set super follow'
   },
@@ -94,11 +93,6 @@ export const MOD = {
 
 export const STAFFTOOLS = {
   TOGGLE_MODE: 'Toggle staff mode'
-};
-
-export const SEARCH = {
-  FOCUS: 'Focus search input',
-  CLEAR: 'Clear search text'
 };
 
 export const SYSTEM = {
