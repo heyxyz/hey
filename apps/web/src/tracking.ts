@@ -13,10 +13,7 @@ export const PROFILE = {
   SUPER_FOLLOW: 'Super follow profile',
   UNFOLLOW: 'Unfollow profile',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
-  SWITCH_FEED: 'Switch to feed tab in profile',
-  SWITCH_REPLIES: 'Switch to replies tab in profile',
-  SWITCH_MEDIA: 'Switch to media tab in profile',
-  SWITCH_NFTS: 'Switch to NFT tab in profile',
+  SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
   SWITCH_PROFILE: 'Switch profile',
   LOGOUT: 'Profile logout'
 };
