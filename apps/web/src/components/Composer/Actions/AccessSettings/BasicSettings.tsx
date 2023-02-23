@@ -2,14 +2,12 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { CollectModules } from 'lens';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   setShowModal: Dispatch<boolean>;
@@ -42,7 +40,6 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
             reset();
           }
           setRestricted(!restricted);
-          Mixpanel.track(PUBLICATION.NEW.ACCESS.TOGGLE_RESTRICTED_ACCESS);
         }}
         description={t`Add restrictions on who can view this post`}
       />
@@ -56,7 +53,6 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
                   return toast.error(t`Enable collect first to use collect based token gating`);
                 }
                 setCollectToView(!collectToView);
-                Mixpanel.track(PUBLICATION.NEW.ACCESS.TOGGLE_COLLECT_TO_VIEW_ACCESS);
               }}
               heading={t`Collectors can view`}
               description={t`People need to collect it first to be able to view it`}
@@ -66,10 +62,7 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
           <Card className="mt-5 p-5">
             <ToggleWithHelper
               on={followToView}
-              setOn={() => {
-                setFollowToView(!followToView);
-                Mixpanel.track(PUBLICATION.NEW.ACCESS.TOGGLE_FOLLOW_TO_VIEW_ACCESS);
-              }}
+              setOn={() => setFollowToView(!followToView)}
               heading={t`Followers can view`}
               description={t`People need to follow you to be able to view it`}
               icon={<UsersIcon className="h-4 w-4" />}

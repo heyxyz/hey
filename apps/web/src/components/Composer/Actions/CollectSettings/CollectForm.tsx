@@ -4,7 +4,6 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Spinner } from '@components/UI/Spinner';
 import { getTimeAddedNDay } from '@lib/formatTime';
 import isValidEthAddress from '@lib/isValidEthAddress';
-import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -12,7 +11,6 @@ import { useEffect } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PUBLICATION } from 'src/tracking';
 
 import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';
@@ -189,7 +187,6 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   }
 
   const toggleCollect = () => {
-    Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
     if (selectedCollectModule === RevertCollectModule) {
       return setSelectedCollectModule(FreeCollectModule);
     } else {
