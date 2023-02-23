@@ -1,4 +1,5 @@
 import { Button } from '@components/UI/Button';
+import { Image } from '@components/UI/Image';
 import { LightBox } from '@components/UI/LightBox';
 import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
@@ -125,7 +126,7 @@ const Attachments: FC<Props> = ({
                   expandCover={(url) => setExpandedImage(url)}
                 />
               ) : (
-                <img
+                <Image
                   className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
                   loading="lazy"
                   height={1000}

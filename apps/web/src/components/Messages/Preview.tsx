@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import formatTime from '@lib/formatTime';
@@ -39,7 +40,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
       onClick={() => onConversationSelected(profile.id)}
     >
       <div className="flex justify-between space-x-3 px-5">
-        <img
+        <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(profile, false);
           }}
