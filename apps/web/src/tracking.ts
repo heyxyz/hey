@@ -105,14 +105,3 @@ export const MISCELLANEOUS = {
   SWITCH_HIGHLIGHTS: 'Switch to highlights',
   SELECT_USER_FEED: 'Select user feed'
 };
-
-export const FOOTER = {
-  DISCORD: 'Open Discord',
-  DONATE: 'Open donate',
-  STATUS: 'Open status',
-  VOTE: 'Open vote',
-  FEEDBACK: 'Open feedback',
-  GITHUB: 'Open GitHub',
-  TRANSLATE: 'Open translate',
-  VERCEL: 'Open Vercel'
-};
