@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -38,7 +39,7 @@ const UserPreview: FC<Props> = ({
   });
 
   const UserAvatar = () => (
-    <img
+    <Image
       onError={({ currentTarget }) => {
         currentTarget.src = getAvatar(lazyProfile, false);
       }}
