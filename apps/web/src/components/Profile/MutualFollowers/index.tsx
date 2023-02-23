@@ -1,14 +1,12 @@
 import { Image } from '@components/UI/Image';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
-import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useMutualFollowersQuery } from 'lens';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
-import { PROFILE } from 'src/tracking';
 
 interface Props {
   setShowMutualFollowersModal?: Dispatch<boolean>;
@@ -39,10 +37,7 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
         'text-sm': variant === 'sm',
         'text-xs': variant === 'xs'
       })}
-      onClick={() => {
-        setShowMutualFollowersModal?.(true);
-        Mixpanel.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
-      }}
+      onClick={() => setShowMutualFollowersModal?.(true)}
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (

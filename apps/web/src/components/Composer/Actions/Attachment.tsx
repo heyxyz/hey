@@ -5,7 +5,6 @@ import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu } from '@headlessui/react';
 import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import {
@@ -18,7 +17,6 @@ import type { ChangeEvent, FC } from 'react';
 import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
-import { PUBLICATION } from 'src/tracking';
 
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);
@@ -135,7 +133,6 @@ const Attachment: FC = () => {
               multiple
               accept={ALLOWED_IMAGE_TYPES.join(',')}
               className="hidden"
-              onClick={() => Mixpanel.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_IMAGES)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -157,7 +154,6 @@ const Attachment: FC = () => {
               type="file"
               accept={ALLOWED_VIDEO_TYPES.join(',')}
               className="hidden"
-              onClick={() => Mixpanel.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_VIDEO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />
@@ -179,7 +175,6 @@ const Attachment: FC = () => {
               type="file"
               accept={ALLOWED_AUDIO_TYPES.join(',')}
               className="hidden"
-              onClick={() => Mixpanel.track(PUBLICATION.NEW.ATTACHMENT.UPLOAD_AUDIO)}
               onChange={handleAttachment}
               disabled={attachments.length >= 4}
             />

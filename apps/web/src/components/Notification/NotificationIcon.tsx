@@ -1,11 +1,9 @@
 import { LightningBoltIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
 import { CustomFiltersTypes, useNotificationCountQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { NOTIFICATION } from 'src/tracking';
 
 const NotificationIcon: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -33,7 +31,6 @@ const NotificationIcon: FC = () => {
       onClick={() => {
         setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
         setShowBadge(false);
-        Mixpanel.track(NOTIFICATION.OPEN);
       }}
     >
       <LightningBoltIcon className="h-5 w-5 sm:h-6 sm:w-6" />

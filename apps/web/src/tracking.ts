@@ -13,18 +13,14 @@ export const PROFILE = {
   SUPER_FOLLOW: 'Super follow profile',
   UNFOLLOW: 'Unfollow profile',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
-  OPEN_FOLLOWING: 'Open following list',
-  OPEN_FOLLOWERS: 'Open followers list',
-  OPEN_MUTUAL_FOLLOWERS: 'Open mutual followers list',
-  SWITCH_FEED: 'Switch to feed tab in profile',
-  SWITCH_REPLIES: 'Switch to replies tab in profile',
-  SWITCH_MEDIA: 'Switch to media tab in profile',
-  SWITCH_NFTS: 'Switch to NFT tab in profile',
+  SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
   SWITCH_PROFILE: 'Switch profile',
   LOGOUT: 'Profile logout'
 };
 
 export const PUBLICATION = {
+  NEW_POST: 'New post',
+  NEW_COMMENT: 'New comment',
   LIKE: 'Like publication',
   DISLIKE: 'Dislike publication',
   MIRROR: 'Mirror publication',
@@ -34,13 +30,6 @@ export const PUBLICATION = {
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   OEMBED_CLICK: 'Click publication oembed',
-  MENTION_CLICK: 'Click publication mention',
-  HASHTAG_CLICK: 'Click publication hashtag',
-  STATS: {
-    MIRRORED_BY: 'Open mirrored by list',
-    LIKED_BY: 'Open liked by list',
-    COLLECTED_BY: 'Open collected by list'
-  },
   ATTACHMENT: {
     IMAGE: {
       OPEN: 'Open image attachment'
@@ -51,66 +40,20 @@ export const PUBLICATION = {
     }
   },
   COLLECT_MODULE: {
-    COLLECT: 'Collect publication',
     OPEN_COLLECT: 'Open collect modal',
-    OPEN_COLLECTORS: 'Open collectors list',
+    COLLECT: 'Collect publication',
     OPEN_UNISWAP: 'Open Uniswap'
   },
   TOKEN_GATED: {
-    DECRYPT: 'Decrypt token gated publication',
     CHECKLIST_NAVIGATED_TO_COLLECT: 'Decrypt checklist navigated to collect',
     CHECKLIST_NAVIGATED_TO_TOKEN: 'Decrypt checklist navigated to token',
-    CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT'
-  },
-  NEW: {
-    MARKDOWN_PREVIEW: 'Preview markdown',
-    OPEN_GIF: 'Open GIF modal',
-    ATTACHMENT: {
-      UPLOAD_IMAGES: 'Select upload images',
-      UPLOAD_VIDEO: 'Select upload video',
-      UPLOAD_AUDIO: 'Select upload audio'
-    },
-    COLLECT_MODULE: {
-      OPEN_COLLECT_SETTINGS: 'Open collect module settings',
-      TOGGLE_COLLECT_MODULE: 'Toggle collect module',
-      TOGGLE_CHARGE_FOR_COLLECT: 'Toggle charge for collect',
-      TOGGLE_MIRROR_REFERRAL_REWARD: 'Toggle mirror referral reward',
-      TOGGLE_LIMITED_EDITION_COLLECT: 'Toggle limited edition collect',
-      TOGGLE_TIME_LIMIT_COLLECT: 'Toggle time limit collect',
-      TOGGLE_FOLLOWERS_ONLY_COLLECT: 'Toggle followers only collect',
-      TOGGLE_MULTIPLE_RECIPIENTS_COLLECT: 'Toggle multiple recipients collect'
-    },
-    REFERENCE_MODULE: {
-      OPEN_REFERENCE_SETTINGS: 'Open reference module settings',
-      EVERYONE: 'Select everyone reference',
-      MY_FOLLOWERS: 'Select my followers reference',
-      MY_FOLLOWS: 'Select my follows reference',
-      FRIENDS_OF_FRIENDS: 'Select friends of friends reference'
-    },
-    ACCESS: {
-      OPEN_ACCESS_SETTINGS: 'Open access settings',
-      TOGGLE_RESTRICTED_ACCESS: 'Toggle restricted access',
-      TOGGLE_COLLECT_TO_VIEW_ACCESS: 'Toggle collect to view access',
-      TOGGLE_FOLLOW_TO_VIEW_ACCESS: 'Toggle follow to view access'
-    }
+    CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT',
+    DECRYPT: 'Decrypt token gated publication'
   }
 };
 
-export const POST = {
-  NEW: 'New post'
-};
-
-export const COMMENT = {
-  NEW: 'New comment'
-};
-
 export const NOTIFICATION = {
-  OPEN: 'Open notifications',
-  SWITCH_ALL: 'Switch to all notifications',
-  SWITCH_MENTIONS: 'Switch to mentions notifications',
-  SWITCH_COMMENTS: 'Switch to comments notifications',
-  SWITCH_COLLECTS: 'Switch to collects notifications',
-  SWITCH_LIKES: 'Switch to likes notifications'
+  SWITCH_NOTIFICATION_TAB: 'Switch to notifications tab'
 };
 
 export const MESSAGES = {
@@ -120,7 +63,6 @@ export const MESSAGES = {
 
 export const SETTINGS = {
   ACCOUNT: {
-    OPEN_VERIFICATION: 'Open account verification',
     SET_DEFAULT_PROFILE: 'Set default profile',
     SET_SUPER_FOLLOW: 'Set super follow'
   },
@@ -148,11 +90,6 @@ export const MOD = {
 
 export const STAFFTOOLS = {
   TOGGLE_MODE: 'Toggle staff mode'
-};
-
-export const SEARCH = {
-  FOCUS: 'Focus search input',
-  CLEAR: 'Clear search text'
 };
 
 export const SYSTEM = {

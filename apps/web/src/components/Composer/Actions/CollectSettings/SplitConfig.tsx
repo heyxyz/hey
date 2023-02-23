@@ -5,7 +5,6 @@ import { Input } from '@components/UI/Input';
 import { PlusIcon, SwitchHorizontalIcon, UsersIcon, XCircleIcon } from '@heroicons/react/outline';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isValidEthAddress from '@lib/isValidEthAddress';
-import { Mixpanel } from '@lib/mixpanel';
 import splitNumber from '@lib/splitNumber';
 import { t, Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
@@ -14,7 +13,6 @@ import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PUBLICATION } from 'src/tracking';
 
 const SplitConfig: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -82,7 +80,6 @@ const SplitConfig: FC = () => {
           } else {
             setRecipients([{ recipient: currentProfile?.ownedBy, split: 100 }]);
           }
-          Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_MULTIPLE_RECIPIENTS_COLLECT);
         }}
         heading={
           <div className="flex items-center space-x-2">
