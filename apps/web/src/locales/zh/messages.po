@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-15 00:10\n"
+"PO-Revision-Date: 2023-02-23 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -24,7 +24,7 @@ msgstr "还没有人评论哦~快来抢沙发！"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
-msgstr "评论加载失败"
+msgstr "评论流加载失败"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
@@ -229,7 +229,7 @@ msgstr "暂无动态！"
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
-msgstr "加载探索信息流失败"
+msgstr "内容流加载失败"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
@@ -345,7 +345,7 @@ msgstr "加载精彩内容失败"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
-msgstr "关注推荐"
+msgstr "推荐关注"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "No recommendations!"
@@ -368,7 +368,7 @@ msgstr "为您推荐"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
-msgstr "我的信息流"
+msgstr "我的内容流"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "👀 See the feed through..."
@@ -380,7 +380,7 @@ msgstr "搜索"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
-msgstr "返回您自己的信息流"
+msgstr "返回您自己的内容流"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
@@ -561,7 +561,7 @@ msgstr "私信 • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
-msgstr "评论加载失败"
+msgstr "协调内容流加载失败"
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
@@ -574,7 +574,7 @@ msgstr "没有任何NFT！"
 #: src/components/NFT/NFTFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
-msgstr "加载NFT信息失败"
+msgstr "NFT流加载失败"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -1098,7 +1098,7 @@ msgstr "您认识的关注者"
 
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
-msgstr "无法加载个人主页流"
+msgstr "个人内容流无法加载"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
@@ -1118,7 +1118,7 @@ msgstr "已收藏"
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
-msgstr "NFT（非同质化代币）"
+msgstr "NFT"
 
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
@@ -1914,7 +1914,7 @@ msgstr "反馈"
 
 #: src/components/Shared/Footer.tsx
 msgid "Thanks"
-msgstr "感谢"
+msgstr "鸣谢"
 
 #: src/components/Shared/Footer.tsx
 msgid "GitHub"
