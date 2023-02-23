@@ -1,5 +1,6 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
+import { Image } from '@components/UI/Image';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { Menu } from '@headlessui/react';
@@ -90,7 +91,7 @@ const SeeThroughLens: FC = () => {
         className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20"
       >
         <span className="flex items-center space-x-1 pl-1 text-sm">
-          <img
+          <Image
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
             }}

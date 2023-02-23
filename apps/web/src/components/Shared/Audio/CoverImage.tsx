@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { Spinner } from '@components/UI/Spinner';
 import { PhotographIcon } from '@heroicons/react/outline';
 import imageProxy from '@lib/imageProxy';
@@ -44,7 +45,7 @@ const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef, expan
         className="flex focus:outline-none"
         onClick={() => expandCover(cover ? getIPFSLink(cover) : cover)}
       >
-        <img
+        <Image
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? getIPFSLink(cover) : cover;
           }}

@@ -15,6 +15,8 @@ interface CollectModuleState {
   setCollectLimit: (collectLimit: null | string) => void;
   hasTimeLimit: boolean;
   setHasTimeLimit: (hasTimeLimit: boolean) => void;
+  recipients: { recipient: string; split: number }[];
+  setRecipients: (recipients: { recipient: string; split: number }[]) => void;
   followerOnly: boolean;
   setFollowerOnly: (followerOnly: boolean) => void;
   payload: any;
@@ -35,6 +37,8 @@ export const useCollectModuleStore = create<CollectModuleState>((set) => ({
   setCollectLimit: (collectLimit) => set(() => ({ collectLimit })),
   hasTimeLimit: false,
   setHasTimeLimit: (hasTimeLimit) => set(() => ({ hasTimeLimit })),
+  recipients: [],
+  setRecipients: (recipients) => set(() => ({ recipients })),
   followerOnly: false,
   setFollowerOnly: (followerOnly) => set(() => ({ followerOnly })),
   payload: { revertCollectModule: true },
