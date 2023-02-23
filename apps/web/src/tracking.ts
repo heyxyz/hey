@@ -56,12 +56,7 @@ export const PUBLICATION = {
 };
 
 export const NOTIFICATION = {
-  OPEN: 'Open notifications',
-  SWITCH_ALL: 'Switch to all notifications',
-  SWITCH_MENTIONS: 'Switch to mentions notifications',
-  SWITCH_COMMENTS: 'Switch to comments notifications',
-  SWITCH_COLLECTS: 'Switch to collects notifications',
-  SWITCH_LIKES: 'Switch to likes notifications'
+  SWITCH_NOTIFICATION_TAB: 'Switch to notifications tab'
 };
 
 export const MESSAGES = {
