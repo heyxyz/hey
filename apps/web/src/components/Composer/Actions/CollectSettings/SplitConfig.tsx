@@ -8,7 +8,7 @@ import isValidEthAddress from '@lib/isValidEthAddress';
 import { Mixpanel } from '@lib/mixpanel';
 import splitNumber from '@lib/splitNumber';
 import { t, Trans } from '@lingui/macro';
-import { HANDLE_SUFFIX } from 'data/constants';
+import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
 import { FeatureFlag } from 'data/feature-flags';
 import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
@@ -41,6 +41,10 @@ const SplitConfig: FC = () => {
     setRecipients([...splits]);
   };
 
+  const getIsHandle = (handle: string) => {
+    return handle === LENSPROTOCOL_HANDLE ? true : handle.includes(HANDLE_SUFFIX);
+  };
+
   const onChangeRecipientOrSplit = (index: number, value: string, type: 'recipient' | 'split') => {
     const getRecipients = (value: string) => {
       return recipients.map((recipient, i) => {
@@ -54,7 +58,7 @@ const SplitConfig: FC = () => {
       });
     };
 
-    if (type === 'recipient' && value.includes(HANDLE_SUFFIX)) {
+    if (type === 'recipient' && getIsHandle(value)) {
       getProfileByHandle({
         variables: { request: { handle: value } },
         onCompleted: (data) => {
@@ -97,7 +101,7 @@ const SplitConfig: FC = () => {
             {recipients.map((recipient, index) => (
               <div key={index} className="flex items-center space-x-2 text-sm">
                 <Input
-                  placeholder="0x1234..."
+                  placeholder="0x3A5bd...5e3 or wagmi.lens"
                   value={recipient.recipient}
                   disabled={loading}
                   error={recipient.recipient.length > 0 && !isValidEthAddress(recipient.recipient)}
