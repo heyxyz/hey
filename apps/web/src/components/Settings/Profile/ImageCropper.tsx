@@ -21,7 +21,6 @@ const ImageCropper: FC<Props> = ({ size, imageSrc, setCroppedAreaPixels }) => {
       crop={crop}
       zoom={zoom}
       zoomSpeed={1.2}
-      showGrid={false}
       onCropChange={setCrop}
       onCropComplete={(croppedAreaPixels) => {
         setCroppedAreaPixels(croppedAreaPixels);

@@ -12,8 +12,7 @@
   align-items: center;
 }
 
-.reactEasyCrop_Image,
-.reactEasyCrop_Video {
+.reactEasyCrop_Image {
   will-change: transform; /* this improves performances and prevent painting issues on iOS Chrome */
 }
 
@@ -35,34 +34,4 @@
   transform: translate(-50%, -50%);
   box-sizing: border-box;
   overflow: hidden;
-}
-
-.reactEasyCrop_CropAreaRound {
-  border-radius: 50%;
-}
-
-.reactEasyCrop_CropAreaGrid::before {
-  content: ' ';
-  box-sizing: border-box;
-  position: absolute;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  top: 0;
-  bottom: 0;
-  left: 33.33%;
-  right: 33.33%;
-  border-top: 0;
-  border-bottom: 0;
-}
-
-.reactEasyCrop_CropAreaGrid::after {
-  content: ' ';
-  box-sizing: border-box;
-  position: absolute;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  top: 33.33%;
-  bottom: 33.33%;
-  left: 0;
-  right: 0;
-  border-left: 0;
-  border-right: 0;
 }

@@ -17,8 +17,6 @@ export type CropperProps = {
   borderSize: number;
   crop: Point;
   zoom: number;
-  cropSize?: Size;
-  showGrid?: boolean;
   zoomSpeed: number;
   onCropChange: (location: Point) => void;
   onZoomChange?: (zoom: number) => void;
@@ -26,7 +24,6 @@ export type CropperProps = {
 };
 
 type State = {
-  cropSize: Size | null;
   hasWheelJustStarted: boolean;
 };
 
@@ -39,13 +36,7 @@ type GestureEvent = UIEvent & {
 class Cropper extends React.Component<CropperProps, State> {
   static defaultProps = {
     zoom: 1,
-    cropShape: 'rect' as const,
-    showGrid: true,
-    style: {},
-    classes: {},
-    mediaProps: {},
-    zoomSpeed: 1,
-    zoomWithScroll: true
+    zoomSpeed: 1
   };
 
   imageRef: React.RefObject<HTMLImageElement> = React.createRef();
@@ -64,7 +55,6 @@ class Cropper extends React.Component<CropperProps, State> {
   currentWindow: Window = window;
 
   state: State = {
-    cropSize: null,
     hasWheelJustStarted: false
   };
 
@@ -104,11 +94,6 @@ class Cropper extends React.Component<CropperProps, State> {
   componentDidUpdate(prevProps: CropperProps) {
     if (prevProps.zoom !== this.props.zoom) {
       this.recomputeCropPosition();
-    } else if (
-      prevProps.cropSize?.height !== this.props.cropSize?.height ||
-      prevProps.cropSize?.width !== this.props.cropSize?.width
-    ) {
-      this.computeSizes();
     }
   }
 
@@ -171,10 +156,8 @@ class Cropper extends React.Component<CropperProps, State> {
         naturalHeight
       };
 
-      const cropSize = this.props.cropSize
-        ? this.props.cropSize
-        : { width: this.props.size.width, height: this.props.size.height };
-      this.setState({ cropSize }, this.recomputeCropPosition);
+      const cropSize = { width: this.props.size.width, height: this.props.size.height };
+      this.recomputeCropPosition();
       return cropSize;
     }
   };
@@ -254,9 +237,6 @@ class Cropper extends React.Component<CropperProps, State> {
     }
 
     this.rafDragTimeout = this.currentWindow.requestAnimationFrame(() => {
-      if (!this.state.cropSize) {
-        return;
-      }
       if (x === undefined || y === undefined) {
         return;
       }
@@ -270,7 +250,7 @@ class Cropper extends React.Component<CropperProps, State> {
       const newPosition = restrictPosition(
         requestedPosition,
         this.mediaSize,
-        this.state.cropSize,
+        this.props.size,
         this.props.zoom
       );
       this.props.onCropChange(newPosition);
@@ -347,7 +327,7 @@ class Cropper extends React.Component<CropperProps, State> {
   };
 
   setNewZoom = (zoom: number, point: Point, { shouldUpdatePosition = true } = {}) => {
-    if (!this.state.cropSize || !this.props.onZoomChange) {
+    if (!this.props.onZoomChange) {
       return;
     }
     const fitWidth =
@@ -374,7 +354,7 @@ class Cropper extends React.Component<CropperProps, State> {
         y: zoomTarget.y * newZoom - zoomPoint.y
       };
 
-      const newPosition = restrictPosition(requestedPosition, this.mediaSize, this.state.cropSize, newZoom);
+      const newPosition = restrictPosition(requestedPosition, this.mediaSize, this.props.size, newZoom);
 
       this.props.onCropChange(newPosition);
     }
@@ -382,15 +362,11 @@ class Cropper extends React.Component<CropperProps, State> {
   };
 
   getCropData = () => {
-    if (!this.state.cropSize) {
-      return null;
-    }
-
     // ensure the crop is correctly restricted after a zoom back (https://github.com/ValentinH/react-easy-crop/issues/6)
     const restrictedPosition = restrictPosition(
       this.props.crop,
       this.mediaSize,
-      this.state.cropSize,
+      this.props.size,
       this.props.zoom
     );
     return computeCroppedArea(restrictedPosition, this.props.size, this.mediaSize, this.props.zoom);
@@ -409,17 +385,7 @@ class Cropper extends React.Component<CropperProps, State> {
   };
 
   recomputeCropPosition = () => {
-    if (!this.state.cropSize) {
-      return;
-    }
-
-    const newPosition = restrictPosition(
-      this.props.crop,
-      this.mediaSize,
-      this.state.cropSize,
-      this.props.zoom
-    );
-
+    const newPosition = restrictPosition(this.props.crop, this.mediaSize, this.props.size, this.props.zoom);
     this.props.onCropChange(newPosition);
     this.emitCropData();
   };
@@ -430,8 +396,7 @@ class Cropper extends React.Component<CropperProps, State> {
       size,
       borderSize,
       crop: { x, y },
-      zoom,
-      showGrid
+      zoom
     } = this.props;
 
     return (
@@ -475,22 +440,16 @@ class Cropper extends React.Component<CropperProps, State> {
                 onLoad={this.onMediaLoad}
               />
             )}
-            {this.state.cropSize && (
-              <div
-                style={{
-                  color: '#bbba',
-                  boxShadow: `0 0 0 ${borderSize}px`,
-                  width: size.width,
-                  height: size.height
-                }}
-                data-testid="cropper"
-                className={clsx(
-                  'border-brand-500 border-2',
-                  'reactEasyCrop_CropArea',
-                  showGrid && 'reactEasyCrop_CropAreaGrid'
-                )}
-              />
-            )}
+            <div
+              style={{
+                color: '#bbba',
+                boxShadow: `0 0 0 ${borderSize}px`,
+                width: size.width,
+                height: size.height
+              }}
+              data-testid="cropper"
+              className={clsx('border-brand-500 border-2', 'reactEasyCrop_CropArea')}
+            />
           </div>
         </div>
       </div>
