@@ -80,13 +80,6 @@ export const PUBLICATION = {
       TOGGLE_FOLLOWERS_ONLY_COLLECT: 'Toggle followers only collect',
       TOGGLE_MULTIPLE_RECIPIENTS_COLLECT: 'Toggle multiple recipients collect'
     },
-    REFERENCE_MODULE: {
-      OPEN_REFERENCE_SETTINGS: 'Open reference module settings',
-      EVERYONE: 'Select everyone reference',
-      MY_FOLLOWERS: 'Select my followers reference',
-      MY_FOLLOWS: 'Select my follows reference',
-      FRIENDS_OF_FRIENDS: 'Select friends of friends reference'
-    },
     ACCESS: {
       OPEN_ACCESS_SETTINGS: 'Open access settings',
       TOGGLE_RESTRICTED_ACCESS: 'Toggle restricted access',
