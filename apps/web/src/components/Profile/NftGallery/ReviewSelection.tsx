@@ -4,6 +4,7 @@ import { CollectionIcon, XIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Nft } from 'lens';
 import React from 'react';
+import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 
 const ReviewSelection = () => {
@@ -12,10 +13,37 @@ const ReviewSelection = () => {
 
   const onRemoveItem = (item: Nft) => {
     const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
-    const index = gallery.items.findIndex((n) => n.id === id);
-    const nfts = gallery.items;
+    const index = gallery.items.findIndex((n) => n.itemId === id);
+
+    const nft = {
+      itemId: id,
+      ...item
+    };
+
+    // remove selection from gallery items
+    const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => {
+      return i.itemId === id;
+    });
+    let toRemove: NftGalleryItem[] = [];
+    // if exists
+    if (alreadyExistsIndex >= 0) {
+      toRemove = [...gallery.toRemove, nft];
+    }
+
+    const nfts = [...gallery.items];
     nfts.splice(index, 1);
-    setGallery({ name: gallery.name, items: nfts });
+
+    const sanitizeRemoveDuplicates = toRemove?.filter(
+      (value, index, self) => index === self.findIndex((t) => t.itemId === value.itemId)
+    );
+
+    setGallery({
+      ...gallery,
+      name: gallery.name,
+      items: nfts,
+      toRemove: sanitizeRemoveDuplicates,
+      toAdd: gallery.toAdd
+    });
   };
 
   if (!gallery.items.length) {
