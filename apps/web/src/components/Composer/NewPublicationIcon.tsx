@@ -19,7 +19,7 @@ const NewPublicationIcon = () => {
   };
 
   return (
-    <button type="button" className="hidden p-1 md:block" onClick={() => openModal()}>
+    <button type="button" className="hidden p-1 focus:outline-none md:block" onClick={() => openModal()}>
       <PencilAltIcon className="h-5 w-5 sm:h-6 sm:w-6" />
     </button>
   );

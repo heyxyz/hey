@@ -22,6 +22,7 @@ const GlobalModals: FC = () => {
   const showProfileSwitchModal = useGlobalModalStateStore((state) => state.showProfileSwitchModal);
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
   const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
+  const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const showAuthModal = useAuthStore((state) => state.showAuthModal);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
@@ -66,7 +67,10 @@ const GlobalModals: FC = () => {
         title={t`Create post`}
         size="md"
         show={showNewPostModal}
-        onClose={() => setShowNewPostModal(false)}
+        onClose={() => {
+          setShowNewPostModal(false);
+          setPublicationContent('');
+        }}
       >
         <NewPublication />
       </Modal>
