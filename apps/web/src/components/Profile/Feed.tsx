@@ -130,14 +130,15 @@ const Feed: FC<Props> = ({ profile, type }) => {
       loader={<InfiniteLoader />}
     >
       <Card className="divide-y-[1px] dark:divide-gray-700">
-        {txnQueue.map(
-          (txn) =>
-            txn?.type === 'NEW_POST' && (
-              <div key={txn.id}>
-                <QueuedPublication txn={txn} />
-              </div>
-            )
-        )}
+        {type === ProfileFeedType.Feed &&
+          txnQueue.map(
+            (txn) =>
+              txn?.type === 'NEW_POST' && (
+                <div key={txn.id}>
+                  <QueuedPublication txn={txn} />
+                </div>
+              )
+          )}
         {publications?.map((publication, index) => (
           <SinglePublication
             key={`${publication.id}_${index}`}
