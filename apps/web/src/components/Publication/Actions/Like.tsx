@@ -68,7 +68,6 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const getEventProperties = (type: 'like' | 'dislike') => {
     return {
-      [`${type}_by`]: currentProfile?.id,
       [`${type}_publication`]: publication?.id,
       [`${type}_source`]: getLikeSource()
     };

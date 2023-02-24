@@ -22,7 +22,7 @@ import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
-import { MISCELLANEOUS, SEARCH } from 'src/tracking';
+import { MISCELLANEOUS } from 'src/tracking';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -125,10 +125,7 @@ const SeeThroughLens: FC = () => {
               iconRight={
                 <XIcon
                   className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
-                  onClick={() => {
-                    setSearchText('');
-                    Mixpanel.track(SEARCH.CLEAR);
-                  }}
+                  onClick={() => setSearchText('')}
                 />
               }
               onChange={handleSearch}
@@ -162,7 +159,9 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
-                      Mixpanel.track(MISCELLANEOUS.SELECT_USER_FEED);
+                      Mixpanel.track(MISCELLANEOUS.SELECT_USER_FEED, {
+                        see_through_profile: profile?.id
+                      });
                     }}
                   >
                     <UserProfile linkToProfile={false} profile={profile} showUserPreview={false} />

@@ -1,12 +1,10 @@
 import Slug from '@components/Shared/Slug';
 import UserPreview from '@components/Shared/UserPreview';
 import formatHandle from '@lib/formatHandle';
-import { Mixpanel } from '@lib/mixpanel';
 import { Matcher } from 'interweave';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import { createElement } from 'react';
-import { PUBLICATION } from 'src/tracking';
 
 import { UrlMatcher } from './UrlMatcher';
 
@@ -19,13 +17,7 @@ export const Mention = ({ ...props }) => {
   };
 
   return (
-    <Link
-      href={`/u/${formatHandle(props.display.slice(1))}`}
-      onClick={(event) => {
-        event.stopPropagation();
-        Mixpanel.track(PUBLICATION.MENTION_CLICK);
-      }}
-    >
+    <Link href={`/u/${formatHandle(props.display.slice(1))}`} onClick={(event) => event.stopPropagation()}>
       {profile?.handle ? (
         <UserPreview
           isBig={props?.isBig}

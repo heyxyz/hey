@@ -1,12 +1,10 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Input } from '@components/UI/Input';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { Erc20 } from 'lens';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PUBLICATION } from 'src/tracking';
 
 import ReferralConfig from './ReferralConfig';
 
@@ -28,7 +26,6 @@ const AmountConfig: FC<Props> = ({ enabledModuleCurrencies }) => {
         setOn={() => {
           setAmount(amount ? null : '1');
           setRecipients([]);
-          Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
         }}
         heading={t`Charge for collecting`}
         description={t`Get paid whenever someone collects your post`}

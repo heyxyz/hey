@@ -40,7 +40,9 @@ const Report: FC<Props> = ({ publication }) => {
   const [createReport, { data: submitData, loading: submitLoading, error: submitError }] =
     useReportPublicationMutation({
       onCompleted: () => {
-        Mixpanel.track(PUBLICATION.REPORT);
+        Mixpanel.track(PUBLICATION.REPORT, {
+          report_publication_id: publication?.id
+        });
       }
     });
 

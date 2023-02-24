@@ -29,7 +29,9 @@ const SwitchProfiles: FC = () => {
             setCurrentProfile(selectedProfile);
             setProfileId(selectedProfile.id);
             setShowProfileSwitchModal(false);
-            Mixpanel.track(PROFILE.SWITCH_PROFILE);
+            Mixpanel.track(PROFILE.SWITCH_PROFILE, {
+              switch_profile_to: selectedProfile.id
+            });
           }}
         >
           <span className="flex items-center space-x-2">

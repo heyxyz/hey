@@ -1,11 +1,9 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Input } from '@components/UI/Input';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PUBLICATION } from 'src/tracking';
 
 const ReferralConfig: FC = () => {
   const referralFee = useCollectModuleStore((state) => state.referralFee);
@@ -15,10 +13,7 @@ const ReferralConfig: FC = () => {
     <div className="pt-5">
       <ToggleWithHelper
         on={Boolean(referralFee)}
-        setOn={() => {
-          setReferralFee(referralFee ? null : '25');
-          Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_MIRROR_REFERRAL_REWARD);
-        }}
+        setOn={() => setReferralFee(referralFee ? null : '25')}
         heading={t`Mirror referral reward`}
         description={t`Share your fee with people who amplify your content`}
         icon={<SwitchHorizontalIcon className="h-4 w-4" />}
