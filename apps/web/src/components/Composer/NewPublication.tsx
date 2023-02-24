@@ -55,6 +55,7 @@ import {
 } from 'lens';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -91,6 +92,7 @@ interface Props {
 }
 
 const NewPublication: FC<Props> = ({ publication }) => {
+  const { asPath } = useRouter();
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -150,6 +152,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
     // Track in mixpanel
     const eventProperties = {
+      publication_created_path: asPath,
       publication_type: restricted ? 'token_gated' : 'public',
       publication_collect_module: selectedCollectModule,
       publication_reference_module: selectedReferenceModule,

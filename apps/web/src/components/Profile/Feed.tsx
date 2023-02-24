@@ -1,3 +1,4 @@
+import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { Card } from '@components/UI/Card';
@@ -14,6 +15,7 @@ import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
+import { useTransactionPersistStore } from 'src/store/transaction';
 
 export enum ProfileFeedType {
   Feed = 'FEED',
@@ -31,6 +33,7 @@ interface Props {
 const Feed: FC<Props> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);
+  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   const getMediaFilters = () => {
     let filters: PublicationMainFocus[] = [];
@@ -127,6 +130,14 @@ const Feed: FC<Props> = ({ profile, type }) => {
       loader={<InfiniteLoader />}
     >
       <Card className="divide-y-[1px] dark:divide-gray-700">
+        {txnQueue.map(
+          (txn) =>
+            txn?.type === 'NEW_POST' && (
+              <div key={txn.id}>
+                <QueuedPublication txn={txn} />
+              </div>
+            )
+        )}
         {publications?.map((publication, index) => (
           <SinglePublication
             key={`${publication.id}_${index}`}
