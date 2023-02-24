@@ -6,7 +6,7 @@ import MenuTransition from '../MenuTransition';
 import List from './List';
 
 interface Props {
-  emoji: string | null;
+  emoji?: string | null;
   setEmoji: (emoji: string) => void;
 }
 
