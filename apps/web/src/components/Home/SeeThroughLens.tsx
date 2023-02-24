@@ -159,7 +159,9 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
-                      Mixpanel.track(MISCELLANEOUS.SELECT_USER_FEED);
+                      Mixpanel.track(MISCELLANEOUS.SELECT_USER_FEED, {
+                        see_through_profile: profile?.id
+                      });
                     }}
                   >
                     <UserProfile linkToProfile={false} profile={profile} showUserPreview={false} />
