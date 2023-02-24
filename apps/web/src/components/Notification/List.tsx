@@ -27,6 +27,14 @@ import LikeNotification from './Type/LikeNotification';
 import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
 
+export enum NotificationType {
+  All = 'ALL',
+  Mentions = 'MENTIONS',
+  Comments = 'COMMENTS',
+  Likes = 'LIKES',
+  Collects = 'COLLECTS'
+}
+
 interface Props {
   feedType: string;
 }
@@ -36,15 +44,15 @@ const List: FC<Props> = ({ feedType }) => {
 
   const getNotificationType = () => {
     switch (feedType) {
-      case 'ALL':
+      case NotificationType.All:
         return;
-      case 'MENTIONS':
+      case NotificationType.Mentions:
         return [NotificationTypes.MentionPost, NotificationTypes.MentionComment];
-      case 'COMMENTS':
+      case NotificationType.Comments:
         return [NotificationTypes.CommentedPost, NotificationTypes.CommentedComment];
-      case 'LIKES':
+      case NotificationType.Likes:
         return [NotificationTypes.ReactionPost, NotificationTypes.ReactionComment];
-      case 'COLLECTS':
+      case NotificationType.Collects:
         return [NotificationTypes.CollectedPost, NotificationTypes.CollectedComment];
       default:
         return;

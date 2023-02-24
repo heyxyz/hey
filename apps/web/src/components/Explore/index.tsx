@@ -5,17 +5,18 @@ import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Tab } from '@headlessui/react';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
+import { FeatureFlag } from 'data/feature-flags';
 import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
+import { EXPLORE, PAGEVIEW } from 'src/tracking';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
@@ -26,7 +27,7 @@ const Explore: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'explore' });
+    Mixpanel.track(PAGEVIEW, { page: 'explore' });
   }, []);
 
   const tabs = [
@@ -55,7 +56,9 @@ const Explore: NextPage = () => {
                 key={index}
                 defaultChecked={index === 1}
                 onClick={() => {
-                  Leafwatch.track(`switch_to_${tab.type?.toLowerCase()}_tab_in_explore`);
+                  Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
+                    explore_feed_type: tab.type.toLowerCase()
+                  });
                 }}
                 className={({ selected }) =>
                   clsx(
@@ -79,7 +82,7 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {isFeatureEnabled('trending-widget', currentProfile?.id) && <Trending />}
+        {isFeatureEnabled(FeatureFlag.TrendingWidget, currentProfile?.id) && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>

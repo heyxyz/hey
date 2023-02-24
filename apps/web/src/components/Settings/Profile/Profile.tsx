@@ -3,6 +3,7 @@ import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
+import { Image } from '@components/UI/Image';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
@@ -12,7 +13,7 @@ import getProfileAttribute from '@lib/getProfileAttribute';
 import getSignature from '@lib/getSignature';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -61,7 +62,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
-    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
+    Mixpanel.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -241,7 +242,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
           <div className="space-y-3">
             {cover && (
               <div>
-                <img
+                <Image
                   className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
                     currentTarget.src = getIPFSLink(cover);

@@ -1,9 +1,10 @@
 import { Button } from '@components/UI/Button';
+import { Image } from '@components/UI/Image';
 import { LightBox } from '@components/UI/LightBox';
 import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
@@ -125,7 +126,7 @@ const Attachments: FC<Props> = ({
                   expandCover={(url) => setExpandedImage(url)}
                 />
               ) : (
-                <img
+                <Image
                   className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
                   loading="lazy"
                   height={1000}
@@ -135,7 +136,7 @@ const Attachments: FC<Props> = ({
                   }}
                   onClick={() => {
                     setExpandedImage(url);
-                    Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
+                    Mixpanel.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
                   }}
                   src={isNew ? url : imageProxy(url, ATTACHMENT)}
                   alt={isNew ? url : imageProxy(url, ATTACHMENT)}

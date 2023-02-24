@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -15,7 +15,7 @@ const Search: NextPage = () => {
   const { query } = useRouter();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'search' });
+    Mixpanel.track(PAGEVIEW, { page: 'search' });
   }, []);
 
   if (!query.q || !['pubs', 'profiles'].includes(query.type as any)) {

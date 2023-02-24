@@ -1,6 +1,6 @@
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { LogoutIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import resetAuthData from '@lib/resetAuthData';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -23,7 +23,7 @@ const Logout: FC<Props> = ({ onClick, className = '' }) => {
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const logout = () => {
-    Leafwatch.track(PROFILE.LOGOUT);
+    Mixpanel.track(PROFILE.LOGOUT);
     disconnectXmtp();
     setCurrentProfile(null);
     setProfileId(null);

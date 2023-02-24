@@ -23,7 +23,7 @@ import type {
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import formatHandle from '@lib/formatHandle';
 import getURLs from '@lib/getURLs';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -197,7 +197,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
               <Link
                 href={`/posts/${collectCondition?.publicationId}`}
                 className="font-bold lowercase underline"
-                onClick={() => Leafwatch.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT)}
+                onClick={() => Mixpanel.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT)}
               >
                 {encryptedPublication?.__typename}
               </Link>
@@ -231,7 +231,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
               <a
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
                 className="font-bold underline"
-                onClick={() => Leafwatch.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
+                onClick={() => Mixpanel.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -249,7 +249,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
                 <a
                   href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
-                  onClick={() => Leafwatch.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
+                  onClick={() => Mixpanel.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -284,7 +284,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
         onClick={(event) => {
           event.stopPropagation();
           getDecryptedData();
-          Leafwatch.track(PUBLICATION.TOKEN_GATED.DECRYPT);
+          Mixpanel.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
       >
         <div className="flex items-center space-x-1 font-bold text-white">

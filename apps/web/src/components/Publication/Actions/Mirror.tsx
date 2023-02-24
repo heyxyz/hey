@@ -5,7 +5,7 @@ import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import humanize from '@lib/humanize';
 import { publicationKeyFields } from '@lib/keyFields';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -62,7 +62,7 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
   const onCompleted = () => {
     setMirrored(true);
     toast.success(t`Post has been mirrored!`);
-    Leafwatch.track(PUBLICATION.MIRROR);
+    Mixpanel.track(PUBLICATION.MIRROR);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({

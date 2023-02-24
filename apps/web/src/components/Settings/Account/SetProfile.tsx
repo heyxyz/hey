@@ -6,7 +6,7 @@ import { Spinner } from '@components/UI/Spinner';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
@@ -33,7 +33,7 @@ const SetProfile: FC = () => {
 
   const onCompleted = () => {
     toast.success(t`Default profile updated successfully!`);
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {

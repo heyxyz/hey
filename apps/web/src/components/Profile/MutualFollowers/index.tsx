@@ -1,13 +1,12 @@
+import { Image } from '@components/UI/Image';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
-import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useMutualFollowersQuery } from 'lens';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
-import { PROFILE } from 'src/tracking';
 
 interface Props {
   setShowMutualFollowersModal?: Dispatch<boolean>;
@@ -38,14 +37,11 @@ const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, vari
         'text-sm': variant === 'sm',
         'text-xs': variant === 'xs'
       })}
-      onClick={() => {
-        setShowMutualFollowersModal?.(true);
-        Leafwatch.track(PROFILE.OPEN_MUTUAL_FOLLOWERS);
-      }}
+      onClick={() => setShowMutualFollowersModal?.(true)}
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (
-          <img
+          <Image
             key={profile.handle}
             className="h-5 w-5 rounded-full border dark:border-gray-700"
             onError={({ currentTarget }) => {

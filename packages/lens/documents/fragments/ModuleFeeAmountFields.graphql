@@ -1,0 +1,8 @@
+fragment ModuleFeeAmountFields on ModuleFeeAmount {
+  asset {
+    symbol
+    decimals
+    address
+  }
+  value
+}
