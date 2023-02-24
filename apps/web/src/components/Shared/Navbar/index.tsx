@@ -1,3 +1,4 @@
+import NewPublicationIcon from '@components/Composer/NewPublicationIcon';
 import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
@@ -108,6 +109,7 @@ const Navbar: FC = () => {
               <div className="flex items-center gap-4">
                 {currentProfile ? (
                   <>
+                    <NewPublicationIcon />
                     <MessageIcon />
                     <NotificationIcon />
                   </>

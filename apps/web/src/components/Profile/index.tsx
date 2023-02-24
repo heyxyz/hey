@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import NewPost from '@components/Composer/Post/New';
 import NFTFeed from '@components/NFT/NFTFeed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
@@ -119,7 +118,6 @@ const ViewProfile: NextPage = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
-          {currentProfile?.id === profile?.id && feedType === ProfileFeedType.Feed ? <NewPost /> : null}
           {(feedType === ProfileFeedType.Feed ||
             feedType === ProfileFeedType.Replies ||
             feedType === ProfileFeedType.Media ||
