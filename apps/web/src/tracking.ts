@@ -55,6 +55,11 @@ export const NOTIFICATION = {
   SWITCH_NOTIFICATION_TAB: 'Switch notifications tab'
 };
 
+export const EXPLORE = {
+  SWITCH_EXPLORE_FEED_TAB: 'Switch explore feed tab',
+  SWITCH_EXPLORE_FEED_FOCUS: 'Switch explore feed focus'
+};
+
 export const MESSAGES = {
   SEND: 'Send message',
   OPEN_NEW_CONVERSATION: 'Open new conversation modal'
@@ -74,6 +79,9 @@ export const SETTINGS = {
   },
   DISPATCHER: {
     TOGGLE: 'Toggle dispatcher'
+  },
+  ALLOWANCE: {
+    TOGGLE: 'Toggle allowance'
   },
   INTERESTS: {
     ADD: 'Add profile interest',

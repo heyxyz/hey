@@ -3,6 +3,7 @@ import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { PublicationMainFocus } from 'lens';
 import type { Dispatch, FC } from 'react';
+import { EXPLORE } from 'src/tracking';
 
 interface Props {
   setFocus: Dispatch<PublicationMainFocus>;
@@ -20,7 +21,9 @@ const FeedType: FC<Props> = ({ setFocus, focus }) => {
       type="button"
       onClick={() => {
         setFocus(type as PublicationMainFocus);
-        Mixpanel.track(`Select ${(type ?? 'all_posts')?.toLowerCase()} filter in explore`);
+        Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
+          explore_feed_focus: (type ?? 'all_posts').toLowerCase()
+        });
       }}
       className={clsx(
         { '!bg-brand-500 !text-white': focus === type },
