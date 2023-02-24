@@ -16,7 +16,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
+import { EXPLORE, PAGEVIEW } from 'src/tracking';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
@@ -56,7 +56,9 @@ const Explore: NextPage = () => {
                 key={index}
                 defaultChecked={index === 1}
                 onClick={() => {
-                  Mixpanel.track(`Switch to ${tab.type?.toLowerCase()} tab in explore`);
+                  Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
+                    explore_feed_type: tab.type.toLowerCase()
+                  });
                 }}
                 className={({ selected }) =>
                   clsx(

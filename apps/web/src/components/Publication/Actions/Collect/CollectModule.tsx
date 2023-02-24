@@ -80,6 +80,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   });
 
   const collectModule: any = data?.publication?.collectModule;
+  const isRevertCollectModule = collectModule?.type === CollectModules.RevertCollectModule;
   const isMultirecipientFeeCollectModule =
     collectModule?.type === CollectModules.MultirecipientFeeCollectModule;
   const isFreeCollectModule = collectModule?.type === CollectModules.FreeCollectModule;
@@ -91,7 +92,15 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
-    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+      collect_module: collectModule?.type,
+      collect_publication_id: publication?.id,
+      ...(!isRevertCollectModule && {
+        collect_amount: collectModule?.amount?.value,
+        collect_currency: collectModule?.amount?.asset?.symbol,
+        collect_limit: collectLimit
+      })
+    });
   };
 
   const { isFetching, refetch } = useContractRead({

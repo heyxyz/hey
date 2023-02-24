@@ -12,6 +12,7 @@ import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { SETTINGS } from 'src/tracking';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface Props {
@@ -42,7 +43,11 @@ const AllowanceButton: FC<Props> = ({ title = t`Allow`, module, allowed, setAllo
       toast.success(t`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Mixpanel.track(`Module ${allowed ? 'disabled' : 'enabled'}`);
+      Mixpanel.track(SETTINGS.ALLOWANCE.TOGGLE, {
+        allowance_module: module.module,
+        allowance_currency: module.currency,
+        allowance_allowed: !allowed
+      });
     },
     onError
   });
