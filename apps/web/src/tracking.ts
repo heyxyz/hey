@@ -105,11 +105,14 @@ export const SYSTEM = {
 };
 
 export const MISCELLANEOUS = {
-  NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
-  NAVIGATE_UPDATE_PROFILE_INTERESTS: 'Navigate to update profile interests from onboarding',
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_TRENDING_TAG: 'Open trending tag',
   SWITCH_TIMELINE: 'Switch to timeline',
   SWITCH_HIGHLIGHTS: 'Switch to highlights',
   SELECT_USER_FEED: 'Select user feed'
+};
+
+export const ONBOARDING = {
+  NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
+  NAVIGATE_UPDATE_PROFILE_INTERESTS: 'Navigate to update profile interests from onboarding'
 };

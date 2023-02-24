@@ -9,7 +9,7 @@ import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { MISCELLANEOUS } from 'src/tracking';
+import { ONBOARDING } from 'src/tracking';
 
 interface StatusProps {
   finished: boolean;
@@ -59,7 +59,7 @@ const SetProfile: FC = () => {
         <div>
           <Link
             className="flex items-center space-x-2"
-            onClick={() => Mixpanel.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE_INTERESTS)}
+            onClick={() => Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)}
             href="/settings/interests"
           >
             <Status
@@ -72,7 +72,7 @@ const SetProfile: FC = () => {
       </div>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilAltIcon className="h-4 w-4" />
-        <Link onClick={() => Mixpanel.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE)} href="/settings">
+        <Link onClick={() => Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)} href="/settings">
           <Trans>Update profile now</Trans>
         </Link>
       </div>
