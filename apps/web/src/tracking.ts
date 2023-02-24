@@ -26,7 +26,6 @@ export const PUBLICATION = {
   MIRROR: 'Mirror publication',
   EMBED: 'Embed publication',
   PERMALINK: 'Permalink publication',
-  MORE: 'More publication options',
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   OEMBED_CLICK: 'Click publication oembed',
@@ -56,6 +55,11 @@ export const NOTIFICATION = {
   SWITCH_NOTIFICATION_TAB: 'Switch notifications tab'
 };
 
+export const EXPLORE = {
+  SWITCH_EXPLORE_FEED_TAB: 'Switch explore feed tab',
+  SWITCH_EXPLORE_FEED_FOCUS: 'Switch explore feed focus'
+};
+
 export const MESSAGES = {
   SEND: 'Send message',
   OPEN_NEW_CONVERSATION: 'Open new conversation modal'
@@ -75,6 +79,9 @@ export const SETTINGS = {
   },
   DISPATCHER: {
     TOGGLE: 'Toggle dispatcher'
+  },
+  ALLOWANCE: {
+    TOGGLE: 'Toggle allowance'
   },
   INTERESTS: {
     ADD: 'Add profile interest',
@@ -98,8 +105,6 @@ export const SYSTEM = {
 };
 
 export const MISCELLANEOUS = {
-  NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
-  NAVIGATE_UPDATE_PROFILE_INTERESTS: 'Navigate to update profile interests from onboarding',
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_TRENDING_TAG: 'Open trending tag',
   SWITCH_TIMELINE: 'Switch to timeline',
@@ -107,13 +112,7 @@ export const MISCELLANEOUS = {
   SELECT_USER_FEED: 'Select user feed'
 };
 
-export const FOOTER = {
-  DISCORD: 'Open Discord',
-  DONATE: 'Open donate',
-  STATUS: 'Open status',
-  VOTE: 'Open vote',
-  FEEDBACK: 'Open feedback',
-  GITHUB: 'Open GitHub',
-  TRANSLATE: 'Open translate',
-  VERCEL: 'Open Vercel'
+export const ONBOARDING = {
+  NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
+  NAVIGATE_UPDATE_PROFILE_INTERESTS: 'Navigate to update profile interests from onboarding'
 };
