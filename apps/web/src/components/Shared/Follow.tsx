@@ -69,7 +69,6 @@ const Follow: FC<Props> = ({
       follow_path: pathname,
       ...(followSource && { follow_source: followSource }),
       ...(followPosition && { follow_position: followPosition }),
-      follow_from: currentProfile?.id,
       follow_target: profile?.id
     });
   };
