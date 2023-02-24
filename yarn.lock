@@ -159,7 +159,6 @@
   dependencies:
     tslib "^2.3.1"
 
-"@aws-sdk/client-s3@^3.276.0":
 "@aws-sdk/client-s3@^3.278.0":
   version "3.278.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.278.0.tgz#73dc0623fccb79d3c03990afdf6e9fc697b22606"
