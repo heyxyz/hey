@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-24 00:09\n"
+"PO-Revision-Date: 2023-02-25 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1177,6 +1177,10 @@ msgstr "创建新的去中心化个人账号"
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery created"
 msgstr "画廊已创建"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery updated"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
