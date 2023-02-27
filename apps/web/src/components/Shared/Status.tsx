@@ -29,9 +29,9 @@ import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
+import { useGlobalModalStateStore } from '../../store/modals';
 import EmojiPicker from './EmojiPicker';
 import Loader from './Loader';
-import {useGlobalModalStateStore} from "../../store/modals";
 
 const editStatusSchema = object({
   status: string()
@@ -61,7 +61,7 @@ const Status: FC = () => {
 
   const onCompleted = () => {
     toast.success(t`Status updated successfully!`);
-    setShowStatusModal(false)
+    setShowStatusModal(false);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
