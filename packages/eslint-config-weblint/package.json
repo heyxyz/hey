@@ -6,7 +6,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "eslint": "^8.34.0",
+    "eslint": "^8.35.0",
     "eslint-config-next": "^13.2.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",

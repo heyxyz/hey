@@ -14,7 +14,7 @@ import {
   ALLOWED_VIDEO_TYPES
 } from 'data/constants';
 import type { ChangeEvent, FC } from 'react';
-import { useId, useRef, useState } from 'react';
+import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 
@@ -96,18 +96,16 @@ const Attachment: FC = () => {
 
   return (
     <Menu as="div">
-      <Menu.Button
-        onClick={() => setShowMenu(!showMenu)}
-        className="rounded-full hover:bg-gray-300 hover:bg-opacity-20"
-        aria-label="More"
-      >
-        {isUploading ? (
-          <Spinner size="sm" />
-        ) : (
-          <Tooltip placement="top" content="Media">
-            <PhotographIcon className="text-brand h-5 w-5" />
-          </Tooltip>
-        )}
+      <Menu.Button as={Fragment}>
+        <button onClick={() => setShowMenu(!showMenu)} aria-label="More">
+          {isUploading ? (
+            <Spinner size="sm" />
+          ) : (
+            <Tooltip placement="top" content="Media">
+              <PhotographIcon className="text-brand h-5 w-5" />
+            </Tooltip>
+          )}
+        </button>
       </Menu.Button>
       <MenuTransition show={showMenu}>
         <Menu.Items
