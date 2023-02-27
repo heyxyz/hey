@@ -45,7 +45,7 @@ yarn-error.log*
 # playwright
 .gitsigners
 
-# jetbrains IDE
+# JetBrains IDE
 .idea
 
 test-results/
