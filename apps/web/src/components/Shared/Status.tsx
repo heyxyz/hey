@@ -31,6 +31,7 @@ import { object, string } from 'zod';
 
 import EmojiPicker from './EmojiPicker';
 import Loader from './Loader';
+import {useGlobalModalStateStore} from "../../store/modals";
 
 const editStatusSchema = object({
   status: string()
@@ -40,6 +41,7 @@ const editStatusSchema = object({
 
 const Status: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const [isUploading, setIsUploading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
 
@@ -59,6 +61,7 @@ const Status: FC = () => {
 
   const onCompleted = () => {
     toast.success(t`Status updated successfully!`);
+    setShowStatusModal(false)
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
