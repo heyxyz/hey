@@ -232,6 +232,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         </Button>
         <Button
           disabled={
+            (parseFloat(amount as string) <= 0 && selectedCollectModule !== FreeCollectModule) ||
             splitTotal > 100 ||
             hasEmptyRecipients ||
             hasInvalidEthAddressInRecipients ||
