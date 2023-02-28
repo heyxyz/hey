@@ -1,10 +1,11 @@
 // Strings used for events tracking
 
 export const PAGEVIEW = 'Pageview';
-export const USER = {
+export const AUTH = {
   LOGIN: 'User login',
   LOGOUT: 'User logout',
   SIWL: 'Sign in with Lens',
+  CONNECT_WALLET: 'Connect wallet',
   CHANGE_WALLET: 'Change wallet'
 };
 
@@ -109,7 +110,8 @@ export const MISCELLANEOUS = {
   OPEN_TRENDING_TAG: 'Open trending tag',
   SWITCH_TIMELINE: 'Switch to timeline',
   SWITCH_HIGHLIGHTS: 'Switch to highlights',
-  SELECT_USER_FEED: 'Select user feed'
+  SELECT_USER_FEED: 'Select user feed',
+  SELECT_LOCALE: 'Select locale'
 };
 
 export const ONBOARDING = {
