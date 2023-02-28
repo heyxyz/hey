@@ -5,7 +5,6 @@ routes = [
 	{ pattern = "freshdesk.lenster.xyz", custom_domain = true }
 ]
 keep_vars = true
-node_compat = true
 
 [env.production.vars]
 POSTMARK_TOKEN = ""
