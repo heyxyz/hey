@@ -14,7 +14,11 @@ import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
-const SplitConfig: FC = () => {
+interface Props {
+  isRecipientsDuplicated: () => boolean;
+}
+
+const SplitConfig: FC<Props> = ({ isRecipientsDuplicated }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const recipients = useCollectModuleStore((state) => state.recipients);
   const setRecipients = useCollectModuleStore((state) => state.setRecipients);
@@ -155,6 +159,11 @@ const SplitConfig: FC = () => {
               <Trans>
                 Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
               </Trans>
+            </div>
+          ) : null}
+          {isRecipientsDuplicated() ? (
+            <div className="text-sm font-bold text-red-500">
+              <Trans>Duplicate recipient address found</Trans>
             </div>
           ) : null}
         </div>
