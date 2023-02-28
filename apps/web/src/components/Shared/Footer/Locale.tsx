@@ -7,6 +7,7 @@ import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
+import { MISCELLANEOUS } from 'src/tracking';
 
 import MenuTransition from '../MenuTransition';
 
@@ -37,7 +38,7 @@ const Locale: FC = () => {
               as="div"
               onClick={() => {
                 setLocale(localeCode);
-                Mixpanel.track('Locale changed', {
+                Mixpanel.track(MISCELLANEOUS.SELECT_LOCALE, {
                   locale: localeCode
                 });
               }}

@@ -17,7 +17,7 @@ import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
-import { USER } from 'src/tracking';
+import { AUTH } from 'src/tracking';
 import type { Connector } from 'wagmi';
 import { useAccount, useConnect, useDisconnect, useNetwork, useSignMessage } from 'wagmi';
 
@@ -51,7 +51,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Mixpanel.track('Connect wallet', {
+      Mixpanel.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
     } catch (error) {
@@ -102,7 +102,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Mixpanel.track(USER.SIWL);
+      Mixpanel.track(AUTH.SIWL);
     } catch (error) {
       console.error(error);
     } finally {
@@ -136,7 +136,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         <button
           onClick={() => {
             disconnect?.();
-            Mixpanel.track(USER.CHANGE_WALLET);
+            Mixpanel.track(AUTH.CHANGE_WALLET);
           }}
           className="flex items-center space-x-1 text-sm underline"
         >
