@@ -569,9 +569,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       if (restricted) {
         arweaveId = await createTokenGatedMetadata(metadata);
       } else {
-        if (!useDataAvailability) {
-          arweaveId = await createMetadata(metadata);
-        }
+        arweaveId = await createMetadata(metadata);
       }
 
       // Payload for the post/comment
@@ -600,7 +598,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         ...(isComment && {
           commentOn: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }),
-        metadata: { v2: { ...metadata } }
+        contentURI: `ar://${arweaveId}`
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
