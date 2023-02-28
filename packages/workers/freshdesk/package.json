@@ -1,11 +1,11 @@
 {
-  "name": "@workers/prerender",
+  "name": "@workers/freshdesk",
   "version": "0.0.0",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
+    "dev": "wrangler dev --port 8084 --local",
     "worker:deploy": "wrangler publish",
-    "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts"
   },
   "devDependencies": {

@@ -3,18 +3,20 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { Input } from '@components/UI/Input';
 import { PlusIcon, SwitchHorizontalIcon, UsersIcon, XCircleIcon } from '@heroicons/react/outline';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import isValidEthAddress from '@lib/isValidEthAddress';
 import splitNumber from '@lib/splitNumber';
 import { t, Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
-import { FeatureFlag } from 'data/feature-flags';
 import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
-const SplitConfig: FC = () => {
+interface Props {
+  isRecipientsDuplicated: () => boolean;
+}
+
+const SplitConfig: FC<Props> = ({ isRecipientsDuplicated }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const recipients = useCollectModuleStore((state) => state.recipients);
   const setRecipients = useCollectModuleStore((state) => state.setRecipients);
@@ -23,10 +25,6 @@ const SplitConfig: FC = () => {
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
 
   const [getProfileByHandle, { loading }] = useProfileLazyQuery();
-
-  if (!isFeatureEnabled(FeatureFlag.MultipleRecipientCollect, currentProfile?.id)) {
-    return null;
-  }
 
   const splitEvenly = () => {
     const equalSplits = splitNumber(100, recipients.length);
@@ -155,6 +153,11 @@ const SplitConfig: FC = () => {
               <Trans>
                 Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
               </Trans>
+            </div>
+          ) : null}
+          {isRecipientsDuplicated() ? (
+            <div className="text-sm font-bold text-red-500">
+              <Trans>Duplicate recipient address found</Trans>
             </div>
           ) : null}
         </div>
