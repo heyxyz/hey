@@ -3,8 +3,6 @@ import { MDBoldMatcher } from '@components/utils/matchers/markdown/MDBoldMatcher
 import { MDCodeMatcher } from '@components/utils/matchers/markdown/MDCodeMatcher';
 import { MDItalicMatcher } from '@components/utils/matchers/markdown/MDItalicMatcher';
 import { MDLinkMatcher } from '@components/utils/matchers/markdown/MDLinkMatcher';
-import { MDQuoteMatcher } from '@components/utils/matchers/markdown/MDQuoteMatcher';
-import { MDStrikeMatcher } from '@components/utils/matchers/markdown/MDStrikeMatcher';
 import { MentionMatcher } from '@components/utils/matchers/MentionMatcher';
 import { ParenthesesUrlMatcher, UrlMatcher } from '@components/utils/matchers/UrlMatcher';
 import trimify from '@lib/trimify';
@@ -26,9 +24,7 @@ const Markup: FC<Props> = ({ children, className = '', matchOnlyUrl }) => {
     new UrlMatcher('url'),
     new HashtagMatcher('hashtag'),
     new MDBoldMatcher('mdBold'),
-    new MDItalicMatcher('mdItalic'),
-    new MDStrikeMatcher('mdStrike'),
-    new MDQuoteMatcher('mdQuote')
+    new MDItalicMatcher('mdItalic')
   ];
 
   return (

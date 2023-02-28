@@ -54,6 +54,10 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   const hasInvalidEthAddressInRecipients = recipients.some(
     (recipient) => recipient.recipient && !isValidEthAddress(recipient.recipient)
   );
+  const isRecipientsDuplicated = () => {
+    const recipientsSet = new Set(recipients.map((recipient) => recipient.recipient));
+    return recipientsSet.size !== recipients.length;
+  };
 
   useEffect(() => {
     const baseFeeData = {
@@ -208,7 +212,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
             <>
               <CollectLimitConfig />
               <TimeLimitConfig />
-              <SplitConfig />
+              <SplitConfig isRecipientsDuplicated={isRecipientsDuplicated} />
             </>
           )}
           <FollowersConfig />
@@ -227,7 +231,13 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
           <Trans>Cancel</Trans>
         </Button>
         <Button
-          disabled={splitTotal > 100 || hasEmptyRecipients || hasInvalidEthAddressInRecipients}
+          disabled={
+            (parseFloat(amount as string) <= 0 && selectedCollectModule !== FreeCollectModule) ||
+            splitTotal > 100 ||
+            hasEmptyRecipients ||
+            hasInvalidEthAddressInRecipients ||
+            isRecipientsDuplicated()
+          }
           onClick={() => setShowModal(false)}
         >
           <Trans>Save</Trans>

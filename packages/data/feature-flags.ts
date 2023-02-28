@@ -7,8 +7,8 @@ export enum FeatureFlag {
   TrendingWidget = 'trending-widget',
   NftGallery = 'nft-gallery',
   NftDetail = 'nft-detail',
-  MultipleRecipientCollect = 'multiple-recipient-collect',
-  GatedLocales = 'gated-locales'
+  GatedLocales = 'gated-locales',
+  PublicationAnalytics = 'publication-analytics'
 }
 
 export const featureFlags = [
@@ -28,13 +28,13 @@ export const featureFlags = [
     enabledFor: !IS_PRODUCTION ? [...mainnetStaffs, ...testnetStaffs] : []
   },
   {
-    key: FeatureFlag.MultipleRecipientCollect,
-    name: 'Multiple recipient collect',
-    enabledFor: [...lensterMembers, ...aaveMembers]
-  },
-  {
     key: FeatureFlag.GatedLocales,
     name: 'Gated locales',
     enabledFor: ['0x01adb7', '0x216f', '0x6b66', '0x6b15', '0x01adb3', ...lensterMembers, ...aaveMembers]
+  },
+  {
+    key: FeatureFlag.PublicationAnalytics,
+    name: 'Publication Analytics',
+    enabledFor: [...mainnetStaffs]
   }
 ];

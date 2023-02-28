@@ -1,13 +1,20 @@
 import type { Nft } from 'lens';
 import { create } from 'zustand';
 
-interface Item extends Nft {
-  id: string;
+export interface NftGalleryItem extends Nft {
+  itemId?: string;
+  newOrder?: number;
 }
 
 interface NftGallery {
   name: string;
-  items: Item[];
+  items: NftGalleryItem[];
+  alreadySelectedItems: NftGalleryItem[];
+  id: string;
+  isEdit: boolean;
+  toAdd: NftGalleryItem[];
+  toRemove: NftGalleryItem[];
+  reArrangedItems: NftGalleryItem[];
 }
 
 interface NftGalleryState {
@@ -15,7 +22,18 @@ interface NftGalleryState {
   setGallery: (gallery: NftGallery) => void;
 }
 
+export const GALLERY_DEFAULTS = {
+  name: '',
+  items: [],
+  toAdd: [],
+  toRemove: [],
+  isEdit: false,
+  id: '',
+  alreadySelectedItems: [],
+  reArrangedItems: []
+};
+
 export const useNftGalleryStore = create<NftGalleryState>((set) => ({
-  gallery: { name: '', items: [] },
+  gallery: GALLERY_DEFAULTS,
   setGallery: (gallery) => set(() => ({ gallery }))
 }));
