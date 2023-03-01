@@ -1381,6 +1381,10 @@ msgstr "取消点赞"
 msgid "Like"
 msgstr "点赞"
 
+#: src/components/Publication/Actions/Menu/Delete.tsx
+msgid "Publication deleted successfully"
+msgstr ""
+
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
