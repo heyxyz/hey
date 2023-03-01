@@ -1,4 +1,5 @@
 import MenuTransition from '@components/Shared/MenuTransition';
+import { Tooltip } from '@components/UI/Tooltip';
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
@@ -50,16 +51,30 @@ const ReferenceSettings: FC = () => {
     </Menu.Item>
   );
 
+  const getSelectedReferenceModuleTooltipText = () => {
+    if (isMyFollowers) {
+      return t`My followers can comment and mirror`;
+    } else if (isMyFollows) {
+      return t`My follows can comment and mirror`;
+    } else if (isFriendsOfFriends) {
+      return t`Friend of friends can comment and mirror`;
+    } else {
+      return t`Everyone can comment and mirror`;
+    }
+  };
+
   return (
     <Menu as="div">
-      <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
-        <div className="text-brand">
-          {isEveryone && <GlobeAltIcon className="w-5" />}
-          {isMyFollowers && <UsersIcon className="w-5" />}
-          {isMyFollows && <UserAddIcon className="w-5" />}
-          {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
-        </div>
-      </Menu.Button>
+      <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
+        <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
+          <div className="text-brand">
+            {isEveryone && <GlobeAltIcon className="w-5" />}
+            {isMyFollowers && <UsersIcon className="w-5" />}
+            {isMyFollows && <UserAddIcon className="w-5" />}
+            {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+          </div>
+        </Menu.Button>
+      </Tooltip>
       <MenuTransition>
         <Menu.Items
           static
