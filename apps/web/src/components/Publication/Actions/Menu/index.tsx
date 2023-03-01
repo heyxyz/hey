@@ -1,9 +1,10 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
-import type { FC, MouseEvent } from 'react';
+import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -25,7 +26,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
       <Menu.Button as={Fragment}>
         <button
           className="rounded-full p-1.5 hover:bg-gray-300 hover:bg-opacity-20"
-          onClick={(event: MouseEvent<HTMLButtonElement>) => event.stopPropagation()}
+          onClick={stopEventPropagation}
           aria-label="More"
         >
           <DotsVerticalIcon className={clsx('lt-text-gray-500', iconClassName)} />

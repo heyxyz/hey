@@ -5,6 +5,7 @@ import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import imageProxy from '@lib/imageProxy';
 import { Mixpanel } from '@lib/mixpanel';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
@@ -100,9 +101,7 @@ const Attachments: FC<Props> = ({
                 'relative'
               )}
               key={index + url}
-              onClick={(event) => {
-                event.stopPropagation();
-              }}
+              onClick={stopEventPropagation}
             >
               {type === 'image/svg+xml' ? (
                 <Button

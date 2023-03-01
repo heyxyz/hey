@@ -3,6 +3,7 @@ import { Image } from '@components/UI/Image';
 import type { OG } from '@generated/types';
 import imageProxy from '@lib/imageProxy';
 import { Mixpanel } from '@lib/mixpanel';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { ATTACHMENT } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -18,7 +19,7 @@ const Embed: FC<Props> = ({ og }) => {
       <Link
         href={og.url}
         onClick={(event) => {
-          event.stopPropagation();
+          stopEventPropagation(event);
           Mixpanel.track(PUBLICATION.OEMBED_CLICK);
         }}
         target={og.url.includes(location.host) ? '_self' : '_blank'}
