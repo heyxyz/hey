@@ -1381,6 +1381,10 @@ msgstr "விருப்பமில்லை"
 msgid "Like"
 msgstr "விரும்பு"
 
+#: src/components/Publication/Actions/Menu/Delete.tsx
+msgid "Publication deleted successfully"
+msgstr ""
+
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
