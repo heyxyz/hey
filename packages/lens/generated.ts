@@ -1123,10 +1123,14 @@ export type Erc4626FeeCollectModuleSettings = {
   endTimestamp?: Maybe<Scalars['DateTime']>;
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean'];
+  /** The recipient of the ERC4626 vault shares */
+  recipient: Scalars['EthereumAddress'];
   /** The referral fee associated with this publication. */
   referralFee: Scalars['Float'];
   /** The collect modules enum */
   type: CollectModules;
+  /** The ERC4626 vault address */
+  vault: Scalars['ContractAddress'];
 };
 
 export type ElectedMirror = {
