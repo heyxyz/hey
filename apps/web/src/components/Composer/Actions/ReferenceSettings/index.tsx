@@ -65,16 +65,16 @@ const ReferenceSettings: FC = () => {
 
   return (
     <Menu as="div">
-      <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
-        <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
+      <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
+        <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
           <div className="text-brand">
             {isEveryone && <GlobeAltIcon className="w-5" />}
             {isMyFollowers && <UsersIcon className="w-5" />}
             {isMyFollows && <UserAddIcon className="w-5" />}
             {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
           </div>
-        </Tooltip>
-      </Menu.Button>
+        </Menu.Button>
+      </Tooltip>
       <MenuTransition>
         <Menu.Items
           static
