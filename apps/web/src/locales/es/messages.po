@@ -1382,7 +1382,7 @@ msgid "Like"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Delete.tsx
-msgid "{0} deleted successfully"
+msgid "Publication deleted successfully"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx

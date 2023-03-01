@@ -26,7 +26,7 @@ const Delete: FC<Props> = ({ publication, forceReloadOnDelete = false }) => {
       if (forceReloadOnDelete) {
         push('/');
       }
-      toast.success(t`${publication.__typename?.toLowerCase()} deleted successfully`);
+      toast.success(t`Publication deleted successfully`);
     },
     update: (cache) => {
       cache.evict({ id: publicationKeyFields(publication) });
