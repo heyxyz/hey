@@ -73,9 +73,9 @@ const UserProfile: FC<Props> = ({
 
   const UserName = () => (
     <>
-      <div className="flex max-w-sm items-center">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md', 'grid')}>
-          <span className="truncate">{profile?.name ?? formatHandle(profile?.handle)}</span>
+      <div className="flex max-w-sm items-center truncate">
+        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
+          {profile?.name ?? formatHandle(profile?.handle)}
         </div>
         {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />}
         {showStatus && hasStatus ? (
@@ -112,7 +112,7 @@ const UserProfile: FC<Props> = ({
       >
         <div className="flex items-center space-x-3">
           <UserAvatar />
-          <span>
+          <div>
             <UserName />
             {showBio && profile?.bio && (
               <div
@@ -123,14 +123,14 @@ const UserProfile: FC<Props> = ({
                 <Markup>{profile?.bio}</Markup>
               </div>
             )}
-          </span>
+          </div>
         </div>
       </UserPreview>
     );
   };
 
   return (
-    <>
+    <div className="flex items-center justify-between">
       {linkToProfile ? (
         <Link href={`/u/${formatHandle(profile?.handle)}`}>
           <UserInfo />
@@ -151,7 +151,7 @@ const UserProfile: FC<Props> = ({
             followSource={followSource}
           />
         ))}
-    </>
+    </div>
   );
 };
 
