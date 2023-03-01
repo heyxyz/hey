@@ -51,7 +51,7 @@ const ReferenceSettings: FC = () => {
     </Menu.Item>
   );
 
-  const getSelectedReferenceModule = () => {
+  const getSelectedReferenceModuleTooltipText = () => {
     if (isMyFollowers) {
       return t`My followers can comment and mirror`;
     } else if (isMyFollows) {
@@ -66,7 +66,7 @@ const ReferenceSettings: FC = () => {
   return (
     <Menu as="div">
       <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
-        <Tooltip placement="top" content={getSelectedReferenceModule()}>
+        <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
           <div className="text-brand">
             {isEveryone && <GlobeAltIcon className="w-5" />}
             {isMyFollowers && <UsersIcon className="w-5" />}
