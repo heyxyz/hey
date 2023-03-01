@@ -59,9 +59,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
               'text-md linkify-message block break-words'
             )}
           >
-            {message.error
-              ? `Error: ${message.error?.message}`
-              : <Markup matchOnlyUrl>{message.content}</Markup> ?? ''}
+            {message.error ? `Error: ${message.error?.message}` : <Markup>{message.content}</Markup> ?? ''}
           </span>
         </div>
       </div>
