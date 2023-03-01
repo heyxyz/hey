@@ -1381,6 +1381,10 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
+#: src/components/Publication/Actions/Menu/Delete.tsx
+msgid "Publication deleted successfully"
+msgstr "Publication deleted successfully"
+
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
