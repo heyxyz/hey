@@ -301,12 +301,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
   return (
     <div className="break-words">
-      <Markup
-        className={clsx(
-          { 'line-clamp-5': showMore },
-          'leading-md linkify text-md whitespace-pre-wrap break-words'
-        )}
-      >
+      <Markup className={clsx({ 'line-clamp-5': showMore }, 'leading-md linkify text-md break-words')}>
         {publication?.content}
       </Markup>
       {showMore && (
