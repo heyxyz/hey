@@ -20,21 +20,16 @@ interface Props {
 const Delete: FC<Props> = ({ publication, forceReloadOnDelete }) => {
   const { push } = useRouter();
 
-  const onCompleted = () => {
-    Mixpanel.track(PUBLICATION.DELETE);
-    toast.success(t`${publication.__typename?.toLowerCase()} deleted successfully`);
-  };
-
   const [hidePost] = useHidePublicationMutation({
     onCompleted: () => {
-      onCompleted();
+      Mixpanel.track(PUBLICATION.DELETE);
       if (forceReloadOnDelete) {
         push('/');
       }
+      toast.success(t`${publication.__typename?.toLowerCase()} deleted successfully`);
     },
     update: (cache) => {
       cache.evict({ id: publicationKeyFields(publication) });
-      onCompleted();
     }
   });
 
