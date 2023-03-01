@@ -1,11 +1,12 @@
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import { useHidePublicationMutation } from 'lens';
 import { useRouter } from 'next/router';
-import type { FC, MouseEvent } from 'react';
+import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
@@ -30,8 +31,8 @@ const Delete: FC<Props> = ({ publication }) => {
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
         )
       }
-      onClick={(event: MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation();
+      onClick={(event) => {
+        stopEventPropagation(event);
         if (confirm('Are you sure you want to delete?')) {
           hidePost({
             variables: { request: { publicationId: publication?.id } }

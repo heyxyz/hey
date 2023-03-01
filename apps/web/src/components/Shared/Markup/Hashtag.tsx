@@ -1,3 +1,4 @@
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import { hashflags } from 'data/hashflags';
 import Link from 'next/link';
@@ -16,10 +17,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
   return (
     <span className="inline-flex items-center space-x-1">
       <span>
-        <Link
-          href={`/search?q=${title.slice(1)}&type=pubs&src=link_click`}
-          onClick={(event) => event.stopPropagation()}
-        >
+        <Link href={`/search?q=${title.slice(1)}&type=pubs&src=link_click`} onClick={stopEventPropagation}>
           {title}
         </Link>
       </span>

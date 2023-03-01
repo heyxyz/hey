@@ -24,6 +24,7 @@ import type {
 import formatHandle from '@lib/formatHandle';
 import getURLs from '@lib/getURLs';
 import { Mixpanel } from '@lib/mixpanel';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -168,7 +169,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card
         className={clsx(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
-          event.stopPropagation();
+          stopEventPropagation(event);
           setShowAuthModal(true);
         }}
       >
@@ -182,7 +183,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
   if (!canDecrypt) {
     return (
-      <Card className={clsx(cardClasses, 'cursor-text')} onClick={(event) => event.stopPropagation()}>
+      <Card className={clsx(cardClasses, 'cursor-text')} onClick={stopEventPropagation}>
         <div className="flex items-center space-x-2 font-bold">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
           <span className="text-base font-black text-white">
@@ -282,7 +283,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card
         className={clsx(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
-          event.stopPropagation();
+          stopEventPropagation(event);
           getDecryptedData();
           Mixpanel.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
