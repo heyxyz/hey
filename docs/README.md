@@ -8,4 +8,3 @@
 - [DevOps](devops.md)
 - [Monorepo](../apps/README.md)
 - [Packages](../packages/README.md)
-- [Scripts](../scripts/README.md)
