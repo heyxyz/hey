@@ -162,6 +162,10 @@ msgstr "Set multiple recipients for the collect fee"
 msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
 msgstr "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
 
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Duplicate recipient address found"
+msgstr "Duplicate recipient address found"
+
 #: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
 msgid "Time limit"
 msgstr ""
@@ -205,6 +209,22 @@ msgstr ""
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone"
 msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My followers can comment and mirror"
+msgstr "My followers can comment and mirror"
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My follows can comment and mirror"
+msgstr "My follows can comment and mirror"
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Friend of friends can comment and mirror"
+msgstr "Friend of friends can comment and mirror"
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Everyone can comment and mirror"
+msgstr "Everyone can comment and mirror"
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
@@ -681,6 +701,10 @@ msgid "Notifications • {APP_NAME}"
 msgstr "Notifications • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
+msgid "Email is not valid"
+msgstr "Email is not valid"
+
+#: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
 msgstr ""
 
@@ -709,9 +733,16 @@ msgid "Contact us to help you get the issue resolved."
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Publication reported successfully!"
-msgstr ""
+msgid "Your message has been sent!"
+msgstr "Your message has been sent!"
+
+#: src/components/Pages/Contact.tsx
+msgid "Email"
+msgstr "Email"
+
+#: src/components/Pages/Contact.tsx
+msgid "gavin@hooli.com"
+msgstr "gavin@hooli.com"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -1179,8 +1210,16 @@ msgid "Gallery created"
 msgstr "Gallery created"
 
 #: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name updated"
+msgstr "Gallery name updated"
+
+#: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery updated"
 msgstr "Gallery updated"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name should be less than 255 characters"
+msgstr "Gallery name should be less than 255 characters"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
@@ -1245,6 +1284,10 @@ msgstr "Let's do it!"
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
 msgstr "doesn't have any NFTs!"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Only 50 items allowed for gallery"
+msgstr "Only 50 items allowed for gallery"
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
@@ -1892,43 +1935,43 @@ msgstr ""
 msgid "Follow"
 msgstr "Follow"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Terms"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Privacy"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Discord"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Donate"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Status"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Feedback"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Thanks"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Translate"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr ""
 
@@ -2161,6 +2204,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Publication reported successfully!"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/index.tsx
