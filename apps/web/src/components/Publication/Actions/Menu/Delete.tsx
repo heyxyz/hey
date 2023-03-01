@@ -17,7 +17,7 @@ interface Props {
   forceReloadOnDelete?: boolean;
 }
 
-const Delete: FC<Props> = ({ publication, forceReloadOnDelete }) => {
+const Delete: FC<Props> = ({ publication, forceReloadOnDelete = false }) => {
   const { push } = useRouter();
 
   const [hidePost] = useHidePublicationMutation({
