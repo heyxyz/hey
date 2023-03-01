@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { FeedItem, Publication } from 'lens';
 import type { FC } from 'react';
@@ -31,7 +32,7 @@ const PublicationHeader: FC<Props> = ({ publication, className = '', feedItem })
 
   return (
     <div className={clsx('flex justify-between space-x-1.5', className)}>
-      <span onClick={(event) => event.stopPropagation()}>
+      <span onClick={stopEventPropagation}>
         <UserProfile profile={profile} timestamp={timestamp} showStatus />
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
