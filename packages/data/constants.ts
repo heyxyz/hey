@@ -35,10 +35,13 @@ export const APP_VERSION = packageJson.version;
 export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
 
 // Misc
-export const CONTACT_EMAIL = 'support@lenster.freshdesk.com';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
+
+// Mixpanel
+export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
+export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
 
 // Messages
 export const ERROR_MESSAGE = 'Something went wrong!';
@@ -53,7 +56,6 @@ export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://testnet.rarible.com';
-export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
@@ -63,7 +65,7 @@ export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
 export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
-export const RAVEN_WORKER_URL = IS_PRODUCTION ? 'https://raven.lenster.xyz' : 'http://localhost:8084';
+export const FRESHDESK_WORKER_URL = IS_PRODUCTION ? 'https://freshdesk.lenster.xyz' : 'http://localhost:8084';
 
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';

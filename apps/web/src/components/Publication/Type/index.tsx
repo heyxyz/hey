@@ -1,7 +1,6 @@
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 
-import Collected from './Collected';
 import Commented from './Commented';
 import CommentedPublication from './CommentedPublication';
 import Mirrored from './Mirrored';
@@ -14,7 +13,6 @@ interface Props {
 
 const PublicationType: FC<Props> = ({ publication, showType, showThread = false }) => {
   const type = publication.__typename;
-  const isCollected = (type === 'Post' || type === 'Comment') && Boolean(publication?.collectedBy);
 
   if (!showType) {
     return null;
@@ -24,8 +22,7 @@ const PublicationType: FC<Props> = ({ publication, showType, showThread = false 
     <span onClick={(event) => event.stopPropagation()}>
       {type === 'Mirror' && <Mirrored publication={publication} />}
       {type === 'Comment' && !showThread && <CommentedPublication publication={publication} />}
-      {type === 'Comment' && showThread && !isCollected && <Commented publication={publication} />}
-      {isCollected && <Collected publication={publication} />}
+      {type === 'Comment' && showThread && <Commented publication={publication} />}
     </span>
   );
 };

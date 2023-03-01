@@ -3,24 +3,24 @@ import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
-import { Input } from '@components/UI/Input';
-import { CheckIcon, CollectionIcon, SearchIcon, XIcon } from '@heroicons/react/outline';
+import { CheckIcon, CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { IS_MAINNET, SCROLL_THRESHOLD } from 'data/constants';
 import type { Nft, NfTsRequest } from 'lens';
 import { useNftFeedQuery } from 'lens';
-import type { ChangeEvent, FC } from 'react';
-import React, { useState } from 'react';
+import type { FC } from 'react';
+import React from 'react';
+import { toast } from 'react-hot-toast';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
+import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { mainnet } from 'wagmi/chains';
 
 const Picker: FC = () => {
-  const [searchText, setSearchText] = useState('');
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
@@ -29,7 +29,7 @@ const Picker: FC = () => {
   const request: NfTsRequest = {
     chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
     ownerAddress: currentProfile?.ownedBy,
-    limit: 10
+    limit: 12
   };
 
   const { data, loading, fetchMore, error } = useNftFeedQuery({
@@ -71,47 +71,66 @@ const Picker: FC = () => {
     return <ErrorMessage title={t`Failed to load nft feed`} error={error} />;
   }
 
-  const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
-    const keyword = evt.target.value;
-    setSearchText(keyword);
-  };
-
-  const selectedItems = gallery.items.map((n) => n.id);
-
   const onSelectItem = (item: Nft) => {
-    const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
+    if (gallery.items.length === 50) {
+      return toast.error(t`Only 50 items allowed for gallery`);
+    }
+    const customId = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
     const nft = {
-      id,
+      itemId: customId,
       ...item
     };
-    const index = gallery.items.findIndex((n) => n.id === id);
-    if (index !== -1) {
-      const nfts = gallery.items;
-      nfts.splice(index, 1);
-      setGallery({ name: gallery.name, items: nfts });
+    const alreadySelectedIndex = gallery.items.findIndex((n) => n.itemId === customId);
+    if (alreadySelectedIndex !== -1) {
+      // remove selection from gallery items
+      const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => i.itemId === customId);
+      let toRemove: NftGalleryItem[] = [];
+      // if exists
+      if (alreadyExistsIndex >= 0) {
+        toRemove = [...gallery.toRemove, nft];
+      }
+      // Removing selected item
+      const nfts = [...gallery.items];
+      nfts.splice(alreadySelectedIndex, 1);
+      // removing duplicates in the selection
+      const sanitizeRemoveDuplicates = toRemove?.filter(
+        (value, index, self) => index === self.findIndex((t) => t.itemId === value.itemId)
+      );
+      setGallery({
+        ...gallery,
+        name: gallery.name,
+        items: nfts,
+        toRemove: sanitizeRemoveDuplicates,
+        toAdd: gallery.toAdd
+      });
     } else {
-      setGallery({ name: gallery.name, items: [...gallery.items, nft] });
+      // add selection to gallery items
+      const alreadyExistsIndex = gallery.alreadySelectedItems.findIndex((i) => i.itemId === customId);
+      let toAdd: NftGalleryItem[] = [];
+      // if not exists
+      if (alreadyExistsIndex < 0) {
+        toAdd = [...gallery.toAdd, nft];
+      }
+      // removing duplicates in the selection
+      const sanitizeAddDuplicates = toAdd?.filter(
+        (value, index, self) => index === self.findIndex((t) => t.itemId === value.itemId)
+      );
+      setGallery({
+        ...gallery,
+        name: gallery.name,
+        items: [...gallery.items, nft],
+        toAdd: sanitizeAddDuplicates,
+        toRemove: gallery.toRemove
+      });
     }
   };
 
+  const selectedItems = gallery.items.map((n) => {
+    return n.itemId;
+  });
+
   return (
-    <div className="m-5 space-y-4">
-      <Input
-        type="text"
-        className="py-2 px-3 text-sm"
-        placeholder="Search"
-        value={searchText}
-        iconLeft={<SearchIcon />}
-        iconRight={
-          <XIcon
-            className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
-            onClick={() => {
-              setSearchText('');
-            }}
-          />
-        }
-        onChange={handleSearch}
-      />
+    <div className="m-4 space-y-4">
       <InfiniteScroll
         dataLength={nfts?.length ?? 0}
         scrollThreshold={SCROLL_THRESHOLD}
@@ -121,26 +140,25 @@ const Picker: FC = () => {
         loader={<InfiniteLoader />}
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {nfts?.map((nft) => {
+          {nfts?.map((nft, i) => {
             const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
             const isSelected = selectedItems.includes(id);
             return (
-              <div key={id}>
-                <div
-                  className={clsx(
-                    'relative rounded-xl border-2',
-                    isSelected ? 'border-brand-500' : 'border-transparent'
-                  )}
-                >
-                  {isSelected && (
-                    <button className="bg-brand-500 absolute right-2 top-2 rounded-full">
-                      <CheckIcon className="h-5 w-5 p-1 text-white" />
-                    </button>
-                  )}
-                  <button className="w-full text-left" onClick={() => onSelectItem(nft as Nft)}>
-                    <SingleNFT nft={nft as Nft} linkToDetail={false} />
+              <div
+                key={`${id}_${i}`}
+                className={clsx(
+                  'relative rounded-xl border-2',
+                  isSelected ? 'border-brand-500' : 'border-transparent'
+                )}
+              >
+                {isSelected && (
+                  <button className="bg-brand-500 absolute right-2 top-2 rounded-full">
+                    <CheckIcon className="h-5 w-5 p-1 text-white" />
                   </button>
-                </div>
+                )}
+                <button className="w-full text-left" onClick={() => onSelectItem(nft as Nft)}>
+                  <SingleNFT nft={nft as Nft} linkToDetail={false} />
+                </button>
               </div>
             );
           })}

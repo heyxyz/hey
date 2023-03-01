@@ -1,6 +1,6 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { ShieldCheckIcon, ShieldExclamationIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -18,7 +18,7 @@ const StaffMode: FC<Props> = ({ className = '' }) => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
-    Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
+    Mixpanel.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   return (

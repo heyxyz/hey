@@ -4,9 +4,9 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
-import getAttribute from '@lib/getAttribute';
+import getProfileAttribute from '@lib/getProfileAttribute';
 import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -24,6 +24,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -40,6 +41,7 @@ const editStatusSchema = object({
 
 const Status: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const [isUploading, setIsUploading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
 
@@ -52,13 +54,14 @@ const Status: FC = () => {
     skip: !currentProfile?.id,
     onCompleted: (data) => {
       const profile = data?.profile;
-      form.setValue('status', getAttribute(profile?.attributes, 'statusMessage'));
-      setEmoji(getAttribute(profile?.attributes, 'statusEmoji'));
+      form.setValue('status', getProfileAttribute(profile?.attributes, 'statusMessage'));
+      setEmoji(getProfileAttribute(profile?.attributes, 'statusEmoji'));
     }
   });
 
   const onCompleted = () => {
     toast.success(t`Status updated successfully!`);
+    setShowStatusModal(false);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -140,13 +143,13 @@ const Status: FC = () => {
                 ].includes(attr.key)
             )
             .map(({ key, value }) => ({ key, value })) ?? []),
-          { key: 'location', value: getAttribute(profile?.attributes, 'location') },
-          { key: 'website', value: getAttribute(profile?.attributes, 'website') },
+          { key: 'location', value: getProfileAttribute(profile?.attributes, 'location') },
+          { key: 'website', value: getProfileAttribute(profile?.attributes, 'website') },
           {
             key: 'twitter',
-            value: getAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '')
+            value: getProfileAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '')
           },
-          { key: 'hasPrideLogo', value: getAttribute(profile?.attributes, 'hasPrideLogo') },
+          { key: 'hasPrideLogo', value: getProfileAttribute(profile?.attributes, 'hasPrideLogo') },
           { key: 'statusEmoji', value: emoji },
           { key: 'statusMessage', value: status },
           { key: 'app', value: APP_NAME }
@@ -157,7 +160,7 @@ const Status: FC = () => {
 
       const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
-        metadata: `https://arweave.net/${id}`
+        metadata: `ar://${id}`
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
@@ -192,7 +195,7 @@ const Status: FC = () => {
         className="space-y-4"
         onSubmit={({ status }) => {
           editStatus(emoji, status);
-          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
+          Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -210,7 +213,7 @@ const Status: FC = () => {
               setEmoji('');
               form.setValue('status', '');
               editStatus('', '');
-              Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
+              Mixpanel.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
             <Trans>Clear status</Trans>

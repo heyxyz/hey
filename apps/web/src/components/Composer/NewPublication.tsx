@@ -20,7 +20,7 @@ import getSignature from '@lib/getSignature';
 import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -64,7 +64,7 @@ import { useCollectModuleStore } from 'src/store/collect-module';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { COMMENT, POST } from 'src/tracking';
+import { PUBLICATION } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
@@ -148,14 +148,20 @@ const NewPublication: FC<Props> = ({ publication }) => {
       setShowNewPostModal(false);
     }
 
-    // Track in leafwatch
+    // Track in mixpanel
     const eventProperties = {
       publication_type: restricted ? 'token_gated' : 'public',
       publication_collect_module: selectedCollectModule,
       publication_reference_module: selectedReferenceModule,
-      publication_has_attachments: attachments.length > 0
+      publication_reference_module_degrees_of_separation:
+        selectedReferenceModule === ReferenceModules.DegreesOfSeparationReferenceModule
+          ? degreesOfSeparation
+          : null,
+      publication_has_attachments: attachments.length > 0,
+      publication_attachment_types:
+        attachments.length > 0 ? attachments.map((attachment) => attachment.type) : null
     };
-    Leafwatch.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
+    Mixpanel.track(isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST, eventProperties);
   };
 
   useEffect(() => {
@@ -448,7 +454,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
         content: publicationContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image: attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
-        imageMimeType: attachmentsInput.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
+        imageMimeType:
+          attachmentsInput.length > 0
+            ? getAttachmentImageMimeType()
+            : textNftImageUrl
+            ? 'image/svg+xml'
+            : null,
         name: isAudioPublication
           ? audioPublication.title
           : `${isComment ? 'Comment' : 'Post'} by @${currentProfile?.handle}`,
@@ -471,7 +482,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
       const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
         profileId: currentProfile?.id,
-        contentURI: `https://arweave.net/${arweaveId}`,
+        contentURI: `ar://${arweaveId}`,
         ...(isComment && {
           publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }),

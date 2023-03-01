@@ -4,8 +4,9 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { Modal } from '@components/UI/Modal';
 import formatHandle from '@lib/formatHandle';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
+import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
@@ -36,7 +37,7 @@ const ViewProfile: NextPage = () => {
   );
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'profile' });
+    Mixpanel.track(PAGEVIEW, { page: 'profile' });
   }, []);
 
   const handle = formatHandle(username as string, true);
@@ -122,7 +123,7 @@ const ViewProfile: NextPage = () => {
             feedType === ProfileFeedType.Media ||
             feedType === ProfileFeedType.Collects) && <Feed profile={profile as Profile} type={feedType} />}
           {feedType === ProfileFeedType.Nft ? (
-            isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
+            isFeatureEnabled(FeatureFlag.NftGallery, currentProfile?.id) ? (
               <NftGallery profile={profile as Profile} />
             ) : (
               <NFTFeed profile={profile as Profile} />

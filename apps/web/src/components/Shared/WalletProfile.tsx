@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
 import imageProxy from '@lib/imageProxy';
@@ -21,7 +22,7 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
         target="_blank"
         rel="noreferrer noopener"
       >
-        <img
+        <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getStampFyiURL(wallet?.address);
           }}

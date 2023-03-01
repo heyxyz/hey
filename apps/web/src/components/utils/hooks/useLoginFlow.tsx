@@ -1,4 +1,4 @@
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { ERROR_MESSAGE } from 'data/constants';
@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
-import { USER } from 'src/tracking';
+import { AUTH } from 'src/tracking';
 import { useAccount, useNetwork, useSignMessage, useSwitchNetwork } from 'wagmi';
 
 export const useLoginFlow = () => {
@@ -72,7 +72,7 @@ export const useLoginFlow = () => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Leafwatch.track(USER.SIWL);
+      Mixpanel.track(AUTH.SIWL);
     } catch (error) {
       console.error(error);
     } finally {

@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -13,7 +14,7 @@ interface Props {
 export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
   return (
     <Link href={`/u/${formatHandle(profile?.handle)}`}>
-      <img
+      <Image
         onError={({ currentTarget }) => {
           currentTarget.src = getAvatar(profile, false);
         }}

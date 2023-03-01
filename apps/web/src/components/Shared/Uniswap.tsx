@@ -1,5 +1,5 @@
 import getUniswapURL from '@lib/getUniswapURL';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { FC } from 'react';
@@ -20,7 +20,7 @@ const Uniswap: FC<Props> = ({ module }) => {
       <a
         href={getUniswapURL(parseFloat(module?.amount?.value), module?.amount?.asset?.address)}
         onClick={() => {
-          Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP);
+          Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP);
         }}
         className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
         target="_blank"

@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { Erc20 } from 'lens';
@@ -26,7 +26,8 @@ const getAllowancePayload = (currency: string) => {
       CollectModules.LimitedTimedFeeCollectModule,
       CollectModules.TimedFeeCollectModule,
       CollectModules.FreeCollectModule,
-      CollectModules.RevertCollectModule
+      CollectModules.RevertCollectModule,
+      CollectModules.MultirecipientFeeCollectModule
     ],
     followModules: [FollowModules.FeeFollowModule],
     referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]
@@ -44,7 +45,7 @@ const AllowanceSettings: NextPage = () => {
   });
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
   }, []);
 
   if (error) {

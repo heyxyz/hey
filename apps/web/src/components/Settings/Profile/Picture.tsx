@@ -1,11 +1,12 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { Image } from '@components/UI/Image';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToIPFS from '@lib/uploadToIPFS';
@@ -40,7 +41,7 @@ const Picture: FC<Props> = ({ profile }) => {
 
   const onCompleted = () => {
     toast.success(t`Avatar updated successfully!`);
-    Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
+    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
   const {
@@ -155,7 +156,7 @@ const Picture: FC<Props> = ({ profile }) => {
         <div className="space-y-3">
           {avatar && (
             <div>
-              <img
+              <Image
                 className="h-60 w-60 rounded-lg"
                 height={240}
                 width={240}

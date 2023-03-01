@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { XIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -44,13 +45,13 @@ const MobileDrawerMenu: FC = () => {
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
         >
           <div className="flex w-full space-x-1.5">
-            <img
-              src={getAvatar(currentProfile as Profile)}
-              className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
-              alt={formatHandle(currentProfile?.handle)}
+            <Image
               onError={({ currentTarget }) => {
                 currentTarget.src = getAvatar(currentProfile, false);
               }}
+              src={getAvatar(currentProfile as Profile)}
+              className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
+              alt={formatHandle(currentProfile?.handle)}
             />
             <div>
               <Trans>Logged in as</Trans>

@@ -1,12 +1,12 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import useLoginFlow from '@components/utils/hooks/useLoginFlow';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAuthStore } from 'src/store/auth';
-import { USER } from 'src/tracking';
+import { AUTH } from 'src/tracking';
 import { useAccount, useDisconnect } from 'wagmi';
 
 const LoginButton: FC = () => {
@@ -32,7 +32,7 @@ const LoginButton: FC = () => {
         }
         onClick={() => {
           showLoginFlow();
-          Leafwatch.track(USER.LOGIN);
+          Mixpanel.track(AUTH.LOGIN);
         }}
       >
         <Trans>Login</Trans>
