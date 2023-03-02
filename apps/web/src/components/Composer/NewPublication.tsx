@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
@@ -45,6 +46,7 @@ import type {
 } from 'lens';
 import {
   CollectModules,
+  PublicationDocument,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
@@ -56,7 +58,8 @@ import {
   useCreateDataAvailabilityPostTypedDataMutation,
   useCreateDataAvailabilityPostViaDispatcherMutation,
   useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation
+  useCreatePostViaDispatcherMutation,
+  usePublicationLazyQuery
 } from 'lens';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -98,6 +101,7 @@ interface Props {
 
 const NewPublication: FC<Props> = ({ publication }) => {
   const { push } = useRouter();
+  const { cache } = useApolloClient();
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -230,6 +234,20 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
   });
 
+  const [getPublication] = usePublicationLazyQuery({
+    onCompleted: (data) => {
+      if (data?.publication) {
+        cache.modify({
+          fields: {
+            publications() {
+              cache.writeQuery({ data: { publication: data?.publication }, query: PublicationDocument });
+            }
+          }
+        });
+      }
+    }
+  });
+
   const typedDataGenerator = async (generatedData: any, isDataAvailabilityPublication: boolean = false) => {
     const { id, typedData } = generatedData;
     const {
@@ -346,7 +364,14 @@ const NewPublication: FC<Props> = ({ publication }) => {
       ) {
         onCompleted();
         const { id } = data.createDataAvailabilityCommentViaDispatcher;
-        push(`/posts/${id}`);
+        // push(`/posts/${id}`);
+        getPublication({
+          variables: {
+            request: {
+              publicationId: id
+            }
+          }
+        });
       }
     },
     onError
