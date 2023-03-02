@@ -1,6 +1,5 @@
 import { hashtagRegex, mentionRegex, urlRegex } from '@lib/markupUtils';
 import trimify from '@lib/trimify';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
@@ -32,7 +31,7 @@ const Markup: FC<Props> = ({ children, className = '' }) => {
   };
 
   return (
-    <ReactMarkdown className={clsx('list-inside', className)} components={components} remarkPlugins={plugins}>
+    <ReactMarkdown className={className} components={components} remarkPlugins={plugins}>
       {trimify(children)}
     </ReactMarkdown>
   );
