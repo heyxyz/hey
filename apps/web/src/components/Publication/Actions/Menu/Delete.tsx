@@ -1,24 +1,35 @@
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
+import { publicationKeyFields } from '@lib/keyFields';
 import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import { useHidePublicationMutation } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { toast } from 'react-hot-toast';
 import { PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: Publication;
+  forceReloadOnDelete?: boolean;
 }
 
-const Delete: FC<Props> = ({ publication }) => {
-  const { pathname, push } = useRouter();
+const Delete: FC<Props> = ({ publication, forceReloadOnDelete = false }) => {
+  const { push } = useRouter();
+
   const [hidePost] = useHidePublicationMutation({
     onCompleted: () => {
       Mixpanel.track(PUBLICATION.DELETE);
-      pathname === '/posts/[id]' ? push('/') : location.reload();
+      if (forceReloadOnDelete) {
+        push('/');
+      }
+      toast.success(t`Publication deleted successfully`);
+    },
+    update: (cache) => {
+      cache.evict({ id: publicationKeyFields(publication) });
     }
   });
 

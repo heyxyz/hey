@@ -59,3 +59,8 @@ export interface OptimisticTransaction {
   content: string;
   attachments: LensterAttachment[];
 }
+
+export interface MarkupLinkProps {
+  href?: string;
+  title?: string;
+}
