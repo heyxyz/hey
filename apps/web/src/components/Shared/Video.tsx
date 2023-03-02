@@ -3,6 +3,7 @@ import 'plyr-react/plyr.css';
 import imageProxy from '@lib/imageProxy';
 import Plyr from 'plyr-react';
 import type { FC } from 'react';
+import { memo } from 'react';
 import getIPFSLink from 'utils/getIPFSLink';
 
 interface Props {
@@ -28,4 +29,4 @@ const Video: FC<Props> = ({ src, poster }) => {
   );
 };
 
-export default Video;
+export default memo(Video);
