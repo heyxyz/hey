@@ -16,20 +16,20 @@ interface Props {
   matchOnlyUrl?: boolean;
 }
 
+const plugins = [
+  [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
+  remarkBreaks,
+  linkifyRegex(mentionRegex),
+  linkifyRegex(hashtagRegex),
+  linkifyRegex(urlRegex)
+];
+
+const components = {
+  a: MarkupLink,
+  code: Code
+};
+
 const Markup: FC<Props> = ({ children, className = '' }) => {
-  const plugins = [
-    [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
-    remarkBreaks,
-    linkifyRegex(mentionRegex),
-    linkifyRegex(hashtagRegex),
-    linkifyRegex(urlRegex)
-  ];
-
-  const components = {
-    a: MarkupLink,
-    code: Code
-  };
-
   return (
     <ReactMarkdown className={className} components={components} remarkPlugins={plugins}>
       {trimify(children)}
