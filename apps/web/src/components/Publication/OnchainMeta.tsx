@@ -1,9 +1,11 @@
 import { Card } from '@components/UI/Card';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
+import getDaVerified from '@lib/getDaVerified';
 import { t } from '@lingui/macro';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'data/constants';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
+import { useEffect } from 'react';
 
 interface MetaProps {
   name: string;
@@ -39,6 +41,12 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 
+  useEffect(() => {
+    if (publication.dataAvailabilityProofs) {
+      getDaVerified(publication.dataAvailabilityProofs);
+    }
+  }, []);
+
   if (!isArweaveHash && !isIPFSHash && !collectNftAddress) {
     return null;
   }
@@ -49,11 +57,11 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
         {isArweaveHash ? (
           <Meta name={t`ARWEAVE TRANSACTION`} uri={`https://arweave.app/tx/${hash}`} hash={hash} />
         ) : null}
-        {publication?.isDataAvailability ? (
+        {publication.dataAvailabilityProofs ? (
           <Meta
             name={t`DATA AVAILABILITY PROOF`}
-            uri={`https://arweave.app/tx/${publication.dataAvailabilityProofs?.split('/').pop()}`}
-            hash={publication.dataAvailabilityProofs?.split('/').pop() as string}
+            uri={`https://arweave.app/tx/${publication.dataAvailabilityProofs.split('/').pop()}`}
+            hash={publication.dataAvailabilityProofs.split('/').pop() as string}
           />
         ) : null}
         {isIPFSHash ? <Meta name="IPFS TRANSACTION" uri={`${IPFS_GATEWAY}${hash}`} hash={hash} /> : null}
