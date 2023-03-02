@@ -675,9 +675,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          <CollectSettings />
-          <ReferenceSettings />
-          <AccessSettings />
+          {!publication?.isDataAvailability && (
+            <>
+              <CollectSettings />
+              <ReferenceSettings />
+              <AccessSettings />
+            </>
+          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
