@@ -1,12 +1,12 @@
+import type { MarkupLinkProps } from '@generated/types';
 import formatHandle from '@lib/formatHandle';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-import Slug from '../Slug';
-import UserPreview from '../UserPreview';
-import type { MarkupLinkProps } from '.';
+import Slug from '../../Slug';
+import UserPreview from '../../UserPreview';
 
 const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
   const handle = title?.slice(1);
