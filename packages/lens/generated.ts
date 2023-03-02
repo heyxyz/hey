@@ -4221,6 +4221,7 @@ export type CommentFieldsFragment = {
   onChainContentURI: string;
   isGated: boolean;
   isDataAvailability: boolean;
+  dataAvailabilityProofs?: string | null;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -4453,6 +4454,7 @@ export type CommentFieldsFragment = {
         onChainContentURI: string;
         isGated: boolean;
         isDataAvailability: boolean;
+        dataAvailabilityProofs?: string | null;
         hidden: boolean;
         createdAt: any;
         profile: {
@@ -4681,6 +4683,7 @@ export type CommentFieldsFragment = {
               reaction?: ReactionTypes | null;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -4913,6 +4916,7 @@ export type CommentFieldsFragment = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -4959,6 +4963,7 @@ export type CommentFieldsFragment = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -5199,6 +5204,7 @@ export type CommentFieldsFragment = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -5429,6 +5435,7 @@ export type CommentFieldsFragment = {
         reaction?: ReactionTypes | null;
         isGated: boolean;
         isDataAvailability: boolean;
+        dataAvailabilityProofs?: string | null;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -5661,6 +5668,7 @@ export type CommentFieldsFragment = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               createdAt: any;
               profile: {
                 __typename?: 'Profile';
@@ -5707,6 +5715,7 @@ export type CommentFieldsFragment = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -5940,6 +5949,7 @@ export type CommentFieldsFragment = {
         onChainContentURI: string;
         isGated: boolean;
         isDataAvailability: boolean;
+        dataAvailabilityProofs?: string | null;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -6279,6 +6289,7 @@ export type MirrorFieldsFragment = {
   reaction?: ReactionTypes | null;
   isGated: boolean;
   isDataAvailability: boolean;
+  dataAvailabilityProofs?: string | null;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -6511,6 +6522,7 @@ export type MirrorFieldsFragment = {
         onChainContentURI: string;
         isGated: boolean;
         isDataAvailability: boolean;
+        dataAvailabilityProofs?: string | null;
         createdAt: any;
         profile: {
           __typename?: 'Profile';
@@ -6557,6 +6569,7 @@ export type MirrorFieldsFragment = {
         onChainContentURI: string;
         isGated: boolean;
         isDataAvailability: boolean;
+        dataAvailabilityProofs?: string | null;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -6797,6 +6810,7 @@ export type PostFieldsFragment = {
   onChainContentURI: string;
   isGated: boolean;
   isDataAvailability: boolean;
+  dataAvailabilityProofs?: string | null;
   hidden: boolean;
   createdAt: any;
   appId?: any | null;
@@ -8176,6 +8190,7 @@ export type CommentFeedQuery = {
           onChainContentURI: string;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -8408,6 +8423,7 @@ export type CommentFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -8640,6 +8656,7 @@ export type CommentFeedQuery = {
                       reaction?: ReactionTypes | null;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -8883,6 +8900,7 @@ export type CommentFeedQuery = {
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
+                            dataAvailabilityProofs?: string | null;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -8937,6 +8955,7 @@ export type CommentFeedQuery = {
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
+                            dataAvailabilityProofs?: string | null;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -9219,6 +9238,7 @@ export type CommentFeedQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -9460,6 +9480,7 @@ export type CommentFeedQuery = {
                 reaction?: ReactionTypes | null;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -9696,6 +9717,7 @@ export type CommentFeedQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -9746,6 +9768,7 @@ export type CommentFeedQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -9990,6 +10013,7 @@ export type CommentFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -10300,6 +10324,7 @@ export type ExploreFeedQuery = {
           onChainContentURI: string;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -10532,6 +10557,7 @@ export type ExploreFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -10764,6 +10790,7 @@ export type ExploreFeedQuery = {
                       reaction?: ReactionTypes | null;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -11007,6 +11034,7 @@ export type ExploreFeedQuery = {
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
+                            dataAvailabilityProofs?: string | null;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -11061,6 +11089,7 @@ export type ExploreFeedQuery = {
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
+                            dataAvailabilityProofs?: string | null;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -11343,6 +11372,7 @@ export type ExploreFeedQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -11584,6 +11614,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -11820,6 +11851,7 @@ export type ExploreFeedQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -11870,6 +11902,7 @@ export type ExploreFeedQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -12114,6 +12147,7 @@ export type ExploreFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -12349,6 +12383,7 @@ export type ExploreFeedQuery = {
           reaction?: ReactionTypes | null;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -12581,6 +12616,7 @@ export type ExploreFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -12627,6 +12663,7 @@ export type ExploreFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -12864,6 +12901,7 @@ export type ExploreFeedQuery = {
           onChainContentURI: string;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -13112,6 +13150,7 @@ export type FeedHighlightsQuery = {
           onChainContentURI: string;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -13344,6 +13383,7 @@ export type FeedHighlightsQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -13576,6 +13616,7 @@ export type FeedHighlightsQuery = {
                       reaction?: ReactionTypes | null;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -13819,6 +13860,7 @@ export type FeedHighlightsQuery = {
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
+                            dataAvailabilityProofs?: string | null;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -13873,6 +13915,7 @@ export type FeedHighlightsQuery = {
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
+                            dataAvailabilityProofs?: string | null;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -14155,6 +14198,7 @@ export type FeedHighlightsQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -14396,6 +14440,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -14632,6 +14677,7 @@ export type FeedHighlightsQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -14682,6 +14728,7 @@ export type FeedHighlightsQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -14926,6 +14973,7 @@ export type FeedHighlightsQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -15161,6 +15209,7 @@ export type FeedHighlightsQuery = {
           reaction?: ReactionTypes | null;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -15393,6 +15442,7 @@ export type FeedHighlightsQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -15439,6 +15489,7 @@ export type FeedHighlightsQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -15676,6 +15727,7 @@ export type FeedHighlightsQuery = {
           onChainContentURI: string;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -16836,6 +16888,7 @@ export type ProfileFeedQuery = {
           onChainContentURI: string;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -17068,6 +17121,7 @@ export type ProfileFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 profile: {
@@ -17300,6 +17354,7 @@ export type ProfileFeedQuery = {
                       reaction?: ReactionTypes | null;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -17543,6 +17598,7 @@ export type ProfileFeedQuery = {
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
+                            dataAvailabilityProofs?: string | null;
                             createdAt: any;
                             profile: {
                               __typename?: 'Profile';
@@ -17597,6 +17653,7 @@ export type ProfileFeedQuery = {
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
+                            dataAvailabilityProofs?: string | null;
                             hidden: boolean;
                             createdAt: any;
                             appId?: any | null;
@@ -17879,6 +17936,7 @@ export type ProfileFeedQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -18120,6 +18178,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -18356,6 +18415,7 @@ export type ProfileFeedQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       createdAt: any;
                       profile: {
                         __typename?: 'Profile';
@@ -18406,6 +18466,7 @@ export type ProfileFeedQuery = {
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
+                      dataAvailabilityProofs?: string | null;
                       hidden: boolean;
                       createdAt: any;
                       appId?: any | null;
@@ -18650,6 +18711,7 @@ export type ProfileFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -18885,6 +18947,7 @@ export type ProfileFeedQuery = {
           reaction?: ReactionTypes | null;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -19117,6 +19180,7 @@ export type ProfileFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 createdAt: any;
                 profile: {
                   __typename?: 'Profile';
@@ -19163,6 +19227,7 @@ export type ProfileFeedQuery = {
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
+                dataAvailabilityProofs?: string | null;
                 hidden: boolean;
                 createdAt: any;
                 appId?: any | null;
@@ -19400,6 +19465,7 @@ export type ProfileFeedQuery = {
           onChainContentURI: string;
           isGated: boolean;
           isDataAvailability: boolean;
+          dataAvailabilityProofs?: string | null;
           hidden: boolean;
           createdAt: any;
           appId?: any | null;
@@ -19713,6 +19779,7 @@ export type PublicationQuery = {
         onChainContentURI: string;
         isGated: boolean;
         isDataAvailability: boolean;
+        dataAvailabilityProofs?: string | null;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -19950,6 +20017,7 @@ export type PublicationQuery = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               profile: {
@@ -20178,6 +20246,7 @@ export type PublicationQuery = {
                     reaction?: ReactionTypes | null;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -20417,6 +20486,7 @@ export type PublicationQuery = {
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
+                          dataAvailabilityProofs?: string | null;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -20471,6 +20541,7 @@ export type PublicationQuery = {
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
+                          dataAvailabilityProofs?: string | null;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -20750,6 +20821,7 @@ export type PublicationQuery = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -20987,6 +21059,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -21219,6 +21292,7 @@ export type PublicationQuery = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -21265,6 +21339,7 @@ export type PublicationQuery = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -21505,6 +21580,7 @@ export type PublicationQuery = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -21737,6 +21813,7 @@ export type PublicationQuery = {
         reaction?: ReactionTypes | null;
         isGated: boolean;
         isDataAvailability: boolean;
+        dataAvailabilityProofs?: string | null;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -21974,6 +22051,7 @@ export type PublicationQuery = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               createdAt: any;
               profile: {
                 __typename?: 'Profile';
@@ -22020,6 +22098,7 @@ export type PublicationQuery = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -22254,6 +22333,7 @@ export type PublicationQuery = {
         onChainContentURI: string;
         isGated: boolean;
         isDataAvailability: boolean;
+        dataAvailabilityProofs?: string | null;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -22615,6 +22695,7 @@ export type SearchPublicationsQuery = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -22847,6 +22928,7 @@ export type SearchPublicationsQuery = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     profile: {
@@ -23082,6 +23164,7 @@ export type SearchPublicationsQuery = {
                           reaction?: ReactionTypes | null;
                           isGated: boolean;
                           isDataAvailability: boolean;
+                          dataAvailabilityProofs?: string | null;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -23360,6 +23443,7 @@ export type SearchPublicationsQuery = {
                                 onChainContentURI: string;
                                 isGated: boolean;
                                 isDataAvailability: boolean;
+                                dataAvailabilityProofs?: string | null;
                                 createdAt: any;
                                 profile: {
                                   __typename?: 'Profile';
@@ -23417,6 +23501,7 @@ export type SearchPublicationsQuery = {
                                 onChainContentURI: string;
                                 isGated: boolean;
                                 isDataAvailability: boolean;
+                                dataAvailabilityProofs?: string | null;
                                 hidden: boolean;
                                 createdAt: any;
                                 appId?: any | null;
@@ -23708,6 +23793,7 @@ export type SearchPublicationsQuery = {
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
+                          dataAvailabilityProofs?: string | null;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -23984,6 +24070,7 @@ export type SearchPublicationsQuery = {
                     reaction?: ReactionTypes | null;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -24223,6 +24310,7 @@ export type SearchPublicationsQuery = {
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
+                          dataAvailabilityProofs?: string | null;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -24277,6 +24365,7 @@ export type SearchPublicationsQuery = {
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
+                          dataAvailabilityProofs?: string | null;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -24556,6 +24645,7 @@ export type SearchPublicationsQuery = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -24797,6 +24887,7 @@ export type SearchPublicationsQuery = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -25256,6 +25347,7 @@ export type TimelineQuery = {
             onChainContentURI: string;
             isGated: boolean;
             isDataAvailability: boolean;
+            dataAvailabilityProofs?: string | null;
             hidden: boolean;
             createdAt: any;
             appId?: any | null;
@@ -25488,6 +25580,7 @@ export type TimelineQuery = {
                   onChainContentURI: string;
                   isGated: boolean;
                   isDataAvailability: boolean;
+                  dataAvailabilityProofs?: string | null;
                   hidden: boolean;
                   createdAt: any;
                   profile: {
@@ -25720,6 +25813,7 @@ export type TimelineQuery = {
                         reaction?: ReactionTypes | null;
                         isGated: boolean;
                         isDataAvailability: boolean;
+                        dataAvailabilityProofs?: string | null;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -25994,6 +26088,7 @@ export type TimelineQuery = {
                               onChainContentURI: string;
                               isGated: boolean;
                               isDataAvailability: boolean;
+                              dataAvailabilityProofs?: string | null;
                               createdAt: any;
                               profile: {
                                 __typename?: 'Profile';
@@ -26048,6 +26143,7 @@ export type TimelineQuery = {
                               onChainContentURI: string;
                               isGated: boolean;
                               isDataAvailability: boolean;
+                              dataAvailabilityProofs?: string | null;
                               hidden: boolean;
                               createdAt: any;
                               appId?: any | null;
@@ -26330,6 +26426,7 @@ export type TimelineQuery = {
                         onChainContentURI: string;
                         isGated: boolean;
                         isDataAvailability: boolean;
+                        dataAvailabilityProofs?: string | null;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -26602,6 +26699,7 @@ export type TimelineQuery = {
                   reaction?: ReactionTypes | null;
                   isGated: boolean;
                   isDataAvailability: boolean;
+                  dataAvailabilityProofs?: string | null;
                   hidden: boolean;
                   createdAt: any;
                   appId?: any | null;
@@ -26838,6 +26936,7 @@ export type TimelineQuery = {
                         onChainContentURI: string;
                         isGated: boolean;
                         isDataAvailability: boolean;
+                        dataAvailabilityProofs?: string | null;
                         createdAt: any;
                         profile: {
                           __typename?: 'Profile';
@@ -26888,6 +26987,7 @@ export type TimelineQuery = {
                         onChainContentURI: string;
                         isGated: boolean;
                         isDataAvailability: boolean;
+                        dataAvailabilityProofs?: string | null;
                         hidden: boolean;
                         createdAt: any;
                         appId?: any | null;
@@ -27163,6 +27263,7 @@ export type TimelineQuery = {
                   onChainContentURI: string;
                   isGated: boolean;
                   isDataAvailability: boolean;
+                  dataAvailabilityProofs?: string | null;
                   hidden: boolean;
                   createdAt: any;
                   appId?: any | null;
@@ -27401,6 +27502,7 @@ export type TimelineQuery = {
             onChainContentURI: string;
             isGated: boolean;
             isDataAvailability: boolean;
+            dataAvailabilityProofs?: string | null;
             hidden: boolean;
             createdAt: any;
             appId?: any | null;
@@ -27735,6 +27837,7 @@ export type TimelineQuery = {
         onChainContentURI: string;
         isGated: boolean;
         isDataAvailability: boolean;
+        dataAvailabilityProofs?: string | null;
         hidden: boolean;
         createdAt: any;
         appId?: any | null;
@@ -27967,6 +28070,7 @@ export type TimelineQuery = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               profile: {
@@ -28195,6 +28299,7 @@ export type TimelineQuery = {
                     reaction?: ReactionTypes | null;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -28434,6 +28539,7 @@ export type TimelineQuery = {
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
+                          dataAvailabilityProofs?: string | null;
                           createdAt: any;
                           profile: {
                             __typename?: 'Profile';
@@ -28488,6 +28594,7 @@ export type TimelineQuery = {
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
+                          dataAvailabilityProofs?: string | null;
                           hidden: boolean;
                           createdAt: any;
                           appId?: any | null;
@@ -28767,6 +28874,7 @@ export type TimelineQuery = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -29004,6 +29112,7 @@ export type TimelineQuery = {
               reaction?: ReactionTypes | null;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -29236,6 +29345,7 @@ export type TimelineQuery = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     createdAt: any;
                     profile: {
                       __typename?: 'Profile';
@@ -29282,6 +29392,7 @@ export type TimelineQuery = {
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
+                    dataAvailabilityProofs?: string | null;
                     hidden: boolean;
                     createdAt: any;
                     appId?: any | null;
@@ -29522,6 +29633,7 @@ export type TimelineQuery = {
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
+              dataAvailabilityProofs?: string | null;
               hidden: boolean;
               createdAt: any;
               appId?: any | null;
@@ -30051,6 +30163,7 @@ export const PostFieldsFragmentDoc = gql`
     onChainContentURI
     isGated
     isDataAvailability
+    dataAvailabilityProofs
     canComment(profileId: $profileId) {
       result
     }
@@ -30088,6 +30201,7 @@ export const MirrorFieldsFragmentDoc = gql`
     reaction(request: $reactionRequest)
     isGated
     isDataAvailability
+    dataAvailabilityProofs
     canComment(profileId: $profileId) {
       result
     }
@@ -30123,6 +30237,7 @@ export const MirrorFieldsFragmentDoc = gql`
         onChainContentURI
         isGated
         isDataAvailability
+        dataAvailabilityProofs
         canComment(profileId: $profileId) {
           result
         }
@@ -30160,6 +30275,7 @@ export const CommentFieldsFragmentDoc = gql`
     onChainContentURI
     isGated
     isDataAvailability
+    dataAvailabilityProofs
     canComment(profileId: $profileId) {
       result
     }
@@ -30197,6 +30313,7 @@ export const CommentFieldsFragmentDoc = gql`
         onChainContentURI
         isGated
         isDataAvailability
+        dataAvailabilityProofs
         canComment(profileId: $profileId) {
           result
         }
