@@ -3279,17 +3279,17 @@
   resolved "https://registry.yarnpkg.com/@ledgerhq/connect-kit-loader/-/connect-kit-loader-1.0.2.tgz#8554e16943f86cc2a5f6348a14dfe6e5bd0c572a"
   integrity sha512-TQ21IjcZOw/scqypaVFY3jHVqI7X7Hta3qN/us6FvTol3AY06UmrhhXGww0E9xHmAbdX241ddwXEiMBSQZFr9g==
 
-"@lens-protocol/data-availability-verifier@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@lens-protocol/data-availability-verifier/-/data-availability-verifier-0.0.6.tgz#b24dd468590dc0c046a5faaba5a589e153e94502"
-  integrity sha512-W62EmeG1EhLuH3FOOCkQDapyNHrl0ASXhhqnBvacKIC8YKsdUbXUY5tC1S5lytC+eimIyvkEcaLeXOznuELqjg==
+"@lens-protocol/data-availability-verifier@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@lens-protocol/data-availability-verifier/-/data-availability-verifier-0.0.7.tgz#d0b4be1dde3203026d6b176a5f11ca6244c81b18"
+  integrity sha512-8QatExmSS+nflQkfQz52+aklN1tu1cJ5rmdFg4tFDclk2+LzHI0oxmT5+VcrhCmvAmkf+fP7YezbXyCn+b9LHw==
   dependencies:
     "@bundlr-network/client" "^0.10.0"
     "@urql/core" "^3.0.5"
+    axios "^1.3.4"
     ethers "^5.7.2"
     graphql "^16.6.0"
     level "^8.0.0"
-    node-fetch-commonjs "^3.2.4"
 
 "@lens-protocol/sdk-gated@^1.2.0":
   version "1.2.0"
@@ -7861,14 +7861,6 @@ fbjs@^3.0.0:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.30"
 
-fetch-blob@^3.1.2:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/fetch-blob/-/fetch-blob-3.2.0.tgz#f09b8d4bbd45adc6f0c20b7e787e793e309dcce9"
-  integrity sha512-7yAQpD2UMJzLi1Dqv7qFYnPbaPx7ZfFK6PiIxQ4PfkGPyNyl2Ugx+a/umUonmKqjhM4DnfbMvdX6otXq83soQQ==
-  dependencies:
-    node-domexception "^1.0.0"
-    web-streams-polyfill "^3.0.3"
-
 figures@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-3.2.0.tgz#625c18bd293c604dc4a8ddb2febf0c88341746af"
@@ -7975,13 +7967,6 @@ form-data@^3.0.0:
     asynckit "^0.4.0"
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
-
-formdata-polyfill@^4.0.10:
-  version "4.0.10"
-  resolved "https://registry.yarnpkg.com/formdata-polyfill/-/formdata-polyfill-4.0.10.tgz#24807c31c9d402e002ab3d8c720144ceb8848423"
-  integrity sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==
-  dependencies:
-    fetch-blob "^3.1.2"
 
 fraction.js@^4.2.0:
   version "4.2.0"
@@ -9999,19 +9984,6 @@ node-addon-api@^5.0.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-5.1.0.tgz#49da1ca055e109a23d537e9de43c09cca21eb762"
   integrity sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==
-
-node-domexception@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/node-domexception/-/node-domexception-1.0.0.tgz#6888db46a1f71c0b76b3f7555016b63fe64766e5"
-  integrity sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==
-
-node-fetch-commonjs@^3.2.4:
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/node-fetch-commonjs/-/node-fetch-commonjs-3.2.4.tgz#56ee6657b48e30b7636642a447f0f089b009a1e8"
-  integrity sha512-bZW7+ldcuuMPLTJk8DufhT6qHDRdljYD0jqBjmrYfcInaYcReX5kK42SQsu/jvtit/tER28yYjnk63PEEmNPtg==
-  dependencies:
-    formdata-polyfill "^4.0.10"
-    web-streams-polyfill "^3.1.1"
 
 node-fetch@2.6.7:
   version "2.6.7"
@@ -12547,7 +12519,7 @@ wcwidth@^1.0.1:
   dependencies:
     defaults "^1.0.3"
 
-web-streams-polyfill@^3.0.3, web-streams-polyfill@^3.1.1, web-streams-polyfill@^3.2.1:
+web-streams-polyfill@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-3.2.1.tgz#71c2718c52b45fd49dbeee88634b3a60ceab42a6"
   integrity sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==

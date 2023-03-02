@@ -23,7 +23,7 @@
     "@headlessui/react": "^1.7.12",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^2.9.11",
-    "@lens-protocol/data-availability-verifier": "^0.0.6",
+    "@lens-protocol/data-availability-verifier": "^0.0.7",
     "@lens-protocol/sdk-gated": "^1.2.0",
     "@lexical/code": "^0.8.1",
     "@lexical/hashtag": "^0.8.1",
