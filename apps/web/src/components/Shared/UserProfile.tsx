@@ -73,9 +73,9 @@ const UserProfile: FC<Props> = ({
 
   const UserName = () => (
     <>
-      <div className="flex max-w-sm items-center truncate">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
-          {profile?.name ?? formatHandle(profile?.handle)}
+      <div className="flex max-w-sm items-center">
+        <div className={clsx(isBig ? 'font-bold' : 'text-md', 'grid')}>
+          <div className="truncate">{profile?.name ?? formatHandle(profile?.handle)}</div>
         </div>
         {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />}
         {showStatus && hasStatus ? (

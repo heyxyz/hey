@@ -16,7 +16,9 @@ export const mainnetGardeners = [
   '0x2ee4', // essah.lens
   '0x2d', // sasicodes.lens
   '0x0a', // jouni.lens
-  '0x09' // nicolo.lens
+  '0x09', // nicolo.lens
+  '0xabd0', // helpfulbrother.lens
+  '0x01b430' // cantech.lens
 ];
 
 export const testnetGardeners = [
