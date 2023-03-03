@@ -44,7 +44,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
         cache.modify({
           fields: {
             publications() {
-              cache.writeQuery({ data: { publication: data?.publication }, query: PublicationDocument });
+              cache.writeQuery({ data: data?.publication as any, query: PublicationDocument });
             }
           }
         });

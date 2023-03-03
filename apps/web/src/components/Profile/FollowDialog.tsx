@@ -35,11 +35,11 @@ const FollowModal: FC<Props> = ({ profile, setFollowing, setShowFollowModal }) =
         <span className="flex">
           {followType === 'FeeFollowModuleSettings' ? (
             <div className="flex space-x-2">
-              <SuperFollow profile={profile} setFollowing={setFollowing} showText />
+              <SuperFollow profile={profile as any} setFollowing={setFollowing} showText />
             </div>
           ) : (
             <div className="flex space-x-2">
-              <Follow profile={profile} setFollowing={setFollowing} showText outline={false} />
+              <Follow profile={profile as any} setFollowing={setFollowing} showText outline={false} />
             </div>
           )}
           <Button
