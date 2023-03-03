@@ -7,6 +7,7 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { GridItemFour } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
+import { Tooltip } from '@components/UI/Tooltip';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
@@ -80,9 +81,11 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
         <div className="flex items-center justify-between border-b p-5 dark:border-gray-700">
           <div className="font-bold">Messages</div>
           {currentProfile && !showAuthenticating && !showLoading && (
-            <button onClick={newMessageClick} type="button">
-              <PlusCircleIcon className="h-6 w-6" />
-            </button>
+            <Tooltip content={t`New conversation`} placement="top" withDelay>
+              <button onClick={newMessageClick} type="button">
+                <PlusCircleIcon className="h-6 w-6" />
+              </button>
+            </Tooltip>
           )}
         </div>
         <div className="flex">
@@ -160,7 +163,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
         </div>
       </Card>
       <Modal
-        title={t`New message`}
+        title={t`New conversation`}
         icon={<MailIcon className="text-brand h-5 w-5" />}
         size="sm"
         show={showSearchModal}

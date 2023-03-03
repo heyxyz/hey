@@ -1,6 +1,8 @@
+import { Tooltip } from '@components/UI/Tooltip';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import { MailIcon } from '@heroicons/react/outline';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
+import { t } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
@@ -99,18 +101,20 @@ const MessageIcon: FC = () => {
   }, [cachedClient, currentProfile?.id]);
 
   return (
-    <Link
-      href="/messages"
-      className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20 md:flex"
-      onClick={() => {
-        currentProfile && clearMessagesBadge(currentProfile.id);
-      }}
-    >
-      <MailIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-      {showMessagesBadge.get(currentProfile?.id) ? (
-        <span className="h-2 w-2 rounded-full bg-red-500" />
-      ) : null}
-    </Link>
+    <Tooltip content={t`Messages`} placement="bottom" withDelay>
+      <Link
+        href="/messages"
+        className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20 md:flex"
+        onClick={() => {
+          currentProfile && clearMessagesBadge(currentProfile.id);
+        }}
+      >
+        <MailIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+        {showMessagesBadge.get(currentProfile?.id) ? (
+          <span className="h-2 w-2 rounded-full bg-red-500" />
+        ) : null}
+      </Link>
+    </Tooltip>
   );
 };
 

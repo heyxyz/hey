@@ -1,4 +1,6 @@
+import { Tooltip } from '@components/UI/Tooltip';
 import { LightningBoltIcon } from '@heroicons/react/outline';
+import { t } from '@lingui/macro';
 import { CustomFiltersTypes, useNotificationCountQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -25,17 +27,19 @@ const NotificationIcon: FC = () => {
   }, [data]);
 
   return (
-    <Link
-      href="/notifications"
-      className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20 md:flex"
-      onClick={() => {
-        setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
-        setShowBadge(false);
-      }}
-    >
-      <LightningBoltIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-      {showBadge && <span className="h-2 w-2 rounded-full bg-red-500" />}
-    </Link>
+    <Tooltip content={t`Notifications`} placement="bottom" withDelay>
+      <Link
+        href="/notifications"
+        className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20 md:flex"
+        onClick={() => {
+          setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
+          setShowBadge(false);
+        }}
+      >
+        <LightningBoltIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+        {showBadge && <span className="h-2 w-2 rounded-full bg-red-500" />}
+      </Link>
+    </Tooltip>
   );
 };
 

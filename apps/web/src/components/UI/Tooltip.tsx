@@ -6,8 +6,9 @@ import type { FC, ReactNode } from 'react';
 interface Props {
   children: ReactNode;
   content: ReactNode;
-  placement?: 'top' | 'right';
+  placement?: 'top' | 'right' | 'bottom';
   className?: string;
+  disabled?: boolean;
   withDelay?: boolean;
 }
 
@@ -16,10 +17,12 @@ export const Tooltip: FC<Props> = ({
   content,
   placement = 'right',
   className = '',
+  disabled = false,
   withDelay = false
 }) => {
   return (
     <Tippy
+      disabled={disabled}
       placement={placement}
       duration={0}
       delay={[withDelay ? 500 : 0, 0]}

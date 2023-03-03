@@ -1,6 +1,7 @@
 import type { ApolloCache } from '@apollo/client';
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
+import { Tooltip } from '@components/UI/Tooltip';
 import { UserAddIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
@@ -178,16 +179,18 @@ const Follow: FC<Props> = ({
   const isLoading = typedDataLoading || proxyActionLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
-    <Button
-      className="!px-3 !py-1.5 text-sm"
-      outline={outline}
-      onClick={createFollow}
-      aria-label="Follow"
-      disabled={isLoading}
-      icon={isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />}
-    >
-      {showText && t`Follow`}
-    </Button>
+    <Tooltip content={t`Follow`} placement="top" withDelay disabled={showText}>
+      <Button
+        className="!px-3 !py-1.5 text-sm"
+        outline={outline}
+        onClick={createFollow}
+        aria-label={t`Follow`}
+        disabled={isLoading}
+        icon={isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />}
+      >
+        {showText && t`Follow`}
+      </Button>
+    </Tooltip>
   );
 };
 
