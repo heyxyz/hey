@@ -94,7 +94,7 @@ const ViewProfile: NextPage = () => {
     <>
       <Modal show={showFollowModal} onClose={() => setShowFollowModal(false)}>
         <FollowDialog
-          profile={profile as any}
+          profile={profile as Profile}
           setFollowing={setFollowing}
           setShowFollowModal={setShowFollowModal}
         />
@@ -114,7 +114,7 @@ const ViewProfile: NextPage = () => {
       />
       <GridLayout className="pt-6">
         <GridItemFour>
-          <Details profile={profile as any} following={!!following} setFollowing={setFollowing} />
+          <Details profile={profile as Profile} following={!!following} setFollowing={setFollowing} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
