@@ -1,6 +1,7 @@
 import { useApolloClient } from '@apollo/client';
+import MenuTransition from '@components/Shared/MenuTransition';
 import { Button } from '@components/UI/Button';
-import { Menu, Transition } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -148,15 +149,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
             <Menu.Button className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20">
               <DotsVerticalIcon className="h-4 w-4" />
             </Menu.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
+            <MenuTransition>
               <Menu.Items
                 static
                 className="absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700/80 dark:bg-gray-900"
@@ -198,7 +191,7 @@ const Gallery: FC<Props> = ({ galleries }) => {
                   <Trans>Delete</Trans>
                 </Menu.Item>
               </Menu.Items>
-            </Transition>
+            </MenuTransition>
           </Menu>
         ) : null}
       </div>
