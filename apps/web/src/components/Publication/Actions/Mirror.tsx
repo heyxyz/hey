@@ -14,10 +14,9 @@ import { LensHubProxy } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
-import type { CreateDataAvailabilityMirrorRequest, CreateMirrorRequest, Publication } from 'lens';
+import type { CreateMirrorRequest, Publication } from 'lens';
 import {
   useBroadcastMutation,
-  useCreateDataAvailabilityMirrorViaDispatcherMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens';
@@ -113,24 +112,11 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
     onError
   });
 
-  const [createDataAvailabilityMirrorViaDispatcher, { loading: dataAvailabilityLoading }] =
-    useCreateDataAvailabilityMirrorViaDispatcherMutation({
-      onCompleted,
-      onError,
-      update: updateCache
-    });
-
   const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useCreateMirrorViaDispatcherMutation({
     onCompleted,
     onError,
     update: updateCache
   });
-
-  const createViaDataAvailablityDispatcher = async (request: CreateDataAvailabilityMirrorRequest) => {
-    await createDataAvailabilityMirrorViaDispatcher({
-      variables: { request }
-    });
-  };
 
   const createViaDispatcher = async (request: CreateMirrorRequest) => {
     const { data } = await createMirrorViaDispatcher({
@@ -160,36 +146,20 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
         }
       };
 
-      // Payload for the data availability mirror
-      const dataAvailablityRequest = {
-        from: currentProfile?.id,
-        mirror: publication?.id
-      };
-
       if (currentProfile?.dispatcher?.canUseRelay) {
-        if (publication.isDataAvailability) {
-          await createViaDataAvailablityDispatcher(dataAvailablityRequest);
-        } else {
-          await createViaDispatcher(request);
-        }
-      } else {
-        await createMirrorTypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request
-          }
-        });
+        return await createViaDispatcher(request);
       }
+
+      return await createMirrorTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
     } catch {}
   };
 
-  const isLoading =
-    typedDataLoading ||
-    dispatcherLoading ||
-    dataAvailabilityLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading;
+  const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
