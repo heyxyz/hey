@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
@@ -32,6 +33,7 @@ import {
   ALLOWED_IMAGE_TYPES,
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
+  ERROR_MESSAGE,
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT,
   SIGN_WALLET
@@ -44,17 +46,24 @@ import type {
 } from 'lens';
 import {
   CollectModules,
+  PublicationDocument,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
+  useBroadcastDataAvailabilityMutation,
   useBroadcastMutation,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
+  useCreateDataAvailabilityCommentViaDispatcherMutation,
+  useCreateDataAvailabilityPostTypedDataMutation,
+  useCreateDataAvailabilityPostViaDispatcherMutation,
   useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation
+  useCreatePostViaDispatcherMutation,
+  usePublicationLazyQuery
 } from 'lens';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -91,6 +100,8 @@ interface Props {
 }
 
 const NewPublication: FC<Props> = ({ publication }) => {
+  const { push } = useRouter();
+  const { cache } = useApolloClient();
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -204,6 +215,16 @@ const NewPublication: FC<Props> = ({ publication }) => {
     onError
   });
 
+  const [broadcastDataAvailability] = useBroadcastDataAvailabilityMutation({
+    onCompleted: (data) => {
+      onCompleted();
+      if (data?.broadcastDataAvailability.__typename === 'CreateDataAvailabilityPublicationResult') {
+        push(`/posts/${data?.broadcastDataAvailability.id}`);
+      }
+    },
+    onError
+  });
+
   const [broadcast] = useBroadcastMutation({
     onCompleted: (data) => {
       onCompleted();
@@ -213,7 +234,21 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
   });
 
-  const typedDataGenerator = async (generatedData: any) => {
+  const [getPublication] = usePublicationLazyQuery({
+    onCompleted: (data) => {
+      if (data?.publication) {
+        cache.modify({
+          fields: {
+            publications() {
+              cache.writeQuery({ data: { publication: data?.publication }, query: PublicationDocument });
+            }
+          }
+        });
+      }
+    }
+  });
+
+  const typedDataGenerator = async (generatedData: any, isDataAvailabilityPublication: boolean = false) => {
     const { id, typedData } = generatedData;
     const {
       profileId,
@@ -240,6 +275,11 @@ const NewPublication: FC<Props> = ({ publication }) => {
       }),
       sig
     };
+
+    if (isDataAvailabilityPublication) {
+      return await broadcastDataAvailability({ variables: { request: { id, signature } } });
+    }
+
     setUserSigNonce(userSigNonce + 1);
     const { data } = await broadcast({ variables: { request: { id, signature } } });
     if (data?.broadcast.__typename === 'RelayError') {
@@ -247,6 +287,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     }
   };
 
+  // Normal typed data generation
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData),
     onError
@@ -255,6 +296,17 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const [createPostTypedData] = useCreatePostTypedDataMutation({
     onCompleted: async ({ createPostTypedData }) => await typedDataGenerator(createPostTypedData),
     onError
+  });
+
+  // Data availability typed data generation
+  const [createDataAvailabilityPostTypedData] = useCreateDataAvailabilityPostTypedDataMutation({
+    onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
+      await typedDataGenerator(createDataAvailabilityPostTypedData, true)
+  });
+
+  const [createDataAvailabilityCommentTypedData] = useCreateDataAvailabilityPostTypedDataMutation({
+    onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
+      await typedDataGenerator(createDataAvailabilityPostTypedData, true)
   });
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
@@ -282,6 +334,66 @@ const NewPublication: FC<Props> = ({ publication }) => {
     },
     onError
   });
+
+  const [createDataAvailabilityPostViaDispatcher] = useCreateDataAvailabilityPostViaDispatcherMutation({
+    onCompleted: (data) => {
+      if (data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError') {
+        return toast.error(ERROR_MESSAGE);
+      }
+
+      if (
+        data.createDataAvailabilityPostViaDispatcher.__typename === 'CreateDataAvailabilityPublicationResult'
+      ) {
+        onCompleted();
+        const { id } = data.createDataAvailabilityPostViaDispatcher;
+        push(`/posts/${id}`);
+      }
+    },
+    onError
+  });
+
+  const [createDataAvailabilityCommentViaDispatcher] = useCreateDataAvailabilityCommentViaDispatcherMutation({
+    onCompleted: (data) => {
+      if (data?.createDataAvailabilityCommentViaDispatcher?.__typename === 'RelayError') {
+        return toast.error(ERROR_MESSAGE);
+      }
+
+      if (
+        data.createDataAvailabilityCommentViaDispatcher.__typename ===
+        'CreateDataAvailabilityPublicationResult'
+      ) {
+        onCompleted();
+        const { id } = data.createDataAvailabilityCommentViaDispatcher;
+        // push(`/posts/${id}`);
+        getPublication({
+          variables: {
+            request: {
+              publicationId: id
+            }
+          }
+        });
+      }
+    },
+    onError
+  });
+
+  const createViaDataAvailablityDispatcher = async (request: any) => {
+    const variables = { request };
+
+    if (isComment) {
+      const { data } = await createDataAvailabilityCommentViaDispatcher({ variables });
+      if (data?.createDataAvailabilityCommentViaDispatcher?.__typename === 'RelayError') {
+        await createDataAvailabilityCommentTypedData({ variables });
+      }
+      return;
+    }
+
+    const { data } = await createDataAvailabilityPostViaDispatcher({ variables });
+    if (data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError') {
+      await createDataAvailabilityPostTypedData({ variables });
+    }
+    return;
+  };
 
   const createViaDispatcher = async (request: any) => {
     const variables = {
@@ -473,6 +585,11 @@ const NewPublication: FC<Props> = ({ publication }) => {
         appId: APP_NAME
       };
 
+      const isRevertCollectModule = selectedCollectModule === CollectModules.RevertCollectModule;
+      const useDataAvailability =
+        !restricted &&
+        (isComment ? publication.isDataAvailability && isRevertCollectModule : isRevertCollectModule);
+
       let arweaveId = null;
       if (restricted) {
         arweaveId = await createTokenGatedMetadata(metadata);
@@ -480,6 +597,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         arweaveId = await createMetadata(metadata);
       }
 
+      // Payload for the post/comment
       const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
         profileId: currentProfile?.id,
         contentURI: `ar://${arweaveId}`,
@@ -499,8 +617,21 @@ const NewPublication: FC<Props> = ({ publication }) => {
               }
       };
 
+      // Payload for the data availability post/comment
+      const dataAvailablityRequest = {
+        from: currentProfile?.id,
+        ...(isComment && {
+          commentOn: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+        }),
+        contentURI: `ar://${arweaveId}`
+      };
+
       if (currentProfile?.dispatcher?.canUseRelay) {
-        return await createViaDispatcher(request);
+        if (useDataAvailability) {
+          return await createViaDataAvailablityDispatcher(dataAvailablityRequest);
+        } else {
+          return await createViaDispatcher(request);
+        }
       }
 
       if (isComment) {
@@ -544,9 +675,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          <CollectSettings />
-          <ReferenceSettings />
-          <AccessSettings />
+          {!publication?.isDataAvailability && (
+            <>
+              <CollectSettings />
+              <ReferenceSettings />
+              <AccessSettings />
+            </>
+          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button

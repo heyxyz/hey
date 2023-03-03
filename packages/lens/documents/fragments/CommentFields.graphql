@@ -8,6 +8,8 @@ fragment CommentFields on Comment {
   hasCollectedByMe
   onChainContentURI
   isGated
+  isDataAvailability
+  dataAvailabilityProofs
   canComment(profileId: $profileId) {
     result
   }
@@ -44,6 +46,8 @@ fragment CommentFields on Comment {
       hasCollectedByMe
       onChainContentURI
       isGated
+      isDataAvailability
+      dataAvailabilityProofs
       canComment(profileId: $profileId) {
         result
       }
