@@ -1,0 +1,11 @@
+mutation BroadcastDataAvailability($request: BroadcastRequest!) {
+  broadcastDataAvailability(request: $request) {
+    ... on CreateDataAvailabilityPublicationResult {
+      id
+      proofs
+    }
+    ... on RelayError {
+      reason
+    }
+  }
+}

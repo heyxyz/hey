@@ -1,0 +1,33 @@
+mutation CreateDataAvailabilityCommentTypedData($request: CreateDataAvailabilityCommentRequest!) {
+  createDataAvailabilityCommentTypedData(request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        CommentWithSig {
+          name
+          type
+        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        contentURI
+        profileIdPointed
+        pubIdPointed
+        collectModule
+        collectModuleInitData
+        referenceModule
+        referenceModuleInitData
+        referenceModuleData
+      }
+    }
+  }
+}
