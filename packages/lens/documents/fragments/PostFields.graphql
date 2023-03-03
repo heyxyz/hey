@@ -8,8 +8,6 @@ fragment PostFields on Post {
   hasCollectedByMe
   onChainContentURI
   isGated
-  isDataAvailability
-  dataAvailabilityProofs
   canComment(profileId: $profileId) {
     result
   }
