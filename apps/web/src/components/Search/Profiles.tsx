@@ -33,7 +33,7 @@ const Profiles: FC<Props> = ({ query }) => {
   const search = data?.search as ProfileSearchResult;
   const profiles = search?.items;
   const pageInfo = search?.pageInfo;
-  const hasMore = pageInfo?.next && profiles?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

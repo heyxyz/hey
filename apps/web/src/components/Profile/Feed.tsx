@@ -77,7 +77,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
 
   const publications = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
-  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

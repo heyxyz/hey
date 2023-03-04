@@ -7959,7 +7959,7 @@ export type CollectorsQuery = {
           | null;
       } | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -10019,7 +10019,7 @@ export type CommentFeedQuery = {
       | { __typename?: 'Mirror' }
       | { __typename?: 'Post' }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -12871,7 +12871,7 @@ export type ExploreFeedQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15669,7 +15669,7 @@ export type FeedHighlightsQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15710,7 +15710,7 @@ export type FollowersQuery = {
         } | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15747,7 +15747,7 @@ export type FollowingQuery = {
           | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15762,6 +15762,18 @@ export type GenerateModuleCurrencyApprovalDataQuery = {
     to: any;
     from: any;
     data: any;
+  };
+};
+
+export type HasNoneRelevantCommentsQueryVariables = Exact<{
+  request: PublicationsQueryRequest;
+}>;
+
+export type HasNoneRelevantCommentsQuery = {
+  __typename?: 'Query';
+  publications: {
+    __typename?: 'PaginatedPublicationResult';
+    items: Array<{ __typename?: 'Comment'; id: any } | { __typename?: 'Mirror' } | { __typename?: 'Post' }>;
   };
 };
 
@@ -15835,7 +15847,7 @@ export type LikesQuery = {
           | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15868,7 +15880,7 @@ export type MirrorsQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15922,7 +15934,7 @@ export type MutualFollowersListQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15952,7 +15964,7 @@ export type NftFeedQuery = {
       chainId: any;
       originalContent: { __typename?: 'NFTContent'; uri: string; animatedUrl?: string | null };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -16411,7 +16423,7 @@ export type NotificationsQuery = {
               };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -19379,7 +19391,7 @@ export type ProfileFeedQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -19445,7 +19457,7 @@ export type ProfilesQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -22329,7 +22341,7 @@ export type SearchProfilesQuery = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null;
         }>;
-        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
       }
     | { __typename?: 'PublicationSearchResult' };
 };
@@ -24751,7 +24763,7 @@ export type SearchPublicationsQuery = {
               };
             }
         >;
-        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
       };
 };
 
@@ -29457,7 +29469,7 @@ export type TimelineQuery = {
           | null;
       }> | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -31961,7 +31973,6 @@ export const CollectorsDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -32012,7 +32023,6 @@ export const CommentFeedDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -32238,7 +32248,6 @@ export const ExploreFeedDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -32300,7 +32309,6 @@ export const FeedHighlightsDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -32361,7 +32369,6 @@ export const FollowersDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -32411,7 +32418,6 @@ export const FollowingDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -32508,6 +32514,63 @@ export type GenerateModuleCurrencyApprovalDataLazyQueryHookResult = ReturnType<
 export type GenerateModuleCurrencyApprovalDataQueryResult = Apollo.QueryResult<
   GenerateModuleCurrencyApprovalDataQuery,
   GenerateModuleCurrencyApprovalDataQueryVariables
+>;
+export const HasNoneRelevantCommentsDocument = gql`
+  query HasNoneRelevantComments($request: PublicationsQueryRequest!) {
+    publications(request: $request) {
+      items {
+        ... on Comment {
+          id
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useHasNoneRelevantCommentsQuery__
+ *
+ * To run a query within a React component, call `useHasNoneRelevantCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHasNoneRelevantCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHasNoneRelevantCommentsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useHasNoneRelevantCommentsQuery(
+  baseOptions: Apollo.QueryHookOptions<HasNoneRelevantCommentsQuery, HasNoneRelevantCommentsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<HasNoneRelevantCommentsQuery, HasNoneRelevantCommentsQueryVariables>(
+    HasNoneRelevantCommentsDocument,
+    options
+  );
+}
+export function useHasNoneRelevantCommentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    HasNoneRelevantCommentsQuery,
+    HasNoneRelevantCommentsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<HasNoneRelevantCommentsQuery, HasNoneRelevantCommentsQueryVariables>(
+    HasNoneRelevantCommentsDocument,
+    options
+  );
+}
+export type HasNoneRelevantCommentsQueryHookResult = ReturnType<typeof useHasNoneRelevantCommentsQuery>;
+export type HasNoneRelevantCommentsLazyQueryHookResult = ReturnType<
+  typeof useHasNoneRelevantCommentsLazyQuery
+>;
+export type HasNoneRelevantCommentsQueryResult = Apollo.QueryResult<
+  HasNoneRelevantCommentsQuery,
+  HasNoneRelevantCommentsQueryVariables
 >;
 export const HasTxHashBeenIndexedDocument = gql`
   query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {
@@ -32623,7 +32686,6 @@ export const LikesDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -32668,7 +32730,6 @@ export const MirrorsDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -32777,7 +32838,6 @@ export const MutualFollowersListDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -32880,7 +32940,6 @@ export const NftFeedDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -33160,7 +33219,6 @@ export const NotificationsDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -33564,7 +33622,6 @@ export const ProfileFeedDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -33736,7 +33793,6 @@ export const ProfilesDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -34008,7 +34064,6 @@ export const SearchProfilesDocument = gql`
         }
         pageInfo {
           next
-          totalCount
         }
       }
     }
@@ -34068,7 +34123,6 @@ export const SearchPublicationsDocument = gql`
         }
         pageInfo {
           next
-          totalCount
         }
       }
     }
@@ -34307,7 +34361,6 @@ export const TimelineDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }

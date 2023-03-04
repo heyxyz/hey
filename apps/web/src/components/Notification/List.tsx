@@ -73,7 +73,7 @@ const List: FC<Props> = ({ feedType }) => {
 
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
-  const hasMore = pageInfo?.next && notifications?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

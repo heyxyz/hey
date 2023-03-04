@@ -37,7 +37,7 @@ const Publications: FC<Props> = ({ query }) => {
   const search = data?.search as PublicationSearchResult;
   const publications = search?.items as Publication[];
   const pageInfo = search?.pageInfo;
-  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

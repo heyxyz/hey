@@ -28,7 +28,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
 
   const profiles = data?.profiles?.items;
   const pageInfo = data?.profiles?.pageInfo;
-  const hasMore = pageInfo?.next && profiles?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

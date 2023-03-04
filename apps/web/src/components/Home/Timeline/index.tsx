@@ -50,7 +50,7 @@ const Timeline: FC = () => {
 
   const publications = data?.feed?.items;
   const pageInfo = data?.feed?.pageInfo;
-  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

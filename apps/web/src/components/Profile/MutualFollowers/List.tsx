@@ -32,7 +32,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
 
   const profiles = data?.mutualFollowersProfiles?.items;
   const pageInfo = data?.mutualFollowersProfiles?.pageInfo;
-  const hasMore = pageInfo?.next && profiles?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

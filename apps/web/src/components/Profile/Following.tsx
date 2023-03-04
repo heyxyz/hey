@@ -29,7 +29,7 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
 
   const followings = data?.following?.items;
   const pageInfo = data?.following?.pageInfo;
-  const hasMore = pageInfo?.next && followings?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

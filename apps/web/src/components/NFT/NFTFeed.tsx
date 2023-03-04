@@ -33,7 +33,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
 
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
-  const hasMore = pageInfo?.next && nfts?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

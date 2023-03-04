@@ -30,7 +30,7 @@ const Highlights: FC = () => {
 
   const publications = data?.feedHighlights?.items;
   const pageInfo = data?.feedHighlights?.pageInfo;
-  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

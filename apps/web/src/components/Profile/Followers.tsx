@@ -29,7 +29,7 @@ const Followers: FC<Props> = ({ profile }) => {
 
   const followers = data?.followers?.items;
   const pageInfo = data?.followers?.pageInfo;
-  const hasMore = pageInfo?.next && followers?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

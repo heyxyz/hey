@@ -28,7 +28,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
 
   const profiles = data?.whoReactedPublication?.items;
   const pageInfo = data?.whoReactedPublication?.pageInfo;
-  const hasMore = pageInfo?.next && profiles?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

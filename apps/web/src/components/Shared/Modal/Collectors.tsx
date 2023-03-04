@@ -29,7 +29,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
 
   const profiles = data?.whoCollectedPublication?.items;
   const pageInfo = data?.whoCollectedPublication?.pageInfo;
-  const hasMore = pageInfo?.next && profiles?.length !== pageInfo.totalCount;
+  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({

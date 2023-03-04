@@ -1,4 +1,5 @@
 import Feed from '@components/Comment/Feed';
+import NoneRelevantFeed from '@components/Comment/NoneRelevantFeed';
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
@@ -9,7 +10,7 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import formatHandle from '@lib/formatHandle';
 import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME } from 'data/constants';
-import { usePublicationQuery } from 'lens';
+import { useHasNoneRelevantCommentsQuery, usePublicationQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -43,6 +44,12 @@ const ViewPublication: NextPage = () => {
     skip: !id
   });
 
+  const { data: noneRelevantCommentsData } = useHasNoneRelevantCommentsQuery({
+    variables: { request: { commentsOf: id, limit: 1 } },
+    fetchPolicy: 'no-cache',
+    skip: !id
+  });
+
   if (error) {
     return <Custom500 />;
   }
@@ -56,6 +63,7 @@ const ViewPublication: NextPage = () => {
   }
 
   const { publication } = data as any;
+  const hasNoneRelevantComments = noneRelevantCommentsData?.publications?.items.length;
 
   return (
     <GridLayout>
@@ -71,6 +79,7 @@ const ViewPublication: NextPage = () => {
           <FullPublication publication={publication} />
         </Card>
         <Feed publication={publication} />
+        {hasNoneRelevantComments ? <NoneRelevantFeed publication={publication} /> : null}
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
