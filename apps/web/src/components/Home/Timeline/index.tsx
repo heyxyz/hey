@@ -11,6 +11,7 @@ import { SCROLL_THRESHOLD } from 'data/constants';
 import type { FeedItem, FeedRequest, Publication } from 'lens';
 import { FeedEventItemType, useTimelineQuery } from 'lens';
 import type { FC } from 'react';
+import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
@@ -21,6 +22,7 @@ const Timeline: FC = () => {
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
   const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
+  const [hasMore, setHasMore] = useState(true);
 
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
@@ -50,11 +52,12 @@ const Timeline: FC = () => {
 
   const publications = data?.feed?.items;
   const pageInfo = data?.feed?.pageInfo;
-  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
 
   const loadMore = async () => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+    }).then(({ data }) => {
+      setHasMore(data?.feed?.items?.length > 0);
     });
   };
 

@@ -11,6 +11,7 @@ import { SCROLL_THRESHOLD } from 'data/constants';
 import type { FeedHighlightsRequest, Publication } from 'lens';
 import { useFeedHighlightsQuery } from 'lens';
 import type { FC } from 'react';
+import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -18,6 +19,7 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 const Highlights: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: FeedHighlightsRequest = { profileId: currentProfile?.id, limit: 10 };
@@ -30,11 +32,12 @@ const Highlights: FC = () => {
 
   const publications = data?.feedHighlights?.items;
   const pageInfo = data?.feedHighlights?.pageInfo;
-  const hasMore = pageInfo?.next && publications?.length !== pageInfo.totalCount;
 
   const loadMore = async () => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+    }).then(({ data }) => {
+      setHasMore(data?.feedHighlights?.items?.length > 0);
     });
   };
 
