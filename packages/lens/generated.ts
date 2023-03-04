@@ -15765,18 +15765,6 @@ export type GenerateModuleCurrencyApprovalDataQuery = {
   };
 };
 
-export type HasNoneRelevantCommentsQueryVariables = Exact<{
-  request: PublicationsQueryRequest;
-}>;
-
-export type HasNoneRelevantCommentsQuery = {
-  __typename?: 'Query';
-  publications: {
-    __typename?: 'PaginatedPublicationResult';
-    items: Array<{ __typename?: 'Comment'; id: any } | { __typename?: 'Mirror' } | { __typename?: 'Post' }>;
-  };
-};
-
 export type HasTxHashBeenIndexedQueryVariables = Exact<{
   request: HasTxHashBeenIndexedRequest;
 }>;
@@ -32514,63 +32502,6 @@ export type GenerateModuleCurrencyApprovalDataLazyQueryHookResult = ReturnType<
 export type GenerateModuleCurrencyApprovalDataQueryResult = Apollo.QueryResult<
   GenerateModuleCurrencyApprovalDataQuery,
   GenerateModuleCurrencyApprovalDataQueryVariables
->;
-export const HasNoneRelevantCommentsDocument = gql`
-  query HasNoneRelevantComments($request: PublicationsQueryRequest!) {
-    publications(request: $request) {
-      items {
-        ... on Comment {
-          id
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __useHasNoneRelevantCommentsQuery__
- *
- * To run a query within a React component, call `useHasNoneRelevantCommentsQuery` and pass it any options that fit your needs.
- * When your component renders, `useHasNoneRelevantCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useHasNoneRelevantCommentsQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useHasNoneRelevantCommentsQuery(
-  baseOptions: Apollo.QueryHookOptions<HasNoneRelevantCommentsQuery, HasNoneRelevantCommentsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<HasNoneRelevantCommentsQuery, HasNoneRelevantCommentsQueryVariables>(
-    HasNoneRelevantCommentsDocument,
-    options
-  );
-}
-export function useHasNoneRelevantCommentsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    HasNoneRelevantCommentsQuery,
-    HasNoneRelevantCommentsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<HasNoneRelevantCommentsQuery, HasNoneRelevantCommentsQueryVariables>(
-    HasNoneRelevantCommentsDocument,
-    options
-  );
-}
-export type HasNoneRelevantCommentsQueryHookResult = ReturnType<typeof useHasNoneRelevantCommentsQuery>;
-export type HasNoneRelevantCommentsLazyQueryHookResult = ReturnType<
-  typeof useHasNoneRelevantCommentsLazyQuery
->;
-export type HasNoneRelevantCommentsQueryResult = Apollo.QueryResult<
-  HasNoneRelevantCommentsQuery,
-  HasNoneRelevantCommentsQueryVariables
 >;
 export const HasTxHashBeenIndexedDocument = gql`
   query HasTxHashBeenIndexed($request: HasTxHashBeenIndexedRequest!) {

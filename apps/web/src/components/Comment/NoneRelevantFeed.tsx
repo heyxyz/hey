@@ -4,12 +4,7 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Comment, Publication, PublicationsQueryRequest } from 'lens';
-import {
-  CommentOrderingTypes,
-  CommentRankingFilter,
-  CustomFiltersTypes,
-  useCommentFeedLazyQuery
-} from 'lens';
+import { CommentOrderingTypes, CommentRankingFilter, CustomFiltersTypes, useCommentFeedQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -22,7 +17,8 @@ interface Props {
 const NoneRelevantFeed: FC<Props> = ({ publication }) => {
   const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [showNoneRelevant, setShowNoneRelevant] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [showMore, setShowMore] = useState(false);
 
   // Variables
   const request: PublicationsQueryRequest = {
@@ -35,36 +31,39 @@ const NoneRelevantFeed: FC<Props> = ({ publication }) => {
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
-  const [fetchNoneRelevantComments, { data, loading, fetchMore }] = useCommentFeedLazyQuery({
+  const { data, fetchMore } = useCommentFeedQuery({
     variables: { request, reactionRequest, profileId },
-    fetchPolicy: 'no-cache'
+    skip: !publicationId
   });
 
   const comments = data?.publications?.items ?? [];
   const pageInfo = data?.publications?.pageInfo;
+
   const totalComments = comments?.length;
-  const hasMore = pageInfo?.next;
 
   const loadMore = async () => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+    }).then(({ data }) => {
+      setHasMore(data?.publications?.items?.length > 0);
     });
   };
+
+  if (totalComments === 0) {
+    return null;
+  }
 
   return (
     <>
       <Card
-        className="flex cursor-pointer items-center justify-center space-x-2 p-5"
+        className="cursor-pointer p-5 text-center"
         onClick={() => {
-          setShowNoneRelevant(!showNoneRelevant);
-          if (!showNoneRelevant) {
-            fetchNoneRelevantComments();
-          }
+          setShowMore(!showMore);
         }}
       >
-        <div>{showNoneRelevant ? <Trans>Hide more comments</Trans> : <Trans>Show more comments</Trans>}</div>
+        {showMore ? <Trans>Hide more comments</Trans> : <Trans>Show more comments</Trans>}
       </Card>
-      {comments?.length > 0 && showNoneRelevant ? (
+      {showMore ? (
         <InfiniteScroll
           dataLength={totalComments}
           scrollThreshold={SCROLL_THRESHOLD}
