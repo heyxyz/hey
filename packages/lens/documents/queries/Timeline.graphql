@@ -45,7 +45,6 @@ query Timeline(
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

@@ -26,6 +26,14 @@ msgstr "முதல் நபராக கருத்திடுக!"
 msgid "Failed to load comment feed"
 msgstr "கருத்து ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Hide more comments"
+msgstr ""
+
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Show more comments"
+msgstr ""
+
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
 msgstr "இந்த இடுகையை யார் பார்க்கலாம் என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும்"
@@ -2468,4 +2476,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
