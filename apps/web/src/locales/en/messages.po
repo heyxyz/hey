@@ -26,6 +26,14 @@ msgstr ""
 msgid "Failed to load comment feed"
 msgstr ""
 
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Hide more comments"
+msgstr "Hide more comments"
+
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Show more comments"
+msgstr "Show more comments"
+
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
 msgstr ""

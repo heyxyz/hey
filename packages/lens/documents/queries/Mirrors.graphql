@@ -6,7 +6,6 @@ query Mirrors($request: ProfileQueryRequest!) {
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

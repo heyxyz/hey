@@ -16,7 +16,6 @@ query FeedHighlights(
       }
     }
     pageInfo {
-      totalCount
       next
     }
   }
