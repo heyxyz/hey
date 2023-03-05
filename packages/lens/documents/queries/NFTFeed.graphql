@@ -13,7 +13,6 @@ query NFTFeed($request: NFTsRequest!) {
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

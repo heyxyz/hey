@@ -6,7 +6,6 @@ query SearchProfiles($request: SearchQueryRequest!) {
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }

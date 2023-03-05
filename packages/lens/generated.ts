@@ -390,6 +390,8 @@ export type Comment = {
   onChainContentURI: Scalars['String'];
   /** The profile ref */
   profile: Profile;
+  /** Comment ranking score */
+  rankingScore?: Maybe<Scalars['Float']>;
   reaction?: Maybe<ReactionTypes>;
   /** The reference module */
   referenceModule?: Maybe<ReferenceModule>;
@@ -427,6 +429,18 @@ export type CommentMirrorsArgs = {
 export type CommentReactionArgs = {
   request?: InputMaybe<ReactionFieldResolverRequest>;
 };
+
+/** The comment ordering types */
+export enum CommentOrderingTypes {
+  Desc = 'DESC',
+  Ranking = 'RANKING'
+}
+
+/** The comment ranking filter types */
+export enum CommentRankingFilter {
+  NoneRelevant = 'NONE_RELEVANT',
+  Relevant = 'RELEVANT'
+}
 
 /** The gated publication access criteria contract types */
 export enum ContractType {
@@ -3364,6 +3378,10 @@ export type PublicationsQueryRequest = {
   collectedBy?: InputMaybe<Scalars['EthereumAddress']>;
   /** The publication id you wish to get comments for */
   commentsOf?: InputMaybe<Scalars['InternalPublicationId']>;
+  /** The comment ordering type - only used when you use commentsOf */
+  commentsOfOrdering?: InputMaybe<CommentOrderingTypes>;
+  /** The comment ranking filter, you can use  - only used when you use commentsOf + commentsOfOrdering=ranking */
+  commentsRankingFilter?: InputMaybe<CommentRankingFilter>;
   cursor?: InputMaybe<Scalars['Cursor']>;
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
@@ -8166,7 +8184,7 @@ export type CollectorsQuery = {
           | null;
       } | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -10246,7 +10264,7 @@ export type CommentFeedQuery = {
       | { __typename?: 'Mirror' }
       | { __typename?: 'Post' }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -13126,7 +13144,7 @@ export type ExploreFeedQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15952,7 +15970,7 @@ export type FeedHighlightsQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15993,7 +16011,7 @@ export type FollowersQuery = {
         } | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -16030,7 +16048,7 @@ export type FollowingQuery = {
           | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -16118,7 +16136,7 @@ export type LikesQuery = {
           | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -16151,7 +16169,7 @@ export type MirrorsQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -16205,7 +16223,7 @@ export type MutualFollowersListQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -16235,7 +16253,7 @@ export type NftFeedQuery = {
       chainId: any;
       originalContent: { __typename?: 'NFTContent'; uri: string; animatedUrl?: string | null };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -16694,7 +16712,7 @@ export type NotificationsQuery = {
               };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -19690,7 +19708,7 @@ export type ProfileFeedQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -19756,7 +19774,7 @@ export type ProfilesQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -22668,7 +22686,7 @@ export type SearchProfilesQuery = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null;
         }>;
-        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
       }
     | { __typename?: 'PublicationSearchResult' };
 };
@@ -25112,7 +25130,7 @@ export type SearchPublicationsQuery = {
               };
             }
         >;
-        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
       };
 };
 
@@ -29860,7 +29878,7 @@ export type TimelineQuery = {
           | null;
       }> | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -32753,7 +32771,6 @@ export const CollectorsDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -32804,7 +32821,6 @@ export const CommentFeedDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -33030,7 +33046,6 @@ export const ExploreFeedDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -33092,7 +33107,6 @@ export const FeedHighlightsDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -33153,7 +33167,6 @@ export const FollowersDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -33203,7 +33216,6 @@ export const FollowingDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -33415,7 +33427,6 @@ export const LikesDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -33460,7 +33471,6 @@ export const MirrorsDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -33569,7 +33579,6 @@ export const MutualFollowersListDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -33672,7 +33681,6 @@ export const NftFeedDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -33952,7 +33960,6 @@ export const NotificationsDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -34356,7 +34363,6 @@ export const ProfileFeedDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -34528,7 +34534,6 @@ export const ProfilesDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -34800,7 +34805,6 @@ export const SearchProfilesDocument = gql`
         }
         pageInfo {
           next
-          totalCount
         }
       }
     }
@@ -34860,7 +34864,6 @@ export const SearchPublicationsDocument = gql`
         }
         pageInfo {
           next
-          totalCount
         }
       }
     }
@@ -35099,7 +35102,6 @@ export const TimelineDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }

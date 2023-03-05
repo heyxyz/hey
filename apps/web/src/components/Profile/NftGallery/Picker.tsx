@@ -11,7 +11,7 @@ import { IS_MAINNET, SCROLL_THRESHOLD } from 'data/constants';
 import type { Nft, NfTsRequest } from 'lens';
 import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
@@ -24,6 +24,7 @@ const Picker: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
+  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: NfTsRequest = {
@@ -39,11 +40,12 @@ const Picker: FC = () => {
 
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
-  const hasMore = Boolean(pageInfo?.next);
 
   const loadMore = async () => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
+    }).then(({ data }) => {
+      setHasMore(data?.nfts?.items?.length > 0);
     });
   };
 
