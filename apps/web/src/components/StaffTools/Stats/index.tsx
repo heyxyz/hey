@@ -181,7 +181,6 @@ const Stats: NextPage = () => {
               </div>
             </section>
           )}
-          <div />
         </Card>
       </GridItemEight>
     </GridLayout>

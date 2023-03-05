@@ -116,7 +116,11 @@ const Layout: FC<Props> = ({ children }) => {
     if (MIXPANEL_ENABLED && currentProfile?.id) {
       mixpanel.identify(currentProfile?.id);
       mixpanel.people.set({
-        $name: currentProfile?.handle
+        $name: currentProfile?.handle,
+        $last_active: new Date()
+      });
+      mixpanel.people.set_once({
+        $created_at: new Date()
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

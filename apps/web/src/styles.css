@@ -1,4 +1,3 @@
-@import url('fonts.css');
 @import url('lib/image-cropper/styles.css');
 
 @tailwind base;
@@ -10,7 +9,6 @@ html {
 }
 
 body {
-  font-family: 'CircularXXSub', sans-serif;
   @apply bg-gray-50;
   @apply dark:bg-black;
 }
