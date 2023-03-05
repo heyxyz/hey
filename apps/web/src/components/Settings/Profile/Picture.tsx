@@ -23,7 +23,7 @@ import {
   useCreateSetProfileImageUriViaDispatcherMutation
 } from 'lens';
 import type { ChangeEvent, FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
@@ -40,7 +40,7 @@ const Picture: FC<Props> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [avatar, setAvatar] = useState('');
+  const [avatarDataUrl, setAvatarDataUrl] = useState('');
   const [uploading, setUploading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -64,13 +64,6 @@ const Picture: FC<Props> = ({ profile }) => {
     onSuccess: onCompleted,
     onError
   });
-
-  useEffect(() => {
-    if (profile?.picture?.original?.url || profile?.picture?.uri) {
-      setAvatar(profile?.picture?.original?.url ?? profile?.picture?.uri);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
@@ -114,20 +107,17 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   };
 
-  const uploadImage = async (image: HTMLCanvasElement): Promise<string> => {
+  const uploadImage = async (image: HTMLCanvasElement): Promise<{ ipfsUrl: string; dataUrl: string }> => {
     const blob = await new Promise((resolve) => image.toBlob(resolve));
     let file = new File([blob as Blob], 'cropped_image.png', { type: (blob as Blob).type });
-    let url = '';
-    try {
-      const attachment = await uploadToIPFS([file]);
-      if (attachment[0]?.item) {
-        url = attachment[0].item;
-      }
-    } finally {
-      setAvatar(image.toDataURL('image/png'));
-      setShowCropModal(false);
+    const attachment = await uploadToIPFS([file]);
+    if (attachment[0]?.item) {
+      const ipfsUrl = attachment[0].item;
+      const dataUrl = image.toDataURL('image/png');
+      return { ipfsUrl, dataUrl };
+    } else {
+      throw new Error('uploadToIPFS failed');
     }
-    return url;
   };
 
   const uploadAndSave = async () => {
@@ -138,31 +128,33 @@ const Picture: FC<Props> = ({ profile }) => {
     if (!croppedImage) {
       return toast.error(ERROR_MESSAGE);
     }
-    setUploading(true);
-    let avatar = await uploadImage(croppedImage);
-    setUploading(false);
-    if (!avatar) {
-      return toast.error(t`Upload failed`);
-    }
 
     try {
+      setUploading(true);
+      let { ipfsUrl, dataUrl } = await uploadImage(croppedImage);
+
       const request: UpdateProfileImageRequest = {
         profileId: currentProfile?.id,
-        url: avatar
+        url: ipfsUrl
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        return await createViaDispatcher(request);
+        await createViaDispatcher(request);
+      } else {
+        await createSetProfileImageURITypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request
+          }
+        });
       }
-
-      return await createSetProfileImageURITypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
-        }
-      });
+      setAvatarDataUrl(dataUrl);
     } catch (error) {
       console.error(error);
+      toast.error(t`Upload failed`);
+    } finally {
+      setShowCropModal(false);
+      setUploading(false);
     }
   };
 
@@ -187,16 +179,22 @@ const Picture: FC<Props> = ({ profile }) => {
   };
 
   const avatarPreviewSize: Size = { width: 240, height: 240 };
+  const profilePictureUrl = profile?.picture?.original?.url ?? profile?.picture?.uri;
+  const profilePictureIpfsUrl = profilePictureUrl ? imageProxy(getIPFSLink(profilePictureUrl), AVATAR) : '';
 
   return (
     <>
       <Modal
         title={t`Crop image`}
         show={showCropModal}
-        onClose={() => {
-          setImageSrc('');
-          setShowCropModal(false);
-        }}
+        onClose={
+          isLoading
+            ? undefined
+            : () => {
+                setImageSrc('');
+                setShowCropModal(false);
+              }
+        }
       >
         <div className="p-5">
           <ImageCropper
@@ -217,20 +215,15 @@ const Picture: FC<Props> = ({ profile }) => {
       <div className="space-y-1.5">
         {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
         <div className="space-y-3">
-          {avatar && (
-            <div>
-              <Image
-                className="rounded-lg"
-                height={avatarPreviewSize.height}
-                width={avatarPreviewSize.width}
-                onError={({ currentTarget }) => {
-                  currentTarget.src = getIPFSLink(avatar);
-                }}
-                src={imageProxy(getIPFSLink(avatar), AVATAR)}
-                alt={t`Profile picture crop preview`}
-              />
-            </div>
-          )}
+          <div>
+            <Image
+              className="rounded-lg"
+              height={avatarPreviewSize.height}
+              width={avatarPreviewSize.width}
+              src={avatarDataUrl || profilePictureIpfsUrl}
+              alt={t`Profile picture crop preview`}
+            />
+          </div>
           <div className="flex items-center space-x-3">
             <ChooseFile onChange={(evt: ChangeEvent<HTMLInputElement>) => onFileChange(evt)} />
           </div>
