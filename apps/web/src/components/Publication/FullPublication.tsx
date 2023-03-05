@@ -1,8 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
-import formatTime from '@lib/formatTime';
+import { formatTime } from '@lib/formatTime';
 import getAppName from '@lib/getAppName';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 
@@ -12,8 +11,6 @@ import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
-
-dayjs.extend(relativeTime);
 
 interface Props {
   publication: Publication;
@@ -42,7 +39,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
       <div>
         <div className="flex justify-between space-x-1.5 pb-4">
           <UserProfile profile={profile} showStatus />
-          <PublicationMenu publication={publication} />
+          <PublicationMenu publication={publication} forceReloadOnDelete />
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (

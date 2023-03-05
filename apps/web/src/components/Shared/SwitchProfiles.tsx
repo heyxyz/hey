@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -28,11 +29,13 @@ const SwitchProfiles: FC = () => {
             setCurrentProfile(selectedProfile);
             setProfileId(selectedProfile.id);
             setShowProfileSwitchModal(false);
-            Mixpanel.track(PROFILE.SWITCH_PROFILE);
+            Mixpanel.track(PROFILE.SWITCH_PROFILE, {
+              switch_profile_to: selectedProfile.id
+            });
           }}
         >
           <span className="flex items-center space-x-2">
-            <img
+            <Image
               className="h-6 w-6 rounded-full border dark:border-gray-700"
               height={20}
               width={20}

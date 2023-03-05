@@ -16,6 +16,7 @@ import type {
 } from 'lens';
 import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'lens';
 import type { FC } from 'react';
+import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 
@@ -27,24 +28,33 @@ import LikeNotification from './Type/LikeNotification';
 import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
 
+export enum NotificationType {
+  All = 'ALL',
+  Mentions = 'MENTIONS',
+  Comments = 'COMMENTS',
+  Likes = 'LIKES',
+  Collects = 'COLLECTS'
+}
+
 interface Props {
   feedType: string;
 }
 
 const List: FC<Props> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [hasMore, setHasMore] = useState(true);
 
   const getNotificationType = () => {
     switch (feedType) {
-      case 'ALL':
+      case NotificationType.All:
         return;
-      case 'MENTIONS':
+      case NotificationType.Mentions:
         return [NotificationTypes.MentionPost, NotificationTypes.MentionComment];
-      case 'COMMENTS':
+      case NotificationType.Comments:
         return [NotificationTypes.CommentedPost, NotificationTypes.CommentedComment];
-      case 'LIKES':
+      case NotificationType.Likes:
         return [NotificationTypes.ReactionPost, NotificationTypes.ReactionComment];
-      case 'COLLECTS':
+      case NotificationType.Collects:
         return [NotificationTypes.CollectedPost, NotificationTypes.CollectedComment];
       default:
         return;
@@ -65,11 +75,12 @@ const List: FC<Props> = ({ feedType }) => {
 
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
-  const hasMore = pageInfo?.next && notifications?.length !== pageInfo.totalCount;
 
   const loadMore = async () => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
+    }).then(({ data }) => {
+      setHasMore(data?.notifications?.items?.length > 0);
     });
   };
 

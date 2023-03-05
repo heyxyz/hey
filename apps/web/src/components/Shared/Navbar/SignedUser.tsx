@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { Menu } from '@headlessui/react';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -30,7 +31,7 @@ const SignedUser: FC = () => {
   const showMobileDrawer = useGlobalModalStateStore((state) => state.showMobileDrawer);
 
   const Avatar = () => (
-    <img
+    <Image
       onError={({ currentTarget }) => {
         currentTarget.src = getAvatar(currentProfile, false);
       }}

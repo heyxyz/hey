@@ -26,9 +26,6 @@
     <a href="https://lenster.checklyhq.com">
         <img src="https://api.checklyhq.com/v1/badges/checks/4c205fee-8666-4dc8-bc92-077084ef9643?style=flat&theme=default&responseTime=true" alt="Checkly">
     </a>
-    <a href="https://status.lenster.xyz">
-        <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
-    </a>
     <a href="https://github.com/lensterxyz/lenster/stargazers">
         <img src="https://img.shields.io/github/stars/lensterxyz/lenster" alt="Stargazers">
     </a>

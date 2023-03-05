@@ -9,7 +9,6 @@ query Likes($request: WhoReactedPublicationRequest!) {
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }
