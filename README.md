@@ -17,11 +17,14 @@
     <a href="https://www.gitpoap.io/gh/lensterxyz/lenster">
         <img src="https://public-api.gitpoap.io/v1/repo/lensterxyz/lenster/badge" alt="Gitpoap">
     </a>
-    <a href="https://crowdin.com/project/lenster">
+    <a href="https://translate.lenster.xyz">
         <img src="https://badges.crowdin.net/lenster/localized.svg" alt="Crowdin">
     </a>
     <a href="https://github.com/orgs/lensterxyz/projects/1/views/2">
         <img src="https://img.shields.io/badge/Help%20wanted-contribute-blue" alt="Help wanted">
+    </a>
+    <a href="https://status.lenster.xyz">
+        <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>
     <a href="https://lenster.checklyhq.com">
         <img src="https://api.checklyhq.com/v1/badges/checks/4c205fee-8666-4dc8-bc92-077084ef9643?style=flat&theme=default&responseTime=true" alt="Checkly">
@@ -35,8 +38,8 @@
     <a href="https://discord.gg/B8eKhSSUwX">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
-    <a href="https://twitter.com/lensterxyz">
-        <img src="https://img.shields.io/twitter/follow/lensterxyz?label=lensterxyz&style=flat&logo=twitter&color=1DA1F2" alt="Lenster Twitter">
+    <a href="https://console.algora.io/org/lensterxyz/bounties?status=open">
+        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fconsole.algora.io%2Fapi%2Fshields%2Flensterxyz%2Fbounties%3Fstatus%3Dopen" alt="Algora" />
     </a>
 </div>
 <div align="center">
