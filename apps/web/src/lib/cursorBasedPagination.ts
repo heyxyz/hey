@@ -14,20 +14,17 @@ export const cursorBasedPagination = <T extends CursorBasedPagination>(
   return {
     keyArgs,
 
-    read(existing: SafeReadonly<T> | undefined, { canRead }) {
+    read(existing: SafeReadonly<T> | undefined) {
       if (!existing) {
         return existing;
       }
-
       const { items, pageInfo } = existing;
-      const removedItems = items?.filter((item) => !canRead(item));
 
       return {
         ...existing,
         items,
         pageInfo: {
-          ...pageInfo,
-          totalCount: pageInfo?.totalCount ? pageInfo.totalCount - removedItems?.length : null
+          ...pageInfo
         }
       } as SafeReadonly<T>;
     },

@@ -11,6 +11,7 @@ import { SCROLL_THRESHOLD } from 'data/constants';
 import type { FollowingRequest, Profile } from 'lens';
 import { useFollowingQuery } from 'lens';
 import type { FC } from 'react';
+import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface Props {
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const Following: FC<Props> = ({ profile, onProfileSelected }) => {
+  const [hasMore, setHasMore] = useState(true);
+
   // Variables
   const request: FollowingRequest = { address: profile?.ownedBy, limit: 10 };
 
@@ -29,13 +32,12 @@ const Following: FC<Props> = ({ profile, onProfileSelected }) => {
 
   const followings = data?.following?.items;
   const pageInfo = data?.following?.pageInfo;
-  const hasMore = pageInfo?.next && followings?.length !== pageInfo.totalCount;
 
   const loadMore = async () => {
     await fetchMore({
-      variables: {
-        request: { ...request, cursor: pageInfo?.next }
-      }
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    }).then(({ data }) => {
+      setHasMore(data?.following?.items?.length > 0);
     });
   };
 

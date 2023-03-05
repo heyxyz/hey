@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-25 00:09\n"
+"PO-Revision-Date: 2023-03-05 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -25,6 +25,14 @@ msgstr "还没有人评论哦~快来抢沙发！"
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "评论流加载失败"
+
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Hide more comments"
+msgstr ""
+
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Show more comments"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
@@ -162,6 +170,10 @@ msgstr ""
 msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
 msgstr ""
 
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Duplicate recipient address found"
+msgstr ""
+
 #: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
 msgid "Time limit"
 msgstr "限时"
@@ -205,6 +217,22 @@ msgstr "好友的好友"
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone"
 msgstr "所有人"
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My followers can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My follows can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Friend of friends can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Everyone can comment and mirror"
+msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
@@ -681,6 +709,10 @@ msgid "Notifications • {APP_NAME}"
 msgstr "通知 • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
+msgid "Email is not valid"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
 msgstr "主题不能为空"
 
@@ -709,9 +741,16 @@ msgid "Contact us to help you get the issue resolved."
 msgstr "联系我们以帮助您解决问题。"
 
 #: src/components/Pages/Contact.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Publication reported successfully!"
-msgstr "帖子发布成功！"
+msgid "Your message has been sent!"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Email"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "gavin@hooli.com"
+msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -1179,7 +1218,15 @@ msgid "Gallery created"
 msgstr "画廊已创建"
 
 #: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name updated"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery updated"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name should be less than 255 characters"
 msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
@@ -1245,6 +1292,10 @@ msgstr "我们开始做吧！"
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
 msgstr "没有任何NFT（非同质化代币）！"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Only 50 items allowed for gallery"
+msgstr ""
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
@@ -1337,6 +1388,10 @@ msgstr "取消点赞"
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
 msgstr "点赞"
+
+#: src/components/Publication/Actions/Menu/Delete.tsx
+msgid "Publication deleted successfully"
+msgstr ""
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1892,43 +1947,43 @@ msgstr "已成功关注！"
 msgid "Follow"
 msgstr "关注"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Terms"
 msgstr "条款"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Privacy"
 msgstr "隐私"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Discord"
 msgstr "Discord"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Donate"
 msgstr "捐赠"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Status"
 msgstr "状态"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Feedback"
 msgstr "反馈"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Thanks"
 msgstr "鸣谢"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr "GitHub"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Translate"
 msgstr "翻译"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ 由 Vercel 提供支持"
 
@@ -2162,6 +2217,10 @@ msgstr "内容无关"
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
 msgstr "补充信息不应超过 260 个字符"
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Publication reported successfully!"
+msgstr "帖子发布成功！"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"

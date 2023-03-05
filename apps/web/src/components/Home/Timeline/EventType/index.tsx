@@ -1,3 +1,4 @@
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import type { FeedItem } from 'lens';
 import type { FC } from 'react';
 
@@ -35,7 +36,7 @@ const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
   }
 
   return (
-    <span onClick={(event) => event.stopPropagation()}>
+    <span onClick={stopEventPropagation}>
       {canCombined ? (
         <Combined feedItem={feedItem} />
       ) : (
