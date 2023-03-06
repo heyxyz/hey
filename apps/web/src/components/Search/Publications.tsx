@@ -6,12 +6,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Publication, PublicationSearchResult, SearchQueryRequest } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchPublicationsQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
 interface Props {
@@ -27,7 +26,7 @@ const Publications: FC<Props> = ({ query }) => {
     query,
     type: SearchRequestTypes.Publication,
     customFilters: [CustomFiltersTypes.Gardeners],
-    limit: 10
+    limit: 50
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
@@ -40,14 +39,20 @@ const Publications: FC<Props> = ({ query }) => {
   const publications = search?.items as Publication[];
   const pageInfo = search?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-    }).then(({ data }) => {
-      const search = data?.search as PublicationSearchResult;
-      setHasMore(search?.items?.length > 0);
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+      }).then(({ data }) => {
+        const search = data?.search as PublicationSearchResult;
+        setHasMore(search?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -71,19 +76,18 @@ const Publications: FC<Props> = ({ query }) => {
   }
 
   return (
-    <InfiniteScroll
-      dataLength={publications?.length ?? 0}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<InfiniteLoader />}
-    >
+    <>
       <Card className="divide-y-[1px] dark:divide-gray-700">
         {publications?.map((publication, index) => (
           <SinglePublication key={`${publication?.id}_${index}`} publication={publication} />
         ))}
       </Card>
-    </InfiniteScroll>
+      {hasMore && (
+        <span ref={observe}>
+          <InfiniteLoader />
+        </span>
+      )}
+    </>
   );
 };
 

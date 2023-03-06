@@ -7,12 +7,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Comment, Publication, PublicationsQueryRequest } from 'lens';
 import { CommentOrderingTypes, CommentRankingFilter, CustomFiltersTypes, useCommentFeedQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
@@ -35,7 +34,7 @@ const Feed: FC<Props> = ({ publication }) => {
     customFilters: [CustomFiltersTypes.Gardeners],
     commentsOfOrdering: CommentOrderingTypes.Ranking,
     commentsRankingFilter: CommentRankingFilter.Relevant,
-    limit: 10
+    limit: 50
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
@@ -52,13 +51,19 @@ const Feed: FC<Props> = ({ publication }) => {
   const totalComments = comments?.length + queuedCount;
   const canComment = publication?.canComment?.result;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-    }).then(({ data }) => {
-      setHasMore(data?.publications?.items?.length > 0);
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+      }).then(({ data }) => {
+        setHasMore(data?.publications?.items?.length > 0);
+      });
+    }
+  });
 
   return (
     <>
@@ -72,13 +77,7 @@ const Feed: FC<Props> = ({ publication }) => {
       )}
       <ErrorMessage title={t`Failed to load comment feed`} error={error} />
       {!error && !loading && totalComments !== 0 && (
-        <InfiniteScroll
-          dataLength={totalComments}
-          scrollThreshold={SCROLL_THRESHOLD}
-          hasMore={hasMore}
-          next={loadMore}
-          loader={<InfiniteLoader />}
-        >
+        <>
           <Card className="divide-y-[1px] dark:divide-gray-700">
             {txnQueue.map(
               (txn) =>
@@ -99,7 +98,12 @@ const Feed: FC<Props> = ({ publication }) => {
               )
             )}
           </Card>
-        </InfiniteScroll>
+          {hasMore && (
+            <span ref={observe}>
+              <InfiniteLoader />
+            </span>
+          )}
+        </>
       )}
     </>
   );
