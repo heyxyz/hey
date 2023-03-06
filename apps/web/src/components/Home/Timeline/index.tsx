@@ -7,12 +7,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { FeedItem, FeedRequest, Publication } from 'lens';
 import { FeedEventItemType, useTimelineQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -53,13 +52,19 @@ const Timeline: FC = () => {
   const publications = data?.feed?.items;
   const pageInfo = data?.feed?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-    }).then(({ data }) => {
-      setHasMore(data?.feed?.items?.length > 0);
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+      }).then(({ data }) => {
+        setHasMore(data?.feed?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -74,13 +79,7 @@ const Timeline: FC = () => {
   }
 
   return (
-    <InfiniteScroll
-      dataLength={publications?.length ?? 0}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<InfiniteLoader />}
-    >
+    <>
       <Card className="divide-y-[1px] dark:divide-gray-700">
         {txnQueue.map(
           (txn) =>
@@ -98,7 +97,12 @@ const Timeline: FC = () => {
           />
         ))}
       </Card>
-    </InfiniteScroll>
+      {hasMore && (
+        <span ref={observe}>
+          <InfiniteLoader />
+        </span>
+      )}
+    </>
   );
 };
 
