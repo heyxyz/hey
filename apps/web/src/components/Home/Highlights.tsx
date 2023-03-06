@@ -7,12 +7,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { FeedHighlightsRequest, Publication } from 'lens';
 import { useFeedHighlightsQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
@@ -22,7 +21,7 @@ const Highlights: FC = () => {
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: FeedHighlightsRequest = { profileId: currentProfile?.id, limit: 10 };
+  const request: FeedHighlightsRequest = { profileId: currentProfile?.id, limit: 50 };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
@@ -33,13 +32,19 @@ const Highlights: FC = () => {
   const publications = data?.feedHighlights?.items;
   const pageInfo = data?.feedHighlights?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-    }).then(({ data }) => {
-      setHasMore(data?.feedHighlights?.items?.length > 0);
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+      }).then(({ data }) => {
+        setHasMore(data?.feedHighlights?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -54,13 +59,7 @@ const Highlights: FC = () => {
   }
 
   return (
-    <InfiniteScroll
-      dataLength={publications?.length ?? 0}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<InfiniteLoader />}
-    >
+    <>
       <Card className="divide-y-[1px] dark:divide-gray-700">
         {txnQueue.map(
           (txn) =>
@@ -74,7 +73,12 @@ const Highlights: FC = () => {
           <SinglePublication key={`${publication?.id}_${index}`} publication={publication as Publication} />
         ))}
       </Card>
-    </InfiniteScroll>
+      {hasMore && (
+        <span ref={observe}>
+          <InfiniteLoader />
+        </span>
+      )}
+    </>
   );
 };
 
