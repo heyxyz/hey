@@ -7,11 +7,12 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t } from '@lingui/macro';
+import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, Publication, PublicationsQueryRequest } from 'lens';
 import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
 
@@ -66,7 +67,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
     publicationTypes,
     metadata,
     ...(type !== ProfileFeedType.Collects ? { profileId: profile?.id } : { collectedBy: profile?.ownedBy }),
-    limit: 50
+    limit: 10
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
@@ -79,19 +80,13 @@ const Feed: FC<Props> = ({ profile, type }) => {
   const publications = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-      }).then(({ data }) => {
-        setHasMore(data?.publications?.items?.length > 0);
-      });
-    }
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+    }).then(({ data }) => {
+      setHasMore(data?.publications?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -127,7 +122,13 @@ const Feed: FC<Props> = ({ profile, type }) => {
   }
 
   return (
-    <>
+    <InfiniteScroll
+      dataLength={publications?.length ?? 0}
+      scrollThreshold={SCROLL_THRESHOLD}
+      hasMore={hasMore}
+      next={loadMore}
+      loader={<InfiniteLoader />}
+    >
       <Card className="divide-y-[1px] dark:divide-gray-700">
         {publications?.map((publication, index) => (
           <SinglePublication
@@ -137,12 +138,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
           />
         ))}
       </Card>
-      {hasMore && (
-        <span ref={observe}>
-          <InfiniteLoader />
-        </span>
-      )}
-    </>
+    </InfiniteScroll>
   );
 };
 
