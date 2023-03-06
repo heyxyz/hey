@@ -22,7 +22,7 @@ const Followers: FC<Props> = ({ profile }) => {
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: FollowersRequest = { profileId: profile?.id, limit: 10 };
+  const request: FollowersRequest = { profileId: profile?.id, limit: 50 };
 
   const { data, loading, error, fetchMore } = useFollowersQuery({
     variables: { request },

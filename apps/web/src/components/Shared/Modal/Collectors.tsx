@@ -22,7 +22,7 @@ const Collectors: FC<Props> = ({ publicationId }) => {
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: WhoCollectedPublicationRequest = { publicationId: publicationId, limit: 10 };
+  const request: WhoCollectedPublicationRequest = { publicationId: publicationId, limit: 50 };
 
   const { data, loading, error, fetchMore } = useCollectorsQuery({
     variables: { request },

@@ -28,7 +28,7 @@ const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProf
     noRandomize: feedType === 'LATEST',
     customFilters: [CustomFiltersTypes.Gardeners],
     metadata: focus ? { mainContentFocus: [focus] } : null,
-    limit: 10
+    limit: 50
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;

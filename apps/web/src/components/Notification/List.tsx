@@ -65,7 +65,7 @@ const List: FC<Props> = ({ feedType }) => {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
     notificationTypes: getNotificationType(),
-    limit: 20
+    limit: 50
   };
 
   const { data, loading, error, fetchMore } = useNotificationsQuery({

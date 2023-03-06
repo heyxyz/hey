@@ -23,7 +23,7 @@ const MutualFollowersList: FC<Props> = ({ profileId }) => {
   const request: MutualFollowersProfilesQueryRequest = {
     viewingProfileId: profileId,
     yourProfileId: currentProfile?.id,
-    limit: 10
+    limit: 50
   };
 
   const { data, loading, error, fetchMore } = useMutualFollowersListQuery({

@@ -21,7 +21,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: WhoReactedPublicationRequest = { publicationId: publicationId, limit: 10 };
+  const request: WhoReactedPublicationRequest = { publicationId: publicationId, limit: 50 };
 
   const { data, loading, error, fetchMore } = useLikesQuery({
     variables: { request },

@@ -25,7 +25,7 @@ const NoneRelevantFeed: FC<Props> = ({ publication }) => {
     customFilters: [CustomFiltersTypes.Gardeners],
     commentsOfOrdering: CommentOrderingTypes.Ranking,
     commentsRankingFilter: CommentRankingFilter.NoneRelevant,
-    limit: 10
+    limit: 50
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;

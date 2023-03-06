@@ -21,7 +21,7 @@ const Mirrors: FC<Props> = ({ publicationId }) => {
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: ProfileQueryRequest = { whoMirroredPublicationId: publicationId, limit: 10 };
+  const request: ProfileQueryRequest = { whoMirroredPublicationId: publicationId, limit: 50 };
 
   const { data, loading, error, fetchMore } = useMirrorsQuery({
     variables: { request },

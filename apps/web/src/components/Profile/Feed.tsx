@@ -66,7 +66,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
     publicationTypes,
     metadata,
     ...(type !== ProfileFeedType.Collects ? { profileId: profile?.id } : { collectedBy: profile?.ownedBy }),
-    limit: 10
+    limit: 50
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;

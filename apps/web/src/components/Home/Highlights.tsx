@@ -21,7 +21,7 @@ const Highlights: FC = () => {
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: FeedHighlightsRequest = { profileId: currentProfile?.id, limit: 10 };
+  const request: FeedHighlightsRequest = { profileId: currentProfile?.id, limit: 50 };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
