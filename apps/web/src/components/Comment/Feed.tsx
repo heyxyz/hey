@@ -11,13 +11,14 @@ import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Comment, Publication, PublicationsQueryRequest } from 'lens';
 import { CommentOrderingTypes, CommentRankingFilter, CustomFiltersTypes, useCommentFeedQuery } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
 import NewPublication from '../Composer/NewPublication';
 import CommentWarning from '../Shared/CommentWarning';
+
+let hasMore = true;
 
 interface Props {
   publication?: Publication;
@@ -27,7 +28,6 @@ const Feed: FC<Props> = ({ publication }) => {
   const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: PublicationsQueryRequest = {
@@ -56,7 +56,7 @@ const Feed: FC<Props> = ({ publication }) => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
     }).then(({ data }) => {
-      setHasMore(data?.publications?.items?.length > 0);
+      hasMore = data?.publications?.items?.length > 0;
     });
   };
 

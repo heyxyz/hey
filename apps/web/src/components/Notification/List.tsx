@@ -16,7 +16,6 @@ import type {
 } from 'lens';
 import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 
@@ -36,13 +35,14 @@ export enum NotificationType {
   Collects = 'COLLECTS'
 }
 
+let hasMore = true;
+
 interface Props {
   feedType: string;
 }
 
 const List: FC<Props> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -80,7 +80,7 @@ const List: FC<Props> = ({ feedType }) => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
     }).then(({ data }) => {
-      setHasMore(data?.notifications?.items?.length > 0);
+      hasMore = data?.notifications?.items?.length > 0;
     });
   };
 
