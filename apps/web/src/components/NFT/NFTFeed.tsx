@@ -6,12 +6,12 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
-import { IS_MAINNET } from 'data/constants';
+import { IS_MAINNET, SCROLL_THRESHOLD } from 'data/constants';
 import type { Nft, NfTsRequest, Profile } from 'lens';
 import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
 import { mainnet } from 'wagmi/chains';
 
@@ -37,19 +37,13 @@ const NFTFeed: FC<Props> = ({ profile }) => {
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      }).then(({ data }) => {
-        setHasMore(data?.nfts?.items?.length > 0);
-      });
-    }
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    }).then(({ data }) => {
+      setHasMore(data?.nfts?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return <NFTSShimmer />;
@@ -76,7 +70,13 @@ const NFTFeed: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <>
+    <InfiniteScroll
+      dataLength={nfts?.length ?? 0}
+      scrollThreshold={SCROLL_THRESHOLD}
+      hasMore={hasMore}
+      next={loadMore}
+      loader={<InfiniteLoader />}
+    >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {nfts?.map((nft) => (
           <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
@@ -84,12 +84,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
           </div>
         ))}
       </div>
-      {hasMore && (
-        <span ref={observe}>
-          <InfiniteLoader />
-        </span>
-      )}
-    </>
+    </InfiniteScroll>
   );
 };
 
