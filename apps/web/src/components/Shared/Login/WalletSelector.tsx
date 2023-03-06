@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
-import getWalletLogo from '@lib/getWalletLogo';
+import getWalletDetails from '@lib/getWalletDetails';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
@@ -168,11 +168,15 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}
           >
             <span>
-              {mounted ? (connector.id === 'injected' ? t`Browser Wallet` : connector.name) : connector.name}
+              {mounted
+                ? connector.id === 'injected'
+                  ? t`Browser Wallet`
+                  : getWalletDetails(connector.name).name
+                : getWalletDetails(connector.name).name}
               {mounted ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <img
-              src={getWalletLogo(connector.name)}
+              src={getWalletDetails(connector.name).logo}
               draggable={false}
               className="h-6 w-6"
               height={24}
