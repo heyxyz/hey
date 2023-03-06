@@ -2,11 +2,12 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import { Card } from '@components/UI/Card';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { Trans } from '@lingui/macro';
+import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Comment, Publication, PublicationsQueryRequest } from 'lens';
 import { CommentOrderingTypes, CommentRankingFilter, CustomFiltersTypes, useCommentFeedQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 
 interface Props {
@@ -25,7 +26,7 @@ const NoneRelevantFeed: FC<Props> = ({ publication }) => {
     customFilters: [CustomFiltersTypes.Gardeners],
     commentsOfOrdering: CommentOrderingTypes.Ranking,
     commentsRankingFilter: CommentRankingFilter.NoneRelevant,
-    limit: 50
+    limit: 10
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
@@ -40,19 +41,13 @@ const NoneRelevantFeed: FC<Props> = ({ publication }) => {
 
   const totalComments = comments?.length;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-      }).then(({ data }) => {
-        setHasMore(data?.publications?.items?.length > 0);
-      });
-    }
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+    }).then(({ data }) => {
+      setHasMore(data?.publications?.items?.length > 0);
+    });
+  };
 
   if (totalComments === 0) {
     return null;
@@ -69,7 +64,13 @@ const NoneRelevantFeed: FC<Props> = ({ publication }) => {
         {showMore ? <Trans>Hide more comments</Trans> : <Trans>Show more comments</Trans>}
       </Card>
       {showMore ? (
-        <>
+        <InfiniteScroll
+          dataLength={totalComments}
+          scrollThreshold={SCROLL_THRESHOLD}
+          hasMore={hasMore}
+          next={loadMore}
+          loader={<InfiniteLoader />}
+        >
           <Card className="divide-y-[1px] dark:divide-gray-700">
             {comments?.map((comment, index) =>
               comment?.__typename === 'Comment' && comment.hidden ? null : (
@@ -81,12 +82,7 @@ const NoneRelevantFeed: FC<Props> = ({ publication }) => {
               )
             )}
           </Card>
-          {hasMore && (
-            <span ref={observe}>
-              <InfiniteLoader />
-            </span>
-          )}
-        </>
+        </InfiniteScroll>
       ) : null}
     </>
   );

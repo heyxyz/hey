@@ -6,11 +6,12 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
+import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, ProfileSearchResult, SearchQueryRequest } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface Props {
   query: string | string[];
@@ -24,7 +25,7 @@ const Profiles: FC<Props> = ({ query }) => {
     query,
     type: SearchRequestTypes.Profile,
     customFilters: [CustomFiltersTypes.Gardeners],
-    limit: 50
+    limit: 10
   };
 
   const { data, loading, error, fetchMore } = useSearchProfilesQuery({
@@ -36,20 +37,14 @@ const Profiles: FC<Props> = ({ query }) => {
   const profiles = search?.items;
   const pageInfo = search?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      }).then(({ data }) => {
-        const search = data?.search as ProfileSearchResult;
-        setHasMore(search?.items?.length > 0);
-      });
-    }
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    }).then(({ data }) => {
+      const search = data?.search as ProfileSearchResult;
+      setHasMore(search?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return <UserProfilesShimmer isBig />;
@@ -73,18 +68,21 @@ const Profiles: FC<Props> = ({ query }) => {
   }
 
   return (
-    <div className="space-y-3">
-      {profiles?.map((profile: Profile) => (
-        <Card key={profile?.id} className="p-5">
-          <UserProfile profile={profile} showBio isBig />
-        </Card>
-      ))}
-      {hasMore && (
-        <span ref={observe}>
-          <InfiniteLoader />
-        </span>
-      )}
-    </div>
+    <InfiniteScroll
+      dataLength={profiles?.length}
+      scrollThreshold={SCROLL_THRESHOLD}
+      hasMore={hasMore}
+      next={loadMore}
+      loader={<InfiniteLoader />}
+    >
+      <div className="space-y-3">
+        {profiles?.map((profile: Profile) => (
+          <Card key={profile?.id} className="p-5">
+            <UserProfile profile={profile} showBio isBig />
+          </Card>
+        ))}
+      </div>
+    </InfiniteScroll>
   );
 };
 

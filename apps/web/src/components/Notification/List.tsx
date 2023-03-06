@@ -4,6 +4,7 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
+import { SCROLL_THRESHOLD } from 'data/constants';
 import type {
   NewCollectNotification,
   NewCommentNotification,
@@ -16,7 +17,7 @@ import type {
 import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 
 import NotificationShimmer from './Shimmer';
@@ -65,7 +66,7 @@ const List: FC<Props> = ({ feedType }) => {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
     notificationTypes: getNotificationType(),
-    limit: 50
+    limit: 20
   };
 
   const { data, loading, error, fetchMore } = useNotificationsQuery({
@@ -75,19 +76,13 @@ const List: FC<Props> = ({ feedType }) => {
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      }).then(({ data }) => {
-        setHasMore(data?.notifications?.items?.length > 0);
-      });
-    }
-  });
+  const loadMore = async () => {
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    }).then(({ data }) => {
+      setHasMore(data?.notifications?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return (
@@ -115,40 +110,38 @@ const List: FC<Props> = ({ feedType }) => {
   }
 
   return (
-    <>
+    <InfiniteScroll
+      dataLength={notifications?.length ?? 0}
+      scrollThreshold={SCROLL_THRESHOLD}
+      hasMore={hasMore}
+      next={loadMore}
+      loader={<InfiniteLoader />}
+    >
       <Card className="divide-y dark:divide-gray-700">
-        {notifications?.map((notification, index, items) => {
-          const isLast = index === items.length - 1;
-          return (
-            <div
-              key={`${notification?.notificationId}_${index}`}
-              className="p-5"
-              ref={isLast ? observe : undefined}
-            >
-              {notification.__typename === 'NewFollowerNotification' && (
-                <FollowerNotification notification={notification as NewFollowerNotification} />
-              )}
-              {notification.__typename === 'NewMentionNotification' && (
-                <MentionNotification notification={notification as NewMentionNotification} />
-              )}
-              {notification.__typename === 'NewReactionNotification' && (
-                <LikeNotification notification={notification as NewReactionNotification} />
-              )}
-              {notification.__typename === 'NewCommentNotification' && (
-                <CommentNotification notification={notification as NewCommentNotification} />
-              )}
-              {notification.__typename === 'NewMirrorNotification' && (
-                <MirrorNotification notification={notification as NewMirrorNotification} />
-              )}
-              {notification.__typename === 'NewCollectNotification' && (
-                <CollectNotification notification={notification as NewCollectNotification} />
-              )}
-            </div>
-          );
-        })}
+        {notifications?.map((notification, index) => (
+          <div key={`${notification?.notificationId}_${index}`} className="p-5">
+            {notification.__typename === 'NewFollowerNotification' && (
+              <FollowerNotification notification={notification as NewFollowerNotification} />
+            )}
+            {notification.__typename === 'NewMentionNotification' && (
+              <MentionNotification notification={notification as NewMentionNotification} />
+            )}
+            {notification.__typename === 'NewReactionNotification' && (
+              <LikeNotification notification={notification as NewReactionNotification} />
+            )}
+            {notification.__typename === 'NewCommentNotification' && (
+              <CommentNotification notification={notification as NewCommentNotification} />
+            )}
+            {notification.__typename === 'NewMirrorNotification' && (
+              <MirrorNotification notification={notification as NewMirrorNotification} />
+            )}
+            {notification.__typename === 'NewCollectNotification' && (
+              <CollectNotification notification={notification as NewCollectNotification} />
+            )}
+          </div>
+        ))}
       </Card>
-      {hasMore && <InfiniteLoader />}
-    </>
+    </InfiniteScroll>
   );
 };
 
