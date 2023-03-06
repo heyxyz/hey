@@ -6,10 +6,10 @@ import { persist } from 'zustand/middleware';
 const CONVERSATION_CACHE_VERSION = 1;
 
 /**
- * The MessageCache is a JSON serializable Zustand store that is persisted to LocalStorage
+ * The ConversationCache is a JSON serializable Zustand store that is persisted to LocalStorage
  * Persisting conversations to the cache saves on both bandwidth and CPU cycles, as we don't have to re-fetch or re-decrypt conversations on subsequent page loads
  */
-interface MessageCache {
+interface ConversationCache {
   // Mapping of conversation exports, keyed by wallet address
   conversations: { [walletAddress: string]: ConversationExport[] };
   // Overwrite the cache for a given wallet address
@@ -19,7 +19,7 @@ interface MessageCache {
   addConversation: (walletAddress: string, conversation: ConversationExport) => void;
 }
 
-export const useMessageCache = create<MessageCache>()(
+export const useConversationCache = create<ConversationCache>()(
   persist(
     (set, get) => ({
       conversations: {},

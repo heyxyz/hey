@@ -2,8 +2,8 @@ import { Client } from '@xmtp/xmtp-js';
 import { APP_NAME, APP_VERSION, LS_KEYS, XMTP_ENV } from 'data/constants';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { useConversationCache } from 'src/store/conversation-cache';
 import { useMessageStore } from 'src/store/message';
-import { useMessageCache } from 'src/store/message-cache';
 import { useAccount, useSigner } from 'wagmi';
 
 const ENCODING = 'binary';
@@ -39,7 +39,7 @@ const useXmtpClient = (cacheOnly = false) => {
   const { data: signer, isLoading } = useSigner();
   const { address } = useAccount();
 
-  const conversationExports = useMessageCache((state) => state.conversations[address as `0x${string}`]);
+  const conversationExports = useConversationCache((state) => state.conversations[address as `0x${string}`]);
 
   useEffect(() => {
     const initXmtpClient = async () => {

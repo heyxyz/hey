@@ -11,8 +11,8 @@ import { useProfilesLazyQuery } from 'lens';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { useConversationCache } from 'src/store/conversation-cache';
 import { useMessageStore } from 'src/store/message';
-import { useMessageCache } from 'src/store/message-cache';
 import { useAccount } from 'wagmi';
 
 const MAX_PROFILES_PER_REQUEST = 50;
@@ -41,8 +41,8 @@ const useMessagePreviews = () => {
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(new Map());
   const [requestedCount, setRequestedCount] = useState(0);
 
-  const setConversationCache = useMessageCache((state) => state.setConversations);
-  const addToConversationCache = useMessageCache((state) => state.addConversation);
+  const setConversationCache = useConversationCache((state) => state.setConversations);
+  const addToConversationCache = useConversationCache((state) => state.addConversation);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
