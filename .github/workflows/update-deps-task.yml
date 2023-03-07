@@ -13,7 +13,7 @@ jobs:
       - name: Create task ➕
         uses: korosuke613/linear-app-create-issue-action@v1
         with:
-          issueFilePath: "../update-deps.md"
+          issueFilePath: ".github/update-deps.md"
           apiKey: ${{ secrets.LINEAR_API_TOKEN }}
           teamId: ${{ secrets.LINEAR_TEAMID }}
           stateId: ${{ secrets.LINEAR_STATEID }}
