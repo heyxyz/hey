@@ -131,11 +131,6 @@ body {
   @apply !text-sm sm:!text-base;
 }
 
-.markup > p {
-  @apply !leading-6 sm:!leading-8;
-  @apply [&:not(:last-child)]:mb-5;
-}
-
 .iframely-player,
 iframe {
   @apply rounded-xl;
@@ -184,4 +179,13 @@ div[data-lexical-editor='true'] {
 
 #typeahead-menu {
   @apply z-20;
+}
+
+/* Markup styles */
+
+.markup > p,
+ul {
+  @apply list-inside list-disc;
+  @apply !leading-6 sm:!leading-8;
+  @apply [&:not(:last-child)]:mb-5;
 }
