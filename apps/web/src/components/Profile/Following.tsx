@@ -22,7 +22,7 @@ interface Props {
 
 const Following: FC<Props> = ({ profile, onProfileSelected }) => {
   // Variables
-  const request: FollowingRequest = { address: profile?.ownedBy, limit: 10 };
+  const request: FollowingRequest = { address: profile?.ownedBy, limit: 30 };
 
   const { data, loading, error, fetchMore } = useFollowingQuery({
     variables: { request },
