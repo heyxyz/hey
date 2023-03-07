@@ -22,7 +22,7 @@ interface Props {
 
 const Followers: FC<Props> = ({ profile }) => {
   // Variables
-  const request: FollowersRequest = { profileId: profile?.id, limit: 10 };
+  const request: FollowersRequest = { profileId: profile?.id, limit: 30 };
 
   const { data, loading, error, fetchMore } = useFollowersQuery({
     variables: { request },
