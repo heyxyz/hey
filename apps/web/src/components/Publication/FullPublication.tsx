@@ -39,7 +39,7 @@ const FullPublication: FC<Props> = ({ publication }) => {
       <div>
         <div className="flex justify-between space-x-1.5 pb-4">
           <UserProfile profile={profile} showStatus />
-          <PublicationMenu publication={publication} forceReloadOnDelete />
+          <PublicationMenu publication={publication} />
         </div>
         <div className="ml-[53px]">
           {publication?.hidden ? (
