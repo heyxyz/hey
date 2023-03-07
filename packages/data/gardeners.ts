@@ -26,7 +26,6 @@ export const mainnetGardeners = [
 export const testnetGardeners = [
   '0x01', // lensprotocol.test
   '0x02', // donosonaumczuk.test
-  '0x06', // davidev.test
   '0x18', // devjoshstevens.test
   '0x15', // yoginth.test
   '0x038b' // 1653392689544.test
