@@ -186,6 +186,6 @@ div[data-lexical-editor='true'] {
 .markup > p,
 ul {
   @apply list-inside list-disc;
-  @apply !leading-6 sm:!leading-8;
+  @apply !leading-6 sm:!leading-7;
   @apply [&:not(:last-child)]:mb-5;
 }
