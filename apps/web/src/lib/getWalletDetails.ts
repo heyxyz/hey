@@ -11,7 +11,7 @@ const getWalletDetails = (
   name: string;
   logo: string;
 } => {
-  if (name === 'WalletConnect') {
+  if (name === 'WalletConnectLegacy') {
     return {
       name: 'Wallet Connect',
       logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`

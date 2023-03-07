@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.9"
+    "@apollo/client": "^3.7.10"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^3.2.1",
