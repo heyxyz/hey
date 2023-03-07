@@ -10,9 +10,10 @@ import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Publication, PublicationSearchResult, SearchQueryRequest } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchPublicationsQuery } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
+
+let hasMore = true;
 
 interface Props {
   query: string | string[];
@@ -20,7 +21,6 @@ interface Props {
 
 const Publications: FC<Props> = ({ query }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: SearchQueryRequest = {
@@ -45,7 +45,7 @@ const Publications: FC<Props> = ({ query }) => {
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
     }).then(({ data }) => {
       const search = data?.search as PublicationSearchResult;
-      setHasMore(search?.items?.length > 0);
+      hasMore = search?.items?.length > 0;
     });
   };
 
