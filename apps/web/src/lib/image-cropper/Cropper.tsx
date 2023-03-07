@@ -19,7 +19,7 @@ export type CropperProps = {
   zoom: number;
   zoomSpeed: number;
   onCropChange: (location: Point) => void;
-  onZoomChange?: (zoom: number) => void;
+  onZoomChange?: (zoom: number, maxZoom: number) => void;
   onCropComplete?: (croppedAreaPixels: Area) => void;
 };
 
@@ -43,6 +43,7 @@ class Cropper extends React.Component<CropperProps, State> {
   containerRef: HTMLDivElement | null = null;
   styleRef: HTMLStyleElement | null = null;
   mediaSize: MediaSize = { width: 0, height: 0, naturalWidth: 0, naturalHeight: 0 };
+  maxZoom: number | null = null;
   dragStartPosition: Point = { x: 0, y: 0 };
   dragStartCrop: Point = { x: 0, y: 0 };
   gestureZoomStart = 0;
@@ -326,7 +327,7 @@ class Cropper extends React.Component<CropperProps, State> {
     };
   };
 
-  setNewZoom = (zoom: number, point: Point, { shouldUpdatePosition = true } = {}) => {
+  setNewZoom = (zoom: number, point: Point | null, { shouldUpdatePosition = true } = {}) => {
     if (!this.props.onZoomChange) {
       return;
     }
@@ -336,18 +337,18 @@ class Cropper extends React.Component<CropperProps, State> {
       ? this.props.cropSize.width / this.mediaSize.width
       : this.props.cropSize.height / this.mediaSize.height;
     const maxEffectiveZoom = 3;
-    const minZoom = 1;
+    const minZoom = 1 * zoomScale;
 
     // allow different zoom level depending on image resolution
     const pixelScale = fitWidth
       ? this.mediaSize.naturalWidth / this.props.cropSize.width
       : this.mediaSize.naturalHeight / this.props.cropSize.height;
-    const maxZoom = Math.max(1, pixelScale * maxEffectiveZoom);
+    const maxZoom = Math.max(1, pixelScale * maxEffectiveZoom) * zoomScale;
 
-    const newZoom = restrictValue(zoom, minZoom * zoomScale, maxZoom * zoomScale);
+    const newZoom = restrictValue(zoom, minZoom, maxZoom);
 
     if (shouldUpdatePosition) {
-      const zoomPoint = this.getPointOnContainer(point);
+      const zoomPoint = point ? this.getPointOnContainer(point) : { x: 0, y: 0 };
       const zoomTarget = this.getPointOnMedia(zoomPoint);
       const requestedPosition = {
         x: zoomTarget.x * newZoom - zoomPoint.x,
@@ -358,7 +359,7 @@ class Cropper extends React.Component<CropperProps, State> {
 
       this.props.onCropChange(newPosition);
     }
-    this.props.onZoomChange(newZoom);
+    this.props.onZoomChange(newZoom, maxZoom);
   };
 
   getCropData = () => {
@@ -414,13 +415,7 @@ class Cropper extends React.Component<CropperProps, State> {
           padding: borderSize
         }}
       >
-        <div
-          className="relative"
-          style={{
-            width: size.width,
-            height: size.height
-          }}
-        >
+        <div className="relative" style={{ width: size.width, height: size.height }}>
           <div
             onMouseDown={this.onMouseDown}
             onTouchStart={this.onTouchStart}
@@ -439,9 +434,7 @@ class Cropper extends React.Component<CropperProps, State> {
                 )}
                 src={image}
                 ref={this.imageRef}
-                style={{
-                  transform: `translate(${x}px, ${y}px) scale(${zoom})`
-                }}
+                style={{ transform: `translate(${x}px, ${y}px) scale(${zoom})` }}
                 onLoad={this.onMediaLoad}
               />
             )}
