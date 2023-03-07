@@ -131,8 +131,9 @@ body {
   @apply !text-sm sm:!text-base;
 }
 
-.leading-md {
-  @apply !leading-6 sm:!leading-7;
+.markup > p {
+  @apply !leading-6 sm:!leading-8;
+  @apply [&:not(:last-child)]:mb-5;
 }
 
 .iframely-player,
