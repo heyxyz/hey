@@ -1274,6 +1274,7 @@ msgid "Rearrrange"
 msgstr "மறுசீரமைக்கவும்"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
 msgstr "அழி"
 
@@ -1388,10 +1389,6 @@ msgstr "விருப்பமில்லை"
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
 msgstr "விரும்பு"
-
-#: src/components/Publication/Actions/Menu/Delete.tsx
-msgid "Publication deleted successfully"
-msgstr "இடுகை வெற்றிகரமாக நீக்கப்பட்டது"
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1897,6 +1894,18 @@ msgstr "டிஸ்பெட்சேர்"
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
 msgstr "கொடுப்பனவு"
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Publication deleted successfully"
+msgstr "இடுகை வெற்றிகரமாக நீக்கப்பட்டது"
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete Publication?"
+msgstr ""
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
+msgstr ""
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
@@ -2476,4 +2485,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

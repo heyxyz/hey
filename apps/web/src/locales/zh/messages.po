@@ -1274,6 +1274,7 @@ msgid "Rearrrange"
 msgstr "重新排列"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
 msgstr "删除"
 
@@ -1388,10 +1389,6 @@ msgstr "取消点赞"
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
 msgstr "点赞"
-
-#: src/components/Publication/Actions/Menu/Delete.tsx
-msgid "Publication deleted successfully"
-msgstr ""
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1897,6 +1894,18 @@ msgstr "调度员"
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
 msgstr "授权设置"
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Publication deleted successfully"
+msgstr ""
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete Publication?"
+msgstr ""
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
+msgstr ""
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
@@ -2476,4 +2485,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
