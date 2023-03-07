@@ -92,8 +92,7 @@ export const SETTINGS = {
 };
 
 export const MOD = {
-  SPAM: 'Mod spam report',
-  OTHER: 'Mod report'
+  REPORT: 'Mod report'
 };
 
 export const STAFFTOOLS = {
