@@ -11,6 +11,7 @@ import {
 import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import type { Publication } from 'lens';
 import {
   PublicationReportingFraudSubreason,
@@ -26,9 +27,10 @@ import { MOD, PUBLICATION } from 'src/tracking';
 
 interface Props {
   publication: Publication;
+  className?: string;
 }
 
-const ModAction: FC<Props> = ({ publication }) => {
+const ModAction: FC<Props> = ({ publication, className = '' }) => {
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
   const [showReportAlert, setShowReportAlert] = useState(false);
 
@@ -85,7 +87,10 @@ const ModAction: FC<Props> = ({ publication }) => {
   );
 
   return (
-    <span className="mt-3 flex max-w-md flex-wrap items-center gap-3 text-sm" onClick={stopEventPropagation}>
+    <span
+      className={clsx('flex flex-wrap items-center gap-3 text-sm', className)}
+      onClick={stopEventPropagation}
+    >
       <ReportButton
         type="spamReason"
         subreason={PublicationReportingSpamSubreason.FakeEngagement}

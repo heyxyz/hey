@@ -59,7 +59,7 @@ const SinglePublication: FC<Props> = ({
                 electedMirror={feedItem?.electedMirror as ElectedMirror}
               />
             )}
-            {showModActions && <ModAction publication={rootPublication} />}
+            {showModActions && <ModAction publication={rootPublication} className="mt-3 max-w-md" />}
           </>
         )}
       </div>
