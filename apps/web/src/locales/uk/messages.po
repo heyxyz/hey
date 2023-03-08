@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-05 00:10\n"
+"PO-Revision-Date: 2023-03-08 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -1274,6 +1274,7 @@ msgid "Rearrrange"
 msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
 msgstr ""
 
@@ -1387,10 +1388,6 @@ msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
-msgstr ""
-
-#: src/components/Publication/Actions/Menu/Delete.tsx
-msgid "Publication deleted successfully"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx
@@ -1896,6 +1893,18 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
+msgstr ""
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Publication deleted successfully"
+msgstr ""
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete Publication?"
+msgstr ""
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
 msgstr ""
 
 #: src/components/Shared/Attachments.tsx
