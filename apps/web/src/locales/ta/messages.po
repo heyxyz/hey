@@ -1407,14 +1407,48 @@ msgstr "{0} மிரர்கள்"
 msgid "Mirror"
 msgstr "மிரர்"
 
-#: src/components/Publication/Actions/ModAction.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Publication reported successfully"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Spam"
 msgstr "ஸ்பேம்"
 
-#: src/components/Publication/Actions/ModAction.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "ஊழல்"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
+msgstr "என்எஸ்எஃப்டபிள்யூ"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
+msgstr "தொடர்ச்சியாகச் செய்தல்"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr "புகார்"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Others"
 msgstr "மற்றவை"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Report?"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Are you sure? You want to report this user?"
+msgstr ""
 
 #: src/components/Publication/Actions/index.tsx
 msgid "Gated Publication"
@@ -1997,11 +2031,6 @@ msgid "▲ Powered by Vercel"
 msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
 
 #: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr "புகார்"
-
-#: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
 msgstr "நிலையை அமைக்கவும்"
@@ -2180,16 +2209,8 @@ msgid "Violence"
 msgstr "வன்முறை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "ஊழல்"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr "ஆள்மாறாட்டம்"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "NSFW"
-msgstr "என்எஸ்எஃப்டபிள்யூ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Offensive"
@@ -2210,10 +2231,6 @@ msgstr "தவறாக வழிநடத்துதல்"
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
 msgstr "ஹேஷ்டேக்குகளை தவறாகப் பயன்படுத்துதல்"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Repetitive"
-msgstr "தொடர்ச்சியாகச் செய்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
