@@ -16,6 +16,7 @@ import AppVersion from './NavItems/AppVersion';
 import Contact from './NavItems/Contact';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
+import ModMode from './NavItems/ModMode';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
@@ -103,6 +104,14 @@ const MobileDrawerMenu: FC = () => {
             <Logout onClick={closeDrawer} className="py-3" />
           </div>
           <div className="divider" />
+          {isGardener(currentProfile?.id) && (
+            <>
+              <div onClick={closeDrawer} className="hover:bg-gray-200 dark:hover:bg-gray-800">
+                <ModMode className="py-3" />
+              </div>
+              <div className="divider" />
+            </>
+          )}
           {isStaff(currentProfile?.id) && (
             <>
               <div onClick={closeDrawer} className="hover:bg-gray-200 dark:hover:bg-gray-800">
