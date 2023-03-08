@@ -30,7 +30,7 @@ interface Props {
 
 const ModAction: FC<Props> = ({ publication }) => {
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
-  const [showShadowBanAlert, setShowShadowBanAlert] = useState(false);
+  const [showReportAlert, setShowReportAlert] = useState(false);
 
   const [createReport, { loading }] = useReportPublicationMutation({
     onCompleted: () => {
@@ -116,9 +116,9 @@ const ModAction: FC<Props> = ({ publication }) => {
         size="sm"
         outline
         icon={<BanIcon className="h-4 w-4" />}
-        onClick={() => setShowShadowBanAlert(true)}
+        onClick={() => setShowReportAlert(true)}
       >
-        <Trans>Shadow ban</Trans>
+        <Trans>Report</Trans>
       </Button>
       <Button
         onClick={() => {
@@ -130,10 +130,10 @@ const ModAction: FC<Props> = ({ publication }) => {
         <Trans>Others</Trans>
       </Button>
       <Alert
-        title={t`Shadown ban?`}
-        description={t`Are you sure? You want to shadown ban this user?`}
-        confirmText={t`Shadown ban`}
-        show={showShadowBanAlert}
+        title={t`Report?`}
+        description={t`Are you sure? You want to report this user?`}
+        confirmText={t`Report`}
+        show={showReportAlert}
         isPerformingAction={loading}
         isDestructive
         onConfirm={() => {
@@ -143,7 +143,7 @@ const ModAction: FC<Props> = ({ publication }) => {
               subreason: PublicationReportingSpamSubreason.FakeEngagement,
               showToast: false
             }).finally(() => {
-              setShowShadowBanAlert(false);
+              setShowReportAlert(false);
             });
           }
           Mixpanel.track(MOD.REPORT, {
@@ -151,7 +151,7 @@ const ModAction: FC<Props> = ({ publication }) => {
             report_subreason: 'SHADOW_BAN'
           });
         }}
-        onClose={() => setShowShadowBanAlert(false)}
+        onClose={() => setShowReportAlert(false)}
       />
     </span>
   );
