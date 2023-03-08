@@ -10,8 +10,9 @@ interface Props {
   show: boolean;
   isDestructive?: boolean;
   isPerformingAction?: boolean;
-  confirmText: string;
-  onConfirm: () => void;
+  confirmText?: string;
+  children?: ReactNode;
+  onConfirm?: () => void;
   onClose: () => void;
 }
 
@@ -22,6 +23,7 @@ export const Alert: FC<Props> = ({
   isDestructive = false,
   isPerformingAction = false,
   confirmText,
+  children,
   onConfirm,
   onClose
 }) => {
@@ -55,16 +57,19 @@ export const Alert: FC<Props> = ({
                 <b className="text-xl">{title}</b>
                 <p>{description}</p>
               </div>
+              <div>{children}</div>
               <div className="space-y-3">
-                <Button
-                  className="w-full"
-                  size="lg"
-                  variant={isDestructive ? 'danger' : 'primary'}
-                  disabled={isPerformingAction}
-                  onClick={() => onConfirm()}
-                >
-                  {confirmText}
-                </Button>
+                {onConfirm ? (
+                  <Button
+                    className="w-full"
+                    size="lg"
+                    variant={isDestructive ? 'danger' : 'primary'}
+                    disabled={isPerformingAction}
+                    onClick={() => onConfirm()}
+                  >
+                    {confirmText}
+                  </Button>
+                ) : null}
                 <Button className="w-full" size="lg" variant="secondary" outline onClick={onClose}>
                   Cancel
                 </Button>
