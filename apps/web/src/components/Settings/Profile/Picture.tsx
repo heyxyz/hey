@@ -178,9 +178,11 @@ const Picture: FC<Props> = ({ profile }) => {
     }
   };
 
-  const avatarPreviewSize: Size = { width: 240, height: 240 };
   const profilePictureUrl = profile?.picture?.original?.url ?? profile?.picture?.uri;
   const profilePictureIpfsUrl = profilePictureUrl ? imageProxy(getIPFSLink(profilePictureUrl), AVATAR) : '';
+
+  const cropperPreviewSize: Size = { width: 240, height: 240 };
+  const cropperBorderSize = 20;
 
   return (
     <>
@@ -200,7 +202,8 @@ const Picture: FC<Props> = ({ profile }) => {
           <ImageCropper
             imageSrc={imageSrc}
             setCroppedAreaPixels={setCroppedAreaPixels}
-            size={avatarPreviewSize}
+            cropSize={cropperPreviewSize}
+            borderSize={cropperBorderSize}
           />
           <Button
             type="submit"
@@ -218,8 +221,8 @@ const Picture: FC<Props> = ({ profile }) => {
           <div>
             <Image
               className="rounded-lg"
-              height={avatarPreviewSize.height}
-              width={avatarPreviewSize.width}
+              height={cropperPreviewSize.height}
+              width={cropperPreviewSize.width}
               src={avatarDataUrl || profilePictureIpfsUrl}
               alt={t`Profile picture crop preview`}
             />
