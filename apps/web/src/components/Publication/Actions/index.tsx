@@ -35,7 +35,7 @@ const PublicationActions: FC<Props> = ({ publication, electedMirror, showCount =
         {collectModuleType !== 'RevertCollectModuleSettings' && (
           <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
         )}
-        {modMode && <Mod publication={publication} />}
+        {modMode && <Mod publication={publication} isFullPublication={showCount} />}
         <Analytics publication={publication} />
       </span>
       {publication?.isGated && (

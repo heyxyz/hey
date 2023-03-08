@@ -1,3 +1,4 @@
+import Slug from '@components/Shared/Slug';
 import { Alert } from '@components/UI/Alert';
 import { Button } from '@components/UI/Button';
 import {
@@ -22,6 +23,7 @@ import {
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD, PUBLICATION } from 'src/tracking';
 
@@ -32,6 +34,7 @@ interface Props {
 
 const ModAction: FC<Props> = ({ publication, className = '' }) => {
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
+  const setShowModActionAlert = useGlobalAlertStateStore((state) => state.setShowModActionAlert);
   const [showReportAlert, setShowReportAlert] = useState(false);
 
   const [createReport, { loading }] = useReportPublicationMutation({
@@ -59,6 +62,9 @@ const ModAction: FC<Props> = ({ publication, className = '' }) => {
             [type]: { reason: type.replace('Reason', '').toUpperCase(), subreason }
           }
         }
+      },
+      onCompleted: () => {
+        setShowModActionAlert(false, null);
       }
     }).finally(() => {
       if (showToast) {
@@ -130,13 +136,14 @@ const ModAction: FC<Props> = ({ publication, className = '' }) => {
           setShowReportModal(true, publication);
         }}
         size="sm"
+        disabled={loading}
         icon={<ShieldCheckIcon className="h-4 w-4" />}
       >
         <Trans>Others</Trans>
       </Button>
       <Alert
         title={t`Report?`}
-        description={t`Are you sure? You want to report this user?`}
+        description={t`Are you sure? You want to report this user so that we can take action.`}
         confirmText={t`Report`}
         show={showReportAlert}
         isPerformingAction={loading}
@@ -157,7 +164,11 @@ const ModAction: FC<Props> = ({ publication, className = '' }) => {
           });
         }}
         onClose={() => setShowReportAlert(false)}
-      />
+      >
+        <b>
+          User: <Slug slug={publication.profile.handle} prefix="@" />
+        </b>
+      </Alert>
     </span>
   );
 };
