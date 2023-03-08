@@ -8,7 +8,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { ExplorePublicationRequest, Publication } from 'lens';
-import { PublicationSortCriteria, PublicationTypes, useExploreFeedQuery } from 'lens';
+import { CustomFiltersTypes, PublicationSortCriteria, PublicationTypes, useExploreFeedQuery } from 'lens';
 import type { FC } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
@@ -22,6 +22,7 @@ const Feed: FC = () => {
   const request: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.Latest,
     publicationTypes: [PublicationTypes.Post, PublicationTypes.Comment],
+    customFilters: [CustomFiltersTypes.Gardeners],
     noRandomize: true,
     limit: 50
   };
