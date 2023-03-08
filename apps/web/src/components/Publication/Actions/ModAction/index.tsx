@@ -25,7 +25,7 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { MOD, PUBLICATION } from 'src/tracking';
+import { MOD } from 'src/tracking';
 
 interface Props {
   publication: Publication;
@@ -37,13 +37,7 @@ const ModAction: FC<Props> = ({ publication, className = '' }) => {
   const setShowModActionAlert = useGlobalAlertStateStore((state) => state.setShowModActionAlert);
   const [showReportAlert, setShowReportAlert] = useState(false);
 
-  const [createReport, { loading }] = useReportPublicationMutation({
-    onCompleted: () => {
-      Mixpanel.track(PUBLICATION.REPORT, {
-        report_publication_id: publication?.id
-      });
-    }
-  });
+  const [createReport, { loading }] = useReportPublicationMutation();
 
   const reportPublication = async ({
     type,
@@ -84,7 +78,8 @@ const ModAction: FC<Props> = ({ publication, className = '' }) => {
         reportPublication({ type, subreason });
         Mixpanel.track(MOD.REPORT, {
           report_reason: type,
-          report_subreason: subreason
+          report_subreason: subreason,
+          report_publication_id: publication?.id
         });
       }}
     >
@@ -160,7 +155,8 @@ const ModAction: FC<Props> = ({ publication, className = '' }) => {
           }
           Mixpanel.track(MOD.REPORT, {
             report_reason: 'SHADOW_BAN',
-            report_subreason: 'SHADOW_BAN'
+            report_subreason: 'SHADOW_BAN',
+            report_publication_id: publication?.id
           });
         }}
         onClose={() => setShowReportAlert(false)}
