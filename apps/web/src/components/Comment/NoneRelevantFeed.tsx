@@ -10,6 +10,8 @@ import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 
+let hasMore = true;
+
 interface Props {
   publication?: Publication;
 }
@@ -17,7 +19,6 @@ interface Props {
 const NoneRelevantFeed: FC<Props> = ({ publication }) => {
   const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
   const [showMore, setShowMore] = useState(false);
 
   // Variables
@@ -45,7 +46,7 @@ const NoneRelevantFeed: FC<Props> = ({ publication }) => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
     }).then(({ data }) => {
-      setHasMore(data?.publications?.items?.length > 0);
+      hasMore = data?.publications?.items?.length > 0;
     });
   };
 

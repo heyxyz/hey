@@ -9,13 +9,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.9"
+    "@apollo/client": "^3.7.10"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^3.2.1",
+    "@graphql-codegen/cli": "^3.2.2",
     "@graphql-codegen/fragment-matcher": "^4.0.1",
-    "@graphql-codegen/typescript": "^3.0.1",
-    "@graphql-codegen/typescript-operations": "^3.0.1",
+    "@graphql-codegen/typescript": "^3.0.2",
+    "@graphql-codegen/typescript-operations": "^3.0.2",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "eslint-config-weblint": "*",
     "prettier": "^2.8.4",
