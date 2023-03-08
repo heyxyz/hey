@@ -17,7 +17,7 @@ interface Props {
 }
 
 const plugins = [
-  [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
+  [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
   remarkBreaks,
   linkifyRegex(mentionRegex),
   linkifyRegex(hashtagRegex),
