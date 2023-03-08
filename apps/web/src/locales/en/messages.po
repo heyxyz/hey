@@ -1407,14 +1407,48 @@ msgstr ""
 msgid "Mirror"
 msgstr ""
 
-#: src/components/Publication/Actions/ModAction.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Publication reported successfully"
+msgstr "Publication reported successfully"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Spam"
 msgstr ""
 
-#: src/components/Publication/Actions/ModAction.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Others"
 msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Report?"
+msgstr "Report?"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Are you sure? You want to report this user?"
+msgstr "Are you sure? You want to report this user?"
 
 #: src/components/Publication/Actions/index.tsx
 msgid "Gated Publication"
@@ -1997,11 +2031,6 @@ msgid "▲ Powered by Vercel"
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr ""
-
-#: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
 msgstr ""
@@ -2180,15 +2209,7 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "NSFW"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -2209,10 +2230,6 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Repetitive"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx

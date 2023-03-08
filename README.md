@@ -35,7 +35,7 @@
     <a href="https://github.com/lensterxyz/lenster/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/lensterxyz/lenster" alt="License">
     </a>
-    <a href="https://discord.gg/B8eKhSSUwX">
+    <a href="https://lenster.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
     <a href="https://console.algora.io/org/lensterxyz/bounties?status=open">
@@ -46,7 +46,7 @@
     <br>
     <a href="https://lenster.xyz"><b>lenster.xyz »</b></a>
     <br><br>
-    <a href="https://discord.gg/B8eKhSSUwX"><b>Discord</b></a>
+    <a href="https://lenster.xyz/discord"><b>Discord</b></a>
     •
     <a href="https://github.com/lensterxyz/lenster/issues/new"><b>Issues</b></a>
 </div>
