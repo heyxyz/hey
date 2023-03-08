@@ -1447,7 +1447,7 @@ msgid "Report?"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user?"
+msgid "Are you sure? You want to report this user so that we can take action."
 msgstr ""
 
 #: src/components/Publication/Actions/index.tsx
@@ -2030,6 +2030,14 @@ msgstr "翻译"
 msgid "▲ Powered by Vercel"
 msgstr "▲ 由 Vercel 提供支持"
 
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr ""
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Perform mod actions on this publication."
+msgstr ""
+
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
@@ -2281,6 +2289,14 @@ msgstr "登出"
 msgid "Moderation"
 msgstr "适度"
 
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Disable mod mode"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Enable mod mode"
+msgstr ""
+
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
 msgstr "报告错误"
@@ -2502,4 +2518,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
