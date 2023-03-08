@@ -92,6 +92,7 @@ export const SETTINGS = {
 };
 
 export const MOD = {
+  TOGGLE_MODE: 'Toggle mod mode',
   REPORT: 'Mod report'
 };
 

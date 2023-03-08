@@ -13,7 +13,7 @@ import SwitchProfiles from './SwitchProfiles';
 const GlobalModals: FC = () => {
   // Report modal state
   const showReportModal = useGlobalModalStateStore((state) => state.showReportModal);
-  const reportPublication = useGlobalModalStateStore((state) => state.reportPublication);
+  const reportingPublication = useGlobalModalStateStore((state) => state.reportingPublication);
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
   const showStatusModal = useGlobalModalStateStore((state) => state.showStatusModal);
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
@@ -24,16 +24,16 @@ const GlobalModals: FC = () => {
 
   return (
     <>
-      {reportPublication && (
+      {reportingPublication ? (
         <Modal
           title={t`Report`}
           icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
           show={showReportModal}
-          onClose={() => setShowReportModal(false, reportPublication)}
+          onClose={() => setShowReportModal(false, reportingPublication)}
         >
-          <Report publication={reportPublication} />
+          <Report publication={reportingPublication} />
         </Modal>
-      )}
+      ) : null}
       <Modal
         title={t`Set status`}
         icon={<EmojiHappyIcon className="text-brand h-5 w-5" />}

@@ -1447,8 +1447,8 @@ msgid "Report?"
 msgstr "Report?"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user?"
-msgstr "Are you sure? You want to report this user?"
+msgid "Are you sure? You want to report this user so that we can take action."
+msgstr "Are you sure? You want to report this user so that we can take action."
 
 #: src/components/Publication/Actions/index.tsx
 msgid "Gated Publication"
@@ -2030,6 +2030,14 @@ msgstr ""
 msgid "▲ Powered by Vercel"
 msgstr ""
 
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr "Mod actions"
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Perform mod actions on this publication."
+msgstr "Perform mod actions on this publication."
+
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
@@ -2280,6 +2288,14 @@ msgstr ""
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
 msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Disable mod mode"
+msgstr "Disable mod mode"
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Enable mod mode"
+msgstr "Enable mod mode"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"

@@ -3,11 +3,11 @@ import { create } from 'zustand';
 
 interface GlobalModalState {
   showReportModal: boolean;
-  reportPublication: Publication | null;
+  reportingPublication: Publication | null;
   reportConfig: any;
   setShowReportModal: (
     showReportModal: boolean,
-    reportPublication: Publication | null,
+    reportingPublication: Publication | null,
     reportConfig?: any
   ) => void;
   showStatusModal: boolean;
@@ -20,10 +20,10 @@ interface GlobalModalState {
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showReportModal: false,
-  reportPublication: null,
+  reportingPublication: null,
   reportConfig: null,
-  setShowReportModal: (showReportModal, reportPublication, reportConfig) =>
-    set(() => ({ showReportModal, reportPublication, reportConfig })),
+  setShowReportModal: (showReportModal, reportingPublication, reportConfig) =>
+    set(() => ({ showReportModal, reportingPublication, reportConfig })),
   showStatusModal: false,
   setShowStatusModal: (showStatusModal) => set(() => ({ showStatusModal })),
   showProfileSwitchModal: false,
