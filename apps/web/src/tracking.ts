@@ -92,8 +92,8 @@ export const SETTINGS = {
 };
 
 export const MOD = {
-  SPAM: 'Mod spam report',
-  OTHER: 'Mod report'
+  TOGGLE_MODE: 'Toggle mod mode',
+  REPORT: 'Mod report'
 };
 
 export const STAFFTOOLS = {

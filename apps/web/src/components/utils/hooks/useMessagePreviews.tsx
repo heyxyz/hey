@@ -11,12 +11,15 @@ import { useProfilesLazyQuery } from 'lens';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { useConversationCache } from 'src/store/conversation-cache';
 import { useMessageStore } from 'src/store/message';
+import { useAccount } from 'wagmi';
 
 const MAX_PROFILES_PER_REQUEST = 50;
 
 const useMessagePreviews = () => {
   const router = useRouter();
+  const { address: walletAddress } = useAccount();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const setConversations = useMessageStore((state) => state.setConversations);
@@ -37,6 +40,9 @@ const useMessagePreviews = () => {
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(new Map());
   const [requestedCount, setRequestedCount] = useState(0);
+
+  const setConversationCache = useConversationCache((state) => state.setConversations);
+  const addToConversationCache = useConversationCache((state) => state.addConversation);
 
   const getProfileFromKey = (key: string): string | null => {
     const parsed = parseConversationKey(key);
@@ -161,6 +167,12 @@ const useMessagePreviews = () => {
       if (newProfileIds.size > profileIds.size) {
         setProfileIds(newProfileIds);
       }
+
+      if (walletAddress) {
+        // Update the cache with the full conversation exports
+        const convoExports = await client.conversations.export();
+        setConversationCache(walletAddress, convoExports);
+      }
     };
 
     const closeConversationStream = async () => {
@@ -195,6 +207,11 @@ const useMessagePreviews = () => {
           setProfileIds(newProfileIds);
         }
         setConversations(newConversations);
+
+        if (walletAddress) {
+          // Add the newly streamed conversation to the cache
+          addToConversationCache(walletAddress, convo.export());
+        }
       }
     };
 
