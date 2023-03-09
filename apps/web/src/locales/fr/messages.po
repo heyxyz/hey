@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-08 04:53\n"
+"PO-Revision-Date: 2023-03-09 00:09\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -1447,7 +1447,7 @@ msgid "Report?"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user?"
+msgid "Are you sure? You want to report this user so that we can take action."
 msgstr ""
 
 #: src/components/Publication/Actions/index.tsx
@@ -2030,6 +2030,14 @@ msgstr ""
 msgid "▲ Powered by Vercel"
 msgstr ""
 
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr ""
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Perform mod actions on this publication."
+msgstr ""
+
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
@@ -2279,6 +2287,14 @@ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Disable mod mode"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Enable mod mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
