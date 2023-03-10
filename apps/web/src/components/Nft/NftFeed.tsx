@@ -1,5 +1,5 @@
 import SingleNft from '@components/Nft/SingleNft';
-import NftsShimmer from '@components/Shared/Shimmer/NftsShimmers';
+import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
