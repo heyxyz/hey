@@ -10,11 +10,11 @@ import type { Profile, Publication } from 'lens';
 import { useRelevantPeopleQuery } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface RelevantPeopleProps {
   publication: Publication;
 }
 
-const RelevantPeople: FC<Props> = ({ publication }) => {
+const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   const mentions = publication?.metadata?.content?.match(ALL_HANDLES_REGEX, '$1[~$2]') ?? [];
 
   const processedMentions = mentions.map((mention: string) => {

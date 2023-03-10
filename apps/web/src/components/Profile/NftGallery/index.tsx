@@ -7,11 +7,11 @@ import React from 'react';
 import Gallery from './Gallery';
 import NoGallery from './NoGallery';
 
-interface Props {
+interface NftGalleryHomeProps {
   profile: Profile;
 }
 
-const NftGalleryHome: FC<Props> = ({ profile }) => {
+const NftGalleryHome: FC<NftGalleryHomeProps> = ({ profile }) => {
   const { data, loading } = useNftGalleriesQuery({
     variables: { request: { profileId: profile?.id } }
   });
