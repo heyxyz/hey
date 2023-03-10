@@ -6,11 +6,11 @@ import { useEffect } from 'react';
 import Embed from './Embed';
 import Player from './Player';
 
-interface Props {
+interface IFramelyProps {
   url?: string;
 }
 
-const IFramely: FC<Props> = ({ url }) => {
+const IFramely: FC<IFramelyProps> = ({ url }) => {
   const allowedSites = ['YouTube', 'Spotify', 'SoundCloud', 'oohlala_xyz', 'Lenstube'];
 
   const { isLoading, error, data } = useQuery(

@@ -11,10 +11,6 @@ import type { FC } from 'react';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 
-interface Props {
-  notification: NewCommentNotification;
-}
-
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
     id: '<0><1/> commented on your <2>comment</2></0>'
@@ -31,7 +27,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> commented on your <2>' + typeName + '</2></0>';
 };
 
-const CommentNotification: FC<Props> = ({ notification }) => {
+interface CommentNotificationProps {
+  notification: NewCommentNotification;
+}
+
+const CommentNotification: FC<CommentNotificationProps> = ({ notification }) => {
   const typeName = notification?.comment?.commentOn?.__typename?.toLowerCase() || '';
   return (
     <div className="flex items-start justify-between">

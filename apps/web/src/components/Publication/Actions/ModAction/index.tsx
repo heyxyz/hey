@@ -27,12 +27,12 @@ import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
 
-interface Props {
+interface ModActionProps {
   publication: Publication;
   className?: string;
 }
 
-const ModAction: FC<Props> = ({ publication, className = '' }) => {
+const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
   const setShowModActionAlert = useGlobalAlertStateStore((state) => state.setShowModActionAlert);
   const [showReportAlert, setShowReportAlert] = useState(false);

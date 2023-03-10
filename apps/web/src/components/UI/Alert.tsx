@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 
 import { Button } from './Button';
 
-interface Props {
+interface AlertProps {
   title: ReactNode;
   description: ReactNode;
   show: boolean;
@@ -16,7 +16,7 @@ interface Props {
   onClose: () => void;
 }
 
-export const Alert: FC<Props> = ({
+export const Alert: FC<AlertProps> = ({
   title,
   description,
   show,

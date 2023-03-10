@@ -7,11 +7,11 @@ import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-interface Props {
+interface EmbedProps {
   publication: Publication;
 }
 
-const Embed: FC<Props> = ({ publication }) => {
+const Embed: FC<EmbedProps> = ({ publication }) => {
   return (
     <Menu.Item
       as="a"

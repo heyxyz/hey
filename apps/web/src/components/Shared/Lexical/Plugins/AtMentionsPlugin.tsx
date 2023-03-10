@@ -98,7 +98,7 @@ class MentionTypeaheadOption extends TypeaheadOption {
   }
 }
 
-interface Props {
+interface MentionsTypeaheadMenuItemProps {
   index: number;
   isSelected: boolean;
   onClick: () => void;
@@ -106,7 +106,12 @@ interface Props {
   option: MentionTypeaheadOption;
 }
 
-const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnter, option }) => {
+const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
+  isSelected,
+  onClick,
+  onMouseEnter,
+  option
+}) => {
   return (
     <li
       key={option.key}

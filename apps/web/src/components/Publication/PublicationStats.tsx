@@ -10,11 +10,11 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 
-interface Props {
+interface PublicationStatsProps {
   publication: Publication;
 }
 
-const PublicationStats: FC<Props> = ({ publication }) => {
+const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);

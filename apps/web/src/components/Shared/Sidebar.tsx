@@ -21,7 +21,7 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
   </Link>
 );
 
-interface Props {
+interface SidebarProps {
   items: {
     title: ReactNode;
     icon: ReactNode;
@@ -30,7 +30,7 @@ interface Props {
   }[];
 }
 
-const Sidebar: FC<Props> = ({ items }) => {
+const Sidebar: FC<SidebarProps> = ({ items }) => {
   const { pathname } = useRouter();
   const menuItems = items.map((item) => ({ ...item, enabled: item.enabled ?? true }));
 

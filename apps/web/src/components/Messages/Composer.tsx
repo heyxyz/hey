@@ -12,13 +12,13 @@ import toast from 'react-hot-toast';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
 
-interface Props {
+interface ComposerProps {
   sendMessage: (message: string) => Promise<boolean>;
   conversationKey: string;
   disabledInput: boolean;
 }
 
-const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) => {
+const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInput }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
   const { width } = useWindowSize();

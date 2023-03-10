@@ -4,11 +4,11 @@ import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface EnsProps {
   profile: Profile;
 }
 
-const Ens: FC<Props> = ({ profile }) => {
+const Ens: FC<EnsProps> = ({ profile }) => {
   if (!profile?.onChainIdentity?.ens?.name) {
     return null;
   }

@@ -4,11 +4,11 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import React from 'react';
 
-interface Props {
+interface ModProps {
   className?: string;
 }
 
-const Mod: FC<Props> = ({ className = '' }) => {
+const Mod: FC<ModProps> = ({ className = '' }) => {
   return (
     <div
       className={clsx(

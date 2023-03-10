@@ -9,11 +9,11 @@ import getStampFyiURL from 'utils/getStampFyiURL';
 
 import Slug from './Slug';
 
-interface Props {
+interface WalletProfileProps {
   wallet: Wallet;
 }
 
-const WalletProfile: FC<Props> = ({ wallet }) => {
+const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
   return (
     <div className="flex items-center justify-between">
       <a

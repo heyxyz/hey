@@ -13,11 +13,11 @@ import Embed from './Embed';
 import Permalink from './Permalink';
 import Report from './Report';
 
-interface Props {
+interface PublicationMenuProps {
   publication: Publication;
 }
 
-const PublicationMenu: FC<Props> = ({ publication }) => {
+const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
