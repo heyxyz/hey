@@ -20,11 +20,11 @@ import type { FC } from 'react';
 
 import MetaDetails from './MetaDetails';
 
-interface Props {
+interface ProfileStaffToolProps {
   profile: Profile;
 }
 
-const ProfileStaffTool: FC<Props> = ({ profile }) => {
+const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   return (
     <Card as="aside" className="mt-5 border-yellow-400 !bg-yellow-300 !bg-opacity-20 p-5">
       <div className="flex items-center space-x-2 text-yellow-600">
