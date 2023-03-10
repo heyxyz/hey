@@ -1,4 +1,4 @@
-import SingleNft from '@components/NFT/SingleNft';
+import SingleNft from '@components/NFT/SingleNfts';
 import { EmptyState } from '@components/UI/EmptyState';
 import { CollectionIcon, XIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
