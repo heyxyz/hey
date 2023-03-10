@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import NftShimmer from './NftShimmer';
 
-const NFTSShimmer: FC = () => {
+const NftsShimmer: FC = () => {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <NftShimmer />
@@ -13,4 +13,4 @@ const NFTSShimmer: FC = () => {
   );
 };
 
-export default NFTSShimmer;
+export default NftsShimmer;

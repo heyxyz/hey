@@ -1,5 +1,5 @@
 import SingleNft from '@components/Nft/SingleNft';
-import NFTSShimmer from '@components/Shared/Shimmer/NFTSShimmer';
+import NftsShimmer from '@components/Shared/Shimmer/NftsShimmers';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
@@ -45,7 +45,7 @@ const NftFeed: FC<NftFeedProps> = ({ profile }) => {
   };
 
   if (loading) {
-    return <NFTSShimmer />;
+    return <NftsShimmer />;
   }
 
   if (nfts?.length === 0) {
