@@ -1,4 +1,4 @@
-export const FollowNFT = [
+export const FollowNft = [
   {
     inputs: [{ internalType: 'address', name: 'hub', type: 'address' }],
     stateMutability: 'nonpayable',
