@@ -8,11 +8,11 @@ import { useEffect, useState } from 'react';
 
 import Follow, { FollowSource } from '../Shared/Follow';
 
-interface Props {
+interface MessageHeaderProps {
   profile?: Profile;
 }
 
-const MessageHeader: FC<Props> = ({ profile }) => {
+const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
   const router = useRouter();
   const [following, setFollowing] = useState(true);
 

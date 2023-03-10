@@ -5,11 +5,11 @@ import type { RecipientDataOutput } from 'lens';
 import type { FC } from 'react';
 import getStampFyiURL from 'utils/getStampFyiURL';
 
-interface Props {
+interface SplitsProps {
   recipients: RecipientDataOutput[];
 }
 
-const Splits: FC<Props> = ({ recipients }) => {
+const Splits: FC<SplitsProps> = ({ recipients }) => {
   if (recipients.length === 0) {
     return null;
   }

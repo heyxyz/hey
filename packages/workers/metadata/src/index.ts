@@ -1,8 +1,8 @@
 import { createData, EthereumSigner } from 'bundlr';
 
-type EnvType = {
+interface EnvType {
   BUNDLR_PRIVATE_KEY: string;
-};
+}
 
 export default {
   async fetch(request: Request, env: EnvType) {

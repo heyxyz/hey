@@ -3,11 +3,11 @@ import type { NewCollectNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-interface Props {
+interface CollectedContentProps {
   notification: NewCollectNotification;
 }
 
-const CollectedContent: FC<Props> = ({ notification }) => {
+const CollectedContent: FC<CollectedContentProps> = ({ notification }) => {
   return (
     <Link
       href={`/posts/${notification?.collectedPublication?.id}`}

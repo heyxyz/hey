@@ -2,12 +2,12 @@ import { Transition } from '@headlessui/react';
 import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
 
-interface Props {
+interface MenuTransitionProps {
   children: ReactNode;
   show?: boolean;
 }
 
-const MenuTransition: FC<Props> = ({ children, show }) => {
+const MenuTransition: FC<MenuTransitionProps> = ({ children, show }) => {
   return (
     <Transition
       as={Fragment}

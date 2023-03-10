@@ -21,13 +21,13 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message={t`Loading collect`} />
 });
 
-interface Props {
+interface CollectProps {
   publication: Publication;
   electedMirror?: ElectedMirror;
   showCount: boolean;
 }
 
-const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
+const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';

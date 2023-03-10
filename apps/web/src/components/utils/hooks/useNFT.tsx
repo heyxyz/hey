@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ALCHEMY_KEY } from 'data/constants';
 
-interface Props {
+interface UseNFTProps {
   address: string;
   chainId: number;
   enabled?: boolean;
@@ -12,7 +12,7 @@ const useNFT = ({
   address,
   chainId,
   enabled
-}: Props): { data: { contractMetadata: { name: string; symbol: string } }; error: unknown } => {
+}: UseNFTProps): { data: { contractMetadata: { name: string; symbol: string } }; error: unknown } => {
   const getAlchemyChainName = () => {
     switch (chainId) {
       case 1:

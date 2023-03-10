@@ -19,11 +19,11 @@ const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, help
   </>
 );
 
-interface Props {
+interface StatsProps {
   publication: Publication;
 }
 
-const Stats: FC<Props> = ({ publication }) => {
+const Stats: FC<StatsProps> = ({ publication }) => {
   const getStats = async () => {
     const response = await axios(SIMPLEANALYTICS_API, {
       params: { version: 5, fields: 'pageviews', info: false, page: `/posts/${publication.id}` }

@@ -7,11 +7,11 @@ import { useAppStore } from 'src/store/app';
 
 import Create from './Create';
 
-interface Props {
+interface NoGalleryProps {
   profile: Profile;
 }
 
-const NoGallery: FC<Props> = ({ profile }) => {
+const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
 

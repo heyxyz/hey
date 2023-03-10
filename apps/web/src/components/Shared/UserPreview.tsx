@@ -16,7 +16,7 @@ import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
-interface Props {
+interface UserPreviewProps {
   profile: Profile;
   children: ReactNode;
   isBig?: boolean;
@@ -24,7 +24,7 @@ interface Props {
   showUserPreview?: boolean;
 }
 
-const UserPreview: FC<Props> = ({
+const UserPreview: FC<UserPreviewProps> = ({
   profile,
   isBig,
   followStatusLoading,

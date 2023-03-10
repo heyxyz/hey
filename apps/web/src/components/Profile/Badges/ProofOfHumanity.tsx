@@ -5,11 +5,11 @@ import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface ProofOfHumanityProps {
   profile: Profile;
 }
 
-const ProofOfHumanity: FC<Props> = ({ profile }) => {
+const ProofOfHumanity: FC<ProofOfHumanityProps> = ({ profile }) => {
   if (!profile?.onChainIdentity?.proofOfHumanity) {
     return null;
   }

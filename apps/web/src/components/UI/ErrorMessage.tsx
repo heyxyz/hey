@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 
-interface Props {
+interface ErrorMessageProps {
   title?: string;
   error?: Error;
   className?: string;
 }
 
-export const ErrorMessage: FC<Props> = ({ title, error, className = '' }) => {
+export const ErrorMessage: FC<ErrorMessageProps> = ({ title, error, className = '' }) => {
   if (!error) {
     return null;
   }

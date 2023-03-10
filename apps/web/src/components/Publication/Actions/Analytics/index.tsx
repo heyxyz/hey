@@ -19,11 +19,11 @@ const Stats = dynamic(() => import('./Stats'), {
   loading: () => <Loader message={t`Loading analytics`} />
 });
 
-interface Props {
+interface AnalyticsProps {
   publication: Publication;
 }
 
-const Analytics: FC<Props> = ({ publication }) => {
+const Analytics: FC<AnalyticsProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showCollectModal, setShowCollectModal] = useState(false);

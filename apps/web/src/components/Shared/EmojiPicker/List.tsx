@@ -8,11 +8,11 @@ import type { FC } from 'react';
 
 import Loader from '../Loader';
 
-interface Props {
+interface ListProps {
   setEmoji: (emoji: string) => void;
 }
 
-const List: FC<Props> = ({ setEmoji }) => {
+const List: FC<ListProps> = ({ setEmoji }) => {
   const { isLoading, error, data } = useQuery(['emojisData'], () =>
     axios({
       url: `${STATIC_ASSETS_URL}/emoji.json`

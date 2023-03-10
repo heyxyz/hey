@@ -1,7 +1,7 @@
 import { Toggle } from '@components/UI/Toggle';
 import type { FC, ReactNode } from 'react';
 
-interface Props {
+interface ToggleWithHelperProps {
   on: boolean;
   setOn: (on: boolean) => void;
   heading?: ReactNode;
@@ -9,7 +9,7 @@ interface Props {
   icon?: ReactNode;
 }
 
-const ToggleWithHelper: FC<Props> = ({ on, setOn, heading, description, icon }) => {
+const ToggleWithHelper: FC<ToggleWithHelperProps> = ({ on, setOn, heading, description, icon }) => {
   const hasHeadingAndIcon = heading && icon;
   return (
     <div className="space-y-2">

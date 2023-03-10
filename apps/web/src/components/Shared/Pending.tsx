@@ -16,7 +16,7 @@ const HAS_PUBLICATION_INDEXED_QUERY = gql`
   }
 `;
 
-interface Props {
+interface PendingProps {
   txHash: string;
   indexing: string;
   indexed: string;
@@ -24,7 +24,7 @@ interface Props {
   urlPrefix: string;
 }
 
-const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
+const Pending: FC<PendingProps> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
   const { data, loading } = useQuery(HAS_PUBLICATION_INDEXED_QUERY, {
     variables: { request: { txHash } },
     pollInterval: 1000

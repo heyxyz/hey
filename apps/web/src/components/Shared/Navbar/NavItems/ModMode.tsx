@@ -9,11 +9,11 @@ import React from 'react';
 import { useAppPersistStore } from 'src/store/app';
 import { MOD } from 'src/tracking';
 
-interface Props {
+interface ModModeProps {
   className?: string;
 }
 
-const ModMode: FC<Props> = ({ className = '' }) => {
+const ModMode: FC<ModModeProps> = ({ className = '' }) => {
   const { allowed: modMode } = useModMode();
   const setModMode = useAppPersistStore((state) => state.setModMode);
 

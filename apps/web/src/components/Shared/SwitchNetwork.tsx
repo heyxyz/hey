@@ -8,11 +8,11 @@ import { CHAIN_ID } from 'src/constants';
 import { SYSTEM } from 'src/tracking';
 import { useSwitchNetwork } from 'wagmi';
 
-interface Props {
+interface SwitchNetworkProps {
   className?: string;
 }
 
-const SwitchNetwork: FC<Props> = ({ className = '' }) => {
+const SwitchNetwork: FC<SwitchNetworkProps> = ({ className = '' }) => {
   const { switchNetwork } = useSwitchNetwork();
 
   return (

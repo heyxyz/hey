@@ -3,11 +3,11 @@ import { COVER, STATIC_IMAGES_URL } from 'data/constants';
 import type { FC } from 'react';
 import getIPFSLink from 'utils/getIPFSLink';
 
-interface Props {
+interface CoverProps {
   cover: string;
 }
 
-const Cover: FC<Props> = ({ cover }) => {
+const Cover: FC<CoverProps> = ({ cover }) => {
   return (
     <div
       className="h-52 sm:h-80"

@@ -12,11 +12,11 @@ import { useAppStore } from 'src/store/app';
 
 let hasMore = true;
 
-interface Props {
+interface NoneRelevantFeedProps {
   publication?: Publication;
 }
 
-const NoneRelevantFeed: FC<Props> = ({ publication }) => {
+const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
   const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showMore, setShowMore] = useState(false);

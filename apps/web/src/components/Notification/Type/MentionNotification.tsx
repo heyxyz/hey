@@ -11,10 +11,6 @@ import type { FC } from 'react';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 
-interface Props {
-  notification: NewMentionNotification;
-}
-
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
     id: '<0><1/> mentioned you in a <2>comment</2></0>'
@@ -31,7 +27,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> mentioned you in a <2>' + typeName + '</2></0>';
 };
 
-const MentionNotification: FC<Props> = ({ notification }) => {
+interface MentionNotificationProps {
+  notification: NewMentionNotification;
+}
+
+const MentionNotification: FC<MentionNotificationProps> = ({ notification }) => {
   const profile = notification?.mentionPublication?.profile;
   const typeName = notification?.mentionPublication.__typename?.toLowerCase() || '';
   return (

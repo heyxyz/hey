@@ -49,11 +49,11 @@ const editProfileSchema = object({
   bio: string().max(260, { message: t`Bio should not exceed 260 characters` })
 });
 
-interface Props {
+interface ProfileSettingsFormProps {
   profile: Profile & { coverPicture: MediaSet };
 }
 
-const ProfileSettingsForm: FC<Props> = ({ profile }) => {
+const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');

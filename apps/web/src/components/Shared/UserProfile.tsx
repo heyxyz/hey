@@ -17,7 +17,7 @@ import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
-interface Props {
+interface UserProfileProps {
   profile: Profile;
   followStatusLoading?: boolean;
   isFollowing?: boolean;
@@ -34,7 +34,7 @@ interface Props {
   followSource?: string;
 }
 
-const UserProfile: FC<Props> = ({
+const UserProfile: FC<UserProfileProps> = ({
   profile,
   followStatusLoading = false,
   isFollowing = false,

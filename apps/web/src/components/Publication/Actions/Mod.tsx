@@ -5,12 +5,12 @@ import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 
-interface Props {
+interface ModProps {
   publication: Publication;
   isFullPublication?: boolean;
 }
 
-const Mod: FC<Props> = ({ publication, isFullPublication = false }) => {
+const Mod: FC<ModProps> = ({ publication, isFullPublication = false }) => {
   const setShowModActionAlert = useGlobalAlertStateStore((state) => state.setShowModActionAlert);
   const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 

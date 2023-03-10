@@ -16,11 +16,11 @@ import Loader from '../Loader';
 
 let hasMore = true;
 
-interface Props {
+interface CollectorsProps {
   publicationId: string;
 }
 
-const Collectors: FC<Props> = ({ publicationId }) => {
+const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   // Variables
   const request: WhoCollectedPublicationRequest = { publicationId: publicationId, limit: 10 };
 

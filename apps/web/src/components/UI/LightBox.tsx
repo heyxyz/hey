@@ -4,13 +4,13 @@ import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 
-interface Props {
+interface LightBoxProps {
   show: boolean;
   url: string | null;
   onClose: () => void;
 }
 
-export const LightBox: FC<Props> = ({ show, url, onClose }) => {
+export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>

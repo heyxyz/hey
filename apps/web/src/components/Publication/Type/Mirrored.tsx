@@ -7,10 +7,6 @@ import type { Mirror } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-interface Props {
-  publication: Mirror;
-}
-
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
     id: '<0><1/> mirrored the <2>comment</2></0>'
@@ -24,7 +20,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> mirrored the <2>' + typeName + '</2></0>';
 };
 
-const Mirrored: FC<Props> = ({ publication }) => {
+interface MirroredProps {
+  publication: Mirror;
+}
+
+const Mirrored: FC<MirroredProps> = ({ publication }) => {
   const typeName = publication?.mirrorOf.__typename?.toLowerCase() || '';
   return (
     <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">

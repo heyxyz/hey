@@ -25,12 +25,12 @@ export enum ProfileFeedType {
 
 let hasMore = true;
 
-interface Props {
+interface FeedProps {
   profile: Profile;
   type: ProfileFeedType.Feed | ProfileFeedType.Replies | ProfileFeedType.Media | ProfileFeedType.Collects;
 }
 
-const Feed: FC<Props> = ({ profile, type }) => {
+const Feed: FC<FeedProps> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);
 

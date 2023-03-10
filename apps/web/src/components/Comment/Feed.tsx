@@ -20,11 +20,11 @@ import CommentWarning from '../Shared/CommentWarning';
 
 let hasMore = true;
 
-interface Props {
+interface FeedProps {
   publication?: Publication;
 }
 
-const Feed: FC<Props> = ({ publication }) => {
+const Feed: FC<FeedProps> = ({ publication }) => {
   const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);

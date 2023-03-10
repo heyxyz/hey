@@ -13,10 +13,6 @@ import type { FC } from 'react';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 
-interface Props {
-  notification: NewReactionNotification;
-}
-
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
     id: '<0><1/> liked your <2>comment</2></0>'
@@ -33,7 +29,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> liked your <2>' + typeName + '</2></0>';
 };
 
-const LikeNotification: FC<Props> = ({ notification }) => {
+interface LikeNotificationProps {
+  notification: NewReactionNotification;
+}
+
+const LikeNotification: FC<LikeNotificationProps> = ({ notification }) => {
   const typeName = notification?.publication?.__typename?.toLowerCase() || '';
   const isGM = hasGm(notification?.publication?.metadata?.content);
 

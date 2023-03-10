@@ -25,11 +25,11 @@ const newReportSchema = object({
   })
 });
 
-interface Props {
+interface ReportProps {
   publication: Publication;
 }
 
-const Report: FC<Props> = ({ publication }) => {
+const Report: FC<ReportProps> = ({ publication }) => {
   const reportConfig = useGlobalModalStateStore((state) => state.reportConfig);
   const [type, setType] = useState(reportConfig?.type ?? '');
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');

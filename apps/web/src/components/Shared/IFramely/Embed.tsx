@@ -9,11 +9,11 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-interface Props {
+interface EmbedProps {
   og: OG;
 }
 
-const Embed: FC<Props> = ({ og }) => {
+const Embed: FC<EmbedProps> = ({ og }) => {
   return (
     <div className="mt-4 text-sm sm:w-4/6">
       <Link
