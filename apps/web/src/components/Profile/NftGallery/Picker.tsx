@@ -1,4 +1,4 @@
-import SingleNFT from '@components/NFT/SingleNFT';
+import SingleNft from '@components/Nft/SingleNft';
 import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -160,7 +160,7 @@ const Picker: FC = () => {
                   </button>
                 )}
                 <button className="w-full text-left" onClick={() => onSelectItem(nft as Nft)}>
-                  <SingleNFT nft={nft as Nft} linkToDetail={false} />
+                  <SingleNft nft={nft as Nft} linkToDetail={false} />
                 </button>
               </div>
             );

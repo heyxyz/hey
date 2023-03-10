@@ -4,7 +4,7 @@ import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Tooltip } from '@components/UI/Tooltip';
-import useNFT from '@components/utils/hooks/useNFT';
+import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
   DatabaseIcon,
@@ -117,7 +117,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({ encrypted
     enabled: Boolean(tokenCondition)
   });
 
-  const { data: nftData } = useNFT({
+  const { data: nftData } = useNft({
     address: nftCondition?.contractAddress,
     chainId: nftCondition?.chainID,
     enabled: Boolean(nftCondition)

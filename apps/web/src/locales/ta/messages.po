@@ -68,7 +68,7 @@ msgstr "ரத்து"
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -242,7 +242,7 @@ msgstr "என்ன நடக்கிறது?"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -595,11 +595,11 @@ msgstr ""
 msgid "Mod Center • {APP_NAME}"
 msgstr ""
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr ""
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
 msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
@@ -1816,24 +1816,24 @@ msgstr "ஊட்டத்தில் மற்றவர்கள் பகி�
 msgid "Preferences • {APP_NAME}"
 msgstr "விருப்பத்தேர்வுகள் • {APP_NAME}"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr "ஒப்பந்த முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Invalid Contract address"
 msgstr "தவறான ஒப்பந்த முகவரி"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr "அவதார் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract Address"
 msgstr "ஒப்பந்த முகவரி"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
 msgstr "டோக்கன் ஐடி"
 
@@ -2518,4 +2518,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
