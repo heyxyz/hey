@@ -10,7 +10,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { Erc20 } from 'lens';
 import {
@@ -51,7 +51,7 @@ const SuperFollow: FC = () => {
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
