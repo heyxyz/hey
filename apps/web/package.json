@@ -47,7 +47,7 @@
     "jwt-decode": "^3.1.2",
     "lexical": "^0.9.0",
     "mixpanel-browser": "^2.45.0",
-    "next": "^13.2.4",
+    "next": "13.2.3",
     "next-themes": "^0.2.1",
     "plyr-react": "^5.1.0",
     "react": "^18.2.0",
