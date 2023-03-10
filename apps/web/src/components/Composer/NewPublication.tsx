@@ -222,6 +222,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       collectModuleInitData,
       referenceModule,
       referenceModuleInitData,
+      referenceModuleData,
       deadline
     } = typedData.value;
     const signature = await signTypedDataAsync(getSignature(typedData));
@@ -234,6 +235,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       collectModuleInitData,
       referenceModule,
       referenceModuleInitData,
+      referenceModuleData,
       ...(isComment && {
         profileIdPointed: typedData.value.profileIdPointed,
         pubIdPointed: typedData.value.pubIdPointed
