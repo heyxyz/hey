@@ -1,6 +1,6 @@
-type EnvType = {
+interface EnvType {
   POSTMARK_TOKEN: string;
-};
+}
 
 export default {
   async fetch(request: Request, env: EnvType) {

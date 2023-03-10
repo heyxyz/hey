@@ -1,9 +1,9 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
 
-type EnvType = {
+interface EnvType {
   EVER_ACCESS_KEY: string;
   EVER_ACCESS_SECRET: string;
-};
+}
 
 export default {
   async fetch(request: Request, env: EnvType) {
