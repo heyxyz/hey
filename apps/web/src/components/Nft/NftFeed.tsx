@@ -1,5 +1,5 @@
-import SingleNFT from '@components/NFT/SingleNFT';
-import NFTSShimmer from '@components/Shared/Shimmer/NFTSShimmer';
+import SingleNft from '@components/Nft/SingleNft';
+import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import InfiniteLoader from '@components/UI/InfiniteLoader';
@@ -16,11 +16,11 @@ import { mainnet } from 'wagmi/chains';
 
 let hasMore = true;
 
-interface NFTFeedProps {
+interface NftFeedProps {
   profile: Profile;
 }
 
-const NFTFeed: FC<NFTFeedProps> = ({ profile }) => {
+const NftFeed: FC<NftFeedProps> = ({ profile }) => {
   // Variables
   const request: NfTsRequest = {
     chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
@@ -45,7 +45,7 @@ const NFTFeed: FC<NFTFeedProps> = ({ profile }) => {
   };
 
   if (loading) {
-    return <NFTSShimmer />;
+    return <NftsShimmer />;
   }
 
   if (nfts?.length === 0) {
@@ -79,7 +79,7 @@ const NFTFeed: FC<NFTFeedProps> = ({ profile }) => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {nfts?.map((nft) => (
           <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
-            <SingleNFT nft={nft as Nft} />
+            <SingleNft nft={nft as Nft} />
           </div>
         ))}
       </div>
@@ -87,4 +87,4 @@ const NFTFeed: FC<NFTFeedProps> = ({ profile }) => {
   );
 };
 
-export default NFTFeed;
+export default NftFeed;

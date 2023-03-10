@@ -34,11 +34,11 @@ const editNftPictureSchema = object({
   tokenId: string()
 });
 
-interface NFTPictureProps {
+interface NftPictureProps {
   profile: Profile & { picture: NftImage };
 }
 
-const NFTPicture: FC<NFTPictureProps> = ({ profile }) => {
+const NftPicture: FC<NftPictureProps> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -212,4 +212,4 @@ const NFTPicture: FC<NFTPictureProps> = ({ profile }) => {
   );
 };
 
-export default NFTPicture;
+export default NftPicture;

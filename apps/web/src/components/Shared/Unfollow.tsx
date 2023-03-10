@@ -6,7 +6,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
-import { FollowNFT } from 'abis';
+import { FollowNft } from 'abis';
 import { SIGN_WALLET } from 'data/constants';
 import type { Signer } from 'ethers';
 import { Contract } from 'ethers';
@@ -36,7 +36,7 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }
     const { v, r, s } = splitSignature(signature);
     const sig = { v, r, s, deadline };
 
-    const followNftContract = new Contract(typedData.domain.verifyingContract, FollowNFT, signer as Signer);
+    const followNftContract = new Contract(typedData.domain.verifyingContract, FollowNft, signer as Signer);
 
     const tx = await followNftContract.burnWithSig(tokenId, sig);
     if (tx) {
