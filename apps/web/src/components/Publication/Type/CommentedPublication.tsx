@@ -5,11 +5,11 @@ import type { Comment } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-interface Props {
+interface CommentedPublicationProps {
   publication: Comment;
 }
 
-const CommentedPublication: FC<Props> = ({ publication }) => {
+const CommentedPublication: FC<CommentedPublicationProps> = ({ publication }) => {
   const sourceId = publication?.commentOn?.id;
   const sourceProfileHandle = formatHandle(publication?.commentOn?.profile?.handle);
 

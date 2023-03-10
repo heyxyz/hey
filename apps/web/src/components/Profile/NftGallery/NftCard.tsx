@@ -5,12 +5,12 @@ import type { FC } from 'react';
 import React from 'react';
 import getIPFSLink from 'utils/getIPFSLink';
 
-interface Props {
+interface NFTProps {
   nft: Nft;
   linkToDetail?: boolean;
 }
 
-const NFTImage: FC<Props> = ({ nft }) => {
+const NFTImage: FC<NFTProps> = ({ nft }) => {
   return nft?.originalContent?.animatedUrl ? (
     <div className="h-64 rounded-xl bg-gray-200 object-cover dark:bg-gray-800">
       {nft?.originalContent?.animatedUrl?.includes('.gltf') ? (
@@ -48,7 +48,7 @@ const NFTImage: FC<Props> = ({ nft }) => {
   );
 };
 
-const NftCard: FC<Props> = ({ nft, linkToDetail = false }) => {
+const NftCard: FC<NFTProps> = ({ nft, linkToDetail = false }) => {
   return linkToDetail ? (
     <Link href={`/nft/${nft.contractAddress}/${nft.tokenId}`} className="w-full">
       <NFTImage nft={nft} />

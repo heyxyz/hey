@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import type { FC } from 'react';
 
-interface Props {
+interface SlugProps {
   slug: string;
   prefix?: string;
   className?: string;
 }
 
-const Slug: FC<Props> = ({ slug, prefix, className = '' }) => {
+const Slug: FC<SlugProps> = ({ slug, prefix, className = '' }) => {
   return (
     <span
       className={clsx(

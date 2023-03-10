@@ -19,14 +19,14 @@ const FollowModule = dynamic(() => import('./FollowModule'), {
   loading: () => <Loader message={t`Loading super follow`} />
 });
 
-interface Props {
+interface SuperFollowProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
   again?: boolean;
 }
 
-const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again = false }) => {
+const SuperFollow: FC<SuperFollowProps> = ({ profile, setFollowing, showText = false, again = false }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);

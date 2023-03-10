@@ -2,12 +2,12 @@ import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
 
-interface Props {
+interface ToggleProps {
   on: boolean;
   setOn: Dispatch<boolean>;
 }
 
-export const Toggle: FC<Props> = ({ on, setOn }) => {
+export const Toggle: FC<ToggleProps> = ({ on, setOn }) => {
   return (
     <Switch
       checked={on}

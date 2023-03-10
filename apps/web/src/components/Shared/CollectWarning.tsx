@@ -4,12 +4,12 @@ import { StarIcon, UsersIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { FC } from 'react';
 
-interface Props {
+interface CollectWarningProps {
   handle: string;
   isSuperFollow?: boolean | null;
 }
 
-const CollectWarning: FC<Props> = ({ handle, isSuperFollow = false }) => {
+const CollectWarning: FC<CollectWarningProps> = ({ handle, isSuperFollow = false }) => {
   return (
     <Card
       className={clsx(

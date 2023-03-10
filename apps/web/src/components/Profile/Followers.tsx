@@ -16,11 +16,11 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 let hasMore = true;
 
-interface Props {
+interface FollowersProps {
   profile: Profile;
 }
 
-const Followers: FC<Props> = ({ profile }) => {
+const Followers: FC<FollowersProps> = ({ profile }) => {
   // Variables
   const request: FollowersRequest = { profileId: profile?.id, limit: 30 };
 

@@ -4,11 +4,11 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import React from 'react';
 
-interface Props {
+interface YourProfileProps {
   className?: string;
 }
 
-const YourProfile: FC<Props> = ({ className = '' }) => {
+const YourProfile: FC<YourProfileProps> = ({ className = '' }) => {
   return (
     <div
       className={clsx(

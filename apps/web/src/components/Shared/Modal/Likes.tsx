@@ -15,11 +15,11 @@ import Loader from '../Loader';
 
 let hasMore = true;
 
-interface Props {
+interface LikesProps {
   publicationId: string;
 }
 
-const Likes: FC<Props> = ({ publicationId }) => {
+const Likes: FC<LikesProps> = ({ publicationId }) => {
   // Variables
   const request: WhoReactedPublicationRequest = { publicationId: publicationId, limit: 10 };
 

@@ -16,11 +16,11 @@ import { mainnet } from 'wagmi/chains';
 
 let hasMore = true;
 
-interface Props {
+interface NFTFeedProps {
   profile: Profile;
 }
 
-const NFTFeed: FC<Props> = ({ profile }) => {
+const NFTFeed: FC<NFTFeedProps> = ({ profile }) => {
   // Variables
   const request: NfTsRequest = {
     chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],

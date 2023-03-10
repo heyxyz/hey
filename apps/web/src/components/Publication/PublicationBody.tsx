@@ -12,11 +12,11 @@ import type { FC } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
-interface Props {
+interface PublicationBodyProps {
   publication: Publication;
 }
 
-const PublicationBody: FC<Props> = ({ publication }) => {
+const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 

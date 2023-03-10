@@ -13,14 +13,14 @@ import { useRef, useState } from 'react';
 
 import UserProfile from '../UserProfile';
 
-interface Props {
+interface SearchProps {
   hideDropdown?: boolean;
   onProfileSelected?: (profile: Profile) => void;
   placeholder?: string;
   modalWidthClassName?: string;
 }
 
-const Search: FC<Props> = ({
+const Search: FC<SearchProps> = ({
   hideDropdown = false,
   onProfileSelected,
   placeholder = t`Search…`,

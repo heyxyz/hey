@@ -5,17 +5,17 @@ import { PublicationMainFocus } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { EXPLORE } from 'src/tracking';
 
-interface Props {
+interface FeedLinkProps {
+  name: string;
+  type?: PublicationMainFocus;
+}
+
+interface FeedTypeProps {
   setFocus: Dispatch<PublicationMainFocus>;
   focus?: PublicationMainFocus;
 }
 
-const FeedType: FC<Props> = ({ setFocus, focus }) => {
-  interface FeedLinkProps {
-    name: string;
-    type?: PublicationMainFocus;
-  }
-
+const FeedType: FC<FeedTypeProps> = ({ setFocus, focus }) => {
   const FeedLink: FC<FeedLinkProps> = ({ name, type }) => (
     <button
       type="button"

@@ -86,11 +86,11 @@ const AccessSettings = dynamic(() => import('@components/Composer/Actions/Access
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 
-interface Props {
+interface NewPublicationProps {
   publication: Publication;
 }
 
-const NewPublication: FC<Props> = ({ publication }) => {
+const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);

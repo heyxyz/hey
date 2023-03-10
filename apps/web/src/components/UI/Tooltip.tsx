@@ -3,7 +3,8 @@ import 'tippy.js/dist/tippy.css';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
-interface Props {
+
+interface TooltipProps {
   children: ReactNode;
   content: ReactNode;
   placement?: 'top' | 'right';
@@ -11,7 +12,7 @@ interface Props {
   withDelay?: boolean;
 }
 
-export const Tooltip: FC<Props> = ({
+export const Tooltip: FC<TooltipProps> = ({
   children,
   content,
   placement = 'right',

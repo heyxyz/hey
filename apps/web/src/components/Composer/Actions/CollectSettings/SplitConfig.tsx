@@ -12,11 +12,11 @@ import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
-interface Props {
+interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
 }
 
-const SplitConfig: FC<Props> = ({ isRecipientsDuplicated }) => {
+const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const recipients = useCollectModuleStore((state) => state.recipients);
   const setRecipients = useCollectModuleStore((state) => state.setRecipients);

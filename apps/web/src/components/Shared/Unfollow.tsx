@@ -19,13 +19,13 @@ import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useSigner, useSignTypedData } from 'wagmi';
 
-interface Props {
+interface UnfollowProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
 }
 
-const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
+const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [writeLoading, setWriteLoading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 
-interface Props {
+interface TabButtonProps {
   name: string;
   icon: ReactNode;
   active: boolean;
@@ -11,7 +11,7 @@ interface Props {
   onClick: () => void;
 }
 
-const TabButton: FC<Props> = ({ name, icon, active, type, showOnSm = false, onClick }) => {
+const TabButton: FC<TabButtonProps> = ({ name, icon, active, type, showOnSm = false, onClick }) => {
   const router = useRouter();
 
   return (

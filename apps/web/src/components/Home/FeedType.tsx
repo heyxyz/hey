@@ -8,12 +8,12 @@ import { MISCELLANEOUS } from 'src/tracking';
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
-interface Props {
+interface FeedTypeProps {
   setFeedType: Dispatch<'TIMELINE' | 'HIGHLIGHTS'>;
   feedType: 'TIMELINE' | 'HIGHLIGHTS';
 }
 
-const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">
       <div className="flex gap-3 overflow-x-auto sm:px-0">

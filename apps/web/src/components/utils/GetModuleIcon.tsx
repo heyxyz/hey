@@ -10,12 +10,12 @@ import {
 import { CollectModules, FollowModules, ReferenceModules } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface GetModuleIconProps {
   module: string;
   size: number;
 }
 
-const GetModuleIcon: FC<Props> = ({ module, size }) => {
+const GetModuleIcon: FC<GetModuleIconProps> = ({ module, size }) => {
   switch (module) {
     case CollectModules.FeeCollectModule:
       return <CashIcon className={`h-${size}`} />;

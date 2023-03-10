@@ -5,12 +5,12 @@ import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 
-interface Props {
+interface ProfileCirclesProps {
   profiles: Profile[];
   context?: string;
 }
 
-const ProfileCircles: FC<Props> = ({ profiles, context }) => {
+const ProfileCircles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <>
       {context && <span className="pr-1.5">{context}</span>}

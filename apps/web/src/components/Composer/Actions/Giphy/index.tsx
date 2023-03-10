@@ -14,11 +14,11 @@ const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message={t`Loading GIFs`} />
 });
 
-interface Props {
+interface GiphyProps {
   setGifAttachment: (gif: IGif) => void;
 }
 
-const Giphy: FC<Props> = ({ setGifAttachment }) => {
+const Giphy: FC<GiphyProps> = ({ setGifAttachment }) => {
   const attachments = usePublicationStore((state) => state.attachments);
   const [showModal, setShowModal] = useState(false);
 

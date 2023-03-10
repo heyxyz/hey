@@ -9,11 +9,11 @@ import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
-interface Props {
+interface BasicSettingsProps {
   setShowModal: Dispatch<boolean>;
 }
 
-const BasicSettings: FC<Props> = ({ setShowModal }) => {
+const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
   const setRestricted = useAccessSettingsStore((state) => state.setRestricted);
   const followToView = useAccessSettingsStore((state) => state.followToView);

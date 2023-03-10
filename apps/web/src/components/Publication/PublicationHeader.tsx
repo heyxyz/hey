@@ -8,13 +8,13 @@ import type { FC } from 'react';
 import PublicationMenu from './Actions/Menu';
 import Source from './Source';
 
-interface Props {
+interface PublicationHeaderProps {
   publication: Publication;
   className?: string;
   feedItem?: FeedItem;
 }
 
-const PublicationHeader: FC<Props> = ({ publication, className = '', feedItem }) => {
+const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, className = '', feedItem }) => {
   const { allowed: staffMode } = useStaffMode();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];

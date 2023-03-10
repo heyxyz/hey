@@ -5,11 +5,11 @@ import { Trans } from '@lingui/macro';
 import type { NewCollectNotification } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface CollectedAmountProps {
   notification: NewCollectNotification;
 }
 
-const CollectedAmount: FC<Props> = ({ notification }) => {
+const CollectedAmount: FC<CollectedAmountProps> = ({ notification }) => {
   const collectModule: any = notification?.collectedPublication?.collectModule;
 
   return (

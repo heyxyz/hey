@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import type { FC } from 'react';
 
-interface Props {
+interface UserProfileShimmerProps {
   showFollow?: boolean;
   isBig?: boolean;
 }
 
-const UserProfileShimmer: FC<Props> = ({ showFollow = false, isBig = false }) => {
+const UserProfileShimmer: FC<UserProfileShimmerProps> = ({ showFollow = false, isBig = false }) => {
   return (
     <div className="flex items-center justify-between py-1">
       <div className="flex items-center space-x-3">

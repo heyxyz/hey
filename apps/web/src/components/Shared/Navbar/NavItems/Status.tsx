@@ -7,11 +7,11 @@ import React from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-interface Props {
+interface StatusProps {
   className?: string;
 }
 
-const Status: FC<Props> = ({ className = '' }) => {
+const Status: FC<StatusProps> = ({ className = '' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
 
