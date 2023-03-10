@@ -8,18 +8,18 @@ import Commented from './Commented';
 import Liked from './Liked';
 import Mirrored from './Mirrored';
 
-interface Props {
-  feedItem: FeedItem;
-  showType?: boolean;
-  showThread?: boolean;
-}
-
 const getCanCombined = (aggregations: number[]) => {
   // show combined reactions if more than 2 items in aggregations
   return aggregations.filter((n) => n > 0).length > 1;
 };
 
-const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
+interface EventTypeProps {
+  feedItem: FeedItem;
+  showType?: boolean;
+  showThread?: boolean;
+}
+
+const EventType: FC<EventTypeProps> = ({ feedItem, showType, showThread = false }) => {
   const publication = feedItem.root;
   const isComment = publication.__typename === 'Comment';
   const commentsCount = feedItem.comments?.length ?? 0;
