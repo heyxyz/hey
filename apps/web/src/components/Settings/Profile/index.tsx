@@ -17,7 +17,7 @@ import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 
 import SettingsSidebar from '../Sidebar';
-import NftPicture from './NftPictures';
+import NftPicture from './NftPicture';
 import Picture from './Picture';
 import ProfileSettingsForm from './Profile';
 
