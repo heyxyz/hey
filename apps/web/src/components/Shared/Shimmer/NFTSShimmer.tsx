@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import NftShimmer from './NftShimmer';
+import NftShimmer from './NftShimmers';
 
 const NFTSShimmer: FC = () => {
   return (
