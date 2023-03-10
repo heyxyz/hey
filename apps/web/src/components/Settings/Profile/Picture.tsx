@@ -27,11 +27,11 @@ import { SETTINGS } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-interface Props {
+interface PictureProps {
   profile: Profile & { picture: MediaSet & NftImage };
 }
 
-const Picture: FC<Props> = ({ profile }) => {
+const Picture: FC<PictureProps> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);

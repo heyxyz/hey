@@ -34,7 +34,7 @@ export enum FollowSource {
   PROFILE_POPOVER = 'profile_popover'
 }
 
-interface Props {
+interface FollowProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
@@ -45,7 +45,7 @@ interface Props {
   followSource?: string;
 }
 
-const Follow: FC<Props> = ({
+const Follow: FC<FollowProps> = ({
   profile,
   showText = false,
   setFollowing,

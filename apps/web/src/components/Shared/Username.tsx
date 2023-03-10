@@ -5,12 +5,12 @@ import type { FC } from 'react';
 
 import Slug from './Slug';
 
-interface Props {
+interface UsernameProps {
   profile: Profile;
   className?: string;
 }
 
-const Username: FC<Props> = ({ profile, className }) => {
+const Username: FC<UsernameProps> = ({ profile, className }) => {
   return (
     <Link href={`/u/${formatHandle(profile?.handle)}`} className={className}>
       {profile?.name ? <b>{profile?.name}</b> : <Slug slug={formatHandle(profile?.handle)} prefix="@" />}

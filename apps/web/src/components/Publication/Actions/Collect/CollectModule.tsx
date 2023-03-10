@@ -57,14 +57,14 @@ import { useAccount, useBalance, useContractRead, useContractWrite, useSignTyped
 
 import Splits from './Splits';
 
-interface Props {
+interface CollectModuleProps {
   count: number;
   setCount: Dispatch<number>;
   publication: Publication;
   electedMirror?: ElectedMirror;
 }
 
-const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
+const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, electedMirror }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
