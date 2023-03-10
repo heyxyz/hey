@@ -16,11 +16,11 @@ import { mainnet } from 'wagmi/chains';
 
 let hasMore = true;
 
-interface NFTFeedProps {
+interface NftFeedProps {
   profile: Profile;
 }
 
-const NFTFeed: FC<NFTFeedProps> = ({ profile }) => {
+const NftFeed: FC<NftFeedProps> = ({ profile }) => {
   // Variables
   const request: NfTsRequest = {
     chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
@@ -87,4 +87,4 @@ const NFTFeed: FC<NFTFeedProps> = ({ profile }) => {
   );
 };
 
-export default NFTFeed;
+export default NftFeed;
