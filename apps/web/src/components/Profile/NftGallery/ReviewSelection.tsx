@@ -1,4 +1,4 @@
-import SingleNFT from '@components/NFT/SingleNFT';
+import SingleNft from '@components/Nft/SingleNft';
 import { EmptyState } from '@components/UI/EmptyState';
 import { CollectionIcon, XIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
@@ -69,7 +69,7 @@ const ReviewSelection = () => {
             >
               <XIcon className="h-6 w-6 rounded-full bg-white p-1 text-black" />
             </button>
-            <SingleNFT nft={item as Nft} linkToDetail={false} />
+            <SingleNft nft={item as Nft} linkToDetail={false} />
           </div>
         </div>
       ))}
