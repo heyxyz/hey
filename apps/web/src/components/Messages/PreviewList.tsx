@@ -23,12 +23,12 @@ import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
 
-interface Props {
+interface PreviewListProps {
   className?: string;
   selectedConversationKey?: string;
 }
 
-const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
+const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);

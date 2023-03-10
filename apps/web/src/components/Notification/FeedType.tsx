@@ -13,12 +13,12 @@ import { NOTIFICATION } from 'src/tracking';
 
 import { NotificationType } from './List';
 
-interface Props {
+interface FeedTypeProps {
   setFeedType: Dispatch<string>;
   feedType: string;
 }
 
-const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const switchTab = (type: string) => {
     setFeedType(type);
     Mixpanel.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
