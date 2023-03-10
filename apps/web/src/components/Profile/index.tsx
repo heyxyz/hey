@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import NftFeed from '@components/NFT/NftFeed';
+import NftFeed from '@components/Nfts/NftFeed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import formatHandle from '@lib/formatHandle';
