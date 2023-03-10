@@ -9,11 +9,11 @@ import { useState } from 'react';
 import Followers from './Followers';
 import Following from './Following';
 
-interface Props {
+interface FolloweringsProps {
   profile: Profile;
 }
 
-const Followerings: FC<Props> = ({ profile }) => {
+const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
 

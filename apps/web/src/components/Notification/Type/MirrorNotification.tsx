@@ -11,10 +11,6 @@ import type { FC } from 'react';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 
-interface Props {
-  notification: NewMirrorNotification;
-}
-
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
     id: '<0><1/> mirrored your <2>comment</2></0>'
@@ -31,7 +27,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> mirrored your <2>' + typeName + '</2></0>';
 };
 
-const MirrorNotification: FC<Props> = ({ notification }) => {
+interface MirrorNotificationProps {
+  notification: NewMirrorNotification;
+}
+
+const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   const typeName = notification?.publication.__typename?.toLowerCase() || '';
   return (
     <div className="flex items-start justify-between">

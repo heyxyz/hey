@@ -37,13 +37,13 @@ import Followerings from './Followerings';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
 
-interface Props {
+interface DetailsProps {
   profile: Profile;
   following: boolean;
   setFollowing: Dispatch<boolean>;
 }
 
-const Details: FC<Props> = ({ profile, following, setFollowing }) => {
+const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
   const { allowed: staffMode } = useStaffMode();

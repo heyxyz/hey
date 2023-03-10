@@ -10,10 +10,6 @@ import { useAppStore } from 'src/store/app';
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 import { NotificationWalletProfileAvatar, NotificationWalletProfileName } from '../WalletProfile';
 
-interface Props {
-  notification: NewFollowerNotification;
-}
-
 const messageFollow = defineMessage({
   id: '<0><1/> followed you</0>'
 });
@@ -22,7 +18,11 @@ const messageSuperFollow = defineMessage({
   id: '<0><1/> super followed you</0>'
 });
 
-const FollowerNotification: FC<Props> = ({ notification }) => {
+interface FollowerNotificationProps {
+  notification: NewFollowerNotification;
+}
+
+const FollowerNotification: FC<FollowerNotificationProps> = ({ notification }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isSuperFollow = currentProfile?.followModule?.__typename === 'FeeFollowModuleSettings';
 
