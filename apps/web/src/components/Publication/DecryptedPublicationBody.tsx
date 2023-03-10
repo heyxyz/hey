@@ -4,7 +4,7 @@ import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Tooltip } from '@components/UI/Tooltip';
-import useNft from '@components/utils/hooks/useNfts';
+import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
   DatabaseIcon,
