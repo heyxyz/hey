@@ -131,10 +131,6 @@ body {
   @apply !text-sm sm:!text-base;
 }
 
-.leading-md {
-  @apply !leading-6 sm:!leading-7;
-}
-
 .iframely-player,
 iframe {
   @apply rounded-xl;
@@ -183,4 +179,12 @@ div[data-lexical-editor='true'] {
 
 #typeahead-menu {
   @apply z-20;
+}
+
+/* Markup styles */
+
+.markup > p,
+ul {
+  @apply !leading-6 sm:!leading-7;
+  @apply [&:not(:last-child)]:mb-5;
 }

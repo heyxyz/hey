@@ -107,7 +107,7 @@ const Details: FC<Props> = ({ profile, following, setFollowing }) => {
         </div>
       </div>
       {profile?.bio && (
-        <div className="leading-md linkify text-md mr-0 break-words sm:mr-10">
+        <div className="markup linkify text-md mr-0 break-words sm:mr-10">
           <Markup>{profile?.bio}</Markup>
         </div>
       )}

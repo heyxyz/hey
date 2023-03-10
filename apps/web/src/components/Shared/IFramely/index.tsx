@@ -18,7 +18,7 @@ const IFramely: FC<Props> = ({ url }) => {
     () =>
       axios({
         url: 'https://iframe.ly/api/iframely',
-        params: { api_key: '258c8580bd477c9b886b49', url }
+        params: { api_key: 'cc8f8a9a5526191858256d', url }
       }).then((res) => res.data),
     { enabled: Boolean(url) }
   );

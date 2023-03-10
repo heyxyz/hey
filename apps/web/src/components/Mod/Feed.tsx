@@ -8,20 +8,21 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { ExplorePublicationRequest, Publication } from 'lens';
-import { PublicationSortCriteria, PublicationTypes, useExploreFeedQuery } from 'lens';
+import { CustomFiltersTypes, PublicationSortCriteria, PublicationTypes, useExploreFeedQuery } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 
+let hasMore = true;
+
 const Feed: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.Latest,
     publicationTypes: [PublicationTypes.Post, PublicationTypes.Comment],
+    customFilters: [CustomFiltersTypes.Gardeners],
     noRandomize: true,
     limit: 50
   };
@@ -39,7 +40,7 @@ const Feed: FC = () => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
     }).then(({ data }) => {
-      setHasMore(data?.explorePublications?.items?.length > 0);
+      hasMore = data?.explorePublications?.items?.length > 0;
     });
   };
 

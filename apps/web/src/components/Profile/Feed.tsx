@@ -12,7 +12,6 @@ import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, Publication, PublicationsQueryRequest } from 'lens';
 import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
@@ -26,6 +25,8 @@ export enum ProfileFeedType {
   Nft = 'NFT'
 }
 
+let hasMore = true;
+
 interface Props {
   profile: Profile;
   type: ProfileFeedType.Feed | ProfileFeedType.Replies | ProfileFeedType.Media | ProfileFeedType.Collects;
@@ -34,7 +35,6 @@ interface Props {
 const Feed: FC<Props> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);
-  const [hasMore, setHasMore] = useState(true);
 
   const getMediaFilters = () => {
     let filters: PublicationMainFocus[] = [];
@@ -86,7 +86,7 @@ const Feed: FC<Props> = ({ profile, type }) => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
     }).then(({ data }) => {
-      setHasMore(data?.publications?.items?.length > 0);
+      hasMore = data?.publications?.items?.length > 0;
     });
   };
 

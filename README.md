@@ -17,11 +17,14 @@
     <a href="https://www.gitpoap.io/gh/lensterxyz/lenster">
         <img src="https://public-api.gitpoap.io/v1/repo/lensterxyz/lenster/badge" alt="Gitpoap">
     </a>
-    <a href="https://crowdin.com/project/lenster">
+    <a href="https://translate.lenster.xyz">
         <img src="https://badges.crowdin.net/lenster/localized.svg" alt="Crowdin">
     </a>
     <a href="https://github.com/orgs/lensterxyz/projects/1/views/2">
         <img src="https://img.shields.io/badge/Help%20wanted-contribute-blue" alt="Help wanted">
+    </a>
+    <a href="https://status.lenster.xyz">
+        <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>
     <a href="https://lenster.checklyhq.com">
         <img src="https://api.checklyhq.com/v1/badges/checks/4c205fee-8666-4dc8-bc92-077084ef9643?style=flat&theme=default&responseTime=true" alt="Checkly">
@@ -32,18 +35,18 @@
     <a href="https://github.com/lensterxyz/lenster/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/lensterxyz/lenster" alt="License">
     </a>
-    <a href="https://discord.gg/B8eKhSSUwX">
+    <a href="https://lenster.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
-    <a href="https://twitter.com/lensterxyz">
-        <img src="https://img.shields.io/twitter/follow/lensterxyz?label=lensterxyz&style=flat&logo=twitter&color=1DA1F2" alt="Lenster Twitter">
+    <a href="https://console.algora.io/org/lensterxyz/bounties?status=open">
+        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fconsole.algora.io%2Fapi%2Fshields%2Flensterxyz%2Fbounties%3Fstatus%3Dopen" alt="Algora" />
     </a>
 </div>
 <div align="center">
     <br>
     <a href="https://lenster.xyz"><b>lenster.xyz »</b></a>
     <br><br>
-    <a href="https://discord.gg/B8eKhSSUwX"><b>Discord</b></a>
+    <a href="https://lenster.xyz/discord"><b>Discord</b></a>
     •
     <a href="https://github.com/lensterxyz/lenster/issues/new"><b>Issues</b></a>
 </div>
@@ -65,6 +68,10 @@ Lenster is a decentralized and permissionless social media app built with [Lens 
 ## ✅ Community
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenster.xyz/discord).
+
+## 📊 Repo Activity
+
+<img width="100%" src="https://repobeats.axiom.co/api/embed/af135d3dfdb3605cc3db676472ca174173ac2fb7.svg" alt="Repobeats analytics" />
 
 ## 💕 Contributors
 

@@ -10,18 +10,17 @@ import { IS_MAINNET, SCROLL_THRESHOLD } from 'data/constants';
 import type { Nft, NfTsRequest, Profile } from 'lens';
 import { useNftFeedQuery } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
 import { mainnet } from 'wagmi/chains';
+
+let hasMore = true;
 
 interface Props {
   profile: Profile;
 }
 
 const NFTFeed: FC<Props> = ({ profile }) => {
-  const [hasMore, setHasMore] = useState(true);
-
   // Variables
   const request: NfTsRequest = {
     chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
@@ -41,7 +40,7 @@ const NFTFeed: FC<Props> = ({ profile }) => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
     }).then(({ data }) => {
-      setHasMore(data?.nfts?.items?.length > 0);
+      hasMore = data?.nfts?.items?.length > 0;
     });
   };
 

@@ -8,19 +8,18 @@ import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, WhoReactedPublicationRequest } from 'lens';
 import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
-import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { FollowSource } from '../Follow';
 import Loader from '../Loader';
+
+let hasMore = true;
 
 interface Props {
   publicationId: string;
 }
 
 const Likes: FC<Props> = ({ publicationId }) => {
-  const [hasMore, setHasMore] = useState(true);
-
   // Variables
   const request: WhoReactedPublicationRequest = { publicationId: publicationId, limit: 10 };
 
@@ -36,7 +35,7 @@ const Likes: FC<Props> = ({ publicationId }) => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
     }).then(({ data }) => {
-      setHasMore(data?.whoReactedPublication?.items?.length > 0);
+      hasMore = data?.whoReactedPublication?.items?.length > 0;
     });
   };
 
