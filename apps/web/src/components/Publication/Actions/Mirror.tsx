@@ -27,12 +27,12 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-interface Props {
+interface MirrorProps {
   publication: Publication;
   showCount: boolean;
 }
 
-const Mirror: FC<Props> = ({ publication, showCount }) => {
+const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
