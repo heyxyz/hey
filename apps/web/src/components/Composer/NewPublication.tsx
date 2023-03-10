@@ -244,7 +244,6 @@ const NewPublication: FC<Props> = ({ publication }) => {
     };
     setUserSigNonce(userSigNonce + 1);
     const { data } = await broadcast({ variables: { request: { id, signature } } });
-    console.log(inputStruct);
     if (data?.broadcast.__typename === 'RelayError') {
       return write({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
