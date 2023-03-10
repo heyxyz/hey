@@ -14,7 +14,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import { AVATAR, ERROR_MESSAGE, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from 'lens';
 import {
@@ -58,7 +58,7 @@ const Picture: FC<Props> = ({ profile }) => {
     write
   } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

@@ -32,7 +32,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
+import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
@@ -113,7 +113,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

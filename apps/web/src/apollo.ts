@@ -139,7 +139,7 @@ const cache = new InMemoryCache({
 
 const client = new ApolloClient({
   link: from([retryLink, authLink, httpLink]),
-  cache: cache
+  cache
 });
 
 export const serverlessClient = new ApolloClient({
