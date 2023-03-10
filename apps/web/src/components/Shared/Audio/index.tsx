@@ -15,14 +15,6 @@ import { object, string } from 'zod';
 import CoverImage from './CoverImage';
 import Player from './Player';
 
-interface Props {
-  src: string;
-  isNew?: boolean;
-  publication?: Publication;
-  txn: OptimisticTransaction;
-  expandCover: (url: string) => void;
-}
-
 export const AudioPublicationSchema = object({
   title: string()
     .trim()
@@ -35,7 +27,15 @@ export const AudioPublicationSchema = object({
     .min(1, { message: t`Invalid cover image` })
 });
 
-const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover }) => {
+interface AudioProps {
+  src: string;
+  isNew?: boolean;
+  publication?: Publication;
+  txn: OptimisticTransaction;
+  expandCover: (url: string) => void;
+}
+
+const Audio: FC<AudioProps> = ({ src, isNew = false, publication, txn, expandCover }) => {
   const [playing, setPlaying] = useState(false);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setAudioPublication = usePublicationStore((state) => state.setAudioPublication);
