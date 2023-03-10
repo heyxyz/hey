@@ -32,14 +32,14 @@ import Loader from '../Loader';
 import Slug from '../Slug';
 import Uniswap from '../Uniswap';
 
-interface Props {
+interface FollowModuleProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   setShowFollowModal: Dispatch<boolean>;
   again: boolean;
 }
 
-const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, again }) => {
+const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFollowModal, again }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
