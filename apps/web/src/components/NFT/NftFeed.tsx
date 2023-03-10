@@ -1,4 +1,4 @@
-import SingleNFT from '@components/NFT/SingleNFT';
+import SingleNft from '@components/NFT/SingleNft';
 import NFTSShimmer from '@components/Shared/Shimmer/NFTSShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
@@ -79,7 +79,7 @@ const NftFeed: FC<NftFeedProps> = ({ profile }) => {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {nfts?.map((nft) => (
           <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
-            <SingleNFT nft={nft as Nft} />
+            <SingleNft nft={nft as Nft} />
           </div>
         ))}
       </div>
