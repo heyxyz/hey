@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.15.0",
+    "@types/normalize-wheel": "^1.0.1",
     "eslint-config-weblint": "*",
     "tsconfig": "*"
   }
