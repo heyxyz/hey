@@ -595,6 +595,31 @@ msgstr "协调内容流加载失败"
 msgid "Mod Center • {APP_NAME}"
 msgstr "模块中心 • {APP_NAME}"
 
+#: src/components/Mod/index.tsx
+msgid "Refresh feed"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Publication filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Posts"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+#: src/components/Notification/FeedType.tsx
+msgid "Comments"
+msgstr "评论您的"
+
+#: src/components/Mod/index.tsx
+msgid "Custom filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Gardeners"
+msgstr ""
+
 #: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr "没有任何NFT！"
@@ -611,10 +636,6 @@ msgstr "所有通知"
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
 msgstr "提及您的"
-
-#: src/components/Notification/FeedType.tsx
-msgid "Comments"
-msgstr "评论您的"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
@@ -2518,4 +2539,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
