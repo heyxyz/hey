@@ -18,12 +18,12 @@ let hasMore = true;
 
 interface FeedProps {
   refresh: boolean;
-  setRefresh: (refreshing: boolean) => void;
+  setRefreshing: (refreshing: boolean) => void;
   publicationTypes: PublicationTypes[];
   customFilters: CustomFiltersTypes[];
 }
 
-const Feed: FC<FeedProps> = ({ refresh, setRefresh, publicationTypes, customFilters }) => {
+const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customFilters }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
@@ -38,15 +38,15 @@ const Feed: FC<FeedProps> = ({ refresh, setRefresh, publicationTypes, customFilt
   const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore, refetch } = useExploreFeedQuery({
-    variables: { request, reactionRequest, profileId },
-    fetchPolicy: 'no-cache'
+    variables: { request, reactionRequest, profileId }
   });
 
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
 
   useEffect(() => {
-    refetch();
+    setRefreshing(true);
+    refetch().finally(() => setRefreshing(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, publicationTypes, customFilters]);
 

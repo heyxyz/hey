@@ -19,6 +19,7 @@ import Feed from './Feed';
 
 const Mod: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([PublicationTypes.Post, PublicationTypes.Comment]);
   const [customFilters, setCustomFilters] = useState([CustomFiltersTypes.Gardeners]);
@@ -37,14 +38,14 @@ const Mod: NextPage = () => {
       <GridItemEight className="space-y-5">
         <Feed
           refresh={refresh}
-          setRefresh={setRefresh}
+          setRefreshing={setRefreshing}
           publicationTypes={publicationTypes}
           customFilters={customFilters}
         />
       </GridItemEight>
       <GridItemFour>
         <Card className="p-5">
-          <Button className="w-full" onClick={() => setRefresh(!refresh)}>
+          <Button disabled={refresing} className="w-full" onClick={() => setRefresh(!refresh)}>
             <Trans>Refresh feed</Trans>
           </Button>
           <div className="divider my-3" />
