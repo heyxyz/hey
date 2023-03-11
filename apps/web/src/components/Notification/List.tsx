@@ -37,11 +37,11 @@ export enum NotificationType {
 
 let hasMore = true;
 
-interface Props {
+interface ListProps {
   feedType: string;
 }
 
-const List: FC<Props> = ({ feedType }) => {
+const List: FC<ListProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const getNotificationType = () => {

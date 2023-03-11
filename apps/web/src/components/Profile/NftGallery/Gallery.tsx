@@ -24,11 +24,11 @@ import Create from './Create';
 import NftCard from './NftCard';
 import ReArrange from './ReArrange';
 
-interface Props {
+interface GalleryProps {
   galleries: NftGallery[];
 }
 
-const Gallery: FC<Props> = ({ galleries }) => {
+const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const [isRearrange, setIsRearrange] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);

@@ -9,11 +9,11 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
 import { PUBLICATION } from 'src/tracking';
 
-interface Props {
+interface PermalinkProps {
   publication: Publication;
 }
 
-const Permalink: FC<Props> = ({ publication }) => {
+const Permalink: FC<PermalinkProps> = ({ publication }) => {
   return (
     <CopyToClipboard
       text={`${location.origin}/posts/${publication?.id}`}

@@ -15,12 +15,12 @@ import { useAppStore } from 'src/store/app';
 
 let hasMore = true;
 
-interface Props {
+interface FeedProps {
   focus?: PublicationMainFocus;
   feedType?: PublicationSortCriteria;
 }
 
-const Feed: FC<Props> = ({ focus, feedType = PublicationSortCriteria.CuratedProfiles }) => {
+const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.CuratedProfiles }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables

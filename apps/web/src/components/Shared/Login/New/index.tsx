@@ -26,11 +26,11 @@ const newUserSchema = object({
     })
 });
 
-interface Props {
+interface NewProfileProps {
   isModal?: boolean;
 }
 
-const NewProfile: FC<Props> = ({ isModal = false }) => {
+const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
   const { address } = useAccount();

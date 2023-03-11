@@ -18,11 +18,11 @@ import FollowersConfig from './FollowersConfig';
 import SplitConfig from './SplitConfig';
 import TimeLimitConfig from './TimeLimitConfig';
 
-interface Props {
+interface CollectFormProps {
   setShowModal: Dispatch<boolean>;
 }
 
-const CollectForm: FC<Props> = ({ setShowModal }) => {
+const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);

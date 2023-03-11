@@ -32,7 +32,7 @@ class EmojiOption extends TypeaheadOption {
   }
 }
 
-interface Props {
+interface EmojiMenuItemProps {
   index: number;
   isSelected: boolean;
   onClick: () => void;
@@ -40,7 +40,7 @@ interface Props {
   option: EmojiOption;
 }
 
-const EmojiMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
+const EmojiMenuItem: FC<EmojiMenuItemProps> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
   const { key, title, emoji, setRefElement } = option;
 
   return (

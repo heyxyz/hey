@@ -15,11 +15,11 @@ import Loader from '../Loader';
 
 let hasMore = true;
 
-interface Props {
+interface MirrorsProps {
   publicationId: string;
 }
 
-const Mirrors: FC<Props> = ({ publicationId }) => {
+const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   // Variables
   const request: ProfileQueryRequest = { whoMirroredPublicationId: publicationId, limit: 10 };
 

@@ -14,12 +14,12 @@ import { PROFILE } from 'src/tracking';
 import { ProfileFeedType } from './Feed';
 import MediaFilter from './Filters/MediaFilter';
 
-interface Props {
+interface FeedTypeProps {
   setFeedType: Dispatch<string>;
   feedType: string;
 }
 
-const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const switchTab = (type: string) => {
     setFeedType(type);
     Mixpanel.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {

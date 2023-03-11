@@ -15,11 +15,11 @@ import { useAppStore } from 'src/store/app';
 
 let hasMore = true;
 
-interface Props {
+interface PublicationsProps {
   query: string | string[];
 }
 
-const Publications: FC<Props> = ({ query }) => {
+const Publications: FC<PublicationsProps> = ({ query }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 import { forwardRef } from 'react';
 
-interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'primary' | 'secondary' | 'warning' | 'super' | 'danger';
   outline?: boolean;
@@ -11,7 +11,7 @@ interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement
   className?: string;
 }
 
-export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   { className = '', size = 'md', variant = 'primary', outline, icon, children, ...rest },
   ref
 ) {

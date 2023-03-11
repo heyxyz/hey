@@ -8,11 +8,11 @@ import { useState } from 'react';
 
 import AllowanceButton from './Button';
 
-interface Props {
+interface ModuleProps {
   module: ApprovedAllowanceAmount;
 }
 
-const Module: FC<Props> = ({ module }) => {
+const Module: FC<ModuleProps> = ({ module }) => {
   const [allowed, setAllowed] = useState(module?.allowance !== '0x00');
 
   return (

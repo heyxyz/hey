@@ -7,11 +7,11 @@ import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-interface Props {
+interface NotificationProfileProps {
   profile: Profile;
 }
 
-export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
+export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({ profile }) => {
   return (
     <Link href={`/u/${formatHandle(profile?.handle)}`}>
       <Image
@@ -28,7 +28,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
   );
 };
 
-export const NotificationProfileName: FC<Props> = ({ profile }) => {
+export const NotificationProfileName: FC<NotificationProfileProps> = ({ profile }) => {
   return (
     <Link
       href={`/u/${formatHandle(profile?.handle)}`}

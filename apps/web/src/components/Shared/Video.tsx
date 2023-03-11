@@ -6,12 +6,12 @@ import type { FC } from 'react';
 import { memo } from 'react';
 import getIPFSLink from 'utils/getIPFSLink';
 
-interface Props {
+interface VideoProps {
   src: string;
   poster: string;
 }
 
-const Video: FC<Props> = ({ src, poster }) => {
+const Video: FC<VideoProps> = ({ src, poster }) => {
   return (
     <div className="rounded-lg">
       <Plyr

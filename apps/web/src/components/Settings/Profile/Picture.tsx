@@ -32,11 +32,11 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import ImageCropperController from './ImageCropperController';
 
-interface Props {
+interface PictureProps {
   profile: Profile & { picture: MediaSet & NftImage };
 }
 
-const Picture: FC<Props> = ({ profile }) => {
+const Picture: FC<PictureProps> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);

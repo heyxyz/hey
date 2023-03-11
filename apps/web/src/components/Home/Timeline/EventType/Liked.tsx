@@ -5,11 +5,11 @@ import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';
 
-interface Props {
+interface LikedProps {
   reactions: ReactionEvent[];
 }
 
-const Liked: FC<Props> = ({ reactions }) => {
+const Liked: FC<LikedProps> = ({ reactions }) => {
   const getLikedProfiles = () => {
     let profiles = reactions.map((event) => event.profile);
     profiles = profiles.filter(

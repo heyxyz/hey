@@ -6,11 +6,11 @@ import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-interface Props {
+interface ReportProps {
   publication: Publication;
 }
 
-const Report: FC<Props> = ({ publication }) => {
+const Report: FC<ReportProps> = ({ publication }) => {
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
 
   return (

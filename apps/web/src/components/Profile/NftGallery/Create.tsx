@@ -24,18 +24,18 @@ import { useNftGalleryStore } from 'src/store/nft-gallery';
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';
 
-interface Props {
-  showModal: boolean;
-  setShowModal: Dispatch<boolean>;
-}
-
 enum CreateSteps {
   NAME = 'NAME',
   PICK_NFTS = 'PICK_NFTS',
   REVIEW = 'REVIEW'
 }
 
-const Create: FC<Props> = ({ showModal, setShowModal }) => {
+interface CreateProps {
+  showModal: boolean;
+  setShowModal: Dispatch<boolean>;
+}
+
+const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const [currentStep, setCurrentStep] = useState<CreateSteps>(CreateSteps.NAME);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);

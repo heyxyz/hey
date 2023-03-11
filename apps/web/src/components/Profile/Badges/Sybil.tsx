@@ -5,11 +5,11 @@ import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface SybilProps {
   profile: Profile;
 }
 
-const Sybil: FC<Props> = ({ profile }) => {
+const Sybil: FC<SybilProps> = ({ profile }) => {
   if (!profile?.onChainIdentity?.sybilDotOrg?.verified) {
     return null;
   }

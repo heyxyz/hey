@@ -15,12 +15,12 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 let hasMore = true;
 
-interface Props {
+interface FollowingProps {
   profile: Profile;
   onProfileSelected?: (profile: Profile) => void;
 }
 
-const Following: FC<Props> = ({ profile, onProfileSelected }) => {
+const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   // Variables
   const request: FollowingRequest = { address: profile?.ownedBy, limit: 30 };
 

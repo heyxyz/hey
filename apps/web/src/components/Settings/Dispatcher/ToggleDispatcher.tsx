@@ -17,11 +17,11 @@ import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-interface Props {
+interface ToggleDispatcherProps {
   buttonSize?: 'sm';
 }
 
-const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
+const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);

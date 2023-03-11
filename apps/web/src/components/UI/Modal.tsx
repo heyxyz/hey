@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
 
-interface Props {
+interface ModalProps {
   icon?: ReactNode;
   title?: ReactNode;
   size?: 'xs' | 'sm' | 'md' | 'lg';
@@ -13,7 +13,7 @@ interface Props {
   onClose?: () => void;
 }
 
-export const Modal: FC<Props> = ({ icon, title, size = 'sm', show, children, onClose }) => {
+export const Modal: FC<ModalProps> = ({ icon, title, size = 'sm', show, children, onClose }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => onClose?.()}>

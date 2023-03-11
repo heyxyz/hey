@@ -5,12 +5,12 @@ import type { FC } from 'react';
 import { CHAIN_ID } from 'src/constants';
 import getIPFSLink from 'utils/getIPFSLink';
 
-interface Props {
+interface SingleNftProps {
   nft: Nft;
   linkToDetail?: boolean;
 }
 
-const SingleNFT: FC<Props> = ({ nft, linkToDetail = true }) => {
+const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
   const nftURL = linkToDetail
     ? `${RARIBLE_URL}/token/${nft.chainId === CHAIN_ID ? 'polygon/' : ''}${nft.contractAddress}:${
         nft.tokenId
@@ -71,4 +71,4 @@ const SingleNFT: FC<Props> = ({ nft, linkToDetail = true }) => {
   );
 };
 
-export default SingleNFT;
+export default SingleNft;

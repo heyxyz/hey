@@ -11,14 +11,14 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-interface Props {
+interface PreviewProps {
   profile: Profile;
   message: DecodedMessage;
   conversationKey: string;
   isSelected: boolean;
 }
 
-const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) => {
+const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelected }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;

@@ -4,11 +4,11 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import React from 'react';
 
-interface Props {
+interface SettingsProps {
   className?: string;
 }
 
-const Settings: FC<Props> = ({ className = '' }) => {
+const Settings: FC<SettingsProps> = ({ className = '' }) => {
   return (
     <div
       className={clsx(

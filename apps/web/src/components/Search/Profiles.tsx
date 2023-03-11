@@ -14,11 +14,11 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 let hasMore = true;
 
-interface Props {
+interface ProfilesProps {
   query: string | string[];
 }
 
-const Profiles: FC<Props> = ({ query }) => {
+const Profiles: FC<ProfilesProps> = ({ query }) => {
   // Variables
   const request: SearchQueryRequest = {
     query,
