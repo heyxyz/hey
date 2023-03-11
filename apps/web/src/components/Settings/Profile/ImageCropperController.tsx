@@ -1,8 +1,8 @@
 import 'rc-slider/assets/index.css';
 
 import { ZoomInIcon, ZoomOutIcon } from '@heroicons/react/outline';
-import Cropper from '@lib/image-cropper/Cropper';
-import type { Area, Point, Size } from '@lib/image-cropper/types';
+import Cropper from 'image-cropper/ImageCropper';
+import type { Area, Point, Size } from 'image-cropper/types';
 import Slider from 'rc-slider';
 import type { Dispatch, FC } from 'react';
 import { useRef, useState } from 'react';
@@ -14,7 +14,7 @@ interface Props {
   setCroppedAreaPixels: Dispatch<Area>;
 }
 
-const ImageCropper: FC<Props> = ({ cropSize, borderSize, imageSrc, setCroppedAreaPixels }) => {
+const ImageCropperController: FC<Props> = ({ cropSize, borderSize, imageSrc, setCroppedAreaPixels }) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [maxZoom, setMaxZoom] = useState(1);
@@ -60,4 +60,4 @@ const ImageCropper: FC<Props> = ({ cropSize, borderSize, imageSrc, setCroppedAre
   );
 };
 
-export default ImageCropper;
+export default ImageCropperController;

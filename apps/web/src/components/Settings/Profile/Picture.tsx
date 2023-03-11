@@ -6,8 +6,6 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import { getCroppedImg } from '@lib/image-cropper/cropUtils';
-import type { Area, Size } from '@lib/image-cropper/types';
 import imageProxy from '@lib/imageProxy';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -16,6 +14,8 @@ import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { AVATAR, ERROR_MESSAGE, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { getCroppedImg } from 'image-cropper/cropUtils';
+import type { Area, Size } from 'image-cropper/types';
 import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from 'lens';
 import {
   useBroadcastMutation,
@@ -30,7 +30,7 @@ import { SETTINGS } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import ImageCropper from './ImageCropper';
+import ImageCropperController from './ImageCropperController';
 
 interface Props {
   profile: Profile & { picture: MediaSet & NftImage };
@@ -199,7 +199,7 @@ const Picture: FC<Props> = ({ profile }) => {
         }
       >
         <div className="p-5">
-          <ImageCropper
+          <ImageCropperController
             imageSrc={imageSrc}
             setCroppedAreaPixels={setCroppedAreaPixels}
             cropSize={cropperPreviewSize}

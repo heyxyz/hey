@@ -33,7 +33,7 @@ type GestureEvent = UIEvent & {
   clientY: number;
 };
 
-class Cropper extends React.Component<CropperProps, State> {
+class ImageCropper extends React.Component<CropperProps, State> {
   static defaultProps = {
     zoom: 1,
     zoomSpeed: 1
@@ -177,10 +177,10 @@ class Cropper extends React.Component<CropperProps, State> {
     e.preventDefault();
     this.currentDoc.addEventListener('mousemove', this.onMouseMove);
     this.currentDoc.addEventListener('mouseup', this.onDragStopped);
-    this.onDragStart(Cropper.getMousePoint(e));
+    this.onDragStart(ImageCropper.getMousePoint(e));
   };
 
-  onMouseMove = (e: MouseEvent) => this.onDrag(Cropper.getMousePoint(e));
+  onMouseMove = (e: MouseEvent) => this.onDrag(ImageCropper.getMousePoint(e));
 
   onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     this.isTouching = true;
@@ -190,7 +190,7 @@ class Cropper extends React.Component<CropperProps, State> {
     if (e.touches.length === 2) {
       this.onPinchStart(e);
     } else if (e.touches.length === 1) {
-      this.onDragStart(Cropper.getTouchPoint(e.touches[0]));
+      this.onDragStart(ImageCropper.getTouchPoint(e.touches[0]));
     }
   };
 
@@ -200,7 +200,7 @@ class Cropper extends React.Component<CropperProps, State> {
     if (e.touches.length === 2) {
       this.onPinchMove(e);
     } else if (e.touches.length === 1) {
-      this.onDrag(Cropper.getTouchPoint(e.touches[0]));
+      this.onDrag(ImageCropper.getTouchPoint(e.touches[0]));
     }
   };
 
@@ -218,7 +218,7 @@ class Cropper extends React.Component<CropperProps, State> {
       return;
     }
 
-    const point = Cropper.getMousePoint(e);
+    const point = ImageCropper.getMousePoint(e);
     const newZoom = this.gestureZoomStart - 1 + e.scale;
     this.setNewZoom(newZoom, point, { shouldUpdatePosition: true });
   };
@@ -265,15 +265,15 @@ class Cropper extends React.Component<CropperProps, State> {
   };
 
   onPinchStart(e: React.TouchEvent<HTMLDivElement>) {
-    const pointA = Cropper.getTouchPoint(e.touches[0]);
-    const pointB = Cropper.getTouchPoint(e.touches[1]);
+    const pointA = ImageCropper.getTouchPoint(e.touches[0]);
+    const pointB = ImageCropper.getTouchPoint(e.touches[1]);
     this.lastPinchDistance = getDistanceBetweenPoints(pointA, pointB);
     this.onDragStart(getMidpoint(pointA, pointB));
   }
 
   onPinchMove(e: TouchEvent) {
-    const pointA = Cropper.getTouchPoint(e.touches[0]);
-    const pointB = Cropper.getTouchPoint(e.touches[1]);
+    const pointA = ImageCropper.getTouchPoint(e.touches[0]);
+    const pointB = ImageCropper.getTouchPoint(e.touches[1]);
     const center = getMidpoint(pointA, pointB);
     this.onDrag(center);
 
@@ -290,7 +290,7 @@ class Cropper extends React.Component<CropperProps, State> {
 
   onWheel = (e: WheelEvent) => {
     e.preventDefault();
-    const point = Cropper.getMousePoint(e);
+    const point = ImageCropper.getMousePoint(e);
     const { spinY } = normalizeWheel(e);
     const newZoom = this.props.zoom * this.props.zoomSpeed ** -spinY;
     this.setNewZoom(newZoom, point, { shouldUpdatePosition: true });
@@ -455,4 +455,4 @@ class Cropper extends React.Component<CropperProps, State> {
   }
 }
 
-export default Cropper;
+export default ImageCropper;

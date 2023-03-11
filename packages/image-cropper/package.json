@@ -1,0 +1,19 @@
+{
+  "name": "image-cropper",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "normalize-wheel": "^1.0.1",
+    "rc-slider": "^10.1.1",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.0",
+    "eslint-config-weblint": "*",
+    "tsconfig": "*"
+  }
+}
