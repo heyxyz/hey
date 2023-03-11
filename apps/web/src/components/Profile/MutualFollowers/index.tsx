@@ -8,13 +8,17 @@ import { useMutualFollowersQuery } from 'lens';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
 
-interface Props {
+interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<boolean>;
   profile: Profile;
   variant?: 'xs' | 'sm';
 }
 
-const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, variant = 'sm' }) => {
+const MutualFollowers: FC<MutualFollowersProps> = ({
+  setShowMutualFollowersModal,
+  profile,
+  variant = 'sm'
+}) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { data, loading, error } = useMutualFollowersQuery({

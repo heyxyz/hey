@@ -5,12 +5,12 @@ import type { FC } from 'react';
 import MenuTransition from '../MenuTransition';
 import List from './List';
 
-interface Props {
+interface EmojiPickerProps {
   emoji?: string | null;
   setEmoji: (emoji: string) => void;
 }
 
-const EmojiPicker: FC<Props> = ({ emoji, setEmoji }) => {
+const EmojiPicker: FC<EmojiPickerProps> = ({ emoji, setEmoji }) => {
   return (
     <Menu as="div" className="relative">
       <Menu.Button className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20">

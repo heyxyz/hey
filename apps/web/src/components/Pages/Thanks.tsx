@@ -9,7 +9,7 @@ import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { PAGEVIEW } from 'src/tracking';
 
-interface Props {
+interface BrandProps {
   name: string;
   logo: string;
   url: string;
@@ -18,7 +18,7 @@ interface Props {
   children: ReactNode;
 }
 
-const Brand: FC<Props> = ({ name, logo, url, size, type, children }) => {
+const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
   const { resolvedTheme } = useTheme();
 
   return (

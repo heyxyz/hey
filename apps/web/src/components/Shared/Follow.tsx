@@ -7,7 +7,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import { useBroadcastMutation, useCreateFollowTypedDataMutation, useProxyActionMutation } from 'lens';
@@ -34,7 +34,7 @@ export enum FollowSource {
   PROFILE_POPOVER = 'profile_popover'
 }
 
-interface Props {
+interface FollowProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
@@ -45,7 +45,7 @@ interface Props {
   followSource?: string;
 }
 
-const Follow: FC<Props> = ({
+const Follow: FC<FollowProps> = ({
   profile,
   showText = false,
   setFollowing,
@@ -84,7 +84,7 @@ const Follow: FC<Props> = ({
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

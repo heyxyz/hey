@@ -3,11 +3,11 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
 
-interface Props {
+interface AppVersionProps {
   onClick?: () => void;
 }
 
-const AppVersion: FC<Props> = ({ onClick }) => {
+const AppVersion: FC<AppVersionProps> = ({ onClick }) => {
   return (
     <div className="py-3 px-6 text-xs">
       <Link

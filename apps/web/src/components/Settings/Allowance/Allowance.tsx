@@ -4,11 +4,11 @@ import type { FC } from 'react';
 
 import Module from './Module';
 
-interface Props {
+interface AllowanceProps {
   allowance: ApprovedModuleAllowanceAmountQuery | undefined;
 }
 
-const Allowance: FC<Props> = ({ allowance }) => {
+const Allowance: FC<AllowanceProps> = ({ allowance }) => {
   return (
     <div className="space-y-4 p-5">
       {allowance?.approvedModuleAllowanceAmount?.map((item: ApprovedAllowanceAmount) =>

@@ -40,14 +40,14 @@ export const FieldError: FC<FieldErrorProps> = ({ name }) => {
   return <div className="mt-1 text-sm font-bold text-red-500">{error.message as any}</div>;
 };
 
-interface Props<T extends FieldValues = Record<string, unknown>>
+interface FormProps<T extends FieldValues = Record<string, unknown>>
   extends Omit<ComponentProps<'form'>, 'onSubmit'> {
   form: UseFormReturn<T>;
   onSubmit: SubmitHandler<T>;
   className?: string;
 }
 
-export const Form = <T extends FieldValues>({ form, onSubmit, children, className = '' }: Props<T>) => {
+export const Form = <T extends FieldValues>({ form, onSubmit, children, className = '' }: FormProps<T>) => {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>

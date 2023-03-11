@@ -7,11 +7,11 @@ import getStampFyiURL from 'utils/getStampFyiURL';
 import DefaultTags from './Shared/DefaultTags';
 import Tags from './Shared/Tags';
 
-interface Props {
+interface PublicationProps {
   publication: Publication;
 }
 
-const Publication: FC<Props> = ({ publication }) => {
+const Publication: FC<PublicationProps> = ({ publication }) => {
   if (!publication) {
     return <DefaultTags />;
   }

@@ -3,11 +3,11 @@ import type { FC } from 'react';
 
 import ThreadBody from '../ThreadBody';
 
-interface Props {
+interface CommentedProps {
   publication: Comment;
 }
 
-const Commented: FC<Props> = ({ publication }) => {
+const Commented: FC<CommentedProps> = ({ publication }) => {
   const commentOn: Comment | any = publication?.commentOn;
   const mainPost = commentOn?.mainPost;
 

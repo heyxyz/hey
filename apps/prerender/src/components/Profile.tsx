@@ -9,11 +9,11 @@ import getStampFyiURL from 'utils/getStampFyiURL';
 import DefaultTags from './Shared/DefaultTags';
 import Tags from './Shared/Tags';
 
-interface Props {
+interface ProfileProps {
   profile: Profile & { picture: MediaSet & NftImage };
 }
 
-const Profile: FC<Props> = ({ profile }) => {
+const Profile: FC<ProfileProps> = ({ profile }) => {
   if (!profile) {
     return <DefaultTags />;
   }

@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import NFTFeed from '@components/NFT/NFTFeed';
+import NftFeed from '@components/Nft/NftFeed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import formatHandle from '@lib/formatHandle';
@@ -126,7 +126,7 @@ const ViewProfile: NextPage = () => {
             isFeatureEnabled(FeatureFlag.NftGallery, currentProfile?.id) ? (
               <NftGallery profile={profile as Profile} />
             ) : (
-              <NFTFeed profile={profile as Profile} />
+              <NftFeed profile={profile as Profile} />
             )
           ) : null}
         </GridItemEight>

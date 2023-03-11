@@ -10,12 +10,12 @@ import { useEffect, useState } from 'react';
 
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh');
 
-interface Props {
+interface GifSelectorProps {
   setGifAttachment: (gif: IGif) => void;
   setShowModal: Dispatch<boolean>;
 }
 
-const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
+const GifSelector: FC<GifSelectorProps> = ({ setShowModal, setGifAttachment }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [debouncedGifInput, setDebouncedGifInput] = useState('');
   const [searchText, setSearchText] = useState('');

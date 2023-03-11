@@ -7,7 +7,7 @@ import { FieldError } from './Form';
 
 const HelpTooltip = dynamic(() => import('./HelpTooltip'));
 
-interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
+interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string;
   prefix?: string | ReactNode;
   iconLeft?: ReactNode;
@@ -17,7 +17,7 @@ interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
   error?: boolean;
 }
 
-export const Input = forwardRef<HTMLInputElement, Props>(function Input(
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   { label, prefix, type = 'text', iconLeft, iconRight, error, className = '', helper, ...props },
   ref
 ) {

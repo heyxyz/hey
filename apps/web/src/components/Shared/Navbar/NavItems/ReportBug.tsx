@@ -5,12 +5,12 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
 
-interface Props {
+interface ReportBugProps {
   onClick?: () => void;
   className?: string;
 }
 
-const ReportBug: FC<Props> = ({ onClick, className = '' }) => {
+const ReportBug: FC<ReportBugProps> = ({ onClick, className = '' }) => {
   return (
     <Link
       href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"

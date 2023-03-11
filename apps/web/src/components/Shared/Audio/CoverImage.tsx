@@ -10,7 +10,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import getIPFSLink from 'utils/getIPFSLink';
 
-interface Props {
+interface CoverImageProps {
   isNew: boolean;
   cover: string;
   setCover: (url: string, mimeType: string) => void;
@@ -18,7 +18,7 @@ interface Props {
   expandCover: (url: string) => void;
 }
 
-const CoverImage: FC<Props> = ({ isNew = false, cover, setCover, imageRef, expandCover }) => {
+const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, imageRef, expandCover }) => {
   const [loading, setLoading] = useState(false);
 
   const onError = (error: any) => {

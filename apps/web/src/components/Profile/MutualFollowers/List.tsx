@@ -13,11 +13,11 @@ import { useAppStore } from 'src/store/app';
 
 let hasMore = true;
 
-interface Props {
+interface MutualFollowersListProps {
   profileId: string;
 }
 
-const MutualFollowersList: FC<Props> = ({ profileId }) => {
+const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables

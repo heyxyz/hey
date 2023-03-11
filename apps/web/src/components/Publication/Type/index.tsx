@@ -6,13 +6,13 @@ import Commented from './Commented';
 import CommentedPublication from './CommentedPublication';
 import Mirrored from './Mirrored';
 
-interface Props {
+interface PublicationTypeProps {
   publication: Publication;
   showType?: boolean;
   showThread?: boolean;
 }
 
-const PublicationType: FC<Props> = ({ publication, showType, showThread = false }) => {
+const PublicationType: FC<PublicationTypeProps> = ({ publication, showType, showThread = false }) => {
   const type = publication.__typename;
 
   if (!showType) {

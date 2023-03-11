@@ -6,7 +6,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
-import { FollowNFT } from 'abis';
+import { FollowNft } from 'abis';
 import { SIGN_WALLET } from 'data/constants';
 import type { Signer } from 'ethers';
 import { Contract } from 'ethers';
@@ -19,13 +19,13 @@ import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useSigner, useSignTypedData } from 'wagmi';
 
-interface Props {
+interface UnfollowProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
 }
 
-const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
+const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [writeLoading, setWriteLoading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -36,7 +36,7 @@ const Unfollow: FC<Props> = ({ profile, showText = false, setFollowing }) => {
     const { v, r, s } = splitSignature(signature);
     const sig = { v, r, s, deadline };
 
-    const followNftContract = new Contract(typedData.domain.verifyingContract, FollowNFT, signer as Signer);
+    const followNftContract = new Contract(typedData.domain.verifyingContract, FollowNft, signer as Signer);
 
     const tx = await followNftContract.burnWithSig(tokenId, sig);
     if (tx) {

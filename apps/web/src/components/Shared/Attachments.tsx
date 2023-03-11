@@ -38,7 +38,7 @@ const getClass = (attachments: number, isNew = false) => {
   }
 };
 
-interface Props {
+interface AttachmentsProps {
   attachments: any;
   isNew?: boolean;
   hideDelete?: boolean;
@@ -46,7 +46,7 @@ interface Props {
   txn?: any;
 }
 
-const Attachments: FC<Props> = ({
+const Attachments: FC<AttachmentsProps> = ({
   attachments = [],
   isNew = false,
   hideDelete = false,

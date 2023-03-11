@@ -72,11 +72,11 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
   );
 };
 
-interface Props {
+interface DateDividerBorderProps {
   children: ReactNode;
 }
 
-const DateDividerBorder: FC<Props> = ({ children }) => (
+const DateDividerBorder: FC<DateDividerBorderProps> = ({ children }) => (
   <>
     <div className="h-0.5 grow bg-gray-300/25" />
     {children}

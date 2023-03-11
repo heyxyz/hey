@@ -4,11 +4,11 @@ import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';
 
-interface Props {
+interface CombinedProps {
   feedItem: FeedItem;
 }
 
-const Combined: FC<Props> = ({ feedItem }) => {
+const Combined: FC<CombinedProps> = ({ feedItem }) => {
   const { mirrors, collects, reactions } = feedItem;
   const comments = feedItem.comments ?? [];
 

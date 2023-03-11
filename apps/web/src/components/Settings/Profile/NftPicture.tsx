@@ -9,7 +9,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { NftImage, Profile, UpdateProfileImageRequest } from 'lens';
 import {
@@ -34,11 +34,11 @@ const editNftPictureSchema = object({
   tokenId: string()
 });
 
-interface Props {
+interface NftPictureProps {
   profile: Profile & { picture: NftImage };
 }
 
-const NFTPicture: FC<Props> = ({ profile }) => {
+const NftPicture: FC<NftPictureProps> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -65,7 +65,7 @@ const NFTPicture: FC<Props> = ({ profile }) => {
     write
   } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -212,4 +212,4 @@ const NFTPicture: FC<Props> = ({ profile }) => {
   );
 };
 
-export default NFTPicture;
+export default NftPicture;

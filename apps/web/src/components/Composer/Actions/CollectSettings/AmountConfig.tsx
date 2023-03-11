@@ -8,11 +8,11 @@ import { useCollectModuleStore } from 'src/store/collect-module';
 
 import ReferralConfig from './ReferralConfig';
 
-interface Props {
+interface AmountConfigProps {
   enabledModuleCurrencies?: Erc20[];
 }
 
-const AmountConfig: FC<Props> = ({ enabledModuleCurrencies }) => {
+const AmountConfig: FC<AmountConfigProps> = ({ enabledModuleCurrencies }) => {
   const amount = useCollectModuleStore((state) => state.amount);
   const setAmount = useCollectModuleStore((state) => state.setAmount);
   const setRecipients = useCollectModuleStore((state) => state.setRecipients);

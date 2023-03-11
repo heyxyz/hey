@@ -7,13 +7,13 @@ import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-interface Props {
+interface IndexStatusProps {
   type?: string;
   txHash: string;
   reload?: boolean;
 }
 
-const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }) => {
+const IndexStatus: FC<IndexStatusProps> = ({ type = 'Transaction', txHash, reload = false }) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
   const { data, loading } = useHasTxHashBeenIndexedQuery({

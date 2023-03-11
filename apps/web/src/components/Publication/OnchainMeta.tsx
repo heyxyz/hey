@@ -23,11 +23,11 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
   </div>
 );
 
-interface Props {
+interface OnchainMetaProps {
   publication: Publication;
 }
 
-const OnchainMeta: FC<Props> = ({ publication }) => {
+const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
   const hash =
     publication?.__typename === 'Mirror'
       ? publication.mirrorOf.onChainContentURI?.split('/').pop()

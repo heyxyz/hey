@@ -5,11 +5,11 @@ import type { FC } from 'react';
 import React from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-interface Props {
+interface SwitchProfileProps {
   className?: string;
 }
 
-const SwitchProfile: FC<Props> = ({ className = '' }) => {
+const SwitchProfile: FC<SwitchProfileProps> = ({ className = '' }) => {
   const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
 
   return (

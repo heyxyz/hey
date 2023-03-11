@@ -12,11 +12,11 @@ import PublicationBody from './PublicationBody';
 import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
 
-interface Props {
+interface FullPublicationProps {
   publication: Publication;
 }
 
-const FullPublication: FC<Props> = ({ publication }) => {
+const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const isMirror = publication.__typename === 'Mirror';
   const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;

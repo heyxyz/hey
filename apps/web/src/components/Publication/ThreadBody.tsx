@@ -7,11 +7,11 @@ import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
-interface Props {
+interface ThreadBodyProps {
   publication: Publication;
 }
 
-const ThreadBody: FC<Props> = ({ publication }) => {
+const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
   const { push } = useRouter();
 
   return (

@@ -14,13 +14,17 @@ import Like from './Like';
 import Mirror from './Mirror';
 import Mod from './Mod';
 
-interface Props {
+interface PublicationActionsProps {
   publication: Publication;
   electedMirror?: ElectedMirror;
   showCount?: boolean;
 }
 
-const PublicationActions: FC<Props> = ({ publication, electedMirror, showCount = false }) => {
+const PublicationActions: FC<PublicationActionsProps> = ({
+  publication,
+  electedMirror,
+  showCount = false
+}) => {
   const { allowed: modMode } = useModMode();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const collectModuleType = publication?.collectModule.__typename;

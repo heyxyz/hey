@@ -9,13 +9,13 @@ import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { Dispatch, FC } from 'react';
 
-interface Props {
+interface FollowModalProps {
   setShowFollowModal: Dispatch<boolean>;
   setFollowing: Dispatch<boolean | null>;
   profile: Profile;
 }
 
-const FollowModal: FC<Props> = ({ profile, setFollowing, setShowFollowModal }) => {
+const FollowModal: FC<FollowModalProps> = ({ profile, setFollowing, setShowFollowModal }) => {
   const followType = profile?.followModule?.__typename;
 
   return (
