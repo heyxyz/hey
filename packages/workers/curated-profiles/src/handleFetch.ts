@@ -26,8 +26,10 @@ const handleFetch = async (request: Request, env: EnvType) => {
     }
 
     const users = await env.curated_profiles.get(path);
+    const response = new Response(JSON.stringify({ success: true, users: JSON.parse(users as string) }));
+    response.headers.set('Cache-Control', 'max-age=18000, s-maxage=18000, stale-while-revalidate=18000');
 
-    return new Response(JSON.stringify({ success: true, users: JSON.parse(users as string) }));
+    return response;
   } catch {
     return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }));
   }
