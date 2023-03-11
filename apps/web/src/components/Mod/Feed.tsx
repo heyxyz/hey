@@ -7,8 +7,8 @@ import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
-import type { ExplorePublicationRequest, Publication } from 'lens';
-import { CustomFiltersTypes, PublicationSortCriteria, PublicationTypes, useExploreFeedQuery } from 'lens';
+import type { CustomFiltersTypes, ExplorePublicationRequest, Publication, PublicationTypes } from 'lens';
+import { PublicationSortCriteria, useExploreFeedQuery } from 'lens';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -17,37 +17,38 @@ import { useAppStore } from 'src/store/app';
 let hasMore = true;
 
 interface FeedProps {
-  refreshing: boolean;
-  setRefreshing: (refreshing: boolean) => void;
+  refresh: boolean;
+  setRefresh: (refreshing: boolean) => void;
+  publicationTypes: PublicationTypes[];
+  customFilters: CustomFiltersTypes[];
 }
 
-const Feed: FC<FeedProps> = ({ refreshing, setRefreshing }) => {
+const Feed: FC<FeedProps> = ({ refresh, setRefresh, publicationTypes, customFilters }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
   const request: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.Latest,
-    publicationTypes: [PublicationTypes.Post, PublicationTypes.Comment],
-    customFilters: [CustomFiltersTypes.Gardeners],
     noRandomize: true,
+    publicationTypes,
+    customFilters,
     limit: 50
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore, refetch } = useExploreFeedQuery({
-    variables: { request, reactionRequest, profileId }
+    variables: { request, reactionRequest, profileId },
+    fetchPolicy: 'no-cache'
   });
 
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
 
   useEffect(() => {
-    refetch().finally(() => {
-      setRefreshing(false);
-    });
+    refetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refreshing]);
+  }, [refresh, publicationTypes, customFilters]);
 
   const loadMore = async () => {
     await fetchMore({
