@@ -1,0 +1,14 @@
+name = "curated-profiles-cron"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+
+kv_namespaces = [
+  { binding = "curated_profiles", id = "264caafc58d8461eab43f3da9020a40d", preview_id = "660fc1ed47224ef1a52c95b81441d01c" }
+]
+
+[triggers]
+crons = ["* * * * *"]
+
+[env.production.vars]
+AIRTABLE_ACCESS_TOKEN = ""
