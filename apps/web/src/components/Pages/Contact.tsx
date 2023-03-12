@@ -86,7 +86,7 @@ const Contact: FC = () => {
                 submitToFreshdesk(email, subject, message);
               }}
             >
-              <Input label={t`Email`} placeholder={t`gavin@hooli.com`} {...form.register('email')} />
+              <Input label={t`Email`} placeholder="gavin@hooli.com" {...form.register('email')} />
               <Input label={t`Subject`} placeholder={t`What happened?`} {...form.register('subject')} />
               <TextArea label={t`Message`} placeholder={t`How can we help?`} {...form.register('message')} />
               <div className="ml-auto">
