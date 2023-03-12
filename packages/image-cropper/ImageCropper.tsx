@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import normalizeWheel from 'normalize-wheel';
-import React from 'react';
+import type { RefObject } from 'react';
+import { Component, createRef } from 'react';
 
 import {
   computeCroppedArea,
@@ -33,13 +34,13 @@ type GestureEvent = UIEvent & {
   clientY: number;
 };
 
-class ImageCropper extends React.Component<CropperProps, State> {
+class ImageCropper extends Component<CropperProps, State> {
   static defaultProps = {
     zoom: 1,
     zoomSpeed: 1
   };
 
-  imageRef: React.RefObject<HTMLImageElement> = React.createRef();
+  imageRef: RefObject<HTMLImageElement> = createRef();
   containerRef: HTMLDivElement | null = null;
   styleRef: HTMLStyleElement | null = null;
   mediaSize: MediaSize = { width: 0, height: 0, naturalWidth: 0, naturalHeight: 0 };
