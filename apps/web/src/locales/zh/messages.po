@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-11 00:08\n"
+"PO-Revision-Date: 2023-03-12 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -595,6 +595,31 @@ msgstr "协调内容流加载失败"
 msgid "Mod Center • {APP_NAME}"
 msgstr "模块中心 • {APP_NAME}"
 
+#: src/components/Mod/index.tsx
+msgid "Refresh feed"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Publication filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Posts"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+#: src/components/Notification/FeedType.tsx
+msgid "Comments"
+msgstr "评论您的"
+
+#: src/components/Mod/index.tsx
+msgid "Custom filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Gardeners"
+msgstr ""
+
 #: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr "没有任何NFT！"
@@ -611,10 +636,6 @@ msgstr "所有通知"
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
 msgstr "提及您的"
-
-#: src/components/Notification/FeedType.tsx
-msgid "Comments"
-msgstr "评论您的"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
