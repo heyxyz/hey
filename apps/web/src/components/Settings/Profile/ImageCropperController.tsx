@@ -14,7 +14,12 @@ interface ImageCropperControllerProps {
   setCroppedAreaPixels: Dispatch<Area>;
 }
 
-const ImageCropperController: FC<ImageCropperControllerProps> = ({ cropSize, borderSize, imageSrc, setCroppedAreaPixels }) => {
+const ImageCropperController: FC<ImageCropperControllerProps> = ({
+  cropSize,
+  borderSize,
+  imageSrc,
+  setCroppedAreaPixels
+}) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [maxZoom, setMaxZoom] = useState(1);
