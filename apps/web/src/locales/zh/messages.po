@@ -789,10 +789,6 @@ msgstr "我们能帮您做些什么？"
 msgid "Submit"
 msgstr "提交"
 
-#: src/components/Pages/Contact.tsx
-#~ msgid "gavin@hooli.com"
-#~ msgstr ""
-
 #: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
 msgstr "隐私政策 • {APP_NAME}"
