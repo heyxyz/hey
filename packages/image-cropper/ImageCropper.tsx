@@ -11,7 +11,7 @@ import {
 } from './cropUtils';
 import type { Area, MediaSize, Point, Size } from './types';
 
-export type CropperProps = {
+interface CropperProps {
   image?: string;
   cropSize: Size;
   cropPosition: Point;
@@ -21,7 +21,7 @@ export type CropperProps = {
   onCropChange: (location: Point) => void;
   onZoomChange?: (zoom: number, maxZoom: number) => void;
   onCropComplete?: (croppedAreaPixels: Area) => void;
-};
+}
 
 type State = {
   hasWheelJustStarted: boolean;

@@ -1,23 +1,23 @@
-export type Size = {
+export interface Size {
   width: number;
   height: number;
-};
+}
 
-export type MediaSize = {
+export interface MediaSize {
   width: number;
   height: number;
   naturalWidth: number;
   naturalHeight: number;
-};
+}
 
-export type Point = {
+export interface Point {
   x: number;
   y: number;
-};
+}
 
-export type Area = {
+export interface Area {
   width: number;
   height: number;
   x: number;
   y: number;
-};
+}
