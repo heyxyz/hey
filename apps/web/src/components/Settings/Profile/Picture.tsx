@@ -161,13 +161,13 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const isLoading =
     typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading || uploading;
 
-  function readFile(file: Blob): Promise<string> {
+  const readFile = (file: Blob): Promise<string> => {
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.addEventListener('load', () => resolve(reader.result as string), false);
       reader.readAsDataURL(file);
     });
-  }
+  };
 
   const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
     if (evt.target.files && evt.target.files.length > 0) {
