@@ -168,9 +168,9 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     });
   };
 
-  const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
-    if (evt.target.files && evt.target.files.length > 0) {
-      const file = evt.target.files[0];
+  const onFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
       setShowCropModal(true);
       let imageDataUrl = await readFile(file);
       setImageSrc(imageDataUrl);
@@ -227,7 +227,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
             />
           </div>
           <div className="flex items-center space-x-3">
-            <ChooseFile onChange={(evt: ChangeEvent<HTMLInputElement>) => onFileChange(evt)} />
+            <ChooseFile onChange={(event: ChangeEvent<HTMLInputElement>) => onFileChange(event)} />
           </div>
         </div>
       </div>
