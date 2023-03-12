@@ -789,10 +789,6 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: src/components/Pages/Contact.tsx
-#~ msgid "gavin@hooli.com"
-#~ msgstr "gavin@hooli.com"
-
 #: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
 msgstr "Privacy Policy • {APP_NAME}"
