@@ -7,14 +7,14 @@ import Slider from 'rc-slider';
 import type { Dispatch, FC } from 'react';
 import { useRef, useState } from 'react';
 
-interface Props {
+interface ImageCropperControllerProps {
   cropSize: Size;
   borderSize: number;
   imageSrc: string;
   setCroppedAreaPixels: Dispatch<Area>;
 }
 
-const ImageCropperController: FC<Props> = ({ cropSize, borderSize, imageSrc, setCroppedAreaPixels }) => {
+const ImageCropperController: FC<ImageCropperControllerProps> = ({ cropSize, borderSize, imageSrc, setCroppedAreaPixels }) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [maxZoom, setMaxZoom] = useState(1);
