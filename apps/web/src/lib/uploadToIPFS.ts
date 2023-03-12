@@ -50,7 +50,6 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
 
     return attachments;
   } catch (error) {
-    console.error(error);
     return [];
   }
 };

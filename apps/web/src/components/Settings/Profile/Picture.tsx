@@ -150,7 +150,6 @@ const Picture: FC<PictureProps> = ({ profile }) => {
       }
       setAvatarDataUrl(dataUrl);
     } catch (error) {
-      console.error(error);
       toast.error(t`Upload failed`);
     } finally {
       setShowCropModal(false);
