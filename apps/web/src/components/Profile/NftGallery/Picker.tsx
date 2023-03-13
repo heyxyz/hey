@@ -2,7 +2,6 @@ import SingleNft from '@components/Nft/SingleNft';
 import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CheckIcon, CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
@@ -140,7 +139,7 @@ const Picker: FC = () => {
         scrollableTarget="scrollableNftGalleryDiv"
         hasMore={hasMore}
         next={loadMore}
-        loader={<InfiniteLoader />}
+        loader={<span />}
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {nfts?.map((nft, i) => {
