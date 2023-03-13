@@ -188,6 +188,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
       <Modal
         title={t`Crop image`}
         show={showCropModal}
+        size="fit-content"
         onClose={
           isLoading
             ? undefined
