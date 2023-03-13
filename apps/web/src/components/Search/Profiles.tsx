@@ -3,22 +3,21 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, ProfileSearchResult, SearchQueryRequest } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from 'lens';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-
-let hasMore = true;
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 
 interface ProfilesProps {
   query: string | string[];
 }
 
 const Profiles: FC<ProfilesProps> = ({ query }) => {
+  const [hasMore, setHasMore] = useState(true);
+
   // Variables
   const request: SearchQueryRequest = {
     query,
@@ -36,14 +35,20 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   const profiles = search?.items;
   const pageInfo = search?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      const search = data?.search as ProfileSearchResult;
-      hasMore = search?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      }).then(({ data }) => {
+        const search = data?.search as ProfileSearchResult;
+        setHasMore(search?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <UserProfilesShimmer isBig />;
@@ -67,21 +72,14 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   }
 
   return (
-    <InfiniteScroll
-      dataLength={profiles?.length}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<InfiniteLoader />}
-    >
-      <div className="space-y-3">
-        {profiles?.map((profile: Profile) => (
-          <Card key={profile?.id} className="p-5">
-            <UserProfile profile={profile} showBio isBig />
-          </Card>
-        ))}
-      </div>
-    </InfiniteScroll>
+    <div className="space-y-3">
+      {profiles?.map((profile: Profile) => (
+        <Card key={profile?.id} className="p-5">
+          <UserProfile profile={profile} showBio isBig />
+        </Card>
+      ))}
+      {hasMore && <span ref={observe} />}
+    </div>
   );
 };
 

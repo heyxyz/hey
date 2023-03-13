@@ -3,17 +3,14 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Publication, PublicationSearchResult, SearchQueryRequest } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchPublicationsQuery } from 'lens';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-
-let hasMore = true;
 
 interface PublicationsProps {
   query: string | string[];
@@ -21,6 +18,7 @@ interface PublicationsProps {
 
 const Publications: FC<PublicationsProps> = ({ query }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: SearchQueryRequest = {
@@ -40,14 +38,20 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   const publications = search?.items as Publication[];
   const pageInfo = search?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-    }).then(({ data }) => {
-      const search = data?.search as PublicationSearchResult;
-      hasMore = search?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+      }).then(({ data }) => {
+        const search = data?.search as PublicationSearchResult;
+        setHasMore(search?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -71,19 +75,14 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   }
 
   return (
-    <InfiniteScroll
-      dataLength={publications?.length ?? 0}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<InfiniteLoader />}
-    >
+    <>
       <Card className="divide-y-[1px] dark:divide-gray-700">
         {publications?.map((publication, index) => (
           <SinglePublication key={`${publication?.id}_${index}`} publication={publication} />
         ))}
       </Card>
-    </InfiniteScroll>
+      {hasMore && <span ref={observe} />}
+    </>
   );
 };
 
