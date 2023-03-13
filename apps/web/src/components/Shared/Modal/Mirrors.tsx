@@ -1,25 +1,24 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, ProfileQueryRequest } from 'lens';
 import { useMirrorsQuery } from 'lens';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 
 import { FollowSource } from '../Follow';
 import Loader from '../Loader';
-
-let hasMore = true;
 
 interface MirrorsProps {
   publicationId: string;
 }
 
 const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
+  const [hasMore, setHasMore] = useState(true);
+
   // Variables
   const request: ProfileQueryRequest = { whoMirroredPublicationId: publicationId, limit: 10 };
 
@@ -31,13 +30,19 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   const profiles = data?.profiles?.items;
   const pageInfo = data?.profiles?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      hasMore = data?.profiles?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      }).then(({ data }) => {
+        setHasMore(data?.profiles?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <Loader message={t`Loading mirrors`} />;
@@ -56,32 +61,24 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" id="scrollableMirrorsDiv">
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage className="m-5" title={t`Failed to load mirrors`} error={error} />
-      <InfiniteScroll
-        dataLength={profiles?.length ?? 0}
-        scrollThreshold={SCROLL_THRESHOLD}
-        hasMore={hasMore}
-        next={loadMore}
-        loader={<InfiniteLoader />}
-        scrollableTarget="scrollableMirrorsDiv"
-      >
-        <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((profile, index) => (
-            <div className="p-5" key={profile?.id}>
-              <UserProfile
-                profile={profile as Profile}
-                isFollowing={profile?.isFollowedByMe}
-                followPosition={index + 1}
-                followSource={FollowSource.MIRRORS_MODAL}
-                showBio
-                showFollow
-                showUserPreview={false}
-              />
-            </div>
-          ))}
-        </div>
-      </InfiniteScroll>
+      <div className="divide-y dark:divide-gray-700">
+        {profiles?.map((profile, index) => (
+          <div className="p-5" key={profile?.id}>
+            <UserProfile
+              profile={profile as Profile}
+              isFollowing={profile?.isFollowedByMe}
+              followPosition={index + 1}
+              followSource={FollowSource.MIRRORS_MODAL}
+              showBio
+              showFollow
+              showUserPreview={false}
+            />
+          </div>
+        ))}
+      </div>
+      {hasMore && <span ref={observe} />}
     </div>
   );
 };
