@@ -52,7 +52,6 @@ const Timeline: FC = () => {
   const pageInfo = data?.feed?.pageInfo;
 
   const { observe } = useInView({
-    rootMargin: '1000% 0px',
     onChange: async ({ inView }) => {
       if (!inView || !hasMore) {
         return;

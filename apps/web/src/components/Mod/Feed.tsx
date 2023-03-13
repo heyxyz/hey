@@ -48,7 +48,6 @@ const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customF
   }, [refresh, publicationTypes, customFilters]);
 
   const { observe } = useInView({
-    rootMargin: '1000% 0px',
     onChange: async ({ inView }) => {
       if (!inView || !hasMore) {
         return;
