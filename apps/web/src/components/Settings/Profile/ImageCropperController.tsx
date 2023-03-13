@@ -1,7 +1,7 @@
 import 'rc-slider/assets/index.css';
 
 import { ZoomInIcon, ZoomOutIcon } from '@heroicons/react/outline';
-import Cropper from 'image-cropper/ImageCropper';
+import ImageCropper from 'image-cropper/ImageCropper';
 import type { Area, Point, Size } from 'image-cropper/types';
 import Slider from 'rc-slider';
 import type { Dispatch, FC } from 'react';
@@ -23,7 +23,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [maxZoom, setMaxZoom] = useState(1);
-  const cropper = useRef<Cropper>(null);
+  const cropper = useRef<ImageCropper>(null);
 
   const onSliderChange = (value: number | number[]) => {
     const logarithmicZoomValue = Array.isArray(value) ? value[0] : value;
@@ -34,7 +34,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
 
   return (
     <>
-      <Cropper
+      <ImageCropper
         ref={cropper}
         image={imageSrc}
         cropSize={cropSize}

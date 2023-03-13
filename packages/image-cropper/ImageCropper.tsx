@@ -42,9 +42,7 @@ class ImageCropper extends Component<CropperProps, State> {
 
   imageRef: RefObject<HTMLImageElement> = createRef();
   containerRef: HTMLDivElement | null = null;
-  styleRef: HTMLStyleElement | null = null;
   mediaSize: MediaSize = { width: 0, height: 0, naturalWidth: 0, naturalHeight: 0 };
-  maxZoom: number | null = null;
   dragStartPosition: Point = { x: 0, y: 0 };
   dragStartCrop: Point = { x: 0, y: 0 };
   gestureZoomStart = 0;
@@ -68,7 +66,6 @@ class ImageCropper extends Component<CropperProps, State> {
       if (this.currentDoc.defaultView) {
         this.currentWindow = this.currentDoc.defaultView;
       }
-      this.currentWindow.addEventListener('resize', this.computeSizes);
       this.containerRef.addEventListener('wheel', this.onWheel, { passive: false });
       this.containerRef.addEventListener('gesturestart', this.onGestureStart as EventListener);
     }
@@ -80,13 +77,8 @@ class ImageCropper extends Component<CropperProps, State> {
   }
 
   componentWillUnmount() {
-    this.currentWindow.removeEventListener('resize', this.computeSizes);
     if (this.containerRef) {
       this.containerRef.removeEventListener('gesturestart', this.preventZoomSafari);
-    }
-
-    if (this.styleRef) {
-      this.styleRef.parentNode?.removeChild(this.styleRef);
     }
 
     this.cleanEvents();
