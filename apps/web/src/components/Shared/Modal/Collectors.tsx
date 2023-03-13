@@ -2,7 +2,6 @@ import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
@@ -64,7 +63,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
         scrollThreshold={SCROLL_THRESHOLD}
         hasMore={hasMore}
         next={loadMore}
-        loader={<InfiniteLoader />}
+        loader={<span />}
         scrollableTarget="scrollableCollectorsDiv"
       >
         <div className="divide-y dark:divide-gray-700">

@@ -3,7 +3,6 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
@@ -72,7 +71,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
       scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
       next={loadMore}
-      loader={<InfiniteLoader />}
+      loader={<span />}
     >
       <div className="space-y-3">
         {profiles?.map((profile: Profile) => (
