@@ -4,7 +4,9 @@ import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { ChartBarIcon } from '@heroicons/react/outline';
+import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { t } from '@lingui/macro';
+import { FeatureFlag } from 'data/feature-flags';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import dynamic from 'next/dynamic';
@@ -17,11 +19,11 @@ const Stats = dynamic(() => import('./Stats'), {
   loading: () => <Loader message={t`Loading analytics`} />
 });
 
-interface Props {
+interface AnalyticsProps {
   publication: Publication;
 }
 
-const Analytics: FC<Props> = ({ publication }) => {
+const Analytics: FC<AnalyticsProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showCollectModal, setShowCollectModal] = useState(false);
@@ -31,7 +33,10 @@ const Analytics: FC<Props> = ({ publication }) => {
   const profileIdFromPublication = publication?.id.split('-')[0];
   const showAnalytics = currentProfile?.id === profileIdFromPublication;
 
-  if (!staffMode && (!showAnalytics || publication.__typename === 'Mirror')) {
+  if (
+    (!staffMode && (!showAnalytics || publication.__typename === 'Mirror')) ||
+    isFeatureEnabled(FeatureFlag.PublicationAnalytics, currentProfile?.id)
+  ) {
     return null;
   }
 
@@ -43,7 +48,6 @@ const Analytics: FC<Props> = ({ publication }) => {
         whileTap={{ scale: 0.9 }}
         onClick={() => {
           setShowCollectModal(true);
-          // Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
         }}
         aria-label="Analytics"
       >

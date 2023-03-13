@@ -53,7 +53,11 @@ const Trending: FC = () => {
             <div key={tag?.tag}>
               <Link
                 href={`/search?q=${tag?.tag}&type=pubs`}
-                onClick={() => Mixpanel.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
+                onClick={() =>
+                  Mixpanel.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                    trending_tag: tag?.tag
+                  })
+                }
               >
                 <div className="font-bold">{tag?.tag}</div>
                 <div className="lt-text-gray-500 text-[12px]">

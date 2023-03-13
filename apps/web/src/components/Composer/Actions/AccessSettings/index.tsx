@@ -2,14 +2,12 @@ import HelpTooltip from '@components/UI/HelpTooltip';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LockClosedIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
-import { PUBLICATION } from 'src/tracking';
 
 import BasicSettings from './BasicSettings';
 
@@ -25,10 +23,7 @@ const AccessSettings: FC = () => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          onClick={() => {
-            setShowModal(!showModal);
-            Mixpanel.track(PUBLICATION.NEW.ACCESS.OPEN_ACCESS_SETTINGS);
-          }}
+          onClick={() => setShowModal(!showModal)}
           aria-label="Access"
         >
           <LockClosedIcon className={clsx(restricted ? 'text-green-500' : 'text-brand', 'h-5 w-5')} />

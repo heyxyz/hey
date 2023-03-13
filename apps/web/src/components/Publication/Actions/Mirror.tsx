@@ -10,7 +10,7 @@ import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
@@ -27,12 +27,12 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-interface Props {
+interface MirrorProps {
   publication: Publication;
   showCount: boolean;
 }
 
-const Mirror: FC<Props> = ({ publication, showCount }) => {
+const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -67,7 +67,7 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

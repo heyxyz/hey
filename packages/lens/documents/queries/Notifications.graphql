@@ -139,7 +139,6 @@ query Notifications($request: NotificationRequest!) {
       }
     }
     pageInfo {
-      totalCount
       next
     }
   }

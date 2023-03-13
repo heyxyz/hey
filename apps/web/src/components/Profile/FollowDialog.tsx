@@ -2,26 +2,27 @@ import Follow from '@components/Shared/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import { Button } from '@components/UI/Button';
+import { Image } from '@components/UI/Image';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { Dispatch, FC } from 'react';
 
-interface Props {
+interface FollowModalProps {
   setShowFollowModal: Dispatch<boolean>;
   setFollowing: Dispatch<boolean | null>;
   profile: Profile;
 }
 
-const FollowModal: FC<Props> = ({ profile, setFollowing, setShowFollowModal }) => {
+const FollowModal: FC<FollowModalProps> = ({ profile, setFollowing, setShowFollowModal }) => {
   const followType = profile?.followModule?.__typename;
 
   return (
     <div className="p-5">
       <div className="flex justify-between text-lg font-bold">
         <span className="flex">
-          <img
+          <Image
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
             }}

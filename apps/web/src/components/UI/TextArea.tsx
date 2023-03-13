@@ -3,11 +3,14 @@ import { forwardRef, useId } from 'react';
 
 import { FieldError } from './Form';
 
-interface Props extends ComponentProps<'textarea'> {
+interface TextAreaProps extends ComponentProps<'textarea'> {
   label?: string;
 }
 
-export const TextArea = forwardRef<HTMLTextAreaElement, Props>(function TextArea({ label, ...props }, ref) {
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
+  { label, ...props },
+  ref
+) {
   const id = useId();
 
   return (

@@ -1,3 +1,4 @@
+import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
@@ -29,11 +30,11 @@ if (MIXPANEL_ENABLED) {
   });
 }
 
-interface Props {
+interface LayoutProps {
   children: ReactNode;
 }
 
-const Layout: FC<Props> = ({ children }) => {
+const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -116,7 +117,11 @@ const Layout: FC<Props> = ({ children }) => {
     if (MIXPANEL_ENABLED && currentProfile?.id) {
       mixpanel.identify(currentProfile?.id);
       mixpanel.people.set({
-        $name: currentProfile?.handle
+        $name: currentProfile?.handle,
+        $last_active: new Date()
+      });
+      mixpanel.people.set_once({
+        $created_at: new Date()
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -133,6 +138,7 @@ const Layout: FC<Props> = ({ children }) => {
       </Head>
       <Toaster position="bottom-right" toastOptions={getToastOptions(resolvedTheme)} />
       <GlobalModals />
+      <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">
         <Navbar />
         <BottomNavigation />

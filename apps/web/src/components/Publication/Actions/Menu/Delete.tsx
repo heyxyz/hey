@@ -1,25 +1,19 @@
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
-import { useHidePublicationMutation } from 'lens';
-import { useRouter } from 'next/router';
-import type { FC, MouseEvent } from 'react';
-import { PUBLICATION } from 'src/tracking';
+import type { FC } from 'react';
+import { useGlobalAlertStateStore } from 'src/store/alerts';
 
-interface Props {
+interface DeleteProps {
   publication: Publication;
 }
 
-const Delete: FC<Props> = ({ publication }) => {
-  const { pathname, push } = useRouter();
-  const [hidePost] = useHidePublicationMutation({
-    onCompleted: () => {
-      Mixpanel.track(PUBLICATION.DELETE);
-      pathname === '/posts/[id]' ? push('/') : location.reload();
-    }
-  });
+const Delete: FC<DeleteProps> = ({ publication }) => {
+  const setShowPublicationDeleteAlert = useGlobalAlertStateStore(
+    (state) => state.setShowPublicationDeleteAlert
+  );
 
   return (
     <Menu.Item
@@ -30,13 +24,9 @@ const Delete: FC<Props> = ({ publication }) => {
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
         )
       }
-      onClick={(event: MouseEvent<HTMLDivElement>) => {
-        event.stopPropagation();
-        if (confirm('Are you sure you want to delete?')) {
-          hidePost({
-            variables: { request: { publicationId: publication?.id } }
-          });
-        }
+      onClick={(event) => {
+        stopEventPropagation(event);
+        setShowPublicationDeleteAlert(true, publication);
       }}
     >
       <div className="flex items-center space-x-2">

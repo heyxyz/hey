@@ -3,20 +3,18 @@ import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
 import { Modal } from '@components/UI/Modal';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
 import nFormatter from '@lib/nFormatter';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
-import { PUBLICATION } from 'src/tracking';
 
-interface Props {
+interface PublicationStatsProps {
   publication: Publication;
 }
 
-const PublicationStats: FC<Props> = ({ publication }) => {
+const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
@@ -46,13 +44,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
               <b className="text-black dark:text-white">{nFormatter(commentsCount)}</b> Comments
             </Trans>
           </span>
-          <button
-            type="button"
-            onClick={() => {
-              setShowMirrorsModal(true);
-              Mixpanel.track(PUBLICATION.STATS.MIRRORED_BY);
-            }}
-          >
+          <button type="button" onClick={() => setShowMirrorsModal(true)}>
             <Trans>
               <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
             </Trans>
@@ -69,13 +61,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
       )}
       {!hideLikesCount && reactionCount > 0 && (
         <>
-          <button
-            type="button"
-            onClick={() => {
-              setShowLikesModal(true);
-              Mixpanel.track(PUBLICATION.STATS.LIKED_BY);
-            }}
-          >
+          <button type="button" onClick={() => setShowLikesModal(true)}>
             <Trans>
               <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
             </Trans>
@@ -92,13 +78,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
       )}
       {collectCount > 0 && (
         <>
-          <button
-            type="button"
-            onClick={() => {
-              setShowCollectorsModal(true);
-              Mixpanel.track(PUBLICATION.STATS.COLLECTED_BY);
-            }}
-          >
+          <button type="button" onClick={() => setShowCollectorsModal(true)}>
             <Trans>
               <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
             </Trans>

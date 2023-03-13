@@ -1,0 +1,18 @@
+{
+  "name": "@workers/freshdesk",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "dev": "wrangler dev --port 8084 --local",
+    "worker:deploy": "wrangler publish",
+    "lint": "eslint . --ext .ts"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230307.0",
+    "eslint-config-weblint": "*",
+    "tsconfig": "*",
+    "typescript": "^4.9.5",
+    "wrangler": "2.12.2"
+  }
+}

@@ -7,6 +7,7 @@ import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
@@ -24,11 +25,11 @@ const newReportSchema = object({
   })
 });
 
-interface Props {
+interface ReportProps {
   publication: Publication;
 }
 
-const Report: FC<Props> = ({ publication }) => {
+const Report: FC<ReportProps> = ({ publication }) => {
   const reportConfig = useGlobalModalStateStore((state) => state.reportConfig);
   const [type, setType] = useState(reportConfig?.type ?? '');
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
@@ -40,7 +41,9 @@ const Report: FC<Props> = ({ publication }) => {
   const [createReport, { data: submitData, loading: submitLoading, error: submitError }] =
     useReportPublicationMutation({
       onCompleted: () => {
-        Mixpanel.track(PUBLICATION.REPORT);
+        Mixpanel.track(PUBLICATION.REPORT, {
+          report_publication_id: publication?.id
+        });
       }
     });
 
@@ -66,7 +69,7 @@ const Report: FC<Props> = ({ publication }) => {
   };
 
   return (
-    <div onClick={(event) => event.stopPropagation()}>
+    <div onClick={stopEventPropagation}>
       {submitData?.reportPublication === null ? (
         <EmptyState
           message={t`Publication reported successfully!`}

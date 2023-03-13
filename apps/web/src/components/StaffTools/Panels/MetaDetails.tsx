@@ -3,14 +3,14 @@ import type { FC, ReactNode } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
 
-interface Props {
+interface MetaDetailsProps {
   children: ReactNode;
   title?: string;
   value: string;
   icon: ReactNode;
 }
 
-const MetaDetails: FC<Props> = ({ children, title, value, icon }) => (
+const MetaDetails: FC<MetaDetailsProps> = ({ children, title, value, icon }) => (
   <CopyToClipboard
     text={value}
     onCopy={() => {

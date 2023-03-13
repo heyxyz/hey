@@ -25,7 +25,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -64,7 +64,7 @@ import { useCollectModuleStore } from 'src/store/collect-module';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { COMMENT, POST } from 'src/tracking';
+import { PUBLICATION } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
@@ -86,11 +86,11 @@ const AccessSettings = dynamic(() => import('@components/Composer/Actions/Access
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 
-interface Props {
+interface NewPublicationProps {
   publication: Publication;
 }
 
-const NewPublication: FC<Props> = ({ publication }) => {
+const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -153,9 +153,15 @@ const NewPublication: FC<Props> = ({ publication }) => {
       publication_type: restricted ? 'token_gated' : 'public',
       publication_collect_module: selectedCollectModule,
       publication_reference_module: selectedReferenceModule,
-      publication_has_attachments: attachments.length > 0
+      publication_reference_module_degrees_of_separation:
+        selectedReferenceModule === ReferenceModules.DegreesOfSeparationReferenceModule
+          ? degreesOfSeparation
+          : null,
+      publication_has_attachments: attachments.length > 0,
+      publication_attachment_types:
+        attachments.length > 0 ? attachments.map((attachment) => attachment.type) : null
     };
-    Mixpanel.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
+    Mixpanel.track(isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST, eventProperties);
   };
 
   useEffect(() => {
@@ -188,7 +194,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: isComment ? 'commentWithSig' : 'postWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
@@ -216,6 +222,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       collectModuleInitData,
       referenceModule,
       referenceModuleInitData,
+      referenceModuleData,
       deadline
     } = typedData.value;
     const signature = await signTypedDataAsync(getSignature(typedData));
@@ -228,6 +235,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       collectModuleInitData,
       referenceModule,
       referenceModuleInitData,
+      referenceModuleData,
       ...(isComment && {
         profileIdPointed: typedData.value.profileIdPointed,
         pubIdPointed: typedData.value.pubIdPointed
@@ -237,7 +245,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     setUserSigNonce(userSigNonce + 1);
     const { data } = await broadcast({ variables: { request: { id, signature } } });
     if (data?.broadcast.__typename === 'RelayError') {
-      return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      return write({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
   };
 
@@ -448,7 +456,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
         content: publicationContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image: attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
-        imageMimeType: attachmentsInput.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
+        imageMimeType:
+          attachmentsInput.length > 0
+            ? getAttachmentImageMimeType()
+            : textNftImageUrl
+            ? 'image/svg+xml'
+            : null,
         name: isAudioPublication
           ? audioPublication.title
           : `${isComment ? 'Comment' : 'Post'} by @${currentProfile?.handle}`,
@@ -471,7 +484,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
       const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
         profileId: currentProfile?.id,
-        contentURI: `https://arweave.net/${arweaveId}`,
+        contentURI: `ar://${arweaveId}`,
         ...(isComment && {
           publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }),

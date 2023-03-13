@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
-interface Props {
+interface CommentProps {
   publication: Publication;
   showCount: boolean;
 }
@@ -27,9 +27,8 @@ const CommentIcon: FC<CommentIconProps> = ({ count, iconClassName }) => (
   </div>
 );
 
-const Comment: FC<Props> = ({ publication, showCount }) => {
+const Comment: FC<CommentProps> = ({ publication, showCount }) => {
   const { asPath } = useRouter();
-
   const count =
     publication.__typename === 'Mirror'
       ? publication?.mirrorOf?.stats?.totalAmountOfComments

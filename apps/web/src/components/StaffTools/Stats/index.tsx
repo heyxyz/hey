@@ -13,6 +13,7 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
+import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
 import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
@@ -84,8 +85,8 @@ const Stats: NextPage = () => {
     variables: {
       request: {
         sources: [APP_NAME],
-        fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24,
-        toTimestamp: Math.floor(Date.now() / 1000)
+        fromTimestamp: getTimeMinusNDayUnix(1),
+        toTimestamp: getTimeAddedNDayUnix(1)
       }
     }
   });
@@ -180,7 +181,6 @@ const Stats: NextPage = () => {
               </div>
             </section>
           )}
-          <div />
         </Card>
       </GridItemEight>
     </GridLayout>

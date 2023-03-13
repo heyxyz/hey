@@ -6,12 +6,12 @@ import { HANDLE_SUFFIX } from 'data/constants';
 import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface PendingProps {
   handle: string;
   txHash: string;
 }
 
-const Pending: FC<Props> = ({ handle, txHash }) => {
+const Pending: FC<PendingProps> = ({ handle, txHash }) => {
   const { data, loading } = useHasTxHashBeenIndexedQuery({
     variables: { request: { txHash } },
     pollInterval: 1000

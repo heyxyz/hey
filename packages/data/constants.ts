@@ -35,7 +35,6 @@ export const APP_VERSION = packageJson.version;
 export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
 
 // Misc
-export const CONTACT_EMAIL = 'support@lenster.freshdesk.com';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
@@ -57,19 +56,21 @@ export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://testnet.rarible.com';
-export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
+export const IFRAMELY_URL = 'https://iframely.lenster.xyz/iframely';
 
 // Workers
 export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
 export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
+export const FRESHDESK_WORKER_URL = IS_PRODUCTION ? 'https://freshdesk.lenster.xyz' : 'http://localhost:8084';
 
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
+export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
 
 // Errors
 export const ERRORS = {
@@ -101,7 +102,6 @@ export const ALLOWED_MEDIA_TYPES = [...ALLOWED_VIDEO_TYPES, ...ALLOWED_IMAGE_TYP
 
 // UI
 export const MESSAGE_PAGE_LIMIT = 15;
-export const SCROLL_THRESHOLD = 0.5;
 export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms

@@ -3,14 +3,15 @@ import 'plyr-react/plyr.css';
 import imageProxy from '@lib/imageProxy';
 import Plyr from 'plyr-react';
 import type { FC } from 'react';
+import { memo } from 'react';
 import getIPFSLink from 'utils/getIPFSLink';
 
-interface Props {
+interface VideoProps {
   src: string;
   poster: string;
 }
 
-const Video: FC<Props> = ({ src, poster }) => {
+const Video: FC<VideoProps> = ({ src, poster }) => {
   return (
     <div className="rounded-lg">
       <Plyr
@@ -28,4 +29,4 @@ const Video: FC<Props> = ({ src, poster }) => {
   );
 };
 
-export default Video;
+export default memo(Video);

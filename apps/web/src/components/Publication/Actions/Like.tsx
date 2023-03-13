@@ -21,12 +21,12 @@ import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
 
-interface Props {
+interface LikeProps {
   publication: Publication;
   showCount: boolean;
 }
 
-const Like: FC<Props> = ({ publication, showCount }) => {
+const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -68,7 +68,6 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const getEventProperties = (type: 'like' | 'dislike') => {
     return {
-      [`${type}_by`]: currentProfile?.id,
       [`${type}_publication`]: publication?.id,
       [`${type}_source`]: getLikeSource()
     };

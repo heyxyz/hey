@@ -12,11 +12,11 @@ import type { FC } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
-interface Props {
+interface PublicationBodyProps {
   publication: Publication;
 }
 
-const PublicationBody: FC<Props> = ({ publication }) => {
+const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 
@@ -26,12 +26,7 @@ const PublicationBody: FC<Props> = ({ publication }) => {
 
   return (
     <div className="break-words">
-      <Markup
-        className={clsx(
-          { 'line-clamp-5': showMore },
-          'leading-md linkify text-md whitespace-pre-wrap break-words'
-        )}
-      >
+      <Markup className={clsx({ 'line-clamp-5': showMore }, 'markup linkify text-md break-words')}>
         {publication?.metadata?.content}
       </Markup>
       {showMore && (

@@ -1,15 +1,16 @@
+import { Image } from '@components/UI/Image';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 
-interface Props {
+interface ProfileCirclesProps {
   profiles: Profile[];
   context?: string;
 }
 
-const ProfileCircles: FC<Props> = ({ profiles, context }) => {
+const ProfileCircles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <>
       {context && <span className="pr-1.5">{context}</span>}
@@ -20,7 +21,7 @@ const ProfileCircles: FC<Props> = ({ profiles, context }) => {
             key={`${profile.handle}_${i}`}
             href={`/u/${formatHandle(profile?.handle)}`}
           >
-            <img
+            <Image
               className="h-5 w-5 rounded-full border dark:border-gray-700"
               onError={({ currentTarget }) => {
                 currentTarget.src = getAvatar(profile, false);

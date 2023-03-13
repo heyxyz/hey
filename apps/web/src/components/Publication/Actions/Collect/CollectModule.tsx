@@ -21,7 +21,7 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
 import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
+import { formatTime } from '@lib/formatTime';
 import getAssetAddress from '@lib/getAssetAddress';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getSignature from '@lib/getSignature';
@@ -32,7 +32,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
+import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
@@ -55,14 +55,16 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
-interface Props {
+import Splits from './Splits';
+
+interface CollectModuleProps {
   count: number;
   setCount: Dispatch<number>;
   publication: Publication;
   electedMirror?: ElectedMirror;
 }
 
-const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
+const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, electedMirror }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -78,13 +80,27 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
   });
 
   const collectModule: any = data?.publication?.collectModule;
+  const isRevertCollectModule = collectModule?.type === CollectModules.RevertCollectModule;
+  const isMultirecipientFeeCollectModule =
+    collectModule?.type === CollectModules.MultirecipientFeeCollectModule;
+  const isFreeCollectModule = collectModule?.type === CollectModules.FreeCollectModule;
+  const endTimestamp = collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
+  const collectLimit = collectModule?.collectLimit ?? collectModule?.optionalCollectLimit;
 
   const onCompleted = () => {
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
-    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+      collect_module: collectModule?.type,
+      collect_publication_id: publication?.id,
+      ...(!isRevertCollectModule && {
+        collect_amount: collectModule?.amount?.value,
+        collect_currency: collectModule?.amount?.asset?.symbol,
+        collect_limit: collectLimit
+      })
+    });
   };
 
   const { isFetching, refetch } = useContractRead({
@@ -97,14 +113,14 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
     onError
   });
 
-  const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
+  const percentageCollected = (count / parseInt(collectLimit)) * 100;
 
   const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
     variables: {
@@ -204,7 +220,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
     }
 
     try {
-      if (collectModule?.type === CollectModules.FreeCollectModule && !collectModule?.followerOnly) {
+      if (isFreeCollectModule && !collectModule?.followerOnly) {
         await createViaProxyAction({
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
         });
@@ -244,8 +260,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   return (
     <>
-      {(collectModule?.type === CollectModules.LimitedFeeCollectModule ||
-        collectModule?.type === CollectModules.LimitedTimedFeeCollectModule) && (
+      {Boolean(collectLimit) && (
         <Tooltip placement="top" content={`${percentageCollected.toFixed(0)}% Collected`}>
           <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
             <div className="bg-brand-500 h-2.5" style={{ width: `${percentageCollected}%` }} />
@@ -305,10 +320,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               <button
                 className="font-bold"
                 type="button"
-                onClick={() => {
-                  setShowCollectorsModal(!showCollectorsModal);
-                  Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
-                }}
+                onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
                 <Trans>{humanize(count)} collectors</Trans>
               </button>
@@ -325,11 +337,11 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                 />
               </Modal>
             </div>
-            {collectModule?.collectLimit && (
+            {collectLimit && (
               <div className="flex items-center space-x-2">
                 <PhotographIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
-                  <Trans>{parseInt(collectModule?.collectLimit) - count} available</Trans>
+                  <Trans>{parseInt(collectLimit) - count} available</Trans>
                 </div>
               </div>
             )}
@@ -374,16 +386,15 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               </div>
             </div>
           )}
-          {collectModule?.endTimestamp && (
+          {endTimestamp && (
             <div className="flex items-center space-x-2">
               <ClockIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
                 <span>
                   <Trans>Sale Ends:</Trans>
                 </span>
-                <span className="font-bold text-gray-600" title={formatTime(collectModule.endTimestamp)}>
-                  {dayjs(collectModule.endTimestamp).format('MMMM DD, YYYY')} at{' '}
-                  {dayjs(collectModule.endTimestamp).format('hh:mm a')}
+                <span className="font-bold text-gray-600" title={formatTime(endTimestamp)}>
+                  {dayjs(endTimestamp).format('MMMM DD, YYYY')} at {dayjs(endTimestamp).format('hh:mm a')}
                 </span>
               </div>
             </div>
@@ -406,14 +417,16 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
               </div>
             </div>
           )}
+          {isMultirecipientFeeCollectModule && <Splits recipients={collectModule?.recipients} />}
         </div>
-        <div className="mt-5 flex items-center space-x-2">
+        <div className="flex items-center space-x-2">
           {currentProfile && !hasCollectedByMe ? (
             allowanceLoading || balanceLoading ? (
-              <div className="shimmer h-[34px] w-28 rounded-lg" />
+              <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
             ) : allowed ? (
               hasAmount ? (
                 <Button
+                  className="mt-5"
                   onClick={createCollect}
                   disabled={isLoading}
                   icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
@@ -421,15 +434,17 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
                   <Trans>Collect now</Trans>
                 </Button>
               ) : (
-                <WarningMessage message={<Uniswap module={collectModule} />} />
+                <WarningMessage className="mt-5" message={<Uniswap module={collectModule} />} />
               )
             ) : (
-              <AllowanceButton
-                title="Allow collect module"
-                module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
-                allowed={allowed}
-                setAllowed={setAllowed}
-              />
+              <span className="mt-5">
+                <AllowanceButton
+                  title="Allow collect module"
+                  module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
+                  allowed={allowed}
+                  setAllowed={setAllowed}
+                />
+              </span>
             )
           ) : null}
         </div>

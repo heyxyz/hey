@@ -5,11 +5,11 @@ import type { FC } from 'react';
 
 import ProfileCircles from './ProfileCircles';
 
-interface Props {
+interface CollectedProps {
   collects: CollectedEvent[];
 }
 
-const Collected: FC<Props> = ({ collects }) => {
+const Collected: FC<CollectedProps> = ({ collects }) => {
   const getCollectedProfiles = () => {
     let profiles = collects.map((event) => event.profile);
     profiles = profiles.filter(

@@ -3,10 +3,12 @@ import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { Image } from '@components/UI/Image';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
+import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -23,7 +25,7 @@ const NFTDetail: FC = () => {
     Mixpanel.track(PAGEVIEW, { page: 'nft' });
   }, []);
 
-  if (!isFeatureEnabled('nft-detail', currentProfile?.id) || !currentProfile) {
+  if (!isFeatureEnabled(FeatureFlag.NftDetail, currentProfile?.id) || !currentProfile) {
     return <Custom404 />;
   }
 
@@ -49,7 +51,7 @@ const NFTDetail: FC = () => {
           <div className="flex items-center space-x-1 pt-3">
             <div className="contents -space-x-2">
               {profiles?.map((profile) => (
-                <img
+                <Image
                   key={profile.handle}
                   className="h-5 w-5 rounded-full border dark:border-gray-700"
                   onError={({ currentTarget }) => {

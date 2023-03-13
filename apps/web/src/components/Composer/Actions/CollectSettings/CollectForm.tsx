@@ -1,46 +1,40 @@
+import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
-import { Toggle } from '@components/UI/Toggle';
-import {
-  ClockIcon,
-  CollectionIcon,
-  StarIcon,
-  SwitchHorizontalIcon,
-  UserGroupIcon
-} from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { getTimeAddedNDay } from '@lib/formatTime';
+import isValidEthAddress from '@lib/isValidEthAddress';
 import { t, Trans } from '@lingui/macro';
-import type { Erc20 } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useEffect } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PUBLICATION } from 'src/tracking';
 
-interface Props {
+import AmountConfig from './AmountConfig';
+import CollectLimitConfig from './CollectLimitConfig';
+import FollowersConfig from './FollowersConfig';
+import SplitConfig from './SplitConfig';
+import TimeLimitConfig from './TimeLimitConfig';
+
+interface CollectFormProps {
   setShowModal: Dispatch<boolean>;
 }
 
-const CollectForm: FC<Props> = ({ setShowModal }) => {
+const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const amount = useCollectModuleStore((state) => state.amount);
-  const setAmount = useCollectModuleStore((state) => state.setAmount);
   const selectedCurrency = useCollectModuleStore((state) => state.selectedCurrency);
-  const setSelectedCurrency = useCollectModuleStore((state) => state.setSelectedCurrency);
   const referralFee = useCollectModuleStore((state) => state.referralFee);
-  const setReferralFee = useCollectModuleStore((state) => state.setReferralFee);
   const collectLimit = useCollectModuleStore((state) => state.collectLimit);
   const setCollectLimit = useCollectModuleStore((state) => state.setCollectLimit);
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
+  const recipients = useCollectModuleStore((state) => state.recipients);
   const followerOnly = useCollectModuleStore((state) => state.followerOnly);
-  const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
   const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
@@ -51,8 +45,19 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
     FeeCollectModule,
     LimitedFeeCollectModule,
     LimitedTimedFeeCollectModule,
-    TimedFeeCollectModule
+    TimedFeeCollectModule,
+    MultirecipientFeeCollectModule
   } = CollectModules;
+  const hasRecipients = recipients.length > 0;
+  const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
+  const hasEmptyRecipients = recipients.some((recipient) => !recipient.recipient);
+  const hasInvalidEthAddressInRecipients = recipients.some(
+    (recipient) => recipient.recipient && !isValidEthAddress(recipient.recipient)
+  );
+  const isRecipientsDuplicated = () => {
+    const recipientsSet = new Set(recipients.map((recipient) => recipient.recipient));
+    return recipientsSet.size !== recipients.length;
+  };
 
   useEffect(() => {
     const baseFeeData = {
@@ -60,7 +65,7 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         currency: selectedCurrency,
         value: amount
       },
-      recipient: currentProfile?.ownedBy,
+      [hasRecipients ? 'recipients' : 'recipient']: hasRecipients ? recipients : currentProfile?.ownedBy,
       referralFee: parseFloat(referralFee ?? '0'),
       followerOnly
     };
@@ -92,30 +97,81 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
       case TimedFeeCollectModule:
         setPayload({ timedFeeCollectModule: { ...baseFeeData } });
         break;
+      case MultirecipientFeeCollectModule:
+        setPayload({
+          multirecipientFeeCollectModule: {
+            ...baseFeeData,
+            ...(collectLimit && { collectLimit }),
+            ...(hasTimeLimit && {
+              endTimestamp: getTimeAddedNDay(1)
+            })
+          }
+        });
+        break;
       default:
         setPayload({ revertCollectModule: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, selectedCollectModule]);
+  }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, recipients, selectedCollectModule]);
 
   useEffect(() => {
     if (hasTimeLimit) {
       if (amount) {
-        setSelectedCollectModule(collectLimit ? LimitedTimedFeeCollectModule : TimedFeeCollectModule);
+        if (collectLimit) {
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(LimitedTimedFeeCollectModule);
+          }
+        } else {
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(TimedFeeCollectModule);
+          }
+        }
       } else {
         setHasTimeLimit(false);
-        setSelectedCollectModule(collectLimit ? LimitedTimedFeeCollectModule : FreeCollectModule);
+        if (collectLimit) {
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(LimitedFeeCollectModule);
+          }
+        } else {
+          setSelectedCollectModule(FreeCollectModule);
+        }
       }
     } else {
       if (amount) {
-        setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FeeCollectModule);
+        if (collectLimit) {
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(LimitedFeeCollectModule);
+          }
+        } else {
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(FeeCollectModule);
+          }
+        }
       } else {
         setCollectLimit(null);
-        setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FreeCollectModule);
+        if (collectLimit) {
+          if (hasRecipients) {
+            setSelectedCollectModule(MultirecipientFeeCollectModule);
+          } else {
+            setSelectedCollectModule(LimitedFeeCollectModule);
+          }
+        } else {
+          setSelectedCollectModule(FreeCollectModule);
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, collectLimit, hasTimeLimit]);
+  }, [amount, collectLimit, hasTimeLimit, recipients]);
 
   const { error, data, loading } = useEnabledModulesQuery();
 
@@ -135,185 +191,31 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
   }
 
   const toggleCollect = () => {
-    Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
     if (selectedCollectModule === RevertCollectModule) {
       return setSelectedCollectModule(FreeCollectModule);
     } else {
-      reset();
-      return setSelectedCollectModule(RevertCollectModule);
+      return reset();
     }
   };
 
   return (
     <div className="space-y-3 p-5">
-      <div className="flex items-center space-x-2">
-        <Toggle on={selectedCollectModule !== RevertCollectModule} setOn={toggleCollect} />
-        <div className="lt-text-gray-500 text-sm font-bold">
-          <Trans>This post can be collected</Trans>
-        </div>
-      </div>
+      <ToggleWithHelper
+        on={selectedCollectModule !== RevertCollectModule}
+        setOn={toggleCollect}
+        description={t`This post can be collected`}
+      />
       {selectedCollectModule !== RevertCollectModule && (
         <div className="ml-5">
-          <div className="space-y-2 pt-3">
-            <div className="flex items-center space-x-2">
-              <CollectionIcon className="text-brand-500 h-4 w-4" />
-              <span>
-                <Trans>Charge for collecting</Trans>
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Toggle
-                on={Boolean(amount)}
-                setOn={() => {
-                  setAmount(amount ? null : '0');
-                  Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_CHARGE_FOR_COLLECT);
-                }}
-              />
-              <div className="lt-text-gray-500 text-sm font-bold">
-                <Trans>Get paid whenever someone collects your post</Trans>
-              </div>
-            </div>
-            {amount ? (
-              <div className="pt-2">
-                <div className="flex space-x-2 text-sm">
-                  <Input
-                    label={t`Price`}
-                    type="number"
-                    placeholder="0.5"
-                    min="0"
-                    max="100000"
-                    value={parseFloat(amount)}
-                    onChange={(event) => {
-                      setAmount(event.target.value ? event.target.value : '0');
-                    }}
-                  />
-                  <div>
-                    <div className="label">
-                      <Trans>Select Currency</Trans>
-                    </div>
-                    <select
-                      className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
-                      onChange={(e) => setSelectedCurrency(e.target.value)}
-                    >
-                      {data?.enabledModuleCurrencies.map((currency: Erc20) => (
-                        <option
-                          key={currency.address}
-                          value={currency.address}
-                          selected={currency?.address === selectedCurrency}
-                        >
-                          {currency.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-                <div className="space-y-2 pt-5">
-                  <div className="flex items-center space-x-2">
-                    <SwitchHorizontalIcon className="text-brand-500 h-4 w-4" />
-                    <span>
-                      <Trans>Mirror referral reward</Trans>
-                    </span>
-                  </div>
-                  <div className="lt-text-gray-500 text-sm font-bold">
-                    <Trans>Share your collect fee with people who amplify your content</Trans>
-                  </div>
-                  <div className="flex space-x-2 pt-2 text-sm">
-                    <Input
-                      label={t`Referral fee`}
-                      type="number"
-                      placeholder="5"
-                      iconRight="%"
-                      min="0"
-                      max="100"
-                      value={parseFloat(referralFee ?? '0')}
-                      onChange={(event) => {
-                        setReferralFee(event.target.value ? event.target.value : '0');
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            ) : null}
-          </div>
+          <AmountConfig enabledModuleCurrencies={data?.enabledModuleCurrencies} />
           {selectedCollectModule !== FreeCollectModule && amount && (
             <>
-              <div className="space-y-2 pt-5">
-                <div className="flex items-center space-x-2">
-                  <StarIcon className="text-brand-500 h-4 w-4" />
-                  <span>
-                    <Trans>Limited edition</Trans>
-                  </span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Toggle
-                    on={Boolean(collectLimit)}
-                    setOn={() => {
-                      setCollectLimit(collectLimit ? null : '1');
-                      Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_LIMITED_EDITION_COLLECT);
-                    }}
-                  />
-                  <div className="lt-text-gray-500 text-sm font-bold">
-                    <Trans>Make the collects exclusive</Trans>
-                  </div>
-                </div>
-                {collectLimit ? (
-                  <div className="flex space-x-2 pt-2 text-sm">
-                    <Input
-                      label={t`Collect limit`}
-                      type="number"
-                      placeholder="5"
-                      min="1"
-                      max="100000"
-                      value={parseFloat(collectLimit)}
-                      onChange={(event) => {
-                        setCollectLimit(event.target.value ? event.target.value : '1');
-                      }}
-                    />
-                  </div>
-                ) : null}
-              </div>
-              <div className="space-y-2 pt-5">
-                <div className="flex items-center space-x-2">
-                  <ClockIcon className="text-brand-500 h-4 w-4" />
-                  <span>
-                    <Trans>Time limit</Trans>
-                  </span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Toggle
-                    on={hasTimeLimit}
-                    setOn={() => {
-                      setHasTimeLimit(!hasTimeLimit);
-                      Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_TIME_LIMIT_COLLECT);
-                    }}
-                  />
-                  <div className="lt-text-gray-500 text-sm font-bold">
-                    <Trans>Limit collecting to the first 24h</Trans>
-                  </div>
-                </div>
-              </div>
+              <CollectLimitConfig />
+              <TimeLimitConfig />
+              <SplitConfig isRecipientsDuplicated={isRecipientsDuplicated} />
             </>
           )}
-          <div className="space-y-2 pt-5">
-            <div className="flex items-center space-x-2">
-              <UserGroupIcon className="text-brand-500 h-4 w-4" />
-              <span>
-                <Trans>Who can collect</Trans>
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Toggle
-                on={followerOnly}
-                setOn={() => {
-                  setFollowerOnly(!followerOnly);
-                  Mixpanel.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
-                }}
-              />
-              <div className="lt-text-gray-500 text-sm font-bold">
-                <Trans>Only followers can collect</Trans>
-              </div>
-            </div>
-          </div>
+          <FollowersConfig />
         </div>
       )}
       <div className="flex space-x-2 pt-5">
@@ -328,7 +230,16 @@ const CollectForm: FC<Props> = ({ setShowModal }) => {
         >
           <Trans>Cancel</Trans>
         </Button>
-        <Button onClick={() => setShowModal(false)}>
+        <Button
+          disabled={
+            (parseFloat(amount as string) <= 0 && selectedCollectModule !== FreeCollectModule) ||
+            splitTotal > 100 ||
+            hasEmptyRecipients ||
+            hasInvalidEthAddressInRecipients ||
+            isRecipientsDuplicated()
+          }
+          onClick={() => setShowModal(false)}
+        >
           <Trans>Save</Trans>
         </Button>
       </div>

@@ -11,7 +11,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import type { ApprovedAllowanceAmount, Profile } from 'lens';
 import {
@@ -32,14 +32,14 @@ import Loader from '../Loader';
 import Slug from '../Slug';
 import Uniswap from '../Uniswap';
 
-interface Props {
+interface FollowModuleProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   setShowFollowModal: Dispatch<boolean>;
   again: boolean;
 }
 
-const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, again }) => {
+const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFollowModal, again }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -56,7 +56,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

@@ -3,6 +3,7 @@ import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
+import { Image } from '@components/UI/Image';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
@@ -48,11 +49,11 @@ const editProfileSchema = object({
   bio: string().max(260, { message: t`Bio should not exceed 260 characters` })
 });
 
-interface Props {
+interface ProfileSettingsFormProps {
   profile: Profile & { coverPicture: MediaSet };
 }
 
-const ProfileSettingsForm: FC<Props> = ({ profile }) => {
+const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [cover, setCover] = useState('');
@@ -241,7 +242,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
           <div className="space-y-3">
             {cover && (
               <div>
-                <img
+                <Image
                   className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
                     currentTarget.src = getIPFSLink(cover);

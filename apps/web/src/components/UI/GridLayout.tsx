@@ -1,14 +1,14 @@
 import clsx from 'clsx';
 import type { CSSProperties, FC, ReactNode } from 'react';
 
-interface Props {
+interface GridProps {
   children: ReactNode;
   className?: string;
   classNameChild?: string;
   style?: CSSProperties;
 }
 
-export const GridLayout: FC<Props> = ({ children, className = '', classNameChild = '' }) => {
+export const GridLayout: FC<GridProps> = ({ children, className = '', classNameChild = '' }) => {
   return (
     <div className={`container mx-auto max-w-screen-xl flex-grow px-0 pt-8 pb-2 sm:px-5 ${className}`}>
       <div className={`grid grid-cols-12 lg:gap-8 ${classNameChild}`}>{children}</div>
@@ -16,11 +16,11 @@ export const GridLayout: FC<Props> = ({ children, className = '', classNameChild
   );
 };
 
-export const GridItemFour: FC<Props> = ({ children, className = '' }) => {
+export const GridItemFour: FC<GridProps> = ({ children, className = '' }) => {
   return <div className={`col-span-12 md:col-span-12 lg:col-span-4 ${className}`}>{children}</div>;
 };
 
-export const GridItemEight: FC<Props> = ({ children, className = '', style }) => {
+export const GridItemEight: FC<GridProps> = ({ children, className = '', style }) => {
   return (
     <div className={clsx('col-span-12 mb-5 md:col-span-12 lg:col-span-8', className)} style={style}>
       {children}

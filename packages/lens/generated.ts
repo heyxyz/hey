@@ -21,6 +21,7 @@ export type Scalars = {
   ContractAddress: any;
   CreateHandle: any;
   Cursor: any;
+  DataAvailabilityId: any;
   DateTime: any;
   EncryptedValueScalar: any;
   Ens: any;
@@ -387,6 +388,8 @@ export type Comment = {
   onChainContentURI: Scalars['String'];
   /** The profile ref */
   profile: Profile;
+  /** Comment ranking score */
+  rankingScore?: Maybe<Scalars['Float']>;
   reaction?: Maybe<ReactionTypes>;
   /** The reference module */
   referenceModule?: Maybe<ReferenceModule>;
@@ -424,6 +427,18 @@ export type CommentMirrorsArgs = {
 export type CommentReactionArgs = {
   request?: InputMaybe<ReactionFieldResolverRequest>;
 };
+
+/** The comment ordering types */
+export enum CommentOrderingTypes {
+  Desc = 'DESC',
+  Ranking = 'RANKING'
+}
+
+/** The comment ranking filter types */
+export enum CommentRankingFilter {
+  NoneRelevant = 'NONE_RELEVANT',
+  Relevant = 'RELEVANT'
+}
 
 /** The gated publication access criteria contract types */
 export enum ContractType {
@@ -697,7 +712,7 @@ export type CreateProfileRequest = {
 export type CreatePublicCommentRequest = {
   /** The collect module */
   collectModule: CollectModuleParams;
-  /** The metadata uploaded somewhere passing in the url to reach it */
+  /** The metadata contentURI resolver */
   contentURI: Scalars['Url'];
   /** The criteria to access the publication data */
   gated?: InputMaybe<GatedPublicationParamsInput>;
@@ -1123,10 +1138,14 @@ export type Erc4626FeeCollectModuleSettings = {
   endTimestamp?: Maybe<Scalars['DateTime']>;
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean'];
+  /** The recipient of the ERC4626 vault shares */
+  recipient: Scalars['EthereumAddress'];
   /** The referral fee associated with this publication. */
   referralFee: Scalars['Float'];
   /** The collect modules enum */
   type: CollectModules;
+  /** The ERC4626 vault address */
+  vault: Scalars['ContractAddress'];
 };
 
 export type ElectedMirror = {
@@ -1267,7 +1286,7 @@ export type Erc20OwnershipInput = {
   chainID: Scalars['ChainId'];
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator;
-  /** The ERC20 token's ethereum address */
+  /** The ERC20 token ethereum address */
   contractAddress: Scalars['ContractAddress'];
   /** The amount of decimals of the ERC20 contract */
   decimals: Scalars['Float'];
@@ -1281,10 +1300,14 @@ export type Erc20OwnershipOutput = {
   chainID: Scalars['ChainId'];
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator;
-  /** The ERC20 token's ethereum address */
+  /** The ERC20 token ethereum address */
   contractAddress: Scalars['ContractAddress'];
   /** The amount of decimals of the ERC20 contract */
   decimals: Scalars['Float'];
+  /** The name of the ERC20 token */
+  name: Scalars['String'];
+  /** The symbol of the ERC20 token */
+  symbol: Scalars['String'];
 };
 
 /** The paginated publication result */
@@ -3289,6 +3312,10 @@ export type PublicationsQueryRequest = {
   collectedBy?: InputMaybe<Scalars['EthereumAddress']>;
   /** The publication id you wish to get comments for */
   commentsOf?: InputMaybe<Scalars['InternalPublicationId']>;
+  /** The comment ordering type - only used when you use commentsOf */
+  commentsOfOrdering?: InputMaybe<CommentOrderingTypes>;
+  /** The comment ranking filter, you can use  - only used when you use commentsOf + commentsOfOrdering=ranking */
+  commentsRankingFilter?: InputMaybe<CommentRankingFilter>;
   cursor?: InputMaybe<Scalars['Cursor']>;
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
@@ -3565,7 +3592,7 @@ export enum ReactionTypes {
 export type RecipientDataInput = {
   /** Recipient of collect fees. */
   recipient: Scalars['EthereumAddress'];
-  /** Split %, should be between 1 and 100. All % should add up to 100 */
+  /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
   split: Scalars['Float'];
 };
 
@@ -3573,7 +3600,7 @@ export type RecipientDataOutput = {
   __typename?: 'RecipientDataOutput';
   /** Recipient of collect fees. */
   recipient: Scalars['EthereumAddress'];
-  /** Split %, should be between 1 and 100. All % should add up to 100 */
+  /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
   split: Scalars['Float'];
 };
 
@@ -3635,6 +3662,7 @@ export type RelayResult = RelayError | RelayerResult;
 /** The relayer result */
 export type RelayerResult = {
   __typename?: 'RelayerResult';
+  dataAvailabilityId: Scalars['DataAvailabilityId'];
   /** The tx hash - you should use the `txId` as your identifier as gas prices can be upgraded meaning txHash will change */
   txHash: Scalars['TxHash'];
   /** The tx id */
@@ -4086,6 +4114,18 @@ type CollectModuleFields_LimitedTimedFeeCollectModuleSettings_Fragment = {
 
 type CollectModuleFields_MultirecipientFeeCollectModuleSettings_Fragment = {
   __typename?: 'MultirecipientFeeCollectModuleSettings';
+  type: CollectModules;
+  contractAddress: any;
+  referralFee: number;
+  followerOnly: boolean;
+  optionalCollectLimit?: string | null;
+  optionalEndTimestamp?: any | null;
+  amount: {
+    __typename?: 'ModuleFeeAmount';
+    value: string;
+    asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+  };
+  recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
 };
 
 type CollectModuleFields_RevertCollectModuleSettings_Fragment = {
@@ -4209,7 +4249,21 @@ export type CommentFieldsFragment = {
           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
         };
       }
-    | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+    | {
+        __typename?: 'MultirecipientFeeCollectModuleSettings';
+        type: CollectModules;
+        contractAddress: any;
+        referralFee: number;
+        followerOnly: boolean;
+        optionalCollectLimit?: string | null;
+        optionalEndTimestamp?: any | null;
+        amount: {
+          __typename?: 'ModuleFeeAmount';
+          value: string;
+          asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+        };
+        recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+      }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
@@ -4425,7 +4479,21 @@ export type CommentFieldsFragment = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -4639,7 +4707,21 @@ export type CommentFieldsFragment = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -4901,7 +4983,25 @@ export type CommentFieldsFragment = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -5122,7 +5222,21 @@ export type CommentFieldsFragment = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -5337,7 +5451,21 @@ export type CommentFieldsFragment = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -5599,7 +5727,21 @@ export type CommentFieldsFragment = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -5817,7 +5959,21 @@ export type CommentFieldsFragment = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -6141,7 +6297,21 @@ export type MirrorFieldsFragment = {
           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
         };
       }
-    | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+    | {
+        __typename?: 'MultirecipientFeeCollectModuleSettings';
+        type: CollectModules;
+        contractAddress: any;
+        referralFee: number;
+        followerOnly: boolean;
+        optionalCollectLimit?: string | null;
+        optionalEndTimestamp?: any | null;
+        amount: {
+          __typename?: 'ModuleFeeAmount';
+          value: string;
+          asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+        };
+        recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+      }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
@@ -6403,7 +6573,21 @@ export type MirrorFieldsFragment = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -6535,6 +6719,12 @@ export type MirrorFieldsFragment = {
       };
 };
 
+export type ModuleFeeAmountFieldsFragment = {
+  __typename?: 'ModuleFeeAmount';
+  value: string;
+  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+};
+
 export type PostFieldsFragment = {
   __typename?: 'Post';
   id: any;
@@ -6622,7 +6812,21 @@ export type PostFieldsFragment = {
           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
         };
       }
-    | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+    | {
+        __typename?: 'MultirecipientFeeCollectModuleSettings';
+        type: CollectModules;
+        contractAddress: any;
+        referralFee: number;
+        followerOnly: boolean;
+        optionalCollectLimit?: string | null;
+        optionalEndTimestamp?: any | null;
+        amount: {
+          __typename?: 'ModuleFeeAmount';
+          value: string;
+          asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+        };
+        recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+      }
     | { __typename?: 'RevertCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
@@ -7530,7 +7734,21 @@ export type CollectModuleQuery = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -7598,7 +7816,21 @@ export type CollectModuleQuery = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -7666,7 +7898,21 @@ export type CollectModuleQuery = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -7719,7 +7965,7 @@ export type CollectorsQuery = {
           | null;
       } | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -7821,7 +8067,21 @@ export type CommentFeedQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -8037,7 +8297,25 @@ export type CommentFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -8255,7 +8533,25 @@ export type CommentFeedQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -8551,7 +8847,30 @@ export type CommentFeedQuery = {
                                     };
                                   };
                                 }
-                              | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                              | {
+                                  __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                  type: CollectModules;
+                                  contractAddress: any;
+                                  referralFee: number;
+                                  followerOnly: boolean;
+                                  optionalCollectLimit?: string | null;
+                                  optionalEndTimestamp?: any | null;
+                                  amount: {
+                                    __typename?: 'ModuleFeeAmount';
+                                    value: string;
+                                    asset: {
+                                      __typename?: 'Erc20';
+                                      symbol: string;
+                                      decimals: number;
+                                      address: any;
+                                    };
+                                  };
+                                  recipients: Array<{
+                                    __typename?: 'RecipientDataOutput';
+                                    recipient: any;
+                                    split: number;
+                                  }>;
+                                }
                               | { __typename?: 'RevertCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
@@ -8790,7 +9109,25 @@ export type CommentFeedQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -9008,7 +9345,25 @@ export type CommentFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -9278,7 +9633,25 @@ export type CommentFeedQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -9499,7 +9872,25 @@ export type CommentFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -9634,7 +10025,7 @@ export type CommentFeedQuery = {
       | { __typename?: 'Mirror' }
       | { __typename?: 'Post' }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -9790,7 +10181,21 @@ export type ExploreFeedQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -10006,7 +10411,25 @@ export type ExploreFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -10224,7 +10647,25 @@ export type ExploreFeedQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -10520,7 +10961,30 @@ export type ExploreFeedQuery = {
                                     };
                                   };
                                 }
-                              | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                              | {
+                                  __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                  type: CollectModules;
+                                  contractAddress: any;
+                                  referralFee: number;
+                                  followerOnly: boolean;
+                                  optionalCollectLimit?: string | null;
+                                  optionalEndTimestamp?: any | null;
+                                  amount: {
+                                    __typename?: 'ModuleFeeAmount';
+                                    value: string;
+                                    asset: {
+                                      __typename?: 'Erc20';
+                                      symbol: string;
+                                      decimals: number;
+                                      address: any;
+                                    };
+                                  };
+                                  recipients: Array<{
+                                    __typename?: 'RecipientDataOutput';
+                                    recipient: any;
+                                    split: number;
+                                  }>;
+                                }
                               | { __typename?: 'RevertCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
@@ -10759,7 +11223,25 @@ export type ExploreFeedQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -10977,7 +11459,25 @@ export type ExploreFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -11247,7 +11747,25 @@ export type ExploreFeedQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -11468,7 +11986,25 @@ export type ExploreFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -11684,7 +12220,21 @@ export type ExploreFeedQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -11946,7 +12496,25 @@ export type ExploreFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -12164,7 +12732,21 @@ export type ExploreFeedQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -12295,7 +12877,7 @@ export type ExploreFeedQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -12397,7 +12979,21 @@ export type FeedHighlightsQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -12613,7 +13209,25 @@ export type FeedHighlightsQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -12831,7 +13445,25 @@ export type FeedHighlightsQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -13127,7 +13759,30 @@ export type FeedHighlightsQuery = {
                                     };
                                   };
                                 }
-                              | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                              | {
+                                  __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                  type: CollectModules;
+                                  contractAddress: any;
+                                  referralFee: number;
+                                  followerOnly: boolean;
+                                  optionalCollectLimit?: string | null;
+                                  optionalEndTimestamp?: any | null;
+                                  amount: {
+                                    __typename?: 'ModuleFeeAmount';
+                                    value: string;
+                                    asset: {
+                                      __typename?: 'Erc20';
+                                      symbol: string;
+                                      decimals: number;
+                                      address: any;
+                                    };
+                                  };
+                                  recipients: Array<{
+                                    __typename?: 'RecipientDataOutput';
+                                    recipient: any;
+                                    split: number;
+                                  }>;
+                                }
                               | { __typename?: 'RevertCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
@@ -13366,7 +14021,25 @@ export type FeedHighlightsQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -13584,7 +14257,25 @@ export type FeedHighlightsQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -13854,7 +14545,25 @@ export type FeedHighlightsQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -14075,7 +14784,25 @@ export type FeedHighlightsQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -14291,7 +15018,21 @@ export type FeedHighlightsQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -14553,7 +15294,25 @@ export type FeedHighlightsQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -14771,7 +15530,21 @@ export type FeedHighlightsQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -14902,7 +15675,7 @@ export type FeedHighlightsQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -14943,7 +15716,7 @@ export type FollowersQuery = {
         } | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -14980,7 +15753,7 @@ export type FollowingQuery = {
           | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15068,7 +15841,7 @@ export type LikesQuery = {
           | null;
       };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15101,7 +15874,7 @@ export type MirrorsQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15155,7 +15928,7 @@ export type MutualFollowersListQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15185,7 +15958,7 @@ export type NftFeedQuery = {
       chainId: any;
       originalContent: { __typename?: 'NFTContent'; uri: string; animatedUrl?: string | null };
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15316,7 +16089,25 @@ export type NotificationsQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -15386,7 +16177,25 @@ export type NotificationsQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -15608,7 +16417,7 @@ export type NotificationsQuery = {
               };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -15880,7 +16689,21 @@ export type ProfileFeedQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -16096,7 +16919,25 @@ export type ProfileFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -16314,7 +17155,25 @@ export type ProfileFeedQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -16610,7 +17469,30 @@ export type ProfileFeedQuery = {
                                     };
                                   };
                                 }
-                              | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                              | {
+                                  __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                  type: CollectModules;
+                                  contractAddress: any;
+                                  referralFee: number;
+                                  followerOnly: boolean;
+                                  optionalCollectLimit?: string | null;
+                                  optionalEndTimestamp?: any | null;
+                                  amount: {
+                                    __typename?: 'ModuleFeeAmount';
+                                    value: string;
+                                    asset: {
+                                      __typename?: 'Erc20';
+                                      symbol: string;
+                                      decimals: number;
+                                      address: any;
+                                    };
+                                  };
+                                  recipients: Array<{
+                                    __typename?: 'RecipientDataOutput';
+                                    recipient: any;
+                                    split: number;
+                                  }>;
+                                }
                               | { __typename?: 'RevertCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
@@ -16849,7 +17731,25 @@ export type ProfileFeedQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -17067,7 +17967,25 @@ export type ProfileFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -17337,7 +18255,25 @@ export type ProfileFeedQuery = {
                               asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                             };
                           }
-                        | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                        | {
+                            __typename?: 'MultirecipientFeeCollectModuleSettings';
+                            type: CollectModules;
+                            contractAddress: any;
+                            referralFee: number;
+                            followerOnly: boolean;
+                            optionalCollectLimit?: string | null;
+                            optionalEndTimestamp?: any | null;
+                            amount: {
+                              __typename?: 'ModuleFeeAmount';
+                              value: string;
+                              asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                            };
+                            recipients: Array<{
+                              __typename?: 'RecipientDataOutput';
+                              recipient: any;
+                              split: number;
+                            }>;
+                          }
                         | { __typename?: 'RevertCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
@@ -17558,7 +18494,25 @@ export type ProfileFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -17774,7 +18728,21 @@ export type ProfileFeedQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -18036,7 +19004,25 @@ export type ProfileFeedQuery = {
                         asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                       };
                     }
-                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                  | {
+                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                      type: CollectModules;
+                      contractAddress: any;
+                      referralFee: number;
+                      followerOnly: boolean;
+                      optionalCollectLimit?: string | null;
+                      optionalEndTimestamp?: any | null;
+                      amount: {
+                        __typename?: 'ModuleFeeAmount';
+                        value: string;
+                        asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                      };
+                      recipients: Array<{
+                        __typename?: 'RecipientDataOutput';
+                        recipient: any;
+                        split: number;
+                      }>;
+                    }
                   | { __typename?: 'RevertCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -18254,7 +19240,21 @@ export type ProfileFeedQuery = {
                   asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                 };
               }
-            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+            | {
+                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                type: CollectModules;
+                contractAddress: any;
+                referralFee: number;
+                followerOnly: boolean;
+                optionalCollectLimit?: string | null;
+                optionalEndTimestamp?: any | null;
+                amount: {
+                  __typename?: 'ModuleFeeAmount';
+                  value: string;
+                  asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                };
+                recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+              }
             | { __typename?: 'RevertCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -18385,7 +19385,7 @@ export type ProfileFeedQuery = {
           };
         }
     >;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; totalCount?: number | null; next?: any | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -18451,7 +19451,7 @@ export type ProfilesQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -18557,7 +19557,21 @@ export type PublicationQuery = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -18773,7 +19787,21 @@ export type PublicationQuery = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -18987,7 +20015,25 @@ export type PublicationQuery = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -19283,7 +20329,30 @@ export type PublicationQuery = {
                                   };
                                 };
                               }
-                            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                            | {
+                                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                type: CollectModules;
+                                contractAddress: any;
+                                referralFee: number;
+                                followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
+                                amount: {
+                                  __typename?: 'ModuleFeeAmount';
+                                  value: string;
+                                  asset: {
+                                    __typename?: 'Erc20';
+                                    symbol: string;
+                                    decimals: number;
+                                    address: any;
+                                  };
+                                };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
+                              }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -19515,7 +20584,25 @@ export type PublicationQuery = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -19733,7 +20820,21 @@ export type PublicationQuery = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -19995,7 +21096,25 @@ export type PublicationQuery = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -20216,7 +21335,21 @@ export type PublicationQuery = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -20438,7 +21571,21 @@ export type PublicationQuery = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -20700,7 +21847,21 @@ export type PublicationQuery = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -20924,7 +22085,21 @@ export type PublicationQuery = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -21160,7 +22335,7 @@ export type SearchProfilesQuery = {
             | { __typename: 'UnknownFollowModuleSettings' }
             | null;
         }>;
-        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
       }
     | { __typename?: 'PublicationSearchResult' };
 };
@@ -21265,7 +22440,21 @@ export type SearchPublicationsQuery = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -21481,7 +22670,25 @@ export type SearchPublicationsQuery = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -21721,7 +22928,30 @@ export type SearchPublicationsQuery = {
                                   };
                                 };
                               }
-                            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                            | {
+                                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                type: CollectModules;
+                                contractAddress: any;
+                                referralFee: number;
+                                followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
+                                amount: {
+                                  __typename?: 'ModuleFeeAmount';
+                                  value: string;
+                                  asset: {
+                                    __typename?: 'Erc20';
+                                    symbol: string;
+                                    decimals: number;
+                                    address: any;
+                                  };
+                                };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
+                              }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -22034,7 +23264,30 @@ export type SearchPublicationsQuery = {
                                         };
                                       };
                                     }
-                                  | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                                  | {
+                                      __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                      type: CollectModules;
+                                      contractAddress: any;
+                                      referralFee: number;
+                                      followerOnly: boolean;
+                                      optionalCollectLimit?: string | null;
+                                      optionalEndTimestamp?: any | null;
+                                      amount: {
+                                        __typename?: 'ModuleFeeAmount';
+                                        value: string;
+                                        asset: {
+                                          __typename?: 'Erc20';
+                                          symbol: string;
+                                          decimals: number;
+                                          address: any;
+                                        };
+                                      };
+                                      recipients: Array<{
+                                        __typename?: 'RecipientDataOutput';
+                                        recipient: any;
+                                        split: number;
+                                      }>;
+                                    }
                                   | { __typename?: 'RevertCollectModuleSettings' }
                                   | {
                                       __typename?: 'TimedFeeCollectModuleSettings';
@@ -22298,7 +23551,30 @@ export type SearchPublicationsQuery = {
                                   };
                                 };
                               }
-                            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                            | {
+                                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                type: CollectModules;
+                                contractAddress: any;
+                                referralFee: number;
+                                followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
+                                amount: {
+                                  __typename?: 'ModuleFeeAmount';
+                                  value: string;
+                                  asset: {
+                                    __typename?: 'Erc20';
+                                    symbol: string;
+                                    decimals: number;
+                                    address: any;
+                                  };
+                                };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
+                              }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -22527,7 +23803,25 @@ export type SearchPublicationsQuery = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -22823,7 +24117,30 @@ export type SearchPublicationsQuery = {
                                   };
                                 };
                               }
-                            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                            | {
+                                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                type: CollectModules;
+                                contractAddress: any;
+                                referralFee: number;
+                                followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
+                                amount: {
+                                  __typename?: 'ModuleFeeAmount';
+                                  value: string;
+                                  asset: {
+                                    __typename?: 'Erc20';
+                                    symbol: string;
+                                    decimals: number;
+                                    address: any;
+                                  };
+                                };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
+                              }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -23055,7 +24372,25 @@ export type SearchPublicationsQuery = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -23277,7 +24612,21 @@ export type SearchPublicationsQuery = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -23408,7 +24757,7 @@ export type SearchPublicationsQuery = {
               };
             }
         >;
-        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+        pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
       };
 };
 
@@ -23721,7 +25070,21 @@ export type TimelineQuery = {
                     asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                   };
                 }
-              | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+              | {
+                  __typename?: 'MultirecipientFeeCollectModuleSettings';
+                  type: CollectModules;
+                  contractAddress: any;
+                  referralFee: number;
+                  followerOnly: boolean;
+                  optionalCollectLimit?: string | null;
+                  optionalEndTimestamp?: any | null;
+                  amount: {
+                    __typename?: 'ModuleFeeAmount';
+                    value: string;
+                    asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                  };
+                  recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                }
               | { __typename?: 'RevertCollectModuleSettings' }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings';
@@ -23937,7 +25300,25 @@ export type TimelineQuery = {
                           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                         };
                       }
-                    | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                    | {
+                        __typename?: 'MultirecipientFeeCollectModuleSettings';
+                        type: CollectModules;
+                        contractAddress: any;
+                        referralFee: number;
+                        followerOnly: boolean;
+                        optionalCollectLimit?: string | null;
+                        optionalEndTimestamp?: any | null;
+                        amount: {
+                          __typename?: 'ModuleFeeAmount';
+                          value: string;
+                          asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                        };
+                        recipients: Array<{
+                          __typename?: 'RecipientDataOutput';
+                          recipient: any;
+                          split: number;
+                        }>;
+                      }
                     | { __typename?: 'RevertCollectModuleSettings' }
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
@@ -24170,7 +25551,30 @@ export type TimelineQuery = {
                                 };
                               };
                             }
-                          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                          | {
+                              __typename?: 'MultirecipientFeeCollectModuleSettings';
+                              type: CollectModules;
+                              contractAddress: any;
+                              referralFee: number;
+                              followerOnly: boolean;
+                              optionalCollectLimit?: string | null;
+                              optionalEndTimestamp?: any | null;
+                              amount: {
+                                __typename?: 'ModuleFeeAmount';
+                                value: string;
+                                asset: {
+                                  __typename?: 'Erc20';
+                                  symbol: string;
+                                  decimals: number;
+                                  address: any;
+                                };
+                              };
+                              recipients: Array<{
+                                __typename?: 'RecipientDataOutput';
+                                recipient: any;
+                                split: number;
+                              }>;
+                            }
                           | { __typename?: 'RevertCollectModuleSettings' }
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
@@ -24477,7 +25881,30 @@ export type TimelineQuery = {
                                       };
                                     };
                                   }
-                                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                                | {
+                                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                    type: CollectModules;
+                                    contractAddress: any;
+                                    referralFee: number;
+                                    followerOnly: boolean;
+                                    optionalCollectLimit?: string | null;
+                                    optionalEndTimestamp?: any | null;
+                                    amount: {
+                                      __typename?: 'ModuleFeeAmount';
+                                      value: string;
+                                      asset: {
+                                        __typename?: 'Erc20';
+                                        symbol: string;
+                                        decimals: number;
+                                        address: any;
+                                      };
+                                    };
+                                    recipients: Array<{
+                                      __typename?: 'RecipientDataOutput';
+                                      recipient: any;
+                                      split: number;
+                                    }>;
+                                  }
                                 | { __typename?: 'RevertCollectModuleSettings' }
                                 | {
                                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -24731,7 +26158,30 @@ export type TimelineQuery = {
                                 };
                               };
                             }
-                          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                          | {
+                              __typename?: 'MultirecipientFeeCollectModuleSettings';
+                              type: CollectModules;
+                              contractAddress: any;
+                              referralFee: number;
+                              followerOnly: boolean;
+                              optionalCollectLimit?: string | null;
+                              optionalEndTimestamp?: any | null;
+                              amount: {
+                                __typename?: 'ModuleFeeAmount';
+                                value: string;
+                                asset: {
+                                  __typename?: 'Erc20';
+                                  symbol: string;
+                                  decimals: number;
+                                  address: any;
+                                };
+                              };
+                              recipients: Array<{
+                                __typename?: 'RecipientDataOutput';
+                                recipient: any;
+                                split: number;
+                              }>;
+                            }
                           | { __typename?: 'RevertCollectModuleSettings' }
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
@@ -24960,7 +26410,25 @@ export type TimelineQuery = {
                           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                         };
                       }
-                    | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                    | {
+                        __typename?: 'MultirecipientFeeCollectModuleSettings';
+                        type: CollectModules;
+                        contractAddress: any;
+                        referralFee: number;
+                        followerOnly: boolean;
+                        optionalCollectLimit?: string | null;
+                        optionalEndTimestamp?: any | null;
+                        amount: {
+                          __typename?: 'ModuleFeeAmount';
+                          value: string;
+                          asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                        };
+                        recipients: Array<{
+                          __typename?: 'RecipientDataOutput';
+                          recipient: any;
+                          split: number;
+                        }>;
+                      }
                     | { __typename?: 'RevertCollectModuleSettings' }
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
@@ -25245,7 +26713,30 @@ export type TimelineQuery = {
                                 };
                               };
                             }
-                          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                          | {
+                              __typename?: 'MultirecipientFeeCollectModuleSettings';
+                              type: CollectModules;
+                              contractAddress: any;
+                              referralFee: number;
+                              followerOnly: boolean;
+                              optionalCollectLimit?: string | null;
+                              optionalEndTimestamp?: any | null;
+                              amount: {
+                                __typename?: 'ModuleFeeAmount';
+                                value: string;
+                                asset: {
+                                  __typename?: 'Erc20';
+                                  symbol: string;
+                                  decimals: number;
+                                  address: any;
+                                };
+                              };
+                              recipients: Array<{
+                                __typename?: 'RecipientDataOutput';
+                                recipient: any;
+                                split: number;
+                              }>;
+                            }
                           | { __typename?: 'RevertCollectModuleSettings' }
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
@@ -25477,7 +26968,25 @@ export type TimelineQuery = {
                           asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                         };
                       }
-                    | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                    | {
+                        __typename?: 'MultirecipientFeeCollectModuleSettings';
+                        type: CollectModules;
+                        contractAddress: any;
+                        referralFee: number;
+                        followerOnly: boolean;
+                        optionalCollectLimit?: string | null;
+                        optionalEndTimestamp?: any | null;
+                        amount: {
+                          __typename?: 'ModuleFeeAmount';
+                          value: string;
+                          asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                        };
+                        recipients: Array<{
+                          __typename?: 'RecipientDataOutput';
+                          recipient: any;
+                          split: number;
+                        }>;
+                      }
                     | { __typename?: 'RevertCollectModuleSettings' }
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
@@ -25696,7 +27205,21 @@ export type TimelineQuery = {
                     asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                   };
                 }
-              | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+              | {
+                  __typename?: 'MultirecipientFeeCollectModuleSettings';
+                  type: CollectModules;
+                  contractAddress: any;
+                  referralFee: number;
+                  followerOnly: boolean;
+                  optionalCollectLimit?: string | null;
+                  optionalEndTimestamp?: any | null;
+                  amount: {
+                    __typename?: 'ModuleFeeAmount';
+                    value: string;
+                    asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                  };
+                  recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                }
               | { __typename?: 'RevertCollectModuleSettings' }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings';
@@ -26015,7 +27538,21 @@ export type TimelineQuery = {
                 asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
               };
             }
-          | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+          | {
+              __typename?: 'MultirecipientFeeCollectModuleSettings';
+              type: CollectModules;
+              contractAddress: any;
+              referralFee: number;
+              followerOnly: boolean;
+              optionalCollectLimit?: string | null;
+              optionalEndTimestamp?: any | null;
+              amount: {
+                __typename?: 'ModuleFeeAmount';
+                value: string;
+                asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+              };
+              recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+            }
           | { __typename?: 'RevertCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
@@ -26231,7 +27768,21 @@ export type TimelineQuery = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -26445,7 +27996,25 @@ export type TimelineQuery = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -26741,7 +28310,30 @@ export type TimelineQuery = {
                                   };
                                 };
                               }
-                            | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                            | {
+                                __typename?: 'MultirecipientFeeCollectModuleSettings';
+                                type: CollectModules;
+                                contractAddress: any;
+                                referralFee: number;
+                                followerOnly: boolean;
+                                optionalCollectLimit?: string | null;
+                                optionalEndTimestamp?: any | null;
+                                amount: {
+                                  __typename?: 'ModuleFeeAmount';
+                                  value: string;
+                                  asset: {
+                                    __typename?: 'Erc20';
+                                    symbol: string;
+                                    decimals: number;
+                                    address: any;
+                                  };
+                                };
+                                recipients: Array<{
+                                  __typename?: 'RecipientDataOutput';
+                                  recipient: any;
+                                  split: number;
+                                }>;
+                              }
                             | { __typename?: 'RevertCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
@@ -26973,7 +28565,25 @@ export type TimelineQuery = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -27191,7 +28801,21 @@ export type TimelineQuery = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -27453,7 +29077,25 @@ export type TimelineQuery = {
                             asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                           };
                         }
-                      | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                      | {
+                          __typename?: 'MultirecipientFeeCollectModuleSettings';
+                          type: CollectModules;
+                          contractAddress: any;
+                          referralFee: number;
+                          followerOnly: boolean;
+                          optionalCollectLimit?: string | null;
+                          optionalEndTimestamp?: any | null;
+                          amount: {
+                            __typename?: 'ModuleFeeAmount';
+                            value: string;
+                            asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                          };
+                          recipients: Array<{
+                            __typename?: 'RecipientDataOutput';
+                            recipient: any;
+                            split: number;
+                          }>;
+                        }
                       | { __typename?: 'RevertCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
@@ -27674,7 +29316,21 @@ export type TimelineQuery = {
                       asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
                     };
                   }
-                | { __typename?: 'MultirecipientFeeCollectModuleSettings' }
+                | {
+                    __typename?: 'MultirecipientFeeCollectModuleSettings';
+                    type: CollectModules;
+                    contractAddress: any;
+                    referralFee: number;
+                    followerOnly: boolean;
+                    optionalCollectLimit?: string | null;
+                    optionalEndTimestamp?: any | null;
+                    amount: {
+                      __typename?: 'ModuleFeeAmount';
+                      value: string;
+                      asset: { __typename?: 'Erc20'; symbol: string; decimals: number; address: any };
+                    };
+                    recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
+                  }
                 | { __typename?: 'RevertCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
@@ -27807,7 +29463,7 @@ export type TimelineQuery = {
           | null;
       }> | null;
     }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null; totalCount?: number | null };
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
 };
 
@@ -27944,6 +29600,16 @@ export const ProfileFieldsFragmentDoc = gql`
     }
   }
 `;
+export const ModuleFeeAmountFieldsFragmentDoc = gql`
+  fragment ModuleFeeAmountFields on ModuleFeeAmount {
+    asset {
+      symbol
+      decimals
+      address
+    }
+    value
+  }
+`;
 export const CollectModuleFieldsFragmentDoc = gql`
   fragment CollectModuleFields on CollectModule {
     ... on FreeCollectModuleSettings {
@@ -27957,12 +29623,7 @@ export const CollectModuleFieldsFragmentDoc = gql`
       contractAddress
       followerOnly
       amount {
-        asset {
-          symbol
-          decimals
-          address
-        }
-        value
+        ...ModuleFeeAmountFields
       }
     }
     ... on LimitedFeeCollectModuleSettings {
@@ -27972,12 +29633,7 @@ export const CollectModuleFieldsFragmentDoc = gql`
       contractAddress
       followerOnly
       amount {
-        asset {
-          symbol
-          decimals
-          address
-        }
-        value
+        ...ModuleFeeAmountFields
       }
     }
     ... on LimitedTimedFeeCollectModuleSettings {
@@ -27988,12 +29644,7 @@ export const CollectModuleFieldsFragmentDoc = gql`
       contractAddress
       followerOnly
       amount {
-        asset {
-          symbol
-          decimals
-          address
-        }
-        value
+        ...ModuleFeeAmountFields
       }
     }
     ... on TimedFeeCollectModuleSettings {
@@ -28003,15 +29654,26 @@ export const CollectModuleFieldsFragmentDoc = gql`
       contractAddress
       followerOnly
       amount {
-        asset {
-          symbol
-          decimals
-          address
-        }
-        value
+        ...ModuleFeeAmountFields
+      }
+    }
+    ... on MultirecipientFeeCollectModuleSettings {
+      type
+      contractAddress
+      amount {
+        ...ModuleFeeAmountFields
+      }
+      optionalCollectLimit: collectLimit
+      referralFee
+      followerOnly
+      optionalEndTimestamp: endTimestamp
+      recipients {
+        recipient
+        split
       }
     }
   }
+  ${ModuleFeeAmountFieldsFragmentDoc}
 `;
 export const StatsFieldsFragmentDoc = gql`
   fragment StatsFields on PublicationStats {
@@ -30305,7 +31967,6 @@ export const CollectorsDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -30356,7 +32017,6 @@ export const CommentFeedDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -30582,7 +32242,6 @@ export const ExploreFeedDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -30644,7 +32303,6 @@ export const FeedHighlightsDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -30705,7 +32363,6 @@ export const FollowersDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -30755,7 +32412,6 @@ export const FollowingDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -30967,7 +32623,6 @@ export const LikesDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -31012,7 +32667,6 @@ export const MirrorsDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -31121,7 +32775,6 @@ export const MutualFollowersListDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -31169,7 +32822,7 @@ export type MutualFollowersListQueryResult = Apollo.QueryResult<
   MutualFollowersListQueryVariables
 >;
 export const NftChallengeDocument = gql`
-  query NFTChallenge($request: NftOwnershipChallengeRequest!) {
+  query NftChallenge($request: NftOwnershipChallengeRequest!) {
     nftOwnershipChallenge(request: $request) {
       id
       text
@@ -31209,7 +32862,7 @@ export type NftChallengeQueryHookResult = ReturnType<typeof useNftChallengeQuery
 export type NftChallengeLazyQueryHookResult = ReturnType<typeof useNftChallengeLazyQuery>;
 export type NftChallengeQueryResult = Apollo.QueryResult<NftChallengeQuery, NftChallengeQueryVariables>;
 export const NftFeedDocument = gql`
-  query NFTFeed($request: NFTsRequest!) {
+  query NftFeed($request: NFTsRequest!) {
     nfts(request: $request) {
       items {
         name
@@ -31224,7 +32877,6 @@ export const NftFeedDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -31504,7 +33156,6 @@ export const NotificationsDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -31908,7 +33559,6 @@ export const ProfileFeedDocument = gql`
         }
       }
       pageInfo {
-        totalCount
         next
       }
     }
@@ -32080,7 +33730,6 @@ export const ProfilesDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }
@@ -32352,7 +34001,6 @@ export const SearchProfilesDocument = gql`
         }
         pageInfo {
           next
-          totalCount
         }
       }
     }
@@ -32412,7 +34060,6 @@ export const SearchPublicationsDocument = gql`
         }
         pageInfo {
           next
-          totalCount
         }
       }
     }
@@ -32651,7 +34298,6 @@ export const TimelineDocument = gql`
       }
       pageInfo {
         next
-        totalCount
       }
     }
   }

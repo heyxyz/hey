@@ -2,12 +2,12 @@ import { APP_NAME, DEFAULT_OG, DESCRIPTION } from 'data/constants';
 import Head from 'next/head';
 import type { FC } from 'react';
 
-interface Props {
+interface MetaTagsProps {
   title?: string;
   description?: string;
 }
 
-const MetaTags: FC<Props> = ({ title = APP_NAME, description = DESCRIPTION }) => {
+const MetaTags: FC<MetaTagsProps> = ({ title = APP_NAME, description = DESCRIPTION }) => {
   return (
     <Head>
       <title>{title}</title>

@@ -18,11 +18,11 @@ import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
-interface Props {
+interface QueuedPublicationProps {
   txn: OptimisticTransaction;
 }
 
-const QueuedPublication: FC<Props> = ({ txn }) => {
+const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
@@ -95,7 +95,7 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
         </Tooltip>
       </div>
       <div className="ml-[53px] break-words">
-        <div className="leading-md linkify text-md whitespace-pre-wrap break-words">
+        <div className="markup linkify text-md break-words">
           <Markup>{txn?.content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (

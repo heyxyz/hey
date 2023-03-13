@@ -4,7 +4,7 @@ import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Tooltip } from '@components/UI/Tooltip';
-import useNFT from '@components/utils/hooks/useNFT';
+import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
   DatabaseIcon,
@@ -24,6 +24,7 @@ import type {
 import formatHandle from '@lib/formatHandle';
 import getURLs from '@lib/getURLs';
 import { Mixpanel } from '@lib/mixpanel';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -52,11 +53,11 @@ const DecryptMessage: FC<DecryptMessageProps> = ({ icon, children }) => (
   </div>
 );
 
-interface Props {
+interface DecryptedPublicationBodyProps {
   encryptedPublication: Publication;
 }
 
-const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
+const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({ encryptedPublication }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
@@ -116,7 +117,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     enabled: Boolean(tokenCondition)
   });
 
-  const { data: nftData } = useNFT({
+  const { data: nftData } = useNft({
     address: nftCondition?.contractAddress,
     chainId: nftCondition?.chainID,
     enabled: Boolean(nftCondition)
@@ -168,7 +169,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card
         className={clsx(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
-          event.stopPropagation();
+          stopEventPropagation(event);
           setShowAuthModal(true);
         }}
       >
@@ -182,7 +183,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
   if (!canDecrypt) {
     return (
-      <Card className={clsx(cardClasses, 'cursor-text')} onClick={(event) => event.stopPropagation()}>
+      <Card className={clsx(cardClasses, 'cursor-text')} onClick={stopEventPropagation}>
         <div className="flex items-center space-x-2 font-bold">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
           <span className="text-base font-black text-white">
@@ -282,7 +283,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card
         className={clsx(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
-          event.stopPropagation();
+          stopEventPropagation(event);
           getDecryptedData();
           Mixpanel.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
@@ -301,12 +302,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
   return (
     <div className="break-words">
-      <Markup
-        className={clsx(
-          { 'line-clamp-5': showMore },
-          'leading-md linkify text-md whitespace-pre-wrap break-words'
-        )}
-      >
+      <Markup className={clsx({ 'line-clamp-5': showMore }, 'markup linkify text-md break-words')}>
         {publication?.content}
       </Markup>
       {showMore && (

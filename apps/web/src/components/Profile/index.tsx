@@ -1,11 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
-import NFTFeed from '@components/NFT/NFTFeed';
+import NftFeed from '@components/Nft/NftFeed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
 import formatHandle from '@lib/formatHandle';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
+import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
@@ -122,10 +123,10 @@ const ViewProfile: NextPage = () => {
             feedType === ProfileFeedType.Media ||
             feedType === ProfileFeedType.Collects) && <Feed profile={profile as Profile} type={feedType} />}
           {feedType === ProfileFeedType.Nft ? (
-            isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
+            isFeatureEnabled(FeatureFlag.NftGallery, currentProfile?.id) ? (
               <NftGallery profile={profile as Profile} />
             ) : (
-              <NFTFeed profile={profile as Profile} />
+              <NftFeed profile={profile as Profile} />
             )
           ) : null}
         </GridItemEight>

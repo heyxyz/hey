@@ -1,12 +1,12 @@
 import type { FC, ReactNode } from 'react';
 
-interface Props {
+interface WarningMessageProps {
   title?: string;
   message?: ReactNode;
   className?: string;
 }
 
-export const WarningMessage: FC<Props> = ({ title, message, className = '' }) => {
+export const WarningMessage: FC<WarningMessageProps> = ({ title, message, className = '' }) => {
   if (!message) {
     return null;
   }

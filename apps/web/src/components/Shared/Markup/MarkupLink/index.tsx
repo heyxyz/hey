@@ -1,0 +1,25 @@
+import type { MarkupLinkProps } from '@generated/types';
+
+import ExternalLink from './ExternalLink';
+import Hashtag from './Hashtag';
+import Mention from './Mention';
+
+const MarkupLink = ({ href, title = href }: MarkupLinkProps) => {
+  if (!href) {
+    return null;
+  }
+
+  // Mentions
+  if (href.startsWith('@')) {
+    return <Mention href={href} title={title} />;
+  }
+
+  // Hashtags
+  if (href.startsWith('#')) {
+    return <Hashtag href={href} title={title} />;
+  }
+
+  return <ExternalLink href={href} title={title} />;
+};
+
+export default MarkupLink;

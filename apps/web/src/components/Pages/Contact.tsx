@@ -6,19 +6,21 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { Form, useZodForm } from '@components/UI/Form';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Input } from '@components/UI/Input';
+import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
-import { APP_NAME, CONTACT_EMAIL } from 'data/constants';
-import { useRouter } from 'next/router';
+import axios from 'axios';
+import { APP_NAME, FRESHDESK_WORKER_URL } from 'data/constants';
 import type { FC } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { PAGEVIEW } from 'src/tracking';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
+  email: string().email({ message: t`Email is not valid` }),
   subject: string()
     .min(1, { message: t`Subject should not be empty` })
     .max(260, {
@@ -32,7 +34,8 @@ const newContactSchema = object({
 });
 
 const Contact: FC = () => {
-  const { push } = useRouter();
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'contact' });
@@ -41,6 +44,22 @@ const Contact: FC = () => {
   const form = useZodForm({
     schema: newContactSchema
   });
+
+  const submitToFreshdesk = async (email: string, subject: string, body: string) => {
+    setSubmitting(true);
+    try {
+      const { data } = await axios(FRESHDESK_WORKER_URL, {
+        method: 'POST',
+        data: { email, subject, body }
+      });
+
+      if (data.success) {
+        setSubmitted(true);
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <GridLayout>
@@ -53,9 +72,9 @@ const Contact: FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card>
-          {false ? (
+          {submitted ? (
             <EmptyState
-              message={t`Publication reported successfully!`}
+              message={t`Your message has been sent!`}
               icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
               hideCard
             />
@@ -63,17 +82,19 @@ const Contact: FC = () => {
             <Form
               form={form}
               className="space-y-4 p-5"
-              onSubmit={({ subject, message }) => {
-                location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-                  subject
-                )}&body=${encodeURIComponent(message)}`;
-                push('/');
+              onSubmit={({ email, subject, message }) => {
+                submitToFreshdesk(email, subject, message);
               }}
             >
+              <Input label={t`Email`} placeholder="gavin@hooli.com" {...form.register('email')} />
               <Input label={t`Subject`} placeholder={t`What happened?`} {...form.register('subject')} />
               <TextArea label={t`Message`} placeholder={t`How can we help?`} {...form.register('message')} />
               <div className="ml-auto">
-                <Button type="submit" icon={<PencilAltIcon className="h-4 w-4" />}>
+                <Button
+                  type="submit"
+                  disabled={submitting}
+                  icon={submitting ? <Spinner size="xs" /> : <PencilAltIcon className="h-4 w-4" />}
+                >
                   <Trans>Submit</Trans>
                 </Button>
               </div>

@@ -7,11 +7,11 @@ import getIPFSLink from 'utils/getIPFSLink';
 
 import MetaDetails from './MetaDetails';
 
-interface Props {
+interface PublicationStaffToolProps {
   publication: Publication;
 }
 
-const PublicationStaffTool: FC<Props> = ({ publication }) => {
+const PublicationStaffTool: FC<PublicationStaffToolProps> = ({ publication }) => {
   const isComment = publication.__typename === 'Comment';
 
   return (

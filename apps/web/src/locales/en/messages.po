@@ -26,16 +26,24 @@ msgstr ""
 msgid "Failed to load comment feed"
 msgstr ""
 
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Hide more comments"
+msgstr "Hide more comments"
+
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Show more comments"
+msgstr "Show more comments"
+
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-msgid "Collectors can view"
+msgid "Enable collect first to use collect based token gating"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-msgid "Enable collect first to use collect based token gating"
+msgid "Collectors can view"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
@@ -60,7 +68,7 @@ msgstr ""
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -88,6 +96,24 @@ msgstr ""
 msgid "Something went wrong while uploading!"
 msgstr ""
 
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Charge for collecting"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Get paid whenever someone collects your post"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Price"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+#: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Settings/Allowance/index.tsx
+msgid "Select Currency"
+msgstr ""
+
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
 msgstr ""
@@ -100,62 +126,60 @@ msgstr ""
 msgid "This post can be collected"
 msgstr ""
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Charge for collecting"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Get paid whenever someone collects your post"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Price"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#: src/components/Settings/Account/SuperFollow.tsx
-#: src/components/Settings/Allowance/index.tsx
-msgid "Select Currency"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Mirror referral reward"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Share your collect fee with people who amplify your content"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Referral fee"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
 msgstr ""
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
 msgstr ""
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
 msgstr ""
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Time limit"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Limit collecting to the first 24h"
-msgstr ""
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Who can collect"
 msgstr ""
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Only followers can collect"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Mirror referral reward"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Share your fee with people who amplify your content"
+msgstr "Share your fee with people who amplify your content"
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Referral fee"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Split revenue"
+msgstr "Split revenue"
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Set multiple recipients for the collect fee"
+msgstr "Set multiple recipients for the collect fee"
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
+msgstr "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Duplicate recipient address found"
+msgstr "Duplicate recipient address found"
+
+#: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
+msgid "Time limit"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
+msgid "Limit collecting to the first 24h"
 msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
@@ -194,6 +218,22 @@ msgstr ""
 msgid "Everyone"
 msgstr ""
 
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My followers can comment and mirror"
+msgstr "My followers can comment and mirror"
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My follows can comment and mirror"
+msgstr "My follows can comment and mirror"
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Friend of friends can comment and mirror"
+msgstr "Friend of friends can comment and mirror"
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Everyone can comment and mirror"
+msgstr "Everyone can comment and mirror"
+
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
@@ -202,7 +242,7 @@ msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -274,18 +314,6 @@ msgstr ""
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
 msgstr "Explore • {APP_NAME}"
-
-#: src/components/Home/BetaWarning.tsx
-msgid "Beta warning!"
-msgstr ""
-
-#: src/components/Home/BetaWarning.tsx
-msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr ""
-
-#: src/components/Home/BetaWarning.tsx
-msgid "Get testnet tokens"
-msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
@@ -567,11 +595,36 @@ msgstr ""
 msgid "Mod Center • {APP_NAME}"
 msgstr "Mod Center • {APP_NAME}"
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Mod/index.tsx
+msgid "Refresh feed"
+msgstr "Refresh feed"
+
+#: src/components/Mod/index.tsx
+msgid "Publication filters"
+msgstr "Publication filters"
+
+#: src/components/Mod/index.tsx
+msgid "Posts"
+msgstr "Posts"
+
+#: src/components/Mod/index.tsx
+#: src/components/Notification/FeedType.tsx
+msgid "Comments"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Custom filters"
+msgstr "Custom filters"
+
+#: src/components/Mod/index.tsx
+msgid "Gardeners"
+msgstr "Gardeners"
+
+#: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr ""
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
 msgstr ""
@@ -582,10 +635,6 @@ msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
-msgstr ""
-
-#: src/components/Notification/FeedType.tsx
-msgid "Comments"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
@@ -681,6 +730,10 @@ msgid "Notifications • {APP_NAME}"
 msgstr "Notifications • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
+msgid "Email is not valid"
+msgstr "Email is not valid"
+
+#: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
 msgstr ""
 
@@ -709,9 +762,12 @@ msgid "Contact us to help you get the issue resolved."
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Publication reported successfully!"
-msgstr ""
+msgid "Your message has been sent!"
+msgstr "Your message has been sent!"
+
+#: src/components/Pages/Contact.tsx
+msgid "Email"
+msgstr "Email"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -1179,6 +1235,18 @@ msgid "Gallery created"
 msgstr "Gallery created"
 
 #: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name updated"
+msgstr "Gallery name updated"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery updated"
+msgstr "Gallery updated"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name should be less than 255 characters"
+msgstr "Gallery name should be less than 255 characters"
+
+#: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
 msgstr "Gallery name required"
 
@@ -1223,6 +1291,7 @@ msgid "Rearrrange"
 msgstr "Rearrrange"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
 msgstr "Delete"
 
@@ -1241,6 +1310,10 @@ msgstr "Let's do it!"
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
 msgstr "doesn't have any NFTs!"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Only 50 items allowed for gallery"
+msgstr "Only 50 items allowed for gallery"
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
@@ -1304,6 +1377,10 @@ msgstr ""
 msgid "You already collected this"
 msgstr ""
 
+#: src/components/Publication/Actions/Collect/Splits.tsx
+msgid "Fee recipients"
+msgstr "Fee recipients"
+
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
@@ -1347,14 +1424,48 @@ msgstr ""
 msgid "Mirror"
 msgstr ""
 
-#: src/components/Publication/Actions/ModAction.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Publication reported successfully"
+msgstr "Publication reported successfully"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Spam"
 msgstr ""
 
-#: src/components/Publication/Actions/ModAction.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Others"
 msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Report?"
+msgstr "Report?"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Are you sure? You want to report this user so that we can take action."
+msgstr "Are you sure? You want to report this user so that we can take action."
 
 #: src/components/Publication/Actions/index.tsx
 msgid "Gated Publication"
@@ -1410,10 +1521,6 @@ msgstr ""
 
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
-msgstr ""
-
-#: src/components/Publication/Type/Collected.tsx
-msgid "collected the <0>{0}</0>"
 msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
@@ -1726,24 +1833,24 @@ msgstr "You won't see the total number of likes for publications others share to
 msgid "Preferences • {APP_NAME}"
 msgstr "Preferences • {APP_NAME}"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr ""
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Invalid Contract address"
 msgstr ""
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr ""
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract Address"
 msgstr ""
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
 msgstr ""
 
@@ -1839,6 +1946,18 @@ msgstr ""
 msgid "Allowance"
 msgstr ""
 
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Publication deleted successfully"
+msgstr "Publication deleted successfully"
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete Publication?"
+msgstr "Delete Publication?"
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
+msgstr "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
+
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
 msgstr ""
@@ -1888,50 +2007,53 @@ msgstr ""
 msgid "Follow"
 msgstr "Follow"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Terms"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Privacy"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Discord"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Donate"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Status"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Feedback"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Thanks"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Translate"
 msgstr ""
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr ""
 
-#: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr ""
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr "Mod actions"
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Perform mod actions on this publication."
+msgstr "Perform mod actions on this publication."
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
@@ -2112,15 +2234,7 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "NSFW"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -2144,10 +2258,6 @@ msgid "Misuse hashtags"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Repetitive"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
 msgstr ""
 
@@ -2157,6 +2267,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Publication reported successfully!"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/index.tsx
@@ -2191,6 +2305,14 @@ msgstr ""
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
 msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Disable mod mode"
+msgstr "Disable mod mode"
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Enable mod mode"
+msgstr "Enable mod mode"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2360,6 +2482,10 @@ msgstr "Video size should be less than 100MB"
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "Audio size should be less than 100MB"
+
+#: src/lib/getModule.ts
+msgid "Multirecipient Paid Collect"
+msgstr "Multirecipient Paid Collect"
 
 #: src/lib/getModule.ts
 msgid "Paid Collect"

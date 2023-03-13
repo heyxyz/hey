@@ -5,12 +5,12 @@
   "private": true,
   "license": "GPL-3.0",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "eslint": "^8.34.0",
-    "eslint-config-next": "^13.1.6",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "eslint": "^8.36.0",
+    "eslint-config-next": "^13.2.4",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-unicorn": "^45.0.2",
+    "eslint-plugin-unicorn": "^46.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.8.4"
   },

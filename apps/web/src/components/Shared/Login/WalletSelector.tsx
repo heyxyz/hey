@@ -4,7 +4,7 @@ import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
-import getWalletLogo from '@lib/getWalletLogo';
+import getWalletDetails from '@lib/getWalletDetails';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
@@ -17,16 +17,16 @@ import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
-import { USER } from 'src/tracking';
+import { AUTH } from 'src/tracking';
 import type { Connector } from 'wagmi';
 import { useAccount, useConnect, useDisconnect, useNetwork, useSignMessage } from 'wagmi';
 
-interface Props {
+interface WalletSelectorProps {
   setHasConnected: Dispatch<boolean>;
   setHasProfile: Dispatch<boolean>;
 }
 
-const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
+const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
@@ -51,7 +51,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Mixpanel.track('Connect wallet', {
+      Mixpanel.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
     } catch (error) {
@@ -102,7 +102,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Mixpanel.track(USER.SIWL);
+      Mixpanel.track(AUTH.SIWL);
     } catch (error) {
       console.error(error);
     } finally {
@@ -136,7 +136,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         <button
           onClick={() => {
             disconnect?.();
-            Mixpanel.track(USER.CHANGE_WALLET);
+            Mixpanel.track(AUTH.CHANGE_WALLET);
           }}
           className="flex items-center space-x-1 text-sm underline"
         >
@@ -168,11 +168,15 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}
           >
             <span>
-              {mounted ? (connector.id === 'injected' ? t`Browser Wallet` : connector.name) : connector.name}
+              {mounted
+                ? connector.id === 'injected'
+                  ? t`Browser Wallet`
+                  : getWalletDetails(connector.name).name
+                : getWalletDetails(connector.name).name}
               {mounted ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <img
-              src={getWalletLogo(connector.name)}
+              src={getWalletDetails(connector.name).logo}
               draggable={false}
               className="h-6 w-6"
               height={24}

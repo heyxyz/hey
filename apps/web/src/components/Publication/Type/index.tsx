@@ -1,3 +1,4 @@
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 
@@ -5,13 +6,13 @@ import Commented from './Commented';
 import CommentedPublication from './CommentedPublication';
 import Mirrored from './Mirrored';
 
-interface Props {
+interface PublicationTypeProps {
   publication: Publication;
   showType?: boolean;
   showThread?: boolean;
 }
 
-const PublicationType: FC<Props> = ({ publication, showType, showThread = false }) => {
+const PublicationType: FC<PublicationTypeProps> = ({ publication, showType, showThread = false }) => {
   const type = publication.__typename;
 
   if (!showType) {
@@ -19,7 +20,7 @@ const PublicationType: FC<Props> = ({ publication, showType, showThread = false 
   }
 
   return (
-    <span onClick={(event) => event.stopPropagation()}>
+    <span onClick={stopEventPropagation}>
       {type === 'Mirror' && <Mirrored publication={publication} />}
       {type === 'Comment' && !showThread && <CommentedPublication publication={publication} />}
       {type === 'Comment' && showThread && <Commented publication={publication} />}

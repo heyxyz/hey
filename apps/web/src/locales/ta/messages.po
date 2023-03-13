@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-10 16:44\n"
+"PO-Revision-Date: 2023-03-12 06:26\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -26,17 +26,25 @@ msgstr "முதல் நபராக கருத்திடுக!"
 msgid "Failed to load comment feed"
 msgstr "கருத்து ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Hide more comments"
+msgstr "மேலும் கருத்துகளை மறை"
+
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Show more comments"
+msgstr "மேலும் கருத்துகளைக் காட்டு"
+
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
 msgstr "இந்த இடுகையை யார் பார்க்கலாம் என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-msgid "Collectors can view"
-msgstr "சேகரிப்பாளர்கள் பார்க்க முடியும்"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
 msgstr "சேகரிப்பு அடிப்படையிலான டோக்கன் கேட்டிங்கைப் பயன்படுத்த முதலில் சேகரிப்பை இயக்கவும்"
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Collectors can view"
+msgstr "சேகரிப்பாளர்கள் பார்க்க முடியும்"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
@@ -60,7 +68,7 @@ msgstr "ரத்து"
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -88,6 +96,24 @@ msgstr "கோப்பு வடிவம் அனுமதிக்கப்�
 msgid "Something went wrong while uploading!"
 msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏற்பட்டது!"
 
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Charge for collecting"
+msgstr "சேகரிப்பதற்கான கட்டணம்"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Get paid whenever someone collects your post"
+msgstr "உங்கள் இடுகையை யாராவது சேகரிக்கும் போதெல்லாம் பணம் பெறுங்கள்"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Price"
+msgstr "விலை"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+#: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Settings/Allowance/index.tsx
+msgid "Select Currency"
+msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
+
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
 msgstr "சேகரிப்பு அமைப்புகளை ஏற்றுகிறது"
@@ -100,63 +126,61 @@ msgstr "தொகுதிகளை ஏற்றுவதில் தோல்�
 msgid "This post can be collected"
 msgstr "இந்த இடுகையை சேகரிக்கலாம்"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Charge for collecting"
-msgstr "சேகரிப்பதற்கான கட்டணம்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Get paid whenever someone collects your post"
-msgstr "உங்கள் இடுகையை யாராவது சேகரிக்கும் போதெல்லாம் பணம் பெறுங்கள்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Price"
-msgstr "விலை"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#: src/components/Settings/Account/SuperFollow.tsx
-#: src/components/Settings/Allowance/index.tsx
-msgid "Select Currency"
-msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Mirror referral reward"
-msgstr "மிரர் பரிந்துரை வெகுமதி"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Share your collect fee with people who amplify your content"
-msgstr "உங்கள் உள்ளடக்கத்தை பெருக்கும் நபர்களுடன் உங்கள் சேகரிப்புக் கட்டணத்தை பகிர்ந்து கொள்ளுங்கள்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Referral fee"
-msgstr "பரிந்துரை கட்டணம்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
 msgstr "வரையறுக்கப்பட்ட பதிப்பு"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
 msgstr "சேகரிப்புகளை பிரத்தியேகமாக்குங்கள்"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
 msgstr "சேகரிப்பு வரம்பு"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Time limit"
-msgstr "நேர வரம்பு"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Limit collecting to the first 24h"
-msgstr "முதல் 24 மணிநேரத்திற்கு சேகரிப்பதை வரம்பிடவும்"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Who can collect"
 msgstr "யார் சேகரிக்க முடியும்"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Only followers can collect"
 msgstr "பின்பற்றுபவர்கள் மட்டுமே சேகரிக்க முடியும்"
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Mirror referral reward"
+msgstr "மிரர் பரிந்துரை வெகுமதி"
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Share your fee with people who amplify your content"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Referral fee"
+msgstr "பரிந்துரை கட்டணம்"
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Split revenue"
+msgstr "வருவாய் பிரித்தல்"
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Set multiple recipients for the collect fee"
+msgstr "வசூல் கட்டணத்திற்கு பல பெறுநர்களை அமைக்கவும்"
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Duplicate recipient address found"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
+msgid "Time limit"
+msgstr "நேர வரம்பு"
+
+#: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
+msgid "Limit collecting to the first 24h"
+msgstr "முதல் 24 மணிநேரத்திற்கு சேகரிப்பதை வரம்பிடவும்"
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
@@ -194,6 +218,22 @@ msgstr "நண்பர்களின் நண்பர்கள்"
 msgid "Everyone"
 msgstr "எல்லோரும்"
 
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My followers can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My follows can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Friend of friends can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Everyone can comment and mirror"
+msgstr ""
+
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
@@ -202,7 +242,7 @@ msgstr "என்ன நடக்கிறது?"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -274,18 +314,6 @@ msgstr "கவர்ச்சியான"
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
 msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
-
-#: src/components/Home/BetaWarning.tsx
-msgid "Beta warning!"
-msgstr "பீட்டா எச்சரிக்கை!"
-
-#: src/components/Home/BetaWarning.tsx
-msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr "{APP_NAME} இன்னும் பீட்டா கட்டத்தில் உள்ளது, விஷயங்கள் உடைந்து போகலாம், தயவுசெய்து கவனமாகக் கையாளவும்."
-
-#: src/components/Home/BetaWarning.tsx
-msgid "Get testnet tokens"
-msgstr "டெஸ்ட்நெட் டோக்கன்களைப் பெறுங்கள்"
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "Action Required"
@@ -567,11 +595,36 @@ msgstr ""
 msgid "Mod Center • {APP_NAME}"
 msgstr ""
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Mod/index.tsx
+msgid "Refresh feed"
+msgstr "ஊட்டத்தைப் புதுப்பிக்கவும்"
+
+#: src/components/Mod/index.tsx
+msgid "Publication filters"
+msgstr "வெளியீட்டு வடிப்பான்கள்"
+
+#: src/components/Mod/index.tsx
+msgid "Posts"
+msgstr "இடுகைகள்"
+
+#: src/components/Mod/index.tsx
+#: src/components/Notification/FeedType.tsx
+msgid "Comments"
+msgstr "கருத்துரைகள்"
+
+#: src/components/Mod/index.tsx
+msgid "Custom filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Gardeners"
+msgstr ""
+
+#: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr ""
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
 msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
@@ -583,10 +636,6 @@ msgstr "அனைத்து அறிவிப்புகளும்"
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
 msgstr "குறிப்பிடுதல்கள்"
-
-#: src/components/Notification/FeedType.tsx
-msgid "Comments"
-msgstr "கருத்துரைகள்"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
@@ -681,6 +730,10 @@ msgid "Notifications • {APP_NAME}"
 msgstr "அறிவிப்புகள் • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
+msgid "Email is not valid"
+msgstr "மின்னஞ்சல் தவறானது"
+
+#: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
 msgstr "பொருள் காலியாக இருக்கக்கூடாது"
 
@@ -709,9 +762,12 @@ msgid "Contact us to help you get the issue resolved."
 msgstr "சிக்கலைத் தீர்ப்பதற்கு உங்களுக்கு உதவ எங்களை தொடர்பு கொள்ளுங்கள்."
 
 #: src/components/Pages/Contact.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Publication reported successfully!"
-msgstr "இடுகை வெற்றிகரமாக புகார் செய்யப்பட்டது!"
+msgid "Your message has been sent!"
+msgstr "உங்கள் செய்தி அனுப்பப்பட்டது!"
+
+#: src/components/Pages/Contact.tsx
+msgid "Email"
+msgstr "மின்னஞ்சல்"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -1176,15 +1232,27 @@ msgstr "புதிய பரவலாக்கப்பட்ட சுயவ�
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery created"
-msgstr ""
+msgstr "கேலரி உருவாக்கப்பட்டது"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name updated"
+msgstr "கேலரியின் பெயர் புதுப்பிக்கப்பட்டது"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery updated"
+msgstr "கேலரி புதுப்பிக்கப்பட்டது"
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name should be less than 255 characters"
+msgstr "கேலரியின் பெயர் 255 எழுத்துகளுக்கு குறைவாக இருக்க வேண்டும்"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
-msgstr ""
+msgstr "கேலரியின் பெயர் தேவை"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles for your gallery"
-msgstr ""
+msgstr "உங்கள் கேலரிக்கான சேகரிப்புகளைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Review collection"
@@ -1196,35 +1264,36 @@ msgstr "பிறருக்கு காட்ட விரும்பும�
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "What's your gallery name?"
-msgstr ""
+msgstr "உங்கள் கேலரியின் பெயர் என்ன?"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "{0} selected"
-msgstr ""
+msgstr "{0} தேர்ந்தெடுக்கப்பட்டது"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Next"
-msgstr ""
+msgstr "அடுத்தது"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Gallery deleted"
-msgstr ""
+msgstr "கேலரி நீக்கப்பட்டது"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "இதை நீக்க வேண்டும் என்பதில் உறுதியாக இருக்கிறீர்களா?"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Edit"
-msgstr ""
+msgstr "திருத்து"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Rearrrange"
-msgstr ""
+msgstr "மறுசீரமைக்கவும்"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
-msgstr ""
+msgstr "அழி"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
@@ -1242,9 +1311,13 @@ msgstr "அதைச் செய்யுங்கள்!"
 msgid "doesn't have any NFTs!"
 msgstr ""
 
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Only 50 items allowed for gallery"
+msgstr ""
+
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
-msgstr ""
+msgstr "சேகரிப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை!"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx
@@ -1304,6 +1377,10 @@ msgstr "இப்போது சேகரிக்கவும்"
 msgid "You already collected this"
 msgstr "நீங்கள் ஏற்கனவே இதை சேகரித்துள்ளீர்கள்"
 
+#: src/components/Publication/Actions/Collect/Splits.tsx
+msgid "Fee recipients"
+msgstr ""
+
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
@@ -1347,14 +1424,48 @@ msgstr "{0} மிரர்கள்"
 msgid "Mirror"
 msgstr "மிரர்"
 
-#: src/components/Publication/Actions/ModAction.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Publication reported successfully"
+msgstr "இடுகை வெற்றிகரமாகப் புகார் செய்யப்பட்டது"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Spam"
 msgstr "ஸ்பேம்"
 
-#: src/components/Publication/Actions/ModAction.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "ஊழல்"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
+msgstr "என்எஸ்எஃப்டபிள்யூ"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
+msgstr "தொடர்ச்சியாகச் செய்தல்"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Publication/Actions/ModAction/index.tsx
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr "புகார்"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Others"
 msgstr "மற்றவை"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Report?"
+msgstr "புகாரளிக்கவா?"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Are you sure? You want to report this user so that we can take action."
+msgstr ""
 
 #: src/components/Publication/Actions/index.tsx
 msgid "Gated Publication"
@@ -1411,10 +1522,6 @@ msgstr ""
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
 msgstr "தொடர்புடைய நபர்களை ஏற்ற முடியவில்லை"
-
-#: src/components/Publication/Type/Collected.tsx
-msgid "collected the <0>{0}</0>"
-msgstr ""
 
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "<0><1/> mirrored the <2>comment</2></0>"
@@ -1726,24 +1833,24 @@ msgstr "ஊட்டத்தில் மற்றவர்கள் பகி�
 msgid "Preferences • {APP_NAME}"
 msgstr "விருப்பத்தேர்வுகள் • {APP_NAME}"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr "ஒப்பந்த முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Invalid Contract address"
 msgstr "தவறான ஒப்பந்த முகவரி"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr "அவதார் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract Address"
 msgstr "ஒப்பந்த முகவரி"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
 msgstr "டோக்கன் ஐடி"
 
@@ -1839,6 +1946,18 @@ msgstr "டிஸ்பெட்சேர்"
 msgid "Allowance"
 msgstr "கொடுப்பனவு"
 
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Publication deleted successfully"
+msgstr "இடுகை வெற்றிகரமாக நீக்கப்பட்டது"
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete Publication?"
+msgstr "வெளியீட்டை நீக்கவா?"
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
+msgstr "இதைச் செயல்தவிர்க்க முடியாது மேலும் இது உங்கள் சுயவிவரத்திலிருந்தும், உங்களைப் பின்தொடரும் கணக்குகளின் காலவரிசையிலிருந்தும் மற்றும் தேடல் முடிவுகளிலிருந்தும் அகற்றப்படும்."
+
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
 msgstr "படத்தை புதிய தாவலில் திறக்கவும்"
@@ -1888,50 +2007,53 @@ msgstr "வெற்றிகரமாக பின்பற்றப்பட�
 msgid "Follow"
 msgstr "பின்பற்றவும்"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Terms"
 msgstr "விதிகள்"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Privacy"
 msgstr "தனியுரிமை"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Discord"
 msgstr "டிஸ்கார்ட்"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Donate"
 msgstr "நன்கொடை"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Status"
 msgstr "நிலை"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Feedback"
 msgstr "பின்னூட்டம்"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Thanks"
 msgstr "நன்றி"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr "கிட்ஹப்"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Translate"
 msgstr "மொழிபெயர்"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
 
-#: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr "புகார்"
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr ""
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Perform mod actions on this publication."
+msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
@@ -2112,16 +2234,8 @@ msgid "Violence"
 msgstr "வன்முறை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "ஊழல்"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr "ஆள்மாறாட்டம்"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "NSFW"
-msgstr "என்எஸ்எஃப்டபிள்யூ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Offensive"
@@ -2144,10 +2258,6 @@ msgid "Misuse hashtags"
 msgstr "ஹேஷ்டேக்குகளை தவறாகப் பயன்படுத்துதல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Repetitive"
-msgstr "தொடர்ச்சியாகச் செய்தல்"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
 msgstr "வேறு ஏதாவது"
 
@@ -2158,6 +2268,10 @@ msgstr "தொடர்பில்லாத"
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
 msgstr "கூடுதல் கருத்துகள் 260 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Publication reported successfully!"
+msgstr "இடுகை வெற்றிகரமாக புகார் செய்யப்பட்டது!"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"
@@ -2191,6 +2305,14 @@ msgstr "வெளியேறு"
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
 msgstr "மிதவாக்கம்"
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Disable mod mode"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Enable mod mode"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2360,6 +2482,10 @@ msgstr "வீடியோ அளவு 100MB க்கும் குறைவ
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
+
+#: src/lib/getModule.ts
+msgid "Multirecipient Paid Collect"
+msgstr "பல பெறுனர்களின் கட்டண சேகரிப்பு"
 
 #: src/lib/getModule.ts
 msgid "Paid Collect"

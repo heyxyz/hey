@@ -1,9 +1,11 @@
 import { Button } from '@components/UI/Button';
+import { Image } from '@components/UI/Image';
 import { LightBox } from '@components/UI/LightBox';
 import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import imageProxy from '@lib/imageProxy';
 import { Mixpanel } from '@lib/mixpanel';
+import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
@@ -36,7 +38,7 @@ const getClass = (attachments: number, isNew = false) => {
   }
 };
 
-interface Props {
+interface AttachmentsProps {
   attachments: any;
   isNew?: boolean;
   hideDelete?: boolean;
@@ -44,7 +46,7 @@ interface Props {
   txn?: any;
 }
 
-const Attachments: FC<Props> = ({
+const Attachments: FC<AttachmentsProps> = ({
   attachments = [],
   isNew = false,
   hideDelete = false,
@@ -99,9 +101,7 @@ const Attachments: FC<Props> = ({
                 'relative'
               )}
               key={index + url}
-              onClick={(event) => {
-                event.stopPropagation();
-              }}
+              onClick={stopEventPropagation}
             >
               {type === 'image/svg+xml' ? (
                 <Button
@@ -125,7 +125,7 @@ const Attachments: FC<Props> = ({
                   expandCover={(url) => setExpandedImage(url)}
                 />
               ) : (
-                <img
+                <Image
                   className={clsx(
                     'cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800',
                     slicedAttachments.length === 1 && 'h-[380px]'

@@ -6,7 +6,6 @@ query MutualFollowersList($request: MutualFollowersProfilesQueryRequest!) {
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

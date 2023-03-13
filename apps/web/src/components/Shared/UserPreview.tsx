@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -15,7 +16,7 @@ import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
-interface Props {
+interface UserPreviewProps {
   profile: Profile;
   children: ReactNode;
   isBig?: boolean;
@@ -23,7 +24,7 @@ interface Props {
   showUserPreview?: boolean;
 }
 
-const UserPreview: FC<Props> = ({
+const UserPreview: FC<UserPreviewProps> = ({
   profile,
   isBig,
   followStatusLoading,
@@ -38,7 +39,7 @@ const UserPreview: FC<Props> = ({
   });
 
   const UserAvatar = () => (
-    <img
+    <Image
       onError={({ currentTarget }) => {
         currentTarget.src = getAvatar(lazyProfile, false);
       }}

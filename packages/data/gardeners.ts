@@ -16,13 +16,16 @@ export const mainnetGardeners = [
   '0x2ee4', // essah.lens
   '0x2d', // sasicodes.lens
   '0x0a', // jouni.lens
-  '0x09' // nicolo.lens
+  '0x09', // nicolo.lens
+  '0xabd0', // helpfulbrother.lens
+  '0x01b430', // cantech.lens
+  '0x73', // cesare.lens
+  '0x3a' // pawel.lens
 ];
 
 export const testnetGardeners = [
   '0x01', // lensprotocol.test
   '0x02', // donosonaumczuk.test
-  '0x06', // davidev.test
   '0x18', // devjoshstevens.test
   '0x15', // yoginth.test
   '0x038b' // 1653392689544.test

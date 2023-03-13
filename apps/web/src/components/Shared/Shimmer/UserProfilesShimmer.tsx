@@ -3,12 +3,12 @@ import type { FC } from 'react';
 
 import UserProfileShimmer from './UserProfileShimmer';
 
-interface Props {
+interface UserProfilesShimmerProps {
   showFollow?: boolean;
   isBig?: boolean;
 }
 
-const UserProfilesShimmer: FC<Props> = ({ showFollow = false, isBig = false }) => {
+const UserProfilesShimmer: FC<UserProfilesShimmerProps> = ({ showFollow = false, isBig = false }) => {
   return (
     <div className="space-y-3">
       <Card className="p-5">

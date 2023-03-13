@@ -1,10 +1,9 @@
 import UserProfile from '@components/Shared/UserProfile';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import formatTime from '@lib/formatTime';
+import { formatTime } from '@lib/formatTime';
 import getAppName from '@lib/getAppName';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
 import type { FC, RefObject } from 'react';
 import { useEffect, useLayoutEffect, useRef } from 'react';
@@ -17,14 +16,12 @@ import PublicationStats from './PublicationStats';
 import ThreadBody from './ThreadBody';
 import PublicationType from './Type';
 
-dayjs.extend(relativeTime);
-
-interface Props {
+interface FullPublicationProps {
   publication: Publication;
   postContainerRef?: RefObject<HTMLDivElement>;
 }
 
-const FullPublication: FC<Props> = ({ publication, postContainerRef }) => {
+const FullPublication: FC<FullPublicationProps> = ({ publication, postContainerRef }) => {
   const commentRef = useRef<HTMLDivElement>(null);
   const intersectionRef = useRef<HTMLSpanElement>(null);
   const isPostVisible = useRef(false);

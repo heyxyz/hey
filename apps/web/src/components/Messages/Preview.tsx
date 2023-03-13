@@ -1,27 +1,24 @@
+import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
+import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import getAvatar from '@lib/getAvatar';
 import isVerified from '@lib/isVerified';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-dayjs.extend(relativeTime);
-
-interface Props {
+interface PreviewProps {
   profile: Profile;
   message: DecodedMessage;
   conversationKey: string;
   isSelected: boolean;
 }
 
-const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) => {
+const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelected }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
@@ -39,7 +36,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
       onClick={() => onConversationSelected(profile.id)}
     >
       <div className="flex justify-between space-x-3 px-5">
-        <img
+        <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(profile, false);
           }}
@@ -58,7 +55,7 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
             </div>
             {message.sent && (
               <span className="lt-text-gray-500 min-w-fit pt-0.5 text-xs" title={formatTime(message.sent)}>
-                {dayjs(new Date(message.sent)).fromNow()}
+                {getTimeFromNow(message.sent)}
               </span>
             )}
           </div>

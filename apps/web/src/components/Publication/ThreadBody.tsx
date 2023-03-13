@@ -7,12 +7,12 @@ import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
-interface Props {
+interface ThreadBodyProps {
   publication: Publication;
   intersectionRef?: RefObject<HTMLSpanElement>;
 }
 
-const ThreadBody: FC<Props> = ({ publication, intersectionRef }) => {
+const ThreadBody: FC<ThreadBodyProps> = ({ publication, intersectionRef }) => {
   const { push } = useRouter();
 
   return (

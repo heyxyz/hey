@@ -1,0 +1,13 @@
+tasks:
+  - init: |
+      nvm i 18
+      nvm use 18
+      nvm alias default 18
+      echo "nvm use default &>/dev/null" >> ~/.bashrc.d/51-nvm-fix
+      yarn install
+    command: yarn dev
+
+ports:
+  - port: 4783 # Web app
+    visibility: public
+    onOpen: notify

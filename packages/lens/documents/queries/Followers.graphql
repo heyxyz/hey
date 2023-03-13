@@ -12,7 +12,6 @@ query Followers($request: FollowersRequest!) {
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

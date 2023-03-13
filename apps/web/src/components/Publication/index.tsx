@@ -1,4 +1,5 @@
 import Feed from '@components/Comment/Feed';
+import NoneRelevantFeed from '@components/Comment/NoneRelevantFeed';
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
@@ -101,6 +102,7 @@ const ViewPublication: NextPage = () => {
           <FullPublication publication={publication} postContainerRef={postContainerRef} />
         </Card>
         <Feed publication={publication} />
+        <NoneRelevantFeed publication={publication} />
       </GridItemEight>
       <GridItemFour className="relative">
         <div className="fixed max-w-[392px] space-y-5">

@@ -24,6 +24,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -40,6 +41,7 @@ const editStatusSchema = object({
 
 const Status: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const [isUploading, setIsUploading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
 
@@ -59,6 +61,7 @@ const Status: FC = () => {
 
   const onCompleted = () => {
     toast.success(t`Status updated successfully!`);
+    setShowStatusModal(false);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -157,7 +160,7 @@ const Status: FC = () => {
 
       const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
-        metadata: `https://arweave.net/${id}`
+        metadata: `ar://${id}`
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {

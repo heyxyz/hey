@@ -3,24 +3,27 @@ import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { PublicationMainFocus } from 'lens';
 import type { Dispatch, FC } from 'react';
+import { EXPLORE } from 'src/tracking';
 
-interface Props {
+interface FeedLinkProps {
+  name: string;
+  type?: PublicationMainFocus;
+}
+
+interface FeedTypeProps {
   setFocus: Dispatch<PublicationMainFocus>;
   focus?: PublicationMainFocus;
 }
 
-const FeedType: FC<Props> = ({ setFocus, focus }) => {
-  interface FeedLinkProps {
-    name: string;
-    type?: PublicationMainFocus;
-  }
-
+const FeedType: FC<FeedTypeProps> = ({ setFocus, focus }) => {
   const FeedLink: FC<FeedLinkProps> = ({ name, type }) => (
     <button
       type="button"
       onClick={() => {
         setFocus(type as PublicationMainFocus);
-        Mixpanel.track(`Select ${(type ?? 'all_posts')?.toLowerCase()} filter in explore`);
+        Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
+          explore_feed_focus: (type ?? 'all_posts').toLowerCase()
+        });
       }}
       className={clsx(
         { '!bg-brand-500 !text-white': focus === type },

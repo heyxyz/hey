@@ -4,11 +4,11 @@ import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface SourceProps {
   publication: Publication;
 }
 
-const Source: FC<Props> = ({ publication }) => {
+const Source: FC<SourceProps> = ({ publication }) => {
   const { appId } = publication;
   const show = apps.includes(appId);
 

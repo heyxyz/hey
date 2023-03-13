@@ -1,5 +1,6 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
+import { Image } from '@components/UI/Image';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { Menu } from '@headlessui/react';
@@ -21,7 +22,7 @@ import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
-import { MISCELLANEOUS, SEARCH } from 'src/tracking';
+import { MISCELLANEOUS } from 'src/tracking';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -85,12 +86,12 @@ const SeeThroughLens: FC = () => {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button
-        onClick={() => fetchRecommendedProfiles()}
-        className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20"
-      >
-        <span className="flex items-center space-x-1 pl-1 text-sm">
-          <img
+      <Menu.Button as={Fragment}>
+        <button
+          className="flex items-center space-x-1 rounded-md p-1 pl-1 text-sm hover:bg-gray-300 hover:bg-opacity-20"
+          onClick={() => fetchRecommendedProfiles()}
+        >
+          <Image
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
             }}
@@ -103,7 +104,7 @@ const SeeThroughLens: FC = () => {
           />
           <span>{seeThroughProfile ? `@${formatHandle(profile?.handle)}` : t`My Feed`}</span>
           <ChevronDownIcon className="h-4 w-4" />
-        </span>
+        </button>
       </Menu.Button>
       <MenuTransition>
         <Menu.Items
@@ -124,10 +125,7 @@ const SeeThroughLens: FC = () => {
               iconRight={
                 <XIcon
                   className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
-                  onClick={() => {
-                    setSearchText('');
-                    Mixpanel.track(SEARCH.CLEAR);
-                  }}
+                  onClick={() => setSearchText('')}
                 />
               }
               onChange={handleSearch}
@@ -161,7 +159,9 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
-                      Mixpanel.track(MISCELLANEOUS.SELECT_USER_FEED);
+                      Mixpanel.track(MISCELLANEOUS.SELECT_USER_FEED, {
+                        see_through_profile: profile?.id
+                      });
                     }}
                   >
                     <UserProfile linkToProfile={false} profile={profile} showUserPreview={false} />

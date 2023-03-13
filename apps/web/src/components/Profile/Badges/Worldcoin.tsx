@@ -5,11 +5,11 @@ import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface WorldcoinProps {
   profile: Profile;
 }
 
-const Worldcoin: FC<Props> = ({ profile }) => {
+const Worldcoin: FC<WorldcoinProps> = ({ profile }) => {
   if (!profile?.onChainIdentity?.worldcoin?.isHuman) {
     return null;
   }

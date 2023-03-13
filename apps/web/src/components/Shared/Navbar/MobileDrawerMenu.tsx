@@ -1,3 +1,4 @@
+import { Image } from '@components/UI/Image';
 import { XIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
@@ -15,6 +16,7 @@ import AppVersion from './NavItems/AppVersion';
 import Contact from './NavItems/Contact';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
+import ModMode from './NavItems/ModMode';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
@@ -44,13 +46,13 @@ const MobileDrawerMenu: FC = () => {
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
         >
           <div className="flex w-full space-x-1.5">
-            <img
-              src={getAvatar(currentProfile as Profile)}
-              className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
-              alt={formatHandle(currentProfile?.handle)}
+            <Image
               onError={({ currentTarget }) => {
                 currentTarget.src = getAvatar(currentProfile, false);
               }}
+              src={getAvatar(currentProfile as Profile)}
+              className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
+              alt={formatHandle(currentProfile?.handle)}
             />
             <div>
               <Trans>Logged in as</Trans>
@@ -102,6 +104,14 @@ const MobileDrawerMenu: FC = () => {
             <Logout onClick={closeDrawer} className="py-3" />
           </div>
           <div className="divider" />
+          {isGardener(currentProfile?.id) && (
+            <>
+              <div onClick={closeDrawer} className="hover:bg-gray-200 dark:hover:bg-gray-800">
+                <ModMode className="py-3" />
+              </div>
+              <div className="divider" />
+            </>
+          )}
           {isStaff(currentProfile?.id) && (
             <>
               <div onClick={closeDrawer} className="hover:bg-gray-200 dark:hover:bg-gray-800">

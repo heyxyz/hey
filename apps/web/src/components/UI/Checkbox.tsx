@@ -2,12 +2,12 @@ import clsx from 'clsx';
 import type { ComponentProps } from 'react';
 import { forwardRef, useId } from 'react';
 
-interface Props extends Omit<ComponentProps<'input'>, 'prefix'> {
+interface CheckboxProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string;
   className?: string;
 }
 
-export const Checkbox = forwardRef<HTMLInputElement, Props>(function CheckBox(
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function CheckBox(
   { label, className = '', ...props },
   ref
 ) {

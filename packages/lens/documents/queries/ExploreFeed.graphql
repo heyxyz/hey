@@ -16,7 +16,6 @@ query ExploreFeed(
       }
     }
     pageInfo {
-      totalCount
       next
     }
   }

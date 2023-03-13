@@ -1,13 +1,11 @@
+import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
+import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import getAvatar from '@lib/getAvatar';
 import getProfileAttribute from '@lib/getProfileAttribute';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
-import dayjs from 'dayjs';
-// @ts-ignore
-import dayjsTwitter from 'dayjs-twitter';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -19,9 +17,7 @@ import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
-dayjs.extend(dayjsTwitter);
-
-interface Props {
+interface UserProfileProps {
   profile: Profile;
   followStatusLoading?: boolean;
   isFollowing?: boolean;
@@ -38,7 +34,7 @@ interface Props {
   followSource?: string;
 }
 
-const UserProfile: FC<Props> = ({
+const UserProfile: FC<UserProfileProps> = ({
   profile,
   followStatusLoading = false,
   isFollowing = false,
@@ -59,7 +55,7 @@ const UserProfile: FC<Props> = ({
   const hasStatus = statusEmoji && statusMessage;
 
   const UserAvatar = () => (
-    <img
+    <Image
       onError={({ currentTarget }) => {
         currentTarget.src = getAvatar(profile, false);
       }}
@@ -77,9 +73,9 @@ const UserProfile: FC<Props> = ({
 
   const UserName = () => (
     <>
-      <div className="flex max-w-sm items-center truncate">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
-          {profile?.name ?? formatHandle(profile?.handle)}
+      <div className="flex max-w-sm items-center">
+        <div className={clsx(isBig ? 'font-bold' : 'text-md', 'grid')}>
+          <div className="truncate">{profile?.name ?? formatHandle(profile?.handle)}</div>
         </div>
         {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />}
         {showStatus && hasStatus ? (
@@ -98,8 +94,7 @@ const UserProfile: FC<Props> = ({
           <span className="lt-text-gray-500">
             <span className="mx-1.5">·</span>
             <span className="text-xs" title={formatTime(timestamp as Date)}>
-              {/* @ts-ignore */}
-              {dayjs(new Date(timestamp)).twitter()}
+              {getTwitterFormat(timestamp)}
             </span>
           </span>
         ) : null}
