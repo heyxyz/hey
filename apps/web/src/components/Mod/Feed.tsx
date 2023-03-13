@@ -5,15 +5,12 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { CustomFiltersTypes, ExplorePublicationRequest, Publication, PublicationTypes } from 'lens';
 import { PublicationSortCriteria, useExploreFeedQuery } from 'lens';
 import type { FC } from 'react';
-import { useEffect } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-
-let hasMore = true;
 
 interface FeedProps {
   refresh: boolean;
@@ -24,6 +21,7 @@ interface FeedProps {
 
 const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customFilters }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: ExplorePublicationRequest = {
@@ -49,13 +47,19 @@ const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customF
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, publicationTypes, customFilters]);
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-    }).then(({ data }) => {
-      hasMore = data?.explorePublications?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+      }).then(({ data }) => {
+        setHasMore(data?.explorePublications?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -70,25 +74,18 @@ const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customF
   }
 
   return (
-    <InfiniteScroll
-      dataLength={publications?.length ?? 0}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<span />}
-    >
-      <Card className="divide-y-[1px] dark:divide-gray-700">
-        {publications?.map((publication, index) => (
-          <SinglePublication
-            key={`${publication.id}_${index}`}
-            publication={publication as Publication}
-            showThread={false}
-            showActions={false}
-            showModActions
-          />
-        ))}
-      </Card>
-    </InfiniteScroll>
+    <Card className="divide-y-[1px] dark:divide-gray-700">
+      {publications?.map((publication, index) => (
+        <SinglePublication
+          key={`${publication.id}_${index}`}
+          publication={publication as Publication}
+          showThread={false}
+          showActions={false}
+          showModActions
+        />
+      ))}
+      {hasMore && <span ref={observe} />}
+    </Card>
   );
 };
 
