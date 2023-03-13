@@ -6,11 +6,11 @@ import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, Publication, PublicationsQueryRequest } from 'lens';
 import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from 'lens';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
 
@@ -22,8 +22,6 @@ export enum ProfileFeedType {
   Nft = 'NFT'
 }
 
-let hasMore = true;
-
 interface FeedProps {
   profile: Profile;
   type: ProfileFeedType.Feed | ProfileFeedType.Replies | ProfileFeedType.Media | ProfileFeedType.Collects;
@@ -32,6 +30,7 @@ interface FeedProps {
 const Feed: FC<FeedProps> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);
+  const [hasMore, setHasMore] = useState(true);
 
   const getMediaFilters = () => {
     let filters: PublicationMainFocus[] = [];
@@ -79,13 +78,19 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   const publications = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-    }).then(({ data }) => {
-      hasMore = data?.publications?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+      }).then(({ data }) => {
+        setHasMore(data?.publications?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -121,23 +126,16 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   }
 
   return (
-    <InfiniteScroll
-      dataLength={publications?.length ?? 0}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<span />}
-    >
-      <Card className="divide-y-[1px] dark:divide-gray-700">
-        {publications?.map((publication, index) => (
-          <SinglePublication
-            key={`${publication.id}_${index}`}
-            publication={publication as Publication}
-            showThread={type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects}
-          />
-        ))}
-      </Card>
-    </InfiniteScroll>
+    <Card className="divide-y-[1px] dark:divide-gray-700">
+      {publications?.map((publication, index) => (
+        <SinglePublication
+          key={`${publication.id}_${index}`}
+          publication={publication as Publication}
+          showThread={type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects}
+        />
+      ))}
+      {hasMore && <span ref={observe} />}
+    </Card>
   );
 };
 
