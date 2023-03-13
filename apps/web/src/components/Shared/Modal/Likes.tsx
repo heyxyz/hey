@@ -3,12 +3,11 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { HeartIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, WhoReactedPublicationRequest } from 'lens';
 import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useInView } from 'react-cool-inview';
 
 import { FollowSource } from '../Follow';
 import Loader from '../Loader';
@@ -31,13 +30,19 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   const profiles = data?.whoReactedPublication?.items;
   const pageInfo = data?.whoReactedPublication?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      setHasMore(data?.whoReactedPublication?.items?.length > 0);
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      }).then(({ data }) => {
+        setHasMore(data?.whoReactedPublication?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <Loader message={t`Loading likes`} />;
@@ -52,32 +57,24 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" id="scrollableLikesDiv">
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage className="m-5" title={t`Failed to load likes`} error={error} />
-      <InfiniteScroll
-        dataLength={profiles?.length ?? 0}
-        scrollThreshold={SCROLL_THRESHOLD}
-        hasMore={hasMore}
-        next={loadMore}
-        loader={<span />}
-        scrollableTarget="scrollableLikesDiv"
-      >
-        <div className="divide-y dark:divide-gray-700">
-          {profiles?.map((like, index) => (
-            <div className="p-5" key={like?.reactionId}>
-              <UserProfile
-                profile={like?.profile as Profile}
-                isFollowing={like?.profile?.isFollowedByMe}
-                followPosition={index + 1}
-                followSource={FollowSource.LIKES_MODAL}
-                showBio
-                showFollow
-                showUserPreview={false}
-              />
-            </div>
-          ))}
-        </div>
-      </InfiniteScroll>
+      <div className="divide-y dark:divide-gray-700">
+        {profiles?.map((like, index) => (
+          <div className="p-5" key={like?.reactionId}>
+            <UserProfile
+              profile={like?.profile as Profile}
+              isFollowing={like?.profile?.isFollowedByMe}
+              followPosition={index + 1}
+              followSource={FollowSource.LIKES_MODAL}
+              showBio
+              showFollow
+              showUserPreview={false}
+            />
+          </div>
+        ))}
+      </div>
+      {hasMore && <span ref={observe} />}
     </div>
   );
 };

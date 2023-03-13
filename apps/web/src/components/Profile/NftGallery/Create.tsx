@@ -231,7 +231,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
       show={showModal}
       onClose={closeModal}
     >
-      <div className="max-h-[80vh] overflow-y-auto pb-16" id="scrollableNftGalleryDiv">
+      <div className="max-h-[80vh] overflow-y-auto pb-16">
         {currentStep === CreateSteps.REVIEW ? (
           <ReviewSelection />
         ) : currentStep === CreateSteps.PICK_NFTS ? (
