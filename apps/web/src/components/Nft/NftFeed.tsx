@@ -2,7 +2,6 @@ import SingleNft from '@components/Nft/SingleNft';
 import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
@@ -74,7 +73,7 @@ const NftFeed: FC<NftFeedProps> = ({ profile }) => {
       scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
       next={loadMore}
-      loader={<InfiniteLoader />}
+      loader={<span />}
     >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {nfts?.map((nft) => (

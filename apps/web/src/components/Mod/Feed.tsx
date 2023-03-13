@@ -3,7 +3,6 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
@@ -76,7 +75,7 @@ const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customF
       scrollThreshold={SCROLL_THRESHOLD}
       hasMore={hasMore}
       next={loadMore}
-      loader={<InfiniteLoader />}
+      loader={<span />}
     >
       <Card className="divide-y-[1px] dark:divide-gray-700">
         {publications?.map((publication, index) => (

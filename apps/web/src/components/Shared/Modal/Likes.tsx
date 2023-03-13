@@ -1,25 +1,25 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { HeartIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Profile, WhoReactedPublicationRequest } from 'lens';
 import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
+import { useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { FollowSource } from '../Follow';
 import Loader from '../Loader';
-
-let hasMore = true;
 
 interface LikesProps {
   publicationId: string;
 }
 
 const Likes: FC<LikesProps> = ({ publicationId }) => {
+  const [hasMore, setHasMore] = useState(true);
+
   // Variables
   const request: WhoReactedPublicationRequest = { publicationId: publicationId, limit: 10 };
 
@@ -35,7 +35,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
     }).then(({ data }) => {
-      hasMore = data?.whoReactedPublication?.items?.length > 0;
+      setHasMore(data?.whoReactedPublication?.items?.length > 0);
     });
   };
 
@@ -59,7 +59,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
         scrollThreshold={SCROLL_THRESHOLD}
         hasMore={hasMore}
         next={loadMore}
-        loader={<InfiniteLoader />}
+        loader={<span />}
         scrollableTarget="scrollableLikesDiv"
       >
         <div className="divide-y dark:divide-gray-700">

@@ -2,7 +2,6 @@ import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { t } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { MutualFollowersProfilesQueryRequest, Profile } from 'lens';
@@ -55,7 +54,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
         scrollThreshold={SCROLL_THRESHOLD}
         hasMore={hasMore}
         next={loadMore}
-        loader={<InfiniteLoader />}
+        loader={<span />}
         scrollableTarget="scrollableMutualListDiv"
       >
         <div className="divide-y dark:divide-gray-700">
