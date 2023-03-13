@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-12 00:09\n"
+"PO-Revision-Date: 2023-03-12 06:26\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -767,10 +767,6 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Email"
-msgstr ""
-
-#: src/components/Pages/Contact.tsx
-msgid "gavin@hooli.com"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
