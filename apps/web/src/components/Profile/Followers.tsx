@@ -4,7 +4,6 @@ import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
 import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
@@ -69,7 +68,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
         scrollThreshold={SCROLL_THRESHOLD}
         hasMore={hasMore}
         next={loadMore}
-        loader={<InfiniteLoader />}
+        loader={<span />}
         scrollableTarget="scrollableFollowersDiv"
       >
         <div className="divide-y dark:divide-gray-700">

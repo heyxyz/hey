@@ -1,6 +1,5 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import { Card } from '@components/UI/Card';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { Trans } from '@lingui/macro';
 import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Comment, Publication, PublicationsQueryRequest } from 'lens';
@@ -70,7 +69,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
           scrollThreshold={SCROLL_THRESHOLD}
           hasMore={hasMore}
           next={loadMore}
-          loader={<InfiniteLoader />}
+          loader={<span />}
         >
           <Card className="divide-y-[1px] dark:divide-gray-700">
             {comments?.map((comment, index) =>
