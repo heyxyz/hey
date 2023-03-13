@@ -770,10 +770,6 @@ msgid "Email"
 msgstr "Email"
 
 #: src/components/Pages/Contact.tsx
-msgid "gavin@hooli.com"
-msgstr "gavin@hooli.com"
-
-#: src/components/Pages/Contact.tsx
 msgid "Subject"
 msgstr ""
 
