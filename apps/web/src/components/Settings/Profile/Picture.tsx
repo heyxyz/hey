@@ -198,7 +198,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
               }
         }
       >
-        <div className="p-5">
+        <div className="p-5 text-right">
           <ImageCropperController
             imageSrc={imageSrc}
             setCroppedAreaPixels={setCroppedAreaPixels}
