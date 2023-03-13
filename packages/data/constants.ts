@@ -102,7 +102,6 @@ export const ALLOWED_MEDIA_TYPES = [...ALLOWED_VIDEO_TYPES, ...ALLOWED_IMAGE_TYP
 
 // UI
 export const MESSAGE_PAGE_LIMIT = 15;
-export const SCROLL_THRESHOLD = 0.5;
 export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms

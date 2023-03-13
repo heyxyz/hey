@@ -3,7 +3,6 @@ import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type {
   NewCollectNotification,
   NewCommentNotification,
@@ -15,7 +14,8 @@ import type {
 } from 'lens';
 import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'lens';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
 import NotificationShimmer from './Shimmer';
@@ -34,14 +34,13 @@ export enum NotificationType {
   Collects = 'COLLECTS'
 }
 
-let hasMore = true;
-
 interface ListProps {
   feedType: string;
 }
 
 const List: FC<ListProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [hasMore, setHasMore] = useState(true);
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -75,13 +74,19 @@ const List: FC<ListProps> = ({ feedType }) => {
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      hasMore = data?.notifications?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      }).then(({ data }) => {
+        setHasMore(data?.notifications?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return (
@@ -109,16 +114,16 @@ const List: FC<ListProps> = ({ feedType }) => {
   }
 
   return (
-    <InfiniteScroll
-      dataLength={notifications?.length ?? 0}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<span />}
-    >
-      <Card className="divide-y dark:divide-gray-700">
-        {notifications?.map((notification, index) => (
-          <div key={`${notification?.notificationId}_${index}`} className="p-5">
+    <Card className="divide-y dark:divide-gray-700">
+      {notifications?.map((notification, index, items) => {
+        const isLast = index === items.length - 1;
+
+        return (
+          <div
+            key={`${notification?.notificationId}_${index}`}
+            className="p-5"
+            ref={isLast ? observe : undefined}
+          >
             {notification.__typename === 'NewFollowerNotification' && (
               <FollowerNotification notification={notification as NewFollowerNotification} />
             )}
@@ -138,9 +143,9 @@ const List: FC<ListProps> = ({ feedType }) => {
               <CollectNotification notification={notification as NewCollectNotification} />
             )}
           </div>
-        ))}
-      </Card>
-    </InfiniteScroll>
+        );
+      })}
+    </Card>
   );
 };
 
