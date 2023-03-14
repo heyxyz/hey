@@ -42,4 +42,4 @@ jobs:
         run: yarn build
 
       - name: Run Tests 🧪
-        run: yarn e2e:test
+        run: yarn test:e2e
