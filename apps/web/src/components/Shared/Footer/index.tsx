@@ -15,7 +15,7 @@ const Footer: FC = () => {
         <span className="lt-text-gray-500 font-bold">
           &copy; {new Date().getFullYear()} {APP_NAME}
         </span>
-        <Link href="/privacy">
+        <Link href="/terms">
           <Trans>Terms</Trans>
         </Link>
         <Link href="/privacy">
