@@ -55,6 +55,7 @@ const GlobalModals: FC = () => {
         icon={<ArrowCircleRightIcon className="text-brand h-5 w-5" />}
         show={showAuthModal}
         onClose={() => setShowAuthModal(false)}
+        dataTestId="login-modal"
       >
         <Login />
       </Modal>

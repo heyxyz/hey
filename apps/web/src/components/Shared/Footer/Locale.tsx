@@ -23,7 +23,7 @@ const Locale: FC = () => {
 
   return (
     <Menu as="span">
-      <Menu.Button className="inline-flex items-center space-x-1">
+      <Menu.Button className="inline-flex items-center space-x-1" data-testid="locale-selector">
         <GlobeAltIcon className="h-4 w-4" />
         <span>{locales[i18n.locale]}</span>
       </Menu.Button>
@@ -31,6 +31,7 @@ const Locale: FC = () => {
         <Menu.Items
           static
           className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          data-testid="locale-selector-menu"
         >
           {Object.entries(locales).map(([localeCode, localeName]) => (
             <Menu.Item
