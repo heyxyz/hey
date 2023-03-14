@@ -1,0 +1,17 @@
+{
+  "name": "tests",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "test:dev": "playwright test",
+    "test:e2e": "start-server-and-test start http://localhost:4783 test:dev"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.31.2",
+    "data": "*",
+    "eslint-config-weblint": "*",
+    "tsconfig": "*",
+    "utils": "*"
+  }
+}

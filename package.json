@@ -6,7 +6,8 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "packages/workers/*"
+    "packages/workers/*",
+    "tests"
   ],
   "scripts": {
     "build": "turbo run build --parallel",

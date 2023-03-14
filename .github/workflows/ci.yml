@@ -8,6 +8,7 @@ on:
 jobs:
   ci:
     name: CI
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -19,8 +20,11 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
 
-      - name: Install 📦
+      - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
+
+      # - name: Install Playwright browsers 🕹️
+      #   run: npx playwright install --with-deps
 
       - name: GraphQL Codegen 🕸
         run: yarn codegen
@@ -36,3 +40,6 @@ jobs:
 
       - name: Build 🎁
         run: yarn build
+
+      # - name: Run Tests 🧪
+      #   run: yarn test:e2e
