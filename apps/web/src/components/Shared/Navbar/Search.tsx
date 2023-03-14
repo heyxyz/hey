@@ -3,6 +3,7 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
+import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
@@ -66,7 +67,7 @@ const Search: FC<SearchProps> = ({
   const profiles = isProfileSearchResult ? searchResult.items : [];
 
   return (
-    <div aria-hidden="true" className="w-full">
+    <div aria-hidden="true" className="w-full" data-testid="global-search">
       <form onSubmit={handleKeyDown}>
         <Input
           type="text"
@@ -84,7 +85,11 @@ const Search: FC<SearchProps> = ({
         />
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
-        <div className={clsx('absolute mt-2 flex w-[94%] flex-col', modalWidthClassName)} ref={dropdownRef}>
+        <div
+          className={clsx('absolute mt-2 flex w-[94%] flex-col', modalWidthClassName)}
+          ref={dropdownRef}
+          data-testid="search-profiles-dropdown"
+        >
           <Card className="max-h-[80vh] overflow-y-auto py-2">
             {searchUsersLoading ? (
               <div className="space-y-2 py-2 px-4 text-center text-sm font-bold">
@@ -105,6 +110,7 @@ const Search: FC<SearchProps> = ({
                       }
                       setSearchText('');
                     }}
+                    data-testid={`search-profile-${formatHandle(profile?.handle)}`}
                   >
                     <UserProfile
                       linkToProfile={!onProfileSelected}
