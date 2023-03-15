@@ -4,7 +4,6 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import formatAddress from '@lib/formatAddress';
-import formatHandle from '@lib/formatHandle';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
@@ -26,6 +25,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
+import formatHandle from 'utils/formatHandle';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';

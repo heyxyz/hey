@@ -2,7 +2,6 @@ import Markup from '@components/Shared/Markup';
 import { Card } from '@components/UI/Card';
 import { Image } from '@components/UI/Image';
 import { EmojiSadIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { formatTime } from '@lib/formatTime';
 import getAvatar from '@lib/getAvatar';
 import { Trans } from '@lingui/macro';
@@ -13,6 +12,7 @@ import type { Profile } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
+import formatHandle from 'utils/formatHandle';
 
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');

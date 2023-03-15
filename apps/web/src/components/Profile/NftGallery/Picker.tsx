@@ -3,7 +3,6 @@ import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { CheckIcon, CollectionIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { IS_MAINNET } from 'data/constants';
@@ -17,6 +16,7 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
+import formatHandle from 'utils/formatHandle';
 import { mainnet } from 'wagmi/chains';
 
 const Picker: FC = () => {
