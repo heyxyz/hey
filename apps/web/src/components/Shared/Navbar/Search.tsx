@@ -3,7 +3,6 @@ import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
@@ -11,6 +10,7 @@ import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } fr
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
+import formatHandle from 'utils/formatHandle';
 
 import UserProfile from '../UserProfile';
 

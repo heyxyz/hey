@@ -10,13 +10,13 @@ import {
 } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import formatAddress from '@lib/formatAddress';
-import formatHandle from '@lib/formatHandle';
 import { getFollowModule } from '@lib/getFollowModule';
 import getProfileAttribute from '@lib/getProfileAttribute';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import { APP_NAME } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
+import formatHandle from 'utils/formatHandle';
 
 import MetaDetails from './MetaDetails';
 

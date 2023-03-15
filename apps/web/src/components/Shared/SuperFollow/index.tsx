@@ -1,7 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { StarIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
@@ -11,6 +10,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
+import formatHandle from 'utils/formatHandle';
 
 import Loader from '../Loader';
 import Slug from '../Slug';
