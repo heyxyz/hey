@@ -11,12 +11,5 @@
       "@generated*": ["src/generated*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/styles/index.css",
-    "../../packages/utils/getURLs.ts",
-    "../../packages/utils/formatHandle.ts"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
 }
