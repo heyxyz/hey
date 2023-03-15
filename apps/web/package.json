@@ -40,7 +40,7 @@
     "dayjs-twitter": "^0.5.0",
     "dotenv": "^16.0.3",
     "ethers": "5.6.0",
-    "framer-motion": "^10.2.5",
+    "framer-motion": "^10.3.1",
     "graphql": "^16.6.0",
     "jwt-decode": "^3.1.2",
     "lexical": "^0.9.0",
