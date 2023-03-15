@@ -1,15 +1,17 @@
 import { expect, test } from '@playwright/test';
 import { APP_NAME } from 'data/constants';
 
+import { BASE_URL } from '../../constants';
+
 // Check footer is present
 test('has footer', async ({ page }) => {
-  await page.goto('http://localhost:4783');
+  await page.goto(BASE_URL);
   await expect(page.getByTestId('footer')).toContainText(`© ${new Date().getFullYear()} ${APP_NAME}`);
 });
 
 // Check locale selector is present
 test('has has locale selector', async ({ page }) => {
-  await page.goto('http://localhost:4783');
+  await page.goto(BASE_URL);
   const localeSelector = page.getByTestId('locale-selector');
   await expect(localeSelector).toContainText('English');
 

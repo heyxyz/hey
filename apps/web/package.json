@@ -40,7 +40,7 @@
     "dayjs-twitter": "^0.5.0",
     "dotenv": "^16.0.3",
     "ethers": "5.6.0",
-    "framer-motion": "^10.2.5",
+    "framer-motion": "^10.3.1",
     "graphql": "^16.6.0",
     "jwt-decode": "^3.1.2",
     "lexical": "^0.9.0",
@@ -86,7 +86,6 @@
     "lens": "*",
     "postcss": "^8.4.21",
     "prettier-plugin-tailwindcss": "^0.2.4",
-    "start-server-and-test": "^2.0.0",
     "tailwindcss": "^3.2.7",
     "tsconfig": "*",
     "typescript": "^4.9.5"

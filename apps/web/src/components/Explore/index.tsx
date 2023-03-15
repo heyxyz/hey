@@ -66,6 +66,7 @@ const Explore: NextPage = () => {
                     'lt-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
                   )
                 }
+                data-testid={`explore-tab-${index}`}
               >
                 {tab.name}
               </Tab>

@@ -30,6 +30,8 @@ const FeedType: FC<FeedTypeProps> = ({ setFocus, focus }) => {
         'bg-brand-100 text-brand border-brand-300 dark:border-brand-500 rounded-full border px-3 py-1.5 text-xs dark:bg-opacity-10 sm:px-4'
       )}
       aria-label={name}
+      aria-selected={focus === type}
+      data-testid={`feed-type-${(type ?? 'all_posts').toLowerCase()}`}
     >
       {name}
     </button>
