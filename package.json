@@ -22,7 +22,7 @@
     "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
     "test:dev": "turbo run test:dev",
-    "test:e2e": "turbo run test:e2e"
+    "test:e2e": "npx start-test start 4783 test:dev"
   },
   "devDependencies": {
     "husky": "^8.0.3",

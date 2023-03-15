@@ -42,4 +42,4 @@ jobs:
         run: yarn build
 
       - name: Run Tests 🧪
-        run: npx playwright test --fully-parallel
+        run: yarn test:e2e

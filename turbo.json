@@ -12,7 +12,6 @@
     "worker:deploy": { "outputs": [] },
     "dev": { "cache": false },
     "start": { "cache": false },
-    "test:dev": { "cache": false },
-    "test:e2e": { "dependsOn": ["^build"] }
+    "test:dev": { "cache": false }
   }
 }
