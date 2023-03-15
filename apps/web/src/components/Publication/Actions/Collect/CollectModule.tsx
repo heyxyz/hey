@@ -19,7 +19,6 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import formatAddress from '@lib/formatAddress';
 import { formatTime } from '@lib/formatTime';
 import getAssetAddress from '@lib/getAssetAddress';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
@@ -52,6 +51,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
+import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
