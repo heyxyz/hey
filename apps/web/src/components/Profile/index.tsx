@@ -2,7 +2,6 @@ import MetaTags from '@components/Common/MetaTags';
 import NftFeed from '@components/Nft/NftFeed';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
-import formatHandle from '@lib/formatHandle';
 import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
@@ -16,6 +15,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import formatHandle from 'utils/formatHandle';
 
 import Cover from './Cover';
 import Details from './Details';

@@ -17,5 +17,5 @@
     "**/*.tsx",
     "src/styles/index.css",
     "../../packages/utils/getURLs.ts"
-  ]
+, "../../packages/utils/formatHandle.ts"  ]
 }
