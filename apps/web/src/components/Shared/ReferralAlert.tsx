@@ -1,9 +1,9 @@
 import Slug from '@components/Shared/Slug';
 import { HeartIcon } from '@heroicons/react/solid';
-import formatHandle from '@lib/formatHandle';
 import { Trans } from '@lingui/macro';
 import type { ElectedMirror, Publication } from 'lens';
 import type { FC } from 'react';
+import formatHandle from 'utils/formatHandle';
 
 interface ReferralAlertProps {
   mirror: Publication;

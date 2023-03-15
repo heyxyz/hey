@@ -6,7 +6,6 @@ import {
   TypeaheadOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import formatHandle from '@lib/formatHandle';
 import imageProxy from '@lib/imageProxy';
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
@@ -17,6 +16,7 @@ import type { TextNode } from 'lexical';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import formatHandle from 'utils/formatHandle';
 import getIPFSLink from 'utils/getIPFSLink';
 import getStampFyiURL from 'utils/getStampFyiURL';
 
