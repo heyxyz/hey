@@ -35,7 +35,11 @@ const Navbar: FC = () => {
 
   const NavItem = ({ url, name, current }: NavItemProps) => {
     return (
-      <Link href={url} aria-current={current ? 'page' : undefined}>
+      <Link
+        href={url}
+        aria-current={current ? 'page' : undefined}
+        data-testid={`nav-item-${name.toLowerCase()}`}
+      >
         <Disclosure.Button
           className={clsx(
             'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',

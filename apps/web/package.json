@@ -86,7 +86,6 @@
     "lens": "*",
     "postcss": "^8.4.21",
     "prettier-plugin-tailwindcss": "^0.2.4",
-    "start-server-and-test": "^2.0.0",
     "tailwindcss": "^3.2.7",
     "tsconfig": "*",
     "typescript": "^4.9.5"
