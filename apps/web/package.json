@@ -9,9 +9,7 @@
     "start": "next start --port 4783",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
-    "extract": "lingui compile; lingui extract",
-    "test:dev": "playwright test",
-    "test:e2e": "start-server-and-test start http://localhost:4783 test:dev"
+    "extract": "lingui compile; lingui extract"
   },
   "dependencies": {
     "@apollo/client": "^3.7.10",
@@ -42,7 +40,7 @@
     "dayjs-twitter": "^0.5.0",
     "dotenv": "^16.0.3",
     "ethers": "5.6.0",
-    "framer-motion": "^10.2.5",
+    "framer-motion": "^10.3.1",
     "graphql": "^16.6.0",
     "jwt-decode": "^3.1.2",
     "lexical": "^0.9.0",
@@ -72,7 +70,6 @@
     "@babel/preset-typescript": "^7.21.0",
     "@giphy/js-types": "^4.2.1",
     "@lingui/cli": "^3.17.2",
-    "@playwright/test": "^1.31.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/line-clamp": "^0.4.2",

@@ -17,7 +17,6 @@
     "@graphql-codegen/typescript": "^3.0.2",
     "@graphql-codegen/typescript-operations": "^3.0.2",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
-    "eslint-config-weblint": "*",
     "prettier": "^2.8.4",
     "tsconfig": "*",
     "typescript": "^4.9.5"
