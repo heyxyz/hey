@@ -31,7 +31,7 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
     const files = Array.from(data);
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
-        const file = data.item(i);
+        const file = data[i];
         const params = {
           Bucket: S3_BUCKET.LENSTER_MEDIA,
           Key: uuid()
@@ -49,7 +49,7 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
     );
 
     return attachments;
-  } catch {
+  } catch (error) {
     return [];
   }
 };
