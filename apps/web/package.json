@@ -61,6 +61,7 @@
     "remark-linkify-regex": "^1.2.1",
     "strip-markdown": "^5.0.0",
     "tlds": "^1.238.0",
+    "use-resize-observer": "^9.1.0",
     "utils": "*",
     "uuid": "^9.0.0",
     "wagmi": "^0.12.2",

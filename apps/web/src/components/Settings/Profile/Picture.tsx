@@ -7,13 +7,13 @@ import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
+import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import splitSignature from '@lib/splitSignature';
-import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { AVATAR, ERROR_MESSAGE, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { getCroppedImg } from 'image-cropper/cropUtils';
-import type { Area, Size } from 'image-cropper/types';
+import type { Area } from 'image-cropper/types';
 import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from 'lens';
 import {
   useBroadcastMutation,
@@ -107,19 +107,6 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     }
   };
 
-  const uploadImage = async (image: HTMLCanvasElement): Promise<{ ipfsUrl: string; dataUrl: string }> => {
-    const blob = await new Promise((resolve) => image.toBlob(resolve));
-    let file = new File([blob as Blob], 'cropped_image.png', { type: (blob as Blob).type });
-    const attachment = await uploadToIPFS([file]);
-    if (attachment[0]?.item) {
-      const ipfsUrl = attachment[0].item;
-      const dataUrl = image.toDataURL('image/png');
-      return { ipfsUrl, dataUrl };
-    } else {
-      throw new Error('uploadToIPFS failed');
-    }
-  };
-
   const uploadAndSave = async () => {
     if (!currentProfile) {
       return toast.error(SIGN_WALLET);
@@ -131,7 +118,8 @@ const Picture: FC<PictureProps> = ({ profile }) => {
 
     try {
       setUploading(true);
-      let { ipfsUrl, dataUrl } = await uploadImage(croppedImage);
+      const ipfsUrl = await uploadCroppedImage(croppedImage);
+      const dataUrl = croppedImage.toDataURL('image/png');
 
       const request: UpdateProfileImageRequest = {
         profileId: currentProfile?.id,
@@ -160,27 +148,17 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const isLoading =
     typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading || uploading;
 
-  const readFile = (file: Blob): Promise<string> => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.addEventListener('load', () => resolve(reader.result as string), false);
-      reader.readAsDataURL(file);
-    });
-  };
-
   const onFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
+    const file = event.target.files?.[0];
+    if (file) {
+      setImageSrc(await readFile(file));
       setShowCropModal(true);
-      let imageDataUrl = await readFile(file);
-      setImageSrc(imageDataUrl);
     }
   };
 
   const profilePictureUrl = profile?.picture?.original?.url ?? profile?.picture?.uri;
   const profilePictureIpfsUrl = profilePictureUrl ? imageProxy(getIPFSLink(profilePictureUrl), AVATAR) : '';
 
-  const cropperPreviewSize: Size = { width: 240, height: 240 };
   const cropperBorderSize = 20;
 
   return (
@@ -188,7 +166,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
       <Modal
         title={t`Crop image`}
         show={showCropModal}
-        size="fit-content"
+        size="sm"
         onClose={
           isLoading
             ? undefined
@@ -202,8 +180,8 @@ const Picture: FC<PictureProps> = ({ profile }) => {
           <ImageCropperController
             imageSrc={imageSrc}
             setCroppedAreaPixels={setCroppedAreaPixels}
-            cropSize={cropperPreviewSize}
             borderSize={cropperBorderSize}
+            targetSize={{ width: 300, height: 300 }}
           />
           <Button
             type="submit"
@@ -221,14 +199,12 @@ const Picture: FC<PictureProps> = ({ profile }) => {
           <div>
             <Image
               className="rounded-lg"
-              height={cropperPreviewSize.height}
-              width={cropperPreviewSize.width}
               src={avatarDataUrl || profilePictureIpfsUrl}
               alt={t`Profile picture crop preview`}
             />
           </div>
           <div className="flex items-center space-x-3">
-            <ChooseFile onChange={(event: ChangeEvent<HTMLInputElement>) => onFileChange(event)} />
+            <ChooseFile onChange={onFileChange} />
           </div>
         </div>
       </div>

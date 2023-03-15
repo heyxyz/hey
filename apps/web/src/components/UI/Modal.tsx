@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 interface ModalProps {
   icon?: ReactNode;
   title?: ReactNode;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'fit-content';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   show: boolean;
   children: ReactNode[] | ReactNode;
   dataTestId?: string;
@@ -55,11 +55,11 @@ export const Modal: FC<ModalProps> = ({
           >
             <div
               className={clsx(
-                { 'w-full sm:max-w-5xl': size === 'lg' },
-                { 'w-full sm:max-w-3xl': size === 'md' },
-                { 'w-full sm:max-w-lg': size === 'sm' },
-                { 'w-full sm:max-w-sm': size === 'xs' },
-                'inline-block transform rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
+                { 'sm:max-w-5xl': size === 'lg' },
+                { 'sm:max-w-3xl': size === 'md' },
+                { 'sm:max-w-lg': size === 'sm' },
+                { 'sm:max-w-sm': size === 'xs' },
+                'inline-block w-full transform rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
               )}
             >
               {title && (
