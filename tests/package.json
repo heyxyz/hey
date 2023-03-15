@@ -10,7 +10,6 @@
     "@playwright/test": "^1.31.2",
     "data": "*",
     "eslint-config-weblint": "*",
-    "start-server-and-test": "^2.0.0",
     "tsconfig": "*",
     "utils": "*"
   }
