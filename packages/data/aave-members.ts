@@ -1,4 +1,5 @@
 export const aaveMembers = [
+  '0xabd0', // helpfulbrother.lens
   '0x05', // stani.lens
   '0x06', // wagmi.lens
   '0x08', // donosonaumczuk.lens
