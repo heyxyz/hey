@@ -1,10 +1,10 @@
 import { Image } from '@components/UI/Image';
-import imageProxy from '@lib/imageProxy';
 import { POLYGONSCAN_URL } from 'data/constants';
 import type { Wallet } from 'lens';
 import type { FC } from 'react';
 import formatAddress from 'utils/formatAddress';
 import getStampFyiURL from 'utils/getStampFyiURL';
+import imageProxy from 'utils/imageProxy';
 
 interface NotificationWalletProfileProps {
   wallet: Wallet;
