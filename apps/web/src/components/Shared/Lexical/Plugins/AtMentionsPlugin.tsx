@@ -6,7 +6,6 @@ import {
   TypeaheadOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import { AVATAR } from 'data/constants';
 import type { MediaSet, NftImage, Profile, ProfileSearchResult } from 'lens';
@@ -19,6 +18,7 @@ import formatHandle from 'utils/formatHandle';
 import getIPFSLink from 'utils/getIPFSLink';
 import getStampFyiURL from 'utils/getStampFyiURL';
 import imageProxy from 'utils/imageProxy';
+import isVerified from 'utils/isVerified';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 
