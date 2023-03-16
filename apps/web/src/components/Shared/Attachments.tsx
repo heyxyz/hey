@@ -1,7 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { Image } from '@components/UI/Image';
 import { LightBox } from '@components/UI/LightBox';
-import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
@@ -13,6 +12,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
+import type { NewLensterAttachment } from 'src/types';
 import getIPFSLink from 'utils/getIPFSLink';
 import imageProxy from 'utils/imageProxy';
 
