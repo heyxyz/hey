@@ -13,6 +13,7 @@ const splitNumber = (num = 1, parts = 1) => {
       return numbers;
     }
   }
+
   return numbers;
 };
 
