@@ -1,5 +1,5 @@
-import isGardener from '@lib/isGardener';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import isGardener from 'utils/isGardener';
 
 const useModMode = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
