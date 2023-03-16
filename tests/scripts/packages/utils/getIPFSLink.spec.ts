@@ -3,6 +3,10 @@ import { IPFS_GATEWAY } from 'data/constants';
 import getIPFSLink from 'utils/getIPFSLink';
 
 test.describe('getIPFSLink', async () => {
+  test('should return empty string when input hash is falsy', async () => {
+    await expect(getIPFSLink('')).toBe('');
+  });
+
   test('should return ipfs gateway link when cidV0 is found', async () => {
     const cidV0 = getIPFSLink('ipfs://QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR');
     await expect(cidV0).toBe(`${IPFS_GATEWAY}QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR`);

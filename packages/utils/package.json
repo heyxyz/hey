@@ -8,7 +8,8 @@
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {
-    "data": "*"
+    "data": "*",
+    "lens": "*"
   },
   "devDependencies": {
     "typescript": "^4.9.5",
