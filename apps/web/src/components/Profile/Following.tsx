@@ -4,13 +4,13 @@ import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { UsersIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import type { FollowingRequest, Profile } from 'lens';
 import { useFollowingQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import formatHandle from 'utils/formatHandle';
 
 interface FollowingProps {
   profile: Profile;

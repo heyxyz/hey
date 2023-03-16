@@ -11,6 +11,11 @@ const ChooseFile: FC<ChooseFileProps> = ({ onChange }) => {
       type="file"
       accept=".png, .jpg, .jpeg, .gif"
       onChange={onChange}
+      onClick={(event) => {
+        // reset the value so that an onChange event is generated also when the user selects the same filename again
+        // this allows the user to make a new attempt with the same image
+        (event.target as HTMLInputElement).value = '';
+      }}
     />
   );
 };

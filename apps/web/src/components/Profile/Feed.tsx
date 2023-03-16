@@ -4,7 +4,6 @@ import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { CollectionIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { t } from '@lingui/macro';
 import type { Profile, Publication, PublicationsQueryRequest } from 'lens';
 import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from 'lens';
@@ -13,6 +12,7 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
+import formatHandle from 'utils/formatHandle';
 
 export enum ProfileFeedType {
   Feed = 'FEED',

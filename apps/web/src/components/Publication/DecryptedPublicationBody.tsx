@@ -21,8 +21,6 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import formatHandle from '@lib/formatHandle';
-import getURLs from '@lib/getURLs';
 import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
@@ -38,7 +36,9 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
+import formatHandle from 'utils/formatHandle';
 import getIPFSLink from 'utils/getIPFSLink';
+import getURLs from 'utils/getURLs';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {

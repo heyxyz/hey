@@ -14,8 +14,6 @@ import { CogIcon, HashtagIcon, LocationMarkerIcon, UsersIcon } from '@heroicons/
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
-import formatAddress from '@lib/formatAddress';
-import formatHandle from '@lib/formatHandle';
 import getAvatar from '@lib/getAvatar';
 import getProfileAttribute from '@lib/getProfileAttribute';
 import isStaff from '@lib/isStaff';
@@ -31,6 +29,8 @@ import type { Dispatch, FC, ReactElement } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+import formatAddress from 'utils/formatAddress';
+import formatHandle from 'utils/formatHandle';
 
 import Badges from './Badges';
 import Followerings from './Followerings';

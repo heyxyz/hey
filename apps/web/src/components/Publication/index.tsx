@@ -7,7 +7,6 @@ import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import formatHandle from '@lib/formatHandle';
 import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
@@ -18,6 +17,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import formatHandle from 'utils/formatHandle';
 
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';

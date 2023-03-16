@@ -22,15 +22,16 @@
     "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
     "test:dev": "turbo run test:dev",
-    "test:e2e": "turbo run test:e2e"
+    "test:e2e": "start-server-and-test start 4783 test:dev"
   },
   "devDependencies": {
     "husky": "^8.0.3",
     "prettier": "2.8.4",
+    "start-server-and-test": "^2.0.0",
     "turbo": "1.8.3"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   },
   "packageManager": "yarn@1.22.19"
 }

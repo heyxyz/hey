@@ -5,7 +5,6 @@ import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { OptimisticTransaction } from '@generated/types';
-import getURLs from '@lib/getURLs';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import {
@@ -17,6 +16,7 @@ import {
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
+import getURLs from 'utils/getURLs';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;

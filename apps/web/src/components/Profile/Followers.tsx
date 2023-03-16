@@ -5,13 +5,13 @@ import WalletProfile from '@components/Shared/WalletProfile';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { UsersIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import type { FollowersRequest, Profile, Wallet } from 'lens';
 import { useFollowersQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import formatHandle from 'utils/formatHandle';
 
 interface FollowersProps {
   profile: Profile;
