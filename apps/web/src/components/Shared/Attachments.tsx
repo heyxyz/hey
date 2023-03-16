@@ -3,7 +3,6 @@ import { Image } from '@components/UI/Image';
 import { LightBox } from '@components/UI/LightBox';
 import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
-import imageProxy from '@lib/imageProxy';
 import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { Trans } from '@lingui/macro';
@@ -15,6 +14,7 @@ import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
+import imageProxy from 'utils/imageProxy';
 
 import Audio from './Audio';
 import Video from './Video';
