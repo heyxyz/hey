@@ -9,7 +9,6 @@ import {
   PhotographIcon
 } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
-import getProfileAttribute from '@lib/getProfileAttribute';
 import hasPrideLogo from '@lib/hasPrideLogo';
 import { APP_NAME } from 'data/constants';
 import type { Profile } from 'lens';
@@ -17,6 +16,7 @@ import type { FC } from 'react';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import getFollowModule from 'utils/getFollowModule';
+import getProfileAttribute from 'utils/getProfileAttribute';
 
 import MetaDetails from './MetaDetails';
 

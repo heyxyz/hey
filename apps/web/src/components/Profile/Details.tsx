@@ -15,7 +15,6 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import getAvatar from '@lib/getAvatar';
-import getProfileAttribute from '@lib/getProfileAttribute';
 import { t, Trans } from '@lingui/macro';
 import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
@@ -29,6 +28,7 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
+import getProfileAttribute from 'utils/getProfileAttribute';
 import isStaff from 'utils/isStaff';
 import isVerified from 'utils/isVerified';
 
