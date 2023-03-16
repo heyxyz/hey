@@ -1,12 +1,11 @@
 import { expect, test } from '@playwright/test';
 import { APP_NAME } from 'data/constants';
-
-import { BASE_URL } from '../../constants';
+import { WEB_BASE_URL } from 'test/constants';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(`${BASE_URL}/u/yoginth`);
+  await page.goto(`${WEB_BASE_URL}/contact`);
 });
 
 test('has title', async ({ page }) => {
-  await expect(page).toHaveTitle(`Yoginth (@yoginth) • ${APP_NAME}`);
+  await expect(page).toHaveTitle(`Contact • ${APP_NAME}`);
 });

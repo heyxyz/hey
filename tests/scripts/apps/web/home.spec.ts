@@ -1,10 +1,9 @@
 import { expect, test } from '@playwright/test';
 import { APP_NAME } from 'data/constants';
-
-import { BASE_URL } from '../../constants';
+import { WEB_BASE_URL } from 'test/constants';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(BASE_URL);
+  await page.goto(WEB_BASE_URL);
 });
 
 test('has title', async ({ page }) => {
