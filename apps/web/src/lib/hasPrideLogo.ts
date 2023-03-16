@@ -1,6 +1,5 @@
 import type { Profile } from 'lens';
-
-import getProfileAttribute from './getProfileAttribute';
+import getProfileAttribute from 'utils/getProfileAttribute';
 
 /**
  *
