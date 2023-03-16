@@ -1,34 +1,34 @@
 import { expect, test } from '@playwright/test';
 import getAppName from 'utils/getAppName';
 
-test.describe('getAppName', async () => {
-  test('should capitalize first character and replace hyphen with a space in a string', async () => {
+test.describe('getAppName', () => {
+  test('should capitalize first character and replace hyphen with a space in a string', () => {
     const inputString = 'my-app';
     const expectedOutput = 'My app';
-    await expect(getAppName(inputString)).toBe(expectedOutput);
+    expect(getAppName(inputString)).toBe(expectedOutput);
   });
 
-  test('should handle empty string as input', async () => {
+  test('should handle empty string as input', () => {
     const inputString = '';
     const expectedOutput = '';
-    await expect(getAppName(inputString)).toBe(expectedOutput);
+    expect(getAppName(inputString)).toBe(expectedOutput);
   });
 
-  test('should handle single character as input', async () => {
+  test('should handle single character as input', () => {
     const inputString = 'a';
     const expectedOutput = 'A';
-    await expect(getAppName(inputString)).toBe(expectedOutput);
+    expect(getAppName(inputString)).toBe(expectedOutput);
   });
 
-  test('should handle input with no hyphens and only a single character', async () => {
+  test('should handle input with no hyphens and only a single character', () => {
     const inputString = 'word';
     const expectedOutput = 'Word';
-    await expect(getAppName(inputString)).toBe(expectedOutput);
+    expect(getAppName(inputString)).toBe(expectedOutput);
   });
 
-  test('should handle input with multiple hyphens', async () => {
+  test('should handle input with multiple hyphens', () => {
     const inputString = 'one-two-three-four';
     const expectedOutput = 'One two three four';
-    await expect(getAppName(inputString)).toBe(expectedOutput);
+    expect(getAppName(inputString)).toBe(expectedOutput);
   });
 });

@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import type { Attribute } from 'lens';
 import getProfileAttribute from 'utils/getProfileAttribute';
 
-test.describe('getProfileAttribute', async () => {
+test.describe('getProfileAttribute', () => {
   test('should return the attribute value from a trait if key is valid', () => {
     const attributes: Attribute[] = [
       { key: 'hasPrideLogo', value: 'true' },
