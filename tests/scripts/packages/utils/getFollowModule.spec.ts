@@ -1,29 +1,29 @@
 import { expect, test } from '@playwright/test';
 import getFollowModule from 'utils/getFollowModule';
 
-test.describe('getFollowModule', async () => {
-  test('should return correct module for ProfileFollowModuleSettings', async () => {
+test.describe('getFollowModule', () => {
+  test('should return correct module for ProfileFollowModuleSettings', () => {
     const result = getFollowModule('ProfileFollowModuleSettings');
-    await expect(result.description).toEqual('Only Lens profiles can follow');
+    expect(result.description).toEqual('Only Lens profiles can follow');
   });
 
-  test('should return correct module for FeeFollowModuleSettings', async () => {
+  test('should return correct module for FeeFollowModuleSettings', () => {
     const result = getFollowModule('FeeFollowModuleSettings');
-    await expect(result.description).toEqual('Charge to follow');
+    expect(result.description).toEqual('Charge to follow');
   });
 
-  test('should return correct module for RevertFollowModuleSettings', async () => {
+  test('should return correct module for RevertFollowModuleSettings', () => {
     const result = getFollowModule('RevertFollowModuleSettings');
-    await expect(result.description).toEqual('No one can follow');
+    expect(result.description).toEqual('No one can follow');
   });
 
-  test('should return correct default module when name is undefined', async () => {
+  test('should return correct default module when name is undefined', () => {
     const result = getFollowModule();
-    await expect(result.description).toEqual('Anyone can follow');
+    expect(result.description).toEqual('Anyone can follow');
   });
 
-  test('should return correct default module when name does not match known modules', async () => {
+  test('should return correct default module when name does not match known modules', () => {
     const result = getFollowModule('InvalidModuleName');
-    await expect(result.description).toEqual('Anyone can follow');
+    expect(result.description).toEqual('Anyone can follow');
   });
 });
