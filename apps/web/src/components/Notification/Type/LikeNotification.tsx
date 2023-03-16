@@ -1,6 +1,5 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import type { MessageDescriptor } from '@generated/types';
 import { SunIcon } from '@heroicons/react/outline';
 import { HeartIcon } from '@heroicons/react/solid';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
@@ -10,6 +9,7 @@ import { Trans } from '@lingui/react';
 import type { NewReactionNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 
