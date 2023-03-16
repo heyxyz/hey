@@ -1,9 +1,8 @@
 import { expect, test } from '@playwright/test';
-
-import { BASE_URL } from '../../constants';
+import { WEB_BASE_URL } from 'test/constants';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(BASE_URL);
+  await page.goto(WEB_BASE_URL);
 });
 
 test('global search', async ({ page }) => {
@@ -33,14 +32,14 @@ test.describe('navigation items', () => {
     const navItemHome = page.getByTestId('nav-item-home');
     await navItemHome.click();
     await page.waitForLoadState('networkidle');
-    await expect(page.url()).toBe(`${BASE_URL}/`);
+    await expect(page.url()).toBe(`${WEB_BASE_URL}/`);
   });
 
   test('explore', async ({ page }) => {
     const navItemExplore = page.getByTestId('nav-item-explore');
     await navItemExplore.click();
     await page.waitForLoadState('networkidle');
-    await expect(page.url()).toBe(`${BASE_URL}/explore`);
+    await expect(page.url()).toBe(`${WEB_BASE_URL}/explore`);
   });
 
   test('more', async ({ page }) => {
