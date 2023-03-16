@@ -1,4 +1,4 @@
-import type { NewLensterAttachment } from '@generated/types';
+import type { NewLensterAttachment } from 'src/types';
 import { create } from 'zustand';
 
 interface PublicationState {

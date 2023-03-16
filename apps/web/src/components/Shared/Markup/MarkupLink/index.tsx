@@ -1,4 +1,4 @@
-import type { MarkupLinkProps } from '@generated/types';
+import type { MarkupLinkProps } from 'src/types';
 
 import ExternalLink from './ExternalLink';
 import Hashtag from './Hashtag';
