@@ -17,7 +17,6 @@ import { buildConversationKey } from '@lib/conversationKey';
 import getAvatar from '@lib/getAvatar';
 import getProfileAttribute from '@lib/getProfileAttribute';
 import isStaff from '@lib/isStaff';
-import isVerified from '@lib/isVerified';
 import { t, Trans } from '@lingui/macro';
 import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
@@ -31,6 +30,7 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
+import isVerified from 'utils/isVerified';
 
 import Badges from './Badges';
 import Followerings from './Followerings';

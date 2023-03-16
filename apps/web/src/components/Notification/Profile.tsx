@@ -1,11 +1,11 @@
 import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
-import isVerified from '@lib/isVerified';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import formatHandle from 'utils/formatHandle';
+import isVerified from 'utils/isVerified';
 
 interface NotificationProfileProps {
   profile: Profile;
