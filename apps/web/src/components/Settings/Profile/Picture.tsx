@@ -6,7 +6,6 @@ import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import getSignature from '@lib/getSignature';
-import imageProxy from '@lib/imageProxy';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -28,6 +27,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import getIPFSLink from 'utils/getIPFSLink';
+import imageProxy from 'utils/imageProxy';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import ImageCropperController from './ImageCropperController';

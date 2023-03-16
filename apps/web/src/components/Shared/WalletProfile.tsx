@@ -1,11 +1,11 @@
 import { Image } from '@components/UI/Image';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
-import imageProxy from '@lib/imageProxy';
 import { POLYGONSCAN_URL } from 'data/constants';
 import type { Wallet } from 'lens';
 import type { FC } from 'react';
 import formatAddress from 'utils/formatAddress';
 import getStampFyiURL from 'utils/getStampFyiURL';
+import imageProxy from 'utils/imageProxy';
 
 import Slug from './Slug';
 

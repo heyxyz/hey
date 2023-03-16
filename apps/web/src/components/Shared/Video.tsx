@@ -1,10 +1,10 @@
 import 'plyr-react/plyr.css';
 
-import imageProxy from '@lib/imageProxy';
 import Plyr from 'plyr-react';
 import type { FC } from 'react';
 import { memo } from 'react';
 import getIPFSLink from 'utils/getIPFSLink';
+import imageProxy from 'utils/imageProxy';
 
 interface VideoProps {
   src: string;
