@@ -8,7 +8,6 @@ import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
-import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
@@ -23,6 +22,7 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import getSignature from 'utils/getSignature';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
