@@ -10,7 +10,7 @@ jobs:
   ci:
     name: CI
     timeout-minutes: 60
-    runs-on: self-hosted
+    runs-on: macos-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v3
