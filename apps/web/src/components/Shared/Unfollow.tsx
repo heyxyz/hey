@@ -1,7 +1,6 @@
 import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { UserRemoveIcon } from '@heroicons/react/outline';
-import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -17,6 +16,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
+import getSignature from 'utils/getSignature';
 import { useSigner, useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {

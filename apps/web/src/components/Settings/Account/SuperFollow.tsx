@@ -4,7 +4,6 @@ import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
-import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -23,6 +22,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import getSignature from 'utils/getSignature';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
