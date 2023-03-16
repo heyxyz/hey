@@ -4,13 +4,13 @@ import { Button } from '@components/UI/Button';
 import { Input } from '@components/UI/Input';
 import { PlusIcon, SwitchHorizontalIcon, UsersIcon, XCircleIcon } from '@heroicons/react/outline';
 import isValidEthAddress from '@lib/isValidEthAddress';
-import splitNumber from '@lib/splitNumber';
 import { t, Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
 import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import splitNumber from 'utils/splitNumber';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
