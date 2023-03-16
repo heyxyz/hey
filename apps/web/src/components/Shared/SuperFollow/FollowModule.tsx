@@ -3,7 +3,6 @@ import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
-import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -26,6 +25,7 @@ import { PROFILE } from 'src/tracking';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import getSignature from 'utils/getSignature';
+import getTokenImage from 'utils/getTokenImage';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';
