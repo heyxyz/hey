@@ -20,9 +20,4 @@ test.describe('getProfileAttribute', async () => {
     const attributes = undefined;
     expect(getProfileAttribute(attributes, 'app')).toEqual('');
   });
-
-  test('should return an empty string when attributes are undefined', () => {
-    const attributes = undefined;
-    expect(getProfileAttribute(attributes, 'app')).toEqual('');
-  });
 });
