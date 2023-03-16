@@ -1,7 +1,6 @@
 import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import getAvatar from '@lib/getAvatar';
-import isVerified from '@lib/isVerified';
 import nFormatter from '@lib/nFormatter';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
@@ -10,6 +9,7 @@ import { useProfileLazyQuery } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import formatHandle from 'utils/formatHandle';
+import isVerified from 'utils/isVerified';
 
 import Follow, { FollowSource } from './Follow';
 import Markup from './Markup';
