@@ -1,6 +1,5 @@
 import type { OptimisticTransaction } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
-import getThumbnailUrl from '@lib/getThumbnailUrl';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
@@ -10,6 +9,7 @@ import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import getPublicationAttribute from 'utils/getPublicationAttribute';
+import getThumbnailUrl from 'utils/getThumbnailUrl';
 import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';
