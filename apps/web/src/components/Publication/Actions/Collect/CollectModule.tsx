@@ -20,7 +20,6 @@ import {
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { formatTime } from '@lib/formatTime';
-import getAssetAddress from '@lib/getAssetAddress';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import getSignature from '@lib/getSignature';
 import getTokenImage from '@lib/getTokenImage';
@@ -53,6 +52,7 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
+import getAssetAddress from 'utils/getAssetAddress';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Splits from './Splits';
