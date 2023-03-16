@@ -1,5 +1,5 @@
-import type { OG } from '@generated/types';
 import type { FC } from 'react';
+import type { OG } from 'src/types';
 
 interface PlayerProps {
   og: OG;

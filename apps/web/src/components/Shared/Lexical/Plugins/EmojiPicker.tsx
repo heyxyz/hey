@@ -1,4 +1,3 @@
-import type { Emoji } from '@generated/types';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,
@@ -12,6 +11,7 @@ import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import type { Emoji } from 'src/types';
 
 class EmojiOption extends TypeaheadOption {
   title: string;

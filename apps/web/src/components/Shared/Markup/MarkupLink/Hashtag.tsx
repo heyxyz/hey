@@ -1,9 +1,9 @@
-import type { MarkupLinkProps } from '@generated/types';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import { hashflags } from 'data/hashflags';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MarkupLinkProps } from 'src/types';
 
 const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
   if (!title) {

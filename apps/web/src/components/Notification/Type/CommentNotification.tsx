@@ -1,6 +1,5 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import type { MessageDescriptor } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/solid';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
@@ -8,6 +7,7 @@ import { Trans } from '@lingui/react';
 import type { NewCommentNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 

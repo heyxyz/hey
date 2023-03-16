@@ -1,11 +1,11 @@
 import Username from '@components/Shared/Username';
-import type { MessageDescriptor } from '@generated/types';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import type { Mirror } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MessageDescriptor } from 'src/types';
 
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
