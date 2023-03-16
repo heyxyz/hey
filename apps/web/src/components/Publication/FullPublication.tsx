@@ -1,9 +1,9 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { formatTime } from '@lib/formatTime';
-import getAppName from '@lib/getAppName';
 import dayjs from 'dayjs';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
+import getAppName from 'utils/getAppName';
 
 import PublicationActions from './Actions';
 import PublicationMenu from './Actions/Menu';
