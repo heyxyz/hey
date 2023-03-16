@@ -4,7 +4,7 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "test:dev": "playwright test"
+    "test:dev": "playwright test --workers 4"
   },
   "devDependencies": {
     "@playwright/test": "^1.31.2",

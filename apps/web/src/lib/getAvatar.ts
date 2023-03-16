@@ -1,8 +1,7 @@
 import { AVATAR, ZERO_ADDRESS } from 'data/constants';
 import getIPFSLink from 'utils/getIPFSLink';
 import getStampFyiURL from 'utils/getStampFyiURL';
-
-import imageProxy from './imageProxy';
+import imageProxy from 'utils/imageProxy';
 
 const skipList = [
   'static-assets.lenster.xyz',

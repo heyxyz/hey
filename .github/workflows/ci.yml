@@ -4,12 +4,13 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   ci:
     name: CI
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v3
