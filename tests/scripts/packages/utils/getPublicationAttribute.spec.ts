@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import type { MetadataAttributeOutput } from 'lens';
 import getPublicationAttribute from 'utils/getPublicationAttribute';
 
-test.describe('getPublicationAttribute', async () => {
+test.describe('getPublicationAttribute', () => {
   const attributes: MetadataAttributeOutput[] = [
     { traitType: 'type', value: 'book' },
     { traitType: 'author', value: 'John Doe' },
