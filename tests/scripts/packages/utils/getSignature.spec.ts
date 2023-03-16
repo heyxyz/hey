@@ -1,20 +1,20 @@
 import { expect, test } from '@playwright/test';
 import getSignature from 'utils/getSignature';
 
-test.describe('getSignature', async () => {
-  test('should return an object with domain, types, and value keys', async () => {
+test.describe('getSignature', () => {
+  test('should return an object with domain, types, and value keys', () => {
     const result = getSignature({
       domain: {},
       types: {},
       value: {}
     });
 
-    await expect(result).toHaveProperty('domain');
-    await expect(result).toHaveProperty('types');
-    await expect(result).toHaveProperty('value');
+    expect(result).toHaveProperty('domain');
+    expect(result).toHaveProperty('types');
+    expect(result).toHaveProperty('value');
   });
 
-  test('should remove __typename property from domain, types, and value properties', async () => {
+  test('should remove __typename property from domain, types, and value properties', () => {
     const input = {
       domain: { key: 'value', __typename: 'Domain' },
       types: { key: 'value', __typename: 'Types' },
@@ -22,7 +22,7 @@ test.describe('getSignature', async () => {
     };
     const result = getSignature(input);
 
-    await expect(result).toEqual({
+    expect(result).toEqual({
       domain: { key: 'value' },
       types: { key: 'value' },
       value: { key: 'value' }

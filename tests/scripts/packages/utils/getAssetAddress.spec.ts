@@ -2,40 +2,40 @@ import { expect, test } from '@playwright/test';
 import { MAINNET_DEFAULT_TOKEN } from 'data/contracts';
 import getAssetAddress from 'utils/getAssetAddress';
 
-test.describe('getAssetAddress', async () => {
-  test('should return MAINNET_DEFAULT_TOKEN for WMATIC', async () => {
+test.describe('getAssetAddress', () => {
+  test('should return MAINNET_DEFAULT_TOKEN for WMATIC', () => {
     const symbol = 'WMATIC';
     const result = getAssetAddress(symbol);
-    await expect(result).toEqual(MAINNET_DEFAULT_TOKEN);
+    expect(result).toEqual(MAINNET_DEFAULT_TOKEN);
   });
 
-  test("should return '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' for WETH", async () => {
+  test("should return '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' for WETH", () => {
     const symbol = 'WETH';
     const result = getAssetAddress(symbol);
-    await expect(result).toEqual('0x7ceb23fd6bc0add59e62ac25578270cff1b9f619');
+    expect(result).toEqual('0x7ceb23fd6bc0add59e62ac25578270cff1b9f619');
   });
 
-  test("should return '0x2791bca1f2de4661ed88a30c99a7a9449aa84174' for USDC", async () => {
+  test("should return '0x2791bca1f2de4661ed88a30c99a7a9449aa84174' for USDC", () => {
     const symbol = 'USDC';
     const result = getAssetAddress(symbol);
-    await expect(result).toEqual('0x2791bca1f2de4661ed88a30c99a7a9449aa84174');
+    expect(result).toEqual('0x2791bca1f2de4661ed88a30c99a7a9449aa84174');
   });
 
-  test("should return '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063' for DAI", async () => {
+  test("should return '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063' for DAI", () => {
     const symbol = 'DAI';
     const result = getAssetAddress(symbol);
-    await expect(result).toEqual('0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063');
+    expect(result).toEqual('0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063');
   });
 
-  test("should return '0xD838290e877E0188a4A44700463419ED96c16107' for NCT", async () => {
+  test("should return '0xD838290e877E0188a4A44700463419ED96c16107' for NCT", () => {
     const symbol = 'NCT';
     const result = getAssetAddress(symbol);
-    await expect(result).toEqual('0xD838290e877E0188a4A44700463419ED96c16107');
+    expect(result).toEqual('0xD838290e877E0188a4A44700463419ED96c16107');
   });
 
-  test('should return MAINNET_DEFAULT_TOKEN for any other symbol', async () => {
+  test('should return MAINNET_DEFAULT_TOKEN for any other symbol', () => {
     const symbol = 'FOO';
     const result = getAssetAddress(symbol);
-    await expect(result).toEqual(MAINNET_DEFAULT_TOKEN);
+    expect(result).toEqual(MAINNET_DEFAULT_TOKEN);
   });
 });
