@@ -1,7 +1,7 @@
-import imageProxy from '@lib/imageProxy';
 import { COVER, STATIC_IMAGES_URL } from 'data/constants';
 import type { FC } from 'react';
 import getIPFSLink from 'utils/getIPFSLink';
+import imageProxy from 'utils/imageProxy';
 
 interface CoverProps {
   cover: string;
