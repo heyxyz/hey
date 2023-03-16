@@ -2,7 +2,6 @@ import { i18n } from '@lingui/core';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
-// @ts-ignore
 import dayjsTwitter from 'dayjs-twitter';
 
 dayjs.extend(relativeTime);

@@ -4,7 +4,6 @@ import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
 import { Tooltip } from '@components/UI/Tooltip';
-import type { OptimisticTransaction } from '@generated/types';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import {
@@ -16,6 +15,7 @@ import {
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
+import type { OptimisticTransaction } from 'src/types';
 import getURLs from 'utils/getURLs';
 
 interface QueuedPublicationProps {

@@ -1,7 +1,7 @@
 import { S3 } from '@aws-sdk/client-s3';
-import type { LensterAttachment } from '@generated/types';
 import axios from 'axios';
 import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
+import type { LensterAttachment } from 'src/types';
 import { v4 as uuid } from 'uuid';
 
 const getS3Client = async () => {

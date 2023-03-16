@@ -1,7 +1,7 @@
-import type { MarkupLinkProps } from '@generated/types';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MarkupLinkProps } from 'src/types';
 
 const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
   if (!href) {
