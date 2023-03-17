@@ -3,16 +3,7 @@ import getIPFSLink from 'utils/getIPFSLink';
 import getStampFyiURL from 'utils/getStampFyiURL';
 import imageProxy from 'utils/imageProxy';
 
-const skipList = [
-  'static-assets.lenster.xyz',
-  'avataaars.io',
-  'avatar.tobi.sh',
-  'media.giphy.com',
-  'media1.giphy.com',
-  'media2.giphy.com',
-  'media3.giphy.com',
-  'media4.giphy.com'
-];
+const skipList = ['static-assets.lenster.xyz', 'avataaars.io', 'avatar.tobi.sh'];
 
 /**
  *

@@ -3,7 +3,6 @@ import { Card } from '@components/UI/Card';
 import { Image } from '@components/UI/Image';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import { formatTime } from '@lib/formatTime';
-import getAvatar from '@lib/getAvatar';
 import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
@@ -13,6 +12,7 @@ import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import formatHandle from 'utils/formatHandle';
+import getAvatar from 'utils/getAvatar';
 
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');

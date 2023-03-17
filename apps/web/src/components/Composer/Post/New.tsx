@@ -3,7 +3,6 @@ import { Image } from '@components/UI/Image';
 import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { PencilAltIcon } from '@heroicons/react/outline';
-import getAvatar from '@lib/getAvatar';
 import { t, Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -11,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 import formatHandle from 'utils/formatHandle';
+import getAvatar from 'utils/getAvatar';
 
 import NewPublication from '../NewPublication';
 
