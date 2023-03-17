@@ -9,10 +9,10 @@ import {
 } from '@apollo/client';
 import { RetryLink } from '@apollo/client/link/retry';
 import { cursorBasedPagination } from '@lib/cursorBasedPagination';
-import { publicationKeyFields } from '@lib/keyFields';
 import axios from 'axios';
 import { API_URL, LS_KEYS } from 'data/constants';
 import result from 'lens';
+import { publicationKeyFields } from 'utils/keyFields';
 import parseJwt from 'utils/parseJwt';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
