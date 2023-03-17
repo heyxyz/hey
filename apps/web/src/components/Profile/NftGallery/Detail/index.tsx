@@ -4,8 +4,6 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Image } from '@components/UI/Image';
-import getAvatar from '@lib/getAvatar';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
@@ -16,6 +14,8 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import formatHandle from 'utils/formatHandle';
+import getAvatar from 'utils/getAvatar';
+import isFeatureEnabled from 'utils/isFeatureEnabled';
 
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

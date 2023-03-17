@@ -2,10 +2,7 @@ import type { ApolloCache } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
-import hasGm from '@lib/hasGm';
-import { publicationKeyFields } from '@lib/keyFields';
 import { Mixpanel } from '@lib/mixpanel';
-import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -20,6 +17,9 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
+import hasGm from 'utils/hasGm';
+import { publicationKeyFields } from 'utils/keyFields';
+import nFormatter from 'utils/nFormatter';
 
 interface LikeProps {
   publication: Publication;

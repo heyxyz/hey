@@ -1,10 +1,10 @@
 import { Modal } from '@components/UI/Modal';
 import { UsersIcon } from '@heroicons/react/outline';
-import humanize from '@lib/humanize';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
+import humanize from 'utils/humanize';
 
 import Followers from './Followers';
 import Following from './Following';

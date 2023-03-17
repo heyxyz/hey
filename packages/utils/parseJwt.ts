@@ -17,8 +17,7 @@ const parseJwt = (
 } => {
   try {
     return JSON.parse(decoded(token.split('.')[1]));
-  } catch (error) {
-    console.error(error);
+  } catch {
     return { exp: 0 };
   }
 };
