@@ -2,7 +2,6 @@ import type { ApolloCache } from '@apollo/client';
 import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { publicationKeyFields } from '@lib/keyFields';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -24,6 +23,7 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import getSignature from 'utils/getSignature';
 import humanize from 'utils/humanize';
+import { publicationKeyFields } from 'utils/keyFields';
 import nFormatter from 'utils/nFormatter';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
