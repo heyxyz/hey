@@ -1,6 +1,5 @@
 import { Image } from '@components/UI/Image';
 import { XIcon } from '@heroicons/react/outline';
-import getAvatar from '@lib/getAvatar';
 import { Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import Link from 'next/link';
@@ -8,6 +7,7 @@ import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import formatHandle from 'utils/formatHandle';
+import getAvatar from 'utils/getAvatar';
 import isGardener from 'utils/isGardener';
 import isStaff from 'utils/isStaff';
 
