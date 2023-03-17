@@ -4,7 +4,6 @@ import { Tooltip } from '@components/UI/Tooltip';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { publicationKeyFields } from '@lib/keyFields';
 import { Mixpanel } from '@lib/mixpanel';
-import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
@@ -25,6 +24,7 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import getSignature from 'utils/getSignature';
 import humanize from 'utils/humanize';
+import nFormatter from 'utils/nFormatter';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {
