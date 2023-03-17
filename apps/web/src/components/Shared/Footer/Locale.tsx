@@ -1,13 +1,13 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
 import { setLocale, supportedLocales } from '@lib/i18n';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { MISCELLANEOUS } from 'src/tracking';
+import isFeatureEnabled from 'utils/isFeatureEnabled';
 
 import MenuTransition from '../MenuTransition';
 
