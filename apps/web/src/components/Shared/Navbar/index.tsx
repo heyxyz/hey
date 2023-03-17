@@ -3,7 +3,6 @@ import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import hasPrideLogo from '@lib/hasPrideLogo';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -12,6 +11,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import formatHandle from 'utils/formatHandle';
+import hasPrideLogo from 'utils/hasPrideLogo';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
