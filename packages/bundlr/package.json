@@ -16,6 +16,6 @@
   "devDependencies": {
     "@types/secp256k1": "^4.0.3",
     "eslint-config-weblint": "*",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   }
 }

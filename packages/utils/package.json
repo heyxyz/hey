@@ -12,8 +12,8 @@
     "lens": "*"
   },
   "devDependencies": {
-    "typescript": "^4.9.5",
     "eslint-config-weblint": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "typescript": "^5.0.2"
   }
 }
