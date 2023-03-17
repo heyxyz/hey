@@ -1,6 +1,5 @@
 import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import getAvatar from '@lib/getAvatar';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -8,6 +7,7 @@ import { useProfileLazyQuery } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import formatHandle from 'utils/formatHandle';
+import getAvatar from 'utils/getAvatar';
 import isVerified from 'utils/isVerified';
 import nFormatter from 'utils/nFormatter';
 
