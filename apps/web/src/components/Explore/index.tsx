@@ -4,7 +4,6 @@ import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Tab } from '@headlessui/react';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -17,6 +16,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { EXPLORE, PAGEVIEW } from 'src/tracking';
+import isFeatureEnabled from 'utils/isFeatureEnabled';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
