@@ -1,4 +1,4 @@
-import humanize from './humanize';
+import humanize from 'utils/humanize';
 
 /**
  *

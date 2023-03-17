@@ -21,7 +21,6 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -53,6 +52,7 @@ import formatHandle from 'utils/formatHandle';
 import getAssetAddress from 'utils/getAssetAddress';
 import getSignature from 'utils/getSignature';
 import getTokenImage from 'utils/getTokenImage';
+import humanize from 'utils/humanize';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Splits from './Splits';

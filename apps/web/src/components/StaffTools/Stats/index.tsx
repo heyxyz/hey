@@ -14,7 +14,6 @@ import {
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
-import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -25,6 +24,7 @@ import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
+import humanize from 'utils/humanize';
 
 import StaffToolsSidebar from '../Sidebar';
 
