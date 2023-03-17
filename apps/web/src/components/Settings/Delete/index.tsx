@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import UserProfile from '@components/Shared/UserProfile';
-import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Modal } from '@components/UI/Modal';
@@ -14,6 +13,7 @@ import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
+import { Button } from 'components/Button';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
 import type { FC } from 'react';

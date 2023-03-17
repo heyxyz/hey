@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { Form, useZodForm } from '@components/UI/Form';
 import { Input } from '@components/UI/Input';
@@ -9,6 +8,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
+import { Button } from 'components/Button';
 import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { Erc20 } from 'lens';
 import {

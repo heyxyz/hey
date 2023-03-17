@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Form, useZodForm } from '@components/UI/Form';
@@ -9,6 +8,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
+import { Button } from 'components/Button';
 import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
 import type { FC } from 'react';

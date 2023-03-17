@@ -1,6 +1,6 @@
-import { Button } from '@components/UI/Button';
 import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
+import { Button } from 'components/Button';
 import type { FC } from 'react';
 import { useAuthStore } from 'src/store/auth';
 import { AUTH } from 'src/tracking';

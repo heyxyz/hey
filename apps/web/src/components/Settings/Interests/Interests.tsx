@@ -1,10 +1,10 @@
 import { useApolloClient } from '@apollo/client';
-import { Button } from '@components/UI/Button';
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
+import { Button } from 'components/Button';
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,

@@ -1,10 +1,10 @@
 import { useApolloClient } from '@apollo/client';
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Button } from '@components/UI/Button';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { Button } from 'components/Button';
 import { ERROR_MESSAGE } from 'data/constants';
 import type { Nft, NftGallery } from 'lens';
 import {

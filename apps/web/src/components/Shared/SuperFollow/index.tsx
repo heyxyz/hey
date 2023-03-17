@@ -1,8 +1,8 @@
-import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { StarIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
+import { Button } from 'components/Button';
 import type { Profile } from 'lens';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';

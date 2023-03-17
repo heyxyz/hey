@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Button } from '@components/UI/Button';
 import { HomeIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
+import { Button } from 'components/Button';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';

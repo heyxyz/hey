@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { Image } from '@components/UI/Image';
 import { LightBox } from '@components/UI/LightBox';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
@@ -6,6 +5,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { Button } from 'components/Button';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
 import type { MediaSet, Publication } from 'lens';
 import type { FC } from 'react';

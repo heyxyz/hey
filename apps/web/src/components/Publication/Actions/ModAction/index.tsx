@@ -1,6 +1,5 @@
 import Slug from '@components/Shared/Slug';
 import { Alert } from '@components/UI/Alert';
-import { Button } from '@components/UI/Button';
 import {
   BanIcon,
   ExclamationCircleIcon,
@@ -13,6 +12,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { Button } from 'components/Button';
 import type { Publication } from 'lens';
 import {
   PublicationReportingFraudSubreason,

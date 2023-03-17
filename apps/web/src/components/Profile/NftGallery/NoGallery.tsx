@@ -1,5 +1,5 @@
-import { Button } from '@components/UI/Button';
 import { Trans } from '@lingui/macro';
+import { Button } from 'components/Button';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';

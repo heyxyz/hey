@@ -1,11 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { Checkbox } from '@components/UI/Checkbox';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
+import { Button } from 'components/Button';
 import { APP_NAME } from 'data/constants';
 import { CustomFiltersTypes, PublicationTypes } from 'lens';
 import type { NextPage } from 'next';

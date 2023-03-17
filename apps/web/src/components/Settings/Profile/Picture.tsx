@@ -1,5 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { Button } from '@components/UI/Button';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Image } from '@components/UI/Image';
 import { Modal } from '@components/UI/Modal';
@@ -11,6 +10,7 @@ import splitSignature from '@lib/splitSignature';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
+import { Button } from 'components/Button';
 import { AVATAR, ERROR_MESSAGE, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { getCroppedImg } from 'image-cropper/cropUtils';
 import type { Area, Size } from 'image-cropper/types';

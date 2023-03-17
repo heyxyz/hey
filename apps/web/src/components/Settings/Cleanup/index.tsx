@@ -1,10 +1,10 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Button } from '@components/UI/Button';
 import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
+import { Button } from 'components/Button';
 import { APP_NAME, LS_KEYS } from 'data/constants';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';

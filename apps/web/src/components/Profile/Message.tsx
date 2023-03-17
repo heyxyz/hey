@@ -1,5 +1,5 @@
-import { Button } from '@components/UI/Button';
 import { MailIcon } from '@heroicons/react/outline';
+import { Button } from 'components/Button';
 import type { FC } from 'react';
 
 interface MessageProps {
