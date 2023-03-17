@@ -2,7 +2,6 @@ import type { ApolloCache } from '@apollo/client';
 import { Tooltip } from '@components/UI/Tooltip';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
-import { publicationKeyFields } from '@lib/keyFields';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
@@ -19,6 +18,7 @@ import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
 import hasGm from 'utils/hasGm';
+import { publicationKeyFields } from 'utils/keyFields';
 import nFormatter from 'utils/nFormatter';
 
 interface LikeProps {
