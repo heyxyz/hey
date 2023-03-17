@@ -4,7 +4,6 @@ import { Button } from '@components/UI/Button';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
-import trimify from '@lib/trimify';
 import { t, Trans } from '@lingui/macro';
 import { ERROR_MESSAGE } from 'data/constants';
 import type { NftGallery } from 'lens';
@@ -20,6 +19,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
+import trimify from 'utils/trimify';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';
