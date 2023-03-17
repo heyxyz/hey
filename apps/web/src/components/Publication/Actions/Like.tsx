@@ -4,7 +4,6 @@ import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
 import { publicationKeyFields } from '@lib/keyFields';
 import { Mixpanel } from '@lib/mixpanel';
-import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -20,6 +19,7 @@ import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
 import hasGm from 'utils/hasGm';
+import nFormatter from 'utils/nFormatter';
 
 interface LikeProps {
   publication: Publication;
