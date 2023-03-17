@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {
-    "typescript": "4.9.5"
+    "typescript": "5.0.2"
   },
   "devDependencies": {
     "eslint-config-weblint": "*",

@@ -19,6 +19,6 @@
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "prettier": "^2.8.4",
     "tsconfig": "*",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   }
 }
