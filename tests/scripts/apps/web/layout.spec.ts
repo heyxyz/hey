@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto(WEB_BASE_URL);
 });
 
-test('global search', async ({ page }) => {
+test('should have global search', async ({ page }) => {
   const globalSearch = page.getByTestId('global-search');
   await expect(globalSearch).toBeVisible();
 
@@ -16,7 +16,7 @@ test('global search', async ({ page }) => {
   await expect(searchProfilesDropdown.getByTestId('search-profile-yoginth')).toContainText('Yoginth');
 });
 
-test('login button', async ({ page }) => {
+test('should have login button', async ({ page }) => {
   const loginButton = page.getByTestId('login-button');
   await expect(loginButton).toContainText('Login');
 
@@ -28,21 +28,21 @@ test('login button', async ({ page }) => {
 });
 
 test.describe('navigation items', () => {
-  test('home', async ({ page }) => {
+  test('should have home menu', async ({ page }) => {
     const navItemHome = page.getByTestId('nav-item-home');
     await navItemHome.click();
     await page.waitForLoadState('networkidle');
     await expect(page.url()).toBe(`${WEB_BASE_URL}/`);
   });
 
-  test('explore', async ({ page }) => {
+  test('should have explore menu', async ({ page }) => {
     const navItemExplore = page.getByTestId('nav-item-explore');
     await navItemExplore.click();
     await page.waitForLoadState('networkidle');
     await expect(page.url()).toBe(`${WEB_BASE_URL}/explore`);
   });
 
-  test('more', async ({ page }) => {
+  test('should have more menu', async ({ page }) => {
     const navItemMore = page.getByTestId('nav-item-more');
     await navItemMore.click();
 
