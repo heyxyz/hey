@@ -1,5 +1,4 @@
 import Slug from '@components/Shared/Slug';
-import { Alert } from '@components/UI/Alert';
 import {
   BanIcon,
   ExclamationCircleIcon,
@@ -25,6 +24,7 @@ import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
+import { Alert } from 'ui/Alert';
 import { Button } from 'ui/Button';
 
 interface ModActionProps {
