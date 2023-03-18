@@ -14,6 +14,7 @@
     "dev": "turbo run dev --parallel",
     "start": "turbo run start --parallel",
     "lint": "turbo run lint --parallel",
+    "lint:fix": "turbo run lint:fix --parallel",
     "typecheck": "turbo run typecheck --parallel",
     "codegen": "turbo run codegen",
     "i18n:extract": "turbo run extract",

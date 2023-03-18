@@ -6,7 +6,8 @@
   "scripts": {
     "worker:deploy": "wrangler publish",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230307.0",
