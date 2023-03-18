@@ -31,7 +31,10 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, className 
     : publication?.createdAt;
 
   return (
-    <div className={clsx('flex justify-between space-x-1.5', className)}>
+    <div
+      className={clsx('flex justify-between space-x-1.5', className)}
+      data-testid={`publication-${publication.id}-header`}
+    >
       <span onClick={stopEventPropagation}>
         <UserProfile profile={profile} timestamp={timestamp} showStatus />
       </span>

@@ -6,6 +6,6 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${WEB_BASE_URL}/privacy`);
 });
 
-test('has title', async ({ page }) => {
+test('should have page title', async ({ page }) => {
   await expect(page).toHaveTitle(`Privacy Policy • ${APP_NAME}`);
 });
