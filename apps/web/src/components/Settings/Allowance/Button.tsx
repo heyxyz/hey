@@ -6,13 +6,13 @@ import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
-import { Button } from 'components/Button';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SETTINGS } from 'src/tracking';
+import { Button } from 'ui/Button';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface AllowanceButtonProps {

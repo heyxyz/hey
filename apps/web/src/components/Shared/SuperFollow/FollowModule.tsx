@@ -7,7 +7,6 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { Button } from 'components/Button';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import type { ApprovedAllowanceAmount, Profile } from 'lens';
 import {
@@ -22,6 +21,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
+import { Button } from 'ui/Button';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import getSignature from 'utils/getSignature';

@@ -1,6 +1,6 @@
 import { MailIcon } from '@heroicons/react/outline';
-import { Button } from 'components/Button';
 import type { FC } from 'react';
+import { Button } from 'ui/Button';
 
 interface MessageProps {
   onClick: () => void;

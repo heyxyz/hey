@@ -4,7 +4,6 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
-import { Button } from 'components/Button';
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
@@ -13,6 +12,7 @@ import {
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import { Button } from 'ui/Button';
 
 import Loader from '../../Shared/Loader';
 

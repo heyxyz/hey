@@ -7,13 +7,13 @@ import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
-import { Button } from 'components/Button';
 import { LENSHUB_PROXY } from 'data/constants';
 import { useBroadcastMutation, useCreateSetDispatcherTypedDataMutation } from 'lens';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import { Button } from 'ui/Button';
 import getSignature from 'utils/getSignature';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 

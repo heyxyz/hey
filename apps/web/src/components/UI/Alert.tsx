@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Button } from 'components/Button';
 import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
+import { Button } from 'ui/Button';
 
 interface AlertProps {
   title: ReactNode;

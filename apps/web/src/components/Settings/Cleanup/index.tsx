@@ -4,7 +4,6 @@ import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayo
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
-import { Button } from 'components/Button';
 import { APP_NAME, LS_KEYS } from 'data/constants';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
@@ -12,6 +11,7 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { Button } from 'ui/Button';
 
 import SettingsSidebar from '../Sidebar';
 

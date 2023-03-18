@@ -13,7 +13,6 @@ import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { Button } from 'components/Button';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
 import type { FC } from 'react';
@@ -22,6 +21,7 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { Button } from 'ui/Button';
 import getSignature from 'utils/getSignature';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
 

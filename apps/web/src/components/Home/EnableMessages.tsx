@@ -3,12 +3,12 @@ import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
-import { Button } from 'components/Button';
 import { XMTP_ENV } from 'data/constants';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Button } from 'ui/Button';
 
 const EnableMessages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

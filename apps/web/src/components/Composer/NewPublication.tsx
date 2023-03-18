@@ -23,7 +23,6 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
-import { Button } from 'components/Button';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -63,6 +62,7 @@ import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
 import type { LensterAttachment } from 'src/types';
+import { Button } from 'ui/Button';
 import getSignature from 'utils/getSignature';
 import getTags from 'utils/getTags';
 import { v4 as uuid } from 'uuid';

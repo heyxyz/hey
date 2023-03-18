@@ -5,7 +5,6 @@ import { Checkbox } from '@components/UI/Checkbox';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
-import { Button } from 'components/Button';
 import { APP_NAME } from 'data/constants';
 import { CustomFiltersTypes, PublicationTypes } from 'lens';
 import type { NextPage } from 'next';
@@ -13,6 +12,7 @@ import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { Button } from 'ui/Button';
 import isGardener from 'utils/isGardener';
 
 import Feed from './Feed';

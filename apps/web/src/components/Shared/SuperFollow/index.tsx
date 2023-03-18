@@ -2,7 +2,6 @@ import { Modal } from '@components/UI/Modal';
 import { StarIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
-import { Button } from 'components/Button';
 import type { Profile } from 'lens';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
@@ -10,6 +9,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
+import { Button } from 'ui/Button';
 import formatHandle from 'utils/formatHandle';
 
 import Loader from '../Loader';

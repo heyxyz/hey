@@ -15,7 +15,6 @@ import uploadToArweave from '@lib/uploadToArweave';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
-import { Button } from 'components/Button';
 import { APP_NAME, COVER, LENS_PERIPHERY, SIGN_WALLET, URL_REGEX } from 'data/constants';
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Profile } from 'lens';
 import {
@@ -28,6 +27,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import { Button } from 'ui/Button';
 import getIPFSLink from 'utils/getIPFSLink';
 import getProfileAttribute from 'utils/getProfileAttribute';
 import getSignature from 'utils/getSignature';

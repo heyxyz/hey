@@ -5,7 +5,6 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
-import { Button } from 'components/Button';
 import { SIGN_WALLET } from 'data/constants';
 import type { Signer } from 'ethers';
 import { Contract } from 'ethers';
@@ -16,6 +15,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
+import { Button } from 'ui/Button';
 import getSignature from 'utils/getSignature';
 import { useSigner, useSignTypedData } from 'wagmi';
 

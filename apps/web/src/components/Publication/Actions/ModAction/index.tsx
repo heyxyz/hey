@@ -12,7 +12,6 @@ import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { Button } from 'components/Button';
 import type { Publication } from 'lens';
 import {
   PublicationReportingFraudSubreason,
@@ -26,6 +25,7 @@ import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
+import { Button } from 'ui/Button';
 
 interface ModActionProps {
   publication: Publication;

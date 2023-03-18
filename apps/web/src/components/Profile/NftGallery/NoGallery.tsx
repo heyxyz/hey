@@ -1,9 +1,9 @@
 import { Trans } from '@lingui/macro';
-import { Button } from 'components/Button';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Button } from 'ui/Button';
 
 import Create from './Create';
 

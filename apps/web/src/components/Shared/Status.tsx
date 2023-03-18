@@ -9,7 +9,6 @@ import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
-import { Button } from 'components/Button';
 import { APP_NAME, LENS_PERIPHERY, SIGN_WALLET } from 'data/constants';
 import type { CreatePublicSetProfileMetadataUriRequest } from 'lens';
 import {
@@ -24,6 +23,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { SETTINGS } from 'src/tracking';
+import { Button } from 'ui/Button';
 import getProfileAttribute from 'utils/getProfileAttribute';
 import getSignature from 'utils/getSignature';
 import { v4 as uuid } from 'uuid';

@@ -3,9 +3,9 @@ import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import { Image } from '@components/UI/Image';
 import { t, Trans } from '@lingui/macro';
-import { Button } from 'components/Button';
 import type { Profile } from 'lens';
 import type { Dispatch, FC } from 'react';
+import { Button } from 'ui/Button';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 

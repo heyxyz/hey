@@ -4,7 +4,6 @@ import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { Button } from 'components/Button';
 import { ERROR_MESSAGE } from 'data/constants';
 import type { Nft, NftGallery } from 'lens';
 import {
@@ -19,6 +18,7 @@ import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { GALLERY_DEFAULTS, useNftGalleryStore } from 'src/store/nft-gallery';
+import { Button } from 'ui/Button';
 
 import Create from './Create';
 import NftCard from './NftCard';

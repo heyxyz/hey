@@ -4,13 +4,13 @@ import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
-import { Button } from 'components/Button';
 import { MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
+import { Button } from 'ui/Button';
 
 interface ComposerProps {
   sendMessage: (message: string) => Promise<boolean>;

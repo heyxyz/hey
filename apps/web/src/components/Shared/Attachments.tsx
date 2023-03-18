@@ -5,7 +5,6 @@ import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { Button } from 'components/Button';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
 import type { MediaSet, Publication } from 'lens';
 import type { FC } from 'react';
@@ -13,6 +12,7 @@ import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
+import { Button } from 'ui/Button';
 import getIPFSLink from 'utils/getIPFSLink';
 import imageProxy from 'utils/imageProxy';
 

@@ -2,12 +2,12 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { Card } from '@components/UI/Card';
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
-import { Button } from 'components/Button';
 import { CollectModules } from 'lens';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { Button } from 'ui/Button';
 
 interface BasicSettingsProps {
   setShowModal: Dispatch<boolean>;
