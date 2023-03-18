@@ -5,7 +5,8 @@
   "license": "GPL-3.0",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
   },
   "dependencies": {
     "arbundles": "^0.8.0",

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "wrangler dev --port 8084 --local",
     "worker:deploy": "wrangler publish",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230307.0",
