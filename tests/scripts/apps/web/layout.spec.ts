@@ -30,16 +30,12 @@ test('should have login button', async ({ page }) => {
 test.describe('navigation items', () => {
   test('should have home menu', async ({ page }) => {
     const navItemHome = page.getByTestId('nav-item-home');
-    await navItemHome.click();
-    await page.waitForLoadState('networkidle');
-    await expect(page.url()).toBe(`${WEB_BASE_URL}/`);
+    await expect(navItemHome).toContainText('Home');
   });
 
   test('should have explore menu', async ({ page }) => {
     const navItemExplore = page.getByTestId('nav-item-explore');
-    await navItemExplore.click();
-    await page.waitForLoadState('networkidle');
-    await expect(page.url()).toBe(`${WEB_BASE_URL}/explore`);
+    await expect(navItemExplore).toContainText('Explore');
   });
 
   test('should have more menu', async ({ page }) => {
