@@ -1,5 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
+import useModMode from '@components/utils/hooks/useModMode';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { FeedItem, Publication } from 'lens';
@@ -15,7 +15,7 @@ interface PublicationHeaderProps {
 }
 
 const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, className = '', feedItem }) => {
-  const { allowed: staffMode } = useStaffMode();
+  const { allowed: modMode } = useModMode();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
@@ -36,7 +36,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, className 
         <UserProfile profile={profile} timestamp={timestamp} showStatus />
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
-        {staffMode && <Source publication={publication} />}
+        {modMode && <Source publication={publication} />}
         <PublicationMenu publication={publication} />
       </div>
     </div>
