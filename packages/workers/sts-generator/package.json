@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .ts"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.293.0"
+    "@aws-sdk/client-sts": "^3.294.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230307.0",
