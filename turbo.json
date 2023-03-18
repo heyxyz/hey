@@ -6,6 +6,7 @@
       "outputs": ["dist/**", ".next/**"]
     },
     "lint": { "outputs": [] },
+    "lint:fix": { "outputs": [] },
     "typecheck": { "outputs": [] },
     "codegen": { "outputs": [] },
     "extract": { "outputs": [] },
