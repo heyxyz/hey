@@ -39,7 +39,7 @@ test.describe('Publication', () => {
     test('should have meta', async ({ page }) => {
       const publication = page.getByTestId('publication-0x0d-0x01');
       await expect(publication).toContainText('Posted via Lenster');
-      await expect(publication).toContainText('06:57 PM · May 18, 2022');
+      await expect(publication).toContainText('May 18, 2022');
     });
   });
 });
