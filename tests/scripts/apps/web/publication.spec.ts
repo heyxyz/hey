@@ -124,4 +124,20 @@ test.describe('Publication attachments', () => {
       `${USER_CONTENT_URL}/${ATTACHMENT}/${coverURL}`
     );
   });
+
+  test.describe('Publication oembed', () => {
+    test('should have normal oembed', async ({ page }) => {
+      await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x0375`);
+
+      const publicationOembed = page.getByTestId('normal-oembed-https://testflight.apple.com/join/U9YkOlOy');
+      await expect(publicationOembed).toBeVisible();
+    });
+
+    test('should have rich oembed', async ({ page }) => {
+      await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x02fb`);
+
+      const publicationOembed = page.getByTestId('rich-oembed-https://lenstube.xyz/watch/0x24-0xe8');
+      await expect(publicationOembed).toBeVisible();
+    });
+  });
 });
