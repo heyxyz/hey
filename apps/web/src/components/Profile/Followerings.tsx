@@ -19,13 +19,23 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
 
   return (
     <div className="flex gap-8">
-      <button type="button" className="text-left" onClick={() => setShowFollowingModal(!showFollowingModal)}>
+      <button
+        type="button"
+        className="text-left"
+        onClick={() => setShowFollowingModal(!showFollowingModal)}
+        data-testid="profile-followings"
+      >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowing)}</div>
         <div className="lt-text-gray-500">
           <Trans>Following</Trans>
         </div>
       </button>
-      <button type="button" className="text-left" onClick={() => setShowFollowersModal(!showFollowersModal)}>
+      <button
+        type="button"
+        className="text-left"
+        onClick={() => setShowFollowersModal(!showFollowersModal)}
+        data-testid="profile-followers"
+      >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>
         <div className="lt-text-gray-500">
           <Trans>Followers</Trans>
