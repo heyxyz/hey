@@ -1,10 +1,14 @@
 import { expect, test } from '@playwright/test';
-import { APP_NAME } from 'data/constants';
+import { APP_NAME, ATTACHMENT, IPFS_GATEWAY, USER_CONTENT_URL } from 'data/constants';
 import { WEB_BASE_URL } from 'test/constants';
 
 test.describe('Publication', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x01`);
+  });
+
+  test('should have publication title', async ({ page }) => {
+    await expect(page).toHaveTitle(`Post by @yoginth • ${APP_NAME}`);
   });
 
   test('should have publication', async ({ page }) => {
@@ -42,24 +46,82 @@ test.describe('Publication', () => {
       await expect(publication).toContainText('May 18, 2022');
     });
   });
+
+  test.describe('Publication stats', async () => {
+    test('should have comment stats', async ({ page }) => {
+      const publicationCommentStats = page.getByTestId('publication-0x0d-0x01-comment-stats');
+      await expect(publicationCommentStats).toContainText('Comments');
+    });
+
+    test('should have mirror stats', async ({ page }) => {
+      const publicationMirrorStats = page.getByTestId('publication-0x0d-0x01-mirror-stats');
+      await expect(publicationMirrorStats).toContainText('Mirror');
+
+      // click mirror stats and check if it opens mirror modal
+      await publicationMirrorStats.click();
+      const mirrorsModal = page.getByTestId('mirrors-modal');
+      await expect(mirrorsModal).toBeVisible();
+    });
+
+    test('should have like stats', async ({ page }) => {
+      const publicationLikeStats = page.getByTestId('publication-0x0d-0x01-like-stats');
+      await expect(publicationLikeStats).toContainText('Likes');
+
+      // click like stats and check if it opens likes modal
+      await publicationLikeStats.click();
+      const likesModal = page.getByTestId('likes-modal');
+      await expect(likesModal).toBeVisible();
+    });
+
+    test('should have collect stats', async ({ page }) => {
+      const publicationCollectStats = page.getByTestId('publication-0x0d-0x01-collect-stats');
+      await expect(publicationCollectStats).toContainText('Collects');
+
+      // click collect stats and check if it opens collectors modal
+      await publicationCollectStats.click();
+      const collectorsModal = page.getByTestId('collectors-modal');
+      await expect(collectorsModal).toBeVisible();
+    });
+  });
 });
 
-test.describe('Post', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x01`);
+test.describe('Publication attachments', () => {
+  test('should have publication image', async ({ page }) => {
+    await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x037d`);
+
+    const imageURL = `${IPFS_GATEWAY}bafybeihztcpkzhzc3fddsc66r22hzsztja6blflygurlft7lmc4l44pnre`;
+    const publicationImage = page.getByTestId(`attachment-image-${imageURL}`);
+    await expect(publicationImage).toBeVisible();
+
+    // click image and check if it opens image lightbox and original image
+    await publicationImage.click();
+    const lightboxOpenOriginal = page.getByTestId('lightbox-open-original');
+    await lightboxOpenOriginal.click();
+    const newPage = await page.waitForEvent('popup');
+    await expect(newPage.url()).toBe(imageURL + '/');
   });
 
-  test('should have post title', async ({ page }) => {
-    await expect(page).toHaveTitle(`Post by @yoginth • ${APP_NAME}`);
-  });
-});
+  test('should have publication video', async ({ page }) => {
+    await page.goto(`${WEB_BASE_URL}/posts/0x01-0x01`);
 
-test.describe('Comment', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x037a`);
+    const videoURL = 'https://lens.infura-ipfs.io/ipfs/QmSPijepBo81hDLZ54qg3bKC2DpV9VFdaDJ81Y2viPHCRZ';
+    const publicationVideo = page.getByTestId(`attachment-video-${videoURL}`);
+    await expect(publicationVideo).toBeVisible();
   });
 
-  test('should have comment title', async ({ page }) => {
-    await expect(page).toHaveTitle(`Comment by @yoginth • ${APP_NAME}`);
+  test('should have publication audio', async ({ page }) => {
+    await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x01ec`);
+
+    const audioURL = `${IPFS_GATEWAY}bafybeihabco35vpefrlgzx3rvxccfx4th6ti5ktidw2tf5vjmnmjwx5ki4`;
+    const coverURL = `${IPFS_GATEWAY}bafkreibljzow3cbr4kirujjc5ldxbcykgahjuwuc5zmfledisq4sizwhyq`;
+    const publicationAudio = page.getByTestId(`attachment-audio-${audioURL}`);
+    await expect(publicationAudio).toBeVisible();
+
+    // check if audio cover image is visible
+    const publicationAudioCover = page.getByTestId(`attachment-audio-cover-${coverURL}`);
+    await expect(publicationAudioCover).toHaveAttribute(
+      'src',
+      `${USER_CONTENT_URL}/${ATTACHMENT}/${coverURL}`
+    );
   });
 });
