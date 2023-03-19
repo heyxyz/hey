@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
+const { withSentryConfig } = require('@sentry/nextjs');
 
-module.exports = {
+module.exports = withSentryConfig({
+  sentry: {
+    hideSourceMaps: true
+  },
   transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: {
@@ -46,4 +50,4 @@ module.exports = {
       { source: '/thanks', headers }
     ];
   }
-};
+});
