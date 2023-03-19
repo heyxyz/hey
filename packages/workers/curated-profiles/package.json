@@ -7,7 +7,8 @@
     "dev": "wrangler dev --port 8084  --test-scheduled --local",
     "worker:deploy": "wrangler publish",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
   },
   "dependencies": {
     "airtable": "^0.11.6"

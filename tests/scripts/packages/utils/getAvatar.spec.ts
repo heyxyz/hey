@@ -1,10 +1,9 @@
 import { expect, test } from '@playwright/test';
-import { USER_CONTENT_URL } from 'data/constants';
+import { IPFS_GATEWAY, USER_CONTENT_URL } from 'data/constants';
 import getAvatar from 'utils/getAvatar';
 
 test.describe('getAvatar', () => {
-  const ipfsLink =
-    'https://gateway.ipfscdn.io/ipfs/bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri';
+  const ipfsLink = `${IPFS_GATEWAY}bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;
 
   test('should return original avatar url if no CDN is set and not on skip list', () => {
     const profile = { picture: { original: { url: ipfsLink } } };

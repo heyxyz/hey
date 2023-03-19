@@ -6,15 +6,15 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${WEB_BASE_URL}/explore`);
 });
 
-test('has title', async ({ page }) => {
+test('should have page title', async ({ page }) => {
   await expect(page).toHaveTitle(`Explore • ${APP_NAME}`);
 });
 
-test('has explore feed', async ({ page }) => {
+test('should have explore feed', async ({ page }) => {
   await expect(page.getByTestId('explore-feed')).toBeVisible();
 });
 
-test('explore feed tab', async ({ page }) => {
+test('should have explore feed tab', async ({ page }) => {
   for (let i = 0; i < 3; i++) {
     const selectedTab = page.getByTestId(`explore-tab-${i}`);
     await selectedTab.click();
@@ -22,7 +22,7 @@ test('explore feed tab', async ({ page }) => {
   }
 });
 
-test('explore feed type', async ({ page }) => {
+test('should have explore feed type', async ({ page }) => {
   for (const feedType of ['all_posts', 'text_only', 'video', 'audio', 'image']) {
     const selectedFeedType = page.getByTestId(`feed-type-${feedType}`);
     await selectedFeedType.click();

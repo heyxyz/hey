@@ -62,7 +62,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto">
+    <div className="max-h-[80vh] overflow-y-auto" data-testid="collectors-modal">
       <ErrorMessage className="m-5" title={t`Failed to load collectors`} error={error} />
       <div className="divide-y dark:divide-gray-700">
         {profiles?.map((wallet, index) => (

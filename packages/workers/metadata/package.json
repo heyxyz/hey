@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "wrangler dev --port 8083 --local",
     "worker:deploy": "wrangler publish",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
   },
   "dependencies": {
     "bundlr": "*"

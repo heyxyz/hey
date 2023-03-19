@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start --port 4784",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx"
   },
   "dependencies": {
     "@apollo/client": "^3.7.10",
