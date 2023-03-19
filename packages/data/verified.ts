@@ -2,6 +2,8 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x01b69c', // sagargowda.lens
+  '0x8a58', // fabri.lens
   '0x01bc17', // argent.lens
   '0x01ab4f', // therugofficial.lens
   '0x018a1c', // route2fiofficial.lens
