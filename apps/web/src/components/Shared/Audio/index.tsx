@@ -62,7 +62,10 @@ const Audio: FC<AudioProps> = ({ src, isNew = false, publication, txn, expandCov
   };
 
   return (
-    <div className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0">
+    <div
+      className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0"
+      data-testid={`attachment-audio-${src}`}
+    >
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew && !txn}
