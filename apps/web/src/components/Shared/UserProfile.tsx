@@ -49,7 +49,6 @@ const UserProfile: FC<UserProfileProps> = ({
   followSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
-
   const statusEmoji = getProfileAttribute(profile?.attributes, 'statusEmoji');
   const statusMessage = getProfileAttribute(profile?.attributes, 'statusMessage');
   const hasStatus = statusEmoji && statusMessage;
@@ -130,7 +129,7 @@ const UserProfile: FC<UserProfileProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between" data-testid={`user-profile-${profile.id}`}>
       {linkToProfile ? (
         <Link href={`/u/${formatHandle(profile?.handle)}`}>
           <UserInfo />

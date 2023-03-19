@@ -3,13 +3,13 @@ import { APP_NAME } from 'data/constants';
 import { WEB_BASE_URL } from 'test/constants';
 
 // Check footer is present
-test('has footer', async ({ page }) => {
+test('should have footer', async ({ page }) => {
   await page.goto(WEB_BASE_URL);
   await expect(page.getByTestId('footer')).toContainText(`© ${new Date().getFullYear()} ${APP_NAME}`);
 });
 
 // Check locale selector is present
-test('has has locale selector', async ({ page }) => {
+test('should have locale selector', async ({ page }) => {
   await page.goto(WEB_BASE_URL);
   const localeSelector = page.getByTestId('locale-selector');
   await expect(localeSelector).toContainText('English');
