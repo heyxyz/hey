@@ -1,4 +1,3 @@
-import UserProfile from '@components/Shared/UserProfile';
 import { formatTime } from '@lib/formatTime';
 import dayjs from 'dayjs';
 import type { Publication } from 'lens';
@@ -6,9 +5,9 @@ import type { FC } from 'react';
 import getAppName from 'utils/getAppName';
 
 import PublicationActions from './Actions';
-import PublicationMenu from './Actions/Menu';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
+import PublicationHeader from './PublicationHeader';
 import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
 
@@ -34,13 +33,10 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
   return (
-    <article className="p-5">
+    <article className="p-5" data-testid={`publication-${publication.id}`}>
       <PublicationType publication={publication} showType />
       <div>
-        <div className="flex justify-between space-x-1.5 pb-4">
-          <UserProfile profile={profile} showStatus />
-          <PublicationMenu publication={publication} />
-        </div>
+        <PublicationHeader className="pb-4" publication={publication} />
         <div className="ml-[53px]">
           {publication?.hidden ? (
             <HiddenPublication type={publication.__typename} />

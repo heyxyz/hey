@@ -139,6 +139,7 @@ const Attachments: FC<AttachmentsProps> = ({
                   }}
                   src={isNew ? url : imageProxy(url, ATTACHMENT)}
                   alt={isNew ? url : imageProxy(url, ATTACHMENT)}
+                  data-testid={`attachment-image-${url}`}
                 />
               )}
               {isNew && !hideDelete && (
