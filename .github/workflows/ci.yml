@@ -9,7 +9,6 @@ on:
 jobs:
   ci:
     name: CI
-    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
