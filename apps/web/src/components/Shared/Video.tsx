@@ -13,7 +13,7 @@ interface VideoProps {
 
 const Video: FC<VideoProps> = ({ src, poster }) => {
   return (
-    <div className="rounded-lg">
+    <div className="rounded-lg" data-testid={`attachment-video-${src}`}>
       <Plyr
         source={{
           type: 'video',
