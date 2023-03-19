@@ -1,4 +1,3 @@
-import uploadError from '@lib/uploadError';
 import type { ReactNode } from 'react';
 import { Component } from 'react';
 import Custom500 from 'src/pages/500';
@@ -22,7 +21,6 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
   public componentDidCatch(error: Error) {
     console.error('Uncaught error:', error);
-    uploadError(error);
   }
 
   public render() {
