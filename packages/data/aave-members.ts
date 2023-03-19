@@ -29,7 +29,6 @@ export const aaveMembers = [
   '0x28a2', // nader.lens
   '0x35', // superproduct.lens
   '0x6b46', // 0xgraham.lens
-  '0x8a58', // fabri.lens
   '0x8d68', // avadi.lens
   '0xadb2', // jameslondon.lens
   '0x1044', // south.lens
