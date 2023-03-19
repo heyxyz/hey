@@ -61,7 +61,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto">
+    <div className="max-h-[80vh] overflow-y-auto" data-testid="mirrors-modal">
       <ErrorMessage className="m-5" title={t`Failed to load mirrors`} error={error} />
       <div className="divide-y dark:divide-gray-700">
         {profiles?.map((profile, index) => (

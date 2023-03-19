@@ -6,6 +6,6 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${PRERENDER_BASE_URL}/u/yoginth`);
 });
 
-test('has title', async ({ page }) => {
+test('should have page title', async ({ page }) => {
   await expect(page).toHaveTitle(`Yoginth (@yoginth.lens) • ${APP_NAME}`);
 });

@@ -57,7 +57,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto">
+    <div className="max-h-[80vh] overflow-y-auto" data-testid="likes-modal">
       <ErrorMessage className="m-5" title={t`Failed to load likes`} error={error} />
       <div className="divide-y dark:divide-gray-700">
         {profiles?.map((like, index) => (

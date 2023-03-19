@@ -6,14 +6,14 @@ test.beforeEach(async ({ page }) => {
   await page.goto(WEB_BASE_URL);
 });
 
-test('has title', async ({ page }) => {
+test('should have page title', async ({ page }) => {
   await expect(page).toHaveTitle(APP_NAME);
 });
 
-test('has hero', async ({ page }) => {
+test('should have hero', async ({ page }) => {
   await expect(page.getByTestId('home-hero')).toContainText('Welcome to Lenster 👋');
 });
 
-test('has explore feed', async ({ page }) => {
+test('should have explore feed', async ({ page }) => {
   await expect(page.getByTestId('explore-feed')).toBeVisible();
 });
