@@ -76,7 +76,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
       )}
       <ErrorMessage title={t`Failed to load comment feed`} error={error} />
       {!error && !loading && totalComments !== 0 && (
-        <Card className="divide-y-[1px] dark:divide-gray-700">
+        <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="comments-feed">
           {txnQueue.map(
             (txn) =>
               txn?.type === 'NEW_COMMENT' &&
