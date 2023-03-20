@@ -11,6 +11,7 @@ import { CommentOrderingTypes, CommentRankingFilter, CustomFiltersTypes, useComm
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
@@ -46,7 +47,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const comments = data?.publications?.items ?? [];
   const pageInfo = data?.publications?.pageInfo;
 
-  const queuedCount = txnQueue.filter((o) => o.type === 'NEW_COMMENT').length;
+  const queuedCount = txnQueue.filter((o) => o.type === OptmisticPublicationType.NewComment).length;
   const totalComments = comments?.length + queuedCount;
   const canComment = publication?.canComment?.result;
 
@@ -79,7 +80,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
         <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="comments-feed">
           {txnQueue.map(
             (txn) =>
-              txn?.type === 'NEW_COMMENT' &&
+              txn?.type === OptmisticPublicationType.NewComment &&
               txn?.parent === publication?.id && (
                 <div key={txn.id}>
                   <QueuedPublication txn={txn} />
