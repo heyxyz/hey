@@ -17,5 +17,5 @@
     "cpus": 4,
     "memory": "4gb"
   },
-  "postCreateCommand": ""
+  "postCreateCommand": "./scripts/bootstrap"
 }

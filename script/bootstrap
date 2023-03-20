@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#/ Usage: script/bootstrap
+#/ Install dependencies and make sure everything is ready to go.
+
+echo "Setting up env vars 🌎"
+echo "Updating apps/web env vars 🌎"
+cd apps/web; cp .env.example .env
+cd ../../
+echo "Updating apps/prerender env vars 🌎"
+cd apps/prerender; cp .env.example .env
+cd ../../
+echo "Updating packages/workers/curated-profiles env vars 🌎"
+cd packages/workers/curated-profiles; cp .dev.vars.example .dev.vars
+cd ../../../
+echo "Updating packages/workers/freshdesk env vars 🌎"
+cd packages/workers/freshdesk; cp .dev.vars.example .dev.vars
+cd ../../../
+echo "Updating packages/workers/metadata env vars 🌎"
+cd packages/workers/metadata
+# This is a dummy private key, it don't have any funds in it
+sed -i '' -e 's/BUNDLR_PRIVATE_KEY=.*/BUNDLR_PRIVATE_KEY='"3b7890335684c148c21fa529850950ea43d3b60131fa0351732c53a1dec5db3c"'/' .dev.vars
+cd ../../../
+echo "Updating packages/workers/sts-generator env vars 🌎"
+cd packages/workers/sts-generator; cp .dev.vars.example .dev.vars
+cd ../../../
+# -------------------------------------
+echo "Installing dependencies 📦"
+yarn install
+echo "Dependencies installed 📦"
+# -------------------------------------
+echo "Project bootstrap complete 🎉"
