@@ -244,8 +244,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const coverPictureUrl = profile?.coverPicture?.original?.url;
   const coverPictureIpfsUrl = coverPictureUrl ? imageProxy(getIPFSLink(coverPictureUrl), COVER) : '';
 
-  const cropperBorderSize = 20;
-
   return (
     <>
       <Modal
@@ -265,7 +263,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           <ImageCropperController
             imageSrc={imageSrc}
             setCroppedAreaPixels={setCroppedAreaPixels}
-            borderSize={cropperBorderSize}
             targetSize={{ width: 1500, height: 500 }}
           />
           <Button

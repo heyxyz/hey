@@ -9,14 +9,12 @@ import { useEffect, useRef, useState } from 'react';
 import useResizeObserver from 'use-resize-observer';
 
 interface ImageCropperControllerProps {
-  borderSize: number;
   targetSize: Size;
   imageSrc: string;
   setCroppedAreaPixels: Dispatch<Area>;
 }
 
 const ImageCropperController: FC<ImageCropperControllerProps> = ({
-  borderSize,
   targetSize,
   imageSrc,
   setCroppedAreaPixels
@@ -36,6 +34,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
   };
 
   const aspectRatio = targetSize.width / targetSize.height;
+  const borderSize = 20;
 
   useEffect(() => {
     const newWidth = divWidth - borderSize * 2;

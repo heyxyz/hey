@@ -159,8 +159,6 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const profilePictureUrl = profile?.picture?.original?.url ?? profile?.picture?.uri;
   const profilePictureIpfsUrl = profilePictureUrl ? imageProxy(getIPFSLink(profilePictureUrl), AVATAR) : '';
 
-  const cropperBorderSize = 20;
-
   return (
     <>
       <Modal
@@ -180,7 +178,6 @@ const Picture: FC<PictureProps> = ({ profile }) => {
           <ImageCropperController
             imageSrc={imageSrc}
             setCroppedAreaPixels={setCroppedAreaPixels}
-            borderSize={cropperBorderSize}
             targetSize={{ width: 300, height: 300 }}
           />
           <Button
