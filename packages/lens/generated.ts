@@ -1639,6 +1639,15 @@ export type GatedPublicationParamsInput = {
   token?: InputMaybe<Erc20OwnershipInput>;
 };
 
+export type GddRequest = {
+  domain: Scalars['Url'];
+  secret: Scalars['String'];
+};
+
+export type GdmRequest = {
+  secret: Scalars['String'];
+};
+
 export type GenerateModuleCurrencyApproval = {
   __typename?: 'GenerateModuleCurrencyApproval';
   data: Scalars['BlockchainData'];
@@ -2083,7 +2092,8 @@ export type Mutation = {
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
   /** Delete an NFT Gallery */
   deleteNftGallery?: Maybe<Scalars['Void']>;
-  dismissRecommendedProfiles: Scalars['Void'];
+  dismissRecommendedProfiles?: Maybe<Scalars['Void']>;
+  gdi?: Maybe<Scalars['Void']>;
   hel?: Maybe<Scalars['Void']>;
   hidePublication?: Maybe<Scalars['Void']>;
   idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType;
@@ -2265,6 +2275,10 @@ export type MutationDeleteNftGalleryArgs = {
 
 export type MutationDismissRecommendedProfilesArgs = {
   request: DismissRecommendedProfilesRequest;
+};
+
+export type MutationGdiArgs = {
+  request: GddRequest;
 };
 
 export type MutationHelArgs = {
@@ -3421,6 +3435,7 @@ export type Query = {
   followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>;
   followers: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
+  gdm: Array<Scalars['Url']>;
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval;
   globalProtocolStats: GlobalProtocolStats;
   hasTxHashBeenIndexed: TransactionResult;
@@ -3510,6 +3525,10 @@ export type QueryFollowersArgs = {
 
 export type QueryFollowingArgs = {
   request: FollowingRequest;
+};
+
+export type QueryGdmArgs = {
+  request: GdmRequest;
 };
 
 export type QueryGenerateModuleCurrencyApprovalDataArgs = {
@@ -3734,7 +3753,6 @@ export type RelayResult = RelayError | RelayerResult;
 /** The relayer result */
 export type RelayerResult = {
   __typename?: 'RelayerResult';
-  dataAvailabilityId: Scalars['DataAvailabilityId'];
   /** The tx hash - you should use the `txId` as your identifier as gas prices can be upgraded meaning txHash will change */
   txHash: Scalars['TxHash'];
   /** The tx id */

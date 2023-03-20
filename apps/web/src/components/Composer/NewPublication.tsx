@@ -51,6 +51,7 @@ import {
   useBroadcastMutation,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
+  useCreateDataAvailabilityCommentTypedDataMutation,
   useCreateDataAvailabilityCommentViaDispatcherMutation,
   useCreateDataAvailabilityPostTypedDataMutation,
   useCreateDataAvailabilityPostViaDispatcherMutation,
@@ -219,6 +220,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [broadcastDataAvailability] = useBroadcastDataAvailabilityMutation({
     onCompleted: (data) => {
       onCompleted();
+      if (data?.broadcastDataAvailability.__typename === 'RelayError') {
+        return toast.error(ERROR_MESSAGE);
+      }
+
       if (data?.broadcastDataAvailability.__typename === 'CreateDataAvailabilityPublicationResult') {
         push(`/posts/${data?.broadcastDataAvailability.id}`);
       }
@@ -307,9 +312,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       await typedDataGenerator(createDataAvailabilityPostTypedData, true)
   });
 
-  const [createDataAvailabilityCommentTypedData] = useCreateDataAvailabilityPostTypedDataMutation({
-    onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
-      await typedDataGenerator(createDataAvailabilityPostTypedData, true)
+  const [createDataAvailabilityCommentTypedData] = useCreateDataAvailabilityCommentTypedDataMutation({
+    onCompleted: async ({ createDataAvailabilityCommentTypedData }) =>
+      await typedDataGenerator(createDataAvailabilityCommentTypedData, true)
   });
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
@@ -341,7 +346,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [createDataAvailabilityPostViaDispatcher] = useCreateDataAvailabilityPostViaDispatcherMutation({
     onCompleted: (data) => {
       if (data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError') {
-        return toast.error(ERROR_MESSAGE);
+        return;
       }
 
       if (
@@ -358,7 +363,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [createDataAvailabilityCommentViaDispatcher] = useCreateDataAvailabilityCommentViaDispatcherMutation({
     onCompleted: (data) => {
       if (data?.createDataAvailabilityCommentViaDispatcher?.__typename === 'RelayError') {
-        return toast.error(ERROR_MESSAGE);
+        return;
       }
 
       if (
@@ -367,14 +372,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) {
         onCompleted();
         const { id } = data.createDataAvailabilityCommentViaDispatcher;
-        // push(`/posts/${id}`);
-        getPublication({
-          variables: {
-            request: {
-              publicationId: id
-            }
-          }
-        });
+        getPublication({ variables: { request: { publicationId: id } } });
       }
     },
     onError
