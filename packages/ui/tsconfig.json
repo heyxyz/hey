@@ -2,7 +2,7 @@
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "noEmit": true,
+    "noEmit": true
   },
   "include": ["*.tsx"]
 }
