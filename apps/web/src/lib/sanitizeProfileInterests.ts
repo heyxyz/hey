@@ -1,5 +1,10 @@
 import type { ProfileInterest } from 'src/types';
 
+/**
+ *
+ * @param profileInterests array of profile interests
+ * @returns array of sanitized profile interests
+ */
 const sanitizeProfileInterests = (profileInterests: string[]) => {
   if (!profileInterests) {
     return [];

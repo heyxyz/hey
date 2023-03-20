@@ -2,7 +2,7 @@ import { STATIC_IMAGES_URL } from 'data/constants';
 
 /**
  *
- * @param name - Wallet name
+ * @param name Wallet name
  * @returns wallet logo url
  */
 const getWalletDetails = (

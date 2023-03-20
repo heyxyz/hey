@@ -4,8 +4,8 @@ type Key = 'hasPrideLogo' | 'app' | 'twitter' | 'location' | 'website' | 'status
 
 /**
  *
- * @param attributes - The attributes to search through
- * @param key - The key to search for
+ * @param attributes The attributes to search through
+ * @param key The key to search for
  * @returns the attribute from a trait
  */
 const getProfileAttribute = (attributes: Maybe<Attribute[]> | undefined, key: Key): string => {

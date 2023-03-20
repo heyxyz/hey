@@ -7,8 +7,8 @@ const skipList = ['static-assets.lenster.xyz', 'avataaars.io', 'avatar.tobi.sh']
 
 /**
  *
- * @param profile - Profile object
- * @param isCdn - To passthrough image proxy
+ * @param profile Profile object
+ * @param isCdn To passthrough image proxy
  * @returns avatar image url
  */
 const getAvatar = (profile: any, isCdn = true): string => {

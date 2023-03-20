@@ -2,7 +2,7 @@ import axios from 'axios';
 
 /**
  *
- * @param address - The address of the token
+ * @param address The address of the token
  * @returns the price of the token
  */
 const getCoingeckoPrice = async (address: string) => {
