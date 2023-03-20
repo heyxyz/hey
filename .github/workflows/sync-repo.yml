@@ -1,8 +1,8 @@
 name: Git Repo Sync
 
 on:
-  - push
-  - delete
+  push:
+    branches: [main]
 
 jobs:
   gitlab:
