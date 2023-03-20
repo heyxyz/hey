@@ -65,7 +65,7 @@ export type AaveFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams;
   /** The collect module limit */
-  collectLimit: Scalars['String'];
+  collectLimit?: InputMaybe<Scalars['String']>;
   /** The timestamp that this collect module will expire */
   endTimestamp?: InputMaybe<Scalars['DateTime']>;
   /** Follower only */
@@ -1639,6 +1639,23 @@ export type GatedPublicationParamsInput = {
   token?: InputMaybe<Erc20OwnershipInput>;
 };
 
+export type GciRequest = {
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
+  ttt: Scalars['String'];
+};
+
+export type GcrRequest = {
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
+  ttt: Scalars['String'];
+};
+
+export type GctRequest = {
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
+};
+
 export type GddRequest = {
   domain: Scalars['Url'];
   secret: Scalars['String'];
@@ -2093,6 +2110,8 @@ export type Mutation = {
   /** Delete an NFT Gallery */
   deleteNftGallery?: Maybe<Scalars['Void']>;
   dismissRecommendedProfiles?: Maybe<Scalars['Void']>;
+  gci?: Maybe<Scalars['Void']>;
+  gcr?: Maybe<Scalars['Void']>;
   gdi?: Maybe<Scalars['Void']>;
   hel?: Maybe<Scalars['Void']>;
   hidePublication?: Maybe<Scalars['Void']>;
@@ -2275,6 +2294,14 @@ export type MutationDeleteNftGalleryArgs = {
 
 export type MutationDismissRecommendedProfilesArgs = {
   request: DismissRecommendedProfilesRequest;
+};
+
+export type MutationGciArgs = {
+  request: GciRequest;
+};
+
+export type MutationGcrArgs = {
+  request: GcrRequest;
 };
 
 export type MutationGdiArgs = {
@@ -3435,6 +3462,7 @@ export type Query = {
   followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>;
   followers: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
+  gct: Array<Scalars['String']>;
   gdm: Array<Scalars['Url']>;
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval;
   globalProtocolStats: GlobalProtocolStats;
@@ -3525,6 +3553,10 @@ export type QueryFollowersArgs = {
 
 export type QueryFollowingArgs = {
   request: FollowingRequest;
+};
+
+export type QueryGctArgs = {
+  request: GctRequest;
 };
 
 export type QueryGdmArgs = {
