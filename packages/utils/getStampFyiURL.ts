@@ -1,6 +1,6 @@
 /**
  *
- * @param address - The address to get the cdn.stamp.fyi url for
+ * @param address The address to get the cdn.stamp.fyi url for
  * @returns cdn.stamp.fyi url
  */
 const getStampFyiURL = (address: string) => {

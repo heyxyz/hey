@@ -3,7 +3,7 @@ import { CollectModules, FollowModules, ReferenceModules } from 'lens';
 
 /**
  *
- * @param name - Module to format
+ * @param name Module to format
  * @returns module config
  */
 export const getModule = (

@@ -3,7 +3,7 @@ import { mainnetStaffs, testnetStaffs } from 'data/staffs';
 
 /**
  *
- * @param id - Profile id
+ * @param id Profile id
  * @returns is staff or not
  */
 const isStaff = (id: string): boolean =>

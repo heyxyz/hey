@@ -1,6 +1,6 @@
 /**
  *
- * @param text - Text to get URLs from
+ * @param text Text to get URLs from
  * @returns urls
  */
 const getURLs = (text: string) => {

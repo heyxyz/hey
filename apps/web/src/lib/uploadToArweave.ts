@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 /**
  *
- * @param data - Data to upload to arweave
+ * @param data Data to upload to arweave
  * @returns arweave transaction id
  */
 const uploadToArweave = async (data: any): Promise<string> => {

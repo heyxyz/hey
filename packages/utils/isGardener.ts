@@ -3,7 +3,7 @@ import { mainnetGardeners, testnetGardeners } from 'data/gardeners';
 
 /**
  *
- * @param id - Profile id
+ * @param id Profile id
  * @returns is gardener or not
  */
 const isGardener = (id: string): boolean =>

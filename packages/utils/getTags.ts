@@ -1,3 +1,8 @@
+/**
+ *
+ * @param inputText the text to extract tags from
+ * @returns an array of tags
+ */
 const getTags = (inputText: string) => {
   const regex = /(?:^|\s)#([\dA-Za-z]+)/gm;
   const matches: string[] = [];

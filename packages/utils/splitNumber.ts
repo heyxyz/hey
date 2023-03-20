@@ -1,3 +1,9 @@
+/**
+ *
+ * @param num number to split
+ * @param parts number of parts to split the number into
+ * @returns array of numbers
+ */
 const splitNumber = (num = 1, parts = 1) => {
   const n = Math.floor(num / parts);
   const numbers: number[] = [];
