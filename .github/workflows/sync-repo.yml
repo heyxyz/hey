@@ -14,7 +14,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: GitLab 🦊
+    - name: Push
       uses: wangchucheng/git-repo-sync@v0.1.0
       with:
         target-url: ${{ vars.GITLAB_URL }}
@@ -30,9 +30,25 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: AWS CodeCommit 📦
+    - name: Push
       uses: wangchucheng/git-repo-sync@v0.1.0
       with:
         target-url: ${{ vars.CODECOMMIT_URL }}
         target-username: ${{ vars.CODECOMMIT_USERNAME }}
         target-token: ${{ secrets.CODECOMMIT_SYNC_TOKEN }}
+
+  codegiant:
+    runs-on: ubuntu-latest
+    name: Sync to Codegiant
+    steps:
+    - name: Checkout 🚪
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Push
+      uses: wangchucheng/git-repo-sync@v0.1.0
+      with:
+        target-url: ${{ vars.CODEGIANT_URL }}
+        target-username: ${{ vars.CODEGIANT_USERNAME }}
+        target-token: ${{ secrets.CODEGIANT_SYNC_TOKEN }}
