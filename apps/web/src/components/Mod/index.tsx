@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Checkbox } from '@components/UI/Checkbox';
+import { Checkbox } from 'ui/Checkbox';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';

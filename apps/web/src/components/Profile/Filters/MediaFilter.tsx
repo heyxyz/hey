@@ -1,5 +1,5 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Checkbox } from '@components/UI/Checkbox';
+import { Checkbox } from 'ui/Checkbox';
 import { Tooltip } from '@components/UI/Tooltip';
 import { Menu } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
