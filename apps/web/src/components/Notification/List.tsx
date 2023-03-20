@@ -16,6 +16,7 @@ import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'le
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import { NotificationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 
 import NotificationShimmer from './Shimmer';
@@ -25,14 +26,6 @@ import FollowerNotification from './Type/FollowerNotification';
 import LikeNotification from './Type/LikeNotification';
 import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
-
-export enum NotificationType {
-  All = 'ALL',
-  Mentions = 'MENTIONS',
-  Comments = 'COMMENTS',
-  Likes = 'LIKES',
-  Collects = 'COLLECTS'
-}
 
 interface ListProps {
   feedType: string;

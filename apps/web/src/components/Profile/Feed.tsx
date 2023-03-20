@@ -10,17 +10,10 @@ import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from 'len
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import { ProfileFeedType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
 import formatHandle from 'utils/formatHandle';
-
-export enum ProfileFeedType {
-  Feed = 'FEED',
-  Replies = 'REPLIES',
-  Media = 'MEDIA',
-  Collects = 'COLLECTS',
-  Nft = 'NFT'
-}
 
 interface FeedProps {
   profile: Profile;

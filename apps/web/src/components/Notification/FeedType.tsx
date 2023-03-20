@@ -9,9 +9,8 @@ import {
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
+import { NotificationType } from 'src/enums';
 import { NOTIFICATION } from 'src/tracking';
-
-import { NotificationType } from './List';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<string>;
