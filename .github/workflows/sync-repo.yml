@@ -24,6 +24,6 @@ jobs:
     - name: Codegiant
       uses: wangchucheng/git-repo-sync@v0.1.0
       with:
-        target-url: ${{ env.CODEGIANT_URL }}
-        target-username: ${{ env.CODEGIANT_USERNAME }}
+        target-url: ${{ vars.CODEGIANT_URL }}
+        target-username: ${{ vars.CODEGIANT_USERNAME }}
         target-token: ${{ secrets.CODEGIANT_SYNC_TOKEN }}
