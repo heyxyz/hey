@@ -1,5 +1,5 @@
 import Message from '@components/Profile/Message';
-import Follow, { FollowSource } from '@components/Shared/Follow';
+import Follow from '@components/Shared/Follow';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
@@ -25,6 +25,7 @@ import type { Dispatch, FC, ReactElement } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+import { FollowSource } from 'src/tracking';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';

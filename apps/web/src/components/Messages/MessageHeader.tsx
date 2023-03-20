@@ -5,8 +5,9 @@ import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { FollowSource } from 'src/tracking';
 
-import Follow, { FollowSource } from '../Shared/Follow';
+import Follow from '../Shared/Follow';
 
 interface MessageHeaderProps {
   profile?: Profile;

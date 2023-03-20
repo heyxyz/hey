@@ -10,6 +10,7 @@ import { useProfileQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -19,7 +20,7 @@ import isFeatureEnabled from 'utils/isFeatureEnabled';
 
 import Cover from './Cover';
 import Details from './Details';
-import Feed, { ProfileFeedType } from './Feed';
+import Feed from './Feed';
 import FeedType from './FeedType';
 import FollowDialog from './FollowDialog';
 import NftGallery from './NftGallery';

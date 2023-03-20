@@ -19,21 +19,6 @@ import { PROFILE } from 'src/tracking';
 import getSignature from 'utils/getSignature';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
-export enum FollowSource {
-  WHO_TO_FOLLOW = 'who_to_follow',
-  WHO_TO_FOLLOW_MODAL = 'who_to_follow_modal',
-  LIKES_MODAL = 'likes_modal',
-  MIRRORS_MODAL = 'mirrors_modal',
-  COLLECTORS_MODAL = 'collectors_modal',
-  FOLLOWERS_MODAL = 'followers_modal',
-  FOLLOWING_MODAL = 'following_modal',
-  MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
-  PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
-  DIRECT_MESSAGE_HEADER = 'direct_message_header',
-  PROFILE_PAGE = 'profile_page',
-  PROFILE_POPOVER = 'profile_popover'
-}
-
 interface FollowProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;

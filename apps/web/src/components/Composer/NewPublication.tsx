@@ -65,6 +65,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { OptmisticPublicationType } from 'src/enums';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -192,7 +193,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return {
       id: uuid(),
       ...(isComment && { parent: publication.id }),
-      type: isComment ? 'NEW_COMMENT' : 'NEW_POST',
+      type: isComment ? OptmisticPublicationType.NewComment : OptmisticPublicationType.NewPost,
       txHash,
       txId,
       content: publicationContent,

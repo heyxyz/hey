@@ -8,8 +8,8 @@ import { useMirrorsQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import { FollowSource } from 'src/tracking';
 
-import { FollowSource } from '../Follow';
 import Loader from '../Loader';
 
 interface MirrorsProps {
