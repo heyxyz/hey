@@ -195,7 +195,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
         <div className="space-y-3">
           <div>
             <Image
-              className="rounded-lg"
+              className="max-w-xs rounded-lg"
               src={avatarDataUrl || profilePictureIpfsUrl}
               alt={t`Profile picture crop preview`}
             />
