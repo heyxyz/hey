@@ -3,7 +3,7 @@ import { mainnetVerified, testnetVerified } from 'data/verified';
 
 /**
  *
- * @param id - Profile id
+ * @param id Profile id
  * @returns is verified or not
  */
 const isVerified = (id: string): boolean =>

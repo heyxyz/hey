@@ -22,7 +22,7 @@ const getS3Client = async () => {
 
 /**
  *
- * @param data - Data to upload to IPFS
+ * @param data Data to upload to IPFS
  * @returns attachment array
  */
 const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
@@ -56,7 +56,7 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
 
 /**
  *
- * @param file - File object
+ * @param file File object
  * @returns attachment or null
  */
 export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment | null> => {
