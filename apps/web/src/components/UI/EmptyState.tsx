@@ -1,6 +1,5 @@
 import type { FC, ReactNode } from 'react';
-
-import { Card } from './Card';
+import { Card } from 'ui/Card';
 
 interface EmptyStateProps {
   message: ReactNode;

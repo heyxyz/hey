@@ -1,7 +1,7 @@
-import { Card } from '@components/UI/Card';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
+import { Card } from 'ui/Card';
 
 const CommentWarning: FC = () => {
   return (

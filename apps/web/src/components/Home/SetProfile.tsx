@@ -1,5 +1,4 @@
 import New from '@components/Shared/Badges/New';
-import { Card } from '@components/UI/Card';
 import { MinusCircleIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -10,6 +9,7 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { ONBOARDING } from 'src/tracking';
+import { Card } from 'ui/Card';
 
 interface StatusProps {
   finished: boolean;

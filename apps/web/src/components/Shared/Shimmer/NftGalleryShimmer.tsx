@@ -1,5 +1,5 @@
-import { Card } from '@components/UI/Card';
 import React from 'react';
+import { Card } from 'ui/Card';
 
 const NftGalleryShimmer = () => {
   return (

@@ -1,10 +1,10 @@
 import ToggleDispatcher from '@components/Settings/Dispatcher/ToggleDispatcher';
-import { Card } from '@components/UI/Card';
 import { HandIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Card } from 'ui/Card';
 
 const EnableDispatcher: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

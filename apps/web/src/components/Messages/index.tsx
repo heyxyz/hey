@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Card } from '@components/UI/Card';
 import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
@@ -9,6 +8,7 @@ import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { Card } from 'ui/Card';
 
 import PreviewList from './PreviewList';
 

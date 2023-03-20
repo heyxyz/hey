@@ -1,13 +1,13 @@
 import { FollowSource } from '@components/Shared/Follow';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { Card } from '@components/UI/Card';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { t } from '@lingui/macro';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'data/constants';
 import type { Profile, Publication } from 'lens';
 import { useRelevantPeopleQuery } from 'lens';
 import type { FC } from 'react';
+import { Card } from 'ui/Card';
 import formatHandle from 'utils/formatHandle';
 
 interface RelevantPeopleProps {

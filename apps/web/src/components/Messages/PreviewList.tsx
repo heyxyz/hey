@@ -2,7 +2,6 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
-import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { GridItemFour } from '@components/UI/GridLayout';
@@ -22,6 +21,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
+import { Card } from 'ui/Card';
 
 interface PreviewListProps {
   className?: string;

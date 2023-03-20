@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Card } from '@components/UI/Card';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Mixpanel } from '@lib/mixpanel';
@@ -12,6 +11,7 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { Button } from 'ui/Button';
+import { Card } from 'ui/Card';
 
 import SettingsSidebar from '../Sidebar';
 

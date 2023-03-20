@@ -1,5 +1,5 @@
-import { Card } from '@components/UI/Card';
 import type { FC } from 'react';
+import { Card } from 'ui/Card';
 
 import UserProfileShimmer from './UserProfileShimmer';
 
