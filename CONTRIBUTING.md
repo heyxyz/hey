@@ -53,7 +53,7 @@ We are using [GitHub Issues](https://github.com/lensterxyz/lenster/issues) to ma
 
 First of all, you need to check if you're satisfying the `Contribution Prerequisites`
 
-Then, please follow the instructions in [LOCAL_DEVELOPMENT_GUIDE](docs/development.md.md).
+Then, please follow the instructions in [LOCAL_DEVELOPMENT_GUIDE](docs/development.md).
 
 ---
 
