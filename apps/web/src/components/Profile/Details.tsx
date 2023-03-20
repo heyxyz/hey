@@ -61,8 +61,16 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     router.push(`/messages/${conversationKey}`);
   };
 
-  const MetaDetails = ({ children, icon }: { children: ReactElement; icon: ReactElement }) => (
-    <div className="flex items-center gap-2">
+  const MetaDetails = ({
+    children,
+    icon,
+    dataTestId = ''
+  }: {
+    children: ReactElement;
+    icon: ReactElement;
+    dataTestId?: string;
+  }) => (
+    <div className="flex items-center gap-2" data-testid={dataTestId}>
       {icon}
       <div className="text-md truncate">{children}</div>
     </div>
@@ -82,18 +90,21 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           height={128}
           width={128}
           alt={formatHandle(profile?.handle)}
+          data-testid="profile-avatar"
         />
       </div>
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
-          <div className="truncate">{profile?.name ?? formatHandle(profile?.handle)}</div>
+          <div className="truncate" data-testid="profile-name">
+            {profile?.name ?? formatHandle(profile?.handle)}
+          </div>
           {isVerified(profile?.id) && (
             <Tooltip content="Verified">
-              <BadgeCheckIcon className="text-brand h-6 w-6" />
+              <BadgeCheckIcon className="text-brand h-6 w-6" data-testid="profile-verified-badge" />
             </Tooltip>
           )}
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3" data-testid="profile-handle">
           {profile?.name ? (
             <Slug className="text-sm sm:text-base" slug={formatHandle(profile?.handle)} prefix="@" />
           ) : (
@@ -107,7 +118,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </div>
       </div>
       {profile?.bio && (
-        <div className="markup linkify text-md mr-0 break-words sm:mr-10">
+        <div className="markup linkify text-md mr-0 break-words sm:mr-10" data-testid="profile-bio">
           <Markup>{profile?.bio}</Markup>
         </div>
       )}
@@ -162,7 +173,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         )}
         <div className="divider w-full" />
         <div className="space-y-2">
-          <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
+          <MetaDetails icon={<HashtagIcon className="h-4 w-4" />} dataTestId="profile-meta-id">
             <Tooltip content={`#${profile?.id}`}>
               <a
                 href={`${RARIBLE_URL}/token/polygon/${getEnvConfig().lensHubProxyAddress}:${parseInt(
@@ -176,7 +187,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             </Tooltip>
           </MetaDetails>
           {getProfileAttribute(profile?.attributes, 'location') && (
-            <MetaDetails icon={<LocationMarkerIcon className="h-4 w-4" />}>
+            <MetaDetails icon={<LocationMarkerIcon className="h-4 w-4" />} dataTestId="profile-meta-location">
               {getProfileAttribute(profile?.attributes, 'location') as any}
             </MetaDetails>
           )}
@@ -191,6 +202,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   alt="ENS Logo"
                 />
               }
+              dataTestId="profile-meta-ens"
             >
               {profile?.onChainIdentity?.ens?.name}
             </MetaDetails>
@@ -211,6 +223,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   alt="Website"
                 />
               }
+              dataTestId="profile-meta-website"
             >
               <a
                 href={`https://${getProfileAttribute(profile?.attributes, 'website')
@@ -246,6 +259,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   />
                 )
               }
+              dataTestId="profile-meta-twitter"
             >
               <a
                 href={`https://twitter.com/${getProfileAttribute(profile?.attributes, 'twitter')}`}

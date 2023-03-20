@@ -17,7 +17,6 @@ interface FullPublicationProps {
 
 const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const isMirror = publication.__typename === 'Mirror';
-  const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   // Count check to show the publication stats only if the publication has a comment, like or collect
