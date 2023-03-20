@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Checkbox } from 'ui/Checkbox';
 import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
@@ -13,6 +12,7 @@ import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { Button } from 'ui/Button';
 import { Card } from 'ui/Card';
+import { Checkbox } from 'ui/Checkbox';
 import isGardener from 'utils/isGardener';
 
 import Feed from './Feed';
