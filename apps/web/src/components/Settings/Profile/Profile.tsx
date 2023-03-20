@@ -249,6 +249,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       <Modal
         title={t`Crop image`}
         show={showCropModal}
+        size="md"
         onClose={
           isLoading
             ? undefined
@@ -257,7 +258,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 setShowCropModal(false);
               }
         }
-        size="md"
       >
         <div className="p-5 text-right">
           <ImageCropperController
