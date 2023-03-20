@@ -67,7 +67,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [imageSrc, setImageSrc] = useState('');
   const [showCropModal, setShowCropModal] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
-  const [avatarDataUrl, setAvatarDataUrl] = useState('');
+  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
 
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
@@ -215,7 +215,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
       setCover(ipfsUrl);
-      setAvatarDataUrl(dataUrl);
+      setUploadedImageUrl(dataUrl);
     } catch (error) {
       toast.error(t`Upload failed`);
     } finally {
@@ -314,7 +314,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                   onError={({ currentTarget }) => {
                     currentTarget.src = getIPFSLink(cover);
                   }}
-                  src={avatarDataUrl || coverPictureIpfsUrl}
+                  src={uploadedImageUrl || coverPictureIpfsUrl}
                   alt={cover}
                 />
               </div>
