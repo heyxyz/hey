@@ -14,16 +14,9 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: GitLab
+    - name: GitLab 🦊
       uses: wangchucheng/git-repo-sync@v0.1.0
       with:
-        target-url: https://gitlab.com/lenster/lenster.git
-        target-username: yo
+        target-url: ${{ vars.GITLAB_URL }}
+        target-username: ${{ vars.GITLAB_USERNAME }}
         target-token: ${{ secrets.GITLAB_SYNC_TOKEN }}
-
-    - name: Codegiant
-      uses: wangchucheng/git-repo-sync@v0.1.0
-      with:
-        target-url: ${{ vars.CODEGIANT_URL }}
-        target-username: ${{ vars.CODEGIANT_USERNAME }}
-        target-token: ${{ secrets.CODEGIANT_SYNC_TOKEN }}
