@@ -20,3 +20,10 @@ jobs:
         target-url: ${{ vars.GITLAB_URL }}
         target-username: ${{ vars.GITLAB_USERNAME }}
         target-token: ${{ secrets.GITLAB_SYNC_TOKEN }}
+
+    - name: AWS CodeCommit 📦
+      uses: wangchucheng/git-repo-sync@v0.1.0
+      with:
+        target-url: ${{ vars.CODECOMMIT_URL }}
+        target-username: ${{ vars.CODECOMMIT_USERNAME }}
+        target-token: ${{ secrets.CODECOMMIT_SYNC_TOKEN }}
