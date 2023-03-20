@@ -1,4 +1,3 @@
-import { FollowSource } from '@components/Shared/Follow';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Card } from '@components/UI/Card';
@@ -13,7 +12,7 @@ import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { MISCELLANEOUS } from 'src/tracking';
+import { FollowSource, MISCELLANEOUS } from 'src/tracking';
 
 import Suggested from './Suggested';
 
