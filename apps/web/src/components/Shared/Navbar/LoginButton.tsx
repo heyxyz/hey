@@ -1,9 +1,9 @@
-import { Button } from '@components/UI/Button';
 import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAuthStore } from 'src/store/auth';
 import { AUTH } from 'src/tracking';
+import { Button } from 'ui';
 
 const LoginButton: FC = () => {
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);

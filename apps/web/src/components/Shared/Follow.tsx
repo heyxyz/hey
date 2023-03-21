@@ -1,5 +1,4 @@
 import type { ApolloCache } from '@apollo/client';
-import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { UserAddIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -16,6 +15,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
+import { Button } from 'ui';
 import getSignature from 'utils/getSignature';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
