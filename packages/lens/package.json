@@ -6,7 +6,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "codegen": "graphql-codegen",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@apollo/client": "^3.7.10"
