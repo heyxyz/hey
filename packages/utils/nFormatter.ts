@@ -2,8 +2,8 @@ import humanize from 'utils/humanize';
 
 /**
  *
- * @param num - Number to humanize
- * @param digits - Number of digits to show
+ * @param num Number to humanize
+ * @param digits Number of digits to show
  * @returns humanized number
  */
 const nFormatter = (num: number, digits = 1): string => {

@@ -1,6 +1,6 @@
 /**
  *
- * @param name - Name to format
+ * @param name Name to format
  * @returns formatted name
  */
 const getFollowModule = (name?: string): { description: string } => {
