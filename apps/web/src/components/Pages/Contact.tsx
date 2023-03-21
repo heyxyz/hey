@@ -15,8 +15,7 @@ import { APP_NAME, FRESHDESK_WORKER_URL } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PAGEVIEW } from 'src/tracking';
-import { Button } from 'ui/Button';
-import { Card } from 'ui/Card';
+import { Button, Card } from 'ui';
 import { object, string } from 'zod';
 
 const newContactSchema = object({

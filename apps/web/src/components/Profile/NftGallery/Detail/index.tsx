@@ -12,7 +12,7 @@ import React, { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 import isFeatureEnabled from 'utils/isFeatureEnabled';

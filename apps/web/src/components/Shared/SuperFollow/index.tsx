@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import formatHandle from 'utils/formatHandle';
 
 import Loader from '../Loader';

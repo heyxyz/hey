@@ -21,7 +21,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 
 interface PreviewListProps {
   className?: string;

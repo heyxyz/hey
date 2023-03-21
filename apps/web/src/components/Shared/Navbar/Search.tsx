@@ -9,7 +9,7 @@ import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } fr
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import formatHandle from 'utils/formatHandle';
 
 import UserProfile from '../UserProfile';

@@ -10,7 +10,7 @@ import type { Profile } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 

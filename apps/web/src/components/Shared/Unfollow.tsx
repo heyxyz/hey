@@ -15,7 +15,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import getSignature from 'utils/getSignature';
 import { useSigner, useSignTypedData } from 'wagmi';
 

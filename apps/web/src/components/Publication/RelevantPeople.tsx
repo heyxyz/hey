@@ -7,7 +7,7 @@ import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'data/constants';
 import type { Profile, Publication } from 'lens';
 import { useRelevantPeopleQuery } from 'lens';
 import type { FC } from 'react';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import formatHandle from 'utils/formatHandle';
 
 interface RelevantPeopleProps {

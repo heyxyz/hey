@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX } from 'data/constants';
 import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 
 interface PendingProps {
   handle: string;

@@ -9,7 +9,7 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { ONBOARDING } from 'src/tracking';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 
 interface StatusProps {
   finished: boolean;

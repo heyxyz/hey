@@ -7,8 +7,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { Button } from 'ui/Button';
-import { Card } from 'ui/Card';
+import { Button, Card } from 'ui';
 
 const EnableMessages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

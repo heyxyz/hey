@@ -3,7 +3,7 @@ import { t } from '@lingui/macro';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'data/constants';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 
 interface MetaProps {
   name: string;

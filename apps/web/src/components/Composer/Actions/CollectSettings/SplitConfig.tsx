@@ -9,7 +9,7 @@ import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import splitNumber from 'utils/splitNumber';
 
 interface SplitConfigProps {

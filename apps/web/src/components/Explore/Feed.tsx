@@ -10,7 +10,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 
 interface FeedProps {
   focus?: PublicationMainFocus;

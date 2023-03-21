@@ -10,7 +10,7 @@ import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
 import { useCreateProfileMutation } from 'lens';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import getStampFyiURL from 'utils/getStampFyiURL';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';

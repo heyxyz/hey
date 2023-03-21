@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import getIPFSLink from 'utils/getIPFSLink';
 import imageProxy from 'utils/imageProxy';
 

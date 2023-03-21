@@ -12,7 +12,7 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SETTINGS } from 'src/tracking';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface AllowanceButtonProps {

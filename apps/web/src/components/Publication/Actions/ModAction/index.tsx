@@ -24,8 +24,8 @@ import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
+import { Button } from 'ui';
 import { Alert } from 'ui/Alert';
-import { Button } from 'ui/Button';
 
 interface ModActionProps {
   publication: Publication;

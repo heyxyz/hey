@@ -9,7 +9,7 @@ import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from '
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 
 interface ProfilesProps {
   query: string | string[];

@@ -13,7 +13,7 @@ import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 
 import Suggested from './Suggested';
 

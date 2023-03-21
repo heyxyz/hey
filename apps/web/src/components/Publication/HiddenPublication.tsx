@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 
 interface HiddenPublicationProps {
   type?: string;

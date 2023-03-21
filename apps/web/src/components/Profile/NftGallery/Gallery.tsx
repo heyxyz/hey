@@ -18,7 +18,7 @@ import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { GALLERY_DEFAULTS, useNftGalleryStore } from 'src/store/nft-gallery';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 
 import Create from './Create';
 import NftCard from './NftCard';

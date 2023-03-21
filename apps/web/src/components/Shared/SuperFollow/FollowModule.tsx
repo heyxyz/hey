@@ -21,7 +21,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import getSignature from 'utils/getSignature';

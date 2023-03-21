@@ -2,7 +2,7 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import isVerified from 'utils/isVerified';
 
 const Verification: FC = () => {

@@ -8,7 +8,7 @@ import { TagSortCriteria, useTrendingQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import nFormatter from 'utils/nFormatter';
 
 const Title = () => {

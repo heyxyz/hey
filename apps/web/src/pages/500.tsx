@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 
 const Custom500: FC = () => {
   return (

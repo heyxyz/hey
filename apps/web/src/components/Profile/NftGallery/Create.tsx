@@ -18,7 +18,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import trimify from 'utils/trimify';
 
 import Picker from './Picker';

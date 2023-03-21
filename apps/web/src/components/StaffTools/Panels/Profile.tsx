@@ -11,7 +11,7 @@ import { ShieldCheckIcon } from '@heroicons/react/solid';
 import { APP_NAME } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import getFollowModule from 'utils/getFollowModule';

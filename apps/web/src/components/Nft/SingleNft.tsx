@@ -2,7 +2,7 @@ import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
 import type { Nft } from 'lens';
 import type { FC } from 'react';
 import { CHAIN_ID } from 'src/constants';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import getIPFSLink from 'utils/getIPFSLink';
 
 interface SingleNftProps {

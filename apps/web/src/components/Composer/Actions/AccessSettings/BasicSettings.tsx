@@ -6,8 +6,7 @@ import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { Button } from 'ui/Button';
-import { Card } from 'ui/Card';
+import { Button, Card } from 'ui';
 
 interface BasicSettingsProps {
   setShowModal: Dispatch<boolean>;

@@ -2,7 +2,7 @@ import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import getIPFSLink from 'utils/getIPFSLink';
 
 import MetaDetails from './MetaDetails';

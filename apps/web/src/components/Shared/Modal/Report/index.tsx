@@ -14,7 +14,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PAGEVIEW, PUBLICATION } from 'src/tracking';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import { object, string } from 'zod';
 
 import Reason from './Reason';

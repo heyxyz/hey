@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { SYSTEM } from 'src/tracking';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import { useSwitchNetwork } from 'wagmi';
 
 interface SwitchNetworkProps {

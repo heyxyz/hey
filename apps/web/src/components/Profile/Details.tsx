@@ -24,7 +24,7 @@ import type { Dispatch, FC, ReactElement } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';

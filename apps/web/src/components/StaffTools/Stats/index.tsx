@@ -23,7 +23,7 @@ import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 import humanize from 'utils/humanize';
 
 import StaffToolsSidebar from '../Sidebar';

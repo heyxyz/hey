@@ -12,7 +12,7 @@ import {
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 
 import Loader from '../../Shared/Loader';
 

@@ -2,7 +2,7 @@ import Slug from '@components/Shared/Slug';
 import { StarIcon, UsersIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { Card } from 'ui/Card';
+import { Card } from 'ui';
 
 interface CollectWarningProps {
   handle: string;

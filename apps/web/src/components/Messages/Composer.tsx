@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import { Button } from 'ui/Button';
+import { Button } from 'ui';
 
 interface ComposerProps {
   sendMessage: (message: string) => Promise<boolean>;
