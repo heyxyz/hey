@@ -7,8 +7,14 @@
       "enableNonRootDocker": "true",
       "moby": "true"
     },
-    "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers-contrib/features/npm-package:1": {}
+    "ghcr.io/devcontainers/features/node:1": {
+		"nodeGypDependencies": true,
+		"version": "18"
+	},
+    "ghcr.io/devcontainers-contrib/features/npm-package:1": {
+		"package": "typescript",
+		"version": "latest"
+	}
   },
   "remoteEnv": {
     "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
