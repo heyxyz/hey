@@ -1,5 +1,3 @@
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
 import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
@@ -9,6 +7,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Button, Card } from 'ui';
 
 const EnableMessages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

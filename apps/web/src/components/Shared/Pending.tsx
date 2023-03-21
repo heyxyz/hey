@@ -1,10 +1,10 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { Button } from 'ui';
 
 const HAS_PUBLICATION_INDEXED_QUERY = gql`
   query HasPubicationIndexed($request: PublicationQueryRequest!) {
