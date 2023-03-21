@@ -1,4 +1,3 @@
-import { Alert } from '@components/UI/Alert';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { useHidePublicationMutation } from 'lens';
@@ -6,6 +5,7 @@ import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { PUBLICATION } from 'src/tracking';
+import { Alert } from 'ui/Alert';
 import { publicationKeyFields } from 'utils/keyFields';
 
 const DeletePublication: FC = () => {

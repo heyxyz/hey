@@ -1,4 +1,3 @@
-import { Button } from '@components/UI/Button';
 import { Spinner } from '@components/UI/Spinner';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -16,6 +15,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
+import { Button } from 'ui';
 import getSignature from 'utils/getSignature';
 import { useSigner, useSignTypedData } from 'wagmi';
 
