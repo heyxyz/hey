@@ -2,8 +2,8 @@ import { IS_MAINNET } from 'data/constants';
 
 /**
  *
- * @param amount - Amount to swap
- * @param outputCurrency - Output currency symbol
+ * @param amount Amount to swap
+ * @param outputCurrency Output currency symbol
  * @returns uniswap link
  */
 const getUniswapURL = (amount: number, outputCurrency: string): string => {

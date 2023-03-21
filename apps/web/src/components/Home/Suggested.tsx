@@ -1,4 +1,3 @@
-import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { EmptyState } from '@components/UI/EmptyState';
@@ -8,6 +7,7 @@ import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
+import { FollowSource } from 'src/tracking';
 
 const Suggested: FC = () => {
   const { data, loading, error } = useRecommendedProfilesQuery();
