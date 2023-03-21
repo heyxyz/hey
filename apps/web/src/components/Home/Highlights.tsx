@@ -10,6 +10,7 @@ import { useFeedHighlightsQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { Card } from 'ui';
@@ -61,7 +62,7 @@ const Highlights: FC = () => {
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {txnQueue.map(
         (txn) =>
-          txn?.type === 'NEW_POST' && (
+          txn?.type === OptmisticPublicationType.NewPost && (
             <div key={txn.id}>
               <QueuedPublication txn={txn} />
             </div>

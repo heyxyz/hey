@@ -1,4 +1,3 @@
-import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
@@ -11,6 +10,7 @@ import { useFollowersQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import { FollowSource } from 'src/tracking';
 import formatHandle from 'utils/formatHandle';
 
 interface FollowersProps {
@@ -67,7 +67,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto">
+    <div className="max-h-[80vh] overflow-y-auto" data-testid="followers-modal">
       <ErrorMessage className="m-5" title={t`Failed to load followers`} error={error} />
       <div className="divide-y dark:divide-gray-700">
         {followers?.map((follower, index) => (

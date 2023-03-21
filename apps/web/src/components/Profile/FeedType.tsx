@@ -9,9 +9,9 @@ import {
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
+import { ProfileFeedType } from 'src/enums';
 import { PROFILE } from 'src/tracking';
 
-import { ProfileFeedType } from './Feed';
 import MediaFilter from './Filters/MediaFilter';
 
 interface FeedTypeProps {

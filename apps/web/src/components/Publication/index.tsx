@@ -75,7 +75,7 @@ const ViewPublication: NextPage = () => {
         <NoneRelevantFeed publication={publication} />
       </GridItemEight>
       <GridItemFour className="space-y-5">
-        <Card as="aside" className="p-5">
+        <Card as="aside" className="p-5" dataTestId="poster-profile">
           <UserProfile
             profile={
               publication.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile

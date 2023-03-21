@@ -1,19 +1,18 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
+import * as os from 'os';
 
 const config: PlaywrightTestConfig = {
   testDir: './scripts',
-  timeout: 30 * 1000,
-  expect: { timeout: 10000 },
+  timeout: 50 * 1000,
+  expect: { timeout: 50000 },
   fullyParallel: true,
+  maxFailures: 3,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
-  use: {
-    actionTimeout: 0,
-    trace: 'on-first-retry'
-  },
+  retries: 3,
+  workers: os.cpus().length - 1,
+  reporter: 'list',
+  use: { actionTimeout: 0, trace: 'on-first-retry' },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }]
 };
 

@@ -2,7 +2,7 @@ import { ADDRESS_REGEX } from 'data/constants';
 
 /**
  *
- * @param address - Complete ethereum address
+ * @param address Complete ethereum address
  * @returns formatted ethereum address
  */
 const formatAddress = (address: string | null, slice = 4): string => {

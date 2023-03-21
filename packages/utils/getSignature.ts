@@ -1,7 +1,7 @@
 /**
  *
- * @param object - Object to remove properties from
- * @param name - Name of property to remove
+ * @param object Object to remove properties from
+ * @param name Name of property to remove
  * @returns object with property removed
  */
 const omit = (object: Record<string, any>, name: string) => {
@@ -11,7 +11,7 @@ const omit = (object: Record<string, any>, name: string) => {
 
 /**
  *
- * @param typedData - Typed data to split
+ * @param typedData Typed data to split
  * @returns typed data parts
  */
 const getSignature = (typedData: { domain: Object; types: Object; value: Object }) => {

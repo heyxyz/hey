@@ -4,15 +4,15 @@
   "main": "index.js",
   "private": true,
   "license": "GPL-3.0",
-  "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
     "eslint": "^8.36.0",
     "eslint-config-next": "^13.2.4",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unicorn": "^46.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.5"
   },
   "publishConfig": {
     "access": "public"

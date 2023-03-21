@@ -3,7 +3,7 @@ import getProfileAttribute from 'utils/getProfileAttribute';
 
 /**
  *
- * @param profile - Profile object
+ * @param profile Profile object
  * @returns hasPrideLogo attribute
  */
 const hasPrideLogo = (profile: Profile): boolean =>

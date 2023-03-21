@@ -2,7 +2,7 @@ import { MAINNET_DEFAULT_TOKEN } from 'data/contracts';
 
 /**
  *
- * @param symbol - The symbol of the token
+ * @param symbol The symbol of the token
  * @returns the address of the token
  */
 const getAssetAddress = (symbol: string) => {

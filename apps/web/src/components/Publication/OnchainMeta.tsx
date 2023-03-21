@@ -44,7 +44,7 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
   }
 
   return (
-    <Card as="aside">
+    <Card as="aside" dataTestId="onchain-meta">
       <div className="lt-text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
           <Meta name={t`ARWEAVE TRANSACTION`} uri={`https://arweave.app/tx/${hash}`} hash={hash} />

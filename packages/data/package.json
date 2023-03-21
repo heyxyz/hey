@@ -4,7 +4,7 @@
   "main": "index.ts",
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts"
   },
@@ -12,7 +12,7 @@
     "typescript": "^5.0.2"
   },
   "devDependencies": {
-    "@types/node": "^18.15.2",
+    "@types/node": "^18.15.5",
     "eslint-config-weblint": "*",
     "tsconfig": "*"
   }

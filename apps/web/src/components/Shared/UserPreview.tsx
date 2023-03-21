@@ -6,12 +6,13 @@ import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { FollowSource } from 'src/tracking';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 import isVerified from 'utils/isVerified';
 import nFormatter from 'utils/nFormatter';
 
-import Follow, { FollowSource } from './Follow';
+import Follow from './Follow';
 import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
