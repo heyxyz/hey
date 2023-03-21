@@ -4,7 +4,7 @@
   "main": "index.ts",
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts"
   },
