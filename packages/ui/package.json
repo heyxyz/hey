@@ -1,14 +1,12 @@
 {
   "name": "ui",
-  "version": "1.0.0",
-  "description": "UI Library of lenster",
+  "version": "0.0.0",
   "private": true,
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
   },
-  "author": "",
-  "license": "ISC"
+  "license": "GPL-3.0"
 }
