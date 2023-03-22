@@ -1,4 +1,4 @@
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
+import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data';
 
 /**
  *
@@ -11,14 +11,12 @@ const formatHandle = (handle: string | null, keepSuffix = false): string => {
     return '';
   }
 
-  if (handle?.toLowerCase() === LENSPROTOCOL_HANDLE) {
+  if (handle.toLowerCase() === LENSPROTOCOL_HANDLE) {
     return handle;
   }
 
   if (keepSuffix) {
-    return handle.match(HANDLE_SUFFIX)
-      ? handle.split(HANDLE_SUFFIX)[0] + HANDLE_SUFFIX
-      : handle + HANDLE_SUFFIX;
+    return handle.replace(HANDLE_SUFFIX, '') + HANDLE_SUFFIX;
   }
 
   return handle.replace(HANDLE_SUFFIX, '');
