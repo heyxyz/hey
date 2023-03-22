@@ -19,10 +19,10 @@ test.describe('formatAddress', () => {
     expect(result).toBe('0x7b9…41008');
   });
 
-  test("doesn't make any modifications if the address doesn't match the regex", () => {
+  test("should return empty string if the address doesn't match the regex", () => {
     const input = 'not-an-address';
     const result = formatAddress(input);
 
-    expect(result).toBe(input);
+    expect(result).toBe('');
   });
 });

@@ -18,7 +18,7 @@ test.describe('getFollowModule', () => {
   });
 
   test('should return correct default module when name is undefined', () => {
-    const result = getFollowModule();
+    const result = getFollowModule('');
     expect(result.description).toEqual('Anyone can follow');
   });
 
