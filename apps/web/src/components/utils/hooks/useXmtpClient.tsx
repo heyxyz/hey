@@ -5,6 +5,7 @@ import { useAppStore } from 'src/store/app';
 import { useConversationCache } from 'src/store/conversation-cache';
 import { useMessageStore } from 'src/store/message';
 import { useAccount, useSigner } from 'wagmi';
+import { AttachmentCodec, RemoteAttachmentCodec } from 'xmtp-content-type-remote-attachment';
 
 const ENCODING = 'binary';
 
@@ -62,6 +63,10 @@ const useXmtpClient = (cacheOnly = false) => {
           appVersion: APP_NAME + '/' + APP_VERSION,
           privateKeyOverride: keys
         });
+
+        xmtp.registerCodec(new AttachmentCodec());
+        xmtp.registerCodec(new RemoteAttachmentCodec());
+
         if (conversationExports && conversationExports.length) {
           // Preload the client with conversations from the cache
           await xmtp.conversations.import(conversationExports);

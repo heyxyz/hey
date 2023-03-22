@@ -111,6 +111,7 @@ export const ATTACHMENT = '1000,fit';
 
 // Localstorage keys
 export const LS_KEYS = {
+  ATTACHMENT_STORE: 'attachment.store',
   LENSTER_STORE: 'lenster.store',
   PREFERENCES_STORE: 'preferences.store',
   TRANSACTION_STORE: 'transaction.store',

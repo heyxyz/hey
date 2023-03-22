@@ -64,6 +64,7 @@
     "utils": "*",
     "uuid": "^9.0.0",
     "wagmi": "^0.12.6",
+    "xmtp-content-type-remote-attachment": "^1.0.6",
     "zod": "^3.21.4",
     "zustand": "^4.3.6"
   },
