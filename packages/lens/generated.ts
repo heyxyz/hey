@@ -1154,7 +1154,7 @@ export type Erc4626FeeCollectModuleParams = {
   endTimestamp?: InputMaybe<Scalars['DateTime']>;
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean'];
-  /** The address of the recipient who will recieve vault shares after depositing is completed. */
+  /** The address of the recipient who will receive vault shares after depositing is completed. */
   recipient: Scalars['EthereumAddress'];
   /** The referral fee associated with this publication. */
   referralFee?: InputMaybe<Scalars['Float']>;
