@@ -6,16 +6,11 @@ import { ADDRESS_REGEX } from 'data/constants';
  * @returns formatted ethereum address
  */
 const formatAddress = (address: string | null, slice = 4): string => {
-  if (!address) {
+  if (!address || !ADDRESS_REGEX.test(address)) {
     return '';
   }
 
-  const regex = ADDRESS_REGEX;
-  if (address.match(regex)) {
-    return `${address.slice(0, slice)}…${address.slice(address.length - slice, address.length)}`;
-  }
-
-  return address;
+  return `${address.slice(0, slice)}…${address.slice(-slice)}`;
 };
 
 export default formatAddress;
