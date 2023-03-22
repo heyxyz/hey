@@ -4,7 +4,8 @@ import getIPFSLink from 'utils/getIPFSLink';
 
 /**
  * Returns the thumbnail URL for the specified publication metadata.
- * @param metadata - The publication metadata.
+ *
+ * @param metadata The publication metadata.
  * @returns The thumbnail URL.
  */
 const getThumbnailUrl = (metadata?: MetadataOutput): string => {

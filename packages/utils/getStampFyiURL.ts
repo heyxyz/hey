@@ -1,6 +1,7 @@
 /**
  * Returns the cdn.stamp.fyi URL for the specified Ethereum address.
- * @param address - The Ethereum address to get the URL for.
+ *
+ * @param address The Ethereum address to get the URL for.
  * @returns The cdn.stamp.fyi URL.
  */
 const getStampFyiURL = (address: string): string => {

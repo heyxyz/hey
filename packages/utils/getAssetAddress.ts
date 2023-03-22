@@ -18,7 +18,8 @@ const TOKEN_ADDRESSES: TokenAddressMap = {
 
 /**
  * Returns the address of a given token symbol.
- * @param symbol - The symbol of the token.
+ *
+ * @param symbol The symbol of the token.
  * @returns The address of the token.
  */
 const getAssetAddress = (symbol: string): string => {

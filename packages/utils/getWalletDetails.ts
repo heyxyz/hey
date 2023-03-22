@@ -7,7 +7,8 @@ interface WalletDetails {
 
 /**
  * Returns an object with the name and logo URL for the specified wallet name.
- * @param name - The wallet name.
+ *
+ * @param name The wallet name.
  * @returns An object with the name and logo URL.
  */
 const getWalletDetails = (name: string): WalletDetails => {

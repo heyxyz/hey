@@ -10,8 +10,9 @@ const SKIP_LIST = ['static-assets.lenster.xyz', 'avataaars.io', 'avatar.tobi.sh'
 
 /**
  * Returns the avatar image URL for a given profile.
- * @param profile - The profile object.
- * @param useImageProxy - Whether to use the image proxy.
+ *
+ * @param profile The profile object.
+ * @param useImageProxy Whether to use the image proxy.
  * @returns The avatar image URL.
  */
 const getAvatar = (profile: any, useImageProxy = true): string => {

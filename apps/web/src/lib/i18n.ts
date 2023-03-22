@@ -20,7 +20,8 @@ i18n.loadLocaleData({
 });
 
 /**
- * set locale and dynamically import catalog
+ * Sets the current locale and dynamically loads the corresponding catalog of messages.
+ *
  * @param locale a supported locale string
  */
 export async function setLocale(locale: string) {

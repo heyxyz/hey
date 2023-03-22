@@ -2,7 +2,8 @@ import { IPFS_GATEWAY } from 'data/constants';
 
 /**
  * Returns the IPFS link for a given hash.
- * @param hash - The IPFS hash.
+ *
+ * @param hash The IPFS hash.
  * @returns The IPFS link.
  */
 const getIPFSLink = (hash?: string): string => {

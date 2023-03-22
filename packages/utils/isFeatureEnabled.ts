@@ -3,8 +3,9 @@ import { featureFlags } from 'data/feature-flags';
 
 /**
  * Returns whether a given feature is enabled for a given profile ID.
- * @param featureKey - The key of the feature to check.
- * @param profileId - The ID of the profile to check.
+ *
+ * @param featureKey The key of the feature to check.
+ * @param profileId The ID of the profile to check.
  * @returns Whether the feature is enabled for the given profile ID.
  */
 const isFeatureEnabled = (featureKey: string, profileId: string): boolean => {

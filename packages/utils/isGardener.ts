@@ -3,8 +3,9 @@ import { mainnetGardeners, testnetGardeners } from 'data/gardeners';
 
 /**
  * Determines whether a given profile ID belongs to a Gardener on the current network.
+ *
  * @param id The profile ID to check.
- * @returns `true` if the given profile ID belongs to a Gardener, false otherwise.
+ * @returns True if the given profile ID belongs to a Gardener, false otherwise.
  */
 const isGardener = (id: string): boolean =>
   IS_MAINNET ? mainnetGardeners.includes(id) : testnetGardeners.includes(id);

@@ -1,6 +1,7 @@
 /**
  * Extracts up to five unique hashtags from the specified input text.
- * @param inputText - The text to extract tags from.
+ *
+ * @param inputText The text to extract tags from.
  * @returns An array of up to five unique hashtags without the '#' symbol or surrounding whitespace.
  */
 const getTags = (inputText: string): string[] => {

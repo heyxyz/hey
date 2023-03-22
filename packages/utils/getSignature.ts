@@ -1,7 +1,8 @@
 /**
  * Returns a new object with the specified property removed.
- * @param obj - The object to remove properties from.
- * @param prop - The name of the property to remove.
+ *
+ * @param obj The object to remove properties from.
+ * @param prop The name of the property to remove.
  * @returns A new object with the property removed.
  */
 const omit = <T extends Record<string, any>, K extends keyof T>(obj: T, prop: K): Omit<T, K> => {
@@ -17,7 +18,8 @@ interface TypedData {
 
 /**
  * Splits the given typed data into three parts, omitting the "__typename" property from each part.
- * @param typedData - The typed data to split.
+ *
+ * @param typedData The typed data to split.
  * @returns An object containing the three parts of the typed data.
  */
 const getSignature = (typedData: TypedData) => {

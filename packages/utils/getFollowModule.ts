@@ -10,7 +10,8 @@ const FOLLOW_MODULE_MAP: Record<string, FollowModule> = {
 
 /**
  * Returns a follow module object for a given module name.
- * @param name - The name of the module.
+ *
+ * @param name The name of the module.
  * @returns The follow module object.
  */
 const getFollowModule = (name?: string): FollowModule => {
