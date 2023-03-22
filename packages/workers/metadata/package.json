@@ -13,7 +13,7 @@
     "bundlr": "*"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230307.0",
+    "@cloudflare/workers-types": "^4.20230321.0",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^5.0.2",
