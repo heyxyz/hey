@@ -1,17 +1,18 @@
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
 
 /**
+ * Format the given handle by conditionally removing or appending the .lens or .test suffix.
  *
- * @param handle Complete handle
- * @param keepSuffix Keep .lens or .test suffix
- * @returns formatted handle without .lens or .test suffix
+ * @param handle - Complete handle
+ * @param keepSuffix - Keep the .lens or .test suffix if true, remove if false
+ * @returns Formatted handle without .lens or .test suffix, unless keepSuffix is true
  */
 const formatHandle = (handle: string | null, keepSuffix = false): string => {
   if (!handle) {
     return '';
   }
 
-  if (handle?.toLowerCase() === LENSPROTOCOL_HANDLE) {
+  if (handle.toLowerCase() === LENSPROTOCOL_HANDLE) {
     return handle;
   }
 
