@@ -1,11 +1,12 @@
 import { uploadFileToIPFS } from './uploadToIPFS';
 
 /**
+ * Generates a URL for an SVG image that represents an NFT with the specified content, username, and timestamp.
  *
- * @param content string to be displayed in the NFT
- * @param username username of the user
- * @param timestamp timestamp of the NFT
- * @returns the svg image as a string
+ * @param content The string to be displayed in the NFT.
+ * @param username The username of the user.
+ * @param timestamp The timestamp of the NFT.
+ * @returns The SVG image as a string.
  */
 const getTextNftUrl = async (content: string, username: string, timestamp: string) => {
   const svg = `<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">

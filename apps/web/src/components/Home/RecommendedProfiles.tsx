@@ -1,6 +1,5 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { Card } from '@components/UI/Card';
 import { EmptyState } from '@components/UI/EmptyState';
 import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { Modal } from '@components/UI/Modal';
@@ -13,6 +12,7 @@ import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { FollowSource, MISCELLANEOUS } from 'src/tracking';
+import { Card } from 'ui';
 
 import Suggested from './Suggested';
 

@@ -1,8 +1,10 @@
 /**
+ * Splits an array into smaller arrays of a specified chunk size.
  *
- * @param arr array to chunk
- * @param chunkSize size of each chunk
- * @returns array of chunks
+ * @param arr The array to chunk.
+ * @param chunkSize The size of each chunk.
+ * @returns An array of chunks.
+ * @template T The type of elements in the array.
  */
 const chunkArray = <T>(arr: T[], chunkSize: number): T[][] => {
   const out: T[][] = [];

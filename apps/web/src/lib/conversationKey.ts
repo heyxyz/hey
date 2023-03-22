@@ -3,18 +3,20 @@ import { XMTP_PREFIX } from 'data/constants';
 const CONVERSATION_KEY_RE = /^(.*)\/lens\.dev\/dm\/(.*)-(.*)$/;
 
 /**
+ * Builds a conversation key for a given peer address and conversation id
  *
- * @param peerAddress the peer address of the user
- * @param conversationId the conversation id
- * @returns the conversation key
+ * @param peerAddress The peer address of the user
+ * @param conversationId The conversation id
+ * @returns The conversation key
  */
 export const buildConversationKey = (peerAddress: string, conversationId: string): string =>
   `${peerAddress.toLowerCase()}/${conversationId}`;
 
 /**
+ * Parses a conversation key into its peer address, members, and conversation id
  *
- * @param conversationKey the conversation key
- * @returns the peer address, members, and conversation id
+ * @param conversationKey The conversation key
+ * @returns An object containing the peer address, members, and conversation id, or null if the conversation key is invalid
  */
 export const parseConversationKey = (
   conversationKey: string

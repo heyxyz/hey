@@ -1,6 +1,5 @@
 import Beta from '@components/Shared/Badges/Beta';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Button } from '@components/UI/Button';
 import { Input } from '@components/UI/Input';
 import { PlusIcon, SwitchHorizontalIcon, UsersIcon, XCircleIcon } from '@heroicons/react/outline';
 import isValidEthAddress from '@lib/isValidEthAddress';
@@ -10,6 +9,7 @@ import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { Button } from 'ui';
 import splitNumber from 'utils/splitNumber';
 
 interface SplitConfigProps {
