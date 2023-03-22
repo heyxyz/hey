@@ -13,9 +13,10 @@ const assetMap: AssetMap = {
 };
 
 /**
+ * Get the address of the token based on its symbol.
  *
- * @param symbol The symbol of the token
- * @returns the address of the token
+ * @param symbol - The symbol of the token
+ * @returns The address of the token
  */
 const getAssetAddress = (symbol: string): string => {
   return assetMap[symbol] ?? MAINNET_DEFAULT_TOKEN;

@@ -16,10 +16,11 @@ interface Profile {
 const SKIP_LIST = ['static-assets.lenster.xyz', 'avataaars.io', 'avatar.tobi.sh'];
 
 /**
+ * Get avatar image URL based on the profile data.
  *
- * @param profile Profile object
- * @param isCdn To passthrough image proxy
- * @returns avatar image url
+ * @param profile - Profile object
+ * @param isCdn - To passthrough image proxy
+ * @returns Avatar image URL
  */
 const getAvatar = (profile: Profile, isCdn = true): string => {
   const avatarUrl =

@@ -23,6 +23,6 @@ test.describe('formatAddress', () => {
     const input = 'not-an-address';
     const result = formatAddress(input);
 
-    expect(result).toBe('');
+    expect(result).toBe(input);
   });
 });

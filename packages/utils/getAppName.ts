@@ -1,7 +1,8 @@
 /**
+ * Convert a given string to an app name format.
  *
- * @param str the string to convert
- * @returns the string with the first letter capitalized and dashes replaced with spaces
+ * @param str - The string to convert
+ * @returns The string with the first letter capitalized and dashes replaced with spaces
  */
 const getAppName = (str: string): string => {
   const firstLetter = str.charAt(0).toUpperCase();
