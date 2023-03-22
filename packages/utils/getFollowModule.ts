@@ -1,19 +1,21 @@
+interface FollowModule {
+  description: string;
+}
+
+const FOLLOW_MODULE_MAP: Record<string, FollowModule> = {
+  ProfileFollowModuleSettings: { description: 'Only Lens profiles can follow' },
+  FeeFollowModuleSettings: { description: 'Charge to follow' },
+  RevertFollowModuleSettings: { description: 'No one can follow' }
+};
+
 /**
+ * Returns a follow module object for a given module name.
  *
- * @param name Name to format
- * @returns formatted name
+ * @param name The name of the module.
+ * @returns The follow module object.
  */
-const getFollowModule = (name?: string): { description: string } => {
-  switch (name) {
-    case 'ProfileFollowModuleSettings':
-      return { description: 'Only Lens profiles can follow' };
-    case 'FeeFollowModuleSettings':
-      return { description: 'Charge to follow' };
-    case 'RevertFollowModuleSettings':
-      return { description: 'No one can follow' };
-    default:
-      return { description: 'Anyone can follow' };
-  }
+const getFollowModule = (name?: string): FollowModule => {
+  return FOLLOW_MODULE_MAP[name ?? ''] ?? { description: 'Anyone can follow' };
 };
 
 export default getFollowModule;

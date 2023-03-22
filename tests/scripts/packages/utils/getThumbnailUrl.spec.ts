@@ -14,10 +14,11 @@ test.describe('getThumbnailUrl', () => {
     image: 'https://example.com/image.png'
   };
 
-  test('should return an empty string if no metadata is provided', () => {
+  test('should return an placeholder if no metadata is provided', () => {
     const metadata = undefined;
     const result = getThumbnailUrl(metadata);
-    expect(result).toEqual('');
+    const expectedUrl = `${STATIC_IMAGES_URL}/placeholder.webp`;
+    expect(result).toEqual(expectedUrl);
   });
 
   test('should return the original cover URL if available', () => {

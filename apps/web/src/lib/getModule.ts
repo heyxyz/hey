@@ -2,9 +2,10 @@ import { t } from '@lingui/macro';
 import { CollectModules, FollowModules, ReferenceModules } from 'lens';
 
 /**
+ * Returns the name and field of the specified module.
  *
- * @param name Module to format
- * @returns module config
+ * @param name Name of the module.
+ * @returns Object containing the name and field of the module.
  */
 export const getModule = (
   name: string
