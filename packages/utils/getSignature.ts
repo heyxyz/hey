@@ -1,24 +1,32 @@
 /**
- *
- * @param object Object to remove properties from
- * @param name Name of property to remove
- * @returns object with property removed
+ * Returns a new object with the specified property removed.
+ * @param obj - The object to remove properties from.
+ * @param prop - The name of the property to remove.
+ * @returns A new object with the property removed.
  */
-const omit = (object: Record<string, any>, name: string) => {
-  delete object[name];
-  return object;
+const omit = <T extends Record<string, any>, K extends keyof T>(obj: T, prop: K): Omit<T, K> => {
+  const { [prop]: _, ...rest } = obj;
+  return rest;
 };
 
+interface TypedData {
+  domain: Record<string, any>;
+  types: Record<string, any>;
+  value: Record<string, any>;
+}
+
 /**
- *
- * @param typedData Typed data to split
- * @returns typed data parts
+ * Splits the given typed data into three parts, omitting the "__typename" property from each part.
+ * @param typedData - The typed data to split.
+ * @returns An object containing the three parts of the typed data.
  */
-const getSignature = (typedData: { domain: Object; types: Object; value: Object }) => {
+const getSignature = (typedData: TypedData) => {
+  const { domain, types, value } = typedData;
+
   return {
-    domain: omit(typedData.domain, '__typename'),
-    types: omit(typedData.types, '__typename'),
-    value: omit(typedData.value, '__typename')
+    domain: omit(domain, '__typename'),
+    types: omit(types, '__typename'),
+    value: omit(value, '__typename')
   };
 };
 

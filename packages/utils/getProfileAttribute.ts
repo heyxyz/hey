@@ -3,13 +3,14 @@ import type { Attribute, Maybe } from 'lens';
 type Key = 'hasPrideLogo' | 'app' | 'twitter' | 'location' | 'website' | 'statusEmoji' | 'statusMessage';
 
 /**
- *
- * @param attributes The attributes to search through
- * @param key The key to search for
- * @returns the attribute from a trait
+ * Returns the attribute value for a given key from an array of attributes.
+ * @param attributes - The array of attributes to search through.
+ * @param key - The key to search for.
+ * @returns The attribute value.
  */
-const getProfileAttribute = (attributes: Maybe<Attribute[]> | undefined, key: Key): string => {
-  return attributes?.find((el) => el.key === key)?.value ?? '';
+const getProfileAttribute = (attributes: Maybe<Attribute[]> = [], key: Key): string => {
+  const attribute = attributes?.find((attr) => attr.key === key);
+  return attribute?.value ?? '';
 };
 
 export default getProfileAttribute;
