@@ -8,23 +8,13 @@ import imageProxy from 'utils/imageProxy';
  */
 const SKIP_LIST = ['static-assets.lenster.xyz', 'avataaars.io', 'avatar.tobi.sh'];
 
-interface Profile {
-  picture?: {
-    original?: {
-      url?: string;
-    };
-    uri?: string;
-  };
-  ownedBy?: string;
-}
-
 /**
  * Returns the avatar image URL for a given profile.
  * @param profile - The profile object.
  * @param useImageProxy - Whether to use the image proxy.
  * @returns The avatar image URL.
  */
-const getAvatar = (profile: Profile, useImageProxy = true): string => {
+const getAvatar = (profile: any, useImageProxy = true): string => {
   const avatarUrl =
     profile?.picture?.original?.url ??
     profile?.picture?.uri ??
