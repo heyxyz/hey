@@ -14,7 +14,7 @@ import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesLazyQuery,
-  useTimelineLazyQuery
+  useSeeThroughProfilesLazyQuery
 } from 'lens';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
@@ -54,8 +54,8 @@ const SeeThroughLens: FC = () => {
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
 
-  const [fetchRecommendedProfiles, { loading, error }] = useTimelineLazyQuery({
-    variables: { request, profileId: profile?.id },
+  const [fetchRecommendedProfiles, { loading, error }] = useSeeThroughProfilesLazyQuery({
+    variables: { request },
     onCompleted: (data) => {
       const feedItems = data?.feed?.items as FeedItem[];
       setRecommendedProfiles(feedItems);
