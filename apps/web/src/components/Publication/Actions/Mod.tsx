@@ -1,9 +1,9 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { ShieldCheckIcon } from '@heroicons/react/outline';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
+import { Tooltip } from 'ui';
 
 interface ModProps {
   publication: Publication;

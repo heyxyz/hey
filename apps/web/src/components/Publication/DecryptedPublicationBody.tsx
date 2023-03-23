@@ -1,7 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import { Tooltip } from '@components/UI/Tooltip';
 import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
@@ -34,7 +33,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
-import { Card, ErrorMessage } from 'ui';
+import { Card, ErrorMessage, Tooltip } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getIPFSLink from 'utils/getIPFSLink';
 import getURLs from 'utils/getURLs';
