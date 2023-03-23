@@ -8,3 +8,4 @@ export { FieldError, Form, useZodForm } from './Form';
 export { GridItemEight, GridItemFour, GridLayout } from './GridLayout';
 export { default as HelpTooltip } from './HelpTooltip';
 export { Image } from './Image';
+export { Input } from './Input';

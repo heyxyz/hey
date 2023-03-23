@@ -1,4 +1,3 @@
-import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -18,7 +17,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card, Form, useZodForm } from 'ui';
+import { Button, Card, Form, Input, useZodForm } from 'ui';
 import getSignature from 'utils/getSignature';
 import getTokenImage from 'utils/getTokenImage';
 import { useContractWrite, useSignTypedData } from 'wagmi';

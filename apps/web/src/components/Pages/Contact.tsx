@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
@@ -12,7 +11,17 @@ import { APP_NAME, FRESHDESK_WORKER_URL } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PAGEVIEW } from 'src/tracking';
-import { Button, Card, EmptyState, Form, GridItemEight, GridItemFour, GridLayout, useZodForm } from 'ui';
+import {
+  Button,
+  Card,
+  EmptyState,
+  Form,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  Input,
+  useZodForm
+} from 'ui';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
