@@ -13,3 +13,4 @@ export { Modal } from './Modal';
 export { PageLoading } from './PageLoading';
 export { Spinner } from './Spinner';
 export { default as TabButton } from './TabButton';
+export { TextArea } from './TextArea';
