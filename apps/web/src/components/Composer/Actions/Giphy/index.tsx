@@ -1,5 +1,4 @@
 import Loader from '@components/Shared/Loader';
-import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import type { IGif } from '@giphy/js-types';
 import { PhotographIcon } from '@heroicons/react/outline';
@@ -9,6 +8,7 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
+import { Modal } from 'ui';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message={t`Loading GIFs`} />

@@ -1,4 +1,3 @@
-import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { LockClosedIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
@@ -7,7 +6,7 @@ import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
-import { HelpTooltip } from 'ui';
+import { HelpTooltip, Modal } from 'ui';
 
 import BasicSettings from './BasicSettings';
 

@@ -1,4 +1,3 @@
-import { Modal } from '@components/UI/Modal';
 import { Tooltip } from '@components/UI/Tooltip';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
@@ -7,7 +6,7 @@ import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
-import { Card, Image } from 'ui';
+import { Card, Image, Modal } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 
