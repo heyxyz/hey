@@ -3,9 +3,11 @@ import { ERROR_MESSAGE, METADATA_WORKER_URL } from 'data/constants';
 import toast from 'react-hot-toast';
 
 /**
+ * Uploads the given data to Arweave.
  *
- * @param data Data to upload to arweave
- * @returns arweave transaction id
+ * @param data The data to upload.
+ * @returns The Arweave transaction ID.
+ * @throws An error if the upload fails.
  */
 const uploadToArweave = async (data: any): Promise<string> => {
   try {

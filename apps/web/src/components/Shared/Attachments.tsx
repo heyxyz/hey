@@ -11,8 +11,8 @@ import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { Button, Image, LightBox } from 'ui';
-import getIPFSLink from 'utils/getIPFSLink';
 import imageProxy from 'utils/imageProxy';
+import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -79,8 +79,8 @@ const Attachments: FC<AttachmentsProps> = ({
         {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
           const type = isNew ? attachment.type : attachment.original?.mimeType;
           const url = isNew
-            ? attachment.previewItem || getIPFSLink(attachment.item!)
-            : getIPFSLink(attachment.original?.url) || getIPFSLink(attachment.item!);
+            ? attachment.previewItem || sanitizeDStorageUrl(attachment.item!)
+            : sanitizeDStorageUrl(attachment.original?.url) || sanitizeDStorageUrl(attachment.item!);
 
           return (
             <div

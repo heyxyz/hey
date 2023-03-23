@@ -9,9 +9,10 @@ interface CursorBasedPagination<T = StoreValue> {
 type SafeReadonly<T> = T extends object ? Readonly<T> : T;
 
 /**
+ * Generates a field policy for cursor-based pagination.
  *
- * @param keyArgs key args for the field
- * @returns a field policy for cursor based pagination
+ * @param keyArgs Key args for the field.
+ * @returns Field policy for cursor-based pagination.
  */
 export const cursorBasedPagination = <T extends CursorBasedPagination>(
   keyArgs: FieldPolicy['keyArgs']

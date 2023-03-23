@@ -1,10 +1,14 @@
 import { STATIC_IMAGES_URL } from 'data/constants';
 
 /**
+ * Returns the URL for the token image with the specified symbol.
  *
- * @param symbol Token symbol
- * @returns token image url
+ * @param symbol The token symbol.
+ * @returns The token image URL.
  */
-const getTokenImage = (symbol: string): string => `${STATIC_IMAGES_URL}/tokens/${symbol?.toLowerCase()}.svg`;
+const getTokenImage = (symbol: string): string => {
+  const symbolLowerCase = symbol?.toLowerCase() ?? '';
+  return `${STATIC_IMAGES_URL}/tokens/${symbolLowerCase}.svg`;
+};
 
 export default getTokenImage;

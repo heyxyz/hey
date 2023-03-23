@@ -1,24 +1,28 @@
 import { STATIC_IMAGES_URL } from 'data/constants';
 
-/**
- *
- * @param name Wallet name
- * @returns wallet logo url
- */
-const getWalletDetails = (
-  name: string
-): {
+interface WalletDetails {
   name: string;
   logo: string;
-} => {
-  if (name === 'WalletConnectLegacy') {
-    return {
+}
+
+/**
+ * Returns an object with the name and logo URL for the specified wallet name.
+ *
+ * @param name The wallet name.
+ * @returns An object with the name and logo URL.
+ */
+const getWalletDetails = (name: string): WalletDetails => {
+  const walletDetails: Record<string, WalletDetails> = {
+    WalletConnectLegacy: {
       name: 'Wallet Connect',
       logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`
-    };
-  }
-
-  return { name, logo: `${STATIC_IMAGES_URL}/wallets/browser-wallet.svg` };
+    }
+  };
+  const defaultDetails: WalletDetails = {
+    name,
+    logo: `${STATIC_IMAGES_URL}/wallets/browser-wallet.svg`
+  };
+  return walletDetails[name] || defaultDetails;
 };
 
 export default getWalletDetails;

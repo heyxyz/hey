@@ -4,7 +4,12 @@ import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
 import type { LensterAttachment } from 'src/types';
 import { v4 as uuid } from 'uuid';
 
-const getS3Client = async () => {
+/**
+ * Returns an S3 client with temporary credentials obtained from the STS service.
+ *
+ * @returns S3 client instance.
+ */
+const getS3Client = async (): Promise<S3> => {
   const token = await axios.get(STS_TOKEN_URL);
   const client = new S3({
     endpoint: EVER_API,
@@ -21,9 +26,10 @@ const getS3Client = async () => {
 };
 
 /**
+ * Uploads a set of files to the IPFS network via S3 and returns an array of LensterAttachment objects.
  *
- * @param data Data to upload to IPFS
- * @returns attachment array
+ * @param data Files to upload to IPFS.
+ * @returns Array of LensterAttachment objects.
  */
 const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
   try {
@@ -55,9 +61,10 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
 };
 
 /**
+ * Uploads a file to the IPFS network via S3 and returns a LensterAttachment object.
  *
- * @param file File object
- * @returns attachment or null
+ * @param file File to upload to IPFS.
+ * @returns LensterAttachment object or null if the upload fails.
  */
 export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment | null> => {
   try {

@@ -1,9 +1,10 @@
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 
 /**
+ * Returns an array of unique messages from the given array of decoded messages.
  *
- * @param msgObj array of decoded messages
- * @returns array of unique messages
+ * @param msgObj Array of decoded messages.
+ * @returns Array of unique messages.
  */
 const getUniqueMessages = (msgObj: DecodedMessage[]): DecodedMessage[] => {
   const uniqueMessages = [...Array.from(new Map(msgObj.map((item) => [item['id'], item])).values())];

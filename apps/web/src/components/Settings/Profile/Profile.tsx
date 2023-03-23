@@ -20,11 +20,11 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { Button, Card, ErrorMessage, Form, Image, Input, Spinner, TextArea, Toggle, useZodForm } from 'ui';
-import getIPFSLink from 'utils/getIPFSLink';
 import getProfileAttribute from 'utils/getProfileAttribute';
 import getSignature from 'utils/getSignature';
 import hasPrideLogo from 'utils/hasPrideLogo';
 import imageProxy from 'utils/imageProxy';
+import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';
@@ -237,9 +237,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 <Image
                   className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
-                    currentTarget.src = getIPFSLink(cover);
+                    currentTarget.src = sanitizeDStorageUrl(cover);
                   }}
-                  src={imageProxy(getIPFSLink(cover), COVER)}
+                  src={imageProxy(sanitizeDStorageUrl(cover), COVER)}
                   alt={cover}
                 />
               </div>
