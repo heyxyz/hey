@@ -10,3 +10,5 @@ export { default as HelpTooltip } from './HelpTooltip';
 export { Image } from './Image';
 export { Input } from './Input';
 export { Modal } from './Modal';
+export { PageLoading } from './PageLoading';
+export { Spinner } from './Spinner';

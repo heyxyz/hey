@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
@@ -20,6 +19,7 @@ import {
   GridItemFour,
   GridLayout,
   Input,
+  Spinner,
   useZodForm
 } from 'ui';
 import { object, string } from 'zod';

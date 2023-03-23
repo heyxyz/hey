@@ -1,4 +1,3 @@
-import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
@@ -11,7 +10,7 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SETTINGS } from 'src/tracking';
-import { Button, Modal } from 'ui';
+import { Button, Modal, Spinner } from 'ui';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface AllowanceButtonProps {

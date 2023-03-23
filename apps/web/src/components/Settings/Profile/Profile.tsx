@@ -1,5 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';
 import { Toggle } from '@components/UI/Toggle';
 import { PencilIcon } from '@heroicons/react/outline';
@@ -22,7 +21,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card, ErrorMessage, Form, Image, Input, useZodForm } from 'ui';
+import { Button, Card, ErrorMessage, Form, Image, Input, Spinner, useZodForm } from 'ui';
 import getIPFSLink from 'utils/getIPFSLink';
 import getProfileAttribute from 'utils/getProfileAttribute';
 import getSignature from 'utils/getSignature';

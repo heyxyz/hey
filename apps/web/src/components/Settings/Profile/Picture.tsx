@@ -1,5 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -21,7 +20,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button, ErrorMessage, Image, Modal } from 'ui';
+import { Button, ErrorMessage, Image, Modal, Spinner } from 'ui';
 import getIPFSLink from 'utils/getIPFSLink';
 import getSignature from 'utils/getSignature';
 import imageProxy from 'utils/imageProxy';

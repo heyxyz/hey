@@ -1,5 +1,4 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Spinner } from '@components/UI/Spinner';
 import { Tooltip } from '@components/UI/Tooltip';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
@@ -17,6 +16,7 @@ import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
+import { Spinner } from 'ui';
 
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);

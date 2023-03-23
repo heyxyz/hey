@@ -1,6 +1,5 @@
 import { useApolloClient } from '@apollo/client';
 import EmojiPicker from '@components/Shared/EmojiPicker';
-import { Spinner } from '@components/UI/Spinner';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { ERROR_MESSAGE } from 'data/constants';
@@ -17,7 +16,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
-import { Button, Modal } from 'ui';
+import { Button, Modal, Spinner } from 'ui';
 import trimify from 'utils/trimify';
 
 import Picker from './Picker';
