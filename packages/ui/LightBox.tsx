@@ -1,7 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
-import { Trans } from '@lingui/macro';
-import type { FC } from 'react';
+import type { FC, SyntheticEvent } from 'react';
 import { Fragment } from 'react';
 
 interface LightBoxProps {
@@ -52,10 +50,10 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={stopEventPropagation}
+                  onClick={(event: SyntheticEvent) => event.stopPropagation()}
                   data-testid="lightbox-open-original"
                 >
-                  <Trans>Open original</Trans>
+                  Open original
                 </a>
               </div>
             ) : null}

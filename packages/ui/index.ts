@@ -9,6 +9,7 @@ export { GridItemEight, GridItemFour, GridLayout } from './GridLayout';
 export { default as HelpTooltip } from './HelpTooltip';
 export { Image } from './Image';
 export { Input } from './Input';
+export { LightBox } from './LightBox';
 export { Modal } from './Modal';
 export { PageLoading } from './PageLoading';
 export { Spinner } from './Spinner';

@@ -1,4 +1,3 @@
-import { LightBox } from '@components/UI/LightBox';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { stopEventPropagation } from '@lib/stopEventPropagation';
@@ -11,7 +10,7 @@ import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
-import { Button, Image } from 'ui';
+import { Button, Image, LightBox } from 'ui';
 import getIPFSLink from 'utils/getIPFSLink';
 import imageProxy from 'utils/imageProxy';
 
