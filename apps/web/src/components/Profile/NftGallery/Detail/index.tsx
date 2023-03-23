@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
-import { Image } from '@components/UI/Image';
 import { Mixpanel } from '@lib/mixpanel';
 import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
@@ -11,7 +10,7 @@ import React, { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
+import { Card, GridItemEight, GridItemFour, GridLayout, Image } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 import isFeatureEnabled from 'utils/isFeatureEnabled';

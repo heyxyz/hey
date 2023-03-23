@@ -1,4 +1,3 @@
-import { Image } from '@components/UI/Image';
 import { Spinner } from '@components/UI/Spinner';
 import { PhotographIcon } from '@heroicons/react/outline';
 import uploadToIPFS from '@lib/uploadToIPFS';
@@ -7,6 +6,7 @@ import { ATTACHMENT, ERROR_MESSAGE } from 'data/constants';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { Image } from 'ui';
 import getIPFSLink from 'utils/getIPFSLink';
 import imageProxy from 'utils/imageProxy';
 
