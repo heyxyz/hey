@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Signup from '@components/Shared/Login/New';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';

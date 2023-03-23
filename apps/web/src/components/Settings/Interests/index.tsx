@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Interests from '@components/Settings/Interests/Interests';
 import Beta from '@components/Shared/Badges/Beta';
 import New from '@components/Shared/Badges/New';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';

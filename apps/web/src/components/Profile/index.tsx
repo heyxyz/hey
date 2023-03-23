@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import NftFeed from '@components/Nft/NftFeed';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Modal } from '@components/UI/Modal';
 import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';

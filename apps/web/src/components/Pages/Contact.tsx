@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { TextArea } from '@components/UI/TextArea';

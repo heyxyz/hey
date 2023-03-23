@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';

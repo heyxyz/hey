@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Image } from '@components/UI/Image';
 import { Mixpanel } from '@lib/mixpanel';
 import { FeatureFlag } from 'data/feature-flags';

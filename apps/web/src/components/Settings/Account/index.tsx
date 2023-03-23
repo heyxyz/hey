@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import SuperFollow from '@components/Settings/Account/SuperFollow';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';

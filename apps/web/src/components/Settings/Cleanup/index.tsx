@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';

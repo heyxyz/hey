@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridLayout } from 'ui';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';

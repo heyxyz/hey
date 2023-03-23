@@ -5,3 +5,4 @@ export { Checkbox } from './Checkbox';
 export { EmptyState } from './EmptyState';
 export { ErrorMessage } from './ErrorMessage';
 export { FieldError, Form, useZodForm } from './Form';
+export { GridItemEight, GridItemFour, GridLayout } from './GridLayout';

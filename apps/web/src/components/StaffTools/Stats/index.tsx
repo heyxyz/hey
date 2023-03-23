@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import {
   ArrowDownIcon,

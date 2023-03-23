@@ -4,7 +4,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME } from 'data/constants';

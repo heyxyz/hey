@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import UserProfile from '@components/Shared/UserProfile';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
