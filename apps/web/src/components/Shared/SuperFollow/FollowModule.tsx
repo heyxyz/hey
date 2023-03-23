@@ -1,5 +1,4 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
-import { WarningMessage } from '@components/UI/WarningMessage';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -20,7 +19,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
-import { Button, Spinner } from 'ui';
+import { Button, Spinner, WarningMessage } from 'ui';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import getSignature from 'utils/getSignature';

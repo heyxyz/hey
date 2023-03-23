@@ -16,3 +16,4 @@ export { default as TabButton } from './TabButton';
 export { TextArea } from './TextArea';
 export { Toggle } from './Toggle';
 export { Tooltip } from './Tooltip';
+export { WarningMessage } from './WarningMessage';
