@@ -3,8 +3,8 @@ import type { MediaSet, NftImage } from 'lens';
 import { Profile } from 'lens';
 import type { FC } from 'react';
 import { JsonLd } from 'react-schemaorg';
-import getIPFSLink from 'utils/getIPFSLink';
 import getStampFyiURL from 'utils/getStampFyiURL';
+import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 import DefaultTags from './Shared/DefaultTags';
 import Tags from './Shared/Tags';
@@ -23,7 +23,7 @@ const Profile: FC<ProfileProps> = ({ profile }) => {
     : `@${profile?.handle} • Lenster`;
   const description = profile?.bio ?? '';
   const image = profile
-    ? `${USER_CONTENT_URL}/${AVATAR}/${getIPFSLink(
+    ? `${USER_CONTENT_URL}/${AVATAR}/${sanitizeDStorageUrl(
         profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)
       )}`
     : DEFAULT_OG;
