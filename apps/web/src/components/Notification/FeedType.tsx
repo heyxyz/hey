@@ -1,4 +1,3 @@
-import TabButton from '@components/UI/TabButton';
 import {
   AtSymbolIcon,
   ChatAlt2Icon,
@@ -11,6 +10,7 @@ import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { NotificationType } from 'src/enums';
 import { NOTIFICATION } from 'src/tracking';
+import { TabButton } from 'ui';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<string>;
