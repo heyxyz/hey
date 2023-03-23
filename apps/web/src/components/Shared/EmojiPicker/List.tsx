@@ -1,10 +1,10 @@
-import { ErrorMessage } from 'ui';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ERROR_MESSAGE, STATIC_ASSETS_URL } from 'data/constants';
 import type { FC } from 'react';
 import type { Emoji } from 'src/types';
+import { ErrorMessage } from 'ui';
 
 import Loader from '../Loader';
 

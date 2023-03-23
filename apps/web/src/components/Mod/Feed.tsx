@@ -1,6 +1,5 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ErrorMessage } from 'ui';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { CustomFiltersTypes, ExplorePublicationRequest, Publication, PublicationTypes } from 'lens';
@@ -9,7 +8,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-import { Card, EmptyState } from 'ui';
+import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface FeedProps {
   refresh: boolean;

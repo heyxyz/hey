@@ -1,6 +1,5 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import { ErrorMessage } from 'ui';
 import { t } from '@lingui/macro';
 import type { MutualFollowersProfilesQueryRequest, Profile } from 'lens';
 import { useMutualFollowersListQuery } from 'lens';
@@ -9,6 +8,7 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { FollowSource } from 'src/tracking';
+import { ErrorMessage } from 'ui';
 
 interface MutualFollowersListProps {
   profileId: string;

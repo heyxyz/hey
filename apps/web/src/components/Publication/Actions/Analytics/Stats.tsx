@@ -1,5 +1,4 @@
 import Loader from '@components/Shared/Loader';
-import { ErrorMessage } from 'ui';
 import HelpTooltip from '@components/UI/HelpTooltip';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -7,6 +6,7 @@ import axios from 'axios';
 import { ERROR_MESSAGE, SIMPLEANALYTICS_API } from 'data/constants';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
+import { ErrorMessage } from 'ui';
 import humanize from 'utils/humanize';
 
 const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, helper, stat }) => (

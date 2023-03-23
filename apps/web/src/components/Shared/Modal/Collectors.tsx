@@ -1,6 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
-import { ErrorMessage } from 'ui';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Profile, Wallet, WhoCollectedPublicationRequest } from 'lens';
@@ -9,7 +8,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { FollowSource } from 'src/tracking';
-import { EmptyState } from 'ui';
+import { EmptyState, ErrorMessage } from 'ui';
 
 import Loader from '../Loader';
 

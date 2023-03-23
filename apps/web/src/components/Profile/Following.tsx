@@ -1,6 +1,5 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import { ErrorMessage } from 'ui';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { FollowingRequest, Profile } from 'lens';
@@ -9,7 +8,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { FollowSource } from 'src/tracking';
-import { EmptyState } from 'ui';
+import { EmptyState, ErrorMessage } from 'ui';
 import formatHandle from 'utils/formatHandle';
 
 interface FollowingProps {

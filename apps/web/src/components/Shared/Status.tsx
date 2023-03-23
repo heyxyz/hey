@@ -1,4 +1,3 @@
-import { ErrorMessage } from 'ui';
 import { Input } from '@components/UI/Input';
 import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
@@ -22,7 +21,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { SETTINGS } from 'src/tracking';
-import { Button, Form, useZodForm } from 'ui';
+import { Button, ErrorMessage, Form, useZodForm } from 'ui';
 import getProfileAttribute from 'utils/getProfileAttribute';
 import getSignature from 'utils/getSignature';
 import { v4 as uuid } from 'uuid';
