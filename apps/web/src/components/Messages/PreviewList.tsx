@@ -2,7 +2,6 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
-import { GridItemFour } from 'ui';
 import { Modal } from '@components/UI/Modal';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
@@ -19,7 +18,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import { Card, EmptyState, ErrorMessage } from 'ui';
+import { Card, EmptyState, ErrorMessage, GridItemFour } from 'ui';
 
 interface PreviewListProps {
   className?: string;

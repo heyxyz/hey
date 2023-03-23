@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
@@ -10,7 +9,7 @@ import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Button, Card } from 'ui';
+import { Button, Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Checkbox } from 'ui/Checkbox';
 import isGardener from 'utils/isGardener';
 

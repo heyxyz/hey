@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import SuperFollow from '@components/Settings/Account/SuperFollow';
-import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
@@ -9,6 +8,7 @@ import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import SettingsSidebar from '../Sidebar';
 import SetProfile from './SetProfile';

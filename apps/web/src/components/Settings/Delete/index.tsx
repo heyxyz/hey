@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import UserProfile from '@components/Shared/UserProfile';
-import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';
 import { WarningMessage } from '@components/UI/WarningMessage';
@@ -20,7 +19,7 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Button, Card } from 'ui';
+import { Button, Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 import getSignature from 'utils/getSignature';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
 

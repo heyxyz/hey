@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { PageLoading } from '@components/UI/PageLoading';
 import { PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -14,7 +13,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Card } from 'ui';
+import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import SettingsSidebar from '../Sidebar';
 import NftPicture from './NftPicture';

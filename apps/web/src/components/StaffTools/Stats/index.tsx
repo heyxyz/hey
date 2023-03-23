@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import {
   ArrowDownIcon,
@@ -23,7 +22,7 @@ import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
-import { Card } from 'ui';
+import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 import humanize from 'utils/humanize';
 
 import StaffToolsSidebar from '../Sidebar';

@@ -2,9 +2,8 @@ import Footer from '@components/Shared/Footer';
 import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import type { FC } from 'react';
-import { Card } from 'ui';
+import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 const PublicationPageShimmer: FC = () => {
   return (
