@@ -1,5 +1,5 @@
-import { Toggle } from '@components/UI/Toggle';
 import type { FC, ReactNode } from 'react';
+import { Toggle } from 'ui';
 
 interface ToggleWithHelperProps {
   on: boolean;
