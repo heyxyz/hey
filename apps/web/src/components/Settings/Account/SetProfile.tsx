@@ -1,5 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import { Spinner } from '@components/UI/Spinner';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';

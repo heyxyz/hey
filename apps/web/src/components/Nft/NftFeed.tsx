@@ -1,6 +1,6 @@
 import SingleNft from '@components/Nft/SingleNft';
 import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { IS_MAINNET } from 'data/constants';

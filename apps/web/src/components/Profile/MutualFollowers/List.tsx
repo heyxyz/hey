@@ -1,6 +1,6 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import { t } from '@lingui/macro';
 import type { MutualFollowersProfilesQueryRequest, Profile } from 'lens';
 import { useMutualFollowersListQuery } from 'lens';

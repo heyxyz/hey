@@ -1,7 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { FollowersRequest, Profile, Wallet } from 'lens';

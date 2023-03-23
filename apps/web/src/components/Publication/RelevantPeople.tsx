@@ -1,6 +1,6 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import { t } from '@lingui/macro';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'data/constants';
 import type { Profile, Publication } from 'lens';

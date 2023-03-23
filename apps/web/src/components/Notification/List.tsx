@@ -1,4 +1,4 @@
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type {

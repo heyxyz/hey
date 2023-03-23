@@ -1,5 +1,5 @@
 import Loader from '@components/Shared/Loader';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import HelpTooltip from '@components/UI/HelpTooltip';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';

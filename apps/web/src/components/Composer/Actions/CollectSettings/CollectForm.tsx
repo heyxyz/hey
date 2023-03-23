@@ -1,5 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import { Spinner } from '@components/UI/Spinner';
 import { getTimeAddedNDay } from '@lib/formatTime';
 import isValidEthAddress from '@lib/isValidEthAddress';

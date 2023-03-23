@@ -1,5 +1,5 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import { Image } from '@components/UI/Image';
 import { Modal } from '@components/UI/Modal';
 import { Spinner } from '@components/UI/Spinner';

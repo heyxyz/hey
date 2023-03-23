@@ -1,7 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
+import { ErrorMessage } from 'ui';
 import { Tooltip } from '@components/UI/Tooltip';
 import useNft from '@components/utils/hooks/useNft';
 import {
