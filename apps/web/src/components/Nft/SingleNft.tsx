@@ -3,7 +3,7 @@ import type { Nft } from 'lens';
 import type { FC } from 'react';
 import { CHAIN_ID } from 'src/constants';
 import { Card } from 'ui';
-import getIPFSLink from 'utils/getIPFSLink';
+import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 interface SingleNftProps {
   nft: Nft;
@@ -38,7 +38,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
               title={`${nft.contractAddress}:${nft.tokenId}`}
               sandbox=""
               className="h-full w-full sm:rounded-t-[10px]"
-              src={getIPFSLink(nft?.originalContent?.animatedUrl)}
+              src={sanitizeDStorageUrl(nft?.originalContent?.animatedUrl)}
             />
           )}
         </div>
@@ -49,7 +49,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
             style={{
               backgroundImage: `url(${
                 nft.originalContent.uri
-                  ? getIPFSLink(nft.originalContent.uri)
+                  ? sanitizeDStorageUrl(nft.originalContent.uri)
                   : `${STATIC_IMAGES_URL}/placeholder.webp`
               })`,
               backgroundSize: 'contain',
