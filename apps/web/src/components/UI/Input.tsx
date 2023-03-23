@@ -2,8 +2,7 @@ import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import type { ComponentProps, ReactNode } from 'react';
 import { forwardRef, useId } from 'react';
-
-import { FieldError } from './Form';
+import { FieldError } from 'ui/Form';
 
 const HelpTooltip = dynamic(() => import('./HelpTooltip'));
 
