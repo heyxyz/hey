@@ -1,7 +1,7 @@
-import { HomeIcon, LightningBoltIcon, MailIcon, ViewGridIcon } from '@heroicons/react/outline';
+import { BellIcon, HomeIcon, MailIcon, ViewGridIcon } from '@heroicons/react/outline';
 import {
+  BellIcon as BellIconSolid,
   HomeIcon as HomeIconSolid,
-  LightningBoltIcon as LightningBoltIconSolid,
   MailIcon as MailIconSolid,
   ViewGridIcon as ViewGridIconSolid
 } from '@heroicons/react/solid';
@@ -32,9 +32,9 @@ const BottomNavigation = () => {
         </Link>
         <Link href="/notifications" className="my-3 mx-auto">
           {isActivePath('/notifications') ? (
-            <LightningBoltIconSolid className="text-brand-500 h-6 w-6" />
+            <BellIconSolid className="text-brand-500 h-6 w-6" />
           ) : (
-            <LightningBoltIcon className="h-6 w-6" />
+            <BellIcon className="h-6 w-6" />
           )}
         </Link>
         <Link href="/messages" className="my-3 mx-auto">
