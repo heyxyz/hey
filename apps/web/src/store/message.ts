@@ -143,25 +143,35 @@ export const useMessagePersistStore = create(
     }),
     {
       name: LS_KEYS.MESSAGE_STORE,
-      // Persist storage doesn't work well with Map by default.
-      // Workaround from: https://github.com/pmndrs/zustand/issues/618#issuecomment-954806720.
-      serialize: (data) => {
-        return JSON.stringify({
-          ...data,
-          state: {
-            ...data.state,
-            viewedMessagesAtNs: Array.from(data.state.viewedMessagesAtNs),
-            showMessagesBadge: Array.from(data.state.showMessagesBadge),
-            unsentMessages: Array.from(data.state.unsentMessages)
+      storage: {
+        // Persist storage doesn't work well with Map by default.
+        // Workaround from: https://github.com/pmndrs/zustand/issues/618#issuecomment-954806720.
+        setItem(name, data) {
+          const jsonData = JSON.stringify({
+            ...data,
+            state: {
+              ...data.state,
+              viewedMessagesAtNs: Array.from(data.state.viewedMessagesAtNs),
+              showMessagesBadge: Array.from(data.state.showMessagesBadge),
+              unsentMessages: Array.from(data.state.unsentMessages)
+            }
+          });
+          localStorage.setItem(name, jsonData);
+        },
+        getItem: (name: string) => {
+          const jsonData = localStorage.getItem(name);
+          if (!jsonData) {
+            return null;
           }
-        });
-      },
-      deserialize: (value) => {
-        const data = JSON.parse(value);
-        data.state.viewedMessagesAtNs = new Map(data.state.viewedMessagesAtNs);
-        data.state.showMessagesBadge = new Map(data.state.showMessagesBadge);
-        data.state.unsentMessages = new Map(data.state.unsentMessages);
-        return data;
+          const data = JSON.parse(jsonData);
+          data.state.viewedMessagesAtNs = new Map(data.state.viewedMessagesAtNs);
+          data.state.showMessagesBadge = new Map(data.state.showMessagesBadge);
+          data.state.unsentMessages = new Map(data.state.unsentMessages);
+          return data;
+        },
+        removeItem(name) {
+          localStorage.removeItem(name);
+        }
       }
     }
   )
