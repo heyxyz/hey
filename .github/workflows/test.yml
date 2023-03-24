@@ -1,4 +1,4 @@
-name: CI
+name: Test
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ci:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -21,16 +21,12 @@ jobs:
 
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
+        
+      - name: Build 🎁
+        run: yarn build
 
-      - name: GraphQL Codegen 🕸
-        run: yarn codegen
+      - name: Install Playwright browsers 🕹️
+        run: npx playwright install --with-deps
 
-      - name: Typecheck 🔡
-        run: yarn typecheck
-
-      - name: Lint 🪩
-        run: yarn lint
-
-      - name: Prettier ✨
-        run: yarn prettier
-
+      - name: Run Tests 🧪
+        run: yarn test:e2e
