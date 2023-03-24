@@ -22,6 +22,9 @@ jobs:
 
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
+        
+      - name: Build 🎁
+        run: yarn build
 
       - name: Install Playwright browsers 🕹️
         run: npx playwright install --with-deps
@@ -29,7 +32,7 @@ jobs:
       - name: Run Tests 🧪
         run: yarn test:e2e
   ci:
-    name: 
+    name: CI
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -55,7 +58,4 @@ jobs:
 
       - name: Prettier ✨
         run: yarn prettier
-
-      - name: Build 🎁
-        run: yarn build
 
