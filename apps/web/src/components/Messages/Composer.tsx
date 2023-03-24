@@ -11,7 +11,7 @@ import { MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAttachmentStore } from 'src/store/attachment';
+import { useAttachmentCacheStore, useAttachmentStore } from 'src/store/attachment';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
 import { Button } from 'ui';
@@ -56,6 +56,7 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
   const setUnsentMessage = useMessagePersistStore((state) => state.setUnsentMessage);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const addLoadedAttachmentURL = useAttachmentStore((state) => state.addLoadedAttachmentURL);
+  const cacheAttachment = useAttachmentCacheStore((state) => state.cacheAttachment);
 
   const canSendMessage = !disabledInput && !sending && (message.length > 0 || attachment);
 
@@ -93,6 +94,7 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
 
       // Since we're sending this, we should always load it
       addLoadedAttachmentURL(url);
+      cacheAttachment(url, attachment);
 
       sent = await sendMessage(remoteAttachment, ContentTypeRemoteAttachment);
     } else {

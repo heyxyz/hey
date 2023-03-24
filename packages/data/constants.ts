@@ -64,7 +64,7 @@ export const IFRAMELY_URL = 'https://iframely.lenster.xyz/iframely';
 
 // Workers
 export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
-export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
+export const STS_TOKEN_URL = true ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
 export const FRESHDESK_WORKER_URL = IS_PRODUCTION ? 'https://freshdesk.lenster.xyz' : 'http://localhost:8084';
 
@@ -112,6 +112,7 @@ export const ATTACHMENT = '1000,fit';
 // Localstorage keys
 export const LS_KEYS = {
   ATTACHMENT_STORE: 'attachment.store',
+  ATTACHMENT_CACHE: 'attachment-cache.store',
   LENSTER_STORE: 'lenster.store',
   PREFERENCES_STORE: 'preferences.store',
   TRANSACTION_STORE: 'transaction.store',

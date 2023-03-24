@@ -10,6 +10,13 @@ function isImage(mimeType: string): boolean {
 }
 
 function contentFor(attachment: Attachment): JSX.Element {
+  // The attachment.data gets turned into an object when it's serialized
+  // via JSON.stringify in the store persistence. This check restores it
+  // to the correct type.
+  if (!(attachment.data instanceof Uint8Array)) {
+    attachment.data = Uint8Array.from(Object.values(attachment.data));
+  }
+
   const objectURL = URL.createObjectURL(
     new Blob([Buffer.from(attachment.data)], {
       type: attachment.mimeType

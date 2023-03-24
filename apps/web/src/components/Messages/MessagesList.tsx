@@ -60,7 +60,7 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
               'text-md linkify-message block break-words'
             )}
           >
-            <MessageContent message={message} />
+            <MessageContent message={message} profile={profile} sentByMe={address == message.senderAddress} />
           </span>
         </div>
       </div>
