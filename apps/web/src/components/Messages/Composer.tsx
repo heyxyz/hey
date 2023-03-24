@@ -66,7 +66,7 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
     }
     setSending(true);
 
-    var sent: boolean;
+    let sent: boolean;
     if (attachment) {
       const encryptedEncodedContent = await RemoteAttachmentCodec.encodeEncrypted(
         attachment,
@@ -82,7 +82,7 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
       const url = `https://${cid}.ipfs.w3s.link`;
 
       const remoteAttachment: RemoteAttachment = {
-        url: url,
+        url,
         contentDigest: encryptedEncodedContent.digest,
         salt: encryptedEncodedContent.salt,
         nonce: encryptedEncodedContent.nonce,
@@ -156,7 +156,7 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
   function onDismiss() {
     setAttachment(null);
 
-    const el = fileInputRef?.current;
+    const el = fileInputRef.current;
     if (el) {
       el.value = '';
     }
