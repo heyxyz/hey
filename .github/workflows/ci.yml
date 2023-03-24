@@ -8,6 +8,27 @@ on:
 
 jobs:
   ci:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
+
+      - name: Setup node 🍀
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+          
+      - name: Install dependencies 📦
+        run: yarn install --frozen-lockfile
+
+      - name: Install Playwright browsers 🕹️
+        run: npx playwright install --with-deps
+
+      - name: Run Tests 🧪
+        run: yarn test:e2e
+
     name: CI
     runs-on: ubuntu-latest
     steps:
@@ -22,9 +43,6 @@ jobs:
 
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
-
-      - name: Install Playwright browsers 🕹️
-        run: npx playwright install --with-deps
 
       - name: GraphQL Codegen 🕸
         run: yarn codegen
@@ -41,5 +59,3 @@ jobs:
       - name: Build 🎁
         run: yarn build
 
-      - name: Run Tests 🧪
-        run: yarn test:e2e
