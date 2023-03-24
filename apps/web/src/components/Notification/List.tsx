@@ -1,4 +1,4 @@
-import { LightningBoltIcon } from '@heroicons/react/outline';
+import { BellIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type {
   NewCollectNotification,
@@ -96,11 +96,7 @@ const List: FC<ListProps> = ({ feedType }) => {
 
   if (notifications?.length === 0) {
     return (
-      <EmptyState
-        message={t`Inbox zero!`}
-        icon={<LightningBoltIcon className="text-brand h-8 w-8" />}
-        hideCard
-      />
+      <EmptyState message={t`Inbox zero!`} icon={<BellIcon className="text-brand h-8 w-8" />} hideCard />
     );
   }
 
