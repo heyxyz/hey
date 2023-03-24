@@ -1,7 +1,7 @@
 import { AVATAR, ZERO_ADDRESS } from 'data/constants';
-import getIPFSLink from 'utils/getIPFSLink';
 import getStampFyiURL from 'utils/getStampFyiURL';
 import imageProxy from 'utils/imageProxy';
+import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 /**
  * The list of hostnames to skip image proxy for.
@@ -26,7 +26,7 @@ const getAvatar = (profile: any, useImageProxy = true): string => {
     return avatarUrl;
   }
 
-  return useImageProxy ? imageProxy(getIPFSLink(avatarUrl), AVATAR) : getIPFSLink(avatarUrl);
+  return useImageProxy ? imageProxy(sanitizeDStorageUrl(avatarUrl), AVATAR) : sanitizeDStorageUrl(avatarUrl);
 };
 
 export default getAvatar;

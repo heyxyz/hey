@@ -15,10 +15,10 @@ import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import formatHandle from 'utils/formatHandle';
-import getIPFSLink from 'utils/getIPFSLink';
 import getStampFyiURL from 'utils/getStampFyiURL';
 import imageProxy from 'utils/imageProxy';
 import isVerified from 'utils/isVerified';
+import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 
@@ -204,7 +204,7 @@ const MentionsPlugin: FC = () => {
           return new MentionTypeaheadOption(
             id,
             name ?? handle,
-            imageProxy(getIPFSLink(picture), AVATAR),
+            imageProxy(sanitizeDStorageUrl(picture), AVATAR),
             handle
           );
         })
