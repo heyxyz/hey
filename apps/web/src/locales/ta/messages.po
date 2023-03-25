@@ -1855,8 +1855,16 @@ msgid "Token Id"
 msgstr "டோக்கன் ஐடி"
 
 #: src/components/Settings/Profile/Picture.tsx
-msgid "Avatar can't be empty!"
-msgstr "அவதார் காலியாக இருக்க முடியாது!"
+msgid "Upload failed"
+msgstr ""
+
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Crop image"
+msgstr ""
+
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Profile picture crop preview"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
@@ -2467,10 +2475,6 @@ msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய�
 msgid "Stafftools • {APP_NAME}"
 msgstr "பணியாளர் கருவிகள் • {APP_NAME}"
 
-#: src/components/UI/LightBox.tsx
-msgid "Open original"
-msgstr "அசல் திறக்க"
-
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
 msgstr "படத்தின் அளவு 10MB க்கும் குறைவாக இருக்க வேண்டும்"
@@ -2535,4 +2539,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
