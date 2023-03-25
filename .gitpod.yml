@@ -4,7 +4,7 @@ tasks:
       nvm use 18
       nvm alias default 18
       echo "nvm use default &>/dev/null" >> ~/.bashrc.d/51-nvm-fix
-      yarn install
+      script/bootstrap
     command: yarn dev
 
 ports:
