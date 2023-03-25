@@ -1,7 +1,5 @@
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { Profile, ProfileSearchResult, SearchQueryRequest } from 'lens';
@@ -9,7 +7,7 @@ import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from '
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import { Card } from 'ui';
+import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface ProfilesProps {
   query: string | string[];

@@ -1,6 +1,4 @@
 import Loader from '@components/Shared/Loader';
-import { Modal } from '@components/UI/Modal';
-import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
@@ -14,6 +12,7 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
+import { Modal, Tooltip } from 'ui';
 import humanize from 'utils/humanize';
 import nFormatter from 'utils/nFormatter';
 

@@ -1,5 +1,3 @@
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { BellIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type {
@@ -17,7 +15,7 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { NotificationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
-import { Card } from 'ui';
+import { Card, EmptyState, ErrorMessage } from 'ui';
 
 import NotificationShimmer from './Shimmer';
 import CollectNotification from './Type/CollectNotification';

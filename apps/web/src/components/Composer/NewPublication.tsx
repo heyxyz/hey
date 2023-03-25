@@ -1,8 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type { CollectCondition, EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
@@ -62,7 +60,7 @@ import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
 import type { LensterAttachment } from 'src/types';
-import { Button, Card } from 'ui';
+import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import getSignature from 'utils/getSignature';
 import getTags from 'utils/getTags';
 import { v4 as uuid } from 'uuid';

@@ -1,8 +1,8 @@
-import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { Image } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 import isVerified from 'utils/isVerified';

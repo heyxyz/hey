@@ -1,8 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { PlusIcon } from '@heroicons/react/outline';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
@@ -10,7 +6,7 @@ import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
 import { useCreateProfileMutation } from 'lens';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
-import { Button } from 'ui';
+import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import getStampFyiURL from 'utils/getStampFyiURL';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';
