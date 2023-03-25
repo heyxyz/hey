@@ -1,5 +1,4 @@
 import IndexStatus from '@components/Shared/IndexStatus';
-import { Spinner } from '@components/UI/Spinner';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -13,7 +12,7 @@ import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button } from 'ui';
+import { Button, Spinner } from 'ui';
 import getSignature from 'utils/getSignature';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 

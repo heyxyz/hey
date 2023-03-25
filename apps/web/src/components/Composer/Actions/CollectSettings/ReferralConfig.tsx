@@ -1,9 +1,9 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Input } from '@components/UI/Input';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { Input } from 'ui';
 
 const ReferralConfig: FC = () => {
   const referralFee = useCollectModuleStore((state) => state.referralFee);

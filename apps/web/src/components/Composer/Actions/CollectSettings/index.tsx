@@ -1,5 +1,3 @@
-import { Modal } from '@components/UI/Modal';
-import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CashIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
@@ -8,6 +6,7 @@ import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { Modal, Tooltip } from 'ui';
 
 import CollectForm from './CollectForm';
 

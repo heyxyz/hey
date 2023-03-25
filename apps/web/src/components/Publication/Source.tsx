@@ -1,8 +1,8 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { apps } from 'data/apps';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
+import { Tooltip } from 'ui';
 
 interface SourceProps {
   publication: Publication;

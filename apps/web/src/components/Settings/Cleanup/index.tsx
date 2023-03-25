@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
@@ -10,7 +9,7 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Button, Card } from 'ui';
+import { Button, Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import SettingsSidebar from '../Sidebar';
 

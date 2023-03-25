@@ -1,4 +1,3 @@
-import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import clsx from 'clsx';
@@ -6,6 +5,7 @@ import type { Profile } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { Image } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 import getProfileAttribute from 'utils/getProfileAttribute';

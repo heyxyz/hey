@@ -1,7 +1,5 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { Publication, PublicationSearchResult, SearchQueryRequest } from 'lens';
@@ -10,7 +8,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-import { Card } from 'ui';
+import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface PublicationsProps {
   query: string | string[];

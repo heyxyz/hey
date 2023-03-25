@@ -1,4 +1,3 @@
-import { Image } from '@components/UI/Image';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import type { Profile } from 'lens';
@@ -7,6 +6,7 @@ import React from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE } from 'src/tracking';
+import { Image } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 

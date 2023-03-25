@@ -1,8 +1,8 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
+import { Tooltip } from 'ui';
 
 interface EnsProps {
   profile: Profile;

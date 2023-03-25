@@ -3,7 +3,6 @@ import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
-import { Tooltip } from '@components/UI/Tooltip';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import {
@@ -16,6 +15,7 @@ import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import type { OptimisticTransaction } from 'src/types';
+import { Tooltip } from 'ui';
 import getURLs from 'utils/getURLs';
 
 interface QueuedPublicationProps {
