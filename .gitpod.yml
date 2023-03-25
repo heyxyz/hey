@@ -1,6 +1,11 @@
-image: node:18
 tasks:
-  - init: script/bootstrap
+  - init: |
+      nvm i 18
+      nvm use 18
+      nvm alias default 18
+      echo "nvm use default &>/dev/null" >> ~/.bashrc.d/51-nvm-fix
+      script/bootstrap
+      node -v
     command: yarn dev
 
 ports:
