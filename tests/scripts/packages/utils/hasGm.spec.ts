@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import hasGm from 'utils/hasGm';
+import hasGm from 'lib/hasGm';
 
 test.describe('hasGm', () => {
   test('should return true if the inputText contains the word gm', () => {

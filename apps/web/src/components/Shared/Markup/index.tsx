@@ -1,11 +1,11 @@
 import { hashtagRegex, mentionRegex, urlRegex } from '@lib/markupUtils';
+import trimify from 'lib/trimify';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-ignore
 import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
-import trimify from 'utils/trimify';
 
 import Code from './Code';
 import MarkupLink from './MarkupLink';

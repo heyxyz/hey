@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { Fragment } from 'react';
-import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 interface LightBoxProps {
   show: boolean;

@@ -8,6 +8,7 @@ import { LensHub } from 'abis';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import { useBroadcastMutation, useCreateFollowTypedDataMutation, useProxyActionMutation } from 'lens';
+import getSignature from 'lib/getSignature';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
@@ -15,7 +16,6 @@ import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
 import { Button, Spinner } from 'ui';
-import getSignature from 'utils/getSignature';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {

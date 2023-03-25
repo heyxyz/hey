@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { LENSPROTOCOL_HANDLE } from 'data/constants';
-import formatHandle from 'utils/formatHandle';
+import formatHandle from 'lib/formatHandle';
 
 test.describe('formatHandle', () => {
   test('should return empty string when handle is null', () => {

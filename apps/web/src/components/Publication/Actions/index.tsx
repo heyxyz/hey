@@ -2,10 +2,10 @@ import useModMode from '@components/utils/hooks/useModMode';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { t } from '@lingui/macro';
 import type { ElectedMirror, Publication } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { Tooltip } from 'ui';
-import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 import Analytics from './Analytics';
 import Collect from './Collect';

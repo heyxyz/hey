@@ -5,11 +5,11 @@ import isValidEthAddress from '@lib/isValidEthAddress';
 import { t, Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
 import { useProfileLazyQuery } from 'lens';
+import splitNumber from 'lib/splitNumber';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { Button, Input } from 'ui';
-import splitNumber from 'utils/splitNumber';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;

@@ -5,7 +5,6 @@
     "noEmit": true,
     "paths": {
       "@components*": ["src/components*"],
-      "@utils*": ["src/utils*"],
       "@lib*": ["src/lib*"],
       "@gql*": ["src/graphql*"],
       "@generated*": ["src/generated*"]

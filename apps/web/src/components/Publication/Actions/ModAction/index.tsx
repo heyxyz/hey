@@ -17,6 +17,7 @@ import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -25,7 +26,6 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
 import { Button } from 'ui';
 import { Alert } from 'ui/Alert';
-import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 interface ModActionProps {
   publication: Publication;

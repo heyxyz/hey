@@ -1,9 +1,9 @@
 import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
 import type { Nft } from 'lens';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { CHAIN_ID } from 'src/constants';
 import { Card } from 'ui';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 interface SingleNftProps {
   nft: Nft;

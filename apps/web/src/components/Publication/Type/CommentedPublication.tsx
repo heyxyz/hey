@@ -1,9 +1,9 @@
 import Slug from '@components/Shared/Slug';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import type { Comment } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import Link from 'next/link';
 import type { FC } from 'react';
-import formatHandle from 'utils/formatHandle';
 
 interface CommentedPublicationProps {
   publication: Comment;

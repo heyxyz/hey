@@ -1,7 +1,7 @@
 import { COVER, STATIC_IMAGES_URL } from 'data/constants';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
-import imageProxy from 'utils/imageProxy';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 interface CoverProps {
   cover: string;

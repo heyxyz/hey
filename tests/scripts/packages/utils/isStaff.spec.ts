@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import isStaff from 'utils/isStaff';
+import isStaff from 'lib/isStaff';
 
 test.describe('isStaff', () => {
   test('should return true if the ID is included in the staff list', () => {

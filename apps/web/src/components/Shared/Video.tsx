@@ -1,10 +1,10 @@
 import 'plyr-react/plyr.css';
 
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import Plyr from 'plyr-react';
 import type { FC } from 'react';
 import { memo } from 'react';
-import imageProxy from 'utils/imageProxy';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 interface VideoProps {
   src: string;
