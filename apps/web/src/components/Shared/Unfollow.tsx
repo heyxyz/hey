@@ -1,5 +1,3 @@
-import { Button } from '@components/UI/Button';
-import { Spinner } from '@components/UI/Spinner';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -16,6 +14,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
+import { Button, Spinner } from 'ui';
 import getSignature from 'utils/getSignature';
 import { useSigner, useSignTypedData } from 'wagmi';
 

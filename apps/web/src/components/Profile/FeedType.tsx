@@ -1,4 +1,3 @@
-import TabButton from '@components/UI/TabButton';
 import {
   ChatAlt2Icon,
   CollectionIcon,
@@ -11,6 +10,7 @@ import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import { PROFILE } from 'src/tracking';
+import { TabButton } from 'ui';
 
 import MediaFilter from './Filters/MediaFilter';
 

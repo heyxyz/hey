@@ -1,8 +1,5 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
-import { Image } from '@components/UI/Image';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { Menu } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
@@ -14,13 +11,14 @@ import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesLazyQuery,
-  useTimelineLazyQuery
+  useSeeThroughProfilesLazyQuery
 } from 'lens';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
 import { MISCELLANEOUS } from 'src/tracking';
+import { Image, Input, Spinner } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 
@@ -54,8 +52,8 @@ const SeeThroughLens: FC = () => {
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
 
-  const [fetchRecommendedProfiles, { loading, error }] = useTimelineLazyQuery({
-    variables: { request, profileId: profile?.id },
+  const [fetchRecommendedProfiles, { loading, error }] = useSeeThroughProfilesLazyQuery({
+    variables: { request },
     onCompleted: (data) => {
       const feedItems = data?.feed?.items as FeedItem[];
       setRecommendedProfiles(feedItems);

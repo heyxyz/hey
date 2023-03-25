@@ -1,9 +1,5 @@
-import { Button } from '@components/UI/Button';
-import { Image } from '@components/UI/Image';
-import { LightBox } from '@components/UI/LightBox';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
@@ -13,8 +9,10 @@ import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
-import getIPFSLink from 'utils/getIPFSLink';
+import { Button, Image, LightBox } from 'ui';
 import imageProxy from 'utils/imageProxy';
+import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -81,8 +79,8 @@ const Attachments: FC<AttachmentsProps> = ({
         {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
           const type = isNew ? attachment.type : attachment.original?.mimeType;
           const url = isNew
-            ? attachment.previewItem || getIPFSLink(attachment.item!)
-            : getIPFSLink(attachment.original?.url) || getIPFSLink(attachment.item!);
+            ? attachment.previewItem || sanitizeDStorageUrl(attachment.item!)
+            : sanitizeDStorageUrl(attachment.original?.url) || sanitizeDStorageUrl(attachment.item!);
 
           return (
             <div

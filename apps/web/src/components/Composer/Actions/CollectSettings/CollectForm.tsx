@@ -1,7 +1,4 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Button } from '@components/UI/Button';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
 import { getTimeAddedNDay } from '@lib/formatTime';
 import isValidEthAddress from '@lib/isValidEthAddress';
 import { t, Trans } from '@lingui/macro';
@@ -11,6 +8,7 @@ import { useEffect } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { Button, ErrorMessage, Spinner } from 'ui';
 
 import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';

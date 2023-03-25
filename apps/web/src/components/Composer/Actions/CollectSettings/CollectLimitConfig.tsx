@@ -1,9 +1,9 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Input } from '@components/UI/Input';
 import { StarIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { Input } from 'ui';
 
 const CollectLimitConfig: FC = () => {
   const collectLimit = useCollectModuleStore((state) => state.collectLimit);

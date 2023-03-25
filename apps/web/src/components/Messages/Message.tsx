@@ -1,8 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import MessageHeader from '@components/Messages/MessageHeader';
 import Loader from '@components/Shared/Loader';
-import { Card } from '@components/UI/Card';
-import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
@@ -19,6 +17,7 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { PAGEVIEW } from 'src/tracking';
+import { Card, GridItemEight, GridLayout } from 'ui';
 import formatHandle from 'utils/formatHandle';
 
 import Composer from './Composer';

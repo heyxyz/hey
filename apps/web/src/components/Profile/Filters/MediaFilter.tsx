@@ -1,12 +1,12 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Checkbox } from '@components/UI/Checkbox';
-import { Tooltip } from '@components/UI/Tooltip';
 import { Menu } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { ChangeEvent } from 'react';
 import { useProfileFeedStore } from 'src/store/profile-feed';
+import { Tooltip } from 'ui';
+import { Checkbox } from 'ui/Checkbox';
 
 const MediaFilter = () => {
   const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);

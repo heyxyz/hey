@@ -1,10 +1,9 @@
-import { Button } from '@components/UI/Button';
-import { Spinner } from '@components/UI/Spinner';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX } from 'data/constants';
 import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
+import { Button, Spinner } from 'ui';
 
 interface PendingProps {
   handle: string;

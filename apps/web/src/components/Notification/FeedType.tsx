@@ -1,16 +1,10 @@
-import TabButton from '@components/UI/TabButton';
-import {
-  AtSymbolIcon,
-  ChatAlt2Icon,
-  CollectionIcon,
-  HeartIcon,
-  LightningBoltIcon
-} from '@heroicons/react/outline';
+import { AtSymbolIcon, BellIcon, ChatAlt2Icon, CollectionIcon, HeartIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { NotificationType } from 'src/enums';
 import { NOTIFICATION } from 'src/tracking';
+import { TabButton } from 'ui';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<string>;
@@ -30,7 +24,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
       <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
         <TabButton
           name={t`All notifications`}
-          icon={<LightningBoltIcon className="h-4 w-4" />}
+          icon={<BellIcon className="h-4 w-4" />}
           active={feedType === NotificationType.All}
           type={NotificationType.All.toLowerCase()}
           onClick={() => switchTab(NotificationType.All)}

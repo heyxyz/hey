@@ -1,6 +1,4 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { Button } from '@components/UI/Button';
-import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
@@ -17,6 +15,7 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { AUTH } from 'src/tracking';
+import { Button, Spinner } from 'ui';
 import getWalletDetails from 'utils/getWalletDetails';
 import type { Connector } from 'wagmi';
 import { useAccount, useConnect, useDisconnect, useNetwork, useSignMessage } from 'wagmi';

@@ -1,9 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import { Card } from '@components/UI/Card';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Tooltip } from '@components/UI/Tooltip';
 import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
@@ -22,7 +19,6 @@ import type {
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -36,9 +32,11 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
+import { Card, ErrorMessage, Tooltip } from 'ui';
 import formatHandle from 'utils/formatHandle';
-import getIPFSLink from 'utils/getIPFSLink';
 import getURLs from 'utils/getURLs';
+import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
@@ -146,7 +144,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({ encrypted
     }
 
     setIsDecrypting(true);
-    const contentUri = getIPFSLink(encryptedPublication?.onChainContentURI);
+    const contentUri = sanitizeDStorageUrl(encryptedPublication?.onChainContentURI);
     const { data } = await axios.get(contentUri);
     const sdk = await LensGatedSDK.create({ provider, signer, env: LIT_PROTOCOL_ENVIRONMENT as any });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);

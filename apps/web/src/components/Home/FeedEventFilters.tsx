@@ -1,12 +1,12 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Checkbox } from '@components/UI/Checkbox';
-import { Tooltip } from '@components/UI/Tooltip';
 import { Menu } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { useTimelinePersistStore } from 'src/store/timeline';
+import { Tooltip } from 'ui';
+import { Checkbox } from 'ui/Checkbox';
 
 const FeedEventFilters: FC = () => {
   const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);

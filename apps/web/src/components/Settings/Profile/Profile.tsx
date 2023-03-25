@@ -1,14 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Image } from '@components/UI/Image';
-import { Input } from '@components/UI/Input';
-import { Modal } from '@components/UI/Modal';
-import { Spinner } from '@components/UI/Spinner';
-import { TextArea } from '@components/UI/TextArea';
-import { Toggle } from '@components/UI/Toggle';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -31,11 +21,24 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import getIPFSLink from 'utils/getIPFSLink';
+import {
+  Button,
+  Card,
+  ErrorMessage,
+  Form,
+  Image,
+  Input,
+  Modal,
+  Spinner,
+  TextArea,
+  Toggle,
+  useZodForm
+} from 'ui';
 import getProfileAttribute from 'utils/getProfileAttribute';
 import getSignature from 'utils/getSignature';
 import hasPrideLogo from 'utils/hasPrideLogo';
 import imageProxy from 'utils/imageProxy';
+import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';
@@ -242,7 +245,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     uploading;
 
   const coverPictureUrl = profile?.coverPicture?.original?.url;
-  const coverPictureIpfsUrl = coverPictureUrl ? imageProxy(getIPFSLink(coverPictureUrl), COVER) : '';
+  const coverPictureIpfsUrl = coverPictureUrl ? imageProxy(sanitizeDStorageUrl(coverPictureUrl), COVER) : '';
 
   return (
     <>
@@ -309,7 +312,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 <Image
                   className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
-                    currentTarget.src = getIPFSLink(cover);
+                    currentTarget.src = sanitizeDStorageUrl(cover);
                   }}
                   src={uploadedImageUrl || coverPictureIpfsUrl}
                   alt={cover}

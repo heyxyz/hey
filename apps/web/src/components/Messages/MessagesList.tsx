@@ -1,6 +1,4 @@
 import Markup from '@components/Shared/Markup';
-import { Card } from '@components/UI/Card';
-import { Image } from '@components/UI/Image';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import { formatTime } from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
@@ -11,6 +9,7 @@ import type { Profile } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
+import { Card, Image } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 

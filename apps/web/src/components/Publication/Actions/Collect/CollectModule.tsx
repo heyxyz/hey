@@ -5,11 +5,6 @@ import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
-import { Button } from '@components/UI/Button';
-import { Modal } from '@components/UI/Modal';
-import { Spinner } from '@components/UI/Spinner';
-import { Tooltip } from '@components/UI/Tooltip';
-import { WarningMessage } from '@components/UI/WarningMessage';
 import {
   CashIcon,
   ClockIcon,
@@ -47,6 +42,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
+import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
 import formatAddress from 'utils/formatAddress';
 import formatHandle from 'utils/formatHandle';
 import getAssetAddress from 'utils/getAssetAddress';

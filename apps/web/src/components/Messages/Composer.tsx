@@ -1,6 +1,3 @@
-import { Button } from '@components/UI/Button';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -11,6 +8,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
+import { Button, Input, Spinner } from 'ui';
 
 interface ComposerProps {
   sendMessage: (message: string) => Promise<boolean>;

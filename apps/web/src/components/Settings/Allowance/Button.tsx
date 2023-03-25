@@ -1,7 +1,3 @@
-import { Button } from '@components/UI/Button';
-import { Modal } from '@components/UI/Modal';
-import { Spinner } from '@components/UI/Spinner';
-import { WarningMessage } from '@components/UI/WarningMessage';
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
@@ -13,6 +9,7 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SETTINGS } from 'src/tracking';
+import { Button, Modal, Spinner, WarningMessage } from 'ui';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface AllowanceButtonProps {
