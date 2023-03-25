@@ -19538,7 +19538,7 @@ export type ProfileSettingsQuery = {
       | null;
     picture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-      | { __typename?: 'NftImage'; uri: any; tokenId: string; contractAddress: any }
+      | { __typename?: 'NftImage'; uri: any; tokenId: string; contractAddress: any; chainId: number }
       | null;
   } | null;
 };
@@ -33798,6 +33798,7 @@ export const ProfileSettingsDocument = gql`
           uri
           tokenId
           contractAddress
+          chainId
         }
       }
     }
