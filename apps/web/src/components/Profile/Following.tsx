@@ -4,12 +4,12 @@ import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { FollowingRequest, Profile } from 'lens';
 import { useFollowingQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { FollowSource } from 'src/tracking';
 import { EmptyState, ErrorMessage } from 'ui';
-import formatHandle from 'utils/formatHandle';
 
 interface FollowingProps {
   profile: Profile;

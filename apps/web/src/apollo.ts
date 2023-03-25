@@ -12,8 +12,8 @@ import { cursorBasedPagination } from '@lib/cursorBasedPagination';
 import axios from 'axios';
 import { API_URL, LS_KEYS } from 'data/constants';
 import result from 'lens';
-import { publicationKeyFields } from 'utils/keyFields';
-import parseJwt from 'utils/parseJwt';
+import { publicationKeyFields } from 'lib/keyFields';
+import parseJwt from 'lib/parseJwt';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {

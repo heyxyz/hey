@@ -16,6 +16,11 @@ import {
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
 } from 'lens';
+import getProfileAttribute from 'lib/getProfileAttribute';
+import getSignature from 'lib/getSignature';
+import hasPrideLogo from 'lib/hasPrideLogo';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -34,11 +39,6 @@ import {
   Toggle,
   useZodForm
 } from 'ui';
-import getProfileAttribute from 'utils/getProfileAttribute';
-import getSignature from 'utils/getSignature';
-import hasPrideLogo from 'utils/hasPrideLogo';
-import imageProxy from 'utils/imageProxy';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';

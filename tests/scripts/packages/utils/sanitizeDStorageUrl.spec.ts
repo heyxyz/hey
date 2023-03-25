@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { IPFS_GATEWAY } from 'data/constants';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 
 test.describe('getIPFSLink', () => {
   test('should return empty string when input hash is falsy', () => {

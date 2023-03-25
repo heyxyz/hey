@@ -25,6 +25,10 @@ import clsx from 'clsx';
 import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
 import type { Publication, PublicationMetadataV2Input } from 'lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getURLs from 'lib/getURLs';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -33,10 +37,6 @@ import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
 import { Card, ErrorMessage, Tooltip } from 'ui';
-import formatHandle from 'utils/formatHandle';
-import getURLs from 'utils/getURLs';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
-import { stopEventPropagation } from 'utils/stopEventPropagation';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {

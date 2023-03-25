@@ -8,6 +8,7 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -16,7 +17,6 @@ import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
-import formatHandle from 'utils/formatHandle';
 
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';

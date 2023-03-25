@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { IPFS_GATEWAY, USER_CONTENT_URL } from 'data/constants';
-import getAvatar from 'utils/getAvatar';
+import getAvatar from 'lib/getAvatar';
 
 test.describe('getAvatar', () => {
   const ipfsLink = `${IPFS_GATEWAY}bafkreianwlir2groq5l52zdnikon4rtgjcostjosaadbbfekgpzhaprmri`;

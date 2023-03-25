@@ -5,12 +5,12 @@ import { t, Trans } from '@lingui/macro';
 import { IS_MAINNET } from 'data/constants';
 import type { Nft, NfTsRequest, Profile } from 'lens';
 import { useNftFeedQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { CHAIN_ID } from 'src/constants';
 import { EmptyState, ErrorMessage } from 'ui';
-import formatHandle from 'utils/formatHandle';
 import { mainnet } from 'wagmi/chains';
 
 interface NftFeedProps {

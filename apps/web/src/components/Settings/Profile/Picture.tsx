@@ -15,15 +15,15 @@ import {
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation
 } from 'lens';
+import getSignature from 'lib/getSignature';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { Button, ErrorMessage, Image, Modal, Spinner } from 'ui';
-import getSignature from 'utils/getSignature';
-import imageProxy from 'utils/imageProxy';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import ImageCropperController from './ImageCropperController';

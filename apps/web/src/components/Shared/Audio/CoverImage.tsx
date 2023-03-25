@@ -2,12 +2,12 @@ import { PhotographIcon } from '@heroicons/react/outline';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import { ATTACHMENT, ERROR_MESSAGE } from 'data/constants';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Image, Spinner } from 'ui';
-import imageProxy from 'utils/imageProxy';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 interface CoverImageProps {
   isNew: boolean;

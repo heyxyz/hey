@@ -1,9 +1,9 @@
 import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import type { Publication } from 'lens';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { Card } from 'ui';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 import MetaDetails from './MetaDetails';
 

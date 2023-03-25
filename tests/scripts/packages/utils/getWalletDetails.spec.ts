@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { STATIC_IMAGES_URL } from 'data/constants';
-import getWalletDetails from 'utils/getWalletDetails';
+import getWalletDetails from 'lib/getWalletDetails';
 
 test.describe('getWalletDetails', () => {
   test('should return correct details for WalletConnectLegacy', () => {

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { STATIC_IMAGES_URL } from 'data/constants';
-import getTokenImage from 'utils/getTokenImage';
+import getTokenImage from 'lib/getTokenImage';
 
 test.describe('getTokenImage', () => {
   test('should return the correct image url for a given token symbol', () => {

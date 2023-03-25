@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { publicationKeyFields } from 'utils/keyFields';
+import { publicationKeyFields } from 'lib/keyFields';
 
 test.describe('keyFields', () => {
   test.describe('publicationKeyFields', () => {

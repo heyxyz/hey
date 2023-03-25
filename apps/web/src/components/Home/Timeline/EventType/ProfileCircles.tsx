@@ -1,9 +1,9 @@
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 import { Image } from 'ui';
-import formatHandle from 'utils/formatHandle';
-import getAvatar from 'utils/getAvatar';
 
 interface ProfileCirclesProps {
   profiles: Profile[];
