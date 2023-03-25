@@ -9,6 +9,9 @@ import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
+import hasGm from 'lib/hasGm';
+import { publicationKeyFields } from 'lib/keyFields';
+import nFormatter from 'lib/nFormatter';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -17,9 +20,6 @@ import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
 import { Tooltip } from 'ui';
-import hasGm from 'utils/hasGm';
-import { publicationKeyFields } from 'utils/keyFields';
-import nFormatter from 'utils/nFormatter';
 
 interface LikeProps {
   publication: Publication;

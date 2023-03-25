@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import trimify from 'utils/trimify';
+import trimify from 'lib/trimify';
 
 test.describe('trimify', () => {
   test('should remove multiple line breaks and spaces correctly', () => {

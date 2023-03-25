@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { MetadataOutput } from 'lens';
 import { PublicationMainFocus } from 'lens';
-import getThumbnailUrl from 'utils/getThumbnailUrl';
+import getThumbnailUrl from 'lib/getThumbnailUrl';
 
 test.describe('getThumbnailUrl', () => {
   const mockMetadata: MetadataOutput = {

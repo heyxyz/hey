@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import getURLs from 'utils/getURLs';
+import getURLs from 'lib/getURLs';
 
 test.describe('getURLs', () => {
   test('should return empty array when no URLs are found', () => {

@@ -37,18 +37,18 @@ import {
   useProxyActionMutation,
   usePublicationRevenueQuery
 } from 'lens';
+import formatAddress from 'lib/formatAddress';
+import formatHandle from 'lib/formatHandle';
+import getAssetAddress from 'lib/getAssetAddress';
+import getSignature from 'lib/getSignature';
+import getTokenImage from 'lib/getTokenImage';
+import humanize from 'lib/humanize';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
-import formatAddress from 'utils/formatAddress';
-import formatHandle from 'utils/formatHandle';
-import getAssetAddress from 'utils/getAssetAddress';
-import getSignature from 'utils/getSignature';
-import getTokenImage from 'utils/getTokenImage';
-import humanize from 'utils/humanize';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Splits from './Splits';

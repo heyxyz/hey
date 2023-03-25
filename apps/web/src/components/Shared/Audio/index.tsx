@@ -2,14 +2,14 @@ import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
+import getPublicationAttribute from 'lib/getPublicationAttribute';
+import getThumbnailUrl from 'lib/getThumbnailUrl';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { OptimisticTransaction } from 'src/types';
-import getPublicationAttribute from 'utils/getPublicationAttribute';
-import getThumbnailUrl from 'utils/getThumbnailUrl';
 import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';

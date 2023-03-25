@@ -4,11 +4,11 @@ import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
 import { TagSortCriteria, useTrendingQuery } from 'lens';
+import nFormatter from 'lib/nFormatter';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
 import { Card, ErrorMessage } from 'ui';
-import nFormatter from 'utils/nFormatter';
 
 const Title = () => {
   return (

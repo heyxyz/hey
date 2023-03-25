@@ -11,12 +11,12 @@ import {
   useHasTxHashBeenIndexedQuery,
   usePublicationLazyQuery
 } from 'lens';
+import getURLs from 'lib/getURLs';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import type { OptimisticTransaction } from 'src/types';
 import { Tooltip } from 'ui';
-import getURLs from 'utils/getURLs';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { FeatureFlag } from 'data/feature-flags';
-import isFeatureEnabled from 'utils/isFeatureEnabled';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 
 test.describe('isFeatureEnabled', () => {
   test('should return false if profile id not exists in feature flag enabled array', () => {
