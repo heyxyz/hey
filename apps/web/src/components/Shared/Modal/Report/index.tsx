@@ -1,12 +1,6 @@
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Spinner } from '@components/UI/Spinner';
-import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
@@ -14,7 +8,8 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PAGEVIEW, PUBLICATION } from 'src/tracking';
-import { Button } from 'ui';
+import { Button, EmptyState, ErrorMessage, Form, Spinner, TextArea, useZodForm } from 'ui';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 import { object, string } from 'zod';
 
 import Reason from './Reason';

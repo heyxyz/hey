@@ -1,8 +1,5 @@
-import { Image } from '@components/UI/Image';
-import { LightBox } from '@components/UI/LightBox';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
@@ -12,9 +9,10 @@ import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
-import { Button } from 'ui';
+import { Button, Image, LightBox } from 'ui';
 import imageProxy from 'utils/imageProxy';
 import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 import Audio from './Audio';
 import Video from './Video';

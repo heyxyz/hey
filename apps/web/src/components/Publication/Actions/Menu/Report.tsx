@@ -1,10 +1,10 @@
 import { Menu } from '@headlessui/react';
 import { ShieldExclamationIcon } from '@heroicons/react/outline';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 interface ReportProps {
   publication: Publication;
