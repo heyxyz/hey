@@ -3,13 +3,13 @@ import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import isVerified from 'lib/isVerified';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { Image } from 'ui';
-import formatHandle from 'utils/formatHandle';
-import getAvatar from 'utils/getAvatar';
-import isVerified from 'utils/isVerified';
 
 interface PreviewProps {
   profile: Profile;

@@ -1,8 +1,8 @@
 import { AVATAR, DEFAULT_OG, USER_CONTENT_URL } from 'data/constants';
 import { Publication } from 'lens';
+import getStampFyiURL from 'lib/getStampFyiURL';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
-import getStampFyiURL from 'utils/getStampFyiURL';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 import DefaultTags from './Shared/DefaultTags';
 import Tags from './Shared/Tags';

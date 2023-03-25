@@ -6,12 +6,12 @@ import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import hasPrideLogo from 'lib/hasPrideLogo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import formatHandle from 'utils/formatHandle';
-import hasPrideLogo from 'utils/hasPrideLogo';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';

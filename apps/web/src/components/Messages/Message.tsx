@@ -9,6 +9,7 @@ import { parseConversationKey } from '@lib/conversationKey';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
+import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -18,7 +19,6 @@ import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridLayout } from 'ui';
-import formatHandle from 'utils/formatHandle';
 
 import Composer from './Composer';
 import MessagesList from './MessagesList';

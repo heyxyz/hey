@@ -11,14 +11,14 @@ import { AVATAR } from 'data/constants';
 import type { MediaSet, NftImage, Profile, ProfileSearchResult } from 'lens';
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import type { TextNode } from 'lexical';
+import formatHandle from 'lib/formatHandle';
+import getStampFyiURL from 'lib/getStampFyiURL';
+import imageProxy from 'lib/imageProxy';
+import isVerified from 'lib/isVerified';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import formatHandle from 'utils/formatHandle';
-import getStampFyiURL from 'utils/getStampFyiURL';
-import imageProxy from 'utils/imageProxy';
-import isVerified from 'utils/isVerified';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 

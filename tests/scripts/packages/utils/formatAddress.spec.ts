@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import formatAddress from 'utils/formatAddress';
+import formatAddress from 'lib/formatAddress';
 
 test.describe('formatAddress', () => {
   test('should return an empty string if null is passed in', () => {

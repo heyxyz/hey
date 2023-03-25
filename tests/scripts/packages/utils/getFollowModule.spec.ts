@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import getFollowModule from 'utils/getFollowModule';
+import getFollowModule from 'lib/getFollowModule';
 
 test.describe('getFollowModule', () => {
   test('should return correct module for ProfileFollowModuleSettings', () => {

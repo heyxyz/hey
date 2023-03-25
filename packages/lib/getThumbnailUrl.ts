@@ -1,6 +1,6 @@
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { MetadataOutput } from 'lens';
-import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 
 /**
  * Returns the thumbnail URL for the specified publication metadata.

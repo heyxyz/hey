@@ -14,16 +14,16 @@ import {
   useCreateFollowTypedDataMutation,
   useSuperFollowQuery
 } from 'lens';
+import formatAddress from 'lib/formatAddress';
+import formatHandle from 'lib/formatHandle';
+import getSignature from 'lib/getSignature';
+import getTokenImage from 'lib/getTokenImage';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { Button, Spinner, WarningMessage } from 'ui';
-import formatAddress from 'utils/formatAddress';
-import formatHandle from 'utils/formatHandle';
-import getSignature from 'utils/getSignature';
-import getTokenImage from 'utils/getTokenImage';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';

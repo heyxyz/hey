@@ -1,4 +1,4 @@
-import humanize from 'utils/humanize';
+import humanize from 'lib/humanize';
 
 /**
  * Formats a number by abbreviating it using SI unit prefixes.
