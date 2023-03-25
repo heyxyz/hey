@@ -1,6 +1,4 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -16,7 +14,7 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card } from 'ui';
+import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getSignature from 'utils/getSignature';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';

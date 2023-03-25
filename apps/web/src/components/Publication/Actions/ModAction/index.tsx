@@ -8,7 +8,6 @@ import {
   ShieldCheckIcon
 } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
@@ -26,6 +25,7 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 import { MOD } from 'src/tracking';
 import { Button } from 'ui';
 import { Alert } from 'ui/Alert';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 interface ModActionProps {
   publication: Publication;

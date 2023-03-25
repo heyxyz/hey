@@ -25,6 +25,7 @@ query ProfileSettings($request: SingleProfileQueryRequest!) {
         uri
         tokenId
         contractAddress
+        chainId
       }
     }
   }

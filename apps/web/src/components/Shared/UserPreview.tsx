@@ -1,4 +1,3 @@
-import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
@@ -7,6 +6,7 @@ import { useProfileLazyQuery } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { FollowSource } from 'src/tracking';
+import { Image } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 import isVerified from 'utils/isVerified';

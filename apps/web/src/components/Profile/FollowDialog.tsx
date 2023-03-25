@@ -1,11 +1,10 @@
 import Follow from '@components/Shared/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import { Image } from '@components/UI/Image';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { Dispatch, FC } from 'react';
-import { Button } from 'ui';
+import { Button, Image } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getAvatar from 'utils/getAvatar';
 

@@ -1,5 +1,4 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Tooltip } from '@components/UI/Tooltip';
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
@@ -9,6 +8,7 @@ import { motion } from 'framer-motion';
 import { ReferenceModules } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
+import { Tooltip } from 'ui';
 
 const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);

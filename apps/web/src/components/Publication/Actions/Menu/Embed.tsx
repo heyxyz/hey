@@ -1,11 +1,11 @@
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 interface EmbedProps {
   publication: Publication;

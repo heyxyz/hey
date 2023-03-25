@@ -1,6 +1,6 @@
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 import Commented from './Commented';
 import CommentedPublication from './CommentedPublication';
