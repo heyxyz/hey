@@ -21,7 +21,8 @@ const CollectedAmount: FC<CollectedAmountProps> = ({ notification }) => {
         <>
           <div className="text-[12px]">
             <Trans>
-              Collected for {humanize(collectModule?.amount?.value)} {collectModule?.amount?.asset?.symbol}
+              Collected for {humanize(parseFloat(collectModule?.amount?.value))}{' '}
+              {collectModule?.amount?.asset?.symbol}
             </Trans>
           </div>
           <img
