@@ -6,10 +6,10 @@ import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import type { NewReactionNotification } from 'lens';
+import hasGm from 'lib/hasGm';
 import Link from 'next/link';
 import type { FC } from 'react';
 import type { MessageDescriptor } from 'src/types';
-import hasGm from 'utils/hasGm';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 

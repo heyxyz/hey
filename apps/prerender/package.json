@@ -15,12 +15,12 @@
     "@apollo/client": "^3.7.10",
     "axios": "^1.3.4",
     "dotenv": "^16.0.3",
+    "lib": "*",
     "next": "^13.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-schemaorg": "^2.0.0",
-    "schema-dts": "^1.1.2",
-    "utils": "*"
+    "schema-dts": "^1.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.29",

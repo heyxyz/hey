@@ -11,13 +11,13 @@ import {
   useUpdateNftGalleryInfoMutation,
   useUpdateNftGalleryItemsMutation
 } from 'lens';
+import trimify from 'lib/trimify';
 import type { Dispatch, FC } from 'react';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { Button, Modal, Spinner } from 'ui';
-import trimify from 'utils/trimify';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';

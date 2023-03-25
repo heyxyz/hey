@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { MAINNET_DEFAULT_TOKEN } from 'data/contracts';
-import getAssetAddress from 'utils/getAssetAddress';
+import getAssetAddress from 'lib/getAssetAddress';
 
 test.describe('getAssetAddress', () => {
   test('should return MAINNET_DEFAULT_TOKEN for WMATIC', () => {

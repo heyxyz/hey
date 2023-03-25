@@ -4,10 +4,10 @@ import { setLocale, supportedLocales } from '@lib/i18n';
 import { Mixpanel } from '@lib/mixpanel';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { MISCELLANEOUS } from 'src/tracking';
-import isFeatureEnabled from 'utils/isFeatureEnabled';
 
 import MenuTransition from '../MenuTransition';
 

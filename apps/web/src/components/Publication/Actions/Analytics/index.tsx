@@ -6,13 +6,13 @@ import { t } from '@lingui/macro';
 import { FeatureFlag } from 'data/feature-flags';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { Modal, Tooltip } from 'ui';
-import isFeatureEnabled from 'utils/isFeatureEnabled';
 
 const Stats = dynamic(() => import('./Stats'), {
   loading: () => <Loader message={t`Loading analytics`} />

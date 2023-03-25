@@ -4,12 +4,12 @@ import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PAGEVIEW, PUBLICATION } from 'src/tracking';
 import { Button, EmptyState, ErrorMessage, Form, Spinner, TextArea, useZodForm } from 'ui';
-import { stopEventPropagation } from 'utils/stopEventPropagation';
 import { object, string } from 'zod';
 
 import Reason from './Reason';

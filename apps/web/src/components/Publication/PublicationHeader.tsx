@@ -2,8 +2,8 @@ import UserProfile from '@components/Shared/UserProfile';
 import useModMode from '@components/utils/hooks/useModMode';
 import clsx from 'clsx';
 import type { FeedItem, Publication } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
-import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 import PublicationMenu from './Actions/Menu';
 import Source from './Source';

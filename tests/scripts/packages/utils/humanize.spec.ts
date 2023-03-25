@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import humanize from 'utils/humanize';
+import humanize from 'lib/humanize';
 
 test.describe('humanize', () => {
   test('should return comma-separated thousands', () => {

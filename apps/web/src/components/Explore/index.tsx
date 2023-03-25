@@ -10,13 +10,13 @@ import { APP_NAME } from 'data/constants';
 import { FeatureFlag } from 'data/feature-flags';
 import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { EXPLORE, PAGEVIEW } from 'src/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from 'ui';
-import isFeatureEnabled from 'utils/isFeatureEnabled';
 
 import Feed from './Feed';
 import FeedType from './FeedType';

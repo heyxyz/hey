@@ -8,6 +8,8 @@ import { LensHub } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { CreateSetDefaultProfileRequest, Profile } from 'lens';
 import { useBroadcastMutation, useCreateSetDefaultProfileTypedDataMutation } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -15,8 +17,6 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
-import formatHandle from 'utils/formatHandle';
-import getSignature from 'utils/getSignature';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
 const SetProfile: FC = () => {

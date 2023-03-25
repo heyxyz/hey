@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import type { Attribute } from 'lens';
-import getProfileAttribute from 'utils/getProfileAttribute';
+import getProfileAttribute from 'lib/getProfileAttribute';
 
 test.describe('getProfileAttribute', () => {
   test('should return the attribute value from a trait if key is valid', () => {

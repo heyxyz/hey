@@ -1,11 +1,11 @@
 import { EmojiHappyIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import getProfileAttribute from 'lib/getProfileAttribute';
 import type { FC } from 'react';
 import React from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import getProfileAttribute from 'utils/getProfileAttribute';
 
 interface StatusProps {
   className?: string;

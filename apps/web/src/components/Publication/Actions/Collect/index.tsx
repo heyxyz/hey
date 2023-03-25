@@ -8,13 +8,13 @@ import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ElectedMirror, Publication } from 'lens';
 import { CollectModules } from 'lens';
+import humanize from 'lib/humanize';
+import nFormatter from 'lib/nFormatter';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
 import { Modal, Tooltip } from 'ui';
-import humanize from 'utils/humanize';
-import nFormatter from 'utils/nFormatter';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message={t`Loading collect`} />

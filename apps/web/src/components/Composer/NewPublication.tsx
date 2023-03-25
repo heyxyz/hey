@@ -47,6 +47,8 @@ import {
   useCreatePostViaDispatcherMutation
 } from 'lens';
 import { $getRoot } from 'lexical';
+import getSignature from 'lib/getSignature';
+import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -61,8 +63,6 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
 import type { LensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
-import getSignature from 'utils/getSignature';
-import getTags from 'utils/getTags';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
