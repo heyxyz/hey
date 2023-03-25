@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
-import type { FC, SyntheticEvent } from 'react';
+import type { FC } from 'react';
 import { Fragment } from 'react';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 interface LightBoxProps {
   show: boolean;
@@ -50,7 +51,7 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(event: SyntheticEvent) => event.stopPropagation()}
+                  onClick={stopEventPropagation}
                   data-testid="lightbox-open-original"
                 >
                   Open original

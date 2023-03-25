@@ -19,7 +19,6 @@ import type {
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -37,6 +36,7 @@ import { Card, ErrorMessage, Tooltip } from 'ui';
 import formatHandle from 'utils/formatHandle';
 import getURLs from 'utils/getURLs';
 import sanitizeDStorageUrl from 'utils/sanitizeDStorageUrl';
+import { stopEventPropagation } from 'utils/stopEventPropagation';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
