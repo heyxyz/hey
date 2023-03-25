@@ -5,16 +5,16 @@
   "private": true,
   "license": "GPL-3.0",
   "dependencies": {
-    "react": "^18.2.0",
-    "clsx": "^1.2.1",
     "@headlessui/react": "^1.7.13",
-    "@hookform/resolvers": "^3.0.0",
-    "react-hook-form": "^7.43.7",
-    "zod": "^3.21.4",
     "@heroicons/react": "v1",
+    "@hookform/resolvers": "^3.0.0",
     "@tippyjs/react": "^4.2.6",
+    "clsx": "^1.2.1",
     "data": "*",
-    "next": "13.2.3"
+    "next": "13.2.4",
+    "react": "^18.2.0",
+    "react-hook-form": "^7.43.7",
+    "zod": "^3.21.4"
   },
   "scripts": {
     "typecheck": "tsc --pretty --noEmit",
