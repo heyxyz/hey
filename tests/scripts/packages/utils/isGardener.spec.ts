@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import isGardener from 'utils/isGardener';
+import isGardener from 'lib/isGardener';
 
 test.describe('isGardener', () => {
   test('should return true if the ID is included in the gardener list', () => {

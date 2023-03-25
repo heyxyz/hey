@@ -4,10 +4,10 @@ import { t } from '@lingui/macro';
 import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'data/constants';
 import type { Profile, Publication } from 'lens';
 import { useRelevantPeopleQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { FollowSource } from 'src/tracking';
 import { Card, ErrorMessage } from 'ui';
-import formatHandle from 'utils/formatHandle';
 
 interface RelevantPeopleProps {
   publication: Publication;

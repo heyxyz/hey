@@ -1,5 +1,5 @@
+import isStaff from 'lib/isStaff';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import isStaff from 'utils/isStaff';
 
 const useStaffMode = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

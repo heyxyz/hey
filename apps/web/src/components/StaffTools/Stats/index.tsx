@@ -17,13 +17,13 @@ import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
 import { useLensterStatsQuery } from 'lens';
+import humanize from 'lib/humanize';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
-import humanize from 'utils/humanize';
 
 import StaffToolsSidebar from '../Sidebar';
 

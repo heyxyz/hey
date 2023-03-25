@@ -1,6 +1,6 @@
 import type { FeedItem } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
-import { stopEventPropagation } from 'utils/stopEventPropagation';
 
 import Collected from './Collected';
 import Combined from './Combined';

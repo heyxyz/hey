@@ -1,9 +1,9 @@
 import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
+import getUniswapURL from 'lib/getUniswapURL';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
-import getUniswapURL from 'utils/getUniswapURL';
 
 interface UniswapProps {
   module: any;

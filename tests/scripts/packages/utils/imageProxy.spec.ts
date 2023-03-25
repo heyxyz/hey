@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { AVATAR, USER_CONTENT_URL } from 'data/constants';
-import imageProxy from 'utils/imageProxy';
+import imageProxy from 'lib/imageProxy';
 
 test.describe('imageProxy', () => {
   test('should return a url with just the image url when no name is provided', () => {

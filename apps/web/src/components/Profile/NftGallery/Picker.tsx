@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { IS_MAINNET } from 'data/constants';
 import type { Nft, NfTsRequest } from 'lens';
 import { useNftFeedQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -15,7 +16,6 @@ import { useAppStore } from 'src/store/app';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { EmptyState, ErrorMessage } from 'ui';
-import formatHandle from 'utils/formatHandle';
 import { mainnet } from 'wagmi/chains';
 
 const Picker: FC = () => {

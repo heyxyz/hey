@@ -4,11 +4,11 @@ import Mirrors from '@components/Shared/Modal/Mirrors';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
+import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 import { Modal } from 'ui';
-import nFormatter from 'utils/nFormatter';
 
 interface PublicationStatsProps {
   publication: Publication;

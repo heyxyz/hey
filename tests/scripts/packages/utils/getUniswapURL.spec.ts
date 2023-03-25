@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import getUniswapURL from 'utils/getUniswapURL';
+import getUniswapURL from 'lib/getUniswapURL';
 
 test.describe('getUniswapURL', () => {
   test('should return a valid URL', () => {

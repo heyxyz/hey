@@ -4,11 +4,11 @@ import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { Card, Input, Spinner } from 'ui';
-import formatHandle from 'utils/formatHandle';
 
 import UserProfile from '../UserProfile';
 

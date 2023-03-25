@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import splitNumber from 'utils/splitNumber';
+import splitNumber from 'lib/splitNumber';
 
 test.describe('splitNumber', () => {
   test('should split number equally', () => {

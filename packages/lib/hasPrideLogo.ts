@@ -1,5 +1,5 @@
 import type { Profile } from 'lens';
-import getProfileAttribute from 'utils/getProfileAttribute';
+import getProfileAttribute from 'lib/getProfileAttribute';
 
 /**
  * Returns true if the specified profile has the "hasPrideLogo" attribute set to true.

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import nFormatter from 'utils/nFormatter';
+import nFormatter from 'lib/nFormatter';
 
 test.describe('nFormatter', () => {
   test('should format a number without any suffix if it is less than 10000 and no digits provided', () => {

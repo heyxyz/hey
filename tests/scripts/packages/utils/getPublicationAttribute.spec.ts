@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import type { MetadataAttributeOutput } from 'lens';
-import getPublicationAttribute from 'utils/getPublicationAttribute';
+import getPublicationAttribute from 'lib/getPublicationAttribute';
 
 test.describe('getPublicationAttribute', () => {
   const attributes: MetadataAttributeOutput[] = [

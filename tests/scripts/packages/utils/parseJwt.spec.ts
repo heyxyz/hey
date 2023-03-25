@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import parseJwt from 'utils/parseJwt';
+import parseJwt from 'lib/parseJwt';
 
 test.describe('parseJwt', () => {
   test('should parse and return token expiration time', () => {
