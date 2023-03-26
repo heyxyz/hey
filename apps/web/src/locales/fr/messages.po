@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-12 06:26\n"
+"PO-Revision-Date: 2023-03-26 00:09\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -1855,7 +1855,15 @@ msgid "Token Id"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
-msgid "Avatar can't be empty!"
+msgid "Upload failed"
+msgstr ""
+
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Crop image"
+msgstr ""
+
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Profile picture crop preview"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -2465,10 +2473,6 @@ msgstr ""
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools • {APP_NAME}"
-msgstr ""
-
-#: src/components/UI/LightBox.tsx
-msgid "Open original"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
