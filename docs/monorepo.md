@@ -10,5 +10,6 @@ The monorepo is structured as follows:
 
 - `apps/` - Contains the apps.
 - `packages/` - Contains the packages.
+- `tests/` - Contains the tests.
 - `docs/` - Contains the documentation.
 - `scripts/` - Contains the scripts.
