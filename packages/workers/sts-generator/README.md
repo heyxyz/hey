@@ -1,0 +1,1 @@
+# STS token generator worker
