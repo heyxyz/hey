@@ -2,18 +2,9 @@
   "name": "Codespaces",
   "image": "mcr.microsoft.com/devcontainers/base:bullseye",
   "features": {
-    "ghcr.io/devcontainers/features/docker-from-docker:1": {
-      "version": "latest",
-      "enableNonRootDocker": "true",
-      "moby": "true"
-    },
     "ghcr.io/devcontainers/features/node:1": {
       "nodeGypDependencies": true,
       "version": "18"
-    },
-    "ghcr.io/devcontainers-contrib/features/npm-package:1": {
-      "package": "typescript",
-      "version": "latest"
     }
   },
   "remoteEnv": {
@@ -24,6 +15,7 @@
     "memory": "4gb"
   },
   "postCreateCommand": "./script/bootstrap",
+  "forwardPorts": [4783, 4784, 8082, 8083, 8084, 8085],
   "customizations": {
     "vscode": {
       "extensions": [
