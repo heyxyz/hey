@@ -14,7 +14,8 @@
     "cpus": 4,
     "memory": "4gb"
   },
-  "postCreateCommand": "./script/bootstrap",
+  "onCreateCommand": "./script/bootstrap",
+  "postStartCommand": "yarn dev",
   "forwardPorts": [4783, 4784, 8082, 8083, 8084, 8085],
   "customizations": {
     "vscode": {
