@@ -23,5 +23,24 @@
     "cpus": 4,
     "memory": "4gb"
   },
-  "postCreateCommand": "./script/bootstrap"
+  "postCreateCommand": "./script/bootstrap",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-close-tag",
+        "mikestead.dotenv",
+        "EditorConfig.EditorConfig",
+        "dbaeumer.vscode-eslint",
+        "GitHub.copilot-nightly",
+        "GitHub.remotehub",
+        "eamodio.gitlens",
+        "wix.vscode-import-cost",
+        "mquandalle.graphql",
+        "PKief.material-icon-theme",
+        "christian-kohler.npm-intellisense",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  }
 }
