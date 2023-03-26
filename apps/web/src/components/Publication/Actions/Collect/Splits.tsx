@@ -6,6 +6,7 @@ import { useProfilesQuery } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
+import getStampFyiURL from 'lib/getStampFyiURL';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -50,7 +51,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                 <>
                   <img
                     className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
-                    src={getAvatar(profile)}
+                    src={profile ? getAvatar(profile) : getStampFyiURL(address)}
                     alt="Avatar"
                   />
                   {profile ? (
