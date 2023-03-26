@@ -1,7 +1,8 @@
 import { AVATAR, ZERO_ADDRESS } from 'data/constants';
-import getStampFyiURL from 'lib/getStampFyiURL';
-import imageProxy from 'lib/imageProxy';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+
+import getStampFyiURL from './getStampFyiURL';
+import imageProxy from './imageProxy';
+import sanitizeDStorageUrl from './sanitizeDStorageUrl';
 
 /**
  * The list of hostnames to skip image proxy for.
