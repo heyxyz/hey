@@ -9,8 +9,9 @@ import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
-import type { CreateMirrorRequest, Publication } from 'lens';
+import type { Comment, CreateMirrorRequest, Post, Publication } from 'lens';
 import {
+  Mirror,
   useBroadcastMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation,
@@ -53,7 +54,9 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
       // Mixpanel.track(PUBLICATION.DELETE);
     },
     update: (cache) => {
-      cache.evict({ id: publicationKeyFields(publication) });
+      if (isMirror) {
+        cache.evict({ id: publicationKeyFields(publication) });
+      }
     }
   });
 
@@ -226,7 +229,15 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
                   )
                 }
                 onClick={() => {
-                  undoMirror({ variables: { request: { publicationId: publication?.id } } });
+                  undoMirror({
+                    variables: {
+                      request: {
+                        publicationId: isMirror
+                          ? publication.id
+                          : (publication as Post | Comment).mirrors?.[0]
+                      }
+                    }
+                  });
                 }}
               >
                 <div className="flex items-center space-x-2">
