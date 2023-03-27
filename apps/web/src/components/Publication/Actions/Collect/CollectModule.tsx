@@ -416,7 +416,7 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
           {isMultirecipientFeeCollectModule && <Splits recipients={collectModule?.recipients} />}
         </div>
         <div className="flex items-center space-x-2">
-          {currentProfile && !hasCollectedByMe ? (
+          {currentProfile && (!hasCollectedByMe || !isFreeCollectModule) ? (
             allowanceLoading || balanceLoading ? (
               <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
             ) : allowed ? (
