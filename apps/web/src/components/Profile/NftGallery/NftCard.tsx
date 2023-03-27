@@ -1,9 +1,9 @@
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Nft } from 'lens';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
-import getIPFSLink from 'utils/getIPFSLink';
 
 interface NFTProps {
   nft: Nft;
@@ -27,7 +27,7 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
           title={`${nft.contractAddress}:${nft.tokenId}`}
           sandbox=""
           className="h-full w-full rounded-xl bg-gray-200 object-cover dark:bg-gray-800"
-          src={getIPFSLink(nft?.originalContent?.animatedUrl)}
+          src={sanitizeDStorageUrl(nft?.originalContent?.animatedUrl)}
         />
       )}
     </div>
@@ -37,7 +37,7 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
       style={{
         backgroundImage: `url(${
           nft.originalContent.uri
-            ? getIPFSLink(nft.originalContent.uri)
+            ? sanitizeDStorageUrl(nft.originalContent.uri)
             : `${STATIC_IMAGES_URL}/placeholder.webp`
         })`,
         backgroundSize: 'contain',

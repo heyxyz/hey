@@ -1,12 +1,12 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
+import humanize from 'lib/humanize';
+import nFormatter from 'lib/nFormatter';
 import Link from 'next/link';
 import type { FC } from 'react';
-import humanize from 'utils/humanize';
-import nFormatter from 'utils/nFormatter';
+import { Tooltip } from 'ui';
 
 interface CommentProps {
   publication: Publication;

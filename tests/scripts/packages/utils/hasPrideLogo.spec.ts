@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import type { Profile } from 'lens';
-import hasPrideLogo from 'utils/hasPrideLogo';
+import hasPrideLogo from 'lib/hasPrideLogo';
 
 test.describe('hasPrideLogo', () => {
   test('should return true if profile has pride logo attribute set as true', () => {

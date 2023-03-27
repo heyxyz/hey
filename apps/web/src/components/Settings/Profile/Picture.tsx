@@ -1,8 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Image } from '@components/UI/Image';
-import { Modal } from '@components/UI/Modal';
-import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -19,15 +15,15 @@ import {
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation
 } from 'lens';
+import getSignature from 'lib/getSignature';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button } from 'ui';
-import getIPFSLink from 'utils/getIPFSLink';
-import getSignature from 'utils/getSignature';
-import imageProxy from 'utils/imageProxy';
+import { Button, ErrorMessage, Image, Modal, Spinner } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import ImageCropperController from './ImageCropperController';
@@ -178,7 +174,9 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   };
 
   const profilePictureUrl = profile?.picture?.original?.url ?? profile?.picture?.uri;
-  const profilePictureIpfsUrl = profilePictureUrl ? imageProxy(getIPFSLink(profilePictureUrl), AVATAR) : '';
+  const profilePictureIpfsUrl = profilePictureUrl
+    ? imageProxy(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
+    : '';
 
   const cropperPreviewSize: Size = { width: 240, height: 240 };
   const cropperBorderSize = 20;

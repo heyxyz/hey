@@ -1,7 +1,3 @@
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -16,13 +12,13 @@ import {
   useCreateSetProfileImageUriViaDispatcherMutation,
   useNftChallengeLazyQuery
 } from 'lens';
+import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button } from 'ui';
-import getSignature from 'utils/getSignature';
+import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { object, string } from 'zod';
@@ -42,7 +38,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [chainId, setChainId] = useState<number>(mainnet.id);
+  const [chainId, setChainId] = useState<number>(profile?.picture?.chainId || mainnet.id);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { signMessageAsync } = useSignMessage();
 

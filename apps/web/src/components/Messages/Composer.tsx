@@ -1,5 +1,3 @@
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -14,7 +12,7 @@ import toast from 'react-hot-toast';
 import { useAttachmentCacheStore, useAttachmentStore } from 'src/store/attachment';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import { Button } from 'ui';
+import { Button, Input, Spinner } from 'ui';
 import type { Attachment, RemoteAttachment } from 'xmtp-content-type-remote-attachment';
 import {
   AttachmentCodec,

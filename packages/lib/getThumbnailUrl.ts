@@ -1,6 +1,7 @@
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { MetadataOutput } from 'lens';
-import getIPFSLink from 'utils/getIPFSLink';
+
+import sanitizeDStorageUrl from './sanitizeDStorageUrl';
 
 /**
  * Returns the thumbnail URL for the specified publication metadata.
@@ -18,7 +19,7 @@ const getThumbnailUrl = (metadata?: MetadataOutput): string => {
   const { cover, image } = metadata;
   const url = cover?.original?.url ?? image ?? fallbackUrl;
 
-  return getIPFSLink(url);
+  return sanitizeDStorageUrl(url);
 };
 
 export default getThumbnailUrl;

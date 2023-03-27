@@ -1,4 +1,3 @@
-import { Image } from '@components/UI/Image';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import { formatTime } from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
@@ -6,12 +5,12 @@ import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
-import { Card } from 'ui';
-import formatHandle from 'utils/formatHandle';
-import getAvatar from 'utils/getAvatar';
+import { Card, Image } from 'ui';
 
 import MessageContent from './MessageContent';
 

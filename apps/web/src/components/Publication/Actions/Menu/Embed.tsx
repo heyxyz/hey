@@ -1,9 +1,9 @@
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 

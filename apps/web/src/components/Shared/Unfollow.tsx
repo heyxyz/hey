@@ -1,4 +1,3 @@
-import { Spinner } from '@components/UI/Spinner';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -10,13 +9,13 @@ import type { Signer } from 'ethers';
 import { Contract } from 'ethers';
 import type { CreateBurnEip712TypedData, Profile } from 'lens';
 import { useBroadcastMutation, useCreateUnfollowTypedDataMutation } from 'lens';
+import getSignature from 'lib/getSignature';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
-import { Button } from 'ui';
-import getSignature from 'utils/getSignature';
+import { Button, Spinner } from 'ui';
 import { useSigner, useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {

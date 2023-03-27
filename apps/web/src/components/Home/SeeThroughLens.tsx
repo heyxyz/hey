@@ -1,8 +1,5 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
-import { Image } from '@components/UI/Image';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { Menu } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
@@ -16,13 +13,14 @@ import {
   useSearchProfilesLazyQuery,
   useSeeThroughProfilesLazyQuery
 } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
 import { MISCELLANEOUS } from 'src/tracking';
-import formatHandle from 'utils/formatHandle';
-import getAvatar from 'utils/getAvatar';
+import { Image, Input, Spinner } from 'ui';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

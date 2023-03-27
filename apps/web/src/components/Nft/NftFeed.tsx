@@ -1,17 +1,16 @@
 import SingleNft from '@components/Nft/SingleNft';
 import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { IS_MAINNET } from 'data/constants';
 import type { Nft, NfTsRequest, Profile } from 'lens';
 import { useNftFeedQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { CHAIN_ID } from 'src/constants';
-import formatHandle from 'utils/formatHandle';
+import { EmptyState, ErrorMessage } from 'ui';
 import { mainnet } from 'wagmi/chains';
 
 interface NftFeedProps {

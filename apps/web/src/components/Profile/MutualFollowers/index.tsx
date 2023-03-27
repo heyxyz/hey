@@ -1,12 +1,12 @@
-import { Image } from '@components/UI/Image';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useMutualFollowersQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
-import formatHandle from 'utils/formatHandle';
-import getAvatar from 'utils/getAvatar';
+import { Image } from 'ui';
 
 interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<boolean>;

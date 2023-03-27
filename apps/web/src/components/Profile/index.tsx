@@ -1,12 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
 import NftFeed from '@components/Nft/NftFeed';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Modal } from '@components/UI/Modal';
 import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -15,8 +15,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import formatHandle from 'utils/formatHandle';
-import isFeatureEnabled from 'utils/isFeatureEnabled';
+import { GridItemEight, GridItemFour, GridLayout, Modal } from 'ui';
 
 import Cover from './Cover';
 import Details from './Details';

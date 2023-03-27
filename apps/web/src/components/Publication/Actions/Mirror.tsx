@@ -1,6 +1,4 @@
 import type { ApolloCache } from '@apollo/client';
-import { Spinner } from '@components/UI/Spinner';
-import { Tooltip } from '@components/UI/Tooltip';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -16,15 +14,16 @@ import {
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens';
+import getSignature from 'lib/getSignature';
+import humanize from 'lib/humanize';
+import { publicationKeyFields } from 'lib/keyFields';
+import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import getSignature from 'utils/getSignature';
-import humanize from 'utils/humanize';
-import { publicationKeyFields } from 'utils/keyFields';
-import nFormatter from 'utils/nFormatter';
+import { Spinner, Tooltip } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {

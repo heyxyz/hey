@@ -1,13 +1,12 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { FollowSource } from 'src/tracking';
+import { EmptyState, ErrorMessage } from 'ui';
 
 const Suggested: FC = () => {
   const { data, loading, error } = useRecommendedProfilesQuery();

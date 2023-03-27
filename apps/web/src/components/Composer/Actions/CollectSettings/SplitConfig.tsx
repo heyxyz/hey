@@ -1,16 +1,15 @@
 import Beta from '@components/Shared/Badges/Beta';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Input } from '@components/UI/Input';
 import { PlusIcon, SwitchHorizontalIcon, UsersIcon, XCircleIcon } from '@heroicons/react/outline';
 import isValidEthAddress from '@lib/isValidEthAddress';
 import { t, Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
 import { useProfileLazyQuery } from 'lens';
+import splitNumber from 'lib/splitNumber';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { Button } from 'ui';
-import splitNumber from 'utils/splitNumber';
+import { Button, Input } from 'ui';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;

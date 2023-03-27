@@ -1,9 +1,9 @@
 import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import type { Publication } from 'lens';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { Card } from 'ui';
-import getIPFSLink from 'utils/getIPFSLink';
 
 import MetaDetails from './MetaDetails';
 
@@ -53,10 +53,10 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({ publication }) =>
         </MetaDetails>
         <MetaDetails
           icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={getIPFSLink(publication?.onChainContentURI)}
+          value={sanitizeDStorageUrl(publication?.onChainContentURI)}
           title="On-chain content URI"
         >
-          <a href={getIPFSLink(publication?.onChainContentURI)} target="_blank" rel="noreferrer">
+          <a href={sanitizeDStorageUrl(publication?.onChainContentURI)} target="_blank" rel="noreferrer">
             Open
           </a>
         </MetaDetails>

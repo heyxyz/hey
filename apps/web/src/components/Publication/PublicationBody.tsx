@@ -5,10 +5,10 @@ import { EyeIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
+import getURLs from 'lib/getURLs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import getURLs from 'utils/getURLs';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 

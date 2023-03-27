@@ -1,9 +1,6 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import useModMode from '@components/utils/hooks/useModMode';
-import { LockClosedIcon } from '@heroicons/react/solid';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
-import { t } from '@lingui/macro';
 import type { ElectedMirror, Publication } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -31,23 +28,16 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   const canMirror = currentProfile ? publication?.canMirror?.result : true;
 
   return (
-    <div className="-ml-2 flex items-center justify-between pt-3">
-      <span className="flex items-center gap-6 sm:gap-8" onClick={stopEventPropagation}>
-        <Comment publication={publication} showCount={showCount} />
-        {canMirror && <Mirror publication={publication} showCount={showCount} />}
-        <Like publication={publication} showCount={showCount} />
-        {collectModuleType !== 'RevertCollectModuleSettings' && (
-          <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
-        )}
-        {modMode && <Mod publication={publication} isFullPublication={showCount} />}
-        <Analytics publication={publication} />
-      </span>
-      {publication?.isGated && (
-        <Tooltip placement="top" content={t`Gated Publication`}>
-          <LockClosedIcon className="h-4 w-4 text-green-500" />
-        </Tooltip>
+    <span className="-ml-2 flex items-center gap-6 pt-3 sm:gap-8" onClick={stopEventPropagation}>
+      <Comment publication={publication} showCount={showCount} />
+      {canMirror && <Mirror publication={publication} showCount={showCount} />}
+      <Like publication={publication} showCount={showCount} />
+      {collectModuleType !== 'RevertCollectModuleSettings' && (
+        <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
       )}
-    </div>
+      {modMode && <Mod publication={publication} isFullPublication={showCount} />}
+      <Analytics publication={publication} />
+    </span>
   );
 };
 

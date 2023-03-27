@@ -1,6 +1,3 @@
-import { Form, useZodForm } from '@components/UI/Form';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -14,14 +11,14 @@ import {
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledCurrencyModulesWithProfileQuery
 } from 'lens';
+import getSignature from 'lib/getSignature';
+import getTokenImage from 'lib/getTokenImage';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card } from 'ui';
-import getSignature from 'utils/getSignature';
-import getTokenImage from 'utils/getTokenImage';
+import { Button, Card, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 

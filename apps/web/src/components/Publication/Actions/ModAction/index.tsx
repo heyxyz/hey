@@ -8,7 +8,6 @@ import {
   ShieldCheckIcon
 } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
@@ -18,6 +17,7 @@ import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';

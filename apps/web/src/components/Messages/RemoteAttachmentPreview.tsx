@@ -1,8 +1,8 @@
-import { Spinner } from '@components/UI/Spinner';
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from 'lens';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAttachmentCacheStore, useAttachmentStore } from 'src/store/attachment';
+import { Spinner } from 'ui';
 import type { Attachment, RemoteAttachment } from 'xmtp-content-type-remote-attachment';
 import { RemoteAttachmentCodec } from 'xmtp-content-type-remote-attachment';
 

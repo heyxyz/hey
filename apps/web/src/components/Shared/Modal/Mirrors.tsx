@@ -1,6 +1,4 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Profile, ProfileQueryRequest } from 'lens';
@@ -9,6 +7,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { FollowSource } from 'src/tracking';
+import { EmptyState, ErrorMessage } from 'ui';
 
 import Loader from '../Loader';
 

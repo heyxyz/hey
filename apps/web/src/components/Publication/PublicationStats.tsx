@@ -1,14 +1,14 @@
 import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
-import { Modal } from '@components/UI/Modal';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
+import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
-import nFormatter from 'utils/nFormatter';
+import { Modal } from 'ui';
 
 interface PublicationStatsProps {
   publication: Publication;

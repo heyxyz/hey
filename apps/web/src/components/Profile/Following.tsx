@@ -1,16 +1,15 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { FollowingRequest, Profile } from 'lens';
 import { useFollowingQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { FollowSource } from 'src/tracking';
-import formatHandle from 'utils/formatHandle';
+import { EmptyState, ErrorMessage } from 'ui';
 
 interface FollowingProps {
   profile: Profile;

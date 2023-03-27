@@ -1,13 +1,12 @@
-import { Image } from '@components/UI/Image';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { ATTACHMENT } from 'data/constants';
+import imageProxy from 'lib/imageProxy';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 import type { OG } from 'src/types';
-import { Card } from 'ui';
-import imageProxy from 'utils/imageProxy';
+import { Card, Image } from 'ui';
 
 interface EmbedProps {
   og: OG;

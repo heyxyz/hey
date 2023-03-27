@@ -1,16 +1,16 @@
-import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import isVerified from 'lib/isVerified';
+import nFormatter from 'lib/nFormatter';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { FollowSource } from 'src/tracking';
-import formatHandle from 'utils/formatHandle';
-import getAvatar from 'utils/getAvatar';
-import isVerified from 'utils/isVerified';
-import nFormatter from 'utils/nFormatter';
+import { Image } from 'ui';
 
 import Follow from './Follow';
 import Markup from './Markup';

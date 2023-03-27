@@ -1,11 +1,4 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Image } from '@components/UI/Image';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
-import { TextArea } from '@components/UI/TextArea';
-import { Toggle } from '@components/UI/Toggle';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -21,17 +14,17 @@ import {
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
 } from 'lens';
+import getProfileAttribute from 'lib/getProfileAttribute';
+import getSignature from 'lib/getSignature';
+import hasPrideLogo from 'lib/hasPrideLogo';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card } from 'ui';
-import getIPFSLink from 'utils/getIPFSLink';
-import getProfileAttribute from 'utils/getProfileAttribute';
-import getSignature from 'utils/getSignature';
-import hasPrideLogo from 'utils/hasPrideLogo';
-import imageProxy from 'utils/imageProxy';
+import { Button, Card, ErrorMessage, Form, Image, Input, Spinner, TextArea, Toggle, useZodForm } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';
@@ -244,9 +237,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 <Image
                   className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
-                    currentTarget.src = getIPFSLink(cover);
+                    currentTarget.src = sanitizeDStorageUrl(cover);
                   }}
-                  src={imageProxy(getIPFSLink(cover), COVER)}
+                  src={imageProxy(sanitizeDStorageUrl(cover), COVER)}
                   alt={cover}
                 />
               </div>

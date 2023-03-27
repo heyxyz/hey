@@ -1,16 +1,15 @@
-import { Modal } from '@components/UI/Modal';
 import { StarIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
-import { Button } from 'ui';
-import formatHandle from 'utils/formatHandle';
+import { Button, Modal } from 'ui';
 
 import Loader from '../Loader';
 import Slug from '../Slug';

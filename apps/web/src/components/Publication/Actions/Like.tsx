@@ -1,5 +1,4 @@
 import type { ApolloCache } from '@apollo/client';
-import { Tooltip } from '@components/UI/Tooltip';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -10,6 +9,9 @@ import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
+import hasGm from 'lib/hasGm';
+import { publicationKeyFields } from 'lib/keyFields';
+import nFormatter from 'lib/nFormatter';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -17,9 +19,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
-import hasGm from 'utils/hasGm';
-import { publicationKeyFields } from 'utils/keyFields';
-import nFormatter from 'utils/nFormatter';
+import { Tooltip } from 'ui';
 
 interface LikeProps {
   publication: Publication;

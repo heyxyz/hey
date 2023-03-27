@@ -1,9 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import UserProfile from '@components/Shared/UserProfile';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Modal } from '@components/UI/Modal';
-import { Spinner } from '@components/UI/Spinner';
-import { WarningMessage } from '@components/UI/WarningMessage';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
@@ -14,14 +10,14 @@ import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
+import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Button, Card } from 'ui';
-import getSignature from 'utils/getSignature';
+import { Button, Card, GridItemEight, GridItemFour, GridLayout, Modal, Spinner, WarningMessage } from 'ui';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';

@@ -1,14 +1,13 @@
-import { Image } from '@components/UI/Image';
-import { Spinner } from '@components/UI/Spinner';
 import { PhotographIcon } from '@heroicons/react/outline';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import { ATTACHMENT, ERROR_MESSAGE } from 'data/constants';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import getIPFSLink from 'utils/getIPFSLink';
-import imageProxy from 'utils/imageProxy';
+import { Image, Spinner } from 'ui';
 
 interface CoverImageProps {
   isNew: boolean;
@@ -43,13 +42,13 @@ const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, image
       <button
         type="button"
         className="flex focus:outline-none"
-        onClick={() => expandCover(cover ? getIPFSLink(cover) : cover)}
+        onClick={() => expandCover(cover ? sanitizeDStorageUrl(cover) : cover)}
       >
         <Image
           onError={({ currentTarget }) => {
-            currentTarget.src = cover ? getIPFSLink(cover) : cover;
+            currentTarget.src = cover ? sanitizeDStorageUrl(cover) : cover;
           }}
-          src={cover ? imageProxy(getIPFSLink(cover), ATTACHMENT) : cover}
+          src={cover ? imageProxy(sanitizeDStorageUrl(cover), ATTACHMENT) : cover}
           className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
           draggable={false}
           alt={`attachment-audio-cover-${cover}`}

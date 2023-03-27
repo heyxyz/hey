@@ -5,10 +5,6 @@ import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
-import { Modal } from '@components/UI/Modal';
-import { Spinner } from '@components/UI/Spinner';
-import { Tooltip } from '@components/UI/Tooltip';
-import { WarningMessage } from '@components/UI/WarningMessage';
 import {
   CashIcon,
   ClockIcon,
@@ -41,18 +37,18 @@ import {
   useProxyActionMutation,
   usePublicationRevenueQuery
 } from 'lens';
+import formatAddress from 'lib/formatAddress';
+import formatHandle from 'lib/formatHandle';
+import getAssetAddress from 'lib/getAssetAddress';
+import getSignature from 'lib/getSignature';
+import getTokenImage from 'lib/getTokenImage';
+import humanize from 'lib/humanize';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import { Button } from 'ui';
-import formatAddress from 'utils/formatAddress';
-import formatHandle from 'utils/formatHandle';
-import getAssetAddress from 'utils/getAssetAddress';
-import getSignature from 'utils/getSignature';
-import getTokenImage from 'utils/getTokenImage';
-import humanize from 'utils/humanize';
+import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Splits from './Splits';

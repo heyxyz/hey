@@ -18,8 +18,9 @@ cd packages/workers/freshdesk; cp .dev.vars.example .dev.vars
 cd ../../../
 echo "Updating packages/workers/metadata env vars 🌎"
 cd packages/workers/metadata
-# This is a dummy private key, it don't have any funds in it
-sed -i '' -e 's/BUNDLR_PRIVATE_KEY=.*/BUNDLR_PRIVATE_KEY='"3b7890335684c148c21fa529850950ea43d3b60131fa0351732c53a1dec5db3c"'/' .dev.vars
+# Generate private key and insert into .dev.vars
+random_hex=$(head -c 32 /dev/urandom | xxd -p -c 32)
+echo "RANDOM_HEX=$random_hex" > .dev.vars
 cd ../../../
 echo "Updating packages/workers/sts-generator env vars 🌎"
 cd packages/workers/sts-generator; cp .dev.vars.example .dev.vars

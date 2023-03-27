@@ -1,4 +1,4 @@
-import { Image } from '@components/UI/Image';
+import { Image } from 'ui';
 import type { Attachment } from 'xmtp-content-type-remote-attachment';
 
 type AttachmentViewProps = {

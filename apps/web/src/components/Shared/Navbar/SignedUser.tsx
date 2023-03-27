@@ -1,15 +1,15 @@
-import { Image } from '@components/UI/Image';
 import { Menu } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import isGardener from 'lib/isGardener';
+import isStaff from 'lib/isStaff';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import formatHandle from 'utils/formatHandle';
-import getAvatar from 'utils/getAvatar';
-import isGardener from 'utils/isGardener';
-import isStaff from 'utils/isStaff';
+import { Image } from 'ui';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
