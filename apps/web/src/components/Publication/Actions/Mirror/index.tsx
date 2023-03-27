@@ -1,5 +1,7 @@
 import type { ApolloCache } from '@apollo/client';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import MenuTransition from '@components/Shared/MenuTransition';
+import { Menu } from '@headlessui/react';
+import { SwitchHorizontalIcon, TrashIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -7,7 +9,6 @@ import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
-import { motion } from 'framer-motion';
 import type { CreateMirrorRequest, Publication } from 'lens';
 import {
   useBroadcastMutation,
@@ -20,7 +21,7 @@ import humanize from 'lib/humanize';
 import { publicationKeyFields } from 'lib/keyFields';
 import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
@@ -45,8 +46,10 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     isMirror ? publication?.mirrorOf?.mirrors?.length > 0 : publication?.mirrors?.length > 0
   );
 
-  const [hidePost] = useHidePublicationMutation({
+  const [undoMirror] = useHidePublicationMutation({
     onCompleted: () => {
+      setMirrored(false);
+      toast.success(t`Post has been unmirrored!`);
       // Mixpanel.track(PUBLICATION.DELETE);
     }
   });
@@ -143,10 +146,6 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
       return toast.error(SIGN_WALLET);
     }
 
-    if (mirrored) {
-      return hidePost({ variables: { request: { publicationId: publication?.id } } });
-    }
-
     try {
       const request: CreateMirrorRequest = {
         profileId: currentProfile?.id,
@@ -173,33 +172,74 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
-    <div className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
-      <motion.button
-        whileTap={{ scale: 0.9 }}
-        onClick={createMirror}
-        disabled={isLoading}
-        aria-label="Mirror"
-      >
-        <div
-          className={clsx(
-            mirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
-            'rounded-full p-1.5 hover:bg-opacity-20'
-          )}
-        >
-          {isLoading ? (
-            <Spinner variant={mirrored ? 'success' : 'primary'} size="xs" />
-          ) : (
-            <Tooltip
-              placement="top"
-              content={count > 0 ? t`${humanize(count)} Mirrors` : t`Mirror`}
-              withDelay
+    <div className="flex items-center space-x-1">
+      <Menu as="div" className="relative">
+        <Menu.Button as={Fragment}>
+          <button
+            className={clsx(
+              mirrored ? 'text-green-500 hover:bg-green-300' : 'text-brand hover:bg-brand-300',
+              'rounded-full p-1.5 hover:bg-opacity-20'
+            )}
+            aria-label="Mirror"
+            data-testid={`publication-${publication.id}-menu`}
+          >
+            {isLoading ? (
+              <Spinner variant={mirrored ? 'success' : 'primary'} size="xs" />
+            ) : (
+              <Tooltip
+                placement="top"
+                content={count > 0 ? t`${humanize(count)} Mirrors` : t`Mirror`}
+                withDelay
+              >
+                <SwitchHorizontalIcon className={iconClassName} />
+              </Tooltip>
+            )}
+          </button>
+        </Menu.Button>
+        <MenuTransition>
+          <Menu.Items
+            static
+            className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          >
+            <Menu.Item
+              as="div"
+              className={({ active }) =>
+                clsx({ 'dropdown-active': active }, 'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm')
+              }
+              onClick={createMirror}
             >
-              <SwitchHorizontalIcon className={iconClassName} />
-            </Tooltip>
-          )}
-        </div>
-      </motion.button>
-      {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+              <div className="flex items-center space-x-2">
+                <SwitchHorizontalIcon className="h-4 w-4" />
+                <div>Mirror</div>
+              </div>
+            </Menu.Item>
+            {mirrored && (
+              <Menu.Item
+                as="div"
+                className={({ active }) =>
+                  clsx(
+                    { 'dropdown-active': active },
+                    'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
+                  )
+                }
+                onClick={() => {
+                  undoMirror({ variables: { request: { publicationId: publication?.id } } });
+                }}
+              >
+                <div className="flex items-center space-x-2">
+                  <TrashIcon className="h-4 w-4" />
+                  <div>Unmirror</div>
+                </div>
+              </Menu.Item>
+            )}
+          </Menu.Items>
+        </MenuTransition>
+      </Menu>
+      {count > 0 && !showCount && (
+        <span className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'text-[11px] sm:text-xs')}>
+          {nFormatter(count)}
+        </span>
+      )}
     </div>
   );
 };
