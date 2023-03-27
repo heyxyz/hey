@@ -7,7 +7,7 @@ hooks:
     - prettier --write
 
 generates:
-  generated.d.ts:
+  generated.ts:
     plugins:
       - typescript
       - typescript-operations
