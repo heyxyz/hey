@@ -1,5 +1,6 @@
 import type { Publication } from 'lens';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 import Commented from './Commented';
@@ -7,11 +8,12 @@ import Mirrored from './Mirrored';
 
 interface PublicationTypeProps {
   publication: Publication;
-  showType?: boolean;
+  showType: boolean;
   showThread?: boolean;
 }
 
 const PublicationType: FC<PublicationTypeProps> = ({ publication, showType, showThread = false }) => {
+  const { pathname } = useRouter();
   const type = publication.__typename;
 
   if (!showType) {
@@ -21,8 +23,9 @@ const PublicationType: FC<PublicationTypeProps> = ({ publication, showType, show
   return (
     <span onClick={stopEventPropagation}>
       {type === 'Mirror' && <Mirrored publication={publication} />}
-      {type === 'Comment' && !showThread && <Commented publication={publication} />}
-      {type === 'Comment' && showThread && <Commented publication={publication} />}
+      {type === 'Comment' && (showThread || pathname === '/posts/[id]') && (
+        <Commented publication={publication} />
+      )}
     </span>
   );
 };
