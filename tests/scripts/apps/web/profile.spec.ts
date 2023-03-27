@@ -25,7 +25,7 @@ test.describe('Profile', async () => {
     });
 
     test('should have bio', async ({ page }) => {
-      await expect(page.getByTestId('profile-bio')).toContainText('he/him');
+      await expect(page.getByTestId('profile-bio')).toContainText('opinions are mine');
     });
 
     test('should have meta id', async ({ page }) => {
