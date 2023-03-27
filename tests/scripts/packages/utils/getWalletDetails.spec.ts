@@ -3,13 +3,13 @@ import { STATIC_IMAGES_URL } from 'data/constants';
 import getWalletDetails from 'lib/getWalletDetails';
 
 test.describe('getWalletDetails', () => {
-  test('should return correct details for WalletConnectLegacy', () => {
-    const walletDetails = getWalletDetails('WalletConnectLegacy');
+  test('should return correct details for WalletConnect', () => {
+    const walletDetails = getWalletDetails('WalletConnect');
     expect(walletDetails.name).toBe('Wallet Connect');
     expect(walletDetails.logo).toBe(`${STATIC_IMAGES_URL}/wallets/walletconnect.svg`);
   });
 
-  test('should return correct details for name other than WalletConnectLegacy', () => {
+  test('should return correct details for name other than WalletConnect', () => {
     const walletDetails = getWalletDetails('SomeOtherWallet');
     expect(walletDetails.name).toBe('SomeOtherWallet');
     expect(walletDetails.logo).toBe(`${STATIC_IMAGES_URL}/wallets/browser-wallet.svg`);
