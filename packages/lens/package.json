@@ -1,7 +1,7 @@
 {
   "name": "lens",
   "version": "0.0.0",
-  "main": "generated.ts",
+  "main": "generated.d.ts",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
