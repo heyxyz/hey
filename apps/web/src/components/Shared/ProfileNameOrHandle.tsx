@@ -19,7 +19,10 @@ const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({ profile, className 
 
   return (
     <>
-      <Link href={`/u/${formatHandle(profile?.handle)}`} className={clsx('hover:underline', className)}>
+      <Link
+        href={`/u/${formatHandle(profile?.handle)}`}
+        className={clsx('max-w-sm truncate hover:underline', className)}
+      >
         <b className="whitespace-nowrap">
           {profile?.name ? profile?.name : <Slug slug={formatHandle(profile?.handle)} prefix="@" />}
         </b>
