@@ -1,8 +1,8 @@
+import Profiles from '@components/Shared/Profiles';
+import { SparklesIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import type { FeedItem } from 'lens';
 import type { FC } from 'react';
-
-import ProfileCircles from './ProfileCircles';
 
 interface CombinedProps {
   feedItem: FeedItem;
@@ -33,7 +33,8 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
 
   return (
     <div className="lt-text-gray-500 flex flex-wrap items-center space-x-1 pb-4 text-[13px] leading-6">
-      <ProfileCircles profiles={getAllProfiles()} />
+      <SparklesIcon className="h-4 w-4" />
+      <Profiles profiles={getAllProfiles()} />
       <div className="flex items-center space-x-1">
         {mirrorsLength ? (
           <span className="whitespace-nowrap">
