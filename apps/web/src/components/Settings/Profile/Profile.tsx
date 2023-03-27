@@ -315,7 +315,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                     currentTarget.src = sanitizeDStorageUrl(cover);
                   }}
                   src={uploadedImageUrl || coverPictureIpfsUrl}
-                  alt={cover}
+                  alt={t`Cover picture crop preview`}
                 />
               </div>
               <div className="flex items-center space-x-3">
