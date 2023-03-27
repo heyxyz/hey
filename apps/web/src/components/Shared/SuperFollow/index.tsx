@@ -1,16 +1,15 @@
-import { Button } from '@components/UI/Button';
-import { Modal } from '@components/UI/Modal';
 import { StarIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
+import { Button, Modal } from 'ui';
 
 import Loader from '../Loader';
 import Slug from '../Slug';
@@ -19,14 +18,14 @@ const FollowModule = dynamic(() => import('./FollowModule'), {
   loading: () => <Loader message={t`Loading super follow`} />
 });
 
-interface Props {
+interface SuperFollowProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
   again?: boolean;
 }
 
-const SuperFollow: FC<Props> = ({ profile, setFollowing, showText = false, again = false }) => {
+const SuperFollow: FC<SuperFollowProps> = ({ profile, setFollowing, showText = false, again = false }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);

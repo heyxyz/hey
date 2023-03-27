@@ -68,7 +68,7 @@ msgstr ""
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -242,7 +242,7 @@ msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -595,11 +595,36 @@ msgstr ""
 msgid "Mod Center • {APP_NAME}"
 msgstr "Mod Center • {APP_NAME}"
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Mod/index.tsx
+msgid "Refresh feed"
+msgstr "Refresh feed"
+
+#: src/components/Mod/index.tsx
+msgid "Publication filters"
+msgstr "Publication filters"
+
+#: src/components/Mod/index.tsx
+msgid "Posts"
+msgstr "Posts"
+
+#: src/components/Mod/index.tsx
+#: src/components/Notification/FeedType.tsx
+msgid "Comments"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Custom filters"
+msgstr "Custom filters"
+
+#: src/components/Mod/index.tsx
+msgid "Gardeners"
+msgstr "Gardeners"
+
+#: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr ""
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
 msgstr ""
@@ -610,10 +635,6 @@ msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
-msgstr ""
-
-#: src/components/Notification/FeedType.tsx
-msgid "Comments"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
@@ -747,10 +768,6 @@ msgstr "Your message has been sent!"
 #: src/components/Pages/Contact.tsx
 msgid "Email"
 msgstr "Email"
-
-#: src/components/Pages/Contact.tsx
-msgid "gavin@hooli.com"
-msgstr "gavin@hooli.com"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -1447,8 +1464,8 @@ msgid "Report?"
 msgstr "Report?"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user?"
-msgstr "Are you sure? You want to report this user?"
+msgid "Are you sure? You want to report this user so that we can take action."
+msgstr "Are you sure? You want to report this user so that we can take action."
 
 #: src/components/Publication/Actions/index.tsx
 msgid "Gated Publication"
@@ -1816,30 +1833,38 @@ msgstr "You won't see the total number of likes for publications others share to
 msgid "Preferences • {APP_NAME}"
 msgstr "Preferences • {APP_NAME}"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr ""
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Invalid Contract address"
 msgstr ""
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr ""
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract Address"
 msgstr ""
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
-msgid "Avatar can't be empty!"
-msgstr ""
+msgid "Upload failed"
+msgstr "Upload failed"
+
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Crop image"
+msgstr "Crop image"
+
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Profile picture crop preview"
+msgstr "Profile picture crop preview"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
@@ -2029,6 +2054,14 @@ msgstr ""
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr ""
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr "Mod actions"
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Perform mod actions on this publication."
+msgstr "Perform mod actions on this publication."
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
@@ -2281,6 +2314,14 @@ msgstr ""
 msgid "Moderation"
 msgstr ""
 
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Disable mod mode"
+msgstr "Disable mod mode"
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Enable mod mode"
+msgstr "Enable mod mode"
+
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
 msgstr ""
@@ -2433,10 +2474,6 @@ msgstr ""
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools • {APP_NAME}"
 msgstr "Stafftools • {APP_NAME}"
-
-#: src/components/UI/LightBox.tsx
-msgid "Open original"
-msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"

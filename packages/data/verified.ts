@@ -2,6 +2,14 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x01bff3', // glassxyz.lens
+  '0x01b69c', // sagargowda.lens
+  '0x8a58', // fabri.lens
+  '0x01bc17', // argent.lens
+  '0x01ab4f', // therugofficial.lens
+  '0x018a1c', // route2fiofficial.lens
+  '0x01b94b', // uniswap.lens
+  '0x01b190', // nostra_finance.lens
   '0x01afc5', // rac.lens
   '0x018d04', // dumpling.lens
   '0x01ac9b', // gho.lens
@@ -83,7 +91,6 @@ export const mainnetVerified = [
   '0xeb6f', // doobzee.lens
   '0x3093', // sophiest.lens
   '0xee84', // mintedmojito.lens
-  '0x014ea2', // miguelberpu.lens
   '0x013cee', // gotenks.lens
   '0x2e2a', // dheerajshah.lens
   '0xe5cc', // alarke.lens

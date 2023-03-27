@@ -1,15 +1,15 @@
-import getUniswapURL from '@lib/getUniswapURL';
 import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
+import getUniswapURL from 'lib/getUniswapURL';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-interface Props {
+interface UniswapProps {
   module: any;
 }
 
-const Uniswap: FC<Props> = ({ module }) => {
+const Uniswap: FC<UniswapProps> = ({ module }) => {
   return (
     <div className="space-y-1">
       <div className="text-sm">

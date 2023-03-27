@@ -10,7 +10,7 @@ import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
 
-interface Props {
+interface SinglePublicationProps {
   publication: Publication;
   feedItem?: FeedItem;
   showType?: boolean;
@@ -19,7 +19,7 @@ interface Props {
   showThread?: boolean;
 }
 
-const SinglePublication: FC<Props> = ({
+const SinglePublication: FC<SinglePublicationProps> = ({
   publication,
   feedItem,
   showType = true,
@@ -40,9 +40,10 @@ const SinglePublication: FC<Props> = ({
           push(`/posts/${rootPublication?.id}`);
         }
       }}
+      data-testid={`publication-${publication.id}`}
     >
       {feedItem ? (
-        <EventType feedItem={feedItem} showType={showType} showThread={showThread} />
+        <EventType feedItem={feedItem} />
       ) : (
         <PublicationType publication={publication} showType={showType} showThread={showThread} />
       )}
@@ -59,7 +60,7 @@ const SinglePublication: FC<Props> = ({
                 electedMirror={feedItem?.electedMirror as ElectedMirror}
               />
             )}
-            {showModActions && <ModAction publication={rootPublication} />}
+            {showModActions && <ModAction publication={rootPublication} className="mt-3 max-w-md" />}
           </>
         )}
       </div>

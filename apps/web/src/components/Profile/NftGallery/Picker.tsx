@@ -1,31 +1,28 @@
-import SingleNFT from '@components/NFT/SingleNFT';
+import SingleNft from '@components/Nft/SingleNft';
 import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CheckIcon, CollectionIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { IS_MAINNET, SCROLL_THRESHOLD } from 'data/constants';
+import { IS_MAINNET } from 'data/constants';
 import type { Nft, NfTsRequest } from 'lens';
 import { useNftFeedQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
-import React from 'react';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import { toast } from 'react-hot-toast';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
+import { EmptyState, ErrorMessage } from 'ui';
 import { mainnet } from 'wagmi/chains';
-
-let hasMore = true;
 
 const Picker: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
+  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: NfTsRequest = {
@@ -42,13 +39,19 @@ const Picker: FC = () => {
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      hasMore = data?.nfts?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      }).then(({ data }) => {
+        setHasMore(data?.nfts?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <NftPickerShimmer />;
@@ -133,40 +136,30 @@ const Picker: FC = () => {
   });
 
   return (
-    <div className="m-4 space-y-4">
-      <InfiniteScroll
-        dataLength={nfts?.length ?? 0}
-        scrollThreshold={SCROLL_THRESHOLD}
-        scrollableTarget="scrollableNftGalleryDiv"
-        hasMore={hasMore}
-        next={loadMore}
-        loader={<InfiniteLoader />}
-      >
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {nfts?.map((nft, i) => {
-            const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
-            const isSelected = selectedItems.includes(id);
-            return (
-              <div
-                key={`${id}_${i}`}
-                className={clsx(
-                  'relative rounded-xl border-2',
-                  isSelected ? 'border-brand-500' : 'border-transparent'
-                )}
-              >
-                {isSelected && (
-                  <button className="bg-brand-500 absolute right-2 top-2 rounded-full">
-                    <CheckIcon className="h-5 w-5 p-1 text-white" />
-                  </button>
-                )}
-                <button className="w-full text-left" onClick={() => onSelectItem(nft as Nft)}>
-                  <SingleNFT nft={nft as Nft} linkToDetail={false} />
-                </button>
-              </div>
-            );
-          })}
-        </div>
-      </InfiniteScroll>
+    <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3">
+      {nfts?.map((nft, i) => {
+        const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
+        const isSelected = selectedItems.includes(id);
+        return (
+          <div
+            key={`${id}_${i}`}
+            className={clsx(
+              'relative rounded-xl border-2',
+              isSelected ? 'border-brand-500' : 'border-transparent'
+            )}
+          >
+            {isSelected && (
+              <button className="bg-brand-500 absolute right-2 top-2 rounded-full">
+                <CheckIcon className="h-5 w-5 p-1 text-white" />
+              </button>
+            )}
+            <button className="w-full text-left" onClick={() => onSelectItem(nft as Nft)}>
+              <SingleNft nft={nft as Nft} linkToDetail={false} />
+            </button>
+          </div>
+        );
+      })}
+      {hasMore && <span ref={observe} />}
     </div>
   );
 };

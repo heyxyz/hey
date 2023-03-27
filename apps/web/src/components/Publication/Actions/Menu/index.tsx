@@ -1,9 +1,9 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -13,11 +13,11 @@ import Embed from './Embed';
 import Permalink from './Permalink';
 import Report from './Report';
 
-interface Props {
+interface PublicationMenuProps {
   publication: Publication;
 }
 
-const PublicationMenu: FC<Props> = ({ publication }) => {
+const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
@@ -28,6 +28,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
           className="rounded-full p-1.5 hover:bg-gray-300 hover:bg-opacity-20"
           onClick={stopEventPropagation}
           aria-label="More"
+          data-testid={`publication-${publication.id}-menu`}
         >
           <DotsVerticalIcon className={clsx('lt-text-gray-500', iconClassName)} />
         </button>
@@ -36,6 +37,7 @@ const PublicationMenu: FC<Props> = ({ publication }) => {
         <Menu.Items
           static
           className="absolute right-0 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          data-testid={`publication-${publication.id}-menu-items`}
         >
           {currentProfile?.id === publication?.profile?.id ? (
             <Delete publication={publication} />

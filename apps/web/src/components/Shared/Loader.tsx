@@ -1,11 +1,11 @@
-import { Spinner } from '@components/UI/Spinner';
 import type { FC } from 'react';
+import { Spinner } from 'ui';
 
-interface Props {
+interface LoaderProps {
   message?: string;
 }
 
-const Loader: FC<Props> = ({ message }) => {
+const Loader: FC<LoaderProps> = ({ message }) => {
   return (
     <div className="space-y-2 p-5 text-center font-bold">
       <Spinner size="md" className="mx-auto" />

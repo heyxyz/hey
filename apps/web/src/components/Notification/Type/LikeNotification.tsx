@@ -1,21 +1,17 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import type { MessageDescriptor } from '@generated/types';
 import { SunIcon } from '@heroicons/react/outline';
 import { HeartIcon } from '@heroicons/react/solid';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
-import hasGm from '@lib/hasGm';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import type { NewReactionNotification } from 'lens';
+import hasGm from 'lib/hasGm';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
-
-interface Props {
-  notification: NewReactionNotification;
-}
 
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
@@ -33,7 +29,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> liked your <2>' + typeName + '</2></0>';
 };
 
-const LikeNotification: FC<Props> = ({ notification }) => {
+interface LikeNotificationProps {
+  notification: NewReactionNotification;
+}
+
+const LikeNotification: FC<LikeNotificationProps> = ({ notification }) => {
   const typeName = notification?.publication?.__typename?.toLowerCase() || '';
   const isGM = hasGm(notification?.publication?.metadata?.content);
 

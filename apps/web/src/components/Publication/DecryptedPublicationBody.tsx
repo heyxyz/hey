@@ -1,10 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import { Card } from '@components/UI/Card';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Tooltip } from '@components/UI/Tooltip';
-import useNFT from '@components/utils/hooks/useNFT';
+import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
   DatabaseIcon,
@@ -21,16 +18,17 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import formatHandle from '@lib/formatHandle';
-import getURLs from '@lib/getURLs';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
 import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
 import type { Publication, PublicationMetadataV2Input } from 'lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getURLs from 'lib/getURLs';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -38,7 +36,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
-import getIPFSLink from 'utils/getIPFSLink';
+import { Card, ErrorMessage, Tooltip } from 'ui';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
@@ -53,11 +51,11 @@ const DecryptMessage: FC<DecryptMessageProps> = ({ icon, children }) => (
   </div>
 );
 
-interface Props {
+interface DecryptedPublicationBodyProps {
   encryptedPublication: Publication;
 }
 
-const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
+const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({ encryptedPublication }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
@@ -117,7 +115,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     enabled: Boolean(tokenCondition)
   });
 
-  const { data: nftData } = useNFT({
+  const { data: nftData } = useNft({
     address: nftCondition?.contractAddress,
     chainId: nftCondition?.chainID,
     enabled: Boolean(nftCondition)
@@ -146,7 +144,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     }
 
     setIsDecrypting(true);
-    const contentUri = getIPFSLink(encryptedPublication?.onChainContentURI);
+    const contentUri = sanitizeDStorageUrl(encryptedPublication?.onChainContentURI);
     const { data } = await axios.get(contentUri);
     const sdk = await LensGatedSDK.create({ provider, signer, env: LIT_PROTOCOL_ENVIRONMENT as any });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);

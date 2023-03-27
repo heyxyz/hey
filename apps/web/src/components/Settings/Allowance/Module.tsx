@@ -1,18 +1,18 @@
-import { Card } from '@components/UI/Card';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { getModule } from '@lib/getModule';
 import { POLYGONSCAN_URL } from 'data/constants';
 import type { ApprovedAllowanceAmount } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { Card } from 'ui';
 
 import AllowanceButton from './Button';
 
-interface Props {
+interface ModuleProps {
   module: ApprovedAllowanceAmount;
 }
 
-const Module: FC<Props> = ({ module }) => {
+const Module: FC<ModuleProps> = ({ module }) => {
   const [allowed, setAllowed] = useState(module?.allowance !== '0x00');
 
   return (

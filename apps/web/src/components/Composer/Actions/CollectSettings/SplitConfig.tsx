@@ -1,22 +1,21 @@
 import Beta from '@components/Shared/Badges/Beta';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Button } from '@components/UI/Button';
-import { Input } from '@components/UI/Input';
 import { PlusIcon, SwitchHorizontalIcon, UsersIcon, XCircleIcon } from '@heroicons/react/outline';
 import isValidEthAddress from '@lib/isValidEthAddress';
-import splitNumber from '@lib/splitNumber';
 import { t, Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
 import { useProfileLazyQuery } from 'lens';
+import splitNumber from 'lib/splitNumber';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { Button, Input } from 'ui';
 
-interface Props {
+interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
 }
 
-const SplitConfig: FC<Props> = ({ isRecipientsDuplicated }) => {
+const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const recipients = useCollectModuleStore((state) => state.recipients);
   const setRecipients = useCollectModuleStore((state) => state.setRecipients);

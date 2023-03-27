@@ -3,11 +3,11 @@ import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from 'data/constants';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 
-interface Props {
+interface BadgeProps {
   children: ReactNode;
 }
 
-const Badge: FC<Props> = ({ children }) => (
+const Badge: FC<BadgeProps> = ({ children }) => (
   <span className="rounded-md bg-gray-300 py-0.5 px-1.5 text-xs font-bold dark:bg-gray-900">{children}</span>
 );
 

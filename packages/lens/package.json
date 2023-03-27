@@ -6,7 +6,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "codegen": "graphql-codegen",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
     "@apollo/client": "^3.7.10"
@@ -17,9 +17,8 @@
     "@graphql-codegen/typescript": "^3.0.2",
     "@graphql-codegen/typescript-operations": "^3.0.2",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
-    "eslint-config-weblint": "*",
-    "prettier": "^2.8.4",
+    "prettier": "^2.8.7",
     "tsconfig": "*",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   }
 }

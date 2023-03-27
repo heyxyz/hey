@@ -1,9 +1,9 @@
-import { Card } from '@components/UI/Card';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import isVerified from '@lib/isVerified';
 import { Trans } from '@lingui/macro';
+import isVerified from 'lib/isVerified';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Card } from 'ui';
 
 const Verification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

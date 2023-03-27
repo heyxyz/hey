@@ -1,0 +1,10 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noEmit": true,
+    "paths": {
+      "test/constants": ["constants.ts"]
+    }
+  }
+}

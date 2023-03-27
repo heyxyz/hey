@@ -1,6 +1,4 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { CollectModules } from 'lens';
@@ -8,12 +6,13 @@ import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { Button, Card } from 'ui';
 
-interface Props {
+interface BasicSettingsProps {
   setShowModal: Dispatch<boolean>;
 }
 
-const BasicSettings: FC<Props> = ({ setShowModal }) => {
+const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
   const setRestricted = useAccessSettingsStore((state) => state.setRestricted);
   const followToView = useAccessSettingsStore((state) => state.followToView);

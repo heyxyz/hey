@@ -1,16 +1,9 @@
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
-import getSignature from '@lib/getSignature';
-import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { Erc20 } from 'lens';
 import {
@@ -18,11 +11,14 @@ import {
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledCurrencyModulesWithProfileQuery
 } from 'lens';
+import getSignature from 'lib/getSignature';
+import getTokenImage from 'lib/getTokenImage';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import { Button, Card, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -51,7 +47,7 @@ const SuperFollow: FC = () => {
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

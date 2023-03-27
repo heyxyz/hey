@@ -1,17 +1,17 @@
 import Slug from '@components/Shared/Slug';
 import { HeartIcon } from '@heroicons/react/solid';
-import formatHandle from '@lib/formatHandle';
 import { Trans } from '@lingui/macro';
 import type { ElectedMirror, Publication } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 
-interface Props {
+interface ReferralAlertProps {
   mirror: Publication;
   referralFee?: number;
   electedMirror?: ElectedMirror;
 }
 
-const ReferralAlert: FC<Props> = ({ mirror, electedMirror, referralFee = 0 }) => {
+const ReferralAlert: FC<ReferralAlertProps> = ({ mirror, electedMirror, referralFee = 0 }) => {
   if ((mirror.__typename !== 'Mirror' && !electedMirror) || referralFee === 0) {
     return null;
   }

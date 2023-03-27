@@ -1,31 +1,41 @@
-import { Modal } from '@components/UI/Modal';
 import { UsersIcon } from '@heroicons/react/outline';
-import humanize from '@lib/humanize';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
+import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { Modal } from 'ui';
 
 import Followers from './Followers';
 import Following from './Following';
 
-interface Props {
+interface FolloweringsProps {
   profile: Profile;
 }
 
-const Followerings: FC<Props> = ({ profile }) => {
+const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
 
   return (
     <div className="flex gap-8">
-      <button type="button" className="text-left" onClick={() => setShowFollowingModal(!showFollowingModal)}>
+      <button
+        type="button"
+        className="text-left"
+        onClick={() => setShowFollowingModal(!showFollowingModal)}
+        data-testid="profile-followings"
+      >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowing)}</div>
         <div className="lt-text-gray-500">
           <Trans>Following</Trans>
         </div>
       </button>
-      <button type="button" className="text-left" onClick={() => setShowFollowersModal(!showFollowersModal)}>
+      <button
+        type="button"
+        className="text-left"
+        onClick={() => setShowFollowersModal(!showFollowersModal)}
+        data-testid="profile-followers"
+      >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>
         <div className="lt-text-gray-500">
           <Trans>Followers</Trans>

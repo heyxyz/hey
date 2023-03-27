@@ -1,17 +1,17 @@
-import { Button } from '@components/UI/Button';
 import { Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Button } from 'ui';
 
 import Create from './Create';
 
-interface Props {
+interface NoGalleryProps {
   profile: Profile;
 }
 
-const NoGallery: FC<Props> = ({ profile }) => {
+const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
 

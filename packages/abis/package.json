@@ -5,11 +5,12 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
+    "typecheck": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
   },
   "dependencies": {
-    "typescript": "4.9.5"
+    "typescript": "5.0.2"
   },
   "devDependencies": {
     "eslint-config-weblint": "*",

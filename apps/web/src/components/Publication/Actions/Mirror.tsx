@@ -1,16 +1,10 @@
 import type { ApolloCache } from '@apollo/client';
-import { Spinner } from '@components/UI/Spinner';
-import { Tooltip } from '@components/UI/Tooltip';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import getSignature from '@lib/getSignature';
-import humanize from '@lib/humanize';
-import { publicationKeyFields } from '@lib/keyFields';
 import { Mixpanel } from '@lib/mixpanel';
-import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
@@ -21,19 +15,24 @@ import {
   useCreateMirrorViaDispatcherMutation,
   useHidePublicationMutation
 } from 'lens';
+import getSignature from 'lib/getSignature';
+import humanize from 'lib/humanize';
+import { publicationKeyFields } from 'lib/keyFields';
+import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
+import { Spinner, Tooltip } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-interface Props {
+interface MirrorProps {
   publication: Publication;
   showCount: boolean;
 }
 
-const Mirror: FC<Props> = ({ publication, showCount }) => {
+const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -74,7 +73,7 @@ const Mirror: FC<Props> = ({ publication, showCount }) => {
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

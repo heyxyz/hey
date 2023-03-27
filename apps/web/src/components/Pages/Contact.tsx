@@ -1,13 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
-import { EmptyState } from '@components/UI/EmptyState';
-import { Form, useZodForm } from '@components/UI/Form';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
-import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -17,6 +9,19 @@ import { APP_NAME, FRESHDESK_WORKER_URL } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { PAGEVIEW } from 'src/tracking';
+import {
+  Button,
+  Card,
+  EmptyState,
+  Form,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  Input,
+  Spinner,
+  TextArea,
+  useZodForm
+} from 'ui';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
@@ -86,7 +91,7 @@ const Contact: FC = () => {
                 submitToFreshdesk(email, subject, message);
               }}
             >
-              <Input label={t`Email`} placeholder={t`gavin@hooli.com`} {...form.register('email')} />
+              <Input label={t`Email`} placeholder="gavin@hooli.com" {...form.register('email')} />
               <Input label={t`Subject`} placeholder={t`What happened?`} {...form.register('subject')} />
               <TextArea label={t`Message`} placeholder={t`How can we help?`} {...form.register('message')} />
               <div className="ml-auto">

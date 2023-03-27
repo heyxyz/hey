@@ -1,4 +1,3 @@
-import TabButton from '@components/UI/TabButton';
 import {
   ChatAlt2Icon,
   CollectionIcon,
@@ -9,17 +8,18 @@ import {
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
+import { ProfileFeedType } from 'src/enums';
 import { PROFILE } from 'src/tracking';
+import { TabButton } from 'ui';
 
-import { ProfileFeedType } from './Feed';
 import MediaFilter from './Filters/MediaFilter';
 
-interface Props {
+interface FeedTypeProps {
   setFeedType: Dispatch<string>;
   feedType: string;
 }
 
-const FeedType: FC<Props> = ({ setFeedType, feedType }) => {
+const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const switchTab = (type: string) => {
     setFeedType(type);
     Mixpanel.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {

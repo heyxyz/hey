@@ -5,11 +5,6 @@ import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
-import { Button } from '@components/UI/Button';
-import { Modal } from '@components/UI/Modal';
-import { Spinner } from '@components/UI/Spinner';
-import { Tooltip } from '@components/UI/Tooltip';
-import { WarningMessage } from '@components/UI/WarningMessage';
 import {
   CashIcon,
   ClockIcon,
@@ -19,20 +14,14 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import formatAddress from '@lib/formatAddress';
-import formatHandle from '@lib/formatHandle';
 import { formatTime } from '@lib/formatTime';
-import getAssetAddress from '@lib/getAssetAddress';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-import getSignature from '@lib/getSignature';
-import getTokenImage from '@lib/getTokenImage';
-import humanize from '@lib/humanize';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHubProxy, UpdateOwnableFeeCollectModule } from 'abis';
+import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
@@ -48,23 +37,30 @@ import {
   useProxyActionMutation,
   usePublicationRevenueQuery
 } from 'lens';
+import formatAddress from 'lib/formatAddress';
+import formatHandle from 'lib/formatHandle';
+import getAssetAddress from 'lib/getAssetAddress';
+import getSignature from 'lib/getSignature';
+import getTokenImage from 'lib/getTokenImage';
+import humanize from 'lib/humanize';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
+import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Splits from './Splits';
 
-interface Props {
+interface CollectModuleProps {
   count: number;
   setCount: Dispatch<number>;
   publication: Publication;
   electedMirror?: ElectedMirror;
 }
 
-const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror }) => {
+const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, electedMirror }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -113,7 +109,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -420,7 +416,7 @@ const CollectModule: FC<Props> = ({ count, setCount, publication, electedMirror 
           {isMultirecipientFeeCollectModule && <Splits recipients={collectModule?.recipients} />}
         </div>
         <div className="flex items-center space-x-2">
-          {currentProfile && !hasCollectedByMe ? (
+          {currentProfile && (!hasCollectedByMe || !isFreeCollectModule) ? (
             allowanceLoading || balanceLoading ? (
               <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
             ) : allowed ? (

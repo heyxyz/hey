@@ -1,25 +1,25 @@
 import MetaTags from '@components/Common/MetaTags';
-import NFTFeed from '@components/NFT/NFTFeed';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Modal } from '@components/UI/Modal';
-import formatHandle from '@lib/formatHandle';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
+import NftFeed from '@components/Nft/NftFeed';
 import { Mixpanel } from '@lib/mixpanel';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { GridItemEight, GridItemFour, GridLayout, Modal } from 'ui';
 
 import Cover from './Cover';
 import Details from './Details';
-import Feed, { ProfileFeedType } from './Feed';
+import Feed from './Feed';
 import FeedType from './FeedType';
 import FollowDialog from './FollowDialog';
 import NftGallery from './NftGallery';
@@ -126,7 +126,7 @@ const ViewProfile: NextPage = () => {
             isFeatureEnabled(FeatureFlag.NftGallery, currentProfile?.id) ? (
               <NftGallery profile={profile as Profile} />
             ) : (
-              <NFTFeed profile={profile as Profile} />
+              <NftFeed profile={profile as Profile} />
             )
           ) : null}
         </GridItemEight>

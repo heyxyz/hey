@@ -1,11 +1,4 @@
-import { Button } from '@components/UI/Button';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
-import getProfileAttribute from '@lib/getProfileAttribute';
-import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
@@ -20,12 +13,15 @@ import {
   useCreateSetProfileMetadataViaDispatcherMutation,
   useProfileSettingsQuery
 } from 'lens';
+import getProfileAttribute from 'lib/getProfileAttribute';
+import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { SETTINGS } from 'src/tracking';
+import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';

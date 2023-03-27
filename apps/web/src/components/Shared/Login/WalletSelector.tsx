@@ -1,16 +1,14 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { Button } from '@components/UI/Button';
-import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
-import getWalletDetails from '@lib/getWalletDetails';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ERROR_MESSAGE } from 'data/constants';
 import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from 'lens';
+import getWalletDetails from 'lib/getWalletDetails';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -18,15 +16,16 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { AUTH } from 'src/tracking';
+import { Button, Spinner } from 'ui';
 import type { Connector } from 'wagmi';
 import { useAccount, useConnect, useDisconnect, useNetwork, useSignMessage } from 'wagmi';
 
-interface Props {
+interface WalletSelectorProps {
   setHasConnected: Dispatch<boolean>;
   setHasProfile: Dispatch<boolean>;
 }
 
-const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
+const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);

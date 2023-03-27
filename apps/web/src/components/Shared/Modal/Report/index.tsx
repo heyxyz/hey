@@ -1,20 +1,15 @@
-import { Button } from '@components/UI/Button';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Spinner } from '@components/UI/Spinner';
-import { TextArea } from '@components/UI/TextArea';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PAGEVIEW, PUBLICATION } from 'src/tracking';
+import { Button, EmptyState, ErrorMessage, Form, Spinner, TextArea, useZodForm } from 'ui';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -25,11 +20,11 @@ const newReportSchema = object({
   })
 });
 
-interface Props {
+interface ReportProps {
   publication: Publication;
 }
 
-const Report: FC<Props> = ({ publication }) => {
+const Report: FC<ReportProps> = ({ publication }) => {
   const reportConfig = useGlobalModalStateStore((state) => state.reportConfig);
   const [type, setType] = useState(reportConfig?.type ?? '');
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');

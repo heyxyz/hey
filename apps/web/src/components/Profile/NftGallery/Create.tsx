@@ -1,10 +1,6 @@
 import { useApolloClient } from '@apollo/client';
 import EmojiPicker from '@components/Shared/EmojiPicker';
-import { Button } from '@components/UI/Button';
-import { Modal } from '@components/UI/Modal';
-import { Spinner } from '@components/UI/Spinner';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
-import trimify from '@lib/trimify';
 import { t, Trans } from '@lingui/macro';
 import { ERROR_MESSAGE } from 'data/constants';
 import type { NftGallery } from 'lens';
@@ -15,19 +11,16 @@ import {
   useUpdateNftGalleryInfoMutation,
   useUpdateNftGalleryItemsMutation
 } from 'lens';
+import trimify from 'lib/trimify';
 import type { Dispatch, FC } from 'react';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
+import { Button, Modal, Spinner } from 'ui';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';
-
-interface Props {
-  showModal: boolean;
-  setShowModal: Dispatch<boolean>;
-}
 
 enum CreateSteps {
   NAME = 'NAME',
@@ -35,7 +28,12 @@ enum CreateSteps {
   REVIEW = 'REVIEW'
 }
 
-const Create: FC<Props> = ({ showModal, setShowModal }) => {
+interface CreateProps {
+  showModal: boolean;
+  setShowModal: Dispatch<boolean>;
+}
+
+const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const [currentStep, setCurrentStep] = useState<CreateSteps>(CreateSteps.NAME);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
@@ -231,7 +229,7 @@ const Create: FC<Props> = ({ showModal, setShowModal }) => {
       show={showModal}
       onClose={closeModal}
     >
-      <div className="max-h-[80vh] overflow-y-auto pb-16" id="scrollableNftGalleryDiv">
+      <div className="max-h-[80vh] overflow-y-auto pb-16">
         {currentStep === CreateSteps.REVIEW ? (
           <ReviewSelection />
         ) : currentStep === CreateSteps.PICK_NFTS ? (

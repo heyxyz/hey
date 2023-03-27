@@ -1,10 +1,5 @@
-import { Card } from '@components/UI/Card';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
-import { LightningBoltIcon } from '@heroicons/react/outline';
+import { BellIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type {
   NewCollectNotification,
   NewCommentNotification,
@@ -16,8 +11,11 @@ import type {
 } from 'lens';
 import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'lens';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { NotificationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
+import { Card, EmptyState, ErrorMessage } from 'ui';
 
 import NotificationShimmer from './Shimmer';
 import CollectNotification from './Type/CollectNotification';
@@ -27,22 +25,13 @@ import LikeNotification from './Type/LikeNotification';
 import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
 
-export enum NotificationType {
-  All = 'ALL',
-  Mentions = 'MENTIONS',
-  Comments = 'COMMENTS',
-  Likes = 'LIKES',
-  Collects = 'COLLECTS'
-}
-
-let hasMore = true;
-
-interface Props {
+interface ListProps {
   feedType: string;
 }
 
-const List: FC<Props> = ({ feedType }) => {
+const List: FC<ListProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [hasMore, setHasMore] = useState(true);
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -76,13 +65,19 @@ const List: FC<Props> = ({ feedType }) => {
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      hasMore = data?.notifications?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      }).then(({ data }) => {
+        setHasMore(data?.notifications?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return (
@@ -101,25 +96,21 @@ const List: FC<Props> = ({ feedType }) => {
 
   if (notifications?.length === 0) {
     return (
-      <EmptyState
-        message={t`Inbox zero!`}
-        icon={<LightningBoltIcon className="text-brand h-8 w-8" />}
-        hideCard
-      />
+      <EmptyState message={t`Inbox zero!`} icon={<BellIcon className="text-brand h-8 w-8" />} hideCard />
     );
   }
 
   return (
-    <InfiniteScroll
-      dataLength={notifications?.length ?? 0}
-      scrollThreshold={SCROLL_THRESHOLD}
-      hasMore={hasMore}
-      next={loadMore}
-      loader={<InfiniteLoader />}
-    >
-      <Card className="divide-y dark:divide-gray-700">
-        {notifications?.map((notification, index) => (
-          <div key={`${notification?.notificationId}_${index}`} className="p-5">
+    <Card className="divide-y dark:divide-gray-700">
+      {notifications?.map((notification, index, items) => {
+        const isLast = index === items.length - 1;
+
+        return (
+          <div
+            key={`${notification?.notificationId}_${index}`}
+            className="p-5"
+            ref={isLast ? observe : undefined}
+          >
             {notification.__typename === 'NewFollowerNotification' && (
               <FollowerNotification notification={notification as NewFollowerNotification} />
             )}
@@ -139,9 +130,9 @@ const List: FC<Props> = ({ feedType }) => {
               <CollectNotification notification={notification as NewCollectNotification} />
             )}
           </div>
-        ))}
-      </Card>
-    </InfiniteScroll>
+        );
+      })}
+    </Card>
   );
 };
 

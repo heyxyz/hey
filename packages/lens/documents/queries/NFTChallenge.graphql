@@ -1,6 +1,0 @@
-query NFTChallenge($request: NftOwnershipChallengeRequest!) {
-  nftOwnershipChallenge(request: $request) {
-    id
-    text
-  }
-}

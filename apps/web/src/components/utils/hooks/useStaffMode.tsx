@@ -1,4 +1,4 @@
-import isStaff from '@lib/isStaff';
+import isStaff from 'lib/isStaff';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 
 const useStaffMode = () => {

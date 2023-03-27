@@ -1,19 +1,19 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
-import humanize from '@lib/humanize';
-import nFormatter from '@lib/nFormatter';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
+import humanize from 'lib/humanize';
+import nFormatter from 'lib/nFormatter';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { Tooltip } from 'ui';
 
-interface Props {
+interface CommentProps {
   publication: Publication;
   showCount: boolean;
 }
 
-const Comment: FC<Props> = ({ publication, showCount }) => {
+const Comment: FC<CommentProps> = ({ publication, showCount }) => {
   const count =
     publication.__typename === 'Mirror'
       ? publication?.mirrorOf?.stats?.totalAmountOfComments

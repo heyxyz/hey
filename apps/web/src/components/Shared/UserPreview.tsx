@@ -1,22 +1,23 @@
-import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
-import isVerified from '@lib/isVerified';
-import nFormatter from '@lib/nFormatter';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import isVerified from 'lib/isVerified';
+import nFormatter from 'lib/nFormatter';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { FollowSource } from 'src/tracking';
+import { Image } from 'ui';
 
-import Follow, { FollowSource } from './Follow';
+import Follow from './Follow';
 import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
-interface Props {
+interface UserPreviewProps {
   profile: Profile;
   children: ReactNode;
   isBig?: boolean;
@@ -24,7 +25,7 @@ interface Props {
   showUserPreview?: boolean;
 }
 
-const UserPreview: FC<Props> = ({
+const UserPreview: FC<UserPreviewProps> = ({
   profile,
   isBig,
   followStatusLoading,

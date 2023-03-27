@@ -3,11 +3,11 @@ import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
-import hasPrideLogo from '@lib/hasPrideLogo';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import hasPrideLogo from 'lib/hasPrideLogo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -35,7 +35,11 @@ const Navbar: FC = () => {
 
   const NavItem = ({ url, name, current }: NavItemProps) => {
     return (
-      <Link href={url} aria-current={current ? 'page' : undefined}>
+      <Link
+        href={url}
+        aria-current={current ? 'page' : undefined}
+        data-testid={`nav-item-${name.toLowerCase()}`}
+      >
         <Disclosure.Button
           className={clsx(
             'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',

@@ -1,16 +1,16 @@
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Nft } from 'lens';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
-import getIPFSLink from 'utils/getIPFSLink';
 
-interface Props {
+interface NFTProps {
   nft: Nft;
   linkToDetail?: boolean;
 }
 
-const NFTImage: FC<Props> = ({ nft }) => {
+const NFTImage: FC<NFTProps> = ({ nft }) => {
   return nft?.originalContent?.animatedUrl ? (
     <div className="h-64 rounded-xl bg-gray-200 object-cover dark:bg-gray-800">
       {nft?.originalContent?.animatedUrl?.includes('.gltf') ? (
@@ -27,7 +27,7 @@ const NFTImage: FC<Props> = ({ nft }) => {
           title={`${nft.contractAddress}:${nft.tokenId}`}
           sandbox=""
           className="h-full w-full rounded-xl bg-gray-200 object-cover dark:bg-gray-800"
-          src={getIPFSLink(nft?.originalContent?.animatedUrl)}
+          src={sanitizeDStorageUrl(nft?.originalContent?.animatedUrl)}
         />
       )}
     </div>
@@ -37,7 +37,7 @@ const NFTImage: FC<Props> = ({ nft }) => {
       style={{
         backgroundImage: `url(${
           nft.originalContent.uri
-            ? getIPFSLink(nft.originalContent.uri)
+            ? sanitizeDStorageUrl(nft.originalContent.uri)
             : `${STATIC_IMAGES_URL}/placeholder.webp`
         })`,
         backgroundSize: 'contain',
@@ -48,7 +48,7 @@ const NFTImage: FC<Props> = ({ nft }) => {
   );
 };
 
-const NftCard: FC<Props> = ({ nft, linkToDetail = false }) => {
+const NftCard: FC<NFTProps> = ({ nft, linkToDetail = false }) => {
   return linkToDetail ? (
     <Link href={`/nft/${nft.contractAddress}/${nft.tokenId}`} className="w-full">
       <NFTImage nft={nft} />

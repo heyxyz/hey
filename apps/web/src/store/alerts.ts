@@ -8,6 +8,9 @@ interface GlobalAlertState {
     showPublicationDeleteAlert: boolean,
     deletingPublication: Publication | null
   ) => void;
+  showModActionAlert: boolean;
+  modingPublication: Publication | null;
+  setShowModActionAlert: (showModActionAlert: boolean, modingPublication: Publication | null) => void;
 }
 
 export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
@@ -15,5 +18,9 @@ export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
   deletingPublication: null,
   forceDeletePublication: false,
   setShowPublicationDeleteAlert: (showPublicationDeleteAlert, deletingPublication) =>
-    set(() => ({ showPublicationDeleteAlert, deletingPublication }))
+    set(() => ({ showPublicationDeleteAlert, deletingPublication })),
+  showModActionAlert: false,
+  modingPublication: null,
+  setShowModActionAlert: (showModActionAlert, modingPublication) =>
+    set(() => ({ showModActionAlert, modingPublication }))
 }));

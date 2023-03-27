@@ -4,7 +4,6 @@ import {
   NotificationWalletProfileName
 } from '@components/Notification/WalletProfile';
 import UserPreview from '@components/Shared/UserPreview';
-import type { MessageDescriptor } from '@generated/types';
 import { CollectionIcon } from '@heroicons/react/solid';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
@@ -12,13 +11,10 @@ import { Trans } from '@lingui/react';
 import type { NewCollectNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MessageDescriptor } from 'src/types';
 
 import CollectedAmount from './Amount';
 import CollectedContent from './Content';
-
-interface Props {
-  notification: NewCollectNotification;
-}
 
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
@@ -36,7 +32,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> collected your <2>' + typeName + '</2></0>';
 };
 
-const CollectNotification: FC<Props> = ({ notification }) => {
+interface CollectNotificationProps {
+  notification: NewCollectNotification;
+}
+
+const CollectNotification: FC<CollectNotificationProps> = ({ notification }) => {
   const typeName = notification?.collectedPublication.__typename?.toLowerCase() || '';
   return (
     <div className="flex items-start justify-between">

@@ -8,11 +8,11 @@ import React from 'react';
 import { useAppPersistStore } from 'src/store/app';
 import { STAFFTOOLS } from 'src/tracking';
 
-interface Props {
+interface StaffModeProps {
   className?: string;
 }
 
-const StaffMode: FC<Props> = ({ className = '' }) => {
+const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const { allowed: staffMode } = useStaffMode();
   const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
 

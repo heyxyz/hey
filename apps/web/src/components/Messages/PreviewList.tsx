@@ -2,11 +2,6 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
-import { Card } from '@components/UI/Card';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { GridItemFour } from '@components/UI/GridLayout';
-import { Modal } from '@components/UI/Modal';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
@@ -22,13 +17,14 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
+import { Card, EmptyState, ErrorMessage, GridItemFour, Modal } from 'ui';
 
-interface Props {
+interface PreviewListProps {
   className?: string;
   selectedConversationKey?: string;
 }
 
-const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
+const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);

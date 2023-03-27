@@ -1,13 +1,12 @@
 import Loader from '@components/Shared/Loader';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import HelpTooltip from '@components/UI/HelpTooltip';
-import humanize from '@lib/humanize';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ERROR_MESSAGE, SIMPLEANALYTICS_API } from 'data/constants';
 import type { Publication } from 'lens';
+import humanize from 'lib/humanize';
 import type { FC } from 'react';
+import { ErrorMessage, HelpTooltip } from 'ui';
 
 const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, helper, stat }) => (
   <>
@@ -19,11 +18,11 @@ const Stat: FC<{ title: string; helper: string; stat: number }> = ({ title, help
   </>
 );
 
-interface Props {
+interface StatsProps {
   publication: Publication;
 }
 
-const Stats: FC<Props> = ({ publication }) => {
+const Stats: FC<StatsProps> = ({ publication }) => {
   const getStats = async () => {
     const response = await axios(SIMPLEANALYTICS_API, {
       params: { version: 5, fields: 'pageviews', info: false, page: `/posts/${publication.id}` }

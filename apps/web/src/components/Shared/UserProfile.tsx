@@ -1,15 +1,15 @@
-import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import formatHandle from '@lib/formatHandle';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
-import getAvatar from '@lib/getAvatar';
-import getProfileAttribute from '@lib/getProfileAttribute';
-import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import getProfileAttribute from 'lib/getProfileAttribute';
+import isVerified from 'lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { Image } from 'ui';
 
 import Follow from './Follow';
 import Markup from './Markup';
@@ -17,7 +17,7 @@ import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
-interface Props {
+interface UserProfileProps {
   profile: Profile;
   followStatusLoading?: boolean;
   isFollowing?: boolean;
@@ -34,7 +34,7 @@ interface Props {
   followSource?: string;
 }
 
-const UserProfile: FC<Props> = ({
+const UserProfile: FC<UserProfileProps> = ({
   profile,
   followStatusLoading = false,
   isFollowing = false,
@@ -49,7 +49,6 @@ const UserProfile: FC<Props> = ({
   followSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
-
   const statusEmoji = getProfileAttribute(profile?.attributes, 'statusEmoji');
   const statusMessage = getProfileAttribute(profile?.attributes, 'statusMessage');
   const hasStatus = statusEmoji && statusMessage;
@@ -130,7 +129,7 @@ const UserProfile: FC<Props> = ({
   };
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between" data-testid={`user-profile-${profile.id}`}>
       {linkToProfile ? (
         <Link href={`/u/${formatHandle(profile?.handle)}`}>
           <UserInfo />

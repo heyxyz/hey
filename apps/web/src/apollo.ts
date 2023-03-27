@@ -9,11 +9,11 @@ import {
 } from '@apollo/client';
 import { RetryLink } from '@apollo/client/link/retry';
 import { cursorBasedPagination } from '@lib/cursorBasedPagination';
-import { publicationKeyFields } from '@lib/keyFields';
-import parseJwt from '@lib/parseJwt';
 import axios from 'axios';
 import { API_URL, LS_KEYS } from 'data/constants';
 import result from 'lens';
+import { publicationKeyFields } from 'lib/keyFields';
+import parseJwt from 'lib/parseJwt';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -32,13 +32,8 @@ const httpLink = new HttpLink({
 
 // RetryLink is a link that retries requests based on the status code returned.
 const retryLink = new RetryLink({
-  delay: {
-    initial: 100
-  },
-  attempts: {
-    max: 2,
-    retryIf: (error) => Boolean(error)
-  }
+  delay: { initial: 100 },
+  attempts: { max: 2, retryIf: (error) => Boolean(error) }
 });
 
 const clearStorage = () => {
@@ -109,7 +104,6 @@ const cache = new InMemoryCache({
     Mirror: { keyFields: publicationKeyFields },
     Query: {
       fields: {
-        timeline: cursorBasedPagination(['request', ['profileId']]),
         feed: cursorBasedPagination(['request', ['profileId', 'feedEventItemTypes']]),
         feedHighlights: cursorBasedPagination(['request', ['profileId']]),
         explorePublications: cursorBasedPagination(['request', ['sortCriteria', 'metadata']]),
@@ -138,12 +132,7 @@ const cache = new InMemoryCache({
 });
 
 const client = new ApolloClient({
-  link: from([retryLink, authLink, httpLink]),
-  cache: cache
-});
-
-export const serverlessClient = new ApolloClient({
-  link: from([httpLink]),
+  link: from([authLink, retryLink, httpLink]),
   cache
 });
 

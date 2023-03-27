@@ -1,6 +1,5 @@
 import { useApolloClient } from '@apollo/client';
 import MenuTransition from '@components/Shared/MenuTransition';
-import { Button } from '@components/UI/Button';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
@@ -19,16 +18,17 @@ import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { GALLERY_DEFAULTS, useNftGalleryStore } from 'src/store/nft-gallery';
+import { Button } from 'ui';
 
 import Create from './Create';
 import NftCard from './NftCard';
 import ReArrange from './ReArrange';
 
-interface Props {
+interface GalleryProps {
   galleries: NftGallery[];
 }
 
-const Gallery: FC<Props> = ({ galleries }) => {
+const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const [isRearrange, setIsRearrange] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);

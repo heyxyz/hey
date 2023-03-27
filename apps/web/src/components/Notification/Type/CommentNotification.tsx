@@ -1,6 +1,5 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import type { MessageDescriptor } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/solid';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
@@ -8,12 +7,9 @@ import { Trans } from '@lingui/react';
 import type { NewCommentNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
-
-interface Props {
-  notification: NewCommentNotification;
-}
 
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
@@ -31,7 +27,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> commented on your <2>' + typeName + '</2></0>';
 };
 
-const CommentNotification: FC<Props> = ({ notification }) => {
+interface CommentNotificationProps {
+  notification: NewCommentNotification;
+}
+
+const CommentNotification: FC<CommentNotificationProps> = ({ notification }) => {
   const typeName = notification?.comment?.commentOn?.__typename?.toLowerCase() || '';
   return (
     <div className="flex items-start justify-between">

@@ -1,17 +1,17 @@
-import { Image } from '@components/UI/Image';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
-import isVerified from '@lib/isVerified';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import isVerified from 'lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { Image } from 'ui';
 
-interface Props {
+interface NotificationProfileProps {
   profile: Profile;
 }
 
-export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
+export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({ profile }) => {
   return (
     <Link href={`/u/${formatHandle(profile?.handle)}`}>
       <Image
@@ -28,7 +28,7 @@ export const NotificationProfileAvatar: FC<Props> = ({ profile }) => {
   );
 };
 
-export const NotificationProfileName: FC<Props> = ({ profile }) => {
+export const NotificationProfileName: FC<NotificationProfileProps> = ({ profile }) => {
   return (
     <Link
       href={`/u/${formatHandle(profile?.handle)}`}

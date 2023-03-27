@@ -1,27 +1,19 @@
-import type { OptimisticTransaction } from '@generated/types';
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
-import getPublicationAttribute from '@lib/getPublicationAttribute';
-import getThumbnailUrl from '@lib/getThumbnailUrl';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
+import getPublicationAttribute from 'lib/getPublicationAttribute';
+import getThumbnailUrl from 'lib/getThumbnailUrl';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
+import type { OptimisticTransaction } from 'src/types';
 import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';
 import Player from './Player';
-
-interface Props {
-  src: string;
-  isNew?: boolean;
-  publication?: Publication;
-  txn: OptimisticTransaction;
-  expandCover: (url: string) => void;
-}
 
 export const AudioPublicationSchema = object({
   title: string()
@@ -35,7 +27,15 @@ export const AudioPublicationSchema = object({
     .min(1, { message: t`Invalid cover image` })
 });
 
-const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover }) => {
+interface AudioProps {
+  src: string;
+  isNew?: boolean;
+  publication?: Publication;
+  txn: OptimisticTransaction;
+  expandCover: (url: string) => void;
+}
+
+const Audio: FC<AudioProps> = ({ src, isNew = false, publication, txn, expandCover }) => {
   const [playing, setPlaying] = useState(false);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setAudioPublication = usePublicationStore((state) => state.setAudioPublication);
@@ -62,7 +62,10 @@ const Audio: FC<Props> = ({ src, isNew = false, publication, txn, expandCover })
   };
 
   return (
-    <div className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0">
+    <div
+      className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0"
+      data-testid={`attachment-audio-${src}`}
+    >
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew && !txn}

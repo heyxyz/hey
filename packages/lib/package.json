@@ -1,0 +1,20 @@
+{
+  "name": "lib",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "typecheck": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
+  },
+  "dependencies": {
+    "data": "*",
+    "lens": "*"
+  },
+  "devDependencies": {
+    "eslint-config-weblint": "*",
+    "tsconfig": "*",
+    "typescript": "^5.0.2"
+  }
+}

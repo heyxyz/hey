@@ -1,21 +1,20 @@
 import Follow from '@components/Shared/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import { Button } from '@components/UI/Button';
-import { Image } from '@components/UI/Image';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import type { Dispatch, FC } from 'react';
+import { Button, Image } from 'ui';
 
-interface Props {
+interface FollowModalProps {
   setShowFollowModal: Dispatch<boolean>;
   setFollowing: Dispatch<boolean | null>;
   profile: Profile;
 }
 
-const FollowModal: FC<Props> = ({ profile, setFollowing, setShowFollowModal }) => {
+const FollowModal: FC<FollowModalProps> = ({ profile, setFollowing, setShowFollowModal }) => {
   const followType = profile?.followModule?.__typename;
 
   return (

@@ -1,11 +1,12 @@
 name = "metadata"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
+keep_vars = true
+node_compat = true
+
 routes = [
 	{ pattern = "metadata.lenster.xyz", custom_domain = true }
 ]
-keep_vars = true
-node_compat = true
 
 [env.production.vars]
 BUNDLR_PRIVATE_KEY = ""

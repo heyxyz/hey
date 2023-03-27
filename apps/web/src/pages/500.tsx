@@ -1,10 +1,10 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Button } from '@components/UI/Button';
 import { HomeIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { Button } from 'ui';
 
 const Custom500: FC = () => {
   return (

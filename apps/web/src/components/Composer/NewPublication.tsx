@@ -1,11 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
-import type { LensterAttachment } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type { CollectCondition, EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
@@ -16,8 +11,6 @@ import type {
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import getSignature from '@lib/getSignature';
-import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Mixpanel } from '@lib/mixpanel';
@@ -25,7 +18,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -54,10 +47,13 @@ import {
   useCreatePostViaDispatcherMutation
 } from 'lens';
 import { $getRoot } from 'lexical';
+import getSignature from 'lib/getSignature';
+import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { OptmisticPublicationType } from 'src/enums';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -65,6 +61,8 @@ import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
+import type { LensterAttachment } from 'src/types';
+import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
@@ -86,11 +84,11 @@ const AccessSettings = dynamic(() => import('@components/Composer/Actions/Access
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 
-interface Props {
+interface NewPublicationProps {
   publication: Publication;
 }
 
-const NewPublication: FC<Props> = ({ publication }) => {
+const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -179,7 +177,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     return {
       id: uuid(),
       ...(isComment && { parent: publication.id }),
-      type: isComment ? 'NEW_COMMENT' : 'NEW_POST',
+      type: isComment ? OptmisticPublicationType.NewComment : OptmisticPublicationType.NewPost,
       txHash,
       txId,
       content: publicationContent,
@@ -194,7 +192,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: isComment ? 'commentWithSig' : 'postWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
@@ -222,6 +220,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       collectModuleInitData,
       referenceModule,
       referenceModuleInitData,
+      referenceModuleData,
       deadline
     } = typedData.value;
     const signature = await signTypedDataAsync(getSignature(typedData));
@@ -234,6 +233,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       collectModuleInitData,
       referenceModule,
       referenceModuleInitData,
+      referenceModuleData,
       ...(isComment && {
         profileIdPointed: typedData.value.profileIdPointed,
         pubIdPointed: typedData.value.pubIdPointed
@@ -243,7 +243,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     setUserSigNonce(userSigNonce + 1);
     const { data } = await broadcast({ variables: { request: { id, signature } } });
     if (data?.broadcast.__typename === 'RelayError') {
-      return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      return write({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
   };
 

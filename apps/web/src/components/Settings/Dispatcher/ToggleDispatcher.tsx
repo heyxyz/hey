@@ -1,27 +1,26 @@
 import IndexStatus from '@components/Shared/IndexStatus';
-import { Button } from '@components/UI/Button';
-import { Spinner } from '@components/UI/Spinner';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
-import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY } from 'data/constants';
 import { useBroadcastMutation, useCreateSetDispatcherTypedDataMutation } from 'lens';
+import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import { Button, Spinner } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-interface Props {
+interface ToggleDispatcherProps {
   buttonSize?: 'sm';
 }
 
-const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
+const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -40,7 +39,7 @@ const ToggleDispatcher: FC<Props> = ({ buttonSize = 'md' }) => {
     write
   } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'setDispatcherWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import type { FC } from 'react';
 
-interface Props {
+interface TagsProps {
   title: string;
   description: string;
   image: string;
@@ -9,7 +9,7 @@ interface Props {
   schema?: any;
 }
 
-const Tags: FC<Props> = ({ title, description, image, cardType = 'summary', schema }) => {
+const Tags: FC<TagsProps> = ({ title, description, image, cardType = 'summary', schema }) => {
   return (
     <Head>
       <title>{title}</title>

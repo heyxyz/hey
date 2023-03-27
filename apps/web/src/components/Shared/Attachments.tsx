@@ -1,20 +1,18 @@
-import { Button } from '@components/UI/Button';
-import { Image } from '@components/UI/Image';
-import { LightBox } from '@components/UI/LightBox';
-import type { NewLensterAttachment } from '@generated/types';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
-import imageProxy from '@lib/imageProxy';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
 import type { MediaSet, Publication } from 'lens';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
-import getIPFSLink from 'utils/getIPFSLink';
+import type { NewLensterAttachment } from 'src/types';
+import { Button, Image, LightBox } from 'ui';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -38,7 +36,7 @@ const getClass = (attachments: number, isNew = false) => {
   }
 };
 
-interface Props {
+interface AttachmentsProps {
   attachments: any;
   isNew?: boolean;
   hideDelete?: boolean;
@@ -46,7 +44,7 @@ interface Props {
   txn?: any;
 }
 
-const Attachments: FC<Props> = ({
+const Attachments: FC<AttachmentsProps> = ({
   attachments = [],
   isNew = false,
   hideDelete = false,
@@ -81,8 +79,8 @@ const Attachments: FC<Props> = ({
         {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
           const type = isNew ? attachment.type : attachment.original?.mimeType;
           const url = isNew
-            ? attachment.previewItem || getIPFSLink(attachment.item!)
-            : getIPFSLink(attachment.original?.url) || getIPFSLink(attachment.item!);
+            ? attachment.previewItem || sanitizeDStorageUrl(attachment.item!)
+            : sanitizeDStorageUrl(attachment.original?.url) || sanitizeDStorageUrl(attachment.item!);
 
           return (
             <div
@@ -139,6 +137,7 @@ const Attachments: FC<Props> = ({
                   }}
                   src={isNew ? url : imageProxy(url, ATTACHMENT)}
                   alt={isNew ? url : imageProxy(url, ATTACHMENT)}
+                  data-testid={`attachment-image-${url}`}
                 />
               )}
               {isNew && !hideDelete && (

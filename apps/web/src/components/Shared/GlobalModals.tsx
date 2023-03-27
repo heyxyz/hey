@@ -1,10 +1,10 @@
 import Report from '@components/Shared/Modal/Report';
-import { Modal } from '@components/UI/Modal';
 import { ArrowCircleRightIcon, EmojiHappyIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAuthStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { Modal } from 'ui';
 
 import Login from './Login';
 import Status from './Status';
@@ -13,7 +13,7 @@ import SwitchProfiles from './SwitchProfiles';
 const GlobalModals: FC = () => {
   // Report modal state
   const showReportModal = useGlobalModalStateStore((state) => state.showReportModal);
-  const reportPublication = useGlobalModalStateStore((state) => state.reportPublication);
+  const reportingPublication = useGlobalModalStateStore((state) => state.reportingPublication);
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
   const showStatusModal = useGlobalModalStateStore((state) => state.showStatusModal);
   const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
@@ -24,16 +24,16 @@ const GlobalModals: FC = () => {
 
   return (
     <>
-      {reportPublication && (
+      {reportingPublication ? (
         <Modal
           title={t`Report`}
           icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
           show={showReportModal}
-          onClose={() => setShowReportModal(false, reportPublication)}
+          onClose={() => setShowReportModal(false, reportingPublication)}
         >
-          <Report publication={reportPublication} />
+          <Report publication={reportingPublication} />
         </Modal>
-      )}
+      ) : null}
       <Modal
         title={t`Set status`}
         icon={<EmojiHappyIcon className="text-brand h-5 w-5" />}
@@ -55,6 +55,7 @@ const GlobalModals: FC = () => {
         icon={<ArrowCircleRightIcon className="text-brand h-5 w-5" />}
         show={showAuthModal}
         onClose={() => setShowAuthModal(false)}
+        dataTestId="login-modal"
       >
         <Login />
       </Modal>

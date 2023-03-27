@@ -1,5 +1,4 @@
-import { Alert } from '@components/UI/Alert';
-import { Button } from '@components/UI/Button';
+import Slug from '@components/Shared/Slug';
 import {
   BanIcon,
   ExclamationCircleIcon,
@@ -9,8 +8,8 @@ import {
   ShieldCheckIcon
 } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import { stopEventPropagation } from '@lib/stopEventPropagation';
 import { t, Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import type { Publication } from 'lens';
 import {
   PublicationReportingFraudSubreason,
@@ -18,27 +17,27 @@ import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { MOD, PUBLICATION } from 'src/tracking';
+import { MOD } from 'src/tracking';
+import { Button } from 'ui';
+import { Alert } from 'ui/Alert';
 
-interface Props {
+interface ModActionProps {
   publication: Publication;
+  className?: string;
 }
 
-const ModAction: FC<Props> = ({ publication }) => {
+const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
   const setShowReportModal = useGlobalModalStateStore((state) => state.setShowReportModal);
+  const setShowModActionAlert = useGlobalAlertStateStore((state) => state.setShowModActionAlert);
   const [showReportAlert, setShowReportAlert] = useState(false);
 
-  const [createReport, { loading }] = useReportPublicationMutation({
-    onCompleted: () => {
-      Mixpanel.track(PUBLICATION.REPORT, {
-        report_publication_id: publication?.id
-      });
-    }
-  });
+  const [createReport, { loading }] = useReportPublicationMutation();
 
   const reportPublication = async ({
     type,
@@ -57,6 +56,9 @@ const ModAction: FC<Props> = ({ publication }) => {
             [type]: { reason: type.replace('Reason', '').toUpperCase(), subreason }
           }
         }
+      },
+      onCompleted: () => {
+        setShowModActionAlert(false, null);
       }
     }).finally(() => {
       if (showToast) {
@@ -76,7 +78,8 @@ const ModAction: FC<Props> = ({ publication }) => {
         reportPublication({ type, subreason });
         Mixpanel.track(MOD.REPORT, {
           report_reason: type,
-          report_subreason: subreason
+          report_subreason: subreason,
+          report_publication_id: publication?.id
         });
       }}
     >
@@ -85,7 +88,10 @@ const ModAction: FC<Props> = ({ publication }) => {
   );
 
   return (
-    <span className="mt-3 flex max-w-md flex-wrap items-center gap-3 text-sm" onClick={stopEventPropagation}>
+    <span
+      className={clsx('flex flex-wrap items-center gap-3 text-sm', className)}
+      onClick={stopEventPropagation}
+    >
       <ReportButton
         type="spamReason"
         subreason={PublicationReportingSpamSubreason.FakeEngagement}
@@ -125,13 +131,14 @@ const ModAction: FC<Props> = ({ publication }) => {
           setShowReportModal(true, publication);
         }}
         size="sm"
+        disabled={loading}
         icon={<ShieldCheckIcon className="h-4 w-4" />}
       >
         <Trans>Others</Trans>
       </Button>
       <Alert
         title={t`Report?`}
-        description={t`Are you sure? You want to report this user?`}
+        description={t`Are you sure? You want to report this user so that we can take action.`}
         confirmText={t`Report`}
         show={showReportAlert}
         isPerformingAction={loading}
@@ -148,11 +155,16 @@ const ModAction: FC<Props> = ({ publication }) => {
           }
           Mixpanel.track(MOD.REPORT, {
             report_reason: 'SHADOW_BAN',
-            report_subreason: 'SHADOW_BAN'
+            report_subreason: 'SHADOW_BAN',
+            report_publication_id: publication?.id
           });
         }}
         onClose={() => setShowReportAlert(false)}
-      />
+      >
+        <b>
+          User: <Slug slug={publication.profile.handle} prefix="@" />
+        </b>
+      </Alert>
     </span>
   );
 };

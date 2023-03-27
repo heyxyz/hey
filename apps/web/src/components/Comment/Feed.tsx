@@ -1,33 +1,30 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { Card } from '@components/UI/Card';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { Comment, Publication, PublicationsQueryRequest } from 'lens';
 import { CommentOrderingTypes, CommentRankingFilter, CustomFiltersTypes, useCommentFeedQuery } from 'lens';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
+import { Card, EmptyState, ErrorMessage } from 'ui';
 
 import NewPublication from '../Composer/NewPublication';
 import CommentWarning from '../Shared/CommentWarning';
 
-let hasMore = true;
-
-interface Props {
+interface FeedProps {
   publication?: Publication;
 }
 
-const Feed: FC<Props> = ({ publication }) => {
+const Feed: FC<FeedProps> = ({ publication }) => {
   const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: PublicationsQueryRequest = {
@@ -35,7 +32,7 @@ const Feed: FC<Props> = ({ publication }) => {
     customFilters: [CustomFiltersTypes.Gardeners],
     commentsOfOrdering: CommentOrderingTypes.Ranking,
     commentsRankingFilter: CommentRankingFilter.Relevant,
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
   const profileId = currentProfile?.id ?? null;
@@ -48,17 +45,23 @@ const Feed: FC<Props> = ({ publication }) => {
   const comments = data?.publications?.items ?? [];
   const pageInfo = data?.publications?.pageInfo;
 
-  const queuedCount = txnQueue.filter((o) => o.type === 'NEW_COMMENT').length;
+  const queuedCount = txnQueue.filter((o) => o.type === OptmisticPublicationType.NewComment).length;
   const totalComments = comments?.length + queuedCount;
   const canComment = publication?.canComment?.result;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
-    }).then(({ data }) => {
-      hasMore = data?.publications?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+      }).then(({ data }) => {
+        setHasMore(data?.publications?.items?.length > 0);
+      });
+    }
+  });
 
   return (
     <>
@@ -72,34 +75,27 @@ const Feed: FC<Props> = ({ publication }) => {
       )}
       <ErrorMessage title={t`Failed to load comment feed`} error={error} />
       {!error && !loading && totalComments !== 0 && (
-        <InfiniteScroll
-          dataLength={totalComments}
-          scrollThreshold={SCROLL_THRESHOLD}
-          hasMore={hasMore}
-          next={loadMore}
-          loader={<InfiniteLoader />}
-        >
-          <Card className="divide-y-[1px] dark:divide-gray-700">
-            {txnQueue.map(
-              (txn) =>
-                txn?.type === 'NEW_COMMENT' &&
-                txn?.parent === publication?.id && (
-                  <div key={txn.id}>
-                    <QueuedPublication txn={txn} />
-                  </div>
-                )
-            )}
-            {comments?.map((comment, index) =>
-              comment?.__typename === 'Comment' && comment.hidden ? null : (
-                <SinglePublication
-                  key={`${publicationId}_${index}`}
-                  publication={comment as Comment}
-                  showType={false}
-                />
+        <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="comments-feed">
+          {txnQueue.map(
+            (txn) =>
+              txn?.type === OptmisticPublicationType.NewComment &&
+              txn?.parent === publication?.id && (
+                <div key={txn.id}>
+                  <QueuedPublication txn={txn} />
+                </div>
               )
-            )}
-          </Card>
-        </InfiniteScroll>
+          )}
+          {comments?.map((comment, index) =>
+            comment?.__typename === 'Comment' && comment.hidden ? null : (
+              <SinglePublication
+                key={`${publicationId}_${index}`}
+                publication={comment as Comment}
+                showType={false}
+              />
+            )
+          )}
+          {hasMore && <span ref={observe} />}
+        </Card>
       )}
     </>
   );

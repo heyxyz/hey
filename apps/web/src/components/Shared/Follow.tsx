@@ -1,40 +1,24 @@
 import type { ApolloCache } from '@apollo/client';
-import { Button } from '@components/UI/Button';
-import { Spinner } from '@components/UI/Spinner';
 import { UserAddIcon } from '@heroicons/react/outline';
-import getSignature from '@lib/getSignature';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import { useBroadcastMutation, useCreateFollowTypedDataMutation, useProxyActionMutation } from 'lens';
+import getSignature from 'lib/getSignature';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
+import { Button, Spinner } from 'ui';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
-export enum FollowSource {
-  WHO_TO_FOLLOW = 'who_to_follow',
-  WHO_TO_FOLLOW_MODAL = 'who_to_follow_modal',
-  LIKES_MODAL = 'likes_modal',
-  MIRRORS_MODAL = 'mirrors_modal',
-  COLLECTORS_MODAL = 'collectors_modal',
-  FOLLOWERS_MODAL = 'followers_modal',
-  FOLLOWING_MODAL = 'following_modal',
-  MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
-  PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
-  DIRECT_MESSAGE_HEADER = 'direct_message_header',
-  PROFILE_PAGE = 'profile_page',
-  PROFILE_POPOVER = 'profile_popover'
-}
-
-interface Props {
+interface FollowProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
@@ -45,7 +29,7 @@ interface Props {
   followSource?: string;
 }
 
-const Follow: FC<Props> = ({
+const Follow: FC<FollowProps> = ({
   profile,
   showText = false,
   setFollowing,
@@ -84,7 +68,7 @@ const Follow: FC<Props> = ({
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

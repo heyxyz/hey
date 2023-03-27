@@ -1,14 +1,14 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { apps } from 'data/apps';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
+import { Tooltip } from 'ui';
 
-interface Props {
+interface SourceProps {
   publication: Publication;
 }
 
-const Source: FC<Props> = ({ publication }) => {
+const Source: FC<SourceProps> = ({ publication }) => {
   const { appId } = publication;
   const show = apps.includes(appId);
 

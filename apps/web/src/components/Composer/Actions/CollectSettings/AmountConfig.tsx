@@ -1,18 +1,18 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Input } from '@components/UI/Input';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { Erc20 } from 'lens';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { Input } from 'ui';
 
 import ReferralConfig from './ReferralConfig';
 
-interface Props {
+interface AmountConfigProps {
   enabledModuleCurrencies?: Erc20[];
 }
 
-const AmountConfig: FC<Props> = ({ enabledModuleCurrencies }) => {
+const AmountConfig: FC<AmountConfigProps> = ({ enabledModuleCurrencies }) => {
   const amount = useCollectModuleStore((state) => state.amount);
   const setAmount = useCollectModuleStore((state) => state.setAmount);
   const setRecipients = useCollectModuleStore((state) => state.setRecipients);

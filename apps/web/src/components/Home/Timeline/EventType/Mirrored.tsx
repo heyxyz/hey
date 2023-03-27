@@ -1,15 +1,14 @@
+import Profiles from '@components/Shared/Profiles';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { MirrorEvent } from 'lens';
 import type { FC } from 'react';
 
-import ProfileCircles from './ProfileCircles';
-
-interface Props {
+interface MirroredProps {
   mirrors: MirrorEvent[];
 }
 
-const Mirrored: FC<Props> = ({ mirrors }) => {
+const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
   const getMirroredProfiles = () => {
     let profiles = mirrors.map((event) => event.profile);
     profiles = profiles.filter(
@@ -21,7 +20,7 @@ const Mirrored: FC<Props> = ({ mirrors }) => {
   return (
     <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
       <SwitchHorizontalIcon className="h-4 w-4" />
-      <ProfileCircles profiles={getMirroredProfiles()} context={t`Mirrored by`} />
+      <Profiles profiles={getMirroredProfiles()} context={t`mirrored`} />
     </div>
   );
 };

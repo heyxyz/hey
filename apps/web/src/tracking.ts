@@ -92,6 +92,7 @@ export const SETTINGS = {
 };
 
 export const MOD = {
+  TOGGLE_MODE: 'Toggle mod mode',
   REPORT: 'Mod report'
 };
 
@@ -117,3 +118,19 @@ export const ONBOARDING = {
   NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
   NAVIGATE_UPDATE_PROFILE_INTERESTS: 'Navigate to update profile interests from onboarding'
 };
+
+// enums
+export enum FollowSource {
+  WHO_TO_FOLLOW = 'who_to_follow',
+  WHO_TO_FOLLOW_MODAL = 'who_to_follow_modal',
+  LIKES_MODAL = 'likes_modal',
+  MIRRORS_MODAL = 'mirrors_modal',
+  COLLECTORS_MODAL = 'collectors_modal',
+  FOLLOWERS_MODAL = 'followers_modal',
+  FOLLOWING_MODAL = 'following_modal',
+  MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
+  PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
+  DIRECT_MESSAGE_HEADER = 'direct_message_header',
+  PROFILE_PAGE = 'profile_page',
+  PROFILE_POPOVER = 'profile_popover'
+}

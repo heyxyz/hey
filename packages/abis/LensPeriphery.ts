@@ -52,11 +52,7 @@ export const LensPeriphery = [
               { internalType: 'uint8', name: 'v', type: 'uint8' },
               { internalType: 'bytes32', name: 'r', type: 'bytes32' },
               { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              {
-                internalType: 'uint256',
-                name: 'deadline',
-                type: 'uint256'
-              }
+              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
             ],
             internalType: 'struct DataTypes.EIP712Signature',
             name: 'sig',
@@ -82,11 +78,7 @@ export const LensPeriphery = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'profileIds',
-        type: 'uint256[]'
-      },
+      { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' },
       { internalType: 'bool[]', name: 'enables', type: 'bool[]' }
     ],
     name: 'toggleFollow',
@@ -99,22 +91,14 @@ export const LensPeriphery = [
       {
         components: [
           { internalType: 'address', name: 'follower', type: 'address' },
-          {
-            internalType: 'uint256[]',
-            name: 'profileIds',
-            type: 'uint256[]'
-          },
+          { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' },
           { internalType: 'bool[]', name: 'enables', type: 'bool[]' },
           {
             components: [
               { internalType: 'uint8', name: 'v', type: 'uint8' },
               { internalType: 'bytes32', name: 'r', type: 'bytes32' },
               { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              {
-                internalType: 'uint256',
-                name: 'deadline',
-                type: 'uint256'
-              }
+              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
             ],
             internalType: 'struct DataTypes.EIP712Signature',
             name: 'sig',

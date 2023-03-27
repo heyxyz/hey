@@ -1,17 +1,10 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
-import { Button } from '@components/UI/Button';
-import { Spinner } from '@components/UI/Spinner';
-import { WarningMessage } from '@components/UI/WarningMessage';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
-import formatAddress from '@lib/formatAddress';
-import formatHandle from '@lib/formatHandle';
-import getSignature from '@lib/getSignature';
-import getTokenImage from '@lib/getTokenImage';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
 import type { ApprovedAllowanceAmount, Profile } from 'lens';
 import {
@@ -21,25 +14,30 @@ import {
   useCreateFollowTypedDataMutation,
   useSuperFollowQuery
 } from 'lens';
+import formatAddress from 'lib/formatAddress';
+import formatHandle from 'lib/formatHandle';
+import getSignature from 'lib/getSignature';
+import getTokenImage from 'lib/getTokenImage';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
+import { Button, Spinner, WarningMessage } from 'ui';
 import { useAccount, useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';
 import Slug from '../Slug';
 import Uniswap from '../Uniswap';
 
-interface Props {
+interface FollowModuleProps {
   profile: Profile;
   setFollowing: Dispatch<boolean>;
   setShowFollowModal: Dispatch<boolean>;
   again: boolean;
 }
 
-const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, again }) => {
+const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFollowModal, again }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -56,7 +54,7 @@ const FollowModule: FC<Props> = ({ profile, setFollowing, setShowFollowModal, ag
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,

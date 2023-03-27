@@ -20,9 +20,6 @@
     <a href="https://translate.lenster.xyz">
         <img src="https://badges.crowdin.net/lenster/localized.svg" alt="Crowdin">
     </a>
-    <a href="https://github.com/orgs/lensterxyz/projects/1/views/2">
-        <img src="https://img.shields.io/badge/Help%20wanted-contribute-blue" alt="Help wanted">
-    </a>
     <a href="https://status.lenster.xyz">
         <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>
@@ -38,9 +35,6 @@
     <a href="https://lenster.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
-    <a href="https://console.algora.io/org/lensterxyz/bounties?status=open">
-        <img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fconsole.algora.io%2Fapi%2Fshields%2Flensterxyz%2Fbounties%3Fstatus%3Dopen" alt="Algora" />
-    </a>
 </div>
 <div align="center">
     <br>
@@ -53,7 +47,7 @@
 
 ## 🌿 About Lenster
 
-Lenster is a decentralized and permissionless social media app built with [Lens Protocol](http://lens.xyz) 🌿
+Lenster is a cutting-edge social media application that leverages the power of [Lens Protocol](http://lens.xyz) 🌿 to create a decentralized and permissionless platform for users to interact, share, and engage with one another. With a focus on privacy, security, and user control, Lenster aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
 
 ## 📦 Environments
 
@@ -71,7 +65,7 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 ## 📊 Repo Activity
 
-<img width="100%" src="https://repobeats.axiom.co/api/embed/af135d3dfdb3605cc3db676472ca174173ac2fb7.svg" alt="Repobeats analytics image" />
+<img width="100%" src="https://repobeats.axiom.co/api/embed/af135d3dfdb3605cc3db676472ca174173ac2fb7.svg" alt="Repobeats analytics" />
 
 ## 💕 Contributors
 

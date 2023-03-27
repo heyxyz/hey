@@ -2,9 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { Tab } from '@headlessui/react';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -12,11 +10,13 @@ import { APP_NAME } from 'data/constants';
 import { FeatureFlag } from 'data/feature-flags';
 import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { EXPLORE, PAGEVIEW } from 'src/tracking';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
@@ -66,6 +66,7 @@ const Explore: NextPage = () => {
                     'lt-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
                   )
                 }
+                data-testid={`explore-tab-${index}`}
               >
                 {tab.name}
               </Tab>

@@ -1,29 +1,28 @@
 import Beta from '@components/Shared/Badges/Beta';
 import Loader from '@components/Shared/Loader';
-import { Modal } from '@components/UI/Modal';
-import { Tooltip } from '@components/UI/Tooltip';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { ChartBarIcon } from '@heroicons/react/outline';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { t } from '@lingui/macro';
 import { FeatureFlag } from 'data/feature-flags';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Modal, Tooltip } from 'ui';
 
 const Stats = dynamic(() => import('./Stats'), {
   loading: () => <Loader message={t`Loading analytics`} />
 });
 
-interface Props {
+interface AnalyticsProps {
   publication: Publication;
 }
 
-const Analytics: FC<Props> = ({ publication }) => {
+const Analytics: FC<AnalyticsProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showCollectModal, setShowCollectModal] = useState(false);

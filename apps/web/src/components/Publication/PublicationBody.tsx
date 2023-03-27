@@ -2,21 +2,21 @@ import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import { EyeIcon } from '@heroicons/react/outline';
-import getURLs from '@lib/getURLs';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
+import getURLs from 'lib/getURLs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
-interface Props {
+interface PublicationBodyProps {
   publication: Publication;
 }
 
-const PublicationBody: FC<Props> = ({ publication }) => {
+const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
 

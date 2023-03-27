@@ -1,19 +1,23 @@
 import ThreadBody from '@components/Publication/ThreadBody';
-import type { Comment, FeedItem } from 'lens';
+import type { FeedItem } from 'lens';
 import type { FC } from 'react';
 
-interface Props {
+interface CommentedProps {
   feedItem: FeedItem;
 }
 
-const Commented: FC<Props> = ({ feedItem }) => {
-  const publication = feedItem.root as Comment;
-  const firstComment = feedItem.comments && feedItem.comments[0];
+const Commented: FC<CommentedProps> = ({ feedItem }) => {
+  const publication = feedItem.root;
+  const firstComment = feedItem.comments?.[0];
+  const firstCommentParent = publication.__typename === 'Comment' && publication?.commentOn;
 
   return firstComment ? (
-    <ThreadBody publication={publication} />
-  ) : publication?.commentOn ? (
-    <ThreadBody publication={publication?.commentOn} />
+    <>
+      {firstCommentParent ? <ThreadBody publication={firstCommentParent} /> : null}
+      <ThreadBody publication={publication} />
+    </>
+  ) : firstCommentParent ? (
+    <ThreadBody publication={firstCommentParent} />
   ) : null;
 };
 

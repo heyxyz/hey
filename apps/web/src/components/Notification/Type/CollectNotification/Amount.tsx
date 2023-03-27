@@ -1,15 +1,15 @@
 import { CurrencyDollarIcon } from '@heroicons/react/outline';
-import getTokenImage from '@lib/getTokenImage';
-import humanize from '@lib/humanize';
 import { Trans } from '@lingui/macro';
 import type { NewCollectNotification } from 'lens';
+import getTokenImage from 'lib/getTokenImage';
+import humanize from 'lib/humanize';
 import type { FC } from 'react';
 
-interface Props {
+interface CollectedAmountProps {
   notification: NewCollectNotification;
 }
 
-const CollectedAmount: FC<Props> = ({ notification }) => {
+const CollectedAmount: FC<CollectedAmountProps> = ({ notification }) => {
   const collectModule: any = notification?.collectedPublication?.collectModule;
 
   return (
@@ -21,7 +21,8 @@ const CollectedAmount: FC<Props> = ({ notification }) => {
         <>
           <div className="text-[12px]">
             <Trans>
-              Collected for {humanize(collectModule?.amount?.value)} {collectModule?.amount?.asset?.symbol}
+              Collected for {humanize(parseFloat(collectModule?.amount?.value))}{' '}
+              {collectModule?.amount?.asset?.symbol}
             </Trans>
           </div>
           <img

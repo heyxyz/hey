@@ -1,18 +1,18 @@
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import type { Emoji } from '@generated/types';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ERROR_MESSAGE, STATIC_ASSETS_URL } from 'data/constants';
 import type { FC } from 'react';
+import type { Emoji } from 'src/types';
+import { ErrorMessage } from 'ui';
 
 import Loader from '../Loader';
 
-interface Props {
+interface ListProps {
   setEmoji: (emoji: string) => void;
 }
 
-const List: FC<Props> = ({ setEmoji }) => {
+const List: FC<ListProps> = ({ setEmoji }) => {
   const { isLoading, error, data } = useQuery(['emojisData'], () =>
     axios({
       url: `${STATIC_ASSETS_URL}/emoji.json`

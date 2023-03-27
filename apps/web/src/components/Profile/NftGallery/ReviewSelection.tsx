@@ -1,11 +1,11 @@
-import SingleNFT from '@components/NFT/SingleNFT';
-import { EmptyState } from '@components/UI/EmptyState';
+import SingleNft from '@components/Nft/SingleNft';
 import { CollectionIcon, XIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Nft } from 'lens';
 import React from 'react';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
+import { EmptyState } from 'ui';
 
 const ReviewSelection = () => {
   const gallery = useNftGalleryStore((state) => state.gallery);
@@ -69,7 +69,7 @@ const ReviewSelection = () => {
             >
               <XIcon className="h-6 w-6 rounded-full bg-white p-1 text-black" />
             </button>
-            <SingleNFT nft={item as Nft} linkToDetail={false} />
+            <SingleNft nft={item as Nft} linkToDetail={false} />
           </div>
         </div>
       ))}

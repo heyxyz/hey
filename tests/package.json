@@ -1,0 +1,16 @@
+{
+  "name": "tests",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "test:dev": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.32.1",
+    "data": "*",
+    "eslint-config-weblint": "*",
+    "lib": "*",
+    "tsconfig": "*"
+  }
+}

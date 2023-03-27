@@ -1,11 +1,7 @@
 import type { ApolloCache } from '@apollo/client';
-import { Tooltip } from '@components/UI/Tooltip';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
-import hasGm from '@lib/hasGm';
-import { publicationKeyFields } from '@lib/keyFields';
 import { Mixpanel } from '@lib/mixpanel';
-import nFormatter from '@lib/nFormatter';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -13,6 +9,9 @@ import { SIGN_WALLET } from 'data/constants';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
+import hasGm from 'lib/hasGm';
+import { publicationKeyFields } from 'lib/keyFields';
+import nFormatter from 'lib/nFormatter';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -20,13 +19,14 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
+import { Tooltip } from 'ui';
 
-interface Props {
+interface LikeProps {
   publication: Publication;
   showCount: boolean;
 }
 
-const Like: FC<Props> = ({ publication, showCount }) => {
+const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);

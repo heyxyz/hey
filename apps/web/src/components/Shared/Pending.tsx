@@ -1,10 +1,9 @@
 import { gql, useQuery } from '@apollo/client';
-import { Button } from '@components/UI/Button';
-import { Spinner } from '@components/UI/Spinner';
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { Button, Spinner } from 'ui';
 
 const HAS_PUBLICATION_INDEXED_QUERY = gql`
   query HasPubicationIndexed($request: PublicationQueryRequest!) {
@@ -16,7 +15,7 @@ const HAS_PUBLICATION_INDEXED_QUERY = gql`
   }
 `;
 
-interface Props {
+interface PendingProps {
   txHash: string;
   indexing: string;
   indexed: string;
@@ -24,7 +23,7 @@ interface Props {
   urlPrefix: string;
 }
 
-const Pending: FC<Props> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
+const Pending: FC<PendingProps> = ({ txHash, indexing, indexed, type, urlPrefix }) => {
   const { data, loading } = useQuery(HAS_PUBLICATION_INDEXED_QUERY, {
     variables: { request: { txHash } },
     pollInterval: 1000

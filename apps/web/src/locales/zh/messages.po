@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-08 04:53\n"
+"PO-Revision-Date: 2023-03-27 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -68,7 +68,7 @@ msgstr "取消"
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -242,7 +242,7 @@ msgstr "正在发生什么？"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -595,11 +595,36 @@ msgstr "协调内容流加载失败"
 msgid "Mod Center • {APP_NAME}"
 msgstr "模块中心 • {APP_NAME}"
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Mod/index.tsx
+msgid "Refresh feed"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Publication filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Posts"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+#: src/components/Notification/FeedType.tsx
+msgid "Comments"
+msgstr "评论您的"
+
+#: src/components/Mod/index.tsx
+msgid "Custom filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Gardeners"
+msgstr ""
+
+#: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr "没有任何NFT！"
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
 msgstr "NFT流加载失败"
@@ -611,10 +636,6 @@ msgstr "所有通知"
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
 msgstr "提及您的"
-
-#: src/components/Notification/FeedType.tsx
-msgid "Comments"
-msgstr "评论您的"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
@@ -746,10 +767,6 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Email"
-msgstr ""
-
-#: src/components/Pages/Contact.tsx
-msgid "gavin@hooli.com"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
@@ -1447,7 +1464,7 @@ msgid "Report?"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user?"
+msgid "Are you sure? You want to report this user so that we can take action."
 msgstr ""
 
 #: src/components/Publication/Actions/index.tsx
@@ -1816,30 +1833,38 @@ msgstr "您不会看到其他人在他们内容流上的总点赞数。您和其
 msgid "Preferences • {APP_NAME}"
 msgstr "偏好设置 • {APP_NAME}"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr "NFT的合约地址不正确（ 42 个字符以内）"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Invalid Contract address"
 msgstr "合约地址无效"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr "头像更新成功！"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract Address"
 msgstr "合约地址"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
 msgstr "代币ID"
 
 #: src/components/Settings/Profile/Picture.tsx
-msgid "Avatar can't be empty!"
-msgstr "头像不能为空！"
+msgid "Upload failed"
+msgstr ""
+
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Crop image"
+msgstr ""
+
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Profile picture crop preview"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
@@ -2029,6 +2054,14 @@ msgstr "翻译"
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ 由 Vercel 提供支持"
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr ""
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Perform mod actions on this publication."
+msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
@@ -2281,6 +2314,14 @@ msgstr "登出"
 msgid "Moderation"
 msgstr "适度"
 
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Disable mod mode"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Enable mod mode"
+msgstr ""
+
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
 msgstr "报告错误"
@@ -2433,10 +2474,6 @@ msgstr "用Uniswap进行代币转换"
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools • {APP_NAME}"
 msgstr "员工工具 • {APP_NAME}"
-
-#: src/components/UI/LightBox.tsx
-msgid "Open original"
-msgstr "打开原图"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"

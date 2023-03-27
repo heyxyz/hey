@@ -1,26 +1,24 @@
-import { FollowSource } from '@components/Shared/Follow';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import InfiniteLoader from '@components/UI/InfiniteLoader';
 import { UsersIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
 import { t, Trans } from '@lingui/macro';
-import { SCROLL_THRESHOLD } from 'data/constants';
 import type { FollowersRequest, Profile, Wallet } from 'lens';
 import { useFollowersQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { FollowSource } from 'src/tracking';
+import { EmptyState, ErrorMessage } from 'ui';
 
-let hasMore = true;
-
-interface Props {
+interface FollowersProps {
   profile: Profile;
 }
 
-const Followers: FC<Props> = ({ profile }) => {
+const Followers: FC<FollowersProps> = ({ profile }) => {
+  const [hasMore, setHasMore] = useState(true);
+
   // Variables
   const request: FollowersRequest = { profileId: profile?.id, limit: 30 };
 
@@ -32,13 +30,19 @@ const Followers: FC<Props> = ({ profile }) => {
   const followers = data?.followers?.items;
   const pageInfo = data?.followers?.pageInfo;
 
-  const loadMore = async () => {
-    await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      hasMore = data?.followers?.items?.length > 0;
-    });
-  };
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      }).then(({ data }) => {
+        setHasMore(data?.followers?.items?.length > 0);
+      });
+    }
+  });
 
   if (loading) {
     return <Loader message={t`Loading followers`} />;
@@ -62,36 +66,28 @@ const Followers: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" id="scrollableFollowersDiv">
+    <div className="max-h-[80vh] overflow-y-auto" data-testid="followers-modal">
       <ErrorMessage className="m-5" title={t`Failed to load followers`} error={error} />
-      <InfiniteScroll
-        dataLength={followers?.length ?? 0}
-        scrollThreshold={SCROLL_THRESHOLD}
-        hasMore={hasMore}
-        next={loadMore}
-        loader={<InfiniteLoader />}
-        scrollableTarget="scrollableFollowersDiv"
-      >
-        <div className="divide-y dark:divide-gray-700">
-          {followers?.map((follower, index) => (
-            <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
-              {follower?.wallet?.defaultProfile ? (
-                <UserProfile
-                  profile={follower?.wallet?.defaultProfile as Profile}
-                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
-                  followPosition={index + 1}
-                  followSource={FollowSource.FOLLOWERS_MODAL}
-                  showBio
-                  showFollow
-                  showUserPreview={false}
-                />
-              ) : (
-                <WalletProfile wallet={follower?.wallet as Wallet} />
-              )}
-            </div>
-          ))}
-        </div>
-      </InfiniteScroll>
+      <div className="divide-y dark:divide-gray-700">
+        {followers?.map((follower, index) => (
+          <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
+            {follower?.wallet?.defaultProfile ? (
+              <UserProfile
+                profile={follower?.wallet?.defaultProfile as Profile}
+                isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.FOLLOWERS_MODAL}
+                showBio
+                showFollow
+                showUserPreview={false}
+              />
+            ) : (
+              <WalletProfile wallet={follower?.wallet as Wallet} />
+            )}
+          </div>
+        ))}
+      </div>
+      {hasMore && <span ref={observe} />}
     </div>
   );
 };

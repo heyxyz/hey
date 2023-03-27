@@ -21,6 +21,7 @@ export type Scalars = {
   ContractAddress: any;
   CreateHandle: any;
   Cursor: any;
+  DataAvailabilityId: any;
   DateTime: any;
   EncryptedValueScalar: any;
   Ens: any;
@@ -64,7 +65,7 @@ export type AaveFeeCollectModuleParams = {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams;
   /** The collect module limit */
-  collectLimit: Scalars['String'];
+  collectLimit?: InputMaybe<Scalars['String']>;
   /** The timestamp that this collect module will expire */
   endTimestamp?: InputMaybe<Scalars['DateTime']>;
   /** Follower only */
@@ -218,6 +219,8 @@ export type AuthenticationResult = {
   /** The refresh token */
   refreshToken: Scalars['Jwt'];
 };
+
+export type BroadcastDataAvailabilityUnion = CreateDataAvailabilityPublicationResult | RelayError;
 
 export type BroadcastRequest = {
   id: Scalars['BroadcastId'];
@@ -570,6 +573,39 @@ export type CreateCommentEip712TypedDataValue = {
   referenceModuleInitData: Scalars['ReferenceModuleData'];
 };
 
+export type CreateDataAvailabilityCommentRequest = {
+  /** Publication your commenting on */
+  commentOn: Scalars['InternalPublicationId'];
+  /** The metadata contentURI resolver */
+  contentURI: Scalars['Url'];
+  /** Profile id */
+  from: Scalars['ProfileId'];
+};
+
+export type CreateDataAvailabilityMirrorRequest = {
+  /** Profile id which will broadcast the mirror */
+  from: Scalars['ProfileId'];
+  /** The publication to mirror */
+  mirror: Scalars['InternalPublicationId'];
+};
+
+export type CreateDataAvailabilityPostRequest = {
+  /** The metadata contentURI resolver */
+  contentURI: Scalars['Url'];
+  /** Profile id */
+  from: Scalars['ProfileId'];
+};
+
+export type CreateDataAvailabilityPublicationResult = {
+  __typename?: 'CreateDataAvailabilityPublicationResult';
+  /** The data availability id */
+  dataAvailabilityId: Scalars['DataAvailabilityId'];
+  /** The id of the post */
+  id: Scalars['InternalPublicationId'];
+  /** The proofs for the DA */
+  proofs: Scalars['String'];
+};
+
 /** The broadcast item */
 export type CreateFollowBroadcastItemResult = {
   __typename?: 'CreateFollowBroadcastItemResult';
@@ -711,7 +747,7 @@ export type CreateProfileRequest = {
 export type CreatePublicCommentRequest = {
   /** The collect module */
   collectModule: CollectModuleParams;
-  /** The metadata uploaded somewhere passing in the url to reach it */
+  /** The metadata contentURI resolver */
   contentURI: Scalars['Url'];
   /** The criteria to access the publication data */
   gated?: InputMaybe<GatedPublicationParamsInput>;
@@ -1285,7 +1321,7 @@ export type Erc20OwnershipInput = {
   chainID: Scalars['ChainId'];
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator;
-  /** The ERC20 token's ethereum address */
+  /** The ERC20 token ethereum address */
   contractAddress: Scalars['ContractAddress'];
   /** The amount of decimals of the ERC20 contract */
   decimals: Scalars['Float'];
@@ -1299,10 +1335,14 @@ export type Erc20OwnershipOutput = {
   chainID: Scalars['ChainId'];
   /** The operator to use when comparing the amount of tokens */
   condition: ScalarOperator;
-  /** The ERC20 token's ethereum address */
+  /** The ERC20 token ethereum address */
   contractAddress: Scalars['ContractAddress'];
   /** The amount of decimals of the ERC20 contract */
   decimals: Scalars['Float'];
+  /** The name of the ERC20 token */
+  name: Scalars['String'];
+  /** The symbol of the ERC20 token */
+  symbol: Scalars['String'];
 };
 
 /** The paginated publication result */
@@ -1597,6 +1637,32 @@ export type GatedPublicationParamsInput = {
   profile?: InputMaybe<ProfileOwnershipInput>;
   /** ERC20 token ownership condition */
   token?: InputMaybe<Erc20OwnershipInput>;
+};
+
+export type GciRequest = {
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
+  ttt: Scalars['String'];
+};
+
+export type GcrRequest = {
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
+  ttt: Scalars['String'];
+};
+
+export type GctRequest = {
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
+};
+
+export type GddRequest = {
+  domain: Scalars['Url'];
+  secret: Scalars['String'];
+};
+
+export type GdmRequest = {
+  secret: Scalars['String'];
 };
 
 export type GenerateModuleCurrencyApproval = {
@@ -2009,12 +2075,19 @@ export type Mutation = {
   addReaction?: Maybe<Scalars['Void']>;
   authenticate: AuthenticationResult;
   broadcast: RelayResult;
+  broadcastDataAvailability: BroadcastDataAvailabilityUnion;
   claim: RelayResult;
   createAttachMediaData: PublicMediaResults;
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
   createCollectTypedData: CreateCollectBroadcastItemResult;
   createCommentTypedData: CreateCommentBroadcastItemResult;
   createCommentViaDispatcher: RelayResult;
+  createDataAvailabilityCommentTypedData: CreateCommentBroadcastItemResult;
+  createDataAvailabilityCommentViaDispatcher: RelayDataAvailabilityResult;
+  createDataAvailabilityMirrorTypedData: CreateMirrorBroadcastItemResult;
+  createDataAvailabilityMirrorViaDispatcher: RelayDataAvailabilityResult;
+  createDataAvailabilityPostTypedData: CreatePostBroadcastItemResult;
+  createDataAvailabilityPostViaDispatcher: RelayDataAvailabilityResult;
   createFollowTypedData: CreateFollowBroadcastItemResult;
   createMirrorTypedData: CreateMirrorBroadcastItemResult;
   createMirrorViaDispatcher: RelayResult;
@@ -2036,7 +2109,10 @@ export type Mutation = {
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
   /** Delete an NFT Gallery */
   deleteNftGallery?: Maybe<Scalars['Void']>;
-  dismissRecommendedProfiles: Scalars['Void'];
+  dismissRecommendedProfiles?: Maybe<Scalars['Void']>;
+  gci?: Maybe<Scalars['Void']>;
+  gcr?: Maybe<Scalars['Void']>;
+  gdi?: Maybe<Scalars['Void']>;
   hel?: Maybe<Scalars['Void']>;
   hidePublication?: Maybe<Scalars['Void']>;
   idKitPhoneVerifyWebhook: IdKitPhoneVerifyWebhookResultStatusType;
@@ -2074,6 +2150,10 @@ export type MutationBroadcastArgs = {
   request: BroadcastRequest;
 };
 
+export type MutationBroadcastDataAvailabilityArgs = {
+  request: BroadcastRequest;
+};
+
 export type MutationClaimArgs = {
   request: ClaimHandleRequest;
 };
@@ -2099,6 +2179,30 @@ export type MutationCreateCommentTypedDataArgs = {
 
 export type MutationCreateCommentViaDispatcherArgs = {
   request: CreatePublicCommentRequest;
+};
+
+export type MutationCreateDataAvailabilityCommentTypedDataArgs = {
+  request: CreateDataAvailabilityCommentRequest;
+};
+
+export type MutationCreateDataAvailabilityCommentViaDispatcherArgs = {
+  request: CreateDataAvailabilityCommentRequest;
+};
+
+export type MutationCreateDataAvailabilityMirrorTypedDataArgs = {
+  request: CreateDataAvailabilityMirrorRequest;
+};
+
+export type MutationCreateDataAvailabilityMirrorViaDispatcherArgs = {
+  request: CreateDataAvailabilityMirrorRequest;
+};
+
+export type MutationCreateDataAvailabilityPostTypedDataArgs = {
+  request: CreateDataAvailabilityPostRequest;
+};
+
+export type MutationCreateDataAvailabilityPostViaDispatcherArgs = {
+  request: CreateDataAvailabilityPostRequest;
 };
 
 export type MutationCreateFollowTypedDataArgs = {
@@ -2190,6 +2294,18 @@ export type MutationDeleteNftGalleryArgs = {
 
 export type MutationDismissRecommendedProfilesArgs = {
   request: DismissRecommendedProfilesRequest;
+};
+
+export type MutationGciArgs = {
+  request: GciRequest;
+};
+
+export type MutationGcrArgs = {
+  request: GcrRequest;
+};
+
+export type MutationGdiArgs = {
+  request: GddRequest;
 };
 
 export type MutationHelArgs = {
@@ -3346,6 +3462,8 @@ export type Query = {
   followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>;
   followers: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
+  gct: Array<Scalars['String']>;
+  gdm: Array<Scalars['Url']>;
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval;
   globalProtocolStats: GlobalProtocolStats;
   hasTxHashBeenIndexed: TransactionResult;
@@ -3435,6 +3553,14 @@ export type QueryFollowersArgs = {
 
 export type QueryFollowingArgs = {
   request: FollowingRequest;
+};
+
+export type QueryGctArgs = {
+  request: GctRequest;
+};
+
+export type QueryGdmArgs = {
+  request: GdmRequest;
 };
 
 export type QueryGenerateModuleCurrencyApprovalDataArgs = {
@@ -3587,7 +3713,7 @@ export enum ReactionTypes {
 export type RecipientDataInput = {
   /** Recipient of collect fees. */
   recipient: Scalars['EthereumAddress'];
-  /** Split %, should be between 1 and 100. All % should add up to 100 */
+  /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
   split: Scalars['Float'];
 };
 
@@ -3595,7 +3721,7 @@ export type RecipientDataOutput = {
   __typename?: 'RecipientDataOutput';
   /** Recipient of collect fees. */
   recipient: Scalars['EthereumAddress'];
-  /** Split %, should be between 1 and 100. All % should add up to 100 */
+  /** Split %, should be between 0.01 and 100. Up to 2 decimal points supported. All % should add up to 100 */
   split: Scalars['Float'];
 };
 
@@ -3637,6 +3763,8 @@ export type RelRequest = {
   ethereumAddress: Scalars['EthereumAddress'];
   secret: Scalars['String'];
 };
+
+export type RelayDataAvailabilityResult = CreateDataAvailabilityPublicationResult | RelayError;
 
 export type RelayError = {
   __typename?: 'RelayError';
@@ -4621,6 +4749,7 @@ export type CommentFieldsFragment = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              hasCollectedByMe: boolean;
               isGated: boolean;
               hidden: boolean;
               createdAt: any;
@@ -5365,6 +5494,7 @@ export type CommentFieldsFragment = {
         __typename?: 'Mirror';
         id: any;
         reaction?: ReactionTypes | null;
+        hasCollectedByMe: boolean;
         isGated: boolean;
         hidden: boolean;
         createdAt: any;
@@ -6211,6 +6341,7 @@ export type MirrorFieldsFragment = {
   __typename?: 'Mirror';
   id: any;
   reaction?: ReactionTypes | null;
+  hasCollectedByMe: boolean;
   isGated: boolean;
   hidden: boolean;
   createdAt: any;
@@ -8443,6 +8574,7 @@ export type CommentFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      hasCollectedByMe: boolean;
                       isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
@@ -9259,6 +9391,7 @@ export type CommentFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                hasCollectedByMe: boolean;
                 isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
@@ -10557,6 +10690,7 @@ export type ExploreFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      hasCollectedByMe: boolean;
                       isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
@@ -11373,6 +11507,7 @@ export type ExploreFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                hasCollectedByMe: boolean;
                 isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
@@ -12134,6 +12269,7 @@ export type ExploreFeedQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          hasCollectedByMe: boolean;
           isGated: boolean;
           hidden: boolean;
           createdAt: any;
@@ -13355,6 +13491,7 @@ export type FeedHighlightsQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      hasCollectedByMe: boolean;
                       isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
@@ -14171,6 +14308,7 @@ export type FeedHighlightsQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                hasCollectedByMe: boolean;
                 isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
@@ -14932,6 +15070,7 @@ export type FeedHighlightsQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          hasCollectedByMe: boolean;
           isGated: boolean;
           hidden: boolean;
           createdAt: any;
@@ -17065,6 +17204,7 @@ export type ProfileFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      hasCollectedByMe: boolean;
                       isGated: boolean;
                       hidden: boolean;
                       createdAt: any;
@@ -17881,6 +18021,7 @@ export type ProfileFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                hasCollectedByMe: boolean;
                 isGated: boolean;
                 hidden: boolean;
                 createdAt: any;
@@ -18642,6 +18783,7 @@ export type ProfileFeedQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          hasCollectedByMe: boolean;
           isGated: boolean;
           hidden: boolean;
           createdAt: any;
@@ -19410,7 +19552,7 @@ export type ProfileSettingsQuery = {
       | null;
     picture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-      | { __typename?: 'NftImage'; uri: any; tokenId: string; contractAddress: any }
+      | { __typename?: 'NftImage'; uri: any; tokenId: string; contractAddress: any; chainId: number }
       | null;
   } | null;
 };
@@ -19929,6 +20071,7 @@ export type PublicationQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    hasCollectedByMe: boolean;
                     isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
@@ -20734,6 +20877,7 @@ export type PublicationQuery = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              hasCollectedByMe: boolean;
               isGated: boolean;
               hidden: boolean;
               createdAt: any;
@@ -21480,6 +21624,7 @@ export type PublicationQuery = {
         collectNftAddress?: any | null;
         id: any;
         reaction?: ReactionTypes | null;
+        hasCollectedByMe: boolean;
         isGated: boolean;
         hidden: boolean;
         createdAt: any;
@@ -22819,6 +22964,7 @@ export type SearchPublicationsQuery = {
                           __typename?: 'Mirror';
                           id: any;
                           reaction?: ReactionTypes | null;
+                          hasCollectedByMe: boolean;
                           isGated: boolean;
                           hidden: boolean;
                           createdAt: any;
@@ -23717,6 +23863,7 @@ export type SearchPublicationsQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    hasCollectedByMe: boolean;
                     isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
@@ -25446,6 +25593,7 @@ export type TimelineQuery = {
                         __typename?: 'Mirror';
                         id: any;
                         reaction?: ReactionTypes | null;
+                        hasCollectedByMe: boolean;
                         isGated: boolean;
                         hidden: boolean;
                         createdAt: any;
@@ -26324,6 +26472,7 @@ export type TimelineQuery = {
                   __typename?: 'Mirror';
                   id: any;
                   reaction?: ReactionTypes | null;
+                  hasCollectedByMe: boolean;
                   isGated: boolean;
                   hidden: boolean;
                   createdAt: any;
@@ -27910,6 +28059,7 @@ export type TimelineQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    hasCollectedByMe: boolean;
                     isGated: boolean;
                     hidden: boolean;
                     createdAt: any;
@@ -28715,6 +28865,7 @@ export type TimelineQuery = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              hasCollectedByMe: boolean;
               isGated: boolean;
               hidden: boolean;
               createdAt: any;
@@ -29516,6 +29667,7 @@ export interface PossibleTypesResultData {
 }
 const result: PossibleTypesResultData = {
   possibleTypes: {
+    BroadcastDataAvailabilityUnion: ['CreateDataAvailabilityPublicationResult', 'RelayError'],
     CollectModule: [
       'AaveFeeCollectModuleSettings',
       'ERC4626FeeCollectModuleSettings',
@@ -29556,6 +29708,7 @@ const result: PossibleTypesResultData = {
       'FollowOnlyReferenceModuleSettings',
       'UnknownReferenceModuleSettings'
     ],
+    RelayDataAvailabilityResult: ['CreateDataAvailabilityPublicationResult', 'RelayError'],
     RelayResult: ['RelayError', 'RelayerResult'],
     SearchResult: ['ProfileSearchResult', 'PublicationSearchResult'],
     TransactionResult: ['TransactionError', 'TransactionIndexedResult']
@@ -29792,6 +29945,7 @@ export const MirrorFieldsFragmentDoc = gql`
       ...ProfileFields
     }
     reaction(request: $reactionRequest)
+    hasCollectedByMe
     isGated
     canComment(profileId: $profileId) {
       result
@@ -32816,7 +32970,7 @@ export type MutualFollowersListQueryResult = Apollo.QueryResult<
   MutualFollowersListQueryVariables
 >;
 export const NftChallengeDocument = gql`
-  query NFTChallenge($request: NftOwnershipChallengeRequest!) {
+  query NftChallenge($request: NftOwnershipChallengeRequest!) {
     nftOwnershipChallenge(request: $request) {
       id
       text
@@ -32856,7 +33010,7 @@ export type NftChallengeQueryHookResult = ReturnType<typeof useNftChallengeQuery
 export type NftChallengeLazyQueryHookResult = ReturnType<typeof useNftChallengeLazyQuery>;
 export type NftChallengeQueryResult = Apollo.QueryResult<NftChallengeQuery, NftChallengeQueryVariables>;
 export const NftFeedDocument = gql`
-  query NFTFeed($request: NFTsRequest!) {
+  query NftFeed($request: NFTsRequest!) {
     nfts(request: $request) {
       items {
         name
@@ -33668,6 +33822,7 @@ export const ProfileSettingsDocument = gql`
           uri
           tokenId
           contractAddress
+          chainId
         }
       }
     }

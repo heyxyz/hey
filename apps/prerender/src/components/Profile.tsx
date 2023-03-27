@@ -1,19 +1,19 @@
 import { AVATAR, DEFAULT_OG, USER_CONTENT_URL } from 'data/constants';
 import type { MediaSet, NftImage } from 'lens';
 import { Profile } from 'lens';
+import getStampFyiURL from 'lib/getStampFyiURL';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { JsonLd } from 'react-schemaorg';
-import getIPFSLink from 'utils/getIPFSLink';
-import getStampFyiURL from 'utils/getStampFyiURL';
 
 import DefaultTags from './Shared/DefaultTags';
 import Tags from './Shared/Tags';
 
-interface Props {
+interface ProfileProps {
   profile: Profile & { picture: MediaSet & NftImage };
 }
 
-const Profile: FC<Props> = ({ profile }) => {
+const Profile: FC<ProfileProps> = ({ profile }) => {
   if (!profile) {
     return <DefaultTags />;
   }
@@ -23,7 +23,7 @@ const Profile: FC<Props> = ({ profile }) => {
     : `@${profile?.handle} • Lenster`;
   const description = profile?.bio ?? '';
   const image = profile
-    ? `${USER_CONTENT_URL}/${AVATAR}/${getIPFSLink(
+    ? `${USER_CONTENT_URL}/${AVATAR}/${sanitizeDStorageUrl(
         profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)
       )}`
     : DEFAULT_OG;

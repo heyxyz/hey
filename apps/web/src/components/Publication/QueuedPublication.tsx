@@ -3,9 +3,6 @@ import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
-import { Tooltip } from '@components/UI/Tooltip';
-import type { OptimisticTransaction } from '@generated/types';
-import getURLs from '@lib/getURLs';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import {
@@ -14,15 +11,18 @@ import {
   useHasTxHashBeenIndexedQuery,
   usePublicationLazyQuery
 } from 'lens';
+import getURLs from 'lib/getURLs';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
+import type { OptimisticTransaction } from 'src/types';
+import { Tooltip } from 'ui';
 
-interface Props {
+interface QueuedPublicationProps {
   txn: OptimisticTransaction;
 }
 
-const QueuedPublication: FC<Props> = ({ txn }) => {
+const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);

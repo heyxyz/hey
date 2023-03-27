@@ -1,5 +1,11 @@
-import type { ProfileInterest } from '@generated/types';
+import type { ProfileInterest } from 'src/types';
 
+/**
+ * Sanitizes an array of profile interests by grouping them into categories and subcategories.
+ *
+ * @param profileInterests Array of profile interests to sanitize
+ * @returns Array of sanitized profile interests
+ */
 const sanitizeProfileInterests = (profileInterests: string[]) => {
   if (!profileInterests) {
     return [];

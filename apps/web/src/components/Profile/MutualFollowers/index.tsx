@@ -1,20 +1,24 @@
-import { Image } from '@components/UI/Image';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useMutualFollowersQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Image } from 'ui';
 
-interface Props {
+interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<boolean>;
   profile: Profile;
   variant?: 'xs' | 'sm';
 }
 
-const MutualFollowers: FC<Props> = ({ setShowMutualFollowersModal, profile, variant = 'sm' }) => {
+const MutualFollowers: FC<MutualFollowersProps> = ({
+  setShowMutualFollowersModal,
+  profile,
+  variant = 'sm'
+}) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { data, loading, error } = useMutualFollowersQuery({
