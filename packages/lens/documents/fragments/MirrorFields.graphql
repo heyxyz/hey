@@ -4,6 +4,7 @@ fragment MirrorFields on Mirror {
     ...ProfileFields
   }
   reaction(request: $reactionRequest)
+  hasCollectedByMe
   isGated
   canComment(profileId: $profileId) {
     result
