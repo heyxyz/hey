@@ -4753,6 +4753,7 @@ export type CommentFieldsFragment = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              hasCollectedByMe: boolean;
               isGated: boolean;
               isDataAvailability: boolean;
               dataAvailabilityProofs?: string | null;
@@ -5505,6 +5506,7 @@ export type CommentFieldsFragment = {
         __typename?: 'Mirror';
         id: any;
         reaction?: ReactionTypes | null;
+        hasCollectedByMe: boolean;
         isGated: boolean;
         isDataAvailability: boolean;
         dataAvailabilityProofs?: string | null;
@@ -6359,6 +6361,7 @@ export type MirrorFieldsFragment = {
   __typename?: 'Mirror';
   id: any;
   reaction?: ReactionTypes | null;
+  hasCollectedByMe: boolean;
   isGated: boolean;
   isDataAvailability: boolean;
   dataAvailabilityProofs?: string | null;
@@ -8726,6 +8729,7 @@ export type CommentFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      hasCollectedByMe: boolean;
                       isGated: boolean;
                       isDataAvailability: boolean;
                       dataAvailabilityProofs?: string | null;
@@ -9550,6 +9554,7 @@ export type CommentFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                hasCollectedByMe: boolean;
                 isGated: boolean;
                 isDataAvailability: boolean;
                 dataAvailabilityProofs?: string | null;
@@ -10860,6 +10865,7 @@ export type ExploreFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      hasCollectedByMe: boolean;
                       isGated: boolean;
                       isDataAvailability: boolean;
                       dataAvailabilityProofs?: string | null;
@@ -11684,6 +11690,7 @@ export type ExploreFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                hasCollectedByMe: boolean;
                 isGated: boolean;
                 isDataAvailability: boolean;
                 dataAvailabilityProofs?: string | null;
@@ -12453,6 +12460,7 @@ export type ExploreFeedQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          hasCollectedByMe: boolean;
           isGated: boolean;
           isDataAvailability: boolean;
           dataAvailabilityProofs?: string | null;
@@ -13686,6 +13694,7 @@ export type FeedHighlightsQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      hasCollectedByMe: boolean;
                       isGated: boolean;
                       isDataAvailability: boolean;
                       dataAvailabilityProofs?: string | null;
@@ -14510,6 +14519,7 @@ export type FeedHighlightsQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                hasCollectedByMe: boolean;
                 isGated: boolean;
                 isDataAvailability: boolean;
                 dataAvailabilityProofs?: string | null;
@@ -15279,6 +15289,7 @@ export type FeedHighlightsQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          hasCollectedByMe: boolean;
           isGated: boolean;
           isDataAvailability: boolean;
           dataAvailabilityProofs?: string | null;
@@ -17424,6 +17435,7 @@ export type ProfileFeedQuery = {
                       __typename?: 'Mirror';
                       id: any;
                       reaction?: ReactionTypes | null;
+                      hasCollectedByMe: boolean;
                       isGated: boolean;
                       isDataAvailability: boolean;
                       dataAvailabilityProofs?: string | null;
@@ -18248,6 +18260,7 @@ export type ProfileFeedQuery = {
                 __typename?: 'Mirror';
                 id: any;
                 reaction?: ReactionTypes | null;
+                hasCollectedByMe: boolean;
                 isGated: boolean;
                 isDataAvailability: boolean;
                 dataAvailabilityProofs?: string | null;
@@ -19017,6 +19030,7 @@ export type ProfileFeedQuery = {
           __typename?: 'Mirror';
           id: any;
           reaction?: ReactionTypes | null;
+          hasCollectedByMe: boolean;
           isGated: boolean;
           isDataAvailability: boolean;
           dataAvailabilityProofs?: string | null;
@@ -20316,6 +20330,7 @@ export type PublicationQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    hasCollectedByMe: boolean;
                     isGated: boolean;
                     isDataAvailability: boolean;
                     dataAvailabilityProofs?: string | null;
@@ -21129,6 +21144,7 @@ export type PublicationQuery = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              hasCollectedByMe: boolean;
               isGated: boolean;
               isDataAvailability: boolean;
               dataAvailabilityProofs?: string | null;
@@ -21883,6 +21899,7 @@ export type PublicationQuery = {
         collectNftAddress?: any | null;
         id: any;
         reaction?: ReactionTypes | null;
+        hasCollectedByMe: boolean;
         isGated: boolean;
         isDataAvailability: boolean;
         dataAvailabilityProofs?: string | null;
@@ -23234,6 +23251,7 @@ export type SearchPublicationsQuery = {
                           __typename?: 'Mirror';
                           id: any;
                           reaction?: ReactionTypes | null;
+                          hasCollectedByMe: boolean;
                           isGated: boolean;
                           isDataAvailability: boolean;
                           dataAvailabilityProofs?: string | null;
@@ -24140,6 +24158,7 @@ export type SearchPublicationsQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    hasCollectedByMe: boolean;
                     isGated: boolean;
                     isDataAvailability: boolean;
                     dataAvailabilityProofs?: string | null;
@@ -25883,6 +25902,7 @@ export type TimelineQuery = {
                         __typename?: 'Mirror';
                         id: any;
                         reaction?: ReactionTypes | null;
+                        hasCollectedByMe: boolean;
                         isGated: boolean;
                         isDataAvailability: boolean;
                         dataAvailabilityProofs?: string | null;
@@ -26769,6 +26789,7 @@ export type TimelineQuery = {
                   __typename?: 'Mirror';
                   id: any;
                   reaction?: ReactionTypes | null;
+                  hasCollectedByMe: boolean;
                   isGated: boolean;
                   isDataAvailability: boolean;
                   dataAvailabilityProofs?: string | null;
@@ -28369,6 +28390,7 @@ export type TimelineQuery = {
                     __typename?: 'Mirror';
                     id: any;
                     reaction?: ReactionTypes | null;
+                    hasCollectedByMe: boolean;
                     isGated: boolean;
                     isDataAvailability: boolean;
                     dataAvailabilityProofs?: string | null;
@@ -29182,6 +29204,7 @@ export type TimelineQuery = {
               __typename?: 'Mirror';
               id: any;
               reaction?: ReactionTypes | null;
+              hasCollectedByMe: boolean;
               isGated: boolean;
               isDataAvailability: boolean;
               dataAvailabilityProofs?: string | null;
@@ -30271,6 +30294,7 @@ export const MirrorFieldsFragmentDoc = gql`
       ...ProfileFields
     }
     reaction(request: $reactionRequest)
+    hasCollectedByMe
     isGated
     isDataAvailability
     dataAvailabilityProofs

@@ -15,14 +15,12 @@ const getCanCombined = (aggregations: number[]) => {
 
 interface EventTypeProps {
   feedItem: FeedItem;
-  showType?: boolean;
-  showThread?: boolean;
 }
 
-const EventType: FC<EventTypeProps> = ({ feedItem, showType, showThread = false }) => {
+const EventType: FC<EventTypeProps> = ({ feedItem }) => {
   const publication = feedItem.root;
   const isComment = publication.__typename === 'Comment';
-  const commentsCount = feedItem.comments?.length ?? 0;
+  const showThread = isComment || (feedItem.comments?.length ?? 0 > 0);
 
   const canCombined = getCanCombined([
     feedItem.mirrors.length,
@@ -30,10 +28,6 @@ const EventType: FC<EventTypeProps> = ({ feedItem, showType, showThread = false 
     feedItem.collects.length,
     feedItem.comments?.length ?? 0
   ]);
-
-  if (!showType) {
-    return null;
-  }
 
   return (
     <span onClick={stopEventPropagation}>
@@ -46,7 +40,7 @@ const EventType: FC<EventTypeProps> = ({ feedItem, showType, showThread = false 
           {feedItem.reactions.length && !isComment ? <Liked reactions={feedItem.reactions} /> : null}
         </>
       )}
-      {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
+      {showThread ? <Commented feedItem={feedItem} /> : null}
     </span>
   );
 };
