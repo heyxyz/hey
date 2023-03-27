@@ -14,7 +14,7 @@ type MessageContentProps = {
 const MessageContent = ({ message, profile, sentByMe }: MessageContentProps): JSX.Element => {
   function content(): JSX.Element {
     if (message.error) {
-      return <span>Error: {message.error}</span>;
+      return <span>Error: {`${message.error}`}</span>;
     }
 
     if (message.contentType.sameAs(ContentTypeRemoteAttachment)) {
