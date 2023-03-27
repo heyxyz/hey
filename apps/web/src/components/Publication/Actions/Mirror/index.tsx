@@ -51,6 +51,9 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
       setMirrored(false);
       toast.success(t`Post has been unmirrored!`);
       // Mixpanel.track(PUBLICATION.DELETE);
+    },
+    update: (cache) => {
+      cache.evict({ id: publicationKeyFields(publication) });
     }
   });
 
