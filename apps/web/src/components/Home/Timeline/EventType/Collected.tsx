@@ -1,9 +1,8 @@
+import Profiles from '@components/Shared/Profiles';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { CollectedEvent } from 'lens';
 import type { FC } from 'react';
-
-import ProfileCircles from './ProfileCircles';
 
 interface CollectedProps {
   collects: CollectedEvent[];
@@ -21,7 +20,7 @@ const Collected: FC<CollectedProps> = ({ collects }) => {
   return (
     <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
       <CollectionIcon className="h-4 w-4" />
-      <ProfileCircles profiles={getCollectedProfiles()} context={t`Collected by`} />
+      <Profiles profiles={getCollectedProfiles()} context={t`collected`} />
     </div>
   );
 };
