@@ -64,7 +64,7 @@ interface ProfileSettingsFormProps {
 const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pride, setPride] = useState(hasPrideLogo(profile));
-  const [cover, setCover] = useState('');
+  const [coverIpfsUrl, setCoverIpfsUrl] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
@@ -161,7 +161,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       const id = await uploadToArweave({
         name,
         bio,
-        cover_picture: cover ? cover : null,
+        cover_picture: coverIpfsUrl ? coverIpfsUrl : null,
         attributes: [
           ...(profile?.attributes
             ?.filter(
@@ -217,7 +217,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       setUploading(true);
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
-      setCover(ipfsUrl);
+      setCoverIpfsUrl(ipfsUrl);
       setUploadedImageUrl(dataUrl);
     } catch (error) {
       toast.error(t`Upload failed`);
@@ -312,7 +312,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 <Image
                   className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
-                    currentTarget.src = sanitizeDStorageUrl(cover);
+                    currentTarget.src = sanitizeDStorageUrl(coverIpfsUrl);
                   }}
                   src={uploadedImageUrl || coverPictureIpfsUrl}
                   alt={t`Cover picture crop preview`}
