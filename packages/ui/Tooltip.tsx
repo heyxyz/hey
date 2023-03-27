@@ -1,7 +1,6 @@
 import 'tippy.js/dist/tippy.css';
 
 import Tippy from '@tippyjs/react';
-import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 
 interface TooltipProps {
@@ -25,7 +24,7 @@ export const Tooltip: FC<TooltipProps> = ({
       duration={0}
       delay={[withDelay ? 500 : 0, 0]}
       className="hidden !rounded-lg !text-xs !leading-6 tracking-wide sm:block"
-      content={<span className={clsx(className)}>{content}</span>}
+      content={<span className={className}>{content}</span>}
     >
       <span>{children}</span>
     </Tippy>
