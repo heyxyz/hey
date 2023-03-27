@@ -43,7 +43,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       data-testid={`publication-${publication.id}`}
     >
       {feedItem ? (
-        <EventType feedItem={feedItem} showType={showType} showThread={showThread} />
+        <EventType feedItem={feedItem} />
       ) : (
         <PublicationType publication={publication} showType={showType} showThread={showThread} />
       )}
