@@ -1,0 +1,26 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@types/node": "18.15.10",
+    "@types/react": "18.0.30",
+    "@types/react-dom": "18.0.11",
+    "eslint": "8.36.0",
+    "eslint-config-next": "13.2.4",
+    "next": "13.2.4",
+    "nextra": "^2.2.20",
+    "nextra-theme-docs": "^2.2.20",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.0.2"
+  }
+}
