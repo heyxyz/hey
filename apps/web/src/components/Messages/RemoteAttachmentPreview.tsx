@@ -72,8 +72,8 @@ const RemoteAttachmentPreview = ({
       const cachedAttachment = cachedAttachments.get(remoteAttachment.url);
 
       if (cachedAttachment) {
-        // setAttachment(cachedAttachment);
-        setStatus('loading');
+        setAttachment(cachedAttachment);
+        setStatus('loaded');
         return;
       }
 
