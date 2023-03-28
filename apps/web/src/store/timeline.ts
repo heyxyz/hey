@@ -1,4 +1,4 @@
-import { LS_KEYS } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import type { Profile } from 'lens';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -19,7 +19,7 @@ export const useTimelinePersistStore = create(
       feedEventFilters: { posts: true, collects: true, mirrors: true, likes: false },
       setFeedEventFilters: (feedEventFilters) => set(() => ({ feedEventFilters }))
     }),
-    { name: LS_KEYS.TIMELINE_STORE }
+    { name: Localstorage.TimelineStore }
   )
 );
 

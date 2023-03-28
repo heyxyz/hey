@@ -2,7 +2,8 @@ import Loader from '@components/Shared/Loader';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { ERROR_MESSAGE, SIMPLEANALYTICS_API } from 'data/constants';
+import { SIMPLEANALYTICS_API } from 'data/constants';
+import Errors from 'data/errors';
 import type { Publication } from 'lens';
 import humanize from 'lib/humanize';
 import type { FC } from 'react';
@@ -34,7 +35,7 @@ const Stats: FC<StatsProps> = ({ publication }) => {
   const { data, isLoading, error } = useQuery(['statsData'], () => getStats().then((res) => res));
 
   if (error) {
-    return <ErrorMessage className="m-5" title={ERROR_MESSAGE} error={error as any} />;
+    return <ErrorMessage className="m-5" title={Errors.SomethingWentWrong} error={error as any} />;
   }
 
   if (isLoading) {

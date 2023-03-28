@@ -5,7 +5,8 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
+import Errors from 'data/errors';
 import type { CreateSetDefaultProfileRequest, Profile } from 'lens';
 import { useBroadcastMutation, useCreateSetDefaultProfileTypedDataMutation } from 'lens';
 import formatHandle from 'lib/formatHandle';
@@ -84,7 +85,7 @@ const SetProfile: FC = () => {
 
   const setDefaultProfile = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {
