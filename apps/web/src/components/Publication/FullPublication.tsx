@@ -35,7 +35,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
     <article className="p-5" data-testid={`publication-${publication.id}`}>
       <PublicationType publication={publication} showType />
       <div>
-        <PublicationHeader className="pb-4" publication={publication} />
+        <PublicationHeader publication={publication} />
         <div className="ml-[53px]">
           {publication?.hidden ? (
             <HiddenPublication type={publication.__typename} />

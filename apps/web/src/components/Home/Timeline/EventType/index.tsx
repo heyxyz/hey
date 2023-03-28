@@ -13,11 +13,11 @@ const getCanCombined = (aggregations: number[]) => {
   return aggregations.filter((n) => n > 0).length > 1;
 };
 
-interface EventTypeProps {
+interface ActionTypeProps {
   feedItem: FeedItem;
 }
 
-const EventType: FC<EventTypeProps> = ({ feedItem }) => {
+const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   const publication = feedItem.root;
   const isComment = publication.__typename === 'Comment';
   const showThread = isComment || (feedItem.comments?.length ?? 0 > 0);
@@ -45,4 +45,4 @@ const EventType: FC<EventTypeProps> = ({ feedItem }) => {
   );
 };
 
-export default EventType;
+export default ActionType;

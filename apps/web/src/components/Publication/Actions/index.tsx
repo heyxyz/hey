@@ -28,7 +28,10 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   const canMirror = currentProfile ? publication?.canMirror?.result : true;
 
   return (
-    <span className="-ml-2 flex items-center gap-6 pt-3 sm:gap-8" onClick={stopEventPropagation}>
+    <span
+      className="-ml-2 flex flex-wrap items-center gap-x-6 gap-y-1 pt-3 sm:gap-8"
+      onClick={stopEventPropagation}
+    >
       <Comment publication={publication} showCount={showCount} />
       {canMirror && <Mirror publication={publication} showCount={showCount} />}
       <Like publication={publication} showCount={showCount} />
