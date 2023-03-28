@@ -22,7 +22,8 @@ import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
+import Errors from 'data/errors';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
 import type { BigNumber } from 'ethers';
@@ -212,7 +213,7 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
 
   const createCollect = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

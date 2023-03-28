@@ -6,7 +6,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { ERROR_MESSAGE } from 'data/constants';
+import Errors from 'data/errors';
 import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from 'lens';
 import getWalletDetails from 'lib/getWalletDetails';
 import type { Dispatch, FC } from 'react';
@@ -68,7 +68,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfil
       });
 
       if (!challenge?.data?.challenge?.text) {
-        return toast.error(ERROR_MESSAGE);
+        return toast.error(Errors.SomethingWentWrong);
       }
 
       // Get signature
@@ -148,7 +148,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfil
       {(errorChallenge || errorAuthenticate || errorProfiles) && (
         <div className="flex items-center space-x-1 font-bold text-red-500">
           <XCircleIcon className="h-5 w-5" />
-          <div>{ERROR_MESSAGE}</div>
+          <div>{Errors.SomethingWentWrong}</div>
         </div>
       )}
     </div>

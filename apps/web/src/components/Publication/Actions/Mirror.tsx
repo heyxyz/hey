@@ -6,7 +6,8 @@ import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
-import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { LENSHUB_PROXY } from 'data/constants';
+import Errors from 'data/errors';
 import { motion } from 'framer-motion';
 import type { CreateDataAvailabilityMirrorRequest, CreateMirrorRequest, Publication } from 'lens';
 import {
@@ -147,7 +148,7 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
 
   const createMirror = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

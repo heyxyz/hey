@@ -2,6 +2,8 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x01852a', // beatsapp.lens
+  '0x01c48b', // soundxyz_.lens
   '0x01bff3', // glassxyz.lens
   '0x01b69c', // sagargowda.lens
   '0x8a58', // fabri.lens

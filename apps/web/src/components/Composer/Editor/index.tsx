@@ -14,7 +14,7 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { t, Trans } from '@lingui/macro';
-import { ERROR_MESSAGE } from 'data/constants';
+import Errors from 'data/errors';
 import { COMMAND_PRIORITY_NORMAL, INSERT_LINE_BREAK_COMMAND, INSERT_PARAGRAPH_COMMAND } from 'lexical';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -61,7 +61,7 @@ const Editor: FC = () => {
             <Trans>What's happening?</Trans>
           </div>
         }
-        ErrorBoundary={() => <div>{ERROR_MESSAGE}</div>}
+        ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
       />
       <OnChangePlugin
         onChange={(editorState) => {

@@ -1,4 +1,4 @@
-import { LS_KEYS } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -13,6 +13,6 @@ export const usePreferencesStore = create(
       hideLikesCount: false,
       setHideLikesCount: (hideLikesCount) => set(() => ({ hideLikesCount }))
     }),
-    { name: LS_KEYS.PREFERENCES_STORE }
+    { name: Localstorage.PreferencesStore }
   )
 );
