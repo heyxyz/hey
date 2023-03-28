@@ -91,7 +91,6 @@ const Timeline: FC = () => {
           key={`${publication?.root.id}_${index}`}
           feedItem={publication as FeedItem}
           publication={publication.root as Publication}
-          index={index}
         />
       ))}
       {hasMore && <span ref={observe} />}

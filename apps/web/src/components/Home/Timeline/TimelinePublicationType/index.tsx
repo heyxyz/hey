@@ -27,7 +27,7 @@ const TimelinePublicationType: FC<TimelinePublicationTypeProps> = ({ feedItem })
   ]);
 
   return (
-    <div onClick={stopEventPropagation}>
+    <div onClick={stopEventPropagation} className="px-5">
       {canCombined ? (
         <Combined feedItem={feedItem} />
       ) : (

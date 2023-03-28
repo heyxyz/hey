@@ -16,7 +16,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
 
   return (
     <article
-      className="cursor-pointer px-5 pt-5 hover:bg-gray-100 dark:hover:bg-gray-900"
+      className="cursor-pointer px-5 pt-5 hover:bg-gray-100 group-first:rounded-t-xl group-last:rounded-b-xl dark:hover:bg-gray-900"
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {

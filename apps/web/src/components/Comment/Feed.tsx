@@ -87,11 +87,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
           )}
           {comments?.map((comment, index) =>
             comment?.__typename === 'Comment' && comment.hidden ? null : (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                publication={comment as Comment}
-                index={index}
-              />
+              <SinglePublication key={`${publicationId}_${index}`} publication={comment as Comment} />
             )
           )}
           {hasMore && <span ref={observe} />}

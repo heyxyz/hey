@@ -33,10 +33,10 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
   return (
-    <div data-testid={`publication-${publication.id}`}>
+    <div data-testid={`publication-${publication.id}`} className="first:[&_article]:rounded-t-xl">
       <PublicationType publication={publication} showType />
       <PublicationThreads publication={publication} showThread />
-      <div className="p-5">
+      <article className="p-5">
         <PublicationHeader publication={publication} />
         <div className="ml-[53px]">
           {publication?.hidden ? (
@@ -61,7 +61,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
             </>
           )}
         </div>
-      </div>
+      </article>
     </div>
   );
 };

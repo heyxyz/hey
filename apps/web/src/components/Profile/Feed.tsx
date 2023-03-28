@@ -123,7 +123,6 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           key={`${publication.id}_${index}`}
           publication={publication as Publication}
           showThread={type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects}
-          index={index}
         />
       ))}
       {hasMore && <span ref={observe} />}

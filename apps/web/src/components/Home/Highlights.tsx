@@ -67,11 +67,7 @@ const Highlights: FC = () => {
           )
       )}
       {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.id}_${index}`}
-          publication={publication as Publication}
-          index={index}
-        />
+        <SinglePublication key={`${publication?.id}_${index}`} publication={publication as Publication} />
       ))}
       {hasMore && <span ref={observe} />}
     </Card>

@@ -79,7 +79,6 @@ const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customF
           publication={publication as Publication}
           showActions={false}
           showModActions
-          index={index}
         />
       ))}
       {hasMore && <span ref={observe} />}

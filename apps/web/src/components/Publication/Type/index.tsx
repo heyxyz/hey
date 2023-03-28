@@ -1,5 +1,4 @@
 import type { Publication } from 'lens';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 
 import Mirrored from './Mirrored';
@@ -10,15 +9,11 @@ interface PublicationTypeProps {
 }
 
 const PublicationType: FC<PublicationTypeProps> = ({ publication, showType }) => {
-  const type = publication.__typename;
-
-  if (!showType) {
+  if (!showType || publication.__typename !== 'Mirror') {
     return null;
   }
 
-  return (
-    <span onClick={stopEventPropagation}>{type === 'Mirror' && <Mirrored publication={publication} />}</span>
-  );
+  return <Mirrored publication={publication} />;
 };
 
 export default PublicationType;

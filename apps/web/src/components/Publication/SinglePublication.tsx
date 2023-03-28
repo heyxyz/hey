@@ -1,6 +1,5 @@
 import TimelinePublicationType from '@components/Home/Timeline/TimelinePublicationType';
 import TimelineThreads from '@components/Home/Timeline/TimelinePublicationType/Threads';
-import clsx from 'clsx';
 import type { ElectedMirror, FeedItem, Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -20,7 +19,6 @@ interface SinglePublicationProps {
   showActions?: boolean;
   showModActions?: boolean;
   showThread?: boolean;
-  index?: number;
 }
 
 const SinglePublication: FC<SinglePublicationProps> = ({
@@ -29,25 +27,21 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showType = true,
   showActions = true,
   showModActions = false,
-  showThread = false,
-  index
+  showThread = false
 }) => {
   const { push } = useRouter();
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
 
   return (
-    <div
-      className={clsx({ 'first-of-type:[&_article]:rounded-t-xl': index === 0 }, 'last:rounded-b-xl')}
-      data-testid={`publication-${publication.id}`}
-    >
+    <div className="group" data-testid={`publication-${publication.id}`}>
       {feedItem ? (
         <TimelineThreads feedItem={feedItem} />
       ) : (
         <PublicationThreads publication={publication} showThread={showThread} />
       )}
       <article
-        className="cursor-pointer px-5 py-5 hover:bg-gray-100 dark:hover:bg-gray-900"
+        className="cursor-pointer px-5 py-5 hover:bg-gray-100 group-first:rounded-t-xl group-last:rounded-b-xl dark:hover:bg-gray-900"
         onClick={() => {
           const selection = window.getSelection();
           if (!selection || selection.toString().length === 0) {
