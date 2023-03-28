@@ -10,6 +10,7 @@ import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
+import PublicationThreads from './Type/PublicationThreads';
 
 interface FullPublicationProps {
   publication: Publication;
@@ -32,9 +33,10 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
   return (
-    <article className="p-5" data-testid={`publication-${publication.id}`}>
+    <div data-testid={`publication-${publication.id}`}>
       <PublicationType publication={publication} showType />
-      <div>
+      <PublicationThreads publication={publication} showThread />
+      <div className="p-5">
         <PublicationHeader publication={publication} />
         <div className="ml-[53px]">
           {publication?.hidden ? (
@@ -60,7 +62,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
           )}
         </div>
       </div>
-    </article>
+    </div>
   );
 };
 

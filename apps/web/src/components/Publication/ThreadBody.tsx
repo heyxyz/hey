@@ -16,6 +16,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
 
   return (
     <article
+      className="cursor-pointer px-5 pt-5 hover:bg-gray-100 dark:hover:bg-gray-900"
       onClick={() => {
         const selection = window.getSelection();
         if (!selection || selection.toString().length === 0) {
@@ -25,7 +26,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
     >
       <PublicationHeader publication={publication} />
       <div className="flex">
-        <div className="-mt-5 -mb-1 mr-8 ml-5 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
+        <div className="-mt-5 -mb-6 mr-8 ml-5 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
         <div className="w-full pb-5">
           {publication?.hidden ? (
             <HiddenPublication type={publication.__typename} />

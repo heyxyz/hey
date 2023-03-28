@@ -66,7 +66,11 @@ const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.Curated
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="explore-feed">
       {publications?.map((publication, index) => (
-        <SinglePublication key={`${publication.id}_${index}`} publication={publication as Publication} />
+        <SinglePublication
+          key={`${publication.id}_${index}`}
+          publication={publication as Publication}
+          index={index}
+        />
       ))}
       {hasMore && <span ref={observe} />}
     </Card>

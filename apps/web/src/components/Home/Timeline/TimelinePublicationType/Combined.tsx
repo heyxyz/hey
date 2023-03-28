@@ -32,7 +32,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
   };
 
   return (
-    <div className="lt-text-gray-500 flex flex-wrap items-center space-x-1 pb-4 text-[13px] leading-6">
+    <div className="lt-text-gray-500 flex flex-wrap items-center space-x-1 pb-4 pt-3 text-[13px] leading-6">
       <SparklesIcon className="h-4 w-4" />
       <Profiles profiles={getAllProfiles()} />
       <div className="flex items-center space-x-1">

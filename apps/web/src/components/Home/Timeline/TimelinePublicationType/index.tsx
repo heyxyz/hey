@@ -4,23 +4,20 @@ import type { FC } from 'react';
 
 import Collected from './Collected';
 import Combined from './Combined';
-import Commented from './Commented';
 import Liked from './Liked';
 import Mirrored from './Mirrored';
 
 const getCanCombined = (aggregations: number[]) => {
-  // show combined reactions if more than 2 items in aggregations
   return aggregations.filter((n) => n > 0).length > 1;
 };
 
-interface EventTypeProps {
+interface TimelinePublicationTypeProps {
   feedItem: FeedItem;
 }
 
-const EventType: FC<EventTypeProps> = ({ feedItem }) => {
+const TimelinePublicationType: FC<TimelinePublicationTypeProps> = ({ feedItem }) => {
   const publication = feedItem.root;
   const isComment = publication.__typename === 'Comment';
-  const showThread = isComment || (feedItem.comments?.length ?? 0 > 0);
 
   const canCombined = getCanCombined([
     feedItem.mirrors.length,
@@ -30,7 +27,7 @@ const EventType: FC<EventTypeProps> = ({ feedItem }) => {
   ]);
 
   return (
-    <span onClick={stopEventPropagation}>
+    <div onClick={stopEventPropagation}>
       {canCombined ? (
         <Combined feedItem={feedItem} />
       ) : (
@@ -40,9 +37,8 @@ const EventType: FC<EventTypeProps> = ({ feedItem }) => {
           {feedItem.reactions.length && !isComment ? <Liked reactions={feedItem.reactions} /> : null}
         </>
       )}
-      {showThread ? <Commented feedItem={feedItem} /> : null}
-    </span>
+    </div>
   );
 };
 
-export default EventType;
+export default TimelinePublicationType;

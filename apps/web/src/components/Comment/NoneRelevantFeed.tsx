@@ -74,7 +74,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
               <SinglePublication
                 key={`${publicationId}_${index}`}
                 publication={comment as Comment}
-                showType={false}
+                index={index}
               />
             )
           )}

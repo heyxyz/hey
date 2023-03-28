@@ -90,7 +90,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
               <SinglePublication
                 key={`${publicationId}_${index}`}
                 publication={comment as Comment}
-                showType={false}
+                index={index}
               />
             )
           )}
