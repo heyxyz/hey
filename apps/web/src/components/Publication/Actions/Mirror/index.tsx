@@ -11,7 +11,6 @@ import clsx from 'clsx';
 import { LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
 import type { Comment, CreateMirrorRequest, Post, Publication } from 'lens';
 import {
-  Mirror,
   useBroadcastMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation,
