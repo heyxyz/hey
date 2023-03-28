@@ -1,4 +1,5 @@
 import packageJson from '../../package.json';
+import LensEndpoint from './lens-endpoints';
 import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
@@ -7,11 +8,6 @@ export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 // Lens Network
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
-export const MAINNET_API_URL = 'https://api.lens.dev';
-export const TESTNET_API_URL = 'https://api-mumbai.lens.dev';
-export const SANDBOX_API_URL = 'https://api-sandbox-mumbai.lens.dev';
-export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
-export const STAGING_SANDBOX_API_URL = 'https://staging-api-social-mumbai.sandbox.crtlkey.com';
 
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
@@ -19,7 +15,7 @@ export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 
-export const IS_MAINNET = API_URL === MAINNET_API_URL;
+export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 
 // XMTP
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
@@ -43,14 +39,6 @@ export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
 export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
 
-// Messages
-export const ERROR_MESSAGE = 'Something went wrong!';
-export const SIGN_WALLET = 'Please sign in your wallet.';
-export const WRONG_NETWORK = IS_MAINNET
-  ? 'Please change network to Polygon mainnet.'
-  : 'Please change network to Polygon Mumbai testnet.';
-export const SIGN_ERROR = 'Failed to sign data';
-
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
@@ -72,12 +60,6 @@ export const FRESHDESK_WORKER_URL = IS_PRODUCTION ? 'https://freshdesk.lenster.x
 // Web3
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
-
-// Errors
-export const ERRORS = {
-  notMined:
-    'A previous transaction may not been mined yet or you have passed in a invalid nonce. You must wait for that to be mined before doing another action, please try again in a few moments. Nonce out of sync.'
-};
 
 // Regex
 export const URL_REGEX =
@@ -109,16 +91,6 @@ export const MIN_WIDTH_DESKTOP = 1024;
 export const AVATAR = '300x300';
 export const COVER = '1500x500';
 export const ATTACHMENT = '1000,fit';
-
-// Localstorage keys
-export const LS_KEYS = {
-  LENSTER_STORE: 'lenster.store',
-  PREFERENCES_STORE: 'preferences.store',
-  TRANSACTION_STORE: 'transaction.store',
-  TIMELINE_STORE: 'timeline.store',
-  MESSAGE_STORE: 'message.store',
-  SELECTED_LOCALE: 'selected.locale'
-};
 
 // S3 bucket
 export const S3_BUCKET = {

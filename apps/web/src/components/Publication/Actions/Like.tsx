@@ -5,7 +5,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import { SIGN_WALLET } from 'data/constants';
+import Errors from 'data/errors';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
@@ -99,7 +99,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const createLike = () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     const variable = {

@@ -2,7 +2,7 @@ import { useApolloClient } from '@apollo/client';
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
-import { ERROR_MESSAGE } from 'data/constants';
+import Errors from 'data/errors';
 import type { NftGallery } from 'lens';
 import {
   NftGalleriesDocument,
@@ -80,7 +80,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         toast.success(t`Gallery created`);
       }
     } catch (error: any) {
-      toast.error(error?.messaage ?? ERROR_MESSAGE);
+      toast.error(error?.messaage ?? Errors.SomethingWentWrong);
     }
   };
 
@@ -109,7 +109,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         toast.success(t`Gallery name updated`);
       }
     } catch (error: any) {
-      toast.error(error?.messaage ?? ERROR_MESSAGE);
+      toast.error(error?.messaage ?? Errors.SomethingWentWrong);
     }
   };
 

@@ -1,7 +1,8 @@
 import { PhotographIcon } from '@heroicons/react/outline';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import clsx from 'clsx';
-import { ATTACHMENT, ERROR_MESSAGE } from 'data/constants';
+import { ATTACHMENT } from 'data/constants';
+import Errors from 'data/errors';
 import imageProxy from 'lib/imageProxy';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC, Ref } from 'react';
@@ -21,7 +22,7 @@ const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, image
   const [loading, setLoading] = useState(false);
 
   const onError = (error: any) => {
-    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE);
+    toast.error(error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong);
     setLoading(false);
   };
 
