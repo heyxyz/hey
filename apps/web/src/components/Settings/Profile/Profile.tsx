@@ -7,7 +7,8 @@ import uploadToArweave from '@lib/uploadToArweave';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
-import { APP_NAME, COVER, LENS_PERIPHERY, SIGN_WALLET, URL_REGEX } from 'data/constants';
+import { APP_NAME, COVER, LENS_PERIPHERY, URL_REGEX } from 'data/constants';
+import Errors from 'data/errors';
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Profile } from 'lens';
 import {
   useBroadcastMutation,
@@ -153,7 +154,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     bio?: string | null
   ) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

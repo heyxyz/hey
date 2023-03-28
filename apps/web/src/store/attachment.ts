@@ -1,4 +1,5 @@
 import { LS_KEYS } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import { del, get, set } from 'idb-keyval';
 import type { Attachment } from 'xmtp-content-type-remote-attachment';
 import { create } from 'zustand';
@@ -45,7 +46,7 @@ export const useAttachmentCacheStore = create(
       }
     }),
     {
-      name: LS_KEYS.ATTACHMENT_CACHE,
+      name: Localstorage.AttachmentCache,
       storage: {
         async getItem(name) {
           return JSON.parse((await get(name)) || '{}', reviver);
@@ -83,7 +84,7 @@ export const useAttachmentStore = create(
         })
     }),
     {
-      name: LS_KEYS.ATTACHMENT_STORE
+      name: Localstorage.AttachmentStore
     }
   )
 );

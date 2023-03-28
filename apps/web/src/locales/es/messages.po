@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-26 00:09\n"
+"PO-Revision-Date: 2023-03-28 04:12\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -466,9 +466,7 @@ msgid "Nothing to suggest"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
-#: src/components/Publication/Actions/Collect/CollectModule.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Collected by"
+msgid "collected"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
@@ -484,17 +482,13 @@ msgid "collected{0}"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr ""
 
-#: src/components/Home/Timeline/EventType/Liked.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Liked by"
-msgstr ""
-
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Mirrored by"
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
 msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
@@ -1350,6 +1344,11 @@ msgid "{0} collectors"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Collected by"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
 msgstr ""
 
@@ -1467,10 +1466,6 @@ msgstr ""
 msgid "Are you sure? You want to report this user so that we can take action."
 msgstr ""
 
-#: src/components/Publication/Actions/index.tsx
-msgid "Gated Publication"
-msgstr ""
-
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
 msgstr ""
@@ -1508,7 +1503,15 @@ msgid "<0>{0}</0> Mirrors"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
+msgid "Mirrored by"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Likes"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "Liked by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1521,14 +1524,6 @@ msgstr ""
 
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
-msgstr ""
-
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "<0><1/> mirrored the <2>comment</2></0>"
-msgstr ""
-
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "<0><1/> mirrored the <2>post</2></0>"
 msgstr ""
 
 #: src/components/Search/Profiles.tsx

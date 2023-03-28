@@ -1,6 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile';
 import useModMode from '@components/utils/hooks/useModMode';
-import clsx from 'clsx';
 import type { FeedItem, Publication } from 'lens';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
@@ -10,11 +9,10 @@ import Source from './Source';
 
 interface PublicationHeaderProps {
   publication: Publication;
-  className?: string;
   feedItem?: FeedItem;
 }
 
-const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, className = '', feedItem }) => {
+const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, feedItem }) => {
   const { allowed: modMode } = useModMode();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
@@ -32,7 +30,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, className 
 
   return (
     <div
-      className={clsx('flex justify-between space-x-1.5', className)}
+      className="relative flex justify-between space-x-1.5 pb-4"
       data-testid={`publication-${publication.id}-header`}
     >
       <span onClick={stopEventPropagation}>

@@ -1,4 +1,4 @@
-import { LS_KEYS } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import type { Profile } from 'lens';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -48,6 +48,6 @@ export const useAppPersistStore = create(
       notificationCount: 0,
       setNotificationCount: (notificationCount) => set(() => ({ notificationCount }))
     }),
-    { name: LS_KEYS.LENSTER_STORE }
+    { name: Localstorage.LensterStore }
   )
 );

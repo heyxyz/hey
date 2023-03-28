@@ -4,7 +4,7 @@ import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { ERROR_MESSAGE } from 'data/constants';
+import Errors from 'data/errors';
 import type { Nft, NftGallery } from 'lens';
 import {
   NftGalleriesDocument,
@@ -64,7 +64,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         });
       }
     } catch (error: any) {
-      toast.error(error?.messaage ?? ERROR_MESSAGE);
+      toast.error(error?.messaage ?? Errors.SomethingWentWrong);
     }
   };
 
@@ -126,7 +126,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
       });
       setIsRearrange(false);
     } catch (error: any) {
-      toast.error(error?.messaage ?? ERROR_MESSAGE);
+      toast.error(error?.messaage ?? Errors.SomethingWentWrong);
     }
   };
 
