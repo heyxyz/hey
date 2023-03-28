@@ -72,8 +72,8 @@ const RemoteAttachmentPreview = ({
       const cachedAttachment = cachedAttachments.get(remoteAttachment.url);
 
       if (cachedAttachment) {
-        setAttachment(cachedAttachment);
-        setStatus('loaded');
+        // setAttachment(cachedAttachment);
+        setStatus('loading');
         return;
       }
 
@@ -107,7 +107,7 @@ const RemoteAttachmentPreview = ({
   return (
     <div className="mt-1 space-y-1">
       {attachment && <AttachmentView attachment={attachment} />}
-      {status === 'loading' && <Spinner className="h-48 w-48" />}
+      {status === 'loading' && <Spinner className="mx-28 h-48 w-48" />}
       {status === 'unloaded' && (
         <div className="space-y-2 text-sm">
           <p>
