@@ -27,7 +27,11 @@ module.exports = withSentryConfig(
         { source: '/u/:handle(.+).lens', destination: '/u/:handle', permanent: true },
         { source: '/u/:handle(.+).test', destination: '/u/:handle', permanent: true },
         { source: '/discord', destination: 'https://discord.com/invite/B8eKhSSUwX', permanent: true },
-        { source: '/donate', destination: 'https://gitcoin.co/grants/5007/lenster', permanent: true },
+        {
+          source: '/donate',
+          destination: 'https://bounties.gitcoin.co/grants/5007/lenster',
+          permanent: true
+        },
         {
           source: '/gitcoin',
           destination:
