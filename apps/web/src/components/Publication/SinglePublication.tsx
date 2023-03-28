@@ -47,7 +47,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       ) : (
         <PublicationType publication={publication} showType={showType} showThread={showThread} />
       )}
-      <PublicationHeader className="pb-4" publication={rootPublication} feedItem={feedItem} />
+      <PublicationHeader publication={rootPublication} feedItem={feedItem} />
       <div className="ml-[53px]">
         {publication?.hidden ? (
           <HiddenPublication type={publication.__typename} />
