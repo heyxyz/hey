@@ -466,9 +466,7 @@ msgid "Nothing to suggest"
 msgstr "பரிந்துரைக்க எதுவும் இல்லை"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
-#: src/components/Publication/Actions/Collect/CollectModule.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Collected by"
+msgid "collected"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
@@ -484,18 +482,14 @@ msgid "collected{0}"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr ""
 
-#: src/components/Home/Timeline/EventType/Liked.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Liked by"
-msgstr "இவர்களால் விரும்பப்பட்டது"
-
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Mirrored by"
-msgstr "இவர்களால் மிரர் செய்யப்பட்டது"
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
@@ -1350,6 +1344,11 @@ msgid "{0} collectors"
 msgstr "{0} சேகரிப்பாளர்கள்"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Collected by"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
 msgstr "{0} கிடைக்கிறது"
 
@@ -1467,10 +1466,6 @@ msgstr "புகாரளிக்கவா?"
 msgid "Are you sure? You want to report this user so that we can take action."
 msgstr ""
 
-#: src/components/Publication/Actions/index.tsx
-msgid "Gated Publication"
-msgstr ""
-
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
 msgstr "இதைக் காண..."
@@ -1508,8 +1503,16 @@ msgid "<0>{0}</0> Mirrors"
 msgstr "<0>{0}</0> மிரர்கள்"
 
 #: src/components/Publication/PublicationStats.tsx
+msgid "Mirrored by"
+msgstr "இவர்களால் மிரர் செய்யப்பட்டது"
+
+#: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Likes"
 msgstr "<0>{0}</0> விருப்பங்கள்"
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "Liked by"
+msgstr "இவர்களால் விரும்பப்பட்டது"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
@@ -1522,14 +1525,6 @@ msgstr ""
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
 msgstr "தொடர்புடைய நபர்களை ஏற்ற முடியவில்லை"
-
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "<0><1/> mirrored the <2>comment</2></0>"
-msgstr ""
-
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "<0><1/> mirrored the <2>post</2></0>"
-msgstr ""
 
 #: src/components/Search/Profiles.tsx
 msgid "No profiles for <0>“{query}”</0>"
@@ -2539,4 +2534,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
