@@ -1,4 +1,4 @@
-import EventType from '@components/Home/Timeline/EventType';
+import ActionType from '@components/Home/Timeline/EventType';
 import type { ElectedMirror, FeedItem, Publication } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -43,7 +43,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       data-testid={`publication-${publication.id}`}
     >
       {feedItem ? (
-        <EventType feedItem={feedItem} />
+        <ActionType feedItem={feedItem} />
       ) : (
         <PublicationType publication={publication} showType={showType} showThread={showThread} />
       )}
