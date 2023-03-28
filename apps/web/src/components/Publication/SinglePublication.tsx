@@ -47,7 +47,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         <PublicationThreads publication={publication} showThread={showThread} />
       )}
       <article
-        className="cursor-pointer px-5 pt-3 pb-5 hover:bg-gray-100 dark:hover:bg-gray-900"
+        className="cursor-pointer px-5 py-5 hover:bg-gray-100 dark:hover:bg-gray-900"
         onClick={() => {
           const selection = window.getSelection();
           if (!selection || selection.toString().length === 0) {

@@ -18,7 +18,7 @@ const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
   };
 
   return (
-    <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 pt-2 text-[13px]">
+    <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
       <SwitchHorizontalIcon className="h-4 w-4" />
       <Profiles profiles={getMirroredProfiles()} context={t`mirrored`} />
     </div>

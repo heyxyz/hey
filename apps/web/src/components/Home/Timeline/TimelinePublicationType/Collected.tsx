@@ -18,7 +18,7 @@ const Collected: FC<CollectedProps> = ({ collects }) => {
   };
 
   return (
-    <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 pt-2 text-[13px]">
+    <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
       <CollectionIcon className="h-4 w-4" />
       <Profiles profiles={getCollectedProfiles()} context={t`collected`} />
     </div>
