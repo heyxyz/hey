@@ -5,7 +5,8 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
+import Errors from 'data/errors';
 import type { ApprovedAllowanceAmount, Profile } from 'lens';
 import {
   FollowModules,
@@ -124,7 +125,7 @@ const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFol
 
   const createFollow = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

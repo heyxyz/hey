@@ -5,7 +5,8 @@ import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
-import { APP_NAME, LENS_PERIPHERY, SIGN_WALLET } from 'data/constants';
+import { APP_NAME, LENS_PERIPHERY } from 'data/constants';
+import Errors from 'data/errors';
 import type { CreatePublicSetProfileMetadataUriRequest } from 'lens';
 import {
   useBroadcastMutation,
@@ -114,7 +115,7 @@ const Status: FC = () => {
 
   const editStatus = async (emoji: string, status: string) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

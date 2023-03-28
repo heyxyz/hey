@@ -6,7 +6,8 @@ import splitSignature from '@lib/splitSignature';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { AVATAR, ERROR_MESSAGE, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { AVATAR, LENSHUB_PROXY } from 'data/constants';
+import Errors from 'data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
 import type { Area, Size } from 'image-cropper/types';
 import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from 'lens';
@@ -118,11 +119,11 @@ const Picture: FC<PictureProps> = ({ profile }) => {
 
   const uploadAndSave = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
     if (!croppedImage) {
-      return toast.error(ERROR_MESSAGE);
+      return toast.error(Errors.SomethingWentWrong);
     }
 
     try {

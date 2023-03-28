@@ -2,7 +2,8 @@ import MetaTags from '@components/Common/MetaTags';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
-import { APP_NAME, LS_KEYS } from 'data/constants';
+import { APP_NAME } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
@@ -60,7 +61,7 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Clean your posts or comments that are not indexed</Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(LS_KEYS.TRANSACTION_STORE)}>
+              <Button onClick={() => cleanup(Localstorage.TransactionStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>
@@ -73,7 +74,7 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Clean your timeline filter settings</Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(LS_KEYS.TIMELINE_STORE)}>
+              <Button onClick={() => cleanup(Localstorage.TimelineStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>
@@ -104,7 +105,7 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Note: Cleaning will log you out</Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(LS_KEYS.LENSTER_STORE)}>
+              <Button onClick={() => cleanup(Localstorage.LensterStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>

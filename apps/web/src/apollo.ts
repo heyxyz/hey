@@ -10,7 +10,8 @@ import {
 import { RetryLink } from '@apollo/client/link/retry';
 import { cursorBasedPagination } from '@lib/cursorBasedPagination';
 import axios from 'axios';
-import { API_URL, LS_KEYS } from 'data/constants';
+import { API_URL } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import result from 'lens';
 import { publicationKeyFields } from 'lib/keyFields';
 import parseJwt from 'lib/parseJwt';
@@ -39,9 +40,9 @@ const retryLink = new RetryLink({
 const clearStorage = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
-  localStorage.removeItem(LS_KEYS.LENSTER_STORE);
-  localStorage.removeItem(LS_KEYS.TRANSACTION_STORE);
-  localStorage.removeItem(LS_KEYS.MESSAGE_STORE);
+  localStorage.removeItem(Localstorage.LensterStore);
+  localStorage.removeItem(Localstorage.TransactionStore);
+  localStorage.removeItem(Localstorage.MessageStore);
 };
 
 const authLink = new ApolloLink((operation, forward) => {
