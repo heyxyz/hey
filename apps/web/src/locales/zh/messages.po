@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-27 00:09\n"
+"PO-Revision-Date: 2023-03-28 04:12\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -466,10 +466,8 @@ msgid "Nothing to suggest"
 msgstr "没有可以推荐的内容"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
-#: src/components/Publication/Actions/Collect/CollectModule.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Collected by"
-msgstr "收藏者"
+msgid "collected"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
@@ -484,18 +482,14 @@ msgid "collected{0}"
 msgstr "已收藏{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr "已点赞"
 
-#: src/components/Home/Timeline/EventType/Liked.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Liked by"
-msgstr "点赞过的人"
-
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Mirrored by"
-msgstr "转发过的人"
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
@@ -1350,6 +1344,11 @@ msgid "{0} collectors"
 msgstr "{0} 位收藏者"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Collected by"
+msgstr "收藏者"
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
 msgstr "{0} 可收藏"
 
@@ -1467,10 +1466,6 @@ msgstr ""
 msgid "Are you sure? You want to report this user so that we can take action."
 msgstr ""
 
-#: src/components/Publication/Actions/index.tsx
-msgid "Gated Publication"
-msgstr "订阅的帖子"
-
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
 msgstr "要查看此..."
@@ -1508,8 +1503,16 @@ msgid "<0>{0}</0> Mirrors"
 msgstr "<0>{0}</0> 次转发"
 
 #: src/components/Publication/PublicationStats.tsx
+msgid "Mirrored by"
+msgstr "转发过的人"
+
+#: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Likes"
 msgstr "<0>{0}</0> 次赞"
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "Liked by"
+msgstr "点赞过的人"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
@@ -1522,14 +1525,6 @@ msgstr "索引中"
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
 msgstr "加载相关人员失败"
-
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "<0><1/> mirrored the <2>comment</2></0>"
-msgstr "<0><1/> 转发了 <2> 评论</2></0>"
-
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "<0><1/> mirrored the <2>post</2></0>"
-msgstr "<0><1/> 转发了 <2> 帖子</2></0>"
 
 #: src/components/Search/Profiles.tsx
 msgid "No profiles for <0>“{query}”</0>"

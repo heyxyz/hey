@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { ERROR_MESSAGE, METADATA_WORKER_URL } from 'data/constants';
+import { METADATA_WORKER_URL } from 'data/constants';
+import Errors from 'data/errors';
 import toast from 'react-hot-toast';
 
 /**
@@ -23,8 +24,8 @@ const uploadToArweave = async (data: any): Promise<string> => {
 
     return id;
   } catch {
-    toast.error(ERROR_MESSAGE);
-    throw new Error(ERROR_MESSAGE);
+    toast.error(Errors.SomethingWentWrong);
+    throw new Error(Errors.SomethingWentWrong);
   }
 };
 

@@ -1,5 +1,6 @@
 import { Client } from '@xmtp/xmtp-js';
-import { APP_NAME, APP_VERSION, LS_KEYS, XMTP_ENV } from 'data/constants';
+import { APP_NAME, APP_VERSION, XMTP_ENV } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useConversationCache } from 'src/store/conversation-cache';
@@ -98,7 +99,7 @@ export const useDisconnectXmtp = () => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setClient(undefined);
     }
-    localStorage.removeItem(LS_KEYS.MESSAGE_STORE);
+    localStorage.removeItem(Localstorage.MessageStore);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer, client]);
 

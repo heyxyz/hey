@@ -15,7 +15,8 @@ import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import { APP_NAME, ERROR_MESSAGE } from 'data/constants';
+import { APP_NAME } from 'data/constants';
+import Errors from 'data/errors';
 import { useLensterStatsQuery } from 'lens';
 import humanize from 'lib/humanize';
 import type { NextPage } from 'next';
@@ -117,7 +118,7 @@ const Stats: NextPage = () => {
       <GridItemEight className="space-y-5">
         <Card className="p-5">
           {error ? (
-            <b className="text-red-500">{ERROR_MESSAGE}</b>
+            <b className="text-red-500">{Errors.SomethingWentWrong}</b>
           ) : loading || todayLoading || yesterdayLoading ? (
             <div>Loading...</div>
           ) : (

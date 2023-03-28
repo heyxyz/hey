@@ -8,7 +8,8 @@ import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
+import Errors from 'data/errors';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
@@ -71,7 +72,7 @@ const DeleteSettings: FC = () => {
 
   const handleDelete = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

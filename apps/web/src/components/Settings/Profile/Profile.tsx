@@ -7,7 +7,8 @@ import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
-import { APP_NAME, COVER, ERROR_MESSAGE, LENS_PERIPHERY, SIGN_WALLET, URL_REGEX } from 'data/constants';
+import { APP_NAME, COVER, LENS_PERIPHERY, URL_REGEX } from 'data/constants';
+import Errors from 'data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
 import type { Area } from 'image-cropper/types';
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Profile } from 'lens';
@@ -153,7 +154,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     bio?: string | null
   ) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {
@@ -206,11 +207,11 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
   const uploadAndSave = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
     const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
     if (!croppedImage) {
-      return toast.error(ERROR_MESSAGE);
+      return toast.error(Errors.SomethingWentWrong);
     }
 
     try {

@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test';
-import { MAINNET_DEFAULT_TOKEN } from 'data/contracts';
+import { MainnetContracts } from 'data/contracts';
 import getAssetAddress from 'lib/getAssetAddress';
 
 test.describe('getAssetAddress', () => {
   test('should return MAINNET_DEFAULT_TOKEN for WMATIC', () => {
     const symbol = 'WMATIC';
     const result = getAssetAddress(symbol);
-    expect(result).toEqual(MAINNET_DEFAULT_TOKEN);
+    expect(result).toEqual(MainnetContracts.DefaultToken);
   });
 
   test("should return '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' for WETH", () => {
@@ -36,6 +36,6 @@ test.describe('getAssetAddress', () => {
   test('should return MAINNET_DEFAULT_TOKEN for any other symbol', () => {
     const symbol = 'FOO';
     const result = getAssetAddress(symbol);
-    expect(result).toEqual(MAINNET_DEFAULT_TOKEN);
+    expect(result).toEqual(MainnetContracts.DefaultToken);
   });
 });
