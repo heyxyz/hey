@@ -1,4 +1,4 @@
-import { LS_KEYS } from 'data/constants';
+import { Localstorage } from 'data/storage';
 
 /**
  * Resets the auth data
@@ -6,10 +6,10 @@ import { LS_KEYS } from 'data/constants';
 const resetAuthData = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
-  localStorage.removeItem(LS_KEYS.LENSTER_STORE);
-  localStorage.removeItem(LS_KEYS.TRANSACTION_STORE);
-  localStorage.removeItem(LS_KEYS.TIMELINE_STORE);
-  localStorage.removeItem(LS_KEYS.MESSAGE_STORE);
+  localStorage.removeItem(Localstorage.LensterStore);
+  localStorage.removeItem(Localstorage.TransactionStore);
+  localStorage.removeItem(Localstorage.TimelineStore);
+  localStorage.removeItem(Localstorage.MessageStore);
 };
 
 export default resetAuthData;

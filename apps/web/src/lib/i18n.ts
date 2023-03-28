@@ -1,5 +1,5 @@
 import { i18n } from '@lingui/core';
-import { LS_KEYS } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import dayjs from 'dayjs';
 import { en, es, ta, zh } from 'make-plural/plurals';
 
@@ -28,7 +28,7 @@ export async function setLocale(locale: string) {
   if (!supportedLocales.hasOwnProperty(locale)) {
     locale = defaultLocale;
   }
-  localStorage.setItem(LS_KEYS.SELECTED_LOCALE, JSON.stringify(locale));
+  localStorage.setItem(Localstorage.LocaleStore, JSON.stringify(locale));
   const { messages } = await import(`src/locales/${locale}/messages`);
   i18n.load(locale, messages);
   i18n.activate(locale);
@@ -36,7 +36,7 @@ export async function setLocale(locale: string) {
 }
 
 export const initLocale = () => {
-  const storedValue = localStorage.getItem(LS_KEYS.SELECTED_LOCALE);
+  const storedValue = localStorage.getItem(Localstorage.LocaleStore);
   const locale = storedValue ? JSON.parse(storedValue) : defaultLocale;
   setLocale(locale);
 };

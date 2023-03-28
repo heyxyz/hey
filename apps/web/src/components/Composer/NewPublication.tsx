@@ -26,9 +26,9 @@ import {
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
   LENSHUB_PROXY,
-  LIT_PROTOCOL_ENVIRONMENT,
-  SIGN_WALLET
+  LIT_PROTOCOL_ENVIRONMENT
 } from 'data/constants';
+import Errors from 'data/errors';
 import type {
   CreatePublicCommentRequest,
   MetadataAttributeInput,
@@ -343,11 +343,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const createTokenGatedMetadata = async (metadata: PublicationMetadataV2Input) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     if (!signer) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     // Create the SDK instance
@@ -398,7 +398,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const createPublication = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

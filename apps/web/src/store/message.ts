@@ -1,7 +1,7 @@
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
-import { LS_KEYS } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import type { Profile } from 'lens';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -142,7 +142,7 @@ export const useMessagePersistStore = create(
       setUnsentMessages: (unsentMessages) => set(() => ({ unsentMessages }))
     }),
     {
-      name: LS_KEYS.MESSAGE_STORE,
+      name: Localstorage.MessageStore,
       storage: {
         // Persist storage doesn't work well with Map by default.
         // Workaround from: https://github.com/pmndrs/zustand/issues/618#issuecomment-954806720.

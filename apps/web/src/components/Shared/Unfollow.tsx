@@ -4,7 +4,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
-import { SIGN_WALLET } from 'data/constants';
+import Errors from 'data/errors';
 import type { Signer } from 'ethers';
 import { Contract } from 'ethers';
 import type { CreateBurnEip712TypedData, Profile } from 'lens';
@@ -73,7 +73,7 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }
 
   const createUnfollow = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

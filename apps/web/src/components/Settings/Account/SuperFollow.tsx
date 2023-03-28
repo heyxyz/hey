@@ -4,7 +4,8 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from 'data/constants';
+import Errors from 'data/errors';
 import type { Erc20 } from 'lens';
 import {
   useBroadcastMutation,
@@ -89,7 +90,7 @@ const SuperFollow: FC = () => {
 
   const setSuperFollow = async (amount: string | null, recipient: string | null) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

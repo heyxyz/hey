@@ -4,7 +4,8 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
+import Errors from 'data/errors';
 import type { NftImage, Profile, UpdateProfileImageRequest } from 'lens';
 import {
   useBroadcastMutation,
@@ -113,7 +114,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
 
   const setAvatar = async (contractAddress: string, tokenId: string) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

@@ -9,7 +9,7 @@ import { buildConversationKey } from '@lib/conversationKey';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { ERROR_MESSAGE } from 'data/constants';
+import Errors from 'data/errors';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -125,7 +125,10 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
             <ErrorMessage
               className="m-5"
               title={t`Failed to load messages`}
-              error={{ message: ERROR_MESSAGE, name: ERROR_MESSAGE }}
+              error={{
+                message: Errors.SomethingWentWrong,
+                name: Errors.SomethingWentWrong
+              }}
             />
           ) : sortedProfiles.length === 0 ? (
             <button className="h-full w-full justify-items-center" onClick={newMessageClick} type="button">
