@@ -11,8 +11,8 @@ const initialConfig = {
   namespace: 'composer',
   theme: {
     text: {
-      bold: 'text-bold',
-      italic: 'text-italic',
+      bold: 'bold',
+      italic: 'italic',
       code: 'text-sm bg-gray-300 rounded-lg dark:bg-gray-700 px-[5px] py-[2px]'
     },
     link: 'text-brand',
