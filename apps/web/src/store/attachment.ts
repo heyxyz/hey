@@ -1,4 +1,3 @@
-import { LS_KEYS } from 'data/constants';
 import { Localstorage } from 'data/storage';
 import { del, get, set } from 'idb-keyval';
 import type { Attachment } from 'xmtp-content-type-remote-attachment';

@@ -107,7 +107,7 @@ const RemoteAttachmentPreview = ({
   return (
     <div className="mt-1 space-y-1">
       {attachment && <AttachmentView attachment={attachment} />}
-      {status === 'loading' && <Spinner className="mx-28 h-48 w-48" />}
+      {status === 'loading' && <Spinner className="mx-28 my-8 h-48 w-48" size="sm" />}
       {status === 'unloaded' && (
         <div className="space-y-2 text-sm">
           <p>
