@@ -42,13 +42,7 @@ export const cursorBasedPagination = <T extends CursorBasedPagination>(
       }
       const { items, pageInfo } = existing;
 
-      return {
-        ...existing,
-        items,
-        pageInfo: {
-          ...pageInfo
-        }
-      } as SafeReadonly<T>;
+      return { ...existing, items, pageInfo: { ...pageInfo } } as SafeReadonly<T>;
     },
 
     merge(existing: Readonly<T> | undefined, incoming: SafeReadonly<T>) {
