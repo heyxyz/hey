@@ -8,7 +8,7 @@ import {
   useProfileInterestsQuery,
   useRemoveProfileInterestMutation
 } from 'lens';
-import { useApolloClient } from 'lens/apollo/lib';
+import { useApolloClient } from 'lens/apollo';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';

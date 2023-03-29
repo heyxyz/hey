@@ -10,7 +10,7 @@ import {
   useUpdateNftGalleryInfoMutation,
   useUpdateNftGalleryItemsMutation
 } from 'lens';
-import { useApolloClient } from 'lens/apollo/lib';
+import { useApolloClient } from 'lens/apollo';
 import trimify from 'lib/trimify';
 import type { Dispatch, FC } from 'react';
 import React, { useState } from 'react';

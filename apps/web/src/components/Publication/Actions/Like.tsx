@@ -8,7 +8,7 @@ import Errors from 'data/errors';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
-import type { ApolloCache } from 'lens/apollo/lib';
+import type { ApolloCache } from 'lens/apollo';
 import hasGm from 'lib/hasGm';
 import { publicationKeyFields } from 'lib/keyFields';
 import nFormatter from 'lib/nFormatter';

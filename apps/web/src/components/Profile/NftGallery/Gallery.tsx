@@ -11,7 +11,7 @@ import {
   useNftGalleriesLazyQuery,
   useUpdateNftGalleryOrderMutation
 } from 'lens';
-import { useApolloClient } from 'lens/apollo/lib';
+import { useApolloClient } from 'lens/apollo';
 import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { toast } from 'react-hot-toast';

@@ -14,7 +14,7 @@ import {
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens';
-import type { ApolloCache } from 'lens/apollo/lib';
+import type { ApolloCache } from 'lens/apollo';
 import getSignature from 'lib/getSignature';
 import humanize from 'lib/humanize';
 import { publicationKeyFields } from 'lib/keyFields';

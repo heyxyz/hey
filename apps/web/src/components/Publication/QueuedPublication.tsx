@@ -10,7 +10,7 @@ import {
   useHasTxHashBeenIndexedQuery,
   usePublicationLazyQuery
 } from 'lens';
-import { useApolloClient } from 'lens/apollo/lib';
+import { useApolloClient } from 'lens/apollo';
 import getURLs from 'lib/getURLs';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
