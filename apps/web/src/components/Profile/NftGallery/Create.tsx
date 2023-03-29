@@ -1,4 +1,3 @@
-import { useApolloClient } from '@apollo/client';
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
@@ -11,6 +10,7 @@ import {
   useUpdateNftGalleryInfoMutation,
   useUpdateNftGalleryItemsMutation
 } from 'lens';
+import { useApolloClient } from 'lens/apollo';
 import trimify from 'lib/trimify';
 import type { Dispatch, FC } from 'react';
 import React, { useState } from 'react';

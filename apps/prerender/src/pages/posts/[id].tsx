@@ -1,7 +1,7 @@
 import Publication from '@components/Publication';
 import { PrerenderPublicationDocument } from 'lens';
+import { nodeClient } from 'lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
-import client from 'src/apollo';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const id = context.params?.id;
@@ -15,7 +15,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const { data } = await client.query({
+  const { data } = await nodeClient.query({
     query: PrerenderPublicationDocument,
     variables: { request: { publicationId: id } }
   });
