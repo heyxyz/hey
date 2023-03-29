@@ -65,15 +65,10 @@ const MessageIcon: FC = () => {
         return lastTimestamp;
       }, null);
       // No messages have been sent or received by the user, ever
-      if (!mostRecentTimestamp) {
-        showMessagesBadge.set(currentProfile.id, false);
-        setShowMessagesBadge(new Map(showMessagesBadge));
-      } else {
-        const sentAt = fromNanoString(mostRecentTimestamp);
-        const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), sentAt);
-        showMessagesBadge.set(currentProfile.id, showBadge);
-        setShowMessagesBadge(new Map(showMessagesBadge));
-      }
+      const sentAt = fromNanoString(mostRecentTimestamp ?? undefined);
+      const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), sentAt);
+      showMessagesBadge.set(currentProfile.id, showBadge);
+      setShowMessagesBadge(new Map(showMessagesBadge));
     };
 
     let messageStream: AsyncGenerator<DecodedMessage>;
