@@ -5318,10 +5318,10 @@
     rxjs "^7.8.0"
     undici "^5.8.1"
 
-"@xmtp/xmtp-js@8.0.0-beta.11":
-  version "8.0.0-beta.11"
-  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-8.0.0-beta.11.tgz#e5983bf6f555838ab554180fc525f4205b852d96"
-  integrity sha512-kRAxGxJv1jiSaF9hl4orc37N5igkt6m8cSRqhyDMs6AbMeRK6GcmsUcLuL+dTrT3AdqXDA/4TVm68Kq5cUMBag==
+"@xmtp/xmtp-js@8.0.0-beta.12":
+  version "8.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@xmtp/xmtp-js/-/xmtp-js-8.0.0-beta.12.tgz#68f0ec61bda4776d41c5a4891a9f11f657924e16"
+  integrity sha512-oVXHGS1/cXH5iIW7iEoZg3qmTy1UUTviL5hZUxRoAmZo55yGPu4w6+aB32sxqKngz05oYB3gtGUo3Pz4o52chA==
   dependencies:
     "@noble/secp256k1" "^1.5.2"
     "@stardazed/streams-polyfill" "^2.4.0"
