@@ -103,7 +103,6 @@ export const mainnetVerified = [
   '0x0fa1', // ittai.lens
   '0xe508', // noahnft.lens
   '0xa68c', // juampi.lens
-  '0x011a73', // tropix.lens
   '0x016463', // romellhenry.lens
   '0x015e00', // dylanh.lens
   '0x016b43', // ethereum.lens
