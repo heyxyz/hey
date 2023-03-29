@@ -8,13 +8,12 @@ import {
   toPromise
 } from '@apollo/client';
 import { RetryLink } from '@apollo/client/link/retry';
-import { cursorBasedPagination } from '@lib/cursorBasedPagination';
 import axios from 'axios';
 import { API_URL } from 'data/constants';
 import { Localstorage } from 'data/storage';
-import result from 'lens';
-import { publicationKeyFields } from 'lib/keyFields';
-import parseJwt from 'lib/parseJwt';
+
+import result from '../generated';
+import { cursorBasedPagination, parseJwt, publicationKeyFields } from './lib';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -132,9 +131,9 @@ const cache = new InMemoryCache({
   }
 });
 
-const client = new ApolloClient({
+const webClient = new ApolloClient({
   link: from([authLink, retryLink, httpLink]),
   cache
 });
 
-export default client;
+export default webClient;
