@@ -1,6 +1,11 @@
 import type { FieldPolicy, StoreValue } from '@apollo/client/core';
 import type { PaginatedResultInfo } from 'lens';
 
+/**
+ *
+ * @param obj Object to search for a __ref property.
+ * @returns the __ref property if found, otherwise null.
+ */
 const getRef = (obj: any): string | null => {
   if (typeof obj === 'object' && obj !== null) {
     if ('__ref' in obj) {
@@ -50,24 +55,24 @@ export const cursorBasedPagination = <T extends CursorBasedPagination>(
         return incoming;
       }
 
-      const existingRefs = new Set();
-      for (const item of existing.items ?? []) {
-        const ref = getRef(item);
-        if (ref) {
-          existingRefs.add(ref);
-        }
-      }
+      const { items: existingItems, pageInfo: existingPageInfo } = existing;
+      const { items: incomingItems, pageInfo: incomingPageInfo } = incoming;
 
-      const items = [...existing.items];
-      for (const item of incoming.items ?? []) {
-        const ref = getRef(item);
-        if (ref && !existingRefs.has(ref)) {
-          items.push(item);
-          existingRefs.add(ref);
-        }
-      }
+      const items = [...existingItems, ...incomingItems];
+      const pageInfo = { ...existingPageInfo, ...incomingPageInfo };
 
-      return { ...incoming, items, pageInfo: incoming.pageInfo } as SafeReadonly<T>;
+      // remove duplicates from items
+      const seen = new Set();
+      const dedupedItems = items.filter((item) => {
+        const ref = getRef(item);
+        if (ref && seen.has(ref)) {
+          return false;
+        }
+        seen.add(ref);
+        return true;
+      });
+
+      return { ...incoming, items: dedupedItems, pageInfo };
     }
   };
 };
