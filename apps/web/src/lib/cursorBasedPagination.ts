@@ -72,7 +72,7 @@ export const cursorBasedPagination = <T extends CursorBasedPagination>(
         return true;
       });
 
-      return { ...incoming, items: dedupedItems, pageInfo };
+      return { ...incoming, items: dedupedItems, pageInfo } as SafeReadonly<T>;
     }
   };
 };
