@@ -1,4 +1,3 @@
-import type { ApolloCache } from '@apollo/client';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -9,6 +8,7 @@ import Errors from 'data/errors';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
+import type { ApolloCache } from 'lens/apollo/lib';
 import hasGm from 'lib/hasGm';
 import { publicationKeyFields } from 'lib/keyFields';
 import nFormatter from 'lib/nFormatter';

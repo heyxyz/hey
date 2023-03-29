@@ -1,4 +1,3 @@
-import { useApolloClient } from '@apollo/client';
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
@@ -12,6 +11,7 @@ import {
   useNftGalleriesLazyQuery,
   useUpdateNftGalleryOrderMutation
 } from 'lens';
+import { useApolloClient } from 'lens/apollo/lib';
 import type { FC } from 'react';
 import React, { Fragment, useState } from 'react';
 import { toast } from 'react-hot-toast';

@@ -1,4 +1,3 @@
-import type { ApolloCache } from '@apollo/client';
 import { UserAddIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -8,6 +7,7 @@ import { LensHub } from 'abis';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import { useBroadcastMutation, useCreateFollowTypedDataMutation, useProxyActionMutation } from 'lens';
+import type { ApolloCache } from 'lens/apollo/lib';
 import getSignature from 'lib/getSignature';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';

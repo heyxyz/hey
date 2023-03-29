@@ -1,13 +1,13 @@
-import { ApolloProvider } from '@apollo/client';
 import { initLocale } from '@lib/i18n';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ALCHEMY_KEY, IS_MAINNET, WALLETCONNECT_PROJECT_ID } from 'data/constants';
+import client from 'lens/apollo';
+import { ApolloProvider } from 'lens/apollo/lib';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
-import client from 'src/apollo';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';

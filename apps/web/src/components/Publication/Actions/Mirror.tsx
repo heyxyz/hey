@@ -1,4 +1,3 @@
-import type { ApolloCache } from '@apollo/client';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -15,6 +14,7 @@ import {
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens';
+import type { ApolloCache } from 'lens/apollo/lib';
 import getSignature from 'lib/getSignature';
 import humanize from 'lib/humanize';
 import { publicationKeyFields } from 'lib/keyFields';
