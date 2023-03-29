@@ -1,5 +1,6 @@
 import { ApolloCache, ApolloProvider, gql, useApolloClient, useQuery } from '@apollo/client';
 
+import nodeClient from './nodeClient';
 import webClient from './webClient';
 
-export { ApolloCache, ApolloProvider, gql, useApolloClient, useQuery, webClient };
+export { ApolloCache, ApolloProvider, gql, nodeClient, useApolloClient, useQuery, webClient };

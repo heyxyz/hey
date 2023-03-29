@@ -7,9 +7,9 @@ const httpLink = new HttpLink({
   fetch
 });
 
-const client = new ApolloClient({
+const nodeClient = new ApolloClient({
   link: from([httpLink]),
-  cache: new InMemoryCache({})
+  cache: new InMemoryCache()
 });
 
-export default client;
+export default nodeClient;

@@ -11,11 +11,9 @@ import { RetryLink } from '@apollo/client/link/retry';
 import axios from 'axios';
 import { API_URL } from 'data/constants';
 import { Localstorage } from 'data/storage';
-import { publicationKeyFields } from 'lib/keyFields';
-import parseJwt from 'lib/parseJwt';
 
 import result from '../generated';
-import { cursorBasedPagination } from './cursorBasedPagination';
+import { cursorBasedPagination, parseJwt, publicationKeyFields } from './lib';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
