@@ -52,7 +52,7 @@ const MessageIcon: FC = () => {
         topics.map((topic) => ({
           contentTopic: topic,
           pageSize: 1,
-          sortDirection: SortDirection.SORT_DIRECTION_DESCENDING
+          direction: SortDirection.SORT_DIRECTION_DESCENDING
         }))
       );
       const mostRecentTimestamp = queryResults.reduce((lastTimestamp: string | null, envelopes) => {
