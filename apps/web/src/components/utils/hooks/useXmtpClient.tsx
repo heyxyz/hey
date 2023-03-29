@@ -49,7 +49,9 @@ const useXmtpClient = (cacheOnly = false) => {
           setAwaitingXmtpAuth(true);
           keys = await Client.getKeys(signer, {
             env: XMTP_ENV,
-            appVersion: APP_NAME + '/' + APP_VERSION
+            appVersion: APP_NAME + '/' + APP_VERSION,
+            persistConversations: false,
+            skipContactPublishing: true
           });
           storeKeys(await signer.getAddress(), keys);
         }
@@ -57,7 +59,8 @@ const useXmtpClient = (cacheOnly = false) => {
         const xmtp = await Client.create(null, {
           env: XMTP_ENV,
           appVersion: APP_NAME + '/' + APP_VERSION,
-          privateKeyOverride: keys
+          privateKeyOverride: keys,
+          persistConversations: true
         });
         setClient(xmtp);
         setAwaitingXmtpAuth(false);
