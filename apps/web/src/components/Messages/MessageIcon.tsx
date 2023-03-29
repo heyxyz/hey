@@ -48,15 +48,32 @@ const MessageIcon: FC = () => {
       }
 
       const topics = matchingConvos.map((convo) => convo.topic);
-      const mostRecentMessages = await cachedClient.listEnvelopes(topics, async (e) => e, {
-        limit: 1,
-        direction: SortDirection.SORT_DIRECTION_DESCENDING
-      });
-      const mostRecentMessage = mostRecentMessages.length > 0 ? mostRecentMessages[0] : null;
-      const sentAt = fromNanoString(mostRecentMessage?.timestampNs);
-      const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), sentAt);
-      showMessagesBadge.set(currentProfile.id, showBadge);
-      setShowMessagesBadge(new Map(showMessagesBadge));
+      const queryResults = await cachedClient.apiClient.batchQuery(
+        topics.map((topic) => ({
+          contentTopic: topic,
+          pageSize: 1,
+          sortDirection: SortDirection.SORT_DIRECTION_DESCENDING
+        }))
+      );
+      const mostRecentTimestamp = queryResults.reduce((lastTimestamp: string | null, envelopes) => {
+        if (!envelopes.length || !envelopes[0]?.timestampNs) {
+          return lastTimestamp;
+        }
+        if (!lastTimestamp || envelopes[0]?.timestampNs > lastTimestamp) {
+          return envelopes[0].timestampNs;
+        }
+        return lastTimestamp;
+      }, null);
+      // No messages have been sent or received by the user, ever
+      if (!mostRecentTimestamp) {
+        showMessagesBadge.set(currentProfile.id, false);
+        setShowMessagesBadge(new Map(showMessagesBadge));
+      } else {
+        const sentAt = fromNanoString(mostRecentTimestamp);
+        const showBadge = shouldShowBadge(viewedMessagesAtNs.get(currentProfile.id), sentAt);
+        showMessagesBadge.set(currentProfile.id, showBadge);
+        setShowMessagesBadge(new Map(showMessagesBadge));
+      }
     };
 
     let messageStream: AsyncGenerator<DecodedMessage>;
