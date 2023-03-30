@@ -13,20 +13,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  type-check:
+  typecheck:
     name: Type check
     uses: ./.github/workflows/typecheck.yml
 
-  lint-check:
+  lint:
     name: Lint check
     uses: ./.github/workflows/lint.yml
 
-  prettier-check:
+  prettier:
     name: Prettier check
     uses: ./.github/workflows/prettier.yml
 
-      # - name: Build 🎁
-      #   run: yarn build
+  build:
+    name: Build
+    needs: [typecheck, lint, prettier]
+    uses: ./.github/workflows/build.yml
 
-      # - name: Run Tests 🧪
-      #   run: yarn test:e2e
+  test:
+      name: Test
+      needs: [build]
+      uses: ./.github/workflows/test.yml
+  
