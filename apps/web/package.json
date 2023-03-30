@@ -42,7 +42,7 @@
     "dayjs-twitter": "^0.5.0",
     "dotenv": "^16.0.3",
     "ethers": "5.6.0",
-    "framer-motion": "^10.9.2",
+    "framer-motion": "^10.10.0",
     "graphql": "^16.6.0",
     "jwt-decode": "^3.1.2",
     "lens": "*",
@@ -64,7 +64,7 @@
     "strip-markdown": "^5.0.0",
     "tlds": "^1.238.0",
     "uuid": "^9.0.0",
-    "wagmi": "^0.12.7",
+    "wagmi": "^0.12.8",
     "zod": "^3.21.4",
     "zustand": "^4.3.6"
   },
@@ -86,8 +86,8 @@
     "autoprefixer": "^10.4.14",
     "eslint-config-weblint": "*",
     "postcss": "^8.4.21",
-    "prettier-plugin-tailwindcss": "^0.2.5",
-    "tailwindcss": "3.2.7",
+    "prettier-plugin-tailwindcss": "^0.2.6",
+    "tailwindcss": "3.3.0",
     "tsconfig": "*",
     "typescript": "^5.0.2"
   }

@@ -17,7 +17,7 @@ const Module: FC<ModuleProps> = ({ module }) => {
 
   return (
     <Card key={module?.module} className="block items-center justify-between p-5 sm:flex" forceRounded>
-      <div className="mr-1.5 mb-3 overflow-hidden sm:mb-0">
+      <div className="mb-3 mr-1.5 overflow-hidden sm:mb-0">
         <div className="flex items-center space-x-2">
           <div className="text-brand">
             <GetModuleIcon module={module?.module} size={4} />
