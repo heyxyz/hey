@@ -36,7 +36,6 @@ jobs:
           path: |
             ~/.cache/ms-playwright
             ${{ github.workspace }}/node_modules/playwright
-            ${{ github.workspace }}/node_modules/.cache/turbo
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: cache-${{ hashFiles('**/yarn.lock') }}
           restore-keys: cache-
