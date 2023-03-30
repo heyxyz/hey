@@ -26,7 +26,6 @@ import {
   ALLOWED_IMAGE_TYPES,
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
-  ERROR_MESSAGE,
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT
 } from 'data/constants';
@@ -219,7 +218,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onCompleted: (data) => {
       onCompleted();
       if (data?.broadcastDataAvailability.__typename === 'RelayError') {
-        return toast.error(ERROR_MESSAGE);
+        return toast.error(Errors.SomethingWentWrong);
       }
 
       if (data?.broadcastDataAvailability.__typename === 'CreateDataAvailabilityPublicationResult') {
