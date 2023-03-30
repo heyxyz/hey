@@ -15,7 +15,7 @@ concurrency:
 jobs:
   type-check:
     name: Type check
-    uses: ./.github/workflows/type.yml
+    uses: ./.github/workflows/typecheck.yml
 
   lint-check:
     name: Lint check
