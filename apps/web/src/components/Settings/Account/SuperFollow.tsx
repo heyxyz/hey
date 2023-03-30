@@ -195,7 +195,7 @@ const SuperFollow: FC = () => {
           {...form.register('recipient')}
         />
         <div className="ml-auto">
-          <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">
+          <div className="block space-x-0 space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
             {followType === 'FeeFollowModuleSettings' && (
               <Button
                 type="button"

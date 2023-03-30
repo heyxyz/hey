@@ -63,7 +63,7 @@ export const Modal: FC<ModalProps> = ({
               )}
             >
               {title && (
-                <div className="divider flex items-center justify-between py-3.5 px-5">
+                <div className="divider flex items-center justify-between px-5 py-3.5">
                   <div className="flex items-center space-x-2 font-bold">
                     {icon}
                     <div>{title}</div>

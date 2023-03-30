@@ -69,7 +69,7 @@ const Search: FC<SearchProps> = ({
       <form onSubmit={handleKeyDown}>
         <Input
           type="text"
-          className="py-2 px-3 text-sm"
+          className="px-3 py-2 text-sm"
           placeholder={placeholder}
           value={searchText}
           iconLeft={<SearchIcon />}
@@ -90,7 +90,7 @@ const Search: FC<SearchProps> = ({
         >
           <Card className="max-h-[80vh] overflow-y-auto py-2">
             {searchUsersLoading ? (
-              <div className="space-y-2 py-2 px-4 text-center text-sm font-bold">
+              <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>
                   <Trans>Searching users</Trans>
@@ -101,7 +101,7 @@ const Search: FC<SearchProps> = ({
                 {profiles.map((profile: Profile) => (
                   <div
                     key={profile?.handle}
-                    className="cursor-pointer py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => {
                       if (onProfileSelected) {
                         onProfileSelected(profile);
@@ -118,7 +118,7 @@ const Search: FC<SearchProps> = ({
                   </div>
                 ))}
                 {profiles.length === 0 && (
-                  <div className="py-2 px-4">
+                  <div className="px-4 py-2">
                     <Trans>No matching users</Trans>
                   </div>
                 )}
