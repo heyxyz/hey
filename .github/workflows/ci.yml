@@ -1,10 +1,16 @@
 name: CI
 
 on:
-  push:
+  pull_request_target:
     branches: [main]
-  pull_request:
+    paths-ignore:
+      - "**.md"
+      - ".github/CODEOWNERS"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ci:
@@ -18,13 +24,30 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'yarn'
+
+      - name: Get yarn cache directory path 📁
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache 📦
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/ms-playwright
+            ${{ github.workspace }}/node_modules/playwright
+            ${{ github.workspace }}/node_modules/.cache/turbo
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: cache-
 
       - name: Install dependencies 📦
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
       - name: Install Playwright browsers 🕹️
-        run: npx playwright install --with-deps
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn playwright install
 
       - name: GraphQL Codegen 🕸
         run: yarn codegen

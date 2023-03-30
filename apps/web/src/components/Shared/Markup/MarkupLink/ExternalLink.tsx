@@ -8,6 +8,10 @@ const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
     return null;
   }
 
+  if (!href.includes('://')) {
+    href = `https://${href}`;
+  }
+
   return (
     <Link
       href={href}
