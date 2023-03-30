@@ -1,10 +1,16 @@
 name: CI
 
 on:
-  push:
+  pull_request_target:
     branches: [main]
-  pull_request:
+    paths-ignore:
+      - "**.md"
+      - ".github/CODEOWNERS"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ci:
@@ -23,8 +29,20 @@ jobs:
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
 
+      - name: Cache Playwright binaries 📦
+        id: playwright-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/ms-playwright
+            ${{ github.workspace }}/node_modules/playwright
+          key: cache-playwright-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: cache-playwright-
+
       - name: Install Playwright browsers 🕹️
-        run: npx playwright install --with-deps
+        shell: bash
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: yarn playwright install
 
       - name: GraphQL Codegen 🕸
         run: yarn codegen
