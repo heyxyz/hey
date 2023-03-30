@@ -15,15 +15,15 @@ concurrency:
 jobs:
   type-check:
     name: Type check
-    uses: ./.github/workflows/type-check.yml
+    uses: ./.github/workflows/type.yml
 
   lint-check:
     name: Lint check
-    uses: ./.github/workflows/lint-check.yml
+    uses: ./.github/workflows/lint.yml
 
   prettier-check:
     name: Prettier check
-    uses: ./.github/workflows/prettier-check.yml
+    uses: ./.github/workflows/prettier.yml
 
       # - name: Build 🎁
       #   run: yarn build

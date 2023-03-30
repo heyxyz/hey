@@ -1,12 +1,12 @@
-name: Type check
+name: Lint
 
 on:
   workflow_call:
 
 jobs:
-  type-check:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/yarn-install
-      - run: yarn typecheck
+      - run: yarn lint
