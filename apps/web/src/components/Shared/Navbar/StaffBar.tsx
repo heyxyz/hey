@@ -8,12 +8,12 @@ interface BadgeProps {
 }
 
 const Badge: FC<BadgeProps> = ({ children }) => (
-  <span className="rounded-md bg-gray-300 py-0.5 px-1.5 text-xs font-bold dark:bg-gray-900">{children}</span>
+  <span className="rounded-md bg-gray-300 px-1.5 py-0.5 text-xs font-bold dark:bg-gray-900">{children}</span>
 );
 
 const StaffBar: FC = () => {
   return (
-    <div className="flex justify-between bg-gray-200 py-1 px-3 text-sm dark:bg-black">
+    <div className="flex justify-between bg-gray-200 px-3 py-1 text-sm dark:bg-black">
       <div className="flex items-center space-x-2">
         {IS_PRODUCTION ? (
           <div className="flex items-center space-x-1">

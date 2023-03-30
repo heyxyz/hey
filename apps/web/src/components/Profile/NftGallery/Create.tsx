@@ -236,7 +236,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           <Picker />
         ) : (
           <textarea
-            className="w-full resize-none border-none bg-white py-2 px-4 outline-none !ring-0 dark:bg-gray-800"
+            className="w-full resize-none border-none bg-white px-4 py-2 outline-none !ring-0 dark:bg-gray-800"
             value={gallery.name}
             onChange={(e) => setGallery({ ...gallery, name: e.target.value, items: gallery.items })}
             rows={4}

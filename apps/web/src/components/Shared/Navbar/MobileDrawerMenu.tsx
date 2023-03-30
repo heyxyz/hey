@@ -65,24 +65,24 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           {profiles.length > 1 && (
-            <SwitchProfile className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
+            <SwitchProfile className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
           )}
           <div className="divider" />
-          <Status className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
+          <Status className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
             <Link href={`/u/${formatHandle(currentProfile?.handle)}`} onClick={closeDrawer}>
-              <YourProfile className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
+              <YourProfile className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
             </Link>
             <Link href={'/settings'} onClick={closeDrawer}>
-              <Settings className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
+              <Settings className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
             </Link>
             {isGardener(currentProfile?.id) && (
               <Link href="/mod" onClick={closeDrawer}>
-                <Mod className="py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" />
+                <Mod className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
               </Link>
             )}
             <ThemeSwitch className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={closeDrawer} />

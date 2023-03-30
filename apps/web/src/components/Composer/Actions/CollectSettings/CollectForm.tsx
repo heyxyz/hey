@@ -175,7 +175,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
 
   if (loading) {
     return (
-      <div className="space-y-2 py-3.5 px-5 text-center font-bold">
+      <div className="space-y-2 px-5 py-3.5 text-center font-bold">
         <Spinner size="md" className="mx-auto" />
         <div>
           <Trans>Loading collect settings</Trans>
