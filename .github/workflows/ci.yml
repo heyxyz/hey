@@ -13,6 +13,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  prepare:
+    name: Prepare
+    uses: ./.github/workflows/prepare.yml
+
   typecheck:
     name: Typecheck
     uses: ./.github/workflows/typecheck.yml

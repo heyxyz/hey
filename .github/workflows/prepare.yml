@@ -1,0 +1,11 @@
+name: Prepare
+
+on:
+  workflow_call:
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/yarn-install
