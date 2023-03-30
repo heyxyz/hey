@@ -19,14 +19,17 @@ jobs:
 
   typecheck:
     name: Typecheck
+    needs: [prepare]
     uses: ./.github/workflows/typecheck.yml
 
   lint:
-    name: Lint 
+    name: Lint
+    needs: [prepare]
     uses: ./.github/workflows/lint.yml
 
   prettier:
     name: Prettier
+    needs: [prepare]
     uses: ./.github/workflows/prettier.yml
 
   build:
