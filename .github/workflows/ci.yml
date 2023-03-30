@@ -42,7 +42,6 @@ jobs:
           restore-keys: cache-
 
       - name: Install dependencies 📦
-        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
       - name: Install Playwright browsers 🕹️
