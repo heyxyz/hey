@@ -21,8 +21,7 @@ runs:
       with:
         path: |
           ~/.cache/ms-playwright
-          ${{ github.workspace }}/node_modules/playwright
-          ${{ github.workspace }}/node_modules/.cache/turbo
+          ${{ github.workspace }}/node_modules
           ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
         key: cache-${{ hashFiles('**/yarn.lock') }}
         restore-keys: cache-
