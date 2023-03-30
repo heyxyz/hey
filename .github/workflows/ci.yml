@@ -24,24 +24,29 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'yarn'
 
-      - name: Install dependencies 📦
-        run: yarn install --frozen-lockfile
+      - name: Get yarn cache directory path 📁
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - name: Cache Playwright binaries 📦
-        id: playwright-cache
+      - name: Cache 📦
+        id: cache
         uses: actions/cache@v3
         with:
           path: |
             ~/.cache/ms-playwright
             ${{ github.workspace }}/node_modules/playwright
-          key: cache-playwright-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: cache-playwright-
+            ${{ github.workspace }}/node_modules/.cache/turbo
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: cache-
+
+      - name: Install dependencies 📦
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
 
       - name: Install Playwright browsers 🕹️
-        shell: bash
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn playwright install
 
       - name: GraphQL Codegen 🕸
