@@ -14,15 +14,15 @@ concurrency:
 
 jobs:
   typecheck:
-    name: Type check
+    name: Typecheck
     uses: ./.github/workflows/typecheck.yml
 
   lint:
-    name: Lint check
+    name: Lint 
     uses: ./.github/workflows/lint.yml
 
   prettier:
-    name: Prettier check
+    name: Prettier
     uses: ./.github/workflows/prettier.yml
 
   build:
@@ -34,4 +34,12 @@ jobs:
       name: Test
       needs: [build]
       uses: ./.github/workflows/test.yml
-  
+
+  required:
+    needs: [typecheck, lint, prettier, build, test]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: fail if conditional jobs failed
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'skipped') || contains(needs.*.result, 'cancelled')
+        run: exit 1
