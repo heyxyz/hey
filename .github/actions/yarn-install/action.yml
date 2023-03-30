@@ -28,8 +28,10 @@ runs:
         restore-keys: cache-
 
     - name: Install dependencies
+      shell: bash
       run: yarn install --inline-builds --frozen-lockfile
 
     - name: Install Playwright browsers
+      shell: bash
       if: steps.cache.outputs.cache-hit != 'true'
       run: yarn playwright install
