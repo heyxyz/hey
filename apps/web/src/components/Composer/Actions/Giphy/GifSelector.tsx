@@ -96,7 +96,7 @@ const GifSelector: FC<GifSelectorProps> = ({ setShowModal, setGifAttachment }) =
                   alt=""
                   draggable={false}
                 />
-                <div className="absolute right-0 bottom-0 w-full bg-gradient-to-b from-transparent to-gray-800 py-1 px-2 text-right text-lg font-bold text-white">
+                <div className="absolute bottom-0 right-0 w-full bg-gradient-to-b from-transparent to-gray-800 px-2 py-1 text-right text-lg font-bold text-white">
                   <span className="capitalize">{category.name}</span>
                 </div>
               </button>
