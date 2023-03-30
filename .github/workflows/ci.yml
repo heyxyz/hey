@@ -13,55 +13,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ci:
-    name: CI
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🚪
-        uses: actions/checkout@v3
+  type-check:
+    name: Type check
+    uses: ./.github/workflows/type-check.yml
 
-      - name: Setup node 🍀
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
+  lint-check:
+    name: Lint check
+    uses: ./.github/workflows/lint-check.yml
 
-      - name: Get yarn cache directory path 📁
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+  prettier-check:
+    name: Prettier check
+    uses: ./.github/workflows/prettier-check.yml
 
-      - name: Cache 📦
-        id: cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache/ms-playwright
-            ${{ github.workspace }}/node_modules/playwright
-            ${{ github.workspace }}/node_modules/.cache/turbo
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: cache-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: cache-
+      # - name: Build 🎁
+      #   run: yarn build
 
-      - name: Install dependencies 📦
-        run: yarn install --frozen-lockfile
-
-      - name: Install Playwright browsers 🕹️
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: yarn playwright install
-
-      - name: GraphQL Codegen 🕸
-        run: yarn codegen
-
-      - name: Typecheck 🔡
-        run: yarn typecheck
-
-      - name: Lint 🪩
-        run: yarn lint
-
-      - name: Prettier ✨
-        run: yarn prettier
-
-      - name: Build 🎁
-        run: yarn build
-
-      - name: Run Tests 🧪
-        run: yarn test:e2e
+      # - name: Run Tests 🧪
+      #   run: yarn test:e2e

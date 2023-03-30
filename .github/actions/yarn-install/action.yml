@@ -1,0 +1,33 @@
+name: Yarn install
+description: Run yarn install with node_modules and cache enabled
+
+runs:
+  using: composite
+  steps:
+    - name: Setup node
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: '.nvmrc'
+
+    - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - name: Cache
+      id: cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/ms-playwright
+          ${{ github.workspace }}/node_modules/playwright
+          ${{ github.workspace }}/node_modules/.cache/turbo
+          ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: cache-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: cache-
+
+    - name: Install dependencies
+      run: yarn install --inline-builds --frozen-lockfile
+
+    - name: Install Playwright browsers
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: yarn playwright install

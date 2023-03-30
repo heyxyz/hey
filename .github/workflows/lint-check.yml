@@ -1,0 +1,12 @@
+name: Lint check
+
+on:
+  workflow_call:
+
+jobs:
+  lint-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/yarn-install
+      - run: yarn lint
