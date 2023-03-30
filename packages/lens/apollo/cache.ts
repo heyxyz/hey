@@ -1,7 +1,20 @@
 import { InMemoryCache } from '@apollo/client';
 
 import result from '../generated';
-import { cursorBasedPagination, publicationKeyFields } from './lib';
+import createExplorePublicationsFieldPolicy from './fieldPolicies/createExplorePublicationsFieldPolicy';
+import createFeedFieldPolicy from './fieldPolicies/createFeedFieldPolicy';
+import createFeedHighlightsFieldPolicy from './fieldPolicies/createFeedHighlightsFieldPolicy';
+import createFollowersFieldPolicy from './fieldPolicies/createFollowersFieldPolicy';
+import createFollowingFieldPolicy from './fieldPolicies/createFollowingFieldPolicy';
+import createMutualFollowersProfilesFieldPolicy from './fieldPolicies/createMutualFollowersProfilesFieldPolicy';
+import createNftsFieldPolicy from './fieldPolicies/createNftsFieldPolicy';
+import createNotificationsFieldPolicy from './fieldPolicies/createNotificationsFieldPolicy';
+import createProfilesFieldPolicy from './fieldPolicies/createProfilesFieldPolicy';
+import createPublicationsFieldPolicy from './fieldPolicies/createPublicationsFieldPolicy';
+import createSearchFieldPolicy from './fieldPolicies/createSearchFieldPolicy';
+import createWhoCollectedPublicationFieldPolicy from './fieldPolicies/createWhoCollectedPublicationFieldPolicy';
+import createWhoReactedPublicationFieldPolicy from './fieldPolicies/createWhoReactedPublicationFieldPolicy';
+import { publicationKeyFields } from './lib';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
@@ -11,28 +24,19 @@ const cache = new InMemoryCache({
     Mirror: { keyFields: publicationKeyFields },
     Query: {
       fields: {
-        feed: cursorBasedPagination(['request', ['profileId', 'feedEventItemTypes']]),
-        feedHighlights: cursorBasedPagination(['request', ['profileId']]),
-        explorePublications: cursorBasedPagination(['request', ['sortCriteria', 'metadata']]),
-        publications: cursorBasedPagination([
-          'request',
-          ['profileId', 'collectedBy', 'commentsOf', 'publicationTypes', 'metadata', 'commentsRankingFilter']
-        ]),
-        nfts: cursorBasedPagination(['request', ['ownerAddress', 'chainIds']]),
-        notifications: cursorBasedPagination(['request', ['profileId', 'notificationTypes']]),
-        followers: cursorBasedPagination(['request', ['profileId']]),
-        following: cursorBasedPagination(['request', ['address']]),
-        search: cursorBasedPagination(['request', ['query', 'type']]),
-        profiles: cursorBasedPagination([
-          'request',
-          ['profileIds', 'ownedBy', 'handles', 'whoMirroredPublicationId']
-        ]),
-        whoCollectedPublication: cursorBasedPagination(['request', ['publicationId']]),
-        whoReactedPublication: cursorBasedPagination(['request', ['publicationId']]),
-        mutualFollowersProfiles: cursorBasedPagination([
-          'request',
-          ['viewingProfileId', 'yourProfileId', 'limit']
-        ])
+        feed: createFeedFieldPolicy(),
+        feedHighlights: createFeedHighlightsFieldPolicy(),
+        explorePublications: createExplorePublicationsFieldPolicy(),
+        publications: createPublicationsFieldPolicy(),
+        nfts: createNftsFieldPolicy(),
+        notifications: createNotificationsFieldPolicy(),
+        followers: createFollowersFieldPolicy(),
+        following: createFollowingFieldPolicy(),
+        search: createSearchFieldPolicy(),
+        profiles: createProfilesFieldPolicy(),
+        whoCollectedPublication: createWhoCollectedPublicationFieldPolicy(),
+        whoReactedPublication: createWhoReactedPublicationFieldPolicy(),
+        mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy()
       }
     }
   }
