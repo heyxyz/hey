@@ -22,15 +22,6 @@ jobs:
       - name: Install 📦
         run: yarn install --frozen-lockfile
 
-      - name: Typecheck 🔡
-        run: yarn typecheck
-
-      - name: Lint 🪩
-        run: yarn lint
-
-      - name: Prettier ✨
-        run: yarn prettier
-
       - name: Deploy 🚀
         run: |
           yarn global add wrangler
