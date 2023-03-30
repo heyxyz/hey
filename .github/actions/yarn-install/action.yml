@@ -9,9 +9,11 @@ runs:
       with:
         node-version-file: '.nvmrc'
 
-    - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+    - name: Expose yarn config as "$GITHUB_OUTPUT"
+      id: yarn-config
+      shell: bash
+      run: |
+        echo "CACHE_FOLDER=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
     - name: Cache
       id: cache
@@ -21,7 +23,7 @@ runs:
           ~/.cache/ms-playwright
           ${{ github.workspace }}/node_modules/playwright
           ${{ github.workspace }}/node_modules/.cache/turbo
-          ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          ${{ steps.yarn-config.outputs.CACHE_FOLDER }}
         key: cache-${{ hashFiles('**/yarn.lock') }}
         restore-keys: cache-
 
