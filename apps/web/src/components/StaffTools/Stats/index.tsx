@@ -124,7 +124,7 @@ const Stats: NextPage = () => {
           ) : (
             <section className="space-y-3">
               <h1 className="mb-4 text-xl font-bold">Stats</h1>
-              <div className="block justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-3">
+              <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
                 <StatBox
                   icon={<UsersIcon className="h-6 w-6" />}
                   value={stats?.totalProfiles}
@@ -147,7 +147,7 @@ const Stats: NextPage = () => {
                   title="total posts"
                 />
               </div>
-              <div className="block justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-3">
+              <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
                 <StatBox
                   icon={<SwitchHorizontalIcon className="h-6 w-6" />}
                   value={stats?.totalMirrors}
@@ -163,7 +163,7 @@ const Stats: NextPage = () => {
                   title="total comments"
                 />
               </div>
-              <div className="block justify-between space-y-3 sm:flex sm:space-y-0 sm:space-x-3">
+              <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
                 <StatBox
                   icon={<CollectionIcon className="h-6 w-6" />}
                   value={stats?.totalCollects}
