@@ -1,5 +1,6 @@
 query PrerenderProfile($request: SingleProfileQueryRequest!) {
   profile(request: $request) {
+    id
     handle
     name
     bio
@@ -8,6 +9,7 @@ query PrerenderProfile($request: SingleProfileQueryRequest!) {
       totalFollowers
       totalFollowing
       totalPosts
+      totalComments
     }
     picture {
       ... on MediaSet {
