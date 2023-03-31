@@ -2,8 +2,7 @@ name: Clean branch cache
 
 on:
   pull_request:
-    types:
-      - closed
+    types: [closed]
 
 jobs:
   cleanup:
