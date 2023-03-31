@@ -24,13 +24,13 @@
         <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>
     <a href="https://lenster.checklyhq.com">
-        <img src="https://api.checklyhq.com/v1/badges/checks/4c205fee-8666-4dc8-bc92-077084ef9643?style=flat&theme=default&responseTime=true" alt="Checkly">
+        <img src="https://api.checklyhq.com/v1/badges/checks/0f10fc23-4359-4cf9-a062-dbaa5a4cf0ea?style=flat&theme=default&responseTime=true" alt="Checkly">
     </a>
     <a href="https://github.com/lensterxyz/lenster/stargazers">
         <img src="https://img.shields.io/github/stars/lensterxyz/lenster?label=Stars&logo=github" alt="Stargazers">
     </a>
     <a href="https://github.com/lensterxyz/lenster/blob/main/LICENSE">
-        <img src="https://badgen.net/github/license/lensterxyz/lenster" alt="License">
+        <img src="https://img.shields.io/github/license/lensterxyz/lenster?label=Licence&logo=gnu" alt="License">
     </a>
     <a href="https://lenster.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
