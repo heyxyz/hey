@@ -35,6 +35,9 @@
     <a href="https://lenster.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
+    <a href="https://github.com/orgs/lensterxyz/projects/6/views/3">
+        <img src="https://img.shields.io/github/issues/lensterxyz/lenster/Bounty?color=8b5cf6&label=Bounties&logo=ethereum" alt="Bounties">
+    </a>
 </div>
 <div align="center">
     <br>
