@@ -107,7 +107,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         </nav>
         <hr />
       </header>
-      <div>
+      <div data-testid="feed">
         {publications?.map((publication) => {
           const { stats, metadata } = publication;
           const isMirror = publication.__typename === 'Mirror';

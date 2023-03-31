@@ -15,5 +15,9 @@ test('should have name', async ({ page }) => {
 });
 
 test('should have handle', async ({ page }) => {
-  await expect(page.getByTestId('name')).toContainText('@yoginth');
+  await expect(page.getByTestId('handle')).toContainText('@yoginth');
+});
+
+test('should have feed', async ({ page }) => {
+  await expect(page.getByTestId('feed')).toBeVisible();
 });
