@@ -1,6 +1,6 @@
 import Profile from '@components/Profile';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
-import { PrerenderProfileDocument, PrerenderProfilePublicationsDocument } from 'lens';
+import { PrerenderProfileDocument, ProfileFeedDocument } from 'lens';
 import { nodeClient } from 'lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
@@ -32,7 +32,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const reactionRequest = { profileId };
 
     const { data: profilePublicationsData } = await nodeClient.query({
-      query: PrerenderProfilePublicationsDocument,
+      query: ProfileFeedDocument,
       variables: { request: { profileId, limit: 50 }, reactionRequest, profileId }
     });
 

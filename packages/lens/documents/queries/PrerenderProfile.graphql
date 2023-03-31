@@ -23,23 +23,3 @@ query PrerenderProfile($request: SingleProfileQueryRequest!) {
     }
   }
 }
-
-query PrerenderProfilePublications(
-  $request: PublicationsQueryRequest!
-  $reactionRequest: ReactionFieldResolverRequest
-  $profileId: ProfileId
-) {
-  publications(request: $request) {
-    items {
-      ... on Post {
-        ...PostFields
-      }
-      ... on Comment {
-        ...CommentFields
-      }
-      ... on Mirror {
-        ...MirrorFields
-      }
-    }
-  }
-}
