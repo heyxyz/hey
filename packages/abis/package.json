@@ -9,11 +9,9 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts"
   },
-  "dependencies": {
-    "typescript": "^5.0.2"
-  },
   "devDependencies": {
     "eslint-config-weblint": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "typescript": "^5.0.3"
   }
 }
