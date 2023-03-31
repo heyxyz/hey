@@ -4,8 +4,11 @@ import { cursorBasedPagination } from '../lib';
 
 const createPublicationsFieldPolicy = (): FieldPolicy => {
   return cursorBasedPagination([
-    'request',
-    ['profileId', 'collectedBy', 'commentsOf', 'publicationTypes', 'metadata', 'commentsRankingFilter']
+    [
+      'request',
+      ['profileId', 'collectedBy', 'commentsOf', 'publicationTypes', 'metadata', 'commentsRankingFilter']
+    ],
+    '$profileId'
   ]);
 };
 
