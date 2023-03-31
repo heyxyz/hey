@@ -9,13 +9,13 @@
   },
   "dependencies": {
     "normalize-wheel": "^1.0.1",
-    "rc-slider": "^10.1.1",
-    "typescript": "^5.0.2"
+    "rc-slider": "^10.1.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
     "@types/normalize-wheel": "^1.0.1",
     "eslint-config-weblint": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "typescript": "^5.0.3"
   }
 }
