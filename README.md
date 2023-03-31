@@ -27,7 +27,7 @@
         <img src="https://api.checklyhq.com/v1/badges/checks/4c205fee-8666-4dc8-bc92-077084ef9643?style=flat&theme=default&responseTime=true" alt="Checkly">
     </a>
     <a href="https://github.com/lensterxyz/lenster/stargazers">
-        <img src="https://img.shields.io/github/stars/lensterxyz/lenster" alt="Stargazers">
+        <img src="https://img.shields.io/github/stars/lensterxyz/lenster?label=Stars&logo=github" alt="Stargazers">
     </a>
     <a href="https://github.com/lensterxyz/lenster/blob/main/LICENSE">
         <img src="https://badgen.net/github/license/lensterxyz/lenster" alt="License">
