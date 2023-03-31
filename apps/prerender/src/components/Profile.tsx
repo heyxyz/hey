@@ -79,8 +79,8 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
       />
       <header>
         <img alt={`@${formatHandle(profile.handle)}'s avatar`} src={image} width="64" />
-        <h1>{profile.name ?? profile.handle}</h1>
-        <h2>@{formatHandle(profile.handle)}</h2>
+        <h1 data-testid="name">{profile.name ?? profile.handle}</h1>
+        <h2 data-testis="handle">@{formatHandle(profile.handle)}</h2>
         <div>
           <div>{profile.stats.totalPosts} Posts</div>
           <div>{profile.stats.totalComments} Replies</div>
@@ -143,7 +143,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
                   </a>
                 </div>
                 <div>
-                  <a href={`${BASE_URL}/posts/${publicationId}`}>{publication.metadata.content ?? ''}</a>
+                  <a href={`${BASE_URL}/posts/${publicationId}`}>{metadata.content ?? ''}</a>
                 </div>
               </div>
               <div>
