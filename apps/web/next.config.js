@@ -16,10 +16,9 @@ module.exports = withSentryConfig(
     },
     async rewrites() {
       return [
-        {
-          source: '/collect/:match*',
-          destination: 'https://api.mixpanel.com/:match*'
-        }
+        { source: '/collect/:match*', destination: 'https://api.mixpanel.com/:match*' },
+        { source: '/sitemap.xml', destination: 'https://sitemap.lenster.xyz/sitemap.xml' },
+        { source: '/sitemap/:match*', destination: 'https://sitemap.lenster.xyz/:match*' }
       ];
     },
     async redirects() {
