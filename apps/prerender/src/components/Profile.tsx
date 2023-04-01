@@ -81,6 +81,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         <img alt={`@${formatHandle(profile.handle)}'s avatar`} src={image} width="64" />
         <h1 data-testid="profile-name">{profile.name ?? profile.handle}</h1>
         <h2 data-testid="profile-handle">@{formatHandle(profile.handle)}</h2>
+        <h3 data-testid="profile-bio">{profile.bio}</h3>
         <div>
           <div>{profile.stats.totalPosts} Posts</div>
           <div>{profile.stats.totalComments} Replies</div>
