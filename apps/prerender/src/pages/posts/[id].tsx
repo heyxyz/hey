@@ -29,12 +29,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (publicationData.publication) {
     const profileId = null;
     const reactionRequest = { profileId };
+    const { publication } = publicationData;
+    const id = publication.__typename === 'Mirror' ? publication.mirrorOf.id : publication.id;
 
     const { data: commentsData } = await nodeClient.query({
       query: CommentFeedDocument,
       variables: {
         request: {
-          commentsOf: publicationData.publication.id,
+          commentsOf: id,
           customFilters: [CustomFiltersTypes.Gardeners],
           commentsOfOrdering: CommentOrderingTypes.Ranking,
           commentsRankingFilter: CommentRankingFilter.Relevant,
@@ -46,7 +48,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     });
 
     return {
-      props: { publication: publicationData?.publication, comments: commentsData.publications?.items }
+      props: { publication, comments: commentsData.publications?.items }
     };
   }
 
