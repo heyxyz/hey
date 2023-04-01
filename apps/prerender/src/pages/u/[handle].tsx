@@ -1,6 +1,6 @@
 import Profile from '@components/Profile';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
-import { PrerenderProfileDocument, ProfileFeedDocument } from 'lens';
+import { CustomFiltersTypes, PrerenderProfileDocument, ProfileFeedDocument } from 'lens';
 import { nodeClient } from 'lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
@@ -33,7 +33,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const { data: profilePublicationsData } = await nodeClient.query({
       query: ProfileFeedDocument,
-      variables: { request: { profileId, limit: 50 }, reactionRequest, profileId }
+      variables: {
+        request: { profileId, customFilters: [CustomFiltersTypes.Gardeners], limit: 50 },
+        reactionRequest,
+        profileId
+      }
     });
 
     return {
