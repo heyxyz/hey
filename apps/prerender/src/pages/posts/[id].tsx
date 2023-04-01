@@ -1,5 +1,11 @@
 import Publication from '@components/Publication';
-import { PrerenderPublicationDocument } from 'lens';
+import {
+  CommentFeedDocument,
+  CommentOrderingTypes,
+  CommentRankingFilter,
+  CustomFiltersTypes,
+  PublicationDocument
+} from 'lens';
 import { nodeClient } from 'lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
@@ -15,13 +21,37 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const { data } = await nodeClient.query({
-    query: PrerenderPublicationDocument,
+  const { data: publicationData } = await nodeClient.query({
+    query: PublicationDocument,
     variables: { request: { publicationId: id } }
   });
 
+  if (publicationData.publication) {
+    const profileId = null;
+    const reactionRequest = { profileId };
+
+    const { data: commentsData } = await nodeClient.query({
+      query: CommentFeedDocument,
+      variables: {
+        request: {
+          commentsOf: publicationData.publication.id,
+          customFilters: [CustomFiltersTypes.Gardeners],
+          commentsOfOrdering: CommentOrderingTypes.Ranking,
+          commentsRankingFilter: CommentRankingFilter.Relevant,
+          limit: 50
+        },
+        reactionRequest,
+        profileId
+      }
+    });
+
+    return {
+      props: { publication: publicationData?.publication, comments: commentsData.publications?.items }
+    };
+  }
+
   return {
-    props: { publication: data?.publication }
+    props: { publication: null, comments: null }
   };
 }
 

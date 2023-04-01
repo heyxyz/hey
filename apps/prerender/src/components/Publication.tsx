@@ -1,4 +1,5 @@
 import { AVATAR, DEFAULT_OG, USER_CONTENT_URL } from 'data/constants';
+import type { Comment } from 'lens';
 import { Publication } from 'lens';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
@@ -9,9 +10,10 @@ import Tags from './Shared/Tags';
 
 interface PublicationProps {
   publication: Publication;
+  comments: Comment[];
 }
 
-const Publication: FC<PublicationProps> = ({ publication }) => {
+const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   if (!publication) {
     return <DefaultTags />;
   }
