@@ -30,7 +30,7 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
   if (profiles?.length === 2) {
     return (
       <Wrapper>
-        <ProfileNameOrHandle profile={profileOne} separator="and" />
+        <ProfileNameOrHandle profile={profileOne} separator=" and " />
         <ProfileNameOrHandle profile={profileTwo} />
       </Wrapper>
     );
