@@ -10,7 +10,7 @@ const config: PlaywrightTestConfig = {
   maxFailures: 3,
   forbidOnly: Boolean(process.env.CI),
   retries: 3,
-  workers: os.cpus().length - 1,
+  workers: os.cpus().length === 1 ? 1 : os.cpus().length - 1,
   reporter: 'list',
   use: { actionTimeout: 0, trace: 'on-first-retry' },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }]
