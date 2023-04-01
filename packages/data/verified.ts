@@ -2,6 +2,13 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0xc01c', // lenstubelogs.lens
+  '0x565f', // zapper.lens
+  '0x011a73', // tropix.lens
+  '0x0376', // tropixofficial.lens
+  '0x01c498', // sammyarriaga.lens
+  '0x01852a', // beatsapp.lens
+  '0x01c48b', // soundxyz_.lens
   '0x01bff3', // glassxyz.lens
   '0x01b69c', // sagargowda.lens
   '0x8a58', // fabri.lens
@@ -101,7 +108,6 @@ export const mainnetVerified = [
   '0x0fa1', // ittai.lens
   '0xe508', // noahnft.lens
   '0xa68c', // juampi.lens
-  '0x011a73', // tropix.lens
   '0x016463', // romellhenry.lens
   '0x015e00', // dylanh.lens
   '0x016b43', // ethereum.lens

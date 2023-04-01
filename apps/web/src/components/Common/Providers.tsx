@@ -1,13 +1,12 @@
-import { ApolloProvider } from '@apollo/client';
 import { initLocale } from '@lib/i18n';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ALCHEMY_KEY, IS_MAINNET, WALLETCONNECT_PROJECT_ID } from 'data/constants';
+import { ApolloProvider, webClient } from 'lens/apollo';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
-import client from 'src/apollo';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -41,6 +40,7 @@ const wagmiClient = createClient({
 });
 
 const queryClient = new QueryClient();
+const apolloClient = webClient;
 
 const Providers = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
@@ -51,7 +51,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <I18nProvider i18n={i18n}>
       <ErrorBoundary>
         <WagmiConfig client={wagmiClient}>
-          <ApolloProvider client={client}>
+          <ApolloProvider client={apolloClient}>
             <QueryClientProvider client={queryClient}>
               <ThemeProvider defaultTheme="light" attribute="class">
                 <Layout>{children}</Layout>

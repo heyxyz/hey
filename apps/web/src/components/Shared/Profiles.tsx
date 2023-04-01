@@ -9,10 +9,10 @@ interface ProfileCirclesProps {
 
 const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
-    <>
+    <span>
       {children}
-      {context ? <span>{context}</span> : null}
-    </>
+      {context ? <span> {context}</span> : null}
+    </span>
   );
 
   const profileOne = profiles[0];
@@ -44,12 +44,17 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
       <Wrapper>
         <ProfileNameOrHandle profile={profileOne} separator=", " />
         <ProfileNameOrHandle profile={profileTwo} separator={isZero ? ' and ' : ', '} />
-        <ProfileNameOrHandle profile={profileThree} />
-        {!isZero && (
-          <span className="whitespace-nowrap">
-            and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
-          </span>
-        )}
+        <ProfileNameOrHandle
+          profile={profileThree}
+          separator={
+            !isZero && (
+              <span className="whitespace-nowrap">
+                {' '}
+                and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
+              </span>
+            )
+          }
+        />
       </Wrapper>
     );
   }

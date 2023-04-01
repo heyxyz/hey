@@ -1,4 +1,3 @@
-import { useApolloClient } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
@@ -11,6 +10,7 @@ import {
   useHasTxHashBeenIndexedQuery,
   usePublicationLazyQuery
 } from 'lens';
+import { useApolloClient } from 'lens/apollo';
 import getURLs from 'lib/getURLs';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -94,7 +94,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
           </div>
         </Tooltip>
       </div>
-      <div className="ml-[53px] break-words">
+      <div className="ml-[53px]">
         <div className="markup linkify text-md break-words">
           <Markup>{txn?.content}</Markup>
         </div>

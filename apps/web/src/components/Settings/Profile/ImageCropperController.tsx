@@ -60,7 +60,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
           setMaxZoom(maxZoomValue);
         }}
       />
-      <div className="flex pt-2 pb-2" style={{ width: cropSize.width + borderSize * 2 }}>
+      <div className="flex pb-2 pt-2" style={{ width: cropSize.width + borderSize * 2 }}>
         <ZoomOutIcon className="m-1 h-6 w-6" />
         <Slider
           className="m-2"

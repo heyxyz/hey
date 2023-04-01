@@ -37,12 +37,12 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
       <Profiles profiles={getAllProfiles()} />
       <div className="flex items-center space-x-1">
         {mirrorsLength ? (
-          <span className="whitespace-nowrap">
+          <span>
             <Trans>mirrored{totalActions < 3 ? (totalActions !== 1 ? ' and ' : '') : ', '}</Trans>
           </span>
         ) : null}
         {commentsLength ? (
-          <span className="whitespace-nowrap">
+          <span>
             <Trans>
               commented
               {totalActions < 3
@@ -57,7 +57,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
           </span>
         ) : null}
         {collectsLength ? (
-          <span className="whitespace-nowrap">
+          <span>
             <Trans>
               collected
               {totalActions >= 3 && reactionsLength ? ' and ' : reactionsLength ? ' and ' : ''}
@@ -65,7 +65,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
           </span>
         ) : null}
         {reactionsLength ? (
-          <span className="whitespace-nowrap">
+          <span>
             <Trans>liked</Trans>
           </span>
         ) : null}

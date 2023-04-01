@@ -1,10 +1,21 @@
 name: CI
 
 on:
-  push:
+  pull_request_target:
     branches: [main]
-  pull_request:
+    paths-ignore:
+      - "**.md"
+      - ".github/CODEOWNERS"
+      - ".github/FUNDING.yml"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".vscode/**"
+      - "LICENSE"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ci:
@@ -20,11 +31,22 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
 
+      - name: Cache Playwright 📦
+        id: cache-playwright
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/ms-playwright
+            ${{ github.workspace }}/node_modules/playwright
+          key: cache-playwright-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: cache-playwright-
+
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
 
       - name: Install Playwright browsers 🕹️
-        run: npx playwright install --with-deps
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
+        run: yarn playwright install
 
       - name: GraphQL Codegen 🕸
         run: yarn codegen

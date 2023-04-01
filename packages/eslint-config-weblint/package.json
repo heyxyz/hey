@@ -5,8 +5,8 @@
   "private": true,
   "license": "GPL-3.0",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
-    "eslint": "^8.36.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "eslint": "^8.37.0",
     "eslint-config-next": "^13.2.4",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",

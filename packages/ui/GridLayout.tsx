@@ -8,7 +8,7 @@ interface GridProps {
 
 export const GridLayout: FC<GridProps> = ({ children, className = '', classNameChild = '' }) => {
   return (
-    <div className={`container mx-auto max-w-screen-xl flex-grow px-0 pt-8 pb-2 sm:px-5 ${className}`}>
+    <div className={`container mx-auto max-w-screen-xl flex-grow px-0 pb-2 pt-8 sm:px-5 ${className}`}>
       <div className={`grid grid-cols-12 lg:gap-8 ${classNameChild}`}>{children}</div>
     </div>
   );

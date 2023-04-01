@@ -16562,6 +16562,7 @@ export type PrerenderProfileQuery = {
   __typename?: 'Query';
   profile?: {
     __typename?: 'Profile';
+    id: any;
     handle: any;
     name?: string | null;
     bio?: string | null;
@@ -16571,6 +16572,7 @@ export type PrerenderProfileQuery = {
       totalFollowers: number;
       totalFollowing: number;
       totalPosts: number;
+      totalComments: number;
     };
     picture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
@@ -33346,6 +33348,7 @@ export type NotificationsQueryResult = Apollo.QueryResult<NotificationsQuery, No
 export const PrerenderProfileDocument = gql`
   query PrerenderProfile($request: SingleProfileQueryRequest!) {
     profile(request: $request) {
+      id
       handle
       name
       bio
@@ -33354,6 +33357,7 @@ export const PrerenderProfileDocument = gql`
         totalFollowers
         totalFollowing
         totalPosts
+        totalComments
       }
       picture {
         ... on MediaSet {

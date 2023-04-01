@@ -8,12 +8,10 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts"
   },
-  "dependencies": {
-    "typescript": "^5.0.2"
-  },
   "devDependencies": {
-    "@types/node": "^18.15.10",
+    "@types/node": "^18.15.11",
     "eslint-config-weblint": "*",
-    "tsconfig": "*"
+    "tsconfig": "*",
+    "typescript": "^5.0.3"
   }
 }

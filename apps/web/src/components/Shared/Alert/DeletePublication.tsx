@@ -1,7 +1,7 @@
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { useHidePublicationMutation } from 'lens';
-import { publicationKeyFields } from 'lib/keyFields';
+import { publicationKeyFields } from 'lens/apollo/lib';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
