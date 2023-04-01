@@ -18,7 +18,7 @@ module.exports = withSentryConfig(
       return [
         { source: '/collect/:match*', destination: 'https://api.mixpanel.com/:match*' },
         { source: '/sitemap.xml', destination: 'https://sitemap.lenster.xyz/sitemap.xml' },
-        { source: '/sitemap/:match*', destination: 'https://sitemap.lenster.xyz/:match*' }
+        { source: '/sitemaps/:match*', destination: 'https://sitemap.lenster.xyz/:match*' }
       ];
     },
     async redirects() {
