@@ -18,6 +18,10 @@ test('should have handle', async ({ page }) => {
   await expect(page.getByTestId('profile-handle')).toContainText('@yoginth');
 });
 
+test('should have bio', async ({ page }) => {
+  await expect(page.getByTestId('profile-bio')).toContainText('opinions are mine');
+});
+
 test('should have feed', async ({ page }) => {
   await expect(page.getByTestId('profile-feed')).toBeVisible();
 });
