@@ -20,7 +20,7 @@ concurrency:
 jobs:
   ci:
     name: CI
-    runs-on: ubuntu-20.04-16core-64gb
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v3
