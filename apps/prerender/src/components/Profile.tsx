@@ -79,8 +79,8 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
       />
       <header>
         <img alt={`@${formatHandle(profile.handle)}'s avatar`} src={image} width="64" />
-        <h1 data-testid="name">{profile.name ?? profile.handle}</h1>
-        <h2 data-testis="handle">@{formatHandle(profile.handle)}</h2>
+        <h1 data-testid="profile-name">{profile.name ?? profile.handle}</h1>
+        <h2 data-testid="profile-handle">@{formatHandle(profile.handle)}</h2>
         <div>
           <div>{profile.stats.totalPosts} Posts</div>
           <div>{profile.stats.totalComments} Replies</div>
@@ -107,7 +107,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         </nav>
         <hr />
       </header>
-      <div data-testid="feed">
+      <div data-testid="profile-feed">
         {publications?.map((publication) => {
           const { stats, metadata } = publication;
           const isMirror = publication.__typename === 'Mirror';
