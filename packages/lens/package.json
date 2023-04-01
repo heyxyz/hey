@@ -9,7 +9,7 @@
     "typecheck": "tsc --pretty --noEmit"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.10",
+    "@apollo/client": "^3.7.11",
     "axios": "^1.3.4",
     "data": "*"
   },
