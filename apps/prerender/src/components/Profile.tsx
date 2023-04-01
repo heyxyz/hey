@@ -9,6 +9,7 @@ import { JsonLd } from 'react-schemaorg';
 import { BASE_URL } from 'src/constants';
 
 import DefaultTags from './Shared/DefaultTags';
+import SinglePublication from './Shared/SinglePublication';
 import Tags from './Shared/Tags';
 
 interface ProfileProps {
@@ -110,63 +111,10 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
       </header>
       <div data-testid="profile-feed">
         {publications?.map((publication) => {
-          const { stats, metadata } = publication;
-          const isMirror = publication.__typename === 'Mirror';
-          const publicationId = isMirror ? publication.mirrorOf.id : publication.id;
-          const publicationProfile = (
-            isMirror ? publication?.mirrorOf?.profile : publication?.profile
-          ) as Profile & { picture: MediaSet & NftImage };
-          const publicationProfileAvatar = `${USER_CONTENT_URL}/${AVATAR}/${sanitizeDStorageUrl(
-            publicationProfile.picture?.original?.url ??
-              publicationProfile.picture?.uri ??
-              getStampFyiURL(profile?.ownedBy)
-          )}`;
+          const { __typename } = publication;
           return (
-            <div key={publicationId}>
-              <div>
-                <a href={`${BASE_URL}/u/${formatHandle(publicationProfile.handle)}`}>
-                  <img
-                    alt={`@${formatHandle(publicationProfile.handle)}'s avatar`}
-                    src={publicationProfileAvatar}
-                    width="64"
-                  />
-                </a>
-              </div>
-              <div>
-                <div>
-                  <a href={`${BASE_URL}/u/${formatHandle(publicationProfile.handle)}`}>
-                    {publicationProfile.name ?? publicationProfile.handle}
-                  </a>
-                </div>
-                <div>
-                  <a href={`${BASE_URL}/u/${formatHandle(publicationProfile.handle)}`}>
-                    @{formatHandle(publicationProfile.handle)}
-                  </a>
-                </div>
-                <div>
-                  <a href={`${BASE_URL}/posts/${publicationId}`}>{metadata.content ?? ''}</a>
-                </div>
-              </div>
-              <div>
-                <div>
-                  {isMirror ? publication.mirrorOf.stats.totalAmountOfComments : stats.totalAmountOfComments}{' '}
-                  Comments
-                </div>
-                <div>{isMirror ? publication.mirrorOf.stats.totalUpvotes : stats.totalUpvotes} Likes</div>
-                {publication.collectModule.__typename !== 'RevertCollectModuleSettings' ? (
-                  <div>
-                    {isMirror
-                      ? publication.mirrorOf.stats.totalAmountOfCollects
-                      : stats.totalAmountOfCollects}{' '}
-                    Collects
-                  </div>
-                ) : null}
-                <div>
-                  {isMirror ? publication.mirrorOf.stats.totalAmountOfMirrors : stats.totalAmountOfMirrors}{' '}
-                  Mirrors
-                </div>
-                <hr />
-              </div>
+            <div key={__typename === 'Mirror' ? publication.mirrorOf.id : publication.id}>
+              <SinglePublication publication={publication} />
             </div>
           );
         })}
