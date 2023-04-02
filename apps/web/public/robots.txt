@@ -1,2 +1,5 @@
 User-agent: *
 Disallow: /_next/*
+Disallow: /settings/*
+
+Sitemap: https://lenster.xyz/sitemap.xml
