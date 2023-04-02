@@ -16,6 +16,15 @@ labels: Chore
 ```
 
 ```[tasklist]
+# Clean and Sync branches
+
+- [ ] Run `script/clean-branches`
+- [ ] Run `script/sync-branches`
+```
+
+```[tasklist]
+
+```[tasklist]
 # Check Webmaster tools
 
 - [ ] Check [Google Webmaster Tool](https://search.google.com/search-console?resource_id=sc-domain%3Alenster.xyz)
