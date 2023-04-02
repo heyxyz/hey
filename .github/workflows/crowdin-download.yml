@@ -2,7 +2,7 @@ name: Crowdin download
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -10,22 +10,22 @@ jobs:
     name: Download translations
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout 🚪
-      uses: actions/checkout@v3
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
 
-    - name: Download from Crowdin ⬇️
-      uses: crowdin/github-action@1.5.2
-      with:
-        upload_translations: false
-        download_translations: true
-        create_pull_request: true
-        project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
-        token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-        pull_request_title: 'chore(i18n): synchronize translations from crowdin'
-        pull_request_body: 'New Crowdin pull request with translations'
-        pull_request_assignees: 'crowdin-bot'
-        pull_request_reviewers: 'bigint'
-        source: '/**/locales/en/*.po'
-        translation: '/**/locales/%two_letters_code%/%original_file_name%'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download from Crowdin ⬇️
+        uses: crowdin/github-action@1.5.2
+        with:
+          upload_translations: false
+          download_translations: true
+          create_pull_request: true
+          project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          pull_request_title: "chore(i18n): synchronize translations from crowdin"
+          pull_request_body: "New Crowdin pull request with translations"
+          pull_request_assignees: "crowdin-bot"
+          pull_request_reviewers: "bigint"
+          source: "/**/locales/en/*.po"
+          translation: "/**/locales/%two_letters_code%/%original_file_name%"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
