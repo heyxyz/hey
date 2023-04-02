@@ -78,7 +78,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "^18.15.11",
-    "@types/react": "^18.0.31",
+    "@types/react": "^18.0.32",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.11",
     "@types/uuid": "^9.0.1",
