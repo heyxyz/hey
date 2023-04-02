@@ -1,6 +1,6 @@
 {
   "name": "lenster",
-  "version": "1.0.7-beta",
+  "version": "1.0.8-beta",
   "private": true,
   "license": "GPL-3.0",
   "workspaces": [
