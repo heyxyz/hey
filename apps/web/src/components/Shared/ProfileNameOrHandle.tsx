@@ -2,14 +2,14 @@ import clsx from 'clsx';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import Link from 'next/link';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import Slug from './Slug';
 
 interface ProfileNameOrHandleProps {
   profile?: Profile;
   className?: string;
-  separator?: string;
+  separator?: ReactNode;
 }
 
 const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({ profile, className = '', separator = '' }) => {

@@ -115,7 +115,7 @@ const SeeThroughLens: FC = () => {
           <div className="p-2">
             <Input
               type="text"
-              className="py-2 px-3 text-sm"
+              className="px-3 py-2 text-sm"
               placeholder={t`Search`}
               value={searchText}
               autoFocus
@@ -131,7 +131,7 @@ const SeeThroughLens: FC = () => {
           </div>
           {seeThroughProfile && (
             <button
-              className="mb-2 mt-1 w-full bg-gray-200 py-2 px-3 text-left text-sm outline-none dark:bg-gray-700"
+              className="mb-2 mt-1 w-full bg-gray-200 px-3 py-2 text-left text-sm outline-none dark:bg-gray-700"
               onClick={() => setSeeThroughProfile(null)}
             >
               <Trans>Reset filter to your own feed</Trans>
@@ -139,7 +139,7 @@ const SeeThroughLens: FC = () => {
           )}
           <div className="mx-2 mb-2">
             {searchUsersLoading || loading ? (
-              <div className="space-y-2 py-2 px-4 text-center text-sm font-bold">
+              <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>
                   <Trans>Searching users</Trans>

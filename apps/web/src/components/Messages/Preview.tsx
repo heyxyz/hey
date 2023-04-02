@@ -64,7 +64,7 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
         <div className="w-full">
           <div className="flex w-full justify-between space-x-1">
             <div className="flex max-w-sm items-center gap-1">
-              <div className="line-clamp-1 text-md">{profile?.name ?? formatHandle(profile.handle)}</div>
+              <div className="text-md line-clamp-1">{profile?.name ?? formatHandle(profile.handle)}</div>
               {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />}
             </div>
             {message.sent && (

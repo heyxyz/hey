@@ -77,7 +77,7 @@ const Thanks: FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center px-5 pt-2 pb-6">
+        <div className="flex justify-center px-5 pb-6 pt-2">
           <Footer />
         </div>
       </div>

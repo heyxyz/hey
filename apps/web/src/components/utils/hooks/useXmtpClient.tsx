@@ -3,9 +3,8 @@ import { APP_NAME, APP_VERSION, XMTP_ENV } from 'data/constants';
 import { Localstorage } from 'data/storage';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useConversationCache } from 'src/store/conversation-cache';
 import { useMessageStore } from 'src/store/message';
-import { useAccount, useSigner } from 'wagmi';
+import { useSigner } from 'wagmi';
 import { AttachmentCodec, RemoteAttachmentCodec } from 'xmtp-content-type-remote-attachment';
 
 const ENCODING = 'binary';
@@ -39,9 +38,6 @@ const useXmtpClient = (cacheOnly = false) => {
   const setClient = useMessageStore((state) => state.setClient);
   const [awaitingXmtpAuth, setAwaitingXmtpAuth] = useState<boolean>();
   const { data: signer, isLoading } = useSigner();
-  const { address } = useAccount();
-
-  const conversationExports = useConversationCache((state) => state.conversations[address as `0x${string}`]);
 
   useEffect(() => {
     const initXmtpClient = async () => {
@@ -54,7 +50,9 @@ const useXmtpClient = (cacheOnly = false) => {
           setAwaitingXmtpAuth(true);
           keys = await Client.getKeys(signer, {
             env: XMTP_ENV,
-            appVersion: APP_NAME + '/' + APP_VERSION
+            appVersion: APP_NAME + '/' + APP_VERSION,
+            persistConversations: false,
+            skipContactPublishing: true
           });
           storeKeys(await signer.getAddress(), keys);
         }
@@ -62,16 +60,13 @@ const useXmtpClient = (cacheOnly = false) => {
         const xmtp = await Client.create(null, {
           env: XMTP_ENV,
           appVersion: APP_NAME + '/' + APP_VERSION,
-          privateKeyOverride: keys
+          privateKeyOverride: keys,
+          persistConversations: true
         });
 
         xmtp.registerCodec(new AttachmentCodec());
         xmtp.registerCodec(new RemoteAttachmentCodec());
 
-        if (conversationExports && conversationExports.length) {
-          // Preload the client with conversations from the cache
-          await xmtp.conversations.import(conversationExports);
-        }
         setClient(xmtp);
         setAwaitingXmtpAuth(false);
       } else {

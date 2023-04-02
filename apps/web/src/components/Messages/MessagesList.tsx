@@ -85,7 +85,7 @@ const DateDividerBorder: FC<DateDividerBorderProps> = ({ children }) => (
 );
 
 const DateDivider: FC<{ date?: Date }> = ({ date }) => (
-  <div className="align-items-center flex items-center p-4 pt-0 pl-2">
+  <div className="align-items-center flex items-center p-4 pl-2 pt-0">
     <DateDividerBorder>
       <span className="mx-11 flex-none text-sm font-bold text-gray-300">{formatDate(date)}</span>
     </DateDividerBorder>

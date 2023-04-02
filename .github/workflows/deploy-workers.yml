@@ -16,20 +16,11 @@ jobs:
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
+          node-version-file: ".nvmrc"
+          cache: "yarn"
 
       - name: Install 📦
         run: yarn install --frozen-lockfile
-
-      - name: Typecheck 🔡
-        run: yarn typecheck
-
-      - name: Lint 🪩
-        run: yarn lint
-
-      - name: Prettier ✨
-        run: yarn prettier
 
       - name: Deploy 🚀
         run: |

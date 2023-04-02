@@ -1,6 +1,6 @@
 import Profile from '@components/Profile';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
-import { PrerenderProfileDocument } from 'lens';
+import { CustomFiltersTypes, PrerenderProfileDocument, ProfileFeedDocument } from 'lens';
 import { nodeClient } from 'lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
@@ -22,13 +22,31 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   } else {
     processedHandle = handle === LENSPROTOCOL_HANDLE ? handle : handle.concat(HANDLE_SUFFIX);
   }
-  const { data } = await nodeClient.query({
+  const { data: profileData } = await nodeClient.query({
     query: PrerenderProfileDocument,
     variables: { request: { handle: processedHandle } }
   });
 
+  if (profileData.profile) {
+    const profileId = profileData.profile.id;
+    const reactionRequest = { profileId };
+
+    const { data: profilePublicationsData } = await nodeClient.query({
+      query: ProfileFeedDocument,
+      variables: {
+        request: { profileId, customFilters: [CustomFiltersTypes.Gardeners], limit: 50 },
+        reactionRequest,
+        profileId
+      }
+    });
+
+    return {
+      props: { profile: profileData.profile, publications: profilePublicationsData.publications?.items }
+    };
+  }
+
   return {
-    props: { profile: data?.profile }
+    props: { profile: null, publications: null }
   };
 }
 
