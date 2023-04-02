@@ -11,13 +11,17 @@ test('should have page title', async ({ page }) => {
 });
 
 test('should have name', async ({ page }) => {
-  await expect(page.getByTestId('name')).toContainText('Yoginth');
+  await expect(page.getByTestId('profile-name')).toContainText('Yoginth');
 });
 
 test('should have handle', async ({ page }) => {
-  await expect(page.getByTestId('handle')).toContainText('@yoginth');
+  await expect(page.getByTestId('profile-handle')).toContainText('@yoginth');
+});
+
+test('should have bio', async ({ page }) => {
+  await expect(page.getByTestId('profile-bio')).toContainText('opinions are mine');
 });
 
 test('should have feed', async ({ page }) => {
-  await expect(page.getByTestId('feed')).toBeVisible();
+  await expect(page.getByTestId('profile-feed')).toBeVisible();
 });
