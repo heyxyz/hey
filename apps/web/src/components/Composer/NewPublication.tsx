@@ -499,9 +499,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               }
       };
 
-      // if (currentProfile?.dispatcher?.canUseRelay) {
-      //   return await createViaDispatcher(request);
-      // }
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        return await createViaDispatcher(request);
+      }
 
       if (isComment) {
         return await createCommentTypedData({
