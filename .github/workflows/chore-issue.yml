@@ -2,7 +2,7 @@ name: Chore Issue
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: "0 1 * * *"
   workflow_dispatch:
 
 jobs:
@@ -22,5 +22,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           filename: .github/chore-issue.md
-          update_existing: true
-          search_existing: all
