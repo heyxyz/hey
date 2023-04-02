@@ -8,11 +8,8 @@ labels: Chore
 ```[tasklist]
 # Update dependencies
 
-- [ ] `yarn upgrade-interactive --latest`
-- [ ] `rm yarn.lock && yarn`
-- [ ] `git add -A`
-- [ ] `git commit -am "chore: update dependencies 📦"`
-- [ ] `git push`
+- [ ] Run `script/update-dependencies`
+- [ ] Run `gh pr create`
 ```
 
 ```[tasklist]
@@ -21,8 +18,6 @@ labels: Chore
 - [ ] Run `script/clean-branches`
 - [ ] Run `script/sync-branches`
 ```
-
-```[tasklist]
 
 ```[tasklist]
 # Check Webmaster tools
