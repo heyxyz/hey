@@ -26,4 +26,5 @@ rm yarn.lock && yarn
 git add -A
 git commit -am "chore: update dependencies 📦"
 git push origin update-dependencies
+gh pr create --fill
 echo "Dependencies updated 🎉"
