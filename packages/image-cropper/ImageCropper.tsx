@@ -330,7 +330,7 @@ class ImageCropper extends Component<CropperProps, State> {
       ? this.props.cropSize.width / this.mediaSize.width
       : this.props.cropSize.height / this.mediaSize.height;
     const maxEffectiveZoom = 3;
-    const minZoom = 1 * zoomScale;
+    const minZoom = Number(zoomScale);
 
     // allow different zoom level depending on image resolution
     const pixelScale = fitWidth
