@@ -56,9 +56,9 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
     if (type === 'recipient' && getIsHandle(value)) {
       getProfileByHandle({
         variables: { request: { handle: value } },
-        onCompleted: (data) => {
-          if (data.profile) {
-            setRecipients(getRecipients(data.profile.ownedBy));
+        onCompleted: ({ profile }) => {
+          if (profile) {
+            setRecipients(getRecipients(profile.ownedBy));
           }
         }
       });

@@ -30,8 +30,8 @@ const ProfileSettings: NextPage = () => {
   const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
-    onCompleted: (data) => {
-      const picture = data?.profile?.picture;
+    onCompleted: ({ profile }) => {
+      const picture = profile?.picture;
       setSettingsType(picture?.hasOwnProperty('uri') ? 'NFT' : 'AVATAR');
     }
   });
