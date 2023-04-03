@@ -49,7 +49,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
   });
-  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
+  const [createSetDispatcherTypedData, { loading: typedDataLoading }] =
     useCreateSetDispatcherTypedDataMutation({
       onCompleted: async ({ createSetDispatcherTypedData }) => {
         const { id, typedData } = createSetDispatcherTypedData;
@@ -73,7 +73,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
 
   const toggleDispatcher = async () => {
     try {
-      await createSetProfileMetadataTypedData({
+      await createSetDispatcherTypedData({
         variables: {
           request: {
             profileId: currentProfile?.id,
@@ -95,7 +95,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   ) : (
     <Button
       variant={canUseRelay ? 'danger' : 'primary'}
-      className={clsx({ 'text-sm': buttonSize === 'sm' }, `mr-auto`)}
+      className={clsx({ 'text-sm': buttonSize === 'sm' }, 'mr-auto')}
       disabled={isLoading}
       icon={
         isLoading ? (

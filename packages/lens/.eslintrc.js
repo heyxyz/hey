@@ -1,4 +1,5 @@
 module.exports = {
   root: true,
-  extends: ['weblint']
+  extends: ['weblint'],
+  ignorePatterns: ['generated.ts']
 };
