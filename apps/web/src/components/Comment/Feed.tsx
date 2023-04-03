@@ -46,7 +46,9 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const pageInfo = data?.publications?.pageInfo;
 
   const queuedCount = txnQueue.filter((o) => o.type === OptmisticPublicationType.NewComment).length;
-  const totalComments = comments?.length + queuedCount;
+  const hiddenCount = comments.filter((o) => o?.__typename === 'Comment' && o.hidden).length;
+  const hiddenRemovedComments = comments?.length - hiddenCount;
+  const totalComments = hiddenRemovedComments + queuedCount;
   const canComment = publication?.canComment?.result;
 
   const { observe } = useInView({
