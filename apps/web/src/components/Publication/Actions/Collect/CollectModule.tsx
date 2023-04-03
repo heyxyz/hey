@@ -129,8 +129,8 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
       }
     },
     skip: !collectModule?.amount?.asset?.address || !currentProfile,
-    onCompleted: (data) => {
-      setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
+    onCompleted: ({ approvedModuleAllowanceAmount }) => {
+      setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
   });
 
