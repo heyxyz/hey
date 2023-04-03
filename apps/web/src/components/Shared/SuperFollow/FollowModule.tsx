@@ -79,8 +79,8 @@ const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFol
       }
     },
     skip: !followModule?.amount?.asset?.address || !currentProfile,
-    onCompleted: (data) => {
-      setAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
+    onCompleted: ({ approvedModuleAllowanceAmount }) => {
+      setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
     }
   });
 

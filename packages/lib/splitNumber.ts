@@ -5,7 +5,7 @@
  * @param parts The number of parts to split the number into.
  * @returns An array of numbers.
  */
-const splitNumber = (num: number = 1, parts: number = 1): number[] => {
+const splitNumber = (num = 1, parts = 1): number[] => {
   const n = Math.floor(num / parts);
   const numbers: number[] = [];
 

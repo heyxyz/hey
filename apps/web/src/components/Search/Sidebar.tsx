@@ -31,13 +31,13 @@ const Sidebar: FC = () => {
 
   return (
     <div className="sticky top-[128px] mb-4 space-y-1.5 px-3 sm:px-0">
-      <Menu current={query.type == 'pubs'} url={`/search?q=${searchText}&type=pubs`}>
+      <Menu current={query.type === 'pubs'} url={`/search?q=${searchText}&type=pubs`}>
         <PencilAltIcon className="h-4 w-4" />
         <div>
           <Trans>Publications</Trans>
         </div>
       </Menu>
-      <Menu current={query.type == 'profiles'} url={`/search?q=${searchText}&type=profiles`}>
+      <Menu current={query.type === 'profiles'} url={`/search?q=${searchText}&type=profiles`}>
         <UsersIcon className="h-4 w-4" />
         <div>
           <Trans>Profiles</Trans>
