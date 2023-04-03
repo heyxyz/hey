@@ -38,7 +38,7 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">
       {menuItems.map((item: any, index: number) =>
         item?.enabled ? (
-          <Menu key={index} current={pathname == item.url} url={item.url}>
+          <Menu key={index} current={pathname === item.url} url={item.url}>
             {item.icon}
             <div>{item.title}</div>
           </Menu>

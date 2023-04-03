@@ -57,8 +57,8 @@ const Attachments: FC<AttachmentsProps> = ({
   const removeAttachment = (attachment: any) => {
     const arr = attachments;
     setAttachments(
-      arr.filter(function (ele: any) {
-        return ele != attachment;
+      arr.filter((element: any) => {
+        return element !== attachment;
       })
     );
   };

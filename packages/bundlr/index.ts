@@ -93,7 +93,7 @@ export class DataItem {
   }
 
   set rawOwner(pubkey: Buffer) {
-    if (pubkey.byteLength != this.ownerLength) {
+    if (pubkey.byteLength !== this.ownerLength) {
       throw new Error(
         `Expected raw owner (pubkey) to be ${this.ownerLength} bytes, got ${pubkey.byteLength} bytes.`
       );
@@ -119,7 +119,7 @@ export class DataItem {
 
   get rawTarget(): Buffer {
     const targetStart = this.getTargetStart();
-    const isPresent = this.binary[targetStart] == 1;
+    const isPresent = this.binary[targetStart] === 1;
     return isPresent ? this.binary.subarray(targetStart + 1, targetStart + 33) : Buffer.alloc(0);
   }
 
@@ -129,7 +129,7 @@ export class DataItem {
 
   get rawAnchor(): Buffer {
     const anchorStart = this.getAnchorStart();
-    const isPresent = this.binary[anchorStart] == 1;
+    const isPresent = this.binary[anchorStart] === 1;
 
     return isPresent ? this.binary.subarray(anchorStart + 1, anchorStart + 33) : Buffer.alloc(0);
   }
@@ -194,9 +194,9 @@ export class DataItem {
 
   private getTagsStart(): number {
     const targetStart = this.getTargetStart();
-    const targetPresent = this.binary[targetStart] == 1;
+    const targetPresent = this.binary[targetStart] === 1;
     let tagsStart = targetStart + (targetPresent ? 33 : 1);
-    const anchorPresent = this.binary[tagsStart] == 1;
+    const anchorPresent = this.binary[tagsStart] === 1;
     tagsStart += anchorPresent ? 33 : 1;
 
     return tagsStart;
@@ -208,7 +208,7 @@ export class DataItem {
 
   private getAnchorStart(): number {
     let anchorStart = this.getTargetStart() + 1;
-    const targetPresent = this.binary[this.getTargetStart()] == 1;
+    const targetPresent = this.binary[this.getTargetStart()] === 1;
     anchorStart += targetPresent ? 32 : 0;
 
     return anchorStart;
