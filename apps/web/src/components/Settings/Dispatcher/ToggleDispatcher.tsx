@@ -95,7 +95,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   ) : (
     <Button
       variant={canUseRelay ? 'danger' : 'primary'}
-      className={clsx({ 'text-sm': buttonSize === 'sm' }, `mr-auto`)}
+      className={clsx({ 'text-sm': buttonSize === 'sm' }, "mr-auto")}
       disabled={isLoading}
       icon={
         isLoading ? (
