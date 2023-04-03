@@ -54,7 +54,7 @@ const ViewProfile: NextPage = () => {
 
   const followType = profile?.followModule?.__typename;
 
-  const initState = following == null;
+  const initState = following === null;
   // profile is not defined until the second render
   if (initState && profile) {
     const canFollow = followType !== 'RevertFollowModuleSettings' && !isFollowedByMe;

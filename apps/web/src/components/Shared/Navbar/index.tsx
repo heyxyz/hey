@@ -61,8 +61,8 @@ const Navbar: FC = () => {
 
     return (
       <>
-        <NavItem url="/" name={t`Home`} current={pathname == '/'} />
-        <NavItem url="/explore" name={t`Explore`} current={pathname == '/explore'} />
+        <NavItem url="/" name={t`Home`} current={pathname === '/'} />
+        <NavItem url="/explore" name={t`Explore`} current={pathname === '/explore'} />
         <MoreNavItems />
       </>
     );
