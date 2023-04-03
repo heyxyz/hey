@@ -252,6 +252,8 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
     return <Loader message={t`Loading collect`} />;
   }
 
+  const isLimitedCollectAllCollected = collectLimit ? count >= parseInt(collectLimit) : false;
+  const isCollectExpired = endTimestamp ? parseInt(endTimestamp ?? '0') < new Date().getTime() / 1000 : false;
   const isLoading =
     typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
 
@@ -422,14 +424,16 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
               <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
             ) : allowed ? (
               hasAmount ? (
-                <Button
-                  className="mt-5"
-                  onClick={createCollect}
-                  disabled={isLoading}
-                  icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
-                >
-                  <Trans>Collect now</Trans>
-                </Button>
+                !isLimitedCollectAllCollected && !isCollectExpired ? (
+                  <Button
+                    className="mt-5"
+                    onClick={createCollect}
+                    disabled={isLoading}
+                    icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
+                  >
+                    <Trans>Collect now</Trans>
+                  </Button>
+                ) : null
               ) : (
                 <WarningMessage className="mt-5" message={<Uniswap module={collectModule} />} />
               )
