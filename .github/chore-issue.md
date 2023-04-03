@@ -8,7 +8,7 @@ labels: Chore
 ```[tasklist]
 ### Update dependencies
 - [ ] Run `script/update-dependencies`
-- [ ] Run `gh pr create`
+- [ ] Run `gh pr create --fill`
 ```
 
 ```[tasklist]
