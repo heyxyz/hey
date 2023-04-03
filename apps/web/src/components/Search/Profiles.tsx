@@ -7,6 +7,7 @@ import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from '
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import { FixedSizeList as List } from 'react-window';
 import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface ProfilesProps {
@@ -70,14 +71,18 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   }
 
   return (
-    <div className="space-y-3">
-      {profiles?.map((profile: Profile) => (
-        <Card key={profile?.id} className="p-5">
-          <UserProfile profile={profile} showBio isBig />
-        </Card>
-      ))}
-      {hasMore && <span ref={observe} />}
-    </div>
+    <List height="" width="" itemData={profiles || null} itemCount={profiles.length} itemSize={20}>
+      {({ data }) => (
+        <div className="space-y-3">
+          {data?.map((profile: Profile) => (
+            <Card key={profile?.id} className="p-5">
+              <UserProfile profile={profile} showBio isBig />
+            </Card>
+          ))}
+          {hasMore && <span ref={observe} />}
+        </div>
+      )}
+    </List>
   );
 };
 
