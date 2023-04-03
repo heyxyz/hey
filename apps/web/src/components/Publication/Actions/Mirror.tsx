@@ -126,8 +126,9 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     const { data } = await createMirrorViaDispatcher({
       variables: { request }
     });
+
     if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
-      await createMirrorTypedData({
+      return await createMirrorTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
