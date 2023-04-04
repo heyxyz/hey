@@ -6,12 +6,14 @@
   "scripts": {
     "test:dev": "playwright test"
   },
-  "devDependencies": {
-    "@playwright/test": "^1.32.1",
+  "dependencies": {
     "data": "*",
-    "eslint-config-weblint": "*",
-    "lib": "*",
     "lens": "*",
+    "lib": "*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.32.2",
+    "eslint-config-weblint": "*",
     "tsconfig": "*"
   }
 }

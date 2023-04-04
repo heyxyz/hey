@@ -39,12 +39,12 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   };
 
   const [getPublication] = usePublicationLazyQuery({
-    onCompleted: (data) => {
-      if (data?.publication) {
+    onCompleted: ({ publication }) => {
+      if (publication) {
         cache.modify({
           fields: {
             publications() {
-              cache.writeQuery({ data: { publication: data?.publication }, query: PublicationDocument });
+              cache.writeQuery({ data: publication, query: PublicationDocument });
             }
           }
         });
@@ -56,13 +56,13 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   useHasTxHashBeenIndexedQuery({
     variables: { request: { txHash, txId } },
     pollInterval: 1000,
-    onCompleted: (data) => {
-      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
+    onCompleted: ({ hasTxHashBeenIndexed }) => {
+      if (hasTxHashBeenIndexed.__typename === 'TransactionError') {
         return removeTxn();
       }
 
-      if (data.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
-        const status = data.hasTxHashBeenIndexed.metadataStatus?.status;
+      if (hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
+        const status = hasTxHashBeenIndexed.metadataStatus?.status;
 
         if (
           status === PublicationMetadataStatusType.MetadataValidationFailed ||
@@ -71,10 +71,10 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
           return removeTxn();
         }
 
-        if (data.hasTxHashBeenIndexed.indexed) {
+        if (hasTxHashBeenIndexed.indexed) {
           getPublication({
             variables: {
-              request: { txHash: data.hasTxHashBeenIndexed.txHash },
+              request: { txHash: hasTxHashBeenIndexed.txHash },
               reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
               profileId: currentProfile?.id ?? null
             }

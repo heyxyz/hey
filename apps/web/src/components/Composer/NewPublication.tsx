@@ -146,7 +146,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const isComment = Boolean(publication);
   const isAudioPublication = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     editor.update(() => {
       $getRoot().clear();
     });
@@ -202,7 +206,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({ onError });
 
-  const { error, write } = useContractWrite({
+  const {
+    isLoading: writeLoading,
+    error,
+    write
+  } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: isComment ? 'commentWithSig' : 'postWithSig',
@@ -229,10 +237,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   });
 
   const [broadcast] = useBroadcastMutation({
-    onCompleted: (data) => {
-      onCompleted();
-      if (data.broadcast.__typename === 'RelayerResult') {
-        setTxnQueue([generateOptimisticPublication({ txId: data.broadcast.txId }), ...txnQueue]);
+    onCompleted: ({ broadcast }) => {
+      onCompleted(broadcast.__typename);
+      if (broadcast.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPublication({ txId: broadcast.txId }), ...txnQueue]);
       }
     }
   });
@@ -315,26 +323,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   });
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
-    onCompleted: (data) => {
-      onCompleted();
-      if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: data.createCommentViaDispatcher.txId }),
-          ...txnQueue
-        ]);
+    onCompleted: ({ createCommentViaDispatcher }) => {
+      onCompleted(createCommentViaDispatcher.__typename);
+      if (createCommentViaDispatcher.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPublication({ txId: createCommentViaDispatcher.txId }), ...txnQueue]);
       }
     },
     onError
   });
 
   const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
-    onCompleted: (data) => {
-      onCompleted();
-      if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: data.createPostViaDispatcher.txId }),
-          ...txnQueue
-        ]);
+    onCompleted: ({ createPostViaDispatcher }) => {
+      onCompleted(createPostViaDispatcher.__typename);
+      if (createPostViaDispatcher.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPublication({ txId: createPostViaDispatcher.txId }), ...txnQueue]);
       }
     },
     onError
@@ -660,7 +662,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     addAttachments([attachment]);
   };
 
-  const isLoading = loading || typedDataLoading;
+  const isLoading = loading || typedDataLoading || writeLoading;
 
   return (
     <Card className={clsx({ 'rounded-none border-none': !isComment }, 'pb-3')}>

@@ -60,7 +60,11 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     });
   };
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     setMirrored(true);
     toast.success(t`Post has been mirrored!`);
     Mixpanel.track(PUBLICATION.MIRROR);
@@ -71,12 +75,12 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     abi: LensHub,
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted,
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename),
     update: updateCache
   });
 
@@ -121,7 +125,7 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     });
 
   const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useCreateMirrorViaDispatcherMutation({
-    onCompleted,
+    onCompleted: ({ createMirrorViaDispatcher }) => onCompleted(createMirrorViaDispatcher.__typename),
     onError,
     update: updateCache
   });
@@ -136,8 +140,9 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     const { data } = await createMirrorViaDispatcher({
       variables: { request }
     });
-    if (data?.createMirrorViaDispatcher?.__typename === 'RelayError') {
-      await createMirrorTypedData({
+
+    if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
+      return await createMirrorTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request

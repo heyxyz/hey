@@ -49,8 +49,7 @@ const Status: FC = () => {
   const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
-    onCompleted: (data) => {
-      const profile = data?.profile;
+    onCompleted: ({ profile }) => {
       form.setValue('status', getProfileAttribute(profile?.attributes, 'statusMessage'));
       setEmoji(getProfileAttribute(profile?.attributes, 'statusEmoji'));
     }

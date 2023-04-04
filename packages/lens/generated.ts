@@ -16789,6 +16789,7 @@ export type PrerenderProfileQuery = {
   __typename?: 'Query';
   profile?: {
     __typename?: 'Profile';
+    id: any;
     handle: any;
     name?: string | null;
     bio?: string | null;
@@ -16798,89 +16799,13 @@ export type PrerenderProfileQuery = {
       totalFollowers: number;
       totalFollowing: number;
       totalPosts: number;
+      totalComments: number;
     };
     picture?:
       | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
       | { __typename?: 'NftImage'; uri: any }
       | null;
   } | null;
-};
-
-export type PrerenderPublicationQueryVariables = Exact<{
-  request: PublicationQueryRequest;
-}>;
-
-export type PrerenderPublicationQuery = {
-  __typename?: 'Query';
-  publication?:
-    | {
-        __typename?: 'Comment';
-        metadata: {
-          __typename?: 'MetadataOutput';
-          content?: any | null;
-          media: Array<{ __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }>;
-        };
-        profile: {
-          __typename?: 'Profile';
-          handle: any;
-          ownedBy: any;
-          picture?:
-            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-            | { __typename?: 'NftImage'; uri: any }
-            | null;
-        };
-      }
-    | {
-        __typename?: 'Mirror';
-        metadata: {
-          __typename?: 'MetadataOutput';
-          content?: any | null;
-          media: Array<{ __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }>;
-        };
-        mirrorOf:
-          | {
-              __typename?: 'Comment';
-              profile: {
-                __typename?: 'Profile';
-                handle: any;
-                ownedBy: any;
-                picture?:
-                  | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                  | { __typename?: 'NftImage'; uri: any }
-                  | null;
-              };
-            }
-          | {
-              __typename?: 'Post';
-              profile: {
-                __typename?: 'Profile';
-                handle: any;
-                ownedBy: any;
-                picture?:
-                  | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-                  | { __typename?: 'NftImage'; uri: any }
-                  | null;
-              };
-            };
-      }
-    | {
-        __typename?: 'Post';
-        metadata: {
-          __typename?: 'MetadataOutput';
-          content?: any | null;
-          media: Array<{ __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }>;
-        };
-        profile: {
-          __typename?: 'Profile';
-          handle: any;
-          ownedBy: any;
-          picture?:
-            | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-            | { __typename?: 'NftImage'; uri: any }
-            | null;
-        };
-      }
-    | null;
 };
 
 export type ProfileQueryVariables = Exact<{
@@ -34080,6 +34005,7 @@ export type NotificationsQueryResult = Apollo.QueryResult<NotificationsQuery, No
 export const PrerenderProfileDocument = gql`
   query PrerenderProfile($request: SingleProfileQueryRequest!) {
     profile(request: $request) {
+      id
       handle
       name
       bio
@@ -34088,6 +34014,7 @@ export const PrerenderProfileDocument = gql`
         totalFollowers
         totalFollowing
         totalPosts
+        totalComments
       }
       picture {
         ... on MediaSet {
@@ -34142,145 +34069,6 @@ export type PrerenderProfileLazyQueryHookResult = ReturnType<typeof usePrerender
 export type PrerenderProfileQueryResult = Apollo.QueryResult<
   PrerenderProfileQuery,
   PrerenderProfileQueryVariables
->;
-export const PrerenderPublicationDocument = gql`
-  query PrerenderPublication($request: PublicationQueryRequest!) {
-    publication(request: $request) {
-      ... on Post {
-        metadata {
-          content
-          media {
-            original {
-              url
-            }
-          }
-        }
-        profile {
-          handle
-          ownedBy
-          picture {
-            ... on NftImage {
-              uri
-            }
-            ... on MediaSet {
-              original {
-                url
-              }
-            }
-          }
-        }
-      }
-      ... on Comment {
-        metadata {
-          content
-          media {
-            original {
-              url
-            }
-          }
-        }
-        profile {
-          handle
-          ownedBy
-          picture {
-            ... on NftImage {
-              uri
-            }
-            ... on MediaSet {
-              original {
-                url
-              }
-            }
-          }
-        }
-      }
-      ... on Mirror {
-        metadata {
-          content
-          media {
-            original {
-              url
-            }
-          }
-        }
-        mirrorOf {
-          ... on Post {
-            profile {
-              handle
-              ownedBy
-              picture {
-                ... on NftImage {
-                  uri
-                }
-                ... on MediaSet {
-                  original {
-                    url
-                  }
-                }
-              }
-            }
-          }
-          ... on Comment {
-            profile {
-              handle
-              ownedBy
-              picture {
-                ... on NftImage {
-                  uri
-                }
-                ... on MediaSet {
-                  original {
-                    url
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __usePrerenderPublicationQuery__
- *
- * To run a query within a React component, call `usePrerenderPublicationQuery` and pass it any options that fit your needs.
- * When your component renders, `usePrerenderPublicationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePrerenderPublicationQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function usePrerenderPublicationQuery(
-  baseOptions: Apollo.QueryHookOptions<PrerenderPublicationQuery, PrerenderPublicationQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<PrerenderPublicationQuery, PrerenderPublicationQueryVariables>(
-    PrerenderPublicationDocument,
-    options
-  );
-}
-export function usePrerenderPublicationLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<PrerenderPublicationQuery, PrerenderPublicationQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<PrerenderPublicationQuery, PrerenderPublicationQueryVariables>(
-    PrerenderPublicationDocument,
-    options
-  );
-}
-export type PrerenderPublicationQueryHookResult = ReturnType<typeof usePrerenderPublicationQuery>;
-export type PrerenderPublicationLazyQueryHookResult = ReturnType<typeof usePrerenderPublicationLazyQuery>;
-export type PrerenderPublicationQueryResult = Apollo.QueryResult<
-  PrerenderPublicationQuery,
-  PrerenderPublicationQueryVariables
 >;
 export const ProfileDocument = gql`
   query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {

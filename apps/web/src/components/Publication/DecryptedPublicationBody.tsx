@@ -76,9 +76,9 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({ encrypted
     },
     pollInterval: 5000,
     skip: canDecrypt || !currentProfile,
-    onCompleted: (data) => {
-      setCanDecrypt(data.publication?.canDecrypt.result || false);
-      setReasons(data.publication?.canDecrypt.reasons || []);
+    onCompleted: ({ publication }) => {
+      setCanDecrypt(publication?.canDecrypt.result || false);
+      setReasons(publication?.canDecrypt.reasons || []);
     }
   });
 
