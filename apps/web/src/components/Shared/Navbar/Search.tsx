@@ -53,9 +53,9 @@ const Search: FC<SearchProps> = ({
   const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (pathname === '/search') {
-      push(`/search?q=${searchText}&type=${query.type}`);
+      push(`/search?q=${encodeURIComponent(searchText)}&type=${query.type}`);
     } else {
-      push(`/search?q=${searchText}&type=profiles`);
+      push(`/search?q=${encodeURIComponent(searchText)}&type=profiles`);
     }
     setSearchText('');
   };
