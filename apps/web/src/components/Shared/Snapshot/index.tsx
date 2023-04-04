@@ -1,6 +1,6 @@
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
-import type { Proposal } from 'snapshot';
+import type { Proposal, Vote } from 'snapshot';
 import { useSnapshotQuery } from 'snapshot';
 import { webClient } from 'snapshot/apollo';
 import { useAppStore } from 'src/store/app';
@@ -49,12 +49,12 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
     return null;
   }
 
-  const { proposal } = data;
+  const { proposal, votes } = data;
 
   return (
     <Wrapper>
       <Header proposal={proposal as Proposal} />
-      <Choices proposal={proposal as Proposal} />
+      <Choices proposal={proposal as Proposal} votes={votes as Vote[]} />
     </Wrapper>
   );
 };
