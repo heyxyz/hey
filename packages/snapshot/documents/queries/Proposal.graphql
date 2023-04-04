@@ -1,0 +1,5 @@
+query Proposal($id: String) {
+  proposal(id: $id) {
+    id
+  }
+}
