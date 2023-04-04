@@ -1,8 +1,9 @@
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
-import type { Proposal } from 'snapshot';
-import { useProposalQuery } from 'snapshot';
+import type { Proposal, Vote } from 'snapshot';
+import { useSnapshotQuery } from 'snapshot';
 import { webClient } from 'snapshot/apollo';
+import { useAppStore } from 'src/store/app';
 import { Card, Spinner } from 'ui';
 
 import Choices from './Choices';
@@ -10,10 +11,11 @@ import Header from './Header';
 
 interface WrapperProps {
   children: ReactNode;
+  dataTestId?: string;
 }
 
-const Wrapper: FC<WrapperProps> = ({ children }) => (
-  <Card className="mt-3 cursor-auto p-5" onClick={stopEventPropagation}>
+const Wrapper: FC<WrapperProps> = ({ children, dataTestId = '' }) => (
+  <Card className="mt-3 cursor-auto p-5" dataTestId={dataTestId} onClick={stopEventPropagation}>
     {children}
   </Card>
 );
@@ -23,8 +25,13 @@ interface SnapshotProps {
 }
 
 const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
-  const { data, loading, error } = useProposalQuery({
-    variables: { id: propsalId },
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
+  const { data, loading, error } = useSnapshotQuery({
+    variables: {
+      id: propsalId,
+      where: { voter: currentProfile?.ownedBy ?? null, proposal: propsalId }
+    },
     client: webClient
   });
 
@@ -43,12 +50,12 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
     return null;
   }
 
-  const { proposal } = data;
+  const { proposal, votes } = data;
 
   return (
-    <Wrapper>
+    <Wrapper dataTestId={`snapshot-${proposal.id}`}>
       <Header proposal={proposal as Proposal} />
-      <Choices proposal={proposal as Proposal} />
+      <Choices proposal={proposal as Proposal} votes={votes as Vote[]} />
     </Wrapper>
   );
 };
