@@ -8,5 +8,8 @@ query Proposal($id: String) {
       id
       name
     }
+    choices
+    scores
+    scores_total
   }
 }

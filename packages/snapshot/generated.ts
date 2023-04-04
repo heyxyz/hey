@@ -515,6 +515,9 @@ export type ProposalQuery = {
     author: string;
     state?: string | null;
     title: string;
+    choices: Array<string | null>;
+    scores?: Array<number | null> | null;
+    scores_total?: number | null;
     space?: { __typename?: 'Space'; id: string; name?: string | null } | null;
   } | null;
 };
@@ -540,6 +543,9 @@ export const ProposalDocument = gql`
         id
         name
       }
+      choices
+      scores
+      scores_total
     }
   }
 `;
