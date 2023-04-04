@@ -50,18 +50,22 @@ const Attachment: FC = () => {
   const mediaLimitReached = (files: FileList) => {
     //gets type of media through first 5 letters of type (media || video || audio)
     const mediaType = files[0].type.substring(0, 5);
-    //If image set flag to disable alternative uploads
-    if (mediaType === 'image') {
-      setIsImageAttachmentType(true);
-    }
+
     //If image limit reach toggle flag to disabled additional uploads
+    switch (mediaType) {
+      case 'image':
+        setIsImageAttachmentType(true);
+        break;
+      case 'audio':
+        toggleLimitReached(true);
+        break;
+      case 'video':
+        toggleLimitReached(true);
+        break;
+    }
+
+    //Set limit flag if 4 images to post
     if (mediaType === 'image' && attachments.length === 3) {
-      toggleLimitReached(true);
-    }
-    if (mediaType === 'audio' && attachments.length === 0) {
-      toggleLimitReached(true);
-    }
-    if (mediaType === 'video' && attachments.length === 0) {
       toggleLimitReached(true);
     }
   };
