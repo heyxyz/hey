@@ -1,0 +1,5 @@
+query Votes($where: VoteWhere) {
+  votes(where: $where) {
+    choice
+  }
+}

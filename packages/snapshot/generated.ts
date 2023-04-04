@@ -522,6 +522,15 @@ export type ProposalQuery = {
   } | null;
 };
 
+export type VotesQueryVariables = Exact<{
+  where?: InputMaybe<VoteWhere>;
+}>;
+
+export type VotesQuery = {
+  __typename?: 'Query';
+  votes?: Array<{ __typename?: 'Vote'; choice: any } | null> | null;
+};
+
 export interface PossibleTypesResultData {
   possibleTypes: {
     [key: string]: string[];
@@ -581,3 +590,40 @@ export function useProposalLazyQuery(
 export type ProposalQueryHookResult = ReturnType<typeof useProposalQuery>;
 export type ProposalLazyQueryHookResult = ReturnType<typeof useProposalLazyQuery>;
 export type ProposalQueryResult = Apollo.QueryResult<ProposalQuery, ProposalQueryVariables>;
+export const VotesDocument = gql`
+  query Votes($where: VoteWhere) {
+    votes(where: $where) {
+      choice
+    }
+  }
+`;
+
+/**
+ * __useVotesQuery__
+ *
+ * To run a query within a React component, call `useVotesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVotesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVotesQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useVotesQuery(baseOptions?: Apollo.QueryHookOptions<VotesQuery, VotesQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<VotesQuery, VotesQueryVariables>(VotesDocument, options);
+}
+export function useVotesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<VotesQuery, VotesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<VotesQuery, VotesQueryVariables>(VotesDocument, options);
+}
+export type VotesQueryHookResult = ReturnType<typeof useVotesQuery>;
+export type VotesLazyQueryHookResult = ReturnType<typeof useVotesLazyQuery>;
+export type VotesQueryResult = Apollo.QueryResult<VotesQuery, VotesQueryVariables>;

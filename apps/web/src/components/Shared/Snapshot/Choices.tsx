@@ -28,7 +28,9 @@ const Choices: FC<HeaderProps> = ({ proposal }) => {
           <div key={choice} className="space-y-1 text-sm">
             <div className="flex items-center justify-between">
               <b>{choice}</b>
-              <span className="lt-text-gray-500">{percentage.toFixed(2)}%</span>
+              <span className="lt-text-gray-500">
+                {Number.isNaN(percentage) ? 0 : percentage.toFixed(2)}%
+              </span>
             </div>
             <div className="relative w-full">
               <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300">
