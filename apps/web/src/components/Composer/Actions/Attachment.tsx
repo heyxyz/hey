@@ -11,8 +11,8 @@ import {
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
 } from 'data/constants';
-import { ChangeEvent, FC, useEffect } from 'react';
-import { Fragment, useId, useRef, useState } from 'react';
+import type { ChangeEvent, FC } from 'react';
+import { Fragment, useEffect, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 import { Spinner, Tooltip } from 'ui';
@@ -28,12 +28,12 @@ const Attachment: FC = () => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    //Clear media upload limits if attachments are empty 
+    //Clear media upload limits if attachments are empty
     if (!attachments.length) {
       toggleLimitReached(false);
       setIsImageAttachmentType(false);
     }
-  }, [attachments])
+  }, [attachments]);
 
   useOnClickOutside(dropdownRef, () => setShowMenu(false));
 
@@ -57,14 +57,14 @@ const Attachment: FC = () => {
     //If image limit reach toggle flag to disabled additional uploads
     if (mediaType === 'image' && attachments.length === 3) {
       toggleLimitReached(true);
-    } 
+    }
     if (mediaType === 'audio' && attachments.length === 0) {
       toggleLimitReached(true);
-    } 
+    }
     if (mediaType === 'video' && attachments.length === 0) {
       toggleLimitReached(true);
-    } 
-  }
+    }
+  };
 
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
