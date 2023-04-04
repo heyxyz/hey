@@ -11,7 +11,7 @@ import {
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
 } from 'data/constants';
-import type { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, useEffect } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
@@ -22,33 +22,20 @@ const Attachment: FC = () => {
   const isUploading = usePublicationStore((state) => state.isUploading);
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
+  const [limitReached, toggleLimitReached] = useState(false);
+  const [isImageAttachmentType, setIsImageAttachmentType] = useState(false);
   const id = useId();
   const dropdownRef = useRef(null);
 
+  useEffect(() => {
+    //Clear media upload limits if attachments are empty 
+    if (!attachments.length) {
+      toggleLimitReached(false);
+      setIsImageAttachmentType(false);
+    }
+  }, [attachments])
+
   useOnClickOutside(dropdownRef, () => setShowMenu(false));
-
-  const hasVideos = (files: FileList) => {
-    let videos = 0;
-    let images = 0;
-
-    for (const file of files) {
-      if (ALLOWED_VIDEO_TYPES.includes(file.type)) {
-        videos = videos + 1;
-      } else {
-        images = images + 1;
-      }
-    }
-
-    if (videos > 0) {
-      if (videos > 1) {
-        return true;
-      }
-
-      return images > 0 ? true : false;
-    }
-
-    return false;
-  };
 
   const isTypeAllowed = (files: FileList) => {
     for (const file of files) {
@@ -60,15 +47,24 @@ const Attachment: FC = () => {
     return false;
   };
 
-  const isImageType = (files: FileList) => {
-    for (const file of files) {
-      if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-        return false;
-      }
+  const mediaLimitReached = (files: FileList) => {
+    //gets type of media through first 5 letters of type (media || video || audio)
+    const mediaType = files[0].type.substring(0, 5);
+    //If image set flag to disable alternative uploads
+    if (mediaType === 'image') {
+      setIsImageAttachmentType(true);
     }
-
-    return true;
-  };
+    //If image limit reach toggle flag to disabled additional uploads
+    if (mediaType === 'image' && attachments.length === 3) {
+      toggleLimitReached(true);
+    } 
+    if (mediaType === 'audio' && attachments.length === 0) {
+      toggleLimitReached(true);
+    } 
+    if (mediaType === 'video' && attachments.length === 0) {
+      toggleLimitReached(true);
+    } 
+  }
 
   const handleAttachment = async (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
@@ -76,11 +72,11 @@ const Attachment: FC = () => {
 
     try {
       const { files } = evt.target;
+      files && mediaLimitReached(files);
       // Count check
-      if (files && (hasVideos(files) || (isImageType(files) && files.length + attachments.length > 4))) {
-        return toast.error(t`Please choose either 1 video or up to 4 photos.`);
+      if (limitReached) {
+        return toast.error(t`Please choose either 1 video, 1 audio file, or up to 4 photos.`);
       }
-
       // Type check
       if (isTypeAllowed(files as FileList)) {
         await handleUploadAttachments(files);
@@ -114,6 +110,7 @@ const Attachment: FC = () => {
         >
           <Menu.Item
             as="label"
+            disabled={limitReached}
             className={({ active }) =>
               clsx(
                 { 'dropdown-active': active },
@@ -131,11 +128,12 @@ const Attachment: FC = () => {
               accept={ALLOWED_IMAGE_TYPES.join(',')}
               className="hidden"
               onChange={handleAttachment}
-              disabled={attachments.length >= 4}
+              disabled={limitReached}
             />
           </Menu.Item>
           <Menu.Item
             as="label"
+            disabled={isImageAttachmentType || limitReached}
             className={({ active }) =>
               clsx(
                 { 'dropdown-active': active },
@@ -152,10 +150,11 @@ const Attachment: FC = () => {
               accept={ALLOWED_VIDEO_TYPES.join(',')}
               className="hidden"
               onChange={handleAttachment}
-              disabled={attachments.length >= 4}
+              disabled={isImageAttachmentType || limitReached}
             />
           </Menu.Item>
           <Menu.Item
+            disabled={isImageAttachmentType || limitReached}
             as="label"
             className={({ active }) =>
               clsx(
@@ -173,7 +172,7 @@ const Attachment: FC = () => {
               accept={ALLOWED_AUDIO_TYPES.join(',')}
               className="hidden"
               onChange={handleAttachment}
-              disabled={attachments.length >= 4}
+              disabled={isImageAttachmentType || limitReached}
             />
           </Menu.Item>
         </Menu.Items>
