@@ -1,10 +1,12 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import Snapshot from '@components/Shared/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
+import getSnapshotProposalId from 'lib/getSnapshotProposalId';
 import getURLs from 'lib/getURLs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -19,6 +21,8 @@ interface PublicationBodyProps {
 const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+  const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
+  const snapshotProposalId = hasURLs && getSnapshotProposalId(getURLs(publication?.metadata?.content)[0]);
 
   if (publication?.metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
@@ -37,13 +41,14 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
           </Link>
         </div>
       )}
-      {publication?.metadata?.media?.length > 0 ? (
+      {/* Snapshot, Attachments and Opengraph */}
+      {snapshotProposalId ? (
+        <Snapshot propsalId={snapshotProposalId} />
+      ) : publication?.metadata?.media?.length > 0 ? (
         <Attachments attachments={publication?.metadata?.media} publication={publication} />
       ) : (
         publication?.metadata?.content &&
-        getURLs(publication?.metadata?.content)?.length > 0 && (
-          <IFramely url={getURLs(publication?.metadata?.content)[0]} />
-        )
+        hasURLs && <IFramely url={getURLs(publication?.metadata?.content)[0]} />
       )}
     </div>
   );
