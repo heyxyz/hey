@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react';
 import type { Proposal } from 'snapshot';
 import { useProposalQuery } from 'snapshot';
 import { webClient } from 'snapshot/apollo';
-import { Card } from 'ui';
+import { Card, Spinner } from 'ui';
 
 import Choices from './Choices';
 import Header from './Header';
@@ -29,8 +29,14 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
   });
 
   if (loading) {
-    // Add skeleton loader here
-    return <Wrapper>Loading...</Wrapper>;
+    // TODO: Add skeleton loader here
+    return (
+      <Wrapper>
+        <div className="flex items-center justify-center">
+          <Spinner size="xs" />
+        </div>
+      </Wrapper>
+    );
   }
 
   if (!data?.proposal || error) {
