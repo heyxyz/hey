@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import formatAddress from 'lib/formatAddress';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import Link from 'next/link';
@@ -27,6 +28,7 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
   });
 
   if (loading) {
+    // Add skeleton loader here
     return <Wrapper>Loading...</Wrapper>;
   }
 
@@ -41,6 +43,14 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
   return (
     <Wrapper>
       <div className="mb-2 flex items-center space-x-1 text-sm">
+        <div
+          className={clsx(
+            proposal.state === 'active' ? 'bg-green-500' : 'bg-brand-500',
+            'mr-1 rounded-full px-2 py-0.5 text-xs capitalize text-white'
+          )}
+        >
+          {proposal.state}
+        </div>
         <Image
           src={`https://cdn.stamp.fyi/space/${space?.id}`}
           className="mr-1 h-5 w-5 rounded-full"

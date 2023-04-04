@@ -2,6 +2,7 @@ query Proposal($id: String) {
   proposal(id: $id) {
     id
     author
+    state
     title
     space {
       id
