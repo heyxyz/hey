@@ -1,5 +1,5 @@
 schema: https://hub.snapshot.org/graphql
-documents: ['./documents/queries/*.graphql']
+documents: ['./Snapshot.graphql']
 
 hooks:
   afterAllFileWrite:
