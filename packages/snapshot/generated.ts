@@ -509,7 +509,12 @@ export type ProposalQueryVariables = Exact<{
 
 export type ProposalQuery = {
   __typename?: 'Query';
-  proposal?: { __typename?: 'Proposal'; id: string } | null;
+  proposal?: {
+    __typename?: 'Proposal';
+    id: string;
+    author: string;
+    space?: { __typename?: 'Space'; id: string; name?: string | null; avatar?: string | null } | null;
+  } | null;
 };
 
 export interface PossibleTypesResultData {
@@ -526,6 +531,12 @@ export const ProposalDocument = gql`
   query Proposal($id: String) {
     proposal(id: $id) {
       id
+      author
+      space {
+        id
+        name
+        avatar
+      }
     }
   }
 `;

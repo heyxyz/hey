@@ -1,5 +1,11 @@
 query Proposal($id: String) {
   proposal(id: $id) {
     id
+    author
+    space {
+      id
+      name
+      avatar
+    }
   }
 }
