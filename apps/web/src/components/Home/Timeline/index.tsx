@@ -84,7 +84,7 @@ const Timeline: FC = () => {
         <List height="" width="" itemData={txnQueue} itemCount={txnQueue.length} itemSize={20}>
           {({ data }) => (
             <Card className="divide-y-[1px] dark:divide-gray-700">
-              {data.map(
+              {data?.map(
                 (txn) =>
                   txn?.type === OptmisticPublicationType.NewPost && (
                     <div key={txn.id}>
