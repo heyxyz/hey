@@ -75,7 +75,7 @@ const Attachments: FC<AttachmentsProps> = ({
 
   return slicedAttachments?.length !== 0 ? (
     <>
-      <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid gap-2 pt-3')}>
+      <div className={clsx(getClass(slicedAttachments?.length)?.row, 'mt-3 grid gap-2')}>
         {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
           const type = isNew ? attachment.type : attachment.original?.mimeType;
           const url = isNew
