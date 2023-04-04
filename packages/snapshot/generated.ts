@@ -513,7 +513,8 @@ export type ProposalQuery = {
     __typename?: 'Proposal';
     id: string;
     author: string;
-    space?: { __typename?: 'Space'; id: string; name?: string | null; avatar?: string | null } | null;
+    title: string;
+    space?: { __typename?: 'Space'; id: string; name?: string | null } | null;
   } | null;
 };
 
@@ -532,10 +533,10 @@ export const ProposalDocument = gql`
     proposal(id: $id) {
       id
       author
+      title
       space {
         id
         name
-        avatar
       }
     }
   }
