@@ -1,4 +1,4 @@
-query Proposal($id: String) {
+query Snapshot($id: String, $where: VoteWhere) {
   proposal(id: $id) {
     id
     author
@@ -11,5 +11,8 @@ query Proposal($id: String) {
     choices
     scores
     scores_total
+  }
+  votes(where: $where) {
+    choice
   }
 }
