@@ -1,8 +1,9 @@
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import type { Proposal } from 'snapshot';
-import { useProposalQuery } from 'snapshot';
+import { useSnapshotQuery } from 'snapshot';
 import { webClient } from 'snapshot/apollo';
+import { useAppStore } from 'src/store/app';
 import { Card, Spinner } from 'ui';
 
 import Choices from './Choices';
@@ -23,8 +24,13 @@ interface SnapshotProps {
 }
 
 const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
-  const { data, loading, error } = useProposalQuery({
-    variables: { id: propsalId },
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
+  const { data, loading, error } = useSnapshotQuery({
+    variables: {
+      id: propsalId,
+      where: { voter: currentProfile?.ownedBy ?? null, proposal: propsalId }
+    },
     client: webClient
   });
 
