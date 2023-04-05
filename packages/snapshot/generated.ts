@@ -520,6 +520,8 @@ export type SnapshotQuery = {
     scores?: Array<number | null> | null;
     scores_total?: number | null;
     snapshot?: string | null;
+    symbol: string;
+    network: string;
     space?: { __typename?: 'Space'; id: string; name?: string | null } | null;
     strategies: Array<{
       __typename?: 'Strategy';
@@ -552,6 +554,8 @@ export const SnapshotDocument = gql`
       scores
       scores_total
       snapshot
+      symbol
+      network
       space {
         id
         name

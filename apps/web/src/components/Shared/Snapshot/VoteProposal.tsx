@@ -1,11 +1,11 @@
-import { Errors, FeatureFlag } from 'data';
+import { ExclamationIcon } from '@heroicons/react/outline';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import humanize from 'lib/humanize';
-import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { FC } from 'react';
-import { toast } from 'react-hot-toast';
 import type { Proposal } from 'snapshot';
 import { useAppStore } from 'src/store/app';
-import { Button } from 'ui';
+import { Button, Spinner } from 'ui';
 import { useSignTypedData } from 'wagmi';
 
 interface VoteProposalProps {
@@ -20,18 +20,38 @@ interface VoteProposalProps {
 const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConfig }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { signTypedDataAsync } = useSignTypedData({});
-  const { choices, snapshot } = proposal;
+  const { choices, snapshot, network, strategies, space, state, symbol } = proposal;
   const choice = choices[voteConfig.position - 1];
 
+  const getScore = async () => {
+    const response = await axios({
+      url: 'https://score.snapshot.org',
+      method: 'POST',
+      data: {
+        jsonrpc: '2.0',
+        method: 'get_vp',
+        params: {
+          address: currentProfile?.ownedBy,
+          network,
+          strategies,
+          snapshot: parseInt(snapshot as string),
+          space: space?.id,
+          delegation: false
+        },
+        id: null
+      }
+    });
+
+    return response.data;
+  };
+
+  const { data, isLoading, error } = useQuery(
+    ['statsData', currentProfile?.ownedBy, proposal.id],
+    () => getScore().then((res) => res),
+    { enabled: state === 'active' }
+  );
+
   const sign = async (position: number) => {
-    if (!isFeatureEnabled(FeatureFlag.SnapshotVoting, currentProfile?.id)) {
-      return;
-    }
-
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
     // TODO: allow only single choice
 
     const typedData = {
@@ -63,21 +83,38 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
     console.log(signature);
   };
 
+  const vp = data?.result?.vp_by_strategy ?? [0];
+  const totalVotingPower = vp.reduce((a: number, b: number) => a + b, 0);
+
   return (
-    <div className="space-y-2 p-5">
-      <div className="flex items-center justify-between">
-        <b>Choice</b>
-        <span>{choice}</span>
+    <>
+      <div className="space-y-3 p-5">
+        <div className="flex items-center justify-between">
+          <b>Choice</b>
+          <span className="max-w-xs truncate" title={choice ?? ''}>
+            {choice}
+          </span>
+        </div>
+        <div className="flex items-center justify-between">
+          <b>Snapshot</b>
+          <span>{humanize(parseInt(snapshot as string))}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <b>Your voting power</b>
+          <span>
+            {isLoading ? (
+              <Spinner size="xs" />
+            ) : error ? (
+              <ExclamationIcon className="h-5 w-5 text-yellow-500" />
+            ) : (
+              <>
+                {humanize(totalVotingPower)} {symbol}
+              </>
+            )}
+          </span>
+        </div>
       </div>
-      <div className="flex items-center justify-between">
-        <b>Snapshot</b>
-        <span>{humanize(parseInt(snapshot as string))}</span>
-      </div>
-      <div className="flex items-center justify-between">
-        <b>Your voting power</b>
-        <span>{humanize(parseInt(snapshot as string))}</span>
-      </div>
-      <div className="flex space-x-2 pt-3">
+      <div className="flex space-x-2 border-t p-5">
         <Button
           className="w-full"
           size="lg"
@@ -91,7 +128,7 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
           Vote
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 

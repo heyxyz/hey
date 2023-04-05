@@ -8,6 +8,8 @@ query Snapshot($id: String, $where: VoteWhere) {
     scores
     scores_total
     snapshot
+    symbol
+    network
     space {
       id
       name

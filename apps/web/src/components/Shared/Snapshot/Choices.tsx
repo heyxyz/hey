@@ -2,9 +2,13 @@ import { CheckCircleIcon as CheckCircleIconOutline, MenuAlt2Icon } from '@heroic
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import { Errors, FeatureFlag } from 'data';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import type { Proposal, Vote } from 'snapshot';
+import { useAppStore } from 'src/store/app';
 import { Card, Modal } from 'ui';
 
 import New from '../Badges/New';
@@ -16,12 +20,13 @@ interface ChoicesProps {
 }
 
 const Choices: FC<ChoicesProps> = ({ proposal, votes }) => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [voteConfig, setVoteConfig] = useState({
     show: false,
     position: 0
   });
 
-  const { choices, scores, scores_total } = proposal;
+  const { choices, scores, scores_total, state } = proposal;
   const vote = votes[0];
   const choicesWithVote = choices.map((choice, index) => ({
     position: index + 1,
@@ -30,6 +35,22 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes }) => {
     percentage: ((scores?.[index] ?? 0) / (scores_total ?? 1)) * 100
   }));
   const sortedChoices = choicesWithVote.sort((a, b) => b.percentage - a.percentage);
+
+  const openVoteModal = (position: number) => {
+    if (!isFeatureEnabled(FeatureFlag.SnapshotVoting, currentProfile?.id)) {
+      return;
+    }
+
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
+    if (state !== 'active') {
+      return toast.error(t`This proposal is closed!`);
+    }
+
+    setVoteConfig({ show: true, position });
+  };
 
   return (
     <>
@@ -45,7 +66,7 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes }) => {
           {sortedChoices.map(({ position, choice, voted, percentage }) => (
             <div key={choice} className="flex items-center space-x-2.5 text-sm">
               <CheckCircleIcon
-                onClick={() => setVoteConfig({ show: true, position })}
+                onClick={() => openVoteModal(position)}
                 className={clsx(voted ? 'text-green-500' : 'text-gray-500', 'h-6 w-6 ')}
               />
               <div className="w-full space-y-1">
