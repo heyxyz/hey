@@ -16,9 +16,10 @@ interface HeaderProps {
 const Choices: FC<HeaderProps> = ({ proposal, votes }) => {
   const { choices, scores, scores_total } = proposal;
   const vote = votes[0];
+
   const choicesWithVote = choices.map((choice, index) => ({
     choice,
-    voted: vote?.choice - 1 === index,
+    voted: Array.isArray(vote?.choice) ? vote?.choice.includes(index + 1) : vote?.choice === index + 1,
     percentage: ((scores?.[index] ?? 0) / (scores_total ?? 1)) * 100
   }));
   const sortedChoices = choicesWithVote.sort((a, b) => b.percentage - a.percentage);
