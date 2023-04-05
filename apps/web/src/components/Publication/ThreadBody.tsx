@@ -26,7 +26,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
       <PublicationHeader publication={publication} />
       <div className="flex">
         <div className="-my-6 ml-5 mr-8 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
-        <div className="w-full pb-5 pr-[53px]">
+        <div className="max-w-[calc(100%_-_53px)] pb-5">
           {publication?.hidden ? (
             <HiddenPublication type={publication.__typename} />
           ) : (
