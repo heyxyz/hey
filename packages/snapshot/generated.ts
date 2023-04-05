@@ -519,6 +519,7 @@ export type SnapshotQuery = {
     choices: Array<string | null>;
     scores?: Array<number | null> | null;
     scores_total?: number | null;
+    snapshot?: string | null;
     space?: { __typename?: 'Space'; id: string; name?: string | null } | null;
     strategies: Array<{
       __typename?: 'Strategy';
@@ -550,6 +551,7 @@ export const SnapshotDocument = gql`
       choices
       scores
       scores_total
+      snapshot
       space {
         id
         name
