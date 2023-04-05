@@ -12,13 +12,17 @@ import {
   ALLOWED_VIDEO_TYPES
 } from 'data/constants';
 import type { ChangeEvent, FC } from 'react';
-import { Fragment, useEffect, useId, useRef, useState } from 'react';
+import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
+import type { NewLensterAttachment } from 'src/types';
 import { Spinner, Tooltip } from 'ui';
 
-const Attachment: FC = () => {
-  const attachments = usePublicationStore((state) => state.attachments);
+interface AttachmentProps {
+  attachments: NewLensterAttachment[];
+}
+
+const Attachment: FC<AttachmentProps> = ({ attachments }) => {
   const isUploading = usePublicationStore((state) => state.isUploading);
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
@@ -26,14 +30,14 @@ const Attachment: FC = () => {
   const [isImageAttachmentType, setIsImageAttachmentType] = useState(false);
   const id = useId();
   const dropdownRef = useRef(null);
+  const [prevItems, setPrevItems] = useState(attachments);
 
-  useEffect(() => {
-    //Clear media upload limits if attachments are empty
-    if (!attachments.length) {
-      toggleLimitReached(false);
-      setIsImageAttachmentType(false);
-    }
-  }, [attachments]);
+  //Clear media upload limits if attachments are empty
+  if (attachments !== prevItems && !attachments.length) {
+    setPrevItems(attachments);
+    toggleLimitReached(false);
+    setIsImageAttachmentType(false);
+  }
 
   useOnClickOutside(dropdownRef, () => setShowMenu(false));
 
