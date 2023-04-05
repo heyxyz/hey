@@ -7,6 +7,8 @@ import { CustomFiltersTypes, PublicationSortCriteria, useExploreFeedQuery } from
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import { FixedSizeList as List } from 'react-window';
 import { useAppStore } from 'src/store/app';
 import { Card, EmptyState, ErrorMessage } from 'ui';
 
@@ -64,12 +66,31 @@ const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.Curated
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="explore-feed">
-      {publications?.map((publication, index) => (
-        <SinglePublication key={`${publication.id}_${index}`} publication={publication as Publication} />
-      ))}
-      {hasMore && <span ref={observe} />}
-    </Card>
+    <AutoSizer>
+      {({ height, width }) => (
+        <List
+          height={height || '100%'}
+          width={width || '100%'}
+          itemData={publications}
+          itemCount={publications?.length || 0}
+          itemSize={50}
+        >
+          {({ data }) => (
+            <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="explore-feed">
+              {data?.map((publication, index) => (
+                <div key={index}>
+                  <SinglePublication
+                    key={`${publication.id}_${index}`}
+                    publication={publication as Publication}
+                  />
+                </div>
+              ))}
+              {hasMore && <span ref={observe} />}
+            </Card>
+          )}
+        </List>
+      )}
+    </AutoSizer>
   );
 };
 

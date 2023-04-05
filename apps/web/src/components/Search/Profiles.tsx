@@ -7,6 +7,7 @@ import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from '
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
 import { Card, EmptyState, ErrorMessage } from 'ui';
 
@@ -71,18 +72,28 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   }
 
   return (
-    <List height="" width="" itemData={profiles || null} itemCount={profiles.length} itemSize={20}>
-      {({ data }) => (
-        <div className="space-y-3">
-          {data?.map((profile: Profile) => (
-            <Card key={profile?.id} className="p-5">
-              <UserProfile profile={profile} showBio isBig />
-            </Card>
-          ))}
-          {hasMore && <span ref={observe} />}
-        </div>
+    <AutoSizer>
+      {({ height, width }) => (
+        <List
+          height={height || '100%'}
+          width={width || '100%'}
+          itemData={profiles || null}
+          itemCount={profiles.length}
+          itemSize={40}
+        >
+          {({ data }) => (
+            <div className="space-y-3">
+              {data?.map((profile: Profile) => (
+                <Card key={profile?.id} className="p-5">
+                  <UserProfile profile={profile} showBio isBig />
+                </Card>
+              ))}
+              {hasMore && <span ref={observe} />}
+            </div>
+          )}
+        </List>
       )}
-    </List>
+    </AutoSizer>
   );
 };
 

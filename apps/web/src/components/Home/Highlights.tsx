@@ -60,8 +60,14 @@ const Highlights: FC = () => {
 
   return (
     <AutoSizer>
-      {() => (
-        <List height="" width="" itemData={txnQueue} itemCount={txnQueue.length} itemSize={20}>
+      {({ height, width }) => (
+        <List
+          height={height || '100%'}
+          width={width || '100%'}
+          itemData={txnQueue}
+          itemCount={txnQueue.length}
+          itemSize={50}
+        >
           {({ data }) => (
             <Card className="divide-y-[1px] dark:divide-gray-700">
               {data?.map(
@@ -69,14 +75,18 @@ const Highlights: FC = () => {
                   txn?.type === OptmisticPublicationType.NewPost && (
                     <div key={txn.id}>
                       <QueuedPublication txn={txn} />
+                      <p>HALO</p>
                     </div>
                   )
               )}
               {publications?.map((publication, index) => (
-                <SinglePublication
-                  key={`${publication?.id}_${index}`}
-                  publication={publication as Publication}
-                />
+                <div key="index">
+                  <SinglePublication
+                    key={`${publication?.id}_${index}`}
+                    publication={publication as Publication}
+                  />
+                  <p>PIPI CON CUCA</p>
+                </div>
               ))}
               {hasMore && <span ref={observe} />}
             </Card>

@@ -13,6 +13,7 @@ import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'le
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as Notificator } from 'react-window';
 import { NotificationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
@@ -102,48 +103,52 @@ const List: FC<ListProps> = ({ feedType }) => {
   }
 
   return (
-    <Notificator
-      height=""
-      width=""
-      itemData={notifications || null}
-      itemCount={notifications?.length || 0}
-      itemSize={100}
-    >
-      {({ data }) => (
-        <Card className="divide-y dark:divide-gray-700">
-          {data?.map((notification, index, items) => {
-            const isLast = index === items.length - 1;
+    <AutoSizer>
+      {({ height, width }) => (
+        <Notificator
+          height={height || '100%'}
+          width={width || '100%'}
+          itemData={notifications || null}
+          itemCount={notifications?.length || 0}
+          itemSize={30}
+        >
+          {({ data }) => (
+            <Card className="divide-y dark:divide-gray-700">
+              {data?.map((notification, index, items) => {
+                const isLast = index === items.length - 1;
 
-            return (
-              <div
-                key={`${notification?.notificationId}_${index}`}
-                className="p-5"
-                ref={isLast ? observe : undefined}
-              >
-                {notification.__typename === 'NewFollowerNotification' && (
-                  <FollowerNotification notification={notification as NewFollowerNotification} />
-                )}
-                {notification.__typename === 'NewMentionNotification' && (
-                  <MentionNotification notification={notification as NewMentionNotification} />
-                )}
-                {notification.__typename === 'NewReactionNotification' && (
-                  <LikeNotification notification={notification as NewReactionNotification} />
-                )}
-                {notification.__typename === 'NewCommentNotification' && (
-                  <CommentNotification notification={notification as NewCommentNotification} />
-                )}
-                {notification.__typename === 'NewMirrorNotification' && (
-                  <MirrorNotification notification={notification as NewMirrorNotification} />
-                )}
-                {notification.__typename === 'NewCollectNotification' && (
-                  <CollectNotification notification={notification as NewCollectNotification} />
-                )}
-              </div>
-            );
-          })}
-        </Card>
+                return (
+                  <div
+                    key={`${notification?.notificationId}_${index}`}
+                    className="p-5"
+                    ref={isLast ? observe : undefined}
+                  >
+                    {notification.__typename === 'NewFollowerNotification' && (
+                      <FollowerNotification notification={notification as NewFollowerNotification} />
+                    )}
+                    {notification.__typename === 'NewMentionNotification' && (
+                      <MentionNotification notification={notification as NewMentionNotification} />
+                    )}
+                    {notification.__typename === 'NewReactionNotification' && (
+                      <LikeNotification notification={notification as NewReactionNotification} />
+                    )}
+                    {notification.__typename === 'NewCommentNotification' && (
+                      <CommentNotification notification={notification as NewCommentNotification} />
+                    )}
+                    {notification.__typename === 'NewMirrorNotification' && (
+                      <MirrorNotification notification={notification as NewMirrorNotification} />
+                    )}
+                    {notification.__typename === 'NewCollectNotification' && (
+                      <CollectNotification notification={notification as NewCollectNotification} />
+                    )}
+                  </div>
+                );
+              })}
+            </Card>
+          )}
+        </Notificator>
       )}
-    </Notificator>
+    </AutoSizer>
   );
 };
 

@@ -83,6 +83,7 @@
     "@types/react": "^18.0.32",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "^18.0.11",
+    "@types/react-virtualized-auto-sizer": "^1.0.1",
     "@types/react-window": "^1.8.5",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",

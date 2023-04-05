@@ -80,8 +80,14 @@ const Timeline: FC = () => {
 
   return (
     <AutoSizer>
-      {() => (
-        <List height="" width="" itemData={txnQueue} itemCount={txnQueue.length} itemSize={20}>
+      {({ height, width }) => (
+        <List
+          height={height || '100%'}
+          itemData={txnQueue}
+          itemCount={txnQueue.length || 0}
+          itemSize={1000}
+          width={width || '100%'}
+        >
           {({ data }) => (
             <Card className="divide-y-[1px] dark:divide-gray-700">
               {data?.map(
