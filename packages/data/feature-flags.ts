@@ -8,7 +8,8 @@ export enum FeatureFlag {
   NftGallery = 'nft-gallery',
   NftDetail = 'nft-detail',
   GatedLocales = 'gated-locales',
-  PublicationAnalytics = 'publication-analytics'
+  PublicationAnalytics = 'publication-analytics',
+  SnapshotVoting = 'snapshot-voting'
 }
 
 export const featureFlags = [
@@ -35,6 +36,11 @@ export const featureFlags = [
   {
     key: FeatureFlag.PublicationAnalytics,
     name: 'Publication Analytics',
+    enabledFor: [...mainnetStaffs]
+  },
+  {
+    key: FeatureFlag.SnapshotVoting,
+    name: 'Snapshot Voting',
     enabledFor: [...mainnetStaffs]
   }
 ];

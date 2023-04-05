@@ -2,7 +2,10 @@ import { MenuAlt2Icon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import { Errors, FeatureFlag } from 'data';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { FC } from 'react';
+import { toast } from 'react-hot-toast';
 import type { Proposal, Vote } from 'snapshot';
 import { useAppStore } from 'src/store/app';
 import { Card } from 'ui';
@@ -30,6 +33,14 @@ const Choices: FC<HeaderProps> = ({ proposal, votes }) => {
   const sortedChoices = choicesWithVote.sort((a, b) => b.percentage - a.percentage);
 
   const sign = async (position: number) => {
+    if (!isFeatureEnabled(FeatureFlag.SnapshotVoting, currentProfile?.id)) {
+      return;
+    }
+
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
     const typedData = {
       domain: { name: 'snapshot', version: '0.1.4' },
       types: {
