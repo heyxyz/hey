@@ -16,7 +16,6 @@ interface HeaderProps {
 const Choices: FC<HeaderProps> = ({ proposal, votes }) => {
   const { choices, scores, scores_total } = proposal;
   const vote = votes[0];
-
   const choicesWithVote = choices.map((choice, index) => ({
     choice,
     voted: Array.isArray(vote?.choice) ? vote?.choice.includes(index + 1) : vote?.choice === index + 1,
