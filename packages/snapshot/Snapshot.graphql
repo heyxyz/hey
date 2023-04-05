@@ -4,13 +4,18 @@ query Snapshot($id: String, $where: VoteWhere) {
     author
     state
     title
+    choices
+    scores
+    scores_total
     space {
       id
       name
     }
-    choices
-    scores
-    scores_total
+    strategies {
+      network
+      name
+      params
+    }
   }
   votes(where: $where) {
     choice
