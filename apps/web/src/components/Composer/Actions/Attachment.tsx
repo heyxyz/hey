@@ -56,10 +56,7 @@ const Attachment: FC = () => {
       case 'image':
         setIsImageAttachmentType(true);
         break;
-      case 'audio':
-        toggleLimitReached(true);
-        break;
-      case 'video':
+      case 'audio' || 'video':
         toggleLimitReached(true);
         break;
     }
