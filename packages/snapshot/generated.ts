@@ -519,7 +519,16 @@ export type SnapshotQuery = {
     choices: Array<string | null>;
     scores?: Array<number | null> | null;
     scores_total?: number | null;
+    snapshot?: string | null;
+    symbol: string;
+    network: string;
     space?: { __typename?: 'Space'; id: string; name?: string | null } | null;
+    strategies: Array<{
+      __typename?: 'Strategy';
+      network?: string | null;
+      name: string;
+      params?: any | null;
+    } | null>;
   } | null;
   votes?: Array<{ __typename?: 'Vote'; choice: any } | null> | null;
 };
@@ -541,13 +550,21 @@ export const SnapshotDocument = gql`
       author
       state
       title
+      choices
+      scores
+      scores_total
+      snapshot
+      symbol
+      network
       space {
         id
         name
       }
-      choices
-      scores
-      scores_total
+      strategies {
+        network
+        name
+        params
+      }
     }
     votes(where: $where) {
       choice
