@@ -27,7 +27,7 @@ interface SnapshotProps {
 const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const { data, loading, error } = useSnapshotQuery({
+  const { data, loading, error, refetch } = useSnapshotQuery({
     variables: {
       id: propsalId,
       where: { voter: currentProfile?.ownedBy ?? null, proposal: propsalId }
@@ -55,7 +55,7 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
   return (
     <Wrapper dataTestId={`snapshot-${proposal.id}`}>
       <Header proposal={proposal as Proposal} />
-      <Choices proposal={proposal as Proposal} votes={votes as Vote[]} />
+      <Choices proposal={proposal as Proposal} votes={votes as Vote[]} refetch={refetch} />
     </Wrapper>
   );
 };
