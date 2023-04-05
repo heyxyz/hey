@@ -41,6 +41,8 @@ const Choices: FC<HeaderProps> = ({ proposal, votes }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    // TODO: allow only single choice
+
     const typedData = {
       domain: { name: 'snapshot', version: '0.1.4' },
       types: {
