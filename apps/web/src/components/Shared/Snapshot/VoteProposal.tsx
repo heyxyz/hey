@@ -15,9 +15,10 @@ interface VoteProposalProps {
     position: number;
   };
   setVoteConfig: (voteConfig: { show: boolean; position: number }) => void;
+  refetch?: () => void;
 }
 
-const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConfig }) => {
+const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConfig, refetch }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { signTypedDataAsync } = useSignTypedData({});
   const { choices, snapshot, network, strategies, space, state, symbol } = proposal;
@@ -72,7 +73,7 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
         space: proposal.space?.id as string,
         proposal: proposal.id as `0x${string}`,
         choice: position,
-        app: 'snapshot',
+        app: 'lenster',
         reason: '',
         metadata: '{}',
         from: currentProfile?.ownedBy,
@@ -80,7 +81,19 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
       }
     };
     const signature = await signTypedDataAsync(typedData);
-    console.log(signature);
+
+    axios({
+      url: 'https://seq.snapshot.org',
+      method: 'POST',
+      data: {
+        address: currentProfile?.ownedBy,
+        sig: signature,
+        data: { domain: typedData.domain, types: typedData.types, message: typedData.value }
+      }
+    }).then(() => {
+      refetch?.();
+      setVoteConfig({ show: false, position: 0 });
+    });
   };
 
   const vp = data?.result?.vp_by_strategy ?? [0];

@@ -17,9 +17,10 @@ import VoteProposal from './VoteProposal';
 interface ChoicesProps {
   proposal: Proposal;
   votes: Vote[];
+  refetch?: () => void;
 }
 
-const Choices: FC<ChoicesProps> = ({ proposal, votes }) => {
+const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [voteConfig, setVoteConfig] = useState({
     show: false,
@@ -93,7 +94,12 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes }) => {
         icon={<CheckCircleIconOutline className="text-brand h-5 w-5" />}
         onClose={() => setVoteConfig({ show: false, position: 0 })}
       >
-        <VoteProposal proposal={proposal} voteConfig={voteConfig} setVoteConfig={setVoteConfig} />
+        <VoteProposal
+          proposal={proposal}
+          voteConfig={voteConfig}
+          setVoteConfig={setVoteConfig}
+          refetch={refetch}
+        />
       </Modal>
     </>
   );
