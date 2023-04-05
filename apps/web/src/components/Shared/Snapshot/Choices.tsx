@@ -55,8 +55,8 @@ const Choices: FC<HeaderProps> = ({ proposal, votes }) => {
         timestamp: Number((Date.now() / 1e3).toFixed()) as any
       }
     };
-    const sig = await signTypedDataAsync(typedData);
-    console.log('gm', sig);
+    const signature = await signTypedDataAsync(typedData);
+    console.log(signature);
   };
 
   return (
