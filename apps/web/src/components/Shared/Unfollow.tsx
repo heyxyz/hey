@@ -3,10 +3,9 @@ import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
+import { prepareWriteContract, writeContract } from '@wagmi/core';
 import { FollowNft } from 'abis';
 import Errors from 'data/errors';
-import type { Signer } from 'ethers';
-import { Contract } from 'ethers';
 import type { CreateBurnEip712TypedData, Profile } from 'lens';
 import { useBroadcastMutation, useCreateUnfollowTypedDataMutation } from 'lens';
 import getSignature from 'lib/getSignature';
@@ -16,7 +15,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { Button, Spinner } from 'ui';
-import { useSigner, useSignTypedData } from 'wagmi';
+import { useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {
   profile: Profile;
@@ -28,16 +27,20 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [writeLoading, setWriteLoading] = useState(false);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: signer } = useSigner();
 
   const burnWithSig = async (signature: string, typedData: CreateBurnEip712TypedData) => {
     const { tokenId, deadline } = typedData.value;
     const { v, r, s } = splitSignature(signature);
     const sig = { v, r, s, deadline };
 
-    const followNftContract = new Contract(typedData.domain.verifyingContract, FollowNft, signer as Signer);
+    const config = await prepareWriteContract({
+      address: typedData.domain.verifyingContract,
+      abi: FollowNft,
+      functionName: 'burnWithSig',
+      args: [tokenId, sig]
+    });
 
-    const tx = await followNftContract.burnWithSig(tokenId, sig);
+    const tx = await writeContract(config);
     if (tx) {
       setFollowing(false);
     }
