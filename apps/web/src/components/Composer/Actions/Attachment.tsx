@@ -56,9 +56,8 @@ const Attachment: FC = () => {
       case 'image':
         setIsImageAttachmentType(true);
         break;
-      case 'audio' || 'video':
+      default:
         toggleLimitReached(true);
-        break;
     }
 
     //Set limit flag if 4 images to post
