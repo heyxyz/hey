@@ -1,0 +1,14 @@
+schema: https://hub.snapshot.org/graphql
+documents: ['./Snapshot.graphql']
+
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+
+generates:
+  generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - fragment-matcher
+      - typescript-react-apollo
