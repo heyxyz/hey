@@ -4,6 +4,7 @@ import { Publication } from 'lens';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
+import { BASE_URL } from 'src/constants';
 
 import DefaultTags from './Shared/DefaultTags';
 import SinglePublication from './Shared/SinglePublication';
@@ -40,7 +41,9 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
         title={title}
         description={description}
         image={image}
+        publishedTime={publication?.createdAt}
         cardType={hasMedia ? 'summary_large_image' : 'summary'}
+        url={`${BASE_URL}/posts/${publication.id}`}
       />
       <header>
         <SinglePublication publication={publication} h1Content />
