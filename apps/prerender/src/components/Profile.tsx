@@ -36,7 +36,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         title={title}
         description={description}
         image={image}
-        canonical={`${BASE_URL}/u/${formatHandle(profile.handle)}`}
+        url={`${BASE_URL}/u/${formatHandle(profile.handle)}`}
         schema={
           <JsonLd<any>
             item={{
