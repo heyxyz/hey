@@ -1,0 +1,26 @@
+query Snapshot($id: String, $where: VoteWhere) {
+  proposal(id: $id) {
+    id
+    author
+    state
+    title
+    choices
+    scores
+    scores_total
+    snapshot
+    symbol
+    network
+    space {
+      id
+      name
+    }
+    strategies {
+      network
+      name
+      params
+    }
+  }
+  votes(where: $where) {
+    choice
+  }
+}
