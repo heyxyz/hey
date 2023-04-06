@@ -5,6 +5,10 @@
  * @returns An array of URLs.
  */
 const getURLs = (text: string): string[] => {
+  if (!text) {
+    return [];
+  }
+
   const urlRegex = /(((https?:\/\/)|(www\.))\S+)/g;
   return text.match(urlRegex) || [];
 };
