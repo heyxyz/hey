@@ -1,24 +1,35 @@
 {
   "name": "ui",
   "version": "0.0.0",
-  "main": "index.ts",
   "private": true,
-  "license": "GPL-3.0",
+  "main": "./components/index.ts",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx"
+  },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.0.0",
     "@tippyjs/react": "^4.2.6",
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.33",
+    "@types/react-dom": "18.0.11",
     "clsx": "^1.2.1",
     "data": "*",
+    "eslint": "8.37.0",
+    "eslint-config-next": "13.2.4",
     "next": "13.2.4",
-    "react": "^18.2.0",
+    "nextra": "^2.3.0",
+    "nextra-theme-docs": "^2.3.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-hook-form": "^7.43.7",
+    "typescript": "5.0.3",
     "zod": "^3.21.4"
-  },
-  "scripts": {
-    "typecheck": "tsc --pretty --noEmit",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --fix --ext .ts,.tsx"
   }
 }

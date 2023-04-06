@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { PUBLICATION } from 'src/tracking';
-import { Alert } from 'ui/Alert';
+import { Alert } from 'ui';
 
 const DeletePublication: FC = () => {
   const showPublicationDeleteAlert = useGlobalAlertStateStore((state) => state.showPublicationDeleteAlert);
