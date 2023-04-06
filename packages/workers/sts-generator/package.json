@@ -11,10 +11,10 @@
     "lint:fix": "eslint . --fix --ext .ts"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.303.0"
+    "@aws-sdk/client-sts": "^3.306.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230321.0",
+    "@cloudflare/workers-types": "^4.20230404.0",
     "eslint-config-weblint": "*",
     "tsconfig": "*",
     "typescript": "^5.0.3",
