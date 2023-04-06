@@ -6,7 +6,9 @@
   "license": "GPL-3.0",
   "scripts": {
     "codegen": "graphql-codegen",
-    "typecheck": "tsc --pretty --noEmit"
+    "typecheck": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx"
   },
   "dependencies": {
     "@apollo/client": "^3.7.11",
