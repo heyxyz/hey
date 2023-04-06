@@ -1,9 +1,9 @@
 import type { HTMLProps } from 'react';
 
 const ThemeConfig = {
-  logo: <span>My Nextra Documentation</span>,
+  logo: <span>Lenster UI design</span>,
   project: {
-    link: 'https://github.com/shuding/nextra'
+    link: 'https://github.com/lensterxyz/lenster'
   },
   components: {
     Container: ({ children }: HTMLProps<HTMLDivElement>) => {
