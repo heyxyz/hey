@@ -16573,7 +16573,7 @@ export type ProfileQuery = {
     isFollowedByMe: boolean;
     isFollowing: boolean;
     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-    dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null;
+    dispatcher?: { __typename?: 'Dispatcher'; address: any; canUseRelay: boolean } | null;
     onChainIdentity: {
       __typename?: 'OnChainIdentity';
       proofOfHumanity: boolean;
@@ -29540,7 +29540,7 @@ export type UserProfilesQuery = {
       bio?: string | null;
       ownedBy: any;
       isFollowedByMe: boolean;
-      dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null;
+      dispatcher?: { __typename?: 'Dispatcher'; address: any; canUseRelay: boolean } | null;
       stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
@@ -33258,6 +33258,7 @@ export const ProfileDocument = gql`
         value
       }
       dispatcher {
+        address
         canUseRelay
       }
       onChainIdentity {
@@ -34231,6 +34232,7 @@ export const UserProfilesDocument = gql`
         interests
         isDefault
         dispatcher {
+          address
           canUseRelay
         }
       }
