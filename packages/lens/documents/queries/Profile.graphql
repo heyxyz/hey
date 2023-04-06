@@ -14,6 +14,7 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
       value
     }
     dispatcher {
+      address
       canUseRelay
     }
     onChainIdentity {
