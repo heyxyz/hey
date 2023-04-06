@@ -41,8 +41,9 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
         title={title}
         description={description}
         image={image}
+        publishedTime={publication?.createdAt}
         cardType={hasMedia ? 'summary_large_image' : 'summary'}
-        canonical={`${BASE_URL}/posts/${publication.id}`}
+        url={`${BASE_URL}/posts/${publication.id}`}
       />
       <header>
         <SinglePublication publication={publication} h1Content />
