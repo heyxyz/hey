@@ -1,6 +1,6 @@
 import Profile from '@components/Profile';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
-import { CustomFiltersTypes, PrerenderProfileDocument, ProfileFeedDocument } from 'lens';
+import { CustomFiltersTypes, ProfileDocument, ProfileFeedDocument } from 'lens';
 import { nodeClient } from 'lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
@@ -23,7 +23,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     processedHandle = handle === LENSPROTOCOL_HANDLE ? handle : handle.concat(HANDLE_SUFFIX);
   }
   const { data: profileData } = await nodeClient.query({
-    query: PrerenderProfileDocument,
+    query: ProfileDocument,
     variables: { request: { handle: processedHandle } }
   });
 
