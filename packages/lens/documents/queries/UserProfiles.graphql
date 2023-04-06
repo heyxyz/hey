@@ -5,6 +5,7 @@ query UserProfiles($ownedBy: [EthereumAddress!]) {
       interests
       isDefault
       dispatcher {
+        address
         canUseRelay
       }
     }
