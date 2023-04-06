@@ -1,0 +1,52 @@
+import { Button } from '../../components';
+import { PlusIcon } from '@heroicons/react/outline';
+
+# Button
+
+Buttons are to be used as control that triggers an action. The content of the button has to express the action of the button itself.
+
+### Sizes
+
+<Container>
+  <Button size="sm">Login</Button>
+  <Button size="md">Login</Button>
+  <Button size="lg">Login</Button>
+</Container>
+
+### Variants
+
+<Container>
+  <Button variant="primary">Login</Button>
+  <Button variant="secondary">Signup</Button>
+  <Button variant="warning">Edit</Button>
+  <Button variant="super">Follow</Button>
+  <Button variant="danger">Delete</Button>
+</Container>
+
+### Outline
+
+<Container>
+  <Button outline variant="primary">
+    Login
+  </Button>
+  <Button outline variant="secondary">
+    Signup
+  </Button>
+  <Button outline variant="warning">
+    Edit
+  </Button>
+  <Button outline variant="super">
+    Follow
+  </Button>
+  <Button outline variant="danger">
+    Delete
+  </Button>
+</Container>
+
+### Button with Icon
+
+<Container>
+  <Button size="sm" outline icon={<PlusIcon className="h-3 w-3" />}>
+    Add recipient
+  </Button>
+</Container>

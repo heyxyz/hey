@@ -2,7 +2,8 @@
   "name": "ui",
   "version": "0.0.0",
   "private": true,
-  "main": "./components/index.ts",
+  "main": "./src/components/index.ts",
+  "files": ["./tailwind-preset.ts"],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
