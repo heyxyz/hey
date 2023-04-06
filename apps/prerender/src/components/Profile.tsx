@@ -36,6 +36,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         title={title}
         description={description}
         image={image}
+        url={`${BASE_URL}/u/${formatHandle(profile.handle)}`}
         schema={
           <JsonLd<any>
             item={{
@@ -88,6 +89,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
           <div>{profile.stats.totalComments} Replies</div>
           <div>{profile.stats.totalFollowing} Following</div>
           <div>{profile.stats.totalFollowers} Followers</div>
+          <div>{profile.stats.totalMirrors} Mirrors</div>
         </div>
         <hr />
         <nav>
