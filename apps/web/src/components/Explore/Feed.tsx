@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
 import { useAppStore } from 'src/store/app';
 import { Card, EmptyState, ErrorMessage } from 'ui';
 
@@ -65,30 +66,50 @@ const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.Curated
     return <ErrorMessage title={t`Failed to load explore feed`} error={error} />;
   }
 
+  let isItemLoaded: any;
+  let loadMoreItems: any;
+
+  if (publications) {
+    isItemLoaded = (index: number) => index < publications.length && publications[index] !== null;
+    loadMoreItems = () => {
+      return new Promise<void>((resolve) => {
+        resolve();
+      });
+    };
+  }
+
   return (
-    <AutoSizer>
-      {({ height, width }) => (
-        <List
-          height={height || '100%'}
-          width={width || '100%'}
-          itemData={publications}
+    <AutoSizer disableHeight disableWidth>
+      {() => (
+        <InfiniteLoader
+          isItemLoaded={isItemLoaded}
           itemCount={publications?.length || 0}
-          itemSize={50}
+          loadMoreItems={loadMoreItems}
         >
-          {({ data }) => (
-            <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="explore-feed">
-              {data?.map((publication, index) => (
-                <div key={index}>
-                  <SinglePublication
-                    key={`${publication.id}_${index}`}
-                    publication={publication as Publication}
-                  />
-                </div>
-              ))}
-              {hasMore && <span ref={observe} />}
-            </Card>
+          {({ onItemsRendered, ref }) => (
+            <List
+              height={800}
+              width={'100%'}
+              itemData={publications}
+              itemCount={publications?.length || 0}
+              itemSize={50}
+              onItemsRendered={onItemsRendered}
+              ref={ref}
+            >
+              {({ data }) => (
+                <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="explore-feed">
+                  {data?.map((publication, index) => (
+                    <SinglePublication
+                      key={`${publication.id}_${index}`}
+                      publication={publication as Publication}
+                    />
+                  ))}
+                  {hasMore && <span ref={observe} />}
+                </Card>
+              )}
+            </List>
           )}
-        </List>
+        </InfiniteLoader>
       )}
     </AutoSizer>
   );

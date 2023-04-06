@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
@@ -78,37 +79,59 @@ const Timeline: FC = () => {
     return <ErrorMessage title={t`Failed to load timeline`} error={error} />;
   }
 
+  let isItemLoaded: any;
+  let loadMoreItems: any;
+
+  if (txnQueue) {
+    isItemLoaded = (index: number) => index < txnQueue.length && txnQueue[index] !== null;
+    loadMoreItems = () => {
+      return new Promise<void>((resolve) => {
+        resolve();
+      });
+    };
+  }
+
   return (
-    <AutoSizer>
-      {({ height, width }) => (
-        <List
-          height={height || '100%'}
-          itemData={txnQueue}
+    <AutoSizer disableHeight disableWidth>
+      {() => (
+        <InfiniteLoader
+          isItemLoaded={isItemLoaded}
           itemCount={txnQueue.length || 0}
-          itemSize={1000}
-          width={width || '100%'}
+          loadMoreItems={loadMoreItems}
         >
-          {({ data }) => (
-            <Card className="divide-y-[1px] dark:divide-gray-700">
-              {data?.map(
-                (txn) =>
-                  txn?.type === OptmisticPublicationType.NewPost && (
-                    <div key={txn.id}>
-                      <QueuedPublication txn={txn} />
-                    </div>
-                  )
+          {({ onItemsRendered, ref }) => (
+            <List
+              height={800}
+              width={'100%'}
+              itemData={txnQueue}
+              itemCount={txnQueue.length || 0}
+              itemSize={50}
+              onItemsRendered={onItemsRendered}
+              ref={ref}
+            >
+              {({ data }) => (
+                <Card className="divide-y-[1px] dark:divide-gray-700">
+                  {data?.map(
+                    (txn) =>
+                      txn?.type === OptmisticPublicationType.NewPost && (
+                        <div key={txn.id}>
+                          <QueuedPublication txn={txn} />
+                        </div>
+                      )
+                  )}
+                  {publications?.map((publication, index) => (
+                    <SinglePublication
+                      key={`${publication?.root.id}_${index}`}
+                      feedItem={publication as FeedItem}
+                      publication={publication.root as Publication}
+                    />
+                  ))}
+                  {hasMore && <span ref={observe} />}
+                </Card>
               )}
-              {publications?.map((publication, index) => (
-                <SinglePublication
-                  key={`${publication?.root.id}_${index}`}
-                  feedItem={publication as FeedItem}
-                  publication={publication.root as Publication}
-                />
-              ))}
-              {hasMore && <span ref={observe} />}
-            </Card>
+            </List>
           )}
-        </List>
+        </InfiniteLoader>
       )}
     </AutoSizer>
   );

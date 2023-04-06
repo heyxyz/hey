@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as Notificator } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
 import { NotificationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { Card, EmptyState, ErrorMessage } from 'ui';
@@ -102,51 +103,73 @@ const List: FC<ListProps> = ({ feedType }) => {
     );
   }
 
-  return (
-    <AutoSizer>
-      {({ height, width }) => (
-        <Notificator
-          height={height || '100%'}
-          width={width || '100%'}
-          itemData={notifications || null}
-          itemCount={notifications?.length || 0}
-          itemSize={30}
-        >
-          {({ data }) => (
-            <Card className="divide-y dark:divide-gray-700">
-              {data?.map((notification, index, items) => {
-                const isLast = index === items.length - 1;
+  let isItemLoaded: any;
+  let loadMoreItems: any;
 
-                return (
-                  <div
-                    key={`${notification?.notificationId}_${index}`}
-                    className="p-5"
-                    ref={isLast ? observe : undefined}
-                  >
-                    {notification.__typename === 'NewFollowerNotification' && (
-                      <FollowerNotification notification={notification as NewFollowerNotification} />
-                    )}
-                    {notification.__typename === 'NewMentionNotification' && (
-                      <MentionNotification notification={notification as NewMentionNotification} />
-                    )}
-                    {notification.__typename === 'NewReactionNotification' && (
-                      <LikeNotification notification={notification as NewReactionNotification} />
-                    )}
-                    {notification.__typename === 'NewCommentNotification' && (
-                      <CommentNotification notification={notification as NewCommentNotification} />
-                    )}
-                    {notification.__typename === 'NewMirrorNotification' && (
-                      <MirrorNotification notification={notification as NewMirrorNotification} />
-                    )}
-                    {notification.__typename === 'NewCollectNotification' && (
-                      <CollectNotification notification={notification as NewCollectNotification} />
-                    )}
-                  </div>
-                );
-              })}
-            </Card>
+  if (notifications) {
+    isItemLoaded = (index: number) => index < notifications.length && notifications[index] !== null;
+    loadMoreItems = () => {
+      return new Promise<void>((resolve) => {
+        resolve();
+      });
+    };
+  }
+
+  return (
+    <AutoSizer disableHeight disableWidth>
+      {() => (
+        <InfiniteLoader
+          isItemLoaded={isItemLoaded}
+          itemCount={notifications?.length || 0}
+          loadMoreItems={loadMoreItems}
+        >
+          {({ onItemsRendered, ref }) => (
+            <Notificator
+              height={600}
+              width={'100%'}
+              itemData={notifications || null}
+              itemCount={notifications?.length || 0}
+              itemSize={50}
+              onItemsRendered={onItemsRendered}
+              ref={ref}
+            >
+              {({ data }) => (
+                <Card className="divide-y dark:divide-gray-700">
+                  {data?.map((notification, index, items) => {
+                    const isLast = index === items.length - 1;
+
+                    return (
+                      <div
+                        key={`${notification?.notificationId}_${index}`}
+                        className="p-5"
+                        ref={isLast ? observe : undefined}
+                      >
+                        {notification.__typename === 'NewFollowerNotification' && (
+                          <FollowerNotification notification={notification as NewFollowerNotification} />
+                        )}
+                        {notification.__typename === 'NewMentionNotification' && (
+                          <MentionNotification notification={notification as NewMentionNotification} />
+                        )}
+                        {notification.__typename === 'NewReactionNotification' && (
+                          <LikeNotification notification={notification as NewReactionNotification} />
+                        )}
+                        {notification.__typename === 'NewCommentNotification' && (
+                          <CommentNotification notification={notification as NewCommentNotification} />
+                        )}
+                        {notification.__typename === 'NewMirrorNotification' && (
+                          <MirrorNotification notification={notification as NewMirrorNotification} />
+                        )}
+                        {notification.__typename === 'NewCollectNotification' && (
+                          <CollectNotification notification={notification as NewCollectNotification} />
+                        )}
+                      </div>
+                    );
+                  })}
+                </Card>
+              )}
+            </Notificator>
           )}
-        </Notificator>
+        </InfiniteLoader>
       )}
     </AutoSizer>
   );

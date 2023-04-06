@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { FixedSizeList as List } from 'react-window';
+import InfiniteLoader from 'react-window-infinite-loader';
 import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface ProfilesProps {
@@ -71,27 +72,49 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
     return <ErrorMessage title={t`Failed to load profiles`} error={error} />;
   }
 
+  let isItemLoaded: any;
+  let loadMoreItems: any;
+
+  if (profiles) {
+    isItemLoaded = (index: number) => index < profiles.length && profiles[index] !== null;
+    loadMoreItems = () => {
+      return new Promise<void>((resolve) => {
+        resolve();
+      });
+    };
+  }
+
   return (
-    <AutoSizer>
-      {({ height, width }) => (
-        <List
-          height={height || '100%'}
-          width={width || '100%'}
-          itemData={profiles || null}
-          itemCount={profiles.length}
-          itemSize={40}
+    <AutoSizer disableHeight disableWidth>
+      {() => (
+        <InfiniteLoader
+          isItemLoaded={isItemLoaded}
+          itemCount={profiles.length || 0}
+          loadMoreItems={loadMoreItems}
         >
-          {({ data }) => (
-            <div className="space-y-3">
-              {data?.map((profile: Profile) => (
-                <Card key={profile?.id} className="p-5">
-                  <UserProfile profile={profile} showBio isBig />
-                </Card>
-              ))}
-              {hasMore && <span ref={observe} />}
-            </div>
+          {({ onItemsRendered, ref }) => (
+            <List
+              height={600}
+              width={'100%'}
+              itemData={profiles || null}
+              itemCount={profiles.length}
+              itemSize={50}
+              onItemsRendered={onItemsRendered}
+              ref={ref}
+            >
+              {({ data }) => (
+                <div className="space-y-3">
+                  {data?.map((profile: Profile) => (
+                    <Card key={profile?.id} className="p-5">
+                      <UserProfile profile={profile} showBio isBig />
+                    </Card>
+                  ))}
+                  {hasMore && <span ref={observe} />}
+                </div>
+              )}
+            </List>
           )}
-        </List>
+        </InfiniteLoader>
       )}
     </AutoSizer>
   );
