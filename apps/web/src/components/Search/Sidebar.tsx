@@ -30,7 +30,7 @@ const Sidebar: FC = () => {
     : encodeURIComponent(query.q || '');
 
   return (
-    <div className="top-[128px] mb-4 space-y-1.5 px-3 sm:px-0">
+    <div className="mb-4 space-y-1.5 px-3 sm:px-0">
       <Menu current={query.type === 'pubs'} url={`/search?q=${searchText}&type=pubs`}>
         <PencilAltIcon className="h-4 w-4" />
         <div>
