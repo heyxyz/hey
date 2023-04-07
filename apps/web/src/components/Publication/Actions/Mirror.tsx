@@ -60,7 +60,9 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     });
   };
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelayerResult' | 'CreateDataAvailabilityPublicationResult'
+  ) => {
     if (__typename === 'RelayError') {
       return;
     }
@@ -119,7 +121,8 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
 
   const [createDataAvailabilityMirrorViaDispatcher, { loading: dataAvailabilityLoading }] =
     useCreateDataAvailabilityMirrorViaDispatcherMutation({
-      onCompleted,
+      onCompleted: ({ createDataAvailabilityMirrorViaDispatcher }) =>
+        onCompleted(createDataAvailabilityMirrorViaDispatcher.__typename),
       onError,
       update: updateCache
     });
