@@ -31,7 +31,11 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
 
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
-    Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE);
+    if (isOldDispatcherEnabled) {
+      Mixpanel.track(SETTINGS.DISPATCHER.UPDATE);
+    } else {
+      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE);
+    }
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
