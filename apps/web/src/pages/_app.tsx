@@ -1,4 +1,5 @@
 import '../styles.css';
+import 'react-virtualized/styles.css';
 
 import Loading from '@components/Shared/Loading';
 import type { AppProps } from 'next/app';

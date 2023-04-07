@@ -8,9 +8,8 @@ import { FeedEventItemType, useTimelineQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { FixedSizeList as List } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
+import type { AutoSizerProps, ListProps, WindowScrollerProps } from 'react-virtualized';
+import { AutoSizer as _AutoSizer, List as _List, WindowScroller as _WindowScroller } from 'react-virtualized';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
@@ -46,6 +45,10 @@ const Timeline: FC = () => {
   const request: FeedRequest = { profileId, limit: 50, feedEventItemTypes: getFeedEventItems() };
   const reactionRequest = currentProfile ? { profileId } : null;
 
+  const AutoSizer = _AutoSizer as unknown as FC<AutoSizerProps>;
+  const List = _List as unknown as FC<ListProps>;
+  const WindowScroller = _WindowScroller as unknown as FC<WindowScrollerProps>;
+
   const { data, loading, error, fetchMore } = useTimelineQuery({
     variables: { request, reactionRequest, profileId }
   });
@@ -79,39 +82,22 @@ const Timeline: FC = () => {
     return <ErrorMessage title={t`Failed to load timeline`} error={error} />;
   }
 
-  let isItemLoaded: any;
-  let loadMoreItems: any;
-
-  if (txnQueue) {
-    isItemLoaded = (index: number) => index < txnQueue.length && txnQueue[index] !== null;
-    loadMoreItems = () => {
-      return new Promise<void>((resolve) => {
-        resolve();
-      });
-    };
-  }
-
   return (
     <AutoSizer disableHeight disableWidth>
       {() => (
-        <InfiniteLoader
-          isItemLoaded={isItemLoaded}
-          itemCount={txnQueue.length || 0}
-          loadMoreItems={loadMoreItems}
-        >
-          {({ onItemsRendered, ref }) => (
+        <WindowScroller>
+          {({ height, isScrolling, onChildScroll, scrollTop, width }) => (
             <List
-              height={800}
-              width={'100%'}
-              itemData={txnQueue}
-              itemCount={txnQueue.length || 0}
-              itemSize={50}
-              onItemsRendered={onItemsRendered}
-              ref={ref}
-            >
-              {({ data }) => (
+              autoHeight
+              autoWidth
+              height={height}
+              isScrolling={isScrolling}
+              onScroll={onChildScroll}
+              rowCount={txnQueue?.length || 0}
+              rowHeight={height}
+              rowRenderer={() => (
                 <Card className="divide-y-[1px] dark:divide-gray-700">
-                  {data?.map(
+                  {txnQueue?.map(
                     (txn) =>
                       txn?.type === OptmisticPublicationType.NewPost && (
                         <div key={txn.id}>
@@ -129,9 +115,11 @@ const Timeline: FC = () => {
                   {hasMore && <span ref={observe} />}
                 </Card>
               )}
-            </List>
+              scrollTop={scrollTop}
+              width={width}
+            />
           )}
-        </InfiniteLoader>
+        </WindowScroller>
       )}
     </AutoSizer>
   );

@@ -7,9 +7,8 @@ import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from '
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { FixedSizeList as List } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
+import type { AutoSizerProps, ListProps, WindowScrollerProps } from 'react-virtualized';
+import { AutoSizer as _AutoSizer, List as _List, WindowScroller as _WindowScroller } from 'react-virtualized';
 import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface ProfilesProps {
@@ -35,6 +34,10 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   const search = data?.search as ProfileSearchResult;
   const profiles = search?.items;
   const pageInfo = search?.pageInfo;
+
+  const AutoSizer = _AutoSizer as unknown as FC<AutoSizerProps>;
+  const List = _List as unknown as FC<ListProps>;
+  const WindowScroller = _WindowScroller as unknown as FC<WindowScrollerProps>;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -72,39 +75,22 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
     return <ErrorMessage title={t`Failed to load profiles`} error={error} />;
   }
 
-  let isItemLoaded: any;
-  let loadMoreItems: any;
-
-  if (profiles) {
-    isItemLoaded = (index: number) => index < profiles.length && profiles[index] !== null;
-    loadMoreItems = () => {
-      return new Promise<void>((resolve) => {
-        resolve();
-      });
-    };
-  }
-
   return (
     <AutoSizer disableHeight disableWidth>
       {() => (
-        <InfiniteLoader
-          isItemLoaded={isItemLoaded}
-          itemCount={profiles.length || 0}
-          loadMoreItems={loadMoreItems}
-        >
-          {({ onItemsRendered, ref }) => (
+        <WindowScroller>
+          {({ height, isScrolling, onChildScroll, scrollTop, width }) => (
             <List
-              height={600}
-              width={'100%'}
-              itemData={profiles || null}
-              itemCount={profiles.length}
-              itemSize={50}
-              onItemsRendered={onItemsRendered}
-              ref={ref}
-            >
-              {({ data }) => (
+              autoHeight
+              autoWidth
+              height={height}
+              isScrolling={isScrolling}
+              onScroll={onChildScroll}
+              rowCount={profiles?.length || 0}
+              rowHeight={height}
+              rowRenderer={() => (
                 <div className="space-y-3">
-                  {data?.map((profile: Profile) => (
+                  {profiles?.map((profile: Profile) => (
                     <Card key={profile?.id} className="p-5">
                       <UserProfile profile={profile} showBio isBig />
                     </Card>
@@ -112,9 +98,11 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
                   {hasMore && <span ref={observe} />}
                 </div>
               )}
-            </List>
+              scrollTop={scrollTop}
+              width={width}
+            />
           )}
-        </InfiniteLoader>
+        </WindowScroller>
       )}
     </AutoSizer>
   );

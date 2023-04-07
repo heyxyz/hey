@@ -13,9 +13,8 @@ import { CustomFiltersTypes, NotificationTypes, useNotificationsQuery } from 'le
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { FixedSizeList as Notificator } from 'react-window';
-import InfiniteLoader from 'react-window-infinite-loader';
+import type { AutoSizerProps, ListProps as ListsProps, WindowScrollerProps } from 'react-virtualized';
+import { AutoSizer as _AutoSizer, List as _List, WindowScroller as _WindowScroller } from 'react-virtualized';
 import { NotificationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { Card, EmptyState, ErrorMessage } from 'ui';
@@ -68,6 +67,10 @@ const List: FC<ListProps> = ({ feedType }) => {
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
 
+  const AutoSizer = _AutoSizer as unknown as FC<AutoSizerProps>;
+  const Notificator = _List as unknown as FC<ListsProps>;
+  const WindowScroller = _WindowScroller as unknown as FC<WindowScrollerProps>;
+
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView || !hasMore) {
@@ -103,39 +106,22 @@ const List: FC<ListProps> = ({ feedType }) => {
     );
   }
 
-  let isItemLoaded: any;
-  let loadMoreItems: any;
-
-  if (notifications) {
-    isItemLoaded = (index: number) => index < notifications.length && notifications[index] !== null;
-    loadMoreItems = () => {
-      return new Promise<void>((resolve) => {
-        resolve();
-      });
-    };
-  }
-
   return (
     <AutoSizer disableHeight disableWidth>
       {() => (
-        <InfiniteLoader
-          isItemLoaded={isItemLoaded}
-          itemCount={notifications?.length || 0}
-          loadMoreItems={loadMoreItems}
-        >
-          {({ onItemsRendered, ref }) => (
+        <WindowScroller>
+          {({ height, isScrolling, onChildScroll, scrollTop, width }) => (
             <Notificator
-              height={600}
-              width={'100%'}
-              itemData={notifications || null}
-              itemCount={notifications?.length || 0}
-              itemSize={50}
-              onItemsRendered={onItemsRendered}
-              ref={ref}
-            >
-              {({ data }) => (
+              autoHeight
+              autoWidth
+              height={height}
+              isScrolling={isScrolling}
+              onScroll={onChildScroll}
+              rowCount={notifications?.length || 0}
+              rowHeight={height}
+              rowRenderer={() => (
                 <Card className="divide-y dark:divide-gray-700">
-                  {data?.map((notification, index, items) => {
+                  {notifications?.map((notification, index, items) => {
                     const isLast = index === items.length - 1;
 
                     return (
@@ -167,9 +153,11 @@ const List: FC<ListProps> = ({ feedType }) => {
                   })}
                 </Card>
               )}
-            </Notificator>
+              scrollTop={scrollTop}
+              width={width}
+            />
           )}
-        </InfiniteLoader>
+        </WindowScroller>
       )}
     </AutoSizer>
   );
