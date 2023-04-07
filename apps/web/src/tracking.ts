@@ -79,7 +79,8 @@ export const SETTINGS = {
     CLEAR_STATUS: 'Clear profile status'
   },
   DISPATCHER: {
-    TOGGLE: 'Toggle dispatcher'
+    TOGGLE: 'Toggle dispatcher',
+    UPDATE: 'Update dispatcher'
   },
   ALLOWANCE: {
     TOGGLE: 'Toggle allowance'
