@@ -84,9 +84,8 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr "உங்கள் உள்ளடக்கத்தை யார் பார்க்கலாம், யார் பார்க்கக்கூடாது என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும். உதாரணமாக - குறிப்பிட்ட NFTகள் அல்லது டோக்கன்களை வைத்திருக்கும் நிலையில் உங்கள் இடுகைகளை டோக்கன் கேட் செய்யவும்."
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
-msgid "Please choose either 1 video or up to 4 photos."
-msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
+msgid "Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images"
+msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
@@ -235,6 +234,10 @@ msgid "Everyone can comment and mirror"
 msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
+msgid "Please choose either 1 video or up to 4 photos."
+msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
+
+#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
@@ -316,12 +319,16 @@ msgid "Explore • {APP_NAME}"
 msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
-msgid "Action Required"
-msgstr "நடவடிக்கை தேவை"
+msgid "We highly recommend that you update to our new dispatcher for a faster experience."
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr "உங்கள் பரிவர்த்தனைகள் எதிலும் கையொப்பமிடாமல் {APP_NAME} உடன் தொடர்புகொள்வதற்கு டிஸ்பெட்சேரை இயக்கலாம்."
+
+#: src/components/Home/EnableDispatcher.tsx
+msgid "Action Required"
+msgstr "நடவடிக்கை தேவை"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -1797,6 +1804,10 @@ msgid "Disable dispatcher"
 msgstr "டிஸ்பெட்சேரை முடக்கு"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Update dispatcher"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable dispatcher"
 msgstr "டிஸ்பெட்சேரை இயக்கு"
 
@@ -2369,6 +2380,22 @@ msgstr "{type} க்கு செல்க"
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் கிடைக்கும்"
 
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr ""
+
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
 msgstr "நிலை காலியாக இருக்கக்கூடாது"
@@ -2534,4 +2561,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

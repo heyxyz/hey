@@ -84,8 +84,7 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
-msgid "Please choose either 1 video or up to 4 photos."
+msgid "Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images"
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
@@ -235,6 +234,10 @@ msgid "Everyone can comment and mirror"
 msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
+msgid "Please choose either 1 video or up to 4 photos."
+msgstr ""
+
+#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
@@ -316,11 +319,15 @@ msgid "Explore • {APP_NAME}"
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
-msgid "Action Required"
+msgid "We highly recommend that you update to our new dispatcher for a faster experience."
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
+msgstr ""
+
+#: src/components/Home/EnableDispatcher.tsx
+msgid "Action Required"
 msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
@@ -1797,6 +1804,10 @@ msgid "Disable dispatcher"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Update dispatcher"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable dispatcher"
 msgstr ""
 
@@ -2369,6 +2380,22 @@ msgstr ""
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr ""
 
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr ""
+
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
 msgstr ""
@@ -2534,4 +2561,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
