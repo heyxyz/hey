@@ -37,7 +37,7 @@ const Attachment: FC = () => {
   };
 
   const isUploadAllowed = (files: FileList) => {
-    if (files && files[0].type.slice(0, 5) === 'image') {
+    if (files[0]?.type.slice(0, 5) === 'image') {
       return attachments.length + files.length <= 4;
     } else {
       return files.length === 1;
@@ -115,7 +115,7 @@ const Attachment: FC = () => {
           </Menu.Item>
           <Menu.Item
             as="label"
-            disabled={!!attachments.length}
+            disabled={Boolean(attachments.length)}
             className={({ active }) =>
               clsx(
                 { 'dropdown-active': active },
@@ -132,11 +132,11 @@ const Attachment: FC = () => {
               accept={ALLOWED_VIDEO_TYPES.join(',')}
               className="hidden"
               onChange={handleAttachment}
-              disabled={!!attachments.length}
+              disabled={Boolean(attachments.length)}
             />
           </Menu.Item>
           <Menu.Item
-            disabled={!!attachments.length}
+            disabled={Boolean(attachments.length)}
             as="label"
             className={({ active }) =>
               clsx(
@@ -154,7 +154,7 @@ const Attachment: FC = () => {
               accept={ALLOWED_AUDIO_TYPES.join(',')}
               className="hidden"
               onChange={handleAttachment}
-              disabled={!!attachments.length}
+              disabled={Boolean(attachments.length)}
             />
           </Menu.Item>
         </Menu.Items>
