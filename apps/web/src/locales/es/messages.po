@@ -319,10 +319,12 @@ msgid "Explore • {APP_NAME}"
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "We highly recommend that you update to our new dispatcher for a faster experience."
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr ""
 
@@ -1800,14 +1802,17 @@ msgid "Profile updated successfully!"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable dispatcher"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Update dispatcher"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Enable dispatcher"
 msgstr ""
 
@@ -1816,8 +1821,8 @@ msgid "Dispatcher • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
-msgstr ""
+#~ msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
+#~ msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"

@@ -319,10 +319,12 @@ msgid "Explore • {APP_NAME}"
 msgstr "看看别人都在干吗？ • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "We highly recommend that you update to our new dispatcher for a faster experience."
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr "您可以通过启用 dispatcher 功能使得您今后与 {APP_NAME} 进行交互时不需要签名任何交易。"
 
@@ -1800,14 +1802,17 @@ msgid "Profile updated successfully!"
 msgstr "个人资料更新成功！"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable dispatcher"
 msgstr "禁用调度员"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Update dispatcher"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Enable dispatcher"
 msgstr "启用调度员"
 
@@ -1816,8 +1821,8 @@ msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
-msgstr "我们建议您启用调度员，这样您就不需要在 {APP_NAME} 中签署所有交易。"
+#~ msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
+#~ msgstr "我们建议您启用调度员，这样您就不需要在 {APP_NAME} 中签署所有交易。"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
