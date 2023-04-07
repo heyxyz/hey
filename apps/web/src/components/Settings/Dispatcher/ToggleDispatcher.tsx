@@ -3,11 +3,12 @@ import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
-import { LENSHUB_PROXY } from 'data/constants';
+import { LENSHUB_PROXY, OLD_LENS_RELAYER_ADDRESS } from 'data/constants';
 import { useBroadcastMutation, useCreateSetDispatcherTypedDataMutation } from 'lens';
+import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -24,11 +25,17 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const canUseRelay = getIsDispatcherEnabled(currentProfile);
+  const isOldDispatcherEnabled =
+    currentProfile?.dispatcher?.address?.toLocaleLowerCase() === OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
 
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
-    Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE);
+    if (isOldDispatcherEnabled) {
+      Mixpanel.track(SETTINGS.DISPATCHER.UPDATE);
+    } else {
+      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE);
+    }
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -84,6 +91,16 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     } catch {}
   };
 
+  const getButtonText = () => {
+    if (canUseRelay) {
+      return <Trans>Disable dispatcher</Trans>;
+    } else if (isOldDispatcherEnabled) {
+      return <Trans>Update dispatcher</Trans>;
+    } else {
+      return <Trans>Enable dispatcher</Trans>;
+    }
+  };
+
   const isLoading = signLoading || writeLoading || broadcastLoading || typedDataLoading;
   const broadcastTxHash =
     broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
@@ -108,7 +125,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
       }
       onClick={toggleDispatcher}
     >
-      {canUseRelay ? t`Disable dispatcher` : t`Enable dispatcher`}
+      {getButtonText()}
     </Button>
   );
 };
