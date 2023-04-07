@@ -84,9 +84,8 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr "添加对谁可以查看您的内容的限制。例如 - 只有拥有特定 NFT 或代币才可以查看您的帖子。"
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
-msgid "Please choose either 1 video or up to 4 photos."
-msgstr "请选择 1 个视频或最多 4 张照片。"
+msgid "Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images"
+msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
@@ -235,6 +234,10 @@ msgid "Everyone can comment and mirror"
 msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
+msgid "Please choose either 1 video or up to 4 photos."
+msgstr "请选择 1 个视频或最多 4 张照片。"
+
+#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
@@ -316,12 +319,18 @@ msgid "Explore • {APP_NAME}"
 msgstr "看看别人都在干吗？ • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
-msgid "Action Required"
-msgstr "需要您的操作"
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "We highly recommend that you update to our new dispatcher for a faster experience."
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr "您可以通过启用 dispatcher 功能使得您今后与 {APP_NAME} 进行交互时不需要签名任何交易。"
+
+#: src/components/Home/EnableDispatcher.tsx
+msgid "Action Required"
+msgstr "需要您的操作"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -1793,10 +1802,17 @@ msgid "Profile updated successfully!"
 msgstr "个人资料更新成功！"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable dispatcher"
 msgstr "禁用调度员"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Update dispatcher"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Enable dispatcher"
 msgstr "启用调度员"
 
@@ -1805,8 +1821,8 @@ msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
-msgstr "我们建议您启用调度员，这样您就不需要在 {APP_NAME} 中签署所有交易。"
+#~ msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
+#~ msgstr "我们建议您启用调度员，这样您就不需要在 {APP_NAME} 中签署所有交易。"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2369,6 +2385,22 @@ msgstr "前往 {type}"
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "将获得 <0>{referralFee}%</0> 的推荐费"
 
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr ""
+
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
 msgstr "状态不能为空"
@@ -2534,4 +2566,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
