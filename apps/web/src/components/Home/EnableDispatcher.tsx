@@ -2,14 +2,16 @@ import ToggleDispatcher from '@components/Settings/Dispatcher/ToggleDispatcher';
 import { HandIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
+import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { Card } from 'ui';
 
 const EnableDispatcher: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const isDispatcherEnabled = getIsDispatcherEnabled(currentProfile);
 
-  if (currentProfile?.dispatcher?.canUseRelay) {
+  if (isDispatcherEnabled) {
     return null;
   }
 

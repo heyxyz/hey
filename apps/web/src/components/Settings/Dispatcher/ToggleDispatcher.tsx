@@ -8,6 +8,7 @@ import { LensHub } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY } from 'data/constants';
 import { useBroadcastMutation, useCreateSetDispatcherTypedDataMutation } from 'lens';
+import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -24,7 +25,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const canUseRelay = getIsDispatcherEnabled(currentProfile);
 
   const onCompleted = () => {
     toast.success(t`Profile updated successfully!`);
