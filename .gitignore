@@ -6,9 +6,6 @@ node_modules
 # testing
 coverage
 
-# Sentry
-.sentryclirc
-
 # next.js
 .next/
 out/
