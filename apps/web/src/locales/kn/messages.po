@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-08 16:39\n"
+"PO-Revision-Date: 2023-04-08 18:12\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -62,7 +62,7 @@ msgstr ""
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
-msgstr ""
+msgstr "ರದ್ದುಗೊಳಿಸು"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
@@ -73,7 +73,7 @@ msgstr ""
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
 msgid "Save"
-msgstr ""
+msgstr "ಉಳಿಸಿ"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
@@ -105,13 +105,13 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Price"
-msgstr ""
+msgstr "ಬೆಲೆ"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 #: src/components/Settings/Account/SuperFollow.tsx
 #: src/components/Settings/Allowance/index.tsx
 msgid "Select Currency"
-msgstr ""
+msgstr "ಕರೆನ್ಸಿ ಆಯ್ಕೆ ಮಾಡಿ"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
@@ -199,7 +199,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
-msgstr ""
+msgstr "GIF ಆಯ್ಕೆಮಾಡಿ"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers"
-msgstr ""
+msgstr "ನನ್ನ ಅನುಯಾಯಿಗಳು"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friends of friends"
@@ -215,7 +215,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone"
-msgstr ""
+msgstr "ಎಲ್ಲರೂ"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers can comment and mirror"
@@ -280,30 +280,30 @@ msgstr ""
 
 #: src/components/Explore/FeedType.tsx
 msgid "Text"
-msgstr ""
+msgstr "ಪಠ್ಯ"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Video"
-msgstr ""
+msgstr "ದೃಶ್ಯ"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
-msgstr ""
+msgstr "ಆಡಿಯೋ"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
-msgstr ""
+msgstr "ಚಿತ್ರಗಳು"
 
 #: src/components/Explore/index.tsx
 msgid "For you"
-msgstr ""
+msgstr "ನಿಮಗಾಗಿ"
 
 #: src/components/Explore/index.tsx
 msgid "Popular"
-msgstr ""
+msgstr "ಜನಪ್ರಿಯ"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/Trending.tsx
@@ -312,7 +312,7 @@ msgstr ""
 
 #: src/components/Explore/index.tsx
 msgid "Interesting"
-msgstr ""
+msgstr "ಆಸಕ್ತಿದಾಯಕ"
 
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
@@ -419,7 +419,7 @@ msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
-msgstr ""
+msgstr "ಹುಡುಕು"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
@@ -470,15 +470,15 @@ msgstr ""
 
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
-msgstr ""
+msgstr "ಪ್ರೊಫೈಲ್ ಅನ್ನು ಈಗ ನವೀಕರಿಸಿ"
 
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
-msgstr ""
+msgstr "ಸಲಹೆಗಳನ್ನು ತುಂಬಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Home/Suggested.tsx
 msgid "Nothing to suggest"
-msgstr ""
+msgstr "ಸೂಚಿಸಲು ಏನೂ ಇಲ್ಲ"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
@@ -528,11 +528,11 @@ msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Send"
-msgstr ""
+msgstr "ಕಳುಹಿಸಿ"
 
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
-msgstr ""
+msgstr "ಸಂದೇಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
@@ -558,7 +558,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Requested"
-msgstr ""
+msgstr "ವಿನಂತಿಸಲಾಗಿದೆ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -578,7 +578,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
-msgstr ""
+msgstr "ಹೊಸ ಸಂದೇಶ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
@@ -586,7 +586,7 @@ msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
-msgstr ""
+msgstr "ಸಂವಾದವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
 #: src/components/Messages/index.tsx
 msgid "Choose an existing conversation or create a new one to start messaging"
@@ -610,7 +610,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Publication filters"
-msgstr ""
+msgstr "ಪ್ರಕಟಣೆ ಶೋಧಕಗಳು"
 
 #: src/components/Mod/index.tsx
 msgid "Posts"
@@ -640,11 +640,11 @@ msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
-msgstr ""
+msgstr "ಎಲ್ಲಾ ಅಧಿಸೂಚನೆಗಳು"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
-msgstr ""
+msgstr "ಉಲ್ಲೇಖಗಳು"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
@@ -768,44 +768,44 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact us to help you get the issue resolved."
-msgstr ""
+msgstr "ಸಮಸ್ಯೆಯನ್ನು ಪರಿಹರಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ."
 
 #: src/components/Pages/Contact.tsx
 msgid "Your message has been sent!"
-msgstr ""
+msgstr "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲಾಗಿದೆ!"
 
 #: src/components/Pages/Contact.tsx
 msgid "Email"
-msgstr ""
+msgstr "ಇಮೇಲ್"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
-msgstr ""
+msgstr "ವಿಷಯ"
 
 #: src/components/Pages/Contact.tsx
 msgid "What happened?"
-msgstr ""
+msgstr "ಏನಾಯಿತು?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message"
-msgstr ""
+msgstr "ಸಂದೇಶ"
 
 #: src/components/Pages/Contact.tsx
 msgid "How can we help?"
-msgstr ""
+msgstr "ನಾವು ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
-msgstr ""
+msgstr "ಸಲ್ಲಿಸು"
 
 #: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
-msgstr ""
+msgstr "ಗೌಪ್ಯತಾ ನೀತಿ • {APP_NAME}"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
 msgid "Updated {updatedAt}"
-msgstr ""
+msgstr "ನವೀಕರಿಸಲಾಗಿದೆ {updatedAt}"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
