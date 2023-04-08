@@ -16,7 +16,9 @@ const EnableDispatcher: FC = () => {
   const getDescription = () => {
     if (isOldDispatcherEnabled) {
       return (
-        <Trans>We highly recommend that you update to our new dispatcher for a faster experience.</Trans>
+        <Trans>
+          Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions.
+        </Trans>
       );
     }
     return (
