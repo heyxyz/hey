@@ -11,7 +11,7 @@ module.exports = {
   },
   async rewrites() {
     return [
-      { source: '/collect/:match', destination: 'https://api.mixpanel.com/:match' },
+      { source: '/collect/:match', destination: 'https://api.mixpanel.com/:match/' },
       { source: '/sitemap.xml', destination: 'https://sitemap.lenster.xyz/sitemap.xml' },
       { source: '/sitemaps/:match*', destination: 'https://sitemap.lenster.xyz/:match*' }
     ];
