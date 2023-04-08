@@ -9,6 +9,10 @@ import {
 import { nodeClient } from 'lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
+export const config = {
+  unstable_runtimeJS: false
+};
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const id = context.params?.id;
 
