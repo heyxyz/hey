@@ -26,6 +26,13 @@ const EnableDispatcher: FC = () => {
     );
   };
 
+  const getTitle = () => {
+    if (isOldDispatcherEnabled) {
+      return <Trans>Signless Transactions Upgrade</Trans>;
+    }
+    return <Trans>Signless Transactions</Trans>;
+  };
+
   if (isDispatcherEnabled) {
     return null;
   }
@@ -37,9 +44,7 @@ const EnableDispatcher: FC = () => {
     >
       <div className="flex items-center space-x-2 font-bold">
         <HandIcon className="h-5 w-5" />
-        <p>
-          <Trans>Action Required</Trans>
-        </p>
+        <p>{getTitle()}</p>
       </div>
       <p className="text-sm leading-[22px]">{getDescription()}</p>
       <ToggleDispatcher buttonSize="sm" />

@@ -329,8 +329,16 @@ msgid "You can enable dispatcher to interact with {APP_NAME} without signing any
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
-msgid "Action Required"
+msgid "Signless Transactions Upgrade"
 msgstr ""
+
+#: src/components/Home/EnableDispatcher.tsx
+msgid "Signless Transactions"
+msgstr ""
+
+#: src/components/Home/EnableDispatcher.tsx
+#~ msgid "Action Required"
+#~ msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -1802,16 +1810,25 @@ msgid "Profile updated successfully!"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Disable"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Update"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Enable"
+msgstr ""
+
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable dispatcher"
 msgstr ""
 
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Update dispatcher"
 msgstr ""
 
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Enable dispatcher"
 msgstr ""
@@ -2566,4 +2583,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
