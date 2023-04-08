@@ -336,10 +336,6 @@ msgstr ""
 msgid "Signless Transactions"
 msgstr ""
 
-#: src/components/Home/EnableDispatcher.tsx
-#~ msgid "Action Required"
-#~ msgstr "நடவடிக்கை தேவை"
-
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
 msgstr "நேரடி செய்திகள் இங்கே!"
@@ -1836,10 +1832,6 @@ msgstr "டிஸ்பெட்சேரை இயக்கு"
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
-
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
-#~ msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
