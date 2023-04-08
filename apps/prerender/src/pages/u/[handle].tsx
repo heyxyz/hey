@@ -4,6 +4,10 @@ import { CustomFiltersTypes, ProfileDocument, ProfileFeedDocument } from 'lens';
 import { nodeClient } from 'lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
+export const config = {
+  unstable_runtimeJS: false
+};
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const handle = context.params?.handle;
 
