@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-08 15:04\n"
+"PO-Revision-Date: 2023-04-08 16:39\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -84,7 +84,7 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
-msgid "Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images"
+msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
