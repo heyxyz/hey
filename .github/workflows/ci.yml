@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths-ignore:
       - "**.md"
+      - "**.po"
       - ".github/CODEOWNERS"
       - ".github/FUNDING.yml"
       - ".github/PULL_REQUEST_TEMPLATE.md"
