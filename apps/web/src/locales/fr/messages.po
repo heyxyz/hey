@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-08 14:43\n"
+"PO-Revision-Date: 2023-04-08 15:04\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -320,7 +320,7 @@ msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "We highly recommend that you update to our new dispatcher for a faster experience."
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
@@ -329,10 +329,12 @@ msgid "You can enable dispatcher to interact with {APP_NAME} without signing any
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions Upgrade"
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions"
 msgstr ""
 
@@ -1818,15 +1820,7 @@ msgid "Enable"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Disable dispatcher"
-msgstr ""
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Update dispatcher"
-msgstr ""
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Enable dispatcher"
+msgid "Disable Signless Transactions"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
