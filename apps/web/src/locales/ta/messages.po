@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-08 14:43\n"
+"PO-Revision-Date: 2023-04-08 16:39\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -84,7 +84,7 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr "உங்கள் உள்ளடக்கத்தை யார் பார்க்கலாம், யார் பார்க்கக்கூடாது என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும். உதாரணமாக - குறிப்பிட்ட NFTகள் அல்லது டோக்கன்களை வைத்திருக்கும் நிலையில் உங்கள் இடுகைகளை டோக்கன் கேட் செய்யவும்."
 
 #: src/components/Composer/Actions/Attachment.tsx
-msgid "Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images"
+msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
@@ -320,7 +320,7 @@ msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "We highly recommend that you update to our new dispatcher for a faster experience."
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
@@ -329,12 +329,14 @@ msgid "You can enable dispatcher to interact with {APP_NAME} without signing any
 msgstr "உங்கள் பரிவர்த்தனைகள் எதிலும் கையொப்பமிடாமல் {APP_NAME} உடன் தொடர்புகொள்வதற்கு டிஸ்பெட்சேரை இயக்கலாம்."
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions Upgrade"
-msgstr ""
+msgstr "அடையாளமற்ற பரிவர்த்தனைகள் மேம்படுத்தல்"
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions"
-msgstr ""
+msgstr "அடையாளமற்ற பரிவர்த்தனைகள்"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -480,7 +482,7 @@ msgstr "பரிந்துரைக்க எதுவும் இல்ல�
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
-msgstr ""
+msgstr "சேகரிக்கப்பட்டது"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
@@ -1320,7 +1322,7 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
-msgstr ""
+msgstr "கேலரிக்கு 50 பொருட்கள் மட்டுமே அனுமதிக்கப்படுகின்றன"
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
@@ -1807,27 +1809,19 @@ msgstr "சுயவிவரம் வெற்றிகரமாக புத�
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable"
-msgstr ""
+msgstr "முடக்கு"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Update"
-msgstr ""
+msgstr "புதுப்பி"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable"
+msgstr "இயக்கு"
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Disable Signless Transactions"
 msgstr ""
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Disable dispatcher"
-msgstr "டிஸ்பெட்சேரை முடக்கு"
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Update dispatcher"
-msgstr ""
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Enable dispatcher"
-msgstr "டிஸ்பெட்சேரை இயக்கு"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
@@ -2396,19 +2390,19 @@ msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் 
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
-msgstr ""
+msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
-msgstr ""
+msgstr "தற்போதைய முடிவுகள்"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
-msgstr ""
+msgstr "முடிவுகள்"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
-msgstr ""
+msgstr "வாக்களிக்கவும்"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"

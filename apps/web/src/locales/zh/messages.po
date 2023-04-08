@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-08 14:43\n"
+"PO-Revision-Date: 2023-04-08 16:39\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -84,7 +84,7 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr "添加对谁可以查看您的内容的限制。例如 - 只有拥有特定 NFT 或代币才可以查看您的帖子。"
 
 #: src/components/Composer/Actions/Attachment.tsx
-msgid "Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images"
+msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
@@ -320,7 +320,7 @@ msgstr "看看别人都在干吗？ • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "We highly recommend that you update to our new dispatcher for a faster experience."
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
@@ -329,10 +329,12 @@ msgid "You can enable dispatcher to interact with {APP_NAME} without signing any
 msgstr "您可以通过启用 dispatcher 功能使得您今后与 {APP_NAME} 进行交互时不需要签名任何交易。"
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions Upgrade"
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions"
 msgstr ""
 
@@ -1818,16 +1820,8 @@ msgid "Enable"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Disable dispatcher"
-msgstr "禁用调度员"
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Update dispatcher"
+msgid "Disable Signless Transactions"
 msgstr ""
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Enable dispatcher"
-msgstr "启用调度员"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
