@@ -64,8 +64,9 @@ import { PUBLICATION } from 'src/tracking';
 import type { LensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
-import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
+import { useContractWrite, useProvider, useSignTypedData, useSigner } from 'wagmi';
 
+import NewReferenceSettings from './Actions/NewReferenceSettings';
 import Editor from './Editor';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
@@ -547,7 +548,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <Attachment />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
-          <ReferenceSettings />
+          <NewReferenceSettings />
           <AccessSettings />
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
