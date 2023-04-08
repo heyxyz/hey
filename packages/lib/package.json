@@ -15,6 +15,6 @@
   "devDependencies": {
     "eslint-config-weblint": "*",
     "tsconfig": "*",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.4"
   }
 }

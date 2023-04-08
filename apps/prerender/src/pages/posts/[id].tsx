@@ -9,6 +9,10 @@ import {
 import { nodeClient } from 'lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
+export const config = {
+  unstable_runtimeJS: false
+};
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const id = context.params?.id;
 
@@ -40,7 +44,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           customFilters: [CustomFiltersTypes.Gardeners],
           commentsOfOrdering: CommentOrderingTypes.Ranking,
           commentsRankingFilter: CommentRankingFilter.Relevant,
-          limit: 50
+          limit: 30
         },
         reactionRequest,
         profileId
