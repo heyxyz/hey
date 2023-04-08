@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-08 15:04\n"
+"PO-Revision-Date: 2023-04-08 16:30\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -331,12 +331,12 @@ msgstr "உங்கள் பரிவர்த்தனைகள் எதி�
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions Upgrade"
-msgstr ""
+msgstr "அடையாளமற்ற பரிவர்த்தனைகள் மேம்படுத்தல்"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions"
-msgstr ""
+msgstr "அடையாளமற்ற பரிவர்த்தனைகள்"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -482,7 +482,7 @@ msgstr "பரிந்துரைக்க எதுவும் இல்ல�
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
-msgstr ""
+msgstr "சேகரிக்கப்பட்டது"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
@@ -2390,19 +2390,19 @@ msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் 
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
-msgstr ""
+msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
-msgstr ""
+msgstr "தற்போதைய முடிவுகள்"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
-msgstr ""
+msgstr "முடிவுகள்"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
-msgstr ""
+msgstr "வாக்களிக்கவும்"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
