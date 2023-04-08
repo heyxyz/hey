@@ -34,7 +34,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { data: profilePublicationsData } = await nodeClient.query({
       query: ProfileFeedDocument,
       variables: {
-        request: { profileId, customFilters: [CustomFiltersTypes.Gardeners], limit: 50 },
+        request: { profileId, customFilters: [CustomFiltersTypes.Gardeners], limit: 30 },
         reactionRequest,
         profileId
       }
