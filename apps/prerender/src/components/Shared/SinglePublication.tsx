@@ -3,6 +3,7 @@ import type { Publication } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import truncateByWords from 'lib/truncateByWords';
 import type { FC } from 'react';
 import { BASE_URL } from 'src/constants';
 
@@ -21,6 +22,7 @@ const SinglePublication: FC<PublicationProps> = ({ publication, h1Content = fals
     profile.picture?.original?.url ?? profile.picture?.uri ?? getStampFyiURL(profile?.ownedBy)
   )}`;
   const attachment = hasMedia ? sanitizeDStorageUrl(metadata?.media[0].original.url) : null;
+  const content = truncateByWords(metadata?.content, 30);
 
   // Stats
   const commentsCount = isMirror
@@ -50,11 +52,11 @@ const SinglePublication: FC<PublicationProps> = ({ publication, h1Content = fals
         </div>
         {h1Content ? (
           <h1>
-            <a href={`${BASE_URL}/posts/${publicationId}`}>{metadata.content ?? ''}</a>
+            <a href={`${BASE_URL}/posts/${publicationId}`}>{content ?? ''}</a>
           </h1>
         ) : (
           <div>
-            <a href={`${BASE_URL}/posts/${publicationId}`}>{metadata.content ?? ''}</a>
+            <a href={`${BASE_URL}/posts/${publicationId}`}>{content ?? ''}</a>
           </div>
         )}
         {attachment ? (
