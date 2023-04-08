@@ -84,8 +84,8 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
-msgid "Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images"
-msgstr "Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images"
+msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
+msgstr "Exceeded max limit of 1 audio, or 1 video, or 4 images"
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
