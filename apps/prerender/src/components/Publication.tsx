@@ -3,6 +3,7 @@ import type { Comment } from 'lens';
 import { Publication } from 'lens';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import truncateByWords from 'lib/truncateByWords';
 import type { FC } from 'react';
 import { BASE_URL } from 'src/constants';
 
@@ -26,7 +27,7 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   const title = `${__typename === 'Post' ? 'Post' : __typename === 'Mirror' ? 'Mirror' : 'Comment'} by @${
     publication.profile.handle
   } • Lenster`;
-  const description = metadata?.content ?? '';
+  const description = truncateByWords(metadata?.content, 30);
   const image = hasMedia
     ? sanitizeDStorageUrl(metadata?.media[0].original.url)
     : profile

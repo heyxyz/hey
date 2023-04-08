@@ -40,7 +40,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           customFilters: [CustomFiltersTypes.Gardeners],
           commentsOfOrdering: CommentOrderingTypes.Ranking,
           commentsRankingFilter: CommentRankingFilter.Relevant,
-          limit: 50
+          limit: 30
         },
         reactionRequest,
         profileId
