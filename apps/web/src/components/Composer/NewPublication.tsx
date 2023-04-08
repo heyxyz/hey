@@ -64,7 +64,7 @@ import { PUBLICATION } from 'src/tracking';
 import type { LensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
-import { useContractWrite, useProvider, useSignTypedData, useSigner } from 'wagmi';
+import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
 import Editor from './Editor';
 
