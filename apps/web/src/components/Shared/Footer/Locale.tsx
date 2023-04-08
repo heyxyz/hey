@@ -14,7 +14,7 @@ import MenuTransition from '../MenuTransition';
 const Locale: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { i18n } = useLingui();
-  const gatedLocales = ['ta', 'es'];
+  const gatedLocales = ['ta', 'es', 'kn'];
   const locales = Object.fromEntries(
     Object.entries(supportedLocales).filter(([key]) =>
       isFeatureEnabled('gated-locales', currentProfile?.id) ? true : !gatedLocales.includes(key)
