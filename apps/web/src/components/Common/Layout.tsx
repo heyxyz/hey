@@ -25,7 +25,7 @@ import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
 if (MIXPANEL_ENABLED) {
   mixpanel.init(MIXPANEL_TOKEN, {
     ignore_dnt: true,
-    api_host: '/collect',
+    api_host: 'https://lenster.xyz/collect',
     batch_requests: false
   });
 }
