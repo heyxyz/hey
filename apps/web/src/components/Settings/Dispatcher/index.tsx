@@ -25,18 +25,20 @@ const DispatcherSettings: FC = () => {
 
   const getTitleText = () => {
     if (canUseRelay) {
-      return <Trans>Disable dispatcher</Trans>;
+      return <Trans>Disable Signless Transactions</Trans>;
     } else if (isOldDispatcherEnabled) {
-      return <Trans>Update dispatcher</Trans>;
+      return <Trans>Signless Transactions Upgrade</Trans>;
     } else {
-      return <Trans>Enable dispatcher</Trans>;
+      return <Trans>Signless Transactions</Trans>;
     }
   };
 
   const getDescription = () => {
     if (isOldDispatcherEnabled) {
       return (
-        <Trans>We highly recommend that you update to our new dispatcher for a faster experience.</Trans>
+        <Trans>
+          Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions.
+        </Trans>
       );
     }
     return (

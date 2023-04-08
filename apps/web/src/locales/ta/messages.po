@@ -320,7 +320,7 @@ msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "We highly recommend that you update to our new dispatcher for a faster experience."
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
@@ -329,10 +329,12 @@ msgid "You can enable dispatcher to interact with {APP_NAME} without signing any
 msgstr "உங்கள் பரிவர்த்தனைகள் எதிலும் கையொப்பமிடாமல் {APP_NAME} உடன் தொடர்புகொள்வதற்கு டிஸ்பெட்சேரை இயக்கலாம்."
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions Upgrade"
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions"
 msgstr ""
 
@@ -1818,16 +1820,8 @@ msgid "Enable"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Disable dispatcher"
-msgstr "டிஸ்பெட்சேரை முடக்கு"
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Update dispatcher"
+msgid "Disable Signless Transactions"
 msgstr ""
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Enable dispatcher"
-msgstr "டிஸ்பெட்சேரை இயக்கு"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
@@ -2575,4 +2569,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

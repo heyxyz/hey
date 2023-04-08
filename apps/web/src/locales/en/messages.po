@@ -320,8 +320,8 @@ msgstr "Explore • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "We highly recommend that you update to our new dispatcher for a faster experience."
-msgstr "We highly recommend that you update to our new dispatcher for a faster experience."
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+msgstr "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -329,10 +329,12 @@ msgid "You can enable dispatcher to interact with {APP_NAME} without signing any
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions Upgrade"
 msgstr "Signless Transactions Upgrade"
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions"
 msgstr "Signless Transactions"
 
@@ -1818,16 +1820,8 @@ msgid "Enable"
 msgstr "Enable"
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Disable dispatcher"
-msgstr ""
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Update dispatcher"
-msgstr "Update dispatcher"
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "Enable dispatcher"
-msgstr ""
+msgid "Disable Signless Transactions"
+msgstr "Disable Signless Transactions"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
