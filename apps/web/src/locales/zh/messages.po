@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-29 00:09\n"
+"PO-Revision-Date: 2023-04-08 14:43\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -329,8 +329,12 @@ msgid "You can enable dispatcher to interact with {APP_NAME} without signing any
 msgstr "您可以通过启用 dispatcher 功能使得您今后与 {APP_NAME} 进行交互时不需要签名任何交易。"
 
 #: src/components/Home/EnableDispatcher.tsx
-msgid "Action Required"
-msgstr "需要您的操作"
+msgid "Signless Transactions Upgrade"
+msgstr ""
+
+#: src/components/Home/EnableDispatcher.tsx
+msgid "Signless Transactions"
+msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -1802,16 +1806,25 @@ msgid "Profile updated successfully!"
 msgstr "个人资料更新成功！"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Disable"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Update"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Enable"
+msgstr ""
+
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable dispatcher"
 msgstr "禁用调度员"
 
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Update dispatcher"
 msgstr ""
 
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Enable dispatcher"
 msgstr "启用调度员"
@@ -1819,10 +1832,6 @@ msgstr "启用调度员"
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
-
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
-#~ msgstr "我们建议您启用调度员，这样您就不需要在 {APP_NAME} 中签署所有交易。"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2566,3 +2575,4 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
+

@@ -24,6 +24,7 @@ const Tags: FC<TagsProps> = ({
     <Head>
       <title>{title}</title>
       <meta charSet="UTF-8" />
+      <meta httpEquiv="content-language" content="en" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={description} />
       <meta property="og:url" content={url} />
