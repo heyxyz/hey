@@ -23,6 +23,6 @@
     "eslint-config-weblint": "*",
     "prettier": "^2.8.7",
     "tsconfig": "*",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.4"
   }
 }
