@@ -66,7 +66,6 @@ import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSignTypedData, useSigner } from 'wagmi';
 
-import NewReferenceSettings from './Actions/NewReferenceSettings';
 import Editor from './Editor';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
@@ -548,7 +547,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <Attachment />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
-          <NewReferenceSettings />
+          <ReferenceSettings />
           <AccessSettings />
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
