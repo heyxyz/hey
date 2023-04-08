@@ -57,7 +57,7 @@ const Attachment: FC = () => {
     try {
       const { files } = evt.target;
       if (!isUploadAllowed(files as FileList)) {
-        toast.error(t`Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images`);
+        toast.error(t`Exceeded max limit of 1 audio, or 1 video, or 4 images`);
         return;
       }
       if (isTypeAllowed(files as FileList)) {

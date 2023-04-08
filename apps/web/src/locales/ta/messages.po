@@ -84,7 +84,7 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr "உங்கள் உள்ளடக்கத்தை யார் பார்க்கலாம், யார் பார்க்கக்கூடாது என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும். உதாரணமாக - குறிப்பிட்ட NFTகள் அல்லது டோக்கன்களை வைத்திருக்கும் நிலையில் உங்கள் இடுகைகளை டோக்கன் கேட் செய்யவும்."
 
 #: src/components/Composer/Actions/Attachment.tsx
-msgid "Exceeded Max limit of 1 Audio, or 1 Video, or 4 Images"
+msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
@@ -2569,4 +2569,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
