@@ -84,7 +84,6 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
         variables: {
           request: {
             profileId: currentProfile?.id,
-            dispatcher: OLD_LENS_RELAYER_ADDRESS,
             enable: canUseRelay ? false : true
           }
         }
