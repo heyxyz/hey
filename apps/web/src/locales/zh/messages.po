@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-29 00:09\n"
+"PO-Revision-Date: 2023-04-08 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1822,7 +1822,7 @@ msgstr "调度员 • {APP_NAME}"
 
 #: src/components/Settings/Dispatcher/index.tsx
 #~ msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
-#~ msgstr "我们建议您启用调度员，这样您就不需要在 {APP_NAME} 中签署所有交易。"
+#~ msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2566,3 +2566,4 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
+
