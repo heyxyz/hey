@@ -93,11 +93,11 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
 
   const getButtonText = () => {
     if (canUseRelay) {
-      return <Trans>Disable dispatcher</Trans>;
+      return <Trans>Disable</Trans>;
     } else if (isOldDispatcherEnabled) {
-      return <Trans>Update dispatcher</Trans>;
+      return <Trans>Update</Trans>;
     } else {
-      return <Trans>Enable dispatcher</Trans>;
+      return <Trans>Enable</Trans>;
     }
   };
 

@@ -329,8 +329,16 @@ msgid "You can enable dispatcher to interact with {APP_NAME} without signing any
 msgstr "உங்கள் பரிவர்த்தனைகள் எதிலும் கையொப்பமிடாமல் {APP_NAME} உடன் தொடர்புகொள்வதற்கு டிஸ்பெட்சேரை இயக்கலாம்."
 
 #: src/components/Home/EnableDispatcher.tsx
-msgid "Action Required"
-msgstr "நடவடிக்கை தேவை"
+msgid "Signless Transactions Upgrade"
+msgstr ""
+
+#: src/components/Home/EnableDispatcher.tsx
+msgid "Signless Transactions"
+msgstr ""
+
+#: src/components/Home/EnableDispatcher.tsx
+#~ msgid "Action Required"
+#~ msgstr "நடவடிக்கை தேவை"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -1802,16 +1810,25 @@ msgid "Profile updated successfully!"
 msgstr "சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Disable"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Update"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Enable"
+msgstr ""
+
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable dispatcher"
 msgstr "டிஸ்பெட்சேரை முடக்கு"
 
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Update dispatcher"
 msgstr ""
 
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Enable dispatcher"
 msgstr "டிஸ்பெட்சேரை இயக்கு"
@@ -2566,4 +2583,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
