@@ -19,17 +19,13 @@ const headers = {
 const handleRequest = async (request: Request, env: EnvType) => {
   if (request.method !== 'POST') {
     return new Response(JSON.stringify({ success: false, message: 'Only POST requests are supported' }), {
-      headers
+      headers,
+      status: 405
     });
   }
 
-  const payload = await request.json();
-
-  if (!payload) {
-    return new Response(JSON.stringify({ success: false, message: 'No body provided' }), { headers });
-  }
-
   try {
+    const payload = await request.json();
     const signer = new EthereumSigner(env.BUNDLR_PRIVATE_KEY);
     const tx = createData(JSON.stringify(payload), signer, {
       tags: [
@@ -47,11 +43,15 @@ const handleRequest = async (request: Request, env: EnvType) => {
     if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
       return new Response(JSON.stringify({ success: true, id: tx.id }), { headers });
     } else {
-      return new Response(JSON.stringify({ success: false, message: 'Something went wrong!', bundlrRes }), {
-        headers
+      return new Response(JSON.stringify({ success: false, message: 'Bundlr error!', bundlrRes }), {
+        headers,
+        status: 500
       });
     }
   } catch {
-    return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), { headers });
+    return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), {
+      headers,
+      status: 400
+    });
   }
 };
