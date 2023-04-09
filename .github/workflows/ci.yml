@@ -32,25 +32,8 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "yarn"
 
-      - name: Cache Playwright 📦
-        id: cache-playwright
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache/ms-playwright
-            ${{ github.workspace }}/node_modules/playwright
-          key: cache-playwright-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: cache-playwright-
-
-      - name: Install dependencies 📦
-        run: yarn install --frozen-lockfile
-
-      - name: Install Playwright browsers 🕹️
-        if: steps.cache-playwright.outputs.cache-hit != 'true'
-        run: yarn playwright install
-
-      - name: GraphQL Codegen 🕸
-        run: yarn codegen
+      - name: Bootstrap 📦
+        run: script/bootstrap
 
       - name: Typecheck 🔡
         run: yarn typecheck
