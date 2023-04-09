@@ -1,4 +1,10 @@
+User-agent: Googlebot
+Allow: /*
+Disallow: /_next/*
+Disallow: /settings/*
+
 User-agent: *
+Allow: /*
 Disallow: /_next/*
 Disallow: /settings/*
 
