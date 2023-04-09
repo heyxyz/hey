@@ -115,7 +115,7 @@ const ReferenceSettings: FC = () => {
         <li className="flex w-4 flex-col items-center space-y-2">
           <UserAddIcon className="text-brand-500 h-4 w-4" />{' '}
           <span
-            className={isMyFollows ? 'text-brand-500 text-center leading-snug' : 'text-center leading-snug'}
+            className={isMyFollows ? 'text-brand-500 text-center leading-tight' : 'text-center leading-tight'}
           >
             {MY_FOLLOWS.title}
           </span>
@@ -123,7 +123,9 @@ const ReferenceSettings: FC = () => {
         <li className="flex w-4 flex-col items-center space-y-2">
           <UsersIcon className="text-brand-500 h-4 w-4" />{' '}
           <span
-            className={isMyFollowers ? 'text-brand-500 text-center leading-snug' : 'text-center leading-snug'}
+            className={
+              isMyFollowers ? 'text-brand-500 text-center leading-tight' : 'text-center leading-tight'
+            }
           >
             {MY_FOLLOWERS.title}
           </span>
@@ -132,7 +134,7 @@ const ReferenceSettings: FC = () => {
           <UserGroupIcon className="text-brand-500 h-4 w-4" />
           <span
             className={
-              isFriendsOfFriends ? 'text-brand-500 text-center leading-snug' : 'text-center leading-snug'
+              isFriendsOfFriends ? 'text-brand-500 text-center leading-tight' : 'text-center leading-tight'
             }
           >
             {FRIENDS_OF_FRIENDS.title}
@@ -141,7 +143,7 @@ const ReferenceSettings: FC = () => {
         <li className="flex w-4 flex-col items-center space-y-2">
           <GlobeAltIcon className="text-brand-500 h-4 w-4" />
           <span
-            className={isEveryone ? 'text-brand-500 text-center leading-snug' : 'text-center leading-snug'}
+            className={isEveryone ? 'text-brand-500 text-center leading-tight' : 'text-center leading-tight'}
           >
             {EVERYONE.title}
           </span>
