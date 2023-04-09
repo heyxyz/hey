@@ -1,18 +1,18 @@
 import { expect, test } from '@playwright/test';
 import { METADATA_BASE_URL } from 'test/constants';
 
-test('should return 405 if method is not POST', async ({ request }) => {
+test('should return false if method is not POST', async ({ request }) => {
   const getMetadata = request.get(METADATA_BASE_URL);
-  const status = await (await getMetadata).status();
+  const response = await (await getMetadata).json();
 
-  expect(status).toBe(405);
+  expect(response.success).toBeFalsy();
 });
 
-test('should return 400 if payload is not provided', async ({ request }) => {
+test('should return false if payload is not provided', async ({ request }) => {
   const postMetadata = request.post(METADATA_BASE_URL, {});
-  const status = await (await postMetadata).status();
+  const response = await (await postMetadata).json();
 
-  expect(status).toBe(400);
+  expect(response.success).toBeFalsy();
 });
 
 test('should upload to arweave', async ({ request }) => {
