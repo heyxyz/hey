@@ -1,12 +1,11 @@
-import MenuTransition from '@components/Shared/MenuTransition';
-import { Popover } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { ReferenceModules } from 'lens';
 import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
-import { Tooltip } from 'ui';
+import { Button, Modal, Tooltip } from 'ui';
 
 const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
@@ -15,6 +14,7 @@ const ReferenceSettings: FC = () => {
   const setOnlyFollowers = useReferenceModuleStore((state) => state.setOnlyFollowers);
   const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
   const setDegreesOfSeparation = useReferenceModuleStore((state) => state.setDegreesOfSeparation);
+  const [showModal, setShowModal] = useState(false);
   const MY_FOLLOWS = { title: t`My follows`, description: t`Only people who I follow`, value: '1' };
   const MY_FOLLOWERS = { title: t`My followers`, description: t`Only people who follow me`, value: '2' };
   const FRIENDS_OF_FRIENDS = {
@@ -85,7 +85,7 @@ const ReferenceSettings: FC = () => {
       )}
       <div>
         <div className="text-brand-500 text-lg font-semibold">{title}</div>
-        <div className="whitespace-nowrap">{description}</div>
+        <div>{description}</div>
       </div>
     </div>
   );
@@ -94,7 +94,7 @@ const ReferenceSettings: FC = () => {
     <div className="flex w-full flex-col space-y-2">
       <input
         type="range"
-        className="accent-brand-500 w-full"
+        className="accent-brand-500"
         onChange={handleChange}
         min="1"
         max="4"
@@ -111,28 +111,40 @@ const ReferenceSettings: FC = () => {
             : EVERYONE.value
         }
       />
-      <ul className="flex w-full items-start justify-between text-sm">
-        <li className="flex w-4 flex-col items-center">
+      <ul className="flex items-start justify-between text-sm">
+        <li className="flex w-4 flex-col items-center space-y-2">
           <UserAddIcon className="text-brand-500 h-4 w-4" />{' '}
-          <span className={isMyFollows ? 'text-brand-500  text-center' : 'text-center'}>
+          <span
+            className={isMyFollows ? 'text-brand-500 text-center leading-snug' : 'text-center leading-snug'}
+          >
             {MY_FOLLOWS.title}
           </span>
         </li>
-        <li className="flex w-4 flex-col items-center">
+        <li className="flex w-4 flex-col items-center space-y-2">
           <UsersIcon className="text-brand-500 h-4 w-4" />{' '}
-          <span className={isMyFollowers ? 'text-brand-500  text-center' : 'text-center'}>
+          <span
+            className={isMyFollowers ? 'text-brand-500 text-center leading-snug' : 'text-center leading-snug'}
+          >
             {MY_FOLLOWERS.title}
           </span>
         </li>
-        <li className="flex w-4 flex-col items-center">
+        <li className="flex w-4 flex-col items-center space-y-2">
           <UserGroupIcon className="text-brand-500 h-4 w-4" />
-          <span className={isFriendsOfFriends ? 'text-brand-500  text-center' : 'text-center'}>
+          <span
+            className={
+              isFriendsOfFriends ? 'text-brand-500 text-center leading-snug' : 'text-center leading-snug'
+            }
+          >
             {FRIENDS_OF_FRIENDS.title}
           </span>
         </li>
-        <li className="flex w-4 flex-col items-center">
+        <li className="flex w-4 flex-col items-center space-y-2">
           <GlobeAltIcon className="text-brand-500 h-4 w-4" />
-          <span className={isEveryone ? 'text-brand-500  text-center' : 'text-center'}>{EVERYONE.title}</span>
+          <span
+            className={isEveryone ? 'text-brand-500 text-center leading-snug' : 'text-center leading-snug'}
+          >
+            {EVERYONE.title}
+          </span>
         </li>
       </ul>
     </div>
@@ -151,54 +163,70 @@ const ReferenceSettings: FC = () => {
   };
 
   return (
-    <Popover className="relative">
+    <>
       <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
-        <Popover.Button as={motion.button} whileTap={{ scale: 0.9 }}>
+        <motion.button onClick={() => setShowModal(true)} whileTap={{ scale: 0.9 }}>
           <div className="text-brand">
             {isEveryone && <GlobeAltIcon className="w-5" />}
             {isMyFollowers && <UsersIcon className="w-5" />}
             {isMyFollows && <UserAddIcon className="w-5" />}
             {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
           </div>
-        </Popover.Button>
+        </motion.button>
       </Tooltip>
-      <MenuTransition>
-        <Popover.Panel className="absolute z-[5] mt-2 w-screen max-w-sm rounded-xl border bg-white px-8 py-6 shadow-sm dark:border-gray-700 dark:bg-gray-900">
-          <div className="mb-2 font-medium">Who can comment?</div>
-          <div className="flex flex-col items-start justify-between space-y-4">
-            {isEveryone && (
-              <Module
-                title={EVERYONE.title}
-                description={EVERYONE.description}
-                icon={<GlobeAltIcon className="h-4 w-4" />}
-              />
-            )}
-            {isMyFollowers && (
-              <Module
-                title={MY_FOLLOWERS.title}
-                description={MY_FOLLOWERS.description}
-                icon={<UsersIcon className="h-4 w-4" />}
-              />
-            )}
-            {isMyFollows && (
-              <Module
-                title={MY_FOLLOWS.title}
-                description={MY_FOLLOWS.description}
-                icon={<UserAddIcon className="h-4 w-4" />}
-              />
-            )}
-            {isFriendsOfFriends && (
-              <Module
-                title={FRIENDS_OF_FRIENDS.title}
-                description={FRIENDS_OF_FRIENDS.description}
-                icon={<UserGroupIcon className="h-4 w-4" />}
-              />
-            )}
-            <Slider />
+      <Modal
+        title={t`Who can comment?`}
+        icon={
+          <>
+            {isEveryone && <GlobeAltIcon className="w-5" />}
+            {isMyFollowers && <UsersIcon className="w-5" />}
+            {isMyFollows && <UserAddIcon className="w-5" />}
+            {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+          </>
+        }
+        show={showModal}
+        onClose={() => {
+          setShowModal(false);
+        }}
+      >
+        <div className="flex flex-col items-start justify-between space-y-4 px-10 py-5">
+          {isEveryone && (
+            <Module
+              title={EVERYONE.title}
+              description={EVERYONE.description}
+              icon={<GlobeAltIcon className="h-4 w-4" />}
+            />
+          )}
+          {isMyFollowers && (
+            <Module
+              title={MY_FOLLOWERS.title}
+              description={MY_FOLLOWERS.description}
+              icon={<UsersIcon className="h-4 w-4" />}
+            />
+          )}
+          {isMyFollows && (
+            <Module
+              title={MY_FOLLOWS.title}
+              description={MY_FOLLOWS.description}
+              icon={<UserAddIcon className="h-4 w-4" />}
+            />
+          )}
+          {isFriendsOfFriends && (
+            <Module
+              title={FRIENDS_OF_FRIENDS.title}
+              description={FRIENDS_OF_FRIENDS.description}
+              icon={<UserGroupIcon className="h-4 w-4" />}
+            />
+          )}
+          <Slider />
+          <div className="flex w-full justify-end pt-5">
+            <Button onClick={() => setShowModal(false)}>
+              <Trans>Done</Trans>
+            </Button>
           </div>
-        </Popover.Panel>
-      </MenuTransition>
-    </Popover>
+        </div>
+      </Modal>
+    </>
   );
 };
 
