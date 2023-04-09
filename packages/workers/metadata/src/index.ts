@@ -19,8 +19,7 @@ const headers = {
 const handleRequest = async (request: Request, env: EnvType) => {
   if (request.method !== 'POST') {
     return new Response(JSON.stringify({ success: false, message: 'Only POST requests are supported' }), {
-      headers,
-      status: 405
+      headers
     });
   }
 
@@ -44,14 +43,10 @@ const handleRequest = async (request: Request, env: EnvType) => {
       return new Response(JSON.stringify({ success: true, id: tx.id }), { headers });
     } else {
       return new Response(JSON.stringify({ success: false, message: 'Bundlr error!', bundlrRes }), {
-        headers,
-        status: 500
+        headers
       });
     }
   } catch {
-    return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), {
-      headers,
-      status: 400
-    });
+    return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), { headers });
   }
 };
