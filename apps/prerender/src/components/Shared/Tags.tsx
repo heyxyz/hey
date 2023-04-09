@@ -44,7 +44,6 @@ const Tags: FC<TagsProps> = ({
       <meta property="twitter:image:height" content="400" />
       <meta property="twitter:creator" content="lensterxyz" />
       {publishedTime ? <meta property="article:published_time" content={publishedTime} /> : null}
-      <link rel="canonical" href={url} />
       {schema ? schema : null}
     </Head>
   );
