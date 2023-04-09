@@ -5,18 +5,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: en\n"
-"Project-Id-Version: lenstertest\n"
+"Language: kn\n"
+"Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-12-25 13:24\n"
+"PO-Revision-Date: 2023-04-08 18:12\n"
 "Last-Translator: \n"
-"Language-Team: English\n"
+"Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: lenstertest\n"
-"X-Crowdin-Project-ID: 556737\n"
-"X-Crowdin-Language: en\n"
-"X-Crowdin-File: /src/locales/en/messages.po\n"
-"X-Crowdin-File-ID: 9\n"
+"X-Crowdin-Project: lenster\n"
+"X-Crowdin-Project-ID: 552311\n"
+"X-Crowdin-Language: kn\n"
+"X-Crowdin-File: messages.po\n"
+"X-Crowdin-File-ID: 47\n"
 
 #: src/components/Comment/Feed.tsx
 msgid "Be the first one to comment!"
@@ -28,11 +28,11 @@ msgstr ""
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
-msgstr "Hide more comments"
+msgstr ""
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Show more comments"
-msgstr "Show more comments"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
@@ -62,7 +62,7 @@ msgstr ""
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
-msgstr ""
+msgstr "ರದ್ದುಗೊಳಿಸು"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
@@ -73,7 +73,7 @@ msgstr ""
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
 msgid "Save"
-msgstr ""
+msgstr "ಉಳಿಸಿ"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
@@ -85,7 +85,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
-msgstr "Exceeded max limit of 1 audio, or 1 video, or 4 images"
+msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
@@ -105,13 +105,13 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Price"
-msgstr ""
+msgstr "ಬೆಲೆ"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 #: src/components/Settings/Account/SuperFollow.tsx
 #: src/components/Settings/Allowance/index.tsx
 msgid "Select Currency"
-msgstr ""
+msgstr "ಕರೆನ್ಸಿ ಆಯ್ಕೆ ಮಾಡಿ"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
@@ -151,7 +151,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Share your fee with people who amplify your content"
-msgstr "Share your fee with people who amplify your content"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Referral fee"
@@ -159,19 +159,19 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Split revenue"
-msgstr "Split revenue"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Set multiple recipients for the collect fee"
-msgstr "Set multiple recipients for the collect fee"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
-msgstr "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Duplicate recipient address found"
-msgstr "Duplicate recipient address found"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
 msgid "Time limit"
@@ -199,7 +199,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
-msgstr ""
+msgstr "GIF ಆಯ್ಕೆಮಾಡಿ"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers"
-msgstr ""
+msgstr "ನನ್ನ ಅನುಯಾಯಿಗಳು"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friends of friends"
@@ -215,23 +215,23 @@ msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone"
-msgstr ""
+msgstr "ಎಲ್ಲರೂ"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers can comment and mirror"
-msgstr "My followers can comment and mirror"
+msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows can comment and mirror"
-msgstr "My follows can comment and mirror"
+msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friend of friends can comment and mirror"
-msgstr "Friend of friends can comment and mirror"
+msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone can comment and mirror"
-msgstr "Everyone can comment and mirror"
+msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
@@ -253,11 +253,11 @@ msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Comment"
-msgstr "Comment"
+msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Post"
-msgstr "Post"
+msgstr ""
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -280,30 +280,30 @@ msgstr ""
 
 #: src/components/Explore/FeedType.tsx
 msgid "Text"
-msgstr ""
+msgstr "ಪಠ್ಯ"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Video"
-msgstr ""
+msgstr "ದೃಶ್ಯ"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
-msgstr ""
+msgstr "ಆಡಿಯೋ"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
-msgstr ""
+msgstr "ಚಿತ್ರಗಳು"
 
 #: src/components/Explore/index.tsx
 msgid "For you"
-msgstr ""
+msgstr "ನಿಮಗಾಗಿ"
 
 #: src/components/Explore/index.tsx
 msgid "Popular"
-msgstr ""
+msgstr "ಜನಪ್ರಿಯ"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/Trending.tsx
@@ -312,16 +312,16 @@ msgstr ""
 
 #: src/components/Explore/index.tsx
 msgid "Interesting"
-msgstr ""
+msgstr "ಆಸಕ್ತಿದಾಯಕ"
 
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
-msgstr "Explore • {APP_NAME}"
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
-msgstr "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -331,12 +331,12 @@ msgstr ""
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions Upgrade"
-msgstr "Signless Transactions Upgrade"
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions"
-msgstr "Signless Transactions"
+msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -419,7 +419,7 @@ msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
-msgstr ""
+msgstr "ಹುಡುಕು"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
@@ -470,19 +470,19 @@ msgstr ""
 
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
-msgstr ""
+msgstr "ಪ್ರೊಫೈಲ್ ಅನ್ನು ಈಗ ನವೀಕರಿಸಿ"
 
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
-msgstr ""
+msgstr "ಸಲಹೆಗಳನ್ನು ತುಂಬಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Home/Suggested.tsx
 msgid "Nothing to suggest"
-msgstr ""
+msgstr "ಸೂಚಿಸಲು ಏನೂ ಇಲ್ಲ"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
-msgstr "collected"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
@@ -504,7 +504,7 @@ msgstr ""
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "mirrored"
-msgstr "mirrored"
+msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
@@ -528,11 +528,11 @@ msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Send"
-msgstr ""
+msgstr "ಕಳುಹಿಸಿ"
 
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
-msgstr ""
+msgstr "ಸಂದೇಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
@@ -558,7 +558,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Requested"
-msgstr ""
+msgstr "ವಿನಂತಿಸಲಾಗಿದೆ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -578,7 +578,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
-msgstr ""
+msgstr "ಹೊಸ ಸಂದೇಶ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
@@ -586,7 +586,7 @@ msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
-msgstr ""
+msgstr "ಸಂವಾದವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
 #: src/components/Messages/index.tsx
 msgid "Choose an existing conversation or create a new one to start messaging"
@@ -594,7 +594,7 @@ msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Messages • {APP_NAME}"
-msgstr "Messages • {APP_NAME}"
+msgstr ""
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -602,19 +602,19 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
-msgstr "Mod Center • {APP_NAME}"
+msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Refresh feed"
-msgstr "Refresh feed"
+msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Publication filters"
-msgstr "Publication filters"
+msgstr "ಪ್ರಕಟಣೆ ಶೋಧಕಗಳು"
 
 #: src/components/Mod/index.tsx
 msgid "Posts"
-msgstr "Posts"
+msgstr ""
 
 #: src/components/Mod/index.tsx
 #: src/components/Notification/FeedType.tsx
@@ -623,11 +623,11 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
-msgstr "Custom filters"
+msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
-msgstr "Gardeners"
+msgstr ""
 
 #: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
@@ -640,15 +640,15 @@ msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
-msgstr ""
+msgstr "ಎಲ್ಲಾ ಅಧಿಸೂಚನೆಗಳು"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
-msgstr ""
+msgstr "ಉಲ್ಲೇಖಗಳು"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
-msgstr "Likes"
+msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "Collects"
@@ -724,23 +724,23 @@ msgstr ""
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
-msgstr "<0><1/> mirrored your <2>comment</2></0>"
+msgstr ""
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
-msgstr "<0><1/> mirrored your <2>mirror</2></0>"
+msgstr ""
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
-msgstr "<0><1/> mirrored your <2>post</2></0>"
+msgstr ""
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
-msgstr "Notifications • {APP_NAME}"
+msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Email is not valid"
-msgstr "Email is not valid"
+msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
@@ -768,370 +768,370 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact us to help you get the issue resolved."
-msgstr ""
+msgstr "ಸಮಸ್ಯೆಯನ್ನು ಪರಿಹರಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಲು ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ."
 
 #: src/components/Pages/Contact.tsx
 msgid "Your message has been sent!"
-msgstr "Your message has been sent!"
+msgstr "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲಾಗಿದೆ!"
 
 #: src/components/Pages/Contact.tsx
 msgid "Email"
-msgstr "Email"
+msgstr "ಇಮೇಲ್"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
-msgstr ""
+msgstr "ವಿಷಯ"
 
 #: src/components/Pages/Contact.tsx
 msgid "What happened?"
-msgstr ""
+msgstr "ಏನಾಯಿತು?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message"
-msgstr ""
+msgstr "ಸಂದೇಶ"
 
 #: src/components/Pages/Contact.tsx
 msgid "How can we help?"
-msgstr ""
+msgstr "ನಾವು ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
-msgstr ""
+msgstr "ಸಲ್ಲಿಸು"
 
 #: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
-msgstr "Privacy Policy • {APP_NAME}"
+msgstr "ಗೌಪ್ಯತಾ ನೀತಿ • {APP_NAME}"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
 msgid "Updated {updatedAt}"
-msgstr "Updated {updatedAt}"
+msgstr "ನವೀಕರಿಸಲಾಗಿದೆ {updatedAt}"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
 msgid "1. Overview"
-msgstr "1. Overview"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing the Site, you agree to not only this Privacy Policy, but also to our Terms of Use and any other written agreements for using the Site. And you agree to our collection and use of any personal data (as described here) as well as the features of public/permissionless blockchain technology."
-msgstr "By accessing the Site, you agree to not only this Privacy Policy, but also to our Terms of Use and any other written agreements for using the Site. And you agree to our collection and use of any personal data (as described here) as well as the features of public/permissionless blockchain technology."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
-msgstr "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing or using the Site, you accept and assume certain inherent features related to engaging in recording the data on the blockchain. Interactions with the Lens Protocol rely on smart contracts stored on a publicly available blockchain, cryptographic tokens generated by the smart contracts, and other nascent software, applications and systems that interact with blockchain-based networks. One of the defining features of blockchain technology is that its entries are immutable, which means, as a technical matter, they generally cannot be deleted or modified by anyone. If you are not comfortable assuming the inherently immutable and public nature of all entries on the blockchain, you should not engage with our Site."
-msgstr "By accessing or using the Site, you accept and assume certain inherent features related to engaging in recording the data on the blockchain. Interactions with the Lens Protocol rely on smart contracts stored on a publicly available blockchain, cryptographic tokens generated by the smart contracts, and other nascent software, applications and systems that interact with blockchain-based networks. One of the defining features of blockchain technology is that its entries are immutable, which means, as a technical matter, they generally cannot be deleted or modified by anyone. If you are not comfortable assuming the inherently immutable and public nature of all entries on the blockchain, you should not engage with our Site."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "2. Information Collection"
-msgstr "2. Information Collection"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Privacy.tsx
 msgid "We may collect the following information about you when you use the Site:"
-msgstr "We may collect the following information about you when you use the Site:"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "Information you provide such as feedback, question and issues reports."
-msgstr "Information you provide such as feedback, question and issues reports."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "You may choose to voluntarily provide other information to us that we have not solicited from you, and, in such instances, you are solely responsible for such information."
-msgstr "You may choose to voluntarily provide other information to us that we have not solicited from you, and, in such instances, you are solely responsible for such information."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may use tracking technologies to automatically collect information including the following:"
-msgstr "We may use tracking technologies to automatically collect information including the following:"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Log Files</0>, to record events or errors that occur when using our Site."
-msgstr "<0>Log Files</0>, to record events or errors that occur when using our Site."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Cookies</0>, small data stored on your device that are necessary for you to browse the Site."
-msgstr "<0>Cookies</0>, small data stored on your device that are necessary for you to browse the Site."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Public Information</0>, data from activity that is publicly visible and/or accessible on blockchains. This may include blockchain addresses and information regarding the NFTs in wallets."
-msgstr "<0>Public Information</0>, data from activity that is publicly visible and/or accessible on blockchains. This may include blockchain addresses and information regarding the NFTs in wallets."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "3. Use of Information"
-msgstr "3. Use of Information"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may need to use it to operate and manage the Services on this Site (or other places), provide you support, ensure we comply with laws and regulation, and enforce the security of the Site or make other improvements."
-msgstr "We may need to use it to operate and manage the Services on this Site (or other places), provide you support, ensure we comply with laws and regulation, and enforce the security of the Site or make other improvements."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "4. Third-Parties"
-msgstr "4. Third-Parties"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "This Privacy Policy does not apply to websites, apps, products, or services that we do not own or control. For example, your interactions with Ethereum wallet are governed by the applicable privacy policies of that particular wallet."
-msgstr "This Privacy Policy does not apply to websites, apps, products, or services that we do not own or control. For example, your interactions with Ethereum wallet are governed by the applicable privacy policies of that particular wallet."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "5. Analytics"
-msgstr "5. Analytics"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "We use <0>Datadog</0> to collect various events from user actions to analyse and make decisions for Site improvements."
-msgstr "We use <0>Datadog</0> to collect various events from user actions to analyse and make decisions for Site improvements."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "All the data are anonymous and we don’t track user details such as name, handle, email, wallet address and so on."
-msgstr "All the data are anonymous and we don’t track user details such as name, handle, email, wallet address and so on."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may change to other third-party analytics service provider. The Privacy Policy of Analytics subjects to the every provider. You should review everything before using the Site."
-msgstr "We may change to other third-party analytics service provider. The Privacy Policy of Analytics subjects to the every provider. You should review everything before using the Site."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "6. Your Rights and Choices"
-msgstr "6. Your Rights and Choices"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Cookies</0>. We will only use strictly necessary cookies. These cookies are essential for you to browse the Site and use its features, including accessing secure areas of the Site."
-msgstr "<0>Cookies</0>. We will only use strictly necessary cookies. These cookies are essential for you to browse the Site and use its features, including accessing secure areas of the Site."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Do Not Track</0>. Your browser settings may allow you to automatically transmit a “Do Not Track” signal to the online services you visit. Note, however, there is no industry consensus as to what Site and app operators should do with regard to these signals. Accordingly, unless and until the law is interpreted to require us to do so, we do not monitor or take action with respect to “Do Not Track” signals. For more information on “Do Not Track,” visit <1>https://allaboutdnt.com</1>."
-msgstr "<0>Do Not Track</0>. Your browser settings may allow you to automatically transmit a “Do Not Track” signal to the online services you visit. Note, however, there is no industry consensus as to what Site and app operators should do with regard to these signals. Accordingly, unless and until the law is interpreted to require us to do so, we do not monitor or take action with respect to “Do Not Track” signals. For more information on “Do Not Track,” visit <1>https://allaboutdnt.com</1>."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "7. Data Security"
-msgstr "7. Data Security"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "We implement and maintain reasonable administrative, physical, and technical security safeguards to help protect information about you from loss, theft, misuse, unauthorised access, disclosure, alteration, and destruction. Nevertheless, transmission via the internet is not completely secure and we cannot guarantee the security of information about you."
-msgstr "We implement and maintain reasonable administrative, physical, and technical security safeguards to help protect information about you from loss, theft, misuse, unauthorised access, disclosure, alteration, and destruction. Nevertheless, transmission via the internet is not completely secure and we cannot guarantee the security of information about you."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "8. Children"
-msgstr "8. Children"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "The Site is intended for general audiences and are not directed at children. To use the Site, you must legally be able to enter into the Agreement. We do not knowingly collect personal information from children."
-msgstr "The Site is intended for general audiences and are not directed at children. To use the Site, you must legally be able to enter into the Agreement. We do not knowingly collect personal information from children."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "9. Changes to Policy"
-msgstr "9. Changes to Policy"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "We reserve the right to revise and reissue this Privacy Policy at any time. Any changes will be effective immediately upon our posting of the revised Privacy Policy. For the avoidance of doubt, your continued use of the Site indicates your consent to the revised Privacy Policy then posted."
-msgstr "We reserve the right to revise and reissue this Privacy Policy at any time. Any changes will be effective immediately upon our posting of the revised Privacy Policy. For the avoidance of doubt, your continued use of the Site indicates your consent to the revised Privacy Policy then posted."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "10. Contact"
-msgstr "10. Contact"
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
-msgstr "Terms & Conditions • {APP_NAME}"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions"
-msgstr "Terms & Conditions"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
-msgstr "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "By visiting the Site, you agree to be bound by the following terms and conditions (“Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink (collectively, the “Agreement”). The Agreement applies to all users of the Site, including without limitation users who are browsers, builders, and/or contributors of content."
-msgstr "By visiting the Site, you agree to be bound by the following terms and conditions (“Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink (collectively, the “Agreement”). The Agreement applies to all users of the Site, including without limitation users who are browsers, builders, and/or contributors of content."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Please read these Terms carefully before accessing or using the Site. If you do not agree to all the terms of the Agreement, then you should not access the Site; however, by accessing the Site, you consent to the Agreement."
-msgstr "Please read these Terms carefully before accessing or using the Site. If you do not agree to all the terms of the Agreement, then you should not access the Site; however, by accessing the Site, you consent to the Agreement."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Any new features or tools which are added to Site shall also be subject to the Terms. You can review the most current version of the Terms at any time on this page. We reserve the right to update, change or replace any part of these Terms by posting updates and/or changes to our Site. It is your responsibility to check this page periodically for changes. Your continued use of or access to the Site following the posting of any changes constitutes acceptance of those changes."
-msgstr "Any new features or tools which are added to Site shall also be subject to the Terms. You can review the most current version of the Terms at any time on this page. We reserve the right to update, change or replace any part of these Terms by posting updates and/or changes to our Site. It is your responsibility to check this page periodically for changes. Your continued use of or access to the Site following the posting of any changes constitutes acceptance of those changes."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "2. General Conditions"
-msgstr "2. General Conditions"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "You may not use our Site for any illegal or unauthorised purpose nor may you, in the use of the Service, violate any laws in your jurisdiction (including but not limited to copyright laws). We reserve the right to refuse the services to anyone for any reason at any time. We may stop (permanently or temporarily) providing the services or any features within the Site to you or to users generally."
-msgstr "You may not use our Site for any illegal or unauthorised purpose nor may you, in the use of the Service, violate any laws in your jurisdiction (including but not limited to copyright laws). We reserve the right to refuse the services to anyone for any reason at any time. We may stop (permanently or temporarily) providing the services or any features within the Site to you or to users generally."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "3. Services"
-msgstr "3. Services"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "User Lens profile is referred as the “Profile” in the “Site”."
-msgstr "User Lens profile is referred as the “Profile” in the “Site”."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "The Site allow you to interact with the Lens Protocol, including posts, mirrors, comments and other content related actions."
-msgstr "The Site allow you to interact with the Lens Protocol, including posts, mirrors, comments and other content related actions."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "We reserve the right - but are not obligated to - limit the provision of Profiles or Services to any person, geographic region or jurisdiction. We may exercise this right on a case-by-case basis in our sole discretion."
-msgstr "We reserve the right - but are not obligated to - limit the provision of Profiles or Services to any person, geographic region or jurisdiction. We may exercise this right on a case-by-case basis in our sole discretion."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Your profile your responsibility."
-msgstr "Your profile your responsibility."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "You are responsible for securing the wallet that contains your profiles."
-msgstr "You are responsible for securing the wallet that contains your profiles."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "You bear sole responsibility for evaluating the Site and features before using them."
-msgstr "You bear sole responsibility for evaluating the Site and features before using them."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "It is important to understand that neither we nor any affiliated entity is a party to any transaction on the blockchain networks underlying the Lens Protocol; we do not have possession, custody or control over any items on your wallet and we do not have possession, custody, ability to delete or control over any items on any user’s wallet or interactions with the Lens Protocol."
-msgstr "It is important to understand that neither we nor any affiliated entity is a party to any transaction on the blockchain networks underlying the Lens Protocol; we do not have possession, custody or control over any items on your wallet and we do not have possession, custody, ability to delete or control over any items on any user’s wallet or interactions with the Lens Protocol."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "If you’re not comfortable with interacting with an inherently transparent blockchain, you should not engage with our Site to create and manage a content on the Lens Protocol. You are solely responsible for the safekeeping of the private key associated with the blockchain address used to interact with the Lens Protocol."
-msgstr "If you’re not comfortable with interacting with an inherently transparent blockchain, you should not engage with our Site to create and manage a content on the Lens Protocol. You are solely responsible for the safekeeping of the private key associated with the blockchain address used to interact with the Lens Protocol."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "The transactions on blockchain including transfer of tokens and data attached to it are permanent and cannot be undone."
-msgstr "The transactions on blockchain including transfer of tokens and data attached to it are permanent and cannot be undone."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Our Site allows you to upload a text, pictures, videos using hosted on a third-party provider IPFS and Arweave. We are not responsible for any action or omission taken by IPFS/Arweave as it pertains to the user interface or otherwise. The use and access of any third-party products or services, including through the Site, is at your own risk."
-msgstr "Our Site allows you to upload a text, pictures, videos using hosted on a third-party provider IPFS and Arweave. We are not responsible for any action or omission taken by IPFS/Arweave as it pertains to the user interface or otherwise. The use and access of any third-party products or services, including through the Site, is at your own risk."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "The Lens Protocol is deployed on blockchain-based networks, and we are not responsible for the operation of such networks."
-msgstr "The Lens Protocol is deployed on blockchain-based networks, and we are not responsible for the operation of such networks."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "4. Accuracy, Completeness and Timeliness of information"
-msgstr "4. Accuracy, Completeness and Timeliness of information"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "We are not responsible for any mistakes or inaccuracies on contents published on this Site. Profiles are fully responsible for what they are doing in the Site."
-msgstr "We are not responsible for any mistakes or inaccuracies on contents published on this Site. Profiles are fully responsible for what they are doing in the Site."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "As a Site, we offer information about the content and interaction on content published by the users on the Lens Protocol."
-msgstr "As a Site, we offer information about the content and interaction on content published by the users on the Lens Protocol."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "5. Modification of Services"
-msgstr "5. Modification of Services"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "We reserve the right at any time to modify or discontinue the Site (or any part or content thereof) without notice at any time. We shall not be liable to you or any third-party for any modification, information change, suspension or discontinuance of the Site."
-msgstr "We reserve the right at any time to modify or discontinue the Site (or any part or content thereof) without notice at any time. We shall not be liable to you or any third-party for any modification, information change, suspension or discontinuance of the Site."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "6. Third-Party Services & Websites"
-msgstr "6. Third-Party Services & Websites"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "We are not responsible for the content or services of any third-party, including, without limitation, any network, or apps like Discord, or MetaMask, and we make no representations regarding the content or accuracy of any third-party services or materials. Those are governed by the terms of use of the third-party providers."
-msgstr "We are not responsible for the content or services of any third-party, including, without limitation, any network, or apps like Discord, or MetaMask, and we make no representations regarding the content or accuracy of any third-party services or materials. Those are governed by the terms of use of the third-party providers."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Please review carefully the third-party's policies and practices and make sure you understand them before you engage in any transaction. Complaints, claims, concerns, or questions regarding third-party products should be directed to the third-party."
-msgstr "Please review carefully the third-party's policies and practices and make sure you understand them before you engage in any transaction. Complaints, claims, concerns, or questions regarding third-party products should be directed to the third-party."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "7. Personal Information"
-msgstr "7. Personal Information"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Your submission of personal information through the Site is governed by our <0>Privacy Policy</0>."
-msgstr "Your submission of personal information through the Site is governed by our <0>Privacy Policy</0>."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "8. Prohibited Usage"
-msgstr "8. Prohibited Usage"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "You are not allowed to use the Site for anything illegal, infringing the intellectual property rights of other people, harassment or otherwise abusive behaviour, spreading false information or viruses, spamming, or interfering with the security features of the Site."
-msgstr "You are not allowed to use the Site for anything illegal, infringing the intellectual property rights of other people, harassment or otherwise abusive behaviour, spreading false information or viruses, spamming, or interfering with the security features of the Site."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "You are prohibited from using the Site,"
-msgstr "You are prohibited from using the Site,"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "for any unlawful purpose and to solicit others to perform or participate in any unlawful acts;"
-msgstr "for any unlawful purpose and to solicit others to perform or participate in any unlawful acts;"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "to violate any international, federal, provincial or state regulations, rules, laws, or local ordinances;"
-msgstr "to violate any international, federal, provincial or state regulations, rules, laws, or local ordinances;"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "to infringe upon or violate our intellectual property rights or the intellectual property rights of others;"
-msgstr "to infringe upon or violate our intellectual property rights or the intellectual property rights of others;"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "to harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate based on gender, sexual orientation, religion, ethnicity, race, age, national origin, or disability;"
-msgstr "to harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate based on gender, sexual orientation, religion, ethnicity, race, age, national origin, or disability;"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "to submit false or misleading information or to upload or transmit viruses or any other type of malicious code that will or may be used in any way that will affect the functionality or operation of the Site or of any related website, other websites, or the Internet;"
-msgstr "to submit false or misleading information or to upload or transmit viruses or any other type of malicious code that will or may be used in any way that will affect the functionality or operation of the Site or of any related website, other websites, or the Internet;"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "to collect or track the personal information of others to spam, phish, pretext, crawl, or scrape;"
-msgstr "to collect or track the personal information of others to spam, phish, pretext, crawl, or scrape;"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "for any obscene or immoral purpose or to interfere with or circumvent the security features of the Site or any related website, other websites, or the Internet. We reserve the right to terminate your use of the Site or any related website for violating any of the prohibited uses."
-msgstr "for any obscene or immoral purpose or to interfere with or circumvent the security features of the Site or any related website, other websites, or the Internet. We reserve the right to terminate your use of the Site or any related website for violating any of the prohibited uses."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "9. Assumption of Risk"
-msgstr "9. Assumption of Risk"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "You assume the risks of using the Site (including the risks related to smart contracts). You are responsible for your wallet. We may restrict your access to the Site for any reason, including, but not limited, compliance with sanctions regulations."
-msgstr "You assume the risks of using the Site (including the risks related to smart contracts). You are responsible for your wallet. We may restrict your access to the Site for any reason, including, but not limited, compliance with sanctions regulations."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "10. Disclaimer of Warranties"
-msgstr "10. Disclaimer of Warranties"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "The Site are provided to you completely as they are, and could function differently than you expected. You agree to accept the Site as is. You expressly agree that your use of, or inability to use, the Site is at your sole risk. Our liability shall be limited entirely or to the maximum extent permitted by law."
-msgstr "The Site are provided to you completely as they are, and could function differently than you expected. You agree to accept the Site as is. You expressly agree that your use of, or inability to use, the Site is at your sole risk. Our liability shall be limited entirely or to the maximum extent permitted by law."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "11. Termination and Cancellation"
-msgstr "11. Termination and Cancellation"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "This Agreement is effective unless and until terminated by either you or us. You may terminate the Agreement with us at any time by not accessing the Site."
-msgstr "This Agreement is effective unless and until terminated by either you or us. You may terminate the Agreement with us at any time by not accessing the Site."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "If in our sole judgment you fail to comply with terms, we reserve the right to terminate our Agreement with you and deny you access to the Site."
-msgstr "If in our sole judgment you fail to comply with terms, we reserve the right to terminate our Agreement with you and deny you access to the Site."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "12. Contact Information"
-msgstr "12. Contact Information"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
-msgstr "Questions about the Terms should be sent to us at terms@lenster.xyz"
+msgstr ""
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
-msgstr "Thanks • {APP_NAME}"
+msgstr ""
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
@@ -1151,7 +1151,7 @@ msgstr ""
 
 #: src/components/Profile/Details.tsx
 msgid "Follows you"
-msgstr "Follows you"
+msgstr ""
 
 #: src/components/Profile/Details.tsx
 msgid "Edit Profile"
@@ -1179,7 +1179,7 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Collected"
-msgstr "Collected"
+msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
@@ -1188,7 +1188,7 @@ msgstr ""
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
 msgid "Not now"
-msgstr "Not now"
+msgstr ""
 
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
@@ -1233,7 +1233,7 @@ msgstr ""
 
 #: src/components/Profile/New.tsx
 msgid "Create Profile • {APP_NAME}"
-msgstr "Create Profile • {APP_NAME}"
+msgstr ""
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
@@ -1241,92 +1241,92 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery created"
-msgstr "Gallery created"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name updated"
-msgstr "Gallery name updated"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery updated"
-msgstr "Gallery updated"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name should be less than 255 characters"
-msgstr "Gallery name should be less than 255 characters"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
-msgstr "Gallery name required"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles for your gallery"
-msgstr "Select collectibles for your gallery"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Review collection"
-msgstr "Review collection"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles you want others to see"
-msgstr "Select collectibles you want others to see"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "What's your gallery name?"
-msgstr "What's your gallery name?"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "{0} selected"
-msgstr "{0} selected"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Next"
-msgstr "Next"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Gallery deleted"
-msgstr "Gallery deleted"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Are you sure you want to delete?"
-msgstr "Are you sure you want to delete?"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Edit"
-msgstr "Edit"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Rearrrange"
-msgstr "Rearrrange"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
-msgstr "Delete"
+msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
-msgstr "Welcome to your gallery"
+msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Create a curated space for your digital collectibles"
-msgstr "Create a curated space for your digital collectibles"
+msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Let's do it!"
-msgstr "Let's do it!"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
-msgstr "doesn't have any NFTs!"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
-msgstr "Only 50 items allowed for gallery"
+msgstr ""
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
-msgstr "No collectables selected!"
+msgstr ""
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx
@@ -1347,7 +1347,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
-msgstr "Collected successfully!"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -1393,7 +1393,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/Splits.tsx
 msgid "Fee recipients"
-msgstr "Fee recipients"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
@@ -1428,7 +1428,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
-msgstr "Post has been mirrored!"
+msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
@@ -1440,7 +1440,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
-msgstr "Publication reported successfully"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -1475,11 +1475,11 @@ msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Report?"
-msgstr "Report?"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Are you sure? You want to report this user so that we can take action."
-msgstr "Are you sure? You want to report this user so that we can take action."
+msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -1511,11 +1511,11 @@ msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Comments"
-msgstr "<0>{0}</0> Comments"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Mirrors"
-msgstr "<0>{0}</0> Mirrors"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
@@ -1523,7 +1523,7 @@ msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Likes"
-msgstr "<0>{0}</0> Likes"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
@@ -1531,7 +1531,7 @@ msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
-msgstr "<0>{0}</0> Collects"
+msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -1659,7 +1659,7 @@ msgstr ""
 
 #: src/components/Settings/Account/index.tsx
 msgid "Account settings • {APP_NAME}"
-msgstr "Account settings • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
@@ -1687,7 +1687,7 @@ msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allowance settings • {APP_NAME}"
-msgstr "Allowance settings • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
@@ -1703,7 +1703,7 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup settings • {APP_NAME}"
-msgstr "Cleanup settings • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup Localstorage"
@@ -1759,7 +1759,7 @@ msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Delete Profile • {APP_NAME}"
-msgstr "Delete Profile • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "This will deactivate your account"
@@ -1809,27 +1809,27 @@ msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable"
-msgstr "Disable"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Update"
-msgstr "Update"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable"
-msgstr "Enable"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable Signless Transactions"
-msgstr "Disable Signless Transactions"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
-msgstr "Dispatcher • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
-msgstr "Interests settings • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
@@ -1837,15 +1837,15 @@ msgstr ""
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "Hide number of likes"
-msgstr "Hide number of likes"
+msgstr ""
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
-msgstr "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
+msgstr ""
 
 #: src/components/Settings/Preferences/index.tsx
 msgid "Preferences • {APP_NAME}"
-msgstr "Preferences • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
@@ -1870,15 +1870,15 @@ msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Upload failed"
-msgstr "Upload failed"
+msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Crop image"
-msgstr "Crop image"
+msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Profile picture crop preview"
-msgstr "Profile picture crop preview"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
@@ -1942,7 +1942,7 @@ msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Profile settings • {APP_NAME}"
-msgstr "Profile settings • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
@@ -1954,7 +1954,7 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Preferences"
-msgstr "Preferences"
+msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Interests"
@@ -1970,15 +1970,15 @@ msgstr ""
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Publication deleted successfully"
-msgstr "Publication deleted successfully"
+msgstr ""
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete Publication?"
-msgstr "Delete Publication?"
+msgstr ""
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
-msgstr "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
+msgstr ""
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
@@ -2027,7 +2027,7 @@ msgstr ""
 
 #: src/components/Shared/Follow.tsx
 msgid "Follow"
-msgstr "Follow"
+msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Terms"
@@ -2071,11 +2071,11 @@ msgstr ""
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
-msgstr "Mod actions"
+msgstr ""
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
-msgstr "Perform mod actions on this publication."
+msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
@@ -2084,7 +2084,7 @@ msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 msgid "Change Profile"
-msgstr "Change Profile"
+msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
@@ -2149,7 +2149,7 @@ msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Change wallet"
-msgstr "Change wallet"
+msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
@@ -2330,11 +2330,11 @@ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Disable mod mode"
-msgstr "Disable mod mode"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Enable mod mode"
-msgstr "Enable mod mode"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2354,7 +2354,7 @@ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
-msgstr "Switch Profile"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Dark mode"
@@ -2390,19 +2390,19 @@ msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
-msgstr "This proposal is closed!"
+msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
-msgstr "Current results"
+msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
-msgstr "Results"
+msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
-msgstr "Cast your vote"
+msgstr ""
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
@@ -2459,11 +2459,11 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow again"
-msgstr "Super follow again"
+msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow now"
-msgstr "Super follow now"
+msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Allow follow module"
@@ -2471,7 +2471,7 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Super follow"
-msgstr "Super follow"
+msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
@@ -2503,7 +2503,7 @@ msgstr ""
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools • {APP_NAME}"
-msgstr "Stafftools • {APP_NAME}"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
@@ -2511,35 +2511,35 @@ msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 100MB"
-msgstr "Video size should be less than 100MB"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
-msgstr "Audio size should be less than 100MB"
+msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Multirecipient Paid Collect"
-msgstr "Multirecipient Paid Collect"
+msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Paid Collect"
-msgstr "Paid Collect"
+msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Rare Paid Collect"
-msgstr "Rare Paid Collect"
+msgstr ""
 
 #: src/lib/getModule.ts
 msgid "24 Hour Collect"
-msgstr "24 Hour Collect"
+msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Rare 24 Hour Collect"
-msgstr "Rare 24 Hour Collect"
+msgstr ""
 
 #: src/lib/getModule.ts
 msgid "No Collect"
-msgstr "No Collect"
+msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Fee Follow"
@@ -2569,3 +2569,4 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
+

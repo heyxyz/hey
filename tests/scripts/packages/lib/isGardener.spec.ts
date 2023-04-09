@@ -3,10 +3,10 @@ import isGardener from 'lib/isGardener';
 
 test.describe('isGardener', () => {
   test('should return true if the ID is included in the gardener list', () => {
-    expect(isGardener('0x0d')).toBe(true);
+    expect(isGardener('0x0d')).toBeTruthy();
   });
 
   test('should return false if the ID is not included in the gardener list', () => {
-    expect(isGardener('unknownID')).toBe(false);
+    expect(isGardener('unknownID')).toBeFalsy();
   });
 });
