@@ -3,6 +3,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { Errors } from 'data';
+import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -26,11 +27,12 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
     position: 0
   });
 
-  const { choices, scores, scores_total, state, type } = proposal;
+  const { choices, symbol, scores, scores_total, state, type } = proposal;
   const vote = votes[0];
   const choicesWithVote = choices.map((choice, index) => ({
     position: index + 1,
     choice,
+    score: scores?.[index] ?? 0,
     voted: Array.isArray(vote?.choice) ? vote?.choice.includes(index + 1) : vote?.choice === index + 1,
     percentage: ((scores?.[index] ?? 0) / (scores_total ?? 1)) * 100
   }));
@@ -63,7 +65,7 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
           <New />
         </div>
         <div className="space-y-1 p-3">
-          {sortedChoices.map(({ position, choice, voted, percentage }) => (
+          {sortedChoices.map(({ position, choice, voted, percentage, score }) => (
             <button
               key={choice}
               className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-900"
@@ -73,9 +75,14 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
               <div className="w-full space-y-1">
                 <div className="flex items-center justify-between">
                   <b>{choice}</b>
-                  <span className="lt-text-gray-500">
-                    {Number.isNaN(percentage) ? 0 : percentage.toFixed(2)}%
-                  </span>
+                  <div>
+                    <span className="mr-2">
+                      {nFormatter(score)} {symbol}
+                    </span>
+                    <span className="lt-text-gray-500">
+                      {Number.isNaN(percentage) ? 0 : percentage.toFixed(2)}%
+                    </span>
+                  </div>
                 </div>
                 <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300">
                   <div
