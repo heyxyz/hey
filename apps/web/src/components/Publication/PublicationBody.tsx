@@ -23,6 +23,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
   const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
   const snapshotProposalId = hasURLs && getSnapshotProposalId(getURLs(publication?.metadata?.content)[0]);
+  let content = publication?.metadata?.content;
+  if (snapshotProposalId) {
+    content = content?.replace(getURLs(publication?.metadata?.content)[0], '');
+  }
 
   if (publication?.metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
@@ -31,7 +35,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   return (
     <div className="break-words">
       <Markup className={clsx({ 'line-clamp-5': showMore }, 'markup linkify text-md break-words')}>
-        {publication?.metadata?.content}
+        {content}
       </Markup>
       {showMore && (
         <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
