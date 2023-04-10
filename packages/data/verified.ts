@@ -213,7 +213,6 @@ export const mainnetVerified = [
   '0x20c6', // coopahtroopa.lens
   '0x2e0a', // sandeep.lens
   '0x228d', // wongmjane.lens
-  '0x28a2', // nader.lens
   '0x266b', // ryansadams.lens
   '0x25f3', // opensea.lens
   '0x26e5', // sismo.lens
@@ -238,7 +237,7 @@ export const mainnetVerified = [
 ];
 
 export const testnetVerified = [
-  '0x15', // yoginth.test,
-  '0x01', // lensprotocol.test,
+  '0x15', // yoginth.test
+  '0x01', // lensprotocol.test
   '0x02' // donosonaumczuk.test
 ];
