@@ -60,20 +60,21 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
   return (
     <>
       <Card className="mt-5">
-        <div className="flex items-center justify-between border-b px-5 py-3">
+        <div className="divider flex items-center justify-between px-5 py-3 ">
           <div className="flex items-center space-x-2 font-bold">
             <MenuAlt2Icon className="h-5 w-5" />
             <b>{proposal.state === 'active' ? t`Current results` : t`Results`}</b>
           </div>
           <New />
         </div>
-        <div className="space-y-4 p-5">
+        <div className="space-y-1 p-3">
           {sortedChoices.map(({ position, choice, voted, percentage }) => (
-            <div key={choice} className="flex items-center space-x-2.5 text-sm">
-              <CheckCircleIcon
-                onClick={() => openVoteModal(position)}
-                className={clsx(voted ? 'text-green-500' : 'text-gray-500', 'h-6 w-6 ')}
-              />
+            <button
+              key={choice}
+              className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-900"
+              onClick={() => openVoteModal(position)}
+            >
+              <CheckCircleIcon className={clsx(voted ? 'text-green-500' : 'text-gray-500', 'h-6 w-6 ')} />
               <div className="w-full space-y-1">
                 <div className="flex items-center justify-between">
                   <b>{choice}</b>
@@ -88,7 +89,7 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
                   />
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </Card>
