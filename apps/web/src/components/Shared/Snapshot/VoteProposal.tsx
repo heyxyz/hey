@@ -1,5 +1,6 @@
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Mixpanel } from '@lib/mixpanel';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import humanize from 'lib/humanize';
@@ -7,6 +8,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import type { Proposal } from 'snapshot';
 import { useAppStore } from 'src/store/app';
+import { PUBLICATION } from 'src/tracking';
 import { Button, Spinner } from 'ui';
 import { useSignTypedData } from 'wagmi';
 
@@ -96,6 +98,9 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
       .then(() => {
         refetch?.();
         setVoteConfig({ show: false, position: 0 });
+        Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+          proposal_id: proposal.id
+        });
       })
       .finally(() => {
         setVoteSubmitting(false);
