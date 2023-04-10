@@ -52,8 +52,8 @@ export const PUBLICATION = {
   },
   WIDGET: {
     SNAPSHOT: {
-      OPEN_CAST_VOTE: 'Open cast vote modal',
-      VOTE: 'Vote on snapshot'
+      OPEN_CAST_VOTE: 'Snapshot: Open cast vote modal',
+      VOTE: 'Snapshot: Vote'
     }
   }
 };
