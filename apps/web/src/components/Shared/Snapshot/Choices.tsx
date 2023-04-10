@@ -68,7 +68,7 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
           {sortedChoices.map(({ position, choice, voted, percentage, score }) => (
             <button
               key={choice}
-              className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-900"
+              className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
               onClick={() => openVoteModal(position)}
             >
               <CheckCircleIcon className={clsx(voted ? 'text-green-500' : 'text-gray-500', 'h-6 w-6 ')} />
@@ -76,9 +76,10 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
                 <div className="flex items-center justify-between">
                   <b>{choice}</b>
                   <div>
-                    <span className="mr-2">
+                    <span>
                       {nFormatter(score)} {symbol}
                     </span>
+                    <span className="mx-1.5">·</span>
                     <span className="lt-text-gray-500">
                       {Number.isNaN(percentage) ? 0 : percentage.toFixed(2)}%
                     </span>
