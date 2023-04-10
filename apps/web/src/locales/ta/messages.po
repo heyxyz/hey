@@ -2393,6 +2393,10 @@ msgid "This proposal is closed!"
 msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr "தற்போதைய முடிவுகள்"
 
@@ -2569,4 +2573,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
