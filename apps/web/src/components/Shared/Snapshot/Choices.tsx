@@ -1,5 +1,6 @@
 import { CheckCircleIcon as CheckCircleIconOutline, MenuAlt2Icon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { Errors } from 'data';
@@ -9,6 +10,7 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import type { Proposal, Vote } from 'snapshot';
 import { useAppStore } from 'src/store/app';
+import { PUBLICATION } from 'src/tracking';
 import { Card, Modal } from 'ui';
 
 import New from '../Badges/New';
@@ -52,6 +54,9 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
     }
 
     setVoteConfig({ show: true, position });
+    Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.OPEN_CAST_VOTE, {
+      proposal_id: proposal.id
+    });
   };
 
   return (
