@@ -1,6 +1,7 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import Virtualized from '@components/Virtualization';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { FeedHighlightsRequest, Publication } from 'lens';
@@ -63,46 +64,24 @@ const Highlights: FC = () => {
   }
 
   return (
-    <AutoSizer disableHeight disableWidth>
-      {() => (
-        <WindowScroller>
-          {({ height, isScrolling, onChildScroll, scrollTop, width }) => (
-            <List
-              autoHeight
-              autoWidth
-              height={height}
-              isScrolling={isScrolling}
-              onScroll={onChildScroll}
-              rowCount={txnQueue?.length || 0}
-              rowHeight={height}
-              rowRenderer={() => (
-                <Card className="divide-y-[1px] dark:divide-gray-700">
-                  {txnQueue?.map(
-                    (txn) =>
-                      txn?.type === OptmisticPublicationType.NewPost && (
-                        <div key={txn.id}>
-                          <QueuedPublication txn={txn} />
-                        </div>
-                      )
-                  )}
-                  {publications?.map((publication, index) => (
-                    <div key="index">
-                      <SinglePublication
-                        key={`${publication?.id}_${index}`}
-                        publication={publication as Publication}
-                      />
-                    </div>
-                  ))}
-                  {hasMore && <span ref={observe} />}
-                </Card>
-              )}
-              scrollTop={scrollTop}
-              width={width}
-            />
-          )}
-        </WindowScroller>
-      )}
-    </AutoSizer>
+    <Virtualized>
+      <Card className="divide-y-[1px] dark:divide-gray-700">
+        {txnQueue?.map(
+          (txn) =>
+            txn?.type === OptmisticPublicationType.NewPost && (
+              <div key={txn.id}>
+                <QueuedPublication txn={txn} />
+              </div>
+            )
+        )}
+        {publications?.map((publication, index) => (
+          <div key="index">
+            <SinglePublication key={`${publication?.id}_${index}`} publication={publication as Publication} />
+          </div>
+        ))}
+        {hasMore && <span ref={observe} />}
+      </Card>
+    </Virtualized>
   );
 };
 

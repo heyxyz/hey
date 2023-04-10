@@ -1,5 +1,6 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
+import Virtualized from '@components/Virtualization';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { ExplorePublicationRequest, Publication, PublicationMainFocus } from 'lens';
@@ -7,8 +8,6 @@ import { CustomFiltersTypes, PublicationSortCriteria, useExploreFeedQuery } from
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
-import type { AutoSizerProps, ListProps, WindowScrollerProps } from 'react-virtualized';
-import { AutoSizer as _AutoSizer, List as _List, WindowScroller as _WindowScroller } from 'react-virtualized';
 import { useAppStore } from 'src/store/app';
 import { Card, EmptyState, ErrorMessage } from 'ui';
 
@@ -39,10 +38,6 @@ const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.Curated
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
 
-  const AutoSizer = _AutoSizer as unknown as FC<AutoSizerProps>;
-  const List = _List as unknown as FC<ListProps>;
-  const WindowScroller = _WindowScroller as unknown as FC<WindowScrollerProps>;
-
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView || !hasMore) {
@@ -53,6 +48,7 @@ const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.Curated
         variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
       }).then(({ data }) => {
         setHasMore(data?.explorePublications?.items?.length > 0);
+        publications?.concat(data?.explorePublications?.items);
       });
     }
   });
@@ -70,36 +66,14 @@ const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.Curated
   }
 
   return (
-    <AutoSizer disableHeight disableWidth>
-      {() => (
-        <WindowScroller>
-          {({ height, isScrolling, onChildScroll, scrollTop, width }) => (
-            <List
-              autoHeight
-              autoWidth
-              height={height}
-              isScrolling={isScrolling}
-              onScroll={onChildScroll}
-              rowCount={publications?.length || 0}
-              rowHeight={height}
-              rowRenderer={() => (
-                <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="explore-feed">
-                  {publications?.map((publication, index) => (
-                    <SinglePublication
-                      key={`${publication.id}_${index}`}
-                      publication={publication as Publication}
-                    />
-                  ))}
-                  {hasMore && <span ref={observe} />}
-                </Card>
-              )}
-              scrollTop={scrollTop}
-              width={width}
-            />
-          )}
-        </WindowScroller>
-      )}
-    </AutoSizer>
+    <Virtualized>
+      <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="explore-feed">
+        {publications?.map((publication, index) => (
+          <SinglePublication key={`${publication.id}_${index}`} publication={publication as Publication} />
+        ))}
+        {hasMore && <span ref={observe} />}
+      </Card>
+    </Virtualized>
   );
 };
 
