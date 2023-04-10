@@ -27,7 +27,7 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
     position: 0
   });
 
-  const { choices, scores, scores_total, state } = proposal;
+  const { choices, scores, scores_total, state, type } = proposal;
   const vote = votes[0];
   const choicesWithVote = choices.map((choice, index) => ({
     position: index + 1,
@@ -48,6 +48,10 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
 
     if (state !== 'active') {
       return toast.error(t`This proposal is closed!`);
+    }
+
+    if (type === 'approval' || type === 'quadratic' || type === 'ranked-choice' || type === 'weighted') {
+      return toast.error(t`${type} voting is not supported yet!`);
     }
 
     setVoteConfig({ show: true, position });
