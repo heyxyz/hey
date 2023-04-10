@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-08 18:12\n"
+"PO-Revision-Date: 2023-04-10 06:46\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2393,6 +2393,10 @@ msgid "This proposal is closed!"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr ""
 
@@ -2569,4 +2573,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

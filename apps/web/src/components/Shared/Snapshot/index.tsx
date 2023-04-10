@@ -1,5 +1,7 @@
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import type { Proposal, Vote } from 'snapshot';
 import { useSnapshotQuery } from 'snapshot';
 import { webClient } from 'snapshot/apollo';
@@ -26,13 +28,21 @@ interface SnapshotProps {
 
 const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [pollInterval, setPollInterval] = useState(0);
+  const { observe, inView } = useInView();
 
   const { data, loading, error, refetch } = useSnapshotQuery({
     variables: {
       id: propsalId,
       where: { voter: currentProfile?.ownedBy ?? null, proposal: propsalId }
     },
-    client: webClient
+    pollInterval: inView ? pollInterval : 0,
+    client: webClient,
+    onCompleted: (data) => {
+      if (data.proposal?.state === 'active') {
+        setPollInterval(5000);
+      }
+    }
   });
 
   if (loading) {
@@ -54,6 +64,7 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
 
   return (
     <Wrapper dataTestId={`snapshot-${proposal.id}`}>
+      <span ref={observe} />
       <Header proposal={proposal as Proposal} />
       <Choices proposal={proposal as Proposal} votes={votes as Vote[]} refetch={refetch} />
     </Wrapper>

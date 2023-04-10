@@ -49,7 +49,7 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
       <header>
         <SinglePublication publication={publication} h1Content />
       </header>
-      <div data-testid="publication-comment-feed">
+      <div data-testid="comment-feed">
         {comments?.map((comment) => {
           const { id } = comment;
           return (
