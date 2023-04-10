@@ -69,10 +69,7 @@ const Navbar: FC = () => {
   };
 
   return (
-    <Disclosure
-      as="header"
-      className="sticky top-0 z-10 w-full border-b bg-white dark:border-b-gray-700 dark:bg-black"
-    >
+    <Disclosure as="header" className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
       {({ open }) => (
         <>
           {staffMode && <StaffBar />}

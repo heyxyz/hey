@@ -40,7 +40,7 @@ const ToolbarPlugin: FC = () => {
   }, [editor, updateToolbar]);
 
   return (
-    <div className="flex items-center justify-between border-b px-5 py-2 dark:border-gray-700">
+    <div className="divider flex items-center justify-between px-5 py-2">
       <div className="toolbar-icons flex w-full space-x-1">
         <button
           className={isBold ? 'bg-brand-100' : ''}
