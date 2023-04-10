@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-08 16:39\n"
+"PO-Revision-Date: 2023-04-10 06:46\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -85,7 +85,7 @@ msgstr "உங்கள் உள்ளடக்கத்தை யார் ப
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
-msgstr ""
+msgstr "1 ஆடியோ அல்லது 1 வீடியோ அல்லது 4 படங்களின் அதிகபட்ச வரம்பை மீறியது"
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
@@ -441,7 +441,7 @@ msgstr "இயல்புநிலை சுயவிவரத்தை அம�
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "You own {count} {0} but you don't have a default one."
-msgstr ""
+msgstr "உங்களிடம் {count} {0} உள்ளது, ஆனால் உங்களிடம் இயல்புநிலை ஒன்று இல்லை."
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile here"
@@ -486,15 +486,15 @@ msgstr "சேகரிக்கப்பட்டது"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
-msgstr ""
+msgstr "{0} மிரர் செய்யப்பட்டது"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "commented{0}{1}"
-msgstr ""
+msgstr "கருத்து தெரிவிக்கப்பட்டது{0}{1}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected{0}"
-msgstr ""
+msgstr "சேகரிக்கப்பட்டது{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
@@ -536,7 +536,7 @@ msgstr "செய்திகளை ஏற்றுகிறது"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
-msgstr ""
+msgstr "இந்த நண்பர் டிஎம்களை இன்னும் இயக்கவில்லை"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "You can't send them a message until they enable DMs."
@@ -562,7 +562,7 @@ msgstr "கோரப்பட்டது"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
-msgstr ""
+msgstr "இந்த உரையாடல்கள் நீங்கள் தற்போது பின்பற்றாத லென்ஸ் சுயவிவரங்களிலிருந்து வந்தவை."
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
@@ -627,7 +627,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
-msgstr ""
+msgstr "கார்ட்னர்ஸ்"
 
 #: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
@@ -805,7 +805,7 @@ msgstr "தனியுரிமைக் கொள்கை • {APP_NAME}"
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
 msgid "Updated {updatedAt}"
-msgstr ""
+msgstr "புதுப்பிக்கப்பட்டது {updatedAt}"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
@@ -1318,7 +1318,7 @@ msgstr "அதைச் செய்யுங்கள்!"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
-msgstr ""
+msgstr "என்எஃப்டிகள் எதுவும் இல்லை!"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
@@ -1393,7 +1393,7 @@ msgstr "நீங்கள் ஏற்கனவே இதை சேகரித
 
 #: src/components/Publication/Actions/Collect/Splits.tsx
 msgid "Fee recipients"
-msgstr ""
+msgstr "கட்டணம் பெறுவோர்"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
@@ -1479,7 +1479,7 @@ msgstr "புகாரளிக்கவா?"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Are you sure? You want to report this user so that we can take action."
-msgstr ""
+msgstr "உறுதியாக தெரியுமா? நீங்கள் இந்த பயனரைப் புகாரளிக்க விரும்புகிறீர்கள், இதனால் நாங்கள் நடவடிக்கை எடுக்க முடியும்."
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -1870,7 +1870,7 @@ msgstr "டோக்கன் ஐடி"
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Upload failed"
-msgstr ""
+msgstr "பதிவேற்றம் தோல்வியுற்றது"
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Crop image"
@@ -2551,7 +2551,7 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
-msgstr ""
+msgstr "அச்சச்சோ, தொலைந்து போனது‽"
 
 #: src/pages/404.tsx
 msgid "This page could not be found."
