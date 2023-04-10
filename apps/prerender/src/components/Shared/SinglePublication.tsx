@@ -43,7 +43,7 @@ const SinglePublication: FC<PublicationProps> = ({ publication, h1Content = fals
           <img alt={`@${formatHandle(profile.handle)}'s avatar`} src={avatar} width="64" />
         </a>
       </div>
-      <div>
+      <div data-testid={`publication-${publicationId}`}>
         <div>
           <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>{profile.name ?? profile.handle}</a>
         </div>
