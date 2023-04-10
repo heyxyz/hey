@@ -2,8 +2,7 @@ import { CheckCircleIcon as CheckCircleIconOutline, MenuAlt2Icon } from '@heroic
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import { Errors, FeatureFlag } from 'data';
-import isFeatureEnabled from 'lib/isFeatureEnabled';
+import { Errors } from 'data';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -38,10 +37,6 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
   const sortedChoices = choicesWithVote.sort((a, b) => b.percentage - a.percentage);
 
   const openVoteModal = (position: number) => {
-    if (!isFeatureEnabled(FeatureFlag.SnapshotVoting, currentProfile?.id)) {
-      return;
-    }
-
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
