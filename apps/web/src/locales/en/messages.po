@@ -2393,6 +2393,10 @@ msgid "This proposal is closed!"
 msgstr "This proposal is closed!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} voting is not supported yet!"
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr "Current results"
 

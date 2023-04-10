@@ -10,6 +10,7 @@ query Snapshot($id: String, $where: VoteWhere) {
     snapshot
     symbol
     network
+    type
     space {
       id
       name

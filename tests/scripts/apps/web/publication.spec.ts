@@ -151,13 +151,13 @@ test.describe('Publication attachments', () => {
 
   test.describe('Publication snapshot widget', () => {
     test('should have normal oembed', async ({ page }) => {
-      await page.goto(`${WEB_BASE_URL}/posts/0x24b6-0x11`);
+      await page.goto(`${WEB_BASE_URL}/posts/0x0c-0x2c`);
 
       const snapshotWidget = page.getByTestId(
-        'snapshot-0x0f24d1b2ba7bf01e325b8800d170358b56b7181818f8e58efcc58879b99616b7'
+        'snapshot-0x9287c40edcd68c362c7c4139fe3489bbaaa27cf4de68be5c218a82d0f252e718'
       );
-      await expect(snapshotWidget).toContainText('Should we build Lenster polls via Snapshot?');
-      await expect(snapshotWidget).toContainText('Yes ser');
+      await expect(snapshotWidget).toContainText('Do you like the Snapshot integration with Lenster?');
+      await expect(snapshotWidget).toContainText('Yes ser 🙌');
     });
   });
 });

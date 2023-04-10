@@ -1,10 +1,14 @@
 import { ExclamationIcon } from '@heroicons/react/outline';
+import { CheckCircleIcon } from '@heroicons/react/solid';
+import { Mixpanel } from '@lib/mixpanel';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import humanize from 'lib/humanize';
 import type { FC } from 'react';
+import { useState } from 'react';
 import type { Proposal } from 'snapshot';
 import { useAppStore } from 'src/store/app';
+import { PUBLICATION } from 'src/tracking';
 import { Button, Spinner } from 'ui';
 import { useSignTypedData } from 'wagmi';
 
@@ -20,7 +24,8 @@ interface VoteProposalProps {
 
 const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConfig, refetch }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { signTypedDataAsync } = useSignTypedData({});
+  const [voteSubmitting, setVoteSubmitting] = useState(false);
+  const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({});
   const { choices, snapshot, network, strategies, space, state, symbol } = proposal;
   const choice = choices[voteConfig.position - 1];
 
@@ -53,8 +58,7 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
   );
 
   const sign = async (position: number) => {
-    // TODO: allow only single choice
-
+    setVoteSubmitting(true);
     const typedData = {
       domain: { name: 'snapshot', version: '0.1.4' },
       types: {
@@ -90,14 +94,23 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
         sig: signature,
         data: { domain: typedData.domain, types: typedData.types, message: typedData.value }
       }
-    }).then(() => {
-      refetch?.();
-      setVoteConfig({ show: false, position: 0 });
-    });
+    })
+      .then(() => {
+        refetch?.();
+        setVoteConfig({ show: false, position: 0 });
+        Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+          proposal_id: proposal.id
+        });
+      })
+      .finally(() => {
+        setVoteSubmitting(false);
+      });
   };
 
   const vp = data?.result?.vp_by_strategy ?? [0];
   const totalVotingPower = vp.reduce((a: number, b: number) => a + b, 0);
+  const voteDisabled = typedDataLoading || voteSubmitting || totalVotingPower === 0;
+  const buttonLoading = typedDataLoading || voteSubmitting;
 
   return (
     <>
@@ -137,7 +150,15 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
         >
           Cancel
         </Button>
-        <Button className="w-full" size="lg" onClick={() => sign(voteConfig.position)}>
+        <Button
+          disabled={voteDisabled}
+          className="w-full justify-center"
+          size="lg"
+          icon={
+            buttonLoading ? <Spinner size="xs" className="mr-1" /> : <CheckCircleIcon className="h-5 w-5" />
+          }
+          onClick={() => sign(voteConfig.position)}
+        >
           Vote
         </Button>
       </div>
