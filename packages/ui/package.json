@@ -4,6 +4,11 @@
   "main": "index.ts",
   "private": true,
   "license": "GPL-3.0",
+  "scripts": {
+    "typecheck": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx"
+  },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "v1",
@@ -16,9 +21,9 @@
     "react-hook-form": "^7.43.9",
     "zod": "^3.21.4"
   },
-  "scripts": {
-    "typecheck": "tsc --pretty --noEmit",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --fix --ext .ts,.tsx"
+  "devDependencies": {
+    "eslint-config-weblint": "*",
+    "tsconfig": "*",
+    "typescript": "^5.0.4"
   }
 }

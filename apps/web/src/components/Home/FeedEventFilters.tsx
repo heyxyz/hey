@@ -5,8 +5,7 @@ import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { useTimelinePersistStore } from 'src/store/timeline';
-import { Tooltip } from 'ui';
-import { Checkbox } from 'ui/Checkbox';
+import { Checkbox, Tooltip } from 'ui';
 
 const FeedEventFilters: FC = () => {
   const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
