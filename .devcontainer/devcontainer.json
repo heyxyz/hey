@@ -15,7 +15,7 @@
     "memory": "4gb"
   },
   "onCreateCommand": "./script/bootstrap",
-  "postStartCommand": "yarn dev",
+  "postStartCommand": "pnpm run dev",
   "forwardPorts": [4783, 4784, 8082, 8083, 8084, 8085],
   "customizations": {
     "vscode": {

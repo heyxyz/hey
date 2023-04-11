@@ -19,7 +19,7 @@ const myString = t`Example text`;
 **You must extract strings in PRs**. If your PR adds or modifies translated strings, run the following command to generate new `.po` files:
 
 ```bash
-yarn i18n:extract
+pnpm run i18n:extract
 ```
 
 ## Contributing translations
@@ -72,5 +72,5 @@ i18n.loadLocaleData({
 5. Extract and compile the strings marked for translation. This creates a directory for the locale within the `./apps/web/src/locales/` directory:
 
 ```bash
-yarn i18n:extract
+pnpm run i18n:extract
 ```

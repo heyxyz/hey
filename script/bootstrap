@@ -24,13 +24,13 @@ cd packages/workers/sts-generator; cp .dev.vars.example .dev.vars
 cd ../../../
 # -------------------------------------
 echo "Installing dependencies 📦"
-yarn install --frozen-lockfile
+pnpm run install --frozen-lockfile
 echo "Dependencies installed 📦"
 echo "Installing playwright 🎭"
-yarn playwright install
+pnpm run playwright install
 echo "Playwright installed 🎭"
 echo "GraphQL Codegen 🧬"
-yarn codegen
+pnpm run codegen
 echo "GraphQL Codegen complete 🧬"
 # -------------------------------------
 echo "Project bootstrap complete 🎉"

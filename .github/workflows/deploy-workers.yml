@@ -17,14 +17,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-          cache: "yarn"
+          cache: "pnpm"
 
       - name: Install 📦
-        run: yarn install --frozen-lockfile
+        run: pnpm run install --frozen-lockfile
 
       - name: Deploy 🚀
         run: |
-          yarn global add wrangler
-          yarn workers:deploy
+          pnpm add wrangler -g
+          pnpm run workers:deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

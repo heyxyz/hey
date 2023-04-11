@@ -13,7 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.11",
     "axios": "^1.3.5",
-    "data": "*"
+    "data": "workspace:*"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^3.3.0",
@@ -21,9 +21,9 @@
     "@graphql-codegen/typescript": "^3.0.3",
     "@graphql-codegen/typescript-operations": "^3.0.3",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
-    "eslint-config-weblint": "*",
+    "eslint-config-weblint": "workspace:*",
     "prettier": "^2.8.7",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

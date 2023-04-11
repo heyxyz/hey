@@ -4,7 +4,7 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "storybook dev -p 4785",
+    "dev": "storybook dev -p 4785 --ci",
     "build": "storybook build",
     "start": "serve storybook-static",
     "typecheck": "tsc --pretty --noEmit",
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "storybook": "^7.0.2",
-    "ui": "*"
+    "ui": "workspace:*"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.2",
@@ -25,13 +25,13 @@
     "@storybook/react": "^7.0.2",
     "@storybook/theming": "^7.0.2",
     "autoprefixer": "^10.4.14",
-    "eslint-config-weblint": "*",
+    "eslint-config-weblint": "workspace:*",
     "postcss": "^8.4.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "serve": "^14.2.0",
     "storybook-addon-turbo-build": "^1.1.0",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

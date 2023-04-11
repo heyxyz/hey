@@ -19,22 +19,22 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-          cache: "yarn"
+          cache: "pnpm"
 
       - name: Bootstrap 📦
         run: script/bootstrap
 
       - name: Typecheck 🔡
-        run: yarn typecheck
+        run: pnpm run typecheck
 
       - name: Lint 🪩
-        run: yarn lint
+        run: pnpm run lint
 
       - name: Prettier ✨
-        run: yarn prettier
+        run: pnpm run prettier
 
       - name: Build 🎁
-        run: yarn build
+        run: pnpm run build
 
       - name: Run Tests 🧪
-        run: yarn test:e2e
+        run: pnpm run test:e2e
