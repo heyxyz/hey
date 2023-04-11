@@ -28,6 +28,6 @@ jobs:
       - name: Deploy 🚀
         run: |
           pnpm add wrangler -g
-          pnpm run workers:deploy
+          pnpm workers:deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

@@ -5,18 +5,18 @@
 ### Install dependencies
 
 ```bash
-pnpm run install
+pnpm install
 ```
 
 ### Run the development server
 
 ```bash
-pnpm run dev
+pnpm dev
 ```
 
 ### Run the production server
 
 ```bash
-pnpm run build
-pnpm run start
+pnpm build
+pnpm start
 ```

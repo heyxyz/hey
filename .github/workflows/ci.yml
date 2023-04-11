@@ -28,16 +28,16 @@ jobs:
         run: script/bootstrap
 
       - name: Typecheck 🔡
-        run: pnpm run typecheck
+        run: pnpm typecheck
 
       - name: Lint 🪩
-        run: pnpm run lint
+        run: pnpm lint
 
       - name: Prettier ✨
-        run: pnpm run prettier
+        run: pnpm prettier
 
       - name: Build 🎁
-        run: pnpm run build
+        run: pnpm build
 
       - name: Run Tests 🧪
-        run: pnpm run test:e2e
+        run: pnpm test:e2e

@@ -30,7 +30,7 @@ echo "Installing playwright 🎭"
 npx playwright install
 echo "Playwright installed 🎭"
 echo "GraphQL Codegen 🧬"
-pnpm run codegen
+pnpm codegen
 echo "GraphQL Codegen complete 🧬"
 # -------------------------------------
 echo "Project bootstrap complete 🎉"

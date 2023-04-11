@@ -5,7 +5,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "dev": "wrangler dev --port 8083 --local",
-    "start": "pnpm run dev",
+    "start": "pnpm dev",
     "worker:deploy": "wrangler publish",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts",
