@@ -12,7 +12,7 @@
     "lib": "*"
   },
   "devDependencies": {
-    "@playwright/test": "^1.32.2",
+    "@playwright/test": "^1.32.3",
     "eslint-config-weblint": "*",
     "tsconfig": "*"
   }

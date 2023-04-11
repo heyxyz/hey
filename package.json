@@ -29,7 +29,7 @@
     "husky": "^8.0.3",
     "prettier": "^2.8.7",
     "start-server-and-test": "^2.0.0",
-    "turbo": "^1.9.0-canary.1"
+    "turbo": "^1.8.8"
   },
   "engines": {
     "node": ">=18.0.0"
