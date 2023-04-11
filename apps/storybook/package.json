@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "storybook dev -p 4785",
     "build": "storybook build",
+    "start": "serve storybook-static",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
@@ -32,6 +33,7 @@
     "postcss-loader": "^7.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "serve": "^14.2.0",
     "storybook-addon-turbo-build": "^1.1.0",
     "tsconfig": "*",
     "typescript": "^5.0.4"
