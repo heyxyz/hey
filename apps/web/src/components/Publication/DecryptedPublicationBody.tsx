@@ -146,7 +146,11 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({ encrypted
     setIsDecrypting(true);
     const contentUri = sanitizeDStorageUrl(encryptedPublication?.onChainContentURI);
     const { data } = await axios.get(contentUri);
-    const sdk = await LensGatedSDK.create({ provider, signer, env: LIT_PROTOCOL_ENVIRONMENT as any });
+    const sdk = await LensGatedSDK.create({
+      provider: provider as any,
+      signer,
+      env: LIT_PROTOCOL_ENVIRONMENT as any
+    });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);
     setDecryptedData(decrypted);
     setDecryptError(error);
