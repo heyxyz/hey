@@ -16,7 +16,7 @@
     "lint": "turbo run lint --parallel",
     "lint:fix": "turbo run lint:fix --parallel",
     "typecheck": "turbo run typecheck --parallel",
-    "codegen": "turbo run codegen",
+    "codegen": "turbo run codegen --parallel",
     "i18n:extract": "turbo run extract",
     "workers:deploy": "turbo run worker:deploy --parallel",
     "prettier": "prettier --check \"**/*.{ts,tsx,md}\"",
