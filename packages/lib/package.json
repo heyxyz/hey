@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "data": "workspace:*",
-    "lens": "workspace:*"
+    "lens": "workspace:*",
+    "react": "^18.2.0"
   },
   "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.34",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"

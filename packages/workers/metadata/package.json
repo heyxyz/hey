@@ -7,6 +7,7 @@
     "dev": "wrangler dev --port 8083 --local",
     "start": "pnpm run dev",
     "worker:deploy": "wrangler publish",
+    "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts"
   },

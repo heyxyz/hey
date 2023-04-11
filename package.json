@@ -3,12 +3,6 @@
   "version": "1.0.8-beta",
   "private": true,
   "license": "GPL-3.0",
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "packages/workers/*",
-    "tests"
-  ],
   "scripts": {
     "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
