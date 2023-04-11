@@ -7,8 +7,8 @@ export default {
   component: Page,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/7.0/react/configure/story-layout
-    layout: 'fullscreen',
-  },
+    layout: 'fullscreen'
+  }
 };
 
 export const LoggedOut = {};
@@ -18,8 +18,8 @@ export const LoggedIn = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const loginButton = await canvas.getByRole('button', {
-      name: /Log in/i,
+      name: /Log in/i
     });
     await userEvent.click(loginButton);
-  },
+  }
 };

@@ -39,12 +39,12 @@ Button.propTypes = {
   /**
    * Optional click handler
    */
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 Button.defaultProps = {
   backgroundColor: null,
   primary: false,
   size: 'medium',
-  onClick: undefined,
+  onClick: undefined
 };
