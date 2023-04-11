@@ -4,5 +4,5 @@
     "baseUrl": ".",
     "noEmit": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "stories/Button/Button.stories.jsries.js"]
+  "include": ["**/*.ts", "**/*.tsx"]
 }
