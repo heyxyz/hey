@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-08 16:39\n"
+"PO-Revision-Date: 2023-04-11 00:09\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -2390,6 +2390,10 @@ msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
