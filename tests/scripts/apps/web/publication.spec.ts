@@ -49,12 +49,12 @@ test.describe('Publication', () => {
 
   test.describe('Publication stats', async () => {
     test('should have comment stats', async ({ page }) => {
-      const publicationCommentStats = page.getByTestId('publication-0x0d-0x01-comment-stats');
+      const publicationCommentStats = page.getByTestId('publication-0x0d-0x01').getByTestId('comment-stats');
       await expect(publicationCommentStats).toContainText('Comments');
     });
 
     test('should have mirror stats', async ({ page }) => {
-      const publicationMirrorStats = page.getByTestId('publication-0x0d-0x01-mirror-stats');
+      const publicationMirrorStats = page.getByTestId('publication-0x0d-0x01').getByTestId('mirror-stats');
       await expect(publicationMirrorStats).toContainText('Mirror');
 
       // click mirror stats and check if it opens mirror modal
@@ -64,7 +64,7 @@ test.describe('Publication', () => {
     });
 
     test('should have like stats', async ({ page }) => {
-      const publicationLikeStats = page.getByTestId('publication-0x0d-0x01-like-stats');
+      const publicationLikeStats = page.getByTestId('publication-0x0d-0x01').getByTestId('like-stats');
       await expect(publicationLikeStats).toContainText('Likes');
 
       // click like stats and check if it opens likes modal
@@ -74,7 +74,7 @@ test.describe('Publication', () => {
     });
 
     test('should have collect stats', async ({ page }) => {
-      const publicationCollectStats = page.getByTestId('publication-0x0d-0x01-collect-stats');
+      const publicationCollectStats = page.getByTestId('publication-0x0d-0x01').getByTestId('collect-stats');
       await expect(publicationCollectStats).toContainText('Collects');
 
       // click collect stats and check if it opens collectors modal
@@ -95,10 +95,13 @@ test.describe('Publication', () => {
 
 test.describe('Publication attachments', () => {
   test('should have publication image', async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x037d`);
+    const publicationId = '0x0d-0x037d';
+    await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
     const imageURL = `${IPFS_GATEWAY}bafybeihztcpkzhzc3fddsc66r22hzsztja6blflygurlft7lmc4l44pnre`;
-    const publicationImage = page.getByTestId(`attachment-image-${imageURL}`);
+    const publicationImage = page
+      .getByTestId(`publication-${publicationId}`)
+      .getByTestId(`attachment-image-${imageURL}`);
     await expect(publicationImage).toBeVisible();
 
     // click image and check if it opens image lightbox and original image
@@ -110,15 +113,19 @@ test.describe('Publication attachments', () => {
   });
 
   test('should have publication video', async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/posts/0x01-0x01`);
+    const publicationId = '0x01-0x01';
+    await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
     const videoURL = 'https://lens.infura-ipfs.io/ipfs/QmSPijepBo81hDLZ54qg3bKC2DpV9VFdaDJ81Y2viPHCRZ';
-    const publicationVideo = page.getByTestId(`attachment-video-${videoURL}`);
+    const publicationVideo = page
+      .getByTestId(`publication-${publicationId}`)
+      .getByTestId(`attachment-video-${videoURL}`);
     await expect(publicationVideo).toBeVisible();
   });
 
   test('should have publication audio', async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x01ec`);
+    const publicationId = '0x0d-0x01ec';
+    await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
     const audioURL = `${IPFS_GATEWAY}bafybeihabco35vpefrlgzx3rvxccfx4th6ti5ktidw2tf5vjmnmjwx5ki4`;
     const coverURL = `${IPFS_GATEWAY}bafkreibljzow3cbr4kirujjc5ldxbcykgahjuwuc5zmfledisq4sizwhyq`;
@@ -126,7 +133,9 @@ test.describe('Publication attachments', () => {
     await expect(publicationAudio).toBeVisible();
 
     // check if audio cover image is visible
-    const publicationAudioCover = page.getByTestId(`attachment-audio-cover-${coverURL}`);
+    const publicationAudioCover = page
+      .getByTestId(`publication-${publicationId}`)
+      .getByTestId(`attachment-audio-cover-${coverURL}`);
     await expect(publicationAudioCover).toHaveAttribute(
       'src',
       `${USER_CONTENT_URL}/${ATTACHMENT}/${coverURL}`
@@ -135,17 +144,36 @@ test.describe('Publication attachments', () => {
 
   test.describe('Publication oembed', () => {
     test('should have normal oembed', async ({ page }) => {
-      await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x0375`);
+      const publicationId = '0x0d-0x0375';
+      await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
-      const publicationOembed = page.getByTestId('normal-oembed-https://testflight.apple.com/join/U9YkOlOy');
+      const publicationOembed = page
+        .getByTestId(`publication-${publicationId}`)
+        .getByTestId('normal-oembed-https://testflight.apple.com/join/U9YkOlOy');
       await expect(publicationOembed).toBeVisible();
     });
 
     test('should have rich oembed', async ({ page }) => {
-      await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x02fb`);
+      const publicationId = '0x0d-0x02fb';
+      await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
-      const publicationOembed = page.getByTestId('rich-oembed-https://lenstube.xyz/watch/0x24-0xe8');
+      const publicationOembed = page
+        .getByTestId(`publication-${publicationId}`)
+        .getByTestId('rich-oembed-https://lenstube.xyz/watch/0x24-0xe8');
       await expect(publicationOembed).toBeVisible();
+    });
+  });
+
+  test.describe('Publication snapshot widget', () => {
+    test('should have snapshot oembed', async ({ page }) => {
+      const publicationId = '0x0c-0x2c';
+      await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
+
+      const snapshotWidget = page
+        .getByTestId(`publication-${publicationId}`)
+        .getByTestId('snapshot-0x9287c40edcd68c362c7c4139fe3489bbaaa27cf4de68be5c218a82d0f252e718');
+      await expect(snapshotWidget).toContainText('Do you like the Snapshot integration with Lenster?');
+      await expect(snapshotWidget).toContainText('Yes ser 🙌');
     });
   });
 });

@@ -19,11 +19,8 @@ const IndexStatus: FC<IndexStatusProps> = ({ type = 'Transaction', txHash, reloa
   const { data, loading } = useHasTxHashBeenIndexedQuery({
     variables: { request: { txHash } },
     pollInterval,
-    onCompleted: (data) => {
-      if (
-        data.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
-        data?.hasTxHashBeenIndexed?.indexed
-      ) {
+    onCompleted: ({ hasTxHashBeenIndexed }) => {
+      if (hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' && hasTxHashBeenIndexed?.indexed) {
         setPollInterval(0);
         if (reload) {
           location.reload();

@@ -2,6 +2,7 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x01c5b9', // galverse.lens
   '0xc01c', // lenstubelogs.lens
   '0x565f', // zapper.lens
   '0x011a73', // tropix.lens
@@ -10,7 +11,6 @@ export const mainnetVerified = [
   '0x01852a', // beatsapp.lens
   '0x01c48b', // soundxyz_.lens
   '0x01bff3', // glassxyz.lens
-  '0x01b69c', // sagargowda.lens
   '0x8a58', // fabri.lens
   '0x01bc17', // argent.lens
   '0x01ab4f', // therugofficial.lens
@@ -213,7 +213,6 @@ export const mainnetVerified = [
   '0x20c6', // coopahtroopa.lens
   '0x2e0a', // sandeep.lens
   '0x228d', // wongmjane.lens
-  '0x28a2', // nader.lens
   '0x266b', // ryansadams.lens
   '0x25f3', // opensea.lens
   '0x26e5', // sismo.lens
@@ -238,7 +237,7 @@ export const mainnetVerified = [
 ];
 
 export const testnetVerified = [
-  '0x15', // yoginth.test,
-  '0x01', // lensprotocol.test,
+  '0x15', // yoginth.test
+  '0x01', // lensprotocol.test
   '0x02' // donosonaumczuk.test
 ];

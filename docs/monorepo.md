@@ -9,6 +9,9 @@ A monorepo is a single repository that contains multiple projects. This is usefu
 The monorepo is structured as follows:
 
 - `apps/` - Contains the apps.
+  - `web/` - Contains the web app.
+  - `prerender/` - Contains the prerender app.
+  - `storybook/` - Contains the storybook app.
 - `packages/` - Contains the packages.
 - `tests/` - Contains the tests.
 - `docs/` - Contains the documentation.

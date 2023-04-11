@@ -57,8 +57,8 @@ const Attachments: FC<AttachmentsProps> = ({
   const removeAttachment = (attachment: any) => {
     const arr = attachments;
     setAttachments(
-      arr.filter(function (ele: any) {
-        return ele != attachment;
+      arr.filter((element: any) => {
+        return element !== attachment;
       })
     );
   };
@@ -75,7 +75,7 @@ const Attachments: FC<AttachmentsProps> = ({
 
   return slicedAttachments?.length !== 0 ? (
     <>
-      <div className={clsx(getClass(slicedAttachments?.length)?.row, 'grid gap-2 pt-3')}>
+      <div className={clsx(getClass(slicedAttachments?.length)?.row, 'mt-3 grid gap-2')}>
         {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
           const type = isNew ? attachment.type : attachment.original?.mimeType;
           const url = isNew

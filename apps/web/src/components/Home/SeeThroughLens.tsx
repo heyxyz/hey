@@ -54,8 +54,8 @@ const SeeThroughLens: FC = () => {
 
   const [fetchRecommendedProfiles, { loading, error }] = useSeeThroughProfilesLazyQuery({
     variables: { request },
-    onCompleted: (data) => {
-      const feedItems = data?.feed?.items as FeedItem[];
+    onCompleted: ({ feed }) => {
+      const feedItems = feed?.items as FeedItem[];
       setRecommendedProfiles(feedItems);
     }
   });
@@ -118,7 +118,6 @@ const SeeThroughLens: FC = () => {
               className="px-3 py-2 text-sm"
               placeholder={t`Search`}
               value={searchText}
-              autoFocus
               autoComplete="off"
               iconRight={
                 <XIcon

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-28 04:12\n"
+"PO-Revision-Date: 2023-04-11 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -84,9 +84,8 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr "உங்கள் உள்ளடக்கத்தை யார் பார்க்கலாம், யார் பார்க்கக்கூடாது என்பதற்கான கட்டுப்பாடுகளைச் சேர்க்கவும். உதாரணமாக - குறிப்பிட்ட NFTகள் அல்லது டோக்கன்களை வைத்திருக்கும் நிலையில் உங்கள் இடுகைகளை டோக்கன் கேட் செய்யவும்."
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
-msgid "Please choose either 1 video or up to 4 photos."
-msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
+msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
+msgstr "1 ஆடியோ அல்லது 1 வீடியோ அல்லது 4 படங்களின் அதிகபட்ச வரம்பை மீறியது"
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
@@ -235,6 +234,10 @@ msgid "Everyone can comment and mirror"
 msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
+msgid "Please choose either 1 video or up to 4 photos."
+msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
+
+#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
@@ -316,12 +319,24 @@ msgid "Explore • {APP_NAME}"
 msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
-msgid "Action Required"
-msgstr "நடவடிக்கை தேவை"
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr "உங்கள் பரிவர்த்தனைகள் எதிலும் கையொப்பமிடாமல் {APP_NAME} உடன் தொடர்புகொள்வதற்கு டிஸ்பெட்சேரை இயக்கலாம்."
+
+#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Signless Transactions Upgrade"
+msgstr "அடையாளமற்ற பரிவர்த்தனைகள் மேம்படுத்தல்"
+
+#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Signless Transactions"
+msgstr "அடையாளமற்ற பரிவர்த்தனைகள்"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -426,7 +441,7 @@ msgstr "இயல்புநிலை சுயவிவரத்தை அம�
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "You own {count} {0} but you don't have a default one."
-msgstr ""
+msgstr "உங்களிடம் {count} {0} உள்ளது, ஆனால் உங்களிடம் இயல்புநிலை ஒன்று இல்லை."
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile here"
@@ -467,19 +482,19 @@ msgstr "பரிந்துரைக்க எதுவும் இல்ல�
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
-msgstr ""
+msgstr "சேகரிக்கப்பட்டது"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
-msgstr ""
+msgstr "{0} மிரர் செய்யப்பட்டது"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "commented{0}{1}"
-msgstr ""
+msgstr "கருத்து தெரிவிக்கப்பட்டது{0}{1}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected{0}"
-msgstr ""
+msgstr "சேகரிக்கப்பட்டது{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
@@ -521,7 +536,7 @@ msgstr "செய்திகளை ஏற்றுகிறது"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
-msgstr ""
+msgstr "இந்த நண்பர் டிஎம்களை இன்னும் இயக்கவில்லை"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "You can't send them a message until they enable DMs."
@@ -547,7 +562,7 @@ msgstr "கோரப்பட்டது"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
-msgstr ""
+msgstr "இந்த உரையாடல்கள் நீங்கள் தற்போது பின்பற்றாத லென்ஸ் சுயவிவரங்களிலிருந்து வந்தவை."
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
@@ -612,7 +627,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
-msgstr ""
+msgstr "கார்ட்னர்ஸ்"
 
 #: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
@@ -790,7 +805,7 @@ msgstr "தனியுரிமைக் கொள்கை • {APP_NAME}"
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
 msgid "Updated {updatedAt}"
-msgstr ""
+msgstr "புதுப்பிக்கப்பட்டது {updatedAt}"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
@@ -1303,11 +1318,11 @@ msgstr "அதைச் செய்யுங்கள்!"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
-msgstr ""
+msgstr "என்எஃப்டிகள் எதுவும் இல்லை!"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
-msgstr ""
+msgstr "கேலரிக்கு 50 பொருட்கள் மட்டுமே அனுமதிக்கப்படுகின்றன"
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
@@ -1378,7 +1393,7 @@ msgstr "நீங்கள் ஏற்கனவே இதை சேகரித
 
 #: src/components/Publication/Actions/Collect/Splits.tsx
 msgid "Fee recipients"
-msgstr ""
+msgstr "கட்டணம் பெறுவோர்"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
@@ -1464,7 +1479,7 @@ msgstr "புகாரளிக்கவா?"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Are you sure? You want to report this user so that we can take action."
-msgstr ""
+msgstr "உறுதியாக தெரியுமா? நீங்கள் இந்த பயனரைப் புகாரளிக்க விரும்புகிறீர்கள், இதனால் நாங்கள் நடவடிக்கை எடுக்க முடியும்."
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -1793,19 +1808,23 @@ msgid "Profile updated successfully!"
 msgstr "சுயவிவரம் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
-msgid "Disable dispatcher"
-msgstr "டிஸ்பெட்சேரை முடக்கு"
+msgid "Disable"
+msgstr "முடக்கு"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
-msgid "Enable dispatcher"
-msgstr "டிஸ்பெட்சேரை இயக்கு"
+msgid "Update"
+msgstr "புதுப்பி"
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Enable"
+msgstr "இயக்கு"
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Dispatcher • {APP_NAME}"
+msgid "Disable Signless Transactions"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
+msgid "Dispatcher • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
@@ -1851,7 +1870,7 @@ msgstr "டோக்கன் ஐடி"
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Upload failed"
-msgstr ""
+msgstr "பதிவேற்றம் தோல்வியுற்றது"
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Crop image"
@@ -2369,6 +2388,26 @@ msgstr "{type} க்கு செல்க"
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் கிடைக்கும்"
 
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "தற்போதைய முடிவுகள்"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "முடிவுகள்"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "வாக்களிக்கவும்"
+
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
 msgstr "நிலை காலியாக இருக்கக்கூடாது"
@@ -2516,7 +2555,7 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
-msgstr ""
+msgstr "அச்சச்சோ, தொலைந்து போனது‽"
 
 #: src/pages/404.tsx
 msgid "This page could not be found."

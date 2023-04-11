@@ -4,6 +4,7 @@ import { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import truncateByWords from 'lib/truncateByWords';
 import type { FC } from 'react';
 import { JsonLd } from 'react-schemaorg';
 import { BASE_URL } from 'src/constants';
@@ -25,7 +26,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
   const title = profile?.name
     ? `${profile?.name} (@${profile?.handle}) • Lenster`
     : `@${profile?.handle} • Lenster`;
-  const description = profile?.bio ?? '';
+  const description = truncateByWords(profile?.bio ?? '', 30);
   const image = `${USER_CONTENT_URL}/${AVATAR}/${sanitizeDStorageUrl(
     profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)
   )}`;
@@ -36,6 +37,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         title={title}
         description={description}
         image={image}
+        url={`${BASE_URL}/u/${formatHandle(profile.handle)}`}
         schema={
           <JsonLd<any>
             item={{
@@ -82,12 +84,13 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         <img alt={`@${formatHandle(profile.handle)}'s avatar`} src={image} width="64" />
         <h1 data-testid="profile-name">{profile.name ?? profile.handle}</h1>
         <h2 data-testid="profile-handle">@{formatHandle(profile.handle)}</h2>
-        <h3 data-testid="profile-bio">{profile.bio}</h3>
+        <h3 data-testid="profile-bio">{truncateByWords(profile?.bio ?? '', 30)}</h3>
         <div>
           <div>{profile.stats.totalPosts} Posts</div>
           <div>{profile.stats.totalComments} Replies</div>
           <div>{profile.stats.totalFollowing} Following</div>
           <div>{profile.stats.totalFollowers} Followers</div>
+          <div>{profile.stats.totalMirrors} Mirrors</div>
         </div>
         <hr />
         <nav>

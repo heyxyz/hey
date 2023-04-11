@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-03-29 00:09\n"
+"PO-Revision-Date: 2023-04-11 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -84,9 +84,8 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr "添加对谁可以查看您的内容的限制。例如 - 只有拥有特定 NFT 或代币才可以查看您的帖子。"
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
-msgid "Please choose either 1 video or up to 4 photos."
-msgstr "请选择 1 个视频或最多 4 张照片。"
+msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
+msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
@@ -235,6 +234,10 @@ msgid "Everyone can comment and mirror"
 msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
+msgid "Please choose either 1 video or up to 4 photos."
+msgstr "请选择 1 个视频或最多 4 张照片。"
+
+#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
@@ -316,12 +319,24 @@ msgid "Explore • {APP_NAME}"
 msgstr "看看别人都在干吗？ • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
-msgid "Action Required"
-msgstr "需要您的操作"
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr "您可以通过启用 dispatcher 功能使得您今后与 {APP_NAME} 进行交互时不需要签名任何交易。"
+
+#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Signless Transactions Upgrade"
+msgstr ""
+
+#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Signless Transactions"
+msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -1793,20 +1808,24 @@ msgid "Profile updated successfully!"
 msgstr "个人资料更新成功！"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
-msgid "Disable dispatcher"
-msgstr "禁用调度员"
+msgid "Disable"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
-msgid "Enable dispatcher"
-msgstr "启用调度员"
+msgid "Update"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Enable"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Disable Signless Transactions"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
-
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
-msgstr "我们建议您启用调度员，这样您就不需要在 {APP_NAME} 中签署所有交易。"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2368,6 +2387,26 @@ msgstr "前往 {type}"
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "将获得 <0>{referralFee}%</0> 的推荐费"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr ""
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
