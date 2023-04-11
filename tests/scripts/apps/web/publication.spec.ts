@@ -148,6 +148,19 @@ test.describe('Publication attachments', () => {
       await expect(publicationOembed).toBeVisible();
     });
   });
+
+  test.describe('Publication snapshot widget', () => {
+    test('should have normal oembed', async ({ page }) => {
+      await page.goto(`${WEB_BASE_URL}/posts/0x0c-0x2c`);
+
+      const snapshotWidget = page.getByTestId(
+        'snapshot-0x9287c40edcd68c362c7c4139fe3489bbaaa27cf4de68be5c218a82d0f252e718'
+      );
+      await page.waitForTimeout(10000);
+      await expect(snapshotWidget).toContainText('Do you like the Snapshot integration with Lenster?');
+      await expect(snapshotWidget).toContainText('Yes ser 🙌');
+    });
+  });
 });
 
 test.describe('Publication sidebar', () => {

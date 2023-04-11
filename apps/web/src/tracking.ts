@@ -49,6 +49,12 @@ export const PUBLICATION = {
     CHECKLIST_NAVIGATED_TO_TOKEN: 'Decrypt checklist navigated to token',
     CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT',
     DECRYPT: 'Decrypt token gated publication'
+  },
+  WIDGET: {
+    SNAPSHOT: {
+      OPEN_CAST_VOTE: 'Snapshot: Open cast vote modal',
+      VOTE: 'Snapshot: Vote'
+    }
   }
 };
 
@@ -79,7 +85,8 @@ export const SETTINGS = {
     CLEAR_STATUS: 'Clear profile status'
   },
   DISPATCHER: {
-    TOGGLE: 'Toggle dispatcher'
+    TOGGLE: 'Toggle dispatcher',
+    UPDATE: 'Update dispatcher'
   },
   ALLOWANCE: {
     TOGGLE: 'Toggle allowance'

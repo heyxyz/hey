@@ -29,8 +29,8 @@ export type Scalars = {
   FollowModuleData: any;
   Handle: any;
   HandleClaimIdScalar: any;
-  IfpsCid: any;
   InternalPublicationId: any;
+  IpfsCid: any;
   Jwt: any;
   LimitScalar: any;
   Locale: any;
@@ -3119,7 +3119,7 @@ export type PublicMediaRequest = {
   /** The cover for any video or audio you attached */
   cover?: InputMaybe<Scalars['Url']>;
   /** Pre calculated cid of the file to push */
-  itemCid: Scalars['IfpsCid'];
+  itemCid: Scalars['IpfsCid'];
   /** This is the mime type of media */
   type?: InputMaybe<Scalars['MimeType']>;
 };
@@ -16554,33 +16554,6 @@ export type NotificationsQuery = {
   };
 };
 
-export type PrerenderProfileQueryVariables = Exact<{
-  request: SingleProfileQueryRequest;
-}>;
-
-export type PrerenderProfileQuery = {
-  __typename?: 'Query';
-  profile?: {
-    __typename?: 'Profile';
-    id: any;
-    handle: any;
-    name?: string | null;
-    bio?: string | null;
-    ownedBy: any;
-    stats: {
-      __typename?: 'ProfileStats';
-      totalFollowers: number;
-      totalFollowing: number;
-      totalPosts: number;
-      totalComments: number;
-    };
-    picture?:
-      | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
-      | { __typename?: 'NftImage'; uri: any }
-      | null;
-  } | null;
-};
-
 export type ProfileQueryVariables = Exact<{
   request: SingleProfileQueryRequest;
   who?: InputMaybe<Scalars['ProfileId']>;
@@ -16600,7 +16573,7 @@ export type ProfileQuery = {
     isFollowedByMe: boolean;
     isFollowing: boolean;
     attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
-    dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null;
+    dispatcher?: { __typename?: 'Dispatcher'; address: any; canUseRelay: boolean } | null;
     onChainIdentity: {
       __typename?: 'OnChainIdentity';
       proofOfHumanity: boolean;
@@ -29567,7 +29540,7 @@ export type UserProfilesQuery = {
       bio?: string | null;
       ownedBy: any;
       isFollowedByMe: boolean;
-      dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null;
+      dispatcher?: { __typename?: 'Dispatcher'; address: any; canUseRelay: boolean } | null;
       stats: { __typename?: 'ProfileStats'; totalFollowers: number; totalFollowing: number };
       attributes?: Array<{ __typename?: 'Attribute'; key: string; value: string }> | null;
       picture?:
@@ -33268,74 +33241,6 @@ export function useNotificationsLazyQuery(
 export type NotificationsQueryHookResult = ReturnType<typeof useNotificationsQuery>;
 export type NotificationsLazyQueryHookResult = ReturnType<typeof useNotificationsLazyQuery>;
 export type NotificationsQueryResult = Apollo.QueryResult<NotificationsQuery, NotificationsQueryVariables>;
-export const PrerenderProfileDocument = gql`
-  query PrerenderProfile($request: SingleProfileQueryRequest!) {
-    profile(request: $request) {
-      id
-      handle
-      name
-      bio
-      ownedBy
-      stats {
-        totalFollowers
-        totalFollowing
-        totalPosts
-        totalComments
-      }
-      picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-        ... on NftImage {
-          uri
-        }
-      }
-    }
-  }
-`;
-
-/**
- * __usePrerenderProfileQuery__
- *
- * To run a query within a React component, call `usePrerenderProfileQuery` and pass it any options that fit your needs.
- * When your component renders, `usePrerenderProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePrerenderProfileQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function usePrerenderProfileQuery(
-  baseOptions: Apollo.QueryHookOptions<PrerenderProfileQuery, PrerenderProfileQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<PrerenderProfileQuery, PrerenderProfileQueryVariables>(
-    PrerenderProfileDocument,
-    options
-  );
-}
-export function usePrerenderProfileLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<PrerenderProfileQuery, PrerenderProfileQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<PrerenderProfileQuery, PrerenderProfileQueryVariables>(
-    PrerenderProfileDocument,
-    options
-  );
-}
-export type PrerenderProfileQueryHookResult = ReturnType<typeof usePrerenderProfileQuery>;
-export type PrerenderProfileLazyQueryHookResult = ReturnType<typeof usePrerenderProfileLazyQuery>;
-export type PrerenderProfileQueryResult = Apollo.QueryResult<
-  PrerenderProfileQuery,
-  PrerenderProfileQueryVariables
->;
 export const ProfileDocument = gql`
   query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     profile(request: $request) {
@@ -33353,6 +33258,7 @@ export const ProfileDocument = gql`
         value
       }
       dispatcher {
+        address
         canUseRelay
       }
       onChainIdentity {
@@ -34326,6 +34232,7 @@ export const UserProfilesDocument = gql`
         interests
         isDefault
         dispatcher {
+          address
           canUseRelay
         }
       }

@@ -253,7 +253,9 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
   }
 
   const isLimitedCollectAllCollected = collectLimit ? count >= parseInt(collectLimit) : false;
-  const isCollectExpired = endTimestamp ? parseInt(endTimestamp ?? '0') < new Date().getTime() / 1000 : false;
+  const isCollectExpired = endTimestamp
+    ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
+    : false;
   const isLoading =
     typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
 
