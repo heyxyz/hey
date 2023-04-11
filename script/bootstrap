@@ -10,9 +10,6 @@ cd ../../
 echo "Updating apps/prerender env vars 🌎"
 cd apps/prerender; cp .env.example .env
 cd ../../
-echo "Updating packages/workers/curated-profiles env vars 🌎"
-cd packages/workers/curated-profiles; cp .dev.vars.example .dev.vars
-cd ../../../
 echo "Updating packages/workers/freshdesk env vars 🌎"
 cd packages/workers/freshdesk; cp .dev.vars.example .dev.vars
 cd ../../../
