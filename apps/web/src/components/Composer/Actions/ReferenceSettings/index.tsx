@@ -1,3 +1,5 @@
+import MenuTransition from '@components/Shared/MenuTransition';
+import { Popover } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -166,68 +168,120 @@ const ReferenceSettings: FC = () => {
 
   return (
     <>
-      <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
-        <motion.button onClick={() => setShowModal(true)} whileTap={{ scale: 0.9 }}>
-          <div className="text-brand">
-            {isEveryone && <GlobeAltIcon className="w-5" />}
-            {isMyFollowers && <UsersIcon className="w-5" />}
-            {isMyFollows && <UserAddIcon className="w-5" />}
-            {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+      <div className="block md:hidden">
+        <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
+          <motion.button onClick={() => setShowModal(true)} whileTap={{ scale: 0.9 }}>
+            <div className="text-brand">
+              {isEveryone && <GlobeAltIcon className="w-5" />}
+              {isMyFollowers && <UsersIcon className="w-5" />}
+              {isMyFollows && <UserAddIcon className="w-5" />}
+              {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+            </div>
+          </motion.button>
+        </Tooltip>
+        <Modal
+          title={t`Who can comment?`}
+          icon={
+            <>
+              {isEveryone && <GlobeAltIcon className="w-5" />}
+              {isMyFollowers && <UsersIcon className="w-5" />}
+              {isMyFollows && <UserAddIcon className="w-5" />}
+              {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+            </>
+          }
+          show={showModal}
+          onClose={() => {
+            setShowModal(false);
+          }}
+        >
+          <div className="flex flex-col items-start justify-between space-y-4 px-10 py-5">
+            {isEveryone && (
+              <Module
+                title={EVERYONE.title}
+                description={EVERYONE.description}
+                icon={<GlobeAltIcon className="h-4 w-4" />}
+              />
+            )}
+            {isMyFollowers && (
+              <Module
+                title={MY_FOLLOWERS.title}
+                description={MY_FOLLOWERS.description}
+                icon={<UsersIcon className="h-4 w-4" />}
+              />
+            )}
+            {isMyFollows && (
+              <Module
+                title={MY_FOLLOWS.title}
+                description={MY_FOLLOWS.description}
+                icon={<UserAddIcon className="h-4 w-4" />}
+              />
+            )}
+            {isFriendsOfFriends && (
+              <Module
+                title={FRIENDS_OF_FRIENDS.title}
+                description={FRIENDS_OF_FRIENDS.description}
+                icon={<UserGroupIcon className="h-4 w-4" />}
+              />
+            )}
+            <Slider />
+            <div className="flex w-full justify-end pt-5">
+              <Button onClick={() => setShowModal(false)}>
+                <Trans>Done</Trans>
+              </Button>
+            </div>
           </div>
-        </motion.button>
-      </Tooltip>
-      <Modal
-        title={t`Who can comment?`}
-        icon={
-          <>
-            {isEveryone && <GlobeAltIcon className="w-5" />}
-            {isMyFollowers && <UsersIcon className="w-5" />}
-            {isMyFollows && <UserAddIcon className="w-5" />}
-            {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
-          </>
-        }
-        show={showModal}
-        onClose={() => {
-          setShowModal(false);
-        }}
-      >
-        <div className="flex flex-col items-start justify-between space-y-4 px-10 py-5">
-          {isEveryone && (
-            <Module
-              title={EVERYONE.title}
-              description={EVERYONE.description}
-              icon={<GlobeAltIcon className="h-4 w-4" />}
-            />
-          )}
-          {isMyFollowers && (
-            <Module
-              title={MY_FOLLOWERS.title}
-              description={MY_FOLLOWERS.description}
-              icon={<UsersIcon className="h-4 w-4" />}
-            />
-          )}
-          {isMyFollows && (
-            <Module
-              title={MY_FOLLOWS.title}
-              description={MY_FOLLOWS.description}
-              icon={<UserAddIcon className="h-4 w-4" />}
-            />
-          )}
-          {isFriendsOfFriends && (
-            <Module
-              title={FRIENDS_OF_FRIENDS.title}
-              description={FRIENDS_OF_FRIENDS.description}
-              icon={<UserGroupIcon className="h-4 w-4" />}
-            />
-          )}
-          <Slider />
-          <div className="flex w-full justify-end pt-5">
-            <Button onClick={() => setShowModal(false)}>
-              <Trans>Done</Trans>
-            </Button>
-          </div>
-        </div>
-      </Modal>
+        </Modal>
+      </div>
+      <div className="hidden md:block">
+        <Popover className="relative">
+          <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
+            <Popover.Button as={motion.button} whileTap={{ scale: 0.9 }}>
+              <div className="text-brand">
+                {isEveryone && <GlobeAltIcon className="w-5" />}
+                {isMyFollowers && <UsersIcon className="w-5" />}
+                {isMyFollows && <UserAddIcon className="w-5" />}
+                {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+              </div>
+            </Popover.Button>
+          </Tooltip>
+          <MenuTransition>
+            <Popover.Panel className="absolute z-[5] mt-2 w-screen max-w-sm rounded-xl border bg-white px-3 py-4 shadow-sm dark:border-gray-700 dark:bg-gray-900">
+              <div className=" mb-2 font-medium">Who can comment?</div>
+              <div className="flex flex-col items-start justify-between space-y-2 px-6">
+                {isEveryone && (
+                  <Module
+                    title={EVERYONE.title}
+                    description={EVERYONE.description}
+                    icon={<GlobeAltIcon className="h-4 w-4" />}
+                  />
+                )}
+                {isMyFollowers && (
+                  <Module
+                    title={MY_FOLLOWERS.title}
+                    description={MY_FOLLOWERS.description}
+                    icon={<UsersIcon className="h-4 w-4" />}
+                  />
+                )}
+                {isMyFollows && (
+                  <Module
+                    title={MY_FOLLOWS.title}
+                    description={MY_FOLLOWS.description}
+                    icon={<UserAddIcon className="h-4 w-4" />}
+                  />
+                )}
+                {isFriendsOfFriends && (
+                  <Module
+                    title={FRIENDS_OF_FRIENDS.title}
+                    description={FRIENDS_OF_FRIENDS.description}
+                    icon={<UserGroupIcon className="h-4 w-4" />}
+                  />
+                )}
+                <Slider />
+              </div>
+            </Popover.Panel>
+          </MenuTransition>
+        </Popover>
+      </div>
     </>
   );
 };
