@@ -5,7 +5,7 @@ import { forwardRef, useId } from 'react';
 
 import { FieldError } from './Form';
 
-const HelpTooltip = dynamic(() => import('ui').then((Component) => Component.HelpTooltip));
+const HelpTooltip = dynamic(() => import('./HelpTooltip'));
 
 interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string;

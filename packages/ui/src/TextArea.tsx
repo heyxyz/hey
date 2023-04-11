@@ -1,6 +1,7 @@
 import type { ComponentProps } from 'react';
 import { forwardRef, useId } from 'react';
-import { FieldError } from 'ui';
+
+import { FieldError } from './Form';
 
 interface TextAreaProps extends ComponentProps<'textarea'> {
   label?: string;
