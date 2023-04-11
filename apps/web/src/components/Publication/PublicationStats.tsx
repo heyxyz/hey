@@ -39,16 +39,12 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
       {mirrorCount > 0 && (
         <>
-          <span data-testid={`publication-${publication.id}-comment-stats`}>
+          <span data-testid="comment-stats">
             <Trans>
               <b className="text-black dark:text-white">{nFormatter(commentsCount)}</b> Comments
             </Trans>
           </span>
-          <button
-            type="button"
-            onClick={() => setShowMirrorsModal(true)}
-            data-testid={`publication-${publication.id}-mirror-stats`}
-          >
+          <button type="button" onClick={() => setShowMirrorsModal(true)} data-testid="mirror-stats">
             <Trans>
               <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
             </Trans>
@@ -65,11 +61,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
       )}
       {!hideLikesCount && reactionCount > 0 && (
         <>
-          <button
-            type="button"
-            onClick={() => setShowLikesModal(true)}
-            data-testid={`publication-${publication.id}-like-stats`}
-          >
+          <button type="button" onClick={() => setShowLikesModal(true)} data-testid="like-stats">
             <Trans>
               <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
             </Trans>
@@ -86,11 +78,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
       )}
       {collectCount > 0 && (
         <>
-          <button
-            type="button"
-            onClick={() => setShowCollectorsModal(true)}
-            data-testid={`publication-${publication.id}-collect-stats`}
-          >
+          <button type="button" onClick={() => setShowCollectorsModal(true)} data-testid="collect-stats">
             <Trans>
               <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
             </Trans>
