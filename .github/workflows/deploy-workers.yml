@@ -23,7 +23,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install 📦
-        run: pnpm run install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Deploy 🚀
         run: |
