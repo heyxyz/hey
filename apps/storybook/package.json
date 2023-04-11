@@ -1,11 +1,14 @@
 {
   "name": "storybook",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
   "scripts": {
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "dev": "storybook dev -p 4785",
+    "build": "storybook build",
+    "typecheck": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
     "storybook": "^7.0.2",
