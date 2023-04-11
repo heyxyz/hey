@@ -17,5 +17,4 @@ We use Cloudflare Workers to handle some of the heavy lifting for us. These work
 - [STS Token Generator](../packages/workers/sts-generator/README.md)
 - [Metadata](../packages/workers/metadata/README.md)
 - [Freshdesk](../packages/workers/freshdesk/README.md)
-- [Curated Profiles](../packages/workers/curated-profiles/README.md)
 - [Prerender](../packages/workers/prerender/README.md)
