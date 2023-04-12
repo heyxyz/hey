@@ -3,7 +3,7 @@ import { devices } from '@playwright/test';
 import * as os from 'os';
 
 const config: PlaywrightTestConfig = {
-  testDir: './scripts',
+  testDir: './',
   timeout: 50 * 1000,
   expect: { timeout: 50000 },
   fullyParallel: true,
