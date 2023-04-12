@@ -1,10 +1,10 @@
 import { lensterMembers } from './lenster-members';
 
 export const mainnetStaffs = [
-  '0x2d', // sasicodes.lens
-  '0x16', // davidev.lens
-  '0x06', // wagmi.lens
-  '0x05', // stani.lens
+  '0x2d', // sasicodes
+  '0x16', // davidev
+  '0x06', // wagmi
+  '0x05', // stani
   ...lensterMembers
 ];
 
