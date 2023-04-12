@@ -5,7 +5,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "test:dev": "playwright test",
-    "test:nightly": "playwright test scripts/apps",
+    "test:nightly": "playwright test apps",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx"
