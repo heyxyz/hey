@@ -13,6 +13,7 @@
     "worker:deploy": { "outputs": [] },
     "dev": { "cache": false },
     "start": { "cache": false },
-    "test:dev": { "cache": false }
+    "test:dev": { "cache": false },
+    "test:nightly": { "cache": false }
   }
 }
