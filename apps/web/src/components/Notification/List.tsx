@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { NotificationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 import { Card, EmptyState, ErrorMessage } from 'ui';
 
 import NotificationShimmer from './Shimmer';
@@ -30,6 +31,7 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ feedType }) => {
+  const highSignalNotificationFilter = usePreferencesStore((state) => state.highSignalNotificationFilter);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [hasMore, setHasMore] = useState(true);
 
@@ -55,6 +57,7 @@ const List: FC<ListProps> = ({ feedType }) => {
     profileId: currentProfile?.id,
     customFilters: [CustomFiltersTypes.Gardeners],
     notificationTypes: getNotificationType(),
+    highSignalFilter: highSignalNotificationFilter,
     limit: 20
   };
 
@@ -104,7 +107,6 @@ const List: FC<ListProps> = ({ feedType }) => {
     <Card className="divide-y dark:divide-gray-700">
       {notifications?.map((notification, index, items) => {
         const isLast = index === items.length - 1;
-
         return (
           <div
             key={`${notification?.notificationId}_${index}`}
