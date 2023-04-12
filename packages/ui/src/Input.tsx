@@ -2,9 +2,10 @@ import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import type { ComponentProps, ReactNode } from 'react';
 import { forwardRef, useId } from 'react';
-import { FieldError } from 'ui/Form';
 
-const HelpTooltip = dynamic(() => import('ui').then((Component) => Component.HelpTooltip));
+import { FieldError } from './Form';
+
+const HelpTooltip = dynamic(() => import('./HelpTooltip'));
 
 interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string;
@@ -23,7 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const id = useId();
 
   const iconStyles = [
-    'text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5',
+    'text-zinc-500 [&>*]:peer-focus:text-brand [&>*]:h-5',
     { '!text-red-500 [&>*]:peer-focus:!text-red-500': error }
   ];
 

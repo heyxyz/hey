@@ -29,8 +29,8 @@ export type Scalars = {
   FollowModuleData: any;
   Handle: any;
   HandleClaimIdScalar: any;
-  IfpsCid: any;
   InternalPublicationId: any;
+  IpfsCid: any;
   Jwt: any;
   LimitScalar: any;
   Locale: any;
@@ -2646,6 +2646,7 @@ export type Notification =
 export type NotificationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>;
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
+  highSignalFilter?: InputMaybe<Scalars['Boolean']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
   /** The profile id */
   notificationTypes?: InputMaybe<Array<NotificationTypes>>;
@@ -3119,7 +3120,7 @@ export type PublicMediaRequest = {
   /** The cover for any video or audio you attached */
   cover?: InputMaybe<Scalars['Url']>;
   /** Pre calculated cid of the file to push */
-  itemCid: Scalars['IfpsCid'];
+  itemCid: Scalars['IpfsCid'];
   /** This is the mime type of media */
   type?: InputMaybe<Scalars['MimeType']>;
 };

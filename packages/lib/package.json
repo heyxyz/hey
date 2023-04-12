@@ -9,12 +9,15 @@
     "lint:fix": "eslint . --fix --ext .ts"
   },
   "dependencies": {
-    "data": "*",
-    "lens": "*"
+    "data": "workspace:*",
+    "lens": "workspace:*",
+    "react": "^18.2.0"
   },
   "devDependencies": {
-    "eslint-config-weblint": "*",
-    "tsconfig": "*",
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.35",
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

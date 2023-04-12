@@ -73,7 +73,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
       )}
     >
       <Card className="flex h-full flex-col justify-between">
-        <div className="flex items-center justify-between border-b p-5 dark:border-gray-700">
+        <div className="divider flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
           {currentProfile && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
@@ -85,7 +85,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
           <div
             onClick={() => setSelectedTab('Following')}
             className={clsx(
-              'text-brand-500 tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
               selectedTab === 'Following' ? 'bg-brand-100' : ''
             )}
           >
@@ -95,7 +95,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
           <div
             onClick={() => setSelectedTab('Requested')}
             className={clsx(
-              'text-brand-500 tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
               selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
           >
