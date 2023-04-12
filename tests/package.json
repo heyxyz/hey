@@ -4,7 +4,8 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "test:dev": "playwright test"
+    "test:dev": "playwright test",
+    "test:nightly": "playwright test scripts/apps"
   },
   "dependencies": {
     "data": "workspace:*",
