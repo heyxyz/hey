@@ -14,8 +14,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       turbo:
-        specifier: ^1.8.8
-        version: 1.9.0
+        specifier: canary
+        version: 1.9.0-canary.3
 
   apps/prerender:
     dependencies:
@@ -51,8 +51,8 @@ importers:
         version: 1.1.2(typescript@5.0.4)
     devDependencies:
       '@types/react':
-        specifier: ^18.0.34
-        version: 18.0.34
+        specifier: ^18.0.35
+        version: 18.0.35
       '@types/react-dom':
         specifier: ^18.0.11
         version: 18.0.11
@@ -152,7 +152,7 @@ importers:
         version: 4.8.1
       '@giphy/react-components':
         specifier: ^6.8.1
-        version: 6.8.1(@babel/core@7.21.4)(@types/react@18.0.34)(react-dom@18.2.0)(react@18.2.0)
+        version: 6.8.1(@babel/core@7.21.4)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0)
       '@headlessui/react':
         specifier: ^1.7.13
         version: 1.7.13(react-dom@18.2.0)(react@18.2.0)
@@ -229,8 +229,8 @@ importers:
         specifier: 5.6.0
         version: 5.6.0
       framer-motion:
-        specifier: ^10.11.2
-        version: 10.11.5(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^10.11.6
+        version: 10.11.6(react-dom@18.2.0)(react@18.2.0)
       graphql:
         specifier: ^16.6.0
         version: 16.6.0
@@ -286,8 +286,8 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
       react-markdown:
-        specifier: ^8.0.6
-        version: 8.0.6(@types/react@18.0.34)(react@18.2.0)
+        specifier: ^8.0.7
+        version: 8.0.7(@types/react@18.0.35)(react@18.2.0)
       remark-breaks:
         specifier: ^3.0.2
         version: 3.0.2
@@ -344,8 +344,8 @@ importers:
         specifier: ^18.15.11
         version: 18.15.11
       '@types/react':
-        specifier: ^18.0.34
-        version: 18.0.34
+        specifier: ^18.0.35
+        version: 18.0.35
       '@types/react-copy-to-clipboard':
         specifier: ^5.0.4
         version: 5.0.4
@@ -478,8 +478,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       '@types/react':
-        specifier: ^18.0.34
-        version: 18.0.34
+        specifier: ^18.0.35
+        version: 18.0.35
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
@@ -549,8 +549,8 @@ importers:
         specifier: ^18.15.11
         version: 18.15.11
       '@types/react':
-        specifier: ^18.0.34
-        version: 18.0.34
+        specifier: ^18.0.35
+        version: 18.0.35
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
@@ -640,8 +640,8 @@ importers:
         specifier: ^18.15.11
         version: 18.15.11
       '@types/react':
-        specifier: ^18.0.34
-        version: 18.0.34
+        specifier: ^18.0.35
+        version: 18.0.35
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
@@ -3189,7 +3189,7 @@ packages:
     resolution: {integrity: sha512-G/YwXTkv7Den9mXDO7AhLWkE3q+I92B+VqAE+dYG4NGPaHZGvt3G8Q0p9vmE+sq7rTGphUbAvmQ9YpbfMQGGlA==}
     dev: false
 
-  /@emotion/react@11.9.3(@babel/core@7.21.4)(@types/react@18.0.34)(react@18.2.0):
+  /@emotion/react@11.9.3(@babel/core@7.21.4)(@types/react@18.0.35)(react@18.2.0):
     resolution: {integrity: sha512-g9Q1GcTOlzOEjqwuLF/Zd9LC+4FljjPjDfxSM7KmEakm+hsHXk+bYZ2q+/hTJzr0OUNkujo72pXLQvXj6H+GJQ==}
     peerDependencies:
       '@babel/core': ^7.0.0
@@ -3208,7 +3208,7 @@ packages:
       '@emotion/serialize': 1.1.1
       '@emotion/utils': 1.2.0
       '@emotion/weak-memoize': 0.2.5
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
     dev: false
@@ -3241,7 +3241,7 @@ packages:
     resolution: {integrity: sha512-zxRBwl93sHMsOj4zs+OslQKg/uhF38MB+OMKoCrVuS0nyTkqnau+BM3WGEoOptg9Oz45T/aIGs1qbVAsEFo3nA==}
     dev: false
 
-  /@emotion/styled@11.9.3(@babel/core@7.21.4)(@emotion/react@11.9.3)(@types/react@18.0.34)(react@18.2.0):
+  /@emotion/styled@11.9.3(@babel/core@7.21.4)(@emotion/react@11.9.3)(@types/react@18.0.35)(react@18.2.0):
     resolution: {integrity: sha512-o3sBNwbtoVz9v7WB1/Y/AmXl69YHmei2mrVnK7JgyBJ//Rst5yqPZCecEJlMlJrFeWHp+ki/54uN265V2pEcXA==}
     peerDependencies:
       '@babel/core': ^7.0.0
@@ -3258,10 +3258,10 @@ packages:
       '@babel/runtime': 7.21.0
       '@emotion/babel-plugin': 11.10.6
       '@emotion/is-prop-valid': 1.2.0
-      '@emotion/react': 11.9.3(@babel/core@7.21.4)(@types/react@18.0.34)(react@18.2.0)
+      '@emotion/react': 11.9.3(@babel/core@7.21.4)(@types/react@18.0.35)(react@18.2.0)
       '@emotion/serialize': 1.1.1
       '@emotion/utils': 1.2.0
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
       react: 18.2.0
     dev: false
 
@@ -4594,13 +4594,13 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /@giphy/react-components@6.8.1(@babel/core@7.21.4)(@types/react@18.0.34)(react-dom@18.2.0)(react@18.2.0):
+  /@giphy/react-components@6.8.1(@babel/core@7.21.4)(@types/react@18.0.35)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-GnLTCluaJhvdvAQg5GCppKTijLIEtdC+XFw8u8nVnhWlUrCGtdMFeh9RCNrv8yxDz9MjUQfF1NUhBZBj7rfxAw==}
     peerDependencies:
       react: 16.10.2 - 18
     dependencies:
-      '@emotion/react': 11.9.3(@babel/core@7.21.4)(@types/react@18.0.34)(react@18.2.0)
-      '@emotion/styled': 11.9.3(@babel/core@7.21.4)(@emotion/react@11.9.3)(@types/react@18.0.34)(react@18.2.0)
+      '@emotion/react': 11.9.3(@babel/core@7.21.4)(@types/react@18.0.35)(react@18.2.0)
+      '@emotion/styled': 11.9.3(@babel/core@7.21.4)(@emotion/react@11.9.3)(@types/react@18.0.35)(react@18.2.0)
       '@giphy/js-analytics': 4.2.0
       '@giphy/js-brand': 2.2.2
       '@giphy/js-fetch-api': 4.8.1
@@ -8072,17 +8072,25 @@ packages:
   /@types/react-copy-to-clipboard@5.0.4:
     resolution: {integrity: sha512-otTJsJpofYAeaIeOwV5xBUGpo6exXG2HX7X4nseToCB2VgPEBxGBHCm/FecZ676doNR7HCSTVtmohxfG2b3/yQ==}
     dependencies:
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
     dev: true
 
   /@types/react-dom@18.0.11:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
     dependencies:
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
     dev: true
 
   /@types/react@18.0.34:
     resolution: {integrity: sha512-NO1UO8941541CJl1BeOXi8a9dNKFK09Gnru5ZJqkm4Q3/WoQJtHvmwt0VX0SB9YCEwe7TfSSxDuaNmx6H2BAIQ==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.3
+      csstype: 3.1.2
+    dev: true
+
+  /@types/react@18.0.35:
+    resolution: {integrity: sha512-6Laome31HpetaIUGFWl1VQ3mdSImwxtFZ39rh059a1MNnKGqBpC88J6NJ8n/Is3Qx7CefDGLgf/KhN/sYCf7ag==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -12332,8 +12340,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion@10.11.5(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-1JuoJsojdYLVdVldkR7p69G24bNs00p/IuqNcuIT9g2qSNG9Ya4SyK4Jy4Z5grUSi7j1yLI6AdO/0BhY0zo7yw==}
+  /framer-motion@10.11.6(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-QXfnUzPQqbJEnWpmtPaRB4OCuyH44uCys5Agg44LEQvItKTg0bou57WuhsNVuEyVCnMoAhrtRYiKeG/vAz6bFw==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -16182,15 +16190,15 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-markdown@8.0.6(@types/react@18.0.34)(react@18.2.0):
-    resolution: {integrity: sha512-KgPWsYgHuftdx510wwIzpwf+5js/iHqBR+fzxefv8Khk3mFbnioF1bmL2idHN3ler0LMQmICKeDrWnZrX9mtbQ==}
+  /react-markdown@8.0.7(@types/react@18.0.35)(react@18.2.0):
+    resolution: {integrity: sha512-bvWbzG4MtOU62XqBx3Xx+zB2raaFFsq4mYiAzfjXJMEz2sixgeAfraA3tvzULF02ZdOMUOKTBFFaZJDDrq+BJQ==}
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
     dependencies:
       '@types/hast': 2.3.4
       '@types/prop-types': 15.7.5
-      '@types/react': 18.0.34
+      '@types/react': 18.0.35
       '@types/unist': 2.0.6
       comma-separated-tokens: 2.0.3
       hast-util-whitespace: 2.0.1
@@ -17897,65 +17905,65 @@ packages:
       typescript: 5.0.4
     dev: true
 
-  /turbo-darwin-64@1.9.0:
-    resolution: {integrity: sha512-snJkC0RRFEQ7STIYbJVDrQzkRaU3b1cgM5PIrWx6elf79HA4Lm50sXbjpWJPsdwxfnvIKcpsAtBsDeR47iqnMQ==}
+  /turbo-darwin-64@1.9.0-canary.3:
+    resolution: {integrity: sha512-Wc+QRhQP8LRr89+YCwgIgZ7WY9L78jdA5POH1nCMDrLqXlQv78dYnUd29Jf4oQGwr8g+5aQQUz6MhqM/YIdtOg==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-darwin-arm64@1.9.0:
-    resolution: {integrity: sha512-+4MDDtRdKe8VMG9YU7J3c6kokpKVV4ELw6iThtO7jwz5DiGy5eTKGNtr5kHkPk3SffUQ0DZTQ/YSJsBC+6LLlA==}
+  /turbo-darwin-arm64@1.9.0-canary.3:
+    resolution: {integrity: sha512-5dIaP/lTVbfOxOeH8fP4ianloxsNDbN2xt5BeN5MSkMHW4J93aO/kfzDl2UkY3Uga6q/qRPIg3hZmszbqqqaug==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-64@1.9.0:
-    resolution: {integrity: sha512-pEyj6VFo1RYwMqA6BLPHYViRIbE/R1KMAoQFW/qr9vTIT6kuMw1OiL0f/ZJ3AgY5V2mwGQT9Qg2HAH1CIEnH4Q==}
+  /turbo-linux-64@1.9.0-canary.3:
+    resolution: {integrity: sha512-o2HMPIkmhjOlSQzJAa/4/dekZheAmRTr4Sl9tQstwVnlavy+AVJhugIYgrx+FH5zzprMgRc7ThFvyhYHj9JHMA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm64@1.9.0:
-    resolution: {integrity: sha512-bwwa3X1ZzFkGsHsXDwAdW+akcKnGVNMmEtFULvh/2UALdslobttO7CiNBot7F+Sf5CfFZivYu5MEuYA/+Kvt7Q==}
+  /turbo-linux-arm64@1.9.0-canary.3:
+    resolution: {integrity: sha512-Uu4y2gFeg7HIjam0AiGVg38EIBdEEjJlgQ8zBGHDjuwJ9S0HS9mP5UvDoiNft1C4yMwwNfhmqCm6otH8Aotnng==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-64@1.9.0:
-    resolution: {integrity: sha512-GMvbmXNHJVuLwbgqxQjXTFE4GHjzj3hVE+xZEKlEQWJ0cD+OGrVMqYMGxjVO5Ffbd3aHI9OECAmQw18qHWi1AA==}
+  /turbo-windows-64@1.9.0-canary.3:
+    resolution: {integrity: sha512-HfA1htM75mA1x/3wUe79zdqo3G3V/J+gZcp2qGuE8inqhAnLVoYuzwMiSJNlSW7sznYJqgwSUt1BqYMR+mFWPA==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-arm64@1.9.0:
-    resolution: {integrity: sha512-oeePkdHoXit+rBzAT4iqn9hTUWXguKvqsZpJbFKr7JKLKtfeGwsXtyhCtkWIpBBQMT+hkGTBURMr9mHuS3sUPA==}
+  /turbo-windows-arm64@1.9.0-canary.3:
+    resolution: {integrity: sha512-hMm7LzmgqHPt4rOZcEuhz5gStteD8oulD7hZHmD9Ya1zkXw+qcf3lj7W5e7uQSS9/CEqU8UUtjJPjPsI55w3lQ==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo@1.9.0:
-    resolution: {integrity: sha512-W99+hwuisT/d9wcr5/KnAJYCQwm3xApbxLTLBRMOEti3iaweRSQIKFCVhdGccaDuu6b0zvE/4bTB6C3qJc8bgw==}
+  /turbo@1.9.0-canary.3:
+    resolution: {integrity: sha512-H6tTnxyAY2ts5Pndh3R/DJVDhJX/2y/lASN5XDz+cgKKhsiGFEXiuigz34Zi8E3GzxTmSjq8sQNkvHSv618vKg==}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: 1.9.0
-      turbo-darwin-arm64: 1.9.0
-      turbo-linux-64: 1.9.0
-      turbo-linux-arm64: 1.9.0
-      turbo-windows-64: 1.9.0
-      turbo-windows-arm64: 1.9.0
+      turbo-darwin-64: 1.9.0-canary.3
+      turbo-darwin-arm64: 1.9.0-canary.3
+      turbo-linux-64: 1.9.0-canary.3
+      turbo-linux-arm64: 1.9.0-canary.3
+      turbo-windows-64: 1.9.0-canary.3
+      turbo-windows-arm64: 1.9.0-canary.3
     dev: true
 
   /tweetnacl@1.0.3:
