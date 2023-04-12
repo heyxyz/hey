@@ -2,6 +2,7 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x01c688', // instadapp
   '0x01c5b9', // galverse
   '0xc01c', // lenstubelogs
   '0x565f', // zapper
