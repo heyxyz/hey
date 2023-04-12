@@ -1,7 +1,6 @@
 {
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
-    "preserveSymlinks": true,
     "baseUrl": ".",
     "noEmit": true
   },
