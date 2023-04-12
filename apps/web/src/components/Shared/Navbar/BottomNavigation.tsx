@@ -18,28 +18,28 @@ const BottomNavigation = () => {
       <div className="grid grid-cols-4">
         <Link href="/" className="mx-auto my-3">
           {isActivePath('/') ? (
-            <HomeIconSolid className="text-brand-500 h-6 w-6" />
+            <HomeIconSolid className="text-brand h-6 w-6" />
           ) : (
             <HomeIcon className="h-6 w-6" />
           )}
         </Link>
         <Link href="/explore" className="mx-auto my-3">
           {isActivePath('/explore') ? (
-            <ViewGridIconSolid className="text-brand-500 h-6 w-6" />
+            <ViewGridIconSolid className="text-brand h-6 w-6" />
           ) : (
             <ViewGridIcon className="h-6 w-6" />
           )}
         </Link>
         <Link href="/notifications" className="mx-auto my-3">
           {isActivePath('/notifications') ? (
-            <BellIconSolid className="text-brand-500 h-6 w-6" />
+            <BellIconSolid className="text-brand h-6 w-6" />
           ) : (
             <BellIcon className="h-6 w-6" />
           )}
         </Link>
         <Link href="/messages" className="mx-auto my-3">
           {isActivePath('/messages') ? (
-            <MailIconSolid className="text-brand-500 h-6 w-6" />
+            <MailIconSolid className="text-brand h-6 w-6" />
           ) : (
             <MailIcon className="h-6 w-6" />
           )}

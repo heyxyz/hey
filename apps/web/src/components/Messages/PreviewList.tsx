@@ -85,7 +85,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
           <div
             onClick={() => setSelectedTab('Following')}
             className={clsx(
-              'text-brand-500 tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
               selectedTab === 'Following' ? 'bg-brand-100' : ''
             )}
           >
@@ -95,7 +95,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
           <div
             onClick={() => setSelectedTab('Requested')}
             className={clsx(
-              'text-brand-500 tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
               selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
           >

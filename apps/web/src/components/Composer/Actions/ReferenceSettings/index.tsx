@@ -43,7 +43,7 @@ const ReferenceSettings: FC = () => {
     <Menu.Item as="a" className={clsx({ 'dropdown-active': selected }, 'menu-item')} onClick={onClick}>
       <div className="flex items-center justify-between space-x-2">
         <div className="flex items-center space-x-1.5">
-          <div className="text-brand-500">{icon}</div>
+          <div className="text-brand">{icon}</div>
           <div>{title}</div>
         </div>
         {selected && <CheckCircleIcon className="w-5 text-green-500" />}
