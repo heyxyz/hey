@@ -23,18 +23,6 @@ jobs:
       - name: Bootstrap 📦
         run: script/bootstrap
 
-      - name: Typecheck 🔡
-        run: pnpm typecheck
-
-      - name: Lint 🪩
-        run: pnpm lint
-
-      - name: Prettier ✨
-        run: pnpm prettier
-
-      - name: Build 🎁
-        run: pnpm build
-
       - name: Run Tests 🧪
         run: pnpm test:nightly
         env:
