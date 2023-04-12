@@ -17,7 +17,8 @@
     "prettier:fix": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky install",
     "test:dev": "turbo run test:dev",
-    "test:e2e": "start-server-and-test start '4783|4784|8083' test:dev"
+    "test:e2e": "start-server-and-test start '4783|4784|8083' test:dev",
+    "test:nightly": "turbo run test:nightly"
   },
   "devDependencies": {
     "husky": "^8.0.3",
