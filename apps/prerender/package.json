@@ -24,7 +24,7 @@
     "schema-dts": "^1.1.2"
   },
   "devDependencies": {
-    "@types/react": "^18.0.34",
+    "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "eslint-config-weblint": "workspace:*",
     "lens": "workspace:*",
