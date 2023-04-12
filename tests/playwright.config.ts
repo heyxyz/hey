@@ -2,10 +2,6 @@ import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
 import * as os from 'os';
 
-import { isNightly } from './constants';
-
-console.log(isNightly ? 'Running in nightly mode' : 'Running in local mode');
-
 const config: PlaywrightTestConfig = {
   testDir: './scripts',
   timeout: 50 * 1000,
