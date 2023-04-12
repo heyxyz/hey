@@ -756,6 +756,9 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../packages/tsconfig
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
 
 packages:
 
