@@ -1,16 +1,22 @@
-import { IS_MAINNET } from 'data/constants';
-import { polygon, polygonMumbai } from 'wagmi/chains';
+import type { Chain } from 'wagmi';
 
 // Web3
-export const POLYGON_MAINNET = {
-  ...polygon,
-  name: 'Polygon Mainnet',
-  rpcUrls: { default: 'https://polygon-rpc.com' }
-};
-export const POLYGON_MUMBAI = {
-  ...polygonMumbai,
-  name: 'Polygon Mumbai',
-  rpcUrls: { default: 'https://rpc-mumbai.maticvigil.com' }
-};
-export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id;
-export const SIMPLEANALYTICS_API_ENDPOINT = 'https://simpleanalytics.com/lenster.xyz.json';
+export const linea = {
+  id: 59_140,
+  name: 'Linea',
+  network: 'linea',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Ether',
+    symbol: 'ETH'
+  },
+  rpcUrls: {
+    public: { http: ['https://rpc.goerli.linea.build'] },
+    default: { http: ['https://rpc.goerli.linea.build'] }
+  },
+  blockExplorers: {
+    default: { name: 'BlockScout', url: 'https://explorer.goerli.linea.build/' }
+  }
+} as const satisfies Chain;
+
+export const CHAIN_ID = linea.id;
