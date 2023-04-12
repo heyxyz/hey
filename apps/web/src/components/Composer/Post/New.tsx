@@ -22,7 +22,7 @@ interface ActionProps {
 const Action: FC<ActionProps> = ({ icon, text, onClick }) => (
   <Tooltip content={text} placement="top">
     <button
-      className="lt-text-gray-500 hover:text-brand-500 flex flex-col items-center"
+      className="lt-text-gray-500 hover:text-brand flex flex-col items-center"
       onClick={onClick}
       type="button"
     >
