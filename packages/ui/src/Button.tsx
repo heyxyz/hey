@@ -2,7 +2,8 @@ import clsx from 'clsx';
 import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 import { forwardRef } from 'react';
 
-interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+export interface ButtonProps
+  extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
   variant?: 'primary' | 'secondary' | 'warning' | 'super' | 'danger';
   outline?: boolean;

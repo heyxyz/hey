@@ -10,8 +10,7 @@ import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Button, Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
-import { Checkbox } from 'ui/Checkbox';
+import { Button, Card, Checkbox, GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import Feed from './Feed';
 

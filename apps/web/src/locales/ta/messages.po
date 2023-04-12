@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-10 06:46\n"
+"PO-Revision-Date: 2023-04-12 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1403,7 +1403,7 @@ msgstr "இலவச சேகரிப்பு"
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Unknown Collect"
-msgstr ""
+msgstr "அறியப்படாத சேகரிப்பு"
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
@@ -1954,7 +1954,7 @@ msgstr "கணக்கு"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Preferences"
-msgstr ""
+msgstr "முன்னுரிமைகள்"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Interests"
@@ -2573,3 +2573,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+

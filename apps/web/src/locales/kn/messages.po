@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-10 06:46\n"
+"PO-Revision-Date: 2023-04-11 18:12\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -20,43 +20,43 @@ msgstr ""
 
 #: src/components/Comment/Feed.tsx
 msgid "Be the first one to comment!"
-msgstr ""
+msgstr "ಕಾಮೆಂಟ್ ಮಾಡಲು ಮೊದಲಿಗರಾಗಿರಿ!"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
-msgstr ""
+msgstr "ಕಾಮೆಂಟ್ ಫೀಡ್ ಅನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
-msgstr ""
+msgstr "ಹೆಚ್ಚಿನ ಕಾಮೆಂಟ್‌ಗಳನ್ನು ಮರೆಮಾಡಿ"
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Show more comments"
-msgstr ""
+msgstr "ಹೆಚ್ಚಿನ ಕಾಮೆಂಟ್‌ಗಳನ್ನು ತೋರಿಸಿ"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
-msgstr ""
+msgstr "ಈ ಪೋಸ್ಟ್ ಅನ್ನು ಯಾರು ವೀಕ್ಷಿಸಬಹುದು ಎಂಬ ನಿರ್ಬಂಧಗಳನ್ನು ಸೇರಿಸಿ"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
-msgstr ""
+msgstr "ಸಂಗ್ರಹಣೆ ಆಧಾರಿತ ಟೋಕನ್ ಗೇಟಿಂಗ್ ಅನ್ನು ಬಳಸಲು ಮೊದಲು ಸಂಗ್ರಹಣೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Collectors can view"
-msgstr ""
+msgstr "ಸಂಗ್ರಾಹಕರು ವೀಕ್ಷಿಸಬಹುದು"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
-msgstr ""
+msgstr "ಜನರು ಅದನ್ನು ವೀಕ್ಷಿಸಲು ಅದನ್ನು ಮೊದಲು ಸಂಗ್ರಹಿಸಬೇಕು"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Followers can view"
-msgstr ""
+msgstr "ಅನುಯಾಯಿಗಳು ವೀಕ್ಷಿಸಬಹುದು"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to follow you to be able to view it"
-msgstr ""
+msgstr "ಇದನ್ನು ವೀಕ್ಷಿಸಲು ಜನರು ನಿಮ್ಮನ್ನು ಅನುಸರಿಸಬೇಕು"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
@@ -77,31 +77,31 @@ msgstr "ಉಳಿಸಿ"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
-msgstr ""
+msgstr "ಪ್ರವೇಶ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
-msgstr ""
+msgstr "ನಿಮ್ಮ ವಿಷಯವನ್ನು ಯಾರು ವೀಕ್ಷಿಸಬಹುದು ಮತ್ತು ಯಾರು ಸಾಧ್ಯವಿಲ್ಲ ಎಂಬ ನಿರ್ಬಂಧಗಳನ್ನು ಸೇರಿಸಿ. ಉದಾಹರಣೆಗೆ - ನಿರ್ದಿಷ್ಟ NFT ಗಳು ಅಥವಾ ಟೋಕನ್ಗಳನ್ನು ಹೊಂದುವ ಷರತ್ತಿನ ಮೇಲೆ ನಿಮ್ಮ ಪೋಸ್ಟ್ಗಳನ್ನು ಟೋಕನ್ ಗೇಟ್ ಮಾಡಿ."
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
-msgstr ""
+msgstr "1 ಆಡಿಯೊ, ಅಥವಾ 1 ವೀಡಿಯೊ ಅಥವಾ 4 ಚಿತ್ರಗಳ ಗರಿಷ್ಠ ಮಿತಿಯನ್ನು ಮೀರಿದೆ"
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
-msgstr ""
+msgstr "ಫೈಲ್ ಸ್ವರೂಪಕ್ಕೆ ಅನುಮತಿ ಇಲ್ಲ."
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Something went wrong while uploading!"
-msgstr ""
+msgstr "ಸಂಸ್ಕರಿಸುವಲ್ಲಿ ಎನೋ ತೊಂದರೆಯಾಗಿದೆ!"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
-msgstr ""
+msgstr "ಸಂಗ್ರಹಿಸಲು ಶುಲ್ಕ"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Get paid whenever someone collects your post"
-msgstr ""
+msgstr "ಯಾರಾದರೂ ನಿಮ್ಮ ಪೋಸ್ಟ್ ಅನ್ನು ಸಂಗ್ರಹಿಸಿದಾಗ ಹಣ ಪಡೆಯಿರಿ"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Price"
@@ -115,87 +115,87 @@ msgstr "ಕರೆನ್ಸಿ ಆಯ್ಕೆ ಮಾಡಿ"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
-msgstr ""
+msgstr "ಸಂಗ್ರಹಣೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Failed to load modules"
-msgstr ""
+msgstr "ಮಾಡ್ಯೂಲ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
-msgstr ""
+msgstr "ಈ ಪೋಸ್ಟ್ ಸಂಗ್ರಹಿಸಬಹುದು"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
-msgstr ""
+msgstr "ಸೀಮಿತ ಆವೃತ್ತಿ"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
-msgstr ""
+msgstr "ಸಂಗ್ರಹಣೆಗಳನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ಮಾಡಿ"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
-msgstr ""
+msgstr "ಮಿತಿಯನ್ನು ಸಂಗ್ರಹಿಸಿ"
 
 #: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Who can collect"
-msgstr ""
+msgstr "ಯಾರು ಸಂಗ್ರಹಿಸಬಹುದು"
 
 #: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Only followers can collect"
-msgstr ""
+msgstr "ಅನುಯಾಯಿಗಳು ಮಾತ್ರ ಸಂಗ್ರಹಿಸಬಹುದು"
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Mirror referral reward"
-msgstr ""
+msgstr "ಮಿರರ್ ರೆಫರಲ್ ಬಹುಮಾನ"
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Share your fee with people who amplify your content"
-msgstr ""
+msgstr "ನಿಮ್ಮ ವಿಷಯವನ್ನು ವರ್ಧಿಸುವ ಜನರೊಂದಿಗೆ ನಿಮ್ಮ ಶುಲ್ಕವನ್ನು ಹಂಚಿಕೊಳ್ಳಿ"
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Referral fee"
-msgstr ""
+msgstr "ಉಲ್ಲೇಖ ಶುಲ್ಕ"
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Split revenue"
-msgstr ""
+msgstr "ವಿಭಜಿತ ಆದಾಯ"
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Set multiple recipients for the collect fee"
-msgstr ""
+msgstr "ಸಂಗ್ರಹ ಶುಲ್ಕಕ್ಕಾಗಿ ಬಹು ಸ್ವೀಕೃತಕರ್ತರನ್ನು ಹೊಂದಿಸಿ"
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
-msgstr ""
+msgstr "ವಿಭಜನೆಗಳು 100% ಮೀರುವಂತಿಲ್ಲ. ಒಟ್ಟು: <0>{splitTotal}</0>%"
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Duplicate recipient address found"
-msgstr ""
+msgstr "ನಕಲಿ ಸ್ವೀಕರಿಸುವವರ ವಿಳಾಸ ಕಂಡುಬಂದಿದೆ"
 
 #: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
 msgid "Time limit"
-msgstr ""
+msgstr "ಸಮಯ ಮಿತಿ"
 
 #: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
 msgid "Limit collecting to the first 24h"
-msgstr ""
+msgstr "ಮೊದಲ 24ಗಂಟೆಗೆ ಸಂಗ್ರಹಣೆಯನ್ನು ಮಿತಿಗೊಳಿಸಿ"
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
-msgstr ""
+msgstr "ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಸಂಗ್ರಹಿಸಿ"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "Search for GIFs"
-msgstr ""
+msgstr "GIF ಗಳಿಗಾಗಿ ಹುಡುಕಿ"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "No GIFs found."
-msgstr ""
+msgstr "ಯಾವುದೇ ಜಿಐಎಫ್ ಗಳು ಕಂಡುಬಂದಿಲ್ಲ."
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Loading GIFs"
-msgstr ""
+msgstr "ಜಿಐಎಫ್ ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
@@ -203,7 +203,7 @@ msgstr "GIF ಆಯ್ಕೆಮಾಡಿ"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
-msgstr ""
+msgstr "ನನ್ನ ಅನುಯಾಯಿಗಳು"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers"
@@ -211,7 +211,7 @@ msgstr "ನನ್ನ ಅನುಯಾಯಿಗಳು"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friends of friends"
-msgstr ""
+msgstr "ಸ್ನೇಹಿತರ ಸ್ನೇಹಿತರು"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone"
@@ -219,29 +219,29 @@ msgstr "ಎಲ್ಲರೂ"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers can comment and mirror"
-msgstr ""
+msgstr "ನನ್ನ ಅನುಯಾಯಿಗಳು ಕಾಮೆಂಟ್ ಮಾಡಬಹುದು ಮತ್ತು ಪ್ರತಿಬಿಂಬಿಸಬಹುದು"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows can comment and mirror"
-msgstr ""
+msgstr "ನನ್ನ ಅನುಯಾಯಿಗಳು ಕಾಮೆಂಟ್ ಮಾಡಬಹುದು ಮತ್ತು ಪ್ರತಿಬಿಂಬಿಸಬಹುದು"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friend of friends can comment and mirror"
-msgstr ""
+msgstr "ಸ್ನೇಹಿತರ ಸ್ನೇಹಿತರು ಕಾಮೆಂಟ್ ಮಾಡಬಹುದು ಮತ್ತು ಪ್ರತಿಬಿಂಬಿಸಬಹುದು"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone can comment and mirror"
-msgstr ""
+msgstr "ಪ್ರತಿಯೊಬ್ಬರೂ ಕಾಮೆಂಟ್ ಮಾಡಬಹುದು ಮತ್ತು ಪ್ರತಿಬಿಂಬಿಸಬಹುದು"
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
-msgstr ""
+msgstr "ದಯವಿಟ್ಟು 1 ವೀಡಿಯೊ ಅಥವಾ 4 ಫೋಟೋಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ."
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
-msgstr ""
+msgstr "ಏನು ನಡೆಯುತ್ತಿದೆ?"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
@@ -249,34 +249,34 @@ msgstr ""
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
-msgstr ""
+msgstr "ವಹಿವಾಟು ವಿಫಲವಾಗಿದೆ!"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Comment"
-msgstr ""
+msgstr "[cta]ಟಿಪ್ಪಣಿ"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "[cta]Post"
-msgstr ""
+msgstr "[cta]ಪೋಸ್ಟ್"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
-msgstr ""
+msgstr "ಪೋಸ್ಟ್ ರಚಿಸಿ"
 
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
-msgstr ""
+msgstr "ಯಾವುದೇ ಪೋಸ್ಟ್ ಇಲ್ಲ!"
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
-msgstr ""
+msgstr "ಎಕ್ಸ್‌ಪ್ಲೋರ್ ಫೀಡ್ ಅನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
-msgstr ""
+msgstr "ಎಲ್ಲಾ ಪೋಸ್ಟ್‌ಗಳು"
 
 #: src/components/Explore/FeedType.tsx
 msgid "Text"
@@ -308,7 +308,7 @@ msgstr "ಜನಪ್ರಿಯ"
 #: src/components/Explore/index.tsx
 #: src/components/Home/Trending.tsx
 msgid "Trending"
-msgstr ""
+msgstr "ಟ್ರೆಂಡಿಂಗ್"
 
 #: src/components/Explore/index.tsx
 msgid "Interesting"
@@ -316,31 +316,31 @@ msgstr "ಆಸಕ್ತಿದಾಯಕ"
 
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
-msgstr ""
+msgstr "ಅನ್ವೇಷಿಸಿ • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
-msgstr ""
+msgstr "ಉತ್ತಮ, ವೇಗವಾದ, ಬಲವಾದ ಸಂಕೇತರಹಿತ ವಹಿವಾಟುಗಳಿಗಾಗಿ ನಿಮ್ಮ ರವಾನೆದಾರರನ್ನು ಇತ್ತೀಚಿನ ಆವೃತ್ತಿಗೆ ಅಪ್‌ಗ್ರೇಡ್ ಮಾಡಿ."
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
-msgstr ""
+msgstr "ನಿಮ್ಮ ಯಾವುದೇ ವಹಿವಾಟುಗಳಿಗೆ ಸಹಿ ಮಾಡದೆಯೇ {APP_NAME} ರೊಂದಿಗೆ ಸಂವಹನ ನಡೆಸಲು ನೀವು ರವಾನೆದಾರರನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಬಹುದು."
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions Upgrade"
-msgstr ""
+msgstr "ಸಂಕೇತರಹಿತ ವಹಿವಾಟುಗಳನ್ನು ನವೀಕರಿಸಿ"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions"
-msgstr ""
+msgstr "ಸಂಕೇತರಹಿತ ವಹಿವಾಟುಗಳು"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
-msgstr ""
+msgstr "ನೇರ ಸಂದೇಶಗಳು ಇಲ್ಲಿವೆ!"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
@@ -348,35 +348,35 @@ msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
-msgstr ""
+msgstr "ಡಿಎಂಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Filter"
-msgstr ""
+msgstr "ಫಿಲ್ಟರ್"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Posts"
-msgstr ""
+msgstr "ಪೋಸ್ಟ್‌ಗಳನ್ನು ತೋರಿಸಿ"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Mirrors"
-msgstr ""
+msgstr "ಕನ್ನಡಿಗಳನ್ನು ತೋರಿಸಿ"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Likes"
-msgstr ""
+msgstr "ಇಷ್ಟಗಳನ್ನು ತೋರಿಸಿ"
 
 #: src/components/Home/FeedType.tsx
 msgid "Timeline"
-msgstr ""
+msgstr "ಸಮಯಾವಧಿ"
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
-msgstr ""
+msgstr "ಮುಖ್ಯಾಂಶಗಳು"
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
-msgstr ""
+msgstr "{APP_NAME} 👋 ಗೆ ಸುಸ್ವಾಗತ"
 
 #: src/components/Home/Hero.tsx
 msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
@@ -384,38 +384,38 @@ msgstr ""
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
-msgstr ""
+msgstr "ಮುಖ್ಯಾಂಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
-msgstr ""
+msgstr "ಯಾರು ಅನುಸರಿಸಬೇಕು"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "No recommendations!"
-msgstr ""
+msgstr "ಯಾವುದೇ ಶಿಫಾರಸುಗಳಿಲ್ಲ!"
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
-msgstr ""
+msgstr "ಅಧಿಸೂಚನೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Publication/DecryptedPublicationBody.tsx
 #: src/components/Publication/PublicationBody.tsx
 msgid "Show more"
-msgstr ""
+msgstr "ಹೆಚ್ಚು ತೋರಿಸು"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Suggested for you"
-msgstr ""
+msgstr "ನಿಮಗಾಗಿ ಸೂಚಿಸಲಾಗಿದೆ"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
-msgstr ""
+msgstr "ನನ್ನ ಫೀಡ್"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "👀 See the feed through..."
-msgstr ""
+msgstr "👀 ಫೀಡ್ ಮೂಲಕ ನೋಡಿ..."
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
@@ -423,50 +423,50 @@ msgstr "ಹುಡುಕು"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
-msgstr ""
+msgstr "ನಿಮ್ಮ ಸ್ವಂತ ಫೀಡ್ ಗೆ ಫಿಲ್ಟರ್ ಮರುಹೊಂದಿಸಿ"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Searching users"
-msgstr ""
+msgstr "ಬಳಕೆದಾರರನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
 msgid "No matching users"
-msgstr ""
+msgstr "ಹೊಂದುವ ಬಳಕೆದಾರರಿಲ್ಲ"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile"
-msgstr ""
+msgstr "ಡೀಫಾಲ್ಟ್ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಹೊಂದಿಸಿ"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "You own {count} {0} but you don't have a default one."
-msgstr ""
+msgstr "ನೀವು {count} {0} ಅನ್ನು ಹೊಂದಿದ್ದೀರಿ ಆದರೆ ನೀವು ಡೀಫಾಲ್ಟ್ ಅನ್ನು ಹೊಂದಿಲ್ಲ."
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile here"
-msgstr ""
+msgstr "ಡೀಫಾಲ್ಟ್ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಇಲ್ಲಿ ಹೊಂದಿಸಿ"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Setup your {APP_NAME} profile"
-msgstr ""
+msgstr "ನಿಮ್ಮ {APP_NAME} ಪ್ರೊಫೈಲ್ ಅನ್ನು ಹೊಂದಿಸಿ"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile name"
-msgstr ""
+msgstr "ಪ್ರೊಫೈಲ್ ಹೆಸರನ್ನು ಹೊಂದಿಸಿ"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile bio"
-msgstr ""
+msgstr "ಪ್ರೊಫೈಲ್ ಬಯೋ ಹೊಂದಿಸಿ"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set your avatar"
-msgstr ""
+msgstr "ನಿಮ್ಮ ಅವತಾರ್ ಹೊಂದಿಸಿ"
 
 #: src/components/Home/SetProfile.tsx
 #: src/components/Settings/Interests/index.tsx
 msgid "Select profile interests"
-msgstr ""
+msgstr "ಪ್ರೊಫೈಲ್ ಆಸಕ್ತಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
@@ -482,49 +482,49 @@ msgstr "ಸೂಚಿಸಲು ಏನೂ ಇಲ್ಲ"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
-msgstr ""
+msgstr "ಸಂಗ್ರಹಿಸಲಾಗಿದೆ"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
-msgstr ""
+msgstr "ಪ್ರತಿಬಿಂಬಿಸಿದೆ{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "commented{0}{1}"
-msgstr ""
+msgstr "ಕಾಮೆಂಟ್ ಮಾಡಲಾಗಿದೆ{0}{1}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected{0}"
-msgstr ""
+msgstr "{0} ಸಂಗ್ರಹಿಸಲಾಗಿದೆ"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
-msgstr ""
+msgstr "ಇಷ್ಟವಾಯಿತು"
 
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "mirrored"
-msgstr ""
+msgstr "ಪ್ರತಿಬಿಂಬಿಸಿದೆ"
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
-msgstr ""
+msgstr "ಮುಖ್ಯಾಂಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Home/Trending.tsx
 msgid "Failed to load trending"
-msgstr ""
+msgstr "ಟ್ರೆಂಡಿಂಗ್ ಅನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
-msgstr ""
+msgstr "{0} ಪ್ರಕಟಣೆಗಳು"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
-msgstr ""
+msgstr "ಸಂದೇಶ ಕಳುಹಿಸುವಲ್ಲಿ ದೋಷ"
 
 #: src/components/Messages/Composer.tsx
 msgid "Type Something"
-msgstr ""
+msgstr "ಏನನ್ನಾದರೂ ಟೈಪ್ ಮಾಡಿ"
 
 #: src/components/Messages/Composer.tsx
 msgid "Send"
@@ -540,21 +540,21 @@ msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "You can't send them a message until they enable DMs."
-msgstr ""
+msgstr "ಅವರು ಡಿಎಂಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸುವವರೆಗೆ ನೀವು ಅವರಿಗೆ ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This is the beginning of the conversation"
-msgstr ""
+msgstr "ಇದು ಸಂಭಾಷಣೆಯ ಪ್ರಾರಂಭವಾಗಿದೆ"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
+msgstr "ಲೋಡ್‌ಆಗುತ್ತಿದೆ..."
 
 #: src/components/Messages/PreviewList.tsx
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
-msgstr ""
+msgstr "ಅನುಸರಿಸುತ್ತಿದೆ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Requested"
@@ -562,19 +562,19 @@ msgstr "ವಿನಂತಿಸಲಾಗಿದೆ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
-msgstr ""
+msgstr "ಈ ಸಂಭಾಷಣೆಗಳು ನೀವು ಪ್ರಸ್ತುತ ಅನುಸರಿಸದಿರುವ ಲೆನ್ಸ್ ಪ್ರೊಫೈಲ್‌ಗಳಿಂದ ಬಂದವು."
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
-msgstr ""
+msgstr "ಸಂಭಾಷಣೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
-msgstr ""
+msgstr "ಸಂದೇಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Start messaging your Lens frens"
-msgstr ""
+msgstr "ನಿಮ್ಮ ಲೆನ್ಸ್ ಫ್ರೆನ್ಸ್‌ಗೆ ಸಂದೇಶ ಕಳುಹಿಸಲು ಪ್ರಾರಂಭಿಸಿ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
@@ -582,7 +582,7 @@ msgstr "ಹೊಸ ಸಂದೇಶ"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
-msgstr ""
+msgstr "ಮೆಸೇಜ್ ಮಾಡಲು ಯಾರನ್ನಾದರೂ ಹುಡುಕಿ..."
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
@@ -590,11 +590,11 @@ msgstr "ಸಂವಾದವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
 #: src/components/Messages/index.tsx
 msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
+msgstr "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸಂಭಾಷಣೆಯನ್ನು ಆರಿಸಿ ಅಥವಾ ಸಂದೇಶ ಕಳುಹಿಸುವಿಕೆಯನ್ನು ಪ್ರಾರಂಭಿಸಲು ಹೊಸದನ್ನು ರಚಿಸಿ"
 
 #: src/components/Messages/index.tsx
 msgid "Messages • {APP_NAME}"
-msgstr ""
+msgstr "ಸಂದೇಶಗಳು • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -606,7 +606,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Refresh feed"
-msgstr ""
+msgstr "ಫೀಡ್ ತಾಜಾ ಮಾಡಿ"
 
 #: src/components/Mod/index.tsx
 msgid "Publication filters"
@@ -623,15 +623,15 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
-msgstr ""
+msgstr "ಕಸ್ಟಮ್ ಶೋಧಕಗಳು"
 
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
-msgstr ""
+msgstr "ತೋಟಗಾರರು"
 
 #: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
-msgstr ""
+msgstr "ಯಾವುದೇ ಎನ್ಎಫ್ಟಿಗಳನ್ನು ಹೊಂದಿಲ್ಲ!"
 
 #: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
@@ -648,19 +648,19 @@ msgstr "ಉಲ್ಲೇಖಗಳು"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
-msgstr ""
+msgstr "ಇಷ್ಟಗಳು"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Collects"
-msgstr ""
+msgstr "ಸಂಗ್ರಹಿಸುತ್ತದೆ"
 
 #: src/components/Notification/List.tsx
 msgid "Failed to load notifications"
-msgstr ""
+msgstr "ಅಧಿಸೂಚನೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
-msgstr ""
+msgstr "ಇನ್‌ಬಾಕ್ಸ್ ಶೂನ್ಯ!"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
@@ -668,103 +668,103 @@ msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮ <2>ಕಾಮೆಂಟ್</2> ಸಂಗ್ರಹಿಸಲಾಗಿದೆ</0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮ <2>ಕಾಮೆಂಟ್</2> ಸಂಗ್ರಹಿಸಲಾಗಿದೆ</0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮ <2>ಕಾಮೆಂಟ್</2> ಸಂಗ್ರಹಿಸಲಾಗಿದೆ</0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮ <2>ಕಾಮೆಂಟ್</2> ಸಂಗ್ರಹಿಸಲಾಗಿದೆ</0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮ <2>ಕಾಮೆಂಟ್</2> ಸಂಗ್ರಹಿಸಲಾಗಿದೆ</0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮ <2>ಕಾಮೆಂಟ್</2> ಸಂಗ್ರಹಿಸಲಾಗಿದೆ</0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮನ್ನು ಹಿಂಬಾಲಿಸಿದರು</0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮನ್ನು ಹಿಂಬಾಲಿಸಿದರು</0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> ನಿಮ್ಮ <2>ಕಾಮೆಂಟ್ ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</2></0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮ <2>ಕನ್ನಡಿಯನ್ನು</2> ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> ನಿಮ್ಮ <2>ಪೋಸ್ಟ್ ಅನ್ನು ಇಷ್ಟಪಟ್ಟಿದ್ದಾರೆ</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/><2>ಕಾಮೆಂಟ್ನಲ್ಲಿ</2> ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸಲಾಗಿದೆ</0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/><2>ಕನ್ನಡಿಯಲ್ಲಿ</2> ನಿಮ್ಮನ್ನು ಉಲ್ಲೇಖಿಸಲಾಗಿದೆ</0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/>ನಿಮ್ಮನ್ನು <2>ಪೋಸ್ಟ್ನಲ್ಲಿ</2> ಉಲ್ಲೇಖಿಸಲಾಗಿದೆ</0>"
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> ನಿಮ್ಮ <2>ಕಾಮೆಂಟ್ ಅನ್ನು ಪ್ರತಿಬಿಂಬಿಸಿದೆ</2></0>"
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> ನಿಮ್ಮ <2>ಕನ್ನಡಿಯನ್ನು ಪ್ರತಿಬಿಂಬಿಸಿದೆ</2></0>"
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> ನಿಮ್ಮ <2>ಪೋಸ್ಟ್ ಅನ್ನು ಪ್ರತಿಬಿಂಬಿಸಿದೆ</2></0>"
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
-msgstr ""
+msgstr "ಅಧಿಸೂಚನೆಗಳು • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
 msgid "Email is not valid"
-msgstr ""
+msgstr "ಇಮೇಲ್ ಮಾನ್ಯವಾಗಿಲ್ಲ"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
-msgstr ""
+msgstr "ವಿಷಯವು ಖಾಲಿಯಾಗಿರಬಾರದು"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not exceed 260 characters"
-msgstr ""
+msgstr "ವಿಷಯವು 260 ಅಕ್ಷರಗಳನ್ನು ಮೀರಬಾರದು"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message should not be empty"
-msgstr ""
+msgstr "ಸಂದೇಶವು ಖಾಲಿಯಾಗಿರಬಾರದು"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message should not exceed 1000 characters"
-msgstr ""
+msgstr "ಸಂದೇಶವು 1000 ಅಕ್ಷರಗಳನ್ನು ಮೀರಬಾರದು"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
-msgstr ""
+msgstr "ಸಂಪರ್ಕಿಸಿ • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact {APP_NAME}"
-msgstr ""
+msgstr "ಸಂಪರ್ಕಿಸಿ • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact us to help you get the issue resolved."
@@ -810,28 +810,28 @@ msgstr "ನವೀಕರಿಸಲಾಗಿದೆ {updatedAt}"
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
 msgid "1. Overview"
-msgstr ""
+msgstr "1. ಅವಲೋಕನ"
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing the Site, you agree to not only this Privacy Policy, but also to our Terms of Use and any other written agreements for using the Site. And you agree to our collection and use of any personal data (as described here) as well as the features of public/permissionless blockchain technology."
-msgstr ""
+msgstr "ಸೈಟ್ ಅನ್ನು ಪ್ರವೇಶಿಸುವ ಮೂಲಕ, ನೀವು ಈ ಗೌಪ್ಯತಾ ನೀತಿಗೆ ಮಾತ್ರವಲ್ಲದೆ, ಸೈಟ್ ಅನ್ನು ಬಳಸಲು ನಮ್ಮ ಬಳಕೆಯ ನಿಯಮಗಳು ಮತ್ತು ಇತರ ಯಾವುದೇ ಲಿಖಿತ ಒಪ್ಪಂದಗಳಿಗೆ ಸಹ ಒಪ್ಪುತ್ತೀರಿ. ಮತ್ತು ಯಾವುದೇ ವೈಯಕ್ತಿಕ ಡೇಟಾದ (ಇಲ್ಲಿ ವಿವರಿಸಿದಂತೆ) ನಮ್ಮ ಸಂಗ್ರಹಣೆ ಮತ್ತು ಬಳಕೆ ಮತ್ತು ಸಾರ್ವಜನಿಕ / ಅನುಮತಿರಹಿತ ಬ್ಲಾಕ್ ಚೈನ್ ತಂತ್ರಜ್ಞಾನದ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ನೀವು ಒಪ್ಪುತ್ತೀರಿ."
 
 #: src/components/Pages/Privacy.tsx
 msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
-msgstr ""
+msgstr "ಈ ಗೌಪ್ಯತಾ ನೀತಿ (“ಗೌಪ್ಯತೆ ನೀತಿ”) Lenster.xyz ನಲ್ಲಿನ ವೆಬ್ಸೈಟ್ಗೆ ಸಂಬಂಧಿಸಿದಂತೆ ನಿಮ್ಮ ಬಗ್ಗೆ ಮಾಹಿತಿಯನ್ನು ಲೆನ್ಸ್ಟರ್ (“ನಾವು,” “ನಮ್ಮ,” ಅಥವಾ “ನಮಗೆ”) ಹೇಗೆ ಸಂಗ್ರಹಿಸುತ್ತದೆ, ಬಳಸುತ್ತದೆ ಮತ್ತು ಹಂಚಿಕೊಳ್ಳುತ್ತದೆ ಎಂಬುದರ ಸಮಗ್ರ ವಿವರಣೆಯನ್ನು ಒದಗಿಸುತ್ತದೆ."
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing or using the Site, you accept and assume certain inherent features related to engaging in recording the data on the blockchain. Interactions with the Lens Protocol rely on smart contracts stored on a publicly available blockchain, cryptographic tokens generated by the smart contracts, and other nascent software, applications and systems that interact with blockchain-based networks. One of the defining features of blockchain technology is that its entries are immutable, which means, as a technical matter, they generally cannot be deleted or modified by anyone. If you are not comfortable assuming the inherently immutable and public nature of all entries on the blockchain, you should not engage with our Site."
-msgstr ""
+msgstr "ಸೈಟ್ ಅನ್ನು ಪ್ರವೇಶಿಸುವ ಮೂಲಕ ಅಥವಾ ಬಳಸುವ ಮೂಲಕ, ಬ್ಲಾಕ್‌ಚೈನ್‌ನಲ್ಲಿ ಡೇಟಾವನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಲು ತೊಡಗಿಸಿಕೊಳ್ಳಲು ಸಂಬಂಧಿಸಿದ ಕೆಲವು ಅಂತರ್ಗತ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ನೀವು ಸ್ವೀಕರಿಸುತ್ತೀರಿ ಮತ್ತು ಊಹಿಸುತ್ತೀರಿ. ಲೆನ್ಸ್ ಪ್ರೋಟೋಕಾಲ್‌ನೊಂದಿಗಿನ ಸಂವಹನಗಳು ಸಾರ್ವಜನಿಕವಾಗಿ ಲಭ್ಯವಿರುವ ಬ್ಲಾಕ್‌ಚೈನ್‌ನಲ್ಲಿ ಸಂಗ್ರಹಿಸಲಾದ ಸ್ಮಾರ್ಟ್ ಒಪ್ಪಂದಗಳು, ಸ್ಮಾರ್ಟ್ ಒಪ್ಪಂದಗಳಿಂದ ರಚಿಸಲಾದ ಕ್ರಿಪ್ಟೋಗ್ರಾಫಿಕ್ ಟೋಕನ್‌ಗಳು ಮತ್ತು ಬ್ಲಾಕ್‌ಚೈನ್ ಆಧಾರಿತ ನೆಟ್‌ವರ್ಕ್‌ಗಳೊಂದಿಗೆ ಸಂವಹನ ನಡೆಸುವ ಇತರ ಹೊಸ ಸಾಫ್ಟ್‌ವೇರ್, ಅಪ್ಲಿಕೇಶನ್‌ಗಳು ಮತ್ತು ಸಿಸ್ಟಮ್‌ಗಳನ್ನು ಅವಲಂಬಿಸಿವೆ. ಬ್ಲಾಕ್‌ಚೈನ್ ತಂತ್ರಜ್ಞಾನದ ವಿವರಣಾತ್ಮಕ ವೈಶಿಷ್ಟ್ಯವೆಂದರೆ ಅದರ ನಮೂದುಗಳು ಬದಲಾಗುವುದಿಲ್ಲ, ಅಂದರೆ, ತಾಂತ್ರಿಕ ವಿಷಯವಾಗಿ, ಅವುಗಳನ್ನು ಸಾಮಾನ್ಯವಾಗಿ ಯಾರಿಂದಲೂ ಅಳಿಸಲಾಗುವುದಿಲ್ಲ ಅಥವಾ ಮಾರ್ಪಡಿಸಲಾಗುವುದಿಲ್ಲ. ಬ್ಲಾಕ್‌ಚೈನ್‌ನಲ್ಲಿನ ಎಲ್ಲಾ ನಮೂದುಗಳ ಅಂತರ್ಗತವಾಗಿ ಬದಲಾಗದ ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸ್ವಭಾವವನ್ನು ಊಹಿಸಲು ನೀವು ಆರಾಮದಾಯಕವಾಗಿಲ್ಲದಿದ್ದರೆ, ನೀವು ನಮ್ಮ ಸೈಟ್‌ನೊಂದಿಗೆ ತೊಡಗಿಸಿಕೊಳ್ಳಬಾರದು."
 
 #: src/components/Pages/Privacy.tsx
 msgid "2. Information Collection"
-msgstr ""
+msgstr "2. ಮಾಹಿತಿ ಸಂಗ್ರಹ"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Privacy.tsx
 msgid "We may collect the following information about you when you use the Site:"
-msgstr ""
+msgstr "ನೀವು ಸೈಟ್ ಬಳಸುವಾಗ ನಿಮ್ಮ ಬಗ್ಗೆ ಈ ಕೆಳಗಿನ ಮಾಹಿತಿಯನ್ನು ನಾವು ಸಂಗ್ರಹಿಸಬಹುದು:"
 
 #: src/components/Pages/Privacy.tsx
 msgid "Information you provide such as feedback, question and issues reports."
@@ -843,11 +843,11 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may use tracking technologies to automatically collect information including the following:"
-msgstr ""
+msgstr "ಕೆಳಗಿನವುಗಳನ್ನು ಒಳಗೊಂಡಂತೆ ಮಾಹಿತಿಯನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸಂಗ್ರಹಿಸಲು ನಾವು ಟ್ರ್ಯಾಕಿಂಗ್ ತಂತ್ರಜ್ಞಾನಗಳನ್ನು ಬಳಸಬಹುದು:"
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Log Files</0>, to record events or errors that occur when using our Site."
-msgstr ""
+msgstr "<0>ಲಾಗ್ ಫೈಲ್ಗಳು</0>, ನಮ್ಮ ಸೈಟ್ ಬಳಸುವಾಗ ಸಂಭವಿಸುವ ಘಟನೆಗಳು ಅಥವಾ ದೋಷಗಳನ್ನು ದಾಖಲಿಸಲು."
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Cookies</0>, small data stored on your device that are necessary for you to browse the Site."
@@ -859,7 +859,7 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "3. Use of Information"
-msgstr ""
+msgstr "3. ಮಾಹಿತಿಯ ಬಳಕೆ"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may need to use it to operate and manage the Services on this Site (or other places), provide you support, ensure we comply with laws and regulation, and enforce the security of the Site or make other improvements."
@@ -867,7 +867,7 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "4. Third-Parties"
-msgstr ""
+msgstr "4. ಮೂರನೇ ಪಕ್ಷಗಳು"
 
 #: src/components/Pages/Privacy.tsx
 msgid "This Privacy Policy does not apply to websites, apps, products, or services that we do not own or control. For example, your interactions with Ethereum wallet are governed by the applicable privacy policies of that particular wallet."
@@ -2573,3 +2573,4 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
+

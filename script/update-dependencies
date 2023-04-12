@@ -17,11 +17,11 @@ echo "Branch created 🎉"
 
 # Update dependencies in package.json
 echo "Updating dependencies in package.json 📦"
-yarn upgrade-interactive --latest
+pnpm update --interactive --recursive --latest
 # Wait for user to finish updating dependencies
 read -p "Press enter to continue"
-# Clean up yarn.lock file and install dependencies
-rm yarn.lock && yarn
+# Clean up pnpm-lock.yaml file and install dependencies
+rm pnpm-lock.yaml && pnpm install
 # Git operations
 git add -A
 git commit -am "chore: update dependencies 📦"
