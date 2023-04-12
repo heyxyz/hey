@@ -464,7 +464,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
-      provider,
+      provider: provider as any,
       signer,
       env: LIT_PROTOCOL_ENVIRONMENT as any
     });

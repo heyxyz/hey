@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { Spinner } from './Spinner';
+import { Spinner } from '../src/Spinner';
 
 interface PageLoadingProps {
   message?: string;
