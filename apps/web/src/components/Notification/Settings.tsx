@@ -35,8 +35,8 @@ const Settings: FC = () => {
             setOn={() => {
               setHighSignalNotificationFilter(!highSignalNotificationFilter);
             }}
-            heading={t`Quality filter`}
-            description={t`Choose to filter out low-quality notifications`}
+            heading={t`Signal filter`}
+            description={t`Turn on high-signal notification filter`}
             icon={<ColorSwatchIcon className="h-4 w-4" />}
           />
         </div>
