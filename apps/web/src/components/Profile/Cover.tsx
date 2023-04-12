@@ -11,6 +11,7 @@ const Cover: FC<CoverProps> = ({ cover }) => {
   return (
     <div
       className="h-52 sm:h-80"
+      data-testid="profile-cover"
       style={{
         backgroundImage: `url(${
           cover ? imageProxy(sanitizeDStorageUrl(cover), COVER) : `${STATIC_IMAGES_URL}/patterns/2.svg`
