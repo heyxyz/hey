@@ -3,6 +3,10 @@ import { WEB_BASE_URL } from 'test/constants';
 
 test.describe('Profile sidebar', async () => {
   test.describe('Profile details', async () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto(`${WEB_BASE_URL}/u/yoginth`);
+    });
+
     test('should have name', async ({ page }) => {
       await expect(page.getByTestId('profile-name')).toContainText('Yoginth');
     });
@@ -25,6 +29,10 @@ test.describe('Profile sidebar', async () => {
   });
 
   test.describe('Profile links', async () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto(`${WEB_BASE_URL}/u/yoginth`);
+    });
+
     test('should have meta ens', async ({ page }) => {
       await expect(page.getByTestId('profile-meta-ens')).toContainText('yoginth.eth');
     });
