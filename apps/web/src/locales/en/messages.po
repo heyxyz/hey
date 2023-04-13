@@ -662,6 +662,18 @@ msgstr ""
 msgid "Inbox zero!"
 msgstr ""
 
+#: src/components/Notification/Settings.tsx
+msgid "Notification settings"
+msgstr "Notification settings"
+
+#: src/components/Notification/Settings.tsx
+msgid "Signal filter"
+msgstr "Signal filter"
+
+#: src/components/Notification/Settings.tsx
+msgid "Turn on high-signal notification filter"
+msgstr "Turn on high-signal notification filter"
+
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
 msgstr ""
