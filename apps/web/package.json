@@ -4,13 +4,13 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "lingui compile; next dev --port 4783",
-    "build": "lingui compile; next build",
+    "dev": "npx lingui compile && next dev --port 4783",
+    "build": "npx lingui compile && next build",
     "start": "next start --port 4783",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
-    "extract": "lingui compile; lingui extract"
+    "extract": "npx lingui compile && lingui extract"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.312.0",
