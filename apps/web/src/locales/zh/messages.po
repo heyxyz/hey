@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-11 00:09\n"
+"PO-Revision-Date: 2023-04-13 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -661,6 +661,18 @@ msgstr "无法加载通知"
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
 msgstr "收件箱消息为零！"
+
+#: src/components/Notification/Settings.tsx
+msgid "Notification settings"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Signal filter"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Turn on high-signal notification filter"
+msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"

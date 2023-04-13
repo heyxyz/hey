@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-12 00:08\n"
+"PO-Revision-Date: 2023-04-13 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -661,6 +661,18 @@ msgstr "அறிவிப்புகளை ஏற்றுவதில் த�
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
 msgstr "இன்பாக்ஸ் பூஜ்யம்!"
+
+#: src/components/Notification/Settings.tsx
+msgid "Notification settings"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Signal filter"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Turn on high-signal notification filter"
+msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
