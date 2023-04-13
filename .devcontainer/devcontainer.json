@@ -11,8 +11,8 @@
     "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
   },
   "hostRequirements": {
-    "cpus": 4,
-    "memory": "4gb"
+    "cpus": 6,
+    "memory": "6gb"
   },
   "onCreateCommand": "./script/bootstrap",
   "postStartCommand": "pnpm dev",
