@@ -24,7 +24,7 @@ import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
+import { Card, GridItemEight, GridItemFour, GridLayout, Spinner } from 'ui';
 
 import StaffToolsSidebar from '../Sidebar';
 
@@ -111,7 +111,7 @@ const Stats: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Stafftools • ${APP_NAME}`} />
+      <MetaTags title={t`Stafftools | Stats • ${APP_NAME}`} />
       <GridItemFour>
         <StaffToolsSidebar />
       </GridItemFour>
@@ -120,7 +120,9 @@ const Stats: NextPage = () => {
           {error ? (
             <b className="text-red-500">{Errors.SomethingWentWrong}</b>
           ) : loading || todayLoading || yesterdayLoading ? (
-            <div>Loading...</div>
+            <div className="flex justify-center">
+              <Spinner size="sm" />
+            </div>
           ) : (
             <section className="space-y-3">
               <h1 className="mb-4 text-xl font-bold">Stats</h1>
