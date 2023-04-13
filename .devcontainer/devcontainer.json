@@ -17,7 +17,7 @@
   },
   "onCreateCommand": "./script/bootstrap",
   "postStartCommand": "pnpm dev",
-  "forwardPorts": [4783, 4784, 8082, 8083, 8084, 8085],
+  "forwardPorts": [4783, 4784, 4785, 8082, 8083, 8084, 8085],
   "customizations": {
     "vscode": {
       "extensions": [
