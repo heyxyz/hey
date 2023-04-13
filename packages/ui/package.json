@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.13",
+    "@headlessui/react": "^1.7.14",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.0.1",
     "@tippyjs/react": "^4.2.6",
