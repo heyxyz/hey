@@ -100,7 +100,6 @@ const ReferenceSettings: FC = () => {
         onChange={handleChange}
         min="1"
         max="4"
-        step="1"
         value={
           isMyFollows
             ? MY_FOLLOWS.value
