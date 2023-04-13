@@ -29,9 +29,10 @@ const getS3Client = async (): Promise<S3> => {
  * Uploads a set of files to the IPFS network via S3 and returns an array of LensterAttachment objects.
  *
  * @param data Files to upload to IPFS.
+ * @param useFallback Whether to use IPFS as a fallback option.
  * @returns Array of LensterAttachment objects.
  */
-const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
+const uploadToIPFS = async (data: any, useFallback: boolean = true): Promise<LensterAttachment[]> => {
   try {
     const client = await getS3Client();
     const files = Array.from(data);
@@ -56,6 +57,32 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
 
     return attachments;
   } catch (error) {
+    if (useFallback) {
+      try {
+        const formData = new FormData();
+        Array.from(data).forEach((file: any) => formData.append('file', file));
+
+        const response = await axios.post('https://ipfs.infura.io:5001/api/v0/add', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        const attachments: LensterAttachment[] = [];
+        response.data.forEach((item: any) => {
+          attachments.push({
+            item: `ipfs://${item.Hash}`,
+            type: item.Type,
+            altTag: ''
+          });
+        });
+
+        return attachments;
+      } catch (error) {
+        return [];
+      }
+    }
+
     return [];
   }
 };
@@ -64,27 +91,4 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
  * Uploads a file to the IPFS network via S3 and returns a LensterAttachment object.
  *
  * @param file File to upload to IPFS.
- * @returns LensterAttachment object or null if the upload fails.
- */
-export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment | null> => {
-  try {
-    const client = await getS3Client();
-    const params = {
-      Bucket: S3_BUCKET.LENSTER_MEDIA,
-      Key: uuid()
-    };
-    await client.putObject({ ...params, Body: file, ContentType: file.type });
-    const result = await client.headObject(params);
-    const metadata = result.Metadata;
-
-    return {
-      item: `ipfs://${metadata?.['ipfs-hash']}`,
-      type: file.type || 'image/jpeg',
-      altTag: ''
-    };
-  } catch {
-    return null;
-  }
-};
-
-export default uploadToIPFS;
+ * @param useFallback Whether to use IPFS as a fallback
