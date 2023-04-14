@@ -12,7 +12,7 @@
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
-    "storybook": "^7.0.2",
+    "storybook": "^7.0.4",
     "ui": "workspace:*"
   },
   "devDependencies": {
