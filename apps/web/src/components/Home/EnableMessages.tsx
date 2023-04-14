@@ -48,7 +48,7 @@ const EnableMessages: FC = () => {
         <Trans>Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens.</Trans>
       </p>
       <Button
-        className={clsx({ 'text-sm': true }, `mr-auto`)}
+        className={clsx({ 'text-sm': true }, 'mr-auto')}
         icon={<MailIcon className="h-4 w-4" />}
         onClick={onConversationSelected}
       >
