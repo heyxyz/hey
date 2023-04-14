@@ -13,14 +13,26 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v3
 
+      - name: Check for changes 📝
+        id: check
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            changed:
+              - 'packages/workers/**'
+
+      - name: Skip deploy 🚫
+        if: steps.check.outputs.changed == 'false'
+        run: exit 0
+
       - name: Setup pnpm 🌸
         uses: pnpm/action-setup@v2.2.4
 
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Install 📦
         run: pnpm install --frozen-lockfile
