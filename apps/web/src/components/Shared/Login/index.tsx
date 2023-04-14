@@ -8,7 +8,7 @@ import NewProfile from './New';
 
 const Login: FC = () => {
   const [hasConnected, setHasConnected] = useState(false);
-  const [hasProfile, setHasProfile] = useState(true);
+  const [hasProfile, setHasProfile] = useState(false);
 
   return (
     <div className="p-5">
