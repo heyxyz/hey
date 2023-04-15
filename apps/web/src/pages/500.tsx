@@ -21,7 +21,11 @@ const Custom500: FC = () => {
           </Trans>
         </div>
         <Link href="/">
-          <Button className="item-center mx-auto flex" size="lg" icon={<HomeIcon className="h-4 w-4" />}>
+          <Button
+            className="item-center mx-auto flex"
+            size="lg"
+            leadingIcon={<HomeIcon className="h-4 w-4" />}
+          >
             <Trans>Go to home</Trans>
           </Button>
         </Link>

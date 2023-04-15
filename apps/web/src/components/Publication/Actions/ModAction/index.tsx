@@ -72,7 +72,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
       variant="warning"
       size="sm"
       outline
-      icon={icon}
+      leadingIcon={icon}
       onClick={() => {
         reportPublication({ type, subreason });
         Mixpanel.track(MOD.REPORT, {
@@ -120,7 +120,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
         variant="danger"
         size="sm"
         outline
-        icon={<BanIcon className="h-4 w-4" />}
+        leadingIcon={<BanIcon className="h-4 w-4" />}
         onClick={() => setShowReportAlert(true)}
       >
         <Trans>Report</Trans>
@@ -131,7 +131,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
         }}
         size="sm"
         disabled={loading}
-        icon={<ShieldCheckIcon className="h-4 w-4" />}
+        leadingIcon={<ShieldCheckIcon className="h-4 w-4" />}
       >
         <Trans>Others</Trans>
       </Button>

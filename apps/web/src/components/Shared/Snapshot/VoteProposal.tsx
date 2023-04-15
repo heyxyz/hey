@@ -154,7 +154,7 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
           disabled={voteDisabled}
           className="w-full justify-center"
           size="lg"
-          icon={
+          leadingIcon={
             buttonLoading ? <Spinner size="xs" className="mr-1" /> : <CheckCircleIcon className="h-5 w-5" />
           }
           onClick={() => sign(voteConfig.position)}

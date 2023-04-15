@@ -98,7 +98,7 @@ const Contact: FC = () => {
                 <Button
                   type="submit"
                   disabled={submitting}
-                  icon={submitting ? <Spinner size="xs" /> : <PencilAltIcon className="h-4 w-4" />}
+                  leadingIcon={submitting ? <Spinner size="xs" /> : <PencilAltIcon className="h-4 w-4" />}
                 >
                   <Trans>Submit</Trans>
                 </Button>

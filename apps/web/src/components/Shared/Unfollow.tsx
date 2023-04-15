@@ -89,7 +89,7 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }
       disabled={typedDataLoading || signLoading || writeLoading}
       variant="danger"
       aria-label="Unfollow"
-      icon={
+      leadingIcon={
         typedDataLoading || signLoading || writeLoading ? (
           <Spinner variant="danger" size="xs" />
         ) : (

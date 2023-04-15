@@ -208,7 +208,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
             type="submit"
             disabled={isLoading || !imageSrc}
             onClick={() => uploadAndSave()}
-            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+            leadingIcon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
           >
             <Trans>Save</Trans>
           </Button>

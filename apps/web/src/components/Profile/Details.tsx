@@ -125,7 +125,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         <div>
           {currentProfile?.id === profile?.id ? (
             <Link href="/settings">
-              <Button variant="secondary" icon={<CogIcon className="h-5 w-5" />} outline>
+              <Button variant="secondary" leadingIcon={<CogIcon className="h-5 w-5" />} outline>
                 <Trans>Edit Profile</Trans>
               </Button>
             </Link>

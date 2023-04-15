@@ -118,7 +118,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfil
         {chain?.id === CHAIN_ID ? (
           <Button
             disabled={loading}
-            icon={
+            leadingIcon={
               loading ? (
                 <Spinner className="mr-0.5" size="xs" />
               ) : (

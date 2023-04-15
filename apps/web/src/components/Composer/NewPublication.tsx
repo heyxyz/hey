@@ -553,7 +553,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
             disabled={isLoading || isUploading}
-            icon={
+            leadingIcon={
               isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (

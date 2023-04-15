@@ -168,7 +168,7 @@ const Follow: FC<FollowProps> = ({
       onClick={createFollow}
       aria-label="Follow"
       disabled={isLoading}
-      icon={isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />}
+      leadingIcon={isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />}
     >
       {showText && t`Follow`}
     </Button>

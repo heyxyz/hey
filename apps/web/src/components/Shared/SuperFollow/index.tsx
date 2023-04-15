@@ -45,7 +45,7 @@ const SuperFollow: FC<SuperFollowProps> = ({ profile, setFollowing, showText = f
           Mixpanel.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
         aria-label="Super Follow"
-        icon={<StarIcon className="h-4 w-4" />}
+        leadingIcon={<StarIcon className="h-4 w-4" />}
       >
         {showText && t`Super follow`}
       </Button>

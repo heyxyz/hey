@@ -42,7 +42,7 @@ const Pending: FC<PendingProps> = ({ txHash, indexing, indexed, type, urlPrefix 
           <div>{indexed}</div>
           <div className="pt-3">
             <Link href={`/${urlPrefix}/${data?.publication?.id}`}>
-              <Button className="mx-auto" icon={<ArrowRightIcon className="mr-1 h-4 w-4" />}>
+              <Button className="mx-auto" leadingIcon={<ArrowRightIcon className="mr-1 h-4 w-4" />}>
                 <Trans>Go to {type}</Trans>
               </Button>
             </Link>

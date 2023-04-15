@@ -74,7 +74,7 @@ const Interests: FC = () => {
                 disabled={
                   !selectedTopics.includes(subCategory.id) && selectedTopics.length === MAX_TOPICS_ALLOWED
                 }
-                icon={
+                leadingIcon={
                   selectedTopics.includes(subCategory.id) ? (
                     <CheckCircleIcon className="text-brand h-4 w-4" />
                   ) : (
@@ -96,7 +96,7 @@ const Interests: FC = () => {
                 disabled={
                   !selectedTopics.includes(category.id) && selectedTopics.length === MAX_TOPICS_ALLOWED
                 }
-                icon={
+                leadingIcon={
                   selectedTopics.includes(category.id) ? (
                     <CheckCircleIcon className="text-brand h-4 w-4" />
                   ) : (

@@ -73,7 +73,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
   return allowed ? (
     <Button
       variant="warning"
-      icon={
+      leadingIcon={
         queryLoading || transactionLoading || waitLoading ? (
           <Spinner variant="warning" size="xs" />
         ) : (
@@ -86,7 +86,10 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
     </Button>
   ) : (
     <>
-      <Button icon={<PlusIcon className="h-4 w-4" />} onClick={() => setShowWarningModal(!showWarningModal)}>
+      <Button
+        leadingIcon={<PlusIcon className="h-4 w-4" />}
+        onClick={() => setShowWarningModal(!showWarningModal)}
+      >
         {title}
       </Button>
       <Modal
@@ -108,7 +111,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
             }
           />
           <Button
-            icon={
+            leadingIcon={
               queryLoading || transactionLoading || waitLoading ? (
                 <Spinner size="xs" />
               ) : (

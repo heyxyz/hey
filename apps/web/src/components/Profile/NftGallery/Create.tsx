@@ -251,7 +251,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           <Button
             disabled={loadingNext}
             onClick={() => onClickNext()}
-            icon={loadingNext ? <Spinner size="xs" /> : null}
+            leadingIcon={loadingNext ? <Spinner size="xs" /> : null}
           >
             <Trans>Next</Trans>
           </Button>

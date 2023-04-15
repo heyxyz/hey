@@ -114,7 +114,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
       variant={canUseRelay ? 'danger' : 'primary'}
       className={clsx({ 'text-sm': buttonSize === 'sm' }, 'mr-auto')}
       disabled={isLoading}
-      icon={
+      leadingIcon={
         isLoading ? (
           <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
         ) : canUseRelay ? (

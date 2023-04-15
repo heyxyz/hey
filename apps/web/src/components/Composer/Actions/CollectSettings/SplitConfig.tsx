@@ -129,7 +129,7 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
               <Button
                 size="sm"
                 outline
-                icon={<PlusIcon className="h-3 w-3" />}
+                leadingIcon={<PlusIcon className="h-3 w-3" />}
                 onClick={() => {
                   setRecipients([...recipients, { recipient: '', split: 0 }]);
                 }}
@@ -141,7 +141,7 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
             <Button
               size="sm"
               outline
-              icon={<SwitchHorizontalIcon className="h-3 w-3" />}
+              leadingIcon={<SwitchHorizontalIcon className="h-3 w-3" />}
               onClick={splitEvenly}
             >
               Split evenly

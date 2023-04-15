@@ -203,7 +203,7 @@ const SuperFollow: FC = () => {
                 outline
                 onClick={() => setSuperFollow(null, null)}
                 disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
-                icon={<XIcon className="h-4 w-4" />}
+                leadingIcon={<XIcon className="h-4 w-4" />}
               >
                 <Trans>Disable Super follow</Trans>
               </Button>
@@ -211,7 +211,7 @@ const SuperFollow: FC = () => {
             <Button
               type="submit"
               disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
-              icon={<StarIcon className="h-4 w-4" />}
+              leadingIcon={<StarIcon className="h-4 w-4" />}
             >
               {followType === 'FeeFollowModuleSettings' ? t`Update Super follow` : t`Set Super follow`}
             </Button>

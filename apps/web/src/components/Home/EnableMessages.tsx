@@ -49,7 +49,7 @@ const EnableMessages: FC = () => {
       </p>
       <Button
         className={clsx({ 'text-sm': true }, 'mr-auto')}
-        icon={<MailIcon className="h-4 w-4" />}
+        leadingIcon={<MailIcon className="h-4 w-4" />}
         onClick={onConversationSelected}
       >
         <Trans>Enable DMs</Trans>

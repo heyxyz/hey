@@ -93,7 +93,9 @@ const Report: FC<ReportProps> = ({ publication }) => {
                   <Button
                     type="submit"
                     disabled={submitLoading}
-                    icon={submitLoading ? <Spinner size="xs" /> : <PencilAltIcon className="h-4 w-4" />}
+                    leadingIcon={
+                      submitLoading ? <Spinner size="xs" /> : <PencilAltIcon className="h-4 w-4" />
+                    }
                   >
                     <Trans>Report</Trans>
                   </Button>

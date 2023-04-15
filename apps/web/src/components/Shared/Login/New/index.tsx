@@ -106,7 +106,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
         className="ml-auto"
         type="submit"
         disabled={loading}
-        icon={loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />}
+        leadingIcon={loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />}
       >
         <Trans>Sign up</Trans>
       </Button>

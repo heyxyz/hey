@@ -105,7 +105,7 @@ const Attachments: FC<AttachmentsProps> = ({
                 <Button
                   className="text-sm"
                   variant="primary"
-                  icon={<ExternalLinkIcon className="h-4 w-4" />}
+                  leadingIcon={<ExternalLinkIcon className="h-4 w-4" />}
                   onClick={() => window.open(url, '_blank')}
                 >
                   <span>

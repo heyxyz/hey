@@ -127,7 +127,9 @@ const DeleteSettings: FC = () => {
           </div>
           <Button
             variant="danger"
-            icon={isDeleting ? <Spinner variant="danger" size="xs" /> : <TrashIcon className="h-5 w-5" />}
+            leadingIcon={
+              isDeleting ? <Spinner variant="danger" size="xs" /> : <TrashIcon className="h-5 w-5" />
+            }
             disabled={isDeleting}
             onClick={() => setShowWarningModal(true)}
           >
@@ -152,7 +154,7 @@ const DeleteSettings: FC = () => {
               />
               <Button
                 variant="danger"
-                icon={<TrashIcon className="h-5 w-5" />}
+                leadingIcon={<TrashIcon className="h-5 w-5" />}
                 onClick={() => {
                   setShowWarningModal(false);
                   handleDelete();

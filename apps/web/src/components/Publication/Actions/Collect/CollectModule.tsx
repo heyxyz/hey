@@ -431,7 +431,7 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
                     className="mt-5"
                     onClick={createCollect}
                     disabled={isLoading}
-                    icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
+                    leadingIcon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
                   >
                     <Trans>Collect now</Trans>
                   </Button>

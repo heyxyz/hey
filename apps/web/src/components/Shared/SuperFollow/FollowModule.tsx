@@ -240,7 +240,7 @@ const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFol
               outline
               onClick={createFollow}
               disabled={typedDataLoading || signLoading || writeLoading || broadcastLoading}
-              icon={
+              leadingIcon={
                 typedDataLoading || signLoading || writeLoading || broadcastLoading ? (
                   <Spinner variant="super" size="xs" />
                 ) : (
