@@ -13,23 +13,6 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v3
 
-      - name: Check for changes 📝
-        id: check
-        uses: dorny/paths-filter@v2
-        with:
-          filters: |
-            changed:
-              - 'packages/workers/**'
-
-      # cancel if no changes using concurrency group
-      - name: Cancel if no changes 🚫
-        if: steps.check.outputs.changed == 'false'
-        uses: vishnudxb/cancel-workflow@v1.2
-        with:
-          repo: lensterxyz/lenster
-          workflow_id: ${{ github.run_id }}
-          access_token: ${{ github.token }}
-
       - name: Setup pnpm 🌸
         uses: pnpm/action-setup@v2.2.4
 
