@@ -21,9 +21,9 @@ jobs:
             changed:
               - 'packages/workers/**'
 
-      - name: Skip deploy 🚫
+      - name: Skip if no changes 🚫
         if: steps.check.outputs.changed == 'false'
-        run: exit 0
+        run: exit 78
 
       - name: Setup pnpm 🌸
         uses: pnpm/action-setup@v2.2.4
