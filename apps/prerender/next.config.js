@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+
+const nextConfig = {
   reactStrictMode: false,
   trailingSlash: false,
   transpilePackages: ['data'],
@@ -16,3 +17,5 @@ module.exports = {
     ];
   }
 };
+
+module.exports = nextConfig;
