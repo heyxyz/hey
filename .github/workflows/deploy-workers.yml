@@ -21,9 +21,17 @@ jobs:
             changed:
               - 'packages/workers/**'
 
-      - name: Skip if no changes 🚫
+      - name: Cancel workflow if there are no changes 🚫
         if: steps.check.outputs.changed == 'false'
-        run: exit
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.actions.cancelWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            })
 
       - name: Setup pnpm 🌸
         uses: pnpm/action-setup@v2.2.4
