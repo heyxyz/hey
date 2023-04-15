@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
-module.exports = {
+const nextConfig = {
   transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: {
@@ -50,3 +50,5 @@ module.exports = {
     ];
   }
 };
+
+module.exports = nextConfig;
