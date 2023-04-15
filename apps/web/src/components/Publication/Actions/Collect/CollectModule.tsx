@@ -84,7 +84,11 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
   const endTimestamp = collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
   const collectLimit = collectModule?.collectLimit ?? collectModule?.optionalCollectLimit;
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     setCount(count + 1);
     setHasCollectedByMe(true);
@@ -113,7 +117,7 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
     abi: LensHub,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
@@ -169,7 +173,7 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
   }
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createCollectTypedData, { loading: typedDataLoading }] = useCreateCollectTypedDataMutation({
     onCompleted: async ({ createCollectTypedData }) => {
@@ -195,7 +199,7 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
   });
 
   const [createCollectProxyAction, { loading: proxyActionLoading }] = useProxyActionMutation({
-    onCompleted,
+    onCompleted: () => onCompleted(),
     onError
   });
 
