@@ -23,7 +23,7 @@ jobs:
 
       - name: Skip if no changes 🚫
         if: steps.check.outputs.changed == 'false'
-        run: exit 78
+        run: exit
 
       - name: Setup pnpm 🌸
         uses: pnpm/action-setup@v2.2.4
