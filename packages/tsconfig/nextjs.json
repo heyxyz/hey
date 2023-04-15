@@ -13,5 +13,5 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "exclude": ["node_modules", ".next", ".turbo"]
+  "exclude": [".next", ".turbo"]
 }
