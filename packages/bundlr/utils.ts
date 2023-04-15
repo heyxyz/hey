@@ -11,12 +11,6 @@ for (const [k, v] of Object.entries(map)) {
   map[v] = k;
 }
 
-export const sign = async (item: DataItem, signer: EthereumSigner): Promise<Buffer> => {
-  const { signature, id } = await getSignatureAndId(item, signer);
-  item.getRaw().set(signature, 2);
-  return id;
-};
-
 export const getSignatureAndId = async (
   item: DataItem,
   signer: EthereumSigner
@@ -26,6 +20,12 @@ export const getSignatureAndId = async (
   const idBytes = await crypto.subtle.digest('SHA-256', signatureBytes);
 
   return { signature: Buffer.from(signatureBytes), id: Buffer.from(idBytes) };
+};
+
+export const sign = async (item: DataItem, signer: EthereumSigner): Promise<Buffer> => {
+  const { signature, id } = await getSignatureAndId(item, signer);
+  item.getRaw().set(signature, 2);
+  return id;
 };
 
 export const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
