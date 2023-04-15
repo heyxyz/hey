@@ -29,7 +29,11 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const isOldDispatcherEnabled =
     currentProfile?.dispatcher?.address?.toLocaleLowerCase() === OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     toast.success(t`Profile updated successfully!`);
     if (isOldDispatcherEnabled) {
       Mixpanel.track(SETTINGS.DISPATCHER.UPDATE);
@@ -49,12 +53,12 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     abi: LensHub,
     functionName: 'setDispatcherWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
   const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createSetDispatcherTypedData, { loading: typedDataLoading }] =
     useCreateSetDispatcherTypedDataMutation({
