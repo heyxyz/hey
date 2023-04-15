@@ -21,23 +21,11 @@ jobs:
             changed:
               - 'packages/workers/**'
 
-      - name: Cancel if no changes 🚫
-        id: cancel
+      - name: Cancel workflow
         if: steps.check.outputs.changed == 'false'
-        uses: actions/github-script@v5
+        uses: styfle/cancel-workflow-action
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { owner, repo } = context.repo
-            console.log('Cancelling...')
-            const run_id = "${{ github.run_id }}"
-            await github.actions.cancelWorkflowRun({ owner, repo, run_id })
-            return 'stop'
-
-      - name: Waiting for cancellation
-        if: ${{ steps.cancel.outputs.result == 'stop' }}
-        run: |
-          sleep 60
+          workflow_id: ${{ github.event.workflow.id }}
 
       - name: Setup pnpm 🌸
         uses: pnpm/action-setup@v2.2.4
