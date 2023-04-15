@@ -21,11 +21,18 @@ jobs:
             changed:
               - 'packages/workers/**'
 
-      - name: Cancel workflow
+      # cancel if no changes using concurrency group
+      - name: Cancel if no changes 🚫
         if: steps.check.outputs.changed == 'false'
-        uses: styfle/cancel-workflow-action@0.11.0
+        uses: actions/github-script@v5
         with:
-          workflow_id: ${{ github.event.workflow.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.actions.cancel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            })
 
       - name: Setup pnpm 🌸
         uses: pnpm/action-setup@v2.2.4
