@@ -4,12 +4,6 @@ interface EnvType {
   BUNDLR_PRIVATE_KEY: string;
 }
 
-export default {
-  async fetch(request: Request, env: EnvType) {
-    return await handleRequest(request, env);
-  }
-};
-
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -48,5 +42,11 @@ const handleRequest = async (request: Request, env: EnvType) => {
     }
   } catch {
     return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), { headers });
+  }
+};
+
+export default {
+  async fetch(request: Request, env: EnvType) {
+    return await handleRequest(request, env);
   }
 };

@@ -3494,6 +3494,7 @@ export type Query = {
   publications: PaginatedPublicationResult;
   recommendedProfiles: Array<Profile>;
   rel?: Maybe<Scalars['Void']>;
+  relayQueues: Array<RelayQueueResult>;
   search: SearchResult;
   txIdToTxHash: Scalars['TxHash'];
   unknownEnabledModules: EnabledModules;
@@ -3781,7 +3782,52 @@ export enum RelayErrorReasons {
   WrongWalletSigned = 'WRONG_WALLET_SIGNED'
 }
 
+/** The  */
+export type RelayQueueResult = {
+  __typename?: 'RelayQueueResult';
+  /** The address of the relay */
+  address: Scalars['EthereumAddress'];
+  /** The queue on the relay */
+  queue: Scalars['Float'];
+  /** The relayer name */
+  relayer: RelayRoleKey;
+};
+
 export type RelayResult = RelayError | RelayerResult;
+
+/** The relay role key */
+export enum RelayRoleKey {
+  CreateProfile = 'CREATE_PROFILE',
+  Dispatcher_1 = 'DISPATCHER_1',
+  Dispatcher_2 = 'DISPATCHER_2',
+  Dispatcher_3 = 'DISPATCHER_3',
+  Dispatcher_4 = 'DISPATCHER_4',
+  Dispatcher_5 = 'DISPATCHER_5',
+  Dispatcher_6 = 'DISPATCHER_6',
+  Dispatcher_7 = 'DISPATCHER_7',
+  Dispatcher_8 = 'DISPATCHER_8',
+  Dispatcher_9 = 'DISPATCHER_9',
+  Dispatcher_10 = 'DISPATCHER_10',
+  ProxyActionCollect_1 = 'PROXY_ACTION_COLLECT_1',
+  ProxyActionCollect_2 = 'PROXY_ACTION_COLLECT_2',
+  ProxyActionCollect_3 = 'PROXY_ACTION_COLLECT_3',
+  ProxyActionCollect_4 = 'PROXY_ACTION_COLLECT_4',
+  ProxyActionCollect_5 = 'PROXY_ACTION_COLLECT_5',
+  ProxyActionCollect_6 = 'PROXY_ACTION_COLLECT_6',
+  ProxyActionFollow_1 = 'PROXY_ACTION_FOLLOW_1',
+  ProxyActionFollow_2 = 'PROXY_ACTION_FOLLOW_2',
+  ProxyActionFollow_3 = 'PROXY_ACTION_FOLLOW_3',
+  ProxyActionFollow_4 = 'PROXY_ACTION_FOLLOW_4',
+  ProxyActionFollow_5 = 'PROXY_ACTION_FOLLOW_5',
+  ProxyActionFollow_6 = 'PROXY_ACTION_FOLLOW_6',
+  ProxyActionFollow_7 = 'PROXY_ACTION_FOLLOW_7',
+  ProxyActionFollow_8 = 'PROXY_ACTION_FOLLOW_8',
+  ProxyActionFollow_9 = 'PROXY_ACTION_FOLLOW_9',
+  ProxyActionFollow_10 = 'PROXY_ACTION_FOLLOW_10',
+  WithSig_1 = 'WITH_SIG_1',
+  WithSig_2 = 'WITH_SIG_2',
+  WithSig_3 = 'WITH_SIG_3'
+}
 
 /** The relayer result */
 export type RelayerResult = {
@@ -22594,6 +22640,13 @@ export type RecommendedProfilesQuery = {
   }>;
 };
 
+export type RelayQueuesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type RelayQueuesQuery = {
+  __typename?: 'Query';
+  relayQueues: Array<{ __typename?: 'RelayQueueResult'; relayer: RelayRoleKey; address: any; queue: number }>;
+};
+
 export type RelevantPeopleQueryVariables = Exact<{
   request: ProfileQueryRequest;
 }>;
@@ -34524,6 +34577,46 @@ export type RecommendedProfilesQueryResult = Apollo.QueryResult<
   RecommendedProfilesQuery,
   RecommendedProfilesQueryVariables
 >;
+export const RelayQueuesDocument = gql`
+  query RelayQueues {
+    relayQueues {
+      relayer
+      address
+      queue
+    }
+  }
+`;
+
+/**
+ * __useRelayQueuesQuery__
+ *
+ * To run a query within a React component, call `useRelayQueuesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRelayQueuesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRelayQueuesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRelayQueuesQuery(
+  baseOptions?: Apollo.QueryHookOptions<RelayQueuesQuery, RelayQueuesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<RelayQueuesQuery, RelayQueuesQueryVariables>(RelayQueuesDocument, options);
+}
+export function useRelayQueuesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<RelayQueuesQuery, RelayQueuesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<RelayQueuesQuery, RelayQueuesQueryVariables>(RelayQueuesDocument, options);
+}
+export type RelayQueuesQueryHookResult = ReturnType<typeof useRelayQueuesQuery>;
+export type RelayQueuesLazyQueryHookResult = ReturnType<typeof useRelayQueuesLazyQuery>;
+export type RelayQueuesQueryResult = Apollo.QueryResult<RelayQueuesQuery, RelayQueuesQueryVariables>;
 export const RelevantPeopleDocument = gql`
   query RelevantPeople($request: ProfileQueryRequest!) {
     profiles(request: $request) {
