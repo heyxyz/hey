@@ -33,9 +33,9 @@ const Follow: FC<FollowProps> = ({
   profile,
   showText = false,
   setFollowing,
+  outline = true,
   followSource,
-  followPosition,
-  outline = true
+  followPosition
 }) => {
   const { pathname } = useRouter();
   const userSigNonce = useAppStore((state) => state.userSigNonce);

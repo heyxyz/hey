@@ -19,6 +19,7 @@ import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getSignature from 'lib/getSignature';
 import getTokenImage from 'lib/getTokenImage';
+import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -36,9 +37,21 @@ interface FollowModuleProps {
   setFollowing: Dispatch<boolean>;
   setShowFollowModal: Dispatch<boolean>;
   again: boolean;
+
+  // For data analytics
+  followPosition?: number;
+  followSource?: string;
 }
 
-const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFollowModal, again }) => {
+const FollowModule: FC<FollowModuleProps> = ({
+  profile,
+  setFollowing,
+  setShowFollowModal,
+  again,
+  followPosition,
+  followSource
+}) => {
+  const { pathname } = useRouter();
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -46,11 +59,20 @@ const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFol
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     setFollowing(true);
     setShowFollowModal(false);
     toast.success(t`Followed successfully!`);
-    Mixpanel.track(PROFILE.SUPER_FOLLOW);
+    Mixpanel.track(PROFILE.SUPER_FOLLOW, {
+      follow_path: pathname,
+      ...(followSource && { follow_source: followSource }),
+      ...(followPosition && { follow_position: followPosition }),
+      follow_target: profile?.id
+    });
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
@@ -58,7 +80,7 @@ const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFol
     abi: LensHub,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
@@ -99,7 +121,7 @@ const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFol
   }
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createFollowTypedData, { loading: typedDataLoading }] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {

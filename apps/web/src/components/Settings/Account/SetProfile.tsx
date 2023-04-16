@@ -29,7 +29,11 @@ const SetProfile: FC = () => {
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     toast.success(t`Default profile updated successfully!`);
     Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
@@ -43,7 +47,7 @@ const SetProfile: FC = () => {
     abi: LensHub,
     functionName: 'setDefaultProfileWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
@@ -58,7 +62,7 @@ const SetProfile: FC = () => {
   }, []);
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
     useCreateSetDefaultProfileTypedDataMutation({
