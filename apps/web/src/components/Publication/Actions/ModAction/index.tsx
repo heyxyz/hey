@@ -153,8 +153,8 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
             });
           }
           Mixpanel.track(MOD.REPORT, {
-            report_reason: 'SHADOW_BAN',
-            report_subreason: 'SHADOW_BAN',
+            report_reason: 'heavySpam',
+            report_subreason: 'HEAVY_SPAM',
             report_publication_id: publication?.id
           });
         }}
