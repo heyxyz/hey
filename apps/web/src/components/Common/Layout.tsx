@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useFingerprintStore } from 'src/store/fingerprint';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
@@ -44,8 +45,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setIsPro = useAppStore((state) => state.setIsPro);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const fingerprint = useAppPersistStore((state) => state.fingerprint);
-  const setFingerprint = useAppPersistStore((state) => state.setFingerprint);
+  const fingerprint = useFingerprintStore((state) => state.fingerprint);
+  const setFingerprint = useFingerprintStore((state) => state.setFingerprint);
 
   const { mounted } = useIsMounted();
   const { address } = useAccount();
