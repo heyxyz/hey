@@ -1,5 +1,6 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
+import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
@@ -14,6 +15,7 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useFingerprintStore } from 'src/store/fingerprint';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
@@ -43,6 +45,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setIsPro = useAppStore((state) => state.setIsPro);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const fingerprint = useFingerprintStore((state) => state.fingerprint);
+  const setFingerprint = useFingerprintStore((state) => state.setFingerprint);
 
   const { mounted } = useIsMounted();
   const { address } = useAccount();
@@ -95,10 +99,21 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     }
   };
 
+  const saveFingerprint = async () => {
+    const fp = await FingerprintJS.load();
+    const { visitorId } = await fp.get();
+    setFingerprint(visitorId);
+  };
+
   useEffect(() => {
     validateAuthentication();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chain, disconnect, profileId]);
+
+  useEffect(() => {
+    saveFingerprint();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // set pro status
   useEffect(() => {
@@ -114,10 +129,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   // Mixpanel identify
   useEffect(() => {
-    if (MIXPANEL_ENABLED && currentProfile?.id) {
+    if (MIXPANEL_ENABLED && currentProfile?.id && fingerprint) {
       mixpanel.identify(currentProfile?.id);
       mixpanel.people.set({
         $name: currentProfile?.handle,
+        $fingerprint: fingerprint,
         $last_active: new Date()
       });
       mixpanel.people.set_once({
