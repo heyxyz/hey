@@ -1626,6 +1626,12 @@ msgid "Invalid Ethereum address"
 msgstr "无效的以太坊地址"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
+msgstr "已成功关注！"
+
+#: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
 msgstr "正在加载超级关注设置"
 
@@ -2031,11 +2037,6 @@ msgstr "您无法回复此帖子"
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "正在加载表情"
-
-#: src/components/Shared/Follow.tsx
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "Followed successfully!"
-msgstr "已成功关注！"
 
 #: src/components/Shared/Follow.tsx
 msgid "Follow"
@@ -2517,9 +2518,13 @@ msgstr "您没有足够的 <0>{0}</0>"
 msgid "Swap in Uniswap"
 msgstr "用Uniswap进行代币转换"
 
+#: src/components/StaffTools/RelayQueues.tsx
+msgid "Stafftools | Relay queues • {APP_NAME}"
+msgstr ""
+
 #: src/components/StaffTools/Stats/index.tsx
-msgid "Stafftools • {APP_NAME}"
-msgstr "员工工具 • {APP_NAME}"
+msgid "Stafftools | Stats • {APP_NAME}"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
@@ -2585,4 +2590,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
