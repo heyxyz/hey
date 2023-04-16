@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 
 export interface ButtonProps
   extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   variant?: 'primary' | 'secondary' | 'warning' | 'super' | 'danger';
   outline?: boolean;
   leadingIcon?: ReactNode;
@@ -15,11 +15,11 @@ export interface ButtonProps
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
   const {
-    leadingIcon,
-    variant = 'primary',
     size = 'md',
-    trailingIcon,
+    variant = 'primary',
     outline,
+    leadingIcon = null,
+    trailingIcon = null,
     children,
     className,
     ...rest
@@ -27,14 +27,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   return (
     <button
       className={clsx(
-        'flex items-center justify-center rounded-lg border font-semibold',
+        'flex items-center justify-center space-x-2 rounded-lg border font-semibold focus:outline-none focus:ring-4 focus:ring-opacity-50 disabled:opacity-50',
         size === 'sm' && 'h-8 px-3 py-1.5 text-xs leading-4',
         size === 'md' && 'h-9 px-3.5 py-2 text-sm leading-5',
         size === 'lg' && 'h-10 px-4 py-2.5 text-sm leading-5',
         !outline && 'text-white',
+        variant === 'primary' && '',
         outline
           ? {
-              'border-brand-600 text-brand-600 hover:bg-brand-600 focus:ring-brand-400 hover:text-white':
+              'border-brand-500 text-brand-500 hover:bg-brand-600 focus:ring-brand-400 hover:text-white':
                 variant === 'primary',
               'border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-400':
                 variant === 'secondary',
@@ -59,9 +60,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       {...rest}
       ref={ref}
     >
-      {leadingIcon && <span className="mr-2">{leadingIcon}</span>}
-      {children}
-      {trailingIcon && <span className="ml-2">{trailingIcon}</span>}
+      {leadingIcon}
+      {children ? <span>{children}</span> : null}
+      {trailingIcon}
     </button>
   );
 });
