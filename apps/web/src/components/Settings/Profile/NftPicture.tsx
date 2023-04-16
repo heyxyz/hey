@@ -43,7 +43,11 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const { signMessageAsync } = useSignMessage();
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     toast.success(t`Avatar updated successfully!`);
     Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
@@ -65,13 +69,13 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     abi: LensHub,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
   const [loadChallenge, { loading: challengeLoading }] = useNftChallengeLazyQuery();
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useCreateSetProfileImageUriTypedDataMutation({
@@ -96,7 +100,11 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     });
 
   const [createSetProfileImageURIViaDispatcher, { loading: dispatcherLoading }] =
-    useCreateSetProfileImageUriViaDispatcherMutation({ onCompleted, onError });
+    useCreateSetProfileImageUriViaDispatcherMutation({
+      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+        onCompleted(createSetProfileImageURIViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
