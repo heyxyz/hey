@@ -1,4 +1,3 @@
-import { useApolloClient } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
@@ -54,6 +53,7 @@ import {
   useCreatePostViaDispatcherMutation,
   usePublicationLazyQuery
 } from 'lens';
+import { useApolloClient } from 'lens/apollo';
 import { $getRoot } from 'lexical';
 import getSignature from 'lib/getSignature';
 import getTags from 'lib/getTags';
