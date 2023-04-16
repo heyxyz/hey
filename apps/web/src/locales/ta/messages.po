@@ -1626,12 +1626,6 @@ msgid "Invalid Ethereum address"
 msgstr "தவறான Ethereum முகவரி"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-#: src/components/Shared/Follow.tsx
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "Followed successfully!"
-msgstr "வெற்றிகரமாக பின்பற்றப்பட்டது!"
-
-#: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
 msgstr "சூப்பர் ஃபாலோ அமைப்புகளை ஏற்றுகிறது"
 
@@ -2037,6 +2031,11 @@ msgstr "இந்த இடுகைக்கு நீங்கள் பதி
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "ஈமோஜிகளை ஏற்றுகிறது"
+
+#: src/components/Shared/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
+msgstr "வெற்றிகரமாக பின்பற்றப்பட்டது!"
 
 #: src/components/Shared/Follow.tsx
 msgid "Follow"
