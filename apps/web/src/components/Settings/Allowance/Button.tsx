@@ -37,7 +37,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
     onSuccess: () => {
-      toast.success(t`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
+      toast.success(allowed ? t`Module disabled successfully!` : t`Module enabled successfully!`);
       setShowWarningModal(false);
       setAllowed(!allowed);
       Mixpanel.track(SETTINGS.ALLOWANCE.TOGGLE, {
