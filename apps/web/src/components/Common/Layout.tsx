@@ -100,10 +100,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   const saveFingerprint = async () => {
-    if (fingerprint) {
-      return;
-    }
-
     const fp = await FingerprintJS.load();
     const { visitorId } = await fp.get();
     setFingerprint(visitorId);
