@@ -1,4 +1,5 @@
 export const aaveMembers = [
+  '0x42', // miguelmtz
   '0x2b', // gareth
   '0xabd0', // helpfulbrother
   '0x05', // stani

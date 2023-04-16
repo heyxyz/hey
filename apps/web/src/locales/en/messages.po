@@ -1678,8 +1678,12 @@ msgid "Allow"
 msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Module {0} successfully!"
-msgstr ""
+msgid "Module disabled successfully!"
+msgstr "Module disabled successfully!"
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Module enabled successfully!"
+msgstr "Module enabled successfully!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
