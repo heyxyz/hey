@@ -1626,12 +1626,6 @@ msgid "Invalid Ethereum address"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
-#: src/components/Shared/Follow.tsx
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "Followed successfully!"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
 msgstr ""
 
@@ -2036,6 +2030,11 @@ msgstr ""
 
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
+msgstr ""
+
+#: src/components/Shared/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
 msgstr ""
 
 #: src/components/Shared/Follow.tsx
