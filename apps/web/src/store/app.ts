@@ -34,6 +34,8 @@ interface AppPersistState {
   setModMode: (modMode: boolean) => void;
   notificationCount: number;
   setNotificationCount: (notificationCount: number) => void;
+  fingerprint: string | null;
+  setFingerprint: (fingerprint: string | null) => void;
 }
 
 export const useAppPersistStore = create(
@@ -46,7 +48,9 @@ export const useAppPersistStore = create(
       modMode: false,
       setModMode: (modMode) => set(() => ({ modMode })),
       notificationCount: 0,
-      setNotificationCount: (notificationCount) => set(() => ({ notificationCount }))
+      setNotificationCount: (notificationCount) => set(() => ({ notificationCount })),
+      fingerprint: null,
+      setFingerprint: (fingerprint) => set(() => ({ fingerprint }))
     }),
     { name: Localstorage.LensterStore }
   )
