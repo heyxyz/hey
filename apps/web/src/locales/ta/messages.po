@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-13 00:08\n"
+"PO-Revision-Date: 2023-04-16 16:10\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -219,19 +219,19 @@ msgstr "எல்லோரும்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers can comment and mirror"
-msgstr ""
+msgstr "என்னைப் பின்தொடர்பவர்கள் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows can comment and mirror"
-msgstr ""
+msgstr "நான் பின்தொடர்பவர்கள் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friend of friends can comment and mirror"
-msgstr ""
+msgstr "நண்பர்களின் நண்பர் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone can comment and mirror"
-msgstr ""
+msgstr "எல்லோரும் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
@@ -602,7 +602,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
-msgstr ""
+msgstr "மதிப்பீட்டாளர் மையம் • {APP_NAME}"
 
 #: src/components/Mod/index.tsx
 msgid "Refresh feed"
@@ -1886,11 +1886,11 @@ msgstr "பதிவேற்றம் தோல்வியுற்றத�
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Crop image"
-msgstr ""
+msgstr "படத்தைத் திருத்து"
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Profile picture crop preview"
-msgstr ""
+msgstr "சுயவிவரப் படம் திருத்து முன்னோட்டம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
@@ -2083,7 +2083,7 @@ msgstr "▲ வெர்செல் மூலம் இயக்கப்பட
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
-msgstr ""
+msgstr "மதிப்பீட்டாளர் செயல்கள்"
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
@@ -2342,11 +2342,11 @@ msgstr "மிதவாக்கம்"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Disable mod mode"
-msgstr ""
+msgstr "மதிப்பீட்டாளர் பயன்முறையை முடக்கு"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Enable mod mode"
-msgstr ""
+msgstr "மதிப்பீட்டாளர் பயன்முறையை இயக்கு"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2406,7 +2406,7 @@ msgstr "இந்த முன்மொழிவு மூடப்பட்ட�
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{type} voting is not supported yet!"
-msgstr ""
+msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
@@ -2519,11 +2519,11 @@ msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய�
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Stafftools | Relay queues • {APP_NAME}"
-msgstr ""
+msgstr "பணியாளர் கருவிகள் | ரிலே வரிசைகள் • {APP_NAME}"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
-msgstr ""
+msgstr "பணியாளர் கருவிகள் | புள்ளிவிவரங்கள் • {APP_NAME}"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
@@ -2589,3 +2589,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+
