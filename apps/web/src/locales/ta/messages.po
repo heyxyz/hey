@@ -2526,10 +2526,6 @@ msgstr ""
 msgid "Stafftools | Stats • {APP_NAME}"
 msgstr ""
 
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "Stafftools • {APP_NAME}"
-#~ msgstr "பணியாளர் கருவிகள் • {APP_NAME}"
-
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
 msgstr "படத்தின் அளவு 10MB க்கும் குறைவாக இருக்க வேண்டும்"

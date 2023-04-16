@@ -2526,10 +2526,6 @@ msgstr "Stafftools | Relay queues • {APP_NAME}"
 msgid "Stafftools | Stats • {APP_NAME}"
 msgstr "Stafftools | Stats • {APP_NAME}"
 
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "Stafftools • {APP_NAME}"
-#~ msgstr "Stafftools • {APP_NAME}"
-
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
 msgstr ""

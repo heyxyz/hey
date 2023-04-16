@@ -2526,10 +2526,6 @@ msgstr ""
 msgid "Stafftools | Stats • {APP_NAME}"
 msgstr ""
 
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "Stafftools • {APP_NAME}"
-#~ msgstr "员工工具 • {APP_NAME}"
-
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
 msgstr "图片尺寸应小于 10MB"
