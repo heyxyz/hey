@@ -12,17 +12,17 @@
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
-    "@storybook/addon-essentials": "^7.0.4",
-    "@storybook/addon-links": "^7.0.4",
-    "@storybook/addon-styling": "^1.0.0",
-    "@storybook/blocks": "^7.0.4",
-    "@storybook/manager-api": "^7.0.4",
-    "@storybook/nextjs": "^7.0.4",
-    "@storybook/react": "^7.0.4",
-    "@storybook/theming": "^7.0.4",
+    "@storybook/addon-essentials": "^7.0.5",
+    "@storybook/addon-links": "^7.0.5",
+    "@storybook/addon-styling": "^1.0.1",
+    "@storybook/blocks": "^7.0.5",
+    "@storybook/manager-api": "^7.0.5",
+    "@storybook/nextjs": "^7.0.5",
+    "@storybook/react": "^7.0.5",
+    "@storybook/theming": "^7.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.4",
+    "storybook": "^7.0.5",
     "ui": "workspace:*"
   },
   "devDependencies": {
@@ -31,7 +31,7 @@
     "eslint-config-weblint": "workspace:*",
     "postcss": "^8.4.21",
     "serve": "^14.2.0",
-    "storybook-addon-turbo-build": "^1.1.0",
+    "storybook-addon-turbo-build": "^2.0.0",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
