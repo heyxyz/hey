@@ -47,7 +47,6 @@ const SuperFollow: FC = () => {
       return;
     }
 
-    toast.success(t`Followed successfully!`);
     Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 

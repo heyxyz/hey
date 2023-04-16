@@ -1626,12 +1626,6 @@ msgid "Invalid Ethereum address"
 msgstr "无效的以太坊地址"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-#: src/components/Shared/Follow.tsx
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "Followed successfully!"
-msgstr "已成功关注！"
-
-#: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
 msgstr "正在加载超级关注设置"
 
@@ -2037,6 +2031,11 @@ msgstr "您无法回复此帖子"
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "正在加载表情"
+
+#: src/components/Shared/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
+msgstr "已成功关注！"
 
 #: src/components/Shared/Follow.tsx
 msgid "Follow"
