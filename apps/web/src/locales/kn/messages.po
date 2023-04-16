@@ -1626,6 +1626,12 @@ msgid "Invalid Ethereum address"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
 msgstr ""
 
@@ -2030,11 +2036,6 @@ msgstr ""
 
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
-msgstr ""
-
-#: src/components/Shared/Follow.tsx
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "Followed successfully!"
 msgstr ""
 
 #: src/components/Shared/Follow.tsx
@@ -2517,9 +2518,17 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr ""
 
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stafftools • {APP_NAME}"
+#: src/components/StaffTools/RelayQueues.tsx
+msgid "Stafftools | Relay queues • {APP_NAME}"
 msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stafftools | Stats • {APP_NAME}"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+#~ msgid "Stafftools • {APP_NAME}"
+#~ msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
@@ -2585,4 +2594,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
