@@ -5,7 +5,7 @@ import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { ReferenceModules } from 'lens';
 import type { FC, ReactNode } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { Button, Modal, Tooltip } from 'ui';
 
@@ -17,15 +17,15 @@ const ReferenceSettings: FC = () => {
   const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
   const setDegreesOfSeparation = useReferenceModuleStore((state) => state.setDegreesOfSeparation);
   const [showModal, setShowModal] = useState(false);
+  const rangeValues = ['1', '34', '67', '100'];
   const MY_FOLLOWS = { title: t`My follows`, description: t`Only people who I follow`, value: '1' };
-  const MY_FOLLOWERS = { title: t`My followers`, description: t`Only people who follow me`, value: '2' };
+  const MY_FOLLOWERS = { title: t`My followers`, description: t`Only people who follow me`, value: '34' };
   const FRIENDS_OF_FRIENDS = {
     title: t`Friends of friends`,
     description: t`People who my followers follow`,
-    value: '3'
+    value: '67'
   };
-  const EVERYONE = { title: t`Everyone`, description: t`No restrictions`, value: '4' };
-
+  const EVERYONE = { title: t`Everyone`, description: t`No restrictions`, value: '100' };
   const isFollowerOnlyReferenceModule =
     selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule;
   const isDegreesOfSeparationReferenceModule =
@@ -35,15 +35,36 @@ const ReferenceSettings: FC = () => {
   const isMyFollowers = isFollowerOnlyReferenceModule && onlyFollowers;
   const isMyFollows = isDegreesOfSeparationReferenceModule && degreesOfSeparation === 1;
   const isFriendsOfFriends = isDegreesOfSeparationReferenceModule && degreesOfSeparation === 2;
+  const [followValue, setfollowValue] = useState(
+    isMyFollows
+      ? MY_FOLLOWS.value
+      : isMyFollowers
+      ? MY_FOLLOWERS.value
+      : isFriendsOfFriends
+      ? FRIENDS_OF_FRIENDS.value
+      : isEveryone
+      ? EVERYONE.value
+      : EVERYONE.value
+  );
 
   interface ModuleProps {
     title: string;
     description: string;
     icon: ReactNode;
   }
+  const getClosest = (arr: string[], val: string) => {
+    return arr.reduce(function (prev, curr) {
+      return Math.abs(Number(curr) - Number(val)) < Math.abs(Number(prev) - Number(val)) ? curr : prev;
+    });
+  };
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
-    switch (event.currentTarget.value) {
+    let closest = getClosest(rangeValues, event.currentTarget.value);
+    setfollowValue(closest);
+  };
+
+  useEffect(() => {
+    switch (followValue) {
       case MY_FOLLOWS.value:
         setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
         setDegreesOfSeparation(1);
@@ -63,7 +84,7 @@ const ReferenceSettings: FC = () => {
       default:
         break;
     }
-  };
+  }, [followValue]);
 
   const Module: FC<ModuleProps> = ({ title, description, icon }) => (
     <div className="flex items-center space-x-3">
@@ -99,18 +120,9 @@ const ReferenceSettings: FC = () => {
         className="accent-brand-500"
         onChange={handleChange}
         min="1"
-        max="4"
-        value={
-          isMyFollows
-            ? MY_FOLLOWS.value
-            : isMyFollowers
-            ? MY_FOLLOWERS.value
-            : isFriendsOfFriends
-            ? FRIENDS_OF_FRIENDS.value
-            : isEveryone
-            ? EVERYONE.value
-            : EVERYONE.value
-        }
+        max="100"
+        step="1"
+        defaultValue={followValue}
       />
       <ul className="flex items-start justify-between text-sm">
         <li className="flex w-4 flex-col items-center space-y-2">
