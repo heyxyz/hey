@@ -7,14 +7,25 @@
     "dev": "next dev --port 4785",
     "build": "next build",
     "start": "next start --port 4785",
+    "generate": "prisma generate",
+    "codegen:schema": "dotenv -- ts-node --transpile-only -r tsconfig-paths/register ./src/graphql/index.ts",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
+    "@pothos/core": "^3.29.0",
+    "@pothos/plugin-prisma": "^3.47.2",
+    "@pothos/plugin-scope-auth": "^3.19.0",
+    "@pothos/plugin-simple-objects": "^3.6.7",
+    "@pothos/plugin-validation": "^3.9.0",
+    "@prisma/client": "^4.12.0",
+    "graphql": "^16.6.0",
+    "graphql-helix": "^1.13.0",
     "jwt-decode": "^3.1.2",
     "lens": "workspace:*",
     "next": "13.3.0",
+    "prisma": "^4.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -22,7 +33,10 @@
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "dotenv": "^16.0.3",
+    "dotenv-cli": "^7.2.1",
     "eslint-config-weblint": "workspace:*",
+    "ts-node": "^10.9.1",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
