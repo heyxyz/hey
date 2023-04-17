@@ -697,9 +697,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             }
             onClick={createPublication}
           >
-            {isComment
-              ? t({ id: '[cta]Comment', message: 'Comment' })
-              : t({ id: '[cta]Post', message: 'Post' })}
+            {isComment ? t`Comment` : t`Post`}
           </Button>
         </div>
       </div>
