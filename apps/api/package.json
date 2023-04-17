@@ -7,9 +7,9 @@
     "dev": "prisma generate; next dev --port 4785",
     "build": "prisma generate; next build",
     "start": "next start --port 4785",
-    "generate": "prisma generate",
+    "codegen": "prisma generate",
     "codegen:schema": "dotenv -- ts-node --transpile-only -r tsconfig-paths/register ./src/graphql/index.ts",
-    "typecheck": "prisma generate; tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
   },
