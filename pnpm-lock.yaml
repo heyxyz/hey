@@ -300,6 +300,9 @@ importers:
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
+      use-resize-observer:
+        specifier: ^9.1.0
+        version: 9.1.0(react-dom@18.2.0)(react@18.2.0)
       uuid:
         specifier: ^9.0.0
         version: 9.0.0
