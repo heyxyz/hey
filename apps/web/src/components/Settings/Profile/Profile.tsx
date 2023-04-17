@@ -258,36 +258,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
   return (
     <>
-      <Modal
-        title={t`Crop image`}
-        show={showCropModal}
-        size="md"
-        onClose={
-          isLoading
-            ? undefined
-            : () => {
-                setImageSrc('');
-                setShowCropModal(false);
-              }
-        }
-      >
-        <div className="p-5 text-right">
-          <ImageCropperController
-            imageSrc={imageSrc}
-            setCroppedAreaPixels={setCroppedAreaPixels}
-            targetSize={{ width: 1500, height: 500 }}
-          />
-          <Button
-            type="submit"
-            disabled={isLoading || !imageSrc}
-            onClick={() => uploadAndSave()}
-            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
-          >
-            <Trans>Upload</Trans>
-          </Button>
-        </div>
-      </Modal>
-
       <Card className="p-5">
         <Form
           form={form}
@@ -357,6 +327,35 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           </Button>
         </Form>
       </Card>
+      <Modal
+        title={t`Crop image`}
+        show={showCropModal}
+        size="md"
+        onClose={
+          isLoading
+            ? undefined
+            : () => {
+                setImageSrc('');
+                setShowCropModal(false);
+              }
+        }
+      >
+        <div className="p-5 text-right">
+          <ImageCropperController
+            imageSrc={imageSrc}
+            setCroppedAreaPixels={setCroppedAreaPixels}
+            targetSize={{ width: 1500, height: 500 }}
+          />
+          <Button
+            type="submit"
+            disabled={isLoading || !imageSrc}
+            onClick={() => uploadAndSave()}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+          >
+            <Trans>Upload</Trans>
+          </Button>
+        </div>
+      </Modal>
     </>
   );
 };
