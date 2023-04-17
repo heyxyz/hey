@@ -1670,6 +1670,7 @@ msgid "Request Verification"
 msgstr ""
 
 #: src/components/Settings/Account/index.tsx
+#: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
 msgstr "Account settings • {APP_NAME}"
 
@@ -1843,6 +1844,62 @@ msgstr "Disable Signless Transactions"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Dispatcher • {APP_NAME}"
 
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export notifications"
+msgstr "Export notifications"
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export all your notifications to a JSON file."
+msgstr "Export all your notifications to a JSON file."
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Download notifications"
+msgstr "Download notifications"
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr "Exporting..."
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr "Export now"
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export profile"
+msgstr "Export profile"
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export all your profile data to a JSON file."
+msgstr "Export all your profile data to a JSON file."
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Download profile"
+msgstr "Download profile"
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export publications"
+msgstr "Export publications"
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export all your posts, comments and mirrors to a JSON file."
+msgstr "Export all your posts, comments and mirrors to a JSON file."
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Download publications"
+msgstr "Download publications"
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Export Publications"
+#~ msgstr "Export Publications"
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Download Publication"
+#~ msgstr "Download Publication"
+
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
 msgstr "Interests settings • {APP_NAME}"
@@ -1885,10 +1942,12 @@ msgid "Token Id"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Upload failed"
 msgstr "Upload failed"
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr "Crop image"
 
@@ -1945,12 +2004,20 @@ msgid "Tell us something about you!"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Cover picture crop preview"
+msgstr "Cover picture crop preview"
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr "Upload"
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
@@ -1983,6 +2050,10 @@ msgstr ""
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
 msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Export"
+msgstr "Export"
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Publication deleted successfully"

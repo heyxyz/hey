@@ -4,6 +4,7 @@ import {
   AdjustmentsIcon,
   BookmarkIcon,
   ChipIcon,
+  DatabaseIcon,
   ExclamationIcon,
   FingerPrintIcon,
   ShareIcon,
@@ -11,7 +12,9 @@ import {
   UserIcon
 } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
+import { FeatureFlag } from 'data';
 import type { Profile } from 'lens';
+import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -59,6 +62,12 @@ const SettingsSidebar: FC = () => {
             title: t`Cleanup`,
             icon: <SparklesIcon className="h-4 w-4" />,
             url: '/settings/cleanup'
+          },
+          {
+            title: t`Export`,
+            icon: <DatabaseIcon className="h-4 w-4" />,
+            url: '/settings/export',
+            enabled: isFeatureEnabled(FeatureFlag.ExportData, currentProfile?.id)
           },
           {
             title: (
