@@ -3,10 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "noEmit": true,
+    "module": "commonjs",
     "paths": {
       "@lib*": ["src/lib*"],
-      "@gql*": ["src/graphql*"],
-      "@generated*": ["src/generated*"]
+      "@gql*": ["src/graphql*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]

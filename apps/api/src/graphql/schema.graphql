@@ -1,0 +1,10 @@
+scalar DateTime
+
+type Query {
+  user(id: ID!): User!
+}
+
+type User {
+  address: String!
+  id: ID!
+}
