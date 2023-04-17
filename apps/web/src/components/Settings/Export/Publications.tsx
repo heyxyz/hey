@@ -67,7 +67,9 @@ const Publications: FC = () => {
       </div>
       {publications.length > 0 ? (
         <div className="pb-2">
-          Exported <b>{publications.length}</b> publications
+          <Trans>
+            Exported <b>{publications.length}</b> publications
+          </Trans>
         </div>
       ) : null}
       {fetchCompleted ? (
