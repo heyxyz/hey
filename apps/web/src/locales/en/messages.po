@@ -1670,6 +1670,7 @@ msgid "Request Verification"
 msgstr ""
 
 #: src/components/Settings/Account/index.tsx
+#: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
 msgstr "Account settings • {APP_NAME}"
 
@@ -1678,8 +1679,12 @@ msgid "Allow"
 msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Module {0} successfully!"
-msgstr ""
+msgid "Module disabled successfully!"
+msgstr "Module disabled successfully!"
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Module enabled successfully!"
+msgstr "Module enabled successfully!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
@@ -1839,6 +1844,30 @@ msgstr "Disable Signless Transactions"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Dispatcher • {APP_NAME}"
 
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export publications"
+msgstr "Export publications"
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export all your posts, comments and mirrors to a JSON file."
+msgstr "Export all your posts, comments and mirrors to a JSON file."
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Download publications"
+msgstr "Download publications"
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr "Export now"
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Export Publications"
+#~ msgstr "Export Publications"
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Download Publication"
+#~ msgstr "Download Publication"
+
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
 msgstr "Interests settings • {APP_NAME}"
@@ -1881,10 +1910,12 @@ msgid "Token Id"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Upload failed"
 msgstr "Upload failed"
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr "Crop image"
 
@@ -1913,6 +1944,10 @@ msgid "Bio should not exceed 260 characters"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr "Upload"
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
 msgstr ""
 
@@ -1939,6 +1974,10 @@ msgstr ""
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
 msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Cover picture crop preview"
+msgstr "Cover picture crop preview"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
@@ -1979,6 +2018,10 @@ msgstr ""
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
 msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Export"
+msgstr "Export"
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Publication deleted successfully"

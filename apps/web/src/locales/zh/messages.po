@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-13 00:08\n"
+"PO-Revision-Date: 2023-04-16 16:55\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1670,6 +1670,7 @@ msgid "Request Verification"
 msgstr "请求验证"
 
 #: src/components/Settings/Account/index.tsx
+#: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
 msgstr "帐户设置 • {APP_NAME}"
 
@@ -1678,8 +1679,12 @@ msgid "Allow"
 msgstr "允许"
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Module {0} successfully!"
-msgstr "模块 {0} 授权成功！"
+msgid "Module disabled successfully!"
+msgstr ""
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Module enabled successfully!"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
@@ -1839,6 +1844,30 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export publications"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export all your posts, comments and mirrors to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Download publications"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Export Publications"
+#~ msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Download Publication"
+#~ msgstr ""
+
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
 msgstr "兴趣设置 • {APP_NAME}"
@@ -1881,10 +1910,12 @@ msgid "Token Id"
 msgstr "代币ID"
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Upload failed"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr ""
 
@@ -1913,6 +1944,10 @@ msgid "Bio should not exceed 260 characters"
 msgstr "个人简介不应超过 260 个字符"
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
 msgstr "个人账户ID"
 
@@ -1939,6 +1974,10 @@ msgstr "简介"
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
 msgstr "告诉我们一些关于您的信息！"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Cover picture crop preview"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
@@ -1979,6 +2018,10 @@ msgstr "调度员"
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
 msgstr "授权设置"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Export"
+msgstr ""
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Publication deleted successfully"
