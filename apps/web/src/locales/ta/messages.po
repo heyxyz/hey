@@ -1844,6 +1844,42 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
 
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export all your notifications to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Download notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export profile"
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export all your profile data to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Download profile"
+msgstr ""
+
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export publications"
 msgstr ""
@@ -1854,10 +1890,6 @@ msgstr ""
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Download publications"
-msgstr ""
-
-#: src/components/Settings/Export/Publications.tsx
-msgid "Export now"
 msgstr ""
 
 #: src/components/Settings/Export/Publications.tsx
@@ -1944,10 +1976,6 @@ msgid "Bio should not exceed 260 characters"
 msgstr "பயோ 260 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Upload"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
 msgstr "சுயவிவர ஐடி"
 
@@ -1985,6 +2013,10 @@ msgstr "ஒவ்வொரு நாளும் பெருமையைக் 
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
 msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
