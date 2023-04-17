@@ -4,8 +4,8 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "next dev --port 4785",
-    "build": "next build",
+    "dev": "prisma generate; next dev --port 4785",
+    "build": "prisma generate; next build",
     "start": "next start --port 4785",
     "generate": "prisma generate",
     "codegen:schema": "dotenv -- ts-node --transpile-only -r tsconfig-paths/register ./src/graphql/index.ts",
