@@ -33,9 +33,9 @@ const Follow: FC<FollowProps> = ({
   profile,
   showText = false,
   setFollowing,
+  outline = true,
   followSource,
-  followPosition,
-  outline = true
+  followPosition
 }) => {
   const { pathname } = useRouter();
   const userSigNonce = useAppStore((state) => state.userSigNonce);
@@ -46,7 +46,11 @@ const Follow: FC<FollowProps> = ({
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     setFollowing(true);
     toast.success(t`Followed successfully!`);
     Mixpanel.track(PROFILE.FOLLOW, {
@@ -71,11 +75,13 @@ const Follow: FC<FollowProps> = ({
     abi: LensHub,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({ onCompleted });
+  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  });
   const [createFollowTypedData, { loading: typedDataLoading }] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
@@ -102,7 +108,7 @@ const Follow: FC<FollowProps> = ({
   });
 
   const [createFollowProxyAction, { loading: proxyActionLoading }] = useProxyActionMutation({
-    onCompleted,
+    onCompleted: () => onCompleted(),
     onError,
     update: updateCache
   });

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-13 00:08\n"
+"PO-Revision-Date: 2023-04-16 16:55\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -203,7 +203,7 @@ msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
-msgstr ""
+msgstr "நான் பின்தொடர்பவர்கள்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers"
@@ -219,19 +219,19 @@ msgstr "எல்லோரும்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers can comment and mirror"
-msgstr ""
+msgstr "என்னைப் பின்தொடர்பவர்கள் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows can comment and mirror"
-msgstr ""
+msgstr "நான் பின்தொடர்பவர்கள் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friend of friends can comment and mirror"
-msgstr ""
+msgstr "நண்பர்களின் நண்பர் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone can comment and mirror"
-msgstr ""
+msgstr "எல்லோரும் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
@@ -602,7 +602,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
-msgstr ""
+msgstr "மதிப்பீட்டாளர் மையம் • {APP_NAME}"
 
 #: src/components/Mod/index.tsx
 msgid "Refresh feed"
@@ -664,7 +664,7 @@ msgstr "இன்பாக்ஸ் பூஜ்யம்!"
 
 #: src/components/Notification/Settings.tsx
 msgid "Notification settings"
-msgstr ""
+msgstr "அறிவிப்பு அமைப்புகள்"
 
 #: src/components/Notification/Settings.tsx
 msgid "Signal filter"
@@ -1678,8 +1678,12 @@ msgid "Allow"
 msgstr "அனுமதி"
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Module {0} successfully!"
-msgstr ""
+msgid "Module disabled successfully!"
+msgstr "மாடுயூல் வெற்றிகரமாக முடக்கப்பட்டது!"
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Module enabled successfully!"
+msgstr "மாடுயூல் வெற்றிகரமாக இயக்கப்பட்டது!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
@@ -1731,7 +1735,7 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your posts or comments that are not indexed"
-msgstr ""
+msgstr "இண்டெக்ஸ் செய்யப்படாத உங்கள் இடுகைகள் அல்லது கருத்துகளைச் சுத்தம் செய்யவும்"
 
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
@@ -1759,7 +1763,7 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
-msgstr ""
+msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
@@ -1886,11 +1890,11 @@ msgstr "பதிவேற்றம் தோல்வியுற்றத�
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Crop image"
-msgstr ""
+msgstr "படத்தைத் திருத்து"
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Profile picture crop preview"
-msgstr ""
+msgstr "சுயவிவரப் படம் திருத்து முன்னோட்டம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
@@ -1942,7 +1946,7 @@ msgstr "உங்களைப் பற்றி ஏதாவது சொல்
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
-msgstr ""
+msgstr "ஒவ்வொரு நாளும் பெருமையைக் கொண்டாடுங்கள்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
@@ -2083,7 +2087,7 @@ msgstr "▲ வெர்செல் மூலம் இயக்கப்பட
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
-msgstr ""
+msgstr "மதிப்பீட்டாளர் செயல்கள்"
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
@@ -2342,11 +2346,11 @@ msgstr "மிதவாக்கம்"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Disable mod mode"
-msgstr ""
+msgstr "மதிப்பீட்டாளர் பயன்முறையை முடக்கு"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Enable mod mode"
-msgstr ""
+msgstr "மதிப்பீட்டாளர் பயன்முறையை இயக்கு"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2406,7 +2410,7 @@ msgstr "இந்த முன்மொழிவு மூடப்பட்ட�
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{type} voting is not supported yet!"
-msgstr ""
+msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
@@ -2442,7 +2446,7 @@ msgstr "நிலை அமைப்புகளை ஏற்றுவதில�
 
 #: src/components/Shared/Status.tsx
 msgid "Clear status"
-msgstr ""
+msgstr "ஸ்டேட்டஸை அழிக்கவும்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
@@ -2517,9 +2521,13 @@ msgstr "உங்களிடம் போதுமான <0>{0}</0> இல்�
 msgid "Swap in Uniswap"
 msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய்யுங்கள்"
 
+#: src/components/StaffTools/RelayQueues.tsx
+msgid "Stafftools | Relay queues • {APP_NAME}"
+msgstr "பணியாளர் கருவிகள் | ரிலே வரிசைகள் • {APP_NAME}"
+
 #: src/components/StaffTools/Stats/index.tsx
-msgid "Stafftools • {APP_NAME}"
-msgstr "பணியாளர் கருவிகள் • {APP_NAME}"
+msgid "Stafftools | Stats • {APP_NAME}"
+msgstr "பணியாளர் கருவிகள் | புள்ளிவிவரங்கள் • {APP_NAME}"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"

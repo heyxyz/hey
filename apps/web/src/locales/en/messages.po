@@ -1678,8 +1678,12 @@ msgid "Allow"
 msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Module {0} successfully!"
-msgstr ""
+msgid "Module disabled successfully!"
+msgstr "Module disabled successfully!"
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Module enabled successfully!"
+msgstr "Module enabled successfully!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
@@ -2517,9 +2521,13 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr ""
 
+#: src/components/StaffTools/RelayQueues.tsx
+msgid "Stafftools | Relay queues • {APP_NAME}"
+msgstr "Stafftools | Relay queues • {APP_NAME}"
+
 #: src/components/StaffTools/Stats/index.tsx
-msgid "Stafftools • {APP_NAME}"
-msgstr "Stafftools • {APP_NAME}"
+msgid "Stafftools | Stats • {APP_NAME}"
+msgstr "Stafftools | Stats • {APP_NAME}"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"

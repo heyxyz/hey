@@ -140,7 +140,12 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               </div>
             ) : followType === 'FeeFollowModuleSettings' ? (
               <div className="flex space-x-2">
-                <SuperFollow profile={profile} setFollowing={setFollowing} showText />
+                <SuperFollow
+                  profile={profile}
+                  setFollowing={setFollowing}
+                  followSource={FollowSource.PROFILE_PAGE}
+                  showText
+                />
                 {currentProfile && <Message onClick={onMessageClick} />}
               </div>
             ) : (

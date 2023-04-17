@@ -44,7 +44,11 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const [imageSrc, setImageSrc] = useState('');
   const [showCropModal, setShowCropModal] = useState(false);
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     toast.success(t`Avatar updated successfully!`);
     Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
   };
@@ -58,12 +62,12 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     abi: LensHub,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
     useCreateSetProfileImageUriTypedDataMutation({
@@ -88,7 +92,11 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     });
 
   const [createSetProfileImageURIViaDispatcher, { loading: dispatcherLoading }] =
-    useCreateSetProfileImageUriViaDispatcherMutation({ onCompleted, onError });
+    useCreateSetProfileImageUriViaDispatcherMutation({
+      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+        onCompleted(createSetProfileImageURIViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
