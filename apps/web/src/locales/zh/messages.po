@@ -1844,6 +1844,42 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export all your notifications to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Download notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export profile"
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export all your profile data to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Download profile"
+msgstr ""
+
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export publications"
 msgstr ""
@@ -1854,10 +1890,6 @@ msgstr ""
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Download publications"
-msgstr ""
-
-#: src/components/Settings/Export/Publications.tsx
-msgid "Export now"
 msgstr ""
 
 #: src/components/Settings/Export/Publications.tsx
@@ -1944,10 +1976,6 @@ msgid "Bio should not exceed 260 characters"
 msgstr "个人简介不应超过 260 个字符"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Upload"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
 msgstr "个人账户ID"
 
@@ -1986,6 +2014,10 @@ msgstr "每天庆祝一次骄傲（彩虹）大游行"
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr "打开此选项来展示您对LGBTQ的支持并且每天展示  {APP_NAME} 彩虹的图标。"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"

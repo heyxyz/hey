@@ -1,7 +1,7 @@
 import downloadJson from '@lib/downloadJson';
 import { Trans } from '@lingui/macro';
-import type { SingleProfileQueryRequest } from 'lens';
-import { Profile, useProfileLazyQuery } from 'lens';
+import type { Profile as TProfile, SingleProfileQueryRequest } from 'lens';
+import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -9,7 +9,7 @@ import { Button, Card } from 'ui';
 
 const Profile: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<TProfile | null>(null);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
@@ -26,7 +26,7 @@ const Profile: FC = () => {
     setExporting(true);
     exportProfile({
       onCompleted: ({ profile }) => {
-        setProfile(profile as Profile);
+        setProfile(profile as TProfile);
         setFetchCompleted(true);
         setExporting(false);
       }
