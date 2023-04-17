@@ -1910,10 +1910,12 @@ msgid "Token Id"
 msgstr "代币ID"
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Upload failed"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr ""
 
@@ -1942,6 +1944,10 @@ msgid "Bio should not exceed 260 characters"
 msgstr "个人简介不应超过 260 个字符"
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
 msgstr "个人账户ID"
 
@@ -1968,6 +1974,10 @@ msgstr "简介"
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
 msgstr "告诉我们一些关于您的信息！"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Cover picture crop preview"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"

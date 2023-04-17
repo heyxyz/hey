@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 interface ModalProps {
   icon?: ReactNode;
   title?: ReactNode;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'fit-content';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   show: boolean;
   children: ReactNode[] | ReactNode;
   dataTestId?: string;

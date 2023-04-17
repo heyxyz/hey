@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "typecheck": "tsc --pretty --noEmit",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix --ext .ts"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
     "clsx": "^1.2.1",
