@@ -1670,6 +1670,7 @@ msgid "Request Verification"
 msgstr ""
 
 #: src/components/Settings/Account/index.tsx
+#: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
 msgstr ""
 
@@ -1843,6 +1844,30 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
 
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export publications"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export all your posts, comments and mirrors to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Download publications"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Export Publications"
+#~ msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Download Publication"
+#~ msgstr ""
+
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
 msgstr ""
@@ -1982,6 +2007,10 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
+msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Export"
 msgstr ""
 
 #: src/components/Shared/Alert/DeletePublication.tsx
@@ -2593,4 +2622,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

@@ -1670,6 +1670,7 @@ msgid "Request Verification"
 msgstr "请求验证"
 
 #: src/components/Settings/Account/index.tsx
+#: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
 msgstr "帐户设置 • {APP_NAME}"
 
@@ -1843,6 +1844,30 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export publications"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export all your posts, comments and mirrors to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Download publications"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Export Publications"
+#~ msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Download Publication"
+#~ msgstr ""
+
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
 msgstr "兴趣设置 • {APP_NAME}"
@@ -1983,6 +2008,10 @@ msgstr "调度员"
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
 msgstr "授权设置"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Export"
+msgstr ""
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Publication deleted successfully"
@@ -2593,4 +2622,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
