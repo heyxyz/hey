@@ -69,7 +69,7 @@ const Publications: FC = () => {
         <Trans>Export Publications</Trans>
       </div>
       <div className="pb-2">
-        <Trans>Export all your publications to a JSON file.</Trans>
+        <Trans>Export all your posts, comments and mirrors to a JSON file.</Trans>
       </div>
       {publications.length > 0 ? (
         <div className="pb-2">

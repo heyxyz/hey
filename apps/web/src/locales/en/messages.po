@@ -1670,6 +1670,7 @@ msgid "Request Verification"
 msgstr ""
 
 #: src/components/Settings/Account/index.tsx
+#: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
 msgstr "Account settings • {APP_NAME}"
 
@@ -1843,6 +1844,22 @@ msgstr "Disable Signless Transactions"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Dispatcher • {APP_NAME}"
 
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export Publications"
+msgstr "Export Publications"
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export all your posts, comments and mirrors to a JSON file."
+msgstr "Export all your posts, comments and mirrors to a JSON file."
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Download Publication"
+msgstr "Download Publication"
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr "Export now"
+
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
 msgstr "Interests settings • {APP_NAME}"
@@ -1983,6 +2000,10 @@ msgstr ""
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
 msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Export"
+msgstr "Export"
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Publication deleted successfully"
