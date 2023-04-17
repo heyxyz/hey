@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-16 16:10\n"
+"PO-Revision-Date: 2023-04-16 16:55\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -203,7 +203,7 @@ msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
-msgstr ""
+msgstr "நான் பின்தொடர்பவர்கள்"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers"
@@ -664,7 +664,7 @@ msgstr "இன்பாக்ஸ் பூஜ்யம்!"
 
 #: src/components/Notification/Settings.tsx
 msgid "Notification settings"
-msgstr ""
+msgstr "அறிவிப்பு அமைப்புகள்"
 
 #: src/components/Notification/Settings.tsx
 msgid "Signal filter"
@@ -1679,11 +1679,11 @@ msgstr "அனுமதி"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Module disabled successfully!"
-msgstr ""
+msgstr "மாடுயூல் வெற்றிகரமாக முடக்கப்பட்டது!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Module enabled successfully!"
-msgstr ""
+msgstr "மாடுயூல் வெற்றிகரமாக இயக்கப்பட்டது!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
@@ -1735,7 +1735,7 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your posts or comments that are not indexed"
-msgstr ""
+msgstr "இண்டெக்ஸ் செய்யப்படாத உங்கள் இடுகைகள் அல்லது கருத்துகளைச் சுத்தம் செய்யவும்"
 
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
@@ -1763,7 +1763,7 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
-msgstr ""
+msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
@@ -1946,7 +1946,7 @@ msgstr "உங்களைப் பற்றி ஏதாவது சொல்
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
-msgstr ""
+msgstr "ஒவ்வொரு நாளும் பெருமையைக் கொண்டாடுங்கள்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
@@ -2446,7 +2446,7 @@ msgstr "நிலை அமைப்புகளை ஏற்றுவதில�
 
 #: src/components/Shared/Status.tsx
 msgid "Clear status"
-msgstr ""
+msgstr "ஸ்டேட்டஸை அழிக்கவும்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
@@ -2593,3 +2593,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+
