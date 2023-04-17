@@ -1,5 +1,4 @@
-import { aaveMembers } from 'aave-members';
-
+import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetStaffs = [...lensterMembers, ...aaveMembers];
