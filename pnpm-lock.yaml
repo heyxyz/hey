@@ -19,6 +19,30 @@ importers:
 
   apps/api:
     dependencies:
+      '@pothos/core':
+        specifier: ^3.29.0
+        version: 3.29.0(graphql@16.6.0)
+      '@pothos/plugin-prisma':
+        specifier: ^3.47.2
+        version: 3.47.2(@pothos/core@3.29.0)(@prisma/client@4.12.0)(graphql@16.6.0)(typescript@5.0.4)
+      '@pothos/plugin-scope-auth':
+        specifier: ^3.19.0
+        version: 3.19.0(@pothos/core@3.29.0)(graphql@16.6.0)
+      '@pothos/plugin-simple-objects':
+        specifier: ^3.6.7
+        version: 3.6.7(@pothos/core@3.29.0)(graphql@16.6.0)
+      '@pothos/plugin-validation':
+        specifier: ^3.9.0
+        version: 3.9.0(@pothos/core@3.29.0)(graphql@16.6.0)(zod@3.21.4)
+      '@prisma/client':
+        specifier: ^4.12.0
+        version: 4.12.0(prisma@4.12.0)
+      graphql:
+        specifier: ^16.6.0
+        version: 16.6.0
+      graphql-helix:
+        specifier: ^1.13.0
+        version: 1.13.0(graphql@16.6.0)
       jwt-decode:
         specifier: ^3.1.2
         version: 3.1.2
@@ -28,6 +52,9 @@ importers:
       next:
         specifier: 13.3.0
         version: 13.3.0(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0)
+      prisma:
+        specifier: ^4.12.0
+        version: 4.12.0
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -44,9 +71,18 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.11
         version: 18.0.11
+      dotenv:
+        specifier: ^16.0.3
+        version: 16.0.3
+      dotenv-cli:
+        specifier: ^7.2.1
+        version: 7.2.1
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../packages/eslint-config-weblint
+      ts-node:
+        specifier: ^10.9.1
+        version: 10.9.1(@types/node@18.15.11)(typescript@5.0.4)
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig
@@ -6330,6 +6366,108 @@ packages:
     resolution: {integrity: sha512-Cr4OjIkipTtcXKjAsm8agyleBuDHvxzeBoa1v543lbv1YaIwQjESsVcmjiWiPEbC1FIeHOG/Op9kdCmAmiS3Kw==}
     dev: false
 
+  /@pothos/core@3.29.0(graphql@16.6.0):
+    resolution: {integrity: sha512-6LcrnZ3QRQrbWvKLfdSvfrk1nyezLaDAT8yIhQXLOhhtm3iK+knIpdGbNfKiTgxbdSDkK69IcXNV4ifcq23bIQ==}
+    peerDependencies:
+      graphql: '>=15.1.0'
+    dependencies:
+      graphql: 16.6.0
+    dev: false
+
+  /@pothos/plugin-prisma@3.47.2(@pothos/core@3.29.0)(@prisma/client@4.12.0)(graphql@16.6.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-S38uYCETz1310HK9iKg8V87qkUqPW8pfDGDqbbhURBt5nqFHu8iCTzjY28DPWa8E68rME3KZEtXBzc1mwZH4eg==}
+    hasBin: true
+    peerDependencies:
+      '@pothos/core': '*'
+      '@prisma/client': '*'
+      graphql: '>=15.1.0'
+      typescript: '>=4.7.2'
+    dependencies:
+      '@pothos/core': 3.29.0(graphql@16.6.0)
+      '@prisma/client': 4.12.0(prisma@4.12.0)
+      '@prisma/generator-helper': 4.12.0
+      graphql: 16.6.0
+      typescript: 5.0.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@pothos/plugin-scope-auth@3.19.0(@pothos/core@3.29.0)(graphql@16.6.0):
+    resolution: {integrity: sha512-1NjjUh3SrKbXmcZRmJ7NaAy1GZufGwOfO+Cn8zP/IrKzrGCKoyXa+3NfIOF2q6Z+wRKivnnnzT2/Hzin2K13Sg==}
+    peerDependencies:
+      '@pothos/core': '*'
+      graphql: '>=15.1.0'
+    dependencies:
+      '@pothos/core': 3.29.0(graphql@16.6.0)
+      graphql: 16.6.0
+    dev: false
+
+  /@pothos/plugin-simple-objects@3.6.7(@pothos/core@3.29.0)(graphql@16.6.0):
+    resolution: {integrity: sha512-2ME7NSJZMh7MFAsTScHRiZusrLd5qpMBT/zgfmlGSGZgTFOUj38fWkQGYTFbFxTP4uClEcf9GW3aAkwLmH2ATw==}
+    peerDependencies:
+      '@pothos/core': '*'
+      graphql: '>=15.1.0'
+    dependencies:
+      '@pothos/core': 3.29.0(graphql@16.6.0)
+      graphql: 16.6.0
+    dev: false
+
+  /@pothos/plugin-validation@3.9.0(@pothos/core@3.29.0)(graphql@16.6.0)(zod@3.21.4):
+    resolution: {integrity: sha512-w2Q52l8JnhceKfDzuX1zOfspTZPc3gxxixgt10y1bB/h/kD2n/xwYXmAOLqyIN+TTr0Bi8/udYUDAAtWn9Q67A==}
+    peerDependencies:
+      '@pothos/core': '*'
+      graphql: '>=15.1.0'
+      zod: '*'
+    dependencies:
+      '@pothos/core': 3.29.0(graphql@16.6.0)
+      graphql: 16.6.0
+      zod: 3.21.4
+    dev: false
+
+  /@prisma/client@4.12.0(prisma@4.12.0):
+    resolution: {integrity: sha512-j9/ighfWwux97J2dS15nqhl60tYoH8V0IuSsgZDb6bCFcQD3fXbXmxjYC8GHhIgOk3lB7Pq+8CwElz2MiDpsSg==}
+    engines: {node: '>=14.17'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.12.0-67.659ef412370fa3b41cd7bf6e94587c1dfb7f67e7
+      prisma: 4.12.0
+    dev: false
+
+  /@prisma/debug@4.12.0:
+    resolution: {integrity: sha512-mBTAGClWnxJpFSDSLF4+sVfVgS+KIs+y/Ncu3e+JkJ/gfJ1f591nRrclV1EmxnfTcvd8xoomhbiTy5mYDzzPEA==}
+    dependencies:
+      '@types/debug': 4.1.7
+      debug: 4.3.4(supports-color@8.1.1)
+      strip-ansi: 6.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@prisma/engines-version@4.12.0-67.659ef412370fa3b41cd7bf6e94587c1dfb7f67e7:
+    resolution: {integrity: sha512-JIHNj5jlXb9mcaJwakM0vpgRYJIAurxTUqM0iX0tfEQA5XLZ9ONkIckkhuAKdAzocZ+80GYg7QSsfpjg7OxbOA==}
+    dev: false
+
+  /@prisma/engines@4.12.0:
+    resolution: {integrity: sha512-0alKtnxhNB5hYU+ymESBlGI4b9XrGGSdv7Ud+8TE/fBNOEhIud0XQsAR+TrvUZgS4na5czubiMsODw0TUrgkIA==}
+    requiresBuild: true
+    dev: false
+
+  /@prisma/generator-helper@4.12.0:
+    resolution: {integrity: sha512-sB4dkjylb6tMrDZ3GMHPRDKSKOSP86e5yoOrWuJGa0W30LPeCnOzwyNtqUYYdgV/xuIcTS3TGAYSfryeyeU2JA==}
+    dependencies:
+      '@prisma/debug': 4.12.0
+      '@types/cross-spawn': 6.0.2
+      chalk: 4.1.2
+      cross-spawn: 7.0.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@protobufjs/aspromise@1.1.2:
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
     dev: false
@@ -7823,6 +7961,12 @@ packages:
 
   /@types/connect@3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
+    dependencies:
+      '@types/node': 18.15.11
+    dev: false
+
+  /@types/cross-spawn@6.0.2:
+    resolution: {integrity: sha512-KuwNhp3eza+Rhu8IFI5HUXRP0LIhqH5cAjubUvGXXthh4YYBuP2ntwEX+Cz8GJoZUHlKo247wPWOfA9LYEq4cw==}
     dependencies:
       '@types/node': 18.15.11
     dev: false
@@ -11025,10 +11169,19 @@ packages:
       no-case: 3.0.4
       tslib: 2.5.0
 
+  /dotenv-cli@7.2.1:
+    resolution: {integrity: sha512-ODHbGTskqRtXAzZapDPvgNuDVQApu4oKX8lZW7Y0+9hKA6le1ZJlyRS687oU9FXjOVEDU/VFV6zI125HzhM1UQ==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      dotenv: 16.0.3
+      dotenv-expand: 10.0.0
+      minimist: 1.2.8
+    dev: true
+
   /dotenv-expand@10.0.0:
     resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==}
     engines: {node: '>=12'}
-    dev: false
 
   /dotenv@10.0.0:
     resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
@@ -12684,6 +12837,14 @@ packages:
       - encoding
       - utf-8-validate
     dev: true
+
+  /graphql-helix@1.13.0(graphql@16.6.0):
+    resolution: {integrity: sha512-cqDKMoRywKjnL0ZWCTB0GOiBgsH6d3nU4JGDF6RuzAyd35tmalzKpSxkx3NNp4H5RvnKWnrukWzR51wUq277ng==}
+    peerDependencies:
+      graphql: ^15.3.0 || ^16.0.0
+    dependencies:
+      graphql: 16.6.0
+    dev: false
 
   /graphql-request@5.2.0(graphql@16.6.0):
     resolution: {integrity: sha512-pLhKIvnMyBERL0dtFI3medKqWOz/RhHdcgbZ+hMMIb32mEPa5MJSzS4AuXxfI4sRAu6JVVk5tvXuGfCWl9JYWQ==}
@@ -15753,6 +15914,15 @@ packages:
   /pretty-hrtime@1.0.3:
     resolution: {integrity: sha512-66hKPCr+72mlfiSjlEB1+45IjXSqvVAIy6mocupoww4tBFE9R9IhwwUGoI4G++Tc9Aq+2rxOt0RFU6gPcrte0A==}
     engines: {node: '>= 0.8'}
+    dev: false
+
+  /prisma@4.12.0:
+    resolution: {integrity: sha512-xqVper4mbwl32BWzLpdznHAYvYDWQQWK2tBfXjdUD397XaveRyAP7SkBZ6kFlIg8kKayF4hvuaVtYwXd9BodAg==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 4.12.0
     dev: false
 
   /prismjs@1.29.0:
