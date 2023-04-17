@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-16 16:10\n"
+"PO-Revision-Date: 2023-04-16 16:55\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2593,3 +2593,4 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
+
