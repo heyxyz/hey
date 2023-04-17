@@ -1885,10 +1885,12 @@ msgid "Token Id"
 msgstr "டோக்கன் ஐடி"
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Upload failed"
 msgstr "பதிவேற்றம் தோல்வியுற்றது"
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr "படத்தைத் திருத்து"
 
@@ -1917,6 +1919,10 @@ msgid "Bio should not exceed 260 characters"
 msgstr "பயோ 260 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
 msgstr "சுயவிவர ஐடி"
 
@@ -1943,6 +1949,10 @@ msgstr "பயோ"
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
 msgstr "உங்களைப் பற்றி ஏதாவது சொல்லுங்கள்!"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Cover picture crop preview"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
@@ -2593,4 +2603,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

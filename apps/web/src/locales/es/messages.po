@@ -1885,10 +1885,12 @@ msgid "Token Id"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Upload failed"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr ""
 
@@ -1917,6 +1919,10 @@ msgid "Bio should not exceed 260 characters"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
 msgstr ""
 
@@ -1942,6 +1948,10 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Cover picture crop preview"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -2593,4 +2603,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
