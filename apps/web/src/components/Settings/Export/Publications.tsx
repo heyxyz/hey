@@ -66,7 +66,7 @@ const Publications: FC = () => {
   return (
     <Card className="space-y-2 p-5">
       <div className="text-lg font-bold">
-        <Trans>Export Publications</Trans>
+        <Trans>Export publications</Trans>
       </div>
       <div className="pb-2">
         <Trans>Export all your posts, comments and mirrors to a JSON file.</Trans>
@@ -78,7 +78,7 @@ const Publications: FC = () => {
       ) : null}
       {fetchCompleted ? (
         <Button onClick={downloadPublications}>
-          <Trans>Download Publication</Trans>
+          <Trans>Download publications</Trans>
         </Button>
       ) : (
         <Button onClick={handleExportClick} disabled={exporting}>

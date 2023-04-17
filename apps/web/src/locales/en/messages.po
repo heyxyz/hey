@@ -1845,20 +1845,28 @@ msgid "Dispatcher • {APP_NAME}"
 msgstr "Dispatcher • {APP_NAME}"
 
 #: src/components/Settings/Export/Publications.tsx
-msgid "Export Publications"
-msgstr "Export Publications"
+msgid "Export publications"
+msgstr "Export publications"
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export all your posts, comments and mirrors to a JSON file."
 msgstr "Export all your posts, comments and mirrors to a JSON file."
 
 #: src/components/Settings/Export/Publications.tsx
-msgid "Download Publication"
-msgstr "Download Publication"
+msgid "Download publications"
+msgstr "Download publications"
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export now"
 msgstr "Export now"
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Export Publications"
+#~ msgstr "Export Publications"
+
+#: src/components/Settings/Export/Publications.tsx
+#~ msgid "Download Publication"
+#~ msgstr "Download Publication"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
