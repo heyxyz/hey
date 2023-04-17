@@ -88,7 +88,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfil
         variables: { ownedBy: address }
       });
 
-      if (profilesData?.profiles?.items?.length === 0) {
+      if (!profilesData?.profiles?.items?.length) {
         setHasProfile(false);
         keepModal = true;
       } else {

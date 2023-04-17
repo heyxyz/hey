@@ -3,15 +3,13 @@ import { PlusIcon } from '@heroicons/react/outline';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
-import { useCreateProfileMutation } from 'lens';
+import { ethers } from 'ethers';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import type { ChangeEvent, FC } from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';
-
-import Pending from './Pending';
 
 const newUserSchema = object({
   handle: string()
@@ -29,8 +27,11 @@ interface NewProfileProps {
 const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { address } = useAccount();
-  const [createProfile, { data, loading }] = useCreateProfileMutation();
+
+  const { isConnected, connector } = useAccount();
 
   const form = useZodForm({
     schema: newUserSchema
@@ -49,31 +50,116 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     }
   };
 
-  return data?.createProfile.__typename === 'RelayerResult' && data?.createProfile.txHash ? (
-    <Pending handle={form.getValues('handle')} txHash={data?.createProfile?.txHash} />
-  ) : (
+  const handleCreateProfile = async (username: string, avatar: string) => {
+    if (connector) {
+      setLoading(true);
+      const { ethereum } = window as any;
+      const accounts = await ethereum.request({
+        method: 'eth_requestAccounts'
+      });
+
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const walletAddress = accounts[0]; // first account in MetaMask
+      const signer = provider.getSigner(walletAddress);
+
+      const mockProfileProxyCreator = new ethers.Contract(
+        '0x923e7786176Ef21d0B31645fB1353b1392Dd0e40',
+        [
+          {
+            inputs: [
+              {
+                internalType: 'contract ILensHub',
+                name: 'hub',
+                type: 'address'
+              }
+            ],
+            stateMutability: 'nonpayable',
+            type: 'constructor'
+          },
+          {
+            inputs: [],
+            name: 'HandleContainsInvalidCharacters',
+            type: 'error'
+          },
+          { inputs: [], name: 'HandleFirstCharInvalid', type: 'error' },
+          { inputs: [], name: 'HandleLengthInvalid', type: 'error' },
+          {
+            inputs: [
+              {
+                components: [
+                  { internalType: 'address', name: 'to', type: 'address' },
+                  { internalType: 'string', name: 'handle', type: 'string' },
+                  { internalType: 'string', name: 'imageURI', type: 'string' },
+                  {
+                    internalType: 'address',
+                    name: 'followModule',
+                    type: 'address'
+                  },
+                  {
+                    internalType: 'bytes',
+                    name: 'followModuleInitData',
+                    type: 'bytes'
+                  },
+                  {
+                    internalType: 'string',
+                    name: 'followNFTURI',
+                    type: 'string'
+                  }
+                ],
+                internalType: 'struct DataTypes.CreateProfileData',
+                name: 'vars',
+                type: 'tuple'
+              }
+            ],
+            name: 'proxyCreateProfile',
+            outputs: [],
+            stateMutability: 'nonpayable',
+            type: 'function'
+          }
+        ],
+        signer
+      );
+
+      const createProfileRequest = {
+        to: walletAddress,
+        handle: username,
+        imageURI: '', // TODO: add picture URL once fixed
+        followModule: '0x0000000000000000000000000000000000000000',
+        followModuleInitData: '0x',
+        followNFTURI: ''
+      };
+
+      const result = await mockProfileProxyCreator.proxyCreateProfile(createProfileRequest, {
+        gasLimit: 300000
+      });
+
+      try {
+        await result.wait();
+      } catch {
+        setError(true);
+      }
+      setLoading(false);
+    }
+  };
+
+  return (
     <Form
       form={form}
       className="space-y-4"
-      onSubmit={({ handle }) => {
+      onSubmit={async ({ handle }) => {
         const username = handle.toLowerCase();
-        createProfile({
-          variables: {
-            request: {
-              handle: username,
-              profilePictureUri: avatar ? avatar : getStampFyiURL(address ?? ZERO_ADDRESS)
-            }
-          }
-        });
+        const profilePicture = avatar || getStampFyiURL(address ?? ZERO_ADDRESS);
+
+        await handleCreateProfile(username, profilePicture);
       }}
     >
-      {data?.createProfile.__typename === 'RelayError' && data?.createProfile.reason && (
+      {error && (
         <ErrorMessage
           className="mb-3"
           title="Create profile failed!"
           error={{
             name: 'Create profile failed!',
-            message: data?.createProfile?.reason
+            message: 'Something went wrong with the transaction'
           }}
         />
       )}
@@ -105,10 +191,10 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       <Button
         className="ml-auto"
         type="submit"
-        disabled={loading}
+        disabled={loading || !isConnected}
         icon={loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />}
       >
-        <Trans>Sign up</Trans>
+        <Trans>{isConnected ? 'Sign up' : 'Connect your wallet'}</Trans>
       </Button>
     </Form>
   );
