@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-16 16:10\n"
+"PO-Revision-Date: 2023-04-16 16:55\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -1678,7 +1678,11 @@ msgid "Allow"
 msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Module {0} successfully!"
+msgid "Module disabled successfully!"
+msgstr ""
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Module enabled successfully!"
 msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
