@@ -12,6 +12,7 @@ import { PAGEVIEW } from 'src/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import SettingsSidebar from '../Sidebar';
+import Profile from './Profile';
 import Publications from './Publications';
 
 const ExportSettings: NextPage = () => {
@@ -36,6 +37,7 @@ const ExportSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight className="space-y-5">
+        <Profile />
         <Publications />
       </GridItemEight>
     </GridLayout>

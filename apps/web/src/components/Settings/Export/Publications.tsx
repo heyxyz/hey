@@ -1,3 +1,4 @@
+import downloadJson from '@lib/downloadJson';
 import { Trans } from '@lingui/macro';
 import type { PublicationsQueryRequest } from 'lens';
 import { PublicationTypes, useProfileFeedLazyQuery } from 'lens';
@@ -38,29 +39,22 @@ const Publications: FC = () => {
         }
       });
 
-      if (data?.publications.pageInfo.next) {
-        await fetchPublications(data?.publications.pageInfo.next);
+      if (data?.publications.items.length === 0 || !data?.publications.pageInfo.next) {
+        setFetchCompleted(true);
+        setExporting(false);
       } else {
-        if (cursor) {
-          setFetchCompleted(true);
-          setExporting(false);
-        }
+        await fetchPublications(data?.publications.pageInfo.next);
       }
     };
 
     await fetchPublications();
   };
 
-  const downloadPublications = () => {
-    const element = document.createElement('a');
-    const file = new Blob([JSON.stringify(publications)], { type: 'application/json' });
-    element.href = URL.createObjectURL(file);
-    element.download = 'publications.json';
-    document.body.appendChild(element);
-    element.click();
-
-    setPublications([]);
-    setFetchCompleted(false);
+  const download = () => {
+    downloadJson(publications, 'publications', () => {
+      setPublications([]);
+      setFetchCompleted(false);
+    });
   };
 
   return (
@@ -77,12 +71,12 @@ const Publications: FC = () => {
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={downloadPublications}>
+        <Button onClick={download}>
           <Trans>Download publications</Trans>
         </Button>
       ) : (
         <Button onClick={handleExportClick} disabled={exporting}>
-          <Trans>Export now</Trans>
+          {exporting ? <Trans>Exporting...</Trans> : <Trans>Export now</Trans>}
         </Button>
       )}
     </Card>
