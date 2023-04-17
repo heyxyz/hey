@@ -252,12 +252,13 @@ msgid "Transaction failed!"
 msgstr "交易失败！"
 
 #: src/components/Composer/NewPublication.tsx
-msgid "[cta]Comment"
-msgstr "评论"
+msgid "Post"
+msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
-msgid "[cta]Post"
-msgstr "发帖"
+#: src/components/Publication/Actions/Comment.tsx
+msgid "Comment"
+msgstr "评论"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -1421,10 +1422,6 @@ msgstr "未知收藏"
 msgid "{0} Comments"
 msgstr "{0} 评论"
 
-#: src/components/Publication/Actions/Comment.tsx
-msgid "Comment"
-msgstr "评论"
-
 #: src/components/Publication/Actions/Like.tsx
 msgid "Dislike"
 msgstr "取消点赞"
@@ -1853,6 +1850,10 @@ msgid "Export all your notifications to a JSON file."
 msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
+msgid "Exported <0>{0}</0> notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
 msgid "Download notifications"
 msgstr ""
 
@@ -1889,16 +1890,12 @@ msgid "Export all your posts, comments and mirrors to a JSON file."
 msgstr ""
 
 #: src/components/Settings/Export/Publications.tsx
-msgid "Download publications"
+msgid "Exported <0>{0}</0> publications"
 msgstr ""
 
 #: src/components/Settings/Export/Publications.tsx
-#~ msgid "Export Publications"
-#~ msgstr ""
-
-#: src/components/Settings/Export/Publications.tsx
-#~ msgid "Download Publication"
-#~ msgstr ""
+msgid "Download publications"
+msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2223,6 +2220,7 @@ msgid "Sign up to {APP_NAME}"
 msgstr "注册到 {APP_NAME}"
 
 #: src/components/Shared/Login/New/index.tsx
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr "用户名"
 
@@ -2592,12 +2590,112 @@ msgstr "您没有足够的 <0>{0}</0>"
 msgid "Swap in Uniswap"
 msgstr "用Uniswap进行代币转换"
 
+#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Staff tool"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "{APP_NAME} account"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Profile ID"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Address"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Can use relay"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Follow module"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Metadata"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Open"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Publication ID"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Comment on"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Collect module"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "App ID"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "On-chain content URI"
+msgstr ""
+
+#: src/components/StaffTools/RelayQueues.tsx
+msgid "Transactions"
+msgstr ""
+
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Stafftools | Relay queues • {APP_NAME}"
 msgstr ""
 
+#: src/components/StaffTools/RelayQueues.tsx
+#: src/components/StaffTools/Sidebar.tsx
+msgid "Relay queues"
+msgstr ""
+
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
+msgstr ""
+
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total profiles"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "profiles burnt"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total posts"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total mirrors"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total comments"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total collects"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total follows"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx

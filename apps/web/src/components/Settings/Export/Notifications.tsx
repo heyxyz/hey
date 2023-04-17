@@ -68,7 +68,9 @@ const Notifications: FC = () => {
       </div>
       {notifications.length > 0 ? (
         <div className="pb-2">
-          Exported <b>{notifications.length}</b> notifications
+          <Trans>
+            Exported <b>{notifications.length}</b> notifications
+          </Trans>
         </div>
       ) : null}
       {fetchCompleted ? (
