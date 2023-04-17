@@ -2,6 +2,7 @@ import { initLocale } from '@lib/i18n';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { lineaTestnet } from '@wagmi/chains';
 import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc';
 import { WALLETCONNECT_PROJECT_ID } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
@@ -12,12 +13,11 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 
-import { linea } from '../../constants';
 import ErrorBoundary from './ErrorBoundary';
 import Layout from './Layout';
 
 const { chains, provider } = configureChains(
-  [linea],
+  [lineaTestnet],
   [
     jsonRpcProvider({
       rpc: () => ({

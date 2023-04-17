@@ -15,7 +15,7 @@ importers:
         version: 2.0.0
       turbo:
         specifier: canary
-        version: 1.9.0-canary.3
+        version: 1.9.2-canary.0
 
   apps/prerender:
     dependencies:
@@ -201,6 +201,9 @@ importers:
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
+      '@wagmi/chains':
+        specifier: ^0.2.18
+        version: 0.2.18(typescript@5.0.4)
       '@xmtp/xmtp-js':
         specifier: 8.0.0-beta.13
         version: 8.0.0-beta.13
@@ -8287,6 +8290,17 @@ packages:
 
   /@wagmi/chains@0.2.17(typescript@5.0.4):
     resolution: {integrity: sha512-Boh60XnwsI6dOZ5ACo2aHig7JNpNoU9M5KrMgwzNKonce9LKs/H3/GmCJNP5L9JNfnLih6u76OWN/aJWURlB2w==}
+    peerDependencies:
+      typescript: '>=4.9.4'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      typescript: 5.0.4
+    dev: false
+
+  /@wagmi/chains@0.2.18(typescript@5.0.4):
+    resolution: {integrity: sha512-TqLzrwvUyjjyA24kjPvrhYflvZ8TU7hena+Hl0fH2SW0ENnSB6cd3Uwlk6blv/lfSN0w8mWaRQOchtugKXkHYw==}
     peerDependencies:
       typescript: '>=4.9.4'
     peerDependenciesMeta:
@@ -17905,65 +17919,65 @@ packages:
       typescript: 5.0.4
     dev: true
 
-  /turbo-darwin-64@1.9.0-canary.3:
-    resolution: {integrity: sha512-Wc+QRhQP8LRr89+YCwgIgZ7WY9L78jdA5POH1nCMDrLqXlQv78dYnUd29Jf4oQGwr8g+5aQQUz6MhqM/YIdtOg==}
+  /turbo-darwin-64@1.9.2-canary.0:
+    resolution: {integrity: sha512-dVi4A5d/WtY0yp9YOacpO8ymIvUIKIVkvbIIyEnaowjWvxq1zzV0WfvQcrsTQBheEJZJGoPNLMWCqB5EHdB57A==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-darwin-arm64@1.9.0-canary.3:
-    resolution: {integrity: sha512-5dIaP/lTVbfOxOeH8fP4ianloxsNDbN2xt5BeN5MSkMHW4J93aO/kfzDl2UkY3Uga6q/qRPIg3hZmszbqqqaug==}
+  /turbo-darwin-arm64@1.9.2-canary.0:
+    resolution: {integrity: sha512-QZ9CXitkdVhBA8XOFg4NlS9kZSc4PwY9+ivc3lKt6IGx0D6AJS7s53HPvpepILFdXsiDSO9WHedZdSv3FpSMbA==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-64@1.9.0-canary.3:
-    resolution: {integrity: sha512-o2HMPIkmhjOlSQzJAa/4/dekZheAmRTr4Sl9tQstwVnlavy+AVJhugIYgrx+FH5zzprMgRc7ThFvyhYHj9JHMA==}
+  /turbo-linux-64@1.9.2-canary.0:
+    resolution: {integrity: sha512-5F0JvJUwErbCggA3NynflRMP8ogDIVWGEwNRvQJAxVWB+Osna2rMCmfr/tsAm7C67dIetLF32vSFNrRlZ5gzBg==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm64@1.9.0-canary.3:
-    resolution: {integrity: sha512-Uu4y2gFeg7HIjam0AiGVg38EIBdEEjJlgQ8zBGHDjuwJ9S0HS9mP5UvDoiNft1C4yMwwNfhmqCm6otH8Aotnng==}
+  /turbo-linux-arm64@1.9.2-canary.0:
+    resolution: {integrity: sha512-P5vTdUUOG/TcDcWn1+X1qCu4tvYbpxdWwo7kCUhsDifzfIPJ9JoKXEEEuzE1t9n53Pet14xOCVnjOL8OH8zGxA==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-64@1.9.0-canary.3:
-    resolution: {integrity: sha512-HfA1htM75mA1x/3wUe79zdqo3G3V/J+gZcp2qGuE8inqhAnLVoYuzwMiSJNlSW7sznYJqgwSUt1BqYMR+mFWPA==}
+  /turbo-windows-64@1.9.2-canary.0:
+    resolution: {integrity: sha512-yJXGYt7u6j+KzQ6UbJtPzQwo3zgnZfmrSqpnb6MZfoncWoCJx7ou7lImF7OMDv01g53Pf/qQM7dqwfMzAqi/tQ==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-arm64@1.9.0-canary.3:
-    resolution: {integrity: sha512-hMm7LzmgqHPt4rOZcEuhz5gStteD8oulD7hZHmD9Ya1zkXw+qcf3lj7W5e7uQSS9/CEqU8UUtjJPjPsI55w3lQ==}
+  /turbo-windows-arm64@1.9.2-canary.0:
+    resolution: {integrity: sha512-sz0kJPCAv/xYHjE4MiLwrZ33bXfFku9vs4aoHsWi4D5lVc1L5ppjhfKKeZKQcWE9LM7Fqc3aywupoeY/f/br4g==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo@1.9.0-canary.3:
-    resolution: {integrity: sha512-H6tTnxyAY2ts5Pndh3R/DJVDhJX/2y/lASN5XDz+cgKKhsiGFEXiuigz34Zi8E3GzxTmSjq8sQNkvHSv618vKg==}
+  /turbo@1.9.2-canary.0:
+    resolution: {integrity: sha512-aAeYja1jIk5/61aaUnXjnooU5V2iBkBJ2sQkLlKQMTb0UbConATvdjV52X21E9lgT7dVMuM1UBk3v0o8wepFcA==}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: 1.9.0-canary.3
-      turbo-darwin-arm64: 1.9.0-canary.3
-      turbo-linux-64: 1.9.0-canary.3
-      turbo-linux-arm64: 1.9.0-canary.3
-      turbo-windows-64: 1.9.0-canary.3
-      turbo-windows-arm64: 1.9.0-canary.3
+      turbo-darwin-64: 1.9.2-canary.0
+      turbo-darwin-arm64: 1.9.2-canary.0
+      turbo-linux-64: 1.9.2-canary.0
+      turbo-linux-arm64: 1.9.2-canary.0
+      turbo-windows-64: 1.9.2-canary.0
+      turbo-windows-arm64: 1.9.2-canary.0
     dev: true
 
   /tweetnacl@1.0.3:

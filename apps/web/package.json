@@ -34,6 +34,7 @@
     "@lingui/swc-plugin": "^0.2.3",
     "@tanstack/react-query": "^4.29.1",
     "@tippyjs/react": "^4.2.6",
+    "@wagmi/chains": "^0.2.18",
     "@xmtp/xmtp-js": "8.0.0-beta.13",
     "abis": "workspace:*",
     "axios": "^1.3.5",
