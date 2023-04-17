@@ -1910,10 +1910,12 @@ msgid "Token Id"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Upload failed"
 msgstr "Upload failed"
 
 #: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr "Crop image"
 
@@ -1942,6 +1944,10 @@ msgid "Bio should not exceed 260 characters"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr "Upload"
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
 msgstr ""
 
@@ -1968,6 +1974,10 @@ msgstr ""
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
 msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Cover picture crop preview"
+msgstr "Cover picture crop preview"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
