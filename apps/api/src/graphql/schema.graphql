@@ -1,5 +1,4 @@
 input CreateUserRequest {
-  address: String!
   id: String!
 }
 
