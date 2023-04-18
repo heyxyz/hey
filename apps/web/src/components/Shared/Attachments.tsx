@@ -100,7 +100,7 @@ const Attachments: FC<AttachmentsProps> = ({
               )}
               key={index + url}
               onClick={stopEventPropagation}
-              aria-label="Attachment"
+              aria-hidden="true"
             >
               {type === 'image/svg+xml' ? (
                 <Button

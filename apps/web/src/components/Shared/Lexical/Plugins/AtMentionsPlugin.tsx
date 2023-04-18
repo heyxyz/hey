@@ -122,7 +122,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       aria-selected={isSelected}
-      aria-label={option.name}
+      aria-hidden="true"
     >
       <div
         className={clsx(

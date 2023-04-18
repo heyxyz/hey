@@ -88,7 +88,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
               'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
               selectedTab === 'Following' ? 'bg-brand-100' : ''
             )}
-            aria-label="Following"
+            aria-hidden="true"
           >
             <UsersIcon className="mr-2 h-4 w-4" />
             <Trans>Following</Trans>
@@ -99,7 +99,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
               'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
               selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
-            aria-label="Requested"
+            aria-hidden="true"
           >
             <Trans>Requested</Trans>
             {requestedCount > 0 && (
