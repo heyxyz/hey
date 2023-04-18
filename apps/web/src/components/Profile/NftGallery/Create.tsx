@@ -100,7 +100,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           fields: {
             nftGalleries() {
               cache.updateQuery({ query: NftGalleriesDocument }, () => ({
-                data: gallery as any
+                data: gallery
               }));
             }
           }

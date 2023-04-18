@@ -18,7 +18,7 @@ import {
   useReportPublicationMutation
 } from 'lens';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
@@ -66,7 +66,17 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
     });
   };
 
-  const ReportButton = ({ type, subreason, icon, label }: any) => (
+  const ReportButton = ({
+    type,
+    subreason,
+    icon,
+    label
+  }: {
+    type: string;
+    subreason: string;
+    icon: ReactNode;
+    label: string;
+  }) => (
     <Button
       disabled={loading}
       variant="warning"
