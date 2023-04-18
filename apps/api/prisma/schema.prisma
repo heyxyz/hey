@@ -4,7 +4,7 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 generator pothos {
@@ -12,6 +12,13 @@ generator pothos {
 }
 
 model User {
-  id             String          @id @default(uuid())
-  address        String          @unique
+  id      String @id
+  address String
+  staff   Staff?
+}
+
+model Staff {
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [id], references: [id])
+  userId String
 }

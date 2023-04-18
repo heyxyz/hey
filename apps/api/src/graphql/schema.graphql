@@ -1,10 +1,21 @@
-scalar DateTime
+input CreateUserRequest {
+  address: String!
+  id: String!
+}
+
+type Mutation {
+  createUser(request: CreateUserRequest!): User!
+}
 
 type Query {
-  user(id: ID!): User!
+  user(request: UserRequest!): User!
 }
 
 type User {
   address: String!
   id: ID!
+}
+
+input UserRequest {
+  id: String!
 }

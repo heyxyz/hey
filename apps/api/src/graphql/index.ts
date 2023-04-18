@@ -9,7 +9,7 @@ import { builder } from './builder';
 
 export const schema = builder.toSchema({});
 
-function writeSchema(schema: GraphQLSchema) {
+const writeSchema = (schema: GraphQLSchema) => {
   const schemaAsString = printSchema(lexicographicSortSchema(schema));
   const schemaPath = path.join(process.cwd(), 'src/graphql/schema.graphql');
 
@@ -18,7 +18,7 @@ function writeSchema(schema: GraphQLSchema) {
   if (existingSchema !== schemaAsString) {
     fs.writeFileSync(schemaPath, schemaAsString);
   }
-}
+};
 
 if (process.env.NODE_ENV !== 'production') {
   writeSchema(schema);
