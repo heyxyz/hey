@@ -1,3 +1,4 @@
+import isAuthenticated from '@gql/middlewares/isAuthenticated';
 import { db } from '@lib/prisma';
 
 import { builder } from '../builder';
@@ -45,7 +46,8 @@ builder.mutationField('createUser', (t) =>
     args: {
       request: t.arg({ type: CreateUserRequest })
     },
-    resolve: (query, _root, { request }) => {
+    resolve: async (query, _root, { request }, context) => {
+      await isAuthenticated(context);
       return db.user.create({
         ...query,
         data: {

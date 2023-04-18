@@ -66,7 +66,6 @@ const handler: NextApiHandler = async (req, res) => {
       res.json(formatResult(result.payload));
     }
   } catch (error) {
-    console.error(error);
     res.status(500);
     res.end(String(error));
   }

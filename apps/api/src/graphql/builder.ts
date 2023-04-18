@@ -19,11 +19,6 @@ export const builder = new SchemaBuilder<{
   DefaultInputFieldRequiredness: true;
   PrismaTypes: PrismaTypes;
   Context: Context;
-  AuthScopes: {
-    public: boolean;
-    authenticated: boolean;
-    unauthenticated: boolean;
-  };
 }>({
   defaultInputFieldRequiredness: true,
   plugins: [SimpleObjectsPlugin, ValidationPlugin, PrismaPlugin],
