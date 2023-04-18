@@ -32,13 +32,17 @@ builder.mutationField('makeStaff', (t) =>
       await isStaff(request.id);
       isSuperStaff(getAddressFromJwt(context));
 
-      return db.staff.create({
-        ...query,
-        data: {
-          user: { connect: { id: request.id } },
-          staffMode: true
-        }
-      });
+      try {
+        return db.staff.create({
+          ...query,
+          data: {
+            user: { connect: { id: request.id } },
+            staffMode: true
+          }
+        });
+      } catch (error: any) {
+        throw new Error(error.code);
+      }
     }
   })
 );
@@ -64,10 +68,14 @@ builder.mutationField('removeStaff', (t) =>
         where: { user: { id: request.id } }
       });
 
-      return db.staff.delete({
-        ...query,
-        where: { id: data?.id }
-      });
+      try {
+        return db.staff.delete({
+          ...query,
+          where: { id: data?.id }
+        });
+      } catch (error: any) {
+        throw new Error(error.code);
+      }
     }
   })
 );
@@ -89,11 +97,15 @@ builder.mutationField('toggleStaffMode', (t) =>
       await isAuthenticated(context);
       await isStaff(request.id);
 
-      return db.staff.update({
-        ...query,
-        where: { id: request.id },
-        data: { staffMode: request.enabled }
-      });
+      try {
+        return db.staff.update({
+          ...query,
+          where: { id: request.id },
+          data: { staffMode: request.enabled }
+        });
+      } catch (error: any) {
+        throw new Error(error.code);
+      }
     }
   })
 );
