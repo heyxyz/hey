@@ -70,10 +70,14 @@ builder.mutationField('createUser', (t) =>
       const address = getAddressFromJwt(context);
       await isProfileOwnByAddress(request.id, address);
 
-      return db.user.create({
-        ...query,
-        data: { id: request.id, address }
-      });
+      try {
+        return await db.user.create({
+          ...query,
+          data: { id: request.id, address }
+        });
+      } catch (error: any) {
+        throw new Error(error.code);
+      }
     }
   })
 );
