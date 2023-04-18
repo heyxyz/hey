@@ -29612,6 +29612,12 @@ export type UserProfilesQuery = {
   userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnChainSigNonce: any };
 };
 
+export type VerifyQueryVariables = Exact<{
+  request: VerifyRequest;
+}>;
+
+export type VerifyQuery = { __typename?: 'Query'; verify: boolean };
+
 export interface PossibleTypesResultData {
   possibleTypes: {
     [key: string]: string[];
@@ -34369,3 +34375,38 @@ export function useUserProfilesLazyQuery(
 export type UserProfilesQueryHookResult = ReturnType<typeof useUserProfilesQuery>;
 export type UserProfilesLazyQueryHookResult = ReturnType<typeof useUserProfilesLazyQuery>;
 export type UserProfilesQueryResult = Apollo.QueryResult<UserProfilesQuery, UserProfilesQueryVariables>;
+export const VerifyDocument = gql`
+  query Verify($request: VerifyRequest!) {
+    verify(request: $request)
+  }
+`;
+
+/**
+ * __useVerifyQuery__
+ *
+ * To run a query within a React component, call `useVerifyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useVerifyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useVerifyQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useVerifyQuery(baseOptions: Apollo.QueryHookOptions<VerifyQuery, VerifyQueryVariables>) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<VerifyQuery, VerifyQueryVariables>(VerifyDocument, options);
+}
+export function useVerifyLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<VerifyQuery, VerifyQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<VerifyQuery, VerifyQueryVariables>(VerifyDocument, options);
+}
+export type VerifyQueryHookResult = ReturnType<typeof useVerifyQuery>;
+export type VerifyLazyQueryHookResult = ReturnType<typeof useVerifyLazyQuery>;
+export type VerifyQueryResult = Apollo.QueryResult<VerifyQuery, VerifyQueryVariables>;
