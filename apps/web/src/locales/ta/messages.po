@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-16 16:55\n"
+"PO-Revision-Date: 2023-04-18 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1861,7 +1861,7 @@ msgstr ""
 #: src/components/Settings/Export/Profile.tsx
 #: src/components/Settings/Export/Publications.tsx
 msgid "Exporting..."
-msgstr ""
+msgstr "ஏற்றுகிறது..."
 
 #: src/components/Settings/Export/Notifications.tsx
 #: src/components/Settings/Export/Profile.tsx
@@ -1875,7 +1875,7 @@ msgstr ""
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Export all your profile data to a JSON file."
-msgstr ""
+msgstr "உங்கள் சுயவிவரத் தரவை JSON கோப்பில் ஏற்றுமதி செய்யவும்."
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Download profile"
@@ -2762,3 +2762,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+
