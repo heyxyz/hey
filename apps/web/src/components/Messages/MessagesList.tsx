@@ -138,7 +138,7 @@ const MessagesList: FC<MessageListProps> = ({
 }) => {
   let lastMessageDate: Date | undefined;
   const { observe } = useInView({
-    onChange: async ({ inView }) => {
+    onChange: ({ inView }) => {
       if (!inView) {
         return;
       }

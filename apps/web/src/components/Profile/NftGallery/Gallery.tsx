@@ -48,7 +48,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
     }
   });
 
-  const onDelete = async () => {
+  const onDelete = () => {
     try {
       if (confirm(t`Are you sure you want to delete?`)) {
         const normalizedId = cache.identify({ id: gallery.id, __typename: 'NftGallery' });
@@ -180,7 +180,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 </Menu.Item>
                 <Menu.Item
                   as="label"
-                  onClick={() => onDelete()}
+                  onClick={onDelete}
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },
