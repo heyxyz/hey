@@ -41,6 +41,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         }
       }}
       data-testid={`publication-${publication.id}`}
+      aria-label="Open publication"
     >
       {feedItem ? (
         <ActionType feedItem={feedItem} />
