@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Mixpanel } from '@lib/mixpanel';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { APP_NAME, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
 import { useRelayQueuesQuery } from 'lens';
@@ -40,7 +40,9 @@ export const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
       </div>
       <div className="flex flex-col items-center">
         <b className="text-xl">{queue}</b>
-        <span className="lt-text-gray-500">Transactions</span>
+        <span className="lt-text-gray-500">
+          <Trans>Transactions</Trans>
+        </span>
       </div>
     </Card>
   );
@@ -84,7 +86,9 @@ const RelayQueues: NextPage = () => {
             </div>
           ) : (
             <section className="space-y-3">
-              <h1 className="mb-4 text-xl font-bold">Relay queues</h1>
+              <h1 className="mb-4 text-xl font-bold">
+                <Trans>Relay queues</Trans>
+              </h1>
               <div className="space-y-3">
                 {sortedRelays?.map(({ address, queue, relayer }) => (
                   <Relay key={address} address={address} queue={queue} relayer={relayer} />

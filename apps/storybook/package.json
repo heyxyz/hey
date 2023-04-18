@@ -4,9 +4,9 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "storybook dev -p 4785 --ci",
+    "dev": "storybook dev -p 4786 --ci",
     "build": "storybook build",
-    "start": "serve storybook-static",
+    "start": "serve storybook-static -p 4786",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
@@ -26,7 +26,7 @@
     "ui": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^18.0.35",
+    "@types/react": "^18.0.37",
     "autoprefixer": "^10.4.14",
     "eslint-config-weblint": "workspace:*",
     "postcss": "^8.4.22",
