@@ -33,7 +33,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, feedItem }
       className="relative flex justify-between space-x-1.5 pb-4"
       data-testid={`publication-${publication.id}-header`}
     >
-      <span onClick={stopEventPropagation}>
+      <span onClick={stopEventPropagation} aria-hidden="true">
         <UserProfile profile={profile} timestamp={timestamp} showStatus />
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">

@@ -100,6 +100,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
     <span
       className={clsx('flex flex-wrap items-center gap-3 text-sm', className)}
       onClick={stopEventPropagation}
+      aria-hidden="true"
     >
       <ReportButton
         type="spamReason"
