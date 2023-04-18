@@ -11,9 +11,9 @@ export interface Context {
   res: OutgoingMessage;
 }
 
-export function createGraphQLContext(req: IncomingMessage, res: OutgoingMessage): Context {
+export const createGraphQLContext = (req: IncomingMessage, res: OutgoingMessage): Context => {
   return { req, res };
-}
+};
 
 export const builder = new SchemaBuilder<{
   DefaultInputFieldRequiredness: true;

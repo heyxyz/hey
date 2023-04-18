@@ -6,7 +6,7 @@ import { getGraphQLParameters, processRequest, renderGraphiQL, shouldRenderGraph
 import type { IncomingHttpHeaders } from 'http';
 import type { NextApiHandler } from 'next';
 
-function formatResult(result: ExecutionResult) {
+const formatResult = (result: ExecutionResult) => {
   const formattedResult: ExecutionResult = {
     data: result.data
   };
@@ -18,7 +18,7 @@ function formatResult(result: ExecutionResult) {
   }
 
   return formattedResult;
-}
+};
 
 interface GraphQLRequest {
   body?: any;
