@@ -50,10 +50,11 @@ const EmojiMenuItem: FC<EmojiMenuItemProps> = ({ index, isSelected, onClick, onM
       className={clsx({ 'dropdown-active': isSelected }, 'm-2 cursor-pointer rounded-lg p-2 outline-none')}
       ref={setRefElement}
       role="option"
-      aria-selected={isSelected}
       id={'typeahead-item-' + index}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
+      aria-selected={isSelected}
+      aria-label={title}
     >
       <div className="flex items-center space-x-2">
         <span className="text-base">{emoji}</span>

@@ -64,7 +64,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
   };
 
   return (
-    <div onClick={stopEventPropagation}>
+    <div onClick={stopEventPropagation} aria-label="Report">
       {submitData?.reportPublication === null ? (
         <EmptyState
           message={t`Publication reported successfully!`}
