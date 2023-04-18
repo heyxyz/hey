@@ -14,6 +14,60 @@ export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
+export const LENS_PROFILE_CREATOR = '0x923e7786176Ef21d0B31645fB1353b1392Dd0e40';
+export const LENS_PROFILE_CREATOR_ABI = [
+  {
+    inputs: [
+      {
+        internalType: 'contract ILensHub',
+        name: 'hub',
+        type: 'address'
+      }
+    ],
+    stateMutability: 'nonpayable',
+    type: 'constructor'
+  },
+  {
+    inputs: [],
+    name: 'HandleContainsInvalidCharacters',
+    type: 'error'
+  },
+  { inputs: [], name: 'HandleFirstCharInvalid', type: 'error' },
+  { inputs: [], name: 'HandleLengthInvalid', type: 'error' },
+  {
+    inputs: [
+      {
+        components: [
+          { internalType: 'address', name: 'to', type: 'address' },
+          { internalType: 'string', name: 'handle', type: 'string' },
+          { internalType: 'string', name: 'imageURI', type: 'string' },
+          {
+            internalType: 'address',
+            name: 'followModule',
+            type: 'address'
+          },
+          {
+            internalType: 'bytes',
+            name: 'followModuleInitData',
+            type: 'bytes'
+          },
+          {
+            internalType: 'string',
+            name: 'followNFTURI',
+            type: 'string'
+          }
+        ],
+        internalType: 'struct DataTypes.CreateProfileData',
+        name: 'vars',
+        type: 'tuple'
+      }
+    ],
+    name: 'proxyCreateProfile',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  }
+];
 
 export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 

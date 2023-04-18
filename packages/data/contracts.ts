@@ -8,7 +8,7 @@ export enum MainnetContracts {
 export enum TestnetContracts {
   LensHubProxy = '0x28af365578586eD5Fd500A1Dc0a3E20Fc7b2Cffa',
   LensPeriphery = '0x0e1F86F248fBc407BfFc4217042b5A55Db289385',
-  DefaultToken = '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
+  DefaultToken = '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889', // WMATIC on Mumbai
   UpdateOwnableFeeCollectModule = '0xA78E4a4D0367f0f4674130F0Bb2653957ab5917e'
 }
 
