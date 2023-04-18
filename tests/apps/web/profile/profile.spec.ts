@@ -3,7 +3,7 @@ import { AVATAR } from 'data';
 import { APP_NAME, COVER, USER_CONTENT_URL } from 'data/constants';
 import { WEB_BASE_URL } from 'test/constants';
 
-test.describe('Profile', async () => {
+test.describe('Profile', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(`${WEB_BASE_URL}/u/yoginth`);
   });

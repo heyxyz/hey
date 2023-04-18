@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { WEB_BASE_URL } from 'test/constants';
 
-test.describe('Profile feeds', async () => {
+test.describe('Profile feeds', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(`${WEB_BASE_URL}/u/yoginth`);
   });
