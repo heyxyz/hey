@@ -1,3 +1,4 @@
+import getAddressFromJwt from '@gql/helpers/getAddressFromJwt';
 import isAuthenticated from '@gql/middlewares/isAuthenticated';
 import { db } from '@lib/prisma';
 
@@ -35,8 +36,7 @@ builder.queryField('user', (t) =>
 
 const CreateUserRequest = builder.inputType('CreateUserRequest', {
   fields: (t) => ({
-    id: t.string({ required: true }),
-    address: t.string({ required: true })
+    id: t.string({ required: true })
   })
 });
 
@@ -48,12 +48,13 @@ builder.mutationField('createUser', (t) =>
     },
     resolve: async (query, _root, { request }, context) => {
       await isAuthenticated(context);
+      const address = getAddressFromJwt(context);
 
       return db.user.create({
         ...query,
         data: {
           id: request.id,
-          address: request.address
+          address
         }
       });
     }
