@@ -2,3 +2,4 @@ node_modules
 out
 .next
 .turbo
+schema.graphql

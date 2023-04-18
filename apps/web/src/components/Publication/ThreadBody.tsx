@@ -22,6 +22,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
           push(`/posts/${publication?.id}`);
         }
       }}
+      aria-hidden="true"
     >
       <PublicationHeader publication={publication} />
       <div className="flex">

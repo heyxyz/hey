@@ -37,7 +37,7 @@ export const FieldError: FC<FieldErrorProps> = ({ name }) => {
     return null;
   }
 
-  return <div className="mt-1 text-sm font-bold text-red-500">{error.message as any}</div>;
+  return <div className="mt-1 text-sm font-bold text-red-500">{error.message as string}</div>;
 };
 
 interface FormProps<T extends FieldValues = Record<string, unknown>>

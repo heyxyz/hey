@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { WEB_BASE_URL } from 'test/constants';
 
-test.describe('Profile sidebar', async () => {
-  test.describe('Profile details', async () => {
+test.describe('Profile sidebar', () => {
+  test.describe('Profile details', () => {
     test.beforeEach(async ({ page }) => {
       await page.goto(`${WEB_BASE_URL}/u/yoginth`);
     });
@@ -28,7 +28,7 @@ test.describe('Profile sidebar', async () => {
     });
   });
 
-  test.describe('Profile links', async () => {
+  test.describe('Profile links', () => {
     test.beforeEach(async ({ page }) => {
       await page.goto(`${WEB_BASE_URL}/u/yoginth`);
     });
@@ -46,7 +46,7 @@ test.describe('Profile sidebar', async () => {
     });
   });
 
-  test.describe('Profile verified badge', async () => {
+  test.describe('Profile verified badge', () => {
     test('should have verified badge', async ({ page }) => {
       await page.goto(`${WEB_BASE_URL}/u/yoginth`);
       const verifiedBadge = page.getByTestId('profile-verified-badge');
@@ -60,7 +60,7 @@ test.describe('Profile sidebar', async () => {
     });
   });
 
-  test.describe('Profile followerings', async () => {
+  test.describe('Profile followerings', () => {
     test.beforeEach(async ({ page }) => {
       await page.goto(`${WEB_BASE_URL}/u/yoginth`);
     });
@@ -87,7 +87,7 @@ test.describe('Profile sidebar', async () => {
   });
 
   // test for badges
-  test.describe('Profile badges', async () => {
+  test.describe('Profile badges', () => {
     test.beforeEach(async ({ page }) => {
       await page.goto(`${WEB_BASE_URL}/u/yoginth`);
     });

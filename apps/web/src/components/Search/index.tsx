@@ -18,7 +18,7 @@ const Search: NextPage = () => {
     Mixpanel.track(PAGEVIEW, { page: 'search' });
   }, []);
 
-  if (!query.q || !['pubs', 'profiles'].includes(query.type as any)) {
+  if (!query.q || !['pubs', 'profiles'].includes(query.type as string)) {
     return <Custom404 />;
   }
 

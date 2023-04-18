@@ -4,9 +4,9 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "storybook dev -p 4786 --ci",
+    "dev": "storybook dev -p 4785 --ci",
     "build": "storybook build",
-    "start": "serve storybook-static -p 4786",
+    "start": "serve storybook-static -p 4785",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
