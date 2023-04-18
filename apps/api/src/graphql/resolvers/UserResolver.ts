@@ -48,6 +48,7 @@ builder.mutationField('createUser', (t) =>
     },
     resolve: async (query, _root, { request }, context) => {
       await isAuthenticated(context);
+
       return db.user.create({
         ...query,
         data: {
