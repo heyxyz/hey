@@ -73,7 +73,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     <>
       <div className="flex items-center justify-between">
         <UserAvatar />
-        <div onClick={stopEventPropagation} aria-label="Follow profile">
+        <div onClick={stopEventPropagation} aria-hidden="true">
           {!lazyProfile.isFollowedByMe &&
             (followStatusLoading ? (
               <div className="shimmer h-8 w-10 rounded-lg" />

@@ -82,7 +82,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
                   }
                 : undefined
             }
-            aria-label="Select profile"
+            aria-hidden="true"
           >
             <UserProfile
               profile={following?.profile as Profile}
