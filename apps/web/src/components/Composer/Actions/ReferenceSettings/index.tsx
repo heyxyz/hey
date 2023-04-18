@@ -52,13 +52,14 @@ const ReferenceSettings: FC = () => {
     description: string;
     icon: ReactNode;
   }
+
   const getClosest = (arr: string[], val: string) => {
     return arr.reduce(function (prev, curr) {
       return Math.abs(Number(curr) - Number(val)) < Math.abs(Number(prev) - Number(val)) ? curr : prev;
     });
   };
 
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleMouseUp = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     let closest = getClosest(rangeValues, event.currentTarget.value);
     setfollowValue(closest);
   };
@@ -115,15 +116,7 @@ const ReferenceSettings: FC = () => {
 
   const Slider: FC = () => (
     <div className="flex w-full flex-col space-y-2">
-      <input
-        type="range"
-        className="accent-brand-500"
-        onChange={handleChange}
-        min="1"
-        max="100"
-        step="1"
-        defaultValue={followValue}
-      />
+      <input type="range" className="accent-brand-500" onMouseUp={handleMouseUp} defaultValue={followValue} />
       <ul className="flex items-start justify-between text-sm">
         <li className="flex w-4 flex-col items-center space-y-2">
           <UserAddIcon className="text-brand-500 h-4 w-4" />{' '}
