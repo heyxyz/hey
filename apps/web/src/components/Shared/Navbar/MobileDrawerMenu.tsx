@@ -121,7 +121,7 @@ const MobileDrawerMenu: FC = () => {
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
-                aria-label="Staff Mode"
+                aria-label="Staff mode"
               >
                 <StaffMode className="py-3" />
               </div>
