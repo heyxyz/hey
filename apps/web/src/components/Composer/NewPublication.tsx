@@ -3,7 +3,12 @@ import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
-import type { CollectCondition, EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
+import type {
+  CollectCondition,
+  EncryptedMetadata,
+  FollowCondition,
+  LensEnvironment
+} from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type {
   AccessConditionOutput,
@@ -356,13 +361,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     const tokenGatedSdk = await LensGatedSDK.create({
       provider: provider as any,
       signer,
-      env: LIT_PROTOCOL_ENVIRONMENT as any
+      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 
     // Connect to the SDK
     await tokenGatedSdk.connect({
       address: currentProfile.ownedBy,
-      env: LIT_PROTOCOL_ENVIRONMENT as any
+      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 
     // Condition for gating the content

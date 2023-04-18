@@ -12,6 +12,7 @@ import {
   UserAddIcon
 } from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
+import type { LensEnvironment } from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type {
   CollectConditionOutput,
@@ -149,7 +150,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({ encrypted
     const sdk = await LensGatedSDK.create({
       provider: provider as any,
       signer,
-      env: LIT_PROTOCOL_ENVIRONMENT as any
+      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);
     setDecryptedData(decrypted);
