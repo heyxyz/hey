@@ -81,7 +81,7 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
         reason: '',
         metadata: '{}',
         from: currentProfile?.ownedBy,
-        timestamp: Number((Date.now() / 1e3).toFixed()) as any
+        timestamp: Number((Date.now() / 1e3).toFixed())
       }
     };
     const signature = await signTypedDataAsync(typedData);

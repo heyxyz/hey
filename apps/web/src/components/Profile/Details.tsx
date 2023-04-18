@@ -23,7 +23,7 @@ import isVerified from 'lib/isVerified';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import type { Dispatch, FC, ReactElement } from 'react';
+import type { Dispatch, FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
@@ -64,8 +64,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     icon,
     dataTestId = ''
   }: {
-    children: ReactElement;
-    icon: ReactElement;
+    children: ReactNode;
+    icon: ReactNode;
     dataTestId?: string;
   }) => (
     <div className="flex items-center gap-2" data-testid={dataTestId}>
@@ -191,7 +191,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           </MetaDetails>
           {getProfileAttribute(profile?.attributes, 'location') && (
             <MetaDetails icon={<LocationMarkerIcon className="h-4 w-4" />} dataTestId="profile-meta-location">
-              {getProfileAttribute(profile?.attributes, 'location') as any}
+              {getProfileAttribute(profile?.attributes, 'location')}
             </MetaDetails>
           )}
           {profile?.onChainIdentity?.ens?.name && (
