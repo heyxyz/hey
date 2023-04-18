@@ -1,5 +1,7 @@
+import getAddressFromJwt from '@gql/helpers/getAddressFromJwt';
 import isAuthenticated from '@gql/middlewares/isAuthenticated';
 import isStaff from '@gql/middlewares/isStaff';
+import isSuperStaff from '@gql/middlewares/isSuperStaff';
 import { db } from '@lib/prisma';
 
 import { builder } from '../builder';
@@ -28,6 +30,7 @@ builder.mutationField('makeStaff', (t) =>
     resolve: async (query, _root, { request }, context) => {
       await isAuthenticated(context);
       await isStaff(request.id);
+      isSuperStaff(getAddressFromJwt(context));
 
       return db.staff.create({
         ...query,
@@ -35,6 +38,35 @@ builder.mutationField('makeStaff', (t) =>
           user: { connect: { id: request.id } },
           staffMode: true
         }
+      });
+    }
+  })
+);
+
+const RemoveStaffRequest = builder.inputType('RemoveStaffRequest', {
+  fields: (t) => ({
+    id: t.string({ required: true })
+  })
+});
+
+builder.mutationField('removeStaff', (t) =>
+  t.prismaField({
+    type: 'Staff',
+    args: {
+      request: t.arg({ type: RemoveStaffRequest })
+    },
+    resolve: async (query, _root, { request }, context) => {
+      await isAuthenticated(context);
+      await isStaff(request.id);
+      isSuperStaff(getAddressFromJwt(context));
+      const data = await db.staff.findFirstOrThrow({
+        select: { id: true },
+        where: { user: { id: request.id } }
+      });
+
+      return db.staff.delete({
+        ...query,
+        where: { id: data?.id }
       });
     }
   })

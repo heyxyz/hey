@@ -7,10 +7,7 @@ import { parseJwt } from 'lens/apollo/lib';
  * @returns The address
  */
 const getAddressFromJwt = (context: Context): string => {
-  if (!context.req.headers.authorization) {
-    throw new Error('No authorization header');
-  }
-  const decoded = parseJwt(context.req.headers.authorization);
+  const decoded = parseJwt(context.req.headers.authorization as string);
 
   return decoded.id;
 };
