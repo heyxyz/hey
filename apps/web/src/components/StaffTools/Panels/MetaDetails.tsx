@@ -16,6 +16,7 @@ const MetaDetails: FC<MetaDetailsProps> = ({ children, title, value, icon }) => 
       navigator.clipboard.writeText(value);
       toast.success(t`Copied to clipboard!`);
     }}
+    aria-label="Copy to clipboard"
   >
     {icon}
     {title ? <div className="lt-text-gray-500 text-sm">{title}:</div> : null}
