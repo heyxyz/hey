@@ -16,7 +16,7 @@ test.describe('Publication', () => {
     await expect(publication).toBeVisible();
   });
 
-  test.describe('Publication header', async () => {
+  test.describe('Publication header', () => {
     test('should have profile', async ({ page }) => {
       const publication = page.getByTestId('publication-0x0d-0x01');
       await expect(publication).toContainText('@yoginth');
@@ -32,14 +32,14 @@ test.describe('Publication', () => {
     });
   });
 
-  test.describe('Publication body', async () => {
+  test.describe('Publication body', () => {
     test('should have body', async ({ page }) => {
       const publication = page.getByTestId('publication-0x0d-0x01');
       await expect(publication).toContainText('gm frens 👋');
     });
   });
 
-  test.describe('Publication meta', async () => {
+  test.describe('Publication meta', () => {
     test('should have meta', async ({ page }) => {
       const publication = page.getByTestId('publication-0x0d-0x01');
       await expect(publication).toContainText('Posted via Lenster');
@@ -47,7 +47,7 @@ test.describe('Publication', () => {
     });
   });
 
-  test.describe('Publication stats', async () => {
+  test.describe('Publication stats', () => {
     test('should have comment stats', async ({ page }) => {
       const publicationCommentStats = page.getByTestId('publication-0x0d-0x01').getByTestId('comment-stats');
       await expect(publicationCommentStats).toContainText('Comments');
