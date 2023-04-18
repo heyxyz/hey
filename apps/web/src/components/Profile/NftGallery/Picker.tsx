@@ -137,12 +137,12 @@ const Picker: FC = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3">
-      {nfts?.map((nft, i) => {
+      {nfts?.map((nft, index) => {
         const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
         const isSelected = selectedItems.includes(id);
         return (
           <div
-            key={`${id}_${i}`}
+            key={`${id}_${index}`}
             className={clsx(
               'relative rounded-xl border-2',
               isSelected ? 'border-brand-500' : 'border-transparent'

@@ -22,7 +22,7 @@ const Profile: FC = () => {
     fetchPolicy: 'network-only'
   });
 
-  const handleExportClick = async () => {
+  const handleExportClick = () => {
     setExporting(true);
     exportProfile({
       onCompleted: ({ profile }) => {

@@ -9,9 +9,9 @@ import type { Dispatch, FC } from 'react';
 import { Button, Image } from 'ui';
 
 interface FollowModalProps {
+  profile: Profile;
   setShowFollowModal: Dispatch<boolean>;
   setFollowing: Dispatch<boolean | null>;
-  profile: Profile;
 }
 
 const FollowModal: FC<FollowModalProps> = ({ profile, setFollowing, setShowFollowModal }) => {
