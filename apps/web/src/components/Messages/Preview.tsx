@@ -34,7 +34,6 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
         isSelected && 'bg-gray-50 dark:bg-gray-800'
       )}
       onClick={() => onConversationSelected(profile.id)}
-      aria-label="Select conversation"
     >
       <div className="flex justify-between space-x-3 px-5">
         <Image

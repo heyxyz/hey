@@ -119,10 +119,9 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
       className="cursor-pointer"
       ref={option.setRefElement}
       role="option"
+      aria-selected={isSelected}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
-      aria-selected={isSelected}
-      aria-label={option.name}
     >
       <div
         className={clsx(
