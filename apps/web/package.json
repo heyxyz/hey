@@ -13,7 +13,7 @@
     "extract": "lingui compile; lingui extract"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.312.0",
+    "@aws-sdk/client-s3": "^3.315.0",
     "@dnd-kit/core": "^6.0.7",
     "@dnd-kit/sortable": "^7.0.2",
     "@fingerprintjs/fingerprintjs": "^3.4.1",
