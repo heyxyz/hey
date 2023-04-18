@@ -1,5 +1,6 @@
 import getAddressFromJwt from '@gql/helpers/getAddressFromJwt';
 import isAuthenticated from '@gql/middlewares/isAuthenticated';
+import isStaff from '@gql/middlewares/isStaff';
 import { db } from '@lib/prisma';
 
 import { builder } from '../builder';
@@ -8,7 +9,24 @@ builder.prismaObject('User', {
   findUnique: (user) => ({ id: user.id }),
   fields: (t) => ({
     id: t.exposeID('id'),
-    address: t.exposeString('address')
+    address: t.exposeString('address'),
+    isStaff: t.field({
+      type: 'Boolean',
+      resolve: async (parent) => {
+        return await isStaff(parent.id);
+      }
+    }),
+    staffMode: t.field({
+      type: 'Boolean',
+      resolve: async (parent) => {
+        const data = await db.staff.findFirst({
+          select: { staffMode: true },
+          where: { id: parent.id }
+        });
+
+        return data?.staffMode ?? false;
+      }
+    })
   })
 });
 
@@ -52,10 +70,7 @@ builder.mutationField('createUser', (t) =>
 
       return db.user.create({
         ...query,
-        data: {
-          id: request.id,
-          address
-        }
+        data: { id: request.id, address }
       });
     }
   })

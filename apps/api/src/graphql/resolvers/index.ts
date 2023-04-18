@@ -1,1 +1,2 @@
 import './UserResolver';
+import './StaffResolver';
