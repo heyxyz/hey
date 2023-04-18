@@ -1,2 +1,0 @@
-import './UserResolver';
-import './StaffResolver';
