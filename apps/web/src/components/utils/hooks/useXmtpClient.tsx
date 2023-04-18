@@ -3,7 +3,7 @@ import { APP_NAME, APP_VERSION, XMTP_ENV } from 'data/constants';
 import { Localstorage } from 'data/storage';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
+import { useXmtpMessageStore } from 'src/store/xmtp-message';
 import { useSigner } from 'wagmi';
 
 const ENCODING = 'binary';
@@ -33,8 +33,8 @@ const wipeKeys = (walletAddress: string) => {
 
 const useXmtpClient = (cacheOnly = false) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const client = useMessageStore((state) => state.client);
-  const setClient = useMessageStore((state) => state.setClient);
+  const client = useXmtpMessageStore((state) => state.client);
+  const setClient = useXmtpMessageStore((state) => state.setClient);
   const [awaitingXmtpAuth, setAwaitingXmtpAuth] = useState<boolean>();
   const { data: signer, isLoading } = useSigner();
 
@@ -84,8 +84,8 @@ const useXmtpClient = (cacheOnly = false) => {
 
 export const useDisconnectXmtp = () => {
   const { data: signer } = useSigner();
-  const client = useMessageStore((state) => state.client);
-  const setClient = useMessageStore((state) => state.setClient);
+  const client = useXmtpMessageStore((state) => state.client);
+  const setClient = useXmtpMessageStore((state) => state.setClient);
   const disconnect = useCallback(async () => {
     if (signer) {
       wipeKeys(await signer.getAddress());

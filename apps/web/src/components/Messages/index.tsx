@@ -1,38 +1,36 @@
 import MetaTags from '@components/Common/MetaTags';
 import { Mixpanel } from '@lib/mixpanel';
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { MESSAGING_PROVIDER } from 'src/constants';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { useMessageStore } from 'src/store/message';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridLayout } from 'ui';
 
+import NoConversationSelected from './NoConversationSelected';
 import PreviewList from './PreviewList';
 
-const NoConversationSelected = () => {
-  return (
-    <div className="flex h-full flex-col text-center">
-      <div className="m-auto">
-        <span className="text-center text-5xl">👋</span>
-        <h3 className="mb-2 mt-3 text-lg">
-          <Trans>Select a conversation</Trans>
-        </h3>
-        <p className="text-md lt-text-gray-500 max-w-xs">
-          <Trans>Choose an existing conversation or create a new one to start messaging</Trans>
-        </p>
-      </div>
-    </div>
-  );
-};
-
 const Messages: NextPage = () => {
+  const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setChatProvider = useMessageStore((state) => state.setChatProvider);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'messages' });
   }, []);
+
+  useEffect(() => {
+    const path = router.pathname;
+    if (path === '/messages') {
+      router.push(`/messages/${MESSAGING_PROVIDER.PUSH}`);
+      setChatProvider(MESSAGING_PROVIDER.PUSH);
+    }
+  }, [router, setChatProvider]);
 
   if (!currentProfile) {
     return <Custom404 />;

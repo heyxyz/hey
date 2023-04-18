@@ -1,4 +1,4 @@
-import MessageIcon from '@components/Messages/MessageIcon';
+import MessageIcon from '@components/Messages/Xmtp/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';

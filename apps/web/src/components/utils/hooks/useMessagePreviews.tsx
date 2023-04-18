@@ -11,30 +11,30 @@ import { useProfilesLazyQuery } from 'lens';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
+import { useXmtpMessageStore } from 'src/store/xmtp-message';
 
 const MAX_PROFILES_PER_REQUEST = 50;
 
 const useMessagePreviews = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const conversations = useMessageStore((state) => state.conversations);
-  const setConversations = useMessageStore((state) => state.setConversations);
-  const messageProfiles = useMessageStore((state) => state.messageProfiles);
-  const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
-  const previewMessages = useMessageStore((state) => state.previewMessages);
-  const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
-  const selectedProfileId = useMessageStore((state) => state.selectedProfileId);
-  const setSelectedProfileId = useMessageStore((state) => state.setSelectedProfileId);
-  const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
-  const reset = useMessageStore((state) => state.reset);
+  const conversations = useXmtpMessageStore((state) => state.conversations);
+  const setConversations = useXmtpMessageStore((state) => state.setConversations);
+  const messageProfiles = useXmtpMessageStore((state) => state.messageProfiles);
+  const setMessageProfiles = useXmtpMessageStore((state) => state.setMessageProfiles);
+  const previewMessages = useXmtpMessageStore((state) => state.previewMessages);
+  const setPreviewMessages = useXmtpMessageStore((state) => state.setPreviewMessages);
+  const selectedProfileId = useXmtpMessageStore((state) => state.selectedProfileId);
+  const setSelectedProfileId = useXmtpMessageStore((state) => state.setSelectedProfileId);
+  const setPreviewMessage = useXmtpMessageStore((state) => state.setPreviewMessage);
+  const reset = useXmtpMessageStore((state) => state.reset);
   const { client, loading: creatingXmtpClient } = useXmtpClient();
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useProfilesLazyQuery();
-  const selectedTab = useMessageStore((state) => state.selectedTab);
+  const selectedTab = useXmtpMessageStore((state) => state.selectedTab);
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(new Map());
   const [requestedCount, setRequestedCount] = useState(0);
 

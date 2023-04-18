@@ -14,3 +14,9 @@ export const POLYGON_MUMBAI = {
 };
 export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id;
 export const SIMPLEANALYTICS_API_ENDPOINT = 'https://simpleanalytics.com/lenster.xyz.json';
+
+// messaging provider
+export const MESSAGING_PROVIDER = {
+  XMTP: 'xmtp',
+  PUSH: 'push'
+};

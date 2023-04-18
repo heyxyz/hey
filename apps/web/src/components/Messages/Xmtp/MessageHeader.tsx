@@ -1,3 +1,4 @@
+import Follow from '@components/Shared/Follow';
 import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
@@ -6,8 +7,6 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { FollowSource } from 'src/tracking';
-
-import Follow from '../Shared/Follow';
 
 interface MessageHeaderProps {
   profile?: Profile;

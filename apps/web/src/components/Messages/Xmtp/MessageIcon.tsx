@@ -7,14 +7,14 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useMessagePersistStore } from 'src/store/message';
+import { useXmtpMessagePersistStore } from 'src/store/xmtp-message';
 
 const MessageIcon: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
-  const viewedMessagesAtNs = useMessagePersistStore((state) => state.viewedMessagesAtNs);
-  const showMessagesBadge = useMessagePersistStore((state) => state.showMessagesBadge);
-  const setShowMessagesBadge = useMessagePersistStore((state) => state.setShowMessagesBadge);
+  const clearMessagesBadge = useXmtpMessagePersistStore((state) => state.clearMessagesBadge);
+  const viewedMessagesAtNs = useXmtpMessagePersistStore((state) => state.viewedMessagesAtNs);
+  const showMessagesBadge = useXmtpMessagePersistStore((state) => state.showMessagesBadge);
+  const setShowMessagesBadge = useXmtpMessagePersistStore((state) => state.setShowMessagesBadge);
   const { client: cachedClient } = useXmtpClient(true);
 
   const shouldShowBadge = (viewedAt: string | undefined, messageSentAt: Date | undefined): boolean => {

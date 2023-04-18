@@ -1,23 +1,16 @@
-import Preview from '@components/Messages/Preview';
-import Following from '@components/Profile/Following';
-import Loader from '@components/Shared/Loader';
-import Search from '@components/Shared/Navbar/Search';
-import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
-import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
-import buildConversationId from '@lib/buildConversationId';
-import { buildConversationKey } from '@lib/conversationKey';
-import { Mixpanel } from '@lib/mixpanel';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import Errors from 'data/errors';
-import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
+import { MESSAGING_PROVIDER } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { useMessagePersistStore, useMessageStore } from 'src/store/message';
-import { MESSAGES } from 'src/tracking';
-import { Card, EmptyState, ErrorMessage, GridItemFour, Modal } from 'ui';
+import { useMessageStore } from 'src/store/message';
+import { useXmtpMessagePersistStore } from 'src/store/xmtp-message';
+import { Card, GridItemFour } from 'ui';
+
+import PUSHPreviewList from './Push/PUSHPreview';
+import XMTPPreviewList from './Xmtp/XMTPPreview';
 
 interface PreviewListProps {
   className?: string;
@@ -26,20 +19,28 @@ interface PreviewListProps {
 
 const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
-  const selectedTab = useMessageStore((state) => state.selectedTab);
-  const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
-  const [showSearchModal, setShowSearchModal] = useState(false);
-  const { authenticating, loading, messages, profilesToShow, requestedCount, profilesError } =
-    useMessagePreviews();
-  const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
 
-  const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
-    const messageA = messages.get(keyA);
-    const messageB = messages.get(keyB);
-    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
-  });
+  const chatProvider = useMessageStore((state) => state.chatProvider);
+  const setChatProvider = useMessageStore((state) => state.setChatProvider);
+
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const clearMessagesBadge = useXmtpMessagePersistStore((state) => state.clearMessagesBadge);
+
+  const changeChatProvider = useCallback(
+    (provider: string) => {
+      setChatProvider(provider);
+      const currentPath = router.pathname; // get the current path
+      let newPath = `/messages/${provider}`; // set the new path based on the provider
+
+      // check if the current path already contains the provider
+      if (currentPath.includes(provider)) {
+        newPath = currentPath; // set the new path to the current path if it already contains the provider
+      }
+
+      router.push(newPath); // update the URL with the new path
+    },
+    [router, setChatProvider]
+  );
 
   useEffect(() => {
     if (!currentProfile) {
@@ -49,22 +50,6 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 
-  const showAuthenticating = currentProfile && authenticating;
-  const showLoading = loading && (messages.size === 0 || profilesToShow.size === 0);
-
-  const newMessageClick = () => {
-    setShowSearchModal(true);
-    Mixpanel.track(MESSAGES.OPEN_NEW_CONVERSATION);
-  };
-
-  const onProfileSelected = (profile: Profile) => {
-    const conversationId = buildConversationId(currentProfile?.id, profile.id);
-    const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
-    addProfileAndSelectTab(conversationKey, profile);
-    router.push(`/messages/${conversationKey}`);
-    setShowSearchModal(false);
-  };
-
   return (
     <GridItemFour
       className={clsx(
@@ -72,108 +57,34 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
         className
       )}
     >
-      <Card className="flex h-full flex-col justify-between">
-        <div className="flex items-center justify-between border-b p-5 dark:border-gray-700">
-          <div className="font-bold">Messages</div>
-          {currentProfile && !showAuthenticating && !showLoading && (
-            <button onClick={newMessageClick} type="button">
-              <PlusCircleIcon className="h-6 w-6" />
-            </button>
-          )}
+      <Card className="mb-6 flex justify-between font-bold">
+        <div
+          onClick={() => changeChatProvider(MESSAGING_PROVIDER.XMTP)}
+          className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-l-xl py-2.5 transition-all hover:bg-gray-200 ${
+            chatProvider === MESSAGING_PROVIDER.XMTP && 'bg-gray-100'
+          }`}
+        >
+          <img width={16} height={16} className="mx-1" src="/xmtp.svg" alt="xmtp" draggable={false} />
+          <Trans>{MESSAGING_PROVIDER.XMTP.toUpperCase()}</Trans>
         </div>
-        <div className="flex">
-          <div
-            onClick={() => setSelectedTab('Following')}
-            className={clsx(
-              'text-brand-500 tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Following' ? 'bg-brand-100' : ''
-            )}
-          >
-            <UsersIcon className="mr-2 h-4 w-4" />
-            <Trans>Following</Trans>
-          </div>
-          <div
-            onClick={() => setSelectedTab('Requested')}
-            className={clsx(
-              'text-brand-500 tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Requested' ? 'bg-brand-100' : ''
-            )}
-          >
-            <Trans>Requested</Trans>
-            {requestedCount > 0 && (
-              <span className="bg-brand-200 ml-2 rounded-2xl px-3 py-0.5 text-sm font-bold">
-                {requestedCount > 99 ? '99+' : requestedCount}
-              </span>
-            )}
-          </div>
-        </div>
-        {selectedTab === 'Requested' ? (
-          <div className="mt-1 bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
-            <Trans>These conversations are from Lens profiles that you don't currently follow.</Trans>
-          </div>
-        ) : null}
-        <div className="h-full overflow-y-auto overflow-x-hidden">
-          {showAuthenticating ? (
-            <div className="flex h-full flex-grow items-center justify-center">
-              <Loader message="Awaiting signature to enable DMs" />
-            </div>
-          ) : showLoading ? (
-            <div className="flex h-full flex-grow items-center justify-center">
-              <Loader message={t`Loading conversations`} />
-            </div>
-          ) : profilesError ? (
-            <ErrorMessage
-              className="m-5"
-              title={t`Failed to load messages`}
-              error={{
-                message: Errors.SomethingWentWrong,
-                name: Errors.SomethingWentWrong
-              }}
-            />
-          ) : sortedProfiles.length === 0 ? (
-            <button className="h-full w-full justify-items-center" onClick={newMessageClick} type="button">
-              <EmptyState
-                message={t`Start messaging your Lens frens`}
-                icon={<MailIcon className="text-brand h-8 w-8" />}
-                hideCard
-              />
-            </button>
-          ) : (
-            sortedProfiles?.map(([key, profile]) => {
-              const message = messages.get(key);
-              if (!message) {
-                return null;
-              }
-
-              return (
-                <Preview
-                  isSelected={key === selectedConversationKey}
-                  key={key}
-                  profile={profile}
-                  conversationKey={key}
-                  message={message}
-                />
-              );
-            })
-          )}
+        <div
+          onClick={() => changeChatProvider(MESSAGING_PROVIDER.PUSH)}
+          className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-r-xl py-2.5 transition-all hover:bg-gray-200 ${
+            chatProvider === MESSAGING_PROVIDER.PUSH && 'bg-gray-100'
+          }`}
+        >
+          <img width={20} height={20} className="mx-1" src="/push.svg" alt="xmtp" draggable={false} />
+          <Trans>{MESSAGING_PROVIDER.PUSH.toUpperCase()}</Trans>
         </div>
       </Card>
-      <Modal
-        title={t`New message`}
-        icon={<MailIcon className="text-brand h-5 w-5" />}
-        size="sm"
-        show={showSearchModal}
-        onClose={() => setShowSearchModal(false)}
-      >
-        <div className="w-full px-4 pt-4">
-          <Search
-            modalWidthClassName="max-w-lg"
-            placeholder={t`Search for someone to message...`}
-            onProfileSelected={onProfileSelected}
-          />
-        </div>
-        {currentProfile && <Following profile={currentProfile} onProfileSelected={onProfileSelected} />}
-      </Modal>
+
+      <div className="flex h-[91.8%] flex-col justify-between">
+        {chatProvider === MESSAGING_PROVIDER.XMTP ? (
+          <XMTPPreviewList selectedConversationKey={selectedConversationKey} />
+        ) : (
+          <PUSHPreviewList selectedConversationKey={selectedConversationKey} />
+        )}
+      </div>
     </GridItemFour>
   );
 };

@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import MessageHeader from '@components/Messages/MessageHeader';
 import Loader from '@components/Shared/Loader';
 import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
@@ -16,13 +15,14 @@ import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
+import { useXmtpMessageStore } from 'src/store/xmtp-message';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridLayout } from 'ui';
 
+import PreviewList from '../PreviewList';
 import Composer from './Composer';
+import MessageHeader from './MessageHeader';
 import MessagesList from './MessagesList';
-import PreviewList from './PreviewList';
 
 interface MessageProps {
   conversationKey: string;
@@ -30,7 +30,7 @@ interface MessageProps {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profile = useMessageStore((state) => state.messageProfiles.get(conversationKey));
+  const profile = useXmtpMessageStore((state) => state.messageProfiles.get(conversationKey));
   const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(

@@ -2,11 +2,11 @@ import type { Conversation } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import { MESSAGE_PAGE_LIMIT } from 'data/constants';
 import { useEffect, useState } from 'react';
-import { useMessageStore } from 'src/store/message';
+import { useXmtpMessageStore } from 'src/store/xmtp-message';
 
 const useGetMessages = (conversationKey: string, conversation?: Conversation, endTime?: Date) => {
-  const messages = useMessageStore((state) => state.messages.get(conversationKey));
-  const addMessages = useMessageStore((state) => state.addMessages);
+  const messages = useXmtpMessageStore((state) => state.messages.get(conversationKey));
+  const addMessages = useXmtpMessageStore((state) => state.addMessages);
   const [hasMore, setHasMore] = useState<Map<string, boolean>>(new Map());
 
   useEffect(() => {

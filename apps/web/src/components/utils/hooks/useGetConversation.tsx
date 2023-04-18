@@ -4,12 +4,12 @@ import { XMTP_ENV } from 'data/constants';
 import type { Profile } from 'lens';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
+import { useXmtpMessageStore } from 'src/store/xmtp-message';
 
 const useGetConversation = (conversationKey: string, profile?: Profile) => {
-  const client = useMessageStore((state) => state.client);
-  const selectedConversation = useMessageStore((state) => state.conversations.get(conversationKey));
-  const addConversation = useMessageStore((state) => state.addConversation);
+  const client = useXmtpMessageStore((state) => state.client);
+  const selectedConversation = useXmtpMessageStore((state) => state.conversations.get(conversationKey));
+  const addConversation = useXmtpMessageStore((state) => state.addConversation);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [missingXmtpAuth, setMissingXmtpAuth] = useState<boolean>();
 

@@ -26,7 +26,7 @@ import { useTheme } from 'next-themes';
 import type { Dispatch, FC, ReactElement } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
+import { useXmtpMessageStore } from 'src/store/xmtp-message';
 import { FollowSource } from 'src/tracking';
 import { Button, Image, Modal, Tooltip } from 'ui';
 
@@ -47,7 +47,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
-  const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
+  const addProfileAndSelectTab = useXmtpMessageStore((state) => state.addProfileAndSelectTab);
 
   const onMessageClick = () => {
     if (!currentProfile) {

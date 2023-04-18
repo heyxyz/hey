@@ -6,7 +6,7 @@ import { MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useMessagePersistStore } from 'src/store/message';
+import { useXmtpMessagePersistStore } from 'src/store/xmtp-message';
 import { MESSAGES } from 'src/tracking';
 import { Button, Input, Spinner } from 'ui';
 
@@ -20,8 +20,8 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
   const { width } = useWindowSize();
-  const unsentMessage = useMessagePersistStore((state) => state.unsentMessages.get(conversationKey));
-  const setUnsentMessage = useMessagePersistStore((state) => state.setUnsentMessage);
+  const unsentMessage = useXmtpMessagePersistStore((state) => state.unsentMessages.get(conversationKey));
+  const setUnsentMessage = useXmtpMessagePersistStore((state) => state.setUnsentMessage);
 
   const canSendMessage = !disabledInput && !sending && message.length > 0;
 

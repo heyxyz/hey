@@ -23,8 +23,10 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
 
+  // @todo instead of hardcoding xmtp in the string below, use the provider converted to lowercase from the state
+  // @todo this can be done after an epns conversation page has been created and redirecting to /messages/push works
   const onConversationSelected = (profileId: string) => {
-    router.push(profileId ? `/messages/${conversationKey}` : '/messages');
+    router.push(profileId ? `/messages/xmtp/${conversationKey}` : '/messages');
   };
 
   return (
