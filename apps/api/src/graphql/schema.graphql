@@ -2,17 +2,36 @@ input CreateUserRequest {
   id: String!
 }
 
+input MakeStaffRequest {
+  id: String!
+}
+
 type Mutation {
   createUser(request: CreateUserRequest!): User!
+  makeStaff(request: MakeStaffRequest!): Staff!
+  toggleStaffMode(request: ToggleStaffModeRequest!): Staff!
 }
 
 type Query {
   user(request: UserRequest!): User!
 }
 
+type Staff {
+  id: ID!
+  staffMode: Boolean!
+  user: User!
+}
+
+input ToggleStaffModeRequest {
+  enabled: Boolean!
+  id: String!
+}
+
 type User {
   address: String!
   id: ID!
+  isStaff: Boolean!
+  staffMode: Boolean!
 }
 
 input UserRequest {
