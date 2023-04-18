@@ -22,7 +22,7 @@ interface IPushChatStore {
   setSelectedTab: (selectedTab: TabValues) => void;
 }
 
-export const useIPushChatStore = create<IPushChatStore>((set) => ({
+export const usePushChatStore = create<IPushChatStore>((set) => ({
   connectedUser: undefined,
   setConnectedUser: (connectedUser) => set(() => ({ connectedUser })),
   chats: new Map(),
