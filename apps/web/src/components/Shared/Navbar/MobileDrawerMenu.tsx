@@ -109,7 +109,7 @@ const MobileDrawerMenu: FC = () => {
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
-                aria-label="Mod mode"
+                aria-hidden="true"
               >
                 <ModMode className="py-3" />
               </div>
@@ -121,7 +121,7 @@ const MobileDrawerMenu: FC = () => {
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
-                aria-label="Staff mode"
+                aria-hidden="true"
               >
                 <StaffMode className="py-3" />
               </div>

@@ -43,7 +43,7 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
               src={url ?? ''}
               alt={url ?? ''}
               onClick={onClose}
-              aria-label="Close"
+              aria-hidden="true"
             />
             {url ? (
               <div className="mt-1">

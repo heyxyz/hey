@@ -54,7 +54,7 @@ const EmojiMenuItem: FC<EmojiMenuItemProps> = ({ index, isSelected, onClick, onM
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       aria-selected={isSelected}
-      aria-label={title}
+      aria-hidden="true"
     >
       <div className="flex items-center space-x-2">
         <span className="text-base">{emoji}</span>

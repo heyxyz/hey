@@ -42,7 +42,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
         'text-xs': variant === 'xs'
       })}
       onClick={() => setShowMutualFollowersModal?.(true)}
-      aria-label="Show mutual followers"
+      aria-hidden="true"
     >
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (
