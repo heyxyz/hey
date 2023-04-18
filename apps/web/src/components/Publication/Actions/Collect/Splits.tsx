@@ -36,11 +36,12 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
       <div className="mb-2 font-bold">
         <Trans>Fee recipients</Trans>
       </div>
-      {recipients.map((recipient, index) => {
+      {recipients.map((recipient) => {
         const { recipient: address, split } = recipient;
         const profile = getProfileByAddress(address) as Profile;
+
         return (
-          <div key={`${address}_${index}`} className="flex items-center justify-between text-sm">
+          <div key={address} className="flex items-center justify-between text-sm">
             <div className="flex w-full items-center space-x-2">
               {loading ? (
                 <>

@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-16 16:55\n"
+"PO-Revision-Date: 2023-04-18 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -252,12 +252,13 @@ msgid "Transaction failed!"
 msgstr "ವಹಿವಾಟು ವಿಫಲವಾಗಿದೆ!"
 
 #: src/components/Composer/NewPublication.tsx
-msgid "[cta]Comment"
-msgstr "[cta]ಟಿಪ್ಪಣಿ"
+msgid "Post"
+msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
-msgid "[cta]Post"
-msgstr "[cta]ಪೋಸ್ಟ್"
+#: src/components/Publication/Actions/Comment.tsx
+msgid "Comment"
+msgstr ""
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -1421,10 +1422,6 @@ msgstr ""
 msgid "{0} Comments"
 msgstr ""
 
-#: src/components/Publication/Actions/Comment.tsx
-msgid "Comment"
-msgstr ""
-
 #: src/components/Publication/Actions/Like.tsx
 msgid "Dislike"
 msgstr ""
@@ -1844,6 +1841,46 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
 
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export all your notifications to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Exported <0>{0}</0> notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Download notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export profile"
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export all your profile data to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Download profile"
+msgstr ""
+
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export publications"
 msgstr ""
@@ -1853,20 +1890,12 @@ msgid "Export all your posts, comments and mirrors to a JSON file."
 msgstr ""
 
 #: src/components/Settings/Export/Publications.tsx
+msgid "Exported <0>{0}</0> publications"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
 msgid "Download publications"
 msgstr ""
-
-#: src/components/Settings/Export/Publications.tsx
-msgid "Export now"
-msgstr ""
-
-#: src/components/Settings/Export/Publications.tsx
-#~ msgid "Export Publications"
-#~ msgstr ""
-
-#: src/components/Settings/Export/Publications.tsx
-#~ msgid "Download Publication"
-#~ msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -1944,10 +1973,6 @@ msgid "Bio should not exceed 260 characters"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Upload"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
 msgstr ""
 
@@ -1985,6 +2010,10 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
 msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
@@ -2191,6 +2220,7 @@ msgid "Sign up to {APP_NAME}"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr ""
 
@@ -2560,12 +2590,112 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr ""
 
+#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Staff tool"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "{APP_NAME} account"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Profile ID"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Address"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Can use relay"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Follow module"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Metadata"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Open"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Publication ID"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Comment on"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Collect module"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "App ID"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "On-chain content URI"
+msgstr ""
+
+#: src/components/StaffTools/RelayQueues.tsx
+msgid "Transactions"
+msgstr ""
+
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Stafftools | Relay queues • {APP_NAME}"
 msgstr ""
 
+#: src/components/StaffTools/RelayQueues.tsx
+#: src/components/StaffTools/Sidebar.tsx
+msgid "Relay queues"
+msgstr ""
+
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
+msgstr ""
+
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total profiles"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "profiles burnt"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total posts"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total mirrors"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total comments"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total collects"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total follows"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
@@ -2632,3 +2762,4 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
+

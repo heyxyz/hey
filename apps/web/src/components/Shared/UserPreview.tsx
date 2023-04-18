@@ -7,6 +7,7 @@ import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';
 import nFormatter from 'lib/nFormatter';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { FollowSource } from 'src/tracking';
@@ -72,7 +73,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     <>
       <div className="flex items-center justify-between">
         <UserAvatar />
-        <div onClick={(e) => e.preventDefault()}>
+        <div onClick={stopEventPropagation} aria-hidden="true">
           {!lazyProfile.isFollowedByMe &&
             (followStatusLoading ? (
               <div className="shimmer h-8 w-10 rounded-lg" />

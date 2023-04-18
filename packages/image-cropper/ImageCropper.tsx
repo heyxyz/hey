@@ -138,10 +138,8 @@ class ImageCropper extends Component<CropperProps, State> {
       const naturalWidth = this.imageRef.current?.naturalWidth || 0;
       const naturalHeight = this.imageRef.current?.naturalHeight || 0;
       const mediaAspect = naturalWidth / naturalHeight;
-
       const fitWidth = naturalWidth / naturalHeight < this.props.cropSize.width / this.props.cropSize.height;
-
-      let renderedMediaSize: Size = fitWidth
+      const renderedMediaSize: Size = fitWidth
         ? {
             width: this.props.cropSize.width,
             height: this.props.cropSize.width / mediaAspect

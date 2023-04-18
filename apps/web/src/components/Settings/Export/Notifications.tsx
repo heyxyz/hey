@@ -1,58 +1,59 @@
 import downloadJson from '@lib/downloadJson';
 import { Trans } from '@lingui/macro';
-import type { PublicationsQueryRequest } from 'lens';
-import { PublicationTypes, useProfileFeedLazyQuery } from 'lens';
+import type { NotificationRequest } from 'lens';
+import { useNotificationsLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { Button, Card } from 'ui';
 
-const Publications: FC = () => {
+const Notifications: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [publications, setPublications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
-  const request: PublicationsQueryRequest = {
+  const request: NotificationRequest = {
     profileId: currentProfile?.id,
-    publicationTypes: [PublicationTypes.Post, PublicationTypes.Comment, PublicationTypes.Mirror],
     limit: 50
   };
 
-  const [exportPublications] = useProfileFeedLazyQuery({
+  const [exportNotificiations] = useNotificationsLazyQuery({
     fetchPolicy: 'network-only'
   });
 
   const handleExportClick = async () => {
     setExporting(true);
-    const fetchPublications = async (cursor?: string) => {
-      const { data } = await exportPublications({
+    const fetchNotifications = async (cursor?: string) => {
+      const { data } = await exportNotificiations({
         variables: { request: { ...request, cursor } },
         onCompleted: (data) => {
-          setPublications((prev) => {
-            const newPublications = data.publications.items.filter((newPublication) => {
-              return !prev.some((publication) => publication.id === newPublication.id);
+          setNotifications((prev) => {
+            const newNotifications = data.notifications.items.filter((newNotification) => {
+              return !prev.some(
+                (notification) => notification.notificationId === newNotification.notificationId
+              );
             });
 
-            return [...prev, ...newPublications];
+            return [...prev, ...newNotifications];
           });
         }
       });
 
-      if (data?.publications.items.length === 0 || !data?.publications.pageInfo.next) {
+      if (data?.notifications.items.length === 0 || !data?.notifications.pageInfo.next) {
         setFetchCompleted(true);
         setExporting(false);
       } else {
-        await fetchPublications(data?.publications.pageInfo.next);
+        await fetchNotifications(data?.notifications.pageInfo.next);
       }
     };
 
-    await fetchPublications();
+    await fetchNotifications();
   };
 
   const download = () => {
-    downloadJson(publications, 'publications', () => {
-      setPublications([]);
+    downloadJson(notifications, 'notifications', () => {
+      setNotifications([]);
       setFetchCompleted(false);
     });
   };
@@ -60,21 +61,21 @@ const Publications: FC = () => {
   return (
     <Card className="space-y-2 p-5">
       <div className="text-lg font-bold">
-        <Trans>Export publications</Trans>
+        <Trans>Export notifications</Trans>
       </div>
       <div className="pb-2">
-        <Trans>Export all your posts, comments and mirrors to a JSON file.</Trans>
+        <Trans>Export all your notifications to a JSON file.</Trans>
       </div>
-      {publications.length > 0 ? (
+      {notifications.length > 0 ? (
         <div className="pb-2">
           <Trans>
-            Exported <b>{publications.length}</b> publications
+            Exported <b>{notifications.length}</b> notifications
           </Trans>
         </div>
       ) : null}
       {fetchCompleted ? (
         <Button onClick={download}>
-          <Trans>Download publications</Trans>
+          <Trans>Download notifications</Trans>
         </Button>
       ) : (
         <Button onClick={handleExportClick} disabled={exporting}>
@@ -85,4 +86,4 @@ const Publications: FC = () => {
   );
 };
 
-export default Publications;
+export default Notifications;

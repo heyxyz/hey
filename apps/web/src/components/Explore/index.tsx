@@ -53,7 +53,7 @@ const Explore: NextPage = () => {
           <Tab.List className="divider space-x-8">
             {tabs.map((tab, index) => (
               <Tab
-                key={index}
+                key={tab.type}
                 defaultChecked={index === 1}
                 onClick={() => {
                   Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
@@ -74,8 +74,8 @@ const Explore: NextPage = () => {
           </Tab.List>
           <FeedType setFocus={setFocus} focus={focus} />
           <Tab.Panels>
-            {tabs.map((tab, index) => (
-              <Tab.Panel key={index}>
+            {tabs.map((tab) => (
+              <Tab.Panel key={tab.type}>
                 <Feed focus={focus} feedType={tab.type} />
               </Tab.Panel>
             ))}
