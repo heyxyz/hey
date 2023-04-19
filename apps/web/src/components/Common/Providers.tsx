@@ -2,7 +2,7 @@ import { initLocale } from '@lib/i18n';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ALCHEMY_KEY, IS_MAINNET, WALLETCONNECT_PROJECT_ID } from 'data/constants';
+import { IS_MAINNET, WALLETCONNECT_PROJECT_ID } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
@@ -11,14 +11,18 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 import ErrorBoundary from './ErrorBoundary';
 import Layout from './Layout';
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai, mainnet],
-  [alchemyProvider({ apiKey: ALCHEMY_KEY })]
+  [
+    jsonRpcProvider({
+      rpc: (chain) => ({ http: `https://rpc.brovider.xyz/${chain.id}` })
+    })
+  ]
 );
 
 const connectors = () => {
