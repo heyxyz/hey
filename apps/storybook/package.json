@@ -12,17 +12,17 @@
     "lint:fix": "eslint . --fix --ext .ts,.tsx"
   },
   "dependencies": {
-    "@storybook/addon-essentials": "^7.0.5",
-    "@storybook/addon-links": "^7.0.5",
+    "@storybook/addon-essentials": "^7.0.6",
+    "@storybook/addon-links": "^7.0.6",
     "@storybook/addon-styling": "^1.0.1",
-    "@storybook/blocks": "^7.0.5",
-    "@storybook/manager-api": "^7.0.5",
-    "@storybook/nextjs": "^7.0.5",
-    "@storybook/react": "^7.0.5",
-    "@storybook/theming": "^7.0.5",
+    "@storybook/blocks": "^7.0.6",
+    "@storybook/manager-api": "^7.0.6",
+    "@storybook/nextjs": "^7.0.6",
+    "@storybook/react": "^7.0.6",
+    "@storybook/theming": "^7.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.5",
+    "storybook": "^7.0.6",
     "ui": "workspace:*"
   },
   "devDependencies": {

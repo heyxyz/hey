@@ -13,7 +13,7 @@ const EnableMessages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { push } = useRouter();
   const [canMessage, setCanMessage] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const onConversationSelected = () => {
     push('/messages');
@@ -21,15 +21,14 @@ const EnableMessages: FC = () => {
 
   useEffect(() => {
     const fetchCanMessage = async () => {
-      setLoading(true);
       const isMessagesEnabled = await Client.canMessage(currentProfile?.ownedBy, { env: XMTP_ENV });
       setCanMessage(isMessagesEnabled);
-      setLoading(false);
+      setLoaded(true);
     };
     fetchCanMessage();
   }, [currentProfile]);
 
-  if (!currentProfile || loading || canMessage) {
+  if (!currentProfile || !loaded || canMessage) {
     return null;
   }
 
