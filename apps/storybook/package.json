@@ -29,7 +29,7 @@
     "@types/react": "^18.0.37",
     "autoprefixer": "^10.4.14",
     "eslint-config-weblint": "workspace:*",
-    "postcss": "^8.4.22",
+    "postcss": "^8.4.23",
     "serve": "^14.2.0",
     "storybook-addon-turbo-build": "^2.0.0",
     "tsconfig": "workspace:*",
