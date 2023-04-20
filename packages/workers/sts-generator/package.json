@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix --ext .ts"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.315.0"
+    "@aws-sdk/client-sts": "^3.316.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230404.0",
