@@ -9,7 +9,7 @@
     "lint:fix": "eslint . --fix --ext .ts"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.15.12",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"

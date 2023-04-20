@@ -8,14 +8,17 @@ const getSnapshotProposalId = (url: string): string | null => {
     return null;
   }
 
-  const parsedUrl = new URL(url);
-  const proposalId = parsedUrl.hash.match(/\/proposal\/(0x[\dA-Fa-f]{64})/);
+  try {
+    const parsedUrl = new URL(url);
+    if (parsedUrl.host !== 'snapshot.org') {
+      return null;
+    }
+    const proposalId = parsedUrl.hash.match(/\/proposal\/(0x[\dA-Fa-f]{64})/);
 
-  if (parsedUrl.host !== 'snapshot.org') {
+    return proposalId?.[1] || null;
+  } catch {
     return null;
   }
-
-  return proposalId?.[1] || null;
 };
 
 export default getSnapshotProposalId;
