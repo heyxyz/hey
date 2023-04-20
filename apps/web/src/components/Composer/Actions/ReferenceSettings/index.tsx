@@ -116,7 +116,15 @@ const ReferenceSettings: FC = () => {
 
   const Slider: FC = () => (
     <div className="flex w-full flex-col space-y-2">
-      <input type="range" className="accent-brand-500" onMouseUp={handleMouseUp} defaultValue={followValue} />
+      <input
+        type="range"
+        className="accent-brand-500"
+        min="1"
+        step="1"
+        max="100"
+        onMouseUp={handleMouseUp}
+        defaultValue={followValue}
+      />
       <ul className="flex items-start justify-between text-sm">
         <li className="flex w-4 flex-col items-center space-y-2">
           <UserAddIcon className="text-brand-500 h-4 w-4" />{' '}
@@ -170,8 +178,8 @@ const ReferenceSettings: FC = () => {
     }
   };
 
-  return (
-    <>
+  const MobileView: FC = () => {
+    return (
       <div className="block md:hidden">
         <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
           <motion.button onClick={() => setShowModal(true)} whileTap={{ scale: 0.9 }}>
@@ -236,6 +244,11 @@ const ReferenceSettings: FC = () => {
           </div>
         </Modal>
       </div>
+    );
+  };
+
+  const DesktopView: FC = () => {
+    return (
       <div className="hidden md:block">
         <Popover className="relative">
           <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
@@ -286,6 +299,13 @@ const ReferenceSettings: FC = () => {
           </MenuTransition>
         </Popover>
       </div>
+    );
+  };
+
+  return (
+    <>
+      <MobileView />
+      <DesktopView />
     </>
   );
 };
