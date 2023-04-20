@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-20 00:08\n"
+"PO-Revision-Date: 2023-04-20 11:58\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -253,12 +253,12 @@ msgstr "ವಹಿವಾಟು ವಿಫಲವಾಗಿದೆ!"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
-msgstr ""
+msgstr "ಪೋಸ್ಟ್"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
-msgstr ""
+msgstr "ಕಾಮೆಂಟ್"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -345,7 +345,7 @@ msgstr "ನೇರ ಸಂದೇಶಗಳು ಇಲ್ಲಿವೆ!"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-msgstr ""
+msgstr "ಫ್ರೆನ್ಸ್‌ಗೆ ಎಂಡ್-ಟು-ಎಂಡ್ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಡಿಎಂಗಳನ್ನು ಕಳುಹಿಸಲು ಲೆನ್‌ಸ್ಟರ್ ಅನ್ನು ಬಳಸುವುದನ್ನು ಪ್ರಾರಂಭಿಸಲು XMTP ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ."
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
@@ -537,7 +537,7 @@ msgstr "ಸಂದೇಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ�
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
-msgstr ""
+msgstr "ಇದು ಇನ್ನೂ ಡಿಎಂಗಳನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿಲ್ಲ"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "You can't send them a message until they enable DMs."
@@ -603,7 +603,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
-msgstr ""
+msgstr "ಮಾಡ್ ಸೆಂಟರ್ • {APP_NAME}"
 
 #: src/components/Mod/index.tsx
 msgid "Refresh feed"
@@ -615,12 +615,12 @@ msgstr "ಪ್ರಕಟಣೆ ಶೋಧಕಗಳು"
 
 #: src/components/Mod/index.tsx
 msgid "Posts"
-msgstr ""
+msgstr "ಪೋಸ್ಟ್‌ಗಳು"
 
 #: src/components/Mod/index.tsx
 #: src/components/Notification/FeedType.tsx
 msgid "Comments"
-msgstr ""
+msgstr "ಕಾಮೆಂಟ್"
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
@@ -637,7 +637,7 @@ msgstr "ಯಾವುದೇ ಎನ್ಎಫ್ಟಿಗಳನ್ನು ಹೊಂ�
 #: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
-msgstr ""
+msgstr "ಕಾಮೆಂಟ್ ಫೀಡ್ ಅನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -665,19 +665,19 @@ msgstr "ಇನ್‌ಬಾಕ್ಸ್ ಶೂನ್ಯ!"
 
 #: src/components/Notification/Settings.tsx
 msgid "Notification settings"
-msgstr ""
+msgstr "ಅಧಿಸೂಚನೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
 
 #: src/components/Notification/Settings.tsx
 msgid "Signal filter"
-msgstr ""
+msgstr "ಸಿಗ್ನಲ್ ಫಿಲ್ಟರ್"
 
 #: src/components/Notification/Settings.tsx
 msgid "Turn on high-signal notification filter"
-msgstr ""
+msgstr "ಹೆಚ್ಚಿನ ಸಿಗ್ನಲ್ ಅಧಿಸೂಚನೆ ಫಿಲ್ಟರ್ ಅನ್ನು ಆನ್ ಮಾಡಿ"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
-msgstr ""
+msgstr "{0} {1} ಕ್ಕೆ ಸಂಗ್ರಹಿಸಲಾಗಿದೆ"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
@@ -848,7 +848,7 @@ msgstr "ನೀವು ಸೈಟ್ ಬಳಸುವಾಗ ನಿಮ್ಮ ಬಗ�
 
 #: src/components/Pages/Privacy.tsx
 msgid "Information you provide such as feedback, question and issues reports."
-msgstr ""
+msgstr "ಪ್ರತಿಕ್ರಿಯೆ, ಪ್ರಶ್ನೆ ಮತ್ತು ಸಮಸ್ಯೆಗಳ ವರದಿಗಳಂತಹ ನೀವು ಒದಗಿಸುವ ಮಾಹಿತಿ."
 
 #: src/components/Pages/Privacy.tsx
 msgid "You may choose to voluntarily provide other information to us that we have not solicited from you, and, in such instances, you are solely responsible for such information."
@@ -2090,64 +2090,64 @@ msgstr ""
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
-msgstr ""
+msgstr "ಬೀಟಾ"
 
 #: src/components/Shared/Badges/New.tsx
 msgid "New"
-msgstr ""
+msgstr "ಹೊಸ"
 
 #: src/components/Shared/CommentWarning.tsx
 msgid "You can't reply to this post"
-msgstr ""
+msgstr "ನೀವು ಈ ಪೋಸ್ಟ್‌ಗೆ ಪ್ರತ್ಯುತ್ತರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ"
 
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
-msgstr ""
+msgstr "ಎಮೋಜಿಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Shared/Follow.tsx
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Followed successfully!"
-msgstr ""
+msgstr "ಯಶಸ್ವಿಯಾಗಿ ಅನುಸರಿಸಲಾಗಿದೆ!"
 
 #: src/components/Shared/Follow.tsx
 msgid "Follow"
-msgstr ""
+msgstr "ಅನುಸರಿಸಿ"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Terms"
-msgstr ""
+msgstr "ನಿಯಮಗಳು"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Privacy"
-msgstr ""
+msgstr "ಗೌಪ್ಯತೆ"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Discord"
-msgstr ""
+msgstr "ಅಪಶ್ರುತಿ"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Donate"
-msgstr ""
+msgstr "ದಾನ ಮಾಡಿ"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Status"
-msgstr ""
+msgstr "ಸ್ಥಿತಿ"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Feedback"
-msgstr ""
+msgstr "ಪ್ರತಿಕ್ರಿಯೆ"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Thanks"
-msgstr ""
+msgstr "ಧನ್ಯವಾದಗಳು"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
-msgstr ""
+msgstr "ಗಿಟ್‌ಹಬ್"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Translate"
-msgstr ""
+msgstr "ಅನುವಾದ"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
@@ -2155,69 +2155,69 @@ msgstr ""
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
-msgstr ""
+msgstr "ಮಾಡ್ ಕ್ರಿಯೆಗಳು"
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
-msgstr ""
+msgstr "ಈ ಪ್ರಕಟಣೆಯಲ್ಲಿ ಮಾಡ್ ಕ್ರಿಯೆಗಳನ್ನು ಮಾಡಿ."
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
-msgstr ""
+msgstr "ಸ್ಥಿತಿಯನ್ನು ಹೊಂದಿಸಿ"
 
 #: src/components/Shared/GlobalModals.tsx
 msgid "Change Profile"
-msgstr ""
+msgstr "ಪ್ರೊಫೈಲ್ ಬದಲಾಯಿಸಿ"
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
 msgid "Login"
-msgstr ""
+msgstr "ಲಾಗಿನ್ ಮಾಡಿ"
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
-msgstr ""
+msgstr "{type} ಸೂಚ್ಯಂಕ"
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "Index Successful"
-msgstr ""
+msgstr "ಯಶಸ್ವಿ ಸೂಚ್ಯಂಕ"
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Bold"
-msgstr ""
+msgstr "ದಪ್ಪ"
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Italic"
-msgstr ""
+msgstr "ಇಟಾಲಿಕ್"
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Code"
-msgstr ""
+msgstr "ಕೋಡ್"
 
 #: src/components/Shared/Login/New/Pending.tsx
 msgid "Account creation in progress, please wait!"
-msgstr ""
+msgstr "ಖಾತೆ ರಚನೆ ಪ್ರಗತಿಯಲ್ಲಿದೆ, ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ!"
 
 #: src/components/Shared/Login/New/Pending.tsx
 msgid "Go to profile"
-msgstr ""
+msgstr "ಪ್ರೊಫೈಲ್‌ಗೆ ಹೋಗಿ"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should be at least 2 characters"
-msgstr ""
+msgstr "ಹ್ಯಾಂಡಲ್ ಕನಿಷ್ಠ 2 ಅಕ್ಷರಗಳಾಗಿರಬೇಕು"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should not exceed 32 characters"
-msgstr ""
+msgstr "ಸಂದೇಶವು 32 ಅಕ್ಷರಗಳನ್ನು ಮೀರಬಾರದು"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
-msgstr ""
+msgstr "ಹ್ಯಾಂಡಲ್ ಆಲ್ಫಾನ್ಯೂಮರಿಕ್ ಅಕ್ಷರಗಳನ್ನು ಮಾತ್ರ ಒಳಗೊಂಡಿರಬೇಕು"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
-msgstr ""
+msgstr "{APP_NAME} ವರೆಗೆ ಸೈನ್ ಅಪ್ ಮಾಡಿ"
 
 #: src/components/Shared/Login/New/index.tsx
 #: src/components/StaffTools/Panels/Profile.tsx
@@ -2226,35 +2226,35 @@ msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up"
-msgstr ""
+msgstr "ಸೈನ್ ಅಪ್"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
-msgstr ""
+msgstr "ಲೆನ್ಸ್‌ನೊಂದಿಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Change wallet"
-msgstr ""
+msgstr "ವಾಲೆಟ್ ಬದಲಾಯಿಸಿ"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
-msgstr ""
+msgstr "ಬ್ರೌಸರ್ ವಾಲೆಟ್"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
-msgstr ""
+msgstr "ಸಂಪರ್ಕಿಸಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
-msgstr ""
+msgstr "ದಯವಿಟ್ಟು ಸಂದೇಶವನ್ನು ನಮೂದಿಸಿ"
 
 #: src/components/Shared/Login/index.tsx
 msgid "{APP_NAME} uses this signature to verify that you're the owner of this address."
-msgstr ""
+msgstr "ನೀವು ಈ ವಿಳಾಸದ ಮಾಲೀಕರು ಎಂಬುದನ್ನು ಪರಿಶೀಲಿಸಲು {APP_NAME} ಈ ಸಹಿಯನ್ನು ಬಳಸುತ್ತದೆ."
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect your wallet"
-msgstr ""
+msgstr "ನಿಮ್ಮ ವ್ಯಾಲೆಟ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect with one of our available wallet providers or create a new one."
@@ -2262,11 +2262,11 @@ msgstr ""
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
-msgstr ""
+msgstr "ಸಂಗ್ರಹಕಾರರನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "No collectors."
-msgstr ""
+msgstr "ಸಂಗ್ರಾಹಕರು ಇಲ್ಲ."
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
@@ -2274,15 +2274,15 @@ msgstr ""
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
-msgstr ""
+msgstr "ಇಷ್ಟಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "No likes."
-msgstr ""
+msgstr "ಇಷ್ಟಗಳು ಇಲ್ಲ."
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Failed to load likes"
-msgstr ""
+msgstr "ಸಂದೇಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Loading mirrors"
@@ -2290,107 +2290,107 @@ msgstr ""
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "No mirrors."
-msgstr ""
+msgstr "ಕನ್ನಡಿಗಳಿಲ್ಲ."
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Failed to load mirrors"
-msgstr ""
+msgstr "ಕನ್ನಡಿಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select type"
-msgstr ""
+msgstr "ಪ್ರಕಾರವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Illegal"
-msgstr ""
+msgstr "ಕಾನೂನುಬಾಹಿರ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fraud"
-msgstr ""
+msgstr "ವಂಚನೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Sensitive"
-msgstr ""
+msgstr "ಸೂಕ್ಷ್ಮ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
-msgstr ""
+msgstr "ಕಾರಣ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select sub reason"
-msgstr ""
+msgstr "ಉಪ ಕಾರಣವನ್ನು ಆಯ್ಕೆಮಾಡಿ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Animal Abuse"
-msgstr ""
+msgstr "ಪ್ರಾಣಿಹಿಂಸೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Direct Threat"
-msgstr ""
+msgstr "ನೇರ ಬೆದರಿಕೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Human Abuse"
-msgstr ""
+msgstr "ಮಾನವ ನಿಂದನೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Threat Individual"
-msgstr ""
+msgstr "ವೈಯಕ್ತಿಕ ಬೆದರಿಕೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
-msgstr ""
+msgstr "ಹಿಂಸಾಚಾರ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
-msgstr ""
+msgstr "ಸೋಗು ಹಾಕುವಿಕೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Offensive"
-msgstr ""
+msgstr "ಆಕ್ರಮಣಕಾರಿ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
-msgstr ""
+msgstr "ನಕಲಿ ನಿಶ್ಚಿತಾರ್ಥ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
-msgstr ""
+msgstr "ಅಲ್ಗಾರಿದಮ್ ಕುಶಲತೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misleading"
-msgstr ""
+msgstr "ದಾರಿತಪ್ಪಿಸುವ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
-msgstr ""
+msgstr "ಹ್ಯಾಶ್‌ಟ್ಯಾಗ್‌ಗಳ ದುರ್ಬಳಕೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
-msgstr ""
+msgstr "ಇನ್ನೇನೋ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Unrelated"
-msgstr ""
+msgstr "ಸಂಬಂಧವಿಲ್ಲದ"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
-msgstr ""
+msgstr "ಹೆಚ್ಚುವರಿ ಕಾಮೆಂಟ್‌ಗಳು 260 ಅಕ್ಷರಗಳನ್ನು ಮೀರಬಾರದು"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Publication reported successfully!"
-msgstr ""
+msgstr "ಪ್ರಕಟಣೆ ಯಶಸ್ವಿಯಾಗಿ ವರದಿಯಾಗಿದೆ!"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"
-msgstr ""
+msgstr "ವರದಿ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
-msgstr ""
+msgstr "ವಿವರಣೆ"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Please provide additional details"
-msgstr ""
+msgstr "ದಯವಿಟ್ಟು ಹೆಚ್ಚುವರಿ ವಿವರಗಳನ್ನು ಒದಗಿಸಿ"
 
 #: src/components/Shared/Navbar/MobileDrawerMenu.tsx
 #: src/components/Shared/Navbar/SignedUser.tsx
@@ -2399,15 +2399,15 @@ msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
-msgstr ""
+msgstr "ಇನ್ನಷ್ಟು"
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
-msgstr ""
+msgstr "ಸಂಪರ್ಕ"
 
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
-msgstr ""
+msgstr "ಲಾಗ್ ಔಟ್"
 
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
@@ -2415,27 +2415,27 @@ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Disable mod mode"
-msgstr ""
+msgstr "ಮೋಡ್ ಮೋಡ್ ಅನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Enable mod mode"
-msgstr ""
+msgstr "ಮೋಡ್ ಮೋಡ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
-msgstr ""
+msgstr "ದೋಷವನ್ನು ವರದಿ ಮಾಡಿ"
 
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
 msgid "Settings"
-msgstr ""
+msgstr "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Disable staff mode"
-msgstr ""
+msgstr "ಸಿಬ್ಬಂದಿ ಮೋಡ್ ಅನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Enable staff mode"
-msgstr ""
+msgstr "ಮೋಡ್ ಮೋಡ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ"
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
@@ -2443,323 +2443,323 @@ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Dark mode"
-msgstr ""
+msgstr "ಕಪ್ಪು ಮಾದರಿ"
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Light mode"
-msgstr ""
+msgstr "ಲೈಟ್ ಮೋಡ್"
 
 #: src/components/Shared/Navbar/NavItems/YourProfile.tsx
 msgid "Your Profile"
-msgstr ""
+msgstr "ನಿಮ್ಮ ಪರಿಚಯ"
 
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Search…"
-msgstr ""
+msgstr "ಹುಡುಕು…"
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Home"
-msgstr ""
+msgstr "ಮುಖಪುಟ"
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
-msgstr ""
+msgstr "ಅನ್ವೇಷಿಸಿ"
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
-msgstr ""
+msgstr "{type} ಗೆ ಹೋಗಿ"
 
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
-msgstr ""
+msgstr "<0>{referralFee}%</0> ಉಲ್ಲೇಖಿತ ಶುಲ್ಕವನ್ನು ಪಡೆಯುತ್ತದೆ"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
-msgstr ""
+msgstr "ಈ ಪ್ರಸ್ತಾಪವನ್ನು ಮುಚ್ಚಲಾಗಿದೆ!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{type} voting is not supported yet!"
-msgstr ""
+msgstr "{type} ಮತದಾನವು ಇನ್ನೂ ಬೆಂಬಲಿತವಾಗಿಲ್ಲ!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
-msgstr ""
+msgstr "ಪ್ರಸ್ತುತ ಫಲಿತಾಂಶಗಳು"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
-msgstr ""
+msgstr "ಫಲಿತಾಂಶಗಳು"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
-msgstr ""
+msgstr "ನಿಮ್ಮ ಮತ ಚಲಾಯಿಸಿ"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
-msgstr ""
+msgstr "ವಿಷಯವು ಖಾಲಿಯಾಗಿರಬಾರದು"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not exceed 100 characters"
-msgstr ""
+msgstr "ವಿಷಯವು 100 ಅಕ್ಷರಗಳನ್ನು ಮೀರಬಾರದು"
 
 #: src/components/Shared/Status.tsx
 msgid "Status updated successfully!"
-msgstr ""
+msgstr "ಸ್ಥಿತಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ!"
 
 #: src/components/Shared/Status.tsx
 msgid "Loading status settings"
-msgstr ""
+msgstr "ಸಂಗ್ರಹಣೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #: src/components/Shared/Status.tsx
 msgid "Failed to load status settings"
-msgstr ""
+msgstr "ಸ್ಥಿತಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ"
 
 #: src/components/Shared/Status.tsx
 msgid "Clear status"
-msgstr ""
+msgstr "ಸ್ಥಿತಿಯನ್ನು ತೆರವುಗೊಳಿಸಿ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Loading super follow"
-msgstr ""
+msgstr "ಸೂಪರ್ ಫಾಲೋ ಲೋಡ್ ಆಗುತ್ತಿದೆ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
-msgstr ""
+msgstr "ಸ್ವೀಕೃತಿದಾರ:"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can comment on @{0}'s publications"
-msgstr ""
+msgstr "@{0} ರ ಪ್ರಕಟಣೆಗಳಲ್ಲಿ ನೀವು ಕಾಮೆಂಟ್ ಮಾಡಬಹುದು"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can collect @{0}'s publications"
-msgstr ""
+msgstr "ನೀವು @{0} ನ ಪ್ರಕಟಣೆಗಳನ್ನು ಸಂಗ್ರಹಿಸಬಹುದು"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will get super follow badge in @{0}'s profile"
-msgstr ""
+msgstr "@{0} ರ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ನೀವು ಸೂಪರ್ ಫಾಲೋ ಬ್ಯಾಡ್ಜ್ ಅನ್ನು ಪಡೆಯುತ್ತೀರಿ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will have high voting power if you followed multiple times"
-msgstr ""
+msgstr "ನೀವು ಅನೇಕ ಬಾರಿ ಅನುಸರಿಸಿದರೆ ನಿಮಗೆ ಹೆಚ್ಚಿನ ಮತದಾನದ ಶಕ್ತಿ ಇರುತ್ತದೆ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "More coming soon™"
-msgstr ""
+msgstr "ಇನ್ನಷ್ಟು ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ™"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow again"
-msgstr ""
+msgstr "ಮತ್ತೆ ಸೂಪರ್ ಫಾಲೋ ಮಾಡಿ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow now"
-msgstr ""
+msgstr "ಈಗ ಸೂಪರ್ ಫಾಲೋ ಮಾಡಿ"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Allow follow module"
-msgstr ""
+msgstr "ಫಾಲೋ ಮಾಡ್ಯೂಲ್ ಅನ್ನು ಅನುಮತಿಸಿ"
 
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Super follow"
-msgstr ""
+msgstr "ಸೂಪರ್ ನಿಧಾನ"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
-msgstr ""
+msgstr "ದಯವಿಟ್ಟು ನಿಮ್ಮ ನೆಟ್ವರ್ಕ್ ವ್ಯಾಲೆಟ್ ಅನ್ನು ಬದಲಾಯಿಸಿ!"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
-msgstr ""
+msgstr "ನೆಟ್‌ವರ್ಕ್ ಬದಲಾಯಿಸಿ"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
-msgstr ""
+msgstr "ಯಶಸ್ವಿಯಾಗಿ ಅನುಸರಿಸಿಲ್ಲ!"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "User rejected request"
-msgstr ""
+msgstr "ಬಳಕೆದಾರ ವಿನಂತಿಯನ್ನು ತಿರಸ್ಕರಿಸಿದರು"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
-msgstr ""
+msgstr "ಅನುಸರಿಸಬೇಡಿ"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{0}</0>"
-msgstr ""
+msgstr "ನಿಮ್ಮ ಬಳಿ ಸಾಕಷ್ಟು <0>{0} ಇಲ್ಲ</0>"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
-msgstr ""
+msgstr "ಯುನಿಸ್ವಾಪ್ನಲ್ಲಿ ಸ್ವಾಪ್"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
-msgstr ""
+msgstr "ಸಿಬ್ಬಂದಿ ಸಾಧನ"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "{APP_NAME} account"
-msgstr ""
+msgstr "{APP_NAME} ಖಾತೆ"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Profile ID"
-msgstr ""
+msgstr "ಪ್ರೊಫೈಲ್ ಐಡಿ"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Address"
-msgstr ""
+msgstr "ವಿಳಾಸ"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
-msgstr ""
+msgstr "ರಿಲೇ ಬಳಸಬಹುದು"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "NFT address"
-msgstr ""
+msgstr "NFT ವಿಳಾಸ"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
-msgstr ""
+msgstr "ಮಾಡ್ಯೂಲ್ ಅನ್ನು ಅನುಸರಿಸಿ"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Metadata"
-msgstr ""
+msgstr "ಮೆಟಾಡೇಟಾ"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
-msgstr ""
+msgstr "ತೆರೆಯಿರಿ"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Publication ID"
-msgstr ""
+msgstr "ಪ್ರಕಟಣೆ"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Comment on"
-msgstr ""
+msgstr "ಕಾಮೆಂಟ್"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
-msgstr ""
+msgstr "ಮಾಡ್ಯೂಲ್ ಸಂಗ್ರಹಿಸಿ"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "App ID"
-msgstr ""
+msgstr "ಅಪ್ಲಿಕೇಶನ್ ID"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "On-chain content URI"
-msgstr ""
+msgstr "ಆನ್-ಚೈನ್ ವಿಷಯ URI"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
-msgstr ""
+msgstr "ವಹಿವಾಟುಗಳು"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Stafftools | Relay queues • {APP_NAME}"
-msgstr ""
+msgstr "ಸಿಬ್ಬಂದಿ ಉಪಕರಣಗಳು | ರಿಲೇ ಕ್ಯೂಗಳು • {APP_NAME}"
 
 #: src/components/StaffTools/RelayQueues.tsx
 #: src/components/StaffTools/Sidebar.tsx
 msgid "Relay queues"
-msgstr ""
+msgstr "ರಿಲೇ ಸಾಲುಗಳು"
 
 #: src/components/StaffTools/Sidebar.tsx
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stats"
-msgstr ""
+msgstr "ಅಂಕಿಯಂಶಗಳು"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
-msgstr ""
+msgstr "ಸಿಬ್ಬಂದಿ ಉಪಕರಣಗಳು | ಅಂಕಿಅಂಶಗಳು • {APP_NAME}"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total profiles"
-msgstr ""
+msgstr "ಒಟ್ಟು ಪ್ರೊಫೈಲ್ ಗಳು"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "profiles burnt"
-msgstr ""
+msgstr "ಪ್ರೊಫೈಲ್ಗಳು ಸುಟ್ಟುಹೋಗಿವೆ"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total posts"
-msgstr ""
+msgstr "ಒಟ್ಟು ಪೋಸ್ಟ್‌ಗಳು"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total mirrors"
-msgstr ""
+msgstr "ಒಟ್ಟು ಕನ್ನಡಿಗಳು"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total comments"
-msgstr ""
+msgstr "ಒಟ್ಟು ಕಾಮೆಂಟ್‌ಗಳು"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total collects"
-msgstr ""
+msgstr "ಒಟ್ಟು ಸಂಗ್ರಹಿಸುತ್ತದೆ"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total follows"
-msgstr ""
+msgstr "ಒಟ್ಟು ಅನುಸರಿಸುತ್ತದೆ"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
-msgstr ""
+msgstr "ವೀಡಿಯೊ ಗಾತ್ರವು 100MB ಗಿಂತ ಕಡಿಮೆಯಿರಬೇಕು"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 100MB"
-msgstr ""
+msgstr "ವೀಡಿಯೊ ಗಾತ್ರವು 100MB ಗಿಂತ ಕಡಿಮೆಯಿರಬೇಕು"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
-msgstr ""
+msgstr "ವೀಡಿಯೊ ಗಾತ್ರವು 100MB ಗಿಂತ ಕಡಿಮೆಯಿರಬೇಕು"
 
 #: src/lib/getModule.ts
 msgid "Multirecipient Paid Collect"
-msgstr ""
+msgstr "ಬಹು ಸ್ವೀಕರಿಸುವವರ ಪಾವತಿಸಿದ ಸಂಗ್ರಹ"
 
 #: src/lib/getModule.ts
 msgid "Paid Collect"
-msgstr ""
+msgstr "ಪಾವತಿಸಿದ ಸಂಗ್ರಹ"
 
 #: src/lib/getModule.ts
 msgid "Rare Paid Collect"
-msgstr ""
+msgstr "ಅಪರೂಪದ ಪಾವತಿಸಿದ ಸಂಗ್ರಹ"
 
 #: src/lib/getModule.ts
 msgid "24 Hour Collect"
-msgstr ""
+msgstr "24 ಗಂಟೆಗಳ ಸಂಗ್ರಹ"
 
 #: src/lib/getModule.ts
 msgid "Rare 24 Hour Collect"
-msgstr ""
+msgstr "ಅಪರೂಪದ 24 ಗಂಟೆಗಳ ಸಂಗ್ರಹ"
 
 #: src/lib/getModule.ts
 msgid "No Collect"
-msgstr ""
+msgstr "ಗಂಟೆಗಳ ಸಂಗ್ರಹ"
 
 #: src/lib/getModule.ts
 msgid "Fee Follow"
-msgstr ""
+msgstr "ಶುಲ್ಕ ಅನುಸರಿಸಿ"
 
 #: src/lib/getModule.ts
 msgid "Follower Only Reference"
-msgstr ""
+msgstr "ಅನುಯಾಯಿಗಳಿಗೆ ಮಾತ್ರ ಉಲ್ಲೇಖ"
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
-msgstr ""
+msgstr "ಓಹ್, ಕಳೆದುಹೋಗಿದೆ‽"
 
 #: src/pages/404.tsx
 msgid "This page could not be found."
-msgstr ""
+msgstr "ಈ ಪುಟವನ್ನು ಕಂಡುಹಿಡಿಯಲಾಗಲಿಲ್ಲ."
 
 #: src/pages/404.tsx
 #: src/pages/500.tsx
 msgid "Go to home"
-msgstr ""
+msgstr "ಮುಖ ಪುಟಕ್ಕೆ ಹೋಗಿ"
 
 #: src/pages/500.tsx
 msgid "Looks like something went wrong!"
-msgstr ""
+msgstr "ಏನೋ ತಪ್ಪಾಗಿದೆ ಎಂದು ತೋರುತ್ತಿದೆ!"
 
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
-msgstr ""
+msgstr "ನಾವು ಈ ದೋಷಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಟ್ರ್ಯಾಕ್ ಮಾಡುತ್ತೇವೆ, ಆದರೆ ಸಮಸ್ಯೆ ಮುಂದುವರಿದರೆ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಲು ಮುಕ್ತವಾಗಿರಿ. ಈ ಮಧ್ಯೆ, ರಿಫ್ರೆಶ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಿ."
 
