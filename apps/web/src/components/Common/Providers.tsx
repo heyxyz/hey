@@ -3,7 +3,6 @@ import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { lineaTestnet } from '@wagmi/chains';
-import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc';
 import { WALLETCONNECT_PROJECT_ID } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
 import { ThemeProvider } from 'next-themes';
@@ -12,6 +11,7 @@ import { useEffect } from 'react';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 import ErrorBoundary from './ErrorBoundary';
 import Layout from './Layout';
