@@ -9,6 +9,13 @@ import { useEffect, useState } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { Button, Modal, Tooltip } from 'ui';
 
+enum RANGE_VALUES {
+  MY_FOLLOWS = '1',
+  MY_FOLLOWERS = '30',
+  FRIENDS_OF_FRIENDS = '66',
+  EVERYONE = '100'
+}
+
 const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
   const setSelectedReferenceModule = useReferenceModuleStore((state) => state.setSelectedReferenceModule);
@@ -17,15 +24,22 @@ const ReferenceSettings: FC = () => {
   const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
   const setDegreesOfSeparation = useReferenceModuleStore((state) => state.setDegreesOfSeparation);
   const [showModal, setShowModal] = useState(false);
-  const rangeValues = ['1', '34', '67', '100'];
-  const MY_FOLLOWS = { title: t`My follows`, description: t`Only people who I follow`, value: '1' };
-  const MY_FOLLOWERS = { title: t`My followers`, description: t`Only people who follow me`, value: '34' };
+  const MY_FOLLOWS = {
+    title: t`My follows`,
+    description: t`Only people who I follow`,
+    value: RANGE_VALUES.MY_FOLLOWS
+  };
+  const MY_FOLLOWERS = {
+    title: t`My followers`,
+    description: t`Only people who follow me`,
+    value: RANGE_VALUES.MY_FOLLOWERS
+  };
   const FRIENDS_OF_FRIENDS = {
     title: t`Friends of friends`,
     description: t`People who my followers follow`,
-    value: '67'
+    value: RANGE_VALUES.FRIENDS_OF_FRIENDS
   };
-  const EVERYONE = { title: t`Everyone`, description: t`No restrictions`, value: '100' };
+  const EVERYONE = { title: t`Everyone`, description: t`No restrictions`, value: RANGE_VALUES.EVERYONE };
   const isFollowerOnlyReferenceModule =
     selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule;
   const isDegreesOfSeparationReferenceModule =
@@ -53,14 +67,14 @@ const ReferenceSettings: FC = () => {
     icon: ReactNode;
   }
 
-  const getClosest = (arr: string[], val: string) => {
+  const getClosest = (arr: string[], val: string): RANGE_VALUES => {
     return arr.reduce(function (prev, curr) {
       return Math.abs(Number(curr) - Number(val)) < Math.abs(Number(prev) - Number(val)) ? curr : prev;
-    });
+    }) as RANGE_VALUES;
   };
 
-  const handleMouseUp = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    let closest = getClosest(rangeValues, event.currentTarget.value);
+  const handlePointerUp = (event: React.PointerEvent<HTMLInputElement>) => {
+    let closest: RANGE_VALUES = getClosest(Object.values(RANGE_VALUES), event.currentTarget.value);
     setfollowValue(closest);
   };
 
@@ -122,11 +136,11 @@ const ReferenceSettings: FC = () => {
         min="1"
         step="1"
         max="100"
-        onMouseUp={handleMouseUp}
+        onPointerUp={handlePointerUp}
         defaultValue={followValue}
       />
-      <ul className="flex items-start justify-between text-sm">
-        <li className="flex w-4 flex-col items-center space-y-2">
+      <ul className="-mx-6 flex items-start justify-between gap-8 text-sm">
+        <li className="flex flex-col items-center space-y-2">
           <UserAddIcon className="text-brand-500 h-4 w-4" />{' '}
           <span
             className={isMyFollows ? 'text-brand-500 text-center leading-tight' : 'text-center leading-tight'}
@@ -134,7 +148,7 @@ const ReferenceSettings: FC = () => {
             {MY_FOLLOWS.title}
           </span>
         </li>
-        <li className="flex w-4 flex-col items-center space-y-2">
+        <li className="flex flex-col items-center space-y-2">
           <UsersIcon className="text-brand-500 h-4 w-4" />{' '}
           <span
             className={
@@ -144,7 +158,7 @@ const ReferenceSettings: FC = () => {
             {MY_FOLLOWERS.title}
           </span>
         </li>
-        <li className="flex w-4 flex-col items-center space-y-2">
+        <li className="flex flex-col items-center space-y-2">
           <UserGroupIcon className="text-brand-500 h-4 w-4" />
           <span
             className={
@@ -154,7 +168,7 @@ const ReferenceSettings: FC = () => {
             {FRIENDS_OF_FRIENDS.title}
           </span>
         </li>
-        <li className="flex w-4 flex-col items-center space-y-2">
+        <li className="flex flex-col items-center space-y-2">
           <GlobeAltIcon className="text-brand-500 h-4 w-4" />
           <span
             className={isEveryone ? 'text-brand-500 text-center leading-tight' : 'text-center leading-tight'}
@@ -178,8 +192,8 @@ const ReferenceSettings: FC = () => {
     }
   };
 
-  const MobileView: FC = () => {
-    return (
+  return (
+    <>
       <div className="block md:hidden">
         <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
           <motion.button onClick={() => setShowModal(true)} whileTap={{ scale: 0.9 }}>
@@ -244,11 +258,6 @@ const ReferenceSettings: FC = () => {
           </div>
         </Modal>
       </div>
-    );
-  };
-
-  const DesktopView: FC = () => {
-    return (
       <div className="hidden md:block">
         <Popover className="relative">
           <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
@@ -299,13 +308,6 @@ const ReferenceSettings: FC = () => {
           </MenuTransition>
         </Popover>
       </div>
-    );
-  };
-
-  return (
-    <>
-      <MobileView />
-      <DesktopView />
     </>
   );
 };
