@@ -13,7 +13,7 @@
     "extract": "lingui compile; lingui extract"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.316.0",
+    "@aws-sdk/client-s3": "^3.317.0",
     "@dnd-kit/core": "^6.0.7",
     "@dnd-kit/sortable": "^7.0.2",
     "@fingerprintjs/fingerprintjs": "^3.4.1",
@@ -83,7 +83,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@types/mixpanel-browser": "^2.38.1",
-    "@types/node": "^18.15.12",
+    "@types/node": "^18.15.13",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@types/uuid": "^9.0.1",
