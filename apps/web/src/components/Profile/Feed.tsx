@@ -71,7 +71,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
+      if (!inView || !hasMore || publications?.length && publications?.length < 10) {
         return;
       }
 
