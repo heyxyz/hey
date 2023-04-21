@@ -4,7 +4,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { LENSHUB_PROXY } from 'data/constants';
+import { IS_RELAYER_AVAILABLE, LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import { useBroadcastMutation, useCreateFollowTypedDataMutation, useProxyActionMutation } from 'lens';
 import type { ApolloCache } from 'lens/apollo';
@@ -128,7 +128,7 @@ const Follow: FC<FollowProps> = ({
     }
 
     try {
-      if (profile?.followModule) {
+      if (!IS_RELAYER_AVAILABLE || profile?.followModule) {
         await createFollowTypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
