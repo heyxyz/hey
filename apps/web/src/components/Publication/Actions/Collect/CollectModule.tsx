@@ -22,7 +22,7 @@ import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
+import { IS_RELAYER_AVAILABLE, LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
@@ -161,12 +161,9 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
     watch: true
   });
 
-  let hasAmount = false;
-  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(collectModule?.amount?.value)) {
-    hasAmount = false;
-  } else {
-    hasAmount = true;
-  }
+  let hasAmount = !(
+    balanceData && parseFloat(balanceData?.formatted) < parseFloat(collectModule?.amount?.value)
+  );
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted
@@ -217,7 +214,7 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
     }
 
     try {
-      if (isFreeCollectModule && !collectModule?.followerOnly) {
+      if (IS_RELAYER_AVAILABLE && isFreeCollectModule && !collectModule?.followerOnly) {
         await createViaProxyAction({
           request: { collect: { freeCollect: { publicationId: publication?.id } } }
         });
