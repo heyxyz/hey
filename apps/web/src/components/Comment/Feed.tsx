@@ -67,9 +67,15 @@ const Feed: FC<FeedProps> = ({ publication }) => {
 
   return (
     <>
-      {currentProfile ? canComment ? <NewPublication publication={publication} /> : <CommentWarning /> : null}
+      {currentProfile && !publication?.hidden ? (
+        canComment ? (
+          <NewPublication publication={publication} />
+        ) : (
+          <CommentWarning />
+        )
+      ) : null}
       {loading && <PublicationsShimmer />}
-      {!loading && totalComments === 0 && (
+      {!publication?.hidden && !loading && totalComments === 0 && (
         <EmptyState
           message={t`Be the first one to comment!`}
           icon={<CollectionIcon className="text-brand h-8 w-8" />}
