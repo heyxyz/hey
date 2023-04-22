@@ -1,9 +1,9 @@
 import type { MediaSet } from 'lens';
 
 export interface NewLensterAttachment extends MediaSet {
-  file?: File;
   id: string;
-  previewItem?: string;
+  file?: File;
+  previewItem: string;
 }
 
 export interface UserSuggestion {

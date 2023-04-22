@@ -82,7 +82,7 @@ const Attachments: FC<AttachmentsProps> = ({
       <div className={clsx(getClass(slicedAttachments?.length)?.row, 'mt-3 grid gap-2')}>
         {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
           const type = attachment.original?.mimeType;
-          const url = attachment.previewItem || sanitizeDStorageUrl(attachment.original?.url);
+          const url = isNew ? attachment.previewItem : sanitizeDStorageUrl(attachment.original?.url);
 
           const isAudio = ALLOWED_AUDIO_TYPES.includes(type);
           const isVideo = ALLOWED_VIDEO_TYPES.includes(type);

@@ -544,6 +544,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewLensterAttachment = {
       id: uuid(),
+      previewItem: gif.images.original.url,
       original: {
         url: gif.images.original.url,
         mimeType: 'image/gif',
