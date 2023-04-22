@@ -152,7 +152,9 @@ const ChooseThumbnail: FC = () => {
           ) : (
             <>
               <PhotographIcon className="mb-1 h-5 w-5" />
-              <span className="text-sm">Upload</span>
+              <span className="text-sm">
+                <Trans>Upload</Trans>
+              </span>
             </>
           )}
         </label>
