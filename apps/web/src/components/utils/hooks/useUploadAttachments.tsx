@@ -23,6 +23,7 @@ const useUploadAttachments = () => {
         attachmentIds.push(attachmentId);
 
         return {
+          file: file,
           id: attachmentId,
           type: file.type,
           altTag: '',
@@ -72,7 +73,7 @@ const useUploadAttachments = () => {
         }
       } catch {
         removeAttachments(attachmentIds);
-        toast.error('Something went wrong while uploading!');
+        toast.error(t`Something went wrong while uploading!`);
       }
       setIsUploading(false);
 

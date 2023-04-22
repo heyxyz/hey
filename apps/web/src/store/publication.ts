@@ -18,6 +18,12 @@ interface PublicationState {
   addAttachments: (attachments: NewLensterAttachment[]) => void;
   updateAttachments: (attachments: NewLensterAttachment[]) => void;
   removeAttachments: (ids: string[]) => void;
+  videoThumbnail: {
+    url?: string;
+    type?: string;
+    uploading?: boolean;
+  };
+  setVideoThumbnail: (videoThumbnail: { url?: string; type?: string; uploading?: boolean }) => void;
   isUploading: boolean;
   setIsUploading: (isUploading: boolean) => void;
 }
@@ -57,6 +63,12 @@ export const usePublicationStore = create<PublicationState>((set) => ({
       });
       return { attachments };
     }),
+  videoThumbnail: {
+    url: '',
+    type: '',
+    uploading: false
+  },
+  setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
   isUploading: false,
   setIsUploading: (isUploading) => set(() => ({ isUploading }))
 }));

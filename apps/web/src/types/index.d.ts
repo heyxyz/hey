@@ -5,6 +5,8 @@ export interface LensterAttachment {
 }
 
 export interface NewLensterAttachment extends Omit<LensterAttachment, 'item'> {
+  file?: File;
+  type: string;
   id: string;
   item?: string;
   previewItem?: string;

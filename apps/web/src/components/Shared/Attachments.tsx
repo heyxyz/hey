@@ -1,3 +1,4 @@
+import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
@@ -120,11 +121,14 @@ const Attachments: FC<AttachmentsProps> = ({
                 </Button>
               ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
                 isNew ? (
-                  <video
-                    className="rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
-                    src={url}
-                    controls
-                  />
+                  <>
+                    <video
+                      className="rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
+                      src={url}
+                      controls
+                    />
+                    <ChooseThumbnail />
+                  </>
                 ) : (
                   <Video src={url} poster={getCoverUrl()} />
                 )
@@ -154,19 +158,29 @@ const Attachments: FC<AttachmentsProps> = ({
                   data-testid={`attachment-image-${url}`}
                 />
               )}
-              {isNew && !hideDelete && (
-                <div
-                  className={clsx(ALLOWED_AUDIO_TYPES.includes(type) ? 'absolute -left-2 -top-2.5' : 'm-3')}
-                >
-                  <button
-                    type="button"
-                    className="rounded-full bg-gray-900 p-1.5 opacity-75"
-                    onClick={() => removeAttachment(attachment)}
+              {isNew &&
+                !hideDelete &&
+                (ALLOWED_VIDEO_TYPES.includes(type) ? (
+                  <Button
+                    className="mt-3"
+                    variant="danger"
+                    size="sm"
+                    icon={<XIcon className="h-4 w-4" />}
+                    outline
                   >
-                    <XIcon className="h-4 w-4 text-white" />
-                  </button>
-                </div>
-              )}
+                    <Trans>Cancel Upload</Trans>
+                  </Button>
+                ) : (
+                  <div className={clsx(ALLOWED_AUDIO_TYPES.includes(type) ? 'absolute left-2 top-2' : 'm-3')}>
+                    <button
+                      type="button"
+                      className="rounded-full bg-gray-900 p-1.5 opacity-75"
+                      onClick={() => removeAttachment(attachment)}
+                    >
+                      <XIcon className="h-4 w-4 text-white" />
+                    </button>
+                  </div>
+                ))}
             </div>
           );
         })}

@@ -66,7 +66,7 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
  * @param file File to upload to IPFS.
  * @returns LensterAttachment object or null if the upload fails.
  */
-export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment | null> => {
+export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment> => {
   try {
     const client = await getS3Client();
     const params = {
@@ -83,7 +83,7 @@ export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment | 
       altTag: ''
     };
   } catch {
-    return null;
+    return { item: '', type: file.type, altTag: '' };
   }
 };
 
