@@ -341,7 +341,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const getAttachmentImage = () => {
-    return isAudioPublication ? audioPublication.cover : attachments[0]?.item;
+    const isVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type);
+    return isAudioPublication ? audioPublication.cover : !isVideo ? attachments[0]?.item : null;
   };
 
   const getAttachmentImageMimeType = () => {

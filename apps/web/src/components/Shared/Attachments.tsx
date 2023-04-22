@@ -2,7 +2,7 @@ import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT } from 'data/constants';
+import { ALLOWED_AUDIO_TYPES, ALLOWED_VIDEO_TYPES, ATTACHMENT, STATIC_IMAGES_URL } from 'data/constants';
 import type { MediaSet, Publication } from 'lens';
 import imageProxy from 'lib/imageProxy';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
@@ -64,7 +64,12 @@ const Attachments: FC<AttachmentsProps> = ({
   };
 
   const getCoverUrl = () => {
-    return publication?.metadata?.cover?.original.url || publication?.metadata?.image;
+    let url =
+      publication?.metadata?.cover?.original.url ||
+      publication?.metadata?.image ||
+      `${STATIC_IMAGES_URL}/placeholder.webp`;
+
+    return url;
   };
 
   const slicedAttachments = isNew
