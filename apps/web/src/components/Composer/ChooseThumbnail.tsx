@@ -2,6 +2,7 @@ import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotographIcon } from '@heroicons/react/outline';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
+import type { MediaSet } from 'lens';
 import { generateVideoThumbnails } from 'lib/generateVideoThumbnails';
 import getFileFromDataURL from 'lib/getFileFromDataURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
@@ -9,7 +10,6 @@ import type { ChangeEvent, FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
-import type { LensterAttachment } from 'src/types';
 import { Spinner } from 'ui';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
@@ -32,7 +32,7 @@ const ChooseThumbnail: FC = () => {
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
     setVideoThumbnail({ uploading: true });
-    const result: LensterAttachment = await uploadFileToIPFS(fileToUpload);
+    const result: MediaSet = await uploadFileToIPFS(fileToUpload);
     if (!result.original.url) {
       toast.error(t`Failed to upload thumbnail`);
     }

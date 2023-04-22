@@ -1,12 +1,6 @@
-export interface LensterAttachment {
-  original: {
-    url: string;
-    mimeType: string;
-    altTag: string;
-  };
-}
+import type { MediaSet } from 'lens';
 
-export interface NewLensterAttachment extends LensterAttachment {
+export interface NewLensterAttachment extends MediaSet {
   file?: File;
   id: string;
   previewItem?: string;
@@ -59,7 +53,7 @@ export interface OptimisticTransaction {
   cover?: string;
   author?: string;
   content: string;
-  attachments: LensterAttachment[];
+  attachments: MediaSet[];
 }
 
 export interface MarkupLinkProps {
