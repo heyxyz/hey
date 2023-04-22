@@ -18,9 +18,8 @@ const Video: FC<VideoProps> = ({ src, poster }) => {
       <Player
         src={src}
         poster={imageProxy(sanitizeDStorageUrl(poster))}
-        showTitle={false}
         objectFit="contain"
-        showLoadingSpinner={false}
+        showLoadingSpinner
         showPipButton={false}
         showUploadingIndicator={false}
         controls={{ defaultVolume: 1 }}
