@@ -1,8 +1,10 @@
+import getLivepeerTheme from '@lib/getLivepeerTheme';
 import { initLocale } from '@lib/i18n';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
+import { createReactClient, LivepeerConfig, studioProvider } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { IS_MAINNET } from 'data/constants';
+import { IS_MAINNET, LIVEPEER_TOKEN } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
@@ -38,6 +40,10 @@ const wagmiClient = createClient({
   provider
 });
 
+const livepeerClient = createReactClient({
+  provider: studioProvider({ apiKey: LIVEPEER_TOKEN })
+});
+
 const queryClient = new QueryClient();
 const apolloClient = webClient;
 
@@ -52,9 +58,11 @@ const Providers = ({ children }: { children: ReactNode }) => {
         <WagmiConfig client={wagmiClient}>
           <ApolloProvider client={apolloClient}>
             <QueryClientProvider client={queryClient}>
-              <ThemeProvider defaultTheme="light" attribute="class">
-                <Layout>{children}</Layout>
-              </ThemeProvider>
+              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
+                <ThemeProvider defaultTheme="light" attribute="class">
+                  <Layout>{children}</Layout>
+                </ThemeProvider>
+              </LivepeerConfig>
             </QueryClientProvider>
           </ApolloProvider>
         </WagmiConfig>
