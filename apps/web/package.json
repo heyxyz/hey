@@ -84,7 +84,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "^18.15.13",
-    "@types/react": "^18.0.37",
+    "@types/react": "^18.0.38",
     "@types/react-dom": "^18.0.11",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",

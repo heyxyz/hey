@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.15.13",
-    "@types/react": "^18.0.37",
+    "@types/react": "^18.0.38",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
