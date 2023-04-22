@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-18 00:08\n"
+"PO-Revision-Date: 2023-04-22 08:51\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -92,6 +92,7 @@ msgid "File format not allowed."
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
+#: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr ""
 
@@ -233,6 +234,24 @@ msgstr ""
 msgid "Everyone can comment and mirror"
 msgstr ""
 
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Failed to upload thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Please upload a custom thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Choose Thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
+
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr ""
@@ -252,12 +271,12 @@ msgid "Transaction failed!"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
-msgid "Post"
+#: src/components/Publication/Actions/Comment.tsx
+msgid "Comment"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
-#: src/components/Publication/Actions/Comment.tsx
-msgid "Comment"
+msgid "Post"
 msgstr ""
 
 #: src/components/Composer/Post/New.tsx
@@ -2012,10 +2031,6 @@ msgstr ""
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr ""
 
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Upload"
-msgstr ""
-
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
 msgstr ""
@@ -2066,6 +2081,10 @@ msgstr ""
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
+msgstr ""
+
+#: src/components/Shared/Attachments.tsx
+msgid "Cancel Upload"
 msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
