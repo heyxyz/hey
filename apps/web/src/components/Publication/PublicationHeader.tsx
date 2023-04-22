@@ -38,7 +38,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, feedItem }
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
         {modMode && <Source publication={publication} />}
-        <PublicationMenu publication={publication} />
+        {!publication.hidden && <PublicationMenu publication={publication} />}
       </div>
     </div>
   );
