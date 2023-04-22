@@ -111,6 +111,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const isUploading = usePublicationStore((state) => state.isUploading);
   const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
   const setVideoThumbnail = usePublicationStore((state) => state.setVideoThumbnail);
+  const videoDurationInSeconds = usePublicationStore((state) => state.videoDurationInSeconds);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -140,7 +141,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { data: signer } = useSigner();
 
   const isComment = Boolean(publication);
-  const isAudioPublication = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
+  const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
+  const hasVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -323,11 +325,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const getMainContentFocus = () => {
     if (attachments.length > 0) {
-      if (isAudioPublication) {
+      if (hasAudio) {
         return PublicationMainFocus.Audio;
       } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.original.mimeType)) {
         return PublicationMainFocus.Image;
-      } else if (ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType)) {
+      } else if (hasVideo) {
         return PublicationMainFocus.Video;
       } else {
         return PublicationMainFocus.TextOnly;
@@ -338,10 +340,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const getAnimationUrl = () => {
-    if (
-      attachments.length > 0 &&
-      (isAudioPublication || ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType))
-    ) {
+    if (attachments.length > 0 && (hasAudio || hasVideo)) {
       return attachments[0]?.original.url;
     }
 
@@ -349,16 +348,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const getAttachmentImage = () => {
-    const isVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType);
-    return isAudioPublication
-      ? audioPublication.cover
-      : isVideo
-      ? videoThumbnail.url
-      : attachments[0]?.original.url;
+    return hasAudio ? audioPublication.cover : hasVideo ? videoThumbnail.url : attachments[0]?.original.url;
   };
 
   const getAttachmentImageMimeType = () => {
-    return isAudioPublication ? audioPublication.coverMimeType : attachments[0]?.original.mimeType;
+    return hasAudio ? audioPublication.coverMimeType : attachments[0]?.original.mimeType;
   };
 
   const createTokenGatedMetadata = async (metadata: PublicationMetadataV2Input) => {
@@ -423,7 +417,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     try {
       setLoading(true);
-      if (isAudioPublication) {
+      if (hasAudio) {
         setPublicationContentError('');
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
         if (!parsedData.success) {
@@ -451,10 +445,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           traitType: 'type',
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
-        }
+        },
+        ...(hasVideo
+          ? [
+              {
+                traitType: 'durationInSeconds',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: videoDurationInSeconds
+              }
+            ]
+          : [])
       ];
 
-      if (isAudioPublication) {
+      if (hasAudio) {
         attributes.push({
           traitType: 'author',
           displayType: PublicationMetadataDisplayTypes.String,
@@ -480,7 +483,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             : textNftImageUrl
             ? 'image/svg+xml'
             : null,
-        name: isAudioPublication
+        name: hasAudio
           ? audioPublication.title
           : `${isComment ? 'Comment' : 'Post'} by @${currentProfile?.handle}`,
         tags: getTags(publicationContent),

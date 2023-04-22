@@ -9,7 +9,7 @@ import imageProxy from 'lib/imageProxy';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
@@ -53,7 +53,22 @@ const Attachments: FC<AttachmentsProps> = ({
   txn
 }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
+  const setVideoDurationInSeconds = usePublicationStore((state) => state.setVideoDurationInSeconds);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const onDataLoaded = () => {
+    if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
+      setVideoDurationInSeconds(videoRef.current.duration.toFixed(2));
+    }
+  };
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.onloadeddata = onDataLoaded;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoRef, attachments]);
 
   const removeAttachment = (attachment: any) => {
     const arr = attachments;
@@ -83,7 +98,6 @@ const Attachments: FC<AttachmentsProps> = ({
         {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
           const type = attachment.original?.mimeType;
           const url = isNew ? attachment.previewItem : sanitizeDStorageUrl(attachment.original?.url);
-
           const isAudio = ALLOWED_AUDIO_TYPES.includes(type);
           const isVideo = ALLOWED_VIDEO_TYPES.includes(type);
           const isImage = !(isVideo || isAudio);
@@ -121,8 +135,12 @@ const Attachments: FC<AttachmentsProps> = ({
                 isNew ? (
                   <>
                     <video
-                      className="rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
+                      className="w-full overflow-hidden rounded-xl"
                       src={url}
+                      ref={videoRef}
+                      disablePictureInPicture
+                      disableRemotePlayback
+                      controlsList="nodownload noplaybackrate"
                       controls
                     />
                     <ChooseThumbnail />
