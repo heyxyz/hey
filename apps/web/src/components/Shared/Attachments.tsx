@@ -168,6 +168,7 @@ const Attachments: FC<AttachmentsProps> = ({
                     variant="danger"
                     size="sm"
                     icon={<XIcon className="h-4 w-4" />}
+                    onClick={() => removeAttachment(attachment)}
                     outline
                   >
                     <Trans>Cancel Upload</Trans>

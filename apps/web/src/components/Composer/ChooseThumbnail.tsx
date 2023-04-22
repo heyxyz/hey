@@ -1,7 +1,7 @@
-import { PhotographIcon } from '@heroicons/react/outline';
+import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
+import { CheckCircleIcon, PhotographIcon } from '@heroicons/react/outline';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import { t } from '@lingui/macro';
-import clsx from 'clsx';
+import { t, Trans } from '@lingui/macro';
 import { generateVideoThumbnails } from 'lib/generateVideoThumbnails';
 import getFileFromDataURL from 'lib/getFileFromDataURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
@@ -13,7 +13,7 @@ import type { LensterAttachment } from 'src/types';
 import { Spinner } from 'ui';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
-export const THUMBNAIL_GENERATE_COUNT = 7;
+export const THUMBNAIL_GENERATE_COUNT = 4;
 
 interface Thumbnail {
   blobUrl: string;
@@ -23,6 +23,7 @@ interface Thumbnail {
 
 const ChooseThumbnail: FC = () => {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
+  const [imageUploading, setImageUploading] = useState(false);
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1);
   const attachments = usePublicationStore((state) => state.attachments);
   const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
@@ -105,29 +106,40 @@ const ChooseThumbnail: FC = () => {
 
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      setSelectedThumbnailIndex(-1);
-      toast.loading(t`Uploading thumbnail`);
-      const file = e.target.files[0];
-      const result = await uploadThumbnailToIpfs(file);
-      const preview = window.URL?.createObjectURL(file);
-      setThumbnails([
-        {
-          blobUrl: preview,
-          ipfsUrl: result.item,
-          mimeType: file.type || 'image/jpeg'
-        },
-        ...thumbnails
-      ]);
-      setSelectedThumbnailIndex(0);
+      try {
+        setImageUploading(true);
+        setSelectedThumbnailIndex(-1);
+        const file = e.target.files[0];
+        const result = await uploadThumbnailToIpfs(file);
+        const preview = window.URL?.createObjectURL(file);
+        setThumbnails([
+          {
+            blobUrl: preview,
+            ipfsUrl: result.item,
+            mimeType: file.type || 'image/jpeg'
+          },
+          ...thumbnails
+        ]);
+        setSelectedThumbnailIndex(0);
+      } catch {
+        toast.error(t`Failed to upload thumbnail`);
+      } finally {
+        setImageUploading(false);
+      }
     }
   };
 
+  const isUploading = videoThumbnail.uploading;
+
   return (
-    <div className="w-full">
-      <div className="grid grid-cols-2 place-items-start gap-3 py-0.5 md:grid-cols-3 lg:grid-cols-4">
+    <div className="mt-5">
+      <b>
+        <Trans>Choose Thumbnail</Trans>
+      </b>
+      <div className="mt-1 grid grid-cols-3 gap-3 py-0.5 md:grid-cols-5">
         <label
           htmlFor="chooseThumbnail"
-          className="max-w-32 flex h-16 w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
+          className="max-w-32 flex h-24 w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border dark:border-gray-700"
         >
           <input
             id="chooseThumbnail"
@@ -136,35 +148,41 @@ const ChooseThumbnail: FC = () => {
             className="hidden w-full"
             onChange={handleUpload}
           />
-          <PhotographIcon className="mb-1 h-4 w-4 flex-none" />
-          <span className="text-xs">Upload</span>
+          {imageUploading ? (
+            <Spinner size="sm" />
+          ) : (
+            <>
+              <PhotographIcon className="mb-1 h-5 w-5" />
+              <span className="text-sm">Upload</span>
+            </>
+          )}
         </label>
-        {!thumbnails.length && <div>Loading thumbnails...</div>}
-        {thumbnails.map((thumbnail, idx) => {
+        {!thumbnails.length ? <ThumbnailsShimmer /> : null}
+        {thumbnails.map(({ blobUrl, ipfsUrl }, index) => {
+          const isSelected = selectedThumbnailIndex === index;
+          const isUploaded = ipfsUrl === videoThumbnail.url;
+
           return (
             <button
-              key={idx}
+              key={`${blobUrl}_${index}`}
               type="button"
-              disabled={videoThumbnail.uploading}
-              onClick={() => onSelectThumbnail(idx)}
-              className={clsx(
-                'relative w-full flex-none overflow-hidden rounded-lg ring-1 ring-white focus:outline-none dark:ring-black',
-                {
-                  '!ring !ring-indigo-500':
-                    thumbnail.ipfsUrl &&
-                    selectedThumbnailIndex === idx &&
-                    thumbnail.ipfsUrl === videoThumbnail.url
-                }
-              )}
+              disabled={isUploading}
+              onClick={() => onSelectThumbnail(index)}
+              className="relative"
             >
               <img
-                className="h-16 w-full rounded-lg object-cover md:w-32"
-                src={sanitizeDStorageUrl(thumbnail.blobUrl)}
+                className="h-24 w-full rounded-xl border object-cover dark:border-gray-700"
+                src={sanitizeDStorageUrl(blobUrl)}
                 alt="thumbnail"
                 draggable={false}
               />
-              {videoThumbnail.uploading && selectedThumbnailIndex === idx && (
-                <div className="absolute inset-0 grid place-items-center bg-gray-100 bg-opacity-10 backdrop-blur-md">
+              {ipfsUrl && isSelected && isUploaded ? (
+                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100 bg-opacity-10">
+                  <CheckCircleIcon className="h-6 w-6 text-green-500" />
+                </div>
+              ) : null}
+              {isUploading && isSelected && (
+                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100 bg-opacity-10 backdrop-blur-md">
                   <Spinner size="sm" />
                 </div>
               )}
