@@ -47,9 +47,11 @@ const uploadToIPFS = async (data: any): Promise<LensterAttachment[]> => {
         const metadata = result.Metadata;
 
         return {
-          item: `ipfs://${metadata?.['ipfs-hash']}`,
-          type: file.type || 'image/jpeg',
-          altTag: ''
+          original: {
+            url: `ipfs://${metadata?.['ipfs-hash']}`,
+            mimeType: file.type || 'image/jpeg',
+            altTag: ''
+          }
         };
       })
     );
@@ -78,12 +80,20 @@ export const uploadFileToIPFS = async (file: File): Promise<LensterAttachment> =
     const metadata = result.Metadata;
 
     return {
-      item: `ipfs://${metadata?.['ipfs-hash']}`,
-      type: file.type || 'image/jpeg',
-      altTag: ''
+      original: {
+        url: `ipfs://${metadata?.['ipfs-hash']}`,
+        mimeType: file.type || 'image/jpeg',
+        altTag: ''
+      }
     };
   } catch {
-    return { item: '', type: file.type, altTag: '' };
+    return {
+      original: {
+        url: '',
+        mimeType: file.type,
+        altTag: ''
+      }
+    };
   }
 };
 

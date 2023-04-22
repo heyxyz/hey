@@ -33,11 +33,11 @@ const ChooseThumbnail: FC = () => {
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
     setVideoThumbnail({ uploading: true });
     const result: LensterAttachment = await uploadFileToIPFS(fileToUpload);
-    if (!result.item) {
+    if (!result.original.url) {
       toast.error(t`Failed to upload thumbnail`);
     }
     setVideoThumbnail({
-      url: result.item,
+      url: result.original.url,
       type: fileToUpload.type || 'image/jpeg',
       uploading: false
     });
@@ -57,7 +57,7 @@ const ChooseThumbnail: FC = () => {
         setThumbnails(
           thumbnails.map((thumbnail, i) => {
             if (i === index) {
-              thumbnail.ipfsUrl = ipfsResult.item;
+              thumbnail.ipfsUrl = ipfsResult.original.url;
             }
             return thumbnail;
           })
@@ -115,7 +115,7 @@ const ChooseThumbnail: FC = () => {
         setThumbnails([
           {
             blobUrl: preview,
-            ipfsUrl: result.item,
+            ipfsUrl: result.original.url,
             mimeType: file.type || 'image/jpeg'
           },
           ...thumbnails

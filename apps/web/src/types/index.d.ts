@@ -1,14 +1,14 @@
 export interface LensterAttachment {
-  item: string;
-  type: string;
-  altTag: string;
+  original: {
+    url: string;
+    mimeType: string;
+    altTag: string;
+  };
 }
 
-export interface NewLensterAttachment extends Omit<LensterAttachment, 'item'> {
+export interface NewLensterAttachment extends LensterAttachment {
   file?: File;
-  type: string;
   id: string;
-  item?: string;
   previewItem?: string;
 }
 

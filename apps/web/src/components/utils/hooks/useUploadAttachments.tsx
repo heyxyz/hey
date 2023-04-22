@@ -23,11 +23,14 @@ const useUploadAttachments = () => {
         attachmentIds.push(attachmentId);
 
         return {
-          file: file,
           id: attachmentId,
-          type: file.type,
-          altTag: '',
-          previewItem: URL.createObjectURL(file)
+          file: file,
+          previewItem: URL.createObjectURL(file),
+          original: {
+            url: URL.createObjectURL(file),
+            mimeType: file.type,
+            altTag: ''
+          }
         };
       });
 
@@ -67,7 +70,11 @@ const useUploadAttachments = () => {
         if (attachmentsUploaded) {
           attachmentsIPFS = previewAttachments.map((attachment: NewLensterAttachment, index: number) => ({
             ...attachment,
-            item: attachmentsUploaded[index].item
+            original: {
+              url: attachmentsUploaded[index].original.url,
+              mimeType: attachmentsUploaded[index].original.mimeType,
+              altTag: ''
+            }
           }));
           updateAttachments(attachmentsIPFS);
         }

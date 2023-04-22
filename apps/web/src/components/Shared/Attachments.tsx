@@ -73,9 +73,7 @@ const Attachments: FC<AttachmentsProps> = ({
     return url;
   };
 
-  const slicedAttachments = isNew
-    ? attachments?.slice(0, 4)
-    : attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e?.original?.mimeType))
+  const slicedAttachments = attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e?.original?.mimeType))
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
 
@@ -83,10 +81,8 @@ const Attachments: FC<AttachmentsProps> = ({
     <>
       <div className={clsx(getClass(slicedAttachments?.length)?.row, 'mt-3 grid gap-2')}>
         {slicedAttachments?.map((attachment: NewLensterAttachment & MediaSet, index: number) => {
-          const type = isNew ? attachment.type : attachment.original?.mimeType;
-          const url = isNew
-            ? attachment.previewItem || sanitizeDStorageUrl(attachment.item!)
-            : sanitizeDStorageUrl(attachment.original?.url) || sanitizeDStorageUrl(attachment.item!);
+          const type = attachment.original?.mimeType;
+          const url = attachment.previewItem || sanitizeDStorageUrl(attachment.original?.url);
 
           const isAudio = ALLOWED_AUDIO_TYPES.includes(type);
           const isVideo = ALLOWED_VIDEO_TYPES.includes(type);

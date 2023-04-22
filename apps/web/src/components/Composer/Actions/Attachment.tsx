@@ -45,7 +45,7 @@ const Attachment: FC = () => {
   };
 
   const disableImageUpload = () => {
-    const notImage = attachments[0] && attachments[0].type.slice(0, 5) !== 'image';
+    const notImage = attachments[0] && attachments[0].original.mimeType.slice(0, 5) !== 'image';
     const isLimit = !notImage && attachments.length >= 4;
     return notImage || isLimit;
   };
