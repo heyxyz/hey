@@ -355,6 +355,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return hasAudio ? audioPublication.coverMimeType : attachments[0]?.original.mimeType;
   };
 
+  const getTitlePrefix = () => {
+    if (hasVideo) {
+      return 'Video';
+    }
+
+    return isComment ? 'Comment' : 'Post';
+  };
+
   const createTokenGatedMetadata = async (metadata: PublicationMetadataV2Input) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
@@ -483,9 +491,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             : textNftImageUrl
             ? 'image/svg+xml'
             : null,
-        name: hasAudio
-          ? audioPublication.title
-          : `${isComment ? 'Comment' : 'Post'} by @${currentProfile?.handle}`,
+        name: hasAudio ? audioPublication.title : `${getTitlePrefix()} by @${currentProfile?.handle}`,
         tags: getTags(publicationContent),
         animation_url: getAnimationUrl(),
         mainContentFocus: getMainContentFocus(),
