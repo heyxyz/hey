@@ -92,6 +92,7 @@ msgid "File format not allowed."
 msgstr "ಫೈಲ್ ಸ್ವರೂಪಕ್ಕೆ ಅನುಮತಿ ಇಲ್ಲ."
 
 #: src/components/Composer/Actions/Attachment.tsx
+#: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "ಸಂಸ್ಕರಿಸುವಲ್ಲಿ ಎನೋ ತೊಂದರೆಯಾಗಿದೆ!"
 
@@ -233,6 +234,24 @@ msgstr "ಸ್ನೇಹಿತರ ಸ್ನೇಹಿತರು ಕಾಮೆಂಟ�
 msgid "Everyone can comment and mirror"
 msgstr "ಪ್ರತಿಯೊಬ್ಬರೂ ಕಾಮೆಂಟ್ ಮಾಡಬಹುದು ಮತ್ತು ಪ್ರತಿಬಿಂಬಿಸಬಹುದು"
 
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Failed to upload thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Please upload a custom thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Choose Thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
+
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "ದಯವಿಟ್ಟು 1 ವೀಡಿಯೊ ಅಥವಾ 4 ಫೋಟೋಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ."
@@ -252,13 +271,13 @@ msgid "Transaction failed!"
 msgstr "ವಹಿವಾಟು ವಿಫಲವಾಗಿದೆ!"
 
 #: src/components/Composer/NewPublication.tsx
-msgid "Post"
-msgstr "ಪೋಸ್ಟ್"
-
-#: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr "ಕಾಮೆಂಟ್"
+
+#: src/components/Composer/NewPublication.tsx
+msgid "Post"
+msgstr "ಪೋಸ್ಟ್"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -2012,10 +2031,6 @@ msgstr ""
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr ""
 
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Upload"
-msgstr ""
-
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
 msgstr ""
@@ -2066,6 +2081,10 @@ msgstr ""
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
+msgstr ""
+
+#: src/components/Shared/Attachments.tsx
+msgid "Cancel Upload"
 msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
@@ -2762,4 +2781,3 @@ msgstr "ಏನೋ ತಪ್ಪಾಗಿದೆ ಎಂದು ತೋರುತ್ತ
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "ನಾವು ಈ ದೋಷಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಟ್ರ್ಯಾಕ್ ಮಾಡುತ್ತೇವೆ, ಆದರೆ ಸಮಸ್ಯೆ ಮುಂದುವರಿದರೆ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಲು ಮುಕ್ತವಾಗಿರಿ. ಈ ಮಧ್ಯೆ, ರಿಫ್ರೆಶ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಿ."
-
