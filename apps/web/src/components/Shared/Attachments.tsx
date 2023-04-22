@@ -119,7 +119,15 @@ const Attachments: FC<AttachmentsProps> = ({
                   </span>
                 </Button>
               ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
-                <Video src={url} poster={getCoverUrl()} />
+                isNew ? (
+                  <video
+                    className="rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
+                    src={url}
+                    controls
+                  />
+                ) : (
+                  <Video src={url} poster={getCoverUrl()} />
+                )
               ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
                 <Audio
                   src={url}
