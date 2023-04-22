@@ -54,7 +54,8 @@ const getTextNftUrl = async (content: string, username: string, timestamp: strin
   const blob = new Blob([svg], { type: 'image/svg+xml' });
   const file = new File([blob], 'post.svg', { lastModified: new Date().getTime(), type: blob.type });
   const result = await uploadFileToIPFS(file);
-  return result?.item ?? null;
+
+  return result.original.url;
 };
 
 export default getTextNftUrl;
