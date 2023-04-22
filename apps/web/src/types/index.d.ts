@@ -1,13 +1,9 @@
-export interface LensterAttachment {
-  item: string;
-  type: string;
-  altTag: string;
-}
+import type { MediaSet } from 'lens';
 
-export interface NewLensterAttachment extends Omit<LensterAttachment, 'item'> {
+export interface NewLensterAttachment extends MediaSet {
   id: string;
-  item?: string;
-  previewItem?: string;
+  file?: File;
+  previewItem: string;
 }
 
 export interface UserSuggestion {
@@ -57,7 +53,7 @@ export interface OptimisticTransaction {
   cover?: string;
   author?: string;
   content: string;
-  attachments: LensterAttachment[];
+  attachments: MediaSet[];
 }
 
 export interface MarkupLinkProps {

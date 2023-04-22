@@ -2,7 +2,13 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import type { CustomFiltersTypes, ExplorePublicationRequest, Publication, PublicationTypes } from 'lens';
+import type {
+  CustomFiltersTypes,
+  ExplorePublicationRequest,
+  Publication,
+  PublicationMainFocus,
+  PublicationTypes
+} from 'lens';
 import { PublicationSortCriteria, useExploreFeedQuery } from 'lens';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -14,10 +20,17 @@ interface FeedProps {
   refresh: boolean;
   setRefreshing: (refreshing: boolean) => void;
   publicationTypes: PublicationTypes[];
+  mainContentFocus: PublicationMainFocus[];
   customFilters: CustomFiltersTypes[];
 }
 
-const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customFilters }) => {
+const Feed: FC<FeedProps> = ({
+  refresh,
+  setRefreshing,
+  publicationTypes,
+  mainContentFocus,
+  customFilters
+}) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [hasMore, setHasMore] = useState(true);
 
@@ -26,6 +39,9 @@ const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customF
     sortCriteria: PublicationSortCriteria.Latest,
     noRandomize: true,
     publicationTypes,
+    metadata: {
+      mainContentFocus
+    },
     customFilters,
     limit: 50
   };
@@ -43,7 +59,7 @@ const Feed: FC<FeedProps> = ({ refresh, setRefreshing, publicationTypes, customF
     setRefreshing(true);
     refetch().finally(() => setRefreshing(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refresh, publicationTypes, customFilters]);
+  }, [refresh, publicationTypes, mainContentFocus, customFilters]);
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
