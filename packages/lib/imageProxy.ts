@@ -12,6 +12,10 @@ const imageProxy = (url: string, name?: string): string => {
     return '';
   }
 
+  if (url.includes('static-assets.lenster.xyz')) {
+    return url;
+  }
+
   return name ? `${USER_CONTENT_URL}/${name}/${url}` : `${USER_CONTENT_URL}/${url}`;
 };
 

@@ -79,13 +79,15 @@ const Attachments: FC<AttachmentsProps> = ({
     );
   };
 
-  const getCoverUrl = () => {
-    let url =
-      publication?.metadata?.cover?.original.url ||
-      publication?.metadata?.image ||
-      `${STATIC_IMAGES_URL}/placeholder.webp`;
+  const getThumbnailUrl = () => {
+    const metadata = publication?.metadata;
+    const hasNoThumbnail = metadata?.media[0].original.url === metadata?.image;
 
-    return url;
+    if (hasNoThumbnail) {
+      return `${STATIC_IMAGES_URL}/thumbnail.png`;
+    }
+
+    return metadata?.cover?.original.url || metadata?.image || `${STATIC_IMAGES_URL}/thumbnail.png`;
   };
 
   const slicedAttachments = attachments?.some((e: any) => ALLOWED_VIDEO_TYPES.includes(e?.original?.mimeType))
@@ -146,7 +148,7 @@ const Attachments: FC<AttachmentsProps> = ({
                     <ChooseThumbnail />
                   </>
                 ) : (
-                  <Video src={url} poster={getCoverUrl()} />
+                  <Video src={url} poster={getThumbnailUrl()} />
                 )
               ) : isAudio ? (
                 <Audio
