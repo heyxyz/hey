@@ -61,6 +61,7 @@ export const FRESHDESK_WORKER_URL = IS_PRODUCTION ? 'https://freshdesk.lenster.x
 // Web3
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
+export const LIVEPEER_TOKEN = '12f97508-13d6-4220-bf6c-9d8604d6bfbb';
 
 // Regex
 export const URL_REGEX =
