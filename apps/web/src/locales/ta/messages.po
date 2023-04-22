@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-18 00:08\n"
+"PO-Revision-Date: 2023-04-22 08:51\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -92,6 +92,7 @@ msgid "File format not allowed."
 msgstr "கோப்பு வடிவம் அனுமதிக்கப்படவில்லை."
 
 #: src/components/Composer/Actions/Attachment.tsx
+#: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏற்பட்டது!"
 
@@ -233,6 +234,24 @@ msgstr "நண்பர்களின் நண்பர் கருத்த�
 msgid "Everyone can comment and mirror"
 msgstr "எல்லோரும் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Failed to upload thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Please upload a custom thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Choose Thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
+
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
@@ -252,13 +271,13 @@ msgid "Transaction failed!"
 msgstr "பணப்பரிமாற்றம் தோல்வி அடைந்தது!"
 
 #: src/components/Composer/NewPublication.tsx
-msgid "Post"
-msgstr ""
-
-#: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr "கருத்துரை"
+
+#: src/components/Composer/NewPublication.tsx
+msgid "Post"
+msgstr ""
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -2012,10 +2031,6 @@ msgstr "ஒவ்வொரு நாளும் பெருமையைக் 
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr ""
 
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Upload"
-msgstr ""
-
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
 msgstr "அமைப்புகளை ஏற்றுகிறது"
@@ -2067,6 +2082,10 @@ msgstr "இதைச் செயல்தவிர்க்க முடிய�
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
 msgstr "படத்தை புதிய தாவலில் திறக்கவும்"
+
+#: src/components/Shared/Attachments.tsx
+msgid "Cancel Upload"
+msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
