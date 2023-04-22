@@ -17,14 +17,14 @@
     "dotenv": "^16.0.3",
     "lens": "workspace:*",
     "lib": "workspace:*",
-    "next": "^13.3.0",
+    "next": "^13.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-schemaorg": "^2.0.0",
     "schema-dts": "^1.1.2"
   },
   "devDependencies": {
-    "@types/react": "^18.0.37",
+    "@types/react": "^18.0.38",
     "@types/react-dom": "^18.0.11",
     "eslint-config-weblint": "workspace:*",
     "lens": "workspace:*",
