@@ -49,7 +49,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({ publication }) =>
         </MetaDetails>
         <MetaDetails
           icon={<GlobeAltIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={publication?.id}
+          value={publication?.appId}
           title={t`App ID`}
         >
           {publication?.appId}
