@@ -5,7 +5,6 @@ import { t, Trans } from '@lingui/macro';
 import type { MediaSet } from 'lens';
 import { generateVideoThumbnails } from 'lib/generateVideoThumbnails';
 import getFileFromDataURL from 'lib/getFileFromDataURL';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -172,7 +171,7 @@ const ChooseThumbnail: FC = () => {
             >
               <img
                 className="h-24 w-full rounded-xl border object-cover dark:border-gray-700"
-                src={sanitizeDStorageUrl(blobUrl)}
+                src={blobUrl}
                 alt="thumbnail"
                 draggable={false}
               />
