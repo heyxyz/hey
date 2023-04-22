@@ -2,6 +2,7 @@ import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
 export const mainnetVerified = [
+  '0x01615e', // livepeer
   '0xbbb9', // orbapp
   '0x01c688', // instadapp
   '0x01c5b9', // galverse
