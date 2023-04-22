@@ -92,6 +92,7 @@ msgid "File format not allowed."
 msgstr "文件格式不兼容。"
 
 #: src/components/Composer/Actions/Attachment.tsx
+#: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "上传失败!"
 
@@ -233,6 +234,24 @@ msgstr ""
 msgid "Everyone can comment and mirror"
 msgstr ""
 
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Failed to upload thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Please upload a custom thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Choose Thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
+
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "请选择 1 个视频或最多 4 张照片。"
@@ -252,13 +271,13 @@ msgid "Transaction failed!"
 msgstr "交易失败！"
 
 #: src/components/Composer/NewPublication.tsx
-msgid "Post"
-msgstr ""
-
-#: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr "评论"
+
+#: src/components/Composer/NewPublication.tsx
+msgid "Post"
+msgstr ""
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -2012,10 +2031,6 @@ msgstr "每天庆祝一次骄傲（彩虹）大游行"
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr "打开此选项来展示您对LGBTQ的支持并且每天展示  {APP_NAME} 彩虹的图标。"
 
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Upload"
-msgstr ""
-
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
 msgstr "正在加载设置..."
@@ -2067,6 +2082,10 @@ msgstr ""
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
 msgstr "在新标签页中打开图片"
+
+#: src/components/Shared/Attachments.tsx
+msgid "Cancel Upload"
+msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
@@ -2762,4 +2781,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

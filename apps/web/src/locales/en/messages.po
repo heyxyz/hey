@@ -92,6 +92,7 @@ msgid "File format not allowed."
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
+#: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr ""
 
@@ -233,6 +234,24 @@ msgstr "Friend of friends can comment and mirror"
 msgid "Everyone can comment and mirror"
 msgstr "Everyone can comment and mirror"
 
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Failed to upload thumbnail"
+msgstr "Failed to upload thumbnail"
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Please upload a custom thumbnail"
+msgstr "Please upload a custom thumbnail"
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Choose Thumbnail"
+msgstr "Choose Thumbnail"
+
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr "Upload"
+
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr ""
@@ -252,13 +271,13 @@ msgid "Transaction failed!"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
-msgid "Post"
-msgstr "Post"
-
-#: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
+msgid "Post"
+msgstr "Post"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -2012,10 +2031,6 @@ msgstr ""
 msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr ""
 
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Upload"
-msgstr "Upload"
-
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
 msgstr ""
@@ -2067,6 +2082,10 @@ msgstr "This can't be undone and it will be removed from your profile, the timel
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
 msgstr ""
+
+#: src/components/Shared/Attachments.tsx
+msgid "Cancel Upload"
+msgstr "Cancel Upload"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
