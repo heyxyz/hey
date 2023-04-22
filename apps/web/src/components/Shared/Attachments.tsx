@@ -88,19 +88,21 @@ const Attachments: FC<AttachmentsProps> = ({
             ? attachment.previewItem || sanitizeDStorageUrl(attachment.item!)
             : sanitizeDStorageUrl(attachment.original?.url) || sanitizeDStorageUrl(attachment.item!);
 
+          const isAudio = ALLOWED_AUDIO_TYPES.includes(type);
+          const isVideo = ALLOWED_VIDEO_TYPES.includes(type);
+          const isImage = !(isVideo || isAudio);
+
           return (
             <div
               className={clsx(
-                ALLOWED_VIDEO_TYPES.includes(type) || ALLOWED_AUDIO_TYPES.includes(type)
-                  ? ''
-                  : `${getClass(slicedAttachments?.length, isNew)?.aspect} ${
+                isImage
+                  ? `${getClass(slicedAttachments?.length, isNew)?.aspect} ${
                       slicedAttachments?.length === 3 && index === 0 ? 'row-span-2' : ''
-                    }`,
+                    }`
+                  : '',
                 {
-                  'w-full': ALLOWED_AUDIO_TYPES.includes(type),
-                  'w-2/3':
-                    ALLOWED_VIDEO_TYPES.includes(type) ||
-                    (slicedAttachments.length === 1 && !ALLOWED_AUDIO_TYPES.includes(type))
+                  'w-full': isAudio || isVideo,
+                  'w-2/3': !isVideo && slicedAttachments.length === 1
                 },
                 'relative'
               )}
@@ -119,7 +121,7 @@ const Attachments: FC<AttachmentsProps> = ({
                     <Trans>Open Image in new tab</Trans>
                   </span>
                 </Button>
-              ) : ALLOWED_VIDEO_TYPES.includes(type) ? (
+              ) : isVideo ? (
                 isNew ? (
                   <>
                     <video
@@ -132,7 +134,7 @@ const Attachments: FC<AttachmentsProps> = ({
                 ) : (
                   <Video src={url} poster={getCoverUrl()} />
                 )
-              ) : ALLOWED_AUDIO_TYPES.includes(type) ? (
+              ) : isAudio ? (
                 <Audio
                   src={url}
                   isNew={isNew}
@@ -160,7 +162,7 @@ const Attachments: FC<AttachmentsProps> = ({
               )}
               {isNew &&
                 !hideDelete &&
-                (ALLOWED_VIDEO_TYPES.includes(type) ? (
+                (isVideo ? (
                   <Button
                     className="mt-3"
                     variant="danger"
@@ -171,7 +173,7 @@ const Attachments: FC<AttachmentsProps> = ({
                     <Trans>Cancel Upload</Trans>
                   </Button>
                 ) : (
-                  <div className={clsx(ALLOWED_AUDIO_TYPES.includes(type) ? 'absolute left-2 top-2' : 'm-3')}>
+                  <div className={clsx(isAudio ? 'absolute left-2 top-2' : 'm-3')}>
                     <button
                       type="button"
                       className="rounded-full bg-gray-900 p-1.5 opacity-75"
