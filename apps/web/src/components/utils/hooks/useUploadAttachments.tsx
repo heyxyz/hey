@@ -28,8 +28,7 @@ const useUploadAttachments = () => {
           previewItem: URL.createObjectURL(file),
           original: {
             url: URL.createObjectURL(file),
-            mimeType: file.type,
-            altTag: ''
+            mimeType: file.type
           }
         };
       });
@@ -72,8 +71,7 @@ const useUploadAttachments = () => {
             ...attachment,
             original: {
               url: attachmentsUploaded[index].original.url,
-              mimeType: attachmentsUploaded[index].original.mimeType,
-              altTag: ''
+              mimeType: attachmentsUploaded[index].original.mimeType
             }
           }));
           updateAttachments(attachmentsIPFS);

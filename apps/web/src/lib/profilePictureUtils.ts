@@ -1,4 +1,4 @@
-import uploadToIPFS from './uploadToIPFS';
+import { uploadFileToIPFS } from './uploadToIPFS';
 
 export function readFile(file: Blob): Promise<string> {
   return new Promise((resolve) => {
@@ -11,11 +11,12 @@ export function readFile(file: Blob): Promise<string> {
 const uploadCroppedImage = async (image: HTMLCanvasElement): Promise<string> => {
   const blob = await new Promise((resolve) => image.toBlob(resolve));
   const file = new File([blob as Blob], 'cropped_image.png', { type: (blob as Blob).type });
-  const attachment = await uploadToIPFS([file]);
-  const ipfsUrl = attachment[0]?.original.url;
+  const attachment = await uploadFileToIPFS(file);
+  const ipfsUrl = attachment.original.url;
   if (!ipfsUrl) {
     throw new Error('uploadToIPFS failed');
   }
+
   return ipfsUrl;
 };
 

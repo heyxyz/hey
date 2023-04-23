@@ -1,6 +1,6 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PlusIcon } from '@heroicons/react/outline';
-import uploadToIPFS from '@lib/uploadToIPFS';
+import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
 import { useCreateProfileMutation } from 'lens';
@@ -36,16 +36,18 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     schema: newUserSchema
   });
 
-  const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
-    evt.preventDefault();
-    setUploading(true);
-    try {
-      const attachment = await uploadToIPFS(evt.target.files);
-      if (attachment[0]?.original.url) {
-        setAvatar(attachment[0].original.url);
+  const handleUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    if (event.target.files?.length) {
+      try {
+        setUploading(true);
+        const attachment = await uploadFileToIPFS(event.target.files[0]);
+        if (attachment.original.url) {
+          setAvatar(attachment.original.url);
+        }
+      } finally {
+        setUploading(false);
       }
-    } finally {
-      setUploading(false);
     }
   };
 
