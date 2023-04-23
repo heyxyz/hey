@@ -1,16 +1,20 @@
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
+import { snapshotClient } from '@lib/snapshotClient';
+import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { APP_NAME, Errors } from 'data';
 import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import type { Proposal } from 'snapshot';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Spinner } from 'ui';
-import { useSignTypedData } from 'wagmi';
+import { useSigner } from 'wagmi';
 
 interface VoteProposalProps {
   proposal: Proposal;
@@ -25,11 +29,11 @@ interface VoteProposalProps {
 const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConfig, refetch }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [voteSubmitting, setVoteSubmitting] = useState(false);
-  const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({});
-  const { choices, snapshot, network, strategies, space, state, symbol } = proposal;
+  const { data: signer } = useSigner();
+  const { id, choices, snapshot, network, strategies, space, state, symbol, type } = proposal;
   const choice = choices[voteConfig.position - 1];
 
-  const getScore = async () => {
+  const getVotingPower = async () => {
     const response = await axios({
       url: 'https://score.snapshot.org',
       method: 'POST',
@@ -52,65 +56,36 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
   };
 
   const { data, isLoading, error } = useQuery(
-    ['statsData', currentProfile?.ownedBy, proposal.id],
-    () => getScore().then((res) => res),
+    ['statsData', currentProfile?.ownedBy, id],
+    () => getVotingPower().then((res) => res),
     { enabled: state === 'active' }
   );
 
   const sign = async (position: number) => {
-    setVoteSubmitting(true);
-    const typedData = {
-      domain: { name: 'snapshot', version: '0.1.4' },
-      types: {
-        Vote: [
-          { name: 'from', type: 'address' },
-          { name: 'space', type: 'string' },
-          { name: 'timestamp', type: 'uint64' },
-          { name: 'proposal', type: 'bytes32' },
-          { name: 'choice', type: 'uint32' },
-          { name: 'reason', type: 'string' },
-          { name: 'app', type: 'string' },
-          { name: 'metadata', type: 'string' }
-        ]
-      },
-      value: {
-        space: proposal.space?.id as string,
-        proposal: proposal.id as `0x${string}`,
+    try {
+      setVoteSubmitting(true);
+      await snapshotClient.vote(signer as any, currentProfile?.ownedBy, {
+        space: space?.id as string,
+        proposal: id as `0x${string}`,
+        type: type as ProposalType,
         choice: position,
-        app: 'lenster',
-        reason: '',
-        metadata: '{}',
-        from: currentProfile?.ownedBy,
-        timestamp: Number((Date.now() / 1e3).toFixed())
-      }
-    };
-    const signature = await signTypedDataAsync(typedData);
-
-    axios({
-      url: 'https://seq.snapshot.org',
-      method: 'POST',
-      data: {
-        address: currentProfile?.ownedBy,
-        sig: signature,
-        data: { domain: typedData.domain, types: typedData.types, message: typedData.value }
-      }
-    })
-      .then(() => {
-        refetch?.();
-        setVoteConfig({ show: false, position: 0 });
-        Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
-          proposal_id: proposal.id
-        });
-      })
-      .finally(() => {
-        setVoteSubmitting(false);
+        app: APP_NAME.toLowerCase()
       });
+      refetch?.();
+      setVoteConfig({ show: false, position: 0 });
+      Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+        proposal_id: id
+      });
+    } catch {
+      toast.error(Errors.SomethingWentWrong);
+    } finally {
+      setVoteSubmitting(false);
+    }
   };
 
-  const vp = data?.result?.vp_by_strategy ?? [0];
-  const totalVotingPower = vp.reduce((a: number, b: number) => a + b, 0);
-  const voteDisabled = typedDataLoading || voteSubmitting || totalVotingPower === 0;
-  const buttonLoading = typedDataLoading || voteSubmitting;
+  const totalVotingPower = data?.result?.vp;
+  const voteDisabled = voteSubmitting || totalVotingPower === 0;
+  const buttonLoading = voteSubmitting;
 
   return (
     <>
