@@ -1,5 +1,5 @@
 import { PhotographIcon } from '@heroicons/react/outline';
-import uploadToIPFS from '@lib/uploadToIPFS';
+import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import { ATTACHMENT } from 'data/constants';
 import Errors from 'data/errors';
@@ -26,12 +26,12 @@ const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, image
     setLoading(false);
   };
 
-  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
+  const onChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.length) {
       try {
         setLoading(true);
-        const attachment = await uploadToIPFS(e.target.files);
-        setCover(attachment[0].original.url, attachment[0].original.mimeType);
+        const attachment = await uploadFileToIPFS(event.target.files[0]);
+        setCover(attachment.original.url, attachment.original.mimeType);
       } catch (error) {
         onError(error);
       }
