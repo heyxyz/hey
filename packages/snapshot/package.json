@@ -15,10 +15,10 @@
     "data": "workspace:*"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^3.3.0",
+    "@graphql-codegen/cli": "^3.3.1",
     "@graphql-codegen/fragment-matcher": "^4.0.1",
-    "@graphql-codegen/typescript": "^3.0.3",
-    "@graphql-codegen/typescript-operations": "^3.0.3",
+    "@graphql-codegen/typescript": "^3.0.4",
+    "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "eslint-config-weblint": "workspace:*",
     "prettier": "^2.8.7",
