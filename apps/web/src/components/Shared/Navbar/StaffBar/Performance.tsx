@@ -22,9 +22,9 @@ const Performance: FC = () => {
     <Badge>
       <span
         className={clsx({
-          'text-green-700 dark:text-green-400': ttfb < 100,
-          'text-yellow-700 dark:text-yellow-400': ttfb >= 100 && ttfb < 300,
-          'text-red-700 dark:text-red-400': ttfb >= 300
+          'text-green-700 dark:text-green-400': ttfb < 200,
+          'text-yellow-700 dark:text-yellow-400': ttfb >= 200 && ttfb < 400,
+          'text-red-700 dark:text-red-400': ttfb >= 400
         })}
       >
         {ttfb}ms <span className="text-[10px]">(TTFB)</span>
