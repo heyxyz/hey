@@ -8,7 +8,7 @@ msgstr ""
 "Language: kn\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-23 04:52\n"
+"PO-Revision-Date: 2023-04-22 08:51\n"
 "Last-Translator: \n"
 "Language-Team: Kannada\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1281,93 +1281,93 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery updated"
-msgstr "ಗ್ಯಾಲರಿ ನವೀಕರಿಸಲಾಗಿದೆ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name should be less than 255 characters"
-msgstr "ಗ್ಯಾಲರಿ ಹೆಸರು 255 ಅಕ್ಷರಗಳಿಗಿಂತ ಕಡಿಮೆ ಇರಬೇಕು"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
-msgstr "ಗ್ಯಾಲರಿ ಹೆಸರು ಅಗತ್ಯವಿದೆ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles for your gallery"
-msgstr "ನಿಮ್ಮ ಗ್ಯಾಲರಿಗಾಗಿ ಸಂಗ್ರಹಣೆಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Review collection"
-msgstr "ವಿಮರ್ಶೆ ಸಂಗ್ರಹ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles you want others to see"
-msgstr "ಇತರರು ನೋಡಬೇಕೆಂದು ನೀವು ಬಯಸುವ ಸಂಗ್ರಹಣೆಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "What's your gallery name?"
-msgstr "ನಿಮ್ಮ ಗ್ಯಾಲರಿಯ ಹೆಸರೇನು?"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "{0} selected"
-msgstr "0 ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Next"
-msgstr "ಮುಂದೆ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Gallery deleted"
-msgstr "ಗ್ಯಾಲರಿ ಅಳಿಸಲಾಗಿದೆ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Are you sure you want to delete?"
-msgstr "ನೀವು ಅಳಿಸಲು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Edit"
-msgstr "ತಿದ್ದು"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Rearrrange"
-msgstr "ಮರುಹೊಂದಿಸಿ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
-msgstr "ಅಳಿಸಿ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
-msgstr "ನಿಮ್ಮ ಗ್ಯಾಲರಿಗೆ ಸುಸ್ವಾಗತ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Create a curated space for your digital collectibles"
-msgstr "ನಿಮ್ಮ ಡಿಜಿಟಲ್ ಸಂಗ್ರಹಣೆಗಳಿಗಾಗಿ ಕ್ಯುರೇಟೆಡ್ ಸ್ಪೇಸ್ ರಚಿಸಿ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Let's do it!"
-msgstr "ಅದನ್ನು ಮಾಡೋಣ!"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
-msgstr "ಯಾವುದೇ ಎನ್ಎಫ್ಟಿಗಳನ್ನು ಹೊಂದಿಲ್ಲ!"
+msgstr ""
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
-msgstr "ಗ್ಯಾಲರಿಗೆ ಕೇವಲ 50 ವಸ್ತುಗಳನ್ನು ಮಾತ್ರ ಅನುಮತಿಸಲಾಗಿದೆ"
+msgstr ""
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
-msgstr "ಯಾವುದೇ ಸಂಗ್ರಹಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಲಾಗಿಲ್ಲ!"
+msgstr ""
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx
 msgid "Loading analytics"
-msgstr "ವಿಶ್ಲೇಷಣೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
+msgstr ""
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 msgid "Views"
-msgstr "ವೀಕ್ಷಿಸಿ"
+msgstr ""
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 msgid "Times people viewed the details about this publication"
@@ -1375,79 +1375,79 @@ msgstr ""
 
 #: src/components/Publication/Actions/Analytics/index.tsx
 msgid "Publication Analytics"
-msgstr "ಪ್ರಕಟಣೆ ಶೋಧಕಗಳು"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
-msgstr "ಯಶಸ್ವಿಯಾಗಿ ಸಂಗ್ರಹಿಸಲಾಗಿದೆ!"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
 msgid "Loading collect"
-msgstr "ಸಂಗ್ರಹಣೆಯನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} collectors"
-msgstr "{0} ಸಂಗ್ರಾಹಕರು"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
 msgid "Collected by"
-msgstr "ಮೂಲಕ ಸಂಗ್ರಹಿಸಲಾಗಿದೆ"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
-msgstr "{0} ಲಭ್ಯವಿದೆ"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0}% referral fee"
-msgstr "ಉಲ್ಲೇಖ ಶುಲ್ಕ"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
-msgstr "ಆದಾಯ:"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Sale Ends:"
-msgstr "ಮಾರಾಟ ಕೊನೆಗೊಳ್ಳುತ್ತದೆ:"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Token:"
-msgstr "ಟೋಕನ್:"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collect now"
-msgstr "ಈಗ ಸಂಗ್ರಹಿಸಿ"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "You already collected this"
-msgstr "ನೀವು ಈಗಾಗಲೇ ಇದನ್ನು ಸಂಗ್ರಹಿಸಿದ್ದೀರಿ"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/Splits.tsx
 msgid "Fee recipients"
-msgstr "ಶುಲ್ಕ ಸ್ವೀಕರಿಸುವವರು"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
-msgstr "ಉಚಿತ ಸಂಗ್ರಹ"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Unknown Collect"
-msgstr "ಅಜ್ಞಾತ ಸಂಗ್ರಹ"
+msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
-msgstr "{0} ಪ್ರತಿಕ್ರಿಯೆಗಳು"
+msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Dislike"
-msgstr "ಇಷ್ಟವಿಲ್ಲ"
+msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
-msgstr "ಇಷ್ಟಗಳು"
+msgstr ""
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1456,39 +1456,39 @@ msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
-msgstr "ಪೋಸ್ಟ್ ಅನ್ನು ಪ್ರತಿಬಿಂಬಿಸಲಾಗಿದೆ!"
+msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
-msgstr "{0} ಕನ್ನಡಿಗಳು"
+msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
-msgstr "ಕನ್ನಡಿ"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
-msgstr "ಪ್ರಕಟಣೆ ಯಶಸ್ವಿಯಾಗಿ ವರದಿಯಾಗಿದೆ"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Spam"
-msgstr "ಸ್ಪ್ಯಾಮ್"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Scam"
-msgstr "ಹಗರಣ"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "NSFW"
-msgstr "NSFW"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Repetitive"
-msgstr "ಪುನರಾವರ್ತಿಸುವಿಕೆ"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 #: src/components/Publication/Actions/ModAction/index.tsx
@@ -1688,31 +1688,31 @@ msgstr ""
 #: src/components/Settings/Account/index.tsx
 #: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
-msgstr "ಖಾತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
-msgstr "ಅನುಮತಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Module disabled successfully!"
-msgstr "ಮಾಡ್ಯೂಲ್ ಯಶಸ್ವಿಯಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಂಡಿದೆ!"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Module enabled successfully!"
-msgstr "ಮಾಡ್ಯೂಲ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ!"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
-msgstr "ಹಿಂಪಡೆಯು"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Warning"
-msgstr "ಎಚ್ಚರಿಕೆ"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Handle with care!"
-msgstr "ಜಾಗರೂಕತೆಯಿಂದ ನಿರ್ವಹಿಸಿ!"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
@@ -1720,11 +1720,11 @@ msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allowance settings • {APP_NAME}"
-msgstr "ಭತ್ಯೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
-msgstr "ಮಾಡ್ಯೂಲ್‌ಗಳನ್ನು ಅನುಮತಿಸಿ / ಹಿಂತೆಗೆದುಕೊಳ್ಳಿ"
+msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
@@ -1732,15 +1732,15 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
-msgstr "ತೆರವುಗೊಳಿಸಲಾಗಿದೆ {key}"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup settings • {APP_NAME}"
-msgstr "ಭತ್ಯೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup Localstorage"
-msgstr "ಸ್ಥಳೀಯ ಸಂಗ್ರಹಣೆಯನ್ನು ಸ್ವಚ್ಛಗೊಳಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
@@ -1748,11 +1748,11 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Optimistic publications"
-msgstr "ಆಶಾವಾದಿ ಪ್ರಕಟಣೆಗಳು"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your posts or comments that are not indexed"
-msgstr "ಇಂಡೆಕ್ಸ್ ಮಾಡದ ನಿಮ್ಮ ಪೋಸ್ಟ್‌ಗಳು ಅಥವಾ ಕಾಮೆಂಟ್‌ಗಳನ್ನು ಸ್ವಚ್ಛಗೊಳಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
@@ -1760,51 +1760,51 @@ msgstr "ಇಂಡೆಕ್ಸ್ ಮಾಡದ ನಿಮ್ಮ ಪೋಸ್ಟ್
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
-msgstr "ಸ್ವಚ್ಛಗೊಳಿಸುವಿಕೆ"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Timeline settings"
-msgstr "ಟೈಮ್ ಲೈನ್ ಸೆಟ್ಟಿಂಗ್ ಗಳು"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your timeline filter settings"
-msgstr "ನಿಮ್ಮ ಟೈಮ್‌ಲೈನ್ ಫಿಲ್ಟರ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಸ್ವಚ್ಛಗೊಳಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Direct message keys"
-msgstr "ನೇರ ಸಂದೇಶ ಕೀಲಿಗಳು"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your DM encryption key"
-msgstr "ನಿಮ್ಮ DM ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀಯನ್ನು ಸ್ವಚ್ಛಗೊಳಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
-msgstr "DM ಕೀಗಳನ್ನು ತೆರವುಗೊಳಿಸಲಾಗಿದೆ"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
-msgstr "ಅಪ್ಲಿಕೇಶನ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Note: Cleaning will log you out"
-msgstr "ಗಮನಿಸಿ: ಸ್ವಚ್ಛಗೊಳಿಸುವಿಕೆಯು ನಿಮ್ಮನ್ನು ಲಾಗ್ ಔಟ್ ಮಾಡುತ್ತದೆ"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Delete Profile • {APP_NAME}"
-msgstr "ಪ್ರೊಫೈಲ್ ಅಳಿಸಿ • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "This will deactivate your account"
-msgstr "ಇದು ನಿಮ್ಮ ಖಾತೆಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸುತ್ತದೆ"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Deleting your account is permanent. All your data will be wiped out immediately and you won't be able to get it back."
-msgstr "ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಅಳಿಸುವುದು ಶಾಶ್ವತವಾಗಿರುತ್ತದೆ. ನಿಮ್ಮ ಎಲ್ಲಾ ಡೇಟಾವನ್ನು ತಕ್ಷಣವೇ ಅಳಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ಅದನ್ನು ಮರಳಿ ಪಡೆಯಲು ನಿಮಗೆ ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ."
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted."
-msgstr "ನಿಮ್ಮ {APP_NAME} ಖಾತೆಯನ್ನು ಆಕಸ್ಮಿಕವಾಗಿ ಅಥವಾ ತಪ್ಪಾಗಿ ಅಳಿಸಿದ್ದರೆ ಅದನ್ನು ಮರುಸ್ಥಾಪಿಸಲು ನಿಮಗೆ ಸಾಧ್ಯವಿಲ್ಲ."
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
@@ -1812,89 +1812,89 @@ msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Your @handle will be released immediately after deleting the account."
-msgstr "ಖಾತೆಯನ್ನು ಅಳಿಸಿದ ತಕ್ಷಣ ನಿಮ್ಮ @ಹ್ಯಾಂಡಲ್ ಅನ್ನು ಬಿಡುಗಡೆ ಮಾಡಲಾಗುತ್ತದೆ."
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Deleting..."
-msgstr "ಅಳಿಸಲಾಗುತ್ತಿದೆ..."
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Delete your account"
-msgstr "ನಿಮ್ಮ ಖಾತೆ ಅಳಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Danger Zone"
-msgstr "ಅಪಾಯ ವಲಯ"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
-msgstr "ನೀವು ಎಲ್ಲಾ ಪರಿಣಾಮಗಳನ್ನು ಓದಿದ್ದೀರಿ ಮತ್ತು ಹೇಗಾದರೂ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಅಳಿಸಲು ಬಯಸುತ್ತೀರಿ ಎಂಬುದನ್ನು ದೃಢೀಕರಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Yes, delete my account"
-msgstr "ನನ್ನ ಖಾತೆಯನ್ನು ಅಳಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Profile updated successfully!"
-msgstr "ಪ್ರೊಫೈಲ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ನವೀಕರಿಸಲಾಗಿದೆ!"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable"
-msgstr "ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿದೆ"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Update"
-msgstr "ನವೀಕರಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable"
-msgstr "ಸಕ್ರಿಯಗೊಳಿಸಿದೆ"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable Signless Transactions"
-msgstr "ಸಂಕೇತರಹಿತ ವಹಿವಾಟುಗಳನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
-msgstr "ರವಾನೆದಾರ • {APP_NAME}"
+msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export notifications"
-msgstr "ರಫ್ತು ಸೂಚನೆಗಳು"
+msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export all your notifications to a JSON file."
-msgstr "ನಿಮ್ಮ ಎಲ್ಲಾ ಅಧಿಸೂಚನೆಗಳನ್ನು JSON ಫೈಲ್‌ಗೆ ರಫ್ತು ಮಾಡಿ."
+msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Exported <0>{0}</0> notifications"
-msgstr "<0>{0} ರಫ್ತು ಮಾಡಲಾಗಿದೆ</0> ಅಧಿಸೂಚನೆಗಳು"
+msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Download notifications"
-msgstr "ಅಧಿಸೂಚನೆಗಳನ್ನು ಡೌನ್ಲೋಡ್ ಮಾಡಿ"
+msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 #: src/components/Settings/Export/Profile.tsx
 #: src/components/Settings/Export/Publications.tsx
 msgid "Exporting..."
-msgstr "ರಫ್ತು ಮಾಡಲಾಗುತ್ತಿದೆ..."
+msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 #: src/components/Settings/Export/Profile.tsx
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export now"
-msgstr "ಈಗ ರಫ್ತು ಮಾಡಿ"
+msgstr ""
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Export profile"
-msgstr "ರಫ್ತು ಪ್ರೊಫೈಲ್"
+msgstr ""
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Export all your profile data to a JSON file."
-msgstr "ನಿಮ್ಮ ಎಲ್ಲಾ ಪ್ರೊಫೈಲ್ ಡೇಟಾವನ್ನು JSON ಫೈಲ್‌ಗೆ ರಫ್ತು ಮಾಡಿ."
+msgstr ""
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Download profile"
@@ -2081,7 +2081,7 @@ msgstr ""
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
-msgstr "ಹೊಸ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ಚಿತ್ರವನ್ನು ತೆರೆಯಿರಿ"
+msgstr ""
 
 #: src/components/Shared/Attachments.tsx
 msgid "Cancel Upload"
@@ -2089,23 +2089,23 @@ msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
-msgstr "ಅಮಾನ್ಯ ಆಡಿಯೋ ಶೀರ್ಷಿಕೆ"
+msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid author name"
-msgstr "ಅಮಾನ್ಯ ಲೇಖಕರ ಹೆಸರು"
+msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid cover image"
-msgstr "ಅಮಾನ್ಯ ಕವರ್ ಚಿತ್ರ"
+msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add title"
-msgstr "ಶೀರ್ಷಿಕೆ ಸೇರಿಸಿ"
+msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
-msgstr "ಲೇಖಕರನ್ನು ಸೇರಿಸಿ"
+msgstr ""
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
@@ -2170,7 +2170,7 @@ msgstr "ಅನುವಾದ"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
-msgstr "▲ ವರ್ಸೆಲ್ ನಿಂದ ನಡೆಸಲ್ಪಡುತ್ತಿದೆ"
+msgstr ""
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
@@ -2305,7 +2305,7 @@ msgstr "ಸಂದೇಶಗಳನ್ನು ಲೋಡ್ ಮಾಡಲು ವಿಫ
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Loading mirrors"
-msgstr "ಕನ್ನಡಿಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
+msgstr ""
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "No mirrors."
@@ -2414,7 +2414,7 @@ msgstr "ದಯವಿಟ್ಟು ಹೆಚ್ಚುವರಿ ವಿವರಗಳ�
 #: src/components/Shared/Navbar/MobileDrawerMenu.tsx
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Logged in as"
-msgstr "ಲಾಗ್ ಇನ್ ಆಗಿ"
+msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
@@ -2430,7 +2430,7 @@ msgstr "ಲಾಗ್ ಔಟ್"
 
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
-msgstr "ಸಾಧಾರಣವಾಗಿದೆ"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Disable mod mode"
@@ -2458,7 +2458,7 @@ msgstr "ಮೋಡ್ ಮೋಡ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿ
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
-msgstr "ಸ್ವಿಚ್ ಪ್ರೊಫೈಲ್"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Dark mode"
