@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-22 08:51\n"
+"PO-Revision-Date: 2023-04-23 11:20\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -20,23 +20,23 @@ msgstr ""
 
 #: src/components/Comment/Feed.tsx
 msgid "Be the first one to comment!"
-msgstr ""
+msgstr "Будьте первым комментатором!"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
-msgstr ""
+msgstr "Не удалось загрузить комментарии"
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
-msgstr ""
+msgstr "Скрыть комментарии"
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Show more comments"
-msgstr ""
+msgstr "Показать больше комментариев"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
-msgstr ""
+msgstr "Добавить ограничения на то, кто может просматривать эту публикацию"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
@@ -44,25 +44,25 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Collectors can view"
-msgstr ""
+msgstr "Коллекционеры могут просматривать"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
-msgstr ""
+msgstr "Люди должны коллекционировать эту публикацию, чтобы увидеть ее"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Followers can view"
-msgstr ""
+msgstr "Подписчики могут просматривать"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to follow you to be able to view it"
-msgstr ""
+msgstr "Для просмотра человек должен подписаться на вас"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
-msgstr ""
+msgstr "Отменить"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
@@ -73,11 +73,11 @@ msgstr ""
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
-msgstr ""
+msgstr "Настройки доступа"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
@@ -85,50 +85,50 @@ msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
-msgstr ""
+msgstr "Превышено максимальное ограничение в 1 аудио, 1 видео или 4 изображения"
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
-msgstr ""
+msgstr "Недопустимый формат файла."
 
 #: src/components/Composer/Actions/Attachment.tsx
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
-msgstr ""
+msgstr "Что-то пошло не так при загрузке!"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
-msgstr ""
+msgstr "Плата за коллекционирование"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Get paid whenever someone collects your post"
-msgstr ""
+msgstr "Получайте оплату всякий раз, когда кто-то коллекционирует вашу публикацию"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Price"
-msgstr ""
+msgstr "Цена"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 #: src/components/Settings/Account/SuperFollow.tsx
 #: src/components/Settings/Allowance/index.tsx
 msgid "Select Currency"
-msgstr ""
+msgstr "Выберите валюту"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
-msgstr ""
+msgstr "Загрузка настроек коллекционирования"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Failed to load modules"
-msgstr ""
+msgstr "Не удалось загрузить модули"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
-msgstr ""
+msgstr "Эту публикацию можно коллекционировать"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
-msgstr ""
+msgstr "Ограниченный выпуск"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
@@ -136,43 +136,43 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
-msgstr ""
+msgstr "Лимит на коллекционирование"
 
 #: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Who can collect"
-msgstr ""
+msgstr "Кто может коллекционировать"
 
 #: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Only followers can collect"
-msgstr ""
+msgstr "Только подписчики могут коллекционировать"
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Mirror referral reward"
-msgstr ""
+msgstr "Реферальное вознаграждение за репост"
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Share your fee with people who amplify your content"
-msgstr ""
+msgstr "Поделитесь комиссией с людьми, которые распространяют ваш контент"
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Referral fee"
-msgstr ""
+msgstr "Реферальная комиссия"
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Split revenue"
-msgstr ""
+msgstr "Разделить доход"
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Set multiple recipients for the collect fee"
-msgstr ""
+msgstr "Установите несколько получателей комиссии за коллекционирование"
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
-msgstr ""
+msgstr "Разделение не должно превышать 100%. Всего: <0>{splitTotal}</0>%"
 
 #: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
 msgid "Duplicate recipient address found"
-msgstr ""
+msgstr "Обнаружен повторяющийся адрес получателя"
 
 #: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
 msgid "Time limit"
@@ -184,64 +184,64 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
-msgstr ""
+msgstr "Настройки коллекционирования"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "Search for GIFs"
-msgstr ""
+msgstr "Поиск GIF"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "No GIFs found."
-msgstr ""
+msgstr "GIF не найдены."
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Loading GIFs"
-msgstr ""
+msgstr "Загрузка GIF"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
-msgstr ""
+msgstr "Выберите GIF"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
-msgstr ""
+msgstr "Мои подписки"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers"
-msgstr ""
+msgstr "Мои подписчики"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friends of friends"
-msgstr ""
+msgstr "Друзья друзей"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone"
-msgstr ""
+msgstr "Все"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers can comment and mirror"
-msgstr ""
+msgstr "Мои подписчики могут комментировать и репостить"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows can comment and mirror"
-msgstr ""
+msgstr "Пользователи, на которых я подписан, могут комментировать и репостить"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Friend of friends can comment and mirror"
-msgstr ""
+msgstr "Друзья моих друзей могут комментировать и репостить"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone can comment and mirror"
-msgstr ""
+msgstr "Любой может комментировать и репостить"
 
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
-msgstr ""
+msgstr "Не удалось загрузить изображение"
 
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Please upload a custom thumbnail"
-msgstr ""
+msgstr "Пожалуйста, загрузите своё изображение"
 
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Choose Thumbnail"
@@ -250,17 +250,17 @@ msgstr ""
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Upload"
-msgstr ""
+msgstr "Загрузить"
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
-msgstr ""
+msgstr "Пожалуйста, выберите либо 1 видео, либо до 4 фотографий."
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
-msgstr ""
+msgstr "Что происходит?"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
@@ -268,27 +268,27 @@ msgstr ""
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
-msgstr ""
+msgstr "Транзакция не удалась!"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
-msgstr ""
+msgstr "Прокомментировать"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
-msgstr ""
+msgstr "Опубликовать"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
-msgstr ""
+msgstr "Создать публикацию"
 
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
-msgstr ""
+msgstr "Публикаций пока еще нет!"
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
@@ -296,47 +296,47 @@ msgstr ""
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
-msgstr ""
+msgstr "Все публикации"
 
 #: src/components/Explore/FeedType.tsx
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Video"
-msgstr ""
+msgstr "Видео"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
-msgstr ""
+msgstr "Аудио"
 
 #: src/components/Explore/FeedType.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
-msgstr ""
+msgstr "Картинки"
 
 #: src/components/Explore/index.tsx
 msgid "For you"
-msgstr ""
+msgstr "Для вас"
 
 #: src/components/Explore/index.tsx
 msgid "Popular"
-msgstr ""
+msgstr "Популярное"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/Trending.tsx
 msgid "Trending"
-msgstr ""
+msgstr "Тренды"
 
 #: src/components/Explore/index.tsx
 msgid "Interesting"
-msgstr ""
+msgstr "Интересно"
 
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
-msgstr ""
+msgstr "Исследуйте • {APP_NAME}"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -351,16 +351,16 @@ msgstr ""
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions Upgrade"
-msgstr ""
+msgstr "Обновление транзакций без подписи"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless Transactions"
-msgstr ""
+msgstr "Транзакции без подписи"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
-msgstr ""
+msgstr "Личные сообщения здесь!"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
@@ -368,11 +368,11 @@ msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
-msgstr ""
+msgstr "Включить личные сообщения"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Filter"
-msgstr ""
+msgstr "Фильтр"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Posts"
@@ -384,7 +384,7 @@ msgstr ""
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Likes"
-msgstr ""
+msgstr "Показать лайки"
 
 #: src/components/Home/FeedType.tsx
 msgid "Timeline"
@@ -392,11 +392,11 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
-msgstr ""
+msgstr "Яркие моменты"
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
-msgstr ""
+msgstr "Добро пожаловать в {APP_NAME} 👋"
 
 #: src/components/Home/Hero.tsx
 msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
@@ -408,38 +408,38 @@ msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
-msgstr ""
+msgstr "На кого подписаться"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "No recommendations!"
-msgstr ""
+msgstr "Нет рекомендаций!"
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
-msgstr ""
+msgstr "Не удалось загрузить рекомендации"
 
 #: src/components/Home/RecommendedProfiles.tsx
 #: src/components/Publication/DecryptedPublicationBody.tsx
 #: src/components/Publication/PublicationBody.tsx
 msgid "Show more"
-msgstr ""
+msgstr "Показать больше"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Suggested for you"
-msgstr ""
+msgstr "Рекомендации для вас"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
-msgstr ""
+msgstr "Моя лента"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "👀 See the feed through..."
-msgstr ""
+msgstr "👀 Смотрите ленту через..."
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
-msgstr ""
+msgstr "Найти"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
@@ -448,7 +448,7 @@ msgstr ""
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Searching users"
-msgstr ""
+msgstr "Поиск пользователей"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
@@ -473,7 +473,7 @@ msgstr ""
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile name"
-msgstr ""
+msgstr "Установить имя профиля"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile bio"
@@ -481,16 +481,16 @@ msgstr ""
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set your avatar"
-msgstr ""
+msgstr "Установите свой аватар"
 
 #: src/components/Home/SetProfile.tsx
 #: src/components/Settings/Interests/index.tsx
 msgid "Select profile interests"
-msgstr ""
+msgstr "Укажи свои интересы"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
-msgstr ""
+msgstr "Обновить профиль"
 
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
@@ -528,11 +528,11 @@ msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
-msgstr ""
+msgstr "Не удалось загрузить ленту"
 
 #: src/components/Home/Trending.tsx
 msgid "Failed to load trending"
-msgstr ""
+msgstr "Не удалось загрузить тренды"
 
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
@@ -540,7 +540,7 @@ msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
-msgstr ""
+msgstr "Ошибка при отправке сообщения"
 
 #: src/components/Messages/Composer.tsx
 msgid "Type Something"
@@ -548,11 +548,11 @@ msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Send"
-msgstr ""
+msgstr "Отправить"
 
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
-msgstr ""
+msgstr "Загрузка сообщений"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
@@ -568,17 +568,17 @@ msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
+msgstr "Загрузка..."
 
 #: src/components/Messages/PreviewList.tsx
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
-msgstr ""
+msgstr "Подписан"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Requested"
-msgstr ""
+msgstr "Запрошено"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -590,7 +590,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
-msgstr ""
+msgstr "Не удалось загрузить сообщения"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Start messaging your Lens frens"
@@ -598,7 +598,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
-msgstr ""
+msgstr "Новое сообщение"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
@@ -630,16 +630,16 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Publication filters"
-msgstr ""
+msgstr "Фильтры публикаций"
 
 #: src/components/Mod/index.tsx
 msgid "Posts"
-msgstr ""
+msgstr "Посты"
 
 #: src/components/Mod/index.tsx
 #: src/components/Notification/FeedType.tsx
 msgid "Comments"
-msgstr ""
+msgstr "Комментарии"
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
@@ -660,7 +660,7 @@ msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
-msgstr ""
+msgstr "Все уведомления"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
@@ -740,11 +740,11 @@ msgstr ""
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> понравилась ваша <2>публикация</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> упомянул вас в <2>комментарии</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
@@ -752,7 +752,7 @@ msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> упомянул вас в <2>сообщении</2></0>"
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
@@ -768,11 +768,11 @@ msgstr ""
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
-msgstr ""
+msgstr "Уведомления • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
 msgid "Email is not valid"
-msgstr ""
+msgstr "Неверный адрес электронной почты"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
@@ -784,11 +784,11 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Message should not be empty"
-msgstr ""
+msgstr "Сообщение не может быть пустым"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message should not exceed 1000 characters"
-msgstr ""
+msgstr "Сообщение не должно превышать 1000 символов"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
@@ -808,23 +808,23 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
-msgstr ""
+msgstr "Тема"
 
 #: src/components/Pages/Contact.tsx
 msgid "What happened?"
-msgstr ""
+msgstr "Что случилось?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message"
-msgstr ""
+msgstr "Сообщение"
 
 #: src/components/Pages/Contact.tsx
 msgid "How can we help?"
-msgstr ""
+msgstr "Чем мы можем помочь?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
@@ -832,17 +832,17 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
-msgstr ""
+msgstr "Политика конфиденциальности • {APP_NAME}"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
 msgid "Updated {updatedAt}"
-msgstr ""
+msgstr "Обновлено {updatedAt}"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Terms.tsx
 msgid "1. Overview"
-msgstr ""
+msgstr "1. Обзор"
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing the Site, you agree to not only this Privacy Policy, but also to our Terms of Use and any other written agreements for using the Site. And you agree to our collection and use of any personal data (as described here) as well as the features of public/permissionless blockchain technology."
@@ -858,12 +858,12 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "2. Information Collection"
-msgstr ""
+msgstr "2. Сбор информации"
 
 #: src/components/Pages/Privacy.tsx
 #: src/components/Pages/Privacy.tsx
 msgid "We may collect the following information about you when you use the Site:"
-msgstr ""
+msgstr "Мы можем собирать следующую информацию о вас, когда вы используете Сайт:"
 
 #: src/components/Pages/Privacy.tsx
 msgid "Information you provide such as feedback, question and issues reports."
@@ -891,7 +891,7 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "3. Use of Information"
-msgstr ""
+msgstr "3. Использование информации"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may need to use it to operate and manage the Services on this Site (or other places), provide you support, ensure we comply with laws and regulation, and enforce the security of the Site or make other improvements."
