@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-23 11:20\n"
+"PO-Revision-Date: 2023-04-23 19:23\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -176,7 +176,7 @@ msgstr "Обнаружен повторяющийся адрес получат�
 
 #: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
 msgid "Time limit"
-msgstr ""
+msgstr "Ограничение по времени"
 
 #: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
 msgid "Limit collecting to the first 24h"
@@ -664,7 +664,7 @@ msgstr "Все уведомления"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
-msgstr ""
+msgstr "Упоминания"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
@@ -688,7 +688,7 @@ msgstr ""
 
 #: src/components/Notification/Settings.tsx
 msgid "Signal filter"
-msgstr ""
+msgstr "Фильтр оповещений"
 
 #: src/components/Notification/Settings.tsx
 msgid "Turn on high-signal notification filter"
@@ -943,7 +943,7 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "8. Children"
-msgstr ""
+msgstr "8. Дети"
 
 #: src/components/Pages/Privacy.tsx
 msgid "The Site is intended for general audiences and are not directed at children. To use the Site, you must legally be able to enter into the Agreement. We do not knowingly collect personal information from children."
@@ -1095,7 +1095,7 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "You are prohibited from using the Site,"
-msgstr ""
+msgstr "Вам запрещено использовать Сайт,"
 
 #: src/components/Pages/Terms.tsx
 msgid "for any unlawful purpose and to solicit others to perform or participate in any unlawful acts;"
@@ -1127,11 +1127,11 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "9. Assumption of Risk"
-msgstr ""
+msgstr "9. Принятие риска"
 
 #: src/components/Pages/Terms.tsx
 msgid "You assume the risks of using the Site (including the risks related to smart contracts). You are responsible for your wallet. We may restrict your access to the Site for any reason, including, but not limited, compliance with sanctions regulations."
-msgstr ""
+msgstr "Вы принимаете на себя риски использования Сайта (включая риски, связанные со смарт-контрактами). Вы несете ответственность за свой кошелек. Мы можем ограничить ваш доступ к Сайту по любой причине, включая, помимо прочего, соблюдение санкционных норм."
 
 #: src/components/Pages/Terms.tsx
 msgid "10. Disclaimer of Warranties"
@@ -1143,19 +1143,19 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "11. Termination and Cancellation"
-msgstr ""
+msgstr "11. Расторжение и аннулирование соглашения"
 
 #: src/components/Pages/Terms.tsx
 msgid "This Agreement is effective unless and until terminated by either you or us. You may terminate the Agreement with us at any time by not accessing the Site."
-msgstr ""
+msgstr "Настоящее Соглашение действует до тех пор, пока оно не будет расторгнуто с вашей или нашей стороны. Вы можете расторгнуть Соглашение с нами в любое время, прекратив посещение Сайта."
 
 #: src/components/Pages/Terms.tsx
 msgid "If in our sole judgment you fail to comply with terms, we reserve the right to terminate our Agreement with you and deny you access to the Site."
-msgstr ""
+msgstr "Если, по нашему мнению, вы не соблюдаете условия, мы оставляем за собой право расторгнуть наше Соглашение с вами и отказать вам в доступе к Сайту."
 
 #: src/components/Pages/Terms.tsx
 msgid "12. Contact Information"
-msgstr ""
+msgstr "12. Контактная информация"
 
 #: src/components/Pages/Terms.tsx
 msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
@@ -1163,7 +1163,7 @@ msgstr ""
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
-msgstr ""
+msgstr "Спасибо • {APP_NAME}"
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
@@ -1191,23 +1191,23 @@ msgstr ""
 
 #: src/components/Profile/Details.tsx
 msgid "Followers you know"
-msgstr ""
+msgstr "Подписчики, которых вы знаете"
 
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
-msgstr ""
+msgstr "Не удалось загрузить ленту профиля"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
-msgstr ""
+msgstr "Лента"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Replies"
-msgstr ""
+msgstr "Ответы"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Media"
-msgstr ""
+msgstr "Медиа"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Collected"
@@ -1220,44 +1220,44 @@ msgstr ""
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
 msgid "Not now"
-msgstr ""
+msgstr "Не сейчас"
 
 #: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
-msgstr ""
+msgstr "Подписчики"
 
 #: src/components/Profile/Followers.tsx
 msgid "Loading followers"
-msgstr ""
+msgstr "Загрузка подписчиков"
 
 #: src/components/Profile/Followers.tsx
 msgid "doesn’t have any followers yet."
-msgstr ""
+msgstr "пока нет подписчиков."
 
 #: src/components/Profile/Followers.tsx
 msgid "Failed to load followers"
-msgstr ""
+msgstr "Не удалось загрузить подписчиков"
 
 #: src/components/Profile/Following.tsx
 msgid "Loading following"
-msgstr ""
+msgstr "Загрузка подписок"
 
 #: src/components/Profile/Following.tsx
 msgid "doesn’t follow anyone."
-msgstr ""
+msgstr "ни на кого не подписан."
 
 #: src/components/Profile/Following.tsx
 msgid "Failed to load following"
-msgstr ""
+msgstr "Не удалось загрузить подписки"
 
 #: src/components/Profile/MutualFollowers/List.tsx
 msgid "Loading mutual followers"
-msgstr ""
+msgstr "Загрузка взаимных подписчиков"
 
 #: src/components/Profile/MutualFollowers/List.tsx
 msgid "Failed to load mutual followers"
-msgstr ""
+msgstr "Не удалось загрузить взаимных подписчиков"
 
 #: src/components/Profile/MutualFollowers/index.tsx
 msgid "Followed by"
@@ -1265,7 +1265,7 @@ msgstr ""
 
 #: src/components/Profile/New.tsx
 msgid "Create Profile • {APP_NAME}"
-msgstr ""
+msgstr "Создать профиль • {APP_NAME}"
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
@@ -1273,23 +1273,23 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery created"
-msgstr ""
+msgstr "Галерея создана"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name updated"
-msgstr ""
+msgstr "Название галереи обновлено"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery updated"
-msgstr ""
+msgstr "Галерея обновлена"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name should be less than 255 characters"
-msgstr ""
+msgstr "Название галереи должно быть меньше 255 символов"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
-msgstr ""
+msgstr "Необходимо указать название галереи"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles for your gallery"
@@ -1321,11 +1321,11 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Вы уверены, что хотите удалить?"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Rearrrange"
@@ -1334,11 +1334,11 @@ msgstr ""
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
-msgstr ""
+msgstr "Добро пожаловать в вашу галерею"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Create a curated space for your digital collectibles"
@@ -1363,19 +1363,19 @@ msgstr ""
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 #: src/components/Publication/Actions/Analytics/index.tsx
 msgid "Loading analytics"
-msgstr ""
+msgstr "Загрузка аналитики"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 msgid "Views"
-msgstr ""
+msgstr "Просмотров"
 
 #: src/components/Publication/Actions/Analytics/Stats.tsx
 msgid "Times people viewed the details about this publication"
-msgstr ""
+msgstr "Количество просмотров сведений об этой публикации"
 
 #: src/components/Publication/Actions/Analytics/index.tsx
 msgid "Publication Analytics"
-msgstr ""
+msgstr "Аналитика публикаций"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
@@ -1527,7 +1527,7 @@ msgstr ""
 
 #: src/components/Publication/HiddenPublication.tsx
 msgid "{type} was hidden by the author"
-msgstr ""
+msgstr "{type} был скрыт автором"
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "ARWEAVE TRANSACTION"
@@ -1587,11 +1587,11 @@ msgstr ""
 
 #: src/components/Search/Sidebar.tsx
 msgid "Publications"
-msgstr ""
+msgstr "Публикации"
 
 #: src/components/Search/Sidebar.tsx
 msgid "Profiles"
-msgstr ""
+msgstr "Профили"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Default profile updated successfully!"
@@ -1599,7 +1599,7 @@ msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Your default profile"
-msgstr ""
+msgstr "Профиль по умолчанию"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "You don't have any default profile set!"
@@ -1607,7 +1607,7 @@ msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Select default profile"
-msgstr ""
+msgstr "Выбрать профиль по умолчанию"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Selecting your default account helps to display the selected profile across {APP_NAME}, you can change your default profile anytime."
@@ -1615,7 +1615,7 @@ msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "What else you should know"
-msgstr ""
+msgstr "Что еще вы должны знать"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc."
@@ -1627,7 +1627,7 @@ msgstr ""
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Select profile"
-msgstr ""
+msgstr "Выберите профиль"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid amount"
@@ -1679,7 +1679,7 @@ msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
-msgstr ""
+msgstr "Нет."
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Request Verification"
@@ -1708,7 +1708,7 @@ msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Warning"
-msgstr ""
+msgstr "Предупреждение"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Handle with care!"

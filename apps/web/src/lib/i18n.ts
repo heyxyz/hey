@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core';
 import { Localstorage } from 'data/storage';
 import dayjs from 'dayjs';
-import { en, es, ta, zh } from 'make-plural/plurals';
+import { en, es, kn, ru, ta, zh } from 'make-plural/plurals';
 
 export const supportedLocales: Record<string, string> = {
   en: 'English',
@@ -18,7 +18,9 @@ i18n.loadLocaleData({
   en: { plurals: en },
   es: { plurals: es },
   ta: { plurals: ta },
-  zh: { plurals: zh }
+  zh: { plurals: zh },
+  kn: { plurals: kn },
+  ru: { plurals: ru }
 });
 
 /**
