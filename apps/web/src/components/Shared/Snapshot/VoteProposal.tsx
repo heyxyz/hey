@@ -1,11 +1,11 @@
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
-import snapshot from '@snapshot-labs/snapshot.js';
+import { snapshotClient } from '@lib/snapshotClient';
 import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Errors } from 'data';
+import { APP_NAME, Errors } from 'data';
 import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -15,9 +15,6 @@ import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Spinner } from 'ui';
 import { useSigner } from 'wagmi';
-
-const hub = 'https://hub.snapshot.org';
-const client = new snapshot.Client712(hub);
 
 interface VoteProposalProps {
   proposal: Proposal;
@@ -36,7 +33,7 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
   const { id, choices, snapshot, network, strategies, space, state, symbol, type } = proposal;
   const choice = choices[voteConfig.position - 1];
 
-  const getScore = async () => {
+  const getVotingPower = async () => {
     const response = await axios({
       url: 'https://score.snapshot.org',
       method: 'POST',
@@ -60,19 +57,19 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
 
   const { data, isLoading, error } = useQuery(
     ['statsData', currentProfile?.ownedBy, id],
-    () => getScore().then((res) => res),
+    () => getVotingPower().then((res) => res),
     { enabled: state === 'active' }
   );
 
   const sign = async (position: number) => {
     try {
       setVoteSubmitting(true);
-      await client.vote(signer as any, currentProfile?.ownedBy, {
+      await snapshotClient.vote(signer as any, currentProfile?.ownedBy, {
         space: space?.id as string,
         proposal: id as `0x${string}`,
         type: type as ProposalType,
         choice: position,
-        app: 'lenster'
+        app: APP_NAME.toLowerCase()
       });
       refetch?.();
       setVoteConfig({ show: false, position: 0 });
@@ -86,8 +83,7 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
     }
   };
 
-  const vp = data?.result?.vp_by_strategy ?? [0];
-  const totalVotingPower = vp.reduce((a: number, b: number) => a + b, 0);
+  const totalVotingPower = data?.result?.vp;
   const voteDisabled = voteSubmitting || totalVotingPower === 0;
   const buttonLoading = voteSubmitting;
 
