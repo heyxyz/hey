@@ -8,7 +8,8 @@ export const supportedLocales: Record<string, string> = {
   es: 'Spanish - Español',
   ta: 'Tamil - தமிழ்',
   zh: 'Chinese - 中文',
-  kn: 'Kannada - ಕನ್ನಡ'
+  kn: 'Kannada - ಕನ್ನಡ',
+  ru: 'Russian - русский'
 };
 
 const defaultLocale = 'en';
