@@ -24,8 +24,8 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
   }
 
   const title = profile?.name
-    ? `${profile?.name} (@${profile?.handle}) • Lenster`
-    : `@${profile?.handle} • Lenster`;
+    ? `${profile?.name} (@${profile?.handle}) • Lineaster`
+    : `@${profile?.handle} • Lineaster`;
   const description = truncateByWords(profile?.bio ?? '', 30);
   const image = `${USER_CONTENT_URL}/${AVATAR}/${sanitizeDStorageUrl(
     profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)

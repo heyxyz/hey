@@ -11,7 +11,7 @@ const AppVersion: FC<AppVersionProps> = ({ onClick }) => {
   return (
     <div className="px-6 py-3 text-xs">
       <Link
-        href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
+        href={`https://github.com/ConsenSys/lineaster/releases/tag/v${APP_VERSION}`}
         className="font-mono"
         target="_blank"
         rel="noreferrer noopener"

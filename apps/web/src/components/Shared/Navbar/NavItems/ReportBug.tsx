@@ -13,7 +13,7 @@ interface ReportBugProps {
 const ReportBug: FC<ReportBugProps> = ({ onClick, className = '' }) => {
   return (
     <Link
-      href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
+      href="https://github.com/ConsenSys/lineaster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
       target="_blank"
       className={clsx(
         'flex w-full items-center justify-between px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',

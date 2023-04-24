@@ -32,7 +32,7 @@ const StaffBar: FC = () => {
         )}
         {GIT_COMMIT_SHA && (
           <a
-            href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
+            href={`https://github.com/ConsenSys/lineaster/commit/${GIT_COMMIT_SHA}`}
             className="flex items-center space-x-1"
             title="Git commit SHA"
             target="_blank"

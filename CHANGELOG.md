@@ -1,3 +1,3 @@
 # Changelog
 
-Visit [releases](https://github.com/lensterxyz/lenster/releases) for full changelog.
+Visit [releases](https://github.com/ConsenSys/lineaster/releases) for full changelog.
