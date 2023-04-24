@@ -9,7 +9,7 @@ interface AppVersionProps {
 
 const AppVersion: FC<AppVersionProps> = ({ onClick }) => {
   return (
-    <div className="px-6 py-3 text-xs">
+    <div className="hover:text-brand-500 hover:bg-darker px-4 py-2 text-xs">
       <Link
         href={`https://github.com/ConsenSys/lineaster/releases/tag/v${APP_VERSION}`}
         className="font-mono"

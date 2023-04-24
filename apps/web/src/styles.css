@@ -9,8 +9,8 @@ html {
 }
 
 body {
-  @apply bg-gray-50;
-  @apply dark:bg-black;
+  @apply bg-white;
+  @apply dark:bg-dark;
 }
 
 .shimmer {

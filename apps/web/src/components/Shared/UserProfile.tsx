@@ -88,7 +88,7 @@ const UserProfile: FC<UserProfileProps> = ({
         ) : null}
       </div>
       <div>
-        <Slug className="text-sm" slug={formatHandle(profile?.handle)} prefix="@" />
+        <Slug className="text-brand-500" slug={formatHandle(profile?.handle)} prefix="@" />
         {timestamp ? (
           <span className="lt-text-gray-500">
             <span className="mx-1.5">·</span>

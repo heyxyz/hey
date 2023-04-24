@@ -113,12 +113,12 @@ const MessageIcon: FC = () => {
   return (
     <Link
       href="/messages"
-      className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20 md:flex"
+      className="hover:text-brand-500 hidden min-w-[40px] items-start justify-center p-1 text-white md:flex"
       onClick={() => {
         currentProfile && clearMessagesBadge(currentProfile.id);
       }}
     >
-      <MailIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+      <MailIcon className="h-5 w-5 sm:h-6 sm:w-6 " />
       {showMessagesBadge.get(currentProfile?.id) ? (
         <span className="h-2 w-2 rounded-full bg-red-500" />
       ) : null}

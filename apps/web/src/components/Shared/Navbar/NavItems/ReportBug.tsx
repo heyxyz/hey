@@ -15,10 +15,7 @@ const ReportBug: FC<ReportBugProps> = ({ onClick, className = '' }) => {
     <Link
       href="https://github.com/ConsenSys/lineaster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
       target="_blank"
-      className={clsx(
-        'flex w-full items-center justify-between px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',
-        className
-      )}
+      className={clsx('flex w-full items-center justify-between px-4 py-1.5', className)}
       onClick={onClick}
     >
       <div className="flex items-center space-x-1.5">

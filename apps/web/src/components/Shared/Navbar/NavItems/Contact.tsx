@@ -14,10 +14,7 @@ const Contact: FC<ContactProps> = ({ onClick, className = '' }) => {
   return (
     <Link
       href="/contact"
-      className={clsx(
-        'flex w-full items-center space-x-1.5 px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',
-        className
-      )}
+      className={clsx('bg-dark flex w-full  content-center items-center space-x-1.5 px-4 py-1.5', className)}
       onClick={onClick}
     >
       <SupportIcon className="h-4 w-4" />

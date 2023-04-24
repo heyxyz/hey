@@ -46,7 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           'px-4 py-1.5': size === 'lg',
           'inline-flex items-center space-x-1.5': icon && children
         },
-        'rounded-lg font-bold shadow-sm outline-none focus:ring-2 focus:ring-opacity-50 focus:ring-offset-1 disabled:opacity-50',
+        'font-bold shadow-sm outline-none disabled:opacity-50',
         className
       )}
       type={rest.type}

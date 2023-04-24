@@ -10,12 +10,7 @@ interface YourProfileProps {
 
 const YourProfile: FC<YourProfileProps> = ({ className = '' }) => {
   return (
-    <div
-      className={clsx(
-        'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
-        className
-      )}
-    >
+    <div className={clsx('flex w-full space-x-1.5', className)}>
       <UserIcon className="h-4 w-4" />
       <div>
         <Trans>Your Profile</Trans>

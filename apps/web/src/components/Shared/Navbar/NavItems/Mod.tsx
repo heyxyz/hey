@@ -10,12 +10,7 @@ interface ModProps {
 
 const Mod: FC<ModProps> = ({ className = '' }) => {
   return (
-    <div
-      className={clsx(
-        'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
-        className
-      )}
-    >
+    <div className={clsx('flex w-full items-center space-x-1.5', className)}>
       <ShieldCheckIcon className="h-4 w-4" />
       <div>
         <Trans>Moderation</Trans>

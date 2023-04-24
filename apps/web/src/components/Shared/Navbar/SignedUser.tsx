@@ -1,6 +1,5 @@
 import { Menu } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
@@ -57,103 +56,70 @@ const SignedUser: FC = () => {
           <Avatar />
         </Menu.Button>
         <MenuTransition>
-          <Menu.Items
-            static
-            className="absolute right-0 mt-2 w-48 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-black"
-          >
+          <Menu.Items static className="bg-dark absolute right-0 w-48 rounded-[2px] border border-gray-500">
             <Menu.Item
               as={NextLink}
               href={`/u/${formatHandle(currentProfile?.handle)}`}
-              className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+              className="hover:bg-darker flex items-center px-4 py-2 text-sm text-white dark:text-gray-200 dark:hover:bg-gray-800"
             >
               <span>
                 <Trans>Logged in as</Trans>
                 <div className="truncate">
-                  <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
+                  <Slug
+                    className="text-brand-500 font-medium"
+                    slug={formatHandle(currentProfile?.handle)}
+                    prefix="@"
+                  />
                 </div>
               </span>
             </Menu.Item>
-            <div className="divider" />
-            <Menu.Item
-              as="div"
-              className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg border dark:border-gray-700')
-              }
-            >
-              <SwitchProfile />
+            <Menu.Item as="div" className="bg-dark hover:bg-darker">
+              <SwitchProfile className="hover:text-brand-500 text-xs uppercase text-gray-300" />
             </Menu.Item>
-            <Menu.Item
-              as="div"
-              className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg border dark:border-gray-700')
-              }
-            >
-              <Status />
+            <Menu.Item as="div" className="bg-dark hover:bg-darker uppercase">
+              <Status className="hover:text-brand-500 text-xs uppercase text-gray-300 " />
             </Menu.Item>
-            <div className="divider" />
+            <div className="divider border-gray-700" />
             <Menu.Item
               as={NextLink}
               href={`/u/${formatHandle(currentProfile?.handle)}`}
-              className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
-              }
+              className="bg-dark hover:bg-darker flex px-4 py-2 uppercase"
             >
-              <YourProfile />
+              <YourProfile className="hover:text-brand-500 text-xs text-gray-300" />
             </Menu.Item>
             <Menu.Item
               as={NextLink}
               href={'/settings'}
-              className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
-              }
+              className="bg-dark hover:bg-darker hover:text-brand-500 flex px-4 py-2 uppercase"
             >
-              <Settings />
+              <Settings className="hover:text-brand-500 text-xs text-gray-300" />
             </Menu.Item>
             {isGardener(currentProfile?.id) && (
               <Menu.Item
                 as={NextLink}
                 href={'/mod'}
-                className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
-                }
+                className="bg-dark hover:bg-darker hover:text-brand-500 flex px-4 py-2 uppercase"
               >
-                <Mod />
+                <Mod className="hover:text-brand-500 text-xs text-gray-300" />
               </Menu.Item>
             )}
-            <Menu.Item
-              as="div"
-              className={({ active }) => clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')}
-            >
-              <Logout />
+            <Menu.Item as="div" className="bg-dark hover:bg-darker hover:text-brand-500 flex">
+              <Logout className="hover:text-brand-500 text-xs uppercase text-gray-300" />
             </Menu.Item>
-            <div className="divider" />
-            <Menu.Item
-              as="div"
-              className={({ active }) => clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')}
-            >
-              <ThemeSwitch />
+            <div className="divider border-gray-700" />
+            <Menu.Item as="div" className="bg-dark hover:bg-darker hover:text-brand-500 flex">
+              <ThemeSwitch className="hover:text-brand-500 text-xs uppercase text-gray-300" />
             </Menu.Item>
             {isGardener(currentProfile?.id) && (
-              <Menu.Item
-                as="div"
-                className={({ active }) =>
-                  clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'm-2 rounded-lg')
-                }
-              >
-                <ModMode />
+              <Menu.Item as="div" className="bg-dark hover:bg-darker hover:text-brand-500 flex">
+                <ModMode className="hover:text-brand-500 text-xs uppercase text-gray-300" />
               </Menu.Item>
             )}
             {isStaff(currentProfile?.id) && (
-              <Menu.Item
-                as="div"
-                className={({ active }) =>
-                  clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'm-2 rounded-lg')
-                }
-              >
-                <StaffMode />
+              <Menu.Item as="div" className="bg-dark hover:bg-darker hover:text-brand-500 flex">
+                <StaffMode className="hover:text-brand-500 text-xs uppercase text-gray-300" />
               </Menu.Item>
             )}
-            <div className="divider" />
             <AppVersion />
           </Menu.Items>
         </MenuTransition>

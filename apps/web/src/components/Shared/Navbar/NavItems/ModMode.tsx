@@ -25,10 +25,7 @@ const ModMode: FC<ModModeProps> = ({ className = '' }) => {
   return (
     <button
       onClick={toggleStaffMode}
-      className={clsx(
-        'flex w-full items-center space-x-1.5 px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',
-        className
-      )}
+      className={clsx('flex w-full items-center space-x-1.5 px-4 py-1.5', className)}
     >
       {modMode ? (
         <>

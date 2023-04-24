@@ -10,11 +10,11 @@ const LoginButton: FC = () => {
 
   return (
     <Button
-      icon={<img className="mr-0.5 h-4 w-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />}
       onClick={() => {
         setShowAuthModal(true);
         Mixpanel.track(AUTH.LOGIN);
       }}
+      className="bg-brand text-darker rounded-full border-none text-sm font-medium uppercase hover:bg-white"
       data-testid="login-button"
     >
       <Trans>Login</Trans>
