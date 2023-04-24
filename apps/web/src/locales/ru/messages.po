@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-23 19:23\n"
+"PO-Revision-Date: 2023-04-24 18:00\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -292,7 +292,7 @@ msgstr "Публикаций пока еще нет!"
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
-msgstr ""
+msgstr "Не удалось загрузить новостную ленту"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
@@ -626,7 +626,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Refresh feed"
-msgstr ""
+msgstr "Обновить ленту"
 
 #: src/components/Mod/index.tsx
 msgid "Publication filters"
@@ -647,7 +647,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
-msgstr ""
+msgstr "Садовники"
 
 #: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
@@ -656,7 +656,7 @@ msgstr ""
 #: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
-msgstr ""
+msgstr "Не удалось загрузить ленту NFT"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -668,7 +668,7 @@ msgstr "Упоминания"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
-msgstr ""
+msgstr "Лайки"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Collects"
