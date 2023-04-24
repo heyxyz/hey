@@ -1,14 +1,15 @@
 import { i18n } from '@lingui/core';
 import { Localstorage } from 'data/storage';
 import dayjs from 'dayjs';
-import { en, es, ta, zh } from 'make-plural/plurals';
+import { en, es, kn, ru, ta, zh } from 'make-plural/plurals';
 
 export const supportedLocales: Record<string, string> = {
   en: 'English',
   es: 'Spanish - Español',
   ta: 'Tamil - தமிழ்',
   zh: 'Chinese - 中文',
-  kn: 'Kannada - ಕನ್ನಡ'
+  kn: 'Kannada - ಕನ್ನಡ',
+  ru: 'Russian - русский'
 };
 
 const defaultLocale = 'en';
@@ -17,7 +18,9 @@ i18n.loadLocaleData({
   en: { plurals: en },
   es: { plurals: es },
   ta: { plurals: ta },
-  zh: { plurals: zh }
+  zh: { plurals: zh },
+  kn: { plurals: kn },
+  ru: { plurals: ru }
 });
 
 /**

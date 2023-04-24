@@ -4,6 +4,8 @@ import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
 import type { MediaSet } from 'lens';
 import { v4 as uuid } from 'uuid';
 
+const FALLBACK_TYPE = 'image/jpeg';
+
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
  *
@@ -47,11 +49,7 @@ const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
         const metadata = result.Metadata;
 
         return {
-          original: {
-            url: `ipfs://${metadata?.['ipfs-hash']}`,
-            mimeType: file.type || 'image/jpeg',
-            altTag: ''
-          }
+          original: { url: `ipfs://${metadata?.['ipfs-hash']}`, mimeType: file.type || FALLBACK_TYPE }
         };
       })
     );
@@ -80,19 +78,11 @@ export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
     const metadata = result.Metadata;
 
     return {
-      original: {
-        url: `ipfs://${metadata?.['ipfs-hash']}`,
-        mimeType: file.type || 'image/jpeg',
-        altTag: ''
-      }
+      original: { url: `ipfs://${metadata?.['ipfs-hash']}`, mimeType: file.type || FALLBACK_TYPE }
     };
   } catch {
     return {
-      original: {
-        url: '',
-        mimeType: file.type,
-        altTag: ''
-      }
+      original: { url: '', mimeType: file.type || FALLBACK_TYPE }
     };
   }
 };
