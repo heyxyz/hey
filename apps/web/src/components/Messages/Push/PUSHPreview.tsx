@@ -1,7 +1,8 @@
+import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
 import { Trans } from '@lingui/macro';
 import { type FC } from 'react';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
-import { Card, Input } from 'ui';
+import { Card, Input, Modal } from 'ui';
 
 interface PreviewListProps {
   selectedConversationKey?: string;
@@ -11,6 +12,10 @@ const activeIndex = 1;
 const PUSHPreview: FC<PreviewListProps> = () => {
   const activeTab = usePushChatStore((state) => state.activeTab);
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
+  const showCreateChatProfileModal = usePushChatStore((state) => state.showCreateChatProfileModal);
+  const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
+  const { modalContent, isModalClosable } = useCreateChatProfile();
+
   return (
     <div className="flex h-full flex-col justify-between">
       <Card className="flex h-full flex-col p-4 pt-7">
@@ -77,6 +82,14 @@ const PUSHPreview: FC<PreviewListProps> = () => {
         {activeTab === PUSH_TABS.REQUESTS && <section>requests</section>}
         {/* sections for requests */}
       </Card>
+      {/* <button onClick={createChatProfile}>Create Profile</button> */}
+      <Modal
+        size="xs"
+        show={showCreateChatProfileModal}
+        onClose={isModalClosable ? () => setShowCreateChatProfileModal(false) : () => {}}
+      >
+        {modalContent}
+      </Modal>
     </div>
   );
 };

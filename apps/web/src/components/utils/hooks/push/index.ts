@@ -1,3 +1,4 @@
+export * from './useCreateChatProfile';
 export * from './useFetchPushHistoryMessage';
 export * from './useGetPushConversations';
 export * from './usePushAuth';

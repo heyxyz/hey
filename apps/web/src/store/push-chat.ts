@@ -1,4 +1,4 @@
-import type { IConnectedUser, IFeeds, IMessageIPFS } from '@pushprotocol/restapi';
+import type { IFeeds, IMessageIPFS, IUser } from '@pushprotocol/restapi';
 import { create } from 'zustand';
 
 type TabValues = 'Chats' | 'Requests';
@@ -7,10 +7,10 @@ export const PUSH_TABS = {
   REQUESTS: 'REQUESTS'
 };
 interface IPushChatStore {
+  connectedProfile: IUser | undefined;
+  setConnectedProfile: (connectedProfile: IUser) => void;
   activeTab: String;
   setActiveTab: (tabName: string) => void;
-  connectedUser: IConnectedUser | undefined;
-  setConnectedUser: (connectedUser: IConnectedUser) => void;
   chats: Map<string, Array<IMessageIPFS>>; // chatId -> chat messages array
   setChats: (chats: Map<string, Array<IMessageIPFS>>) => void;
   addChat: (key: string, newChat: Array<IMessageIPFS>) => void;
@@ -25,13 +25,15 @@ interface IPushChatStore {
   setSelectedChatId: (selectedChatId: string) => void;
   selectedTab: TabValues;
   setSelectedTab: (selectedTab: TabValues) => void;
+  showCreateChatProfileModal: boolean;
+  setShowCreateChatProfileModal: (showCreateChatProfileModal: boolean) => void;
 }
 
 export const usePushChatStore = create<IPushChatStore>((set) => ({
+  connectedProfile: undefined,
+  setConnectedProfile: (connectedProfile) => set(() => ({ connectedProfile })),
   activeTab: PUSH_TABS.CHATS,
   setActiveTab: (activeTab) => set(() => ({ activeTab })),
-  connectedUser: undefined,
-  setConnectedUser: (connectedUser) => set(() => ({ connectedUser })),
   chats: new Map(),
   setChats: (chats) => set(() => ({ chats })),
   addChat: (key: string, newChat: Array<IMessageIPFS>) => {
@@ -63,6 +65,8 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   setSelectedChatId: (selectedChatId) => set(() => ({ selectedChatId })),
   selectedTab: 'Chats',
   setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
+  showCreateChatProfileModal: false,
+  setShowCreateChatProfileModal: (showCreateChatProfileModal) => set(() => ({ showCreateChatProfileModal })),
   reset: () =>
     set((state) => {
       return {
