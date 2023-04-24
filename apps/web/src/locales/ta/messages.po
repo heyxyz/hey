@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-22 08:51\n"
+"PO-Revision-Date: 2023-04-23 05:27\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -237,20 +237,20 @@ msgstr "எல்லோரும் கருத்து தெரிவிக�
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
-msgstr ""
+msgstr "சிறுபடத்தைப் பதிவேற்றுவதில் தோல்வி"
 
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Please upload a custom thumbnail"
-msgstr ""
+msgstr "தனிப்பயன் சிறுபடத்தைப் பதிவேற்றவும்"
 
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Choose Thumbnail"
-msgstr ""
+msgstr "சிறுபடத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Upload"
-msgstr ""
+msgstr "பதிவேற்றவும்"
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
@@ -277,7 +277,7 @@ msgstr "கருத்துரை"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
-msgstr ""
+msgstr "போஸ்ட்"
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -341,7 +341,7 @@ msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
-msgstr ""
+msgstr "சிறந்த, வேகமான, வலுவான அடையாளமற்ற பரிவர்த்தனைகளுக்கு உங்கள் டிஸ்பெட்சேரை சமீபத்திய பதிப்பிற்கு மேம்படுத்தவும்."
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -380,7 +380,7 @@ msgstr "இடுகைகளைக் காட்டு"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Mirrors"
-msgstr "கண்ணாடியைக் காட்டு"
+msgstr "மிரர்களைக் காட்டு"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Likes"
@@ -481,7 +481,7 @@ msgstr "சுயவிவர பயோவை அமைக்கவும்"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set your avatar"
-msgstr "உங்கள் படத்தை அமைக்கவும்"
+msgstr "உங்கள் சுயவிவரப் படத்தை அமைக்கவும்"
 
 #: src/components/Home/SetProfile.tsx
 #: src/components/Settings/Interests/index.tsx
@@ -590,11 +590,11 @@ msgstr "உரையாடல்களை ஏற்றுகிறது"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
-msgstr ""
+msgstr "தொகுதிகளை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Start messaging your Lens frens"
-msgstr ""
+msgstr "உங்கள் லென்ஸ் நண்பர்களுக்குச் செய்தி அனுப்பத் தொடங்குங்கள்"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
@@ -618,7 +618,7 @@ msgstr "செய்திகள் • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
-msgstr ""
+msgstr "மாடரேஷன் ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
@@ -643,7 +643,7 @@ msgstr "கருத்துரைகள்"
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
-msgstr ""
+msgstr "தனிப்பயன் வடிப்பான்கள்"
 
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
@@ -688,11 +688,11 @@ msgstr "அறிவிப்பு அமைப்புகள்"
 
 #: src/components/Notification/Settings.tsx
 msgid "Signal filter"
-msgstr ""
+msgstr "சிக்னல் வடிகட்டி"
 
 #: src/components/Notification/Settings.tsx
 msgid "Turn on high-signal notification filter"
-msgstr ""
+msgstr "உயர் சிக்னல் அறிவிப்பு வடிப்பானை இயக்கவும்"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
@@ -919,7 +919,7 @@ msgstr "எல்லா தரவும் அநாமதேயமானது 
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may change to other third-party analytics service provider. The Privacy Policy of Analytics subjects to the every provider. You should review everything before using the Site."
-msgstr ""
+msgstr "நாங்கள் மற்ற மூன்றாம் தரப்பு பகுப்பாய்வு சேவை வழங்குநருக்கு மாறலாம். பகுப்பாய்வுகளின் தனியுரிமைக் கொள்கை ஒவ்வொரு வழங்குநருக்கும் உட்பட்டது. தளத்தைப் பயன்படுத்துவதற்கு முன்பு நீங்கள் எல்லாவற்றையும் மதிப்பாய்வு செய்ய வேண்டும்."
 
 #: src/components/Pages/Privacy.tsx
 msgid "6. Your Rights and Choices"
@@ -1095,7 +1095,7 @@ msgstr "சட்டவிரோதமான, பிற நபர்களின
 
 #: src/components/Pages/Terms.tsx
 msgid "You are prohibited from using the Site,"
-msgstr ""
+msgstr "நீங்கள் தளத்தைப் பயன்படுத்த தடை விதிக்கப்பட்டுள்ளது,"
 
 #: src/components/Pages/Terms.tsx
 msgid "for any unlawful purpose and to solicit others to perform or participate in any unlawful acts;"
@@ -1241,7 +1241,7 @@ msgstr "பின்தொடர்பவர்களை ஏற்ற முட�
 
 #: src/components/Profile/Following.tsx
 msgid "Loading following"
-msgstr ""
+msgstr "பின்பற்றுபவர்களை ஏற்றுகிறது"
 
 #: src/components/Profile/Following.tsx
 msgid "doesn’t follow anyone."
@@ -1249,15 +1249,15 @@ msgstr "யாரையும் பின்பற்றவில்லை."
 
 #: src/components/Profile/Following.tsx
 msgid "Failed to load following"
-msgstr ""
+msgstr "பின்பற்றுபவர்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Profile/MutualFollowers/List.tsx
 msgid "Loading mutual followers"
-msgstr ""
+msgstr "பரஸ்பர பின்தொடர்பவர்களை ஏற்றுகிறது"
 
 #: src/components/Profile/MutualFollowers/List.tsx
 msgid "Failed to load mutual followers"
-msgstr ""
+msgstr "பரஸ்பர பின்தொடர்பவர்களை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Profile/MutualFollowers/index.tsx
 msgid "Followed by"
@@ -1384,7 +1384,7 @@ msgstr "வெற்றிகரமாக சேகரிக்கப்பட�
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
 msgid "Loading collect"
-msgstr ""
+msgstr "சேகரிப்பு ஏற்றுகிறது"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} collectors"
@@ -1563,7 +1563,7 @@ msgstr "<0>{0}</0> சேகரிப்புகள்"
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
-msgstr ""
+msgstr "இண்டெக்ஸ் ஆகிறது"
 
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
@@ -1571,7 +1571,7 @@ msgstr "தொடர்புடைய நபர்களை ஏற்ற மு
 
 #: src/components/Search/Profiles.tsx
 msgid "No profiles for <0>“{query}”</0>"
-msgstr ""
+msgstr "<0>“{query}”க்கு சுயவிவரங்கள் இல்லை</0>"
 
 #: src/components/Search/Profiles.tsx
 msgid "Failed to load profiles"
@@ -1740,7 +1740,7 @@ msgstr "துப்புரவு அமைப்புகள் • {APP_NAME
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup Localstorage"
-msgstr ""
+msgstr "லோக்கல் ஸ்டோரேஜை கிளீன் செய்யவும்"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
@@ -1854,19 +1854,19 @@ msgstr "இயக்கு"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable Signless Transactions"
-msgstr ""
+msgstr "அடையாளமற்ற பரிவர்த்தனைகளை முடக்கு"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
-msgstr ""
+msgstr "டிஸ்பெட்சேர் • {APP_NAME}"
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export notifications"
-msgstr ""
+msgstr "அறிவிப்புகள் ஏற்றுமதி"
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export all your notifications to a JSON file."
-msgstr ""
+msgstr "உங்கள் அறிவிப்புகள் அனைத்தையும் JSON கோப்பில் ஏற்றுமதி செய்யவும்."
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Exported <0>{0}</0> notifications"
@@ -1874,7 +1874,7 @@ msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Download notifications"
-msgstr ""
+msgstr "அறிவிப்புகளைப் பதிவிறக்கவும்"
 
 #: src/components/Settings/Export/Notifications.tsx
 #: src/components/Settings/Export/Profile.tsx
@@ -1886,11 +1886,11 @@ msgstr "ஏற்றுகிறது..."
 #: src/components/Settings/Export/Profile.tsx
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export now"
-msgstr ""
+msgstr "ஏற்றுமதி செய்யவும்"
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Export profile"
-msgstr ""
+msgstr "சுயவிவரம் ஏற்றுமதி"
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Export all your profile data to a JSON file."
@@ -1898,15 +1898,15 @@ msgstr "உங்கள் சுயவிவரத் தரவை JSON கோ�
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Download profile"
-msgstr ""
+msgstr "சுயவிவரத்தைப் பதிவிறக்கவும்"
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export publications"
-msgstr ""
+msgstr "வெளியீடுகள் ஏற்றுமதி"
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export all your posts, comments and mirrors to a JSON file."
-msgstr ""
+msgstr "உங்கள் இடுகைகள், கருத்துகள் மற்றும் மிரர்கள் அனைத்தையும் JSON கோப்பில் ஏற்றுமதி செய்யவும்."
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Exported <0>{0}</0> publications"
@@ -1914,7 +1914,7 @@ msgstr ""
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Download publications"
-msgstr ""
+msgstr "வெளியீடுகளைப் பதிவிறக்கவும்"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -1947,7 +1947,7 @@ msgstr "தவறான ஒப்பந்த முகவரி"
 #: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
-msgstr "அவதார் வெற்றிகரமாக புதுப்பிக்கப்பட்டது!"
+msgstr "சுயவிவரப் சுயவிவரப் வெற்றிகரமாகப் புதுப்பிக்கப்பட்டது!"
 
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract Address"
@@ -2021,7 +2021,7 @@ msgstr "உங்களைப் பற்றி ஏதாவது சொல்
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Cover picture crop preview"
-msgstr ""
+msgstr "அட்டைப் படம் செதுக்கும் முன்னோட்டம்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
@@ -2065,7 +2065,7 @@ msgstr "கொடுப்பனவு"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Export"
-msgstr ""
+msgstr "ஏற்றுமதி"
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Publication deleted successfully"
@@ -2085,7 +2085,7 @@ msgstr "படத்தை புதிய தாவலில் திறக்
 
 #: src/components/Shared/Attachments.tsx
 msgid "Cancel Upload"
-msgstr ""
+msgstr "பதிவேற்றத்தை ரத்துசெய்"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
@@ -2196,7 +2196,7 @@ msgstr "புகுபதிகை"
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
-msgstr ""
+msgstr "{type} இண்டெக்ஸ் ஆகிறது"
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "Index Successful"
@@ -2612,27 +2612,27 @@ msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய�
 #: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
-msgstr ""
+msgstr "பணியாளர் கருவி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "{APP_NAME} account"
-msgstr ""
+msgstr "{APP_NAME} கணக்கு"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Profile ID"
-msgstr ""
+msgstr "சுயவிவர ஐடி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Address"
-msgstr ""
+msgstr "முகவரி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
-msgstr ""
+msgstr "ரிலே பயன்படுத்தலாம்"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "NFT address"
-msgstr ""
+msgstr "NFT முகவரி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
@@ -2640,16 +2640,16 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Metadata"
-msgstr ""
+msgstr "மீத்தரவு"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
-msgstr ""
+msgstr "திறக்கவும்"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Publication ID"
-msgstr ""
+msgstr "வெளியீட்டு ஐடி"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Comment on"
@@ -2661,7 +2661,7 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "App ID"
-msgstr ""
+msgstr "ஆப் ஐடி"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "On-chain content URI"
@@ -2669,7 +2669,7 @@ msgstr ""
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
-msgstr ""
+msgstr "பரிவர்த்தனைகள்"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Stafftools | Relay queues • {APP_NAME}"
@@ -2678,12 +2678,12 @@ msgstr "பணியாளர் கருவிகள் | ரிலே வர�
 #: src/components/StaffTools/RelayQueues.tsx
 #: src/components/StaffTools/Sidebar.tsx
 msgid "Relay queues"
-msgstr ""
+msgstr "ரிலே வரிசைகள்"
 
 #: src/components/StaffTools/Sidebar.tsx
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stats"
-msgstr ""
+msgstr "புள்ளிவிவரங்கள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
@@ -2691,31 +2691,31 @@ msgstr "பணியாளர் கருவிகள் | புள்ளி�
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total profiles"
-msgstr ""
+msgstr "மொத்த சுயவிவரங்கள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "profiles burnt"
-msgstr ""
+msgstr "நீக்கப்பட்ட சுயவிவரங்கள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total posts"
-msgstr ""
+msgstr "மொத்த இடுகைகள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total mirrors"
-msgstr ""
+msgstr "மொத்த மிரர்கள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total comments"
-msgstr ""
+msgstr "மொத்த கருத்துக்கள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total collects"
-msgstr ""
+msgstr "மொத்த சேகரிப்புகள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total follows"
-msgstr ""
+msgstr "மொத்த பின்பற்றுபவர்கள்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"

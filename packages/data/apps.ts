@@ -11,5 +11,6 @@ export const apps = [
   'chainjet',
   'wav3s',
   'lensta',
-  'beats'
+  'beats',
+  'diversehq'
 ];

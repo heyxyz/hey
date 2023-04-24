@@ -34,6 +34,7 @@
     "@lingui/react": "^3.17.2",
     "@lingui/swc-plugin": "^0.2.3",
     "@livepeer/react": "^2.4.3",
+    "@snapshot-labs/snapshot.js": "^0.4.78",
     "@tanstack/react-query": "^4.29.3",
     "@tippyjs/react": "^4.2.6",
     "@xmtp/xmtp-js": "8.1.0",
