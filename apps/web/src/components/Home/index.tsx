@@ -3,6 +3,7 @@ import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
 import { Mixpanel } from '@lib/mixpanel';
+import { IS_RELAYER_AVAILABLE } from 'data';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -46,7 +47,7 @@ const Home: NextPage = () => {
         <GridItemFour>
           {currentProfile ? (
             <>
-              <EnableDispatcher />
+              {IS_RELAYER_AVAILABLE && <EnableDispatcher />}
               <EnableMessages />
               <SetDefaultProfile />
               <SetProfile />
