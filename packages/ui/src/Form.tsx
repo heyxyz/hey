@@ -14,6 +14,7 @@ export const useZodForm = <T extends ZodSchema<FieldValues>>({
 }: UseZodFormProps<T>) => {
   return useForm({
     ...formConfig,
+    mode: 'all',
     resolver: zodResolver(schema)
   });
 };

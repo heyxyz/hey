@@ -168,7 +168,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       <Button
         className="ml-auto"
         type="submit"
-        disabled={!write || loading || isLoading || !isConnected}
+        disabled={isLoading || !isConnected}
         icon={isLoading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />}
       >
         <Trans>{isConnected ? 'Sign up' : 'Connect your wallet'}</Trans>
