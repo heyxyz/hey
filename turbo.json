@@ -10,7 +10,10 @@
     "typecheck": { "outputs": [] },
     "codegen": { "outputs": [] },
     "extract": { "outputs": [] },
-    "worker:deploy": { "outputs": [] },
+    "worker:deploy": {
+      "outputs": [],
+      "cache": false
+    },
     "dev": { "cache": false },
     "start": { "cache": false },
     "test:dev": { "cache": false },
