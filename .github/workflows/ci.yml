@@ -31,10 +31,6 @@ jobs:
 
       - name: Bootstrap 📦
         run: script/bootstrap
-        env:
-          TURBO_API: 'http://127.0.0.1:9080'
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: 'lenster'
 
       - name: Typecheck 🔡
         run: pnpm typecheck
@@ -47,6 +43,10 @@ jobs:
 
       - name: Build 🎁
         run: pnpm build
+        env:
+          TURBO_API: 'http://127.0.0.1:9080'
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: 'lenster'
 
       - name: Run Tests 🧪
         run: pnpm test:e2e
