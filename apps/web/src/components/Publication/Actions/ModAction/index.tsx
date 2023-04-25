@@ -1,4 +1,4 @@
-import { CashIcon, StatusOfflineIcon } from '@heroicons/react/outline';
+import { CashIcon, DocumentTextIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -73,15 +73,15 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
     >
       <ReportButton
         type="spamReason"
-        subreason={PublicationReportingSpamSubreason.SomethingElse}
-        icon={<CashIcon className="h-4 w-4" />}
-        label={t`Relayer spam`}
+        subreason={PublicationReportingSpamSubreason.FakeEngagement}
+        icon={<DocumentTextIcon className="h-4 w-4" />}
+        label={t`Poor content`}
       />
       <ReportButton
         type="spamReason"
         subreason={PublicationReportingSpamSubreason.LowSignal}
-        icon={<StatusOfflineIcon className="h-4 w-4" />}
-        label={t`Low signal spam`}
+        icon={<CashIcon className="h-4 w-4" />}
+        label={t`Stop Sponsor`}
       />
     </span>
   );
