@@ -24,26 +24,20 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
-      - name: TurboRepo local server 🚀
-        uses: felixmosh/turborepo-gh-artifacts@v2
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          server-token: ${{ secrets.TURBO_SERVER_TOKEN }}
-
       - name: Bootstrap 📦
         run: script/bootstrap
 
       - name: Typecheck 🔡
-        run: pnpm typecheck --api="http://127.0.0.1:9080" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
+        run: pnpm typecheck --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
 
       - name: Lint 🪩
-        run: pnpm lint --api="http://127.0.0.1:9080" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
+        run: pnpm lint --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
 
       - name: Prettier ✨
-        run: pnpm prettier --api="http://127.0.0.1:9080" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
+        run: pnpm prettier --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
 
       - name: Build 🎁
-        run: pnpm build --api="http://127.0.0.1:9080" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
+        run: pnpm build --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
 
       - name: Run Tests 🧪
-        run: pnpm test:e2e
+        run: pnpm test:e2e --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
