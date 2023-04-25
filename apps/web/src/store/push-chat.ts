@@ -114,10 +114,11 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
     set((state) => {
       return {
         ...state,
+        connectedProfile: undefined,
         chats: new Map(),
         chatsFeed: new Map(),
         requestsFeed: new Map(),
-        selectedTab: 'Chats',
+        activeTab: PUSH_TABS.CHATS,
         password: {
           encrypted: null,
           decrypted: null
