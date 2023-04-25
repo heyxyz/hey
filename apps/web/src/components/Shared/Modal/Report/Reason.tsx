@@ -130,6 +130,12 @@ const Reason: FC<ReasonProps> = ({ setType, setSubReason, type, subReason }) => 
                     <Trans>Fake engagement</Trans>
                   </option>
                   <option
+                    value={PublicationReportingSpamSubreason.LowSignal}
+                    selected={subReason === PublicationReportingSpamSubreason.LowSignal}
+                  >
+                    <Trans>Low signal</Trans>
+                  </option>
+                  <option
                     value={PublicationReportingSpamSubreason.ManipulationAlgo}
                     selected={subReason === PublicationReportingSpamSubreason.ManipulationAlgo}
                   >
