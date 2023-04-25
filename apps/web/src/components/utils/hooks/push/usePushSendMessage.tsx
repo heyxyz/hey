@@ -3,6 +3,11 @@ import { useCallback, useState } from 'react';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { useSigner } from 'wagmi';
 
+interface SendMessageParams {
+  message: string;
+  receiver: string;
+}
+
 // ToDo: Need to enable it for gif and image type msg as well
 const usePushSendMessage = () => {
   const [error, setError] = useState<string>();
@@ -13,7 +18,7 @@ const usePushSendMessage = () => {
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const sendMessage = useCallback(
-    async (message: string, receiver: string): Promise<boolean | undefined> => {
+    async ({ message, receiver }: SendMessageParams): Promise<boolean | undefined> => {
       if (!decryptedPgpPvtKey || !message || !signer) {
         setError('something went wrong');
         return false;
