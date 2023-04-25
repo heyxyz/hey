@@ -1,6 +1,6 @@
 export * from './useCreateChatProfile';
-export * from './useFetchPushHistoryMessage';
 export * from './useGetConversationHash';
+export * from './useGetHistoryMessages';
 export * from './useGetPushConversations';
 export * from './useGetUsersBatch';
 export * from './usePushAuth';
