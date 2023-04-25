@@ -14,6 +14,7 @@ import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
@@ -141,22 +142,25 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
               />
             </button>
           ) : (
-            sortedProfiles?.map(([key, profile]) => {
-              const message = messages.get(key);
-              if (!message) {
-                return null;
-              }
-
-              return (
-                <Preview
-                  isSelected={key === selectedConversationKey}
-                  key={key}
-                  profile={profile}
-                  conversationKey={key}
-                  message={message}
-                />
-              );
-            })
+            <Virtuoso
+              style={{ height: '100%' }}
+              data={sortedProfiles}
+              itemContent={(_, [key, profile]) => {
+                const message = messages.get(key);
+                if (!message) {
+                  return null;
+                }
+                return (
+                  <Preview
+                    isSelected={key === selectedConversationKey}
+                    key={key}
+                    profile={profile}
+                    conversationKey={key}
+                    message={message}
+                  />
+                );
+              }}
+            />
           )}
         </div>
       </Card>
