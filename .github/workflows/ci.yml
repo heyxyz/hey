@@ -21,23 +21,23 @@ jobs:
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Bootstrap 📦
         run: script/bootstrap
 
       - name: Typecheck 🔡
-        run: pnpm typecheck
+        run: pnpm typecheck --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Lint 🪩
-        run: pnpm lint
+        run: pnpm lint --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Prettier ✨
         run: pnpm prettier
 
       - name: Build 🎁
-        run: pnpm build
+        run: pnpm build --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Run Tests 🧪
         run: pnpm test:e2e

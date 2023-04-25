@@ -299,6 +299,7 @@ msgid "All posts"
 msgstr "அனைத்து பதிவுகள்"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 msgid "Text"
 msgstr "உரை"
 
@@ -308,11 +309,13 @@ msgid "Video"
 msgstr "காணொளி"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
 msgstr "ஒலி"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
 msgstr "படங்கள்"
@@ -640,6 +643,26 @@ msgstr "இடுகைகள்"
 #: src/components/Notification/FeedType.tsx
 msgid "Comments"
 msgstr "கருத்துரைகள்"
+
+#: src/components/Mod/index.tsx
+msgid "Media filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Articles"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Embeds"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Links"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Videos"
+msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
@@ -1471,43 +1494,12 @@ msgid "Publication reported successfully"
 msgstr "இடுகை வெற்றிகரமாகப் புகார் செய்யப்பட்டது"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Spam"
-msgstr "ஸ்பேம்"
+msgid "Poor content"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "ஊழல்"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "NSFW"
-msgstr "என்எஸ்எஃப்டபிள்யூ"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Repetitive"
-msgstr "தொடர்ச்சியாகச் செய்தல்"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr "புகார்"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Others"
-msgstr "மற்றவை"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Report?"
-msgstr "புகாரளிக்கவா?"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user so that we can take action."
-msgstr "உறுதியாக தெரியுமா? நீங்கள் இந்த பயனரைப் புகாரளிக்க விரும்புகிறீர்கள், இதனால் நாங்கள் நடவடிக்கை எடுக்க முடியும்."
+msgid "Stop Sponsor"
+msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -2181,6 +2173,11 @@ msgid "Perform mod actions on this publication."
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr "புகார்"
+
+#: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
 msgstr "நிலையை அமைக்கவும்"
@@ -2332,6 +2329,10 @@ msgid "Sensitive"
 msgstr "உணர்திறன்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Spam"
+msgstr "ஸ்பேம்"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
 msgstr "காரணம்"
 
@@ -2360,8 +2361,16 @@ msgid "Violence"
 msgstr "வன்முறை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "ஊழல்"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr "ஆள்மாறாட்டம்"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
+msgstr "என்எஸ்எஃப்டபிள்யூ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Offensive"
@@ -2370,6 +2379,10 @@ msgstr "வெறுக்கத்தக்க"
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
 msgstr "போலியான ஈடுபாடு"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Low signal"
+msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
@@ -2382,6 +2395,10 @@ msgstr "தவறாக வழிநடத்துதல்"
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
 msgstr "ஹேஷ்டேக்குகளை தவறாகப் பயன்படுத்துதல்"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
+msgstr "தொடர்ச்சியாகச் செய்தல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
@@ -2781,4 +2798,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

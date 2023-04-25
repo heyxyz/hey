@@ -4,6 +4,7 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
     "start": "turbo run start --parallel",
