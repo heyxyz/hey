@@ -299,6 +299,7 @@ msgid "All posts"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 msgid "Text"
 msgstr ""
 
@@ -308,11 +309,13 @@ msgid "Video"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
 msgstr ""
@@ -640,6 +643,26 @@ msgstr "Posts"
 #: src/components/Notification/FeedType.tsx
 msgid "Comments"
 msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Media filters"
+msgstr "Media filters"
+
+#: src/components/Mod/index.tsx
+msgid "Articles"
+msgstr "Articles"
+
+#: src/components/Mod/index.tsx
+msgid "Embeds"
+msgstr "Embeds"
+
+#: src/components/Mod/index.tsx
+msgid "Links"
+msgstr "Links"
+
+#: src/components/Mod/index.tsx
+msgid "Videos"
+msgstr "Videos"
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
@@ -2370,6 +2393,10 @@ msgstr ""
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
 msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Low signal"
+msgstr "Low signal"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"

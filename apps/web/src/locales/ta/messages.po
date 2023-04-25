@@ -299,6 +299,7 @@ msgid "All posts"
 msgstr "அனைத்து பதிவுகள்"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 msgid "Text"
 msgstr "உரை"
 
@@ -308,11 +309,13 @@ msgid "Video"
 msgstr "காணொளி"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
 msgstr "ஒலி"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
 msgstr "படங்கள்"
@@ -640,6 +643,26 @@ msgstr "இடுகைகள்"
 #: src/components/Notification/FeedType.tsx
 msgid "Comments"
 msgstr "கருத்துரைகள்"
+
+#: src/components/Mod/index.tsx
+msgid "Media filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Articles"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Embeds"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Links"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Videos"
+msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
@@ -2372,6 +2395,10 @@ msgid "Fake engagement"
 msgstr "போலியான ஈடுபாடு"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Low signal"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
 msgstr "அல்காரிதம் சூழ்ச்சிசெய்தல்"
 
@@ -2781,4 +2808,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
