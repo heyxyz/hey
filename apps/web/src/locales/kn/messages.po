@@ -1494,42 +1494,11 @@ msgid "Publication reported successfully"
 msgstr "ಪ್ರಕಟಣೆ ಯಶಸ್ವಿಯಾಗಿ ವರದಿಯಾಗಿದೆ"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Spam"
-msgstr "ಸ್ಪ್ಯಾಮ್"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "ಹಗರಣ"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "NSFW"
-msgstr "NSFW"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Repetitive"
-msgstr "ಪುನರಾವರ್ತಿಸುವಿಕೆ"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
+msgid "Poor content"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Others"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Report?"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user so that we can take action."
+msgid "Stop Sponsor"
 msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
@@ -2204,6 +2173,11 @@ msgid "Perform mod actions on this publication."
 msgstr "ಈ ಪ್ರಕಟಣೆಯಲ್ಲಿ ಮಾಡ್ ಕ್ರಿಯೆಗಳನ್ನು ಮಾಡಿ."
 
 #: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
 msgstr "ಸ್ಥಿತಿಯನ್ನು ಹೊಂದಿಸಿ"
@@ -2355,6 +2329,10 @@ msgid "Sensitive"
 msgstr "ಸೂಕ್ಷ್ಮ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Spam"
+msgstr "ಸ್ಪ್ಯಾಮ್"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
 msgstr "ಕಾರಣ"
 
@@ -2383,8 +2361,16 @@ msgid "Violence"
 msgstr "ಹಿಂಸಾಚಾರ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "ಹಗರಣ"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr "ಸೋಗು ಹಾಕುವಿಕೆ"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
+msgstr "NSFW"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Offensive"
@@ -2409,6 +2395,10 @@ msgstr "ದಾರಿತಪ್ಪಿಸುವ"
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
 msgstr "ಹ್ಯಾಶ್‌ಟ್ಯಾಗ್‌ಗಳ ದುರ್ಬಳಕೆ"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
+msgstr "ಪುನರಾವರ್ತಿಸುವಿಕೆ"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
