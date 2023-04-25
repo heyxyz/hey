@@ -93,7 +93,7 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
         <div className="space-y-3 pt-4">
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
-              <div key={recipient.recipient} className="flex items-center space-x-2 text-sm">
+              <div key={index} className="flex items-center space-x-2 text-sm">
                 <Input
                   placeholder="0x3A5bd...5e3 or wagmi.lens"
                   value={recipient.recipient}
