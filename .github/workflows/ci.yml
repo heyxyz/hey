@@ -28,16 +28,16 @@ jobs:
         run: script/bootstrap
 
       - name: Typecheck 🔡
-        run: pnpm typecheck --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
+        run: pnpm typecheck --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Lint 🪩
-        run: pnpm lint --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
+        run: pnpm lint --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Prettier ✨
-        run: pnpm prettier --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
+        run: pnpm prettier --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Build 🎁
-        run: pnpm build --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
+        run: pnpm build --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Run Tests 🧪
-        run: pnpm test:e2e --api="https://turbocache.lenster.workers.dev" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
+        run: pnpm test:e2e
