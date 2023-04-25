@@ -1,12 +1,11 @@
 import { XIcon } from '@heroicons/react/outline';
 import type { ProgressHookType } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
-import { ENV } from '@pushprotocol/restapi/src/lib/constants';
-import { IS_MAINNET, LENSHUB_PROXY } from 'data';
+import { LENSHUB_PROXY } from 'data';
 import { useState } from 'react';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { usePushChatStore } from 'src/store/push-chat';
+import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input, Spinner } from 'ui';
 import { useSigner } from 'wagmi';
 
@@ -74,7 +73,6 @@ const useCreateChatProfile = () => {
     }
 
     try {
-      const PUSH_ENV = IS_MAINNET ? ENV.PROD : ENV.STAGING;
       await PushAPI.user.createNFTProfile({
         signer: signer,
         password: password,

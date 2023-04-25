@@ -1,16 +1,21 @@
 import type { IFeeds, IMessageIPFS, IUser } from '@pushprotocol/restapi';
+import { ENV } from '@pushprotocol/restapi/src/lib/constants';
+import { IS_MAINNET } from 'data';
 import { create } from 'zustand';
 
-type TabValues = 'Chats' | 'Requests';
 export const PUSH_TABS = {
   CHATS: 'CHATS',
   REQUESTS: 'REQUESTS'
-};
+} as const;
+type PushTabs = typeof PUSH_TABS;
+
+export const PUSH_ENV = IS_MAINNET ? ENV.PROD : ENV.STAGING;
+
 interface IPushChatStore {
   connectedProfile: IUser | undefined;
   setConnectedProfile: (connectedProfile: IUser) => void;
-  activeTab: String;
-  setActiveTab: (tabName: string) => void;
+  activeTab: keyof PushTabs;
+  setActiveTab: (tabName: keyof PushTabs) => void;
   chats: Map<string, Array<IMessageIPFS>>; // chatId -> chat messages array
   setChats: (chats: Map<string, Array<IMessageIPFS>>) => void;
   addChat: (key: string, newChat: Array<IMessageIPFS>) => void;
@@ -23,10 +28,18 @@ interface IPushChatStore {
   reset: () => void;
   selectedChatId: string;
   setSelectedChatId: (selectedChatId: string) => void;
-  selectedTab: TabValues;
-  setSelectedTab: (selectedTab: TabValues) => void;
   showCreateChatProfileModal: boolean;
   setShowCreateChatProfileModal: (showCreateChatProfileModal: boolean) => void;
+  password: {
+    encrypted: string | null;
+    decrypted: string | null;
+  };
+  setPassword: (password: { encrypted?: string; decrypted?: string }) => void;
+  pgpPrivateKey: {
+    encrypted: string | null;
+    decrypted: string | null;
+  };
+  setPgpPrivateKey: (pgpPrivateKey: { encrypted?: string; decrypted?: string }) => void;
 }
 
 export const usePushChatStore = create<IPushChatStore>((set) => ({
@@ -63,18 +76,57 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   },
   selectedChatId: '',
   setSelectedChatId: (selectedChatId) => set(() => ({ selectedChatId })),
-  selectedTab: 'Chats',
-  setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   showCreateChatProfileModal: false,
   setShowCreateChatProfileModal: (showCreateChatProfileModal) => set(() => ({ showCreateChatProfileModal })),
+  password: {
+    encrypted: null,
+    decrypted: null
+  },
+  setPassword: ({ encrypted, decrypted }) => {
+    set((state) => {
+      const password = { ...state.password };
+      if (encrypted) {
+        password.encrypted = encrypted;
+      }
+      if (decrypted) {
+        password.decrypted = decrypted;
+      }
+      return { password };
+    });
+  },
+  pgpPrivateKey: {
+    encrypted: null,
+    decrypted: null
+  },
+  setPgpPrivateKey: ({ encrypted, decrypted }) => {
+    set((state) => {
+      const pgpPrivateKey = { ...state.pgpPrivateKey };
+      if (encrypted) {
+        pgpPrivateKey.encrypted = encrypted;
+      }
+      if (decrypted) {
+        pgpPrivateKey.decrypted = decrypted;
+      }
+      return { pgpPrivateKey };
+    });
+  },
   reset: () =>
     set((state) => {
       return {
         ...state,
+        connectedProfile: undefined,
         chats: new Map(),
         chatsFeed: new Map(),
         requestsFeed: new Map(),
-        selectedTab: 'Chats'
+        activeTab: PUSH_TABS.CHATS,
+        password: {
+          encrypted: null,
+          decrypted: null
+        },
+        pgpPrivateKey: {
+          encrypted: null,
+          decrypted: null
+        }
       };
     })
 }));
