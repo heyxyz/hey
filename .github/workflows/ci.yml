@@ -34,7 +34,7 @@ jobs:
         run: pnpm lint --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Prettier ✨
-        run: pnpm prettier --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
+        run: pnpm prettier
 
       - name: Build 🎁
         run: pnpm build --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"

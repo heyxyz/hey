@@ -23,7 +23,6 @@
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "@types/node": "^18.16.0",
     "eslint-config-weblint": "workspace:*",
-    "prettier": "^2.8.8",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
