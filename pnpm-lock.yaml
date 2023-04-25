@@ -288,6 +288,9 @@ importers:
       react-markdown:
         specifier: ^8.0.7
         version: 8.0.7(@types/react@18.0.38)(react@18.2.0)
+      react-virtuoso:
+        specifier: ^4.3.1
+        version: 4.3.1(react-dom@18.2.0)(react@18.2.0)
       remark-breaks:
         specifier: ^3.0.2
         version: 3.0.2
@@ -16730,6 +16733,17 @@ packages:
       throttle-debounce: 3.0.1
       ts-easing: 0.2.0
       tslib: 2.5.0
+    dev: false
+
+  /react-virtuoso@4.3.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-2+V0bvA1fASO+etlBG6YB0uj+StizxP3ecDJXgGW/r2z9AH067ehpJy2TSRiEIGQtDTmJAcmZnZzYVnk7AUmbw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16 || >=17 || >= 18'
+      react-dom: '>=16 || >=17 || >= 18'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react@18.2.0:
