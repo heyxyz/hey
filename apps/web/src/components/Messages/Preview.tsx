@@ -36,7 +36,7 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
       onClick={() => onConversationSelected(profile.id)}
       aria-hidden="true"
     >
-      <div className="flex justify-between space-x-3 px-5">
+      <div className="flex justify-between space-x-3 overflow-hidden px-5">
         <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(profile, false);
@@ -48,14 +48,14 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
           width={40}
           alt={formatHandle(profile?.handle)}
         />
-        <div className="w-full">
-          <div className="flex w-full justify-between space-x-1">
-            <div className="flex max-w-sm items-center gap-1">
-              <div className="text-md line-clamp-1">{profile?.name ?? formatHandle(profile.handle)}</div>
+        <div className="overflow-hidden">
+          <div className="flex justify-between space-x-1">
+            <div className="flex items-center gap-1 overflow-hidden">
+              <div className="text-md truncate">{profile?.name ?? formatHandle(profile.handle)}</div>
               {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />}
             </div>
             {message.sent && (
-              <span className="lt-text-gray-500 min-w-fit pt-0.5 text-xs" title={formatTime(message.sent)}>
+              <span className="lt-text-gray-500 shrink-0 pt-0.5 text-xs" title={formatTime(message.sent)}>
                 {getTimeFromNow(message.sent)}
               </span>
             )}
