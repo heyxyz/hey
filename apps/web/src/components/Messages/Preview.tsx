@@ -36,7 +36,7 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
       onClick={() => onConversationSelected(profile.id)}
       aria-hidden="true"
     >
-      <div className="flex justify-between space-x-3 overflow-hidden px-5">
+      <div className="flex space-x-3 overflow-hidden px-5">
         <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(profile, false);
@@ -48,7 +48,7 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
           width={40}
           alt={formatHandle(profile?.handle)}
         />
-        <div className="overflow-hidden">
+        <div className="grow overflow-hidden">
           <div className="flex justify-between space-x-1">
             <div className="flex items-center gap-1 overflow-hidden">
               <div className="text-md truncate">{profile?.name ?? formatHandle(profile.handle)}</div>
