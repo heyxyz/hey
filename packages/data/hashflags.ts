@@ -14,5 +14,6 @@ export const hashflags: Record<string, string> = {
   pride: 'pride',
   lgbt: 'pride',
   voted: 'voted',
-  hashtag: 'hashtag'
+  hashtag: 'hashtag',
+  bonsai: 'bonsai'
 };
