@@ -26,7 +26,7 @@ test.describe('Profile', () => {
     const style = await cover.getAttribute('style');
 
     await expect(style).toContain(
-      `${USER_CONTENT_URL}/${COVER}/https://gateway.ipfscdn.io/ipfs/bafkreigws3lm7g73xb4oouozfe22lbrx2hpa5s3xb25q4ygdsy72v3baey`
+      `${USER_CONTENT_URL}/${COVER}/https://gateway.ipfscdn.io/ipfs/bafybeicm2alelvjwawvv5ubn4g6flbyrrjay5ryxww3ulhnetmdy5ty4re`
     );
   });
 });

@@ -1,5 +1,5 @@
 import { aaveMembers } from './aave-members';
-import { lensterMembers } from './lenster-members';
+import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
   '0x01615e', // livepeer
@@ -236,7 +236,7 @@ export const mainnetVerified = [
   '0x84ed', // bensparks
   '0x0636', // jenny
   ...aaveMembers,
-  ...lensterMembers
+  ...mainnetStaffs
 ];
 
 export const testnetVerified = [
