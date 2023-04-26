@@ -1,10 +1,12 @@
 import downloadJson from '@lib/downloadJson';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import type { PublicationsQueryRequest } from 'lens';
 import { PublicationTypes, useProfileFeedLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { Button, Card } from 'ui';
 
 const Publications: FC = () => {
@@ -24,6 +26,7 @@ const Publications: FC = () => {
   });
 
   const handleExportClick = async () => {
+    Mixpanel.track(SETTINGS.EXPORT.PUBLICATIONS);
     setExporting(true);
     const fetchPublications = async (cursor?: string) => {
       const { data } = await exportPublications({
