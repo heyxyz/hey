@@ -8,6 +8,7 @@ import { useAppStore } from 'src/store/app';
 const growthbook = new GrowthBook({
   apiHost: 'https://cdn.growthbook.io',
   clientKey: 'sdk-fDLRMwvpyh4Kq3b',
+  decryptionKey: 'jVi/0sNZ9Fzt0WI8AsSaIg==',
   enableDevMode: false
 });
 
