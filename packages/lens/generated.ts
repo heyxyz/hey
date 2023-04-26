@@ -1171,6 +1171,8 @@ export type Dispatcher = {
   address: Scalars['EthereumAddress'];
   /** If the dispatcher can use the relay */
   canUseRelay: Scalars['Boolean'];
+  /** If the dispatcher transactions will be sponsored by lens aka cover the gas costs */
+  sponsor: Scalars['Boolean'];
 };
 
 export type DoesFollow = {

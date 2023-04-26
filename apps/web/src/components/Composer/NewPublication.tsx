@@ -2,6 +2,7 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import type { IGif } from '@giphy/js-types';
+import { useFeature } from '@growthbook/growthbook-react';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
   CollectCondition,
@@ -25,6 +26,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
+import { FeatureFlag } from 'data';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -151,6 +153,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
+
+  const { on: isBonsaiEnabled } = useFeature(FeatureFlag.Bonsai as string);
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
@@ -654,7 +658,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        if (useDataAvailability) {
+        if (isBonsaiEnabled && useDataAvailability) {
           return await createViaDataAvailablityDispatcher(dataAvailablityRequest);
         } else {
           return await createViaDispatcher(request);
