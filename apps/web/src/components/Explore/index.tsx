@@ -2,11 +2,12 @@ import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
-import { useFeatureIsOn } from '@growthbook/growthbook-react';
+import { useFeature } from '@growthbook/growthbook-react';
 import { Tab } from '@headlessui/react';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import { FeatureFlag } from 'data';
 import { APP_NAME } from 'data/constants';
 import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
@@ -21,10 +22,10 @@ import Feed from './Feed';
 import FeedType from './FeedType';
 
 const Explore: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const enabled = useFeatureIsOn('trending-widget');
-  const [focus, setFocus] = useState<PublicationMainFocus>();
   const router = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const [focus, setFocus] = useState<PublicationMainFocus>();
+  const { on: isTrendingWidgetEnabled } = useFeature(FeatureFlag.TrendingWidget as string);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'explore' });
@@ -83,7 +84,7 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {enabled && <Trending />}
+        {isTrendingWidgetEnabled && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>

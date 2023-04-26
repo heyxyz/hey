@@ -1,7 +1,6 @@
-import { aaveMembers } from './aave-members';
 import { lensterMembers } from './lenster-members';
 
-export const mainnetStaffs = [...lensterMembers, ...aaveMembers];
+export const mainnetStaffs = [...lensterMembers];
 
 export const testnetStaffs = [
   '0x15', // yoginth.test

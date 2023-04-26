@@ -1,9 +1,9 @@
 import { GrowthBook, GrowthBookProvider } from '@growthbook/growthbook-react';
-import { mainnetStaffs } from 'data';
+import { IS_MAINNET, mainnetStaffs, testnetStaffs } from 'data';
+import isGardener from 'lib/isGardener';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useFingerprintStore } from 'src/store/fingerprint';
 
 const growthbook = new GrowthBook({
   apiHost: 'https://cdn.growthbook.io',
@@ -17,19 +17,20 @@ interface FeatureFlagsProviderProps {
 
 const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const fingerprint = useFingerprintStore((state) => state.fingerprint);
 
   useEffect(() => {
     growthbook.loadFeatures();
   }, []);
 
   useEffect(() => {
-    if (currentProfile?.id && fingerprint) {
+    if (currentProfile?.id) {
       growthbook.setAttributes({
-        id: currentProfile?.id,
-        deviceId: fingerprint,
+        id: `${IS_MAINNET ? 'mainnet' : 'testnet'}-${currentProfile.id}`,
         loggedIn: true,
-        isStaff: mainnetStaffs.includes(currentProfile?.id)
+        isGardener: IS_MAINNET ? isGardener(currentProfile.id) : false,
+        isStaff: IS_MAINNET
+          ? mainnetStaffs.includes(currentProfile.id)
+          : testnetStaffs.includes(currentProfile.id)
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
