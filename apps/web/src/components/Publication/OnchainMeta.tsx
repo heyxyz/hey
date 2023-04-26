@@ -49,6 +49,13 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
         {isArweaveHash ? (
           <Meta name={t`ARWEAVE TRANSACTION`} uri={`https://arweave.app/tx/${hash}`} hash={hash} />
         ) : null}
+        {publication?.isDataAvailability ? (
+          <Meta
+            name={t`DATA AVAILABILITY PROOF`}
+            uri={`https://arweave.app/tx/${publication.dataAvailabilityProofs?.split('/').pop()}`}
+            hash={publication.dataAvailabilityProofs?.split('/').pop() as string}
+          />
+        ) : null}
         {isIPFSHash ? <Meta name="IPFS TRANSACTION" uri={`${IPFS_GATEWAY}${hash}`} hash={hash} /> : null}
         {collectNftAddress ? (
           <Meta
