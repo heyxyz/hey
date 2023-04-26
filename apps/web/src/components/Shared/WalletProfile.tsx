@@ -1,5 +1,5 @@
 import { ExternalLinkIcon } from '@heroicons/react/outline';
-import { POLYGONSCAN_URL } from 'data/constants';
+import { LINEA_EXPLORER_URL } from 'data/constants';
 import type { Wallet } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import getStampFyiURL from 'lib/getStampFyiURL';
@@ -17,7 +17,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
   return (
     <div className="flex items-center justify-between">
       <a
-        href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
+        href={`${LINEA_EXPLORER_URL}/address/${wallet?.address}`}
         className="flex items-center space-x-3"
         target="_blank"
         rel="noreferrer noopener"

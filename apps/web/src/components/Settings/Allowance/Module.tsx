@@ -1,6 +1,6 @@
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { getModule } from '@lib/getModule';
-import { POLYGONSCAN_URL } from 'data/constants';
+import { LINEA_EXPLORER_URL } from 'data/constants';
 import type { ApprovedAllowanceAmount } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ const Module: FC<ModuleProps> = ({ module }) => {
           <div className="whitespace-nowrap font-bold">{getModule(module?.module).name}</div>
         </div>
         <a
-          href={`${POLYGONSCAN_URL}/address/${module?.contractAddress}`}
+          href={`${LINEA_EXPLORER_URL}/address/${module?.contractAddress}`}
           className="lt-text-gray-500 truncate text-sm"
           target="_blank"
           rel="noreferrer noopener"

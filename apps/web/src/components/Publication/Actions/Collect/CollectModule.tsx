@@ -22,7 +22,7 @@ import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
-import { IS_RELAYER_AVAILABLE, LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
+import { IS_RELAYER_AVAILABLE, LENSHUB_PROXY, LINEA_EXPLORER_URL } from 'data/constants';
 import Errors from 'data/errors';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
@@ -405,7 +405,7 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
                   <Trans>Token:</Trans>
                 </span>
                 <a
-                  href={`${POLYGONSCAN_URL}/token/${data?.publication?.collectNftAddress}`}
+                  href={`${LINEA_EXPLORER_URL}/token/${data?.publication?.collectNftAddress}`}
                   target="_blank"
                   className="font-bold text-gray-600"
                   rel="noreferrer noopener"

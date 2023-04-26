@@ -22,7 +22,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
-import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
+import { LINEA_EXPLORER_URL, LIT_PROTOCOL_ENVIRONMENT, RARIBLE_URL } from 'data/constants';
 import type { Publication, PublicationMetadataV2Input } from 'lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
@@ -232,7 +232,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({ encrypted
             <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
               You need{' '}
               <a
-                href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
+                href={`${LINEA_EXPLORER_URL}/token/${tokenCondition.contractAddress}`}
                 className="font-bold underline"
                 onClick={() => Mixpanel.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
                 target="_blank"

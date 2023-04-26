@@ -1,4 +1,4 @@
-import { POLYGONSCAN_URL } from 'data/constants';
+import { LINEA_EXPLORER_URL } from 'data/constants';
 import type { Wallet } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import getStampFyiURL from 'lib/getStampFyiURL';
@@ -12,7 +12,7 @@ interface NotificationWalletProfileProps {
 
 export const NotificationWalletProfileAvatar: FC<NotificationWalletProfileProps> = ({ wallet }) => {
   return (
-    <a href={`${POLYGONSCAN_URL}/address/${wallet?.address}`} target="_blank" rel="noreferrer noopener">
+    <a href={`${LINEA_EXPLORER_URL}/address/${wallet?.address}`} target="_blank" rel="noreferrer noopener">
       <Image
         onError={({ currentTarget }) => {
           currentTarget.src = getStampFyiURL(wallet?.address);
@@ -31,7 +31,7 @@ export const NotificationWalletProfileName: FC<NotificationWalletProfileProps> =
   return (
     <a
       className="inline-flex items-center space-x-1 font-bold"
-      href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
+      href={`${LINEA_EXPLORER_URL}/address/${wallet?.address}`}
       target="_blank"
       rel="noreferrer noopener"
     >

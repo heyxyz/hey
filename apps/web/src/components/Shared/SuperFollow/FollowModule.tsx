@@ -5,7 +5,7 @@ import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
+import { LENSHUB_PROXY, LINEA_EXPLORER_URL } from 'data/constants';
 import Errors from 'data/errors';
 import type { ApprovedAllowanceAmount, Profile } from 'lens';
 import {
@@ -185,7 +185,7 @@ const FollowModule: FC<FollowModuleProps> = ({ profile, setFollowing, setShowFol
             <Trans>Recipient:</Trans>
           </span>
           <a
-            href={`${POLYGONSCAN_URL}/address/${followModule?.recipient}`}
+            href={`${LINEA_EXPLORER_URL}/address/${followModule?.recipient}`}
             target="_blank"
             className="font-bold text-gray-600"
             rel="noreferrer noopener"

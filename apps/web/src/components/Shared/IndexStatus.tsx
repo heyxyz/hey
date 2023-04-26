@@ -1,7 +1,7 @@
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { POLYGONSCAN_URL } from 'data/constants';
+import { LINEA_EXPLORER_URL } from 'data/constants';
 import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -35,7 +35,7 @@ const IndexStatus: FC<IndexStatusProps> = ({ type = 'Transaction', txHash, reloa
   return (
     <a
       className={clsx({ hidden: hide }, 'ml-auto text-sm font-medium')}
-      href={`${POLYGONSCAN_URL}/tx/${txHash}`}
+      href={`${LINEA_EXPLORER_URL}/tx/${txHash}`}
       target="_blank"
       rel="noreferrer noopener"
     >

@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
 import { Trans } from '@lingui/macro';
-import { POLYGONSCAN_URL } from 'data/constants';
+import { LINEA_EXPLORER_URL } from 'data/constants';
 import type { Profile, RecipientDataOutput } from 'lens';
 import { useProfilesQuery } from 'lens';
 import formatAddress from 'lib/formatAddress';
@@ -59,7 +59,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                       <Slug slug={formatHandle(profile?.handle)} prefix="@" />
                     </Link>
                   ) : (
-                    <a href={`${POLYGONSCAN_URL}/address/${address}`} target="_blank" rel="noreferrer">
+                    <a href={`${LINEA_EXPLORER_URL}/address/${address}`} target="_blank" rel="noreferrer">
                       {formatAddress(address, 6)}
                     </a>
                   )}
