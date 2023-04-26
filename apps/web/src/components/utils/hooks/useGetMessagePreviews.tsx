@@ -1,4 +1,3 @@
-import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import chunkArray from '@lib/chunkArray';
 import { buildConversationKey } from '@lib/conversationKey';
 import type { Conversation } from '@xmtp/xmtp-js';
@@ -25,7 +24,7 @@ const useGetMessagePreviews = () => {
   const conversations = useMessageStore((state) => state.conversations);
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
-  const { client } = useXmtpClient();
+  const client = useMessageStore((state) => state.client);
   const [loading, setLoading] = useState<boolean>(false);
   const loadingRef = useRef<boolean>(false);
   const countRef = useRef<number>(0);
