@@ -22,11 +22,12 @@ const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
       growthbook.loadFeatures();
       growthbook.setAttributes({
         id: `${IS_MAINNET ? 'mainnet' : 'testnet'}-${currentProfile.id}`,
-        loggedIn: true,
         isGardener: IS_MAINNET ? isGardener(currentProfile.id) : false,
         isStaff: IS_MAINNET
           ? mainnetStaffs.includes(currentProfile.id)
-          : testnetStaffs.includes(currentProfile.id)
+          : testnetStaffs.includes(currentProfile.id),
+        loggedIn: true,
+        browser: window.navigator.userAgent
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
