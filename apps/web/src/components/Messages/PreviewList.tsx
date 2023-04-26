@@ -2,6 +2,7 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
+import useGetMessagePreviews from '@components/utils/hooks/useGetMessagePreviews';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
@@ -34,6 +35,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profilesToShow, requestedCount, profilesError } =
     useMessagePreviews();
+  const { loading: previewsLoading, progress: previewsProgress } = useGetMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
 
   const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
@@ -74,12 +76,19 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
       )}
     >
       <Card className="flex h-full flex-col justify-between">
-        <div className="divider flex items-center justify-between p-5">
+        <div className="divider relative flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
           {currentProfile && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
               <PlusCircleIcon className="h-6 w-6" />
             </button>
+          )}
+          {previewsLoading && (
+            <progress
+              className="absolute -bottom-1 left-0 h-1 w-full appearance-none border-none bg-transparent"
+              value={previewsProgress}
+              max={100}
+            />
           )}
         </div>
         <div className="flex">
@@ -147,10 +156,6 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
               data={sortedProfiles}
               itemContent={(_, [key, profile]) => {
                 const message = messages.get(key);
-                if (!message) {
-                  return null;
-                }
-
                 return (
                   <Preview
                     isSelected={key === selectedConversationKey}
