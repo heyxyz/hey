@@ -1,12 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
 import NftFeed from '@components/Nft/NftFeed';
+import { useFeature } from '@growthbook/growthbook-react';
 import { Mixpanel } from '@lib/mixpanel';
+import { FeatureFlag } from 'data';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
-import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
-import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -35,6 +35,7 @@ const ViewProfile: NextPage = () => {
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
   );
+  const { on: isNftGalleryEnabled } = useFeature(FeatureFlag.NftGallery as string);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'profile' });
@@ -49,7 +50,6 @@ const ViewProfile: NextPage = () => {
   const profile = data?.profile;
   const [following, setFollowing] = useState<boolean | null>(null);
   const [showFollowModal, setShowFollowModal] = useState(false);
-
   const isFollowedByMe = Boolean(currentProfile) && Boolean(profile?.isFollowedByMe);
 
   const followType = profile?.followModule?.__typename;
@@ -121,7 +121,7 @@ const ViewProfile: NextPage = () => {
             feedType === ProfileFeedType.Media ||
             feedType === ProfileFeedType.Collects) && <Feed profile={profile as Profile} type={feedType} />}
           {feedType === ProfileFeedType.Nft ? (
-            isFeatureEnabled(FeatureFlag.NftGallery, currentProfile?.id) ? (
+            isNftGalleryEnabled ? (
               <NftGallery profile={profile as Profile} />
             ) : (
               <NftFeed profile={profile as Profile} />

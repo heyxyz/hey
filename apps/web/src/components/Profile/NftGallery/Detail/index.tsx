@@ -1,12 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
+import { useFeature } from '@growthbook/growthbook-react';
 import { Mixpanel } from '@lib/mixpanel';
 import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
-import isFeatureEnabled from 'lib/isFeatureEnabled';
 import Link from 'next/link';
 import type { FC } from 'react';
 import React, { useEffect } from 'react';
@@ -18,12 +18,13 @@ import { Card, GridItemEight, GridItemFour, GridLayout, Image } from 'ui';
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
+  const { on: isNftDetailEnabled } = useFeature(FeatureFlag.NftDetail as string);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'nft' });
   }, []);
 
-  if (!isFeatureEnabled(FeatureFlag.NftDetail, currentProfile?.id) || !currentProfile) {
+  if (!isNftDetailEnabled || !currentProfile) {
     return <Custom404 />;
   }
 

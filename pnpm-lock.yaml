@@ -150,6 +150,9 @@ importers:
       '@giphy/react-components':
         specifier: ^6.8.1
         version: 6.8.1(@babel/core@7.21.4)(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)
+      '@growthbook/growthbook-react':
+        specifier: ^0.15.0
+        version: 0.15.0(react@18.2.0)
       '@headlessui/react':
         specifier: ^1.7.14
         version: 1.7.14(react-dom@18.2.0)(react@18.2.0)
@@ -5301,6 +5304,23 @@ packages:
     dependencies:
       graphql: 16.6.0
 
+  /@growthbook/growthbook-react@0.15.0(react@18.2.0):
+    resolution: {integrity: sha512-GB6oyWKsxi9KguYAJqG2el+a16eLi8kZIdObeM4K8qfjw2hV73bI+lszpgInUBPrkJuB1LvNZ5M0lLpAULgOgA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16.8.0-0 || ^17.0.0-0 || ^18.0.0-0
+    dependencies:
+      '@growthbook/growthbook': 0.25.0
+      react: 18.2.0
+    dev: false
+
+  /@growthbook/growthbook@0.25.0:
+    resolution: {integrity: sha512-H0L2i5G5UtaoU34zDGxxNfF0LezL5fbr31XXqIPu1faGeJ1ujBvfFT8/99EKS26dO6YzwCNU47PlPD+XV/5akw==}
+    engines: {node: '>=10'}
+    dependencies:
+      dom-mutator: 0.4.0
+    dev: false
+
   /@hapi/hoek@9.3.0:
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
     dev: true
@@ -9844,7 +9864,7 @@ packages:
   /axios@0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.15.2(debug@4.3.4)
+      follow-redirects: 1.15.2
     transitivePeerDependencies:
       - debug
     dev: false
@@ -9860,7 +9880,7 @@ packages:
   /axios@1.3.6:
     resolution: {integrity: sha512-PEcdkk7JcdPiMDkvM4K6ZBRYq9keuVJsToxm2zQIM70Qqo2WHTdJZMXcG9X+RmRp2VPNUQC8W1RAGbgt6b1yMg==}
     dependencies:
-      follow-redirects: 1.15.2(debug@4.3.4)
+      follow-redirects: 1.15.2
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -11271,6 +11291,11 @@ packages:
       utila: 0.4.0
     dev: false
 
+  /dom-mutator@0.4.0:
+    resolution: {integrity: sha512-H8pcE9Tmmnxs6FTZCX4aRthcweGsVdytqpBSiVIDnTnmosXXYO+jatDWwRReMbJJsAmsnAWsc0Ht4ZYGdN8gZw==}
+    engines: {node: '>=10'}
+    dev: false
+
   /dom-serializer@1.4.1:
     resolution: {integrity: sha512-VHwB3KfrcOOkelEG2ZOfxqLZdfkil8PtJi4P8N2MMXucZq2yLp75ClViUlOVwyoHEDjYU433Aq+5zWP61+RGag==}
     dependencies:
@@ -12555,6 +12580,16 @@ packages:
   /flow-parser@0.204.0:
     resolution: {integrity: sha512-cQhNPLOk5NFyDXBC8WE8dy2Gls+YqKI3FNqQbJ7UrbFyd30IdEX3t27u3VsnoVK22I872+PWeb1KhHxDgu7kAg==}
     engines: {node: '>=0.4.0'}
+    dev: false
+
+  /follow-redirects@1.15.2:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
     dev: false
 
   /follow-redirects@1.15.2(debug@4.3.4):
