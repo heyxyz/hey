@@ -1,4 +1,3 @@
-import { useFeature } from '@growthbook/growthbook-react';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -6,7 +5,6 @@ import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
-import { FeatureFlag } from 'data';
 import { LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import { motion } from 'framer-motion';
@@ -47,7 +45,6 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     // @ts-ignore
     isMirror ? publication?.mirrorOf?.mirrors?.length > 0 : publication?.mirrors?.length > 0
   );
-  const { on: isBonsaiEnabled } = useFeature(FeatureFlag.Bonsai as string);
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
@@ -178,7 +175,7 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
-        if (isBonsaiEnabled && publication.isDataAvailability) {
+        if (publication.isDataAvailability) {
           await createViaDataAvailablityDispatcher(dataAvailablityRequest);
         } else {
           await createViaDispatcher(request);
