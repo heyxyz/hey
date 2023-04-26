@@ -19,7 +19,6 @@ import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
-import TelemetryProvider from './TelemetryProvider';
 
 interface LayoutProps {
   children: ReactNode;
@@ -100,7 +99,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <meta name="theme-color" content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'} />
       </Head>
       <Toaster position="bottom-right" toastOptions={getToastOptions(resolvedTheme)} />
-      <TelemetryProvider />
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">

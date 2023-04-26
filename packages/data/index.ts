@@ -7,7 +7,6 @@ export * from './errors';
 export * from './feature-flags';
 export * from './gardeners';
 export * from './hashflags';
-export * from './lenster-members';
 export * from './staffs';
 export * from './storage';
 export * from './utils/getEnvConfig';

@@ -299,6 +299,7 @@ msgid "All posts"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 msgid "Text"
 msgstr ""
 
@@ -308,11 +309,13 @@ msgid "Video"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
 msgstr ""
@@ -640,6 +643,26 @@ msgstr "Posts"
 #: src/components/Notification/FeedType.tsx
 msgid "Comments"
 msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Media filters"
+msgstr "Media filters"
+
+#: src/components/Mod/index.tsx
+msgid "Articles"
+msgstr "Articles"
+
+#: src/components/Mod/index.tsx
+msgid "Embeds"
+msgstr "Embeds"
+
+#: src/components/Mod/index.tsx
+msgid "Links"
+msgstr "Links"
+
+#: src/components/Mod/index.tsx
+msgid "Videos"
+msgstr "Videos"
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
@@ -1471,43 +1494,12 @@ msgid "Publication reported successfully"
 msgstr "Publication reported successfully"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Spam"
-msgstr ""
+msgid "Poor content"
+msgstr "Poor content"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "NSFW"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Repetitive"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Others"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Report?"
-msgstr "Report?"
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user so that we can take action."
-msgstr "Are you sure? You want to report this user so that we can take action."
+msgid "Stop Sponsor"
+msgstr "Stop Sponsor"
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -2181,6 +2173,11 @@ msgid "Perform mod actions on this publication."
 msgstr "Perform mod actions on this publication."
 
 #: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
 msgstr ""
@@ -2332,6 +2329,10 @@ msgid "Sensitive"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Spam"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
 msgstr ""
 
@@ -2360,7 +2361,15 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -2372,6 +2381,10 @@ msgid "Fake engagement"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Low signal"
+msgstr "Low signal"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
 msgstr ""
 
@@ -2381,6 +2394,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx

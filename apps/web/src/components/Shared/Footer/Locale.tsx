@@ -1,23 +1,23 @@
+import { useFeature } from '@growthbook/growthbook-react';
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
 import { setLocale, supportedLocales } from '@lib/i18n';
 import { Mixpanel } from '@lib/mixpanel';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
-import isFeatureEnabled from 'lib/isFeatureEnabled';
+import { FeatureFlag } from 'data';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
 import { MISCELLANEOUS } from 'src/tracking';
 
 import MenuTransition from '../MenuTransition';
 
 const Locale: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const { i18n } = useLingui();
+  const { on: isGatedLocalesEnabled } = useFeature(FeatureFlag.GatedLocales as string);
   const gatedLocales = ['ta', 'es', 'kn', 'ru'];
   const locales = Object.fromEntries(
     Object.entries(supportedLocales).filter(([key]) =>
-      isFeatureEnabled('gated-locales', currentProfile?.id) ? true : !gatedLocales.includes(key)
+      isGatedLocalesEnabled ? true : !gatedLocales.includes(key)
     )
   );
 

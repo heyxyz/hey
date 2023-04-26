@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-23 19:23\n"
+"PO-Revision-Date: 2023-04-26 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -40,7 +40,7 @@ msgstr "Добавить ограничения на то, кто может п�
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
-msgstr ""
+msgstr "Сначала включите функцию collect, чтобы использовать систему управления токенами на основе коллекта"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Collectors can view"
@@ -180,7 +180,7 @@ msgstr "Ограничение по времени"
 
 #: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
 msgid "Limit collecting to the first 24h"
-msgstr ""
+msgstr "Лимит на коллект в течение первых 24 часов"
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
@@ -245,7 +245,7 @@ msgstr "Пожалуйста, загрузите своё изображение
 
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Choose Thumbnail"
-msgstr ""
+msgstr "Выберите картинку-превью"
 
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -292,13 +292,14 @@ msgstr "Публикаций пока еще нет!"
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
-msgstr ""
+msgstr "Не удалось загрузить новостную ленту"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
 msgstr "Все публикации"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 msgid "Text"
 msgstr "Текст"
 
@@ -308,11 +309,13 @@ msgid "Video"
 msgstr "Видео"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
 msgstr "Аудио"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
 msgstr "Картинки"
@@ -341,12 +344,12 @@ msgstr "Исследуйте • {APP_NAME}"
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
-msgstr ""
+msgstr "Обновите диспетчер до последней версии, чтобы улучшить, ускорить и повысить эффективность транзакций без подписи."
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
-msgstr ""
+msgstr "Вы можете включить диспетчер для взаимодействия с {APP_NAME} без подтверждения транзакций."
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -364,7 +367,7 @@ msgstr "Личные сообщения здесь!"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-msgstr ""
+msgstr "Активируйте XMTP, чтобы начать использовать Lenster для отправки двусторонне-зашифрованных личных сообщений друзьям."
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
@@ -376,7 +379,7 @@ msgstr "Фильтр"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Posts"
-msgstr ""
+msgstr "Показать публикации"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Mirrors"
@@ -388,7 +391,7 @@ msgstr "Показать лайки"
 
 #: src/components/Home/FeedType.tsx
 msgid "Timeline"
-msgstr ""
+msgstr "Лента"
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
@@ -400,7 +403,7 @@ msgstr "Добро пожаловать в {APP_NAME} 👋"
 
 #: src/components/Home/Hero.tsx
 msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr ""
+msgstr "{APP_NAME} – представляет собой децентрализованное приложение соцсети без ограничений, созданное на основе Lens Protocol. 🌿"
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
@@ -443,7 +446,7 @@ msgstr "Найти"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
-msgstr ""
+msgstr "Сбросить фильтр своей ленты"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
@@ -453,11 +456,11 @@ msgstr "Поиск пользователей"
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
 msgid "No matching users"
-msgstr ""
+msgstr "Нет подходящих пользователей"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile"
-msgstr ""
+msgstr "Установить профиль по умолчанию"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "You own {count} {0} but you don't have a default one."
@@ -477,7 +480,7 @@ msgstr "Установить имя профиля"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile bio"
-msgstr ""
+msgstr "Установить описание профиля"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set your avatar"
@@ -498,7 +501,7 @@ msgstr ""
 
 #: src/components/Home/Suggested.tsx
 msgid "Nothing to suggest"
-msgstr ""
+msgstr "Нечего предложить"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
@@ -536,7 +539,7 @@ msgstr "Не удалось загрузить тренды"
 
 #: src/components/Home/Trending.tsx
 msgid "{0} Publications"
-msgstr ""
+msgstr "{0} Публикаций"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
@@ -544,7 +547,7 @@ msgstr "Ошибка при отправке сообщения"
 
 #: src/components/Messages/Composer.tsx
 msgid "Type Something"
-msgstr ""
+msgstr "Введите что-нибудь"
 
 #: src/components/Messages/Composer.tsx
 msgid "Send"
@@ -556,15 +559,15 @@ msgstr "Загрузка сообщений"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
-msgstr ""
+msgstr "Этот друг еще не включил ЛС"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "You can't send them a message until they enable DMs."
-msgstr ""
+msgstr "Вы не можете написать им, пока они не включат ЛС."
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This is the beginning of the conversation"
-msgstr ""
+msgstr "Это начало разговора"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
@@ -582,11 +585,11 @@ msgstr "Запрошено"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
-msgstr ""
+msgstr "В этих диалогах участвуют профили Lens, на которые вы в данный момент не подписаны."
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
-msgstr ""
+msgstr "Загрузка диалогов"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
@@ -594,7 +597,7 @@ msgstr "Не удалось загрузить сообщения"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Start messaging your Lens frens"
-msgstr ""
+msgstr "Начните общаться с вашими друзьями"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
@@ -602,19 +605,19 @@ msgstr "Новое сообщение"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
-msgstr ""
+msgstr "Найдите, кому написать..."
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
-msgstr ""
+msgstr "Выберите диалог"
 
 #: src/components/Messages/index.tsx
 msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
+msgstr "Выберите существующий диалог или создайте новый, чтобы начать переписываться"
 
 #: src/components/Messages/index.tsx
 msgid "Messages • {APP_NAME}"
-msgstr ""
+msgstr "Сообщения • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -626,7 +629,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Refresh feed"
-msgstr ""
+msgstr "Обновить ленту"
 
 #: src/components/Mod/index.tsx
 msgid "Publication filters"
@@ -642,21 +645,41 @@ msgid "Comments"
 msgstr "Комментарии"
 
 #: src/components/Mod/index.tsx
-msgid "Custom filters"
+msgid "Media filters"
 msgstr ""
 
 #: src/components/Mod/index.tsx
-msgid "Gardeners"
+msgid "Articles"
 msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Embeds"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Links"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Videos"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Custom filters"
+msgstr "Индивидуальные фильтры"
+
+#: src/components/Mod/index.tsx
+msgid "Gardeners"
+msgstr "Садовники"
 
 #: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
-msgstr ""
+msgstr "не имеет NFT!"
 
 #: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
-msgstr ""
+msgstr "Не удалось загрузить ленту NFT"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -668,7 +691,7 @@ msgstr "Упоминания"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
-msgstr ""
+msgstr "Лайки"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Collects"
@@ -676,15 +699,15 @@ msgstr ""
 
 #: src/components/Notification/List.tsx
 msgid "Failed to load notifications"
-msgstr ""
+msgstr "Не удалось загрузить уведомления"
 
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
-msgstr ""
+msgstr "Во входящих пусто!"
 
 #: src/components/Notification/Settings.tsx
 msgid "Notification settings"
-msgstr ""
+msgstr "Настройки уведомлений"
 
 #: src/components/Notification/Settings.tsx
 msgid "Signal filter"
@@ -700,43 +723,43 @@ msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> сколлектил ваш <2>комментарий</2></0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> сколлектил ваш <2>миррор</2></0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> сколлектил ваш <2>пост</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> прокомментировал ваш <2>комментарий</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> прокомментировал ваш <2>миррор</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> прокомментировал ваш <2>пост</2></0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
-msgstr ""
+msgstr "<0><1/> подписался на вас</0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
-msgstr ""
+msgstr "<0><1/> оформил платную подписку</0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> понравился ваш <2>комментарий</2></0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> понравился ваш <2>миррор</2></0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
@@ -748,7 +771,7 @@ msgstr "<0><1/> упомянул вас в <2>комментарии</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> упомянул вас в <2>миррор</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
@@ -776,11 +799,11 @@ msgstr "Неверный адрес электронной почты"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
-msgstr ""
+msgstr "Тема не должна быть пустой"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject should not exceed 260 characters"
-msgstr ""
+msgstr "Тема не должна превышать 260 символов"
 
 #: src/components/Pages/Contact.tsx
 msgid "Message should not be empty"
@@ -792,19 +815,19 @@ msgstr "Сообщение не должно превышать 1000 симво�
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
-msgstr ""
+msgstr "Контакты • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact {APP_NAME}"
-msgstr ""
+msgstr "Контакт {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact us to help you get the issue resolved."
-msgstr ""
+msgstr "Свяжитесь с нами, чтобы мы помогли вам разобраться с возникшей ситуацией."
 
 #: src/components/Pages/Contact.tsx
 msgid "Your message has been sent!"
-msgstr ""
+msgstr "Ваше сообщение успешно отправлено!"
 
 #: src/components/Pages/Contact.tsx
 msgid "Email"
@@ -828,7 +851,7 @@ msgstr "Чем мы можем помочь?"
 
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
-msgstr ""
+msgstr "Отправить"
 
 #: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
@@ -846,15 +869,15 @@ msgstr "1. Обзор"
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing the Site, you agree to not only this Privacy Policy, but also to our Terms of Use and any other written agreements for using the Site. And you agree to our collection and use of any personal data (as described here) as well as the features of public/permissionless blockchain technology."
-msgstr ""
+msgstr "Заходя на Сайт, вы соглашаетесь не только с настоящей Политикой конфиденциальности, но и с нашими Условиями использования и любыми другими письменными соглашениями об использовании Сайта. И вы соглашаетесь с тем, что мы собираем и используем любые персональные данные (как описано здесь), а также с особенностями публичной/не требующей разрешений технологии блокчейн."
 
 #: src/components/Pages/Privacy.tsx
 msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
-msgstr ""
+msgstr "Настоящая Политика конфиденциальности (далее \"Политика конфиденциальности\") содержит полное описание того, как Lenster (\"мы\", \"наш\" или \"нас\") собирает, использует и распространяет информацию о вас в отношении сайта \"lenster.xyz\", а также ваши права и возможности выбора в отношении такой информации."
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing or using the Site, you accept and assume certain inherent features related to engaging in recording the data on the blockchain. Interactions with the Lens Protocol rely on smart contracts stored on a publicly available blockchain, cryptographic tokens generated by the smart contracts, and other nascent software, applications and systems that interact with blockchain-based networks. One of the defining features of blockchain technology is that its entries are immutable, which means, as a technical matter, they generally cannot be deleted or modified by anyone. If you are not comfortable assuming the inherently immutable and public nature of all entries on the blockchain, you should not engage with our Site."
-msgstr ""
+msgstr "Заходя на Сайт или используя его, Вы принимаете и берете на себя определенные неотъемлемые особенности, связанные с участием в записи данных на блокчейн. Взаимодействие с Lens Protocol опирается на смарт-контракты, хранящиеся на общедоступном блокчейне, криптографические токены, генерируемые смарт-контрактами, и другое зарождающееся программное обеспечение, приложения и системы, взаимодействующие с сетями на основе блокчейна. Одной из определяющих особенностей технологии блокчейн является то, что записи в ней неизменяемы, что означает, что с технической точки зрения они, как правило, не могут быть удалены или изменены кем-либо. Если Вы не можете спокойно относиться к неизменному и публичному характеру всех записей в блокчейне, Вам не следует работать с нашим Сайтом."
 
 #: src/components/Pages/Privacy.tsx
 msgid "2. Information Collection"
@@ -867,15 +890,15 @@ msgstr "Мы можем собирать следующую информацию
 
 #: src/components/Pages/Privacy.tsx
 msgid "Information you provide such as feedback, question and issues reports."
-msgstr ""
+msgstr "Информация, которую вы предоставляете, такая как отзывы, вопросы и отчеты о проблемах."
 
 #: src/components/Pages/Privacy.tsx
 msgid "You may choose to voluntarily provide other information to us that we have not solicited from you, and, in such instances, you are solely responsible for such information."
-msgstr ""
+msgstr "Вы можете добровольно предоставить нам другую информацию, которую мы не запрашивали у Вас, и в таких случаях Вы несете полную ответственность за такую информацию."
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may use tracking technologies to automatically collect information including the following:"
-msgstr ""
+msgstr "Мы можем использовать технологии отслеживания для автоматического сбора информации, включая следующее:"
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Log Files</0>, to record events or errors that occur when using our Site."
@@ -883,7 +906,7 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Cookies</0>, small data stored on your device that are necessary for you to browse the Site."
-msgstr ""
+msgstr "<0>Файлы cookie</0>, небольшие данные, хранящиеся на вашем устройстве, которые необходимы вам для просмотра Сайта."
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Public Information</0>, data from activity that is publicly visible and/or accessible on blockchains. This may include blockchain addresses and information regarding the NFTs in wallets."
@@ -899,47 +922,47 @@ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "4. Third-Parties"
-msgstr ""
+msgstr "4. Третьи стороны"
 
 #: src/components/Pages/Privacy.tsx
 msgid "This Privacy Policy does not apply to websites, apps, products, or services that we do not own or control. For example, your interactions with Ethereum wallet are governed by the applicable privacy policies of that particular wallet."
-msgstr ""
+msgstr "Настоящая Политика конфиденциальности не распространяется на веб-сайты, приложения, продукты или услуги, которыми мы не владеем и не контролируем. Например, ваше взаимодействие с кошельком Ethereum регулируется применимой политикой конфиденциальности этого конкретного кошелька."
 
 #: src/components/Pages/Privacy.tsx
 msgid "5. Analytics"
-msgstr ""
+msgstr "5. Аналитика"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We use <0>Datadog</0> to collect various events from user actions to analyse and make decisions for Site improvements."
-msgstr ""
+msgstr "Мы используем <0>Datadog</0> для сбора различных событий от действий пользователей для анализа и принятия решений по улучшению Сайта."
 
 #: src/components/Pages/Privacy.tsx
 msgid "All the data are anonymous and we don’t track user details such as name, handle, email, wallet address and so on."
-msgstr ""
+msgstr "Все данные анонимны, и мы не отслеживаем такие данные пользователя, как имя, псевдоним, адрес электронной почты, адрес кошелька и так далее."
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may change to other third-party analytics service provider. The Privacy Policy of Analytics subjects to the every provider. You should review everything before using the Site."
-msgstr ""
+msgstr "Мы можем переключиться на другого стороннего поставщика аналитических услуг. Политика конфиденциальности аналитики распространяется на каждого поставщика. Вам следует ознакомиться со всеми положениями перед использованием Сайта."
 
 #: src/components/Pages/Privacy.tsx
 msgid "6. Your Rights and Choices"
-msgstr ""
+msgstr "6. Ваши права и возможности"
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Cookies</0>. We will only use strictly necessary cookies. These cookies are essential for you to browse the Site and use its features, including accessing secure areas of the Site."
-msgstr ""
+msgstr "<0>Файлы cookie</0>. Мы будем использовать только строго необходимые файлы cookie. Эти файлы cookie необходимы для просмотра вами данного сайта и использования его функций, включая доступ к защищенным разделам сайта."
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Do Not Track</0>. Your browser settings may allow you to automatically transmit a “Do Not Track” signal to the online services you visit. Note, however, there is no industry consensus as to what Site and app operators should do with regard to these signals. Accordingly, unless and until the law is interpreted to require us to do so, we do not monitor or take action with respect to “Do Not Track” signals. For more information on “Do Not Track,” visit <1>https://allaboutdnt.com</1>."
-msgstr ""
+msgstr "<0>Не отслеживать</0>. Настройки вашего браузера могут позволить вам автоматически передавать сигнал «Не отслеживать» посещаемым вами онлайн-сервисам. Обратите внимание, однако, что в отрасли нет единого мнения относительно того, что должны делать операторы сайтов и приложений в отношении этих сигналов. Соответственно, до тех пор, пока закон не будет истолкован как требующий от нас иного, мы не отслеживаем и не предпринимаем никаких действий в отношении сигналов «Не отслеживать». Для получения дополнительной информации о «Не отслеживать» посетите <1>https://allaboutdnt.com</1>."
 
 #: src/components/Pages/Privacy.tsx
 msgid "7. Data Security"
-msgstr ""
+msgstr "7. Защита данных"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We implement and maintain reasonable administrative, physical, and technical security safeguards to help protect information about you from loss, theft, misuse, unauthorised access, disclosure, alteration, and destruction. Nevertheless, transmission via the internet is not completely secure and we cannot guarantee the security of information about you."
-msgstr ""
+msgstr "Мы внедряем и поддерживаем разумные административные, физические и технические меры безопасности, чтобы помочь защитить информацию о вас от потери, кражи, неправомерного использования, несанкционированного доступа, раскрытия, изменения и уничтожения. Тем не менее, передача через Интернет не является полностью безопасной, и мы не можем гарантировать безопасность информации о вас."
 
 #: src/components/Pages/Privacy.tsx
 msgid "8. Children"
@@ -947,27 +970,27 @@ msgstr "8. Дети"
 
 #: src/components/Pages/Privacy.tsx
 msgid "The Site is intended for general audiences and are not directed at children. To use the Site, you must legally be able to enter into the Agreement. We do not knowingly collect personal information from children."
-msgstr ""
+msgstr "Сайт предназначен для широкой аудитории и не предназначен для детей. Для использования Сайта вы должны быть в состоянии заключить Соглашение на законных основаниях. Мы сознательно не собираем личную информацию от детей."
 
 #: src/components/Pages/Privacy.tsx
 msgid "9. Changes to Policy"
-msgstr ""
+msgstr "9. Изменения в политике"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We reserve the right to revise and reissue this Privacy Policy at any time. Any changes will be effective immediately upon our posting of the revised Privacy Policy. For the avoidance of doubt, your continued use of the Site indicates your consent to the revised Privacy Policy then posted."
-msgstr ""
+msgstr "Мы оставляем за собой право пересматривать и переиздавать настоящую Политику конфиденциальности в любое время. Любые изменения вступают в силу немедленно после публикации нами пересмотренной Политики конфиденциальности. Во избежание сомнений, ваше дальнейшее использование Сайта означает ваше согласие с пересмотренной Политикой конфиденциальности, опубликованной на тот момент."
 
 #: src/components/Pages/Privacy.tsx
 msgid "10. Contact"
-msgstr ""
+msgstr "10. Контакт"
 
 #: src/components/Pages/Privacy.tsx
 msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr ""
+msgstr "Если у вас есть какие-либо вопросы или комментарии по поводу настоящей Политики конфиденциальности, наших методов работы с данными или соблюдения нами применимого законодательства, свяжитесь с нами по адресу privacy@lenster.xyz"
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
-msgstr ""
+msgstr "Условия использования • {APP_NAME}"
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions"
@@ -1471,42 +1494,11 @@ msgid "Publication reported successfully"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Spam"
+msgid "Poor content"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "NSFW"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Repetitive"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Others"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Report?"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user so that we can take action."
+msgid "Stop Sponsor"
 msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
@@ -2181,6 +2173,11 @@ msgid "Perform mod actions on this publication."
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
 msgstr ""
@@ -2332,6 +2329,10 @@ msgid "Sensitive"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Spam"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
 msgstr ""
 
@@ -2360,7 +2361,15 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -2369,6 +2378,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Low signal"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -2381,6 +2394,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
