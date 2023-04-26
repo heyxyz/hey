@@ -2,6 +2,7 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import type { IGif } from '@giphy/js-types';
+import { useFeature } from '@growthbook/growthbook-react';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
   CollectCondition,
@@ -25,6 +26,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
+import { FeatureFlag } from 'data';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -43,19 +45,28 @@ import type {
 } from 'lens';
 import {
   CollectModules,
+  PublicationDocument,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
+  useBroadcastDataAvailabilityMutation,
   useBroadcastMutation,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
+  useCreateDataAvailabilityCommentTypedDataMutation,
+  useCreateDataAvailabilityCommentViaDispatcherMutation,
+  useCreateDataAvailabilityPostTypedDataMutation,
+  useCreateDataAvailabilityPostViaDispatcherMutation,
   useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation
+  useCreatePostViaDispatcherMutation,
+  usePublicationLazyQuery
 } from 'lens';
+import { useApolloClient } from 'lens/apollo';
 import { $getRoot } from 'lexical';
 import getSignature from 'lib/getSignature';
 import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -95,6 +106,9 @@ interface NewPublicationProps {
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
+  const { push } = useRouter();
+  const { cache } = useApolloClient();
+
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -139,6 +153,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
+
+  const { on: isBonsaiEnabled } = useFeature(FeatureFlag.Bonsai as string);
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
@@ -225,6 +241,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
+  const [broadcastDataAvailability] = useBroadcastDataAvailabilityMutation({
+    onCompleted: (data) => {
+      onCompleted();
+      if (data?.broadcastDataAvailability.__typename === 'RelayError') {
+        return toast.error(Errors.SomethingWentWrong);
+      }
+
+      if (data?.broadcastDataAvailability.__typename === 'CreateDataAvailabilityPublicationResult') {
+        push(`/posts/${data?.broadcastDataAvailability.id}`);
+      }
+    },
+    onError
+  });
+
   const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => {
       onCompleted(broadcast.__typename);
@@ -234,7 +264,21 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   });
 
-  const typedDataGenerator = async (generatedData: any) => {
+  const [getPublication] = usePublicationLazyQuery({
+    onCompleted: (data) => {
+      if (data?.publication) {
+        cache.modify({
+          fields: {
+            publications() {
+              cache.writeQuery({ data: { publication: data?.publication }, query: PublicationDocument });
+            }
+          }
+        });
+      }
+    }
+  });
+
+  const typedDataGenerator = async (generatedData: any, isDataAvailabilityPublication: boolean = false) => {
     const { id, typedData } = generatedData;
     const {
       profileId,
@@ -263,6 +307,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }),
       sig
     };
+
+    if (isDataAvailabilityPublication) {
+      return await broadcastDataAvailability({ variables: { request: { id, signature } } });
+    }
+
     setUserSigNonce(userSigNonce + 1);
     const { data } = await broadcast({ variables: { request: { id, signature } } });
     if (data?.broadcast.__typename === 'RelayError') {
@@ -270,6 +319,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   };
 
+  // Normal typed data generation
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
     onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData),
     onError
@@ -278,6 +328,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [createPostTypedData] = useCreatePostTypedDataMutation({
     onCompleted: async ({ createPostTypedData }) => await typedDataGenerator(createPostTypedData),
     onError
+  });
+
+  // Data availability typed data generation
+  const [createDataAvailabilityPostTypedData] = useCreateDataAvailabilityPostTypedDataMutation({
+    onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
+      await typedDataGenerator(createDataAvailabilityPostTypedData, true)
+  });
+
+  const [createDataAvailabilityCommentTypedData] = useCreateDataAvailabilityCommentTypedDataMutation({
+    onCompleted: async ({ createDataAvailabilityCommentTypedData }) =>
+      await typedDataGenerator(createDataAvailabilityCommentTypedData, true)
   });
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
@@ -299,6 +360,59 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     },
     onError
   });
+
+  const [createDataAvailabilityPostViaDispatcher] = useCreateDataAvailabilityPostViaDispatcherMutation({
+    onCompleted: (data) => {
+      if (data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError') {
+        return;
+      }
+
+      if (
+        data.createDataAvailabilityPostViaDispatcher.__typename === 'CreateDataAvailabilityPublicationResult'
+      ) {
+        onCompleted();
+        const { id } = data.createDataAvailabilityPostViaDispatcher;
+        push(`/posts/${id}`);
+      }
+    },
+    onError
+  });
+
+  const [createDataAvailabilityCommentViaDispatcher] = useCreateDataAvailabilityCommentViaDispatcherMutation({
+    onCompleted: (data) => {
+      if (data?.createDataAvailabilityCommentViaDispatcher?.__typename === 'RelayError') {
+        return;
+      }
+
+      if (
+        data.createDataAvailabilityCommentViaDispatcher.__typename ===
+        'CreateDataAvailabilityPublicationResult'
+      ) {
+        onCompleted();
+        const { id } = data.createDataAvailabilityCommentViaDispatcher;
+        getPublication({ variables: { request: { publicationId: id } } });
+      }
+    },
+    onError
+  });
+
+  const createViaDataAvailablityDispatcher = async (request: any) => {
+    const variables = { request };
+
+    if (isComment) {
+      const { data } = await createDataAvailabilityCommentViaDispatcher({ variables });
+      if (data?.createDataAvailabilityCommentViaDispatcher?.__typename === 'RelayError') {
+        await createDataAvailabilityCommentTypedData({ variables });
+      }
+      return;
+    }
+
+    const { data } = await createDataAvailabilityPostViaDispatcher({ variables });
+    if (data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError') {
+      await createDataAvailabilityPostTypedData({ variables });
+    }
+    return;
+  };
 
   const createViaDispatcher = async (request: any) => {
     const variables = {
@@ -502,6 +616,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         appId: APP_NAME
       };
 
+      const isRevertCollectModule = selectedCollectModule === CollectModules.RevertCollectModule;
+      const useDataAvailability =
+        !restricted &&
+        (isComment ? publication.isDataAvailability && isRevertCollectModule : isRevertCollectModule);
+
       let arweaveId = null;
       if (restricted) {
         arweaveId = await createTokenGatedMetadata(metadata);
@@ -509,6 +628,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         arweaveId = await createMetadata(metadata);
       }
 
+      // Payload for the post/comment
       const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
         profileId: currentProfile?.id,
         contentURI: `ar://${arweaveId}`,
@@ -528,8 +648,21 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               }
       };
 
+      // Payload for the data availability post/comment
+      const dataAvailablityRequest = {
+        from: currentProfile?.id,
+        ...(isComment && {
+          commentOn: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+        }),
+        contentURI: `ar://${arweaveId}`
+      };
+
       if (currentProfile?.dispatcher?.canUseRelay) {
-        return await createViaDispatcher(request);
+        if (isBonsaiEnabled && useDataAvailability) {
+          return await createViaDataAvailablityDispatcher(dataAvailablityRequest);
+        } else {
+          return await createViaDispatcher(request);
+        }
       }
 
       if (isComment) {
@@ -576,9 +709,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          <CollectSettings />
-          <ReferenceSettings />
-          <AccessSettings />
+          {!publication?.isDataAvailability && (
+            <>
+              <CollectSettings />
+              <ReferenceSettings />
+              <AccessSettings />
+            </>
+          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
