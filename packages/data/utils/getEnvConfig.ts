@@ -10,6 +10,7 @@ const getEnvConfig = (): {
   UpdateOwnableFeeCollectModuleAddress: `0x${string}`;
   litProtocolEnvironment: string;
   isRelayerAvailable: boolean;
+  isRaribleAvailable: boolean;
 } => {
   switch (LENS_NETWORK) {
     case 'mainnet':
@@ -20,7 +21,8 @@ const getEnvConfig = (): {
         defaultCollectToken: MainnetContracts.DefaultToken,
         UpdateOwnableFeeCollectModuleAddress: MainnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'polygon',
-        isRelayerAvailable: false
+        isRelayerAvailable: false,
+        isRaribleAvailable: false
       };
     case 'testnet':
       return {
@@ -30,7 +32,8 @@ const getEnvConfig = (): {
         defaultCollectToken: TestnetContracts.DefaultToken,
         UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai',
-        isRelayerAvailable: false
+        isRelayerAvailable: false,
+        isRaribleAvailable: false
       };
     case 'staging':
       return {
@@ -40,7 +43,8 @@ const getEnvConfig = (): {
         defaultCollectToken: TestnetContracts.DefaultToken,
         UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai',
-        isRelayerAvailable: false
+        isRelayerAvailable: false,
+        isRaribleAvailable: false
       };
     case 'sandbox':
       return {
@@ -50,7 +54,8 @@ const getEnvConfig = (): {
         defaultCollectToken: TestnetContracts.DefaultToken,
         UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai-sandbox',
-        isRelayerAvailable: false
+        isRelayerAvailable: false,
+        isRaribleAvailable: false
       };
     case 'staging-sandbox':
       return {
@@ -60,7 +65,8 @@ const getEnvConfig = (): {
         defaultCollectToken: TestnetContracts.DefaultToken,
         UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai-sandbox',
-        isRelayerAvailable: false
+        isRelayerAvailable: false,
+        isRaribleAvailable: false
       };
     default:
       return {
@@ -70,7 +76,8 @@ const getEnvConfig = (): {
         defaultCollectToken: MainnetContracts.DefaultToken,
         UpdateOwnableFeeCollectModuleAddress: MainnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'polygon',
-        isRelayerAvailable: false
+        isRelayerAvailable: false,
+        isRaribleAvailable: false
       };
   }
 };
