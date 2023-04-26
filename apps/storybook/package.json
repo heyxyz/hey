@@ -14,7 +14,7 @@
   "dependencies": {
     "@storybook/addon-essentials": "^7.0.7",
     "@storybook/addon-links": "^7.0.7",
-    "@storybook/addon-styling": "^1.0.2",
+    "@storybook/addon-styling": "^1.0.3",
     "@storybook/blocks": "^7.0.7",
     "@storybook/manager-api": "^7.0.7",
     "@storybook/nextjs": "^7.0.7",
@@ -26,7 +26,7 @@
     "ui": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^18.0.38",
+    "@types/react": "^18.2.0",
     "autoprefixer": "^10.4.14",
     "eslint-config-weblint": "workspace:*",
     "postcss": "^8.4.23",
