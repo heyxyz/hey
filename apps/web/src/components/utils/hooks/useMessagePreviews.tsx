@@ -4,7 +4,6 @@ import chunkArray from '@lib/chunkArray';
 import { buildConversationKey, parseConversationKey } from '@lib/conversationKey';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import type { Conversation, Stream } from '@xmtp/xmtp-js';
-import { SortDirection } from '@xmtp/xmtp-js';
 import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
 import type { Profile } from 'lens';
 import { useProfilesLazyQuery } from 'lens';
@@ -23,7 +22,6 @@ const useMessagePreviews = () => {
   const messageProfiles = useMessageStore((state) => state.messageProfiles);
   const setMessageProfiles = useMessageStore((state) => state.setMessageProfiles);
   const previewMessages = useMessageStore((state) => state.previewMessages);
-  const setPreviewMessages = useMessageStore((state) => state.setPreviewMessages);
   const selectedProfileId = useMessageStore((state) => state.selectedProfileId);
   const setSelectedProfileId = useMessageStore((state) => state.setSelectedProfileId);
   const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
@@ -114,24 +112,8 @@ const useMessagePreviews = () => {
       }
     };
 
-    const fetchMostRecentMessage = async (
-      convo: Conversation
-    ): Promise<{ key: string; message?: DecodedMessage }> => {
-      const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
-
-      const newMessages = await convo.messages({
-        limit: 1,
-        direction: SortDirection.SORT_DIRECTION_DESCENDING
-      });
-      if (newMessages.length <= 0) {
-        return { key };
-      }
-      return { key, message: newMessages[0] };
-    };
-
     const listConversations = async () => {
       setMessagesLoading(true);
-      const newPreviewMessages = new Map(previewMessages);
       const newConversations = new Map(conversations);
       const newProfileIds = new Set(profileIds);
       const convos = await client.conversations.list();
@@ -141,26 +123,20 @@ const useMessagePreviews = () => {
 
       for (const convo of matchingConvos) {
         const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
-        newConversations.set(key, convo);
-      }
-
-      const previews = await Promise.all(matchingConvos.map(fetchMostRecentMessage));
-
-      for (const preview of previews) {
-        const profileId = getProfileFromKey(preview.key);
+        const profileId = getProfileFromKey(key);
         if (profileId) {
           newProfileIds.add(profileId);
         }
-        if (preview.message) {
-          newPreviewMessages.set(preview.key, preview.message);
-        }
+        newConversations.set(key, convo);
       }
-      setPreviewMessages(newPreviewMessages);
+
       setConversations(newConversations);
-      setMessagesLoading(false);
+
       if (newProfileIds.size > profileIds.size) {
         setProfileIds(newProfileIds);
       }
+
+      setMessagesLoading(false);
     };
 
     const closeConversationStream = async () => {
@@ -223,13 +199,10 @@ const useMessagePreviews = () => {
   useEffect(() => {
     const partitionedProfiles = Array.from(messageProfiles).reduce(
       (result, [key, profile]) => {
-        const message = previewMessages.get(key);
-        if (message) {
-          if (profile.isFollowedByMe) {
-            result[0].set(key, profile);
-          } else {
-            result[1].set(key, profile);
-          }
+        if (profile.isFollowedByMe) {
+          result[0].set(key, profile);
+        } else {
+          result[1].set(key, profile);
         }
         return result;
       },
@@ -238,7 +211,7 @@ const useMessagePreviews = () => {
     setProfilesToShow(selectedTab === 'Following' ? partitionedProfiles[0] : partitionedProfiles[1]);
     setRequestedCount(partitionedProfiles[1].size);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [previewMessages, messageProfiles, selectedTab]);
+  }, [messageProfiles, selectedTab]);
 
   return {
     authenticating: creatingXmtpClient,

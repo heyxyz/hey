@@ -2,6 +2,7 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
+import useGetMessagePreviews from '@components/utils/hooks/useGetMessagePreviews';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
@@ -34,6 +35,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { authenticating, loading, messages, profilesToShow, requestedCount, profilesError } =
     useMessagePreviews();
+  const { loading: previewsLoading, progress: previewsProgress } = useGetMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
 
   const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
@@ -86,19 +88,28 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
           <div
             onClick={() => setSelectedTab('Following')}
             className={clsx(
-              'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Following' ? 'bg-brand-100' : ''
+              'text-brand tab-bg relative m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              selectedTab === 'Following' ? 'bg-brand-100' : '',
+              selectedTab === 'Following' && previewsLoading ? 'shimmer-brand' : ''
             )}
             aria-hidden="true"
           >
             <UsersIcon className="mr-2 h-4 w-4" />
             <Trans>Following</Trans>
+            {selectedTab === 'Following' && previewsLoading && (
+              <progress
+                className="absolute bottom-0 h-1 w-full appearance-none border-none bg-transparent"
+                value={previewsProgress}
+                max={100}
+              />
+            )}
           </div>
           <div
             onClick={() => setSelectedTab('Requested')}
             className={clsx(
-              'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Requested' ? 'bg-brand-100' : ''
+              'text-brand tab-bg relative m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              selectedTab === 'Requested' ? 'bg-brand-100' : '',
+              selectedTab === 'Requested' && previewsLoading ? 'shimmer-brand' : ''
             )}
             aria-hidden="true"
           >
@@ -107,6 +118,13 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
               <span className="bg-brand-200 ml-2 rounded-2xl px-3 py-0.5 text-sm font-bold">
                 {requestedCount > 99 ? '99+' : requestedCount}
               </span>
+            )}
+            {selectedTab === 'Requested' && previewsLoading && (
+              <progress
+                className="absolute bottom-0 h-1 w-full appearance-none border-none bg-transparent"
+                value={previewsProgress}
+                max={100}
+              />
             )}
           </div>
         </div>
@@ -147,10 +165,6 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
               data={sortedProfiles}
               itemContent={(_, [key, profile]) => {
                 const message = messages.get(key);
-                if (!message) {
-                  return null;
-                }
-
                 return (
                   <Preview
                     isSelected={key === selectedConversationKey}

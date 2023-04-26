@@ -13,7 +13,7 @@ import { Image } from 'ui';
 
 interface PreviewProps {
   profile: Profile;
-  message: DecodedMessage;
+  message?: DecodedMessage;
   conversationKey: string;
   isSelected: boolean;
 }
@@ -54,14 +54,14 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
               <div className="text-md truncate">{profile?.name ?? formatHandle(profile.handle)}</div>
               {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />}
             </div>
-            {message.sent && (
-              <span className="lt-text-gray-500 shrink-0 pt-0.5 text-xs" title={formatTime(message.sent)}>
+            {message?.sent && (
+              <span className="lt-text-gray-500 min-w-fit pt-0.5 text-xs" title={formatTime(message.sent)}>
                 {getTimeFromNow(message.sent)}
               </span>
             )}
           </div>
           <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
-            {address === message.senderAddress && 'You: '} {message.content}
+            {address === message?.senderAddress && 'You: '} {message?.content}
           </span>
         </div>
       </div>
