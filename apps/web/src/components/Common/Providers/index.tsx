@@ -15,8 +15,10 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
-import ErrorBoundary from './ErrorBoundary';
-import Layout from './Layout';
+import ErrorBoundary from '../ErrorBoundary';
+import Layout from '../Layout';
+import FeatureFlagsProvider from './FeatureFlagsProvider';
+import TelemetryProvider from './TelemetryProvider';
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai, mainnet],
@@ -55,17 +57,20 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <I18nProvider i18n={i18n}>
       <ErrorBoundary>
-        <WagmiConfig client={wagmiClient}>
-          <ApolloProvider client={apolloClient}>
-            <QueryClientProvider client={queryClient}>
-              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
-                <ThemeProvider defaultTheme="light" attribute="class">
-                  <Layout>{children}</Layout>
-                </ThemeProvider>
-              </LivepeerConfig>
-            </QueryClientProvider>
-          </ApolloProvider>
-        </WagmiConfig>
+        <FeatureFlagsProvider>
+          <TelemetryProvider />
+          <WagmiConfig client={wagmiClient}>
+            <ApolloProvider client={apolloClient}>
+              <QueryClientProvider client={queryClient}>
+                <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
+                  <ThemeProvider defaultTheme="light" attribute="class">
+                    <Layout>{children}</Layout>
+                  </ThemeProvider>
+                </LivepeerConfig>
+              </QueryClientProvider>
+            </ApolloProvider>
+          </WagmiConfig>
+        </FeatureFlagsProvider>
       </ErrorBoundary>
     </I18nProvider>
   );

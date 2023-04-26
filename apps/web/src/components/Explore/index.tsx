@@ -2,15 +2,14 @@ import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
+import { useFeatureIsOn } from '@growthbook/growthbook-react';
 import { Tab } from '@headlessui/react';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
-import { FeatureFlag } from 'data/feature-flags';
 import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
-import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -23,6 +22,7 @@ import FeedType from './FeedType';
 
 const Explore: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const enabled = useFeatureIsOn('trending-widget');
   const [focus, setFocus] = useState<PublicationMainFocus>();
   const router = useRouter();
 
@@ -83,7 +83,7 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {isFeatureEnabled(FeatureFlag.TrendingWidget, currentProfile?.id) && <Trending />}
+        {enabled && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>
