@@ -150,6 +150,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
                 if (!message) {
                   return null;
                 }
+
                 return (
                   <Preview
                     isSelected={key === selectedConversationKey}
