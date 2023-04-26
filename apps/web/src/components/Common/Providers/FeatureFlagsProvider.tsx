@@ -6,9 +6,7 @@ import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 
 const growthbook = new GrowthBook({
-  apiHost: 'https://cdn.growthbook.io',
   clientKey: 'sdk-fDLRMwvpyh4Kq3b',
-  decryptionKey: 'jVi/0sNZ9Fzt0WI8AsSaIg==',
   enableDevMode: false
 });
 
@@ -20,11 +18,8 @@ const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    growthbook.loadFeatures();
-  }, []);
-
-  useEffect(() => {
     if (currentProfile?.id) {
+      growthbook.loadFeatures();
       growthbook.setAttributes({
         id: `${IS_MAINNET ? 'mainnet' : 'testnet'}-${currentProfile.id}`,
         loggedIn: true,
