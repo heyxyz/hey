@@ -11,8 +11,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unicorn": "^46.0.0",
-    "eslint-plugin-unused-imports": "^2.0.0",
-    "prettier": "^2.8.8"
+    "eslint-plugin-unused-imports": "^2.0.0"
   },
   "publishConfig": {
     "access": "public"

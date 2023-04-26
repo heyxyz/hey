@@ -1,9 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
-import { FeatureFlag } from 'data';
 import { APP_NAME } from 'data/constants';
-import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
@@ -22,10 +20,6 @@ const ExportSettings: NextPage = () => {
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'export' });
   }, []);
-
-  if (!isFeatureEnabled(FeatureFlag.ExportData, currentProfile?.id)) {
-    return <Custom404 />;
-  }
 
   if (!currentProfile) {
     return <Custom404 />;
