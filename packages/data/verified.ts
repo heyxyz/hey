@@ -1,6 +1,5 @@
-import { mainnetStaffs } from 'staffs';
-
 import { aaveMembers } from './aave-members';
+import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
   '0x01615e', // livepeer
