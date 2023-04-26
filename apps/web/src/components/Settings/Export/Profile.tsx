@@ -1,10 +1,12 @@
 import downloadJson from '@lib/downloadJson';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import type { Profile as TProfile, SingleProfileQueryRequest } from 'lens';
 import { useProfileLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { Button, Card } from 'ui';
 
 const Profile: FC = () => {
@@ -23,6 +25,7 @@ const Profile: FC = () => {
   });
 
   const handleExportClick = () => {
+    Mixpanel.track(SETTINGS.EXPORT.PROFILE);
     setExporting(true);
     exportProfile({
       onCompleted: ({ profile }) => {

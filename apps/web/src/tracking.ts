@@ -95,6 +95,11 @@ export const SETTINGS = {
     ADD: 'Add profile interest',
     REMOVE: 'Remove profile interest'
   },
+  EXPORT: {
+    PROFILE: 'Export profile',
+    PUBLICATIONS: 'Export publications',
+    NOTIFICATIONS: 'Export notifications'
+  },
   DELETE: 'Delete profile'
 };
 
