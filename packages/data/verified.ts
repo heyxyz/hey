@@ -2,6 +2,7 @@ import { aaveMembers } from './aave-members';
 import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
+  '0x01c7d4', // messari
   '0x01615e', // livepeer
   '0xbbb9', // orbapp
   '0x01c688', // instadapp
