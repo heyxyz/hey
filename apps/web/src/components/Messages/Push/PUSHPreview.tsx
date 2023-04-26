@@ -1,4 +1,5 @@
 import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
+import useCreateGroup from '@components/utils/hooks/push/usePushCreateGroupChat';
 import { Trans } from '@lingui/macro';
 import { type FC } from 'react';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
@@ -12,9 +13,16 @@ const activeIndex = 1;
 const PUSHPreview: FC<PreviewListProps> = () => {
   const activeTab = usePushChatStore((state) => state.activeTab);
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
+  const setShowCreateGroupModal = usePushChatStore((state) => state.setShowCreateGroupModal);
+  const showCreateGroupModal = usePushChatStore((state) => state.showCreateGroupModal);
   const showCreateChatProfileModal = usePushChatStore((state) => state.showCreateChatProfileModal);
   const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
   const { modalContent, isModalClosable } = useCreateChatProfile();
+  const {
+    createGroup,
+    modalContent: createGroupModalContent,
+    isModalClosable: isCreateModalClosable
+  } = useCreateGroup();
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -83,6 +91,14 @@ const PUSHPreview: FC<PreviewListProps> = () => {
         {/* sections for requests */}
       </Card>
       {/* <button onClick={createChatProfile}>Create Profile</button> */}
+      <button onClick={createGroup}>Create Group</button>
+      <Modal
+        size="xs"
+        show={showCreateGroupModal}
+        onClose={isCreateModalClosable ? () => setShowCreateGroupModal(false) : () => {}}
+      >
+        {createGroupModalContent}
+      </Modal>
       <Modal
         size="xs"
         show={showCreateChatProfileModal}

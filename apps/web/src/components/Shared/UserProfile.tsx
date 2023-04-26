@@ -13,7 +13,6 @@ import { Image } from 'ui';
 
 import Follow from './Follow';
 import Markup from './Markup';
-import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
 
@@ -88,7 +87,7 @@ const UserProfile: FC<UserProfileProps> = ({
         ) : null}
       </div>
       <div>
-        <Slug className="text-sm" slug={formatHandle(profile?.handle)} prefix="@" />
+        {/* <Slug className="text-sm" slug={formatHandle(profile?.handle)} prefix="@" /> */}
         {timestamp ? (
           <span className="lt-text-gray-500">
             <span className="mx-1.5">·</span>
