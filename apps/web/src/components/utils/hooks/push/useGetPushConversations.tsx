@@ -1,5 +1,5 @@
 import * as PushAPI from '@pushprotocol/restapi';
-import { ENV } from '@pushprotocol/restapi/src/lib/constants';
+import { PUSH_ENV } from 'src/store/push-chat';
 import type { IFeeds } from '@pushprotocol/restapi/src/lib/types';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -15,7 +15,7 @@ const useGetPushConversations = (decryptedKeys: string | null) => {
           account: `eip155:${ownedBy}`,
           toDecrypt: true,
           pgpPrivateKey: decryptedKeys as string,
-          env: ENV.STAGING
+          env: PUSH_ENV
         });
         if (!chats) {
           return;

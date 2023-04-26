@@ -1,6 +1,6 @@
 import * as PushAPI from '@pushprotocol/restapi';
-import { ENV } from '@pushprotocol/restapi/src/lib/constants';
-import { IS_MAINNET, LENSHUB_PROXY } from 'data';
+import { PUSH_ENV } from 'src/store/push-chat';
+import { LENSHUB_PROXY } from 'data';
 import { useEffect } from 'react';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
@@ -16,7 +16,6 @@ const useGetChatProfile = () => {
     }
     const fetchChatProfile = async () => {
       try {
-        const PUSH_ENV = IS_MAINNET ? ENV.PROD : ENV.STAGING;
         const did = `eip155:${CHAIN_ID}:${LENSHUB_PROXY}:nft:${currentProfile.id}`;
         const profile = await PushAPI.user.getNFTProfile({
           env: PUSH_ENV,
