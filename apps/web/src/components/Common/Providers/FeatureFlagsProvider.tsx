@@ -1,6 +1,5 @@
 import { GrowthBook, GrowthBookProvider } from '@growthbook/growthbook-react';
 import { IS_MAINNET, mainnetStaffs, testnetStaffs } from 'data';
-import isGardener from 'lib/isGardener';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -27,7 +26,6 @@ const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
       growthbook.setAttributes({
         id: `${IS_MAINNET ? 'mainnet' : 'testnet'}-${currentProfile.id}`,
         loggedIn: true,
-        isGardener: IS_MAINNET ? isGardener(currentProfile.id) : false,
         isStaff: IS_MAINNET
           ? mainnetStaffs.includes(currentProfile.id)
           : testnetStaffs.includes(currentProfile.id)
