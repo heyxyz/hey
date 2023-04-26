@@ -79,7 +79,7 @@ const Attachment: FC = () => {
             <Spinner size="sm" />
           ) : (
             <Tooltip placement="top" content="Media">
-              <PhotographIcon className="text-brand h-5 w-5" />
+              <PhotographIcon className="text-brand-600 dark:text-brand-400/80 h-5 w-5" />
             </Tooltip>
           )}
         </button>
@@ -101,7 +101,7 @@ const Attachment: FC = () => {
             }
             htmlFor={`image_${id}`}
           >
-            <PhotographIcon className="text-brand h-4 w-4" />
+            <PhotographIcon className="text-brand-600 dark:text-brand-400/80 h-4 w-4" />
             <span className="text-sm">Upload image(s)</span>
             <input
               id={`image_${id}`}
@@ -124,7 +124,7 @@ const Attachment: FC = () => {
             }
             htmlFor={`video_${id}`}
           >
-            <VideoCameraIcon className="text-brand h-4 w-4" />
+            <VideoCameraIcon className="text-brand-600 dark:text-brand-400/80 h-4 w-4" />
             <span className="text-sm">Upload video</span>
             <input
               id={`video_${id}`}
@@ -146,7 +146,7 @@ const Attachment: FC = () => {
             }
             htmlFor={`audio_${id}`}
           >
-            <MusicNoteIcon className="text-brand h-4 w-4" />
+            <MusicNoteIcon className="text-brand-600 dark:text-brand-400/80 h-4 w-4" />
             <span className="text-sm">Upload audio</span>
             <input
               id={`audio_${id}`}

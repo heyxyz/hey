@@ -1,4 +1,3 @@
-import Beta from '@components/Shared/Badges/Beta';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { PlusIcon, SwitchHorizontalIcon, UsersIcon, XCircleIcon } from '@heroicons/react/outline';
 import isValidEthAddress from '@lib/isValidEthAddress';
@@ -83,7 +82,6 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
             <span>
               <Trans>Split revenue</Trans>
             </span>
-            <Beta />
           </div>
         }
         description={t`Set multiple recipients for the collect fee`}

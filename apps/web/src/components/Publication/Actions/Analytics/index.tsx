@@ -1,4 +1,3 @@
-import Beta from '@components/Shared/Badges/Beta';
 import Loader from '@components/Shared/Loader';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { ChartBarIcon } from '@heroicons/react/outline';
@@ -62,7 +61,6 @@ const Analytics: FC<AnalyticsProps> = ({ publication }) => {
         title={
           <div className="flex items-center space-x-2">
             <span>{t`Publication Analytics`}</span>
-            <Beta />
           </div>
         }
         icon={<ChartBarIcon className="text-brand h-5 w-5" />}

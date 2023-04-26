@@ -3,7 +3,8 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 const LineaCyan = {
   ...colors.cyan,
-  500: '#61dfff'
+  500: '#61dfff',
+  600: '#36b4ca'
 };
 
 module.exports = {

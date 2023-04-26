@@ -1,4 +1,3 @@
-import Beta from '@components/Shared/Badges/Beta';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
@@ -14,7 +13,6 @@ const LikesPreferences: FC = () => {
         <div className="text-lg font-bold">
           <Trans>Hide number of likes</Trans>
         </div>
-        <Beta />
       </div>
       <div className="space-y-2">
         <div className="flex items-center space-x-2">

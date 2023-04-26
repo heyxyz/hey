@@ -27,7 +27,7 @@ export const Modal: FC<ModalProps> = ({
     <Transition.Root show={show} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
+        className="border-red fixed inset-2 z-10 overflow-y-auto border-2"
         onClose={() => onClose?.()}
         data-testid={dataTestId}
       >
@@ -59,14 +59,14 @@ export const Modal: FC<ModalProps> = ({
                 { 'sm:max-w-3xl': size === 'md' },
                 { 'sm:max-w-lg': size === 'sm' },
                 { 'sm:max-w-sm': size === 'xs' },
-                'inline-block w-full transform rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
+                'inline-block w-full transform rounded-[2px] bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
               )}
             >
               {title && (
-                <div className="divider flex items-center justify-between px-5 py-3.5">
+                <div className="divider flex items-center justify-between px-5 py-3.5 dark:bg-black">
                   <div className="flex items-center space-x-2 font-bold">
                     {icon}
-                    <div>{title}</div>
+                    <div className="text-dark font-medium uppercase dark:text-white">{title}</div>
                   </div>
                   {onClose ? (
                     <button

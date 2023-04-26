@@ -67,7 +67,7 @@ const NewPost: FC = () => {
   }, []);
 
   return (
-    <Card className="space-y-3 p-5">
+    <Card className="space-y-3 border-0 p-5 dark:bg-transparent">
       <div className="flex items-center space-x-3">
         <Image
           onError={({ currentTarget }) => {
@@ -79,7 +79,7 @@ const NewPost: FC = () => {
           alt={formatHandle(currentProfile?.handle)}
         />
         <button
-          className="flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+          className="hover:bg-brand-500 flex  w-full items-center space-x-2 rounded-xl bg-gray-100 px-4 py-2 dark:bg-black dark:hover:bg-gray-700"
           type="button"
           onClick={() => openModal('update')}
         >

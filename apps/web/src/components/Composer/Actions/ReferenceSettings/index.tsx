@@ -43,7 +43,7 @@ const ReferenceSettings: FC = () => {
     <Menu.Item as="a" className={clsx({ 'dropdown-active': selected }, 'menu-item')} onClick={onClick}>
       <div className="flex items-center justify-between space-x-2">
         <div className="flex items-center space-x-1.5">
-          <div className="text-brand">{icon}</div>
+          <div className="text-brand-600 dark:text-brand-400/80">{icon}</div>
           <div>{title}</div>
         </div>
         {selected && <CheckCircleIcon className="w-5 text-green-500" />}
@@ -67,7 +67,7 @@ const ReferenceSettings: FC = () => {
     <Menu as="div">
       <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
         <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
-          <div className="text-brand">
+          <div className="text-brand-600 dark:text-brand-400/80">
             {isEveryone && <GlobeAltIcon className="w-5" />}
             {isMyFollowers && <UsersIcon className="w-5" />}
             {isMyFollows && <UserAddIcon className="w-5" />}
