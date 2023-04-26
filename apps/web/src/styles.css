@@ -19,18 +19,11 @@ body {
   @apply dark:bg-gray-600;
 }
 
-.shimmer-brand {
-  @apply bg-brand-100;
-  @apply animate-pulse;
-}
-
 progress::-webkit-progress-bar {
-  @apply rounded-bl;
   background-color: transparent;
 }
 
 progress::-webkit-progress-value {
-  @apply rounded-bl;
   @apply bg-brand-500;
   transition: width 0.5s ease;
 }

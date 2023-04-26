@@ -76,40 +76,38 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
       )}
     >
       <Card className="flex h-full flex-col justify-between">
-        <div className="divider flex items-center justify-between p-5">
+        <div className="divider relative flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
           {currentProfile && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
               <PlusCircleIcon className="h-6 w-6" />
             </button>
           )}
+          {previewsLoading && (
+            <progress
+              className="absolute -bottom-1 left-0 h-1 w-full appearance-none border-none bg-transparent"
+              value={previewsProgress}
+              max={100}
+            />
+          )}
         </div>
         <div className="flex">
           <div
             onClick={() => setSelectedTab('Following')}
             className={clsx(
-              'text-brand tab-bg relative m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Following' ? 'bg-brand-100' : '',
-              selectedTab === 'Following' && previewsLoading ? 'shimmer-brand' : ''
+              'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              selectedTab === 'Following' ? 'bg-brand-100' : ''
             )}
             aria-hidden="true"
           >
             <UsersIcon className="mr-2 h-4 w-4" />
             <Trans>Following</Trans>
-            {selectedTab === 'Following' && previewsLoading && (
-              <progress
-                className="absolute bottom-0 h-1 w-full appearance-none border-none bg-transparent"
-                value={previewsProgress}
-                max={100}
-              />
-            )}
           </div>
           <div
             onClick={() => setSelectedTab('Requested')}
             className={clsx(
-              'text-brand tab-bg relative m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Requested' ? 'bg-brand-100' : '',
-              selectedTab === 'Requested' && previewsLoading ? 'shimmer-brand' : ''
+              'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
             aria-hidden="true"
           >
@@ -118,13 +116,6 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
               <span className="bg-brand-200 ml-2 rounded-2xl px-3 py-0.5 text-sm font-bold">
                 {requestedCount > 99 ? '99+' : requestedCount}
               </span>
-            )}
-            {selectedTab === 'Requested' && previewsLoading && (
-              <progress
-                className="absolute bottom-0 h-1 w-full appearance-none border-none bg-transparent"
-                value={previewsProgress}
-                max={100}
-              />
             )}
           </div>
         </div>
