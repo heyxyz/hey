@@ -1383,23 +1383,6 @@ msgstr "ಗ್ಯಾಲರಿಗೆ ಕೇವಲ 50 ವಸ್ತುಗಳನ್�
 msgid "No collectables selected!"
 msgstr "ಯಾವುದೇ ಸಂಗ್ರಹಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಲಾಗಿಲ್ಲ!"
 
-#: src/components/Publication/Actions/Analytics/Stats.tsx
-#: src/components/Publication/Actions/Analytics/index.tsx
-msgid "Loading analytics"
-msgstr "ವಿಶ್ಲೇಷಣೆಗಳನ್ನು ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
-
-#: src/components/Publication/Actions/Analytics/Stats.tsx
-msgid "Views"
-msgstr "ವೀಕ್ಷಿಸಿ"
-
-#: src/components/Publication/Actions/Analytics/Stats.tsx
-msgid "Times people viewed the details about this publication"
-msgstr ""
-
-#: src/components/Publication/Actions/Analytics/index.tsx
-msgid "Publication Analytics"
-msgstr "ಪ್ರಕಟಣೆ ಶೋಧಕಗಳು"
-
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
 msgstr "ಯಶಸ್ವಿಯಾಗಿ ಸಂಗ್ರಹಿಸಲಾಗಿದೆ!"
@@ -1523,6 +1506,10 @@ msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "ARWEAVE TRANSACTION"
+msgstr ""
+
+#: src/components/Publication/OnchainMeta.tsx
+msgid "DATA AVAILABILITY PROOF"
 msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
@@ -1750,6 +1737,7 @@ msgstr "ಇಂಡೆಕ್ಸ್ ಮಾಡದ ನಿಮ್ಮ ಪೋಸ್ಟ್
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr "ಸ್ವಚ್ಛಗೊಳಿಸುವಿಕೆ"
@@ -1773,6 +1761,14 @@ msgstr "ನಿಮ್ಮ DM ಎನ್‌ಕ್ರಿಪ್ಶನ್ ಕೀಯನ�
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr "DM ಕೀಗಳನ್ನು ತೆರವುಗೊಳಿಸಲಾಗಿದೆ"
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Feature flags cache"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Clean your feature flags cache"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
@@ -2798,4 +2794,3 @@ msgstr "ಏನೋ ತಪ್ಪಾಗಿದೆ ಎಂದು ತೋರುತ್ತ
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "ನಾವು ಈ ದೋಷಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಟ್ರ್ಯಾಕ್ ಮಾಡುತ್ತೇವೆ, ಆದರೆ ಸಮಸ್ಯೆ ಮುಂದುವರಿದರೆ ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಲು ಮುಕ್ತವಾಗಿರಿ. ಈ ಮಧ್ಯೆ, ರಿಫ್ರೆಶ್ ಮಾಡಲು ಪ್ರಯತ್ನಿಸಿ."
-

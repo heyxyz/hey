@@ -98,6 +98,19 @@ const CleanupSettings: NextPage = () => {
             </div>
             <div className="flex items-center justify-between">
               <div className="space-y-1">
+                <b>
+                  <Trans>Feature flags cache</Trans>
+                </b>
+                <div className="lt-text-gray-500 text-xs font-bold">
+                  <Trans>Clean your feature flags cache</Trans>
+                </div>
+              </div>
+              <Button onClick={() => cleanup(Localstorage.FeaturesCache)}>
+                <Trans>Cleanup</Trans>
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
                 <b className="text-red-500">
                   <Trans>App settings</Trans>
                 </b>
