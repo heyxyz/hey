@@ -1,3 +1,4 @@
+import { useFeature } from '@growthbook/growthbook-react';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
@@ -5,12 +6,14 @@ import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
+import { FeatureFlag } from 'data';
 import { LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import { motion } from 'framer-motion';
-import type { CreateMirrorRequest, Publication } from 'lens';
+import type { CreateDataAvailabilityMirrorRequest, CreateMirrorRequest, Publication } from 'lens';
 import {
   useBroadcastMutation,
+  useCreateDataAvailabilityMirrorViaDispatcherMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens';
@@ -44,6 +47,7 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     // @ts-ignore
     isMirror ? publication?.mirrorOf?.mirrors?.length > 0 : publication?.mirrors?.length > 0
   );
+  const { on: isBonsaiEnabled } = useFeature(FeatureFlag.Bonsai as string);
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
@@ -59,7 +63,9 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     });
   };
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelayerResult' | 'CreateDataAvailabilityPublicationResult'
+  ) => {
     if (__typename === 'RelayError') {
       return;
     }
@@ -116,11 +122,25 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     onError
   });
 
+  const [createDataAvailabilityMirrorViaDispatcher, { loading: dataAvailabilityLoading }] =
+    useCreateDataAvailabilityMirrorViaDispatcherMutation({
+      onCompleted: ({ createDataAvailabilityMirrorViaDispatcher }) =>
+        onCompleted(createDataAvailabilityMirrorViaDispatcher.__typename),
+      onError,
+      update: updateCache
+    });
+
   const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useCreateMirrorViaDispatcherMutation({
     onCompleted: ({ createMirrorViaDispatcher }) => onCompleted(createMirrorViaDispatcher.__typename),
     onError,
     update: updateCache
   });
+
+  const createViaDataAvailablityDispatcher = async (request: CreateDataAvailabilityMirrorRequest) => {
+    await createDataAvailabilityMirrorViaDispatcher({
+      variables: { request }
+    });
+  };
 
   const createViaDispatcher = async (request: CreateMirrorRequest) => {
     const { data } = await createMirrorViaDispatcher({
@@ -151,20 +171,36 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
         }
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay) {
-        return await createViaDispatcher(request);
-      }
+      // Payload for the data availability mirror
+      const dataAvailablityRequest = {
+        from: currentProfile?.id,
+        mirror: publication?.id
+      };
 
-      return await createMirrorTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request
+      if (currentProfile?.dispatcher?.canUseRelay) {
+        if (isBonsaiEnabled && publication.isDataAvailability) {
+          await createViaDataAvailablityDispatcher(dataAvailablityRequest);
+        } else {
+          await createViaDispatcher(request);
         }
-      });
+      } else {
+        await createMirrorTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request
+          }
+        });
+      }
     } catch {}
   };
 
-  const isLoading = typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
+  const isLoading =
+    typedDataLoading ||
+    dispatcherLoading ||
+    dataAvailabilityLoading ||
+    signLoading ||
+    writeLoading ||
+    broadcastLoading;
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
   return (
