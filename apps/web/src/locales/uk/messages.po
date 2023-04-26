@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-22 08:51\n"
+"PO-Revision-Date: 2023-04-26 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -299,6 +299,7 @@ msgid "All posts"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 msgid "Text"
 msgstr ""
 
@@ -308,11 +309,13 @@ msgid "Video"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
 msgstr ""
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
 msgstr ""
@@ -639,6 +642,26 @@ msgstr ""
 #: src/components/Mod/index.tsx
 #: src/components/Notification/FeedType.tsx
 msgid "Comments"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Media filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Articles"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Embeds"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Links"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Videos"
 msgstr ""
 
 #: src/components/Mod/index.tsx
@@ -1471,42 +1494,11 @@ msgid "Publication reported successfully"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Spam"
+msgid "Poor content"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "NSFW"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Repetitive"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Publication/Actions/ModAction/index.tsx
-#: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Others"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Report?"
-msgstr ""
-
-#: src/components/Publication/Actions/ModAction/index.tsx
-msgid "Are you sure? You want to report this user so that we can take action."
+msgid "Stop Sponsor"
 msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
@@ -2181,6 +2173,11 @@ msgid "Perform mod actions on this publication."
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
 msgstr ""
@@ -2332,6 +2329,10 @@ msgid "Sensitive"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Spam"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
 msgstr ""
 
@@ -2360,7 +2361,15 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "NSFW"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -2369,6 +2378,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Low signal"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
@@ -2381,6 +2394,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Repetitive"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
