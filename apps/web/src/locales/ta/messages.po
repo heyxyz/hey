@@ -1383,23 +1383,6 @@ msgstr "கேலரிக்கு 50 பொருட்கள் மட்ட�
 msgid "No collectables selected!"
 msgstr "சேகரிப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை!"
 
-#: src/components/Publication/Actions/Analytics/Stats.tsx
-#: src/components/Publication/Actions/Analytics/index.tsx
-msgid "Loading analytics"
-msgstr "பகுப்பாய்வுகளை ஏற்றுகிறது"
-
-#: src/components/Publication/Actions/Analytics/Stats.tsx
-msgid "Views"
-msgstr "பார்வைகள்"
-
-#: src/components/Publication/Actions/Analytics/Stats.tsx
-msgid "Times people viewed the details about this publication"
-msgstr ""
-
-#: src/components/Publication/Actions/Analytics/index.tsx
-msgid "Publication Analytics"
-msgstr "வெளியீட்டு பகுப்பாய்வு"
-
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
 msgstr "வெற்றிகரமாக சேகரிக்கப்பட்டது!"
@@ -1524,6 +1507,10 @@ msgstr ""
 #: src/components/Publication/OnchainMeta.tsx
 msgid "ARWEAVE TRANSACTION"
 msgstr "ARWEAVE பரிவர்த்தனை"
+
+#: src/components/Publication/OnchainMeta.tsx
+msgid "DATA AVAILABILITY PROOF"
+msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
@@ -1750,6 +1737,7 @@ msgstr "இண்டெக்ஸ் செய்யப்படாத உங்�
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr "துப்புரவு"
@@ -1773,6 +1761,14 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Feature flags cache"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Clean your feature flags cache"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
@@ -2798,4 +2794,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
