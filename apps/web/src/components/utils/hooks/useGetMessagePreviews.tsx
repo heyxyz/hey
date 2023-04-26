@@ -6,6 +6,8 @@ import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
 import { useEffect, useRef, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 
+import { useMessageDb } from './useMessageDb';
+
 const fetchMostRecentMessage = async (
   convo: Conversation
 ): Promise<{ key: string; message?: DecodedMessage }> => {
@@ -23,8 +25,9 @@ const fetchMostRecentMessage = async (
 const useGetMessagePreviews = () => {
   const conversations = useMessageStore((state) => state.conversations);
   const previewMessages = useMessageStore((state) => state.previewMessages);
-  const setPreviewMessage = useMessageStore((state) => state.setPreviewMessage);
   const client = useMessageStore((state) => state.client);
+  const profileId = useMessageStore((state) => state.selectedProfileId);
+  const { batchPersistPreviewMessages } = useMessageDb(profileId);
   const [loading, setLoading] = useState<boolean>(false);
   const loadingRef = useRef<boolean>(false);
   const countRef = useRef<number>(0);
@@ -50,17 +53,21 @@ const useGetMessagePreviews = () => {
       for (const chunk of chunkArray(needsSync, 50)) {
         // Yield to the UI between pages of conversations, since this all happens in the background
         await new Promise((resolve) => requestAnimationFrame(resolve));
-        await Promise.all(
-          chunk.map(async (convo) => {
-            const latestMessage = await fetchMostRecentMessage(convo);
-            const existingValue = previewMessages.get(latestMessage.key)?.sent;
-            if (latestMessage.message && (!existingValue || latestMessage?.message.sent > existingValue)) {
-              setPreviewMessage(latestMessage.key, latestMessage.message);
-            }
-            countRef.current = countRef.current + 1;
-            setProgress(Math.round((countRef.current / needsSync.length) * 100));
-          })
-        );
+        const batch = (
+          await Promise.all(
+            chunk.map(async (convo) => {
+              const latestMessage = await fetchMostRecentMessage(convo);
+              const existingValue = previewMessages.get(latestMessage.key)?.sent;
+              countRef.current = countRef.current + 1;
+              setProgress(Math.round((countRef.current / needsSync.length) * 100));
+
+              if (latestMessage.message && (!existingValue || latestMessage?.message.sent > existingValue)) {
+                return [latestMessage.key, latestMessage.message];
+              }
+            })
+          )
+        ).filter((m) => !!m) as [string, DecodedMessage][];
+        await batchPersistPreviewMessages(new Map(batch));
       }
 
       setLoading(false);

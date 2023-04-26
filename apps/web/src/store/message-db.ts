@@ -4,14 +4,12 @@ import type { Profile } from 'lens';
 
 export interface PreviewMessage {
   conversationKey: string;
-  myAddress: string;
   myProfileId: string;
   sent: Date;
   messageBytes: Uint8Array;
 }
 
 export type LensProfile = Profile & {
-  myAddress: string;
   myProfileId: string;
   conversationKey: string;
 };
@@ -25,19 +23,19 @@ export class MessageDB extends Dexie {
   constructor() {
     super('messageDb');
     this.version(1).stores({
-      previewMessages: '[myAddress+conversationKey], [myAddress+myProfileId], sent', // Primary key and indexed props
-      lensProfiles: '[myAddress+myProfileId+conversationKey], [myAddress+myProfileId]'
+      previewMessages: 'conversationKey, [myProfileId], sent', // Primary key and indexed props
+      lensProfiles: '[myProfileId+conversationKey], myProfileId'
     });
   }
 
   async persistPreviewMessage(message: PreviewMessage) {
-    const { myAddress, conversationKey } = message;
-    await this.previewMessages.put(message, [myAddress, conversationKey]);
+    const { conversationKey } = message;
+    await this.previewMessages.put(message, conversationKey);
   }
 
   async persistProfile(profile: LensProfile) {
-    const { myAddress, myProfileId, conversationKey } = profile;
-    await this.lensProfiles.put(profile, [myAddress, myProfileId, conversationKey]);
+    const { myProfileId, conversationKey } = profile;
+    await this.lensProfiles.put(profile, [myProfileId, conversationKey]);
   }
 }
 

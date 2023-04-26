@@ -7,73 +7,65 @@ import { db } from 'src/store/message-db';
 
 const decodedMessageToPreview = (
   conversationKey: string,
-  myAddress: string,
   myProfileId: string,
   decoded: DecodedMessage
 ): PreviewMessage => ({
   conversationKey,
-  myAddress,
   myProfileId,
   sent: decoded.sent,
   messageBytes: decoded.toBytes()
 });
 
-export const useMessageDb = (myAddress: string, myProfileId: string) => {
+export const useMessageDb = (myProfileId: string) => {
   const batchPersistPreviewMessages = useCallback(
     async (previewMap: Map<string, DecodedMessage>) => {
       await db.transaction('rw', db.previewMessages, async () => {
         for (const [conversationKey, message] of previewMap.entries()) {
-          const record = decodedMessageToPreview(conversationKey, myAddress, myProfileId, message);
+          const record = decodedMessageToPreview(conversationKey, myProfileId, message);
           await db.persistPreviewMessage(record);
         }
       });
     },
-    [myAddress, myProfileId]
+    [myProfileId]
   );
 
   const persistPreviewMessage = useCallback(
     async (conversationKey: string, message: DecodedMessage) => {
-      const record = decodedMessageToPreview(conversationKey, myAddress, myProfileId, message);
+      const record = decodedMessageToPreview(conversationKey, myProfileId, message);
       await db.persistPreviewMessage(record);
     },
-    [myAddress, myProfileId]
+    [myProfileId]
   );
 
   const batchPersistProfiles = useCallback(
     async (profiles: Map<string, Partial<Profile>>) => {
       await db.transaction('rw', db.lensProfiles, async () => {
         for (const [conversationKey, profile] of profiles.entries()) {
-          const record = { ...profile, myAddress, myProfileId, conversationKey };
+          const record = { ...profile, myProfileId, conversationKey };
           await db.persistProfile(record as LensProfile);
         }
       });
     },
-    [myAddress, myProfileId]
+    [myProfileId]
   );
 
   const previewMessages = useLiveQuery(async () => {
-    if (!myAddress || !myProfileId) {
+    if (!myProfileId) {
       return;
     }
 
-    return db.previewMessages
-      .where('[myAddress+myProfileId]')
-      .equals([myAddress, myProfileId])
-      .sortBy('sent');
-  }, [myAddress, myProfileId]);
+    return db.previewMessages.where('myProfileId').equals([myProfileId]).sortBy('sent');
+  }, [myProfileId]);
 
   const messageProfiles = useLiveQuery(async () => {
-    if (!myAddress || !myProfileId) {
+    if (!myProfileId) {
       return;
     }
 
-    const profiles = await db.lensProfiles
-      .where('[myAddress+myProfileId]')
-      .equals([myAddress, myProfileId])
-      .sortBy('name');
+    const profiles = await db.lensProfiles.where('myProfileId').equals([myProfileId]).sortBy('name');
 
     return new Map(profiles.map((p) => [p.conversationKey, p]));
-  }, [myAddress, myProfileId]);
+  }, [myProfileId]);
 
   return {
     persistPreviewMessage,
@@ -84,17 +76,13 @@ export const useMessageDb = (myAddress: string, myProfileId: string) => {
   };
 };
 
-export const useGetProfile = (
-  myAddress: string | undefined,
-  myProfileId: string | undefined,
-  conversationKey: string
-) => {
+export const useGetProfile = (myProfileId: string | undefined, conversationKey: string) => {
   const profile = useLiveQuery(() => {
-    if (!myAddress || !myProfileId) {
+    if (!myProfileId) {
       return;
     }
-    return db.lensProfiles.get([myAddress, myProfileId, conversationKey]);
-  }, [myAddress, myProfileId, conversationKey]);
+    return db.lensProfiles.get([myProfileId, conversationKey]);
+  }, [myProfileId, conversationKey]);
 
   return {
     profile
