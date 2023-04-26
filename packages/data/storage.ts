@@ -6,5 +6,6 @@ export const Localstorage = {
   TimelineStore: 'timeline.store',
   MessageStore: 'message.store',
   LocaleStore: 'locale.store',
-  FingerprintStore: 'fingerprint.store'
+  FingerprintStore: 'fingerprint.store',
+  FeaturesCache: 'gbFeaturesCache'
 };
