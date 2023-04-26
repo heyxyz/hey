@@ -1383,23 +1383,6 @@ msgstr ""
 msgid "No collectables selected!"
 msgstr "没有选择收藏品！"
 
-#: src/components/Publication/Actions/Analytics/Stats.tsx
-#: src/components/Publication/Actions/Analytics/index.tsx
-msgid "Loading analytics"
-msgstr "正在加载分析数据"
-
-#: src/components/Publication/Actions/Analytics/Stats.tsx
-msgid "Views"
-msgstr "浏览量"
-
-#: src/components/Publication/Actions/Analytics/Stats.tsx
-msgid "Times people viewed the details about this publication"
-msgstr "人们查看此帖子详细信息的次数"
-
-#: src/components/Publication/Actions/Analytics/index.tsx
-msgid "Publication Analytics"
-msgstr "帖子访问量分析"
-
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
 msgstr "收藏成功！"
@@ -1524,6 +1507,10 @@ msgstr "{type} 被作者隐藏"
 #: src/components/Publication/OnchainMeta.tsx
 msgid "ARWEAVE TRANSACTION"
 msgstr "ARWEAVE 交易"
+
+#: src/components/Publication/OnchainMeta.tsx
+msgid "DATA AVAILABILITY PROOF"
+msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
@@ -1750,6 +1737,7 @@ msgstr "清理未被索引的帖子或评论"
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr "清理"
@@ -1773,6 +1761,14 @@ msgstr "清理您的私信加密密钥"
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr "已清除私信密钥"
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Feature flags cache"
+msgstr ""
+
+#: src/components/Settings/Cleanup/index.tsx
+msgid "Clean your feature flags cache"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
@@ -2798,4 +2794,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
