@@ -143,7 +143,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
             </button>
           ) : (
             <Virtuoso
-              style={{ height: '100%' }}
+              className="h-full"
               data={sortedProfiles}
               itemContent={(_, [key, profile]) => {
                 const message = messages.get(key);
