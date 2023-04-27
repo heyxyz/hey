@@ -40,7 +40,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
   const [handle, setHandle] = useState('');
   const [avatar, setAvatar] = useState(getStampFyiURL(address ?? ZERO_ADDRESS));
   const [uploading, setUploading] = useState(false);
-  const [createProfile, { data, loading }] = useCreateProfileMutation();
+  const [createProfile, { data }] = useCreateProfileMutation();
   const [isCreationLoading, setIsCreationLoading] = useState(false);
 
   const debouncedHandle = useSimpleDebounce(handle);

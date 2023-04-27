@@ -38,13 +38,8 @@ test.describe('navigation items', () => {
     await expect(navItemExplore).toContainText('Explore');
   });
 
-  test('should have more menu', async ({ page }) => {
-    const navItemMore = page.getByTestId('nav-item-more');
-    await navItemMore.click();
-
-    // click more nav item and expect more nav items to be visible
-    const moreItemMoreDropdown = page.getByTestId('nav-item-more-dropdown');
-    await expect(moreItemMoreDropdown).toContainText('Contact');
-    await expect(moreItemMoreDropdown).toContainText('Report a bug');
+  test('should have contact menu', async ({ page }) => {
+    const navItemContact = page.getByTestId('nav-item-contact');
+    await expect(navItemContact).toContainText('Contact');
   });
 });
