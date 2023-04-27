@@ -174,20 +174,20 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
         mirror: publication?.id
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay) {
+      if (currentProfile?.dispatcher?.canUseRelay && currentProfile.dispatcher.sponsor) {
         if (publication.isDataAvailability) {
-          await createViaDataAvailablityDispatcher(dataAvailablityRequest);
+          return await createViaDataAvailablityDispatcher(dataAvailablityRequest);
         } else {
-          await createViaDispatcher(request);
+          return await createViaDispatcher(request);
         }
-      } else {
-        await createMirrorTypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request
-          }
-        });
       }
+
+      return await createMirrorTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
     } catch {}
   };
 

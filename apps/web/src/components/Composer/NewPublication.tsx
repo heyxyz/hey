@@ -653,7 +653,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentURI: `ar://${arweaveId}`
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay) {
+      if (currentProfile?.dispatcher?.canUseRelay && currentProfile.dispatcher.sponsor) {
         if (useDataAvailability) {
           return await createViaDataAvailablityDispatcher(dataAvailablityRequest);
         } else {
