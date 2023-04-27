@@ -9,17 +9,19 @@ import { useMessageStore } from 'src/store/message';
 import { useMessageDb } from './useMessageDb';
 
 const fetchMostRecentMessage = async (
-  convo: Conversation
-): Promise<{ key: string; message?: DecodedMessage }> => {
-  const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
+  convo: Conversation,
+  checkAfter?: Date
+): Promise<DecodedMessage | null> => {
   const latestMessageQuery = await convo.messages({
     limit: 1,
-    direction: SortDirection.SORT_DIRECTION_DESCENDING
+    direction: SortDirection.SORT_DIRECTION_DESCENDING,
+    // Add 1ms to the start time to avoid getting the same message back
+    startTime: checkAfter ? new Date(checkAfter.getTime() + 1) : undefined
   });
   if (latestMessageQuery.length <= 0) {
-    return { key };
+    return null;
   }
-  return { key, message: latestMessageQuery[0] };
+  return latestMessageQuery[0];
 };
 
 const useGetMessagePreviews = () => {
@@ -53,13 +55,14 @@ const useGetMessagePreviews = () => {
         const batch = (
           await Promise.all(
             chunk.map(async (convo) => {
-              const latestMessage = await fetchMostRecentMessage(convo);
-              const existingValue = previewMessages.get(latestMessage.key)?.sent;
+              const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
+              const existingValue = previewMessages.get(key)?.sent;
+              const latestMessage = await fetchMostRecentMessage(convo, existingValue);
               countRef.current = countRef.current + 1;
               setProgress(Math.round((countRef.current / needsSync.length) * 100));
 
-              if (latestMessage.message && (!existingValue || latestMessage?.message.sent > existingValue)) {
-                return [latestMessage.key, latestMessage.message];
+              if (latestMessage && (!existingValue || latestMessage.sent > existingValue)) {
+                return [key, latestMessage];
               }
             })
           )
