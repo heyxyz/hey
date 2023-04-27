@@ -46,7 +46,6 @@ const useGetMessagePreviews = () => {
       }
       loadingRef.current = true;
       setLoading(true);
-      console.log(`Syncing ${needsSync.length} conversations`);
 
       for (const chunk of chunkArray(needsSync, 50)) {
         // Yield to the UI between pages of conversations, since this all happens in the background

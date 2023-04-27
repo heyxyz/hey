@@ -76,7 +76,6 @@ export const useMessageDb = () => {
 
   const previewMessages = useLiveQuery(async () => {
     if (!currentProfile) {
-      console.log('No current profile');
       return;
     }
     return db.previewMessages.where('myProfileId').equals(currentProfile.id).sortBy('sent');
