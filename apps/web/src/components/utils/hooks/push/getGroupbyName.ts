@@ -1,9 +1,8 @@
+import type { GroupDTO } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
-import { PUSH_ENV } from 'src/store/push-chat';
-import { IS_MAINNET } from 'data';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { GroupDTO } from '@pushprotocol/restapi';
+import { PUSH_ENV } from 'src/store/push-chat';
 
 interface GroupByName {
   name: string;
@@ -20,7 +19,7 @@ const useGroupByName = ({ name }: GroupByName) => {
       try {
         const response = await PushAPI.chat.getGroupByName({
           groupName: name,
-          env: PUSH_ENV,
+          env: PUSH_ENV
         });
         if (!response) {
           return;

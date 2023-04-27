@@ -31,7 +31,7 @@
     "@lingui/macro": "^3.17.2",
     "@lingui/react": "^3.17.2",
     "@lingui/swc-plugin": "^0.2.3",
-    "@pushprotocol/restapi": "1.2.4",
+    "@pushprotocol/restapi": "1.2.5",
     "@sentry/nextjs": "^7.45.0",
     "@tanstack/react-query": "^4.28.0",
     "@tippyjs/react": "^4.2.6",

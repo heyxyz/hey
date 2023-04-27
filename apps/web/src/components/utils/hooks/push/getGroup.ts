@@ -1,8 +1,8 @@
+import type { GroupDTO } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
-import { PUSH_ENV } from 'src/store/push-chat';
 import { useCallback, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import type { GroupDTO } from '@pushprotocol/restapi';
+import { PUSH_ENV } from 'src/store/push-chat';
 
 interface fetchGroup {
   account: string;

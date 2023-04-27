@@ -6,6 +6,7 @@ import { useSigner } from 'wagmi';
 interface SendMessageParams {
   message: string;
   receiver: string;
+  messageType?: 'Text' | 'Image' | 'File' | 'GIF' | 'MediaURL';
 }
 
 // ToDo: Need to enable it for gif and image type msg as well
@@ -18,7 +19,7 @@ const usePushSendMessage = () => {
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const sendMessage = useCallback(
-    async ({ message, receiver }: SendMessageParams): Promise<boolean | undefined> => {
+    async ({ message, receiver, messageType = 'Text' }: SendMessageParams): Promise<boolean | undefined> => {
       if (!decryptedPgpPvtKey || !message || !signer) {
         setError('something went wrong');
         return false;
@@ -27,8 +28,8 @@ const usePushSendMessage = () => {
       try {
         const response = await PushAPI.chat.send({
           messageContent: message,
-          messageType: 'Text',
-          receiverAddress: `eip155:${receiver}`,
+          messageType: messageType,
+          receiverAddress: receiver,
           signer,
           pgpPrivateKey: decryptedPgpPvtKey,
           env: PUSH_ENV

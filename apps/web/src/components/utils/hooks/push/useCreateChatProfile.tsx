@@ -1,11 +1,8 @@
 import { XIcon } from '@heroicons/react/outline';
 import type { ProgressHookType } from '@pushprotocol/restapi';
-import * as PushAPI from '@pushprotocol/restapi';
-import { LENSHUB_PROXY } from 'data';
 import { useState } from 'react';
-import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
+import { usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input, Spinner } from 'ui';
 import { useSigner } from 'wagmi';
 
@@ -72,23 +69,23 @@ const useCreateChatProfile = () => {
       return;
     }
 
-    try {
-      await PushAPI.user.createNFTProfile({
-        signer: signer,
-        password: password,
-        did: `eip155:${CHAIN_ID}:${LENSHUB_PROXY}:nft:${currentProfile.id}`,
-        progressHook: handleProgress,
-        env: PUSH_ENV
-      });
-      setStep(2);
-    } catch (error) {
-      console.log(error);
-      // handle error here
-      const timeout = 3000; // after this time, show modal state to 1st step
-      setTimeout(() => {
-        initiateProcess();
-      }, timeout);
-    }
+    // try {
+    //   await PushAPI.user.createNFTProfile({
+    //     signer: signer,
+    //     password: password,
+    //     did: `eip155:${CHAIN_ID}:${LENSHUB_PROXY}:nft:${currentProfile.id}`,
+    //     progressHook: handleProgress,
+    //     env: PUSH_ENV
+    //   });
+    //   setStep(2);
+    // } catch (error) {
+    //   console.log(error);
+    //   // handle error here
+    //   const timeout = 3000; // after this time, show modal state to 1st step
+    //   setTimeout(() => {
+    //     initiateProcess();
+    //   }, timeout);
+    // }
   };
 
   const createChatProfile = async () => {

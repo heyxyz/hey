@@ -14,6 +14,7 @@ const PUSHPreview: FC<PreviewListProps> = () => {
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
   const showCreateChatProfileModal = usePushChatStore((state) => state.showCreateChatProfileModal);
   const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
+  const chatsFeeds = usePushChatStore((state) => state.chatsFeed);
   const { modalContent, isModalClosable } = useCreateChatProfile();
 
   return (
