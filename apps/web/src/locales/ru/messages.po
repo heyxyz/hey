@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-26 00:08\n"
+"PO-Revision-Date: 2023-04-27 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -132,7 +132,7 @@ msgstr "Ограниченный выпуск"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
-msgstr ""
+msgstr "Сделать коллекты эксклюзивными"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
@@ -383,7 +383,7 @@ msgstr "Показать публикации"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Mirrors"
-msgstr ""
+msgstr "Показать мирроры"
 
 #: src/components/Home/FeedEventFilters.tsx
 msgid "Show Likes"
@@ -407,7 +407,7 @@ msgstr "{APP_NAME} – представляет собой децентрали
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
-msgstr ""
+msgstr "Не удалось загрузить яркие моменты"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
@@ -464,15 +464,15 @@ msgstr "Установить профиль по умолчанию"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "You own {count} {0} but you don't have a default one."
-msgstr ""
+msgstr "У вас есть {count} {0}, но нет стандартного."
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile here"
-msgstr ""
+msgstr "Установить профиль по умолчанию"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Setup your {APP_NAME} profile"
-msgstr ""
+msgstr "Настройте ваш {APP_NAME} профиль"
 
 #: src/components/Home/SetProfile.tsx
 msgid "Set profile name"
@@ -625,7 +625,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
-msgstr ""
+msgstr "Центр Модификаций • {APP_NAME}"
 
 #: src/components/Mod/index.tsx
 msgid "Refresh feed"
@@ -650,7 +650,7 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Articles"
-msgstr ""
+msgstr "Статьи"
 
 #: src/components/Mod/index.tsx
 msgid "Embeds"
@@ -658,11 +658,11 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Links"
-msgstr ""
+msgstr "Ссылки"
 
 #: src/components/Mod/index.tsx
 msgid "Videos"
-msgstr ""
+msgstr "Видео"
 
 #: src/components/Mod/index.tsx
 msgid "Custom filters"
@@ -695,7 +695,7 @@ msgstr "Лайки"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Collects"
-msgstr ""
+msgstr "Коллекты"
 
 #: src/components/Notification/List.tsx
 msgid "Failed to load notifications"
@@ -715,7 +715,7 @@ msgstr "Фильтр оповещений"
 
 #: src/components/Notification/Settings.tsx
 msgid "Turn on high-signal notification filter"
-msgstr ""
+msgstr "Включить индикатор фильтра оповещений"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
@@ -902,7 +902,7 @@ msgstr "Мы можем использовать технологии отсле
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Log Files</0>, to record events or errors that occur when using our Site."
-msgstr ""
+msgstr "<0>Файлы журнала</0>, для записи событий или ошибок, возникающих при использовании нашего Сайта."
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Cookies</0>, small data stored on your device that are necessary for you to browse the Site."
@@ -994,7 +994,7 @@ msgstr "Условия использования • {APP_NAME}"
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions"
-msgstr ""
+msgstr "Условия & Соглашения"
 
 #: src/components/Pages/Terms.tsx
 msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
@@ -1014,7 +1014,7 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "2. General Conditions"
-msgstr ""
+msgstr "2. Общие условия"
 
 #: src/components/Pages/Terms.tsx
 msgid "You may not use our Site for any illegal or unauthorised purpose nor may you, in the use of the Service, violate any laws in your jurisdiction (including but not limited to copyright laws). We reserve the right to refuse the services to anyone for any reason at any time. We may stop (permanently or temporarily) providing the services or any features within the Site to you or to users generally."
@@ -1022,7 +1022,7 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "3. Services"
-msgstr ""
+msgstr "3. Услуги"
 
 #: src/components/Pages/Terms.tsx
 msgid "User Lens profile is referred as the “Profile” in the “Site”."
@@ -1038,11 +1038,11 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Your profile your responsibility."
-msgstr ""
+msgstr "Ваш профиль - ваша ответственность."
 
 #: src/components/Pages/Terms.tsx
 msgid "You are responsible for securing the wallet that contains your profiles."
-msgstr ""
+msgstr "Вы несете ответственность за безопасность кошелька, содержащего ваши профили."
 
 #: src/components/Pages/Terms.tsx
 msgid "You bear sole responsibility for evaluating the Site and features before using them."
@@ -1082,7 +1082,7 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "5. Modification of Services"
-msgstr ""
+msgstr "5. Изменение Услуг"
 
 #: src/components/Pages/Terms.tsx
 msgid "We reserve the right at any time to modify or discontinue the Site (or any part or content thereof) without notice at any time. We shall not be liable to you or any third-party for any modification, information change, suspension or discontinuance of the Site."
@@ -1090,7 +1090,7 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "6. Third-Party Services & Websites"
-msgstr ""
+msgstr "6. Сторонние сервисы и веб-сайты"
 
 #: src/components/Pages/Terms.tsx
 msgid "We are not responsible for the content or services of any third-party, including, without limitation, any network, or apps like Discord, or MetaMask, and we make no representations regarding the content or accuracy of any third-party services or materials. Those are governed by the terms of use of the third-party providers."
@@ -1102,7 +1102,7 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "7. Personal Information"
-msgstr ""
+msgstr "7. Личная информация"
 
 #: src/components/Pages/Terms.tsx
 msgid "Your submission of personal information through the Site is governed by our <0>Privacy Policy</0>."
@@ -1110,7 +1110,7 @@ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "8. Prohibited Usage"
-msgstr ""
+msgstr "8. Запрещено использование"
 
 #: src/components/Pages/Terms.tsx
 msgid "You are not allowed to use the Site for anything illegal, infringing the intellectual property rights of other people, harassment or otherwise abusive behaviour, spreading false information or viruses, spamming, or interfering with the security features of the Site."
@@ -1202,15 +1202,15 @@ msgstr ""
 
 #: src/components/Profile/Badges/Worldcoin.tsx
 msgid "Worldcoin verified"
-msgstr ""
+msgstr "Worldcoin подтвержден"
 
 #: src/components/Profile/Details.tsx
 msgid "Follows you"
-msgstr ""
+msgstr "Подписан на вас"
 
 #: src/components/Profile/Details.tsx
 msgid "Edit Profile"
-msgstr ""
+msgstr "Редактировать профиль"
 
 #: src/components/Profile/Details.tsx
 msgid "Followers you know"
@@ -1292,7 +1292,7 @@ msgstr "Создать профиль • {APP_NAME}"
 
 #: src/components/Profile/New.tsx
 msgid "Create new decentralized profile"
-msgstr ""
+msgstr "Создать новый децентрализованный профиль"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery created"
@@ -1328,19 +1328,19 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "What's your gallery name?"
-msgstr ""
+msgstr "Как называется ваша галерея?"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "{0} selected"
-msgstr ""
+msgstr "{0} выбрано"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Next"
-msgstr ""
+msgstr "Далее"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Gallery deleted"
-msgstr ""
+msgstr "Галерея удалена"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Are you sure you want to delete?"
@@ -1373,7 +1373,7 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
-msgstr ""
+msgstr "не имеет NFT!"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
@@ -1403,7 +1403,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
-msgstr ""
+msgstr "{0} доступно"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0}% referral fee"
@@ -1411,7 +1411,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
-msgstr ""
+msgstr "Доход:"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Sale Ends:"
@@ -1419,7 +1419,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Token:"
-msgstr ""
+msgstr "Токен:"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collect now"
@@ -1445,7 +1445,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
-msgstr ""
+msgstr "{0} Комментариев"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Dislike"
@@ -1458,7 +1458,7 @@ msgstr ""
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
-msgstr ""
+msgstr "Скопировано в буфер обмена!"
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
@@ -1478,7 +1478,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Poor content"
-msgstr ""
+msgstr "Некачественный контент"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
@@ -1486,7 +1486,7 @@ msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
-msgstr ""
+msgstr "Чтобы просмотреть это..."
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "Collect finalizing on chain..."
@@ -1498,7 +1498,7 @@ msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "Error while decrypting!"
-msgstr ""
+msgstr "Ошибка при расшифровке!"
 
 #: src/components/Publication/HiddenPublication.tsx
 msgid "{type} was hidden by the author"
@@ -1514,7 +1514,7 @@ msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
-msgstr ""
+msgstr "АДРЕС NFT"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Comments"
@@ -1614,11 +1614,11 @@ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Ethereum address should be within 42 characters"
-msgstr ""
+msgstr "Ethereum-адрес должен содержать не более 42 символов"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
-msgstr ""
+msgstr "Неверный Ethereum-адрес"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -1638,7 +1638,7 @@ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Funds recipient"
-msgstr ""
+msgstr "Получатель средств"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Disable Super follow"
@@ -1654,7 +1654,7 @@ msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
-msgstr ""
+msgstr "Подтверждён"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
@@ -1662,28 +1662,28 @@ msgstr "Нет."
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Request Verification"
-msgstr ""
+msgstr "Запросить верификацию"
 
 #: src/components/Settings/Account/index.tsx
 #: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
-msgstr ""
+msgstr "Настройки профиля • {APP_NAME}"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
-msgstr ""
+msgstr "Разрешить"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Module disabled successfully!"
-msgstr ""
+msgstr "Модуль успешно отключен!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Module enabled successfully!"
-msgstr ""
+msgstr "Модуль успешно включен!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
-msgstr ""
+msgstr "Отозвать"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Warning"
@@ -1699,11 +1699,11 @@ msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allowance settings • {APP_NAME}"
-msgstr ""
+msgstr "Настройки разрешений • {APP_NAME}"
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allow / Revoke modules"
-msgstr ""
+msgstr "Разрешить / отозвать модули"
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
@@ -1711,15 +1711,15 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
-msgstr ""
+msgstr "Очищено {key}"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup settings • {APP_NAME}"
-msgstr ""
+msgstr "Настройки очистки • {APP_NAME}"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleanup Localstorage"
-msgstr ""
+msgstr "Очистить локальное хранилище"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
@@ -1740,11 +1740,11 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
-msgstr ""
+msgstr "Очистка"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Timeline settings"
-msgstr ""
+msgstr "Настройки временной шкалы"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your timeline filter settings"
@@ -1780,19 +1780,19 @@ msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Delete Profile • {APP_NAME}"
-msgstr ""
+msgstr "Удалить профиль • {APP_NAME}"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "This will deactivate your account"
-msgstr ""
+msgstr "Это приведет к деактивации Вашей учетной записи"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Deleting your account is permanent. All your data will be wiped out immediately and you won't be able to get it back."
-msgstr ""
+msgstr "Удаление учетной записи необратимо. Все ваши данные будут удалены немедленно, и вы не сможете их вернуть."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted."
-msgstr ""
+msgstr "Вы не сможете восстановить свою учетную запись {APP_NAME}, если она была случайно или ошибочно удалена."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
@@ -1800,20 +1800,20 @@ msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Your @handle will be released immediately after deleting the account."
-msgstr ""
+msgstr "Ваш @псевдоним станет свободным сразу после удаления вашей учетной записи."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Deleting..."
-msgstr ""
+msgstr "Удаление..."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Delete your account"
-msgstr ""
+msgstr "Удалить учетную запись"
 
 #: src/components/Settings/Delete/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Danger Zone"
-msgstr ""
+msgstr "Опасная зона"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
@@ -1821,20 +1821,20 @@ msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Yes, delete my account"
-msgstr ""
+msgstr "Да, удалить мою учетную запись"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Profile updated successfully!"
-msgstr ""
+msgstr "Профиль успешно обновлен!"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Disable"
-msgstr ""
+msgstr "Отключить"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable"
@@ -1961,11 +1961,11 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
-msgstr ""
+msgstr "Имя не должно превышать 100 символов"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
-msgstr ""
+msgstr "Местоположение не должно превышать 100 символов"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Invalid website"
@@ -1977,35 +1977,35 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
-msgstr ""
+msgstr "Биография не должна превышать 260 символов"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Profile Id"
-msgstr ""
+msgstr "ID профиля"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location"
-msgstr ""
+msgstr "Местоположение"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Website"
-msgstr ""
+msgstr "Веб-сайт"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Twitter"
-msgstr ""
+msgstr "Твиттер"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
-msgstr ""
+msgstr "Биография"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Tell us something about you!"
-msgstr ""
+msgstr "Расскажите нам что-нибудь о себе!"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Cover picture crop preview"
@@ -2021,47 +2021,47 @@ msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
-msgstr ""
+msgstr "Загрузка настроек"
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Profile settings • {APP_NAME}"
-msgstr ""
+msgstr "Настройки профиля • {APP_NAME}"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Profile"
-msgstr ""
+msgstr "Профиль"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
-msgstr ""
+msgstr "Учетная запись"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Preferences"
-msgstr ""
+msgstr "Настройки"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Interests"
-msgstr ""
+msgstr "Интересы"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Dispatcher"
-msgstr ""
+msgstr "Диспетчер"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Allowance"
-msgstr ""
+msgstr "Разрешение"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Export"
-msgstr ""
+msgstr "Экспортировать"
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Publication deleted successfully"
-msgstr ""
+msgstr "Публикация успешно удалена"
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete Publication?"
-msgstr ""
+msgstr "Удалить публикацию?"
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
@@ -2069,19 +2069,19 @@ msgstr ""
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
-msgstr ""
+msgstr "Открыть изображение в новой вкладке"
 
 #: src/components/Shared/Attachments.tsx
 msgid "Cancel Upload"
-msgstr ""
+msgstr "Отменить загрузку"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
-msgstr ""
+msgstr "Недопустимое название аудио"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid author name"
-msgstr ""
+msgstr "Недопустимое имя автора"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid cover image"
@@ -2089,36 +2089,36 @@ msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add title"
-msgstr ""
+msgstr "Добавить заголовок"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
-msgstr ""
+msgstr "Добавить автора"
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
-msgstr ""
+msgstr "Бета"
 
 #: src/components/Shared/Badges/New.tsx
 msgid "New"
-msgstr ""
+msgstr "Новый"
 
 #: src/components/Shared/CommentWarning.tsx
 msgid "You can't reply to this post"
-msgstr ""
+msgstr "Вы не можете ответить на этот пост"
 
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
-msgstr ""
+msgstr "Загрузка смайликов"
 
 #: src/components/Shared/Follow.tsx
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Followed successfully!"
-msgstr ""
+msgstr "Успешно подписались!"
 
 #: src/components/Shared/Follow.tsx
 msgid "Follow"
-msgstr ""
+msgstr "Подписаться"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Terms"
@@ -2126,39 +2126,39 @@ msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Privacy"
-msgstr ""
+msgstr "Конфиденциальность"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Donate"
-msgstr ""
+msgstr "Пожертвовать"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Feedback"
-msgstr ""
+msgstr "Обратная связь"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Thanks"
-msgstr ""
+msgstr "Спасибо"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Translate"
-msgstr ""
+msgstr "Перевести"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
-msgstr ""
+msgstr "▲ При поддержке Vercel"
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
@@ -2334,19 +2334,19 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select sub reason"
-msgstr ""
+msgstr "Выберите причину"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Animal Abuse"
-msgstr ""
+msgstr "Жестокое обращение с животными"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Direct Threat"
-msgstr ""
+msgstr "Прямая угроза"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Human Abuse"
-msgstr ""
+msgstr "Жестокое обращение с людьми"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Threat Individual"
@@ -2354,27 +2354,27 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
-msgstr ""
+msgstr "Насилие"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Scam"
-msgstr ""
+msgstr "Мошенничество"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
-msgstr ""
+msgstr "Выдача себя за другое лицо/организацию"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "NSFW"
-msgstr ""
+msgstr "Материалы для взрослых"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Offensive"
-msgstr ""
+msgstr "Оскорбительный"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fake engagement"
-msgstr ""
+msgstr "Фальшивое вовлечение"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Low signal"
@@ -2382,23 +2382,23 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
-msgstr ""
+msgstr "Манипуляции с алгоритмами"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misleading"
-msgstr ""
+msgstr "Вводит в заблуждение"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Misuse hashtags"
-msgstr ""
+msgstr "Неправильное использование хэштегов"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Repetitive"
-msgstr ""
+msgstr "Повторение"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Something else"
-msgstr ""
+msgstr "Другое"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Unrelated"
@@ -2406,40 +2406,40 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
-msgstr ""
+msgstr "Дополнительные комментарии не должны превышать 260 символов"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Publication reported successfully!"
-msgstr ""
+msgstr "Публикация успешно обжалована!"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"
-msgstr ""
+msgstr "Не удалось отправить жалобу"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Please provide additional details"
-msgstr ""
+msgstr "Предоставьте более подробную информацию"
 
 #: src/components/Shared/Navbar/MobileDrawerMenu.tsx
 #: src/components/Shared/Navbar/SignedUser.tsx
 msgid "Logged in as"
-msgstr ""
+msgstr "Вошли как"
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
-msgstr ""
+msgstr "Еще"
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
-msgstr ""
+msgstr "Связаться"
 
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
-msgstr ""
+msgstr "Выйти"
 
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
@@ -2455,11 +2455,11 @@ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
-msgstr ""
+msgstr "Сообщить об ошибке"
 
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Disable staff mode"
@@ -2471,71 +2471,71 @@ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
-msgstr ""
+msgstr "Переключить профиль"
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Dark mode"
-msgstr ""
+msgstr "Тёмный режим"
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Light mode"
-msgstr ""
+msgstr "Светлый режим"
 
 #: src/components/Shared/Navbar/NavItems/YourProfile.tsx
 msgid "Your Profile"
-msgstr ""
+msgstr "Ваш профиль"
 
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Search…"
-msgstr ""
+msgstr "Поиск…"
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Home"
-msgstr ""
+msgstr "Главная"
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
-msgstr ""
+msgstr "Найти"
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
-msgstr ""
+msgstr "Перейти к {type}"
 
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
-msgstr ""
+msgstr "получит <0>{referralFee}%</0> реферального вознаграждения"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
-msgstr ""
+msgstr "Этот опрос закрыт!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{type} voting is not supported yet!"
-msgstr ""
+msgstr "{type} голосование пока не поддерживается!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
-msgstr ""
+msgstr "Текущие результаты"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
-msgstr ""
+msgstr "Результаты"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
-msgstr ""
+msgstr "Проголосуйте"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
-msgstr ""
+msgstr "Статус не должен быть пустым"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not exceed 100 characters"
-msgstr ""
+msgstr "Статус не должен превышать 100 символов"
 
 #: src/components/Shared/Status.tsx
 msgid "Status updated successfully!"
-msgstr ""
+msgstr "Статус успешно обновлен!"
 
 #: src/components/Shared/Status.tsx
 msgid "Loading status settings"
@@ -2720,7 +2720,7 @@ msgstr ""
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total comments"
-msgstr ""
+msgstr "всего комментариев"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total collects"
@@ -2728,19 +2728,19 @@ msgstr ""
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total follows"
-msgstr ""
+msgstr "всего подписок"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
-msgstr ""
+msgstr "Размер изображения должен быть меньше 10MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 100MB"
-msgstr ""
+msgstr "Размер видео должен быть меньше 100MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
-msgstr ""
+msgstr "Размер аудио должен быть меньше 100MB"
 
 #: src/lib/getModule.ts
 msgid "Multirecipient Paid Collect"
@@ -2768,7 +2768,7 @@ msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Fee Follow"
-msgstr ""
+msgstr "Плата за подписку"
 
 #: src/lib/getModule.ts
 msgid "Follower Only Reference"
@@ -2776,21 +2776,22 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
-msgstr ""
+msgstr "Упс, потерялся‽"
 
 #: src/pages/404.tsx
 msgid "This page could not be found."
-msgstr ""
+msgstr "Страница не найдена."
 
 #: src/pages/404.tsx
 #: src/pages/500.tsx
 msgid "Go to home"
-msgstr ""
+msgstr "Домой"
 
 #: src/pages/500.tsx
 msgid "Looks like something went wrong!"
-msgstr ""
+msgstr "Похоже, что-то пошло не так!"
 
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
-msgstr ""
+msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
+
