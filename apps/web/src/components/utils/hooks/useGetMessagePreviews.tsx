@@ -26,29 +26,27 @@ const useGetMessagePreviews = () => {
   const conversations = useMessageStore((state) => state.conversations);
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const client = useMessageStore((state) => state.client);
-  const profileId = useMessageStore((state) => state.selectedProfileId);
-  const { batchPersistPreviewMessages } = useMessageDb(profileId);
+  const { batchPersistPreviewMessages } = useMessageDb();
+  const hasSyncedMessages = useMessageStore((state) => state.hasSyncedMessages);
+  const setHasSyncedMessages = useMessageStore((state) => state.setHasSyncedMessages);
   const [loading, setLoading] = useState<boolean>(false);
   const loadingRef = useRef<boolean>(false);
   const countRef = useRef<number>(0);
   const [progress, setProgress] = useState<number>(0);
 
   useEffect(() => {
-    if (!client || loadingRef.current) {
+    if (!client || loadingRef.current || hasSyncedMessages) {
       return;
     }
 
     const getMessagePreviews = async () => {
+      const needsSync = [...conversations.values()];
+      if (!needsSync.length) {
+        return;
+      }
       loadingRef.current = true;
       setLoading(true);
-
-      // Diff the conversations and preview messages to see which ones are missing
-      const needsSync = Array.from(conversations.values()).filter(
-        (convo) =>
-          previewMessages.get(
-            buildConversationKey(convo.peerAddress, convo.context?.conversationId as string)
-          ) === undefined
-      );
+      console.log(`Syncing ${needsSync.length} conversations`);
 
       for (const chunk of chunkArray(needsSync, 50)) {
         // Yield to the UI between pages of conversations, since this all happens in the background
@@ -71,12 +69,13 @@ const useGetMessagePreviews = () => {
       }
 
       setLoading(false);
+      setHasSyncedMessages(true);
       loadingRef.current = false;
     };
 
     getMessagePreviews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [client, conversations, previewMessages]);
+  }, [client, conversations]);
 
   return {
     loading,

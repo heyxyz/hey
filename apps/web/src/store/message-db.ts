@@ -23,14 +23,14 @@ export class MessageDB extends Dexie {
   constructor() {
     super('messageDb');
     this.version(1).stores({
-      previewMessages: 'conversationKey, [myProfileId], sent', // Primary key and indexed props
+      previewMessages: 'conversationKey, myProfileId, sent', // Primary key and indexed props
       lensProfiles: '[myProfileId+conversationKey], myProfileId'
     });
   }
 
   async persistPreviewMessage(message: PreviewMessage) {
-    const { conversationKey } = message;
-    await this.previewMessages.put(message, conversationKey);
+    const { conversationKey, myProfileId, sent } = message;
+    await this.previewMessages.put(message, [conversationKey, myProfileId, sent]);
   }
 
   async persistProfile(profile: LensProfile) {

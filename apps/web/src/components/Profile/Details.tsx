@@ -5,6 +5,7 @@ import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
+import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { CogIcon, HashtagIcon, LocationMarkerIcon, UsersIcon } from '@heroicons/react/outline';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
@@ -26,6 +27,7 @@ import { useTheme } from 'next-themes';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import type { TabValues } from 'src/store/message';
 import { useMessageStore } from 'src/store/message';
 import { FollowSource } from 'src/tracking';
 import { Button, Image, Modal, Tooltip } from 'ui';
@@ -47,7 +49,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
-  const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
+  const { persistProfile } = useMessageDb();
+  const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
 
   const onMessageClick = () => {
     if (!currentProfile) {
@@ -55,7 +58,9 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
-    addProfileAndSelectTab(conversationKey, profile);
+    persistProfile(conversationKey, profile);
+    const selectedTab: TabValues = profile.isFollowedByMe ? 'Following' : 'Requested';
+    setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
   };
 

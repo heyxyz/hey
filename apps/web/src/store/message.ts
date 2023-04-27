@@ -2,11 +2,10 @@ import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
 import { Localstorage } from 'data/storage';
-import type { Profile } from 'lens';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-type TabValues = 'Following' | 'Requested';
+export type TabValues = 'Following' | 'Requested';
 
 interface MessageState {
   client: Client | undefined;
@@ -17,9 +16,8 @@ interface MessageState {
   messages: Map<string, DecodedMessage[]>;
   setMessages: (messages: Map<string, DecodedMessage[]>) => void;
   addMessages: (key: string, newMessages: DecodedMessage[]) => number;
-  messageProfiles: Map<string, Profile>;
-  setMessageProfiles: (messageProfiles: Map<string, Profile>) => void;
-  addProfileAndSelectTab: (key: string, profile: Profile) => void;
+  hasSyncedMessages: boolean;
+  setHasSyncedMessages: (hasSyncedMessages: boolean) => void;
   previewMessages: Map<string, DecodedMessage>;
   setPreviewMessage: (key: string, message: DecodedMessage) => void;
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
@@ -28,6 +26,9 @@ interface MessageState {
   setSelectedProfileId: (selectedProfileId: string) => void;
   selectedTab: TabValues;
   setSelectedTab: (selectedTab: TabValues) => void;
+  syncedProfiles: Set<string>;
+  addSyncedProfiles: (profileIds: string[]) => void;
+  unsyncProfile: (profileId: string) => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({
@@ -60,20 +61,8 @@ export const useMessageStore = create<MessageState>((set) => ({
     });
     return numAdded;
   },
-  messageProfiles: new Map(),
-  setMessageProfiles: (messageProfiles) => set(() => ({ messageProfiles })),
-  addProfileAndSelectTab: (key, profile) =>
-    set((state) => {
-      let profiles: Map<string, Profile>;
-      if (!state.messageProfiles.get(key)) {
-        profiles = new Map(state.messageProfiles);
-        profiles.set(key, profile);
-      } else {
-        profiles = state.messageProfiles;
-      }
-      const selectedTab: TabValues = profile.isFollowedByMe ? 'Following' : 'Requested';
-      return { messageProfiles: profiles, selectedTab: selectedTab };
-    }),
+  hasSyncedMessages: false,
+  setHasSyncedMessages: (hasSyncedMessages) => set(() => ({ hasSyncedMessages })),
   previewMessages: new Map(),
   setPreviewMessage: (key: string, message: DecodedMessage) =>
     set((state) => {
@@ -96,7 +85,14 @@ export const useMessageStore = create<MessageState>((set) => ({
         previewMessages: new Map(),
         selectedTab: 'Following'
       };
-    })
+    }),
+  syncedProfiles: new Set(),
+  addSyncedProfiles: (profileIds) =>
+    set(({ syncedProfiles }) => ({ syncedProfiles: new Set([...syncedProfiles, ...profileIds]) })),
+  unsyncProfile: (profileId: string) =>
+    set(({ syncedProfiles }) => ({
+      syncedProfiles: new Set([...syncedProfiles].filter((id) => id !== profileId))
+    }))
 }));
 
 // Each Map is storing a profileId as the key.
