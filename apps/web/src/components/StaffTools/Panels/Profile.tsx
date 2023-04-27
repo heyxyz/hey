@@ -72,6 +72,13 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         >
           {profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
         </MetaDetails>
+        <MetaDetails
+          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
+          value={profile?.dispatcher?.sponsor ? 'Yes' : 'No'}
+          title={t`Gas sponsored`}
+        >
+          {profile?.dispatcher?.sponsor ? 'Yes' : 'No'}
+        </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails
             icon={<PhotographIcon className="lt-text-gray-500 h-4 w-4" />}
