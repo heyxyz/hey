@@ -11,8 +11,8 @@
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.12",
-    "axios": "^1.3.6",
+    "@apollo/client": "^3.7.13",
+    "axios": "^1.4.0",
     "data": "workspace:*"
   },
   "devDependencies": {
@@ -21,7 +21,7 @@
     "@graphql-codegen/typescript": "^3.0.4",
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
-    "@types/node": "^18.16.1",
+    "@types/node": "^18.16.2",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
