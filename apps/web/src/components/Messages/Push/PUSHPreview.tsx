@@ -1,9 +1,13 @@
 import Search from '@components/Messages/Push/Search';
 import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
+import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
+import usePushDecryption from '@components/utils/hooks/push/usePushDecryption';
+import useUpgradeChatProfile from '@components/utils/hooks/push/useUpgradeChatProfile';
 import { Trans } from '@lingui/macro';
-import { type FC } from 'react';
+import { type FC, useCallback, useEffect } from 'react';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Card, Modal } from 'ui';
+import * as wagmi from 'wagmi';
 
 interface PreviewListProps {
   selectedConversationKey?: string;
@@ -11,12 +15,70 @@ interface PreviewListProps {
 const activeIndex = 1;
 
 const PUSHPreview: FC<PreviewListProps> = () => {
+  const { data: signer } = wagmi.useSigner();
+  const { fetchChatProfile } = useGetChatProfile();
   const activeTab = usePushChatStore((state) => state.activeTab);
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
+  const setPgpPrivateKey = usePushChatStore((state) => state.setPgpPrivateKey);
   const showCreateChatProfileModal = usePushChatStore((state) => state.showCreateChatProfileModal);
   const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
-  const chatsFeeds = usePushChatStore((state) => state.chatsFeed);
-  const { modalContent, isModalClosable } = useCreateChatProfile();
+  const showUpgradeChatProfileModal = usePushChatStore((state) => state.showUpgradeChatProfileModal);
+  const showDecryptionModal = usePushChatStore((state) => state.showDecryptionModal);
+  const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
+  const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
+  const {
+    createChatProfile,
+    modalContent: createChatProfileModalContent,
+    isModalClosable: isCreateChatProfileModalClosable
+  } = useCreateChatProfile();
+  const {
+    upgradeChatProfile,
+    modalContent: upgradeChatProfileModalContent,
+    isModalClosable: isUpgradeChatProfileModalClosable
+  } = useUpgradeChatProfile();
+  const {
+    decryptKey,
+    modalContent: decryptionModalContent,
+    isModalClosable: isDecryptionModalClosable
+  } = usePushDecryption();
+
+  const decryptAndUpgrade = useCallback(
+    async (encryptedPvtKey: string) => {
+      const { decryptedKey, error } = await decryptKey({ encryptedText: encryptedPvtKey });
+      if (decryptedKey) {
+        setPgpPrivateKey({ decrypted: decryptedKey });
+      } else if (typeof error === 'string' && error?.includes('OperationError')) {
+        setShowDecryptionModal(false);
+        await upgradeChatProfile();
+        // eslint-disable-next-line no-use-before-define
+        // connectProfile();
+      } else {
+        console.log(error);
+        const time = 3000;
+        setTimeout(() => {
+          decryptAndUpgrade(encryptedPvtKey);
+        }, time);
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [decryptKey, setPgpPrivateKey, setShowDecryptionModal, upgradeChatProfile]
+  );
+
+  const connectProfile = useCallback(async () => {
+    const connectedProfile = await fetchChatProfile();
+    if (connectedProfile && connectedProfile.encryptedPrivateKey) {
+      setPgpPrivateKey({ encrypted: connectedProfile.encryptedPrivateKey });
+      const encryptedPvtKey = connectedProfile.encryptedPrivateKey;
+      decryptAndUpgrade(encryptedPvtKey);
+    }
+  }, [decryptAndUpgrade, fetchChatProfile, setPgpPrivateKey]);
+
+  useEffect(() => {
+    if (!signer) {
+      return;
+    }
+    connectProfile();
+  }, [connectProfile, signer]);
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -82,13 +144,28 @@ const PUSHPreview: FC<PreviewListProps> = () => {
         {activeTab === PUSH_TABS.REQUESTS && <section>requests</section>}
         {/* sections for requests */}
       </Card>
-      {/* <button onClick={createChatProfile}>Create Profile</button> */}
+      <button onClick={createChatProfile}>Create Profile</button>
+      <button onClick={upgradeChatProfile}>Upgrade Profile</button>
       <Modal
         size="xs"
         show={showCreateChatProfileModal}
-        onClose={isModalClosable ? () => setShowCreateChatProfileModal(false) : () => {}}
+        onClose={isCreateChatProfileModalClosable ? () => setShowCreateChatProfileModal(false) : () => {}}
       >
-        {modalContent}
+        {createChatProfileModalContent}
+      </Modal>
+      <Modal
+        size="xs"
+        show={showUpgradeChatProfileModal}
+        onClose={isUpgradeChatProfileModalClosable ? () => setShowUpgradeChatProfileModal(false) : () => {}}
+      >
+        {upgradeChatProfileModalContent}
+      </Modal>
+      <Modal
+        size="xs"
+        show={showDecryptionModal}
+        onClose={isDecryptionModalClosable ? () => setShowDecryptionModal(false) : () => {}}
+      >
+        {decryptionModalContent}
       </Modal>
     </div>
   );

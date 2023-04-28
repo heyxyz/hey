@@ -1,13 +1,15 @@
 import { XIcon } from '@heroicons/react/outline';
 import type { ProgressHookType } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
-import { LENSHUB_PROXY } from 'data';
+// import { LENSHUB_PROXY } from 'data';
 import { useCallback, useState } from 'react';
-import { CHAIN_ID } from 'src/constants';
+// import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input, Spinner } from 'ui';
 import { useSigner } from 'wagmi';
+
+import useCreateChatProfile from './useCreateChatProfile';
 
 type handleSetPassFunc = () => void;
 const totalSteps: number = 6;
@@ -25,19 +27,28 @@ type modalInfoType = {
   type: string;
 };
 const initModalInfo: modalInfoType = {
-  title: 'Create Password',
-  info: 'Please set a password to recover your chats if you transfer your Lens NFT to another wallet.',
+  title: 'Existing Profile Detected',
+  info: 'We have detected an existing profile with this account. Enter your existing profile password or start fresh with a new profile.',
   type: ProgressType.INITIATE
 };
 
-const useCreateChatProfile = () => {
+const useUpgradeChatProfile = () => {
   const { data: signer } = useSigner();
+  const { createChatProfile } = useCreateChatProfile();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
+  const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
   const [step, setStep] = useState<number>(1);
-  const [modalClosable, setModalClosable] = useState<boolean>(true);
+  const [modalClosable, setModalClosable] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [modalInfo, setModalInfo] = useState<modalInfoType>(initModalInfo);
+
+  const reset = () => {
+    setStep(1);
+    setModalClosable(false);
+    setPassword('');
+    setModalInfo(initModalInfo);
+  };
 
   const handleProgress = useCallback(
     (progress: ProgressHookType) => {
@@ -53,32 +64,32 @@ const useCreateChatProfile = () => {
         if (progress.level === 'SUCCESS') {
           const timeout = 2000; // after this time, modal will be closed
           setTimeout(() => {
-            setShowCreateChatProfileModal(false);
+            setShowUpgradeChatProfileModal(false);
           }, timeout);
         }
         setModalClosable(true);
       }
     },
-    [setShowCreateChatProfileModal]
+    [setModalClosable, setModalInfo, setStep, setShowUpgradeChatProfileModal]
   );
 
   const initiateProcess = useCallback(() => {
-    setStep(1);
     setModalInfo(initModalInfo);
+    setStep(1);
     setPassword('');
-    setModalClosable(true);
-  }, []);
+    setModalClosable(false);
+  }, [setModalClosable, setModalInfo, setStep]);
 
-  const handleSetPassword: handleSetPassFunc = useCallback(async () => {
-    if (!signer || !currentProfile) {
+  const handleContinue: handleSetPassFunc = useCallback(async () => {
+    if (!signer || !currentProfile || !connectedProfile) {
       return;
     }
 
     try {
-      await PushAPI.user.create({
+      await PushAPI.user.upgrade({
         signer: signer,
         additionalMeta: { password: password },
-        account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
+        account: connectedProfile?.did,
         progressHook: handleProgress,
         env: PUSH_ENV
       });
@@ -86,35 +97,28 @@ const useCreateChatProfile = () => {
     } catch (error) {
       console.log(error);
       // handle error here
-      const timeout = 3000; // after this time, show modal state to 1st step
+      const timeout = 2000; // after this time, show modal state to 1st step
       setTimeout(() => {
         initiateProcess();
       }, timeout);
     }
-  }, [currentProfile, handleProgress, initiateProcess, password, signer]);
+  }, [signer, currentProfile, connectedProfile, password, handleProgress, initiateProcess]);
 
-  const createChatProfile = useCallback(async () => {
+  const upgradeChatProfile = useCallback(async () => {
     initiateProcess();
-    setShowCreateChatProfileModal(true);
-  }, [initiateProcess, setShowCreateChatProfileModal]);
+    setShowUpgradeChatProfileModal(true);
+  }, [initiateProcess, setShowUpgradeChatProfileModal]);
 
   let modalContent: JSX.Element;
   switch (modalInfo.type) {
     case ProgressType.INITIATE:
       modalContent = (
         <div className="relative flex w-full flex-col px-4 py-6">
-          <button
-            type="button"
-            className="absolute right-0 top-0 p-1 pr-4 pt-6 text-[#82828A] dark:text-gray-100"
-            onClick={() => setShowCreateChatProfileModal(false)}
-          >
-            <XIcon className="h-5 w-5" />
-          </button>
           <div className="pb-1.5 text-center text-base font-medium">
             {step}/{totalSteps} - {modalInfo.title}
           </div>
           <div className="px-5 pb-4 text-center text-xs font-[450] text-[#818189]">{modalInfo.info}</div>
-          <div className="px-1 pb-2 text-base font-medium">Enter new password</div>
+          <div className="px-1 pb-2 text-base font-medium">Enter your password</div>
           <Input
             type="text"
             className="px-4 py-4 text-sm"
@@ -122,13 +126,27 @@ const useCreateChatProfile = () => {
             autoComplete="off"
             onChange={(e) => setPassword(e.target.value)}
           />
+          <div className="mt-6 text-center text-xs font-[450] text-[#818189]">Forgot your password?</div>
+          <div className="pb-2 text-center text-xs font-[450] text-[#818189]">
+            Start fresh by creating a new profile
+          </div>
+          <div
+            className="text-brand cursor-pointer self-center text-center text-sm font-[500]"
+            onClick={() => {
+              createChatProfile();
+              reset();
+              setShowUpgradeChatProfileModal(false);
+            }}
+          >
+            Create new profile
+          </div>
           <Button
-            className="mt-7 self-center text-center"
+            className="mt-6 self-center text-center"
             variant="primary"
             disabled={password === '' ? true : false}
-            onClick={handleSetPassword}
+            onClick={handleContinue}
           >
-            Set password
+            Continue
           </Button>
         </div>
       );
@@ -189,7 +207,7 @@ const useCreateChatProfile = () => {
           <button
             type="button"
             className="absolute right-0 top-0 p-1 pr-4 pt-6 text-[#82828A] dark:text-gray-100"
-            onClick={() => setShowCreateChatProfileModal(false)}
+            onClick={() => setShowUpgradeChatProfileModal(false)}
           >
             <XIcon className="h-5 w-5" />
           </button>
@@ -199,7 +217,7 @@ const useCreateChatProfile = () => {
       );
   }
 
-  return { createChatProfile, modalContent, isModalClosable: modalClosable };
+  return { upgradeChatProfile, modalContent, isModalClosable: modalClosable };
 };
 
-export default useCreateChatProfile;
+export default useUpgradeChatProfile;
