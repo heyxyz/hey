@@ -4,17 +4,16 @@ import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
 import usePushDecryption from '@components/utils/hooks/push/usePushDecryption';
 import useUpgradeChatProfile from '@components/utils/hooks/push/useUpgradeChatProfile';
 import { Trans } from '@lingui/macro';
-import { type FC, useCallback, useEffect } from 'react';
+import type { Profile } from 'lens';
+import router from 'next/router';
+import { useCallback, useEffect } from 'react';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Card, Modal } from 'ui';
 import * as wagmi from 'wagmi';
 
-interface PreviewListProps {
-  selectedConversationKey?: string;
-}
 const activeIndex = 1;
 
-const PUSHPreview: FC<PreviewListProps> = () => {
+const PUSHPreview = () => {
   const { data: signer } = wagmi.useSigner();
   const { fetchChatProfile } = useGetChatProfile();
   const activeTab = usePushChatStore((state) => state.activeTab);
@@ -24,6 +23,8 @@ const PUSHPreview: FC<PreviewListProps> = () => {
   const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
   const showUpgradeChatProfileModal = usePushChatStore((state) => state.showUpgradeChatProfileModal);
   const showDecryptionModal = usePushChatStore((state) => state.showDecryptionModal);
+  const selectedChatId = usePushChatStore((state) => state.selectedChatId);
+  const selectedChatType = usePushChatStore((state) => state.selectedChatType);
   const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
   const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
   const {
@@ -80,6 +81,15 @@ const PUSHPreview: FC<PreviewListProps> = () => {
     connectProfile();
   }, [connectProfile, signer]);
 
+  useEffect(() => {
+    //set selected chat preview
+    //find in inbox or reuqests  or new chat and switch tab as per that and set css for selected chat
+  }, [selectedChatId, selectedChatType]);
+
+  const onProfileSelected = (profile: Profile) => {
+    router.push(`/messages/push/chat/${profile.id}`);
+  };
+
   return (
     <div className="flex h-full flex-col justify-between">
       <Card className="flex h-full flex-col p-4 pt-7">
@@ -108,7 +118,11 @@ const PUSHPreview: FC<PreviewListProps> = () => {
           </div>
 
           <div className="flex gap-x-2">
-            <Search placeholder="Search name.eth or 0x123..." modalWidthClassName="w-80" />
+            <Search
+              placeholder="Search name.eth or 0x123..."
+              modalWidthClassName="w-80"
+              onProfileSelected={onProfileSelected}
+            />
             <div className="">
               <img className="h-10 w-11" src="/push/requestchat.svg" alt="plus icon" />
             </div>

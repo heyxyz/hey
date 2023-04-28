@@ -1,6 +1,7 @@
 import EmojiPicker from 'emoji-picker-react';
 import GifPicker from 'gif-picker-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { usePushChatStore } from 'src/store/push-chat';
 import { Image, Input } from 'ui';
 
 type GIFType = {
@@ -13,6 +14,13 @@ export default function MessageBody() {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
   const [inputText, setInputText] = useState('');
+  const selectedChatId = usePushChatStore((state) => state.selectedChatId);
+  const selectedChatType = usePushChatStore((state) => state.selectedChatType);
+
+  useEffect(() => {
+    //fetch chat to show chatbox
+    console.log(selectedChatId);
+  }, [selectedChatId, selectedChatType]);
 
   const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
   const appendGIF = (emojiObject: GIFType) => {

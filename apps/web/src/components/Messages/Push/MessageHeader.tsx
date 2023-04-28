@@ -1,17 +1,17 @@
+import UserProfile from '@components/Shared/UserProfile';
+import type { Profile } from 'lens';
 import React from 'react';
 import { Image } from 'ui';
 
-export default function MessageHeader() {
+interface MessageHeaderProps {
+  profile?: Profile;
+}
+
+export default function MessageHeader({ profile }: MessageHeaderProps) {
   return (
     <section className="flex w-full justify-between border-b px-5	py-2.5	">
-      <div className="flex gap-x-2">
-        <img className="h-12 w-12	rounded-full" src="/user.svg" alt="" />
-        <div>
-          <h5 className="text-base font-bold">Sasi</h5>
-          <p className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-sm text-transparent">
-            @sasicodes
-          </p>
-        </div>
+      <div className="flex items-center">
+        <UserProfile profile={profile as Profile} />
       </div>
       <div className="flex items-center gap-4	">
         <img className="cursor-pointer" src="/push/video.svg" alt="video icon" />

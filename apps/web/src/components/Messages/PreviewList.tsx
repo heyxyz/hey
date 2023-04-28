@@ -82,7 +82,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
         {chatProvider === MESSAGING_PROVIDER.XMTP ? (
           <XMTPPreviewList selectedConversationKey={selectedConversationKey} />
         ) : (
-          <PUSHPreviewList selectedConversationKey={selectedConversationKey} />
+          <PUSHPreviewList />
         )}
       </div>
     </GridItemFour>

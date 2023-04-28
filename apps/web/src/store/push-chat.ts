@@ -7,15 +7,20 @@ export const PUSH_TABS = {
   CHATS: 'CHATS',
   REQUESTS: 'REQUESTS'
 } as const;
-type PushTabs = typeof PUSH_TABS;
+export const CHAT_TYPES = {
+  CHAT: 'chat',
+  GROUP: 'group'
+} as const;
+type ChatTypes = (typeof CHAT_TYPES)[keyof typeof CHAT_TYPES];
+type PushTabs = (typeof PUSH_TABS)[keyof typeof PUSH_TABS];
 
 export const PUSH_ENV = IS_MAINNET ? ENV.PROD : ENV.STAGING;
 
 interface IPushChatStore {
   connectedProfile: IUser | undefined;
   setConnectedProfile: (connectedProfile: IUser) => void;
-  activeTab: keyof PushTabs;
-  setActiveTab: (tabName: keyof PushTabs) => void;
+  activeTab: PushTabs;
+  setActiveTab: (tabName: PushTabs) => void;
   chats: Map<string, Array<IMessageIPFS>>; // chatId -> chat messages array
   setChats: (chats: Map<string, Array<IMessageIPFS>>) => void;
   addChat: (key: string, newChat: Array<IMessageIPFS>) => void;
@@ -28,6 +33,8 @@ interface IPushChatStore {
   reset: () => void;
   selectedChatId: string;
   setSelectedChatId: (selectedChatId: string) => void;
+  selectedChatType: ChatTypes | null;
+  setSelectedChatType: (tabName: ChatTypes) => void;
   showCreateChatProfileModal: boolean;
   setShowCreateChatProfileModal: (showCreateChatProfileModal: boolean) => void;
   showDecryptionModal: boolean;
@@ -79,7 +86,9 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
     });
   },
   selectedChatId: '',
+  selectedChatType: null,
   setSelectedChatId: (selectedChatId) => set(() => ({ selectedChatId })),
+  setSelectedChatType: (selectedChatType) => set(() => ({ selectedChatType })),
   showCreateChatProfileModal: false,
   setShowCreateChatProfileModal: (showCreateChatProfileModal) => set(() => ({ showCreateChatProfileModal })),
   showDecryptionModal: false,
