@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-27 00:08\n"
+"PO-Revision-Date: 2023-04-28 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -513,7 +513,7 @@ msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "commented{0}{1}"
-msgstr ""
+msgstr "прокомментировал{0}{1}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected{0}"
@@ -1190,7 +1190,7 @@ msgstr "Спасибо • {APP_NAME}"
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
-msgstr ""
+msgstr "ENS имя:"
 
 #: src/components/Profile/Badges/ProofOfHumanity.tsx
 msgid "Proof of Humanity verified"
@@ -1238,7 +1238,7 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
-msgstr ""
+msgstr "NFTs"
 
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
@@ -1284,7 +1284,7 @@ msgstr "Не удалось загрузить взаимных подписчи
 
 #: src/components/Profile/MutualFollowers/index.tsx
 msgid "Followed by"
-msgstr ""
+msgstr "Также подписаны"
 
 #: src/components/Profile/New.tsx
 msgid "Create Profile • {APP_NAME}"
@@ -1626,7 +1626,7 @@ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set super follow"
-msgstr ""
+msgstr "Установить супер подписку"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
@@ -1642,15 +1642,15 @@ msgstr "Получатель средств"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Disable Super follow"
-msgstr ""
+msgstr "Отключить супер подписку"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Update Super follow"
-msgstr ""
+msgstr "Обновить супер подписку"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
-msgstr ""
+msgstr "Установить супер подписку"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
@@ -1772,7 +1772,7 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
-msgstr ""
+msgstr "Настройки приложения"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Note: Cleaning will log you out"
@@ -1838,59 +1838,59 @@ msgstr "Обновить"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable"
-msgstr ""
+msgstr "Включить"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable Signless Transactions"
-msgstr ""
+msgstr "Отключить транзакции без подписи"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
-msgstr ""
+msgstr "Диспетчер • {APP_NAME}"
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export notifications"
-msgstr ""
+msgstr "Экспортировать уведомления"
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export all your notifications to a JSON file."
-msgstr ""
+msgstr "Экспортировать все ваши уведомления в JSON файл."
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Exported <0>{0}</0> notifications"
-msgstr ""
+msgstr "Экспортировано <0>{0}</0> уведомлений"
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Download notifications"
-msgstr ""
+msgstr "Скачать уведомления"
 
 #: src/components/Settings/Export/Notifications.tsx
 #: src/components/Settings/Export/Profile.tsx
 #: src/components/Settings/Export/Publications.tsx
 msgid "Exporting..."
-msgstr ""
+msgstr "Экспортируется..."
 
 #: src/components/Settings/Export/Notifications.tsx
 #: src/components/Settings/Export/Profile.tsx
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export now"
-msgstr ""
+msgstr "Экспортировать сейчас"
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Export profile"
-msgstr ""
+msgstr "Экспортировать профиль"
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Export all your profile data to a JSON file."
-msgstr ""
+msgstr "Экспортировать все данные вашего профиля в JSON файл."
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Download profile"
-msgstr ""
+msgstr "Скачать профиль"
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export publications"
-msgstr ""
+msgstr "Экспортировать публикации"
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export all your posts, comments and mirrors to a JSON file."
@@ -1898,15 +1898,15 @@ msgstr ""
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Exported <0>{0}</0> publications"
-msgstr ""
+msgstr "Экспортировано <0>{0}</0> публикаций"
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Download publications"
-msgstr ""
+msgstr "Скачать публикации"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
-msgstr ""
+msgstr "Настройки интересов • {APP_NAME}"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
@@ -1914,7 +1914,7 @@ msgstr ""
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "Hide number of likes"
-msgstr ""
+msgstr "Скрыть количество лайков"
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
@@ -1922,42 +1922,42 @@ msgstr ""
 
 #: src/components/Settings/Preferences/index.tsx
 msgid "Preferences • {APP_NAME}"
-msgstr ""
+msgstr "Настройки • {APP_NAME}"
 
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
-msgstr ""
+msgstr "Адрес контракта должен быть в пределах 42 символов"
 
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Invalid Contract address"
-msgstr ""
+msgstr "Неверный адрес контракта"
 
 #: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
-msgstr ""
+msgstr "Аватар успешно обновлен!"
 
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract Address"
-msgstr ""
+msgstr "Адрес контракта"
 
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
-msgstr ""
+msgstr "Идентификатор токена"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Upload failed"
-msgstr ""
+msgstr "Загрузка не удалась"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
-msgstr ""
+msgstr "Обрезать изображение"
 
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Profile picture crop preview"
-msgstr ""
+msgstr "Предварительный просмотр обрезанной аватарки"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
@@ -1969,11 +1969,11 @@ msgstr "Местоположение не должно превышать 100 с
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Invalid website"
-msgstr ""
+msgstr "Недействительный веб-сайт"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Twitter should not exceed 100 characters"
-msgstr ""
+msgstr "Твиттер не должен превышать 100 символов"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2009,7 +2009,7 @@ msgstr "Расскажите нам что-нибудь о себе!"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Cover picture crop preview"
-msgstr ""
+msgstr "Предварительный просмотр обрезанного изображения обложки"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
@@ -2085,7 +2085,7 @@ msgstr "Недопустимое имя автора"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid cover image"
-msgstr ""
+msgstr "Недопустимое изображение обложки"
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add title"
@@ -2122,7 +2122,7 @@ msgstr "Подписаться"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Terms"
-msgstr ""
+msgstr "Условия"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Privacy"
@@ -2171,25 +2171,25 @@ msgstr ""
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Report"
-msgstr ""
+msgstr "Пожаловаться"
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
 msgid "Set status"
-msgstr ""
+msgstr "Установить статус"
 
 #: src/components/Shared/GlobalModals.tsx
 msgid "Change Profile"
-msgstr ""
+msgstr "Изменить Профиль"
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
 msgid "Login"
-msgstr ""
+msgstr "Вход"
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
-msgstr ""
+msgstr "{type} Индексация"
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "Index Successful"
@@ -2197,76 +2197,76 @@ msgstr ""
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Bold"
-msgstr ""
+msgstr "Жирный"
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Italic"
-msgstr ""
+msgstr "Курсив"
 
 #: src/components/Shared/Lexical/Plugins/ToolbarPlugin.tsx
 msgid "Code"
-msgstr ""
+msgstr "Код"
 
 #: src/components/Shared/Login/New/Pending.tsx
 msgid "Account creation in progress, please wait!"
-msgstr ""
+msgstr "Выполняется создание учетной записи, пожалуйста, подождите!"
 
 #: src/components/Shared/Login/New/Pending.tsx
 msgid "Go to profile"
-msgstr ""
+msgstr "Перейти к профилю"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should be at least 2 characters"
-msgstr ""
+msgstr "В псевдониме должно быть не менее 2 символов"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should not exceed 32 characters"
-msgstr ""
+msgstr "Псевдоним не должен превышать 32 символов"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
-msgstr ""
+msgstr "Псевдоним может содержать только буквы и цифры"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
-msgstr ""
+msgstr "Зарегистрироваться на {APP_NAME}"
 
 #: src/components/Shared/Login/New/index.tsx
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
-msgstr ""
+msgstr "Псевдоним"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up"
-msgstr ""
+msgstr "Зарегистрироваться"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
-msgstr ""
+msgstr "Войти с помощью Lens"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Change wallet"
-msgstr ""
+msgstr "Сменить кошелек"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Browser Wallet"
-msgstr ""
+msgstr "Браузерный кошелек"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
-msgstr ""
+msgstr "Не удалось подключиться"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
-msgstr ""
+msgstr "Пожалуйста, подпишите сообщение"
 
 #: src/components/Shared/Login/index.tsx
 msgid "{APP_NAME} uses this signature to verify that you're the owner of this address."
-msgstr ""
+msgstr "{APP_NAME} использует эту подпись, чтобы подтвердить, что вы являетесь владельцем этого адреса."
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect your wallet"
-msgstr ""
+msgstr "Подключить свой кошелек"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Connect with one of our available wallet providers or create a new one."
@@ -2576,7 +2576,7 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "More coming soon™"
-msgstr ""
+msgstr "Скоро будет больше™"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow again"
@@ -2592,7 +2592,7 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Super follow"
-msgstr ""
+msgstr "Супер подписка"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
@@ -2600,23 +2600,23 @@ msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
-msgstr ""
+msgstr "Сменить сеть"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
-msgstr ""
+msgstr "Отписались успешно!"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "User rejected request"
-msgstr ""
+msgstr "Пользователь отклонил запрос"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
-msgstr ""
+msgstr "Отписаться"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{0}</0>"
-msgstr ""
+msgstr "Вам не хватает <0>{0}</0>"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
@@ -2625,48 +2625,48 @@ msgstr ""
 #: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
-msgstr ""
+msgstr "Панель управления"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "{APP_NAME} account"
-msgstr ""
+msgstr "{APP_NAME} аккаунт"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Profile ID"
-msgstr ""
+msgstr "ID профиля"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Address"
-msgstr ""
+msgstr "Адрес"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
-msgstr ""
+msgstr "Можно использовать обработчик"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "NFT address"
-msgstr ""
+msgstr "NFT адрес"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
-msgstr ""
+msgstr "Модуль Подписка"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Metadata"
-msgstr ""
+msgstr "Метаданные"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
-msgstr ""
+msgstr "Открыть"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Publication ID"
-msgstr ""
+msgstr "ID публикации"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Comment on"
-msgstr ""
+msgstr "Включить комментарии"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
@@ -2674,45 +2674,45 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "App ID"
-msgstr ""
+msgstr "ID приложения"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "On-chain content URI"
-msgstr ""
+msgstr "Блокчейн контент URI"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
-msgstr ""
+msgstr "Транзакции"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Stafftools | Relay queues • {APP_NAME}"
-msgstr ""
+msgstr "Панель управления | Очередь обработчика запросов • {APP_NAME}"
 
 #: src/components/StaffTools/RelayQueues.tsx
 #: src/components/StaffTools/Sidebar.tsx
 msgid "Relay queues"
-msgstr ""
+msgstr "Очередь обработчика запросов"
 
 #: src/components/StaffTools/Sidebar.tsx
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stats"
-msgstr ""
+msgstr "Статистика"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
-msgstr ""
+msgstr "Панель управления | Статистика • {APP_NAME}"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total profiles"
-msgstr ""
+msgstr "всего профилей"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "profiles burnt"
-msgstr ""
+msgstr "профилей сожжено"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total posts"
-msgstr ""
+msgstr "всего публикаций"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total mirrors"
