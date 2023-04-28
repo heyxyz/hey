@@ -15,9 +15,9 @@ export default function MessageHeader() {
       </div>
       <div className="flex items-center gap-4	">
         <img className="cursor-pointer" src="/push/video.svg" alt="video icon" />
-        <div className="flex	 h-8 w-20 cursor-pointer items-center	justify-center gap-2 rounded-lg border border-brand-500">
+        <div className="border-brand-500	 flex h-8 w-20 cursor-pointer	items-center justify-center gap-2 rounded-lg border">
           <Image className="h-3	w-3" src="/push/addfriend.svg" alt="" />
-          <span className="text-sm text-brand-500">Follow</span>
+          <span className="text-brand-500 text-sm">Follow</span>
         </div>
       </div>
     </section>
