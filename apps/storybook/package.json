@@ -14,7 +14,7 @@
   "dependencies": {
     "@storybook/addon-essentials": "^7.0.7",
     "@storybook/addon-links": "^7.0.7",
-    "@storybook/addon-styling": "^1.0.3",
+    "@storybook/addon-styling": "^1.0.5",
     "@storybook/blocks": "^7.0.7",
     "@storybook/manager-api": "^7.0.7",
     "@storybook/nextjs": "^7.0.7",
