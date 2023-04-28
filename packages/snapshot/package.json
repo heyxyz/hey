@@ -11,7 +11,7 @@
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.12",
+    "@apollo/client": "^3.7.13",
     "data": "workspace:*"
   },
   "devDependencies": {

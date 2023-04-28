@@ -131,7 +131,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
         url: ipfsUrl
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay) {
+      if (currentProfile?.dispatcher?.canUseRelay && currentProfile.dispatcher.sponsor) {
         await createViaDispatcher(request);
       } else {
         await createSetProfileImageURITypedData({

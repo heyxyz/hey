@@ -167,7 +167,7 @@ const Status: FC = () => {
         metadata: `ar://${id}`
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay) {
+      if (currentProfile?.dispatcher?.canUseRelay && currentProfile.dispatcher.sponsor) {
         return await createViaDispatcher(request);
       }
 

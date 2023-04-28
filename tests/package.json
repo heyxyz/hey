@@ -16,8 +16,8 @@
     "lib": "workspace:*"
   },
   "devDependencies": {
-    "@playwright/test": "^1.32.3",
-    "@types/node": "^18.16.1",
+    "@playwright/test": "^1.33.0",
+    "@types/node": "^18.16.2",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"

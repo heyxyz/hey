@@ -16,6 +16,7 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     dispatcher {
       address
       canUseRelay
+      sponsor
     }
     onChainIdentity {
       proofOfHumanity
