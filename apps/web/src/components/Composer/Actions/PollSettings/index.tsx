@@ -10,6 +10,7 @@ import { Tooltip } from 'ui';
 const PollSettings: FC = () => {
   const showPollEditor = usePublicationStore((state) => state.showPollEditor);
   const setShowPollEditor = usePublicationStore((state) => state.setShowPollEditor);
+  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
   const { on: isPollsEnabled } = useFeature(FeatureFlag.Polls as string);
 
   if (!isPollsEnabled) {
@@ -21,7 +22,10 @@ const PollSettings: FC = () => {
       <motion.button
         whileTap={{ scale: 0.9 }}
         type="button"
-        onClick={() => setShowPollEditor(!showPollEditor)}
+        onClick={() => {
+          resetPollConfig();
+          setShowPollEditor(!showPollEditor);
+        }}
         aria-label="Poll"
       >
         <MenuAlt2Icon className="text-brand h-5 w-5" />
