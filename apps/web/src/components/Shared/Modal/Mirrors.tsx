@@ -66,7 +66,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
         endReached={onEndReached}
         itemContent={(index, profile) => {
           return (
-            <div className="p-5" key={profile?.id}>
+            <div className="p-5">
               <UserProfile
                 profile={profile as Profile}
                 isFollowing={profile?.isFollowedByMe}

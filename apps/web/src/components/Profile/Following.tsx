@@ -76,7 +76,6 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
               className={`p-5 ${
                 onProfileSelected && 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900'
               }`}
-              key={following?.profile?.id}
               onClick={
                 onProfileSelected && following.profile
                   ? () => {
