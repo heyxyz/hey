@@ -28,7 +28,7 @@ const PollEditor: FC = () => {
             onClick={() => setShowPollLengthModal(true)}
             outline
           >
-            {pollConfig.pollLength} days
+            {pollConfig.length} days
           </Button>
           <Modal
             title={t`Poll length`}
@@ -40,13 +40,13 @@ const PollEditor: FC = () => {
               <Input
                 label={t`Poll length (days)`}
                 type="number"
-                value={pollConfig.pollLength}
+                value={pollConfig.length}
                 min={1}
                 max={30}
                 onChange={(e) =>
                   setPollConfig({
                     ...pollConfig,
-                    pollLength: Number(e.target.value)
+                    length: Number(e.target.value)
                   })
                 }
               />
@@ -55,10 +55,7 @@ const PollEditor: FC = () => {
                   className="ml-auto"
                   variant="danger"
                   onClick={() => {
-                    setPollConfig({
-                      ...pollConfig,
-                      pollLength: 7
-                    });
+                    setPollConfig({ ...pollConfig, length: 7 });
                     setShowPollLengthModal(false);
                   }}
                   outline
