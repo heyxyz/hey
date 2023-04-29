@@ -11,7 +11,6 @@ const PollEditor: FC = () => {
   const pollConfig = usePublicationStore((state) => state.pollConfig);
   const setPollConfig = usePublicationStore((state) => state.setPollConfig);
   const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
-
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
   return (
