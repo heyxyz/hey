@@ -76,6 +76,10 @@ msgid "Save"
 msgstr "சேமி"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
 msgstr "அணுகல் அமைப்புகள்"
 
@@ -95,6 +99,11 @@ msgstr "கோப்பு வடிவம் அனுமதிக்கப்�
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏற்பட்டது!"
+
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Profile/FeedType.tsx
+msgid "Media"
+msgstr "மீடியா"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
@@ -199,8 +208,16 @@ msgid "Loading GIFs"
 msgstr "GIFகளை ஏற்றுகிறது"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
 msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
+
+#: src/components/Composer/Actions/PollSettings/index.tsx
+msgid "Poll"
+msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -374,6 +391,7 @@ msgid "Enable DMs"
 msgstr "டிஎம்களை இயக்கவும்"
 
 #: src/components/Home/FeedEventFilters.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Filter"
 msgstr "வடிகட்டு"
 
@@ -722,72 +740,157 @@ msgid "Collected for {0} {1}"
 msgstr "{0} {1} க்காகச் சேகரிக்கப்பட்டது"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
-msgid "<0><1/> collected your <2>comment</2></0>"
-msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> சேகரித்தார்"
+#~ msgid "<0><1/> collected your <2>comment</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> சேகரித்தார்"
 
+#: src/components/Notification/Type/CollectNotification/index.tsx
+#~ msgid "<0><1/> collected your <2>mirror</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> சேகரித்தார்"
+
+#: src/components/Notification/Type/CollectNotification/index.tsx
+#~ msgid "<0><1/> collected your <2>post</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> சேகரித்தார்"
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/CollectNotification/index.tsx
+msgid "<0><1/> collected your <2>comment</2></0>"
+msgstr ""
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
-msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> சேகரித்தார்"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
-msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> சேகரித்தார்"
+msgstr ""
 
+#: src/components/Notification/Type/CommentNotification.tsx
+#~ msgid "<0><1/> commented on your <2>comment</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>கருத்துக்கு</2></0 </0> பதில் கருத்தைத் தெரிவித்துள்ளார்"
+
+#: src/components/Notification/Type/CommentNotification.tsx
+#~ msgid "<0><1/> commented on your <2>mirror</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>மிரருக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
+
+#: src/components/Notification/Type/CommentNotification.tsx
+#~ msgid "<0><1/> commented on your <2>post</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>இடுகைக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
-msgstr "<0><1/> உங்கள் <2>கருத்துக்கு</2></0 </0> பதில் கருத்தைத் தெரிவித்துள்ளார்"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
-msgstr "<0><1/> உங்கள் <2>மிரருக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
-msgstr "<0><1/> உங்கள் <2>இடுகைக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
+msgstr ""
 
 #: src/components/Notification/Type/FollowerNotification.tsx
-msgid "<0><1/> followed you</0>"
-msgstr "<0><1/> உங்களைப் பின்தொடர்ந்தார்</0>"
+#~ msgid "<0><1/> followed you</0>"
+#~ msgstr "<0><1/> உங்களைப் பின்தொடர்ந்தார்</0>"
 
+#: src/components/Notification/Type/FollowerNotification.tsx
+#~ msgid "<0><1/> super followed you</0>"
+#~ msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/FollowerNotification.tsx
+msgid "<0><1/> followed you</0>"
+msgstr ""
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
 msgstr ""
 
 #: src/components/Notification/Type/LikeNotification.tsx
-msgid "<0><1/> liked your <2>comment</2></0>"
-msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> விரும்பினார்"
+#~ msgid "<0><1/> liked your <2>comment</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> விரும்பினார்"
 
+#: src/components/Notification/Type/LikeNotification.tsx
+#~ msgid "<0><1/> liked your <2>mirror</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> லைக் செய்தார்"
+
+#: src/components/Notification/Type/LikeNotification.tsx
+#~ msgid "<0><1/> liked your <2>post</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> விரும்பினார்"
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/LikeNotification.tsx
+msgid "<0><1/> liked your <2>comment</2></0>"
+msgstr ""
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
-msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> லைக் செய்தார்"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
-msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> விரும்பினார்"
+msgstr ""
 
+#: src/components/Notification/Type/MentionNotification.tsx
+#~ msgid "<0><1/> mentioned you in a <2>comment</2></0>"
+#~ msgstr "<0><1/> ஒரு <2>கருத்தில் </2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
+
+#: src/components/Notification/Type/MentionNotification.tsx
+#~ msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
+#~ msgstr "<0><1/> ஒரு <2>மிரரில்</2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
+
+#: src/components/Notification/Type/MentionNotification.tsx
+#~ msgid "<0><1/> mentioned you in a <2>post</2></0>"
+#~ msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2></0> குறிப்பிட்டுள்ளார்"
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
-msgstr "<0><1/> ஒரு <2>கருத்தில் </2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
-msgstr "<0><1/> ஒரு <2>மிரரில்</2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
-msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2></0> குறிப்பிட்டுள்ளார்"
+msgstr ""
 
+#: src/components/Notification/Type/MirrorNotification.tsx
+#~ msgid "<0><1/> mirrored your <2>comment</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> மிரர் செய்துள்ளார்"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+#~ msgid "<0><1/> mirrored your <2>mirror</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> மிரர் செய்துள்ளார்"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+#~ msgid "<0><1/> mirrored your <2>post</2></0>"
+#~ msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> மிரர் செய்துள்ளார்"
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
-msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> மிரர் செய்துள்ளார்"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
-msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> மிரர் செய்துள்ளார்"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
-msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> மிரர் செய்துள்ளார்"
+msgstr ""
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
@@ -1205,6 +1308,11 @@ msgid "Worldcoin verified"
 msgstr "Worldcoin சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Details.tsx
+#: src/components/Settings/Account/Verification.tsx
+msgid "Verified"
+msgstr "சரிபார்க்கப்பட்டது"
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "உங்களைப் பின்தொடர்கிறார்"
 
@@ -1227,10 +1335,6 @@ msgstr "ஊட்டம்"
 #: src/components/Profile/FeedType.tsx
 msgid "Replies"
 msgstr "பதில்கள்"
-
-#: src/components/Profile/FeedType.tsx
-msgid "Media"
-msgstr "மீடியா"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Collected"
@@ -1434,6 +1538,14 @@ msgid "Fee recipients"
 msgstr "கட்டணம் பெறுவோர்"
 
 #: src/components/Publication/Actions/Collect/index.tsx
+msgid "{0} Collects"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+msgid "Collect"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
 msgstr "இலவச சேகரிப்பு"
@@ -1471,6 +1583,11 @@ msgstr "{0} மிரர்கள்"
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
 msgstr "மிரர்"
+
+#: src/components/Publication/Actions/Mod.tsx
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr "மதிப்பீட்டாளர் செயல்கள்"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
@@ -1651,10 +1768,6 @@ msgstr "சூப்பர் பின்தொடர்பை புதுப�
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
 msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
-
-#: src/components/Settings/Account/Verification.tsx
-msgid "Verified"
-msgstr "சரிபார்க்கப்பட்டது"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
@@ -2159,10 +2272,6 @@ msgstr "மொழிபெயர்"
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
-
-#: src/components/Shared/GlobalAlerts.tsx
-msgid "Mod actions"
-msgstr "மதிப்பீட்டாளர் செயல்கள்"
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
