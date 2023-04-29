@@ -695,7 +695,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const isLoading = loading || typedDataLoading || writeLoading;
 
   return (
-    <Card className={clsx({ 'rounded-none border-none': !isComment }, 'pb-3')}>
+    <Card className={clsx({ '!rounded-b-xl !rounded-t-none border-none': !isComment }, 'pb-3')}>
       {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
       <Editor />
       {publicationContentError && (
