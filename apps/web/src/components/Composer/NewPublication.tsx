@@ -81,6 +81,7 @@ import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
+import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
@@ -127,6 +128,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
   const setVideoThumbnail = usePublicationStore((state) => state.setVideoThumbnail);
   const videoDurationInSeconds = usePublicationStore((state) => state.videoDurationInSeconds);
+  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -704,6 +706,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {publicationContentError && (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">{publicationContentError}</div>
       )}
+      {showPollEditor && <PollEditor />}
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
