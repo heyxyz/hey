@@ -210,3 +210,12 @@ ul {
 .lp-player > div > div {
   @apply border border-gray-100 shadow-none dark:border-gray-700;
 }
+
+/* react-virtuoso - Virtual profile list */
+.virtual-profile-list {
+  @apply !h-[80vh];
+}
+
+.virtual-profile-list > div > div {
+  @apply divide-y dark:divide-gray-700;
+}
