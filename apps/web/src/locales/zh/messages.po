@@ -76,6 +76,10 @@ msgid "Save"
 msgstr "保存"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
 msgstr "访问权限设置"
 
@@ -95,6 +99,11 @@ msgstr "文件格式不兼容。"
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "上传失败!"
+
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Profile/FeedType.tsx
+msgid "Media"
+msgstr "多媒体文件"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
@@ -199,8 +208,16 @@ msgid "Loading GIFs"
 msgstr "正在加载动图"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
 msgstr "请选择GIF图片"
+
+#: src/components/Composer/Actions/PollSettings/index.tsx
+msgid "Poll"
+msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -374,6 +391,7 @@ msgid "Enable DMs"
 msgstr "启用私信功能"
 
 #: src/components/Home/FeedEventFilters.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Filter"
 msgstr "筛选"
 
@@ -722,72 +740,157 @@ msgid "Collected for {0} {1}"
 msgstr "已为 {0} {1} 收藏"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
-msgid "<0><1/> collected your <2>comment</2></0>"
-msgstr "<0><1/>收藏了你的<2>评论</2></0>"
+#~ msgid "<0><1/> collected your <2>comment</2></0>"
+#~ msgstr "<0><1/>收藏了你的<2>评论</2></0>"
 
+#: src/components/Notification/Type/CollectNotification/index.tsx
+#~ msgid "<0><1/> collected your <2>mirror</2></0>"
+#~ msgstr "<0><1/>收藏了你的<2>转发</2></0>"
+
+#: src/components/Notification/Type/CollectNotification/index.tsx
+#~ msgid "<0><1/> collected your <2>post</2></0>"
+#~ msgstr "<0><1/> 收集了你的 <2> 帖子</2></0>"
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/CollectNotification/index.tsx
+msgid "<0><1/> collected your <2>comment</2></0>"
+msgstr ""
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
-msgstr "<0><1/>收藏了你的<2>转发</2></0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
-msgstr "<0><1/> 收集了你的 <2> 帖子</2></0>"
+msgstr ""
 
+#: src/components/Notification/Type/CommentNotification.tsx
+#~ msgid "<0><1/> commented on your <2>comment</2></0>"
+#~ msgstr "<0><1/> 评论了您的<2>评论</2></0>"
+
+#: src/components/Notification/Type/CommentNotification.tsx
+#~ msgid "<0><1/> commented on your <2>mirror</2></0>"
+#~ msgstr "<0><1/> 评论了您的<2>转帖</2></0>"
+
+#: src/components/Notification/Type/CommentNotification.tsx
+#~ msgid "<0><1/> commented on your <2>post</2></0>"
+#~ msgstr "<0><1/> 评论了您的<2>帖子</2></0>"
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
-msgstr "<0><1/> 评论了您的<2>评论</2></0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
-msgstr "<0><1/> 评论了您的<2>转帖</2></0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
-msgstr "<0><1/> 评论了您的<2>帖子</2></0>"
+msgstr ""
 
+#: src/components/Notification/Type/FollowerNotification.tsx
+#~ msgid "<0><1/> followed you</0>"
+#~ msgstr "<0><1/>关注了您</0>"
+
+#: src/components/Notification/Type/FollowerNotification.tsx
+#~ msgid "<0><1/> super followed you</0>"
+#~ msgstr "<0><1/> 超级关注您</0>"
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
-msgstr "<0><1/>关注了您</0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
-msgstr "<0><1/> 超级关注您</0>"
+msgstr ""
 
+#: src/components/Notification/Type/LikeNotification.tsx
+#~ msgid "<0><1/> liked your <2>comment</2></0>"
+#~ msgstr "<0><1/> 赞了您的<2>评论</2></0>"
+
+#: src/components/Notification/Type/LikeNotification.tsx
+#~ msgid "<0><1/> liked your <2>mirror</2></0>"
+#~ msgstr "<0><1/> 点赞了您的<2>转帖中</2></0>"
+
+#: src/components/Notification/Type/LikeNotification.tsx
+#~ msgid "<0><1/> liked your <2>post</2></0>"
+#~ msgstr "<0><1/> 点赞了您的<2>帖子</2></0>"
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
-msgstr "<0><1/> 赞了您的<2>评论</2></0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
-msgstr "<0><1/> 点赞了您的<2>转帖中</2></0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
-msgstr "<0><1/> 点赞了您的<2>帖子</2></0>"
+msgstr ""
 
+#: src/components/Notification/Type/MentionNotification.tsx
+#~ msgid "<0><1/> mentioned you in a <2>comment</2></0>"
+#~ msgstr "<0><1/> 在 <2> 评论中提到了您</2></0>"
+
+#: src/components/Notification/Type/MentionNotification.tsx
+#~ msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
+#~ msgstr "<0><1/> 在<2>转帖中提到了您</2></0>"
+
+#: src/components/Notification/Type/MentionNotification.tsx
+#~ msgid "<0><1/> mentioned you in a <2>post</2></0>"
+#~ msgstr "<0><1/> 在 <2> 帖子中提到了您</2></0>"
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
-msgstr "<0><1/> 在 <2> 评论中提到了您</2></0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
-msgstr "<0><1/> 在<2>转帖中提到了您</2></0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
-msgstr "<0><1/> 在 <2> 帖子中提到了您</2></0>"
+msgstr ""
 
+#: src/components/Notification/Type/MirrorNotification.tsx
+#~ msgid "<0><1/> mirrored your <2>comment</2></0>"
+#~ msgstr "<0><1/> 转发了您的 <2> 评论</2></0>"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+#~ msgid "<0><1/> mirrored your <2>mirror</2></0>"
+#~ msgstr "<0><1/> 转发了您的<2>转帖</2></0>"
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+#~ msgid "<0><1/> mirrored your <2>post</2></0>"
+#~ msgstr "<0><1/> 转发了 <2> 的帖子</2></0>"
+
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
-msgstr "<0><1/> 转发了您的 <2> 评论</2></0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
-msgstr "<0><1/> 转发了您的<2>转帖</2></0>"
+msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
-msgstr "<0><1/> 转发了 <2> 的帖子</2></0>"
+msgstr ""
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
@@ -1205,6 +1308,11 @@ msgid "Worldcoin verified"
 msgstr "世界币已验证"
 
 #: src/components/Profile/Details.tsx
+#: src/components/Settings/Account/Verification.tsx
+msgid "Verified"
+msgstr "已验证"
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "关注了您"
 
@@ -1227,10 +1335,6 @@ msgstr "内容流"
 #: src/components/Profile/FeedType.tsx
 msgid "Replies"
 msgstr "回复"
-
-#: src/components/Profile/FeedType.tsx
-msgid "Media"
-msgstr "多媒体文件"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Collected"
@@ -1434,6 +1538,14 @@ msgid "Fee recipients"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
+msgid "{0} Collects"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+msgid "Collect"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
 msgstr "免费收藏"
@@ -1471,6 +1583,11 @@ msgstr "{0} 次转发"
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
 msgstr "转发"
+
+#: src/components/Publication/Actions/Mod.tsx
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
@@ -1651,10 +1768,6 @@ msgstr "更新超级关注"
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
 msgstr "设置超级关注"
-
-#: src/components/Settings/Account/Verification.tsx
-msgid "Verified"
-msgstr "已验证"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
@@ -2159,10 +2272,6 @@ msgstr "翻译"
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ 由 Vercel 提供支持"
-
-#: src/components/Shared/GlobalAlerts.tsx
-msgid "Mod actions"
-msgstr ""
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
