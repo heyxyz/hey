@@ -6,6 +6,7 @@ import { createReactClient, LivepeerConfig, studioProvider } from '@livepeer/rea
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { IS_MAINNET, LIVEPEER_TOKEN } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
+import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
@@ -22,11 +23,7 @@ import TelemetryProvider from './TelemetryProvider';
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai, mainnet],
-  [
-    jsonRpcProvider({
-      rpc: (chain) => ({ http: `https://rpc.brovider.xyz/${chain.id}` })
-    })
-  ]
+  [jsonRpcProvider({ rpc: (chain) => ({ http: getRpc(chain.id) }) })]
 );
 
 const connectors = () => {
