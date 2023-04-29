@@ -207,20 +207,22 @@ ul {
   @apply [&:not(:last-child)]:mb-5;
 }
 
-.lp-player > div > div {
-  @apply border border-gray-100 shadow-none dark:border-gray-700;
+.lp-player {
+  @apply [&>div>div]:shadow-none;
+  @apply [&>div>div]:border;
+  @apply [&>div>div]:border-gray-100;
+  @apply [&>div>div]:dark:border-gray-700;
 }
 
 /* react-virtuoso - Virtual profile list */
 .virtual-profile-list {
   @apply !h-[80vh];
-}
-
-.virtual-profile-list > div > div {
-  @apply divide-y dark:divide-gray-700;
+  @apply [&>div>div]:divide-y;
+  @apply [&>div>div]:dark:divide-gray-700;
 }
 
 /* react-virtuoso - Virtual notifications list */
-.virtual-notification-list > div > div {
-  @apply divide-y dark:divide-gray-700;
+.virtual-notification-list {
+  @apply [&>div>div]:divide-y;
+  @apply [&>div>div]:dark:divide-gray-700;
 }
