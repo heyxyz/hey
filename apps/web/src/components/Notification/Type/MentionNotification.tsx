@@ -7,6 +7,7 @@ import { Trans } from '@lingui/react';
 import type { NewMentionNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { memo } from 'react';
 import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
@@ -67,4 +68,4 @@ const MentionNotification: FC<MentionNotificationProps> = ({ notification }) => 
   );
 };
 
-export default MentionNotification;
+export default memo(MentionNotification);

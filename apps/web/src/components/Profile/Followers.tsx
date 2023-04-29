@@ -74,7 +74,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
         endReached={onEndReached}
         itemContent={(index, follower) => {
           return (
-            <div className="p-5" key={follower?.wallet?.defaultProfile?.id}>
+            <div className="p-5">
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
                   profile={follower?.wallet?.defaultProfile as Profile}
