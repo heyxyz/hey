@@ -215,6 +215,12 @@ msgstr ""
 msgid "Select GIF"
 msgstr "Выберите GIF"
 
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "Удалить"
+
 #: src/components/Composer/Actions/PollSettings/index.tsx
 msgid "Poll"
 msgstr ""
@@ -1376,11 +1382,6 @@ msgstr "Редактировать"
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Rearrrange"
 msgstr ""
-
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "Удалить"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"

@@ -215,6 +215,12 @@ msgstr ""
 msgid "Select GIF"
 msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
 
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "அழி"
+
 #: src/components/Composer/Actions/PollSettings/index.tsx
 msgid "Poll"
 msgstr ""
@@ -1376,11 +1382,6 @@ msgstr "திருத்து"
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Rearrrange"
 msgstr "மறுசீரமைக்கவும்"
-
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "அழி"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
