@@ -4,11 +4,12 @@ import { t } from '@lingui/macro';
 import { FeatureFlag } from 'data';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { usePublicationStore } from 'src/store/publication';
 import { Tooltip } from 'ui';
 
 const PollSettings: FC = () => {
-  const [showPollEditor, setShowPollEditor] = useState(false);
+  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
+  const setShowPollEditor = usePublicationStore((state) => state.setShowPollEditor);
   const { on: isPollsEnabled } = useFeature(FeatureFlag.Polls as string);
 
   if (!isPollsEnabled) {
