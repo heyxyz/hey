@@ -2644,6 +2644,10 @@ msgid "Can use relay"
 msgstr "Can use relay"
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "Gas sponsored"
+msgstr "Gas sponsored"
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "NFT address"
 msgstr "NFT address"
 

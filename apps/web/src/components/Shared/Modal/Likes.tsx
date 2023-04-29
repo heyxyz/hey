@@ -57,7 +57,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
     <div className="max-h-[80vh] overflow-y-auto" data-testid="likes-modal">
       <ErrorMessage className="m-5" title={t`Failed to load likes`} error={error} />
       <Virtuoso
-        className="virtual-profile-list !h-[80vh]"
+        className="virtual-profile-list"
         data={profiles}
         endReached={onEndReached}
         itemContent={(index, like) => {

@@ -67,7 +67,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
     <div className="max-h-[80vh] overflow-y-auto" data-testid="followings-modal">
       <ErrorMessage className="m-5" title={t`Failed to load following`} error={error} />
       <Virtuoso
-        className="virtual-profile-list !h-[80vh]"
+        className="virtual-profile-list"
         data={followings}
         endReached={onEndReached}
         itemContent={(index, following) => {

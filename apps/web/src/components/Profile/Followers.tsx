@@ -69,7 +69,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
     <div className="max-h-[80vh] overflow-y-auto" data-testid="followers-modal">
       <ErrorMessage className="m-5" title={t`Failed to load followers`} error={error} />
       <Virtuoso
-        className="virtual-profile-list !h-[80vh]"
+        className="virtual-profile-list"
         data={followers}
         endReached={onEndReached}
         itemContent={(index, follower) => {

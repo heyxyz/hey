@@ -62,7 +62,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
     <div className="max-h-[80vh] overflow-y-auto" data-testid="collectors-modal">
       <ErrorMessage className="m-5" title={t`Failed to load collectors`} error={error} />
       <Virtuoso
-        className="virtual-profile-list !h-[80vh]"
+        className="virtual-profile-list"
         data={profiles}
         endReached={onEndReached}
         itemContent={(index, wallet) => {
