@@ -62,7 +62,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
         endReached={onEndReached}
         itemContent={(index, like) => {
           return (
-            <div className="p-5" key={like?.reactionId}>
+            <div className="p-5">
               <UserProfile
                 profile={like?.profile as Profile}
                 isFollowing={like?.profile?.isFollowedByMe}

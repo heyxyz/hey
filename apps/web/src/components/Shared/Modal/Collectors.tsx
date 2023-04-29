@@ -67,7 +67,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
         endReached={onEndReached}
         itemContent={(index, wallet) => {
           return (
-            <div className="p-5" key={wallet?.address}>
+            <div className="p-5">
               {wallet?.defaultProfile ? (
                 <UserProfile
                   profile={wallet?.defaultProfile as Profile}
