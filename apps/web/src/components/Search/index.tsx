@@ -29,7 +29,7 @@ const Search: NextPage = () => {
         <GridItemFour>
           <Sidebar />
         </GridItemFour>
-        <GridItemEight className="space-y-5">
+        <GridItemEight>
           {query.type === 'profiles' && <Profiles query={query.q} />}
           {query.type === 'pubs' && <Publications query={query.q} />}
         </GridItemEight>
