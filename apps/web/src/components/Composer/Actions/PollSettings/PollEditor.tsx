@@ -14,7 +14,7 @@ const PollEditor: FC = () => {
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
   return (
-    <Card className="m-5 px-5 py-3">
+    <Card className="m-5 px-5 py-3" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
           <MenuAlt2Icon className="text-brand h-4 w-4" />
