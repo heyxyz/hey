@@ -76,6 +76,10 @@ msgid "Save"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
 msgstr ""
 
@@ -94,6 +98,11 @@ msgstr ""
 #: src/components/Composer/Actions/Attachment.tsx
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
+msgstr ""
+
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Profile/FeedType.tsx
+msgid "Media"
 msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
@@ -199,7 +208,15 @@ msgid "Loading GIFs"
 msgstr ""
 
 #: src/components/Composer/Actions/Giphy/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/index.tsx
+msgid "Poll"
 msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
@@ -374,6 +391,7 @@ msgid "Enable DMs"
 msgstr ""
 
 #: src/components/Home/FeedEventFilters.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Filter"
 msgstr ""
 
@@ -722,69 +740,154 @@ msgid "Collected for {0} {1}"
 msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
+#~ msgid "<0><1/> collected your <2>comment</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/CollectNotification/index.tsx
+#~ msgid "<0><1/> collected your <2>mirror</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/CollectNotification/index.tsx
+#~ msgid "<0><1/> collected your <2>post</2></0>"
+#~ msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
+#~ msgid "<0><1/> commented on your <2>comment</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/CommentNotification.tsx
+#~ msgid "<0><1/> commented on your <2>mirror</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/CommentNotification.tsx
+#~ msgid "<0><1/> commented on your <2>post</2></0>"
+#~ msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/FollowerNotification.tsx
+#~ msgid "<0><1/> followed you</0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/FollowerNotification.tsx
+#~ msgid "<0><1/> super followed you</0>"
+#~ msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
 msgstr ""
 
 #: src/components/Notification/Type/LikeNotification.tsx
+#~ msgid "<0><1/> liked your <2>comment</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/LikeNotification.tsx
+#~ msgid "<0><1/> liked your <2>mirror</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/LikeNotification.tsx
+#~ msgid "<0><1/> liked your <2>post</2></0>"
+#~ msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
+#~ msgid "<0><1/> mentioned you in a <2>comment</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/MentionNotification.tsx
+#~ msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/MentionNotification.tsx
+#~ msgid "<0><1/> mentioned you in a <2>post</2></0>"
+#~ msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/MirrorNotification.tsx
+#~ msgid "<0><1/> mirrored your <2>comment</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+#~ msgid "<0><1/> mirrored your <2>mirror</2></0>"
+#~ msgstr ""
+
+#: src/components/Notification/Type/MirrorNotification.tsx
+#~ msgid "<0><1/> mirrored your <2>post</2></0>"
+#~ msgstr ""
+
+#. js-lingui-explicit-id
+#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
 msgstr ""
@@ -1205,6 +1308,11 @@ msgid "Worldcoin verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
+#: src/components/Settings/Account/Verification.tsx
+msgid "Verified"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr ""
 
@@ -1226,10 +1334,6 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Replies"
-msgstr ""
-
-#: src/components/Profile/FeedType.tsx
-msgid "Media"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
@@ -1434,6 +1538,14 @@ msgid "Fee recipients"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
+msgid "{0} Collects"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+msgid "Collect"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
 msgstr ""
@@ -1470,6 +1582,11 @@ msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
+msgstr ""
+
+#: src/components/Publication/Actions/Mod.tsx
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
@@ -1650,10 +1767,6 @@ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
-msgstr ""
-
-#: src/components/Settings/Account/Verification.tsx
-msgid "Verified"
 msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
@@ -2158,10 +2271,6 @@ msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
-msgstr ""
-
-#: src/components/Shared/GlobalAlerts.tsx
-msgid "Mod actions"
 msgstr ""
 
 #: src/components/Shared/GlobalAlerts.tsx
