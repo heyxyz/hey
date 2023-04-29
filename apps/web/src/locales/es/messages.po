@@ -274,6 +274,10 @@ msgid "Please choose either 1 video or up to 4 photos."
 msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
+msgid "Ask a question..."
+msgstr ""
+
+#: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
@@ -740,154 +744,69 @@ msgid "Collected for {0} {1}"
 msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
-#~ msgid "<0><1/> collected your <2>comment</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/CollectNotification/index.tsx
-#~ msgid "<0><1/> collected your <2>mirror</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/CollectNotification/index.tsx
-#~ msgid "<0><1/> collected your <2>post</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/CommentNotification.tsx
-#~ msgid "<0><1/> commented on your <2>comment</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/CommentNotification.tsx
-#~ msgid "<0><1/> commented on your <2>mirror</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/CommentNotification.tsx
-#~ msgid "<0><1/> commented on your <2>post</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/FollowerNotification.tsx
-#~ msgid "<0><1/> followed you</0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/FollowerNotification.tsx
-#~ msgid "<0><1/> super followed you</0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
 msgstr ""
 
 #: src/components/Notification/Type/LikeNotification.tsx
-#~ msgid "<0><1/> liked your <2>comment</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/LikeNotification.tsx
-#~ msgid "<0><1/> liked your <2>mirror</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/LikeNotification.tsx
-#~ msgid "<0><1/> liked your <2>post</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/MentionNotification.tsx
-#~ msgid "<0><1/> mentioned you in a <2>comment</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/MentionNotification.tsx
-#~ msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/MentionNotification.tsx
-#~ msgid "<0><1/> mentioned you in a <2>post</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr ""
 
 #: src/components/Notification/Type/MirrorNotification.tsx
-#~ msgid "<0><1/> mirrored your <2>comment</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/MirrorNotification.tsx
-#~ msgid "<0><1/> mirrored your <2>mirror</2></0>"
-#~ msgstr ""
-
-#: src/components/Notification/Type/MirrorNotification.tsx
-#~ msgid "<0><1/> mirrored your <2>post</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
 msgstr ""
 
-#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
 msgstr ""

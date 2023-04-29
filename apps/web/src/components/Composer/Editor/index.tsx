@@ -25,6 +25,7 @@ const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
 const Editor: FC = () => {
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
+  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
   const attachments = usePublicationStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
   const [editor] = useLexicalComposerContext();
@@ -58,7 +59,7 @@ const Editor: FC = () => {
         contentEditable={<ContentEditable className="my-4 block min-h-[65px] overflow-auto px-5" />}
         placeholder={
           <div className="pointer-events-none absolute top-[65px] whitespace-nowrap px-5 text-gray-400">
-            <Trans>What's happening?</Trans>
+            {showPollEditor ? <Trans>Ask a question...</Trans> : <Trans>What's happening?</Trans>}
           </div>
         }
         ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}

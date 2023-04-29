@@ -28,6 +28,8 @@ interface PublicationState {
   setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
   isUploading: boolean;
   setIsUploading: (isUploading: boolean) => void;
+  showPollEditor: boolean;
+  setShowPollEditor: (showPollEditor: boolean) => void;
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -70,5 +72,7 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   videoDurationInSeconds: '',
   setVideoDurationInSeconds: (videoDurationInSeconds) => set(() => ({ videoDurationInSeconds })),
   isUploading: false,
-  setIsUploading: (isUploading) => set(() => ({ isUploading }))
+  setIsUploading: (isUploading) => set(() => ({ isUploading })),
+  showPollEditor: false,
+  setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor }))
 }));
