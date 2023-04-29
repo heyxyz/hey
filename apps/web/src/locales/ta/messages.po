@@ -2644,6 +2644,10 @@ msgid "Can use relay"
 msgstr "ரிலே பயன்படுத்தலாம்"
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "Gas sponsored"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "NFT address"
 msgstr "NFT முகவரி"
 
@@ -2794,4 +2798,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
