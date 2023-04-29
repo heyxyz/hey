@@ -1,4 +1,4 @@
-import { ClockIcon, MenuAlt2Icon } from '@heroicons/react/outline';
+import { ClockIcon, MenuAlt2Icon, PlusIcon, XIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -74,6 +74,50 @@ const PollEditor: FC = () => {
             </button>
           </Tooltip>
         </div>
+      </div>
+      <div className="mt-3 space-y-2">
+        {pollConfig.choices.map((choice, index) => (
+          <div key={index} className="flex items-center space-x-2 text-sm">
+            <Input
+              placeholder={t`Choice ${index + 1}`}
+              value={choice}
+              onChange={(event) => {
+                const newChoices = [...pollConfig.choices];
+                newChoices[index] = event.target.value;
+                setPollConfig({ ...pollConfig, choices: newChoices });
+              }}
+              iconRight={
+                index > 1 && (
+                  <button
+                    className="flex"
+                    onClick={() => {
+                      const newChoices = [...pollConfig.choices];
+                      newChoices.splice(index, 1);
+                      setPollConfig({ ...pollConfig, choices: newChoices });
+                    }}
+                  >
+                    <XIcon className="h-5 w-5 text-red-500" />
+                  </button>
+                )
+              }
+            />
+          </div>
+        ))}
+        {pollConfig.choices.length !== 5 && (
+          <button
+            className="text-brand mt-2 flex items-center space-x-2 text-sm"
+            onClick={() => {
+              const newChoices = [...pollConfig.choices];
+              newChoices.push('');
+              setPollConfig({ ...pollConfig, choices: newChoices });
+            }}
+          >
+            <PlusIcon className="h-4 w-4" />
+            <span>
+              <Trans>Add another option</Trans>
+            </span>
+          </button>
+        )}
       </div>
     </Card>
   );
