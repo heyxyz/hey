@@ -31,10 +31,11 @@ interface PublicationState {
   showPollEditor: boolean;
   setShowPollEditor: (showPollEditor: boolean) => void;
   pollConfig: {
-    pollLength: number;
-    pollOptions: string[];
+    title: string;
+    length: number;
+    choices: string[];
   };
-  setPollConfig: (pollConfig: { pollLength: number; pollOptions: string[] }) => void;
+  setPollConfig: (pollConfig: { title: string; length: number; choices: string[] }) => void;
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -80,6 +81,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   setIsUploading: (isUploading) => set(() => ({ isUploading })),
   showPollEditor: false,
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
-  pollConfig: { pollLength: 0, pollOptions: [] },
+  pollConfig: { title: '', length: 0, choices: [] },
   setPollConfig: (pollConfig) => set(() => ({ pollConfig }))
 }));
