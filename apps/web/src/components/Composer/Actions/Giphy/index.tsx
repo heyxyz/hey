@@ -23,7 +23,7 @@ const Giphy: FC<GiphyProps> = ({ setGifAttachment }) => {
 
   return (
     <>
-      <Tooltip placement="top" content="GIF">
+      <Tooltip placement="top" content={t`GIF`}>
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"

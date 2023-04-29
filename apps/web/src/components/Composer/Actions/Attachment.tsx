@@ -78,7 +78,7 @@ const Attachment: FC = () => {
           {isUploading ? (
             <Spinner size="sm" />
           ) : (
-            <Tooltip placement="top" content="Media">
+            <Tooltip placement="top" content={t`Media`}>
               <PhotographIcon className="text-brand h-5 w-5" />
             </Tooltip>
           )}
