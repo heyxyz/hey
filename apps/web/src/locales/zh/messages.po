@@ -215,6 +215,12 @@ msgstr ""
 msgid "Select GIF"
 msgstr "请选择GIF图片"
 
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "删除"
+
 #: src/components/Composer/Actions/PollSettings/index.tsx
 msgid "Poll"
 msgstr ""
@@ -1376,11 +1382,6 @@ msgstr "编辑"
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Rearrrange"
 msgstr "重新排列"
-
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "删除"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
