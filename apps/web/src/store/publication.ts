@@ -35,6 +35,7 @@ interface PublicationState {
     choices: string[];
   };
   setPollConfig: (pollConfig: { length: number; choices: string[] }) => void;
+  resetPollConfig: () => void;
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -81,5 +82,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   showPollEditor: false,
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
   pollConfig: { length: 7, choices: ['', ''] },
-  setPollConfig: (pollConfig) => set(() => ({ pollConfig }))
+  setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
+  resetPollConfig: () => set(() => ({ pollConfig: { length: 7, choices: ['', ''] } }))
 }));

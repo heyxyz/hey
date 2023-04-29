@@ -10,6 +10,7 @@ const PollEditor: FC = () => {
   const setShowPollEditor = usePublicationStore((state) => state.setShowPollEditor);
   const pollConfig = usePublicationStore((state) => state.pollConfig);
   const setPollConfig = usePublicationStore((state) => state.setPollConfig);
+  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
 
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
@@ -69,7 +70,13 @@ const PollEditor: FC = () => {
             </div>
           </Modal>
           <Tooltip placement="top" content={t`Delete`}>
-            <button className="flex" onClick={() => setShowPollEditor(false)}>
+            <button
+              className="flex"
+              onClick={() => {
+                resetPollConfig();
+                setShowPollEditor(false);
+              }}
+            >
               <XCircleIcon className="h-5 w-5 text-red-400" />
             </button>
           </Tooltip>
