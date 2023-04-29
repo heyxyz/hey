@@ -39,7 +39,7 @@ const Tags: FC<TagsProps> = ({
       <meta property="twitter:site" content="Lenster" />
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
-      <meta property="twitter:image:src" content={image} />
+      <meta property="twitter:image" content={image} />
       <meta property="twitter:image:width" content="400" />
       <meta property="twitter:image:height" content="400" />
       <meta property="twitter:creator" content="lensterxyz" />
