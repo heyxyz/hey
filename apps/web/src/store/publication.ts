@@ -80,6 +80,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   setIsUploading: (isUploading) => set(() => ({ isUploading })),
   showPollEditor: false,
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
-  pollConfig: { length: 7, choices: [''] },
+  pollConfig: { length: 7, choices: ['', ''] },
   setPollConfig: (pollConfig) => set(() => ({ pollConfig }))
 }));
