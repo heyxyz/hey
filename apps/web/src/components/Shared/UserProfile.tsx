@@ -8,7 +8,7 @@ import getProfileAttribute from 'lib/getProfileAttribute';
 import isVerified from 'lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Image } from 'ui';
 
 import Follow from './Follow';
@@ -159,4 +159,4 @@ const UserProfile: FC<UserProfileProps> = ({
   );
 };
 
-export default UserProfile;
+export default memo(UserProfile);

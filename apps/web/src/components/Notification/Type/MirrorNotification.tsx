@@ -7,6 +7,7 @@ import { Trans } from '@lingui/react';
 import type { NewMirrorNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { memo } from 'react';
 import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
@@ -66,4 +67,4 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   );
 };
 
-export default MirrorNotification;
+export default memo(MirrorNotification);

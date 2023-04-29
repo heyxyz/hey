@@ -9,6 +9,7 @@ import type { NewReactionNotification } from 'lens';
 import hasGm from 'lib/hasGm';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { memo } from 'react';
 import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
@@ -74,4 +75,4 @@ const LikeNotification: FC<LikeNotificationProps> = ({ notification }) => {
   );
 };
 
-export default LikeNotification;
+export default memo(LikeNotification);
