@@ -6,7 +6,7 @@ import type { Profile, Wallet, WhoCollectedPublicationRequest } from 'lens';
 import { useCollectorsQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { FollowSource } from 'src/tracking';
 import { EmptyState, ErrorMessage } from 'ui';
 
@@ -30,19 +30,17 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   const profiles = data?.whoCollectedPublication?.items;
   const pageInfo = data?.whoCollectedPublication?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      }).then(({ data }) => {
-        setHasMore(data?.whoCollectedPublication?.items?.length > 0);
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    }).then(({ data }) => {
+      setHasMore(data?.whoCollectedPublication?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return <Loader message={t`Loading collectors`} />;
@@ -63,26 +61,30 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto" data-testid="collectors-modal">
       <ErrorMessage className="m-5" title={t`Failed to load collectors`} error={error} />
-      <div className="divide-y dark:divide-gray-700">
-        {profiles?.map((wallet, index) => (
-          <div className="p-5" key={wallet?.address}>
-            {wallet?.defaultProfile ? (
-              <UserProfile
-                profile={wallet?.defaultProfile as Profile}
-                isFollowing={wallet?.defaultProfile?.isFollowedByMe}
-                followPosition={index + 1}
-                followSource={FollowSource.COLLECTORS_MODAL}
-                showBio
-                showFollow
-                showUserPreview={false}
-              />
-            ) : (
-              <WalletProfile wallet={wallet as Wallet} />
-            )}
-          </div>
-        ))}
-      </div>
-      {hasMore && <span ref={observe} />}
+      <Virtuoso
+        className="virtual-profile-list !h-[80vh]"
+        data={profiles}
+        endReached={onEndReached}
+        itemContent={(index, wallet) => {
+          return (
+            <div className="p-5" key={wallet?.address}>
+              {wallet?.defaultProfile ? (
+                <UserProfile
+                  profile={wallet?.defaultProfile as Profile}
+                  isFollowing={wallet?.defaultProfile?.isFollowedByMe}
+                  followPosition={index + 1}
+                  followSource={FollowSource.COLLECTORS_MODAL}
+                  showBio
+                  showFollow
+                  showUserPreview={false}
+                />
+              ) : (
+                <WalletProfile wallet={wallet as Wallet} />
+              )}
+            </div>
+          );
+        }}
+      />
     </div>
   );
 };

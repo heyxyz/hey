@@ -5,7 +5,7 @@ import type { Profile, WhoReactedPublicationRequest } from 'lens';
 import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { FollowSource } from 'src/tracking';
 import { EmptyState, ErrorMessage } from 'ui';
 
@@ -29,19 +29,17 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   const profiles = data?.whoReactedPublication?.items;
   const pageInfo = data?.whoReactedPublication?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      }).then(({ data }) => {
-        setHasMore(data?.whoReactedPublication?.items?.length > 0);
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    }).then(({ data }) => {
+      setHasMore(data?.whoReactedPublication?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return <Loader message={t`Loading likes`} />;
@@ -58,22 +56,26 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto" data-testid="likes-modal">
       <ErrorMessage className="m-5" title={t`Failed to load likes`} error={error} />
-      <div className="divide-y dark:divide-gray-700">
-        {profiles?.map((like, index) => (
-          <div className="p-5" key={like?.reactionId}>
-            <UserProfile
-              profile={like?.profile as Profile}
-              isFollowing={like?.profile?.isFollowedByMe}
-              followPosition={index + 1}
-              followSource={FollowSource.LIKES_MODAL}
-              showBio
-              showFollow
-              showUserPreview={false}
-            />
-          </div>
-        ))}
-      </div>
-      {hasMore && <span ref={observe} />}
+      <Virtuoso
+        className="virtual-profile-list !h-[80vh]"
+        data={profiles}
+        endReached={onEndReached}
+        itemContent={(index, like) => {
+          return (
+            <div className="p-5" key={like?.reactionId}>
+              <UserProfile
+                profile={like?.profile as Profile}
+                isFollowing={like?.profile?.isFollowedByMe}
+                followPosition={index + 1}
+                followSource={FollowSource.LIKES_MODAL}
+                showBio
+                showFollow
+                showUserPreview={false}
+              />
+            </div>
+          );
+        }}
+      />
     </div>
   );
 };
