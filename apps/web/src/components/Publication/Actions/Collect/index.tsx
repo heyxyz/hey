@@ -65,7 +65,7 @@ const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) =>
           <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
             <Tooltip
               placement="top"
-              content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}
+              content={count > 0 ? t`${humanize(count)} Collects` : t`Collect`}
               withDelay
             >
               {hasCollected ? (

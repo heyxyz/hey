@@ -98,6 +98,9 @@ const ReferenceSettings = dynamic(() => import('@components/Composer/Actions/Ref
 const AccessSettings = dynamic(() => import('@components/Composer/Actions/AccessSettings'), {
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
+const PollSettings = dynamic(() => import('@components/Composer/Actions/PollSettings'), {
+  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+});
 
 interface NewPublicationProps {
   publication: Publication;
@@ -712,6 +715,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               <AccessSettings />
             </>
           )}
+          <PollSettings />
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button

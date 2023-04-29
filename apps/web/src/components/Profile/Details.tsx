@@ -97,7 +97,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             {profile?.name ?? formatHandle(profile?.handle)}
           </div>
           {isVerified(profile?.id) && (
-            <Tooltip content="Verified">
+            <Tooltip content={t`Verified`}>
               <BadgeCheckIcon className="text-brand h-6 w-6" data-testid="profile-verified-badge" />
             </Tooltip>
           )}

@@ -17,7 +17,7 @@ const AccessSettings: FC = () => {
 
   return (
     <>
-      <Tooltip placement="top" content="Access">
+      <Tooltip placement="top" content={t`Access`}>
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
