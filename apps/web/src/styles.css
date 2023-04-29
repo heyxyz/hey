@@ -219,3 +219,8 @@ ul {
 .virtual-profile-list > div > div {
   @apply divide-y dark:divide-gray-700;
 }
+
+/* react-virtuoso - Virtual notifications list */
+.virtual-notification-list > div > div {
+  @apply divide-y dark:divide-gray-700;
+}
