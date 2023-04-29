@@ -14,32 +14,34 @@ export const supportedLocales: Record<string, string> = {
 
 const defaultLocale = 'en';
 
-i18n.loadLocaleData({
-  en: { plurals: en },
-  es: { plurals: es },
-  ta: { plurals: ta },
-  zh: { plurals: zh },
-  kn: { plurals: kn },
-  ru: { plurals: ru }
-});
-
 /**
  * Sets the current locale and dynamically loads the corresponding catalog of messages.
  *
  * @param locale a supported locale string
  */
 export async function setLocale(locale: string) {
-  if (!supportedLocales.hasOwnProperty(locale)) {
+  if (!Object.keys(supportedLocales).includes(locale)) {
     locale = defaultLocale;
   }
   localStorage.setItem(Localstorage.LocaleStore, JSON.stringify(locale));
-  const { messages } = await import(`src/locales/${locale}/messages`);
+  const { messages } = await import(`@lingui/loader!../locales/${locale}/messages.po`);
   i18n.load(locale, messages);
   i18n.activate(locale);
   dayjs.locale(locale);
 }
 
+/**
+ * Initializes the i18n library with the default locale.
+ */
 export const initLocale = () => {
+  i18n.load({
+    en: { plurals: en },
+    es: { plurals: es },
+    ta: { plurals: ta },
+    zh: { plurals: zh },
+    kn: { plurals: kn },
+    ru: { plurals: ru }
+  });
   const storedValue = localStorage.getItem(Localstorage.LocaleStore);
   const locale = storedValue ? JSON.parse(storedValue) : defaultLocale;
   setLocale(locale);
