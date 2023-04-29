@@ -108,9 +108,9 @@ const List: FC<ListProps> = ({ feedType }) => {
         className="virtual-notification-list"
         data={notifications}
         endReached={onEndReached}
-        itemContent={(index, notification) => {
+        itemContent={(_, notification) => {
           return (
-            <div key={`${notification?.notificationId}_${index}`} className="p-5">
+            <div className="p-5">
               {notification.__typename === 'NewFollowerNotification' && (
                 <FollowerNotification notification={notification as NewFollowerNotification} />
               )}
