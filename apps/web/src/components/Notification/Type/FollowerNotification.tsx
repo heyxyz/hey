@@ -5,6 +5,7 @@ import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import type { NewFollowerNotification } from 'lens';
 import type { FC } from 'react';
+import { memo } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
@@ -64,4 +65,4 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({ notification }) =
   );
 };
 
-export default FollowerNotification;
+export default memo(FollowerNotification);

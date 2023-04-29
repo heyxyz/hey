@@ -7,6 +7,7 @@ import { Trans } from '@lingui/react';
 import type { NewCommentNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { memo } from 'react';
 import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
@@ -66,4 +67,4 @@ const CommentNotification: FC<CommentNotificationProps> = ({ notification }) => 
   );
 };
 
-export default CommentNotification;
+export default memo(CommentNotification);

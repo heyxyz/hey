@@ -11,6 +11,7 @@ import { Trans } from '@lingui/react';
 import type { NewCollectNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { memo } from 'react';
 import type { MessageDescriptor } from 'src/types';
 
 import CollectedAmount from './Amount';
@@ -75,4 +76,4 @@ const CollectNotification: FC<CollectNotificationProps> = ({ notification }) => 
   );
 };
 
-export default CollectNotification;
+export default memo(CollectNotification);
