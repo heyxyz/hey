@@ -36,7 +36,7 @@ const Notification: FC = () => {
   }
 
   return (
-    <div className="flex flex-grow justify-center px-0 py-8 sm:px-6 lg:px-8">
+    <div className="flex grow justify-center px-0 py-8 sm:px-6 lg:px-8">
       <MetaTags title={t`Notifications • ${APP_NAME}`} />
       <div className="w-full max-w-4xl space-y-3">
         <div className="flex flex-wrap justify-between gap-3 pb-2">

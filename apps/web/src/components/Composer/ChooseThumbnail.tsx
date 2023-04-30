@@ -187,12 +187,12 @@ const ChooseThumbnail: FC = () => {
                 draggable={false}
               />
               {ipfsUrl && isSelected && isUploaded ? (
-                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100 bg-opacity-10">
+                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
                   <CheckCircleIcon className="h-6 w-6 text-green-500" />
                 </div>
               ) : null}
               {isUploading && isSelected && (
-                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100 bg-opacity-10 backdrop-blur-md">
+                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10 backdrop-blur-md">
                   <Spinner size="sm" />
                 </div>
               )}
