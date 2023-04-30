@@ -26,7 +26,7 @@ const Reason: FC<ReasonProps> = ({
         <div className="label">Type</div>
         <div>
           <select
-            className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
+            className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
             onChange={(e) => setType(e.target.value)}
           >
             <option disabled selected>
@@ -57,7 +57,7 @@ const Reason: FC<ReasonProps> = ({
           </div>
           <div>
             <select
-              className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
+              className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
               onChange={(e) => setSubReason(e.target.value)}
             >
               <option disabled selected>
