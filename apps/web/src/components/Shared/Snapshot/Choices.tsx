@@ -4,7 +4,7 @@ import { getTimetoNow } from '@lib/formatTime';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { Errors } from 'data';
+import { APP_NAME, Errors } from 'data';
 import humanize from 'lib/humanize';
 import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
@@ -76,6 +76,18 @@ const Choices: FC<ChoicesProps> = ({
     });
   };
 
+  const voteLensterPoll = (position: number) => {
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
+    Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+      proposal_id: proposal.id,
+      source: APP_NAME.toLowerCase()
+    });
+    toast.success(t`Your vote has been casted!`);
+  };
+
   return (
     <>
       <Card className={clsx(isLensterPoll ? 'mt-3' : 'mt-5')}>
@@ -96,7 +108,13 @@ const Choices: FC<ChoicesProps> = ({
               <button
                 key={choice}
                 className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
-                onClick={() => openVoteModal(position)}
+                onClick={() => {
+                  if (isLensterPoll) {
+                    return voteLensterPoll(position);
+                  }
+
+                  return openVoteModal(position);
+                }}
               >
                 <CheckCircleIcon
                   className={clsx(
