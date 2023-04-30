@@ -1,6 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import useCreatePoll from '@components/utils/hooks/useCreatePoll';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
@@ -88,7 +89,6 @@ import {
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
-import useCreatePoll from '@components/utils/hooks/useCreatePoll';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),

@@ -13,7 +13,7 @@ export const GridLayout: FC<GridProps> = ({
 }) => {
   return (
     <div
-      className={`container mx-auto max-w-screen-xl flex-grow px-0 pb-2 pt-8 sm:px-5 ${className}`}
+      className={`container mx-auto max-w-screen-xl grow px-0 pb-2 pt-8 sm:px-5 ${className}`}
     >
       <div className={`grid grid-cols-12 lg:gap-8 ${classNameChild}`}>
         {children}

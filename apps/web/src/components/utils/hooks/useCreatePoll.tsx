@@ -1,7 +1,5 @@
 import { snapshotClient } from '@lib/snapshotClient';
-import { t } from '@lingui/macro';
 import { APP_NAME } from 'data';
-import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 import { useSigner } from 'wagmi';
@@ -14,7 +12,6 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent
   );
-
   const { data: signer } = useSigner();
 
   const createPoll = async (): Promise<CreatePollResponse> => {
@@ -37,13 +34,10 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
           app: APP_NAME.toLowerCase()
         }
       );
-      const newPublicationContent = `${publicationContent}\n\nhttps://snapshot.org/#/polls.lenster.xyz/proposal/${receipt.id}`;
 
-      return newPublicationContent;
+      return `${publicationContent}\n\nhttps://snapshot.org/#/polls.lenster.xyz/proposal/${receipt.id}`;
     } catch (error) {
-      toast.error(t`Error creating poll`);
-
-      return publicationContent;
+      throw error;
     }
   };
 
