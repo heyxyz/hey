@@ -6,7 +6,9 @@ import { Card, Toggle } from 'ui';
 
 const LikesPreferences: FC = () => {
   const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
-  const setHideLikesCount = usePreferencesStore((state) => state.setHideLikesCount);
+  const setHideLikesCount = usePreferencesStore(
+    (state) => state.setHideLikesCount
+  );
 
   return (
     <Card className="linkify space-y-2 p-5">
@@ -20,8 +22,9 @@ const LikesPreferences: FC = () => {
         <div className="flex items-center space-x-2">
           <div className="lt-text-gray-500 mr-5">
             <Trans>
-              You won't see the total number of likes for publications others share to Feed. Your likes to a
-              post will still be visible to you and everyone else.
+              You won't see the total number of likes for publications others
+              share to Feed. Your likes to a post will still be visible to you
+              and everyone else.
             </Trans>
           </div>
           <div>

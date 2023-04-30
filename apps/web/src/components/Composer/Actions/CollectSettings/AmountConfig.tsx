@@ -16,8 +16,12 @@ const AmountConfig: FC<AmountConfigProps> = ({ enabledModuleCurrencies }) => {
   const amount = useCollectModuleStore((state) => state.amount);
   const setAmount = useCollectModuleStore((state) => state.setAmount);
   const setRecipients = useCollectModuleStore((state) => state.setRecipients);
-  const selectedCurrency = useCollectModuleStore((state) => state.selectedCurrency);
-  const setSelectedCurrency = useCollectModuleStore((state) => state.setSelectedCurrency);
+  const selectedCurrency = useCollectModuleStore(
+    (state) => state.selectedCurrency
+  );
+  const setSelectedCurrency = useCollectModuleStore(
+    (state) => state.setSelectedCurrency
+  );
 
   return (
     <div className="pt-3">
@@ -50,7 +54,7 @@ const AmountConfig: FC<AmountConfigProps> = ({ enabledModuleCurrencies }) => {
                 <Trans>Select Currency</Trans>
               </div>
               <select
-                className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
+                className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
                 onChange={(e) => setSelectedCurrency(e.target.value)}
               >
                 {enabledModuleCurrencies?.map((currency: Erc20) => (

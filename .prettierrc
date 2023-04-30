@@ -5,6 +5,6 @@
   "useTabs": false,
   "trailingComma": "none",
   "singleQuote": true,
-  "printWidth": 110,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "tabWidth": 2,
+  "endOfLine": "lf"
 }

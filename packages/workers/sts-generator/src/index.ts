@@ -60,7 +60,10 @@ async function handleRequest(request: Request, env: EnvType) {
       { headers }
     );
   } catch {
-    return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), { headers });
+    return new Response(
+      JSON.stringify({ success: false, message: 'Something went wrong!' }),
+      { headers }
+    );
   }
 }
 

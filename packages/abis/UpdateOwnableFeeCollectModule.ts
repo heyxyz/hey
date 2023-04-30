@@ -21,9 +21,24 @@ export const UpdateOwnableFeeCollectModule = [
   {
     anonymous: false,
     inputs: [
-      { indexed: true, internalType: 'address', name: 'owner', type: 'address' },
-      { indexed: true, internalType: 'address', name: 'approved', type: 'address' },
-      { indexed: true, internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'owner',
+        type: 'address'
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'approved',
+        type: 'address'
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256'
+      }
     ],
     name: 'Approval',
     type: 'event'
@@ -31,8 +46,18 @@ export const UpdateOwnableFeeCollectModule = [
   {
     anonymous: false,
     inputs: [
-      { indexed: true, internalType: 'address', name: 'owner', type: 'address' },
-      { indexed: true, internalType: 'address', name: 'operator', type: 'address' },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'owner',
+        type: 'address'
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'operator',
+        type: 'address'
+      },
       { indexed: false, internalType: 'bool', name: 'approved', type: 'bool' }
     ],
     name: 'ApprovalForAll',
@@ -41,13 +66,48 @@ export const UpdateOwnableFeeCollectModule = [
   {
     anonymous: false,
     inputs: [
-      { indexed: true, internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { indexed: true, internalType: 'uint256', name: 'pubId', type: 'uint256' },
-      { indexed: false, internalType: 'uint256', name: 'amount', type: 'uint256' },
-      { indexed: false, internalType: 'address', name: 'currency', type: 'address' },
-      { indexed: false, internalType: 'address', name: 'recipient', type: 'address' },
-      { indexed: false, internalType: 'uint16', name: 'referralFee', type: 'uint16' },
-      { indexed: false, internalType: 'bool', name: 'followerOnly', type: 'bool' }
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'profileId',
+        type: 'uint256'
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'pubId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'currency',
+        type: 'address'
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'recipient',
+        type: 'address'
+      },
+      {
+        indexed: false,
+        internalType: 'uint16',
+        name: 'referralFee',
+        type: 'uint16'
+      },
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'followerOnly',
+        type: 'bool'
+      }
     ],
     name: 'ModuleParametersUpdated',
     type: 'event'
@@ -57,7 +117,12 @@ export const UpdateOwnableFeeCollectModule = [
     inputs: [
       { indexed: true, internalType: 'address', name: 'from', type: 'address' },
       { indexed: true, internalType: 'address', name: 'to', type: 'address' },
-      { indexed: true, internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'tokenId',
+        type: 'uint256'
+      }
     ],
     name: 'Transfer',
     type: 'event'
@@ -147,7 +212,11 @@ export const UpdateOwnableFeeCollectModule = [
     outputs: [
       {
         components: [
-          { internalType: 'uint256', name: 'profileIdPointed', type: 'uint256' },
+          {
+            internalType: 'uint256',
+            name: 'profileIdPointed',
+            type: 'uint256'
+          },
           { internalType: 'uint256', name: 'pubIdPointed', type: 'uint256' },
           { internalType: 'string', name: 'contentURI', type: 'string' },
           { internalType: 'address', name: 'referenceModule', type: 'address' },
@@ -171,7 +240,11 @@ export const UpdateOwnableFeeCollectModule = [
     outputs: [
       {
         components: [
-          { internalType: 'uint256', name: 'ownershipTokenId', type: 'uint256' },
+          {
+            internalType: 'uint256',
+            name: 'ownershipTokenId',
+            type: 'uint256'
+          },
           { internalType: 'uint256', name: 'amount', type: 'uint256' },
           { internalType: 'address', name: 'currency', type: 'address' },
           { internalType: 'address', name: 'recipient', type: 'address' },

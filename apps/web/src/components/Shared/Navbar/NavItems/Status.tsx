@@ -13,10 +13,18 @@ interface StatusProps {
 
 const Status: FC<StatusProps> = ({ className = '' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
+  const setShowStatusModal = useGlobalModalStateStore(
+    (state) => state.setShowStatusModal
+  );
 
-  const statusEmoji = getProfileAttribute(currentProfile?.attributes, 'statusEmoji');
-  const statusMessage = getProfileAttribute(currentProfile?.attributes, 'statusMessage');
+  const statusEmoji = getProfileAttribute(
+    currentProfile?.attributes,
+    'statusEmoji'
+  );
+  const statusMessage = getProfileAttribute(
+    currentProfile?.attributes,
+    'statusMessage'
+  );
   const hasStatus = statusEmoji && statusMessage;
 
   return (

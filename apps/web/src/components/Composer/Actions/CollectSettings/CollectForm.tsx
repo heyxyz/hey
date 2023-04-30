@@ -22,20 +22,32 @@ interface CollectFormProps {
 
 const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
-  const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
+  const selectedCollectModule = useCollectModuleStore(
+    (state) => state.selectedCollectModule
+  );
+  const setSelectedCollectModule = useCollectModuleStore(
+    (state) => state.setSelectedCollectModule
+  );
   const amount = useCollectModuleStore((state) => state.amount);
-  const selectedCurrency = useCollectModuleStore((state) => state.selectedCurrency);
+  const selectedCurrency = useCollectModuleStore(
+    (state) => state.selectedCurrency
+  );
   const referralFee = useCollectModuleStore((state) => state.referralFee);
   const collectLimit = useCollectModuleStore((state) => state.collectLimit);
-  const setCollectLimit = useCollectModuleStore((state) => state.setCollectLimit);
+  const setCollectLimit = useCollectModuleStore(
+    (state) => state.setCollectLimit
+  );
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
-  const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
+  const setHasTimeLimit = useCollectModuleStore(
+    (state) => state.setHasTimeLimit
+  );
   const recipients = useCollectModuleStore((state) => state.recipients);
   const followerOnly = useCollectModuleStore((state) => state.followerOnly);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
-  const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
+  const setCollectToView = useAccessSettingsStore(
+    (state) => state.setCollectToView
+  );
 
   const {
     RevertCollectModule,
@@ -48,12 +60,17 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   } = CollectModules;
   const hasRecipients = recipients.length > 0;
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
-  const hasEmptyRecipients = recipients.some((recipient) => !recipient.recipient);
+  const hasEmptyRecipients = recipients.some(
+    (recipient) => !recipient.recipient
+  );
   const hasInvalidEthAddressInRecipients = recipients.some(
-    (recipient) => recipient.recipient && !isValidEthAddress(recipient.recipient)
+    (recipient) =>
+      recipient.recipient && !isValidEthAddress(recipient.recipient)
   );
   const isRecipientsDuplicated = () => {
-    const recipientsSet = new Set(recipients.map((recipient) => recipient.recipient));
+    const recipientsSet = new Set(
+      recipients.map((recipient) => recipient.recipient)
+    );
     return recipientsSet.size !== recipients.length;
   };
 
@@ -63,7 +80,9 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         currency: selectedCurrency,
         value: amount
       },
-      [hasRecipients ? 'recipients' : 'recipient']: hasRecipients ? recipients : currentProfile?.ownedBy,
+      [hasRecipients ? 'recipients' : 'recipient']: hasRecipients
+        ? recipients
+        : currentProfile?.ownedBy,
       referralFee: parseFloat(referralFee ?? '0'),
       followerOnly
     };
@@ -110,7 +129,15 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         setPayload({ revertCollectModule: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, recipients, selectedCollectModule]);
+  }, [
+    amount,
+    referralFee,
+    collectLimit,
+    hasTimeLimit,
+    followerOnly,
+    recipients,
+    selectedCollectModule
+  ]);
 
   useEffect(() => {
     if (hasTimeLimit) {
@@ -185,7 +212,13 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   }
 
   if (error) {
-    return <ErrorMessage className="p-5" title={t`Failed to load modules`} error={error} />;
+    return (
+      <ErrorMessage
+        className="p-5"
+        title={t`Failed to load modules`}
+        error={error}
+      />
+    );
   }
 
   const toggleCollect = () => {
@@ -205,7 +238,9 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       />
       {selectedCollectModule !== RevertCollectModule && (
         <div className="ml-5">
-          <AmountConfig enabledModuleCurrencies={data?.enabledModuleCurrencies} />
+          <AmountConfig
+            enabledModuleCurrencies={data?.enabledModuleCurrencies}
+          />
           {selectedCollectModule !== FreeCollectModule && amount && (
             <>
               <CollectLimitConfig />
@@ -230,7 +265,8 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         </Button>
         <Button
           disabled={
-            (parseFloat(amount as string) <= 0 && selectedCollectModule !== FreeCollectModule) ||
+            (parseFloat(amount as string) <= 0 &&
+              selectedCollectModule !== FreeCollectModule) ||
             splitTotal > 100 ||
             hasEmptyRecipients ||
             hasInvalidEthAddressInRecipients ||

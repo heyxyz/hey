@@ -20,7 +20,10 @@ const Login: FC = () => {
                 <Trans>Please sign the message</Trans>.
               </div>
               <div className="lt-text-gray-500 text-sm">
-                <Trans>{APP_NAME} uses this signature to verify that you're the owner of this address.</Trans>
+                <Trans>
+                  {APP_NAME} uses this signature to verify that you're the owner
+                  of this address.
+                </Trans>
               </div>
             </div>
           ) : (
@@ -29,11 +32,17 @@ const Login: FC = () => {
                 <Trans>Connect your wallet</Trans>.
               </div>
               <div className="lt-text-gray-500 text-sm">
-                <Trans>Connect with one of our available wallet providers or create a new one.</Trans>
+                <Trans>
+                  Connect with one of our available wallet providers or create a
+                  new one.
+                </Trans>
               </div>
             </div>
           )}
-          <WalletSelector setHasConnected={setHasConnected} setHasProfile={setHasProfile} />
+          <WalletSelector
+            setHasConnected={setHasConnected}
+            setHasProfile={setHasProfile}
+          />
         </div>
       ) : IS_MAINNET ? (
         <div className="mb-2 space-y-4">
@@ -58,7 +67,9 @@ const Login: FC = () => {
               </a>{' '}
               to claim your profile now 🏃‍♂️
             </div>
-            <div className="lt-text-gray-500 text-sm">Make sure to check back here when done!</div>
+            <div className="lt-text-gray-500 text-sm">
+              Make sure to check back here when done!
+            </div>
           </div>
         </div>
       ) : (

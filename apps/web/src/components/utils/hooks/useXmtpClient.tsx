@@ -8,7 +8,8 @@ import { useSigner } from 'wagmi';
 
 const ENCODING = 'binary';
 
-const buildLocalStorageKey = (walletAddress: string) => `xmtp:${XMTP_ENV}:keys:${walletAddress}`;
+const buildLocalStorageKey = (walletAddress: string) =>
+  `xmtp:${XMTP_ENV}:keys:${walletAddress}`;
 
 const loadKeys = (walletAddress: string): Uint8Array | null => {
   const val = localStorage.getItem(buildLocalStorageKey(walletAddress));
@@ -21,7 +22,10 @@ const loadKeys = (walletAddress: string): Uint8Array | null => {
  * of your LocalStorage before implementing something like this.
  */
 const storeKeys = (walletAddress: string, keys: Uint8Array) => {
-  localStorage.setItem(buildLocalStorageKey(walletAddress), Buffer.from(keys).toString(ENCODING));
+  localStorage.setItem(
+    buildLocalStorageKey(walletAddress),
+    Buffer.from(keys).toString(ENCODING)
+  );
 };
 
 /**

@@ -13,7 +13,7 @@ interface EmojiPickerProps {
 const EmojiPicker: FC<EmojiPickerProps> = ({ emoji, setEmoji }) => {
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20">
+      <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
         {emoji ? <span>{emoji}</span> : <EmojiHappyIcon className="h-5 w-5" />}
       </Menu.Button>
       <MenuTransition>

@@ -4,8 +4,14 @@ import { MESSAGE_PAGE_LIMIT } from 'data/constants';
 import { useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 
-const useGetMessages = (conversationKey: string, conversation?: Conversation, endTime?: Date) => {
-  const messages = useMessageStore((state) => state.messages.get(conversationKey));
+const useGetMessages = (
+  conversationKey: string,
+  conversation?: Conversation,
+  endTime?: Date
+) => {
+  const messages = useMessageStore((state) =>
+    state.messages.get(conversationKey)
+  );
   const addMessages = useMessageStore((state) => state.addMessages);
   const [hasMore, setHasMore] = useState<Map<string, boolean>>(new Map());
 

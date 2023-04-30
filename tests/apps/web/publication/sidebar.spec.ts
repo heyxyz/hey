@@ -20,8 +20,12 @@ test.describe('Publication sidebar', () => {
   test('should have on chain meta', async ({ page }) => {
     const onChainMeta = page.getByTestId('onchain-meta');
     // Arweave transaction
-    await expect(onChainMeta).toContainText('t0zAPjaeoh3M1TZQV0ZcbSCw_Q0wlQE4LgJuKnO1HLE');
+    await expect(onChainMeta).toContainText(
+      't0zAPjaeoh3M1TZQV0ZcbSCw_Q0wlQE4LgJuKnO1HLE'
+    );
     // NFT address
-    await expect(onChainMeta).toContainText('0x89e19Acb4ac03FDf6a09dc299961F51059195612');
+    await expect(onChainMeta).toContainText(
+      '0x89e19Acb4ac03FDf6a09dc299961F51059195612'
+    );
   });
 });

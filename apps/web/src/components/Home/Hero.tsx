@@ -12,11 +12,12 @@ const Hero: FC = () => {
           </div>
           <div className="leading-7 text-gray-700 dark:text-gray-300">
             <Trans>
-              {APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿
+              {APP_NAME} is a decentralized, and permissionless social media app
+              built with Lens Protocol 🌿
             </Trans>
           </div>
         </div>
-        <div className="hidden w-full flex-1 flex-shrink-0 sm:block" />
+        <div className="hidden w-full flex-1 shrink-0 sm:block" />
       </div>
     </div>
   );

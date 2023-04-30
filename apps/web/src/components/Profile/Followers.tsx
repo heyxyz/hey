@@ -53,7 +53,9 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
       <EmptyState
         message={
           <div>
-            <span className="mr-1 font-bold">@{formatHandle(profile?.handle)}</span>
+            <span className="mr-1 font-bold">
+              @{formatHandle(profile?.handle)}
+            </span>
             <span>
               <Trans>doesn’t have any followers yet.</Trans>
             </span>
@@ -67,7 +69,11 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto" data-testid="followers-modal">
-      <ErrorMessage className="m-5" title={t`Failed to load followers`} error={error} />
+      <ErrorMessage
+        className="m-5"
+        title={t`Failed to load followers`}
+        error={error}
+      />
       <Virtuoso
         className="virtual-profile-list"
         data={followers}
@@ -82,7 +88,9 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
                   followPosition={index + 1}
                   followSource={FollowSource.FOLLOWERS_MODAL}
                   showBio
-                  showFollow={currentProfile?.id !== follower?.wallet?.defaultProfile?.id}
+                  showFollow={
+                    currentProfile?.id !== follower?.wallet?.defaultProfile?.id
+                  }
                   showUserPreview={false}
                 />
               ) : (

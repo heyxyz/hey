@@ -18,11 +18,19 @@ interface CoverImageProps {
   expandCover: (url: string) => void;
 }
 
-const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, imageRef, expandCover }) => {
+const CoverImage: FC<CoverImageProps> = ({
+  isNew = false,
+  cover,
+  setCover,
+  imageRef,
+  expandCover
+}) => {
   const [loading, setLoading] = useState(false);
 
   const onError = (error: any) => {
-    toast.error(error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
     setLoading(false);
   };
 
@@ -49,7 +57,9 @@ const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, image
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? sanitizeDStorageUrl(cover) : cover;
           }}
-          src={cover ? imageProxy(sanitizeDStorageUrl(cover), ATTACHMENT) : cover}
+          src={
+            cover ? imageProxy(sanitizeDStorageUrl(cover), ATTACHMENT) : cover
+          }
           className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
           draggable={false}
           alt={`attachment-audio-cover-${cover}`}
@@ -72,7 +82,12 @@ const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, image
               <span>Add cover</span>
             </div>
           )}
-          <input type="file" accept=".png, .jpg, .jpeg, .svg" className="hidden w-full" onChange={onChange} />
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg, .svg"
+            className="hidden w-full"
+            onChange={onChange}
+          />
         </label>
       )}
     </div>

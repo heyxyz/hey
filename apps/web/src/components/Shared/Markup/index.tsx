@@ -31,7 +31,11 @@ interface MarkupProps {
 
 const Markup: FC<MarkupProps> = ({ children, className = '' }) => {
   return (
-    <ReactMarkdown className={className} components={components} remarkPlugins={plugins}>
+    <ReactMarkdown
+      className={className}
+      components={components}
+      remarkPlugins={plugins}
+    >
       {trimify(children)}
     </ReactMarkdown>
   );

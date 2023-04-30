@@ -12,7 +12,11 @@ interface PublicationTypeProps {
   showThread?: boolean;
 }
 
-const PublicationType: FC<PublicationTypeProps> = ({ publication, showType, showThread = false }) => {
+const PublicationType: FC<PublicationTypeProps> = ({
+  publication,
+  showType,
+  showThread = false
+}) => {
   const { pathname } = useRouter();
   const type = publication.__typename;
 

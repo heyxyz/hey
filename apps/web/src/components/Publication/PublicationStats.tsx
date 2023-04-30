@@ -1,7 +1,11 @@
 import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
-import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
+import {
+  CollectionIcon,
+  HeartIcon,
+  SwitchHorizontalIcon
+} from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import nFormatter from 'lib/nFormatter';
@@ -41,12 +45,22 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
         <>
           <span data-testid="comment-stats">
             <Trans>
-              <b className="text-black dark:text-white">{nFormatter(commentsCount)}</b> Comments
+              <b className="text-black dark:text-white">
+                {nFormatter(commentsCount)}
+              </b>{' '}
+              Comments
             </Trans>
           </span>
-          <button type="button" onClick={() => setShowMirrorsModal(true)} data-testid="mirror-stats">
+          <button
+            type="button"
+            onClick={() => setShowMirrorsModal(true)}
+            data-testid="mirror-stats"
+          >
             <Trans>
-              <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
+              <b className="text-black dark:text-white">
+                {nFormatter(mirrorCount)}
+              </b>{' '}
+              Mirrors
             </Trans>
           </button>
           <Modal
@@ -61,9 +75,16 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
       )}
       {!hideLikesCount && reactionCount > 0 && (
         <>
-          <button type="button" onClick={() => setShowLikesModal(true)} data-testid="like-stats">
+          <button
+            type="button"
+            onClick={() => setShowLikesModal(true)}
+            data-testid="like-stats"
+          >
             <Trans>
-              <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
+              <b className="text-black dark:text-white">
+                {nFormatter(reactionCount)}
+              </b>{' '}
+              Likes
             </Trans>
           </button>
           <Modal
@@ -78,9 +99,16 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
       )}
       {collectCount > 0 && (
         <>
-          <button type="button" onClick={() => setShowCollectorsModal(true)} data-testid="collect-stats">
+          <button
+            type="button"
+            onClick={() => setShowCollectorsModal(true)}
+            data-testid="collect-stats"
+          >
             <Trans>
-              <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
+              <b className="text-black dark:text-white">
+                {nFormatter(collectCount)}
+              </b>{' '}
+              Collects
             </Trans>
           </button>
           <Modal

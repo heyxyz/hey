@@ -15,7 +15,9 @@ const Cover: FC<CoverProps> = ({ cover }) => {
       data-testid="profile-cover"
       style={{
         backgroundImage: `url(${
-          cover ? imageProxy(sanitizeDStorageUrl(cover), COVER) : `${STATIC_IMAGES_URL}/patterns/2.svg`
+          cover
+            ? imageProxy(sanitizeDStorageUrl(cover), COVER)
+            : `${STATIC_IMAGES_URL}/patterns/2.svg`
         })`,
         backgroundColor: colors.violet[500],
         backgroundSize: cover ? 'cover' : '30%',
