@@ -2,7 +2,9 @@ import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/outl
 import { CheckCircleIcon, MenuAlt2Icon } from '@heroicons/react/solid';
 import { getTimetoNow } from '@lib/formatTime';
 import { Mixpanel } from '@lib/mixpanel';
+import { snapshotClient } from '@lib/snapshotClient';
 import { t, Trans } from '@lingui/macro';
+import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
 import clsx from 'clsx';
 import { APP_NAME, Errors } from 'data';
 import humanize from 'lib/humanize';
@@ -13,7 +15,8 @@ import { toast } from 'react-hot-toast';
 import type { Proposal, Vote } from 'snapshot';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import { Card, Modal } from 'ui';
+import { Card, Modal, Spinner } from 'ui';
+import { useSigner } from 'wagmi';
 
 import New from '../Badges/New';
 import VoteProposal from './VoteProposal';
@@ -32,12 +35,16 @@ const Choices: FC<ChoicesProps> = ({
   refetch
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [voteSubmitting, setVoteSubmitting] = useState(false);
+  const [selectedPosition, setSelectedPosition] = useState(0);
   const [voteConfig, setVoteConfig] = useState({
     show: false,
     position: 0
   });
+  const { data: signer } = useSigner();
 
-  const { choices, symbol, scores, scores_total, state, type, end } = proposal;
+  const { id, choices, space, symbol, scores, scores_total, state, type, end } =
+    proposal;
   const vote = votes[0];
   const choicesWithVote = choices.map((choice, index) => ({
     position: index + 1,
@@ -72,20 +79,35 @@ const Choices: FC<ChoicesProps> = ({
 
     setVoteConfig({ show: true, position });
     Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.OPEN_CAST_VOTE, {
-      proposal_id: proposal.id
+      proposal_id: id
     });
   };
 
-  const voteLensterPoll = (position: number) => {
+  const voteLensterPoll = async (position: number) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
 
-    Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
-      proposal_id: proposal.id,
-      source: APP_NAME.toLowerCase()
-    });
-    toast.success(t`Your vote has been casted!`);
+    try {
+      setVoteSubmitting(true);
+      await snapshotClient.vote(signer as any, currentProfile?.ownedBy, {
+        space: space?.id as string,
+        proposal: id as `0x${string}`,
+        type: type as ProposalType,
+        choice: position,
+        app: APP_NAME.toLowerCase()
+      });
+      refetch?.();
+      Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+        proposal_id: id,
+        source: APP_NAME.toLowerCase()
+      });
+      toast.success(t`Your vote has been casted!`);
+    } catch {
+      toast.error(Errors.SomethingWentWrong);
+    } finally {
+      setVoteSubmitting(false);
+    }
   };
 
   return (
@@ -95,9 +117,7 @@ const Choices: FC<ChoicesProps> = ({
           <div className="divider flex items-center justify-between px-5 py-3 ">
             <div className="flex items-center space-x-2 text-sm">
               <MenuAlt2Icon className="h-4 w-4" />
-              <b>
-                {proposal.state === 'active' ? t`Current results` : t`Results`}
-              </b>
+              <b>{state === 'active' ? t`Current results` : t`Results`}</b>
             </div>
             <New />
           </div>
@@ -108,20 +128,28 @@ const Choices: FC<ChoicesProps> = ({
               <button
                 key={choice}
                 className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
+                disabled={isLensterPoll ? voteSubmitting : false}
                 onClick={() => {
                   if (isLensterPoll) {
+                    setSelectedPosition(position);
                     return voteLensterPoll(position);
                   }
 
                   return openVoteModal(position);
                 }}
               >
-                <CheckCircleIcon
-                  className={clsx(
-                    voted ? 'text-green-500' : 'text-gray-500',
-                    'h-6 w-6 '
-                  )}
-                />
+                {isLensterPoll &&
+                voteSubmitting &&
+                position === selectedPosition ? (
+                  <Spinner className="mr-1" size="sm" />
+                ) : (
+                  <CheckCircleIcon
+                    className={clsx(
+                      voted ? 'text-green-500' : 'text-gray-500',
+                      'h-6 w-6 '
+                    )}
+                  />
+                )}
                 <div className="w-full space-y-1">
                   <div className="flex items-center justify-between">
                     <b>{choice}</b>
