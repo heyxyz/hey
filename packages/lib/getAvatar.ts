@@ -7,7 +7,11 @@ import sanitizeDStorageUrl from './sanitizeDStorageUrl';
 /**
  * The list of hostnames to skip image proxy for.
  */
-const SKIP_LIST = ['static-assets.lenster.xyz', 'avataaars.io', 'avatar.tobi.sh'];
+const SKIP_LIST = [
+  'static-assets.lenster.xyz',
+  'avataaars.io',
+  'avatar.tobi.sh'
+];
 
 /**
  * Returns the avatar image URL for a given profile.
@@ -27,7 +31,9 @@ const getAvatar = (profile: any, useImageProxy = true): string => {
     return avatarUrl;
   }
 
-  return useImageProxy ? imageProxy(sanitizeDStorageUrl(avatarUrl), AVATAR) : sanitizeDStorageUrl(avatarUrl);
+  return useImageProxy
+    ? imageProxy(sanitizeDStorageUrl(avatarUrl), AVATAR)
+    : sanitizeDStorageUrl(avatarUrl);
 };
 
 export default getAvatar;

@@ -17,7 +17,10 @@ test.describe('getIsDispatcherEnabled', () => {
 
   test('returns true when profile has relay enabled and a different relayer address', () => {
     const profileWithRelay: any = {
-      dispatcher: { canUseRelay: true, address: '0x1234567890123456789012345678901234567890' }
+      dispatcher: {
+        canUseRelay: true,
+        address: '0x1234567890123456789012345678901234567890'
+      }
     };
 
     expect(getIsDispatcherEnabled(profileWithRelay)).toBeTruthy();

@@ -37,7 +37,9 @@ const ViewPublication: NextPage = () => {
   const { data, loading, error } = usePublicationQuery({
     variables: {
       request: { publicationId: id },
-      reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+      reactionRequest: currentProfile
+        ? { profileId: currentProfile?.id }
+        : null,
       profileId: currentProfile?.id ?? null
     },
     skip: !id
@@ -62,7 +64,9 @@ const ViewPublication: NextPage = () => {
       <MetaTags
         title={
           publication.__typename && publication?.profile?.handle
-            ? `${publication.__typename} by @${formatHandle(publication.profile.handle)} • ${APP_NAME}`
+            ? `${publication.__typename} by @${formatHandle(
+                publication.profile.handle
+              )} • ${APP_NAME}`
             : APP_NAME
         }
       />
@@ -77,7 +81,9 @@ const ViewPublication: NextPage = () => {
         <Card as="aside" className="p-5" dataTestId="poster-profile">
           <UserProfile
             profile={
-              publication.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile
+              publication.__typename === 'Mirror'
+                ? publication?.mirrorOf?.profile
+                : publication?.profile
             }
             showBio
           />

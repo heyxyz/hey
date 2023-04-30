@@ -7,7 +7,9 @@ import { Input } from 'ui';
 
 const CollectLimitConfig: FC = () => {
   const collectLimit = useCollectModuleStore((state) => state.collectLimit);
-  const setCollectLimit = useCollectModuleStore((state) => state.setCollectLimit);
+  const setCollectLimit = useCollectModuleStore(
+    (state) => state.setCollectLimit
+  );
 
   return (
     <div className="pt-5">

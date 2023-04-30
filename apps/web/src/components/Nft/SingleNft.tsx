@@ -12,9 +12,9 @@ interface SingleNftProps {
 
 const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
   const nftURL = linkToDetail
-    ? `${RARIBLE_URL}/token/${nft.chainId === CHAIN_ID ? 'polygon/' : ''}${nft.contractAddress}:${
-        nft.tokenId
-      }`.toLowerCase()
+    ? `${RARIBLE_URL}/token/${nft.chainId === CHAIN_ID ? 'polygon/' : ''}${
+        nft.contractAddress
+      }:${nft.tokenId}`.toLowerCase()
     : undefined;
 
   return (
@@ -58,9 +58,18 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
         </a>
       )}
       <div className="space-y-1 p-5">
-        {nft.collectionName && <div className="lt-text-gray-500 truncate text-sm">{nft.collectionName}</div>}
+        {nft.collectionName && (
+          <div className="lt-text-gray-500 truncate text-sm">
+            {nft.collectionName}
+          </div>
+        )}
         <div className="truncate">
-          <a className="font-bold" href={nftURL} target="_blank" rel="noreferrer noopener">
+          <a
+            className="font-bold"
+            href={nftURL}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             {nft.name ? nft.name : `#${nft.tokenId}`}
           </a>
         </div>

@@ -16,7 +16,10 @@ const Embed: FC<EmbedProps> = ({ publication }) => {
     <Menu.Item
       as="a"
       className={({ active }) =>
-        clsx({ 'dropdown-active': active }, 'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm')
+        clsx(
+          { 'dropdown-active': active },
+          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
+        )
       }
       onClick={(event) => {
         stopEventPropagation(event);

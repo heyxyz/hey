@@ -2,9 +2,15 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -534,16 +540,6 @@ export type SnapshotQuery = {
   votes?: Array<{ __typename?: 'Vote'; choice: any } | null> | null;
 };
 
-export interface PossibleTypesResultData {
-  possibleTypes: {
-    [key: string]: string[];
-  };
-}
-const result: PossibleTypesResultData = {
-  possibleTypes: {}
-};
-export default result;
-
 export const SnapshotDocument = gql`
   query Snapshot($id: String, $where: VoteWhere) {
     proposal(id: $id) {
@@ -595,14 +591,38 @@ export function useSnapshotQuery(
   baseOptions?: Apollo.QueryHookOptions<SnapshotQuery, SnapshotQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<SnapshotQuery, SnapshotQueryVariables>(SnapshotDocument, options);
+  return Apollo.useQuery<SnapshotQuery, SnapshotQueryVariables>(
+    SnapshotDocument,
+    options
+  );
 }
 export function useSnapshotLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<SnapshotQuery, SnapshotQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SnapshotQuery,
+    SnapshotQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<SnapshotQuery, SnapshotQueryVariables>(SnapshotDocument, options);
+  return Apollo.useLazyQuery<SnapshotQuery, SnapshotQueryVariables>(
+    SnapshotDocument,
+    options
+  );
 }
 export type SnapshotQueryHookResult = ReturnType<typeof useSnapshotQuery>;
-export type SnapshotLazyQueryHookResult = ReturnType<typeof useSnapshotLazyQuery>;
-export type SnapshotQueryResult = Apollo.QueryResult<SnapshotQuery, SnapshotQueryVariables>;
+export type SnapshotLazyQueryHookResult = ReturnType<
+  typeof useSnapshotLazyQuery
+>;
+export type SnapshotQueryResult = Apollo.QueryResult<
+  SnapshotQuery,
+  SnapshotQueryVariables
+>;
+
+export interface PossibleTypesResultData {
+  possibleTypes: {
+    [key: string]: string[];
+  };
+}
+const result: PossibleTypesResultData = {
+  possibleTypes: {}
+};
+export default result;

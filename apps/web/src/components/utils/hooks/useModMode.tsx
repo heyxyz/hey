@@ -4,7 +4,9 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 const useModMode = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const modMode = useAppPersistStore((state) => state.modMode);
-  const allowed = currentProfile ? isGardener(currentProfile?.id) && modMode : false;
+  const allowed = currentProfile
+    ? isGardener(currentProfile?.id) && modMode
+    : false;
 
   return { allowed };
 };

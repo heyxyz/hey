@@ -18,7 +18,9 @@ import { Card, GridItemEight, GridItemFour, GridLayout, Image } from 'ui';
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
-  const { on: isNftDetailEnabled } = useFeature(FeatureFlag.NftDetail as string);
+  const { on: isNftDetailEnabled } = useFeature(
+    FeatureFlag.NftDetail as string
+  );
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'nft' });
@@ -61,15 +63,18 @@ const NFTDetail: FC = () => {
                 />
               ))}
             </div>
-            <div className="text-xs">Sasi, Jouni, Yogi, and 10 others own Subscapes</div>
+            <div className="text-xs">
+              Sasi, Jouni, Yogi, and 10 others own Subscapes
+            </div>
           </div>
         </Card>
         <Card className="p-4">
           <h1 className="mb-2">Description</h1>
           <p className="text-sm opacity-60">
-            A generative algorithm that draws the impression of a landscape from a multitude of possibilities.
-            The unique seed from each token drives the parametric assortment of lines, colors, and forms into
-            a constructed composition.
+            A generative algorithm that draws the impression of a landscape from
+            a multitude of possibilities. The unique seed from each token drives
+            the parametric assortment of lines, colors, and forms into a
+            constructed composition.
           </p>
         </Card>
         <Card className="p-4">
@@ -98,7 +103,13 @@ const NFTDetail: FC = () => {
               className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Lensport" />
+              <img
+                className="h-4 w-4"
+                src="/logo.svg"
+                width={10}
+                height={10}
+                alt="Lensport"
+              />
               <span>Lensport</span>
             </Link>
             <Link
@@ -106,7 +117,13 @@ const NFTDetail: FC = () => {
               className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Opensea" />
+              <img
+                className="h-4 w-4"
+                src="/logo.svg"
+                width={10}
+                height={10}
+                alt="Opensea"
+              />
               <span>Opensea</span>
             </Link>
             <Link
@@ -114,7 +131,13 @@ const NFTDetail: FC = () => {
               className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Rarible" />
+              <img
+                className="h-4 w-4"
+                src="/logo.svg"
+                width={10}
+                height={10}
+                alt="Rarible"
+              />
               <span>Rarible</span>
             </Link>
             <Link
@@ -122,7 +145,13 @@ const NFTDetail: FC = () => {
               className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Uniswap" />
+              <img
+                className="h-4 w-4"
+                src="/logo.svg"
+                width={10}
+                height={10}
+                alt="Uniswap"
+              />
               <span>Uniswap</span>
             </Link>
             <Link
@@ -130,7 +159,13 @@ const NFTDetail: FC = () => {
               className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Looksrare" />
+              <img
+                className="h-4 w-4"
+                src="/logo.svg"
+                width={10}
+                height={10}
+                alt="Looksrare"
+              />
               <span>Looksrare</span>
             </Link>
             <Link
@@ -138,7 +173,13 @@ const NFTDetail: FC = () => {
               className="flex items-center space-x-1 rounded-lg border px-2 py-0.5 dark:border-gray-700"
               target="_blank"
             >
-              <img className="h-4 w-4" src="/logo.svg" width={10} height={10} alt="Etherscan" />
+              <img
+                className="h-4 w-4"
+                src="/logo.svg"
+                width={10}
+                height={10}
+                alt="Etherscan"
+              />
               <span>Etherscan</span>
             </Link>
           </div>

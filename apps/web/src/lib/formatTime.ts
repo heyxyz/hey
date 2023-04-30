@@ -15,7 +15,9 @@ dayjs.extend(dayjsTwitter);
  * @returns The formatted date and time.
  */
 export const formatTime = (date: Date | undefined): string => {
-  return date ? i18n.date(date, { dateStyle: 'medium', timeStyle: 'medium' }) : '';
+  return date
+    ? i18n.date(date, { dateStyle: 'medium', timeStyle: 'medium' })
+    : '';
 };
 
 /**

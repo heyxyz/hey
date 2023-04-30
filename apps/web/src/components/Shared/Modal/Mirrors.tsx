@@ -19,7 +19,10 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: ProfileQueryRequest = { whoMirroredPublicationId: publicationId, limit: 10 };
+  const request: ProfileQueryRequest = {
+    whoMirroredPublicationId: publicationId,
+    limit: 10
+  };
 
   const { data, loading, error, fetchMore } = useMirrorsQuery({
     variables: { request },
@@ -59,7 +62,11 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto" data-testid="mirrors-modal">
-      <ErrorMessage className="m-5" title={t`Failed to load mirrors`} error={error} />
+      <ErrorMessage
+        className="m-5"
+        title={t`Failed to load mirrors`}
+        error={error}
+      />
       <Virtuoso
         className="virtual-profile-list"
         data={profiles}

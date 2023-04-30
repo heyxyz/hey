@@ -60,12 +60,14 @@ msgstr "Для просмотра человек должен подписать
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "Отменить"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
@@ -216,10 +218,26 @@ msgid "Select GIF"
 msgstr "Выберите GIF"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length (days)"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
 msgstr "Удалить"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Choice {0}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Add another option"
+msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
 msgid "Poll"
@@ -2827,4 +2845,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

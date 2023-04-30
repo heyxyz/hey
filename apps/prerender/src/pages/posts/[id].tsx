@@ -34,7 +34,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const profileId = null;
     const reactionRequest = { profileId };
     const { publication } = publicationData;
-    const id = publication.__typename === 'Mirror' ? publication.mirrorOf.id : publication.id;
+    const id =
+      publication.__typename === 'Mirror'
+        ? publication.mirrorOf.id
+        : publication.id;
 
     const { data: commentsData } = await nodeClient.query({
       query: CommentFeedDocument,

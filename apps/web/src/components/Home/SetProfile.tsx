@@ -1,5 +1,9 @@
 import New from '@components/Shared/Badges/New';
-import { MinusCircleIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
+import {
+  MinusCircleIcon,
+  PencilAltIcon,
+  PhotographIcon
+} from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
@@ -23,7 +27,9 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
     ) : (
       <MinusCircleIcon className="h-5 w-5 text-yellow-500" />
     )}
-    <div className={clsx(finished ? 'text-green-500' : 'text-yellow-500')}>{title}</div>
+    <div className={clsx(finished ? 'text-green-500' : 'text-yellow-500')}>
+      {title}
+    </div>
   </div>
 );
 
@@ -53,13 +59,24 @@ const SetProfile: FC = () => {
         </p>
       </div>
       <div className="space-y-1 text-sm leading-[22px]">
-        <Status finished={Boolean(currentProfile?.name)} title={t`Set profile name`} />
-        <Status finished={Boolean(currentProfile?.bio)} title={t`Set profile bio`} />
-        <Status finished={Boolean(currentProfile?.picture)} title={t`Set your avatar`} />
+        <Status
+          finished={Boolean(currentProfile?.name)}
+          title={t`Set profile name`}
+        />
+        <Status
+          finished={Boolean(currentProfile?.bio)}
+          title={t`Set profile bio`}
+        />
+        <Status
+          finished={Boolean(currentProfile?.picture)}
+          title={t`Set your avatar`}
+        />
         <div>
           <Link
             className="flex items-center space-x-2"
-            onClick={() => Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)}
+            onClick={() =>
+              Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
+            }
             href="/settings/interests"
           >
             <Status
@@ -72,7 +89,10 @@ const SetProfile: FC = () => {
       </div>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilAltIcon className="h-4 w-4" />
-        <Link onClick={() => Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)} href="/settings">
+        <Link
+          onClick={() => Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
+          href="/settings"
+        >
           <Trans>Update profile now</Trans>
         </Link>
       </div>

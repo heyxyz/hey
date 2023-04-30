@@ -25,7 +25,10 @@ const Sybil: FC<SybilProps> = ({ profile }) => {
             <CheckCircleIcon className="h-4 w-4" />
           </span>
           <span>
-            Twitter: <b>@{profile?.onChainIdentity?.sybilDotOrg?.source?.twitter?.handle}</b>
+            Twitter:{' '}
+            <b>
+              @{profile?.onChainIdentity?.sybilDotOrg?.source?.twitter?.handle}
+            </b>
           </span>
         </span>
       }

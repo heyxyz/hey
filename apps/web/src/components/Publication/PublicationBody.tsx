@@ -20,9 +20,12 @@ interface PublicationBodyProps {
 
 const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   const { pathname } = useRouter();
-  const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+  const showMore =
+    publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
   const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
-  const snapshotProposalId = hasURLs && getSnapshotProposalId(getURLs(publication?.metadata?.content)[0]);
+  const snapshotProposalId =
+    hasURLs &&
+    getSnapshotProposalId(getURLs(publication?.metadata?.content)[0]);
   let content = publication?.metadata?.content;
   if (snapshotProposalId) {
     content = content?.replace(getURLs(publication?.metadata?.content)[0], '');
@@ -34,7 +37,12 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
 
   return (
     <div className="break-words">
-      <Markup className={clsx({ 'line-clamp-5': showMore }, 'markup linkify text-md break-words')}>
+      <Markup
+        className={clsx(
+          { 'line-clamp-5': showMore },
+          'markup linkify text-md break-words'
+        )}
+      >
         {content}
       </Markup>
       {showMore && (
@@ -49,7 +57,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
       {snapshotProposalId ? (
         <Snapshot propsalId={snapshotProposalId} />
       ) : publication?.metadata?.media?.length > 0 ? (
-        <Attachments attachments={publication?.metadata?.media} publication={publication} />
+        <Attachments
+          attachments={publication?.metadata?.media}
+          publication={publication}
+        />
       ) : (
         publication?.metadata?.content &&
         hasURLs && <IFramely url={getURLs(publication?.metadata?.content)[0]} />

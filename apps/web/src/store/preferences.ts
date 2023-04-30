@@ -6,7 +6,9 @@ interface PreferencesState {
   hideLikesCount: boolean;
   setHideLikesCount: (hideLikesCount: boolean) => void;
   highSignalNotificationFilter: boolean;
-  setHighSignalNotificationFilter: (highSignalNotificationFilter: boolean) => void;
+  setHighSignalNotificationFilter: (
+    highSignalNotificationFilter: boolean
+  ) => void;
 }
 
 export const usePreferencesStore = create(

@@ -46,7 +46,9 @@ export class EthereumSigner extends Secp256k1 {
 
   sign(message: Uint8Array): Uint8Array {
     const wallet = new Wallet(this._key);
-    return wallet.signMessage(message).then((r) => Buffer.from(r.slice(2), 'hex')) as any;
+    return wallet
+      .signMessage(message)
+      .then((r) => Buffer.from(r.slice(2), 'hex')) as any;
   }
 }
 
@@ -63,7 +65,9 @@ export class DataItem {
   }
 
   get signatureType(): number {
-    const signatureTypeVal: number = byteArrayToLong(this.binary.subarray(0, 2));
+    const signatureTypeVal: number = byteArrayToLong(
+      this.binary.subarray(0, 2)
+    );
     return signatureTypeVal;
   }
 
@@ -102,7 +106,10 @@ export class DataItem {
   }
 
   get rawOwner(): Buffer {
-    return this.binary.subarray(2 + this.signatureLength, 2 + this.signatureLength + this.ownerLength);
+    return this.binary.subarray(
+      2 + this.signatureLength,
+      2 + this.signatureLength + this.ownerLength
+    );
   }
 
   get signatureLength(): number {
@@ -120,7 +127,9 @@ export class DataItem {
   get rawTarget(): Buffer {
     const targetStart = this.getTargetStart();
     const isPresent = this.binary[targetStart] === 1;
-    return isPresent ? this.binary.subarray(targetStart + 1, targetStart + 33) : Buffer.alloc(0);
+    return isPresent
+      ? this.binary.subarray(targetStart + 1, targetStart + 33)
+      : Buffer.alloc(0);
   }
 
   get target(): string {
@@ -131,7 +140,9 @@ export class DataItem {
     const anchorStart = this.getAnchorStart();
     const isPresent = this.binary[anchorStart] === 1;
 
-    return isPresent ? this.binary.subarray(anchorStart + 1, anchorStart + 33) : Buffer.alloc(0);
+    return isPresent
+      ? this.binary.subarray(anchorStart + 1, anchorStart + 33)
+      : Buffer.alloc(0);
   }
 
   get anchor(): string {
@@ -140,14 +151,19 @@ export class DataItem {
 
   get rawTags(): Buffer {
     const tagsStart = this.getTagsStart();
-    const tagsSize = byteArrayToLong(this.binary.subarray(tagsStart + 8, tagsStart + 16));
+    const tagsSize = byteArrayToLong(
+      this.binary.subarray(tagsStart + 8, tagsStart + 16)
+    );
     return this.binary.subarray(tagsStart + 16, tagsStart + 16 + tagsSize);
   }
 
   getStartOfData(): number {
     const tagsStart = this.getTagsStart();
 
-    const numberOfTagBytesArray = this.binary.subarray(tagsStart + 8, tagsStart + 16);
+    const numberOfTagBytesArray = this.binary.subarray(
+      tagsStart + 8,
+      tagsStart + 16
+    );
     const numberOfTagBytes = byteArrayToLong(numberOfTagBytesArray);
     return tagsStart + 16 + numberOfTagBytes;
   }
@@ -155,7 +171,10 @@ export class DataItem {
   get rawData(): Buffer {
     const tagsStart = this.getTagsStart();
 
-    const numberOfTagBytesArray = this.binary.subarray(tagsStart + 8, tagsStart + 16);
+    const numberOfTagBytesArray = this.binary.subarray(
+      tagsStart + 8,
+      tagsStart + 16
+    );
     const numberOfTagBytes = byteArrayToLong(numberOfTagBytesArray);
     const dataStart = tagsStart + 16 + numberOfTagBytes;
 
@@ -225,9 +244,11 @@ export const createData = (
   const target_length = 1 + (_target?.byteLength ?? 0);
   const _anchor = opts?.anchor ? Buffer.from(opts.anchor) : null;
   const anchor_length = 1 + (_anchor?.byteLength ?? 0);
-  const _tags = (opts?.tags?.length ?? 0) > 0 ? serializeTags(opts?.tags) : null;
+  const _tags =
+    (opts?.tags?.length ?? 0) > 0 ? serializeTags(opts?.tags) : null;
   const tags_length = 16 + (_tags ? _tags.byteLength : 0);
-  const _data = typeof data === 'string' ? Buffer.from(data) : Buffer.from(data);
+  const _data =
+    typeof data === 'string' ? Buffer.from(data) : Buffer.from(data);
   const data_length = _data.byteLength;
 
   const length =
@@ -244,7 +265,9 @@ export const createData = (
   bytes.set(new Uint8Array(signer.signatureLength).fill(0), 2);
 
   if (_owner.byteLength !== signer.ownerLength) {
-    throw new Error(`Owner must be ${signer.ownerLength} bytes, but was incorrectly ${_owner.byteLength}`);
+    throw new Error(
+      `Owner must be ${signer.ownerLength} bytes, but was incorrectly ${_owner.byteLength}`
+    );
   }
   bytes.set(_owner, 2 + signer.signatureLength);
 
@@ -252,7 +275,9 @@ export const createData = (
   bytes[position] = _target ? 1 : 0;
   if (_target) {
     if (_target.byteLength !== 32) {
-      throw new Error(`Target must be 32 bytes but was incorrectly ${_target.byteLength}`);
+      throw new Error(
+        `Target must be 32 bytes but was incorrectly ${_target.byteLength}`
+      );
     }
     bytes.set(_target, position + 1);
   }

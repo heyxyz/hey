@@ -9,7 +9,8 @@ test.describe('getTags', () => {
   });
 
   test('should return an array of matching tags (without duplicates)', () => {
-    const inputText = 'This #is a #text with #multiple #tags and #duplicate #tags';
+    const inputText =
+      'This #is a #text with #multiple #tags and #duplicate #tags';
     const result = getTags(inputText);
     expect(result).toEqual(['is', 'text', 'multiple', 'tags', 'duplicate']);
   });

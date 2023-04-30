@@ -17,7 +17,11 @@ interface WrapperProps {
 }
 
 const Wrapper: FC<WrapperProps> = ({ children, dataTestId = '' }) => (
-  <Card className="mt-3 cursor-auto p-5" dataTestId={dataTestId} onClick={stopEventPropagation}>
+  <Card
+    className="mt-3 cursor-auto p-5"
+    dataTestId={dataTestId}
+    onClick={stopEventPropagation}
+  >
     {children}
   </Card>
 );
@@ -66,7 +70,11 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
     <Wrapper dataTestId={`snapshot-${proposal.id}`}>
       <span ref={observe} />
       <Header proposal={proposal as Proposal} />
-      <Choices proposal={proposal as Proposal} votes={votes as Vote[]} refetch={refetch} />
+      <Choices
+        proposal={proposal as Proposal}
+        votes={votes as Vote[]}
+        refetch={refetch}
+      />
     </Wrapper>
   );
 };

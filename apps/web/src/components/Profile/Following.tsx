@@ -51,7 +51,9 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
       <EmptyState
         message={
           <div>
-            <span className="mr-1 font-bold">@{formatHandle(profile?.handle)}</span>
+            <span className="mr-1 font-bold">
+              @{formatHandle(profile?.handle)}
+            </span>
             <span>
               <Trans>doesn’t follow anyone.</Trans>
             </span>
@@ -64,8 +66,15 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" data-testid="followings-modal">
-      <ErrorMessage className="m-5" title={t`Failed to load following`} error={error} />
+    <div
+      className="max-h-[80vh] overflow-y-auto"
+      data-testid="followings-modal"
+    >
+      <ErrorMessage
+        className="m-5"
+        title={t`Failed to load following`}
+        error={error}
+      />
       <Virtuoso
         className="virtual-profile-list"
         data={followings}
@@ -74,7 +83,8 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
           return (
             <div
               className={`p-5 ${
-                onProfileSelected && 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900'
+                onProfileSelected &&
+                'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900'
               }`}
               onClick={
                 onProfileSelected && following.profile
