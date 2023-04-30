@@ -1,4 +1,7 @@
-import { NotificationProfileAvatar, NotificationProfileName } from '@components/Notification/Profile';
+import {
+  NotificationProfileAvatar,
+  NotificationProfileName
+} from '@components/Notification/Profile';
 import {
   NotificationWalletProfileAvatar,
   NotificationWalletProfileName
@@ -37,16 +40,24 @@ interface CollectNotificationProps {
   notification: NewCollectNotification;
 }
 
-const CollectNotification: FC<CollectNotificationProps> = ({ notification }) => {
-  const typeName = notification?.collectedPublication.__typename?.toLowerCase() || '';
+const CollectNotification: FC<CollectNotificationProps> = ({
+  notification
+}) => {
+  const typeName =
+    notification?.collectedPublication.__typename?.toLowerCase() || '';
   return (
     <div className="flex items-start justify-between">
       <div className="w-4/5 space-y-2">
         <div className="flex items-center space-x-3">
           <CollectionIcon className="h-6 w-6 text-pink-500/70" />
           {notification?.wallet?.defaultProfile ? (
-            <UserPreview isBig={false} profile={notification?.wallet?.defaultProfile}>
-              <NotificationProfileAvatar profile={notification?.wallet?.defaultProfile} />
+            <UserPreview
+              isBig={false}
+              profile={notification?.wallet?.defaultProfile}
+            >
+              <NotificationProfileAvatar
+                profile={notification?.wallet?.defaultProfile}
+              />
             </UserPreview>
           ) : (
             <NotificationWalletProfileAvatar wallet={notification?.wallet} />
@@ -58,18 +69,27 @@ const CollectNotification: FC<CollectNotificationProps> = ({ notification }) => 
             components={[
               <span className="text-gray-600 dark:text-gray-400" key="" />,
               notification?.wallet?.defaultProfile ? (
-                <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
+                <NotificationProfileName
+                  profile={notification?.wallet?.defaultProfile}
+                />
               ) : (
                 <NotificationWalletProfileName wallet={notification?.wallet} />
               ),
-              <Link href={`/posts/${notification?.collectedPublication?.id}`} className="font-bold" key="" />
+              <Link
+                href={`/posts/${notification?.collectedPublication?.id}`}
+                className="font-bold"
+                key=""
+              />
             ]}
           />
           <CollectedContent notification={notification} />
           <CollectedAmount notification={notification} />
         </div>
       </div>
-      <div className="text-[12px] text-gray-400" title={formatTime(notification?.createdAt)}>
+      <div
+        className="text-[12px] text-gray-400"
+        title={formatTime(notification?.createdAt)}
+      >
         {getTimeFromNow(notification?.createdAt)}
       </div>
     </div>

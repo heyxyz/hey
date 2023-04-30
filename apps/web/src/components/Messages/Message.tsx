@@ -30,8 +30,13 @@ interface MessageProps {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profile = useMessageStore((state) => state.messageProfiles.get(conversationKey));
-  const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
+  const profile = useMessageStore((state) =>
+    state.messageProfiles.get(conversationKey)
+  );
+  const { selectedConversation, missingXmtpAuth } = useGetConversation(
+    conversationKey,
+    profile
+  );
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(
     conversationKey,
@@ -56,10 +61,13 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     return <Custom404 />;
   }
 
-  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
+  const showLoading =
+    !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
   const userNameForTitle = profile?.name ?? formatHandle(profile?.handle);
-  const title = userNameForTitle ? `${userNameForTitle} • ${APP_NAME}` : APP_NAME;
+  const title = userNameForTitle
+    ? `${userNameForTitle} • ${APP_NAME}`
+    : APP_NAME;
 
   return (
     <GridLayout classNameChild="md:gap-8">
@@ -71,7 +79,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
       <GridItemEight className="xs:h-[85vh] xs:mx-2 mb-0 sm:mx-2 sm:h-[76vh] md:col-span-8 md:h-[80vh] xl:h-[84vh]">
         <Card className="flex h-full flex-col justify-between">
           {showLoading ? (
-            <div className="flex h-full flex-grow items-center justify-center">
+            <div className="flex h-full grow items-center justify-center">
               <Loader message={t`Loading messages`} />
             </div>
           ) : (
@@ -109,7 +117,11 @@ const MessagePage: NextPage = () => {
   }, []);
 
   // Need to have a login page for when there is no currentProfileId
-  if (!conversationKey || !currentProfileId || !Array.isArray(conversationKey)) {
+  if (
+    !conversationKey ||
+    !currentProfileId ||
+    !Array.isArray(conversationKey)
+  ) {
     return <Custom404 />;
   }
 

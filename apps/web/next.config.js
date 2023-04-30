@@ -11,16 +11,37 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      { source: '/collect/:match', destination: 'https://api.mixpanel.com/:match' },
-      { source: '/sitemap.xml', destination: 'https://sitemap.lenster.xyz/sitemap.xml' },
-      { source: '/sitemaps/:match*', destination: 'https://sitemap.lenster.xyz/:match*' }
+      {
+        source: '/collect/:match',
+        destination: 'https://api.mixpanel.com/:match'
+      },
+      {
+        source: '/sitemap.xml',
+        destination: 'https://sitemap.lenster.xyz/sitemap.xml'
+      },
+      {
+        source: '/sitemaps/:match*',
+        destination: 'https://sitemap.lenster.xyz/:match*'
+      }
     ];
   },
   async redirects() {
     return [
-      { source: '/u/:handle(.+).lens', destination: '/u/:handle', permanent: true },
-      { source: '/u/:handle(.+).test', destination: '/u/:handle', permanent: true },
-      { source: '/discord', destination: 'https://discord.com/invite/B8eKhSSUwX', permanent: true },
+      {
+        source: '/u/:handle(.+).lens',
+        destination: '/u/:handle',
+        permanent: true
+      },
+      {
+        source: '/u/:handle(.+).test',
+        destination: '/u/:handle',
+        permanent: true
+      },
+      {
+        source: '/discord',
+        destination: 'https://discord.com/invite/B8eKhSSUwX',
+        permanent: true
+      },
       {
         source: '/donate',
         destination: 'https://bounties.gitcoin.co/grants/5007/lenster',

@@ -1,18 +1,23 @@
 import MetaTags from '@components/Common/MetaTags';
-import { PhotographIcon } from '@heroicons/react/outline';
+import { CubeIcon, PhotographIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import { useProfileSettingsQuery } from 'lens';
 import type { NextPage } from 'next';
-import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout, PageLoading } from 'ui';
+import {
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  PageLoading,
+  TabButton
+} from 'ui';
 
 import SettingsSidebar from '../Sidebar';
 import NftPicture from './NftPicture';
@@ -50,28 +55,6 @@ const ProfileSettings: NextPage = () => {
 
   const profile = data?.profile;
 
-  interface TypeButtonProps {
-    name: string;
-    icon: ReactNode;
-    type: 'NFT' | 'AVATAR';
-  }
-
-  const TypeButton: FC<TypeButtonProps> = ({ name, icon, type }) => (
-    <button
-      type="button"
-      onClick={() => setSettingsType(type)}
-      className={clsx(
-        {
-          'text-brand bg-brand-100 bg-opacity-100 font-bold dark:bg-opacity-20': settingsType === type
-        },
-        'text-brand hover:bg-brand-100 flex items-center space-x-2 rounded-lg px-4 py-2 hover:bg-opacity-100 dark:hover:bg-opacity-20 sm:px-3 sm:py-1'
-      )}
-    >
-      {icon}
-      <div className="hidden sm:block">{name}</div>
-    </button>
-  );
-
   return (
     <GridLayout>
       <MetaTags title={t`Profile settings • ${APP_NAME}`} />
@@ -82,8 +65,18 @@ const ProfileSettings: NextPage = () => {
         <ProfileSettingsForm profile={profile as any} />
         <Card className="space-y-5 p-5">
           <div className="flex items-center space-x-2">
-            <TypeButton icon={<PhotographIcon className="h-5 w-5" />} type="AVATAR" name="Upload avatar" />
-            <TypeButton icon={<PhotographIcon className="h-5 w-5" />} type="NFT" name="NFT Avatar" />
+            <TabButton
+              name="Upload avatar"
+              icon={<PhotographIcon className="h-5 w-5" />}
+              active={settingsType === 'AVATAR'}
+              onClick={() => setSettingsType('AVATAR')}
+            />
+            <TabButton
+              name="NFT Avatar"
+              icon={<CubeIcon className="h-5 w-5" />}
+              active={settingsType === 'NFT'}
+              onClick={() => setSettingsType('NFT')}
+            />
           </div>
           {settingsType === 'NFT' ? (
             <NftPicture profile={profile as any} />

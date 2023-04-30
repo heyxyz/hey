@@ -7,16 +7,19 @@ import { usePreferencesStore } from 'src/store/preferences';
 import { Modal, Tooltip } from 'ui';
 
 const Settings: FC = () => {
-  const highSignalNotificationFilter = usePreferencesStore((state) => state.highSignalNotificationFilter);
+  const highSignalNotificationFilter = usePreferencesStore(
+    (state) => state.highSignalNotificationFilter
+  );
   const setHighSignalNotificationFilter = usePreferencesStore(
     (state) => state.setHighSignalNotificationFilter
   );
-  const [showNotificationSettings, setShowNotificationSettings] = useState(false);
+  const [showNotificationSettings, setShowNotificationSettings] =
+    useState(false);
 
   return (
     <>
       <button
-        className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20"
+        className="rounded-md p-1 hover:bg-gray-300/20"
         onClick={() => setShowNotificationSettings(true)}
       >
         <Tooltip placement="top" content={t`Notification settings`}>

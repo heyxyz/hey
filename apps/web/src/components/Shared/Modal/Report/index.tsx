@@ -9,7 +9,15 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PAGEVIEW, PUBLICATION } from 'src/tracking';
-import { Button, EmptyState, ErrorMessage, Form, Spinner, TextArea, useZodForm } from 'ui';
+import {
+  Button,
+  EmptyState,
+  ErrorMessage,
+  Form,
+  Spinner,
+  TextArea,
+  useZodForm
+} from 'ui';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -33,14 +41,16 @@ const Report: FC<ReportProps> = ({ publication }) => {
     Mixpanel.track(PAGEVIEW, { page: 'report' });
   }, []);
 
-  const [createReport, { data: submitData, loading: submitLoading, error: submitError }] =
-    useReportPublicationMutation({
-      onCompleted: () => {
-        Mixpanel.track(PUBLICATION.REPORT, {
-          report_publication_id: publication?.id
-        });
-      }
-    });
+  const [
+    createReport,
+    { data: submitData, loading: submitLoading, error: submitError }
+  ] = useReportPublicationMutation({
+    onCompleted: () => {
+      Mixpanel.track(PUBLICATION.REPORT, {
+        report_publication_id: publication?.id
+      });
+    }
+  });
 
   const form = useZodForm({
     schema: newReportSchema
@@ -80,8 +90,15 @@ const Report: FC<ReportProps> = ({ publication }) => {
               reportPublication(additionalComments);
             }}
           >
-            {submitError && <ErrorMessage title={t`Failed to report`} error={submitError} />}
-            <Reason setType={setType} setSubReason={setSubReason} type={type} subReason={subReason} />
+            {submitError && (
+              <ErrorMessage title={t`Failed to report`} error={submitError} />
+            )}
+            <Reason
+              setType={setType}
+              setSubReason={setSubReason}
+              type={type}
+              subReason={subReason}
+            />
             {subReason && (
               <>
                 <TextArea
@@ -93,7 +110,13 @@ const Report: FC<ReportProps> = ({ publication }) => {
                   <Button
                     type="submit"
                     disabled={submitLoading}
-                    icon={submitLoading ? <Spinner size="xs" /> : <PencilAltIcon className="h-4 w-4" />}
+                    icon={
+                      submitLoading ? (
+                        <Spinner size="xs" />
+                      ) : (
+                        <PencilAltIcon className="h-4 w-4" />
+                      )
+                    }
                   >
                     <Trans>Report</Trans>
                   </Button>

@@ -7,7 +7,10 @@ import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY, OLD_LENS_RELAYER_ADDRESS } from 'data/constants';
-import { useBroadcastMutation, useCreateSetDispatcherTypedDataMutation } from 'lens';
+import {
+  useBroadcastMutation,
+  useCreateSetDispatcherTypedDataMutation
+} from 'lens';
 import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
@@ -27,7 +30,8 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const canUseRelay = getIsDispatcherEnabled(currentProfile);
   const isOldDispatcherEnabled =
-    currentProfile?.dispatcher?.address?.toLocaleLowerCase() === OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
+    currentProfile?.dispatcher?.address?.toLocaleLowerCase() ===
+    OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -42,7 +46,9 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     }
   };
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError
+  });
 
   const {
     data: writeData,
@@ -57,9 +63,10 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     onError
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
-  });
+  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
+    useBroadcastMutation({
+      onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+    });
   const [createSetDispatcherTypedData, { loading: typedDataLoading }] =
     useCreateSetDispatcherTypedDataMutation({
       onCompleted: async ({ createSetDispatcherTypedData }) => {
@@ -74,7 +81,9 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
           sig
         };
         setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
         if (data?.broadcast.__typename === 'RelayError') {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
@@ -105,9 +114,11 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     }
   };
 
-  const isLoading = signLoading || writeLoading || broadcastLoading || typedDataLoading;
+  const isLoading =
+    signLoading || writeLoading || broadcastLoading || typedDataLoading;
   const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' && broadcastData.broadcast.txHash;
+    broadcastData?.broadcast.__typename === 'RelayerResult' &&
+    broadcastData.broadcast.txHash;
 
   return writeData?.hash ?? broadcastTxHash ? (
     <div className="mt-2">

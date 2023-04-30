@@ -11,22 +11,24 @@ interface AccessSettingsState {
   reset: () => void;
 }
 
-export const useAccessSettingsStore = create<AccessSettingsState>((set, get) => ({
-  restricted: false,
-  setRestricted: (restricted) => set(() => ({ restricted })),
-  collectToView: false,
-  setCollectToView: (collectToView) => set(() => ({ collectToView })),
-  followToView: false,
-  setFollowToView: (followToView) => set(() => ({ followToView })),
-  hasConditions: () => {
-    const { followToView, collectToView } = get();
+export const useAccessSettingsStore = create<AccessSettingsState>(
+  (set, get) => ({
+    restricted: false,
+    setRestricted: (restricted) => set(() => ({ restricted })),
+    collectToView: false,
+    setCollectToView: (collectToView) => set(() => ({ collectToView })),
+    followToView: false,
+    setFollowToView: (followToView) => set(() => ({ followToView })),
+    hasConditions: () => {
+      const { followToView, collectToView } = get();
 
-    return followToView || collectToView;
-  },
-  reset: () =>
-    set(() => ({
-      restricted: false,
-      collectToView: false,
-      followToView: false
-    }))
-}));
+      return followToView || collectToView;
+    },
+    reset: () =>
+      set(() => ({
+        restricted: false,
+        collectToView: false,
+        followToView: false
+      }))
+  })
+);

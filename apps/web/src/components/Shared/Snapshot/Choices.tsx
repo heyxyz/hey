@@ -1,4 +1,7 @@
-import { CheckCircleIcon as CheckCircleIconOutline, MenuAlt2Icon } from '@heroicons/react/outline';
+import {
+  CheckCircleIcon as CheckCircleIconOutline,
+  MenuAlt2Icon
+} from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
@@ -35,10 +38,14 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
     position: index + 1,
     choice,
     score: scores?.[index] ?? 0,
-    voted: Array.isArray(vote?.choice) ? vote?.choice.includes(index + 1) : vote?.choice === index + 1,
+    voted: Array.isArray(vote?.choice)
+      ? vote?.choice.includes(index + 1)
+      : vote?.choice === index + 1,
     percentage: ((scores?.[index] ?? 0) / (scores_total ?? 1)) * 100
   }));
-  const sortedChoices = choicesWithVote.sort((a, b) => b.percentage - a.percentage);
+  const sortedChoices = choicesWithVote.sort(
+    (a, b) => b.percentage - a.percentage
+  );
 
   const openVoteModal = (position: number) => {
     if (!currentProfile) {
@@ -49,7 +56,12 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
       return toast.error(t`This proposal is closed!`);
     }
 
-    if (type === 'approval' || type === 'quadratic' || type === 'ranked-choice' || type === 'weighted') {
+    if (
+      type === 'approval' ||
+      type === 'quadratic' ||
+      type === 'ranked-choice' ||
+      type === 'weighted'
+    ) {
       return toast.error(t`${type} voting is not supported yet!`);
     }
 
@@ -65,40 +77,49 @@ const Choices: FC<ChoicesProps> = ({ proposal, votes, refetch }) => {
         <div className="divider flex items-center justify-between px-5 py-3 ">
           <div className="flex items-center space-x-2 font-bold">
             <MenuAlt2Icon className="h-5 w-5" />
-            <b>{proposal.state === 'active' ? t`Current results` : t`Results`}</b>
+            <b>
+              {proposal.state === 'active' ? t`Current results` : t`Results`}
+            </b>
           </div>
           <New />
         </div>
         <div className="space-y-1 p-3">
-          {sortedChoices.map(({ position, choice, voted, percentage, score }) => (
-            <button
-              key={choice}
-              className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
-              onClick={() => openVoteModal(position)}
-            >
-              <CheckCircleIcon className={clsx(voted ? 'text-green-500' : 'text-gray-500', 'h-6 w-6 ')} />
-              <div className="w-full space-y-1">
-                <div className="flex items-center justify-between">
-                  <b>{choice}</b>
-                  <div>
-                    <span>
-                      {nFormatter(score)} {symbol}
-                    </span>
-                    <span className="mx-1.5">·</span>
-                    <span className="lt-text-gray-500">
-                      {Number.isNaN(percentage) ? 0 : percentage.toFixed(2)}%
-                    </span>
+          {sortedChoices.map(
+            ({ position, choice, voted, percentage, score }) => (
+              <button
+                key={choice}
+                className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
+                onClick={() => openVoteModal(position)}
+              >
+                <CheckCircleIcon
+                  className={clsx(
+                    voted ? 'text-green-500' : 'text-gray-500',
+                    'h-6 w-6 '
+                  )}
+                />
+                <div className="w-full space-y-1">
+                  <div className="flex items-center justify-between">
+                    <b>{choice}</b>
+                    <div>
+                      <span>
+                        {nFormatter(score)} {symbol}
+                      </span>
+                      <span className="mx-1.5">·</span>
+                      <span className="lt-text-gray-500">
+                        {Number.isNaN(percentage) ? 0 : percentage.toFixed(2)}%
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300">
+                    <div
+                      style={{ width: `${percentage.toFixed(2)}%` }}
+                      className={clsx(voted ? 'bg-green-500' : 'bg-brand-500')}
+                    />
                   </div>
                 </div>
-                <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300">
-                  <div
-                    style={{ width: `${percentage.toFixed(2)}%` }}
-                    className={clsx(voted ? 'bg-green-500' : 'bg-brand-500')}
-                  />
-                </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            )
+          )}
         </div>
       </Card>
       <Modal

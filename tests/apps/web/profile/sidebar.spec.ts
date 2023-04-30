@@ -12,11 +12,15 @@ test.describe('Profile sidebar', () => {
     });
 
     test('should have handle', async ({ page }) => {
-      await expect(page.getByTestId('profile-handle')).toContainText('@yoginth');
+      await expect(page.getByTestId('profile-handle')).toContainText(
+        '@yoginth'
+      );
     });
 
     test('should have bio', async ({ page }) => {
-      await expect(page.getByTestId('profile-bio')).toContainText('opinions are mine');
+      await expect(page.getByTestId('profile-bio')).toContainText(
+        'opinions are mine'
+      );
     });
 
     test('should have meta id', async ({ page }) => {
@@ -24,7 +28,9 @@ test.describe('Profile sidebar', () => {
     });
 
     test('should have meta location', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-location')).toContainText('India');
+      await expect(page.getByTestId('profile-meta-location')).toContainText(
+        'India'
+      );
     });
   });
 
@@ -34,15 +40,21 @@ test.describe('Profile sidebar', () => {
     });
 
     test('should have meta ens', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-ens')).toContainText('yoginth.eth');
+      await expect(page.getByTestId('profile-meta-ens')).toContainText(
+        'yoginth.eth'
+      );
     });
 
     test('should have meta website', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-website')).toContainText('nf.td/yogi');
+      await expect(page.getByTestId('profile-meta-website')).toContainText(
+        'nf.td/yogi'
+      );
     });
 
     test('should have meta twitter', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-twitter')).toContainText('yogicodes');
+      await expect(page.getByTestId('profile-meta-twitter')).toContainText(
+        'yogicodes'
+      );
     });
   });
 

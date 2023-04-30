@@ -23,7 +23,12 @@ test.describe('getPublicationAttribute', () => {
   });
 
   test('should return the first matching traitType if there are multiple matches', () => {
-    const updatedAttributes = [...attributes, { traitType: 'author', value: 'Jane Smith' }];
-    expect(getPublicationAttribute(updatedAttributes, 'author')).toBe('John Doe');
+    const updatedAttributes = [
+      ...attributes,
+      { traitType: 'author', value: 'Jane Smith' }
+    ];
+    expect(getPublicationAttribute(updatedAttributes, 'author')).toBe(
+      'John Doe'
+    );
   });
 });

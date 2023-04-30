@@ -53,7 +53,11 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <ErrorMessage className="m-5" title={t`Failed to load mutual followers`} error={error} />
+      <ErrorMessage
+        className="m-5"
+        title={t`Failed to load mutual followers`}
+        error={error}
+      />
 
       <div className="divide-y dark:divide-gray-700">
         {profiles?.map((profile, index) => (

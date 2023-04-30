@@ -21,7 +21,9 @@ import Timeline from './Timeline';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [feedType, setFeedType] = useState<'TIMELINE' | 'HIGHLIGHTS'>('TIMELINE');
+  const [feedType, setFeedType] = useState<'TIMELINE' | 'HIGHLIGHTS'>(
+    'TIMELINE'
+  );
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'home' });

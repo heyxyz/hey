@@ -10,7 +10,12 @@ import { AVATAR, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
 import type { Area } from 'image-cropper/types';
-import type { MediaSet, NftImage, Profile, UpdateProfileImageRequest } from 'lens';
+import type {
+  MediaSet,
+  NftImage,
+  Profile,
+  UpdateProfileImageRequest
+} from 'lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
@@ -39,7 +44,9 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [avatarDataUrl, setAvatarDataUrl] = useState('');
   const [uploading, setUploading] = useState(false);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError
+  });
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [imageSrc, setImageSrc] = useState('');
   const [showCropModal, setShowCropModal] = useState(false);
@@ -83,7 +90,9 @@ const Picture: FC<PictureProps> = ({ profile }) => {
           sig
         };
         setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
         if (data?.broadcast.__typename === 'RelayError') {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
@@ -91,18 +100,22 @@ const Picture: FC<PictureProps> = ({ profile }) => {
       onError
     });
 
-  const [createSetProfileImageURIViaDispatcher, { loading: dispatcherLoading }] =
-    useCreateSetProfileImageUriViaDispatcherMutation({
-      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
-        onCompleted(createSetProfileImageURIViaDispatcher.__typename),
-      onError
-    });
+  const [
+    createSetProfileImageURIViaDispatcher,
+    { loading: dispatcherLoading }
+  ] = useCreateSetProfileImageUriViaDispatcherMutation({
+    onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+      onCompleted(createSetProfileImageURIViaDispatcher.__typename),
+    onError
+  });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
       variables: { request }
     });
-    if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
+    if (
+      data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError'
+    ) {
       await createSetProfileImageURITypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
@@ -131,7 +144,10 @@ const Picture: FC<PictureProps> = ({ profile }) => {
         url: ipfsUrl
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay && currentProfile.dispatcher.sponsor) {
+      if (
+        currentProfile?.dispatcher?.canUseRelay &&
+        currentProfile.dispatcher.sponsor
+      ) {
         await createViaDispatcher(request);
       } else {
         await createSetProfileImageURITypedData({
@@ -151,7 +167,12 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   };
 
   const isLoading =
-    typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading || uploading;
+    typedDataLoading ||
+    dispatcherLoading ||
+    signLoading ||
+    writeLoading ||
+    broadcastLoading ||
+    uploading;
 
   const onFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -161,7 +182,8 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     }
   };
 
-  const profilePictureUrl = profile?.picture?.original?.url ?? profile?.picture?.uri;
+  const profilePictureUrl =
+    profile?.picture?.original?.url ?? profile?.picture?.uri;
   const profilePictureIpfsUrl = profilePictureUrl
     ? imageProxy(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : '';
@@ -191,14 +213,26 @@ const Picture: FC<PictureProps> = ({ profile }) => {
             type="submit"
             disabled={isLoading || !imageSrc}
             onClick={() => uploadAndSave()}
-            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+            icon={
+              isLoading ? (
+                <Spinner size="xs" />
+              ) : (
+                <PencilIcon className="h-4 w-4" />
+              )
+            }
           >
             <Trans>Save</Trans>
           </Button>
         </div>
       </Modal>
       <div className="space-y-1.5">
-        {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
+        {error && (
+          <ErrorMessage
+            className="mb-3"
+            title={t`Transaction failed!`}
+            error={error}
+          />
+        )}
         <div className="space-y-3">
           <div>
             <Image

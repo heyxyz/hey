@@ -1,5 +1,8 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { ShieldCheckIcon, ShieldExclamationIcon } from '@heroicons/react/outline';
+import {
+  ShieldCheckIcon,
+  ShieldExclamationIcon
+} from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';

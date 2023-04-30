@@ -23,17 +23,26 @@ interface RelayProps {
 export const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
   function getRelayerName(name: string): string {
     const words = name.split('_');
-    const capitalizedWords = words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+    const capitalizedWords = words.map(
+      (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    );
 
     return capitalizedWords.join(' ');
   }
 
   return (
-    <Card className="flex w-full flex-wrap items-center justify-between p-5" forceRounded>
+    <Card
+      className="flex w-full flex-wrap items-center justify-between p-5"
+      forceRounded
+    >
       <div>
         <b>{getRelayerName(relayer)}</b>
         <div>
-          <a className="text-sm" href={`${POLYGONSCAN_URL}/address/${address}`} target="_blank">
+          <a
+            className="text-sm"
+            href={`${POLYGONSCAN_URL}/address/${address}`}
+            target="_blank"
+          >
             {address}
           </a>
         </div>
@@ -91,7 +100,12 @@ const RelayQueues: NextPage = () => {
               </h1>
               <div className="space-y-3">
                 {sortedRelays?.map(({ address, queue, relayer }) => (
-                  <Relay key={address} address={address} queue={queue} relayer={relayer} />
+                  <Relay
+                    key={address}
+                    address={address}
+                    queue={queue}
+                    relayer={relayer}
+                  />
                 ))}
               </div>
             </section>

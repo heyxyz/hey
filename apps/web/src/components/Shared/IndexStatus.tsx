@@ -13,14 +13,21 @@ interface IndexStatusProps {
   reload?: boolean;
 }
 
-const IndexStatus: FC<IndexStatusProps> = ({ type = 'Transaction', txHash, reload = false }) => {
+const IndexStatus: FC<IndexStatusProps> = ({
+  type = 'Transaction',
+  txHash,
+  reload = false
+}) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
   const { data, loading } = useHasTxHashBeenIndexedQuery({
     variables: { request: { txHash } },
     pollInterval,
     onCompleted: ({ hasTxHashBeenIndexed }) => {
-      if (hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' && hasTxHashBeenIndexed?.indexed) {
+      if (
+        hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
+        hasTxHashBeenIndexed?.indexed
+      ) {
         setPollInterval(0);
         if (reload) {
           location.reload();

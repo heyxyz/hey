@@ -60,12 +60,14 @@ msgstr "用户需要先关注你才能浏览它"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "取消"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
@@ -216,10 +218,26 @@ msgid "Select GIF"
 msgstr "请选择GIF图片"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length (days)"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
 msgstr "删除"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Choice {0}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Add another option"
+msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
 msgid "Poll"
@@ -2827,4 +2845,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

@@ -1,6 +1,15 @@
-export const polygonRpcs = ['https://polygon.rpc.thirdweb.com', 'https://rpc.ankr.com/polygon'];
-export const mumbaiRpcs = ['https://mumbai.rpc.thirdweb.com', 'https://rpc.ankr.com/polygon_mumbai'];
-export const ethereumRpcs = ['https://ethereum.rpc.thirdweb.com', 'https://rpc.ankr.com/eth'];
+export const polygonRpcs = [
+  'https://polygon.rpc.thirdweb.com',
+  'https://rpc.ankr.com/polygon'
+];
+export const mumbaiRpcs = [
+  'https://mumbai.rpc.thirdweb.com',
+  'https://rpc.ankr.com/polygon_mumbai'
+];
+export const ethereumRpcs = [
+  'https://ethereum.rpc.thirdweb.com',
+  'https://rpc.ankr.com/eth'
+];
 
 /**
  * Get RPC URL based on chainId
