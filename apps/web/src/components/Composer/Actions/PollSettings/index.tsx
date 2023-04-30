@@ -1,5 +1,5 @@
 import { useFeature } from '@growthbook/growthbook-react';
-import { MenuAlt2Icon } from '@heroicons/react/outline';
+import { MenuAlt2Icon } from '@heroicons/react/solid';
 import { t } from '@lingui/macro';
 import { FeatureFlag } from 'data';
 import { motion } from 'framer-motion';
