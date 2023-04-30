@@ -240,6 +240,7 @@ msgid "Add another option"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr ""
 
@@ -1619,11 +1620,11 @@ msgstr ""
 msgid "Failed to load publications"
 msgstr ""
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Publications"
 msgstr ""
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr ""
 
@@ -2275,6 +2276,10 @@ msgid "Handle should only contain alphanumeric characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
+msgid "The selected handle is already taken"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
 msgstr ""
 
@@ -2561,11 +2566,23 @@ msgid "{type} voting is not supported yet!"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} Votes"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} left"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
