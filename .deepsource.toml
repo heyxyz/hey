@@ -7,9 +7,9 @@ exclude_patterns = [
   ".husky",
   ".vscode",
   "tests",
+  "pnpm-lock.yaml",
   "packages/lens/generated.ts",
   "packages/snapshot/generated.ts",
-  "pnpm-lock.yaml"
 ]
 
 [[analyzers]]
