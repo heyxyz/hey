@@ -35,7 +35,7 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
           />
           <Transition.Child
             as="div"
-            className="inline-block transform p-8 text-left align-middle transition-all sm:max-w-3xl"
+            className="inline-block p-8 text-left align-middle transition-all sm:max-w-3xl"
             enter="ease-out duration-100"
             enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             enterTo="opacity-100 translate-y-0 sm:scale-100"

@@ -65,7 +65,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           <input
             id={id}
             className={clsx(
-              { 'placeholder-red-500': error },
+              { 'placeholder:text-red-500': error },
               prefix ? 'rounded-r-xl' : 'rounded-xl',
               'peer w-full border-none bg-transparent outline-none focus:ring-0',
               className
