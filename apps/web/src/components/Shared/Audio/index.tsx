@@ -111,7 +111,7 @@ const Audio: FC<AudioProps> = ({
                 {isNew && !txn ? (
                   <div className="flex w-full flex-col">
                     <input
-                      className="border-none bg-transparent text-lg text-white placeholder-white outline-none"
+                      className="border-none bg-transparent text-lg text-white outline-none placeholder:text-white"
                       placeholder={t`Add title`}
                       name="title"
                       value={audioPublication.title}
@@ -119,7 +119,7 @@ const Audio: FC<AudioProps> = ({
                       onChange={handleChange}
                     />
                     <input
-                      className="border-none bg-transparent text-white/70 placeholder-white/70 outline-none"
+                      className="border-none bg-transparent text-white/70 outline-none placeholder:text-white/70"
                       placeholder={t`Add author`}
                       name="author"
                       value={audioPublication.author}

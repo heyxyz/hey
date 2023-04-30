@@ -62,7 +62,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
         }}
       />
       <div
-        className="flex pb-2 pt-2"
+        className="flex py-2"
         style={{ width: cropSize.width + borderSize * 2 }}
       >
         <ZoomOutIcon className="m-1 h-6 w-6" />
