@@ -1,4 +1,6 @@
-mutation CreateDataAvailabilityMirrorViaDispatcher($request: CreateDataAvailabilityMirrorRequest!) {
+mutation CreateDataAvailabilityMirrorViaDispatcher(
+  $request: CreateDataAvailabilityMirrorRequest!
+) {
   createDataAvailabilityMirrorViaDispatcher(request: $request) {
     ... on CreateDataAvailabilityPublicationResult {
       id
