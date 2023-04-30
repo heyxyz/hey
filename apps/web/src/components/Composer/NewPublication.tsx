@@ -81,6 +81,7 @@ import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import {
+  useBlockNumber,
   useContractWrite,
   useProvider,
   useSigner,
@@ -162,6 +163,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     (state) => state.videoDurationInSeconds
   );
   const showPollEditor = usePublicationStore((state) => state.showPollEditor);
+  const setShowPollEditor = usePublicationStore(
+    (state) => state.setShowPollEditor
+  );
+  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -215,6 +220,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       $getRoot().clear();
     });
     setPublicationContent('');
+    setShowPollEditor(false);
+    resetPollConfig();
     setAttachments([]);
     setVideoThumbnail({
       url: '',

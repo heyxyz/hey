@@ -2,7 +2,7 @@ import { snapshotClient } from '@lib/snapshotClient';
 import { APP_NAME } from 'data';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
-import { useSigner } from 'wagmi';
+import { useBlockNumber, useSigner } from 'wagmi';
 
 type CreatePollResponse = string;
 
@@ -13,6 +13,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
     (state) => state.publicationContent
   );
   const { data: signer } = useSigner();
+  const { data: blockNumber } = useBlockNumber();
 
   const createPoll = async (): Promise<CreatePollResponse> => {
     try {
@@ -22,13 +23,13 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
         {
           space: 'polls.lenster.xyz',
           type: 'single-choice',
-          title: 'Test proposal using Snapshot.js',
-          body: 'This is the content of the proposal',
+          title: `Poll by @${currentProfile?.handle}`,
+          body: publicationContent,
           from: currentProfile?.ownedBy,
           choices: pollConfig.choices,
           start: Math.floor(Date.now() / 1000),
           end: Math.floor(Date.now() / 1000) + pollConfig.length * 86400,
-          snapshot: 17159126,
+          snapshot: blockNumber ?? 1,
           discussion: '',
           plugins: '{}',
           app: APP_NAME.toLowerCase()
