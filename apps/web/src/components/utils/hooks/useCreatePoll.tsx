@@ -1,42 +1,53 @@
 import { snapshotClient } from '@lib/snapshotClient';
+import { t } from '@lingui/macro';
+import { APP_NAME } from 'data';
+import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { usePublicationStore } from 'src/store/publication';
 import { useSigner } from 'wagmi';
 
-interface UseCreatePollProps {
-  length: number;
-  choices: string[];
-}
+type CreatePollResponse = string;
 
-const useCreatePoll = async ({
-  length,
-  choices
-}: UseCreatePollProps): Promise<{
-  snapshotUrl: string;
-  loading: boolean;
-  error: unknown;
-}> => {
+const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { data: signer } = useSigner();
-
-  const receipt = await snapshotClient.proposal(
-    signer as any,
-    currentProfile?.ownedBy,
-    {
-      space: 'yam.eth',
-      type: 'single-choice', // define the voting system
-      title: 'Test proposal using Snapshot.js',
-      body: 'This is the content of the proposal',
-      choices: ['Alice', 'Bob', 'Carol'],
-      start: 1636984800,
-      end: 1637244000,
-      snapshot: 13620822,
-      network: '1',
-      plugins: JSON.stringify({}),
-      app: 'my-app' // provide the name of your project which is using this snapshot.js integration
-    }
+  const pollConfig = usePublicationStore((state) => state.pollConfig);
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
   );
 
-  return { snapshotUrl, loading, error };
+  const { data: signer } = useSigner();
+
+  const createPoll = async (): Promise<CreatePollResponse> => {
+    try {
+      const receipt: any = await snapshotClient.proposal(
+        signer as any,
+        currentProfile?.ownedBy,
+        {
+          space: 'polls.lenster.xyz',
+          type: 'single-choice',
+          title: 'Test proposal using Snapshot.js',
+          body: 'This is the content of the proposal',
+          from: currentProfile?.ownedBy,
+          choices: pollConfig.choices,
+          start: Math.floor(Date.now() / 1000),
+          end: Math.floor(Date.now() / 1000) + pollConfig.length * 86400,
+          snapshot: 17159126,
+          discussion: '',
+          plugins: '{}',
+          app: APP_NAME.toLowerCase()
+        }
+      );
+      const newPublicationContent = `${publicationContent}\n\nhttps://snapshot.org/#/polls.lenster.xyz/proposal/${receipt.id}`;
+
+      return newPublicationContent;
+    } catch (error) {
+      toast.error(t`Error creating poll`);
+
+      return publicationContent;
+    }
+  };
+
+  return [createPoll];
 };
 
 export default useCreatePoll;

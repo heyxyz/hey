@@ -88,6 +88,7 @@ import {
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
+import useCreatePoll from '@components/utils/hooks/useCreatePoll';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
@@ -191,9 +192,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // States
   const [loading, setLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
+  const [createPoll] = useCreatePoll();
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
@@ -727,10 +730,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         })
       );
 
+      let processedPublicationContent = publicationContent;
+
+      if (showPollEditor) {
+        processedPublicationContent = await createPoll();
+      }
+
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuid(),
-        content: publicationContent,
+        content: processedPublicationContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image:
           attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
