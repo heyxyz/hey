@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ proposal }) => {
-  const { space } = proposal;
+  const { id, title, space, state, author } = proposal;
   const spaceUrl = `https://snapshot.org/#/${space?.id}`;
 
   return (
@@ -18,11 +18,11 @@ const Header: FC<HeaderProps> = ({ proposal }) => {
       <div className="mb-2 flex items-center space-x-1 text-sm">
         <div
           className={clsx(
-            proposal.state === 'active' ? 'bg-green-500' : 'bg-brand-500',
+            state === 'active' ? 'bg-green-500' : 'bg-brand-500',
             'mr-1 rounded-full px-2 py-0.5 text-xs capitalize text-white'
           )}
         >
-          {proposal.state}
+          {state}
         </div>
         <Image
           src={`https://cdn.stamp.fyi/space/${space?.id}`}
@@ -33,19 +33,16 @@ const Header: FC<HeaderProps> = ({ proposal }) => {
           {space?.name ?? space?.id}
         </Link>
         <span>by</span>
-        <Link
-          href={`https://snapshot.org/#/profile/${proposal.author}`}
-          target="_blank"
-        >
-          {formatAddress(proposal.author)}
+        <Link href={`https://snapshot.org/#/profile/${author}`} target="_blank">
+          {formatAddress(author)}
         </Link>
       </div>
       <Link
-        href={`${spaceUrl}/proposal/${proposal.id}`}
+        href={`${spaceUrl}/proposal/${id}`}
         className="font-bold"
         target="_blank"
       >
-        {proposal.title}
+        {title}
       </Link>
     </>
   );
