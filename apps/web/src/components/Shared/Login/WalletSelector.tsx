@@ -178,7 +178,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       )}
     </div>
   ) : (
-    <div className="inline-block w-full transform space-y-3 overflow-hidden text-left align-middle transition-all">
+    <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
       {connectors.map((connector) => {
         return (
           <button

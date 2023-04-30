@@ -399,7 +399,7 @@ const CollectModule: FC<CollectModuleProps> = ({
           </div>
         )}
         <div className="space-y-1.5">
-          <div className="item-center block space-y-1 sm:flex sm:space-x-5">
+          <div className="block items-center space-y-1 sm:flex sm:space-x-5">
             <div className="flex items-center space-x-2">
               <UsersIcon className="lt-text-gray-500 h-4 w-4" />
               <button

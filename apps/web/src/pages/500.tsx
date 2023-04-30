@@ -22,7 +22,7 @@ const Custom500: FC = () => {
         </div>
         <Link href="/">
           <Button
-            className="item-center mx-auto flex"
+            className="mx-auto flex items-center"
             size="lg"
             icon={<HomeIcon className="h-4 w-4" />}
           >

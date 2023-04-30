@@ -1,5 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
+import Sidebar from '@components/Shared/Sidebar';
+import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
+import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -9,10 +12,12 @@ import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import Profiles from './Profiles';
 import Publications from './Publications';
-import Sidebar from './Sidebar';
 
 const Search: NextPage = () => {
   const { query } = useRouter();
+  const searchText = Array.isArray(query.q)
+    ? encodeURIComponent(query.q.join(' '))
+    : encodeURIComponent(query.q || '');
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'search' });
@@ -27,7 +32,22 @@ const Search: NextPage = () => {
       <MetaTags />
       <GridLayout>
         <GridItemFour>
-          <Sidebar />
+          <Sidebar
+            items={[
+              {
+                title: t`Publications`,
+                icon: <PencilAltIcon className="h-4 w-4" />,
+                url: `/search?q=${searchText}&type=pubs`,
+                active: query.type === 'pubs'
+              },
+              {
+                title: t`Profiles`,
+                icon: <UsersIcon className="h-4 w-4" />,
+                url: `/search?q=${searchText}&type=profiles`,
+                active: query.type === 'profiles'
+              }
+            ]}
+          />
         </GridItemFour>
         <GridItemEight>
           {query.type === 'profiles' && <Profiles query={query.q} />}
