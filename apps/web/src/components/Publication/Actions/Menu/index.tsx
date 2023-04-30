@@ -30,7 +30,9 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           aria-label="More"
           data-testid={`publication-${publication.id}-menu`}
         >
-          <DotsVerticalIcon className={clsx('lt-text-gray-500', iconClassName)} />
+          <DotsVerticalIcon
+            className={clsx('lt-text-gray-500', iconClassName)}
+          />
         </button>
       </Menu.Button>
       <MenuTransition>

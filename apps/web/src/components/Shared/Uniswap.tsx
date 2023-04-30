@@ -18,7 +18,10 @@ const Uniswap: FC<UniswapProps> = ({ module }) => {
         </Trans>
       </div>
       <a
-        href={getUniswapURL(parseFloat(module?.amount?.value), module?.amount?.asset?.address)}
+        href={getUniswapURL(
+          parseFloat(module?.amount?.value),
+          module?.amount?.asset?.address
+        )}
         onClick={() => {
           Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP);
         }}

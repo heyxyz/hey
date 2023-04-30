@@ -79,29 +79,49 @@ import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
-import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
+import {
+  useContractWrite,
+  useProvider,
+  useSigner,
+  useSignTypedData
+} from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 
-const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-});
+const Attachment = dynamic(
+  () => import('@components/Composer/Actions/Attachment'),
+  {
+    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  }
+);
 const Giphy = dynamic(() => import('@components/Composer/Actions/Giphy'), {
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
-const CollectSettings = dynamic(() => import('@components/Composer/Actions/CollectSettings'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-});
-const ReferenceSettings = dynamic(() => import('@components/Composer/Actions/ReferenceSettings'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-});
-const AccessSettings = dynamic(() => import('@components/Composer/Actions/AccessSettings'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-});
-const PollSettings = dynamic(() => import('@components/Composer/Actions/PollSettings'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-});
+const CollectSettings = dynamic(
+  () => import('@components/Composer/Actions/CollectSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  }
+);
+const ReferenceSettings = dynamic(
+  () => import('@components/Composer/Actions/ReferenceSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  }
+);
+const AccessSettings = dynamic(
+  () => import('@components/Composer/Actions/AccessSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  }
+);
+const PollSettings = dynamic(
+  () => import('@components/Composer/Actions/PollSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  }
+);
 
 interface NewPublicationProps {
   publication: Publication;
@@ -117,17 +137,29 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Publication store
-  const publicationContent = usePublicationStore((state) => state.publicationContent);
-  const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-  const audioPublication = usePublicationStore((state) => state.audioPublication);
-  const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
+  const publicationContent = usePublicationStore(
+    (state) => state.publicationContent
+  );
+  const setPublicationContent = usePublicationStore(
+    (state) => state.setPublicationContent
+  );
+  const audioPublication = usePublicationStore(
+    (state) => state.audioPublication
+  );
+  const setShowNewPostModal = usePublicationStore(
+    (state) => state.setShowNewPostModal
+  );
   const attachments = usePublicationStore((state) => state.attachments);
   const setAttachments = usePublicationStore((state) => state.setAttachments);
   const addAttachments = usePublicationStore((state) => state.addAttachments);
   const isUploading = usePublicationStore((state) => state.isUploading);
   const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
-  const setVideoThumbnail = usePublicationStore((state) => state.setVideoThumbnail);
-  const videoDurationInSeconds = usePublicationStore((state) => state.videoDurationInSeconds);
+  const setVideoThumbnail = usePublicationStore(
+    (state) => state.setVideoThumbnail
+  );
+  const videoDurationInSeconds = usePublicationStore(
+    (state) => state.videoDurationInSeconds
+  );
   const showPollEditor = usePublicationStore((state) => state.showPollEditor);
 
   // Transaction persist store
@@ -135,14 +167,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
   // Collect module store
-  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
+  const selectedCollectModule = useCollectModuleStore(
+    (state) => state.selectedCollectModule
+  );
   const payload = useCollectModuleStore((state) => state.payload);
   const resetCollectSettings = useCollectModuleStore((state) => state.reset);
 
   // Reference module store
-  const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
+  const selectedReferenceModule = useReferenceModuleStore(
+    (state) => state.selectedReferenceModule
+  );
   const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const degreesOfSeparation = useReferenceModuleStore((state) => state.degreesOfSeparation);
+  const degreesOfSeparation = useReferenceModuleStore(
+    (state) => state.degreesOfSeparation
+  );
 
   // Access module store
   const restricted = useAccessSettingsStore((state) => state.restricted);
@@ -158,8 +196,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { data: signer } = useSigner();
 
   const isComment = Boolean(publication);
-  const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
-  const hasVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType);
+  const hasAudio = ALLOWED_AUDIO_TYPES.includes(
+    attachments[0]?.original.mimeType
+  );
+  const hasVideo = ALLOWED_VIDEO_TYPES.includes(
+    attachments[0]?.original.mimeType
+  );
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -188,14 +230,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       publication_collect_module: selectedCollectModule,
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
-        selectedReferenceModule === ReferenceModules.DegreesOfSeparationReferenceModule
+        selectedReferenceModule ===
+        ReferenceModules.DegreesOfSeparationReferenceModule
           ? degreesOfSeparation
           : null,
       publication_has_attachments: attachments.length > 0,
       publication_attachment_types:
-        attachments.length > 0 ? attachments.map((attachment) => attachment.original.mimeType) : null
+        attachments.length > 0
+          ? attachments.map((attachment) => attachment.original.mimeType)
+          : null
     };
-    Mixpanel.track(isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST, eventProperties);
+    Mixpanel.track(
+      isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST,
+      eventProperties
+    );
   };
 
   useEffect(() => {
@@ -209,11 +257,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const generateOptimisticPublication = ({ txHash, txId }: { txHash?: string; txId?: string }) => {
+  const generateOptimisticPublication = ({
+    txHash,
+    txId
+  }: {
+    txHash?: string;
+    txId?: string;
+  }) => {
     return {
       id: uuid(),
       ...(isComment && { parent: publication.id }),
-      type: isComment ? OptmisticPublicationType.NewComment : OptmisticPublicationType.NewPost,
+      type: isComment
+        ? OptmisticPublicationType.NewComment
+        : OptmisticPublicationType.NewPost,
       txHash,
       txId,
       content: publicationContent,
@@ -224,7 +280,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
   };
 
-  const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({ onError });
+  const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({
+    onError
+  });
 
   const {
     isLoading: writeLoading,
@@ -237,7 +295,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
       onCompleted();
-      setTxnQueue([generateOptimisticPublication({ txHash: hash }), ...txnQueue]);
+      setTxnQueue([
+        generateOptimisticPublication({ txHash: hash }),
+        ...txnQueue
+      ]);
     },
     onError
   });
@@ -249,7 +310,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         return toast.error(Errors.SomethingWentWrong);
       }
 
-      if (data?.broadcastDataAvailability.__typename === 'CreateDataAvailabilityPublicationResult') {
+      if (
+        data?.broadcastDataAvailability.__typename ===
+        'CreateDataAvailabilityPublicationResult'
+      ) {
         push(`/posts/${data?.broadcastDataAvailability.id}`);
       }
     },
@@ -260,7 +324,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onCompleted: ({ broadcast }) => {
       onCompleted(broadcast.__typename);
       if (broadcast.__typename === 'RelayerResult') {
-        setTxnQueue([generateOptimisticPublication({ txId: broadcast.txId }), ...txnQueue]);
+        setTxnQueue([
+          generateOptimisticPublication({ txId: broadcast.txId }),
+          ...txnQueue
+        ]);
       }
     }
   });
@@ -271,7 +338,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         cache.modify({
           fields: {
             publications() {
-              cache.writeQuery({ data: { publication: data?.publication }, query: PublicationDocument });
+              cache.writeQuery({
+                data: { publication: data?.publication },
+                query: PublicationDocument
+              });
             }
           }
         });
@@ -279,7 +349,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   });
 
-  const typedDataGenerator = async (generatedData: any, isDataAvailabilityPublication: boolean = false) => {
+  const typedDataGenerator = async (
+    generatedData: any,
+    isDataAvailabilityPublication: boolean = false
+  ) => {
     const { id, typedData } = generatedData;
     const {
       profileId,
@@ -310,11 +383,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
 
     if (isDataAvailabilityPublication) {
-      return await broadcastDataAvailability({ variables: { request: { id, signature } } });
+      return await broadcastDataAvailability({
+        variables: { request: { id, signature } }
+      });
     }
 
     setUserSigNonce(userSigNonce + 1);
-    const { data } = await broadcast({ variables: { request: { id, signature } } });
+    const { data } = await broadcast({
+      variables: { request: { id, signature } }
+    });
     if (data?.broadcast.__typename === 'RelayError') {
       return write({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
@@ -322,31 +399,40 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // Normal typed data generation
   const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async ({ createCommentTypedData }) => await typedDataGenerator(createCommentTypedData),
+    onCompleted: async ({ createCommentTypedData }) =>
+      await typedDataGenerator(createCommentTypedData),
     onError
   });
 
   const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: async ({ createPostTypedData }) => await typedDataGenerator(createPostTypedData),
+    onCompleted: async ({ createPostTypedData }) =>
+      await typedDataGenerator(createPostTypedData),
     onError
   });
 
   // Data availability typed data generation
-  const [createDataAvailabilityPostTypedData] = useCreateDataAvailabilityPostTypedDataMutation({
-    onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
-      await typedDataGenerator(createDataAvailabilityPostTypedData, true)
-  });
+  const [createDataAvailabilityPostTypedData] =
+    useCreateDataAvailabilityPostTypedDataMutation({
+      onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
+        await typedDataGenerator(createDataAvailabilityPostTypedData, true)
+    });
 
-  const [createDataAvailabilityCommentTypedData] = useCreateDataAvailabilityCommentTypedDataMutation({
-    onCompleted: async ({ createDataAvailabilityCommentTypedData }) =>
-      await typedDataGenerator(createDataAvailabilityCommentTypedData, true)
-  });
+  const [createDataAvailabilityCommentTypedData] =
+    useCreateDataAvailabilityCommentTypedDataMutation({
+      onCompleted: async ({ createDataAvailabilityCommentTypedData }) =>
+        await typedDataGenerator(createDataAvailabilityCommentTypedData, true)
+    });
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
     onCompleted: ({ createCommentViaDispatcher }) => {
       onCompleted(createCommentViaDispatcher.__typename);
       if (createCommentViaDispatcher.__typename === 'RelayerResult') {
-        setTxnQueue([generateOptimisticPublication({ txId: createCommentViaDispatcher.txId }), ...txnQueue]);
+        setTxnQueue([
+          generateOptimisticPublication({
+            txId: createCommentViaDispatcher.txId
+          }),
+          ...txnQueue
+        ]);
       }
     },
     onError
@@ -356,60 +442,81 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onCompleted: ({ createPostViaDispatcher }) => {
       onCompleted(createPostViaDispatcher.__typename);
       if (createPostViaDispatcher.__typename === 'RelayerResult') {
-        setTxnQueue([generateOptimisticPublication({ txId: createPostViaDispatcher.txId }), ...txnQueue]);
+        setTxnQueue([
+          generateOptimisticPublication({ txId: createPostViaDispatcher.txId }),
+          ...txnQueue
+        ]);
       }
     },
     onError
   });
 
-  const [createDataAvailabilityPostViaDispatcher] = useCreateDataAvailabilityPostViaDispatcherMutation({
-    onCompleted: (data) => {
-      if (data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError') {
-        return;
-      }
+  const [createDataAvailabilityPostViaDispatcher] =
+    useCreateDataAvailabilityPostViaDispatcherMutation({
+      onCompleted: (data) => {
+        if (
+          data?.createDataAvailabilityPostViaDispatcher?.__typename ===
+          'RelayError'
+        ) {
+          return;
+        }
 
-      if (
-        data.createDataAvailabilityPostViaDispatcher.__typename === 'CreateDataAvailabilityPublicationResult'
-      ) {
-        onCompleted();
-        const { id } = data.createDataAvailabilityPostViaDispatcher;
-        push(`/posts/${id}`);
-      }
-    },
-    onError
-  });
+        if (
+          data.createDataAvailabilityPostViaDispatcher.__typename ===
+          'CreateDataAvailabilityPublicationResult'
+        ) {
+          onCompleted();
+          const { id } = data.createDataAvailabilityPostViaDispatcher;
+          push(`/posts/${id}`);
+        }
+      },
+      onError
+    });
 
-  const [createDataAvailabilityCommentViaDispatcher] = useCreateDataAvailabilityCommentViaDispatcherMutation({
-    onCompleted: (data) => {
-      if (data?.createDataAvailabilityCommentViaDispatcher?.__typename === 'RelayError') {
-        return;
-      }
+  const [createDataAvailabilityCommentViaDispatcher] =
+    useCreateDataAvailabilityCommentViaDispatcherMutation({
+      onCompleted: (data) => {
+        if (
+          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+          'RelayError'
+        ) {
+          return;
+        }
 
-      if (
-        data.createDataAvailabilityCommentViaDispatcher.__typename ===
-        'CreateDataAvailabilityPublicationResult'
-      ) {
-        onCompleted();
-        const { id } = data.createDataAvailabilityCommentViaDispatcher;
-        getPublication({ variables: { request: { publicationId: id } } });
-      }
-    },
-    onError
-  });
+        if (
+          data.createDataAvailabilityCommentViaDispatcher.__typename ===
+          'CreateDataAvailabilityPublicationResult'
+        ) {
+          onCompleted();
+          const { id } = data.createDataAvailabilityCommentViaDispatcher;
+          getPublication({ variables: { request: { publicationId: id } } });
+        }
+      },
+      onError
+    });
 
   const createViaDataAvailablityDispatcher = async (request: any) => {
     const variables = { request };
 
     if (isComment) {
-      const { data } = await createDataAvailabilityCommentViaDispatcher({ variables });
-      if (data?.createDataAvailabilityCommentViaDispatcher?.__typename === 'RelayError') {
+      const { data } = await createDataAvailabilityCommentViaDispatcher({
+        variables
+      });
+      if (
+        data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+        'RelayError'
+      ) {
         await createDataAvailabilityCommentTypedData({ variables });
       }
       return;
     }
 
-    const { data } = await createDataAvailabilityPostViaDispatcher({ variables });
-    if (data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError') {
+    const { data } = await createDataAvailabilityPostViaDispatcher({
+      variables
+    });
+    if (
+      data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
+    ) {
       await createDataAvailabilityPostTypedData({ variables });
     }
     return;
@@ -422,7 +529,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
 
     if (isComment) {
-      const { data } = await createCommentViaDispatcher({ variables: { request } });
+      const { data } = await createCommentViaDispatcher({
+        variables: { request }
+      });
       if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
         return await createCommentTypedData({ variables });
       }
@@ -442,7 +551,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     if (attachments.length > 0) {
       if (hasAudio) {
         return PublicationMainFocus.Audio;
-      } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.original.mimeType)) {
+      } else if (
+        ALLOWED_IMAGE_TYPES.includes(attachments[0]?.original.mimeType)
+      ) {
         return PublicationMainFocus.Image;
       } else if (hasVideo) {
         return PublicationMainFocus.Video;
@@ -463,11 +574,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const getAttachmentImage = () => {
-    return hasAudio ? audioPublication.cover : hasVideo ? videoThumbnail.url : attachments[0]?.original.url;
+    return hasAudio
+      ? audioPublication.cover
+      : hasVideo
+      ? videoThumbnail.url
+      : attachments[0]?.original.url;
   };
 
   const getAttachmentImageMimeType = () => {
-    return hasAudio ? audioPublication.coverMimeType : attachments[0]?.original.mimeType;
+    return hasAudio
+      ? audioPublication.coverMimeType
+      : attachments[0]?.original.mimeType;
   };
 
   const getTitlePrefix = () => {
@@ -478,7 +595,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return isComment ? 'Comment' : 'Post';
   };
 
-  const createTokenGatedMetadata = async (metadata: PublicationMetadataV2Input) => {
+  const createTokenGatedMetadata = async (
+    metadata: PublicationMetadataV2Input
+  ) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -502,13 +621,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Condition for gating the content
     const collectAccessCondition: CollectCondition = { thisPublication: true };
-    const followAccessCondition: FollowCondition = { profileId: currentProfile.id };
+    const followAccessCondition: FollowCondition = {
+      profileId: currentProfile.id
+    };
 
     // Create the access condition
     let accessCondition: AccessConditionOutput = {};
     if (collectToView && followToView) {
       accessCondition = {
-        and: { criteria: [{ collect: collectAccessCondition }, { follow: followAccessCondition }] }
+        and: {
+          criteria: [
+            { collect: collectAccessCondition },
+            { follow: followAccessCondition }
+          ]
+        }
       };
     } else if (collectToView) {
       accessCondition = { collect: collectAccessCondition };
@@ -550,12 +676,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       if (publicationContent.length === 0 && attachments.length === 0) {
-        return setPublicationContentError(`${isComment ? 'Comment' : 'Post'} should not be empty!`);
+        return setPublicationContentError(
+          `${isComment ? 'Comment' : 'Post'} should not be empty!`
+        );
       }
 
       setPublicationContentError('');
       let textNftImageUrl = null;
-      if (!attachments.length && selectedCollectModule !== CollectModules.RevertCollectModule) {
+      if (
+        !attachments.length &&
+        selectedCollectModule !== CollectModules.RevertCollectModule
+      ) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
           currentProfile.handle,
@@ -588,25 +719,30 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         });
       }
 
-      const attachmentsInput: PublicationMetadataMediaInput[] = attachments.map((attachment) => ({
-        item: attachment.original.url,
-        type: attachment.original.mimeType,
-        altTag: attachment.original.altTag
-      }));
+      const attachmentsInput: PublicationMetadataMediaInput[] = attachments.map(
+        (attachment) => ({
+          item: attachment.original.url,
+          type: attachment.original.mimeType,
+          altTag: attachment.original.altTag
+        })
+      );
 
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuid(),
         content: publicationContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-        image: attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
+        image:
+          attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
         imageMimeType:
           attachmentsInput.length > 0
             ? getAttachmentImageMimeType()
             : textNftImageUrl
             ? 'image/svg+xml'
             : null,
-        name: hasAudio ? audioPublication.title : `${getTitlePrefix()} by @${currentProfile?.handle}`,
+        name: hasAudio
+          ? audioPublication.title
+          : `${getTitlePrefix()} by @${currentProfile?.handle}`,
         tags: getTags(publicationContent),
         animation_url: getAnimationUrl(),
         mainContentFocus: getMainContentFocus(),
@@ -617,10 +753,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         appId: APP_NAME
       };
 
-      const isRevertCollectModule = selectedCollectModule === CollectModules.RevertCollectModule;
+      const isRevertCollectModule =
+        selectedCollectModule === CollectModules.RevertCollectModule;
       const useDataAvailability =
         !restricted &&
-        (isComment ? publication.isDataAvailability && isRevertCollectModule : isRevertCollectModule);
+        (isComment
+          ? publication.isDataAvailability && isRevertCollectModule
+          : isRevertCollectModule);
 
       let arweaveId = null;
       if (restricted) {
@@ -634,11 +773,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         profileId: currentProfile?.id,
         contentURI: `ar://${arweaveId}`,
         ...(isComment && {
-          publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+          publicationId:
+            publication.__typename === 'Mirror'
+              ? publication?.mirrorOf?.id
+              : publication?.id
         }),
         collectModule: payload,
         referenceModule:
-          selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
+          selectedReferenceModule ===
+          ReferenceModules.FollowerOnlyReferenceModule
             ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
             : {
                 degreesOfSeparationReferenceModule: {
@@ -653,14 +796,22 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const dataAvailablityRequest = {
         from: currentProfile?.id,
         ...(isComment && {
-          commentOn: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+          commentOn:
+            publication.__typename === 'Mirror'
+              ? publication?.mirrorOf?.id
+              : publication?.id
         }),
         contentURI: `ar://${arweaveId}`
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay && currentProfile.dispatcher.sponsor) {
+      if (
+        currentProfile?.dispatcher?.canUseRelay &&
+        currentProfile.dispatcher.sponsor
+      ) {
         if (useDataAvailability) {
-          return await createViaDataAvailablityDispatcher(dataAvailablityRequest);
+          return await createViaDataAvailablityDispatcher(
+            dataAvailablityRequest
+          );
         } else {
           return await createViaDispatcher(request);
         }
@@ -700,11 +851,24 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const isLoading = loading || typedDataLoading || writeLoading;
 
   return (
-    <Card className={clsx({ '!rounded-b-xl !rounded-t-none border-none': !isComment }, 'pb-3')}>
-      {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
+    <Card
+      className={clsx(
+        { '!rounded-b-xl !rounded-t-none border-none': !isComment },
+        'pb-3'
+      )}
+    >
+      {error && (
+        <ErrorMessage
+          className="mb-3"
+          title={t`Transaction failed!`}
+          error={error}
+        />
+      )}
       <Editor />
       {publicationContentError && (
-        <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">{publicationContentError}</div>
+        <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
+          {publicationContentError}
+        </div>
       )}
       {showPollEditor && <PollEditor />}
       <div className="block items-center px-5 sm:flex">

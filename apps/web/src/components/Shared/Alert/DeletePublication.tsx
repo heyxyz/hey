@@ -9,11 +9,15 @@ import { PUBLICATION } from 'src/tracking';
 import { Alert } from 'ui';
 
 const DeletePublication: FC = () => {
-  const showPublicationDeleteAlert = useGlobalAlertStateStore((state) => state.showPublicationDeleteAlert);
+  const showPublicationDeleteAlert = useGlobalAlertStateStore(
+    (state) => state.showPublicationDeleteAlert
+  );
   const setShowPublicationDeleteAlert = useGlobalAlertStateStore(
     (state) => state.setShowPublicationDeleteAlert
   );
-  const deletingPublication = useGlobalAlertStateStore((state) => state.deletingPublication);
+  const deletingPublication = useGlobalAlertStateStore(
+    (state) => state.deletingPublication
+  );
 
   const [hidePost, { loading }] = useHidePublicationMutation({
     onCompleted: () => {
@@ -34,7 +38,11 @@ const DeletePublication: FC = () => {
       show={showPublicationDeleteAlert}
       isDestructive
       isPerformingAction={loading}
-      onConfirm={() => hidePost({ variables: { request: { publicationId: deletingPublication?.id } } })}
+      onConfirm={() =>
+        hidePost({
+          variables: { request: { publicationId: deletingPublication?.id } }
+        })
+      }
       onClose={() => setShowPublicationDeleteAlert(false, null)}
     />
   );

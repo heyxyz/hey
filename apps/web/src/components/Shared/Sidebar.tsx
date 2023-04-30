@@ -32,7 +32,10 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ items }) => {
   const { pathname } = useRouter();
-  const menuItems = items.map((item) => ({ ...item, enabled: item.enabled ?? true }));
+  const menuItems = items.map((item) => ({
+    ...item,
+    enabled: item.enabled ?? true
+  }));
 
   return (
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">

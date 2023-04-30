@@ -13,7 +13,9 @@ const formatAddress = (address: string | null, slice = 4): string => {
   }
 
   if (address.match(ADDRESS_REGEX)) {
-    return `${address.slice(0, slice + 2)}…${address.slice(address.length - slice)}`;
+    return `${address.slice(0, slice + 2)}…${address.slice(
+      address.length - slice
+    )}`;
   }
 
   return address;

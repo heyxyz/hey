@@ -18,11 +18,16 @@ const Permalink: FC<PermalinkProps> = ({ publication }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx({ 'dropdown-active': active }, 'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm')
+        clsx(
+          { 'dropdown-active': active },
+          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
+        )
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        navigator.clipboard.writeText(`${location.origin}/posts/${publication?.id}`);
+        navigator.clipboard.writeText(
+          `${location.origin}/posts/${publication?.id}`
+        );
         toast.success(t`Copied to clipboard!`);
         Mixpanel.track(PUBLICATION.PERMALINK);
       }}

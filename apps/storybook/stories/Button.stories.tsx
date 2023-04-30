@@ -7,4 +7,6 @@ export default {
 } as Meta<typeof Button>;
 
 export const Default = () => <Button>Button</Button>;
-export const Playground: StoryFn<typeof Button> = (args) => <Button {...args}>Button</Button>;
+export const Playground: StoryFn<typeof Button> = (args) => (
+  <Button {...args}>Button</Button>
+);

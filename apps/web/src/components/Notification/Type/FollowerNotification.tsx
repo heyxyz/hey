@@ -9,7 +9,10 @@ import { memo } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
-import { NotificationWalletProfileAvatar, NotificationWalletProfileName } from '../WalletProfile';
+import {
+  NotificationWalletProfileAvatar,
+  NotificationWalletProfileName
+} from '../WalletProfile';
 
 const messageFollow = defineMessage({
   id: '<0><1/> followed you</0>'
@@ -23,9 +26,12 @@ interface FollowerNotificationProps {
   notification: NewFollowerNotification;
 }
 
-const FollowerNotification: FC<FollowerNotificationProps> = ({ notification }) => {
+const FollowerNotification: FC<FollowerNotificationProps> = ({
+  notification
+}) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isSuperFollow = currentProfile?.followModule?.__typename === 'FeeFollowModuleSettings';
+  const isSuperFollow =
+    currentProfile?.followModule?.__typename === 'FeeFollowModuleSettings';
 
   return (
     <div className="flex items-start justify-between">
@@ -38,7 +44,9 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({ notification }) =
           )}
           {notification?.wallet?.defaultProfile ? (
             <UserPreview profile={notification?.wallet?.defaultProfile}>
-              <NotificationProfileAvatar profile={notification?.wallet?.defaultProfile} />
+              <NotificationProfileAvatar
+                profile={notification?.wallet?.defaultProfile}
+              />
             </UserPreview>
           ) : (
             <NotificationWalletProfileAvatar wallet={notification?.wallet} />
@@ -46,11 +54,15 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({ notification }) =
         </div>
         <div className="ml-9">
           <Trans
-            id={(isSuperFollow ? messageSuperFollow.id : messageFollow.id) || ''}
+            id={
+              (isSuperFollow ? messageSuperFollow.id : messageFollow.id) || ''
+            }
             components={[
               <span className="text-gray-600 dark:text-gray-400" key="" />,
               notification?.wallet?.defaultProfile ? (
-                <NotificationProfileName profile={notification?.wallet?.defaultProfile} />
+                <NotificationProfileName
+                  profile={notification?.wallet?.defaultProfile}
+                />
               ) : (
                 <NotificationWalletProfileName wallet={notification?.wallet} />
               )
@@ -58,7 +70,10 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({ notification }) =
           />
         </div>
       </div>
-      <div className="text-[12px] text-gray-400" title={formatTime(notification?.createdAt)}>
+      <div
+        className="text-[12px] text-gray-400"
+        title={formatTime(notification?.createdAt)}
+      >
         {getTimeFromNow(notification?.createdAt)}
       </div>
     </div>

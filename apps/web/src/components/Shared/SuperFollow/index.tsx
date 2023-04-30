@@ -63,7 +63,9 @@ const SuperFollow: FC<SuperFollowProps> = ({
       <Modal
         title={
           <span>
-            Super follow <Slug slug={formatHandle(profile?.handle)} prefix="@" /> {again ? 'again' : ''}
+            Super follow{' '}
+            <Slug slug={formatHandle(profile?.handle)} prefix="@" />{' '}
+            {again ? 'again' : ''}
           </span>
         }
         icon={<StarIcon className="h-5 w-5 text-pink-500" />}

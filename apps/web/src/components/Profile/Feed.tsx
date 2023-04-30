@@ -3,7 +3,11 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Profile, Publication, PublicationsQueryRequest } from 'lens';
-import { PublicationMainFocus, PublicationTypes, useProfileFeedQuery } from 'lens';
+import {
+  PublicationMainFocus,
+  PublicationTypes,
+  useProfileFeedQuery
+} from 'lens';
 import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -15,12 +19,18 @@ import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface FeedProps {
   profile: Profile;
-  type: ProfileFeedType.Feed | ProfileFeedType.Replies | ProfileFeedType.Media | ProfileFeedType.Collects;
+  type:
+    | ProfileFeedType.Feed
+    | ProfileFeedType.Replies
+    | ProfileFeedType.Media
+    | ProfileFeedType.Collects;
 }
 
 const Feed: FC<FeedProps> = ({ profile, type }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);
+  const mediaFeedFilters = useProfileFeedStore(
+    (state) => state.mediaFeedFilters
+  );
   const [hasMore, setHasMore] = useState(true);
 
   const getMediaFilters = () => {
@@ -45,7 +55,11 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       ? [PublicationTypes.Comment]
       : type === ProfileFeedType.Media
       ? [PublicationTypes.Post, PublicationTypes.Comment]
-      : [PublicationTypes.Post, PublicationTypes.Comment, PublicationTypes.Mirror];
+      : [
+          PublicationTypes.Post,
+          PublicationTypes.Comment,
+          PublicationTypes.Mirror
+        ];
   const metadata =
     type === ProfileFeedType.Media
       ? {
@@ -55,10 +69,14 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   const request: PublicationsQueryRequest = {
     publicationTypes,
     metadata,
-    ...(type !== ProfileFeedType.Collects ? { profileId: profile?.id } : { collectedBy: profile?.ownedBy }),
+    ...(type !== ProfileFeedType.Collects
+      ? { profileId: profile?.id }
+      : { collectedBy: profile?.ownedBy }),
     limit: 10
   };
-  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const reactionRequest = currentProfile
+    ? { profileId: currentProfile?.id }
+    : null;
   const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useProfileFeedQuery({
@@ -76,7 +94,11 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       }
 
       await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+        variables: {
+          request: { ...request, cursor: pageInfo?.next },
+          reactionRequest,
+          profileId
+        }
       }).then(({ data }) => {
         setHasMore(data?.publications?.items?.length > 0);
       });
@@ -103,7 +125,9 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       <EmptyState
         message={
           <div>
-            <span className="mr-1 font-bold">@{formatHandle(profile?.handle)}</span>
+            <span className="mr-1 font-bold">
+              @{formatHandle(profile?.handle)}
+            </span>
             <span>{emptyMessage}</span>
           </div>
         }
@@ -113,7 +137,9 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load profile feed`} error={error} />;
+    return (
+      <ErrorMessage title={t`Failed to load profile feed`} error={error} />
+    );
   }
 
   return (
@@ -125,7 +151,9 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
         <SinglePublication
           key={`${publication.id}_${index}`}
           publication={publication as Publication}
-          showThread={type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects}
+          showThread={
+            type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects
+          }
         />
       ))}
       {hasMore && <span ref={observe} />}

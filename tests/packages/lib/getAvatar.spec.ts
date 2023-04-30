@@ -19,14 +19,21 @@ test.describe('getAvatar', () => {
 
   test('should return original avatar url when hostname is in skip list', () => {
     const avatarUrl = 'https://avatar.tobi.sh/1.png';
-    const profile = { picture: { uri: avatarUrl, original: { url: avatarUrl } } };
+    const profile = {
+      picture: { uri: avatarUrl, original: { url: avatarUrl } }
+    };
     const result = getAvatar(profile, true);
     expect(result).toBe(avatarUrl);
   });
 
   test("should use profile's ownedBy address to build URL when all else fails", () => {
-    const profile = { ownedBy: '0x3a5bd1e37b099ae3386d13947b6a90d97675e5e3', picture: {} };
+    const profile = {
+      ownedBy: '0x3a5bd1e37b099ae3386d13947b6a90d97675e5e3',
+      picture: {}
+    };
     const result = getAvatar(profile, false);
-    expect(result).toBe(`https://cdn.stamp.fyi/avatar/eth:${profile.ownedBy}?s=300`);
+    expect(result).toBe(
+      `https://cdn.stamp.fyi/avatar/eth:${profile.ownedBy}?s=300`
+    );
   });
 });

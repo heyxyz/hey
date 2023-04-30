@@ -49,7 +49,10 @@ const RecommendedProfiles: FC = () => {
     return (
       <>
         <Title />
-        <EmptyState message={t`No recommendations!`} icon={<UsersIcon className="text-brand h-8 w-8" />} />
+        <EmptyState
+          message={t`No recommendations!`}
+          icon={<UsersIcon className="text-brand h-8 w-8" />}
+        />
       </>
     );
   }
@@ -59,7 +62,10 @@ const RecommendedProfiles: FC = () => {
       <Title />
       <Card as="aside">
         <div className="space-y-4 p-5">
-          <ErrorMessage title={t`Failed to load recommendations`} error={error} />
+          <ErrorMessage
+            title={t`Failed to load recommendations`}
+            error={error}
+          />
           {data?.recommendedProfiles?.slice(0, 5)?.map((profile, index) => (
             <div key={profile?.id} className="truncate">
               <UserProfile

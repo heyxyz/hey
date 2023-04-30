@@ -23,7 +23,13 @@ test('should have explore feed tab', async ({ page }) => {
 });
 
 test('should have explore feed type', async ({ page }) => {
-  for (const feedType of ['all_posts', 'text_only', 'video', 'audio', 'image']) {
+  for (const feedType of [
+    'all_posts',
+    'text_only',
+    'video',
+    'audio',
+    'image'
+  ]) {
     const selectedFeedType = page.getByTestId(`feed-type-${feedType}`);
     await selectedFeedType.click();
     await expect(selectedFeedType).toHaveAttribute('aria-selected', 'true');

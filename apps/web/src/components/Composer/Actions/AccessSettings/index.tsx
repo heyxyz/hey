@@ -24,7 +24,12 @@ const AccessSettings: FC = () => {
           onClick={() => setShowModal(!showModal)}
           aria-label="Access"
         >
-          <LockClosedIcon className={clsx(restricted ? 'text-green-500' : 'text-brand', 'h-5 w-5')} />
+          <LockClosedIcon
+            className={clsx(
+              restricted ? 'text-green-500' : 'text-brand',
+              'h-5 w-5'
+            )}
+          />
         </motion.button>
       </Tooltip>
       <Modal

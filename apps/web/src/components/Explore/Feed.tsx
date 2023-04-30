@@ -2,8 +2,16 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import type { ExplorePublicationRequest, Publication, PublicationMainFocus } from 'lens';
-import { CustomFiltersTypes, PublicationSortCriteria, useExploreFeedQuery } from 'lens';
+import type {
+  ExplorePublicationRequest,
+  Publication,
+  PublicationMainFocus
+} from 'lens';
+import {
+  CustomFiltersTypes,
+  PublicationSortCriteria,
+  useExploreFeedQuery
+} from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -15,7 +23,10 @@ interface FeedProps {
   feedType?: PublicationSortCriteria;
 }
 
-const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.CuratedProfiles }) => {
+const Feed: FC<FeedProps> = ({
+  focus,
+  feedType = PublicationSortCriteria.CuratedProfiles
+}) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [hasMore, setHasMore] = useState(true);
 
@@ -27,7 +38,9 @@ const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.Curated
     metadata: focus ? { mainContentFocus: [focus] } : null,
     limit: 10
   };
-  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const reactionRequest = currentProfile
+    ? { profileId: currentProfile?.id }
+    : null;
   const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useExploreFeedQuery({
@@ -44,7 +57,11 @@ const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.Curated
       }
 
       await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+        variables: {
+          request: { ...request, cursor: pageInfo?.next },
+          reactionRequest,
+          profileId
+        }
       }).then(({ data }) => {
         setHasMore(data?.explorePublications?.items?.length > 0);
       });
@@ -56,17 +73,30 @@ const Feed: FC<FeedProps> = ({ focus, feedType = PublicationSortCriteria.Curated
   }
 
   if (publications?.length === 0) {
-    return <EmptyState message={t`No posts yet!`} icon={<CollectionIcon className="text-brand h-8 w-8" />} />;
+    return (
+      <EmptyState
+        message={t`No posts yet!`}
+        icon={<CollectionIcon className="text-brand h-8 w-8" />}
+      />
+    );
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load explore feed`} error={error} />;
+    return (
+      <ErrorMessage title={t`Failed to load explore feed`} error={error} />
+    );
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700" dataTestId="explore-feed">
+    <Card
+      className="divide-y-[1px] dark:divide-gray-700"
+      dataTestId="explore-feed"
+    >
       {publications?.map((publication, index) => (
-        <SinglePublication key={`${publication.id}_${index}`} publication={publication as Publication} />
+        <SinglePublication
+          key={`${publication.id}_${index}`}
+          publication={publication as Publication}
+        />
       ))}
       {hasMore && <span ref={observe} />}
     </Card>

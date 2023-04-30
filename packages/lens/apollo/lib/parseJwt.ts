@@ -4,7 +4,8 @@
  * @param str The JWT to decode.
  * @returns The decoded data in base64 format.
  */
-const decoded = (str: string): string => Buffer.from(str, 'base64').toString('binary');
+const decoded = (str: string): string =>
+  Buffer.from(str, 'base64').toString('binary');
 
 /**
  * Parses a JSON Web Token and returns an object with the expiry time in seconds.

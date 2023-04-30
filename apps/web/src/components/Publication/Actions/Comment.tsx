@@ -18,7 +18,9 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
     publication.__typename === 'Mirror'
       ? publication?.mirrorOf?.stats?.totalAmountOfComments
       : publication?.stats?.totalAmountOfComments;
-  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount
+    ? 'w-[17px] sm:w-[20px]'
+    : 'w-[15px] sm:w-[18px]';
 
   return (
     <div className="flex items-center space-x-1 text-blue-500">
@@ -35,7 +37,9 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
           </div>
         </Link>
       </motion.button>
-      {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+      {count > 0 && !showCount && (
+        <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+      )}
     </div>
   );
 };

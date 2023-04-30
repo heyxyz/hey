@@ -9,7 +9,10 @@ import { useMessageStore } from 'src/store/message';
 const fetchMostRecentMessage = async (
   convo: Conversation
 ): Promise<{ key: string; message?: DecodedMessage }> => {
-  const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
+  const key = buildConversationKey(
+    convo.peerAddress,
+    convo.context?.conversationId as string
+  );
   const latestMessageQuery = await convo.messages({
     limit: 1,
     direction: SortDirection.SORT_DIRECTION_DESCENDING
@@ -43,7 +46,10 @@ const useGetMessagePreviews = () => {
       const needsSync = Array.from(conversations.values()).filter(
         (convo) =>
           previewMessages.get(
-            buildConversationKey(convo.peerAddress, convo.context?.conversationId as string)
+            buildConversationKey(
+              convo.peerAddress,
+              convo.context?.conversationId as string
+            )
           ) === undefined
       );
 
@@ -54,11 +60,16 @@ const useGetMessagePreviews = () => {
           chunk.map(async (convo) => {
             const latestMessage = await fetchMostRecentMessage(convo);
             const existingValue = previewMessages.get(latestMessage.key)?.sent;
-            if (latestMessage.message && (!existingValue || latestMessage?.message.sent > existingValue)) {
+            if (
+              latestMessage.message &&
+              (!existingValue || latestMessage?.message.sent > existingValue)
+            ) {
               setPreviewMessage(latestMessage.key, latestMessage.message);
             }
             countRef.current = countRef.current + 1;
-            setProgress(Math.round((countRef.current / needsSync.length) * 100));
+            setProgress(
+              Math.round((countRef.current / needsSync.length) * 100)
+            );
           })
         );
       }

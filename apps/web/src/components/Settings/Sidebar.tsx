@@ -20,12 +20,17 @@ import { useAppStore } from 'src/store/app';
 
 const SettingsSidebar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { on: isExportDataEnabled } = useFeature(FeatureFlag.ExportData as string);
+  const { on: isExportDataEnabled } = useFeature(
+    FeatureFlag.ExportData as string
+  );
 
   return (
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">
       <div className="pb-3">
-        <UserProfile profile={currentProfile as Profile} showUserPreview={false} />
+        <UserProfile
+          profile={currentProfile as Profile}
+          showUserPreview={false}
+        />
       </div>
       <Sidebar
         items={[

@@ -7,11 +7,20 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 
 const NotificationIcon: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const notificationCount = useAppPersistStore((state) => state.notificationCount);
-  const setNotificationCount = useAppPersistStore((state) => state.setNotificationCount);
+  const notificationCount = useAppPersistStore(
+    (state) => state.notificationCount
+  );
+  const setNotificationCount = useAppPersistStore(
+    (state) => state.setNotificationCount
+  );
   const [showBadge, setShowBadge] = useState(false);
   const { data } = useNotificationCountQuery({
-    variables: { request: { profileId: currentProfile?.id, customFilters: [CustomFiltersTypes.Gardeners] } },
+    variables: {
+      request: {
+        profileId: currentProfile?.id,
+        customFilters: [CustomFiltersTypes.Gardeners]
+      }
+    },
     skip: !currentProfile?.id,
     fetchPolicy: 'no-cache' // without no-cache the totalcount is NaN and returns the same.
   });

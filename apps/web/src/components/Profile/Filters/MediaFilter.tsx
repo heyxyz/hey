@@ -8,11 +8,18 @@ import { useProfileFeedStore } from 'src/store/profile-feed';
 import { Checkbox, Tooltip } from 'ui';
 
 const MediaFilter = () => {
-  const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);
-  const setMediaFeedFilters = useProfileFeedStore((state) => state.setMediaFeedFilters);
+  const mediaFeedFilters = useProfileFeedStore(
+    (state) => state.mediaFeedFilters
+  );
+  const setMediaFeedFilters = useProfileFeedStore(
+    (state) => state.setMediaFeedFilters
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setMediaFeedFilters({ ...mediaFeedFilters, [e.target.name]: e.target.checked });
+    setMediaFeedFilters({
+      ...mediaFeedFilters,
+      [e.target.name]: e.target.checked
+    });
   };
 
   return (

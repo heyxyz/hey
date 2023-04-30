@@ -15,7 +15,9 @@ const SwitchProfiles: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
+  const setShowProfileSwitchModal = useGlobalModalStateStore(
+    (state) => state.setShowProfileSwitchModal
+  );
 
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
@@ -47,7 +49,9 @@ const SwitchProfiles: FC = () => {
             />
             <div className="truncate">{formatHandle(profile?.handle)}</div>
           </span>
-          {currentProfile?.id === profile?.id && <CheckCircleIcon className="h-5 w-5 text-green-500" />}
+          {currentProfile?.id === profile?.id && (
+            <CheckCircleIcon className="h-5 w-5 text-green-500" />
+          )}
         </button>
       ))}
     </div>

@@ -28,8 +28,12 @@ import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowMobileDrawer = useGlobalModalStateStore((state) => state.setShowMobileDrawer);
-  const showMobileDrawer = useGlobalModalStateStore((state) => state.showMobileDrawer);
+  const setShowMobileDrawer = useGlobalModalStateStore(
+    (state) => state.setShowMobileDrawer
+  );
+  const showMobileDrawer = useGlobalModalStateStore(
+    (state) => state.showMobileDrawer
+  );
 
   const Avatar = () => (
     <Image
@@ -49,7 +53,10 @@ const SignedUser: FC = () => {
   return (
     <>
       {showMobileDrawer && <MobileDrawerMenu />}
-      <button className="focus:outline-none md:hidden" onClick={() => openMobileMenuDrawer()}>
+      <button
+        className="focus:outline-none md:hidden"
+        onClick={() => openMobileMenuDrawer()}
+      >
         <Avatar />
       </button>
       <Menu as="div" className="hidden md:block">
@@ -69,7 +76,11 @@ const SignedUser: FC = () => {
               <span>
                 <Trans>Logged in as</Trans>
                 <div className="truncate">
-                  <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
+                  <Slug
+                    className="font-bold"
+                    slug={formatHandle(currentProfile?.handle)}
+                    prefix="@"
+                  />
                 </div>
               </span>
             </Menu.Item>
@@ -77,7 +88,10 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg border dark:border-gray-700')
+                clsx(
+                  { 'dropdown-active': active },
+                  'm-2 rounded-lg border dark:border-gray-700'
+                )
               }
             >
               <SwitchProfile />
@@ -85,7 +99,10 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg border dark:border-gray-700')
+                clsx(
+                  { 'dropdown-active': active },
+                  'm-2 rounded-lg border dark:border-gray-700'
+                )
               }
             >
               <Status />
@@ -122,14 +139,18 @@ const SignedUser: FC = () => {
             )}
             <Menu.Item
               as="div"
-              className={({ active }) => clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')}
+              className={({ active }) =>
+                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              }
             >
               <Logout />
             </Menu.Item>
             <div className="divider" />
             <Menu.Item
               as="div"
-              className={({ active }) => clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')}
+              className={({ active }) =>
+                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+              }
             >
               <ThemeSwitch />
             </Menu.Item>
@@ -137,7 +158,10 @@ const SignedUser: FC = () => {
               <Menu.Item
                 as="div"
                 className={({ active }) =>
-                  clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'm-2 rounded-lg')
+                  clsx(
+                    { 'bg-yellow-100 dark:bg-yellow-800': active },
+                    'm-2 rounded-lg'
+                  )
                 }
               >
                 <ModMode />
@@ -147,7 +171,10 @@ const SignedUser: FC = () => {
               <Menu.Item
                 as="div"
                 className={({ active }) =>
-                  clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'm-2 rounded-lg')
+                  clsx(
+                    { 'bg-yellow-100 dark:bg-yellow-800': active },
+                    'm-2 rounded-lg'
+                  )
                 }
               >
                 <StaffMode />

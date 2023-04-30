@@ -2,7 +2,11 @@ import MenuTransition from '@components/Shared/MenuTransition';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu } from '@headlessui/react';
-import { MusicNoteIcon, PhotographIcon, VideoCameraIcon } from '@heroicons/react/outline';
+import {
+  MusicNoteIcon,
+  PhotographIcon,
+  VideoCameraIcon
+} from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import {
@@ -45,7 +49,9 @@ const Attachment: FC = () => {
   };
 
   const disableImageUpload = () => {
-    const notImage = attachments[0] && attachments[0].original.mimeType.slice(0, 5) !== 'image';
+    const notImage =
+      attachments[0] &&
+      attachments[0].original.mimeType.slice(0, 5) !== 'image';
     const isLimit = !notImage && attachments.length >= 4;
     return notImage || isLimit;
   };
