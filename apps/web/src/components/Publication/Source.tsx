@@ -18,7 +18,11 @@ const Source: FC<SourceProps> = ({ publication }) => {
 
   return (
     <Tooltip content={appId} placement="top">
-      <img className="h-4 w-4 rounded-full" src={`${STATIC_IMAGES_URL}/source/${appId}.jpeg`} alt={appId} />
+      <img
+        className="h-4 w-4 rounded-full"
+        src={`${STATIC_IMAGES_URL}/source/${appId}.jpeg`}
+        alt={appId}
+      />
     </Tooltip>
   );
 };

@@ -8,7 +8,11 @@ import clsx from 'clsx';
 import { LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import { motion } from 'framer-motion';
-import type { CreateDataAvailabilityMirrorRequest, CreateMirrorRequest, Publication } from 'lens';
+import type {
+  CreateDataAvailabilityMirrorRequest,
+  CreateMirrorRequest,
+  Publication
+} from 'lens';
 import {
   useBroadcastMutation,
   useCreateDataAvailabilityMirrorViaDispatcherMutation,
@@ -43,10 +47,14 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     : publication?.stats?.totalAmountOfMirrors;
   const [mirrored, setMirrored] = useState(
     // @ts-ignore
-    isMirror ? publication?.mirrorOf?.mirrors?.length > 0 : publication?.mirrors?.length > 0
+    isMirror
+      ? publication?.mirrorOf?.mirrors?.length > 0
+      : publication?.mirrors?.length > 0
   );
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError
+  });
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -61,7 +69,10 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
   };
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelayerResult' | 'CreateDataAvailabilityPublicationResult'
+    __typename?:
+      | 'RelayError'
+      | 'RelayerResult'
+      | 'CreateDataAvailabilityPublicationResult'
   ) => {
     if (__typename === 'RelayError') {
       return;
@@ -86,54 +97,63 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     update: updateCache
   });
 
-  const [createMirrorTypedData, { loading: typedDataLoading }] = useCreateMirrorTypedDataMutation({
-    onCompleted: async ({ createMirrorTypedData }) => {
-      const { id, typedData } = createMirrorTypedData;
-      const {
-        profileId,
-        profileIdPointed,
-        pubIdPointed,
-        referenceModule,
-        referenceModuleData,
-        referenceModuleInitData,
-        deadline
-      } = typedData.value;
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { v, r, s } = splitSignature(signature);
-      const sig = { v, r, s, deadline };
-      const inputStruct = {
-        profileId,
-        profileIdPointed,
-        pubIdPointed,
-        referenceModule,
-        referenceModuleData,
-        referenceModuleInitData,
-        sig
-      };
-      setUserSigNonce(userSigNonce + 1);
-      const { data } = await broadcast({ variables: { request: { id, signature } } });
-      if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-      }
-    },
-    onError
-  });
-
-  const [createDataAvailabilityMirrorViaDispatcher, { loading: dataAvailabilityLoading }] =
-    useCreateDataAvailabilityMirrorViaDispatcherMutation({
-      onCompleted: ({ createDataAvailabilityMirrorViaDispatcher }) =>
-        onCompleted(createDataAvailabilityMirrorViaDispatcher.__typename),
-      onError,
-      update: updateCache
+  const [createMirrorTypedData, { loading: typedDataLoading }] =
+    useCreateMirrorTypedDataMutation({
+      onCompleted: async ({ createMirrorTypedData }) => {
+        const { id, typedData } = createMirrorTypedData;
+        const {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          deadline
+        } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          profileId,
+          profileIdPointed,
+          pubIdPointed,
+          referenceModule,
+          referenceModuleData,
+          referenceModuleInitData,
+          sig
+        };
+        setUserSigNonce(userSigNonce + 1);
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      },
+      onError
     });
 
-  const [createMirrorViaDispatcher, { loading: dispatcherLoading }] = useCreateMirrorViaDispatcherMutation({
-    onCompleted: ({ createMirrorViaDispatcher }) => onCompleted(createMirrorViaDispatcher.__typename),
+  const [
+    createDataAvailabilityMirrorViaDispatcher,
+    { loading: dataAvailabilityLoading }
+  ] = useCreateDataAvailabilityMirrorViaDispatcherMutation({
+    onCompleted: ({ createDataAvailabilityMirrorViaDispatcher }) =>
+      onCompleted(createDataAvailabilityMirrorViaDispatcher.__typename),
     onError,
     update: updateCache
   });
 
-  const createViaDataAvailablityDispatcher = async (request: CreateDataAvailabilityMirrorRequest) => {
+  const [createMirrorViaDispatcher, { loading: dispatcherLoading }] =
+    useCreateMirrorViaDispatcherMutation({
+      onCompleted: ({ createMirrorViaDispatcher }) =>
+        onCompleted(createMirrorViaDispatcher.__typename),
+      onError,
+      update: updateCache
+    });
+
+  const createViaDataAvailablityDispatcher = async (
+    request: CreateDataAvailabilityMirrorRequest
+  ) => {
     await createDataAvailabilityMirrorViaDispatcher({
       variables: { request }
     });
@@ -174,9 +194,14 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
         mirror: publication?.id
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay && currentProfile.dispatcher.sponsor) {
+      if (
+        currentProfile?.dispatcher?.canUseRelay &&
+        currentProfile.dispatcher.sponsor
+      ) {
         if (publication.isDataAvailability) {
-          return await createViaDataAvailablityDispatcher(dataAvailablityRequest);
+          return await createViaDataAvailablityDispatcher(
+            dataAvailablityRequest
+          );
         } else {
           return await createViaDispatcher(request);
         }
@@ -198,10 +223,17 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     signLoading ||
     writeLoading ||
     broadcastLoading;
-  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount
+    ? 'w-[17px] sm:w-[20px]'
+    : 'w-[15px] sm:w-[18px]';
 
   return (
-    <div className={clsx(mirrored ? 'text-green-500' : 'text-brand', 'flex items-center space-x-1')}>
+    <div
+      className={clsx(
+        mirrored ? 'text-green-500' : 'text-brand',
+        'flex items-center space-x-1'
+      )}
+    >
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={createMirror}
@@ -227,7 +259,9 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
           )}
         </div>
       </motion.button>
-      {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+      {count > 0 && !showCount && (
+        <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+      )}
     </div>
   );
 };

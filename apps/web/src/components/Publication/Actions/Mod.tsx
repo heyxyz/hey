@@ -12,8 +12,12 @@ interface ModProps {
 }
 
 const Mod: FC<ModProps> = ({ publication, isFullPublication = false }) => {
-  const setShowModActionAlert = useGlobalAlertStateStore((state) => state.setShowModActionAlert);
-  const iconClassName = isFullPublication ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const setShowModActionAlert = useGlobalAlertStateStore(
+    (state) => state.setShowModActionAlert
+  );
+  const iconClassName = isFullPublication
+    ? 'w-[17px] sm:w-[20px]'
+    : 'w-[15px] sm:w-[18px]';
 
   return (
     <motion.button

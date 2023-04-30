@@ -34,7 +34,8 @@ const ReviewSelection = () => {
     nfts.splice(index, 1);
 
     const sanitizeRemoveDuplicates = toRemove?.filter(
-      (value, index, self) => index === self.findIndex((t) => t.itemId === value.itemId)
+      (value, index, self) =>
+        index === self.findIndex((t) => t.itemId === value.itemId)
     );
 
     setGallery({

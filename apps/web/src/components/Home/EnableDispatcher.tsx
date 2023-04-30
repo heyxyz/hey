@@ -11,19 +11,22 @@ const EnableDispatcher: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isDispatcherEnabled = getIsDispatcherEnabled(currentProfile);
   const isOldDispatcherEnabled =
-    currentProfile?.dispatcher?.address?.toLocaleLowerCase() === OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
+    currentProfile?.dispatcher?.address?.toLocaleLowerCase() ===
+    OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
 
   const getDescription = () => {
     if (isOldDispatcherEnabled) {
       return (
         <Trans>
-          Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions.
+          Upgrade your dispatcher to the latest version for better, faster,
+          stronger signless transactions.
         </Trans>
       );
     }
     return (
       <Trans>
-        You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions.
+        You can enable dispatcher to interact with {APP_NAME} without signing
+        any of your transactions.
       </Trans>
     );
   };

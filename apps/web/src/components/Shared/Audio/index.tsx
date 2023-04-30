@@ -35,10 +35,20 @@ interface AudioProps {
   expandCover: (url: string) => void;
 }
 
-const Audio: FC<AudioProps> = ({ src, isNew = false, publication, txn, expandCover }) => {
+const Audio: FC<AudioProps> = ({
+  src,
+  isNew = false,
+  publication,
+  txn,
+  expandCover
+}) => {
   const [playing, setPlaying] = useState(false);
-  const audioPublication = usePublicationStore((state) => state.audioPublication);
-  const setAudioPublication = usePublicationStore((state) => state.setAudioPublication);
+  const audioPublication = usePublicationStore(
+    (state) => state.audioPublication
+  );
+  const setAudioPublication = usePublicationStore(
+    (state) => state.setAudioPublication
+  );
   const playerRef = useRef<APITypes>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
@@ -58,7 +68,10 @@ const Audio: FC<AudioProps> = ({ src, isNew = false, publication, txn, expandCov
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setAudioPublication({ ...audioPublication, [e.target.name]: e.target.value });
+    setAudioPublication({
+      ...audioPublication,
+      [e.target.name]: e.target.value
+    });
   };
 
   return (
@@ -69,9 +82,17 @@ const Audio: FC<AudioProps> = ({ src, isNew = false, publication, txn, expandCov
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew && !txn}
-          cover={isNew ? txn?.cover ?? audioPublication.cover : getThumbnailUrl(publication?.metadata)}
+          cover={
+            isNew
+              ? txn?.cover ?? audioPublication.cover
+              : getThumbnailUrl(publication?.metadata)
+          }
           setCover={(url, mimeType) =>
-            setAudioPublication({ ...audioPublication, cover: url, coverMimeType: mimeType })
+            setAudioPublication({
+              ...audioPublication,
+              cover: url,
+              coverMimeType: mimeType
+            })
           }
           imageRef={imageRef}
           expandCover={expandCover}
@@ -108,10 +129,15 @@ const Audio: FC<AudioProps> = ({ src, isNew = false, publication, txn, expandCov
                   </div>
                 ) : (
                   <>
-                    <h5 className="truncate text-lg text-white">{publication?.metadata.name ?? txn.title}</h5>
+                    <h5 className="truncate text-lg text-white">
+                      {publication?.metadata.name ?? txn.title}
+                    </h5>
                     <h6 className="truncate text-white/70">
                       {txn?.author ??
-                        getPublicationAttribute(publication?.metadata.attributes, 'author') ??
+                        getPublicationAttribute(
+                          publication?.metadata.attributes,
+                          'author'
+                        ) ??
                         publication?.profile.name}
                     </h6>
                   </>

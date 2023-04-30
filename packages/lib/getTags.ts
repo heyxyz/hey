@@ -6,7 +6,8 @@
  */
 const getTags = (inputText: string): string[] => {
   const regex = /(?:^|\s)#([\dA-Za-z]+)/gm;
-  const matches = inputText.match(regex)?.map((tag) => tag.trim().slice(1)) ?? [];
+  const matches =
+    inputText.match(regex)?.map((tag) => tag.trim().slice(1)) ?? [];
   const uniqueTags = [...new Set(matches)];
   return uniqueTags.slice(0, 5);
 };

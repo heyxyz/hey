@@ -20,7 +20,10 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: WhoCollectedPublicationRequest = { publicationId: publicationId, limit: 10 };
+  const request: WhoCollectedPublicationRequest = {
+    publicationId: publicationId,
+    limit: 10
+  };
 
   const { data, loading, error, fetchMore } = useCollectorsQuery({
     variables: { request },
@@ -59,8 +62,15 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" data-testid="collectors-modal">
-      <ErrorMessage className="m-5" title={t`Failed to load collectors`} error={error} />
+    <div
+      className="max-h-[80vh] overflow-y-auto"
+      data-testid="collectors-modal"
+    >
+      <ErrorMessage
+        className="m-5"
+        title={t`Failed to load collectors`}
+        error={error}
+      />
       <Virtuoso
         className="virtual-profile-list"
         data={profiles}

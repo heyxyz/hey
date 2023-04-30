@@ -11,7 +11,14 @@ interface TabButtonProps {
   onClick: () => void;
 }
 
-const TabButton: FC<TabButtonProps> = ({ name, icon, active, type, showOnSm = false, onClick }) => {
+const TabButton: FC<TabButtonProps> = ({
+  name,
+  icon,
+  active,
+  type,
+  showOnSm = false,
+  onClick
+}) => {
   const router = useRouter();
 
   return (
@@ -19,7 +26,9 @@ const TabButton: FC<TabButtonProps> = ({ name, icon, active, type, showOnSm = fa
       type="button"
       onClick={() => {
         if (type) {
-          router.replace({ query: { ...router.query, type } }, undefined, { shallow: true });
+          router.replace({ query: { ...router.query, type } }, undefined, {
+            shallow: true
+          });
         }
         onClick();
       }}

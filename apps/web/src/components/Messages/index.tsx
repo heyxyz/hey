@@ -20,7 +20,10 @@ const NoConversationSelected = () => {
           <Trans>Select a conversation</Trans>
         </h3>
         <p className="text-md lt-text-gray-500 max-w-xs">
-          <Trans>Choose an existing conversation or create a new one to start messaging</Trans>
+          <Trans>
+            Choose an existing conversation or create a new one to start
+            messaging
+          </Trans>
         </p>
       </div>
     </div>

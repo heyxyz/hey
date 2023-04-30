@@ -14,7 +14,8 @@ test.describe('getURLs', () => {
   });
 
   test('should match both http and https protocols and www subdomains', () => {
-    const text = 'Here are some URLs: https://example.com http://www.example.net';
+    const text =
+      'Here are some URLs: https://example.com http://www.example.net';
     const expectedUrls = ['https://example.com', 'http://www.example.net'];
     expect(getURLs(text)).toEqual(expectedUrls);
   });

@@ -6,7 +6,9 @@ import { useCollectModuleStore } from 'src/store/collect-module';
 
 const FollowersConfig: FC = () => {
   const followerOnly = useCollectModuleStore((state) => state.followerOnly);
-  const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
+  const setFollowerOnly = useCollectModuleStore(
+    (state) => state.setFollowerOnly
+  );
 
   return (
     <div className="pt-5">

@@ -16,12 +16,20 @@ interface ComposerProps {
   disabledInput: boolean;
 }
 
-const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInput }) => {
+const Composer: FC<ComposerProps> = ({
+  sendMessage,
+  conversationKey,
+  disabledInput
+}) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
   const { width } = useWindowSize();
-  const unsentMessage = useMessagePersistStore((state) => state.unsentMessages.get(conversationKey));
-  const setUnsentMessage = useMessagePersistStore((state) => state.setUnsentMessage);
+  const unsentMessage = useMessagePersistStore((state) =>
+    state.unsentMessages.get(conversationKey)
+  );
+  const setUnsentMessage = useMessagePersistStore(
+    (state) => state.setUnsentMessage
+  );
 
   const canSendMessage = !disabledInput && !sending && message.length > 0;
 
@@ -66,7 +74,12 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
         onKeyDown={handleKeyDown}
         onChange={(event) => onChangeCallback(event.target.value)}
       />
-      <Button disabled={!canSendMessage} onClick={handleSend} variant="primary" aria-label="Send message">
+      <Button
+        disabled={!canSendMessage}
+        onClick={handleSend}
+        variant="primary"
+        aria-label="Send message"
+      >
         <div className="flex items-center space-x-2">
           {Number(width) > MIN_WIDTH_DESKTOP ? (
             <span>

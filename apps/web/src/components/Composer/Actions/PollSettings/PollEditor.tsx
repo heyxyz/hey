@@ -1,4 +1,9 @@
-import { ClockIcon, MenuAlt2Icon, PlusIcon, XIcon } from '@heroicons/react/outline';
+import {
+  ClockIcon,
+  MenuAlt2Icon,
+  PlusIcon,
+  XIcon
+} from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -7,7 +12,9 @@ import { usePublicationStore } from 'src/store/publication';
 import { Button, Card, Input, Modal, Tooltip } from 'ui';
 
 const PollEditor: FC = () => {
-  const setShowPollEditor = usePublicationStore((state) => state.setShowPollEditor);
+  const setShowPollEditor = usePublicationStore(
+    (state) => state.setShowPollEditor
+  );
   const pollConfig = usePublicationStore((state) => state.pollConfig);
   const setPollConfig = usePublicationStore((state) => state.setPollConfig);
   const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
@@ -62,7 +69,11 @@ const PollEditor: FC = () => {
                 >
                   <Trans>Cancel</Trans>
                 </Button>
-                <Button className="ml-auto" variant="primary" onClick={() => setShowPollLengthModal(false)}>
+                <Button
+                  className="ml-auto"
+                  variant="primary"
+                  onClick={() => setShowPollLengthModal(false)}
+                >
                   <Trans>Save</Trans>
                 </Button>
               </div>

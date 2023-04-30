@@ -8,7 +8,10 @@ import { LensHub } from 'abis';
 import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import type { CreateSetDefaultProfileRequest, Profile } from 'lens';
-import { useBroadcastMutation, useCreateSetDefaultProfileTypedDataMutation } from 'lens';
+import {
+  useBroadcastMutation,
+  useCreateSetDefaultProfileTypedDataMutation
+} from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
@@ -27,7 +30,9 @@ const SetProfile: FC = () => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const [selectedUser, setSelectedUser] = useState('');
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError
+  });
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -79,7 +84,9 @@ const SetProfile: FC = () => {
           sig
         };
         setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
         if (data?.broadcast.__typename === 'RelayError') {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
@@ -93,7 +100,9 @@ const SetProfile: FC = () => {
     }
 
     try {
-      const request: CreateSetDefaultProfileRequest = { profileId: selectedUser };
+      const request: CreateSetDefaultProfileRequest = {
+        profileId: selectedUser
+      };
       await createSetDefaultProfileTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
@@ -107,7 +116,8 @@ const SetProfile: FC = () => {
     return <Custom404 />;
   }
 
-  const isLoading = typedDataLoading || signLoading || writeLoading || broadcastLoading;
+  const isLoading =
+    typedDataLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Card className="space-y-5 p-5">
@@ -132,8 +142,8 @@ const SetProfile: FC = () => {
       </div>
       <p>
         <Trans>
-          Selecting your default account helps to display the selected profile across {APP_NAME}, you can
-          change your default profile anytime.
+          Selecting your default account helps to display the selected profile
+          across {APP_NAME}, you can change your default profile anytime.
         </Trans>
       </p>
       <div className="text-lg font-bold">
@@ -142,7 +152,8 @@ const SetProfile: FC = () => {
       <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
           <Trans>
-            Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc.
+            Only the default profile will be visible across the {APP_NAME},
+            example notifications, follow etc.
           </Trans>
         </p>
         <p className="py-3">
@@ -169,7 +180,9 @@ const SetProfile: FC = () => {
         type="submit"
         disabled={isLoading}
         onClick={setDefaultProfile}
-        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+        icon={
+          isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />
+        }
       >
         <Trans>Save</Trans>
       </Button>

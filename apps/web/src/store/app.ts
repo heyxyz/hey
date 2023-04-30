@@ -42,7 +42,8 @@ export const useAppPersistStore = create(
       modMode: false,
       setModMode: (modMode) => set(() => ({ modMode })),
       notificationCount: 0,
-      setNotificationCount: (notificationCount) => set(() => ({ notificationCount }))
+      setNotificationCount: (notificationCount) =>
+        set(() => ({ notificationCount }))
     }),
     { name: Localstorage.LensterStore }
   )

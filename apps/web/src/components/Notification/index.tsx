@@ -19,7 +19,10 @@ const Notification: FC = () => {
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
-    type && ['all', 'mentions', 'comments', 'likes', 'collects'].includes(type as string)
+    type &&
+      ['all', 'mentions', 'comments', 'likes', 'collects'].includes(
+        type as string
+      )
       ? type.toString().toUpperCase()
       : 'ALL'
   );

@@ -9,7 +9,13 @@ interface ToggleWithHelperProps {
   icon?: ReactNode;
 }
 
-const ToggleWithHelper: FC<ToggleWithHelperProps> = ({ on, setOn, heading, description, icon }) => {
+const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
+  on,
+  setOn,
+  heading,
+  description,
+  icon
+}) => {
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-2">

@@ -12,7 +12,8 @@ const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
   const getMirroredProfiles = () => {
     let profiles = mirrors.map((event) => event.profile);
     profiles = profiles.filter(
-      (profile, index, self) => index === self.findIndex((t) => t.id === profile.id)
+      (profile, index, self) =>
+        index === self.findIndex((t) => t.id === profile.id)
     );
     return profiles;
   };

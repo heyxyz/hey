@@ -1,4 +1,8 @@
-import { GlobeAltIcon, HashtagIcon, TemplateIcon } from '@heroicons/react/outline';
+import {
+  GlobeAltIcon,
+  HashtagIcon,
+  TemplateIcon
+} from '@heroicons/react/outline';
 import clsx from 'clsx';
 import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from 'data/constants';
 import Link from 'next/link';
@@ -11,7 +15,9 @@ interface BadgeProps {
 }
 
 export const Badge: FC<BadgeProps> = ({ children }) => (
-  <span className="rounded-md bg-gray-300 px-1.5 py-0.5 text-xs font-bold dark:bg-gray-900">{children}</span>
+  <span className="rounded-md bg-gray-300 px-1.5 py-0.5 text-xs font-bold dark:bg-gray-900">
+    {children}
+  </span>
 );
 
 const StaffBar: FC = () => {
@@ -20,10 +26,17 @@ const StaffBar: FC = () => {
       <div className="mr-5 flex flex-wrap items-center gap-2">
         <Performance />
         <div className="flex items-center space-x-1">
-          <GlobeAltIcon className={clsx(IS_PRODUCTION ? 'text-green-500' : 'text-yellow-500', 'h-4 w-4')} />
+          <GlobeAltIcon
+            className={clsx(
+              IS_PRODUCTION ? 'text-green-500' : 'text-yellow-500',
+              'h-4 w-4'
+            )}
+          />
           <Badge>
             {IS_PRODUCTION ? 'prod' : 'dev'}{' '}
-            <span className="text-[10px]">({IS_MAINNET ? 'mainnet' : 'testnet'})</span>
+            <span className="text-[10px]">
+              ({IS_MAINNET ? 'mainnet' : 'testnet'})
+            </span>
           </Badge>
         </div>
         {GIT_COMMIT_SHA && (

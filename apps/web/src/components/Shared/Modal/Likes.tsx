@@ -19,7 +19,10 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: WhoReactedPublicationRequest = { publicationId: publicationId, limit: 10 };
+  const request: WhoReactedPublicationRequest = {
+    publicationId: publicationId,
+    limit: 10
+  };
 
   const { data, loading, error, fetchMore } = useLikesQuery({
     variables: { request },
@@ -48,14 +51,22 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   if (profiles?.length === 0) {
     return (
       <div className="p-5">
-        <EmptyState message={t`No likes.`} icon={<HeartIcon className="text-brand h-8 w-8" />} hideCard />
+        <EmptyState
+          message={t`No likes.`}
+          icon={<HeartIcon className="text-brand h-8 w-8" />}
+          hideCard
+        />
       </div>
     );
   }
 
   return (
     <div className="max-h-[80vh] overflow-y-auto" data-testid="likes-modal">
-      <ErrorMessage className="m-5" title={t`Failed to load likes`} error={error} />
+      <ErrorMessage
+        className="m-5"
+        title={t`Failed to load likes`}
+        error={error}
+      />
       <Virtuoso
         className="virtual-profile-list"
         data={profiles}

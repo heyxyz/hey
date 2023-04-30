@@ -52,7 +52,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       const profiles = data?.profiles?.items
         ?.slice()
         ?.sort((a, b) => Number(a.id) - Number(b.id))
-        ?.sort((a, b) => (a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1));
+        ?.sort((a, b) =>
+          a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1
+        );
 
       if (!profiles.length) {
         return resetAuthState();
@@ -71,9 +73,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const validateAuthentication = () => {
     const currentProfileAddress = currentProfile?.ownedBy;
-    const isSwitchedAccount = currentProfileAddress !== undefined && currentProfileAddress !== address;
+    const isSwitchedAccount =
+      currentProfileAddress !== undefined && currentProfileAddress !== address;
     const isWrongNetworkChain = chain?.id !== CHAIN_ID;
-    const shouldLogout = !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount;
+    const shouldLogout =
+      !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount;
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {
@@ -96,9 +100,15 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Head>
-        <meta name="theme-color" content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'} />
+        <meta
+          name="theme-color"
+          content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'}
+        />
       </Head>
-      <Toaster position="bottom-right" toastOptions={getToastOptions(resolvedTheme)} />
+      <Toaster
+        position="bottom-right"
+        toastOptions={getToastOptions(resolvedTheme)}
+      />
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">

@@ -15,7 +15,10 @@ interface GifSelectorProps {
   setShowModal: Dispatch<boolean>;
 }
 
-const GifSelector: FC<GifSelectorProps> = ({ setShowModal, setGifAttachment }) => {
+const GifSelector: FC<GifSelectorProps> = ({
+  setShowModal,
+  setGifAttachment
+}) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [debouncedGifInput, setDebouncedGifInput] = useState('');
   const [searchText, setSearchText] = useState('');

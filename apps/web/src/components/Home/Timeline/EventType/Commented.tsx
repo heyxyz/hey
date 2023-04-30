@@ -9,11 +9,14 @@ interface CommentedProps {
 const Commented: FC<CommentedProps> = ({ feedItem }) => {
   const publication = feedItem.root;
   const firstComment = feedItem.comments?.[0];
-  const firstCommentParent = publication.__typename === 'Comment' && publication?.commentOn;
+  const firstCommentParent =
+    publication.__typename === 'Comment' && publication?.commentOn;
 
   return firstComment ? (
     <>
-      {firstCommentParent ? <ThreadBody publication={firstCommentParent} /> : null}
+      {firstCommentParent ? (
+        <ThreadBody publication={firstCommentParent} />
+      ) : null}
       <ThreadBody publication={publication} />
     </>
   ) : firstCommentParent ? (

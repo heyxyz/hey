@@ -10,7 +10,10 @@ const Footer: FC = () => {
   const { allowed: staffMode } = useStaffMode();
 
   return (
-    <footer className={`sticky text-sm leading-7 ${staffMode ? 'top-28' : 'top-20'}`} data-testid="footer">
+    <footer
+      className={`sticky text-sm leading-7 ${staffMode ? 'top-28' : 'top-20'}`}
+      data-testid="footer"
+    >
       <div className={'mt-4 flex flex-wrap gap-x-[12px] px-3 lg:px-0'}>
         <span className="lt-text-gray-500 font-bold">
           &copy; {new Date().getFullYear()} {APP_NAME}
@@ -21,25 +24,49 @@ const Footer: FC = () => {
         <Link href="/privacy">
           <Trans>Privacy</Trans>
         </Link>
-        <a href="https://lenster.xyz/discord" target="_blank" rel="noreferrer noopener">
+        <a
+          href="https://lenster.xyz/discord"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           <Trans>Discord</Trans>
         </a>
-        <a href="https://lenster.xyz/donate" target="_blank" rel="noreferrer noopener">
+        <a
+          href="https://lenster.xyz/donate"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           <Trans>Donate</Trans>
         </a>
-        <a href="https://status.lenster.xyz" target="_blank" rel="noreferrer noopener">
+        <a
+          href="https://status.lenster.xyz"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           <Trans>Status</Trans>
         </a>
-        <a href="https://feedback.lenster.xyz" target="_blank" rel="noreferrer noopener">
+        <a
+          href="https://feedback.lenster.xyz"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           <Trans>Feedback</Trans>
         </a>
         <Link href="/thanks">
           <Trans>Thanks</Trans>
         </Link>
-        <a href="https://github.com/lensterxyz/lenster" target="_blank" rel="noreferrer noopener">
+        <a
+          href="https://github.com/lensterxyz/lenster"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           <Trans>GitHub</Trans>
         </a>
-        <a href="https://translate.lenster.xyz" target="_blank" rel="noreferrer noopener">
+        <a
+          href="https://translate.lenster.xyz"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           <Trans>Translate</Trans>
         </a>
       </div>

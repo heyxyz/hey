@@ -1,4 +1,9 @@
-import { CollectionIcon, GlobeAltIcon, HashtagIcon, LinkIcon } from '@heroicons/react/outline';
+import {
+  CollectionIcon,
+  GlobeAltIcon,
+  HashtagIcon,
+  LinkIcon
+} from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
@@ -12,11 +17,16 @@ interface PublicationStaffToolProps {
   publication: Publication;
 }
 
-const PublicationStaffTool: FC<PublicationStaffToolProps> = ({ publication }) => {
+const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
+  publication
+}) => {
   const isComment = publication.__typename === 'Comment';
 
   return (
-    <Card as="aside" className="mt-5 border-yellow-400 !bg-yellow-300 !bg-opacity-20 p-5">
+    <Card
+      as="aside"
+      className="mt-5 border-yellow-400 !bg-yellow-300 !bg-opacity-20 p-5"
+    >
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="h-5 w-5" />
         <div className="text-lg font-bold">
@@ -59,7 +69,11 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({ publication }) =>
           value={sanitizeDStorageUrl(publication?.onChainContentURI)}
           title={t`On-chain content URI`}
         >
-          <a href={sanitizeDStorageUrl(publication?.onChainContentURI)} target="_blank" rel="noreferrer">
+          <a
+            href={sanitizeDStorageUrl(publication?.onChainContentURI)}
+            target="_blank"
+            rel="noreferrer"
+          >
             <Trans>Open</Trans>
           </a>
         </MetaDetails>
