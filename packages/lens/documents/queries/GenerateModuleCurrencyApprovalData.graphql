@@ -1,4 +1,6 @@
-query GenerateModuleCurrencyApprovalData($request: GenerateModuleCurrencyApprovalDataRequest!) {
+query GenerateModuleCurrencyApprovalData(
+  $request: GenerateModuleCurrencyApprovalDataRequest!
+) {
   generateModuleCurrencyApprovalData(request: $request) {
     to
     from

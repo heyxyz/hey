@@ -1,4 +1,7 @@
-mutation CreateFollowTypedData($options: TypedDataOptions, $request: FollowRequest!) {
+mutation CreateFollowTypedData(
+  $options: TypedDataOptions
+  $request: FollowRequest!
+) {
   createFollowTypedData(options: $options, request: $request) {
     id
     expiresAt
