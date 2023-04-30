@@ -240,6 +240,7 @@ msgid "Add another option"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr ""
 
@@ -1619,11 +1620,11 @@ msgstr "<0>“{query}”க்கு வெளியீடுகள் இல்
 msgid "Failed to load publications"
 msgstr "வெளியீடுகளை ஏற்ற முடியவில்லை"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Publications"
 msgstr "வெளியீடுகள்"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr "சுயவிவரங்கள்"
 
@@ -2275,6 +2276,10 @@ msgid "Handle should only contain alphanumeric characters"
 msgstr "பயனர்பெயர் எண்ணெழுத்து எழுத்துக்கள் மட்டுமே இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
+msgid "The selected handle is already taken"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
 msgstr "{APP_NAME} வரை பதிவு செய்யவும்"
 
@@ -2561,12 +2566,24 @@ msgid "{type} voting is not supported yet!"
 msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr "தற்போதைய முடிவுகள்"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
 msgstr "முடிவுகள்"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} Votes"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
