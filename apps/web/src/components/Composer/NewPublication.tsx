@@ -1,6 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import useCreatePoll from '@components/utils/hooks/useCreatePoll';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
@@ -161,6 +162,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     (state) => state.videoDurationInSeconds
   );
   const showPollEditor = usePublicationStore((state) => state.showPollEditor);
+  const setShowPollEditor = usePublicationStore(
+    (state) => state.setShowPollEditor
+  );
+  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -191,9 +196,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // States
   const [loading, setLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
+  const [createPoll] = useCreatePoll();
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
@@ -212,6 +219,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       $getRoot().clear();
     });
     setPublicationContent('');
+    setShowPollEditor(false);
+    resetPollConfig();
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -727,10 +736,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         })
       );
 
+      let processedPublicationContent = publicationContent;
+
+      if (showPollEditor) {
+        processedPublicationContent = await createPoll();
+      }
+
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuid(),
-        content: publicationContent,
+        content: processedPublicationContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image:
           attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
