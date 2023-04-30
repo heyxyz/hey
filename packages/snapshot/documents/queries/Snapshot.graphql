@@ -11,6 +11,7 @@ query Snapshot($id: String, $where: VoteWhere) {
     symbol
     network
     type
+    end
     space {
       id
       name
