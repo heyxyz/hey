@@ -1,4 +1,7 @@
-mutation CreatePostTypedData($options: TypedDataOptions, $request: CreatePublicPostRequest!) {
+mutation CreatePostTypedData(
+  $options: TypedDataOptions
+  $request: CreatePublicPostRequest!
+) {
   createPostTypedData(options: $options, request: $request) {
     id
     expiresAt

@@ -1,4 +1,7 @@
-mutation CreateMirrorTypedData($options: TypedDataOptions, $request: CreateMirrorRequest!) {
+mutation CreateMirrorTypedData(
+  $options: TypedDataOptions
+  $request: CreateMirrorRequest!
+) {
   createMirrorTypedData(options: $options, request: $request) {
     id
     expiresAt
