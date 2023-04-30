@@ -70,12 +70,14 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
 
   if (isLensterPoll) {
     return (
-      <Choices
-        proposal={proposal as Proposal}
-        votes={votes as Vote[]}
-        isLensterPoll={isLensterPoll}
-        refetch={refetch}
-      />
+      <span onClick={stopEventPropagation} ref={observe}>
+        <Choices
+          proposal={proposal as Proposal}
+          votes={votes as Vote[]}
+          isLensterPoll={isLensterPoll}
+          refetch={refetch}
+        />
+      </span>
     );
   }
 
