@@ -31,6 +31,8 @@ const useFetchChats = () => {
       setLoading(false);
       setError(error.message);
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }, [decryptedPgpPvtKey]);
 

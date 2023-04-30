@@ -8,7 +8,7 @@ import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 
 interface HistoryMessagesParams {
-  threadhash: string;
+  threadHash: string;
   chatId: string;
   limit?: number;
 }
@@ -23,7 +23,7 @@ const useGetHistoryMessages = () => {
 
   const historyMessages = useCallback(
     async ({
-      threadhash,
+      threadHash,
       chatId,
       limit = 10
     }: HistoryMessagesParams): Promise<IMessageIPFS[] | undefined> => {
@@ -34,7 +34,7 @@ const useGetHistoryMessages = () => {
       setLoading(true);
       try {
         const chatHistory = await PushAPI.chat.history({
-          threadhash,
+          threadhash: threadHash,
           account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${(currentProfile as Profile)?.id}`,
           toDecrypt: true,
           pgpPrivateKey: decryptedPgpPvtKey,
@@ -42,7 +42,7 @@ const useGetHistoryMessages = () => {
           env: PUSH_ENV
         });
         setLoading(false);
-
+        console.log({ chatHistory });
         addChat(chatId, chatHistory);
         return chatHistory;
       } catch (error: Error | any) {

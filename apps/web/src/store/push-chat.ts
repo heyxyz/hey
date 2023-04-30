@@ -7,10 +7,22 @@ export const PUSH_TABS = {
   CHATS: 'CHATS',
   REQUESTS: 'REQUESTS'
 } as const;
+
 export const CHAT_TYPES = {
   CHAT: 'chat',
   GROUP: 'group'
 } as const;
+
+export type ParsedChatType = {
+  id: string;
+  img: string;
+  name: string;
+  text: string;
+  time: string;
+  recipient: string;
+  threadHash: string;
+};
+
 type ChatTypes = (typeof CHAT_TYPES)[keyof typeof CHAT_TYPES];
 type PushTabs = (typeof PUSH_TABS)[keyof typeof PUSH_TABS];
 
@@ -21,8 +33,8 @@ interface IPushChatStore {
   setConnectedProfile: (connectedProfile: IUser) => void;
   activeTab: PushTabs;
   setActiveTab: (tabName: PushTabs) => void;
-  chats: Map<string, Array<IMessageIPFS>>; // chatId -> chat messages array
-  setChats: (chats: Map<string, Array<IMessageIPFS>>) => void;
+  chats: Map<string, IMessageIPFS[]>; // chatId -> chat messages array
+  setChats: (chats: Map<string, IMessageIPFS[]>) => void;
   addChat: (key: string, newChat: Array<IMessageIPFS>) => void;
   chatsFeed: Map<string, IFeeds>; // chatId -> feed obj
   setChatsFeed: (chatsFeed: Map<string, IFeeds>) => void;
@@ -32,9 +44,13 @@ interface IPushChatStore {
   addRequestFeed: (key: string, newRequestFeed: IFeeds) => void;
   reset: () => void;
   selectedChatId: string;
+  selectedRecipient: string;
+  setSelectedRecipient: (selectedRecipient: string) => void;
   setSelectedChatId: (selectedChatId: string) => void;
   selectedChatType: ChatTypes | null;
   setSelectedChatType: (tabName: ChatTypes) => void;
+  threadHash: string;
+  setThreadHash: (threadHash: string) => void;
   showCreateChatProfileModal: boolean;
   setShowCreateChatProfileModal: (showCreateChatProfileModal: boolean) => void;
   showDecryptionModal: boolean;
@@ -60,7 +76,7 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   setActiveTab: (activeTab) => set(() => ({ activeTab })),
   chats: new Map(),
   setChats: (chats) => set(() => ({ chats })),
-  addChat: (key: string, newChat: Array<IMessageIPFS>) => {
+  addChat: (key: string, newChat: IMessageIPFS[]) => {
     set((state) => {
       const chats = new Map(state.chats);
       chats.set(key, newChat);
@@ -85,6 +101,10 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
       return { requestsFeed };
     });
   },
+  threadHash: '',
+  setThreadHash: (threadHash: string) => set(() => ({ threadHash })),
+  selectedRecipient: '',
+  setSelectedRecipient: (selectedRecipient) => set(() => ({ selectedRecipient })),
   selectedChatId: '',
   selectedChatType: null,
   setSelectedChatId: (selectedChatId) => set(() => ({ selectedChatId })),

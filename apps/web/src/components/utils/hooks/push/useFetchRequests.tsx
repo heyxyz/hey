@@ -29,9 +29,10 @@ const useFetchRequests = () => {
       setRequestsFeed(mappedRequests);
       return mappedRequests;
     } catch (error: Error | any) {
-      setLoading(false);
       setError(error.message);
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }, [decryptedPgpPvtKey]);
 

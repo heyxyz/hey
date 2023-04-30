@@ -1,5 +1,7 @@
+import useGetHistoryMessages from '@components/utils/hooks/push/useFetchHistoryMessages';
 import EmojiPicker from 'emoji-picker-react';
 import GifPicker from 'gif-picker-react';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { usePushChatStore } from 'src/store/push-chat';
 import { Image, Input } from 'ui';
@@ -10,17 +12,79 @@ type GIFType = {
   width: Number;
 };
 
+type ChatType = {
+  position: number;
+  content: string;
+  type: string;
+  timestamp: string;
+  time: string;
+};
+
+function parseDate(dateTimeStamp: number) {
+  let date = moment(dateTimeStamp);
+  if (moment().diff(date, 'days') >= 2) {
+    return date.fromNow(); // '2 days ago' etc.
+  }
+  return date.calendar().split(' ')[0]; // 'Yesterday', 'Today', 'Tomorrow'
+}
+
+function groupChatByTimestamp(arr: Array<ChatType>) {
+  return arr.reduce((acc, chat) => {
+    const { timestamp } = chat;
+    if (!acc[timestamp]) {
+      acc[timestamp] = [];
+    }
+    acc[timestamp].push(chat);
+    return acc;
+  }, {} as Record<string, ChatType[]>);
+}
+
 export default function MessageBody() {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
   const [inputText, setInputText] = useState('');
+  const rawChats = usePushChatStore((state) => state.chats);
+  const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
+
+  const threadHash = usePushChatStore((state) => state.threadHash);
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
-  const selectedChatType = usePushChatStore((state) => state.selectedChatType);
+  const [chats, setChats] = useState<Record<string, Array<ChatType>>>({});
+
+  const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
+
+  const { historyMessages, loading } = useGetHistoryMessages();
 
   useEffect(() => {
-    //fetch chat to show chatbox
-    console.log(selectedChatId);
-  }, [selectedChatId, selectedChatType]);
+    (async function () {
+      // only run this hook when there's a descryted key availabe in storage
+      if (!decryptedPgpPvtKey) {
+        return;
+      }
+      await historyMessages({ threadHash, chatId: selectedChatId, limit: 10 });
+    })();
+  }, [historyMessages, decryptedPgpPvtKey, threadHash, selectedChatId]);
+
+  useEffect(() => {
+    if (!rawChats || !rawChats.size) {
+      return;
+    }
+    console.log({ connectedProfile });
+    console.log({ rawChats });
+    console.log({ key: Array.from(rawChats.values()) });
+    const mappedChats = Array.from(rawChats.values())?.[0]?.map((oneRawChat) => {
+      return {
+        position: oneRawChat.fromDID === connectedProfile?.did ? 1 : -1,
+        content: oneRawChat.messageContent,
+        type: oneRawChat.messageType.toLowerCase(),
+        timestamp: parseDate(oneRawChat.timestamp!),
+        time: moment(oneRawChat.timestamp).format('hh:mm')
+      };
+    });
+    console.log(mappedChats);
+    const groupedChats = groupChatByTimestamp(mappedChats);
+    setChats(groupedChats);
+  }, [rawChats, connectedProfile]);
 
   const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
   const appendGIF = (emojiObject: GIFType) => {
@@ -37,41 +101,38 @@ export default function MessageBody() {
   return (
     <section className="h-full	p-5 pb-3">
       <div className="h-[85%] max-h-[85%] overflow-scroll">
-        {['yesterday', 'today'].map((date) => (
-          <section key={date} className="mb-6 mt-2">
-            <p className="mb-4 text-center text-sm text-gray-400">{date}</p>
+        {Object.entries(chats).map(([timestamp, chats], index) => (
+          <section key={index} className="mb-6 mt-2">
+            <p className="mb-4 text-center text-sm text-gray-400">{timestamp}</p>
             <div className="flex flex-col gap-2.5">
-              <div className="relative w-fit max-w-[80%] rounded-xl rounded-tl-sm border py-3 pl-4 pr-9 font-medium">
-                <p className="text-sm	">Lenster is on 🔥</p>
-                <span className="absolute bottom-1.5	right-1.5 text-xs text-gray-500">8:20</span>
-              </div>
-              <div className="relative w-fit max-w-[80%] rounded-xl rounded-tl-sm border py-3 pl-4 pr-9 font-medium">
-                <p className="text-sm	">
-                  The Lenster team is doing some really innovative work, I'm excited to see what new features
-                  they'll roll out next.
-                </p>
-                <span className="absolute bottom-1.5	right-1.5 text-xs text-gray-500">8:25</span>
-              </div>
-              <div className="relative w-fit rounded-xl rounded-tl-sm border">
+              {chats.map((chat, index) =>
+                chat.position !== 1 ? (
+                  <div
+                    key={index}
+                    className="relative w-fit max-w-[80%] rounded-xl rounded-tl-sm border py-3 pl-4 pr-[50px] font-medium"
+                  >
+                    <p className="text-sm	">{chat.content}</p>
+                    <span className="absolute bottom-1.5	right-1.5 text-xs text-gray-500">{chat.time}</span>
+                  </div>
+                ) : (
+                  <div
+                    key={index}
+                    className="relative w-fit	max-w-[80%] self-end rounded-xl rounded-tr-sm border bg-violet-500 py-3 pl-4 pr-[50px] font-medium"
+                  >
+                    <p className="text-sm	text-white">{chat.content}</p>
+                    <span className="absolute bottom-1.5	right-1.5 text-xs text-white">{chat.time}</span>
+                  </div>
+                )
+              )}
+              {/* uncomment when gifs are implemented */}
+              {/* <div className="relative w-fit rounded-xl rounded-tl-sm border">
                 <Image
                   className="font-medium0 relative w-fit rounded-xl rounded-tl-sm border"
                   src={gifSample.url}
                   alt=""
                 />
                 <Image className="absolute right-2.5 top-2.5" src="/push/giticon.svg" alt="" />
-              </div>
-              <div className="relative w-fit	max-w-[80%] self-end rounded-xl rounded-tr-sm border bg-violet-500 py-3 pl-4 pr-9 font-medium">
-                <p className="text-sm	text-white">Group chats, video calls... I wonder what’s next</p>
-                <span className="absolute bottom-1.5	right-1.5 text-xs text-white">8:25</span>
-              </div>
-              <div className="relative self-end overflow-hidden rounded-xl rounded-tr-sm border bg-violet-500">
-                <Image
-                  className={`relative w-fit self-end rounded-xl rounded-tr-sm border bg-violet-500`}
-                  src={gifSample.url}
-                  alt=""
-                />
-                <Image className="absolute right-2.5 top-2.5" src="/push/giticon.svg" alt="" />
-              </div>
+              </div> */}
             </div>
           </section>
         ))}

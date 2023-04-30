@@ -1,5 +1,6 @@
 import Search from '@components/Messages/Push/Search';
 import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
+import useFetchRequests from '@components/utils/hooks/push/useFetchRequests';
 import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
 import usePushDecryption from '@components/utils/hooks/push/usePushDecryption';
 import useUpgradeChatProfile from '@components/utils/hooks/push/useUpgradeChatProfile';
@@ -11,7 +12,8 @@ import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Card, Modal } from 'ui';
 import * as wagmi from 'wagmi';
 
-const activeIndex = 1;
+import PUSHPreviewChats from './PUSHPreviewChats';
+import PUSHPreviewRequests from './PUSHPreviewRequest';
 
 const PUSHPreview = () => {
   const { data: signer } = wagmi.useSigner();
@@ -27,6 +29,8 @@ const PUSHPreview = () => {
   const selectedChatType = usePushChatStore((state) => state.selectedChatType);
   const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
   const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
+  const requestsFeed = usePushChatStore((state) => state.requestsFeed);
+
   const {
     createChatProfile,
     modalContent: createChatProfileModalContent,
@@ -73,11 +77,12 @@ const PUSHPreview = () => {
       decryptAndUpgrade(encryptedPvtKey);
     }
   }, [decryptAndUpgrade, fetchChatProfile, setPgpPrivateKey]);
-
+  const { fetchRequests } = useFetchRequests();
   useEffect(() => {
     if (!signer) {
       return;
     }
+    fetchRequests();
     connectProfile();
   }, [connectProfile, signer]);
 
@@ -112,7 +117,7 @@ const PUSHPreview = () => {
             >
               <Trans>Requests</Trans>
               <div className=" bg-brand-500 flex h-5 w-7 justify-center rounded-full text-sm text-white">
-                2
+                {Array.from(requestsFeed.values()).length}
               </div>
             </div>
           </div>
@@ -130,32 +135,10 @@ const PUSHPreview = () => {
         </section>
         {/* section for header */}
         {/* section for chats */}
-        {activeTab === PUSH_TABS.CHATS && (
-          <section className="flex flex-col	gap-2.5	">
-            {[1, 2].map((number) => (
-              <div
-                key={number}
-                className={`flex h-16 cursor-pointer gap-2.5 rounded-lg  p-2.5 pr-3 transition-all hover:bg-gray-100 ${
-                  activeIndex === number && 'bg-brand-100'
-                }`}
-              >
-                <img className="h-12	w-12 rounded-full" src="/user.svg" alt="" />
-                <div className="flex w-full	justify-between	">
-                  <div>
-                    <p className="bold text-base">Sasi</p>
-                    <p className="text-sm text-gray-500	">GMGM!!</p>
-                  </div>
-                  <div>
-                    <span className="text-xs text-gray-500">a minute ago</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </section>
-        )}
+        {activeTab === PUSH_TABS.CHATS && <PUSHPreviewChats />}
         {/* section for chats */}
         {/* sections for requests */}
-        {activeTab === PUSH_TABS.REQUESTS && <section>requests</section>}
+        {activeTab === PUSH_TABS.REQUESTS && <PUSHPreviewRequests />}
         {/* sections for requests */}
       </Card>
       <button onClick={createChatProfile}>Create Profile</button>
