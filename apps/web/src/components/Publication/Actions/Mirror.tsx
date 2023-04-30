@@ -46,10 +46,10 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
     : publication?.stats?.totalAmountOfMirrors;
   const [mirrored, setMirrored] = useState(
-    // @ts-ignore
     isMirror
       ? publication?.mirrorOf?.mirrors?.length > 0
-      : publication?.mirrors?.length > 0
+      : // @ts-ignore
+        publication?.mirrors?.length > 0
   );
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
@@ -242,8 +242,8 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
       >
         <div
           className={clsx(
-            mirrored ? 'hover:bg-green-300' : 'hover:bg-brand-300',
-            'rounded-full p-1.5 hover:bg-opacity-20'
+            mirrored ? 'hover:bg-green-300/20' : 'hover:bg-brand-300/20',
+            'rounded-full p-1.5'
           )}
         >
           {isLoading ? (

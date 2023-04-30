@@ -95,7 +95,7 @@ const SeeThroughLens: FC = () => {
     <Menu as="div" className="relative">
       <Menu.Button as={Fragment}>
         <button
-          className="flex items-center space-x-1 rounded-md p-1 pl-1 text-sm hover:bg-gray-300 hover:bg-opacity-20"
+          className="flex items-center space-x-1 rounded-md p-1 text-sm hover:bg-gray-300/20"
           onClick={() => fetchRecommendedProfiles()}
         >
           <Image

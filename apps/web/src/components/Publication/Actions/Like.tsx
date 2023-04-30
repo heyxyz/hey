@@ -167,8 +167,8 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       >
         <div
           className={clsx(
-            isGM ? 'hover:bg-yellow-400' : 'hover:bg-pink-300',
-            'rounded-full p-1.5 hover:bg-opacity-20'
+            isGM ? 'hover:bg-yellow-400/20' : 'hover:bg-pink-300/20',
+            'rounded-full p-1.5'
           )}
         >
           <Tooltip

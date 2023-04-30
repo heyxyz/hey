@@ -25,7 +25,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
     <Menu as="div" className="relative">
       <Menu.Button as={Fragment}>
         <button
-          className="rounded-full p-1.5 hover:bg-gray-300 hover:bg-opacity-20"
+          className="rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           aria-label="More"
           data-testid={`publication-${publication.id}-menu`}
