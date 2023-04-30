@@ -164,7 +164,7 @@ const MessagesList: FC<MessageListProps> = ({
   });
 
   return (
-    <div className="flex h-[75%] flex-grow">
+    <div className="flex h-[75%] grow">
       <div className="relative flex h-full w-full pl-4">
         <div className="flex h-full w-full flex-col-reverse overflow-y-auto">
           {missingXmtpAuth && <MissingXmtpAuth />}

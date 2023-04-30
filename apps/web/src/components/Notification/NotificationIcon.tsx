@@ -36,7 +36,7 @@ const NotificationIcon: FC = () => {
   return (
     <Link
       href="/notifications"
-      className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20 md:flex"
+      className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300/20 md:flex"
       onClick={() => {
         setNotificationCount(data?.notifications?.pageInfo?.totalCount || 0);
         setShowBadge(false);

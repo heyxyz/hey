@@ -17,7 +17,7 @@ const Hero: FC = () => {
             </Trans>
           </div>
         </div>
-        <div className="hidden w-full flex-1 flex-shrink-0 sm:block" />
+        <div className="hidden w-full flex-1 shrink-0 sm:block" />
       </div>
     </div>
   );

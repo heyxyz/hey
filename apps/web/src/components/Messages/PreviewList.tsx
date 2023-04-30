@@ -149,11 +149,11 @@ const PreviewList: FC<PreviewListProps> = ({
         ) : null}
         <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
-            <div className="flex h-full flex-grow items-center justify-center">
+            <div className="flex h-full grow items-center justify-center">
               <Loader message="Awaiting signature to enable DMs" />
             </div>
           ) : showLoading ? (
-            <div className="flex h-full flex-grow items-center justify-center">
+            <div className="flex h-full grow items-center justify-center">
               <Loader message={t`Loading conversations`} />
             </div>
           ) : profilesError ? (

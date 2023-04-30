@@ -25,7 +25,7 @@ const Mod: FC<ModProps> = ({ publication, isFullPublication = false }) => {
       onClick={() => setShowModActionAlert(true, publication)}
       aria-label="Mod"
     >
-      <div className="rounded-full p-1.5 text-yellow-600 hover:bg-yellow-400 hover:bg-opacity-20">
+      <div className="rounded-full p-1.5 text-yellow-600 hover:bg-yellow-400/20">
         <Tooltip placement="top" content={t`Mod actions`} withDelay>
           <ShieldCheckIcon className={iconClassName} />
         </Tooltip>

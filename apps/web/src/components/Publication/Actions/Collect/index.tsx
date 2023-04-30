@@ -72,7 +72,7 @@ const Collect: FC<CollectProps> = ({
           }}
           aria-label="Collect"
         >
-          <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
+          <div className="rounded-full p-1.5 hover:bg-red-300/20">
             <Tooltip
               placement="top"
               content={count > 0 ? t`${humanize(count)} Collects` : t`Collect`}
