@@ -529,6 +529,7 @@ export type SnapshotQuery = {
     symbol: string;
     network: string;
     type?: string | null;
+    end: number;
     space?: { __typename?: 'Space'; id: string; name?: string | null } | null;
     strategies: Array<{
       __typename?: 'Strategy';
@@ -554,6 +555,7 @@ export const SnapshotDocument = gql`
       symbol
       network
       type
+      end
       space {
         id
         name

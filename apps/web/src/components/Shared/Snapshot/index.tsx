@@ -1,3 +1,4 @@
+import { LENSTER_POLLS_SPACE } from 'data';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -65,6 +66,18 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
   }
 
   const { proposal, votes } = data;
+  const isLensterPoll = proposal?.space?.id === LENSTER_POLLS_SPACE;
+
+  if (isLensterPoll) {
+    return (
+      <Choices
+        proposal={proposal as Proposal}
+        votes={votes as Vote[]}
+        isLensterPoll={isLensterPoll}
+        refetch={refetch}
+      />
+    );
+  }
 
   return (
     <Wrapper dataTestId={`snapshot-${proposal.id}`}>
