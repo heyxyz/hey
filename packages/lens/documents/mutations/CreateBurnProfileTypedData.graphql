@@ -1,4 +1,7 @@
-mutation CreateBurnProfileTypedData($options: TypedDataOptions, $request: BurnProfileRequest!) {
+mutation CreateBurnProfileTypedData(
+  $options: TypedDataOptions
+  $request: BurnProfileRequest!
+) {
   createBurnProfileTypedData(options: $options, request: $request) {
     id
     expiresAt

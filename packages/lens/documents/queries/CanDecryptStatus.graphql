@@ -1,4 +1,7 @@
-query CanDecryptStatus($request: PublicationQueryRequest!, $profileId: ProfileId) {
+query CanDecryptStatus(
+  $request: PublicationQueryRequest!
+  $profileId: ProfileId
+) {
   publication(request: $request) {
     ... on Post {
       id

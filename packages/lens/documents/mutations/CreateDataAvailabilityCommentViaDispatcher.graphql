@@ -1,4 +1,6 @@
-mutation CreateDataAvailabilityCommentViaDispatcher($request: CreateDataAvailabilityCommentRequest!) {
+mutation CreateDataAvailabilityCommentViaDispatcher(
+  $request: CreateDataAvailabilityCommentRequest!
+) {
   createDataAvailabilityCommentViaDispatcher(request: $request) {
     ... on CreateDataAvailabilityPublicationResult {
       id

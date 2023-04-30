@@ -1,4 +1,6 @@
-mutation CreateDataAvailabilityCommentTypedData($request: CreateDataAvailabilityCommentRequest!) {
+mutation CreateDataAvailabilityCommentTypedData(
+  $request: CreateDataAvailabilityCommentRequest!
+) {
   createDataAvailabilityCommentTypedData(request: $request) {
     id
     expiresAt
