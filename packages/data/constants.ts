@@ -21,6 +21,9 @@ export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 export const XMTP_PREFIX = 'lens.dev/dm';
 
+// Snapshot
+export const LENSTER_POLLS_SPACE = 'polls.lenster.xyz';
+
 // Application
 export const APP_NAME = 'Lenster';
 export const DESCRIPTION =

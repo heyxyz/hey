@@ -1,10 +1,5 @@
-import {
-  ClockIcon,
-  MenuAlt2Icon,
-  PlusIcon,
-  XIcon
-} from '@heroicons/react/outline';
-import { XCircleIcon } from '@heroicons/react/solid';
+import { ClockIcon, PlusIcon, XIcon } from '@heroicons/react/outline';
+import { MenuAlt2Icon, XCircleIcon } from '@heroicons/react/solid';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

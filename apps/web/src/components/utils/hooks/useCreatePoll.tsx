@@ -1,5 +1,5 @@
 import { snapshotClient } from '@lib/snapshotClient';
-import { APP_NAME } from 'data';
+import { APP_NAME, LENSTER_POLLS_SPACE } from 'data';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 import { useBlockNumber, useSigner } from 'wagmi';
@@ -21,7 +21,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
         signer as any,
         currentProfile?.ownedBy,
         {
-          space: 'polls.lenster.xyz',
+          space: LENSTER_POLLS_SPACE,
           type: 'single-choice',
           title: `Poll by @${currentProfile?.handle}`,
           body: publicationContent,
@@ -36,7 +36,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
         }
       );
 
-      return `${publicationContent}\n\nhttps://snapshot.org/#/polls.lenster.xyz/proposal/${receipt.id}`;
+      return `${publicationContent}\n\nhttps://snapshot.org/#/${LENSTER_POLLS_SPACE}/proposal/${receipt.id}`;
     } catch (error) {
       throw error;
     }
