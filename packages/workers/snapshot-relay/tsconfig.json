@@ -1,0 +1,8 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "types": ["@cloudflare/workers-types"],
+    "target": "es2021",
+    "noEmit": true
+  }
+}
