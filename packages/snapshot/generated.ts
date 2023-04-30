@@ -534,16 +534,6 @@ export type SnapshotQuery = {
   votes?: Array<{ __typename?: 'Vote'; choice: any } | null> | null;
 };
 
-export interface PossibleTypesResultData {
-  possibleTypes: {
-    [key: string]: string[];
-  };
-}
-const result: PossibleTypesResultData = {
-  possibleTypes: {}
-};
-export default result;
-
 export const SnapshotDocument = gql`
   query Snapshot($id: String, $where: VoteWhere) {
     proposal(id: $id) {
@@ -606,3 +596,13 @@ export function useSnapshotLazyQuery(
 export type SnapshotQueryHookResult = ReturnType<typeof useSnapshotQuery>;
 export type SnapshotLazyQueryHookResult = ReturnType<typeof useSnapshotLazyQuery>;
 export type SnapshotQueryResult = Apollo.QueryResult<SnapshotQuery, SnapshotQueryVariables>;
+
+export interface PossibleTypesResultData {
+  possibleTypes: {
+    [key: string]: string[];
+  };
+}
+const result: PossibleTypesResultData = {
+  possibleTypes: {}
+};
+export default result;
