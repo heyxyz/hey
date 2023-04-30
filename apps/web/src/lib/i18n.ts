@@ -44,3 +44,14 @@ export const initLocale = () => {
   const locale = storedValue ? JSON.parse(storedValue) : defaultLocale;
   setLocale(locale);
 };
+
+/**
+ * get primary language from IETF language tag
+ * see https://en.wikipedia.org/wiki/IETF_language_tag
+ * example: extract "en" from "en-US"
+ * @param languageTag IETF BCP 47 language tag
+ * @returns the primary language code of the tag
+ */
+export const getPrimaryLanguage = (languageTag: string): string => {
+  return languageTag ? languageTag.split('-')[0] : '';
+};
