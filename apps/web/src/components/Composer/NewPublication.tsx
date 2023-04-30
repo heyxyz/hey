@@ -81,7 +81,6 @@ import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import {
-  useBlockNumber,
   useContractWrite,
   useProvider,
   useSigner,
