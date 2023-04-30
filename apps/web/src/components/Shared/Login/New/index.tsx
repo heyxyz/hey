@@ -3,7 +3,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
-import { useCreateProfileMutation } from 'lens';
+import { RelayErrorReasons, useCreateProfileMutation } from 'lens';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
@@ -51,6 +51,12 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     }
   };
 
+  const relayErrorToString = (error: RelayErrorReasons): string => {
+    return error === RelayErrorReasons.HandleTaken
+      ? t`The selected handle is already taken`
+      : error;
+  };
+
   return data?.createProfile.__typename === 'RelayerResult' &&
     data?.createProfile.txHash ? (
     <Pending
@@ -82,7 +88,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
             title="Create profile failed!"
             error={{
               name: 'Create profile failed!',
-              message: data?.createProfile?.reason
+              message: relayErrorToString(data?.createProfile?.reason)
             }}
           />
         )}
