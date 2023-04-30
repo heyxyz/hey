@@ -16,8 +16,12 @@ const AmountConfig: FC<AmountConfigProps> = ({ enabledModuleCurrencies }) => {
   const amount = useCollectModuleStore((state) => state.amount);
   const setAmount = useCollectModuleStore((state) => state.setAmount);
   const setRecipients = useCollectModuleStore((state) => state.setRecipients);
-  const selectedCurrency = useCollectModuleStore((state) => state.selectedCurrency);
-  const setSelectedCurrency = useCollectModuleStore((state) => state.setSelectedCurrency);
+  const selectedCurrency = useCollectModuleStore(
+    (state) => state.selectedCurrency
+  );
+  const setSelectedCurrency = useCollectModuleStore(
+    (state) => state.setSelectedCurrency
+  );
 
   return (
     <div className="pt-3">

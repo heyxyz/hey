@@ -18,7 +18,12 @@ interface PreviewProps {
   isSelected: boolean;
 }
 
-const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelected }) => {
+const Preview: FC<PreviewProps> = ({
+  profile,
+  message,
+  conversationKey,
+  isSelected
+}) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
@@ -51,11 +56,18 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
         <div className="grow overflow-hidden">
           <div className="flex justify-between space-x-1">
             <div className="flex items-center gap-1 overflow-hidden">
-              <div className="text-md truncate">{profile?.name ?? formatHandle(profile.handle)}</div>
-              {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />}
+              <div className="text-md truncate">
+                {profile?.name ?? formatHandle(profile.handle)}
+              </div>
+              {isVerified(profile?.id) && (
+                <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
+              )}
             </div>
             {message?.sent && (
-              <span className="lt-text-gray-500 shrink-0 pt-0.5 text-xs" title={formatTime(message.sent)}>
+              <span
+                className="lt-text-gray-500 shrink-0 pt-0.5 text-xs"
+                title={formatTime(message.sent)}
+              >
                 {getTimeFromNow(message.sent)}
               </span>
             )}

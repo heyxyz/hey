@@ -38,7 +38,9 @@ const editStatusSchema = object({
 
 const Status: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
+  const setShowStatusModal = useGlobalModalStateStore(
+    (state) => state.setShowStatusModal
+  );
   const [isUploading, setIsUploading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
 
@@ -50,7 +52,10 @@ const Status: FC = () => {
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: ({ profile }) => {
-      form.setValue('status', getProfileAttribute(profile?.attributes, 'statusMessage'));
+      form.setValue(
+        'status',
+        getProfileAttribute(profile?.attributes, 'statusMessage')
+      );
       setEmoji(getProfileAttribute(profile?.attributes, 'statusEmoji'));
     }
   });
@@ -64,7 +69,9 @@ const Status: FC = () => {
     setShowStatusModal(false);
   };
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError
+  });
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENS_PERIPHERY,
@@ -92,7 +99,9 @@ const Status: FC = () => {
           metadata,
           sig
         };
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
         if (data?.broadcast.__typename === 'RelayError') {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
@@ -100,18 +109,24 @@ const Status: FC = () => {
       onError
     });
 
-  const [createSetProfileMetadataViaDispatcher, { loading: dispatcherLoading }] =
-    useCreateSetProfileMetadataViaDispatcherMutation({
-      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-        onCompleted(createSetProfileMetadataViaDispatcher.__typename),
-      onError
-    });
+  const [
+    createSetProfileMetadataViaDispatcher,
+    { loading: dispatcherLoading }
+  ] = useCreateSetProfileMetadataViaDispatcherMutation({
+    onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
+      onCompleted(createSetProfileMetadataViaDispatcher.__typename),
+    onError
+  });
 
-  const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
+  const createViaDispatcher = async (
+    request: CreatePublicSetProfileMetadataUriRequest
+  ) => {
     const { data } = await createSetProfileMetadataViaDispatcher({
       variables: { request }
     });
-    if (data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError') {
+    if (
+      data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError'
+    ) {
       await createSetProfileMetadataTypedData({
         variables: { request }
       });
@@ -131,7 +146,9 @@ const Status: FC = () => {
         name: profile?.name ?? '',
         bio: profile?.bio ?? '',
         cover_picture:
-          profile?.coverPicture?.__typename === 'MediaSet' ? profile?.coverPicture?.original?.url ?? '' : '',
+          profile?.coverPicture?.__typename === 'MediaSet'
+            ? profile?.coverPicture?.original?.url ?? ''
+            : '',
         attributes: [
           ...(profile?.attributes
             ?.filter(
@@ -147,13 +164,25 @@ const Status: FC = () => {
                 ].includes(attr.key)
             )
             .map(({ key, value }) => ({ key, value })) ?? []),
-          { key: 'location', value: getProfileAttribute(profile?.attributes, 'location') },
-          { key: 'website', value: getProfileAttribute(profile?.attributes, 'website') },
+          {
+            key: 'location',
+            value: getProfileAttribute(profile?.attributes, 'location')
+          },
+          {
+            key: 'website',
+            value: getProfileAttribute(profile?.attributes, 'website')
+          },
           {
             key: 'twitter',
-            value: getProfileAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '')
+            value: getProfileAttribute(profile?.attributes, 'twitter')?.replace(
+              'https://twitter.com/',
+              ''
+            )
           },
-          { key: 'hasPrideLogo', value: getProfileAttribute(profile?.attributes, 'hasPrideLogo') },
+          {
+            key: 'hasPrideLogo',
+            value: getProfileAttribute(profile?.attributes, 'hasPrideLogo')
+          },
           { key: 'statusEmoji', value: emoji },
           { key: 'statusMessage', value: status },
           { key: 'app', value: APP_NAME }
@@ -167,7 +196,10 @@ const Status: FC = () => {
         metadata: `ar://${id}`
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay && currentProfile.dispatcher.sponsor) {
+      if (
+        currentProfile?.dispatcher?.canUseRelay &&
+        currentProfile.dispatcher.sponsor
+      ) {
         return await createViaDispatcher(request);
       }
 
@@ -186,11 +218,18 @@ const Status: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load status settings`} error={error} />;
+    return (
+      <ErrorMessage title={t`Failed to load status settings`} error={error} />
+    );
   }
 
   const isLoading =
-    isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
+    isUploading ||
+    typedDataLoading ||
+    dispatcherLoading ||
+    signLoading ||
+    writeLoading ||
+    broadcastLoading;
 
   return (
     <div className="space-y-5 p-5">
@@ -225,7 +264,13 @@ const Status: FC = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+            icon={
+              isLoading ? (
+                <Spinner size="xs" />
+              ) : (
+                <PencilIcon className="h-4 w-4" />
+              )
+            }
           >
             <Trans>Save</Trans>
           </Button>

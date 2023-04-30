@@ -8,7 +8,11 @@ import { uploadFileToIPFS } from './uploadToIPFS';
  * @param timestamp The timestamp of the NFT.
  * @returns The SVG image as a string.
  */
-const getTextNftUrl = async (content: string, username: string, timestamp: string) => {
+const getTextNftUrl = async (
+  content: string,
+  username: string,
+  timestamp: string
+) => {
   const svg = `<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <style>
       .content {
@@ -52,7 +56,10 @@ const getTextNftUrl = async (content: string, username: string, timestamp: strin
 </svg>
 `;
   const blob = new Blob([svg], { type: 'image/svg+xml' });
-  const file = new File([blob], 'post.svg', { lastModified: new Date().getTime(), type: blob.type });
+  const file = new File([blob], 'post.svg', {
+    lastModified: new Date().getTime(),
+    type: blob.type
+  });
   const result = await uploadFileToIPFS(file);
 
   return result.original.url;

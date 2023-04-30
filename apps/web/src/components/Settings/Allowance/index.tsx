@@ -4,7 +4,12 @@ import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { Erc20 } from 'lens';
-import { CollectModules, FollowModules, ReferenceModules, useApprovedModuleAllowanceAmountQuery } from 'lens';
+import {
+  CollectModules,
+  FollowModules,
+  ReferenceModules,
+  useApprovedModuleAllowanceAmountQuery
+} from 'lens';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
@@ -36,12 +41,13 @@ const getAllowancePayload = (currency: string) => {
 const AllowanceSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
-  const { data, loading, error, refetch } = useApprovedModuleAllowanceAmountQuery({
-    variables: {
-      request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
-    },
-    skip: !currentProfile?.id
-  });
+  const { data, loading, error, refetch } =
+    useApprovedModuleAllowanceAmountQuery({
+      variables: {
+        request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
+      },
+      skip: !currentProfile?.id
+    });
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
@@ -70,8 +76,8 @@ const AllowanceSettings: NextPage = () => {
               </div>
               <p>
                 <Trans>
-                  In order to use collect feature you need to allow the module you use, you can allow and
-                  revoke the module anytime.
+                  In order to use collect feature you need to allow the module
+                  you use, you can allow and revoke the module anytime.
                 </Trans>
               </p>
             </div>

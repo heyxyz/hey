@@ -36,7 +36,13 @@ interface StatBoxProps {
   title: string;
 }
 
-export const StatBox: FC<StatBoxProps> = ({ icon, value, todayValue, differenceValue, title }) => (
+export const StatBox: FC<StatBoxProps> = ({
+  icon,
+  value,
+  todayValue,
+  differenceValue,
+  title
+}) => (
   <Card className="w-full px-7 py-4" forceRounded>
     <div className="lt-text-gray-500">{title}</div>
     <div className="flex items-center space-x-2.5">
@@ -91,15 +97,16 @@ const Stats: NextPage = () => {
     }
   });
 
-  const { data: yesterdayData, loading: yesterdayLoading } = useLensterStatsQuery({
-    variables: {
-      request: {
-        sources: [APP_NAME],
-        fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
-        toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
+  const { data: yesterdayData, loading: yesterdayLoading } =
+    useLensterStatsQuery({
+      variables: {
+        request: {
+          sources: [APP_NAME],
+          fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
+          toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
+        }
       }
-    }
-  });
+    });
 
   if (!allowed) {
     return <Custom404 />;
@@ -133,21 +140,28 @@ const Stats: NextPage = () => {
                   icon={<UsersIcon className="h-6 w-6" />}
                   value={stats?.totalProfiles}
                   todayValue={todayStats?.totalProfiles}
-                  differenceValue={yesterdayStats?.totalProfiles - todayStats?.totalProfiles}
+                  differenceValue={
+                    yesterdayStats?.totalProfiles - todayStats?.totalProfiles
+                  }
                   title={t`total profiles`}
                 />
                 <StatBox
                   icon={<FireIcon className="h-6 w-6" />}
                   value={stats?.totalBurntProfiles}
                   todayValue={todayStats?.totalBurntProfiles}
-                  differenceValue={yesterdayStats?.totalBurntProfiles - todayStats?.totalBurntProfiles}
+                  differenceValue={
+                    yesterdayStats?.totalBurntProfiles -
+                    todayStats?.totalBurntProfiles
+                  }
                   title={t`profiles burnt`}
                 />
                 <StatBox
                   icon={<PencilAltIcon className="h-6 w-6" />}
                   value={stats?.totalPosts}
                   todayValue={todayStats?.totalPosts}
-                  differenceValue={yesterdayStats?.totalPosts - todayStats?.totalPosts}
+                  differenceValue={
+                    yesterdayStats?.totalPosts - todayStats?.totalPosts
+                  }
                   title={t`total posts`}
                 />
               </div>
@@ -156,14 +170,18 @@ const Stats: NextPage = () => {
                   icon={<SwitchHorizontalIcon className="h-6 w-6" />}
                   value={stats?.totalMirrors}
                   todayValue={todayStats?.totalMirrors}
-                  differenceValue={yesterdayStats?.totalMirrors - todayStats?.totalMirrors}
+                  differenceValue={
+                    yesterdayStats?.totalMirrors - todayStats?.totalMirrors
+                  }
                   title={t`total mirrors`}
                 />
                 <StatBox
                   icon={<ChatAlt2Icon className="h-6 w-6" />}
                   value={stats?.totalComments}
                   todayValue={todayStats?.totalComments}
-                  differenceValue={yesterdayStats?.totalComments - todayStats?.totalComments}
+                  differenceValue={
+                    yesterdayStats?.totalComments - todayStats?.totalComments
+                  }
                   title={t`total comments`}
                 />
               </div>
@@ -172,14 +190,18 @@ const Stats: NextPage = () => {
                   icon={<CollectionIcon className="h-6 w-6" />}
                   value={stats?.totalCollects}
                   todayValue={todayStats?.totalCollects}
-                  differenceValue={yesterdayStats?.totalCollects - todayStats?.totalCollects}
+                  differenceValue={
+                    yesterdayStats?.totalCollects - todayStats?.totalCollects
+                  }
                   title={t`total collects`}
                 />
                 <StatBox
                   icon={<UserAddIcon className="h-6 w-6" />}
                   value={stats?.totalFollows}
                   todayValue={todayStats?.totalFollows}
-                  differenceValue={yesterdayStats?.totalFollows - todayStats?.totalFollows}
+                  differenceValue={
+                    yesterdayStats?.totalFollows - todayStats?.totalFollows
+                  }
                   title={t`total follows`}
                 />
               </div>

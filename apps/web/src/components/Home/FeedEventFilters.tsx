@@ -8,11 +8,18 @@ import { useTimelinePersistStore } from 'src/store/timeline';
 import { Checkbox, Tooltip } from 'ui';
 
 const FeedEventFilters: FC = () => {
-  const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
-  const setFeedEventFilters = useTimelinePersistStore((state) => state.setFeedEventFilters);
+  const feedEventFilters = useTimelinePersistStore(
+    (state) => state.feedEventFilters
+  );
+  const setFeedEventFilters = useTimelinePersistStore(
+    (state) => state.setFeedEventFilters
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFeedEventFilters({ ...feedEventFilters, [e.target.name]: e.target.checked });
+    setFeedEventFilters({
+      ...feedEventFilters,
+      [e.target.name]: e.target.checked
+    });
   };
 
   return (

@@ -6,7 +6,11 @@ import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
-import { useBroadcastMutation, useCreateFollowTypedDataMutation, useProxyActionMutation } from 'lens';
+import {
+  useBroadcastMutation,
+  useCreateFollowTypedDataMutation,
+  useProxyActionMutation
+} from 'lens';
 import type { ApolloCache } from 'lens/apollo';
 import getSignature from 'lib/getSignature';
 import { useRouter } from 'next/router';
@@ -44,7 +48,9 @@ const Follow: FC<FollowProps> = ({
   const { address } = useAccount();
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError
+  });
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -82,36 +88,42 @@ const Follow: FC<FollowProps> = ({
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createFollowTypedData, { loading: typedDataLoading }] = useCreateFollowTypedDataMutation({
-    onCompleted: async ({ createFollowTypedData }) => {
-      const { id, typedData } = createFollowTypedData;
-      const { deadline } = typedData.value;
-      // TODO: Replace deep clone with right helper
-      const signature = await signTypedDataAsync(getSignature(JSON.parse(JSON.stringify(typedData))));
-      setUserSigNonce(userSigNonce + 1);
-      const { profileIds, datas: followData } = typedData.value;
-      const { v, r, s } = splitSignature(signature);
-      const sig = { v, r, s, deadline };
-      const inputStruct = {
-        follower: address,
-        profileIds,
-        datas: followData,
-        sig
-      };
-      const { data } = await broadcast({ variables: { request: { id, signature } } });
-      if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-      }
-    },
-    onError,
-    update: updateCache
-  });
+  const [createFollowTypedData, { loading: typedDataLoading }] =
+    useCreateFollowTypedDataMutation({
+      onCompleted: async ({ createFollowTypedData }) => {
+        const { id, typedData } = createFollowTypedData;
+        const { deadline } = typedData.value;
+        // TODO: Replace deep clone with right helper
+        const signature = await signTypedDataAsync(
+          getSignature(JSON.parse(JSON.stringify(typedData)))
+        );
+        setUserSigNonce(userSigNonce + 1);
+        const { profileIds, datas: followData } = typedData.value;
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          follower: address,
+          profileIds,
+          datas: followData,
+          sig
+        };
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      },
+      onError,
+      update: updateCache
+    });
 
-  const [createFollowProxyAction, { loading: proxyActionLoading }] = useProxyActionMutation({
-    onCompleted: () => onCompleted(),
-    onError,
-    update: updateCache
-  });
+  const [createFollowProxyAction, { loading: proxyActionLoading }] =
+    useProxyActionMutation({
+      onCompleted: () => onCompleted(),
+      onError,
+      update: updateCache
+    });
 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createFollowProxyAction({
@@ -143,8 +155,11 @@ const Follow: FC<FollowProps> = ({
                 {
                   profile: profile?.id,
                   followModule:
-                    profile?.followModule?.__typename === 'ProfileFollowModuleSettings'
-                      ? { profileFollowModule: { profileId: currentProfile?.id } }
+                    profile?.followModule?.__typename ===
+                    'ProfileFollowModuleSettings'
+                      ? {
+                          profileFollowModule: { profileId: currentProfile?.id }
+                        }
                       : null
                 }
               ]
@@ -165,7 +180,12 @@ const Follow: FC<FollowProps> = ({
     } catch {}
   };
 
-  const isLoading = typedDataLoading || proxyActionLoading || signLoading || writeLoading || broadcastLoading;
+  const isLoading =
+    typedDataLoading ||
+    proxyActionLoading ||
+    signLoading ||
+    writeLoading ||
+    broadcastLoading;
 
   return (
     <Button
@@ -174,7 +194,9 @@ const Follow: FC<FollowProps> = ({
       onClick={createFollow}
       aria-label="Follow"
       disabled={isLoading}
-      icon={isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />}
+      icon={
+        isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />
+      }
     >
       {showText && t`Follow`}
     </Button>

@@ -6,7 +6,12 @@ import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { CogIcon, HashtagIcon, LocationMarkerIcon, UsersIcon } from '@heroicons/react/outline';
+import {
+  CogIcon,
+  HashtagIcon,
+  LocationMarkerIcon,
+  UsersIcon
+} from '@heroicons/react/outline';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
@@ -43,18 +48,24 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
+  const [showMutualFollowersModal, setShowMutualFollowersModal] =
+    useState(false);
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
-  const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
+  const addProfileAndSelectTab = useMessageStore(
+    (state) => state.addProfileAndSelectTab
+  );
 
   const onMessageClick = () => {
     if (!currentProfile) {
       return;
     }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
-    const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
+    const conversationKey = buildConversationKey(
+      profile.ownedBy,
+      conversationId
+    );
     addProfileAndSelectTab(conversationKey, profile);
     router.push(`/messages/${conversationKey}`);
   };
@@ -98,25 +109,43 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           </div>
           {isVerified(profile?.id) && (
             <Tooltip content={t`Verified`}>
-              <BadgeCheckIcon className="text-brand h-6 w-6" data-testid="profile-verified-badge" />
+              <BadgeCheckIcon
+                className="text-brand h-6 w-6"
+                data-testid="profile-verified-badge"
+              />
             </Tooltip>
           )}
         </div>
-        <div className="flex items-center space-x-3" data-testid="profile-handle">
+        <div
+          className="flex items-center space-x-3"
+          data-testid="profile-handle"
+        >
           {profile?.name ? (
-            <Slug className="text-sm sm:text-base" slug={formatHandle(profile?.handle)} prefix="@" />
+            <Slug
+              className="text-sm sm:text-base"
+              slug={formatHandle(profile?.handle)}
+              prefix="@"
+            />
           ) : (
-            <Slug className="text-sm sm:text-base" slug={formatAddress(profile?.ownedBy)} />
+            <Slug
+              className="text-sm sm:text-base"
+              slug={formatAddress(profile?.ownedBy)}
+            />
           )}
-          {currentProfile && currentProfile?.id !== profile?.id && profile?.isFollowing && (
-            <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
-              <Trans>Follows you</Trans>
-            </div>
-          )}
+          {currentProfile &&
+            currentProfile?.id !== profile?.id &&
+            profile?.isFollowing && (
+              <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
+                <Trans>Follows you</Trans>
+              </div>
+            )}
         </div>
       </div>
       {profile?.bio && (
-        <div className="markup linkify text-md mr-0 break-words sm:mr-10" data-testid="profile-bio">
+        <div
+          className="markup linkify text-md mr-0 break-words sm:mr-10"
+          data-testid="profile-bio"
+        >
           <Markup>{profile?.bio}</Markup>
         </div>
       )}
@@ -125,16 +154,28 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         <div>
           {currentProfile?.id === profile?.id ? (
             <Link href="/settings">
-              <Button variant="secondary" icon={<CogIcon className="h-5 w-5" />} outline>
+              <Button
+                variant="secondary"
+                icon={<CogIcon className="h-5 w-5" />}
+                outline
+              >
                 <Trans>Edit Profile</Trans>
               </Button>
             </Link>
           ) : followType !== 'RevertFollowModuleSettings' ? (
             following ? (
               <div className="flex space-x-2">
-                <Unfollow profile={profile} setFollowing={setFollowing} showText />
+                <Unfollow
+                  profile={profile}
+                  setFollowing={setFollowing}
+                  showText
+                />
                 {followType === 'FeeFollowModuleSettings' && (
-                  <SuperFollow profile={profile} setFollowing={setFollowing} again />
+                  <SuperFollow
+                    profile={profile}
+                    setFollowing={setFollowing}
+                    again
+                  />
                 )}
                 {currentProfile && <Message onClick={onMessageClick} />}
               </div>
@@ -163,7 +204,10 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </div>
         {currentProfile?.id !== profile?.id && (
           <>
-            <MutualFollowers setShowMutualFollowersModal={setShowMutualFollowersModal} profile={profile} />
+            <MutualFollowers
+              setShowMutualFollowersModal={setShowMutualFollowersModal}
+              profile={profile}
+            />
             <Modal
               title={t`Followers you know`}
               icon={<UsersIcon className="text-brand h-5 w-5" />}
@@ -176,12 +220,15 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         )}
         <div className="divider w-full" />
         <div className="space-y-2">
-          <MetaDetails icon={<HashtagIcon className="h-4 w-4" />} dataTestId="profile-meta-id">
+          <MetaDetails
+            icon={<HashtagIcon className="h-4 w-4" />}
+            dataTestId="profile-meta-id"
+          >
             <Tooltip content={`#${profile?.id}`}>
               <a
-                href={`${RARIBLE_URL}/token/polygon/${getEnvConfig().lensHubProxyAddress}:${parseInt(
-                  profile?.id
-                )}`}
+                href={`${RARIBLE_URL}/token/polygon/${
+                  getEnvConfig().lensHubProxyAddress
+                }:${parseInt(profile?.id)}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -190,7 +237,10 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             </Tooltip>
           </MetaDetails>
           {getProfileAttribute(profile?.attributes, 'location') && (
-            <MetaDetails icon={<LocationMarkerIcon className="h-4 w-4" />} dataTestId="profile-meta-location">
+            <MetaDetails
+              icon={<LocationMarkerIcon className="h-4 w-4" />}
+              dataTestId="profile-meta-location"
+            >
               {getProfileAttribute(profile?.attributes, 'location')}
             </MetaDetails>
           )}
@@ -229,7 +279,10 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               dataTestId="profile-meta-website"
             >
               <a
-                href={`https://${getProfileAttribute(profile?.attributes, 'website')
+                href={`https://${getProfileAttribute(
+                  profile?.attributes,
+                  'website'
+                )
                   ?.replace('https://', '')
                   .replace('http://', '')}`}
                 target="_blank"
@@ -265,18 +318,26 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               dataTestId="profile-meta-twitter"
             >
               <a
-                href={`https://twitter.com/${getProfileAttribute(profile?.attributes, 'twitter')}`}
+                href={`https://twitter.com/${getProfileAttribute(
+                  profile?.attributes,
+                  'twitter'
+                )}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getProfileAttribute(profile?.attributes, 'twitter')?.replace('https://twitter.com/', '')}
+                {getProfileAttribute(profile?.attributes, 'twitter')?.replace(
+                  'https://twitter.com/',
+                  ''
+                )}
               </a>
             </MetaDetails>
           )}
         </div>
       </div>
       <Badges profile={profile} />
-      {isStaff(currentProfile?.id) && staffMode && <ProfileStaffTool profile={profile} />}
+      {isStaff(currentProfile?.id) && staffMode && (
+        <ProfileStaffTool profile={profile} />
+      )}
     </div>
   );
 };

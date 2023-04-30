@@ -28,7 +28,9 @@ import YourProfile from './NavItems/YourProfile';
 const MobileDrawerMenu: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowMobileDrawer = useGlobalModalStateStore((state) => state.setShowMobileDrawer);
+  const setShowMobileDrawer = useGlobalModalStateStore(
+    (state) => state.setShowMobileDrawer
+  );
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
@@ -57,7 +59,11 @@ const MobileDrawerMenu: FC = () => {
             <div>
               <Trans>Logged in as</Trans>
               <div className="truncate">
-                <Slug className="font-bold" slug={formatHandle(currentProfile?.handle)} prefix="@" />
+                <Slug
+                  className="font-bold"
+                  slug={formatHandle(currentProfile?.handle)}
+                  prefix="@"
+                />
               </div>
             </div>
           </div>
@@ -74,7 +80,10 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Link href={`/u/${formatHandle(currentProfile?.handle)}`} onClick={closeDrawer}>
+            <Link
+              href={`/u/${formatHandle(currentProfile?.handle)}`}
+              onClick={closeDrawer}
+            >
               <YourProfile className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
             </Link>
             <Link href={'/settings'} onClick={closeDrawer}>
@@ -85,15 +94,24 @@ const MobileDrawerMenu: FC = () => {
                 <Mod className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
               </Link>
             )}
-            <ThemeSwitch className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={closeDrawer} />
+            <ThemeSwitch
+              className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
+              onClick={closeDrawer}
+            />
           </div>
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Contact className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={closeDrawer} />
-            <ReportBug className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800" onClick={closeDrawer} />
+            <Contact
+              className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
+              onClick={closeDrawer}
+            />
+            <ReportBug
+              className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
+              onClick={closeDrawer}
+            />
           </div>
           <div className="divider" />
         </div>

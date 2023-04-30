@@ -26,13 +26,21 @@ interface CollectProps {
   showCount: boolean;
 }
 
-const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) => {
+const Collect: FC<CollectProps> = ({
+  publication,
+  electedMirror,
+  showCount
+}) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
-  const isUnknownCollect = publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
+  const isFreeCollect =
+    publication?.collectModule.__typename === 'FreeCollectModuleSettings';
+  const isUnknownCollect =
+    publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
   const isMirror = publication.__typename === 'Mirror';
-  const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
+  const hasCollected = isMirror
+    ? publication?.mirrorOf?.hasCollectedByMe
+    : publication?.hasCollectedByMe;
 
   useEffect(() => {
     if (
@@ -49,7 +57,9 @@ const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) =>
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
 
-  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount
+    ? 'w-[17px] sm:w-[20px]'
+    : 'w-[15px] sm:w-[18px]';
 
   return (
     <>
@@ -76,7 +86,9 @@ const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) =>
             </Tooltip>
           </div>
         </motion.button>
-        {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+        {count > 0 && !showCount && (
+          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+        )}
       </div>
       <Modal
         title={
@@ -89,7 +101,11 @@ const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) =>
         icon={
           <div className="text-brand">
             <GetModuleIcon
-              module={isFreeCollect ? CollectModules.FreeCollectModule : publication?.collectModule?.type}
+              module={
+                isFreeCollect
+                  ? CollectModules.FreeCollectModule
+                  : publication?.collectModule?.type
+              }
               size={5}
             />
           </div>

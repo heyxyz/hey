@@ -24,7 +24,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (handle.includes(HANDLE_SUFFIX)) {
     processedHandle = handle;
   } else {
-    processedHandle = handle === LENSPROTOCOL_HANDLE ? handle : handle.concat(HANDLE_SUFFIX);
+    processedHandle =
+      handle === LENSPROTOCOL_HANDLE ? handle : handle.concat(HANDLE_SUFFIX);
   }
   const { data: profileData } = await nodeClient.query({
     query: ProfileDocument,
@@ -38,14 +39,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { data: profilePublicationsData } = await nodeClient.query({
       query: ProfileFeedDocument,
       variables: {
-        request: { profileId, customFilters: [CustomFiltersTypes.Gardeners], limit: 30 },
+        request: {
+          profileId,
+          customFilters: [CustomFiltersTypes.Gardeners],
+          limit: 30
+        },
         reactionRequest,
         profileId
       }
     });
 
     return {
-      props: { profile: profileData.profile, publications: profilePublicationsData.publications?.items }
+      props: {
+        profile: profileData.profile,
+        publications: profilePublicationsData.publications?.items
+      }
     };
   }
 

@@ -1,6 +1,9 @@
 import { STATIC_IMAGES_URL } from 'data';
 
-const canvasImageFromVideo = (file: File, currentTime: number): Promise<string> => {
+const canvasImageFromVideo = (
+  file: File,
+  currentTime: number
+): Promise<string> => {
   return new Promise((resolve) => {
     const video = document.createElement('video');
     const canvas = document.createElement('canvas');
@@ -22,7 +25,10 @@ const canvasImageFromVideo = (file: File, currentTime: number): Promise<string> 
   });
 };
 
-export const generateVideoThumbnails = (file: File, count: number): Promise<string[]> => {
+export const generateVideoThumbnails = (
+  file: File,
+  count: number
+): Promise<string[]> => {
   return new Promise((resolve) => {
     try {
       if (!file.size) {

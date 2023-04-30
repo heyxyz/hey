@@ -28,7 +28,8 @@ const SetDefaultProfile: FC = () => {
       </div>
       <p className="text-sm leading-[22px]">
         <Trans>
-          You own {count} {count === 1 ? 'profile' : 'profiles'} but you don't have a default one.
+          You own {count} {count === 1 ? 'profile' : 'profiles'} but you don't
+          have a default one.
         </Trans>
       </p>
       <div className="flex items-center space-x-1.5 text-sm font-bold">

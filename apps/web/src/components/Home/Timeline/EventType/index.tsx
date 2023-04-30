@@ -35,9 +35,15 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
         <Combined feedItem={feedItem} />
       ) : (
         <>
-          {feedItem.mirrors.length && !isComment ? <Mirrored mirrors={feedItem.mirrors} /> : null}
-          {feedItem.collects.length && !isComment ? <Collected collects={feedItem.collects} /> : null}
-          {feedItem.reactions.length && !isComment ? <Liked reactions={feedItem.reactions} /> : null}
+          {feedItem.mirrors.length && !isComment ? (
+            <Mirrored mirrors={feedItem.mirrors} />
+          ) : null}
+          {feedItem.collects.length && !isComment ? (
+            <Collected collects={feedItem.collects} />
+          ) : null}
+          {feedItem.reactions.length && !isComment ? (
+            <Liked reactions={feedItem.reactions} />
+          ) : null}
         </>
       )}
       {showThread ? <Commented feedItem={feedItem} /> : null}

@@ -9,7 +9,9 @@ import { Tooltip } from 'ui';
 
 const PollSettings: FC = () => {
   const showPollEditor = usePublicationStore((state) => state.showPollEditor);
-  const setShowPollEditor = usePublicationStore((state) => state.setShowPollEditor);
+  const setShowPollEditor = usePublicationStore(
+    (state) => state.setShowPollEditor
+  );
   const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
   const { on: isPollsEnabled } = useFeature(FeatureFlag.Polls as string);
 

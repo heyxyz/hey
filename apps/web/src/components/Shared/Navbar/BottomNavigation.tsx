@@ -1,4 +1,9 @@
-import { BellIcon, HomeIcon, MailIcon, ViewGridIcon } from '@heroicons/react/outline';
+import {
+  BellIcon,
+  HomeIcon,
+  MailIcon,
+  ViewGridIcon
+} from '@heroicons/react/outline';
 import {
   BellIcon as BellIconSolid,
   HomeIcon as HomeIconSolid,

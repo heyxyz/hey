@@ -29,7 +29,11 @@ export const Alert: FC<AlertProps> = ({
 }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => onClose?.()}>
+      <Dialog
+        as="div"
+        className="fixed inset-0 z-10 overflow-y-auto"
+        onClose={() => onClose?.()}
+      >
         <div className="flex min-h-screen items-center justify-center p-4 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -42,7 +46,10 @@ export const Alert: FC<AlertProps> = ({
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity dark:bg-gray-900 dark:bg-opacity-80" />
           </Transition.Child>
-          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
+          <span
+            className="hidden sm:inline-block sm:h-screen sm:align-middle"
+            aria-hidden="true"
+          />
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-100"
@@ -70,7 +77,13 @@ export const Alert: FC<AlertProps> = ({
                     {confirmText}
                   </Button>
                 ) : null}
-                <Button className="w-full" size="lg" variant="secondary" outline onClick={onClose}>
+                <Button
+                  className="w-full"
+                  size="lg"
+                  variant="secondary"
+                  outline
+                  onClick={onClose}
+                >
                   Cancel
                 </Button>
               </div>

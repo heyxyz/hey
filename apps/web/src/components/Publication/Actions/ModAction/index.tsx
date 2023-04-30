@@ -3,7 +3,10 @@ import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
-import { PublicationReportingSpamSubreason, useReportPublicationMutation } from 'lens';
+import {
+  PublicationReportingSpamSubreason,
+  useReportPublicationMutation
+} from 'lens';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
@@ -17,15 +20,28 @@ interface ModActionProps {
 }
 
 const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
-  const setShowModActionAlert = useGlobalAlertStateStore((state) => state.setShowModActionAlert);
+  const setShowModActionAlert = useGlobalAlertStateStore(
+    (state) => state.setShowModActionAlert
+  );
   const [createReport, { loading }] = useReportPublicationMutation();
 
-  const reportPublication = async ({ type, subreason }: { type: string; subreason: string }) => {
+  const reportPublication = async ({
+    type,
+    subreason
+  }: {
+    type: string;
+    subreason: string;
+  }) => {
     return await createReport({
       variables: {
         request: {
           publicationId: publication?.id,
-          reason: { [type]: { reason: type.replace('Reason', '').toUpperCase(), subreason } }
+          reason: {
+            [type]: {
+              reason: type.replace('Reason', '').toUpperCase(),
+              subreason
+            }
+          }
         }
       },
       onCompleted: () => {

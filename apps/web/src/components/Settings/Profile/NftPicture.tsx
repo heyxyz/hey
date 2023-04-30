@@ -39,8 +39,12 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [chainId, setChainId] = useState<number>(profile?.picture?.chainId || mainnet.id);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const [chainId, setChainId] = useState<number>(
+    profile?.picture?.chainId || mainnet.id
+  );
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError
+  });
   const { signMessageAsync } = useSignMessage();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
@@ -73,7 +77,8 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     onError
   });
 
-  const [loadChallenge, { loading: challengeLoading }] = useNftChallengeLazyQuery();
+  const [loadChallenge, { loading: challengeLoading }] =
+    useNftChallengeLazyQuery();
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
@@ -91,7 +96,9 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
           sig
         };
         setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
         if (data?.broadcast.__typename === 'RelayError') {
           return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
         }
@@ -99,18 +106,22 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
       onError
     });
 
-  const [createSetProfileImageURIViaDispatcher, { loading: dispatcherLoading }] =
-    useCreateSetProfileImageUriViaDispatcherMutation({
-      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
-        onCompleted(createSetProfileImageURIViaDispatcher.__typename),
-      onError
-    });
+  const [
+    createSetProfileImageURIViaDispatcher,
+    { loading: dispatcherLoading }
+  ] = useCreateSetProfileImageUriViaDispatcherMutation({
+    onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+      onCompleted(createSetProfileImageURIViaDispatcher.__typename),
+    onError
+  });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
       variables: { request }
     });
-    if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
+    if (
+      data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError'
+    ) {
       await createSetProfileImageURITypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
@@ -153,7 +164,10 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
         }
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay && currentProfile.dispatcher.sponsor) {
+      if (
+        currentProfile?.dispatcher?.canUseRelay &&
+        currentProfile.dispatcher.sponsor
+      ) {
         return await createViaDispatcher(request);
       }
 
@@ -182,7 +196,13 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
         setAvatar(contractAddress, tokenId);
       }}
     >
-      {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
+      {error && (
+        <ErrorMessage
+          className="mb-3"
+          title={t`Transaction failed!`}
+          error={error}
+        />
+      )}
       <div>
         <div className="label">Chain</div>
         <div>
@@ -204,12 +224,19 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
         placeholder="0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac"
         {...form.register('contractAddress')}
       />
-      <Input label={t`Token Id`} type="text" placeholder="1" {...form.register('tokenId')} />
+      <Input
+        label={t`Token Id`}
+        type="text"
+        placeholder="1"
+        {...form.register('tokenId')}
+      />
       <Button
         className="ml-auto"
         type="submit"
         disabled={isLoading}
-        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+        icon={
+          isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />
+        }
       >
         <Trans>Save</Trans>
       </Button>

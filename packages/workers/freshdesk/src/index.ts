@@ -10,18 +10,27 @@ const headers = {
 
 const handleRequest = async (request: Request, env: EnvType) => {
   if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ success: false, message: 'Only POST requests are supported' }), {
-      headers
-    });
+    return new Response(
+      JSON.stringify({
+        success: false,
+        message: 'Only POST requests are supported'
+      }),
+      {
+        headers
+      }
+    );
   }
 
   const payload: any = await request.json();
   const { email, subject, body } = payload;
 
   if (!email || !subject || !body) {
-    return new Response(JSON.stringify({ success: false, message: 'Please fill all the fields' }), {
-      headers
-    });
+    return new Response(
+      JSON.stringify({ success: false, message: 'Please fill all the fields' }),
+      {
+        headers
+      }
+    );
   }
 
   try {
@@ -45,7 +54,10 @@ const handleRequest = async (request: Request, env: EnvType) => {
       headers
     });
   } catch {
-    return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), { headers });
+    return new Response(
+      JSON.stringify({ success: false, message: 'Something went wrong!' }),
+      { headers }
+    );
   }
 };
 

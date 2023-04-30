@@ -7,7 +7,13 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort', 'prettier', 'unicorn'],
+  plugins: [
+    '@typescript-eslint',
+    'unused-imports',
+    'simple-import-sort',
+    'prettier',
+    'unicorn'
+  ],
   extends: ['next', 'next/core-web-vitals'],
   rules: {
     curly: 'error',

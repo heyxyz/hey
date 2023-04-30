@@ -10,7 +10,9 @@ interface SwitchProfileProps {
 }
 
 const SwitchProfile: FC<SwitchProfileProps> = ({ className = '' }) => {
-  const setShowProfileSwitchModal = useGlobalModalStateStore((state) => state.setShowProfileSwitchModal);
+  const setShowProfileSwitchModal = useGlobalModalStateStore(
+    (state) => state.setShowProfileSwitchModal
+  );
 
   return (
     <button

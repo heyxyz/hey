@@ -43,7 +43,12 @@ class ImageCropper extends Component<CropperProps, State> {
 
   imageRef: RefObject<HTMLImageElement> = createRef();
   containerRef: HTMLDivElement | null = null;
-  mediaSize: MediaSize = { width: 0, height: 0, naturalWidth: 0, naturalHeight: 0 };
+  mediaSize: MediaSize = {
+    width: 0,
+    height: 0,
+    naturalWidth: 0,
+    naturalHeight: 0
+  };
   dragStartPosition: Point = { x: 0, y: 0 };
   dragStartCrop: Point = { x: 0, y: 0 };
   gestureZoomStart = 0;
@@ -67,8 +72,13 @@ class ImageCropper extends Component<CropperProps, State> {
       if (this.currentDoc.defaultView) {
         this.currentWindow = this.currentDoc.defaultView;
       }
-      this.containerRef.addEventListener('wheel', this.onWheel, { passive: false });
-      this.containerRef.addEventListener('gesturestart', this.onGestureStart as EventListener);
+      this.containerRef.addEventListener('wheel', this.onWheel, {
+        passive: false
+      });
+      this.containerRef.addEventListener(
+        'gesturestart',
+        this.onGestureStart as EventListener
+      );
     }
 
     // when rendered via SSR, the image can already be loaded and its onLoad callback will never be called
@@ -79,7 +89,10 @@ class ImageCropper extends Component<CropperProps, State> {
 
   componentWillUnmount() {
     if (this.containerRef) {
-      this.containerRef.removeEventListener('gesturestart', this.preventZoomSafari);
+      this.containerRef.removeEventListener(
+        'gesturestart',
+        this.preventZoomSafari
+      );
     }
     this.cleanEvents();
     this.clearScrollEvent();
@@ -105,8 +118,14 @@ class ImageCropper extends Component<CropperProps, State> {
     this.currentDoc.removeEventListener('mouseup', this.onDragStopped);
     this.currentDoc.removeEventListener('touchmove', this.onTouchMove);
     this.currentDoc.removeEventListener('touchend', this.onDragStopped);
-    this.currentDoc.removeEventListener('gesturemove', this.onGestureMove as EventListener);
-    this.currentDoc.removeEventListener('gestureend', this.onGestureEnd as EventListener);
+    this.currentDoc.removeEventListener(
+      'gesturemove',
+      this.onGestureMove as EventListener
+    );
+    this.currentDoc.removeEventListener(
+      'gestureend',
+      this.onGestureEnd as EventListener
+    );
   };
 
   clearScrollEvent = () => {
@@ -138,7 +157,9 @@ class ImageCropper extends Component<CropperProps, State> {
       const naturalWidth = this.imageRef.current?.naturalWidth || 0;
       const naturalHeight = this.imageRef.current?.naturalHeight || 0;
       const mediaAspect = naturalWidth / naturalHeight;
-      const fitWidth = naturalWidth / naturalHeight < this.props.cropSize.width / this.props.cropSize.height;
+      const fitWidth =
+        naturalWidth / naturalHeight <
+        this.props.cropSize.width / this.props.cropSize.height;
       const renderedMediaSize: Size = fitWidth
         ? {
             width: this.props.cropSize.width,
@@ -154,7 +175,10 @@ class ImageCropper extends Component<CropperProps, State> {
         naturalWidth,
         naturalHeight
       };
-      const cropSize = { width: this.props.cropSize.width, height: this.props.cropSize.height };
+      const cropSize = {
+        width: this.props.cropSize.width,
+        height: this.props.cropSize.height
+      };
       this.recomputeCropPosition();
       return cropSize;
     }
@@ -181,7 +205,9 @@ class ImageCropper extends Component<CropperProps, State> {
 
   onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     this.isTouching = true;
-    this.currentDoc.addEventListener('touchmove', this.onTouchMove, { passive: false }); // iOS 11 now defaults to passive: true
+    this.currentDoc.addEventListener('touchmove', this.onTouchMove, {
+      passive: false
+    }); // iOS 11 now defaults to passive: true
     this.currentDoc.addEventListener('touchend', this.onDragStopped);
 
     if (e.touches.length === 2) {
@@ -203,8 +229,14 @@ class ImageCropper extends Component<CropperProps, State> {
 
   onGestureStart = (e: GestureEvent) => {
     e.preventDefault();
-    this.currentDoc.addEventListener('gesturechange', this.onGestureMove as EventListener);
-    this.currentDoc.addEventListener('gestureend', this.onGestureEnd as EventListener);
+    this.currentDoc.addEventListener(
+      'gesturechange',
+      this.onGestureMove as EventListener
+    );
+    this.currentDoc.addEventListener(
+      'gestureend',
+      this.onGestureEnd as EventListener
+    );
     this.gestureZoomStart = this.props.zoom;
   };
 
@@ -226,7 +258,9 @@ class ImageCropper extends Component<CropperProps, State> {
 
   onDragStart = ({ x, y }: Point) => {
     this.dragStartPosition = { x, y };
-    this.dragStartCrop = { ...this.getAbsolutePosition(this.props.cropPositionPercent) };
+    this.dragStartCrop = {
+      ...this.getAbsolutePosition(this.props.cropPositionPercent)
+    };
   };
 
   onDrag = ({ x, y }: Point) => {
@@ -330,7 +364,9 @@ class ImageCropper extends Component<CropperProps, State> {
   };
 
   getPointOnMedia = ({ x, y }: Point) => {
-    const cropPosition = this.getAbsolutePosition(this.props.cropPositionPercent);
+    const cropPosition = this.getAbsolutePosition(
+      this.props.cropPositionPercent
+    );
     const { zoom } = this.props;
     return {
       x: (x + cropPosition.x) / zoom,
@@ -338,29 +374,44 @@ class ImageCropper extends Component<CropperProps, State> {
     };
   };
 
-  setNewZoom = (zoom: number, point: Point | null, { shouldUpdatePosition = true } = {}) => {
+  setNewZoom = (
+    zoom: number,
+    point: Point | null,
+    { shouldUpdatePosition = true } = {}
+  ) => {
     if (!this.props.onZoomChange) {
       return;
     }
     const fitWidth =
-      this.mediaSize.width / this.mediaSize.height < this.props.cropSize.width / this.props.cropSize.height;
+      this.mediaSize.width / this.mediaSize.height <
+      this.props.cropSize.width / this.props.cropSize.height;
     const mediaToTargetSizeRatio = fitWidth
       ? this.mediaSize.naturalWidth / this.props.targetSize.width
       : this.mediaSize.naturalHeight / this.props.targetSize.height;
     const maxOutputBlurryness = 2;
     const minZoom = 1;
-    const maxZoom = Math.max(minZoom, mediaToTargetSizeRatio * maxOutputBlurryness);
+    const maxZoom = Math.max(
+      minZoom,
+      mediaToTargetSizeRatio * maxOutputBlurryness
+    );
     const newZoom = restrictValue(zoom, minZoom, maxZoom);
 
     if (shouldUpdatePosition) {
-      const zoomPoint = point ? this.getPointOnContainer(point) : { x: 0, y: 0 };
+      const zoomPoint = point
+        ? this.getPointOnContainer(point)
+        : { x: 0, y: 0 };
       const zoomTarget = this.getPointOnMedia(zoomPoint);
       const requestedPosition = {
         x: zoomTarget.x * newZoom - zoomPoint.x,
         y: zoomTarget.y * newZoom - zoomPoint.y
       };
 
-      const newPosition = restrictPosition(requestedPosition, this.mediaSize, this.props.cropSize, newZoom);
+      const newPosition = restrictPosition(
+        requestedPosition,
+        this.mediaSize,
+        this.props.cropSize,
+        newZoom
+      );
       const newPercentagePosition = this.getPercentPosition(newPosition);
       this.props.onCropChange(newPercentagePosition);
     }
@@ -369,14 +420,21 @@ class ImageCropper extends Component<CropperProps, State> {
 
   getCropData = () => {
     // ensure the crop is correctly restricted after a zoom back (https://github.com/ValentinH/react-easy-crop/issues/6)
-    const cropPosition = this.getAbsolutePosition(this.props.cropPositionPercent);
+    const cropPosition = this.getAbsolutePosition(
+      this.props.cropPositionPercent
+    );
     const restrictedPosition = restrictPosition(
       cropPosition,
       this.mediaSize,
       this.props.cropSize,
       this.props.zoom
     );
-    return computeCroppedArea(restrictedPosition, this.props.cropSize, this.mediaSize, this.props.zoom);
+    return computeCroppedArea(
+      restrictedPosition,
+      this.props.cropSize,
+      this.mediaSize,
+      this.props.zoom
+    );
   };
 
   emitCropData = () => {
@@ -392,8 +450,15 @@ class ImageCropper extends Component<CropperProps, State> {
   };
 
   recomputeCropPosition = () => {
-    const cropPosition = this.getAbsolutePosition(this.props.cropPositionPercent);
-    const newPosition = restrictPosition(cropPosition, this.mediaSize, this.props.cropSize, this.props.zoom);
+    const cropPosition = this.getAbsolutePosition(
+      this.props.cropPositionPercent
+    );
+    const newPosition = restrictPosition(
+      cropPosition,
+      this.mediaSize,
+      this.props.cropSize,
+      this.props.zoom
+    );
     const newPercentagePosition = this.getPercentPosition(newPosition);
     this.props.onCropChange(newPercentagePosition);
     this.emitCropData();
@@ -421,7 +486,10 @@ class ImageCropper extends Component<CropperProps, State> {
           padding: borderSize
         }}
       >
-        <div className="relative" style={{ width: size.width, height: size.height }}>
+        <div
+          className="relative"
+          style={{ width: size.width, height: size.height }}
+        >
           <div
             onMouseDown={this.onMouseDown}
             onTouchStart={this.onTouchStart}
@@ -434,7 +502,9 @@ class ImageCropper extends Component<CropperProps, State> {
                 alt=""
                 className={clsx(
                   'reactEasyCrop_Image',
-                  fitWidth ? 'reactEasyCrop_Cover_Horizontal' : 'reactEasyCrop_Cover_Vertical'
+                  fitWidth
+                    ? 'reactEasyCrop_Cover_Horizontal'
+                    : 'reactEasyCrop_Cover_Vertical'
                 )}
                 src={image}
                 ref={this.imageRef}
@@ -450,7 +520,10 @@ class ImageCropper extends Component<CropperProps, State> {
                 height: size.height
               }}
               data-testid="cropper"
-              className={clsx('border-brand-500 border-2', 'reactEasyCrop_CropArea')}
+              className={clsx(
+                'border-brand-500 border-2',
+                'reactEasyCrop_CropArea'
+              )}
             />
           </div>
         </div>

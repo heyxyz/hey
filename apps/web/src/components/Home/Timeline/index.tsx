@@ -17,8 +17,12 @@ import { Card, EmptyState, ErrorMessage } from 'ui';
 const Timeline: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
-  const seeThroughProfile = useTimelineStore((state) => state.seeThroughProfile);
+  const feedEventFilters = useTimelinePersistStore(
+    (state) => state.feedEventFilters
+  );
+  const seeThroughProfile = useTimelineStore(
+    (state) => state.seeThroughProfile
+  );
   const [hasMore, setHasMore] = useState(true);
 
   const getFeedEventItems = () => {
@@ -27,20 +31,30 @@ const Timeline: FC = () => {
       filters.push(FeedEventItemType.Post, FeedEventItemType.Comment);
     }
     if (feedEventFilters.collects) {
-      filters.push(FeedEventItemType.CollectPost, FeedEventItemType.CollectComment);
+      filters.push(
+        FeedEventItemType.CollectPost,
+        FeedEventItemType.CollectComment
+      );
     }
     if (feedEventFilters.mirrors) {
       filters.push(FeedEventItemType.Mirror);
     }
     if (feedEventFilters.likes) {
-      filters.push(FeedEventItemType.ReactionPost, FeedEventItemType.ReactionComment);
+      filters.push(
+        FeedEventItemType.ReactionPost,
+        FeedEventItemType.ReactionComment
+      );
     }
     return filters;
   };
 
   // Variables
   const profileId = seeThroughProfile?.id ?? currentProfile?.id;
-  const request: FeedRequest = { profileId, limit: 50, feedEventItemTypes: getFeedEventItems() };
+  const request: FeedRequest = {
+    profileId,
+    limit: 50,
+    feedEventItemTypes: getFeedEventItems()
+  };
   const reactionRequest = currentProfile ? { profileId } : null;
 
   const { data, loading, error, fetchMore } = useTimelineQuery({
@@ -57,7 +71,11 @@ const Timeline: FC = () => {
       }
 
       await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+        variables: {
+          request: { ...request, cursor: pageInfo?.next },
+          reactionRequest,
+          profileId
+        }
       }).then(({ data }) => {
         setHasMore(data?.feed?.items?.length > 0);
       });
@@ -69,7 +87,12 @@ const Timeline: FC = () => {
   }
 
   if (publications?.length === 0) {
-    return <EmptyState message={t`No posts yet!`} icon={<CollectionIcon className="text-brand h-8 w-8" />} />;
+    return (
+      <EmptyState
+        message={t`No posts yet!`}
+        icon={<CollectionIcon className="text-brand h-8 w-8" />}
+      />
+    );
   }
 
   if (error) {

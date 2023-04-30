@@ -33,7 +33,9 @@ const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 
-  return <GrowthBookProvider growthbook={growthbook}>{children}</GrowthBookProvider>;
+  return (
+    <GrowthBookProvider growthbook={growthbook}>{children}</GrowthBookProvider>
+  );
 };
 
 export default FeatureFlagsProvider;

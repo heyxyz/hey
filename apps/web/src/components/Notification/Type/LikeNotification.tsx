@@ -55,9 +55,19 @@ const LikeNotification: FC<LikeNotificationProps> = ({ notification }) => {
           <Trans
             id={messages[typeName]?.id || defaultMessage(typeName)}
             components={[
-              <span className="pl-0.5 text-gray-600 dark:text-gray-400" key="" />,
-              <NotificationProfileName profile={notification?.profile} key="" />,
-              <Link href={`/posts/${notification?.publication?.id}`} className="font-bold" key="" />
+              <span
+                className="pl-0.5 text-gray-600 dark:text-gray-400"
+                key=""
+              />,
+              <NotificationProfileName
+                profile={notification?.profile}
+                key=""
+              />,
+              <Link
+                href={`/posts/${notification?.publication?.id}`}
+                className="font-bold"
+                key=""
+              />
             ]}
           />
           <Link
@@ -68,7 +78,10 @@ const LikeNotification: FC<LikeNotificationProps> = ({ notification }) => {
           </Link>
         </div>
       </div>
-      <div className="text-[12px] text-gray-400" title={formatTime(notification?.createdAt)}>
+      <div
+        className="text-[12px] text-gray-400"
+        title={formatTime(notification?.createdAt)}
+      >
         {getTimeFromNow(notification?.createdAt)}
       </div>
     </div>

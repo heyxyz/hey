@@ -33,11 +33,18 @@ const Header: FC<HeaderProps> = ({ proposal }) => {
           {space?.name ?? space?.id}
         </Link>
         <span>by</span>
-        <Link href={`https://snapshot.org/#/profile/${proposal.author}`} target="_blank">
+        <Link
+          href={`https://snapshot.org/#/profile/${proposal.author}`}
+          target="_blank"
+        >
           {formatAddress(proposal.author)}
         </Link>
       </div>
-      <Link href={`${spaceUrl}/proposal/${proposal.id}`} className="font-bold" target="_blank">
+      <Link
+        href={`${spaceUrl}/proposal/${proposal.id}`}
+        className="font-bold"
+        target="_blank"
+      >
         {proposal.title}
       </Link>
     </>

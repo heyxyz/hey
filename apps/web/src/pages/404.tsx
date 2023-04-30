@@ -10,7 +10,12 @@ const Custom404: FC = () => {
   return (
     <div className="page-center flex-col">
       <MetaTags title={`404 • ${APP_NAME}`} />
-      <img src={`${STATIC_IMAGES_URL}/gifs/nyan-cat.gif`} alt="Nyan Cat" className="h-60" height={240} />
+      <img
+        src={`${STATIC_IMAGES_URL}/gifs/nyan-cat.gif`}
+        alt="Nyan Cat"
+        className="h-60"
+        height={240}
+      />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">
           <Trans>Oops, Lost‽</Trans>
@@ -19,7 +24,11 @@ const Custom404: FC = () => {
           <Trans>This page could not be found.</Trans>
         </div>
         <Link href="/">
-          <Button className="item-center mx-auto flex" size="lg" icon={<HomeIcon className="h-4 w-4" />}>
+          <Button
+            className="item-center mx-auto flex"
+            size="lg"
+            icon={<HomeIcon className="h-4 w-4" />}
+          >
             <Trans>Go to home</Trans>
           </Button>
         </Link>

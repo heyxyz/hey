@@ -12,7 +12,10 @@ const useNft = ({
   address,
   chainId,
   enabled
-}: UseNftProps): { data: { contractMetadata: { name: string; symbol: string } }; error: unknown } => {
+}: UseNftProps): {
+  data: { contractMetadata: { name: string; symbol: string } };
+  error: unknown;
+} => {
   const getAlchemyChainName = () => {
     switch (chainId) {
       case 1:
@@ -37,9 +40,13 @@ const useNft = ({
     return response.data;
   };
 
-  const { data, error } = useQuery(['nftData'], () => loadContractDetails().then((res) => res), {
-    enabled
-  });
+  const { data, error } = useQuery(
+    ['nftData'],
+    () => loadContractDetails().then((res) => res),
+    {
+      enabled
+    }
+  );
 
   return { data, error };
 };

@@ -1,5 +1,8 @@
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
-import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
+import {
+  HeartIcon as HeartIconSolid,
+  SunIcon as SunIconSolid
+} from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
@@ -7,7 +10,11 @@ import clsx from 'clsx';
 import Errors from 'data/errors';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
-import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
+import {
+  ReactionTypes,
+  useAddReactionMutation,
+  useRemoveReactionMutation
+} from 'lens';
 import type { ApolloCache } from 'lens/apollo';
 import { publicationKeyFields } from 'lens/apollo/lib';
 import hasGm from 'lib/hasGm';
@@ -32,20 +39,31 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
   const [liked, setLiked] = useState(
-    (isMirror ? publication?.mirrorOf?.reaction : publication?.reaction) === 'UPVOTE'
+    (isMirror ? publication?.mirrorOf?.reaction : publication?.reaction) ===
+      'UPVOTE'
   );
   const [count, setCount] = useState(
-    isMirror ? publication?.mirrorOf?.stats?.totalUpvotes : publication?.stats?.totalUpvotes
+    isMirror
+      ? publication?.mirrorOf?.stats?.totalUpvotes
+      : publication?.stats?.totalUpvotes
   );
 
-  const updateCache = (cache: ApolloCache<any>, type: ReactionTypes.Upvote | ReactionTypes.Downvote) => {
+  const updateCache = (
+    cache: ApolloCache<any>,
+    type: ReactionTypes.Upvote | ReactionTypes.Downvote
+  ) => {
     if (showCount || hideLikesCount) {
       cache.modify({
-        id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
+        id: publicationKeyFields(
+          isMirror ? publication?.mirrorOf : publication
+        ),
         fields: {
           stats: (stats) => ({
             ...stats,
-            totalUpvotes: type === ReactionTypes.Upvote ? stats.totalUpvotes + 1 : stats.totalUpvotes - 1
+            totalUpvotes:
+              type === ReactionTypes.Upvote
+                ? stats.totalUpvotes + 1
+                : stats.totalUpvotes - 1
           })
         }
       });
@@ -107,7 +125,10 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
         request: {
           profileId: currentProfile?.id,
           reaction: ReactionTypes.Upvote,
-          publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+          publicationId:
+            publication.__typename === 'Mirror'
+              ? publication?.mirrorOf?.id
+              : publication?.id
         }
       }
     };
@@ -123,12 +144,19 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     }
   };
 
-  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount
+    ? 'w-[17px] sm:w-[20px]'
+    : 'w-[15px] sm:w-[18px]';
   const { content } = publication.metadata;
   const isGM = hasGm(content);
 
   return (
-    <div className={clsx(isGM ? 'text-yellow-600' : 'text-pink-500', 'flex items-center space-x-1')}>
+    <div
+      className={clsx(
+        isGM ? 'text-yellow-600' : 'text-pink-500',
+        'flex items-center space-x-1'
+      )}
+    >
       <motion.button
         whileTap={{ scale: 0.9 }}
         animate={{
@@ -143,7 +171,11 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
             'rounded-full p-1.5 hover:bg-opacity-20'
           )}
         >
-          <Tooltip placement="top" content={liked ? t`Dislike` : t`Like`} withDelay>
+          <Tooltip
+            placement="top"
+            content={liked ? t`Dislike` : t`Like`}
+            withDelay
+          >
             {liked ? (
               isGM ? (
                 <SunIconSolid className={iconClassName} />

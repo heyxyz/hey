@@ -6,7 +6,12 @@ interface PublicationState {
   setShowNewPostModal: (showNewPostModal: boolean) => void;
   publicationContent: string;
   setPublicationContent: (publicationContent: string) => void;
-  audioPublication: { title: string; author: string; cover: string; coverMimeType: string };
+  audioPublication: {
+    title: string;
+    author: string;
+    cover: string;
+    coverMimeType: string;
+  };
   setAudioPublication: (audioPublication: {
     title: string;
     author: string;
@@ -23,7 +28,11 @@ interface PublicationState {
     type?: string;
     uploading?: boolean;
   };
-  setVideoThumbnail: (videoThumbnail: { url?: string; type?: string; uploading?: boolean }) => void;
+  setVideoThumbnail: (videoThumbnail: {
+    url?: string;
+    type?: string;
+    uploading?: boolean;
+  }) => void;
   videoDurationInSeconds: string;
   setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
   isUploading: boolean;
@@ -42,8 +51,14 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   showNewPostModal: false,
   setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
   publicationContent: '',
-  setPublicationContent: (publicationContent) => set(() => ({ publicationContent })),
-  audioPublication: { title: '', author: '', cover: '', coverMimeType: 'image/jpeg' },
+  setPublicationContent: (publicationContent) =>
+    set(() => ({ publicationContent })),
+  audioPublication: {
+    title: '',
+    author: '',
+    cover: '',
+    coverMimeType: 'image/jpeg'
+  },
   setAudioPublication: (audioPublication) => set(() => ({ audioPublication })),
   attachments: [],
   setAttachments: (attachments) => set(() => ({ attachments })),
@@ -76,12 +91,14 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   videoThumbnail: { url: '', type: '', uploading: false },
   setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
   videoDurationInSeconds: '',
-  setVideoDurationInSeconds: (videoDurationInSeconds) => set(() => ({ videoDurationInSeconds })),
+  setVideoDurationInSeconds: (videoDurationInSeconds) =>
+    set(() => ({ videoDurationInSeconds })),
   isUploading: false,
   setIsUploading: (isUploading) => set(() => ({ isUploading })),
   showPollEditor: false,
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
   pollConfig: { length: 7, choices: ['', ''] },
   setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
-  resetPollConfig: () => set(() => ({ pollConfig: { length: 7, choices: ['', ''] } }))
+  resetPollConfig: () =>
+    set(() => ({ pollConfig: { length: 7, choices: ['', ''] } }))
 }));

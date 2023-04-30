@@ -5,7 +5,9 @@ import { WEB_BASE_URL } from 'test/constants';
 // Check footer is present
 test('should have footer', async ({ page }) => {
   await page.goto(WEB_BASE_URL);
-  await expect(page.getByTestId('footer')).toContainText(`© ${new Date().getFullYear()} ${APP_NAME}`);
+  await expect(page.getByTestId('footer')).toContainText(
+    `© ${new Date().getFullYear()} ${APP_NAME}`
+  );
 });
 
 // Check locale selector is present

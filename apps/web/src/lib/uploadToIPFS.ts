@@ -44,12 +44,19 @@ const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
           Bucket: S3_BUCKET.LENSTER_MEDIA,
           Key: uuid()
         };
-        await client.putObject({ ...params, Body: file, ContentType: file.type });
+        await client.putObject({
+          ...params,
+          Body: file,
+          ContentType: file.type
+        });
         const result = await client.headObject(params);
         const metadata = result.Metadata;
 
         return {
-          original: { url: `ipfs://${metadata?.['ipfs-hash']}`, mimeType: file.type || FALLBACK_TYPE }
+          original: {
+            url: `ipfs://${metadata?.['ipfs-hash']}`,
+            mimeType: file.type || FALLBACK_TYPE
+          }
         };
       })
     );
@@ -78,7 +85,10 @@ export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
     const metadata = result.Metadata;
 
     return {
-      original: { url: `ipfs://${metadata?.['ipfs-hash']}`, mimeType: file.type || FALLBACK_TYPE }
+      original: {
+        url: `ipfs://${metadata?.['ipfs-hash']}`,
+        mimeType: file.type || FALLBACK_TYPE
+      }
     };
   } catch {
     return {
