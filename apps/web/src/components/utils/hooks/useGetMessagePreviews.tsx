@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 
 import { useMessageDb } from './useMessageDb';
+import { useAppStore } from 'src/store/app';
 
 const fetchMostRecentMessage = async (
   convo: Conversation,
@@ -28,6 +29,7 @@ const useGetMessagePreviews = () => {
   const conversations = useMessageStore((state) => state.conversations);
   const previewMessages = useMessageStore((state) => state.previewMessages);
   const client = useMessageStore((state) => state.client);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const { batchPersistPreviewMessages } = useMessageDb();
   const hasSyncedMessages = useMessageStore((state) => state.hasSyncedMessages);
   const setHasSyncedMessages = useMessageStore(
@@ -82,7 +84,6 @@ const useGetMessagePreviews = () => {
         ).filter((m) => !!m) as [string, DecodedMessage][];
         await batchPersistPreviewMessages(new Map(batch));
       }
-
       setLoading(false);
       setHasSyncedMessages(true);
       loadingRef.current = false;
@@ -90,7 +91,11 @@ const useGetMessagePreviews = () => {
 
     getMessagePreviews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [client, conversations]);
+  }, [client, conversations, currentProfile?.id]);
+
+  useEffect(() => {
+    setHasSyncedMessages(false);
+  }, currentProfile?.id);
 
   return {
     loading,
