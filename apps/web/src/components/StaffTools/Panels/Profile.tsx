@@ -1,5 +1,4 @@
 import {
-  AtSymbolIcon,
   CashIcon,
   HandIcon,
   HashtagIcon,
@@ -34,7 +33,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <Trans>Staff tool</Trans>
         </div>
       </div>
-      <div className="mt-3 space-y-1.5">
+      <div className="mt-3 space-y-2">
         {getProfileAttribute(profile?.attributes, 'app') === APP_NAME && (
           <MetaDetails
             icon={
@@ -65,6 +64,15 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         >
           {formatAddress(profile?.ownedBy)}
         </MetaDetails>
+        {profile?.followNftAddress ? (
+          <MetaDetails
+            icon={<PhotographIcon className="lt-text-gray-500 h-4 w-4" />}
+            value={profile?.followNftAddress}
+            title={t`NFT address`}
+          >
+            {formatAddress(profile?.followNftAddress)}
+          </MetaDetails>
+        ) : null}
         <MetaDetails
           icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
@@ -78,22 +86,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           title={t`Gas sponsored`}
         >
           {profile?.dispatcher?.sponsor ? 'Yes' : 'No'}
-        </MetaDetails>
-        {profile?.followNftAddress ? (
-          <MetaDetails
-            icon={<PhotographIcon className="lt-text-gray-500 h-4 w-4" />}
-            value={profile?.followNftAddress}
-            title={t`NFT address`}
-          >
-            {formatAddress(profile?.followNftAddress)}
-          </MetaDetails>
-        ) : null}
-        <MetaDetails
-          icon={<AtSymbolIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={formatHandle(profile?.handle)}
-          title={t`Handle`}
-        >
-          {formatHandle(profile?.handle)}
         </MetaDetails>
         <MetaDetails
           icon={<IdentificationIcon className="lt-text-gray-500 h-4 w-4" />}

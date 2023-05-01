@@ -1,13 +1,7 @@
-import {
-  CollectionIcon,
-  GlobeAltIcon,
-  HashtagIcon,
-  LinkIcon
-} from '@heroicons/react/outline';
+import { CollectionIcon, HashtagIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { Card } from 'ui';
 
@@ -30,7 +24,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
           <Trans>Staff tool</Trans>
         </div>
       </div>
-      <div className="mt-3 space-y-1.5">
+      <div className="mt-3 space-y-2">
         <MetaDetails
           icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
           value={publication?.id}
@@ -47,33 +41,15 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
             {publication?.commentOn?.id}
           </MetaDetails>
         ) : null}
-        <MetaDetails
-          icon={<CollectionIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={publication?.collectModule?.type}
-          title={t`Collect module`}
-        >
-          {publication?.collectModule?.type}
-        </MetaDetails>
-        <MetaDetails
-          icon={<GlobeAltIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={publication?.appId}
-          title={t`App ID`}
-        >
-          {publication?.appId}
-        </MetaDetails>
-        <MetaDetails
-          icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={sanitizeDStorageUrl(publication?.onChainContentURI)}
-          title={t`On-chain content URI`}
-        >
-          <a
-            href={sanitizeDStorageUrl(publication?.onChainContentURI)}
-            target="_blank"
-            rel="noreferrer"
+        {publication?.collectModule?.type ? (
+          <MetaDetails
+            icon={<CollectionIcon className="lt-text-gray-500 h-4 w-4" />}
+            value={publication?.collectModule?.type}
+            title={t`Collect module`}
           >
-            <Trans>Open</Trans>
-          </a>
-        </MetaDetails>
+            {publication?.collectModule?.type}
+          </MetaDetails>
+        ) : null}
       </div>
     </Card>
   );
