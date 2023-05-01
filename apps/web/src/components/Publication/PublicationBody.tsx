@@ -86,7 +86,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
             href={getGoogleTranslateUrl(publication?.metadata?.content)}
             target="_blank"
           >
-            <Trans>🌐 Translate with Google Translate</Trans>
+            <Trans>🌐 Translate</Trans>
           </Link>
         </div>
       )}
