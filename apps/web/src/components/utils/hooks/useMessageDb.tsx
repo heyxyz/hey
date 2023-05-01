@@ -32,7 +32,11 @@ export const useMessageDb = () => {
       assertProfileId(myProfileId);
       await db.transaction('rw', db.previewMessages, async () => {
         for (const [conversationKey, message] of previewMap.entries()) {
-          const record = decodedMessageToPreview(conversationKey, currentProfile?.id, message);
+          const record = decodedMessageToPreview(
+            conversationKey,
+            currentProfile?.id,
+            message
+          );
           await db.persistPreviewMessage(record);
         }
       });
@@ -44,7 +48,11 @@ export const useMessageDb = () => {
     async (conversationKey: string, message: DecodedMessage) => {
       const myProfileId = currentProfile?.id;
       assertProfileId(myProfileId);
-      const record = decodedMessageToPreview(conversationKey, myProfileId, message);
+      const record = decodedMessageToPreview(
+        conversationKey,
+        myProfileId,
+        message
+      );
       await db.persistPreviewMessage(record);
     },
     [currentProfile]
@@ -78,7 +86,10 @@ export const useMessageDb = () => {
     if (!currentProfile) {
       return;
     }
-    return db.previewMessages.where('myProfileId').equals(currentProfile.id).sortBy('sent');
+    return db.previewMessages
+      .where('myProfileId')
+      .equals(currentProfile.id)
+      .sortBy('sent');
   }, [currentProfile]);
 
   const messageProfiles = useLiveQuery(async () => {
@@ -86,7 +97,10 @@ export const useMessageDb = () => {
       return;
     }
 
-    const profiles = await db.lensProfiles.where('myProfileId').equals(currentProfile.id).sortBy('name');
+    const profiles = await db.lensProfiles
+      .where('myProfileId')
+      .equals(currentProfile.id)
+      .sortBy('name');
 
     return new Map(profiles.map((p) => [p.conversationKey, p]));
   }, [currentProfile]);
@@ -101,7 +115,10 @@ export const useMessageDb = () => {
   };
 };
 
-export const useGetProfile = (myProfileId: string | undefined, conversationKey: string) => {
+export const useGetProfile = (
+  myProfileId: string | undefined,
+  conversationKey: string
+) => {
   const profile = useLiveQuery(() => {
     if (!myProfileId) {
       return;

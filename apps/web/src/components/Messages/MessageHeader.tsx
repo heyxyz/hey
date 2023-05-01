@@ -56,7 +56,11 @@ const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
           followSource={FollowSource.DIRECT_MESSAGE_HEADER}
         />
       ) : (
-        <Unfollow showText profile={profile} setFollowing={setFollowingWrapped} />
+        <Unfollow
+          showText
+          profile={profile}
+          setFollowing={setFollowingWrapped}
+        />
       )}
     </div>
   );

@@ -30,7 +30,11 @@ export class MessageDB extends Dexie {
 
   async persistPreviewMessage(message: PreviewMessage) {
     const { conversationKey, myProfileId, sent } = message;
-    await this.previewMessages.put(message, [conversationKey, myProfileId, sent]);
+    await this.previewMessages.put(message, [
+      conversationKey,
+      myProfileId,
+      sent
+    ]);
   }
 
   async persistProfile(profile: LensProfile) {
