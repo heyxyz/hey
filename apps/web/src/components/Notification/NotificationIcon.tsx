@@ -3,7 +3,7 @@ import { CustomFiltersTypes, useNotificationCountQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
 import { useNotificationPersistStore } from 'src/store/notification';
 
 const NotificationIcon: FC = () => {
@@ -42,6 +42,7 @@ const NotificationIcon: FC = () => {
       setNotificationCount(currentProfile?.id, currentTotalCount);
       setUnreadNotificationCount(0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading]);
 
   return (
