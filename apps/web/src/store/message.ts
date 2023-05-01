@@ -14,12 +14,10 @@ interface MessageState {
   setConversations: (conversations: Map<string, Conversation>) => void;
   addConversation: (key: string, newConversation: Conversation) => void;
   messages: Map<string, DecodedMessage[]>;
-  setMessages: (messages: Map<string, DecodedMessage[]>) => void;
   addMessages: (key: string, newMessages: DecodedMessage[]) => number;
   hasSyncedMessages: boolean;
   setHasSyncedMessages: (hasSyncedMessages: boolean) => void;
   previewMessages: Map<string, DecodedMessage>;
-  setPreviewMessage: (key: string, message: DecodedMessage) => void;
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
@@ -44,7 +42,6 @@ export const useMessageStore = create<MessageState>((set) => ({
     });
   },
   messages: new Map(),
-  setMessages: (messages) => set(() => ({ messages })),
   addMessages: (key: string, newMessages: DecodedMessage[]) => {
     let numAdded = 0;
     set((state) => {
@@ -65,12 +62,6 @@ export const useMessageStore = create<MessageState>((set) => ({
   setHasSyncedMessages: (hasSyncedMessages) =>
     set(() => ({ hasSyncedMessages })),
   previewMessages: new Map(),
-  setPreviewMessage: (key: string, message: DecodedMessage) =>
-    set((state) => {
-      const newPreviewMessages = new Map(state.previewMessages);
-      newPreviewMessages.set(key, message);
-      return { previewMessages: newPreviewMessages };
-    }),
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
