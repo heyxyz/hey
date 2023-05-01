@@ -1,5 +1,7 @@
+import { getCAIPFromLensID } from '@components/Messages/Push/helper';
 import * as PushAPI from '@pushprotocol/restapi';
 import { useCallback, useState } from 'react';
+import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { useSigner } from 'wagmi';
 
@@ -14,12 +16,16 @@ const usePushSendMessage = () => {
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const { data: signer } = useSigner();
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const sendMessage = useCallback(
     async ({ message, receiver, messageType = 'Text' }: SendMessageParams): Promise<boolean | undefined> => {
+      if (!currentProfile) {
+        return;
+      }
       if (!decryptedPgpPvtKey || !message || !signer) {
         setError('something went wrong');
         return false;
@@ -30,7 +36,7 @@ const usePushSendMessage = () => {
           messageContent: message,
           messageType: messageType,
           receiverAddress: receiver,
-          signer,
+          account: getCAIPFromLensID(currentProfile.id),
           pgpPrivateKey: decryptedPgpPvtKey,
           env: PUSH_ENV
         });
@@ -38,6 +44,7 @@ const usePushSendMessage = () => {
         if (!response) {
           return false;
         }
+        // TODO: set new message in store
         return true;
       } catch (error: Error | any) {
         setLoading(false);
@@ -45,7 +52,7 @@ const usePushSendMessage = () => {
         console.log(error);
       }
     },
-    [decryptedPgpPvtKey, signer]
+    [currentProfile, decryptedPgpPvtKey, signer]
   );
   return { sendMessage, error, loading };
 };
