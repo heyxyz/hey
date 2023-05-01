@@ -138,7 +138,7 @@ const PreviewList: FC<PreviewListProps> = ({
             active={selectedTab === 'Requested'}
             onClick={() => setSelectedTab('Requested')}
             icon={<UserAddIcon className="h-4 w-4" />}
-            count={requestedCount > 99 ? '99+' : requestedCount}
+            count={requestedCount > 99 ? '99+' : requestedCount.toString()}
             showOnSm
           />
         </div>
