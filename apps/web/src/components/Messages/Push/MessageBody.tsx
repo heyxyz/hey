@@ -3,8 +3,10 @@ import EmojiPicker from 'emoji-picker-react';
 import GifPicker from 'gif-picker-react';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { usePushChatStore } from 'src/store/push-chat';
+import { usePushChatStore, PUSH_TABS } from 'src/store/push-chat';
 import { Image, Input } from 'ui';
+import useApproveChatRequest from '@components/utils/hooks/push/useApproveChatRequest';
+import { getCAIPFromLensID } from './helper';
 
 type GIFType = {
   url: String;
@@ -46,7 +48,7 @@ export default function MessageBody() {
   const rawChats = usePushChatStore((state) => state.chats);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
-
+  const activeTab = usePushChatStore((state) => state.activeTab);
   const threadHash = usePushChatStore((state) => state.threadHash);
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
   const [chats, setChats] = useState<Record<string, Array<ChatType>>>({});
@@ -54,6 +56,21 @@ export default function MessageBody() {
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const { historyMessages, loading } = useGetHistoryMessages();
+  const { approveChatRequest, error } = useApproveChatRequest();
+
+  const handleApprovechatRequest = async () => {
+    console.log(getCAIPFromLensID(selectedChatId))
+    if(selectedChatId) {
+      try {
+        const response = await approveChatRequest({ senderAddress: getCAIPFromLensID(selectedChatId) });
+         console.log({ response });
+      } catch(err: Error | any) {
+        console.log(err.message)
+      }
+    } else {
+      return;
+    }
+  }
 
   useEffect(() => {
     (async function () {
@@ -136,6 +153,23 @@ export default function MessageBody() {
             </div>
           </section>
         ))}
+        { activeTab === PUSH_TABS.REQUESTS &&
+        <div>
+          <div className='top-52 absolute max-w-xlg border border-solid border-gray-300 rounded-e rounded-r-2xl rounded-bl-2xl p-2'>
+            Have you heard the latest collaboration between Push and Lenster? It's amazing!
+          </div>
+          <div className='top-64 absolute w-96 border border-solid border-gray-300 rounded-e rounded-r-2xl rounded-bl-2xl p-2 flex'>
+            <div>
+              This is your first conversation with the sender.
+              Please accept to continue.
+            </div>
+            <Image
+              className="h-12"
+              onClick={handleApprovechatRequest}
+              src="/push/CheckCircle.svg" alt='check' />
+          </div>
+        </div>
+        }
       </div>
       <div className="relative mt-2">
         <Image
