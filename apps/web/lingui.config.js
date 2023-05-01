@@ -15,7 +15,7 @@ module.exports = {
     lineNumbers: false
   },
   orderBy: 'origin',
-  locales: ['en', 'es', 'ta', 'zh', 'kn', 'ru'],
+  locales: ['en', 'es', 'ta', 'zh', 'ru', 'fr'],
   sourceLocale: 'en',
   fallbackLocales: {
     default: 'en'
