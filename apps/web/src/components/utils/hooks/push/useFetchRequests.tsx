@@ -1,4 +1,4 @@
-import { getProfileFromDID } from '@components/Messages/Push/Helper';
+import { getProfileFromDID } from '@components/Messages/Push/helper';
 import type { IFeeds } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
 import { LENSHUB_PROXY } from 'data';
