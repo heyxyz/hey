@@ -4,7 +4,12 @@ import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
 import useGetMessagePreviews from '@components/utils/hooks/useGetMessagePreviews';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
-import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
+import {
+  MailIcon,
+  PlusCircleIcon,
+  UserAddIcon,
+  UsersIcon
+} from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Mixpanel } from '@lib/mixpanel';
@@ -19,7 +24,14 @@ import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import { Card, EmptyState, ErrorMessage, GridItemFour, Modal } from 'ui';
+import {
+  Card,
+  EmptyState,
+  ErrorMessage,
+  GridItemFour,
+  Modal,
+  TabButton
+} from 'ui';
 
 interface PreviewListProps {
   className?: string;
@@ -111,36 +123,27 @@ const PreviewList: FC<PreviewListProps> = ({
             />
           )}
         </div>
-        <div className="flex">
-          <div
+        <div className="flex space-x-2 px-4 py-3">
+          <TabButton
+            className="w-full !py-2"
+            name={t`Following`}
+            active={selectedTab === 'Following'}
             onClick={() => setSelectedTab('Following')}
-            className={clsx(
-              'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Following' ? 'bg-brand-100' : ''
-            )}
-            aria-hidden="true"
-          >
-            <UsersIcon className="mr-2 h-4 w-4" />
-            <Trans>Following</Trans>
-          </div>
-          <div
+            icon={<UsersIcon className="h-4 w-4" />}
+            showOnSm
+          />
+          <TabButton
+            className="w-full !py-2"
+            name={t`Requested`}
+            active={selectedTab === 'Requested'}
             onClick={() => setSelectedTab('Requested')}
-            className={clsx(
-              'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Requested' ? 'bg-brand-100' : ''
-            )}
-            aria-hidden="true"
-          >
-            <Trans>Requested</Trans>
-            {requestedCount > 0 && (
-              <span className="bg-brand-200 ml-2 rounded-2xl px-3 py-0.5 text-sm font-bold">
-                {requestedCount > 99 ? '99+' : requestedCount}
-              </span>
-            )}
-          </div>
+            icon={<UserAddIcon className="h-4 w-4" />}
+            count={requestedCount > 99 ? '99+' : requestedCount.toString()}
+            showOnSm
+          />
         </div>
         {selectedTab === 'Requested' ? (
-          <div className="mt-1 bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
+          <div className="bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
             <Trans>
               These conversations are from Lens profiles that you don't
               currently follow.
