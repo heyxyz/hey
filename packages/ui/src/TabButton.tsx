@@ -7,7 +7,7 @@ interface TabButtonProps {
   icon: ReactNode;
   active: boolean;
   type?: string;
-  count?: string | number;
+  count?: string;
   className?: string;
   showOnSm?: boolean;
   onClick: () => void;
