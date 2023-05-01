@@ -151,8 +151,8 @@ importers:
         specifier: 6.8.2-alpha.0
         version: 6.8.2-alpha.0(@babel/core@7.21.5)(@types/react@18.2.0)(react-dom@18.2.0)(react@18.2.0)
       '@growthbook/growthbook-react':
-        specifier: ^0.15.0
-        version: 0.15.0(react@18.2.0)
+        specifier: ^0.16.0
+        version: 0.16.0(react@18.2.0)
       '@headlessui/react':
         specifier: ^1.7.14
         version: 1.7.14(react-dom@18.2.0)(react@18.2.0)
@@ -292,8 +292,8 @@ importers:
         specifier: ^8.0.7
         version: 8.0.7(@types/react@18.2.0)(react@18.2.0)
       react-virtuoso:
-        specifier: ^4.3.3
-        version: 4.3.3(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^4.3.4
+        version: 4.3.4(react-dom@18.2.0)(react@18.2.0)
       remark-breaks:
         specifier: ^3.0.2
         version: 3.0.2
@@ -441,8 +441,8 @@ importers:
         specifier: ^8.39.0
         version: 8.39.0
       eslint-config-next:
-        specifier: ^13.3.2
-        version: 13.3.2(eslint@8.39.0)(typescript@5.0.4)
+        specifier: ^13.3.4
+        version: 13.3.4(eslint@8.39.0)(typescript@5.0.4)
       eslint-plugin-prettier:
         specifier: ^4.2.1
         version: 4.2.1(eslint@8.39.0)(prettier@2.8.8)
@@ -6415,21 +6415,21 @@ packages:
     dependencies:
       graphql: 16.6.0
 
-  /@growthbook/growthbook-react@0.15.0(react@18.2.0):
-    resolution: {integrity: sha512-GB6oyWKsxi9KguYAJqG2el+a16eLi8kZIdObeM4K8qfjw2hV73bI+lszpgInUBPrkJuB1LvNZ5M0lLpAULgOgA==}
+  /@growthbook/growthbook-react@0.16.0(react@18.2.0):
+    resolution: {integrity: sha512-JEd2ff+pNM5g5HWBb7BYl/bLlwECe+LN8XuliPQ9oo6oX3awBtSo5yIJ21+U8oj3qtmA+leG5b5PNtzKAvYJBg==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16.8.0-0 || ^17.0.0-0 || ^18.0.0-0
     dependencies:
-      '@growthbook/growthbook': 0.25.0
+      '@growthbook/growthbook': 0.26.0
       react: 18.2.0
     dev: false
 
-  /@growthbook/growthbook@0.25.0:
-    resolution: {integrity: sha512-H0L2i5G5UtaoU34zDGxxNfF0LezL5fbr31XXqIPu1faGeJ1ujBvfFT8/99EKS26dO6YzwCNU47PlPD+XV/5akw==}
+  /@growthbook/growthbook@0.26.0:
+    resolution: {integrity: sha512-Y5TOOxm8j1UEirj2AA2VQTrvJK5UGFmo6jJQLGUbNN3CSIjr+4qwb2s5dtiyNGX5Qzq/BV2/SB9G/mC+Lpc5sg==}
     engines: {node: '>=10'}
     dependencies:
-      dom-mutator: 0.4.0
+      dom-mutator: 0.5.0
     dev: false
 
   /@hapi/hoek@9.3.0:
@@ -7382,8 +7382,8 @@ packages:
     resolution: {integrity: sha512-W+RJPtDj8PhOmZFi0MMhFoyWCz4tJeDEm7WtTTKflD+fgvmxpuOwxfQ2RWMz2gwnz6gL6hCuXtCtPpBBHDB7rg==}
     dev: false
 
-  /@next/eslint-plugin-next@13.3.2:
-    resolution: {integrity: sha512-YHugXBtXWVUjSMRirZPxDlDn3LvYpuCqaRlIHgKA52Q6PVtYtmFjhzYQ8LuN9mKCKF5NOZcrf3jya2uL8WQwuw==}
+  /@next/eslint-plugin-next@13.3.4:
+    resolution: {integrity: sha512-mvS+HafOPy31oJbAi920WJXMdjbyb4v5FAMr9PeGZfRIdEcsLkA3mU/ZvmwzovJgP3nAWw2e2yM8iIFW8VpvIA==}
     dependencies:
       glob: 7.1.7
     dev: true
@@ -12362,8 +12362,8 @@ packages:
       utila: 0.4.0
     dev: false
 
-  /dom-mutator@0.4.0:
-    resolution: {integrity: sha512-H8pcE9Tmmnxs6FTZCX4aRthcweGsVdytqpBSiVIDnTnmosXXYO+jatDWwRReMbJJsAmsnAWsc0Ht4ZYGdN8gZw==}
+  /dom-mutator@0.5.0:
+    resolution: {integrity: sha512-bbeX8HWE8JGzraFgbVBX4ws2g3heZFuTtrleQBuN7huy+7n2n7etSuVnot3/1z3jdY2MiwuvoS4Ep1UT2rrGBw==}
     engines: {node: '>=10'}
     dev: false
 
@@ -12808,8 +12808,8 @@ packages:
       source-map: 0.6.1
     dev: false
 
-  /eslint-config-next@13.3.2(eslint@8.39.0)(typescript@5.0.4):
-    resolution: {integrity: sha512-SHhE2Jo06wL3Y/hkb0in2FPXZJY3Q+6sTMUtlQkAYZFldRxoK4C5siXmuOcwSKBnaddVM1Az6GpTIDwFmKRwbg==}
+  /eslint-config-next@13.3.4(eslint@8.39.0)(typescript@5.0.4):
+    resolution: {integrity: sha512-TknEcP+EdTqLvJ2zMY1KnWqcx8ZHl1C2Tjjbq3qmtWcHRU5oxe1PAsz3vrKG3NOzonSaPcB2SpCSfYqcgj6nfA==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -12817,7 +12817,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@next/eslint-plugin-next': 13.3.2
+      '@next/eslint-plugin-next': 13.3.4
       '@rushstack/eslint-patch': 1.2.0
       '@typescript-eslint/parser': 5.59.1(eslint@8.39.0)(typescript@5.0.4)
       eslint: 8.39.0
@@ -17729,8 +17729,8 @@ packages:
       tslib: 2.5.0
     dev: false
 
-  /react-virtuoso@4.3.3(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-x0DeGmVAVOVaTXRMG7jzrHBwK7+dkt7n0G3tNmZXphQUBgkVBYuZoaJltQeZGFN42++3XvrgwStKCtmzgMJ0lA==}
+  /react-virtuoso@4.3.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-r+zxsUKCLBhjT4925xY7YQz3pVqiJvkxrN8OSBpCd5VBWJCVGt0lpZOVpDQ2nX7yuCELFMuZOiFNCCYSJ1/OHQ==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16 || >=17 || >= 18'
