@@ -123,7 +123,7 @@ const PreviewList: FC<PreviewListProps> = ({
             />
           )}
         </div>
-        <div className="flex space-x-2 p-4">
+        <div className="flex space-x-2 px-4 py-3">
           <TabButton
             className="w-full !py-2"
             name={t`Following`}
