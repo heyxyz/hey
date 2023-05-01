@@ -16,7 +16,7 @@ const Locale: FC = () => {
   const { on: isGatedLocalesEnabled } = useFeature(
     FeatureFlag.GatedLocales as string
   );
-  const gatedLocales = ['ta', 'es', 'kn', 'ru'];
+  const gatedLocales = ['ta', 'es', 'ru', 'fr'];
   const locales = Object.fromEntries(
     Object.entries(supportedLocales).filter(([key]) =>
       isGatedLocalesEnabled ? true : !gatedLocales.includes(key)
