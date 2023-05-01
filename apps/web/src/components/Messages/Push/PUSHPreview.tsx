@@ -2,6 +2,7 @@ import Search from '@components/Messages/Push/Search';
 import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
 import useFetchRequests from '@components/utils/hooks/push/useFetchRequests';
 import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
+import usePushChatSocket from '@components/utils/hooks/push/usePushChatSocket';
 import usePushDecryption from '@components/utils/hooks/push/usePushDecryption';
 import useUpgradeChatProfile from '@components/utils/hooks/push/useUpgradeChatProfile';
 import { Trans } from '@lingui/macro';
@@ -49,6 +50,9 @@ const PUSHPreview = () => {
     modalContent: decryptionModalContent,
     isModalClosable: isDecryptionModalClosable
   } = usePushDecryption();
+
+  // connect Push CHAT Socket
+  usePushChatSocket();
 
   const decryptAndUpgrade = useCallback(
     async (encryptedPvtKey: string) => {

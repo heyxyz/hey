@@ -39,7 +39,6 @@ const usePushDecryption = () => {
   const handleProgress = useCallback(
     (progress: ProgressHookType) => {
       setStep((step) => step + 1);
-      console.log(progress);
       setModalInfo({
         title: progress.progressTitle,
         info: progress.progressInfo,

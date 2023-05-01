@@ -68,6 +68,8 @@ interface IPushChatStore {
     decrypted: string | null;
   };
   setPgpPrivateKey: (pgpPrivateKey: { encrypted?: string; decrypted?: string }) => void;
+  pushChatSocket: any; // replace any with the actual type of socket connection
+  setPushChatSocket: (pushChatSocket: any) => void;
 }
 
 export const usePushChatStore = create<IPushChatStore>((set) => ({
@@ -151,6 +153,8 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
       return { pgpPrivateKey };
     });
   },
+  pushChatSocket: null,
+  setPushChatSocket: (pushChatSocket) => set(() => ({ pushChatSocket })),
   reset: () =>
     set((state) => {
       return {
