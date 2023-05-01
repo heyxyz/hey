@@ -2284,7 +2284,6 @@ msgid "Sign up to {APP_NAME}"
 msgstr "Зарегистрироваться на {APP_NAME}"
 
 #: src/components/Shared/Login/New/index.tsx
-#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr "Псевдоним"
 
@@ -2704,16 +2703,16 @@ msgid "Address"
 msgstr "Адрес"
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr "NFT адрес"
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
 msgstr "Можно использовать обработчик"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Gas sponsored"
 msgstr ""
-
-#: src/components/StaffTools/Panels/Profile.tsx
-msgid "NFT address"
-msgstr "NFT адрес"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
@@ -2724,7 +2723,6 @@ msgid "Metadata"
 msgstr "Метаданные"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
 msgstr "Открыть"
 
@@ -2739,14 +2737,6 @@ msgstr "Включить комментарии"
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
 msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "App ID"
-msgstr "ID приложения"
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "On-chain content URI"
-msgstr "Блокчейн контент URI"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
@@ -2862,4 +2852,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

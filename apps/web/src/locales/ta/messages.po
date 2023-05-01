@@ -2284,7 +2284,6 @@ msgid "Sign up to {APP_NAME}"
 msgstr "{APP_NAME} வரை பதிவு செய்யவும்"
 
 #: src/components/Shared/Login/New/index.tsx
-#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr "பயனர்பெயர்"
 
@@ -2704,16 +2703,16 @@ msgid "Address"
 msgstr "முகவரி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr "NFT முகவரி"
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
 msgstr "ரிலே பயன்படுத்தலாம்"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Gas sponsored"
 msgstr ""
-
-#: src/components/StaffTools/Panels/Profile.tsx
-msgid "NFT address"
-msgstr "NFT முகவரி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
@@ -2724,7 +2723,6 @@ msgid "Metadata"
 msgstr "மீத்தரவு"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
 msgstr "திறக்கவும்"
 
@@ -2738,14 +2736,6 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "App ID"
-msgstr "ஆப் ஐடி"
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "On-chain content URI"
 msgstr ""
 
 #: src/components/StaffTools/RelayQueues.tsx
@@ -2862,4 +2852,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
