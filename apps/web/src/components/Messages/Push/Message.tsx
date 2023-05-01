@@ -19,22 +19,29 @@ import MessageHeader from './MessageHeader';
 const Message = () => {
   const [showLoading, setShowLoading] = useState(false);
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
+
   const [loadProfiles] = useProfilesLazyQuery();
   const [profile, setProfile] = useState<Profile | null | ''>('');
 
   const loadProfile = useCallback(async () => {
     // only for chat for now, for groups, it'll change
-    const result = await loadProfiles({ variables: { request: { profileIds: [selectedChatId] } } });
-    if (result.data) {
-      setProfile(result.data.profiles.items[0] as Profile);
-    } else {
-      setProfile(null);
+    try {
+      setShowLoading(true);
+      const result = await loadProfiles({ variables: { request: { profileIds: [selectedChatId] } } });
+      if (result.data) {
+        setProfile(result.data.profiles.items[0] as Profile);
+        console.log(result.data.profiles.items[0]);
+      } else {
+        setProfile(null);
+      }
+    } finally {
+      setShowLoading(false);
     }
   }, [loadProfiles, selectedChatId]);
 
   useEffect(() => {
     loadProfile();
-  }, [loadProfile, selectedChatId]);
+  }, [loadProfile, selectedChatId, selectedChatId]);
 
   if (profile === null) {
     return <Custom404 />;
@@ -72,6 +79,7 @@ const MessagePage: NextPage = () => {
   const {
     query: { conversationKey }
   } = useRouter();
+  console.log(conversationKey);
   // useEffect(() => {
   //   Mixpanel.track(PAGEVIEW, { page: 'conversation' });
   // }, []);
