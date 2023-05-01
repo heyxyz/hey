@@ -21,7 +21,6 @@ interface MessageState {
   previewMessages: Map<string, DecodedMessage>;
   setPreviewMessage: (key: string, message: DecodedMessage) => void;
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
-  reset: () => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
   selectedTab: TabValues;
@@ -29,6 +28,7 @@ interface MessageState {
   syncedProfiles: Set<string>;
   addSyncedProfiles: (profileIds: string[]) => void;
   unsyncProfile: (profileId: string) => void;
+  reset: () => void;
 }
 
 export const useMessageStore = create<MessageState>((set) => ({
@@ -72,17 +72,6 @@ export const useMessageStore = create<MessageState>((set) => ({
       return { previewMessages: newPreviewMessages };
     }),
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
-  reset: () =>
-    set((state) => {
-      return {
-        ...state,
-        conversations: new Map(),
-        messages: new Map(),
-        messageProfiles: new Map(),
-        previewMessages: new Map(),
-        selectedTab: 'Following'
-      };
-    }),
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
     set(() => ({ selectedProfileId })),
@@ -98,7 +87,18 @@ export const useMessageStore = create<MessageState>((set) => ({
       syncedProfiles: new Set(
         [...syncedProfiles].filter((id) => id !== profileId)
       )
-    }))
+    })),
+  reset: () =>
+    set((state) => {
+      return {
+        ...state,
+        conversations: new Map(),
+        messages: new Map(),
+        messageProfiles: new Map(),
+        previewMessages: new Map(),
+        selectedTab: 'Following'
+      };
+    })
 }));
 
 // Each Map is storing a profileId as the key.
