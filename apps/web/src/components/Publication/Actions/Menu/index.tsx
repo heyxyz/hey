@@ -1,6 +1,8 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
+import { getPrimaryLanguage } from '@lib/i18n';
+import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
@@ -12,6 +14,7 @@ import Delete from './Delete';
 import Embed from './Embed';
 import Permalink from './Permalink';
 import Report from './Report';
+import Translate from './Translate';
 
 interface PublicationMenuProps {
   publication: Publication;
@@ -20,6 +23,13 @@ interface PublicationMenuProps {
 const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const iconClassName = 'w-[15px] sm:w-[18px]';
+
+  const { i18n } = useLingui();
+  const publicationLanguage: string = getPrimaryLanguage(
+    publication?.metadata?.locale
+  );
+  const enableTranslate =
+    publicationLanguage != getPrimaryLanguage(i18n.locale);
 
   return (
     <Menu as="div" className="relative">
@@ -48,6 +58,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           )}
           <Embed publication={publication} />
           <Permalink publication={publication} />
+          {enableTranslate && <Translate publication={publication} />}
         </Menu.Items>
       </MenuTransition>
     </Menu>
