@@ -61,7 +61,6 @@ export const useMessageStore = create<MessageState>((set) => ({
     });
     return numAdded;
   },
-
   hasSyncedMessages: false,
   setHasSyncedMessages: (hasSyncedMessages) =>
     set(() => ({ hasSyncedMessages })),
@@ -73,11 +72,6 @@ export const useMessageStore = create<MessageState>((set) => ({
       return { previewMessages: newPreviewMessages };
     }),
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
-  selectedProfileId: '',
-  setSelectedProfileId: (selectedProfileId) =>
-    set(() => ({ selectedProfileId })),
-  selectedTab: 'Following',
-  setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   reset: () =>
     set((state) => {
       return {
@@ -89,6 +83,11 @@ export const useMessageStore = create<MessageState>((set) => ({
         selectedTab: 'Following'
       };
     }),
+  selectedProfileId: '',
+  setSelectedProfileId: (selectedProfileId) =>
+    set(() => ({ selectedProfileId })),
+  selectedTab: 'Following',
+  setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   syncedProfiles: new Set(),
   addSyncedProfiles: (profileIds) =>
     set(({ syncedProfiles }) => ({
