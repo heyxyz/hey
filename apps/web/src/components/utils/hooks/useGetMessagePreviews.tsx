@@ -30,7 +30,9 @@ const useGetMessagePreviews = () => {
   const client = useMessageStore((state) => state.client);
   const { batchPersistPreviewMessages } = useMessageDb();
   const hasSyncedMessages = useMessageStore((state) => state.hasSyncedMessages);
-  const setHasSyncedMessages = useMessageStore((state) => state.setHasSyncedMessages);
+  const setHasSyncedMessages = useMessageStore(
+    (state) => state.setHasSyncedMessages
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const loadingRef = useRef<boolean>(false);
   const countRef = useRef<number>(0);
@@ -55,13 +57,24 @@ const useGetMessagePreviews = () => {
         const batch = (
           await Promise.all(
             chunk.map(async (convo) => {
-              const key = buildConversationKey(convo.peerAddress, convo.context?.conversationId as string);
+              const key = buildConversationKey(
+                convo.peerAddress,
+                convo.context?.conversationId as string
+              );
               const existingValue = previewMessages.get(key)?.sent;
-              const latestMessage = await fetchMostRecentMessage(convo, existingValue);
+              const latestMessage = await fetchMostRecentMessage(
+                convo,
+                existingValue
+              );
               countRef.current = countRef.current + 1;
-              setProgress(Math.round((countRef.current / needsSync.length) * 100));
+              setProgress(
+                Math.round((countRef.current / needsSync.length) * 100)
+              );
 
-              if (latestMessage && (!existingValue || latestMessage.sent > existingValue)) {
+              if (
+                latestMessage &&
+                (!existingValue || latestMessage.sent > existingValue)
+              ) {
                 return [key, latestMessage];
               }
             })

@@ -26,11 +26,26 @@ interface VoteProposalProps {
   refetch?: () => void;
 }
 
-const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConfig, refetch }) => {
+const VoteProposal: FC<VoteProposalProps> = ({
+  proposal,
+  voteConfig,
+  setVoteConfig,
+  refetch
+}) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [voteSubmitting, setVoteSubmitting] = useState(false);
   const { data: signer } = useSigner();
-  const { id, choices, snapshot, network, strategies, space, state, symbol, type } = proposal;
+  const {
+    id,
+    choices,
+    snapshot,
+    network,
+    strategies,
+    space,
+    state,
+    symbol,
+    type
+  } = proposal;
   const choice = choices[voteConfig.position - 1];
 
   const getVotingPower = async () => {
@@ -74,7 +89,8 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
       refetch?.();
       setVoteConfig({ show: false, position: 0 });
       Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
-        proposal_id: id
+        proposal_id: id,
+        source: 'snapshot'
       });
     } catch {
       toast.error(Errors.SomethingWentWrong);
@@ -130,7 +146,11 @@ const VoteProposal: FC<VoteProposalProps> = ({ proposal, voteConfig, setVoteConf
           className="w-full justify-center"
           size="lg"
           icon={
-            buttonLoading ? <Spinner size="xs" className="mr-1" /> : <CheckCircleIcon className="h-5 w-5" />
+            buttonLoading ? (
+              <Spinner size="xs" className="mr-1" />
+            ) : (
+              <CheckCircleIcon className="h-5 w-5" />
+            )
           }
           onClick={() => sign(voteConfig.position)}
         >

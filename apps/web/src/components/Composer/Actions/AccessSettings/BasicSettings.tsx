@@ -16,12 +16,18 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
   const setRestricted = useAccessSettingsStore((state) => state.setRestricted);
   const followToView = useAccessSettingsStore((state) => state.followToView);
-  const setFollowToView = useAccessSettingsStore((state) => state.setFollowToView);
+  const setFollowToView = useAccessSettingsStore(
+    (state) => state.setFollowToView
+  );
   const collectToView = useAccessSettingsStore((state) => state.collectToView);
-  const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
+  const setCollectToView = useAccessSettingsStore(
+    (state) => state.setCollectToView
+  );
   const hasConditions = useAccessSettingsStore((state) => state.hasConditions);
   const reset = useAccessSettingsStore((state) => state.reset);
-  const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
+  const selectedCollectModule = useCollectModuleStore(
+    (state) => state.selectedCollectModule
+  );
 
   const onSave = () => {
     if (!hasConditions()) {
@@ -48,8 +54,13 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
             <ToggleWithHelper
               on={collectToView}
               setOn={() => {
-                if (!collectToView && selectedCollectModule === CollectModules.RevertCollectModule) {
-                  return toast.error(t`Enable collect first to use collect based token gating`);
+                if (
+                  !collectToView &&
+                  selectedCollectModule === CollectModules.RevertCollectModule
+                ) {
+                  return toast.error(
+                    t`Enable collect first to use collect based token gating`
+                  );
                 }
                 setCollectToView(!collectToView);
               }}

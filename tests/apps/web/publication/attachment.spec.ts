@@ -25,7 +25,8 @@ test.describe('Publication attachments', () => {
     const publicationId = '0x01-0x01';
     await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
-    const videoURL = 'https://lens.infura-ipfs.io/ipfs/QmSPijepBo81hDLZ54qg3bKC2DpV9VFdaDJ81Y2viPHCRZ';
+    const videoURL =
+      'https://lens.infura-ipfs.io/ipfs/QmSPijepBo81hDLZ54qg3bKC2DpV9VFdaDJ81Y2viPHCRZ';
     const publicationVideo = page
       .getByTestId(`publication-${publicationId}`)
       .getByTestId(`attachment-video-${videoURL}`);
@@ -58,7 +59,9 @@ test.describe('Publication attachments', () => {
 
       const publicationOembed = page
         .getByTestId(`publication-${publicationId}`)
-        .getByTestId('normal-oembed-https://testflight.apple.com/join/U9YkOlOy');
+        .getByTestId(
+          'normal-oembed-https://testflight.apple.com/join/U9YkOlOy'
+        );
       await expect(publicationOembed).toBeVisible();
     });
 
@@ -80,8 +83,12 @@ test.describe('Publication attachments', () => {
 
       const snapshotWidget = page
         .getByTestId(`publication-${publicationId}`)
-        .getByTestId('snapshot-0x9287c40edcd68c362c7c4139fe3489bbaaa27cf4de68be5c218a82d0f252e718');
-      await expect(snapshotWidget).toContainText('Do you like the Snapshot integration with Lenster?');
+        .getByTestId(
+          'snapshot-0x9287c40edcd68c362c7c4139fe3489bbaaa27cf4de68be5c218a82d0f252e718'
+        );
+      await expect(snapshotWidget).toContainText(
+        'Do you like the Snapshot integration with Lenster?'
+      );
       await expect(snapshotWidget).toContainText('Yes ser 🙌');
     });
   });

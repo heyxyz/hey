@@ -32,18 +32,25 @@ const Notifications: FC = () => {
         variables: { request: { ...request, cursor } },
         onCompleted: (data) => {
           setNotifications((prev) => {
-            const newNotifications = data.notifications.items.filter((newNotification) => {
-              return !prev.some(
-                (notification) => notification.notificationId === newNotification.notificationId
-              );
-            });
+            const newNotifications = data.notifications.items.filter(
+              (newNotification) => {
+                return !prev.some(
+                  (notification) =>
+                    notification.notificationId ===
+                    newNotification.notificationId
+                );
+              }
+            );
 
             return [...prev, ...newNotifications];
           });
         }
       });
 
-      if (data?.notifications.items.length === 0 || !data?.notifications.pageInfo.next) {
+      if (
+        data?.notifications.items.length === 0 ||
+        !data?.notifications.pageInfo.next
+      ) {
         setFetchCompleted(true);
         setExporting(false);
       } else {

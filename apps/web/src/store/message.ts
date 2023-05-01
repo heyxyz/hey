@@ -61,8 +61,10 @@ export const useMessageStore = create<MessageState>((set) => ({
     });
     return numAdded;
   },
+
   hasSyncedMessages: false,
-  setHasSyncedMessages: (hasSyncedMessages) => set(() => ({ hasSyncedMessages })),
+  setHasSyncedMessages: (hasSyncedMessages) =>
+    set(() => ({ hasSyncedMessages })),
   previewMessages: new Map(),
   setPreviewMessage: (key: string, message: DecodedMessage) =>
     set((state) => {
@@ -72,7 +74,8 @@ export const useMessageStore = create<MessageState>((set) => ({
     }),
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
   selectedProfileId: '',
-  setSelectedProfileId: (selectedProfileId) => set(() => ({ selectedProfileId })),
+  setSelectedProfileId: (selectedProfileId) =>
+    set(() => ({ selectedProfileId })),
   selectedTab: 'Following',
   setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   reset: () =>
@@ -88,10 +91,14 @@ export const useMessageStore = create<MessageState>((set) => ({
     }),
   syncedProfiles: new Set(),
   addSyncedProfiles: (profileIds) =>
-    set(({ syncedProfiles }) => ({ syncedProfiles: new Set([...syncedProfiles, ...profileIds]) })),
+    set(({ syncedProfiles }) => ({
+      syncedProfiles: new Set([...syncedProfiles, ...profileIds])
+    })),
   unsyncProfile: (profileId: string) =>
     set(({ syncedProfiles }) => ({
-      syncedProfiles: new Set([...syncedProfiles].filter((id) => id !== profileId))
+      syncedProfiles: new Set(
+        [...syncedProfiles].filter((id) => id !== profileId)
+      )
     }))
 }));
 
@@ -111,7 +118,8 @@ export const useMessagePersistStore = create(
     (set) => ({
       viewedMessagesAtNs: new Map(),
       showMessagesBadge: new Map(),
-      setShowMessagesBadge: (showMessagesBadge) => set(() => ({ showMessagesBadge })),
+      setShowMessagesBadge: (showMessagesBadge) =>
+        set(() => ({ showMessagesBadge })),
       clearMessagesBadge: (profileId: string) => {
         set((state) => {
           const viewedAt = new Map(state.viewedMessagesAtNs);
@@ -160,7 +168,9 @@ export const useMessagePersistStore = create(
             return null;
           }
           const data = JSON.parse(jsonData);
-          data.state.viewedMessagesAtNs = new Map(data.state.viewedMessagesAtNs);
+          data.state.viewedMessagesAtNs = new Map(
+            data.state.viewedMessagesAtNs
+          );
           data.state.showMessagesBadge = new Map(data.state.showMessagesBadge);
           data.state.unsentMessages = new Map(data.state.unsentMessages);
           return data;

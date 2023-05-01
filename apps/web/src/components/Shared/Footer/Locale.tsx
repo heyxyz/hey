@@ -13,8 +13,10 @@ import MenuTransition from '../MenuTransition';
 
 const Locale: FC = () => {
   const { i18n } = useLingui();
-  const { on: isGatedLocalesEnabled } = useFeature(FeatureFlag.GatedLocales as string);
-  const gatedLocales = ['ta', 'es', 'kn', 'ru'];
+  const { on: isGatedLocalesEnabled } = useFeature(
+    FeatureFlag.GatedLocales as string
+  );
+  const gatedLocales = ['ta', 'es', 'ru', 'fr'];
   const locales = Object.fromEntries(
     Object.entries(supportedLocales).filter(([key]) =>
       isGatedLocalesEnabled ? true : !gatedLocales.includes(key)
@@ -23,7 +25,10 @@ const Locale: FC = () => {
 
   return (
     <Menu as="span">
-      <Menu.Button className="inline-flex items-center space-x-1" data-testid="locale-selector">
+      <Menu.Button
+        className="inline-flex items-center space-x-1"
+        data-testid="locale-selector"
+      >
         <GlobeAltIcon className="h-4 w-4" />
         <span>{locales[i18n.locale]}</span>
       </Menu.Button>

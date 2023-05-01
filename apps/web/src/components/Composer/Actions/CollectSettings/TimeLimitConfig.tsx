@@ -6,7 +6,9 @@ import { useCollectModuleStore } from 'src/store/collect-module';
 
 const TimeLimitConfig: FC = () => {
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
-  const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
+  const setHasTimeLimit = useCollectModuleStore(
+    (state) => state.setHasTimeLimit
+  );
 
   return (
     <div className="pt-5">

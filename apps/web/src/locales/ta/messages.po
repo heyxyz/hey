@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-27 00:08\n"
+"PO-Revision-Date: 2023-05-01 18:35\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -60,12 +60,14 @@ msgstr "அதைப் பார்க்க மக்கள் உங்கள
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "ரத்து"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
@@ -74,6 +76,10 @@ msgstr "ரத்து"
 #: src/components/Shared/Status.tsx
 msgid "Save"
 msgstr "சேமி"
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
@@ -95,6 +101,11 @@ msgstr "கோப்பு வடிவம் அனுமதிக்கப்�
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏற்பட்டது!"
+
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Profile/FeedType.tsx
+msgid "Media"
+msgstr "மீடியா"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
@@ -199,8 +210,39 @@ msgid "Loading GIFs"
 msgstr "GIFகளை ஏற்றுகிறது"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
 msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length (days)"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "அழி"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Choice {0}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Add another option"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/index.tsx
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Poll"
+msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -255,6 +297,10 @@ msgstr "பதிவேற்றவும்"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
+
+#: src/components/Composer/Editor/index.tsx
+msgid "Ask a question..."
+msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
@@ -374,6 +420,7 @@ msgid "Enable DMs"
 msgstr "டிஎம்களை இயக்கவும்"
 
 #: src/components/Home/FeedEventFilters.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Filter"
 msgstr "வடிகட்டு"
 
@@ -1205,6 +1252,11 @@ msgid "Worldcoin verified"
 msgstr "Worldcoin சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Details.tsx
+#: src/components/Settings/Account/Verification.tsx
+msgid "Verified"
+msgstr "சரிபார்க்கப்பட்டது"
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "உங்களைப் பின்தொடர்கிறார்"
 
@@ -1227,10 +1279,6 @@ msgstr "ஊட்டம்"
 #: src/components/Profile/FeedType.tsx
 msgid "Replies"
 msgstr "பதில்கள்"
-
-#: src/components/Profile/FeedType.tsx
-msgid "Media"
-msgstr "மீடியா"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Collected"
@@ -1354,11 +1402,6 @@ msgstr "திருத்து"
 msgid "Rearrrange"
 msgstr "மறுசீரமைக்கவும்"
 
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "அழி"
-
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
 msgstr "உங்கள் கேலரிக்கு வரவேற்கிறோம்"
@@ -1434,6 +1477,14 @@ msgid "Fee recipients"
 msgstr "கட்டணம் பெறுவோர்"
 
 #: src/components/Publication/Actions/Collect/index.tsx
+msgid "{0} Collects"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+msgid "Collect"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
 msgstr "இலவச சேகரிப்பு"
@@ -1471,6 +1522,11 @@ msgstr "{0} மிரர்கள்"
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
 msgstr "மிரர்"
+
+#: src/components/Publication/Actions/Mod.tsx
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr "மதிப்பீட்டாளர் செயல்கள்"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
@@ -1564,11 +1620,11 @@ msgstr "<0>“{query}”க்கு வெளியீடுகள் இல்
 msgid "Failed to load publications"
 msgstr "வெளியீடுகளை ஏற்ற முடியவில்லை"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Publications"
 msgstr "வெளியீடுகள்"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr "சுயவிவரங்கள்"
 
@@ -1651,10 +1707,6 @@ msgstr "சூப்பர் பின்தொடர்பை புதுப�
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
 msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
-
-#: src/components/Settings/Account/Verification.tsx
-msgid "Verified"
-msgstr "சரிபார்க்கப்பட்டது"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
@@ -2161,10 +2213,6 @@ msgid "▲ Powered by Vercel"
 msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
 
 #: src/components/Shared/GlobalAlerts.tsx
-msgid "Mod actions"
-msgstr "மதிப்பீட்டாளர் செயல்கள்"
-
-#: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
 msgstr ""
 
@@ -2228,11 +2276,14 @@ msgid "Handle should only contain alphanumeric characters"
 msgstr "பயனர்பெயர் எண்ணெழுத்து எழுத்துக்கள் மட்டுமே இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
+msgid "The selected handle is already taken"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
 msgstr "{APP_NAME} வரை பதிவு செய்யவும்"
 
 #: src/components/Shared/Login/New/index.tsx
-#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr "பயனர்பெயர்"
 
@@ -2514,12 +2565,24 @@ msgid "{type} voting is not supported yet!"
 msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr "தற்போதைய முடிவுகள்"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
 msgstr "முடிவுகள்"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} Votes"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
@@ -2640,12 +2703,16 @@ msgid "Address"
 msgstr "முகவரி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr "NFT முகவரி"
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
 msgstr "ரிலே பயன்படுத்தலாம்"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "NFT address"
-msgstr "NFT முகவரி"
+msgid "Gas sponsored"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
@@ -2656,7 +2723,6 @@ msgid "Metadata"
 msgstr "மீத்தரவு"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
 msgstr "திறக்கவும்"
 
@@ -2670,14 +2736,6 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "App ID"
-msgstr "ஆப் ஐடி"
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "On-chain content URI"
 msgstr ""
 
 #: src/components/StaffTools/RelayQueues.tsx

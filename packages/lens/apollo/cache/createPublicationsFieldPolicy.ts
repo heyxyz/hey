@@ -6,7 +6,14 @@ const createPublicationsFieldPolicy = (): FieldPolicy => {
   return cursorBasedPagination([
     [
       'request',
-      ['profileId', 'collectedBy', 'commentsOf', 'publicationTypes', 'metadata', 'commentsRankingFilter']
+      [
+        'profileId',
+        'collectedBy',
+        'commentsOf',
+        'publicationTypes',
+        'metadata',
+        'commentsRankingFilter'
+      ]
     ],
     '$profileId'
   ]);

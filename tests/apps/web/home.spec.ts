@@ -11,7 +11,9 @@ test('should have page title', async ({ page }) => {
 });
 
 test('should have hero', async ({ page }) => {
-  await expect(page.getByTestId('home-hero')).toContainText('Welcome to Lenster 👋');
+  await expect(page.getByTestId('home-hero')).toContainText(
+    'Welcome to Lenster 👋'
+  );
 });
 
 test('should have explore feed', async ({ page }) => {

@@ -3,7 +3,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
-import { useCreateProfileMutation } from 'lens';
+import { RelayErrorReasons, useCreateProfileMutation } from 'lens';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
@@ -51,8 +51,18 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     }
   };
 
-  return data?.createProfile.__typename === 'RelayerResult' && data?.createProfile.txHash ? (
-    <Pending handle={form.getValues('handle')} txHash={data?.createProfile?.txHash} />
+  const relayErrorToString = (error: RelayErrorReasons): string => {
+    return error === RelayErrorReasons.HandleTaken
+      ? t`The selected handle is already taken`
+      : error;
+  };
+
+  return data?.createProfile.__typename === 'RelayerResult' &&
+    data?.createProfile.txHash ? (
+    <Pending
+      handle={form.getValues('handle')}
+      txHash={data?.createProfile?.txHash}
+    />
   ) : (
     <Form
       form={form}
@@ -63,42 +73,66 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
           variables: {
             request: {
               handle: username,
-              profilePictureUri: avatar ? avatar : getStampFyiURL(address ?? ZERO_ADDRESS)
+              profilePictureUri: avatar
+                ? avatar
+                : getStampFyiURL(address ?? ZERO_ADDRESS)
             }
           }
         });
       }}
     >
-      {data?.createProfile.__typename === 'RelayError' && data?.createProfile.reason && (
-        <ErrorMessage
-          className="mb-3"
-          title="Create profile failed!"
-          error={{
-            name: 'Create profile failed!',
-            message: data?.createProfile?.reason
-          }}
-        />
-      )}
+      {data?.createProfile.__typename === 'RelayError' &&
+        data?.createProfile.reason && (
+          <ErrorMessage
+            className="mb-3"
+            title="Create profile failed!"
+            error={{
+              name: 'Create profile failed!',
+              message: relayErrorToString(data?.createProfile?.reason)
+            }}
+          />
+        )}
       {isModal && (
         <div className="mb-2 space-y-4">
-          <img className="h-10 w-10" height={40} width={40} src="/logo.svg" alt="Logo" />
+          <img
+            className="h-10 w-10"
+            height={40}
+            width={40}
+            src="/logo.svg"
+            alt="Logo"
+          />
           <div className="text-xl font-bold">
             <Trans>Sign up to {APP_NAME}</Trans>
           </div>
         </div>
       )}
-      <Input label={t`Handle`} type="text" placeholder="gavin" {...form.register('handle')} />
+      <Input
+        label={t`Handle`}
+        type="text"
+        placeholder="gavin"
+        {...form.register('handle')}
+      />
       <div className="space-y-1.5">
         <div className="label">Avatar</div>
         <div className="space-y-3">
           {avatar && (
             <div>
-              <img className="h-60 w-60 rounded-lg" height={240} width={240} src={avatar} alt={avatar} />
+              <img
+                className="h-60 w-60 rounded-lg"
+                height={240}
+                width={240}
+                src={avatar}
+                alt={avatar}
+              />
             </div>
           )}
           <div>
             <div className="flex items-center space-x-3">
-              <ChooseFile onChange={(evt: ChangeEvent<HTMLInputElement>) => handleUpload(evt)} />
+              <ChooseFile
+                onChange={(evt: ChangeEvent<HTMLInputElement>) =>
+                  handleUpload(evt)
+                }
+              />
               {uploading && <Spinner size="sm" />}
             </div>
           </div>
@@ -108,7 +142,9 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
         className="ml-auto"
         type="submit"
         disabled={loading}
-        icon={loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />}
+        icon={
+          loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />
+        }
       >
         <Trans>Sign up</Trans>
       </Button>

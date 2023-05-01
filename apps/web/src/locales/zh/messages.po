@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-27 00:08\n"
+"PO-Revision-Date: 2023-05-01 18:35\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -60,12 +60,14 @@ msgstr "用户需要先关注你才能浏览它"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "取消"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
@@ -74,6 +76,10 @@ msgstr "取消"
 #: src/components/Shared/Status.tsx
 msgid "Save"
 msgstr "保存"
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
@@ -95,6 +101,11 @@ msgstr "文件格式不兼容。"
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "上传失败!"
+
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Profile/FeedType.tsx
+msgid "Media"
+msgstr "多媒体文件"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
@@ -199,8 +210,39 @@ msgid "Loading GIFs"
 msgstr "正在加载动图"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
 msgstr "请选择GIF图片"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length (days)"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "删除"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Choice {0}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Add another option"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/index.tsx
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Poll"
+msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -255,6 +297,10 @@ msgstr ""
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "请选择 1 个视频或最多 4 张照片。"
+
+#: src/components/Composer/Editor/index.tsx
+msgid "Ask a question..."
+msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
@@ -374,6 +420,7 @@ msgid "Enable DMs"
 msgstr "启用私信功能"
 
 #: src/components/Home/FeedEventFilters.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Filter"
 msgstr "筛选"
 
@@ -1205,6 +1252,11 @@ msgid "Worldcoin verified"
 msgstr "世界币已验证"
 
 #: src/components/Profile/Details.tsx
+#: src/components/Settings/Account/Verification.tsx
+msgid "Verified"
+msgstr "已验证"
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "关注了您"
 
@@ -1227,10 +1279,6 @@ msgstr "内容流"
 #: src/components/Profile/FeedType.tsx
 msgid "Replies"
 msgstr "回复"
-
-#: src/components/Profile/FeedType.tsx
-msgid "Media"
-msgstr "多媒体文件"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Collected"
@@ -1354,11 +1402,6 @@ msgstr "编辑"
 msgid "Rearrrange"
 msgstr "重新排列"
 
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "删除"
-
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
 msgstr "欢迎来到您的画廊"
@@ -1434,6 +1477,14 @@ msgid "Fee recipients"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
+msgid "{0} Collects"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+msgid "Collect"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
 msgstr "免费收藏"
@@ -1471,6 +1522,11 @@ msgstr "{0} 次转发"
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
 msgstr "转发"
+
+#: src/components/Publication/Actions/Mod.tsx
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
@@ -1564,11 +1620,11 @@ msgstr "<0>“{query}”</0> 没有任何帖子"
 msgid "Failed to load publications"
 msgstr "加载帖子失败"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Publications"
 msgstr "帖子"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr "个人账户"
 
@@ -1651,10 +1707,6 @@ msgstr "更新超级关注"
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
 msgstr "设置超级关注"
-
-#: src/components/Settings/Account/Verification.tsx
-msgid "Verified"
-msgstr "已验证"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
@@ -2161,10 +2213,6 @@ msgid "▲ Powered by Vercel"
 msgstr "▲ 由 Vercel 提供支持"
 
 #: src/components/Shared/GlobalAlerts.tsx
-msgid "Mod actions"
-msgstr ""
-
-#: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
 msgstr ""
 
@@ -2228,11 +2276,14 @@ msgid "Handle should only contain alphanumeric characters"
 msgstr "用户名应仅包含字母或者数字字符"
 
 #: src/components/Shared/Login/New/index.tsx
+msgid "The selected handle is already taken"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
 msgstr "注册到 {APP_NAME}"
 
 #: src/components/Shared/Login/New/index.tsx
-#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr "用户名"
 
@@ -2514,11 +2565,23 @@ msgid "{type} voting is not supported yet!"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} Votes"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} left"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
@@ -2640,11 +2703,15 @@ msgid "Address"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "NFT address"
+msgid "Gas sponsored"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
@@ -2656,7 +2723,6 @@ msgid "Metadata"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
 msgstr ""
 
@@ -2670,14 +2736,6 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "App ID"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "On-chain content URI"
 msgstr ""
 
 #: src/components/StaffTools/RelayQueues.tsx

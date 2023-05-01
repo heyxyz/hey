@@ -41,7 +41,10 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
         const profile = getProfileByAddress(address) as Profile;
 
         return (
-          <div key={address} className="flex items-center justify-between text-sm">
+          <div
+            key={address}
+            className="flex items-center justify-between text-sm"
+          >
             <div className="flex w-full items-center space-x-2">
               {loading ? (
                 <>
@@ -60,7 +63,11 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                       <Slug slug={formatHandle(profile?.handle)} prefix="@" />
                     </Link>
                   ) : (
-                    <a href={`${POLYGONSCAN_URL}/address/${address}`} target="_blank" rel="noreferrer">
+                    <a
+                      href={`${POLYGONSCAN_URL}/address/${address}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       {formatAddress(address, 6)}
                     </a>
                   )}

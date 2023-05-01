@@ -5,7 +5,12 @@ import Search from '@components/Shared/Navbar/Search';
 import useGetMessagePreviews from '@components/utils/hooks/useGetMessagePreviews';
 import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
-import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
+import {
+  MailIcon,
+  PlusCircleIcon,
+  UserAddIcon,
+  UsersIcon
+} from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Mixpanel } from '@lib/mixpanel';
@@ -21,29 +26,50 @@ import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import { Card, EmptyState, ErrorMessage, GridItemFour, Modal } from 'ui';
+import {
+  Card,
+  EmptyState,
+  ErrorMessage,
+  GridItemFour,
+  Modal,
+  TabButton
+} from 'ui';
 
 interface PreviewListProps {
   className?: string;
   selectedConversationKey?: string;
 }
 
-const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey }) => {
+const PreviewList: FC<PreviewListProps> = ({
+  className,
+  selectedConversationKey
+}) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { persistProfile } = useMessageDb();
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const { authenticating, loading, messages, profilesToShow, requestedCount, profilesError } =
-    useMessagePreviews();
-  const { loading: previewsLoading, progress: previewsProgress } = useGetMessagePreviews();
-  const clearMessagesBadge = useMessagePersistStore((state) => state.clearMessagesBadge);
+  const {
+    authenticating,
+    loading,
+    messages,
+    profilesToShow,
+    requestedCount,
+    profilesError
+  } = useMessagePreviews();
+  const { loading: previewsLoading, progress: previewsProgress } =
+    useGetMessagePreviews();
+  const clearMessagesBadge = useMessagePersistStore(
+    (state) => state.clearMessagesBadge
+  );
 
   const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
     const messageB = messages.get(keyB);
-    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0) ? -1 : 1;
+    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0)
+      ? -1
+      : 1;
   });
 
   useEffect(() => {
@@ -55,7 +81,8 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
   }, [currentProfile]);
 
   const showAuthenticating = currentProfile && authenticating;
-  const showLoading = loading && (messages.size === 0 || profilesToShow.size === 0);
+  const showLoading =
+    loading && (messages.size === 0 || profilesToShow.size === 0);
 
   const newMessageClick = () => {
     setShowSearchModal(true);
@@ -64,9 +91,14 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
 
   const onProfileSelected = async (profile: Profile) => {
     const conversationId = buildConversationId(currentProfile?.id, profile.id);
-    const conversationKey = buildConversationKey(profile.ownedBy, conversationId);
+    const conversationKey = buildConversationKey(
+      profile.ownedBy,
+      conversationId
+    );
     await persistProfile(conversationKey, profile);
-    const selectedTab: TabValues = profile.isFollowedByMe ? 'Following' : 'Requested';
+    const selectedTab: TabValues = profile.isFollowedByMe
+      ? 'Following'
+      : 'Requested';
     setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
     setShowSearchModal(false);
@@ -95,46 +127,40 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
             />
           )}
         </div>
-        <div className="flex">
-          <div
+        <div className="flex space-x-2 px-4 py-3">
+          <TabButton
+            className="w-full !py-2"
+            name={t`Following`}
+            active={selectedTab === 'Following'}
             onClick={() => setSelectedTab('Following')}
-            className={clsx(
-              'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Following' ? 'bg-brand-100' : ''
-            )}
-            aria-hidden="true"
-          >
-            <UsersIcon className="mr-2 h-4 w-4" />
-            <Trans>Following</Trans>
-          </div>
-          <div
+            icon={<UsersIcon className="h-4 w-4" />}
+            showOnSm
+          />
+          <TabButton
+            className="w-full !py-2"
+            name={t`Requested`}
+            active={selectedTab === 'Requested'}
             onClick={() => setSelectedTab('Requested')}
-            className={clsx(
-              'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
-              selectedTab === 'Requested' ? 'bg-brand-100' : ''
-            )}
-            aria-hidden="true"
-          >
-            <Trans>Requested</Trans>
-            {requestedCount > 0 && (
-              <span className="bg-brand-200 ml-2 rounded-2xl px-3 py-0.5 text-sm font-bold">
-                {requestedCount > 99 ? '99+' : requestedCount}
-              </span>
-            )}
-          </div>
+            icon={<UserAddIcon className="h-4 w-4" />}
+            count={requestedCount > 99 ? '99+' : requestedCount.toString()}
+            showOnSm
+          />
         </div>
         {selectedTab === 'Requested' ? (
-          <div className="mt-1 bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
-            <Trans>These conversations are from Lens profiles that you don't currently follow.</Trans>
+          <div className="bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
+            <Trans>
+              These conversations are from Lens profiles that you don't
+              currently follow.
+            </Trans>
           </div>
         ) : null}
         <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
-            <div className="flex h-full flex-grow items-center justify-center">
+            <div className="flex h-full grow items-center justify-center">
               <Loader message="Awaiting signature to enable DMs" />
             </div>
           ) : showLoading ? (
-            <div className="flex h-full flex-grow items-center justify-center">
+            <div className="flex h-full grow items-center justify-center">
               <Loader message={t`Loading conversations`} />
             </div>
           ) : profilesError ? (
@@ -147,7 +173,11 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
               }}
             />
           ) : sortedProfiles.length === 0 ? (
-            <button className="h-full w-full justify-items-center" onClick={newMessageClick} type="button">
+            <button
+              className="h-full w-full justify-items-center"
+              onClick={newMessageClick}
+              type="button"
+            >
               <EmptyState
                 message={t`Start messaging your Lens frens`}
                 icon={<MailIcon className="text-brand h-8 w-8" />}
@@ -188,7 +218,12 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
             onProfileSelected={onProfileSelected}
           />
         </div>
-        {currentProfile && <Following profile={currentProfile} onProfileSelected={onProfileSelected} />}
+        {currentProfile && (
+          <Following
+            profile={currentProfile}
+            onProfileSelected={onProfileSelected}
+          />
+        )}
       </Modal>
     </GridItemFour>
   );

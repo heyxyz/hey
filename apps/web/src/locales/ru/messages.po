@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-28 00:09\n"
+"PO-Revision-Date: 2023-05-01 18:35\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -60,12 +60,14 @@ msgstr "Для просмотра человек должен подписать
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "Отменить"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
@@ -74,6 +76,10 @@ msgstr "Отменить"
 #: src/components/Shared/Status.tsx
 msgid "Save"
 msgstr "Сохранить"
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
@@ -95,6 +101,11 @@ msgstr "Недопустимый формат файла."
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "Что-то пошло не так при загрузке!"
+
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Profile/FeedType.tsx
+msgid "Media"
+msgstr "Медиа"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
@@ -199,8 +210,39 @@ msgid "Loading GIFs"
 msgstr "Загрузка GIF"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
 msgstr "Выберите GIF"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length (days)"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Choice {0}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Add another option"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/index.tsx
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Poll"
+msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -255,6 +297,10 @@ msgstr "Загрузить"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "Пожалуйста, выберите либо 1 видео, либо до 4 фотографий."
+
+#: src/components/Composer/Editor/index.tsx
+msgid "Ask a question..."
+msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
@@ -374,6 +420,7 @@ msgid "Enable DMs"
 msgstr "Включить личные сообщения"
 
 #: src/components/Home/FeedEventFilters.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Filter"
 msgstr "Фильтр"
 
@@ -1026,15 +1073,15 @@ msgstr "3. Услуги"
 
 #: src/components/Pages/Terms.tsx
 msgid "User Lens profile is referred as the “Profile” in the “Site”."
-msgstr ""
+msgstr "Профиль пользователя Lens называется «Профиль» на «Сайте»."
 
 #: src/components/Pages/Terms.tsx
 msgid "The Site allow you to interact with the Lens Protocol, including posts, mirrors, comments and other content related actions."
-msgstr ""
+msgstr "Сайт позволяет вам взаимодействовать с Lens Protocol, включая публикации, мирроры, комментарии и другие действия, связанные с контентом."
 
 #: src/components/Pages/Terms.tsx
 msgid "We reserve the right - but are not obligated to - limit the provision of Profiles or Services to any person, geographic region or jurisdiction. We may exercise this right on a case-by-case basis in our sole discretion."
-msgstr ""
+msgstr "Мы оставляем за собой право, но не обязаны ограничивать предоставление Профилей или Услуг любому лицу, географическому региону или юрисдикции. Мы можем воспользоваться этим правом в каждом конкретном случае по нашему собственному усмотрению."
 
 #: src/components/Pages/Terms.tsx
 msgid "Your profile your responsibility."
@@ -1046,39 +1093,39 @@ msgstr "Вы несете ответственность за безопасно
 
 #: src/components/Pages/Terms.tsx
 msgid "You bear sole responsibility for evaluating the Site and features before using them."
-msgstr ""
+msgstr "Вы несете единоличную ответственность за оценку Сайта и функций перед их использованием."
 
 #: src/components/Pages/Terms.tsx
 msgid "It is important to understand that neither we nor any affiliated entity is a party to any transaction on the blockchain networks underlying the Lens Protocol; we do not have possession, custody or control over any items on your wallet and we do not have possession, custody, ability to delete or control over any items on any user’s wallet or interactions with the Lens Protocol."
-msgstr ""
+msgstr "Важно понимать, что ни мы, ни какая-либо аффилированная организация не является стороной какой-либо транзакции в сети блокчейн, лежащей в основе протокола Lens; мы не владеем, не храним и не контролируем какие-либо элементы на Вашем кошельке, и мы не владеем, не храним, не имеем возможности удалять или контролировать какие-либо элементы на кошельке любого пользователя или взаимодействие с протоколом Lens."
 
 #: src/components/Pages/Terms.tsx
 msgid "If you’re not comfortable with interacting with an inherently transparent blockchain, you should not engage with our Site to create and manage a content on the Lens Protocol. You are solely responsible for the safekeeping of the private key associated with the blockchain address used to interact with the Lens Protocol."
-msgstr ""
+msgstr "Если Вас не устраивает взаимодействие с прозрачным по своей сути блокчейном, Вам не следует взаимодействовать с нашим Сайтом для создания и управления контентом на Lens Protocol. Вы несете полную ответственность за сохранность приватного ключа, связанного с адресом блокчейна, используемого для взаимодействия с Lens протоколом."
 
 #: src/components/Pages/Terms.tsx
 msgid "The transactions on blockchain including transfer of tokens and data attached to it are permanent and cannot be undone."
-msgstr ""
+msgstr "Транзакции в блокчейне, включая передачу токенов и связанных с ними данных, являются постоянными и не могут быть отменены."
 
 #: src/components/Pages/Terms.tsx
 msgid "Our Site allows you to upload a text, pictures, videos using hosted on a third-party provider IPFS and Arweave. We are not responsible for any action or omission taken by IPFS/Arweave as it pertains to the user interface or otherwise. The use and access of any third-party products or services, including through the Site, is at your own risk."
-msgstr ""
+msgstr "Наш Сайт позволяет Вам загружать текст, изображения, видео, используя хостинг стороннего провайдера IPFS и Arweave. Мы не несем ответственности за любые действия или бездействие IPFS/Arweave, относящиеся к пользовательскому интерфейсу или подобному. Использование и доступ к любым продуктам или услугам третьих лиц, в том числе через Сайт, осуществляется на Ваш собственный риск."
 
 #: src/components/Pages/Terms.tsx
 msgid "The Lens Protocol is deployed on blockchain-based networks, and we are not responsible for the operation of such networks."
-msgstr ""
+msgstr "Протокол Lens развернут в блокчейн сетях, и мы не несем ответственности за работу таких сетей."
 
 #: src/components/Pages/Terms.tsx
 msgid "4. Accuracy, Completeness and Timeliness of information"
-msgstr ""
+msgstr "4. Точность, полнота и своевременность информации"
 
 #: src/components/Pages/Terms.tsx
 msgid "We are not responsible for any mistakes or inaccuracies on contents published on this Site. Profiles are fully responsible for what they are doing in the Site."
-msgstr ""
+msgstr "Мы не несем ответственности за любые ошибки или неточности в содержании, опубликованном на этом Сайте. Владельцы профилей несут полную ответственность за то, что они делают на Сайте."
 
 #: src/components/Pages/Terms.tsx
 msgid "As a Site, we offer information about the content and interaction on content published by the users on the Lens Protocol."
-msgstr ""
+msgstr "В качестве Сайта мы предлагаем информацию о контенте и взаимодействии с контентом, опубликованным пользователями на Lens Protocol."
 
 #: src/components/Pages/Terms.tsx
 msgid "5. Modification of Services"
@@ -1086,7 +1133,7 @@ msgstr "5. Изменение Услуг"
 
 #: src/components/Pages/Terms.tsx
 msgid "We reserve the right at any time to modify or discontinue the Site (or any part or content thereof) without notice at any time. We shall not be liable to you or any third-party for any modification, information change, suspension or discontinuance of the Site."
-msgstr ""
+msgstr "Мы оставляем за собой право в любое время изменять или прекращать работу Сайта (или любой его части или содержимого) без предварительного уведомления в любое время. Мы не несем ответственности перед вами или какой-либо третьей стороной за любые модификации, изменение информации, приостановку или прекращение работы Сайта."
 
 #: src/components/Pages/Terms.tsx
 msgid "6. Third-Party Services & Websites"
@@ -1094,11 +1141,11 @@ msgstr "6. Сторонние сервисы и веб-сайты"
 
 #: src/components/Pages/Terms.tsx
 msgid "We are not responsible for the content or services of any third-party, including, without limitation, any network, or apps like Discord, or MetaMask, and we make no representations regarding the content or accuracy of any third-party services or materials. Those are governed by the terms of use of the third-party providers."
-msgstr ""
+msgstr "Мы не несем ответственности за контент или услуги третьих лиц, включая, помимо прочего, любые сети или приложения, такие как Discord или MetaMask, и мы не делаем никаких заявлений относительно контента или точности любых сторонних сервисов или материалов. Они регулируются условиями использования сторонних поставщиков."
 
 #: src/components/Pages/Terms.tsx
 msgid "Please review carefully the third-party's policies and practices and make sure you understand them before you engage in any transaction. Complaints, claims, concerns, or questions regarding third-party products should be directed to the third-party."
-msgstr ""
+msgstr "Пожалуйста, внимательно ознакомьтесь с политикой и практикой третьей стороны и убедитесь, что Вы их понимаете, прежде чем совершать какие-либо транзакции. Жалобы, претензии, опасения или вопросы относительно продуктов третьих лиц следует направлять третьему лицу."
 
 #: src/components/Pages/Terms.tsx
 msgid "7. Personal Information"
@@ -1106,7 +1153,7 @@ msgstr "7. Личная информация"
 
 #: src/components/Pages/Terms.tsx
 msgid "Your submission of personal information through the Site is governed by our <0>Privacy Policy</0>."
-msgstr ""
+msgstr "Предоставление вами личной информации через Сайт регулируется нашей <0>Политикой конфиденциальности.</0>."
 
 #: src/components/Pages/Terms.tsx
 msgid "8. Prohibited Usage"
@@ -1114,7 +1161,7 @@ msgstr "8. Запрещено использование"
 
 #: src/components/Pages/Terms.tsx
 msgid "You are not allowed to use the Site for anything illegal, infringing the intellectual property rights of other people, harassment or otherwise abusive behaviour, spreading false information or viruses, spamming, or interfering with the security features of the Site."
-msgstr ""
+msgstr "Вам не разрешается использовать Сайт для каких-либо незаконных действий, нарушения прав интеллектуальной собственности других людей, преследования или иного оскорбительного поведения, распространения ложной информации или вирусов, рассылки спама или вмешательства в функции безопасности Сайта."
 
 #: src/components/Pages/Terms.tsx
 msgid "You are prohibited from using the Site,"
@@ -1122,31 +1169,31 @@ msgstr "Вам запрещено использовать Сайт,"
 
 #: src/components/Pages/Terms.tsx
 msgid "for any unlawful purpose and to solicit others to perform or participate in any unlawful acts;"
-msgstr ""
+msgstr "для любых незаконных целей и подстрекать других к совершению или участию в любых незаконных действиях;"
 
 #: src/components/Pages/Terms.tsx
 msgid "to violate any international, federal, provincial or state regulations, rules, laws, or local ordinances;"
-msgstr ""
+msgstr "нарушать любые международные, федеральные, провинциальные или государственные нормы, правила, законы или местные постановления;"
 
 #: src/components/Pages/Terms.tsx
 msgid "to infringe upon or violate our intellectual property rights or the intellectual property rights of others;"
-msgstr ""
+msgstr "ущемлять или нарушать наши права интеллектуальной собственности или права интеллектуальной собственности других лиц;"
 
 #: src/components/Pages/Terms.tsx
 msgid "to harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate based on gender, sexual orientation, religion, ethnicity, race, age, national origin, or disability;"
-msgstr ""
+msgstr "преследовать, оскорблять, наносить вред, клеветать, унижать, запугивать или дискриминировать на основании пола, сексуальной ориентации, религии, этнической принадлежности, расы, возраста, национального происхождения или инвалидности;"
 
 #: src/components/Pages/Terms.tsx
 msgid "to submit false or misleading information or to upload or transmit viruses or any other type of malicious code that will or may be used in any way that will affect the functionality or operation of the Site or of any related website, other websites, or the Internet;"
-msgstr ""
+msgstr "предоставлять ложную или вводящую в заблуждение информацию или загружать или передавать вирусы или любой другой тип вредоносного кода, который будет или может быть использован каким-либо образом, который повлияет на функциональность или работу Сайта или любого связанного веб-сайта, других веб-сайтов или Интернета;"
 
 #: src/components/Pages/Terms.tsx
 msgid "to collect or track the personal information of others to spam, phish, pretext, crawl, or scrape;"
-msgstr ""
+msgstr "собирать или отслеживать личную информацию других людей с целью спама, фишинга, подлога, сканирования;"
 
 #: src/components/Pages/Terms.tsx
 msgid "for any obscene or immoral purpose or to interfere with or circumvent the security features of the Site or any related website, other websites, or the Internet. We reserve the right to terminate your use of the Site or any related website for violating any of the prohibited uses."
-msgstr ""
+msgstr "для любых непристойных или аморальных целей или для вмешательства или обхода средств безопасности Сайта или любого связанного с ним веб-сайта, других веб-сайтов или Интернета. Мы оставляем за собой право прекратить Ваше использование Сайта или любого связанного с ним веб-сайта за нарушение любого из запрещенных видов использования."
 
 #: src/components/Pages/Terms.tsx
 msgid "9. Assumption of Risk"
@@ -1158,11 +1205,11 @@ msgstr "Вы принимаете на себя риски использова�
 
 #: src/components/Pages/Terms.tsx
 msgid "10. Disclaimer of Warranties"
-msgstr ""
+msgstr "14. Отказ от предоставления гарантий"
 
 #: src/components/Pages/Terms.tsx
 msgid "The Site are provided to you completely as they are, and could function differently than you expected. You agree to accept the Site as is. You expressly agree that your use of, or inability to use, the Site is at your sole risk. Our liability shall be limited entirely or to the maximum extent permitted by law."
-msgstr ""
+msgstr "Сайт предоставляется Вам полностью таким, какой он есть, и может функционировать иначе, чем Вы ожидали. Вы соглашаетесь принять Сайт как есть. Вы однозначно соглашаетесь с тем, что использование или невозможность использования Сайта осуществляется исключительно на Ваш риск. Наша ответственность должна быть ограничена полностью или в максимальной степени, разрешенной законом."
 
 #: src/components/Pages/Terms.tsx
 msgid "11. Termination and Cancellation"
@@ -1182,7 +1229,7 @@ msgstr "12. Контактная информация"
 
 #: src/components/Pages/Terms.tsx
 msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
-msgstr ""
+msgstr "Вопросы об Условиях следует направлять нам по адресу terms@lenster.xyz"
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
@@ -1194,7 +1241,7 @@ msgstr "ENS имя:"
 
 #: src/components/Profile/Badges/ProofOfHumanity.tsx
 msgid "Proof of Humanity verified"
-msgstr ""
+msgstr "Proof of Humanity подтвержден"
 
 #: src/components/Profile/Badges/Sybil.tsx
 msgid "Sybil verified"
@@ -1203,6 +1250,11 @@ msgstr ""
 #: src/components/Profile/Badges/Worldcoin.tsx
 msgid "Worldcoin verified"
 msgstr "Worldcoin подтвержден"
+
+#: src/components/Profile/Details.tsx
+#: src/components/Settings/Account/Verification.tsx
+msgid "Verified"
+msgstr "Подтверждён"
 
 #: src/components/Profile/Details.tsx
 msgid "Follows you"
@@ -1227,10 +1279,6 @@ msgstr "Лента"
 #: src/components/Profile/FeedType.tsx
 msgid "Replies"
 msgstr "Ответы"
-
-#: src/components/Profile/FeedType.tsx
-msgid "Media"
-msgstr "Медиа"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Collected"
@@ -1354,11 +1402,6 @@ msgstr "Редактировать"
 msgid "Rearrrange"
 msgstr ""
 
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "Удалить"
-
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
 msgstr "Добро пожаловать в вашу галерею"
@@ -1369,7 +1412,7 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Let's do it!"
-msgstr ""
+msgstr "Давайте сделаем это!"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
@@ -1431,6 +1474,14 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/Splits.tsx
 msgid "Fee recipients"
+msgstr "Получатели вознаграждения"
+
+#: src/components/Publication/Actions/Collect/index.tsx
+msgid "{0} Collects"
+msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
+msgid "Collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -1449,11 +1500,11 @@ msgstr "{0} Комментариев"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Dislike"
-msgstr ""
+msgstr "Не нравится"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
-msgstr ""
+msgstr "Нравится"
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1470,6 +1521,11 @@ msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
+msgstr ""
+
+#: src/components/Publication/Actions/Mod.tsx
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
@@ -1518,7 +1574,7 @@ msgstr "АДРЕС NFT"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Comments"
-msgstr ""
+msgstr "<0>{0}</0> Комментарии"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Mirrors"
@@ -1530,7 +1586,7 @@ msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Likes"
-msgstr ""
+msgstr "<0>{0}</0> Лайка(ов)"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
@@ -1538,7 +1594,7 @@ msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
-msgstr ""
+msgstr "<0>{0}</0> Коллекта(ов)"
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -1546,35 +1602,35 @@ msgstr ""
 
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
-msgstr ""
+msgstr "Не удалось загрузить соответствующих людей"
 
 #: src/components/Search/Profiles.tsx
 msgid "No profiles for <0>“{query}”</0>"
-msgstr ""
+msgstr "Нет профилей для <0>“{query}”</0>"
 
 #: src/components/Search/Profiles.tsx
 msgid "Failed to load profiles"
-msgstr ""
+msgstr "Не удалось загрузить профили"
 
 #: src/components/Search/Publications.tsx
 msgid "No publications for <0>“{query}”</0>"
-msgstr ""
+msgstr "Нет публикаций для <0>“{query}”</0>"
 
 #: src/components/Search/Publications.tsx
 msgid "Failed to load publications"
-msgstr ""
+msgstr "Не удалось загрузить публикации"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Publications"
 msgstr "Публикации"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr "Профили"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Default profile updated successfully!"
-msgstr ""
+msgstr "Профиль успешно обновлен!"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Your default profile"
@@ -1582,7 +1638,7 @@ msgstr "Профиль по умолчанию"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "You don't have any default profile set!"
-msgstr ""
+msgstr "Вы не установили профиль по умолчанию!"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Select default profile"
@@ -1590,7 +1646,7 @@ msgstr "Выбрать профиль по умолчанию"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Selecting your default account helps to display the selected profile across {APP_NAME}, you can change your default profile anytime."
-msgstr ""
+msgstr "Выбор основной учетной записи помогает отображать выбранный профиль через {APP_NAME}, вы можете изменить свой основной профиль в любое время."
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "What else you should know"
@@ -1598,11 +1654,11 @@ msgstr "Что еще вы должны знать"
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc."
-msgstr ""
+msgstr "Только основной профиль будет виден в {APP_NAME}, примерах уведомлений, подписках и т. д."
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "You can change default profile anytime here."
-msgstr ""
+msgstr "Здесь вы можете изменить профиль по умолчанию в любое время."
 
 #: src/components/Settings/Account/SetProfile.tsx
 msgid "Select profile"
@@ -1610,7 +1666,7 @@ msgstr "Выберите профиль"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid amount"
-msgstr ""
+msgstr "Неверная сумма"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Ethereum address should be within 42 characters"
@@ -1622,7 +1678,7 @@ msgstr "Неверный Ethereum-адрес"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
-msgstr ""
+msgstr "Загрузка настроек Super Follow"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set super follow"
@@ -1630,11 +1686,11 @@ msgstr "Установить супер подписку"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-msgstr ""
+msgstr "Если включить Super Follow - пользователи будут платить криптовалюту, чтобы подписаться на вас, и это хороший способ заработать ее, вы можете изменить сумму и валюту или отключить / включить ее в любое время."
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Follow amount"
-msgstr ""
+msgstr "Стоимость подписки"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Funds recipient"
@@ -1651,10 +1707,6 @@ msgstr "Обновить супер подписку"
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
 msgstr "Установить супер подписку"
-
-#: src/components/Settings/Account/Verification.tsx
-msgid "Verified"
-msgstr "Подтверждён"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
@@ -1691,11 +1743,11 @@ msgstr "Предупреждение"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Handle with care!"
-msgstr ""
+msgstr "Обращаться осторожно!"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
-msgstr ""
+msgstr "Имейте в виду, что при разрешении этого модуля указанная сумма будет автоматически вычитаться при <0>коллекте</0> и <1>super follow</1>."
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allowance settings • {APP_NAME}"
@@ -1707,7 +1759,7 @@ msgstr "Разрешить / отозвать модули"
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
-msgstr ""
+msgstr "Для использования функции коллекта Вам необходимо разрешить используемый модуль, Вы можете разрешить и отозвать модуль в любое время."
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
@@ -1723,7 +1775,7 @@ msgstr "Очистить локальное хранилище"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
-msgstr ""
+msgstr "Если вы столкнулись с некоторыми проблемами, вы можете попробовать очистить локальное хранилище. Это удалит все данные, хранящиеся в вашем браузере."
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Optimistic publications"
@@ -1731,7 +1783,7 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your posts or comments that are not indexed"
-msgstr ""
+msgstr "Очистить свои посты или комментарии, которые не индексируются"
 
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
@@ -1756,11 +1808,11 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your DM encryption key"
-msgstr ""
+msgstr "Очистите ключ шифрования ЛС"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
-msgstr ""
+msgstr "Ключи ЛС сброшены"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Feature flags cache"
@@ -1776,7 +1828,7 @@ msgstr "Настройки приложения"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Note: Cleaning will log you out"
-msgstr ""
+msgstr "Примечание. При сбросе данных вы выйдете из системы"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Delete Profile • {APP_NAME}"
@@ -1796,7 +1848,7 @@ msgstr "Вы не сможете восстановить свою учетну�
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
-msgstr ""
+msgstr "Некоторая информация об учетной записи может по-прежнему быть доступна в поисковых системах, таких как Google или Bing."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Your @handle will be released immediately after deleting the account."
@@ -1817,7 +1869,7 @@ msgstr "Опасная зона"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
-msgstr ""
+msgstr "Подтвердите, что вы прочитали все последствия и хотите удалить свою учетную запись в любом случае"
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Yes, delete my account"
@@ -1894,7 +1946,7 @@ msgstr "Экспортировать публикации"
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Export all your posts, comments and mirrors to a JSON file."
-msgstr ""
+msgstr "Экспортировать все ваши публикации, комментарии и репосты в JSON файл."
 
 #: src/components/Settings/Export/Publications.tsx
 msgid "Exported <0>{0}</0> publications"
@@ -1910,7 +1962,7 @@ msgstr "Настройки интересов • {APP_NAME}"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-msgstr ""
+msgstr "Выбранные вами интересы используются для персонализации вашего взаимодействия с Lenster. Вы можете изменить свои интересы, если что-то не соответствует действительности."
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "Hide number of likes"
@@ -1918,7 +1970,7 @@ msgstr "Скрыть количество лайков"
 
 #: src/components/Settings/Preferences/LikesPreferences.tsx
 msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
-msgstr ""
+msgstr "Вы не будете видеть общее количество \"лайков\" для публикаций, которыми другие делятся в ленте. Ваши \"лайки\" к публикации по-прежнему будут видны Вам и всем остальным."
 
 #: src/components/Settings/Preferences/index.tsx
 msgid "Preferences • {APP_NAME}"
@@ -2065,7 +2117,7 @@ msgstr "Удалить публикацию?"
 
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
-msgstr ""
+msgstr "Это нельзя отменить, и данные будут удалены из вашего профиля, хронологии всех учетных записей, которые следят за вами, и из результатов поиска."
 
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
@@ -2161,10 +2213,6 @@ msgid "▲ Powered by Vercel"
 msgstr "▲ При поддержке Vercel"
 
 #: src/components/Shared/GlobalAlerts.tsx
-msgid "Mod actions"
-msgstr ""
-
-#: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
 msgstr ""
 
@@ -2228,11 +2276,14 @@ msgid "Handle should only contain alphanumeric characters"
 msgstr "Псевдоним может содержать только буквы и цифры"
 
 #: src/components/Shared/Login/New/index.tsx
+msgid "The selected handle is already taken"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
 msgstr "Зарегистрироваться на {APP_NAME}"
 
 #: src/components/Shared/Login/New/index.tsx
-#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr "Псевдоним"
 
@@ -2286,15 +2337,15 @@ msgstr ""
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
-msgstr ""
+msgstr "Загрузка лайков"
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "No likes."
-msgstr ""
+msgstr "Нет лайков."
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Failed to load likes"
-msgstr ""
+msgstr "Не удалось загрузить лайки"
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Loading mirrors"
@@ -2310,27 +2361,27 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select type"
-msgstr ""
+msgstr "Выберите тип"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Illegal"
-msgstr ""
+msgstr "Незаконно"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Fraud"
-msgstr ""
+msgstr "Мошенничество"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Sensitive"
-msgstr ""
+msgstr "Чувствительный"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Spam"
-msgstr ""
+msgstr "Спам"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
-msgstr ""
+msgstr "Причина"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select sub reason"
@@ -2378,7 +2429,7 @@ msgstr "Фальшивое вовлечение"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Low signal"
-msgstr ""
+msgstr "Низкий уровень сигнала"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
@@ -2402,7 +2453,7 @@ msgstr "Другое"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Unrelated"
-msgstr ""
+msgstr "Несвязанный"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
@@ -2443,7 +2494,7 @@ msgstr "Выйти"
 
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
-msgstr ""
+msgstr "Модерация"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
 msgid "Disable mod mode"
@@ -2514,12 +2565,24 @@ msgid "{type} voting is not supported yet!"
 msgstr "{type} голосование пока не поддерживается!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr "Текущие результаты"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
 msgstr "Результаты"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} Votes"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
@@ -2547,7 +2610,7 @@ msgstr ""
 
 #: src/components/Shared/Status.tsx
 msgid "Clear status"
-msgstr ""
+msgstr "Очистить статус"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
@@ -2556,7 +2619,7 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
-msgstr ""
+msgstr "Получатель:"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can comment on @{0}'s publications"
@@ -2620,7 +2683,7 @@ msgstr "Вам не хватает <0>{0}</0>"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
-msgstr ""
+msgstr "Обмен в Uniswap"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
@@ -2640,12 +2703,16 @@ msgid "Address"
 msgstr "Адрес"
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr "NFT адрес"
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
 msgstr "Можно использовать обработчик"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "NFT address"
-msgstr "NFT адрес"
+msgid "Gas sponsored"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
@@ -2656,7 +2723,6 @@ msgid "Metadata"
 msgstr "Метаданные"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
 msgstr "Открыть"
 
@@ -2671,14 +2737,6 @@ msgstr "Включить комментарии"
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
 msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "App ID"
-msgstr "ID приложения"
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "On-chain content URI"
-msgstr "Блокчейн контент URI"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
@@ -2772,7 +2830,7 @@ msgstr "Плата за подписку"
 
 #: src/lib/getModule.ts
 msgid "Follower Only Reference"
-msgstr ""
+msgstr "Ссылка только для подписчиков"
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"

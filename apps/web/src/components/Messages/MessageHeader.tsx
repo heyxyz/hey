@@ -42,7 +42,10 @@ const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
   return (
     <div className="divider flex items-center justify-between px-4 py-2">
       <div className="flex items-center">
-        <ChevronLeftIcon onClick={onBackClick} className="mr-1 h-6 w-6 cursor-pointer lg:hidden" />
+        <ChevronLeftIcon
+          onClick={onBackClick}
+          className="mr-1 h-6 w-6 cursor-pointer lg:hidden"
+        />
         <UserProfile profile={profile} />
       </div>
       {!following ? (

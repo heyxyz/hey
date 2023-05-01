@@ -1,3 +1,4 @@
+import { LENSTER_POLLS_SPACE } from 'data';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -17,7 +18,11 @@ interface WrapperProps {
 }
 
 const Wrapper: FC<WrapperProps> = ({ children, dataTestId = '' }) => (
-  <Card className="mt-3 cursor-auto p-5" dataTestId={dataTestId} onClick={stopEventPropagation}>
+  <Card
+    className="mt-3 cursor-auto p-5"
+    dataTestId={dataTestId}
+    onClick={stopEventPropagation}
+  >
     {children}
   </Card>
 );
@@ -61,12 +66,30 @@ const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
   }
 
   const { proposal, votes } = data;
+  const isLensterPoll = proposal?.space?.id === LENSTER_POLLS_SPACE;
+
+  if (isLensterPoll) {
+    return (
+      <span onClick={stopEventPropagation} ref={observe}>
+        <Choices
+          proposal={proposal as Proposal}
+          votes={votes as Vote[]}
+          isLensterPoll={isLensterPoll}
+          refetch={refetch}
+        />
+      </span>
+    );
+  }
 
   return (
     <Wrapper dataTestId={`snapshot-${proposal.id}`}>
       <span ref={observe} />
       <Header proposal={proposal as Proposal} />
-      <Choices proposal={proposal as Proposal} votes={votes as Vote[]} refetch={refetch} />
+      <Choices
+        proposal={proposal as Proposal}
+        votes={votes as Vote[]}
+        refetch={refetch}
+      />
     </Wrapper>
   );
 };

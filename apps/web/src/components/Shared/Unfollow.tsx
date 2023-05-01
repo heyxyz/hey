@@ -24,18 +24,31 @@ interface UnfollowProps {
   showText?: boolean;
 }
 
-const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }) => {
+const Unfollow: FC<UnfollowProps> = ({
+  profile,
+  showText = false,
+  setFollowing
+}) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [writeLoading, setWriteLoading] = useState(false);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError
+  });
   const { data: signer } = useSigner();
 
-  const burnWithSig = async (signature: string, typedData: CreateBurnEip712TypedData) => {
+  const burnWithSig = async (
+    signature: string,
+    typedData: CreateBurnEip712TypedData
+  ) => {
     const { tokenId, deadline } = typedData.value;
     const { v, r, s } = splitSignature(signature);
     const sig = { v, r, s, deadline };
 
-    const followNftContract = new Contract(typedData.domain.verifyingContract, FollowNft, signer as Signer);
+    const followNftContract = new Contract(
+      typedData.domain.verifyingContract,
+      FollowNft,
+      signer as Signer
+    );
 
     const tx = await followNftContract.burnWithSig(tokenId, sig);
     if (tx) {
@@ -49,27 +62,30 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }
     }
   });
 
-  const [createUnfollowTypedData, { loading: typedDataLoading }] = useCreateUnfollowTypedDataMutation({
-    onCompleted: async ({ createUnfollowTypedData }) => {
-      const { typedData, id } = createUnfollowTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
+  const [createUnfollowTypedData, { loading: typedDataLoading }] =
+    useCreateUnfollowTypedDataMutation({
+      onCompleted: async ({ createUnfollowTypedData }) => {
+        const { typedData, id } = createUnfollowTypedData;
+        const signature = await signTypedDataAsync(getSignature(typedData));
 
-      setWriteLoading(true);
-      try {
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
-        if (data?.broadcast.__typename === 'RelayError') {
-          await burnWithSig(signature, typedData);
+        setWriteLoading(true);
+        try {
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          });
+          if (data?.broadcast.__typename === 'RelayError') {
+            await burnWithSig(signature, typedData);
+          }
+          toast.success(t`Unfollowed successfully!`);
+          Mixpanel.track(PROFILE.UNFOLLOW);
+        } catch {
+          toast.error(t`User rejected request`);
+        } finally {
+          setWriteLoading(false);
         }
-        toast.success(t`Unfollowed successfully!`);
-        Mixpanel.track(PROFILE.UNFOLLOW);
-      } catch {
-        toast.error(t`User rejected request`);
-      } finally {
-        setWriteLoading(false);
-      }
-    },
-    onError
-  });
+      },
+      onError
+    });
 
   const createUnfollow = async () => {
     if (!currentProfile) {
@@ -77,7 +93,9 @@ const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }
     }
 
     try {
-      await createUnfollowTypedData({ variables: { request: { profile: profile?.id } } });
+      await createUnfollowTypedData({
+        variables: { request: { profile: profile?.id } }
+      });
     } catch {}
   };
 

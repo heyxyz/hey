@@ -3,5 +3,6 @@ export enum FeatureFlag {
   NftGallery = 'nft-gallery',
   NftDetail = 'nft-detail',
   GatedLocales = 'gated-locales',
-  ExportData = 'export-data'
+  ExportData = 'export-data',
+  Polls = 'polls'
 }

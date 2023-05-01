@@ -19,7 +19,9 @@ test('should have handle', async ({ page }) => {
 });
 
 test('should have bio', async ({ page }) => {
-  await expect(page.getByTestId('profile-bio')).toContainText('opinions are mine');
+  await expect(page.getByTestId('profile-bio')).toContainText(
+    'opinions are mine'
+  );
 });
 
 test('should have feed', async ({ page }) => {

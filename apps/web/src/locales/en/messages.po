@@ -60,12 +60,14 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
@@ -74,6 +76,10 @@ msgstr ""
 #: src/components/Shared/Status.tsx
 msgid "Save"
 msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/index.tsx
+msgid "Access"
+msgstr "Access"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
@@ -94,6 +100,11 @@ msgstr ""
 #: src/components/Composer/Actions/Attachment.tsx
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
+msgstr ""
+
+#: src/components/Composer/Actions/Attachment.tsx
+#: src/components/Profile/FeedType.tsx
+msgid "Media"
 msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
@@ -199,8 +210,39 @@ msgid "Loading GIFs"
 msgstr ""
 
 #: src/components/Composer/Actions/Giphy/index.tsx
+msgid "GIF"
+msgstr "GIF"
+
+#: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
 msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length"
+msgstr "Poll length"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length (days)"
+msgstr "Poll length (days)"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "Delete"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Choice {0}"
+msgstr "Choice {0}"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Add another option"
+msgstr "Add another option"
+
+#: src/components/Composer/Actions/PollSettings/index.tsx
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Poll"
+msgstr "Poll"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -255,6 +297,10 @@ msgstr "Upload"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr ""
+
+#: src/components/Composer/Editor/index.tsx
+msgid "Ask a question..."
+msgstr "Ask a question..."
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
@@ -374,6 +420,7 @@ msgid "Enable DMs"
 msgstr ""
 
 #: src/components/Home/FeedEventFilters.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Filter"
 msgstr ""
 
@@ -723,59 +770,59 @@ msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> collected your <2>comment</2></0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> collected your <2>mirror</2></0>"
 
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> collected your <2>post</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> commented on your <2>comment</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> commented on your <2>mirror</2></0>"
 
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> commented on your <2>post</2></0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
-msgstr ""
+msgstr "<0><1/> followed you</0>"
 
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
-msgstr ""
+msgstr "<0><1/> super followed you</0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> liked your <2>comment</2></0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> liked your <2>mirror</2></0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> liked your <2>post</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> mentioned you in a <2>comment</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
-msgstr ""
+msgstr "<0><1/> mentioned you in a <2>mirror</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> mentioned you in a <2>post</2></0>"
 
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
@@ -1205,6 +1252,11 @@ msgid "Worldcoin verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
+#: src/components/Settings/Account/Verification.tsx
+msgid "Verified"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "Follows you"
 
@@ -1226,10 +1278,6 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Replies"
-msgstr ""
-
-#: src/components/Profile/FeedType.tsx
-msgid "Media"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
@@ -1354,11 +1402,6 @@ msgstr "Edit"
 msgid "Rearrrange"
 msgstr "Rearrrange"
 
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "Delete"
-
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
 msgstr "Welcome to your gallery"
@@ -1434,6 +1477,14 @@ msgid "Fee recipients"
 msgstr "Fee recipients"
 
 #: src/components/Publication/Actions/Collect/index.tsx
+msgid "{0} Collects"
+msgstr "{0} Collects"
+
+#: src/components/Publication/Actions/Collect/index.tsx
+msgid "Collect"
+msgstr "Collect"
+
+#: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
 msgstr ""
@@ -1471,6 +1522,11 @@ msgstr ""
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Mirror"
 msgstr ""
+
+#: src/components/Publication/Actions/Mod.tsx
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr "Mod actions"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
@@ -1564,11 +1620,11 @@ msgstr ""
 msgid "Failed to load publications"
 msgstr ""
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Publications"
 msgstr ""
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr ""
 
@@ -1650,10 +1706,6 @@ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Set Super follow"
-msgstr ""
-
-#: src/components/Settings/Account/Verification.tsx
-msgid "Verified"
 msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
@@ -2161,10 +2213,6 @@ msgid "▲ Powered by Vercel"
 msgstr ""
 
 #: src/components/Shared/GlobalAlerts.tsx
-msgid "Mod actions"
-msgstr "Mod actions"
-
-#: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
 msgstr "Perform mod actions on this publication."
 
@@ -2228,11 +2276,14 @@ msgid "Handle should only contain alphanumeric characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
+msgid "The selected handle is already taken"
+msgstr "The selected handle is already taken"
+
+#: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr ""
 
@@ -2514,12 +2565,24 @@ msgid "{type} voting is not supported yet!"
 msgstr "{type} voting is not supported yet!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "Your vote has been casted!"
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr "Current results"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
 msgstr "Results"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} Votes"
+msgstr "{0} Votes"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "{0} left"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
@@ -2640,12 +2703,16 @@ msgid "Address"
 msgstr "Address"
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr "NFT address"
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
 msgstr "Can use relay"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "NFT address"
-msgstr "NFT address"
+msgid "Gas sponsored"
+msgstr "Gas sponsored"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
@@ -2656,7 +2723,6 @@ msgid "Metadata"
 msgstr "Metadata"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
 msgstr "Open"
 
@@ -2671,14 +2737,6 @@ msgstr "Comment on"
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
 msgstr "Collect module"
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "App ID"
-msgstr "App ID"
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "On-chain content URI"
-msgstr "On-chain content URI"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"

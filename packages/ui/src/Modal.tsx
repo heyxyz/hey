@@ -41,9 +41,12 @@ export const Modal: FC<ModalProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity dark:bg-gray-900 dark:bg-opacity-80" />
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80" />
           </Transition.Child>
-          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
+          <span
+            className="hidden sm:inline-block sm:h-screen sm:align-middle"
+            aria-hidden="true"
+          />
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-100"
@@ -59,7 +62,7 @@ export const Modal: FC<ModalProps> = ({
                 { 'sm:max-w-3xl': size === 'md' },
                 { 'sm:max-w-lg': size === 'sm' },
                 { 'sm:max-w-sm': size === 'xs' },
-                'inline-block w-full transform rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
+                'inline-block w-full scale-100 rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
               )}
             >
               {title && (

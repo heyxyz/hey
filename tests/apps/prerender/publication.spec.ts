@@ -11,7 +11,9 @@ test('should have page title', async ({ page }) => {
 });
 
 test('should have publication', async ({ page }) => {
-  await expect(page.getByTestId('publication-0x0d-0x01')).toContainText('gm frens 👋');
+  await expect(page.getByTestId('publication-0x0d-0x01')).toContainText(
+    'gm frens 👋'
+  );
 });
 
 test('should have comment feed', async ({ page }) => {

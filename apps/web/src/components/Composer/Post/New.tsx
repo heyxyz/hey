@@ -3,44 +3,28 @@ import { t, Trans } from '@lingui/macro';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import { useRouter } from 'next/router';
-import type { FC, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
-import { Card, Image, Modal, Tooltip } from 'ui';
+import { Card, Image, Modal } from 'ui';
 
 import NewPublication from '../NewPublication';
-
-type Action = 'update' | 'image' | 'video' | 'audio' | 'article';
-
-interface ActionProps {
-  icon: ReactNode;
-  text: string;
-  onClick: () => void;
-}
-
-const Action: FC<ActionProps> = ({ icon, text, onClick }) => (
-  <Tooltip content={text} placement="top">
-    <button
-      className="lt-text-gray-500 hover:text-brand flex flex-col items-center"
-      onClick={onClick}
-      type="button"
-    >
-      {icon}
-    </button>
-  </Tooltip>
-);
 
 const NewPost: FC = () => {
   const { query, isReady, push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
-  const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
-  const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
-  const [selectedAction, setSelectedAction] = useState<Action>('update');
+  const showNewPostModal = usePublicationStore(
+    (state) => state.showNewPostModal
+  );
+  const setShowNewPostModal = usePublicationStore(
+    (state) => state.setShowNewPostModal
+  );
+  const setPublicationContent = usePublicationStore(
+    (state) => state.setPublicationContent
+  );
 
-  const openModal = (action: Action) => {
-    setSelectedAction(action);
+  const openModal = () => {
     setShowNewPostModal(true);
   };
 
@@ -56,9 +40,9 @@ const NewPost: FC = () => {
           .join('');
       }
 
-      const content = `${text}${processedHashtags ? ` ${processedHashtags} ` : ''}${url ? `\n\n${url}` : ''}${
-        via ? `\n\nvia @${via}` : ''
-      }`;
+      const content = `${text}${
+        processedHashtags ? ` ${processedHashtags} ` : ''
+      }${url ? `\n\n${url}` : ''}${via ? `\n\nvia @${via}` : ''}`;
 
       setShowNewPostModal(true);
       setPublicationContent(content);
@@ -81,7 +65,7 @@ const NewPost: FC = () => {
         <button
           className="flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
           type="button"
-          onClick={() => openModal('update')}
+          onClick={() => openModal()}
         >
           <PencilAltIcon className="h-5 w-5" />
           <span>
@@ -94,7 +78,7 @@ const NewPost: FC = () => {
           show={showNewPostModal}
           onClose={() => setShowNewPostModal(false)}
         >
-          {selectedAction === 'update' && <NewPublication />}
+          <NewPublication />
         </Modal>
       </div>
     </Card>

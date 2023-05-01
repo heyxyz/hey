@@ -21,7 +21,11 @@ const Verification: FC = () => {
       ) : (
         <div>
           <Trans>No.</Trans>{' '}
-          <a href="https://tally.so/r/wgDajK" target="_blank" rel="noreferrer noopener">
+          <a
+            href="https://tally.so/r/wgDajK"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             <Trans>Request Verification</Trans>
           </a>
         </div>

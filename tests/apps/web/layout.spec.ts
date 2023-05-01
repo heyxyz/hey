@@ -13,7 +13,9 @@ test('should have global search', async ({ page }) => {
   await input.fill('yoginth');
 
   const searchProfilesDropdown = page.getByTestId('search-profiles-dropdown');
-  await expect(searchProfilesDropdown.getByTestId('search-profile-yoginth')).toContainText('Yoginth');
+  await expect(
+    searchProfilesDropdown.getByTestId('search-profile-yoginth')
+  ).toContainText('Yoginth');
 });
 
 test('should have login button', async ({ page }) => {

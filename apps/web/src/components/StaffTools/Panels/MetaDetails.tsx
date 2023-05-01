@@ -9,9 +9,14 @@ interface MetaDetailsProps {
   icon: ReactNode;
 }
 
-const MetaDetails: FC<MetaDetailsProps> = ({ children, title, value, icon }) => (
+const MetaDetails: FC<MetaDetailsProps> = ({
+  children,
+  title,
+  value,
+  icon
+}) => (
   <div
-    className="linkify flex cursor-pointer items-center gap-2 font-bold"
+    className="linkify flex cursor-pointer items-center gap-1 text-sm font-bold"
     onClick={() => {
       navigator.clipboard.writeText(value);
       toast.success(t`Copied to clipboard!`);
@@ -19,7 +24,7 @@ const MetaDetails: FC<MetaDetailsProps> = ({ children, title, value, icon }) => 
     aria-hidden="true"
   >
     {icon}
-    {title ? <div className="lt-text-gray-500 text-sm">{title}:</div> : null}
+    {title ? <div className="lt-text-gray-500">{title}:</div> : null}
     <div>{children}</div>
   </div>
 );

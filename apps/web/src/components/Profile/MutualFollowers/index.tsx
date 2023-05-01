@@ -37,10 +37,13 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className={clsx('lt-text-gray-500 flex cursor-pointer items-center space-x-2.5', {
-        'text-sm': variant === 'sm',
-        'text-xs': variant === 'xs'
-      })}
+      className={clsx(
+        'lt-text-gray-500 flex cursor-pointer items-center space-x-2.5',
+        {
+          'text-sm': variant === 'sm',
+          'text-xs': variant === 'xs'
+        }
+      )}
       onClick={() => setShowMutualFollowersModal?.(true)}
       aria-hidden="true"
     >

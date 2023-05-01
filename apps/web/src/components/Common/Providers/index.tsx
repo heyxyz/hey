@@ -2,10 +2,15 @@ import getLivepeerTheme from '@lib/getLivepeerTheme';
 import { initLocale } from '@lib/i18n';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
-import { createReactClient, LivepeerConfig, studioProvider } from '@livepeer/react';
+import {
+  createReactClient,
+  LivepeerConfig,
+  studioProvider
+} from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { IS_MAINNET, LIVEPEER_TOKEN } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
+import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
@@ -22,11 +27,7 @@ import TelemetryProvider from './TelemetryProvider';
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai, mainnet],
-  [
-    jsonRpcProvider({
-      rpc: (chain) => ({ http: `https://rpc.brovider.xyz/${chain.id}` })
-    })
-  ]
+  [jsonRpcProvider({ rpc: (chain) => ({ http: getRpc(chain.id) }) })]
 );
 
 const connectors = () => {
@@ -62,7 +63,10 @@ const Providers = ({ children }: { children: ReactNode }) => {
           <WagmiConfig client={wagmiClient}>
             <ApolloProvider client={apolloClient}>
               <QueryClientProvider client={queryClient}>
-                <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
+                <LivepeerConfig
+                  client={livepeerClient}
+                  theme={getLivepeerTheme}
+                >
                   <ThemeProvider defaultTheme="light" attribute="class">
                     <Layout>{children}</Layout>
                   </ThemeProvider>

@@ -50,7 +50,13 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
-import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
+import {
+  useAccount,
+  useBalance,
+  useContractRead,
+  useContractWrite,
+  useSignTypedData
+} from 'wagmi';
 
 import Splits from './Splits';
 
@@ -61,28 +67,41 @@ interface CollectModuleProps {
   electedMirror?: ElectedMirror;
 }
 
-const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, electedMirror }) => {
+const CollectModule: FC<CollectModuleProps> = ({
+  count,
+  setCount,
+  publication,
+  electedMirror
+}) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [revenue, setRevenue] = useState(0);
-  const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
+  const [hasCollectedByMe, setHasCollectedByMe] = useState(
+    publication?.hasCollectedByMe
+  );
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+    onError
+  });
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
   });
 
   const collectModule: any = data?.publication?.collectModule;
-  const isRevertCollectModule = collectModule?.type === CollectModules.RevertCollectModule;
+  const isRevertCollectModule =
+    collectModule?.type === CollectModules.RevertCollectModule;
   const isMultirecipientFeeCollectModule =
     collectModule?.type === CollectModules.MultirecipientFeeCollectModule;
-  const isFreeCollectModule = collectModule?.type === CollectModules.FreeCollectModule;
-  const endTimestamp = collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
-  const collectLimit = collectModule?.collectLimit ?? collectModule?.optionalCollectLimit;
+  const isFreeCollectModule =
+    collectModule?.type === CollectModules.FreeCollectModule;
+  const endTimestamp =
+    collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
+  const collectLimit =
+    collectModule?.collectLimit ?? collectModule?.optionalCollectLimit;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -108,7 +127,10 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
     address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
     abi: UpdateOwnableFeeCollectModule,
     functionName: 'getPublicationData',
-    args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])],
+    args: [
+      parseInt(publication.profile?.id),
+      parseInt(publication?.id.split('-')[1])
+    ],
     enabled: false
   });
 
@@ -123,39 +145,51 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
 
   const percentageCollected = (count / parseInt(collectLimit)) * 100;
 
-  const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
-    variables: {
-      request: {
-        currencies: collectModule?.amount?.asset?.address,
-        followModules: [],
-        collectModules: collectModule?.type,
-        referenceModules: []
+  const { data: allowanceData, loading: allowanceLoading } =
+    useApprovedModuleAllowanceAmountQuery({
+      variables: {
+        request: {
+          currencies: collectModule?.amount?.asset?.address,
+          followModules: [],
+          collectModules: collectModule?.type,
+          referenceModules: []
+        }
+      },
+      skip: !collectModule?.amount?.asset?.address || !currentProfile,
+      onCompleted: ({ approvedModuleAllowanceAmount }) => {
+        setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
       }
-    },
-    skip: !collectModule?.amount?.asset?.address || !currentProfile,
-    onCompleted: ({ approvedModuleAllowanceAmount }) => {
-      setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
-    }
-  });
+    });
 
-  const { data: revenueData, loading: revenueLoading } = usePublicationRevenueQuery({
-    variables: {
-      request: {
-        publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
-      }
-    },
-    pollInterval: 5000,
-    skip: !publication?.id
-  });
+  const { data: revenueData, loading: revenueLoading } =
+    usePublicationRevenueQuery({
+      variables: {
+        request: {
+          publicationId:
+            publication.__typename === 'Mirror'
+              ? publication?.mirrorOf?.id
+              : publication?.id
+        }
+      },
+      pollInterval: 5000,
+      skip: !publication?.id
+    });
 
   const { data: usdPrice } = useQuery(
     ['coingeckoData'],
-    () => getCoingeckoPrice(getAssetAddress(collectModule?.amount?.asset?.symbol)).then((res) => res),
+    () =>
+      getCoingeckoPrice(
+        getAssetAddress(collectModule?.amount?.asset?.symbol)
+      ).then((res) => res),
     { enabled: Boolean(collectModule?.amount) }
   );
 
   useEffect(() => {
-    setRevenue(parseFloat((revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0));
+    setRevenue(
+      parseFloat(
+        (revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0
+      )
+    );
   }, [revenueData]);
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
@@ -166,7 +200,11 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
   });
 
   let hasAmount = false;
-  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(collectModule?.amount?.value)) {
+  if (
+    balanceData &&
+    parseFloat(balanceData?.formatted) <
+      parseFloat(collectModule?.amount?.value)
+  ) {
     hasAmount = false;
   } else {
     hasAmount = true;
@@ -175,33 +213,42 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createCollectTypedData, { loading: typedDataLoading }] = useCreateCollectTypedDataMutation({
-    onCompleted: async ({ createCollectTypedData }) => {
-      const { id, typedData } = createCollectTypedData;
-      const { profileId, pubId, data: collectData, deadline } = typedData.value;
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { v, r, s } = splitSignature(signature);
-      const sig = { v, r, s, deadline };
-      const inputStruct = {
-        collector: address,
-        profileId,
-        pubId,
-        data: collectData,
-        sig
-      };
-      setUserSigNonce(userSigNonce + 1);
-      const { data } = await broadcast({ variables: { request: { id, signature } } });
-      if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-      }
-    },
-    onError
-  });
+  const [createCollectTypedData, { loading: typedDataLoading }] =
+    useCreateCollectTypedDataMutation({
+      onCompleted: async ({ createCollectTypedData }) => {
+        const { id, typedData } = createCollectTypedData;
+        const {
+          profileId,
+          pubId,
+          data: collectData,
+          deadline
+        } = typedData.value;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { v, r, s } = splitSignature(signature);
+        const sig = { v, r, s, deadline };
+        const inputStruct = {
+          collector: address,
+          profileId,
+          pubId,
+          data: collectData,
+          sig
+        };
+        setUserSigNonce(userSigNonce + 1);
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
+        if (data?.broadcast.__typename === 'RelayError') {
+          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        }
+      },
+      onError
+    });
 
-  const [createCollectProxyAction, { loading: proxyActionLoading }] = useProxyActionMutation({
-    onCompleted: () => onCompleted(),
-    onError
-  });
+  const [createCollectProxyAction, { loading: proxyActionLoading }] =
+    useProxyActionMutation({
+      onCompleted: () => onCompleted(),
+      onError
+    });
 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
@@ -223,7 +270,9 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
     try {
       if (isFreeCollectModule && !collectModule?.followerOnly) {
         await createViaProxyAction({
-          request: { collect: { freeCollect: { publicationId: publication?.id } } }
+          request: {
+            collect: { freeCollect: { publicationId: publication?.id } }
+          }
         });
       } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
         refetch().then(async ({ data }) => {
@@ -236,7 +285,10 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
             await createCollectTypedData({
               variables: {
                 options: { overrideSigNonce: userSigNonce },
-                request: { publicationId: publication?.id, unknownModuleData: encodedData }
+                request: {
+                  publicationId: publication?.id,
+                  unknownModuleData: encodedData
+                }
               }
             });
           }
@@ -245,7 +297,11 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
         await createCollectTypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
-            request: { publicationId: electedMirror ? electedMirror.mirrorId : publication?.id }
+            request: {
+              publicationId: electedMirror
+                ? electedMirror.mirrorId
+                : publication?.id
+            }
           }
         });
       }
@@ -256,19 +312,32 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
     return <Loader message={t`Loading collect`} />;
   }
 
-  const isLimitedCollectAllCollected = collectLimit ? count >= parseInt(collectLimit) : false;
+  const isLimitedCollectAllCollected = collectLimit
+    ? count >= parseInt(collectLimit)
+    : false;
   const isCollectExpired = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
   const isLoading =
-    typedDataLoading || proxyActionLoading || signLoading || isFetching || writeLoading || broadcastLoading;
+    typedDataLoading ||
+    proxyActionLoading ||
+    signLoading ||
+    isFetching ||
+    writeLoading ||
+    broadcastLoading;
 
   return (
     <>
       {Boolean(collectLimit) && (
-        <Tooltip placement="top" content={`${percentageCollected.toFixed(0)}% Collected`}>
+        <Tooltip
+          placement="top"
+          content={`${percentageCollected.toFixed(0)}% Collected`}
+        >
           <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
-            <div className="bg-brand-500 h-2.5" style={{ width: `${percentageCollected}%` }} />
+            <div
+              className="bg-brand-500 h-2.5"
+              style={{ width: `${percentageCollected}%` }}
+            />
           </div>
         </Tooltip>
       )}
@@ -277,16 +346,23 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
           <div className="pb-5">
             <CollectWarning
               handle={formatHandle(publication?.profile?.handle)}
-              isSuperFollow={publication?.profile?.followModule?.__typename === 'FeeFollowModuleSettings'}
+              isSuperFollow={
+                publication?.profile?.followModule?.__typename ===
+                'FeeFollowModuleSettings'
+              }
             />
           </div>
         )}
         <div className="space-y-1.5 pb-2">
           {publication?.metadata?.name && (
-            <div className="text-xl font-bold">{publication?.metadata?.name}</div>
+            <div className="text-xl font-bold">
+              {publication?.metadata?.name}
+            </div>
           )}
           {publication?.metadata?.content && (
-            <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.content}</Markup>
+            <Markup className="lt-text-gray-500 line-clamp-2">
+              {publication?.metadata?.content}
+            </Markup>
           )}
           <ReferralAlert
             electedMirror={electedMirror}
@@ -305,8 +381,12 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
               title={collectModule?.amount?.asset?.symbol}
             />
             <span className="space-x-1">
-              <span className="text-2xl font-bold">{collectModule.amount.value}</span>
-              <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
+              <span className="text-2xl font-bold">
+                {collectModule.amount.value}
+              </span>
+              <span className="text-xs">
+                {collectModule?.amount?.asset?.symbol}
+              </span>
               {usdPrice ? (
                 <>
                   <span className="lt-text-gray-500 px-0.5">·</span>
@@ -319,7 +399,7 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
           </div>
         )}
         <div className="space-y-1.5">
-          <div className="item-center block space-y-1 sm:flex sm:space-x-5">
+          <div className="block items-center space-y-1 sm:flex sm:space-x-5">
             <div className="flex items-center space-x-2">
               <UsersIcon className="lt-text-gray-500 h-4 w-4" />
               <button
@@ -337,7 +417,9 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
               >
                 <Collectors
                   publicationId={
-                    publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
+                    publication.__typename === 'Mirror'
+                      ? publication?.mirrorOf?.id
+                      : publication?.id
                   }
                 />
               </Modal>
@@ -377,7 +459,9 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
                   />
                   <div className="flex items-baseline space-x-1.5">
                     <div className="font-bold">{revenue}</div>
-                    <div className="text-[10px]">{collectModule?.amount?.asset?.symbol}</div>
+                    <div className="text-[10px]">
+                      {collectModule?.amount?.asset?.symbol}
+                    </div>
                     {usdPrice ? (
                       <>
                         <span className="lt-text-gray-500">·</span>
@@ -398,8 +482,12 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
                 <span>
                   <Trans>Sale Ends:</Trans>
                 </span>
-                <span className="font-bold text-gray-600" title={formatTime(endTimestamp)}>
-                  {dayjs(endTimestamp).format('MMMM DD, YYYY')} at {dayjs(endTimestamp).format('hh:mm a')}
+                <span
+                  className="font-bold text-gray-600"
+                  title={formatTime(endTimestamp)}
+                >
+                  {dayjs(endTimestamp).format('MMMM DD, YYYY')} at{' '}
+                  {dayjs(endTimestamp).format('hh:mm a')}
                 </span>
               </div>
             </div>
@@ -422,7 +510,9 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
               </div>
             </div>
           )}
-          {isMultirecipientFeeCollectModule && <Splits recipients={collectModule?.recipients} />}
+          {isMultirecipientFeeCollectModule && (
+            <Splits recipients={collectModule?.recipients} />
+          )}
         </div>
         <div className="flex items-center space-x-2">
           {currentProfile && (!hasCollectedByMe || !isFreeCollectModule) ? (
@@ -435,19 +525,31 @@ const CollectModule: FC<CollectModuleProps> = ({ count, setCount, publication, e
                     className="mt-5"
                     onClick={createCollect}
                     disabled={isLoading}
-                    icon={isLoading ? <Spinner size="xs" /> : <CollectionIcon className="h-4 w-4" />}
+                    icon={
+                      isLoading ? (
+                        <Spinner size="xs" />
+                      ) : (
+                        <CollectionIcon className="h-4 w-4" />
+                      )
+                    }
                   >
                     <Trans>Collect now</Trans>
                   </Button>
                 ) : null
               ) : (
-                <WarningMessage className="mt-5" message={<Uniswap module={collectModule} />} />
+                <WarningMessage
+                  className="mt-5"
+                  message={<Uniswap module={collectModule} />}
+                />
               )
             ) : (
               <span className="mt-5">
                 <AllowanceButton
                   title="Allow collect module"
-                  module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
+                  module={
+                    allowanceData
+                      ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount
+                  }
                   allowed={allowed}
                   setAllowed={setAllowed}
                 />

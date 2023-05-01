@@ -12,11 +12,18 @@ interface PublicationHeaderProps {
   feedItem?: FeedItem;
 }
 
-const PublicationHeader: FC<PublicationHeaderProps> = ({ publication, feedItem }) => {
+const PublicationHeader: FC<PublicationHeaderProps> = ({
+  publication,
+  feedItem
+}) => {
   const { allowed: modMode } = useModMode();
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
-  const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
+  const rootPublication = feedItem
+    ? firstComment
+      ? firstComment
+      : feedItem?.root
+    : publication;
   const profile = feedItem
     ? rootPublication.profile
     : isMirror

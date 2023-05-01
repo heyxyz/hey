@@ -16,13 +16,19 @@ const Module: FC<ModuleProps> = ({ module }) => {
   const [allowed, setAllowed] = useState(module?.allowance !== '0x00');
 
   return (
-    <Card key={module?.module} className="block items-center justify-between p-5 sm:flex" forceRounded>
+    <Card
+      key={module?.module}
+      className="block items-center justify-between p-5 sm:flex"
+      forceRounded
+    >
       <div className="mb-3 mr-1.5 overflow-hidden sm:mb-0">
         <div className="flex items-center space-x-2">
           <div className="text-brand">
             <GetModuleIcon module={module?.module} size={4} />
           </div>
-          <div className="whitespace-nowrap font-bold">{getModule(module?.module).name}</div>
+          <div className="whitespace-nowrap font-bold">
+            {getModule(module?.module).name}
+          </div>
         </div>
         <a
           href={`${POLYGONSCAN_URL}/address/${module?.contractAddress}`}
@@ -33,7 +39,11 @@ const Module: FC<ModuleProps> = ({ module }) => {
           {module?.contractAddress}
         </a>
       </div>
-      <AllowanceButton module={module} allowed={allowed} setAllowed={setAllowed} />
+      <AllowanceButton
+        module={module}
+        allowed={allowed}
+        setAllowed={setAllowed}
+      />
     </Card>
   );
 };

@@ -21,7 +21,10 @@ const EnableMessages: FC = () => {
 
   useEffect(() => {
     const fetchCanMessage = async () => {
-      const isMessagesEnabled = await Client.canMessage(currentProfile?.ownedBy, { env: XMTP_ENV });
+      const isMessagesEnabled = await Client.canMessage(
+        currentProfile?.ownedBy,
+        { env: XMTP_ENV }
+      );
       setCanMessage(isMessagesEnabled);
       setLoaded(true);
     };
@@ -35,7 +38,7 @@ const EnableMessages: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 space-y-2.5 border-green-400 !bg-green-300 !bg-opacity-20 p-5 text-green-600"
+      className="mb-4 space-y-2.5 border-green-400/20 !bg-green-300 p-5 text-green-600"
     >
       <div className="flex items-center space-x-2 font-bold">
         <MailOpenIcon className="h-5 w-5" />
@@ -44,7 +47,10 @@ const EnableMessages: FC = () => {
         </p>
       </div>
       <p className="mr-10 text-sm leading-[22px]">
-        <Trans>Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens.</Trans>
+        <Trans>
+          Activate XMTP to start using Lenster to send end-to-end encrypted DMs
+          to frens.
+        </Trans>
       </p>
       <Button
         className={clsx({ 'text-sm': true }, 'mr-auto')}
