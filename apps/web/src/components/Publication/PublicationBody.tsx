@@ -22,7 +22,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const showMore =
     publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
-
   const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
   const snapshotProposalId =
     hasURLs &&
