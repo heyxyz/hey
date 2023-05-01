@@ -107,7 +107,7 @@ const DateDivider: FC<{ date?: Date }> = ({ date }) => (
 const MissingXmtpAuth: FC = () => (
   <Card
     as="aside"
-    className="mb-2 mr-4 space-y-2.5 border-gray-400 !bg-gray-300 !bg-opacity-20 p-5"
+    className="mb-2 mr-4 space-y-2.5 border-gray-400 !bg-gray-300/20 p-5"
   >
     <div className="flex items-center space-x-2 font-bold">
       <EmojiSadIcon className="h-5 w-5" />
