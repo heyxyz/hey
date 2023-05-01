@@ -30,6 +30,9 @@ const PUSHPreview = () => {
   const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
   const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
+  const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
+
+  const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const {
     createChatProfile,
@@ -78,13 +81,27 @@ const PUSHPreview = () => {
     }
   }, [decryptAndUpgrade, fetchChatProfile, setPgpPrivateKey]);
   const { fetchRequests } = useFetchRequests();
+
   useEffect(() => {
     if (!signer) {
       return;
     }
-    fetchRequests();
     connectProfile();
   }, [connectProfile, signer]);
+
+  useEffect(() => {
+    if (Object.keys(requestsFeed).length) {
+      return;
+    }
+
+    (async function () {
+      // only run this hook when there's a descryted key availabe in storage
+      if (!decryptedPgpPvtKey) {
+        return;
+      }
+      await fetchRequests();
+    })();
+  }, [requestsFeed, decryptedPgpPvtKey, fetchRequests]);
 
   useEffect(() => {
     //set selected chat preview
@@ -117,14 +134,14 @@ const PUSHPreview = () => {
             >
               <Trans>Requests</Trans>
               <div className=" bg-brand-500 flex h-5 w-7 justify-center rounded-full text-sm text-white">
-                {Array.from(requestsFeed.values()).length}
+                {Object.keys(requestsFeed).length}
               </div>
             </div>
           </div>
 
           <div className="flex gap-x-2">
             <Search
-              placeholder="Search name.eth or 0x123..."
+              placeholder="Search lens handle"
               modalWidthClassName="w-80"
               onProfileSelected={onProfileSelected}
             />

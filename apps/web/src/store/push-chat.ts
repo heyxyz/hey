@@ -1,6 +1,7 @@
 import type { IFeeds, IMessageIPFS, IUser } from '@pushprotocol/restapi';
 import { ENV } from '@pushprotocol/restapi/src/lib/constants';
 import { IS_MAINNET } from 'data';
+import type { Profile } from 'lens';
 import { create } from 'zustand';
 
 export const PUSH_TABS = {
@@ -36,16 +37,16 @@ interface IPushChatStore {
   chats: Map<string, IMessageIPFS[]>; // chatId -> chat messages array
   setChats: (chats: Map<string, IMessageIPFS[]>) => void;
   addChat: (key: string, newChat: Array<IMessageIPFS>) => void;
-  chatsFeed: Map<string, IFeeds>; // chatId -> feed obj
-  setChatsFeed: (chatsFeed: Map<string, IFeeds>) => void;
-  addChatFeed: (key: string, newChatFeed: IFeeds) => void;
-  requestsFeed: Map<string, IFeeds>; // requestId -> feed obj
-  setRequestsFeed: (requests: Map<string, IFeeds>) => void;
-  addRequestFeed: (key: string, newRequestFeed: IFeeds) => void;
+  chatsFeed: { [key: string]: IFeeds }; // chatId -> feed obj
+  setChatsFeed: (chatsFeed: { [key: string]: IFeeds }) => void;
+  addChatFeed: (id: string, newChatFeed: IFeeds) => void;
+  requestsFeed: { [key: string]: IFeeds }; // requestId -> feed obj
+  setRequestsFeed: (requestsFeed: { [key: string]: IFeeds }) => void;
+  addRequestFeed: (id: string, newRequestFeed: IFeeds) => void;
+  lensProfiles: Map<string, Profile>;
+  setLensProfiles: (lensProfiles: Map<string, Profile>) => void;
   reset: () => void;
   selectedChatId: string;
-  selectedRecipient: string;
-  setSelectedRecipient: (selectedRecipient: string) => void;
   setSelectedChatId: (selectedChatId: string) => void;
   selectedChatType: ChatTypes | null;
   setSelectedChatType: (tabName: ChatTypes) => void;
@@ -83,28 +84,30 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
       return { chats };
     });
   },
-  chatsFeed: new Map(),
+  chatsFeed: {} as { [key: string]: IFeeds },
   setChatsFeed: (chatsFeed) => set(() => ({ chatsFeed })),
-  addChatFeed: (key: string, newChatFeed: IFeeds) => {
+  addChatFeed: (id: string, newChatFeed: IFeeds) => {
     set((state) => {
-      const chatsFeed = new Map(state.chatsFeed);
-      chatsFeed.set(key, newChatFeed);
+      const chatsFeed = { ...state.chatsFeed, [id]: newChatFeed };
       return { chatsFeed };
     });
   },
-  requestsFeed: new Map(),
+  requestsFeed: {} as { [key: string]: IFeeds },
   setRequestsFeed: (requestsFeed) => set(() => ({ requestsFeed })),
-  addRequestFeed: (key: string, newrequestFeed: IFeeds) => {
+  addRequestFeed: (id: string, newRequestFeed: IFeeds) => {
     set((state) => {
-      const requestsFeed = new Map(state.requestsFeed);
-      requestsFeed.set(key, newrequestFeed);
+      const requestsFeed = { ...state.requestsFeed, [id]: newRequestFeed };
       return { requestsFeed };
     });
   },
+  lensProfiles: new Map(),
+  setLensProfiles: (lensProfiles) =>
+    set((state) => ({
+      lensProfiles:
+        state.lensProfiles.size === 0 ? lensProfiles : new Map([...state.lensProfiles, ...lensProfiles])
+    })),
   threadHash: '',
   setThreadHash: (threadHash: string) => set(() => ({ threadHash })),
-  selectedRecipient: '',
-  setSelectedRecipient: (selectedRecipient) => set(() => ({ selectedRecipient })),
   selectedChatId: '',
   selectedChatType: null,
   setSelectedChatId: (selectedChatId) => set(() => ({ selectedChatId })),
@@ -154,8 +157,8 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
         ...state,
         connectedProfile: undefined,
         chats: new Map(),
-        chatsFeed: new Map(),
-        requestsFeed: new Map(),
+        chatsFeed: {} as { [key: string]: IFeeds },
+        requestsFeed: {} as { [key: string]: IFeeds },
         activeTab: PUSH_TABS.CHATS,
         password: {
           encrypted: null,

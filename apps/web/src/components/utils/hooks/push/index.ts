@@ -4,6 +4,7 @@ export * from './useFetchChat';
 export * from './useFetchChats';
 export * from './useFetchConversationHash';
 export * from './useFetchHistoryMessages';
+export * from './useFetchLensProfiles';
 export * from './useFetchRequests';
 export * from './useGetUsersBatch';
 export * from './usePushAuth';

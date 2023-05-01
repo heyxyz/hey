@@ -1,10 +1,13 @@
+import { getProfileFromDID } from '@components/Messages/Push/Helper';
+import type { IFeeds } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
 import { LENSHUB_PROXY } from 'data';
-import type { Profile } from 'lens';
 import { useCallback, useState } from 'react';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
+
+import useFetchLensProfiles from './useFetchLensProfiles';
 
 const useFetchChats = () => {
   const [error, setError] = useState<string>();
@@ -12,21 +15,36 @@ const useFetchChats = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setChatsFeed = usePushChatStore((state) => state.setChatsFeed);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
+  const { loadLensProfiles } = useFetchLensProfiles();
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
   const fetchChats = useCallback(async () => {
+    if (!currentProfile) {
+      return;
+    }
     setLoading(true);
     try {
       const chats = await PushAPI.chat.chats({
-        account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${(currentProfile as Profile)?.id}`,
+        account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
         toDecrypt: true,
         pgpPrivateKey: String(decryptedPgpPvtKey),
         env: PUSH_ENV
       });
+
+      const lensIds: Array<string> = [];
+
       //conversation to map from array
-      const mappedChats = new Map(chats.map((chat) => [chat.chatId as string, chat]));
-      setChatsFeed(mappedChats);
-      return mappedChats;
+      const modifiedChatsObj: { [key: string]: IFeeds } = {};
+
+      for (const chat of chats) {
+        const profileId: string = getProfileFromDID(chat.did);
+        lensIds.push(profileId);
+        modifiedChatsObj[profileId] = chat;
+      }
+
+      await loadLensProfiles(lensIds);
+      setChatsFeed(modifiedChatsObj);
+      return modifiedChatsObj;
     } catch (error: Error | any) {
       setLoading(false);
       setError(error.message);
@@ -34,7 +52,7 @@ const useFetchChats = () => {
     } finally {
       setLoading(false);
     }
-  }, [decryptedPgpPvtKey]);
+  }, [currentProfile, decryptedPgpPvtKey, loadLensProfiles, setChatsFeed]);
 
   return { fetchChats, error, loading };
 };

@@ -19,7 +19,6 @@ import MessageHeader from './MessageHeader';
 const Message = () => {
   const [showLoading, setShowLoading] = useState(false);
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
-  const selectedRecipient = usePushChatStore((state) => state.selectedRecipient);
 
   const [loadProfiles] = useProfilesLazyQuery();
   const [profile, setProfile] = useState<Profile | null | ''>('');
@@ -28,7 +27,7 @@ const Message = () => {
     // only for chat for now, for groups, it'll change
     try {
       setShowLoading(true);
-      const result = await loadProfiles({ variables: { request: { profileIds: [selectedRecipient] } } });
+      const result = await loadProfiles({ variables: { request: { profileIds: [selectedChatId] } } });
       if (result.data) {
         setProfile(result.data.profiles.items[0] as Profile);
         console.log(result.data.profiles.items[0]);
@@ -38,11 +37,11 @@ const Message = () => {
     } finally {
       setShowLoading(false);
     }
-  }, [loadProfiles, selectedRecipient]);
+  }, [loadProfiles, selectedChatId]);
 
   useEffect(() => {
     loadProfile();
-  }, [loadProfile, selectedRecipient, selectedChatId]);
+  }, [loadProfile, selectedChatId, selectedChatId]);
 
   if (profile === null) {
     return <Custom404 />;
@@ -75,9 +74,7 @@ const Message = () => {
 const MessagePage: NextPage = () => {
   const currentProfileId = useAppStore((state) => state.currentProfile?.id);
   const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
-  const setSelectedRecipient = usePushChatStore((state) => state.setSelectedRecipient);
   const setSelectedChatType = usePushChatStore((state) => state.setSelectedChatType);
-  const setThreadHash = usePushChatStore((state) => state.setThreadHash);
 
   const {
     query: { conversationKey }
@@ -87,22 +84,21 @@ const MessagePage: NextPage = () => {
   //   Mixpanel.track(PAGEVIEW, { page: 'conversation' });
   // }, []);
 
-  if (Number(conversationKey?.length) < 3 || !currentProfileId || !Array.isArray(conversationKey)) {
+  if (!conversationKey || !currentProfileId || !Array.isArray(conversationKey)) {
     return <Custom404 />;
   }
 
   //case where type is not given
-  const [type, conversationId, recipient, threadHash] = conversationKey;
+  const [type, conversationId] = conversationKey;
+  console.log(type, conversationId);
 
   if (type !== CHAT_TYPES.CHAT && type !== CHAT_TYPES.GROUP) {
     return <Custom404 />;
   }
 
-  if (conversationId && recipient) {
+  if (conversationId) {
     setSelectedChatId(conversationId);
     setSelectedChatType(type);
-    setSelectedRecipient(recipient);
-    setThreadHash(threadHash);
   }
 
   return <Message />;
