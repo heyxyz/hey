@@ -9,7 +9,6 @@ import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Delete from './Delete';
-import Embed from './Embed';
 import Permalink from './Permalink';
 import Report from './Report';
 import Translate from './Translate';
@@ -47,7 +46,6 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           ) : (
             <Report publication={publication} />
           )}
-          <Embed publication={publication} />
           <Permalink publication={publication} />
           <Translate publication={publication} />
         </Menu.Items>
