@@ -2,7 +2,7 @@ import { BellIcon } from '@heroicons/react/outline';
 import { CustomFiltersTypes, useNotificationCountQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useNotificationPersistStore } from 'src/store/notification';
 
@@ -14,8 +14,12 @@ const NotificationIcon: FC = () => {
   const setNotificationCount = useNotificationPersistStore(
     (state) => state.setNotificationCount
   );
-  const [unreadNotificationCount, setUnreadNotificationCount] =
-    useState<number>(0);
+  const hasUnreadNotifications = useNotificationPersistStore(
+    (state) => state.hasUnreadNotifications
+  );
+  const setHasUnreadNotifications = useNotificationPersistStore(
+    (state) => state.setHasUnreadNotifications
+  );
 
   const { data, loading } = useNotificationCountQuery({
     variables: {
@@ -37,10 +41,10 @@ const NotificationIcon: FC = () => {
     const readNotificationCount = getNotificationCount(currentProfile?.id);
 
     if (readNotificationCount) {
-      setUnreadNotificationCount(currentTotalCount - readNotificationCount);
+      setHasUnreadNotifications(currentTotalCount - readNotificationCount > 0);
     } else {
       setNotificationCount(currentProfile?.id, currentTotalCount);
-      setUnreadNotificationCount(0);
+      setHasUnreadNotifications(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, loading]);
@@ -54,11 +58,11 @@ const NotificationIcon: FC = () => {
           currentProfile?.id,
           data?.notifications?.pageInfo?.totalCount || 0
         );
-        setUnreadNotificationCount(0);
+        setHasUnreadNotifications(false);
       }}
     >
       <BellIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-      {unreadNotificationCount > 0 && (
+      {hasUnreadNotifications && (
         <span className="h-2 w-2 rounded-full bg-red-500" />
       )}
     </Link>

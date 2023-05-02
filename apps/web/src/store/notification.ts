@@ -3,6 +3,8 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface NotificationPersistState {
+  hasUnreadNotifications: boolean | undefined;
+  setHasUnreadNotifications: (nextValue: boolean) => void;
   notificationCountMap: { profileId: string; count: number }[] | undefined;
   setNotificationCount: (profileId: string, count: number) => void;
   getNotificationCount: (profileId: string) => number;
@@ -12,6 +14,10 @@ export const useNotificationPersistStore = create(
   persist<NotificationPersistState>(
     (set, get) => ({
       notificationCountMap: undefined,
+      setHasUnreadNotifications: (nextValue) => {
+        set({ hasUnreadNotifications: nextValue });
+      },
+      hasUnreadNotifications: undefined,
       setNotificationCount: (profileId, count) => {
         const { notificationCountMap } = get();
 
