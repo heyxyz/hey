@@ -4,7 +4,8 @@ import { ChevronLeftIcon } from '@heroicons/react/outline';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useMessageStore } from 'src/store/message';
 import { FollowSource } from 'src/tracking';
 
 import Follow from '../Shared/Follow';
@@ -16,6 +17,15 @@ interface MessageHeaderProps {
 const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
   const router = useRouter();
   const [following, setFollowing] = useState(true);
+  const unsyncProfile = useMessageStore((state) => state.unsyncProfile);
+
+  const setFollowingWrapped = useCallback(
+    (following: boolean) => {
+      setFollowing(following);
+      unsyncProfile(profile?.id ?? '');
+    },
+    [setFollowing, unsyncProfile, profile?.id]
+  );
 
   const onBackClick = () => {
     router.push('/messages');
@@ -23,7 +33,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
 
   useEffect(() => {
     setFollowing(profile?.isFollowedByMe ?? false);
-  }, [profile?.isFollowedByMe, profile]);
+  }, [profile?.isFollowedByMe]);
 
   if (!profile) {
     return null;
@@ -42,11 +52,15 @@ const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
         <Follow
           showText
           profile={profile}
-          setFollowing={setFollowing}
+          setFollowing={setFollowingWrapped}
           followSource={FollowSource.DIRECT_MESSAGE_HEADER}
         />
       ) : (
-        <Unfollow showText profile={profile} setFollowing={setFollowing} />
+        <Unfollow
+          showText
+          profile={profile}
+          setFollowing={setFollowingWrapped}
+        />
       )}
     </div>
   );
