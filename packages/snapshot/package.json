@@ -8,7 +8,9 @@
     "codegen": "graphql-codegen",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx"
+    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
     "@apollo/client": "^3.7.13",
@@ -20,6 +22,7 @@
     "@graphql-codegen/typescript": "^3.0.4",
     "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
+    "@types/node": "^18.16.3",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"

@@ -7,7 +7,9 @@
     "worker:deploy": "wrangler publish",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix --ext .ts"
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230404.0",
