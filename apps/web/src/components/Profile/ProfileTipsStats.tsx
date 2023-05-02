@@ -2,11 +2,11 @@
 // import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { getRoundTippingData } from '@components/Publication/Actions/Collect/QuadraticQueries/grantsQueries';
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
-import { Card } from 'ui';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import { ethers } from 'ethers';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
+import { Card } from 'ui';
 import { useAccount } from 'wagmi';
 
 // interface Props {

@@ -3,7 +3,8 @@ import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
-import { SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE } from 'data/contracts';
+// import { SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE } from 'data/contracts';
+import getEnvConfig from 'data/utils/getEnvConfig';
 import { ethers } from 'ethers';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
@@ -24,7 +25,13 @@ interface AllowanceButtonProps {
   collectModule?: QuadraticCollectModuleData;
 }
 
-const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, allowed, setAllowed }) => {
+const AllowanceButton: FC<AllowanceButtonProps> = ({
+  title = t`Allow`,
+  module,
+  allowed,
+  setAllowed,
+  collectModule
+}) => {
   const [showWarningModal, setShowWarningModal] = useState(false);
 
   const [generateAllowanceQuery, { loading: queryLoading }] =
@@ -70,7 +77,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
       let iface = new ethers.utils.Interface(abi);
 
       const approveUnknownCollectModule = iface.encodeFunctionData('approve', [
-        SANDBOX_QUADRATIC_VOTE_COLLECT_MODULE,
+        getEnvConfig().QuadraticVoteCollectModuleAddress,
         value === '0' ? 0 : ethers.constants.MaxUint256
       ]);
 
