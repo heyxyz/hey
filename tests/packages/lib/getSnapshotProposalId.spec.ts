@@ -34,4 +34,26 @@ test.describe('getSnapshotProposalId', () => {
       '0xabcdefABCDEFabcdefABCDEFabcdefABCDEFABCDEFabcdefABCDEFABCDEFabcd'
     );
   });
+
+  test('should return the proposal id for one valid url and one invalid url', () => {
+    expect(
+      getSnapshotProposalId([
+        'https://google.com',
+        'https://snapshot.org/#/123.eth/proposal/0x1234567890123456789012345678901234567890123456789012345678901234'
+      ])
+    ).toEqual(
+      '0x1234567890123456789012345678901234567890123456789012345678901234'
+    );
+  });
+
+  test('should return the proposal id for two valid urls', () => {
+    expect(
+      getSnapshotProposalId([
+        'https://snapshot.org/#/123.eth/proposal/0xf925c956cdb2a8797fde0f6bdc598727a2944be742621a5230cc15d25d8f3f91',
+        'https://snapshot.org/#/123.eth/proposal/0x1234567890123456789012345678901234567890123456789012345678901234'
+      ])
+    ).toEqual(
+      '0xf925c956cdb2a8797fde0f6bdc598727a2944be742621a5230cc15d25d8f3f91'
+    );
+  });
 });
