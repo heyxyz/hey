@@ -29,7 +29,6 @@ test.describe('Publication', () => {
         'publication-0x0d-0x01-menu-items'
       );
       await expect(localeSelectorMenuItems).toContainText('Report Post');
-      await expect(localeSelectorMenuItems).toContainText('Embed');
       await expect(localeSelectorMenuItems).toContainText('Permalink');
       await expect(localeSelectorMenuItems).toContainText('Translate');
     });

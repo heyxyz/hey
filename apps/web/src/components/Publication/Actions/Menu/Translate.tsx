@@ -1,11 +1,13 @@
 import { Menu } from '@headlessui/react';
 import { TranslateIcon } from '@heroicons/react/outline';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 interface TranslateProps {
   publication: Publication;
@@ -30,6 +32,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       href={getGoogleTranslateUrl(publication?.metadata?.content)}
       onClick={(event) => {
         stopEventPropagation(event);
+        Mixpanel.track(PUBLICATION.TRANSLATE);
       }}
       target="_blank"
     >
