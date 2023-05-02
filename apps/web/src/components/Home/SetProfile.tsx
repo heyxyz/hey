@@ -1,15 +1,15 @@
 import New from '@components/Shared/Badges/New';
-import { Card } from '@components/UI/Card';
 import { MinusCircleIcon, PencilAltIcon, PhotographIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { MISCELLANEOUS } from 'src/tracking';
+import { ONBOARDING } from 'src/tracking';
+import { Card } from 'ui';
 
 interface StatusProps {
   finished: boolean;
@@ -44,7 +44,7 @@ const SetProfile: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 space-y-4 !border-green-600 bg-green-50 p-5 text-green-600 dark:bg-green-900"
+      className="mb-4 space-y-4 !border-green-600 !bg-green-50 p-5 text-green-600 dark:bg-green-900"
     >
       <div className="flex items-center space-x-2 font-bold">
         <PhotographIcon className="h-5 w-5" />
@@ -59,7 +59,7 @@ const SetProfile: FC = () => {
         <div>
           <Link
             className="flex items-center space-x-2"
-            onClick={() => Leafwatch.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE_INTERESTS)}
+            onClick={() => Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)}
             href="/settings/interests"
           >
             <Status
@@ -72,7 +72,7 @@ const SetProfile: FC = () => {
       </div>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilAltIcon className="h-4 w-4" />
-        <Link onClick={() => Leafwatch.track(MISCELLANEOUS.NAVIGATE_UPDATE_PROFILE)} href="/settings">
+        <Link onClick={() => Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)} href="/settings">
           <Trans>Update profile now</Trans>
         </Link>
       </div>

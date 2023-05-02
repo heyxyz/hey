@@ -1,4 +1,3 @@
-import { Input } from '@components/UI/Input';
 import { useDebounce } from '@components/utils/hooks/useDebounce';
 import type { ICategory } from '@giphy/js-fetch-api';
 import { GiphyFetch } from '@giphy/js-fetch-api';
@@ -7,15 +6,16 @@ import { Grid } from '@giphy/react-components';
 import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
+import { Input } from 'ui';
 
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh');
 
-interface Props {
+interface GifSelectorProps {
   setGifAttachment: (gif: IGif) => void;
   setShowModal: Dispatch<boolean>;
 }
 
-const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
+const GifSelector: FC<GifSelectorProps> = ({ setShowModal, setGifAttachment }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [debouncedGifInput, setDebouncedGifInput] = useState('');
   const [searchText, setSearchText] = useState('');
@@ -96,7 +96,7 @@ const GifSelector: FC<Props> = ({ setShowModal, setGifAttachment }) => {
                   alt=""
                   draggable={false}
                 />
-                <div className="absolute right-0 bottom-0 w-full bg-gradient-to-b from-transparent to-gray-800 py-1 px-2 text-right text-lg font-bold text-white">
+                <div className="absolute bottom-0 right-0 w-full bg-gradient-to-b from-transparent to-gray-800 px-2 py-1 text-right text-lg font-bold text-white">
                   <span className="capitalize">{category.name}</span>
                 </div>
               </button>

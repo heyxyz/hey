@@ -1,15 +1,15 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
+import { Tooltip } from 'ui';
 
-interface Props {
+interface WorldcoinProps {
   profile: Profile;
 }
 
-const Worldcoin: FC<Props> = ({ profile }) => {
+const Worldcoin: FC<WorldcoinProps> = ({ profile }) => {
   if (!profile?.onChainIdentity?.worldcoin?.isHuman) {
     return null;
   }
@@ -31,7 +31,8 @@ const Worldcoin: FC<Props> = ({ profile }) => {
         height={75}
         width={75}
         src={`${STATIC_IMAGES_URL}/badges/worldcoin.png`}
-        alt="Sybil Badge"
+        alt="Worldcoin Badge"
+        data-testid="profile-worldcoin-badge"
       />
     </Tooltip>
   );

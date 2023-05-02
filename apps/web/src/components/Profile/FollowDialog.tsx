@@ -1,27 +1,27 @@
 import Follow from '@components/Shared/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import { Button } from '@components/UI/Button';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import type { Dispatch, FC } from 'react';
+import { Button, Image } from 'ui';
 
-interface Props {
+interface FollowModalProps {
+  profile: Profile;
   setShowFollowModal: Dispatch<boolean>;
   setFollowing: Dispatch<boolean | null>;
-  profile: Profile;
 }
 
-const FollowModal: FC<Props> = ({ profile, setFollowing, setShowFollowModal }) => {
+const FollowModal: FC<FollowModalProps> = ({ profile, setFollowing, setShowFollowModal }) => {
   const followType = profile?.followModule?.__typename;
 
   return (
     <div className="p-5">
       <div className="flex justify-between text-lg font-bold">
         <span className="flex">
-          <img
+          <Image
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
             }}
@@ -34,11 +34,11 @@ const FollowModal: FC<Props> = ({ profile, setFollowing, setShowFollowModal }) =
         <span className="flex">
           {followType === 'FeeFollowModuleSettings' ? (
             <div className="flex space-x-2">
-              <SuperFollow profile={profile as any} setFollowing={setFollowing} showText />
+              <SuperFollow profile={profile} setFollowing={setFollowing} showText />
             </div>
           ) : (
             <div className="flex space-x-2">
-              <Follow profile={profile as any} setFollowing={setFollowing} showText outline={false} />
+              <Follow profile={profile} setFollowing={setFollowing} showText outline={false} />
             </div>
           )}
           <Button

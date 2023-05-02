@@ -1,14 +1,14 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
+import { Tooltip } from 'ui';
 
-interface Props {
+interface EnsProps {
   profile: Profile;
 }
 
-const Ens: FC<Props> = ({ profile }) => {
+const Ens: FC<EnsProps> = ({ profile }) => {
   if (!profile?.onChainIdentity?.ens?.name) {
     return null;
   }
@@ -28,6 +28,7 @@ const Ens: FC<Props> = ({ profile }) => {
         width={75}
         src={`${STATIC_IMAGES_URL}/badges/ens.png`}
         alt="ENS Badge"
+        data-testid="profile-ens-badge"
       />
     </Tooltip>
   );

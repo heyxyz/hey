@@ -1,4 +1,4 @@
-import { LS_KEYS } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -13,6 +13,6 @@ export const useTransactionPersistStore = create(
       txnQueue: [],
       setTxnQueue: (txnQueue) => set(() => ({ txnQueue }))
     }),
-    { name: LS_KEYS.TRANSACTION_STORE }
+    { name: Localstorage.TransactionStore }
   )
 );

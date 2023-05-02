@@ -1,9 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Card } from '@components/UI/Card';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { PageLoading } from '@components/UI/PageLoading';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
@@ -15,9 +12,10 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { Card, GridItemEight, GridItemFour, GridLayout, PageLoading } from 'ui';
 
 import SettingsSidebar from '../Sidebar';
-import NFTPicture from './NFTPicture';
+import NftPicture from './NftPicture';
 import Picture from './Picture';
 import ProfileSettingsForm from './Profile';
 
@@ -26,14 +24,14 @@ const ProfileSettings: NextPage = () => {
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
   }, []);
 
   const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
-    onCompleted: (data) => {
-      const picture = data?.profile?.picture;
+    onCompleted: ({ profile }) => {
+      const picture = profile?.picture;
       setSettingsType(picture?.hasOwnProperty('uri') ? 'NFT' : 'AVATAR');
     }
   });
@@ -88,7 +86,7 @@ const ProfileSettings: NextPage = () => {
             <TypeButton icon={<PhotographIcon className="h-5 w-5" />} type="NFT" name="NFT Avatar" />
           </div>
           {settingsType === 'NFT' ? (
-            <NFTPicture profile={profile as any} />
+            <NftPicture profile={profile as any} />
           ) : (
             <Picture profile={profile as any} />
           )}

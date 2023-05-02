@@ -1,24 +1,32 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import Snapshot from '@components/Shared/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
-import getURLs from '@lib/getURLs';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
+import getSnapshotProposalId from 'lib/getSnapshotProposalId';
+import getURLs from 'lib/getURLs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
-interface Props {
+interface PublicationBodyProps {
   publication: Publication;
 }
 
-const PublicationBody: FC<Props> = ({ publication }) => {
+const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+  const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
+  const snapshotProposalId = hasURLs && getSnapshotProposalId(getURLs(publication?.metadata?.content)[0]);
+  let content = publication?.metadata?.content;
+  if (snapshotProposalId) {
+    content = content?.replace(getURLs(publication?.metadata?.content)[0], '');
+  }
 
   if (publication?.metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
@@ -26,13 +34,8 @@ const PublicationBody: FC<Props> = ({ publication }) => {
 
   return (
     <div className="break-words">
-      <Markup
-        className={clsx(
-          { 'line-clamp-5': showMore },
-          'leading-md linkify text-md whitespace-pre-wrap break-words'
-        )}
-      >
-        {publication?.metadata?.content}
+      <Markup className={clsx({ 'line-clamp-5': showMore }, 'markup linkify text-md break-words')}>
+        {content}
       </Markup>
       {showMore && (
         <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
@@ -42,13 +45,14 @@ const PublicationBody: FC<Props> = ({ publication }) => {
           </Link>
         </div>
       )}
-      {publication?.metadata?.media?.length > 0 ? (
+      {/* Snapshot, Attachments and Opengraph */}
+      {snapshotProposalId ? (
+        <Snapshot propsalId={snapshotProposalId} />
+      ) : publication?.metadata?.media?.length > 0 ? (
         <Attachments attachments={publication?.metadata?.media} publication={publication} />
       ) : (
         publication?.metadata?.content &&
-        getURLs(publication?.metadata?.content)?.length > 0 && (
-          <IFramely url={getURLs(publication?.metadata?.content)[0]} />
-        )
+        hasURLs && <IFramely url={getURLs(publication?.metadata?.content)[0]} />
       )}
     </div>
   );

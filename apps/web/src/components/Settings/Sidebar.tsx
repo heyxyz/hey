@@ -1,23 +1,26 @@
 import Sidebar from '@components/Shared/Sidebar';
 import UserProfile from '@components/Shared/UserProfile';
+import { useFeature } from '@growthbook/growthbook-react';
 import {
   AdjustmentsIcon,
   BookmarkIcon,
   ChipIcon,
+  DatabaseIcon,
   ExclamationIcon,
   FingerPrintIcon,
   ShareIcon,
   SparklesIcon,
   UserIcon
 } from '@heroicons/react/outline';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
 import { t, Trans } from '@lingui/macro';
+import { FeatureFlag } from 'data';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 const SettingsSidebar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const { on: isExportDataEnabled } = useFeature(FeatureFlag.ExportData as string);
 
   return (
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">
@@ -39,8 +42,7 @@ const SettingsSidebar: FC = () => {
           {
             title: t`Preferences`,
             icon: <AdjustmentsIcon className="h-4 w-4" />,
-            url: '/settings/preferences',
-            enabled: isFeatureEnabled('preferences-settings', currentProfile?.id)
+            url: '/settings/preferences'
           },
           {
             title: t`Interests`,
@@ -61,6 +63,12 @@ const SettingsSidebar: FC = () => {
             title: t`Cleanup`,
             icon: <SparklesIcon className="h-4 w-4" />,
             url: '/settings/cleanup'
+          },
+          {
+            title: t`Export`,
+            icon: <DatabaseIcon className="h-4 w-4" />,
+            url: '/settings/export',
+            enabled: isExportDataEnabled
           },
           {
             title: (

@@ -1,0 +1,10 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": false,
+    "declarationMap": false,
+    "noEmit": true
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}

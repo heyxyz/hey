@@ -1,25 +1,23 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
-import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
-import { APP_NAME, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { LensHub } from 'abis';
+import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
+import Errors from 'data/errors';
 import type { CreateSetDefaultProfileRequest, Profile } from 'lens';
 import { useBroadcastMutation, useCreateSetDefaultProfileTypedDataMutation } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
 
 const SetProfile: FC = () => {
@@ -31,9 +29,13 @@ const SetProfile: FC = () => {
   const { address } = useAccount();
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     toast.success(t`Default profile updated successfully!`);
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const {
@@ -42,10 +44,10 @@ const SetProfile: FC = () => {
     write
   } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'setDefaultProfileWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
@@ -60,7 +62,7 @@ const SetProfile: FC = () => {
   }, []);
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
     useCreateSetDefaultProfileTypedDataMutation({
@@ -87,7 +89,7 @@ const SetProfile: FC = () => {
 
   const setDefaultProfile = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {

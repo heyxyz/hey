@@ -1,14 +1,15 @@
 import { Menu } from '@headlessui/react';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
-import isGardener from '@lib/isGardener';
-import isStaff from '@lib/isStaff';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import isGardener from 'lib/isGardener';
+import isStaff from 'lib/isStaff';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { Image } from 'ui';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -17,6 +18,7 @@ import MobileDrawerMenu from './MobileDrawerMenu';
 import AppVersion from './NavItems/AppVersion';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
+import ModMode from './NavItems/ModMode';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import Status from './NavItems/Status';
@@ -30,7 +32,7 @@ const SignedUser: FC = () => {
   const showMobileDrawer = useGlobalModalStateStore((state) => state.showMobileDrawer);
 
   const Avatar = () => (
-    <img
+    <Image
       onError={({ currentTarget }) => {
         currentTarget.src = getAvatar(currentProfile, false);
       }}
@@ -131,25 +133,28 @@ const SignedUser: FC = () => {
             >
               <ThemeSwitch />
             </Menu.Item>
-            {currentProfile && (
-              <>
-                <div className="divider" />
-                <AppVersion />
-              </>
+            {isGardener(currentProfile?.id) && (
+              <Menu.Item
+                as="div"
+                className={({ active }) =>
+                  clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'm-2 rounded-lg')
+                }
+              >
+                <ModMode />
+              </Menu.Item>
             )}
             {isStaff(currentProfile?.id) && (
-              <>
-                <div className="divider" />
-                <Menu.Item
-                  as="div"
-                  className={({ active }) =>
-                    clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'm-2 rounded-lg')
-                  }
-                >
-                  <StaffMode />
-                </Menu.Item>
-              </>
+              <Menu.Item
+                as="div"
+                className={({ active }) =>
+                  clsx({ 'bg-yellow-100 dark:bg-yellow-800': active }, 'm-2 rounded-lg')
+                }
+              >
+                <StaffMode />
+              </Menu.Item>
             )}
+            <div className="divider" />
+            <AppVersion />
           </Menu.Items>
         </MenuTransition>
       </Menu>

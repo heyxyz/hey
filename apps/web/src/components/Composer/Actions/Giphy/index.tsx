@@ -1,26 +1,23 @@
 import Loader from '@components/Shared/Loader';
-import { Modal } from '@components/UI/Modal';
-import { Tooltip } from '@components/UI/Tooltip';
 import type { IGif } from '@giphy/js-types';
 import { PhotographIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
-import { PUBLICATION } from 'src/tracking';
+import { Modal, Tooltip } from 'ui';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message={t`Loading GIFs`} />
 });
 
-interface Props {
+interface GiphyProps {
   setGifAttachment: (gif: IGif) => void;
 }
 
-const Giphy: FC<Props> = ({ setGifAttachment }) => {
+const Giphy: FC<GiphyProps> = ({ setGifAttachment }) => {
   const attachments = usePublicationStore((state) => state.attachments);
   const [showModal, setShowModal] = useState(false);
 
@@ -30,10 +27,7 @@ const Giphy: FC<Props> = ({ setGifAttachment }) => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
-          onClick={() => {
-            setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.NEW.OPEN_GIF);
-          }}
+          onClick={() => setShowModal(!showModal)}
           disabled={attachments.length >= 4}
           aria-label="Choose GIFs"
         >

@@ -1,21 +1,24 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
-import isVerified from '@lib/isVerified';
-import nFormatter from '@lib/nFormatter';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import isVerified from 'lib/isVerified';
+import nFormatter from 'lib/nFormatter';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { FollowSource } from 'src/tracking';
+import { Image } from 'ui';
 
-import Follow, { FollowSource } from './Follow';
+import Follow from './Follow';
 import Markup from './Markup';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
-interface Props {
+interface UserPreviewProps {
   profile: Profile;
   children: ReactNode;
   isBig?: boolean;
@@ -23,7 +26,7 @@ interface Props {
   showUserPreview?: boolean;
 }
 
-const UserPreview: FC<Props> = ({
+const UserPreview: FC<UserPreviewProps> = ({
   profile,
   isBig,
   followStatusLoading,
@@ -38,7 +41,7 @@ const UserPreview: FC<Props> = ({
   });
 
   const UserAvatar = () => (
-    <img
+    <Image
       onError={({ currentTarget }) => {
         currentTarget.src = getAvatar(lazyProfile, false);
       }}
@@ -70,12 +73,16 @@ const UserPreview: FC<Props> = ({
     <>
       <div className="flex items-center justify-between">
         <UserAvatar />
-        <div onClick={(e) => e.preventDefault()}>
+        <div onClick={stopEventPropagation} aria-hidden="true">
           {!lazyProfile.isFollowedByMe &&
             (followStatusLoading ? (
               <div className="shimmer h-8 w-10 rounded-lg" />
             ) : following ? null : lazyProfile?.followModule?.__typename === 'FeeFollowModuleSettings' ? (
-              <SuperFollow profile={lazyProfile} setFollowing={setFollowing} />
+              <SuperFollow
+                profile={lazyProfile}
+                setFollowing={setFollowing}
+                followSource={FollowSource.PROFILE_POPOVER}
+              />
             ) : (
               <Follow
                 profile={lazyProfile}

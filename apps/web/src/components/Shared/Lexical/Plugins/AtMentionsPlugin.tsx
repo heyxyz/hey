@@ -6,19 +6,19 @@ import {
   TypeaheadOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import formatHandle from '@lib/formatHandle';
-import imageProxy from '@lib/imageProxy';
-import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import { AVATAR } from 'data/constants';
 import type { MediaSet, NftImage, Profile, ProfileSearchResult } from 'lens';
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import type { TextNode } from 'lexical';
+import formatHandle from 'lib/formatHandle';
+import getStampFyiURL from 'lib/getStampFyiURL';
+import imageProxy from 'lib/imageProxy';
+import isVerified from 'lib/isVerified';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import getIPFSLink from 'utils/getIPFSLink';
-import getStampFyiURL from 'utils/getStampFyiURL';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 
@@ -98,7 +98,7 @@ class MentionTypeaheadOption extends TypeaheadOption {
   }
 }
 
-interface Props {
+interface MentionsTypeaheadMenuItemProps {
   index: number;
   isSelected: boolean;
   onClick: () => void;
@@ -106,7 +106,12 @@ interface Props {
   option: MentionTypeaheadOption;
 }
 
-const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnter, option }) => {
+const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
+  isSelected,
+  onClick,
+  onMouseEnter,
+  option
+}) => {
   return (
     <li
       key={option.key}
@@ -114,9 +119,10 @@ const MentionsTypeaheadMenuItem: FC<Props> = ({ isSelected, onClick, onMouseEnte
       className="cursor-pointer"
       ref={option.setRefElement}
       role="option"
-      aria-selected={isSelected}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
+      aria-selected={isSelected}
+      aria-hidden="true"
     >
       <div
         className={clsx(
@@ -199,7 +205,7 @@ const MentionsPlugin: FC = () => {
           return new MentionTypeaheadOption(
             id,
             name ?? handle,
-            imageProxy(getIPFSLink(picture), AVATAR),
+            imageProxy(sanitizeDStorageUrl(picture), AVATAR),
             handle
           );
         })

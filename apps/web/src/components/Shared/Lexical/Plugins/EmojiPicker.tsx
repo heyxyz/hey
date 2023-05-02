@@ -1,4 +1,3 @@
-import type { Emoji } from '@generated/types';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,
@@ -12,6 +11,7 @@ import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import type { Emoji } from 'src/types';
 
 class EmojiOption extends TypeaheadOption {
   title: string;
@@ -32,7 +32,7 @@ class EmojiOption extends TypeaheadOption {
   }
 }
 
-interface Props {
+interface EmojiMenuItemProps {
   index: number;
   isSelected: boolean;
   onClick: () => void;
@@ -40,7 +40,7 @@ interface Props {
   option: EmojiOption;
 }
 
-const EmojiMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
+const EmojiMenuItem: FC<EmojiMenuItemProps> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
   const { key, title, emoji, setRefElement } = option;
 
   return (
@@ -50,10 +50,11 @@ const EmojiMenuItem: FC<Props> = ({ index, isSelected, onClick, onMouseEnter, op
       className={clsx({ 'dropdown-active': isSelected }, 'm-2 cursor-pointer rounded-lg p-2 outline-none')}
       ref={setRefElement}
       role="option"
-      aria-selected={isSelected}
       id={'typeahead-item-' + index}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
+      aria-selected={isSelected}
+      aria-hidden="true"
     >
       <div className="flex items-center space-x-2">
         <span className="text-base">{emoji}</span>

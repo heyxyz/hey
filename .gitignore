@@ -45,6 +45,12 @@ yarn-error.log*
 # playwright
 .gitsigners
 
+# JetBrains IDE
+.idea
+
 test-results/
 playwright-report/
 playwright/.cache/
+
+# storybook
+storybook-static

@@ -1,7 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Card } from '@components/UI/Card';
-import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
@@ -9,6 +7,7 @@ import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { Card, GridItemEight, GridLayout } from 'ui';
 
 import PreviewList from './PreviewList';
 
@@ -17,7 +16,7 @@ const NoConversationSelected = () => {
     <div className="flex h-full flex-col text-center">
       <div className="m-auto">
         <span className="text-center text-5xl">👋</span>
-        <h3 className="mt-3 mb-2 text-lg">
+        <h3 className="mb-2 mt-3 text-lg">
           <Trans>Select a conversation</Trans>
         </h3>
         <p className="text-md lt-text-gray-500 max-w-xs">
@@ -32,7 +31,7 @@ const Messages: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'messages' });
+    Mixpanel.track(PAGEVIEW, { page: 'messages' });
   }, []);
 
   if (!currentProfile) {

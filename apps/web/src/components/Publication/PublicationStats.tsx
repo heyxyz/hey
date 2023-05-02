@@ -1,28 +1,28 @@
 import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
-import { Modal } from '@components/UI/Modal';
 import { CollectionIcon, HeartIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
-import nFormatter from '@lib/nFormatter';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
+import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
-import { PUBLICATION } from 'src/tracking';
-
-interface Props {
+import { Modal } from 'ui';
+interface PublicationStatsProps {
   publication: Publication;
 }
 
-const PublicationStats: FC<Props> = ({ publication }) => {
+const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
   const isMirror = publication.__typename === 'Mirror';
+  const commentsCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalAmountOfComments
+    : publication?.stats?.totalAmountOfComments;
   const mirrorCount = isMirror
     ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
     : publication?.stats?.totalAmountOfMirrors;
@@ -41,14 +41,15 @@ const PublicationStats: FC<Props> = ({ publication }) => {
     <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
       {mirrorCount > 0 && (
         <>
-          <button
-            type="button"
-            onClick={() => {
-              setShowMirrorsModal(true);
-              Leafwatch.track(PUBLICATION.STATS.MIRRORED_BY);
-            }}
-          >
-            <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
+          <span data-testid="comment-stats">
+            <Trans>
+              <b className="text-black dark:text-white">{nFormatter(commentsCount)}</b> Comments
+            </Trans>
+          </span>
+          <button type="button" onClick={() => setShowMirrorsModal(true)} data-testid="mirror-stats">
+            <Trans>
+              <b className="text-black dark:text-white">{nFormatter(mirrorCount)}</b> Mirrors
+            </Trans>
           </button>
           <Modal
             title={t`Mirrored by`}
@@ -62,13 +63,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
       )}
       {!hideLikesCount && reactionCount > 0 && (
         <>
-          <button
-            type="button"
-            onClick={() => {
-              setShowLikesModal(true);
-              Leafwatch.track(PUBLICATION.STATS.LIKED_BY);
-            }}
-          >
+          <button type="button" onClick={() => setShowLikesModal(true)} data-testid="like-stats">
             <b className="text-black dark:text-white">{nFormatter(reactionCount)}</b> Likes
           </button>
           <Modal
@@ -83,11 +78,16 @@ const PublicationStats: FC<Props> = ({ publication }) => {
       )}
       {collectCount > 0 && (
         <>
+          <button type="button" onClick={() => setShowCollectorsModal(true)} data-testid="collect-stats">
+            <Trans>
+              <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
+            </Trans>
+          </button>
           <button
             type="button"
             onClick={() => {
               setShowCollectorsModal(true);
-              Leafwatch.track(PUBLICATION.STATS.COLLECTED_BY);
+              // Leafwatch.track(PUBLICATION.STATS.COLLECTED_BY);
             }}
           >
             <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Collects
@@ -108,7 +108,7 @@ const PublicationStats: FC<Props> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowCollectorsModal(true);
-              Leafwatch.track(PUBLICATION.STATS.COLLECTED_BY);
+              // Leafwatch.track(PUBLICATION.STATS.COLLECTED_BY);
             }}
           >
             <b className="text-black dark:text-white">{nFormatter(collectCount)}</b> Tips

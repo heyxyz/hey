@@ -1,18 +1,19 @@
 import { ExternalLinkIcon } from '@heroicons/react/outline';
-import formatAddress from '@lib/formatAddress';
-import imageProxy from '@lib/imageProxy';
 import { POLYGONSCAN_URL } from 'data/constants';
 import type { Wallet } from 'lens';
+import formatAddress from 'lib/formatAddress';
+import getStampFyiURL from 'lib/getStampFyiURL';
+import imageProxy from 'lib/imageProxy';
 import type { FC } from 'react';
-import getStampFyiURL from 'utils/getStampFyiURL';
+import { Image } from 'ui';
 
 import Slug from './Slug';
 
-interface Props {
+interface WalletProfileProps {
   wallet: Wallet;
 }
 
-const WalletProfile: FC<Props> = ({ wallet }) => {
+const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
   return (
     <div className="flex items-center justify-between">
       <a
@@ -21,7 +22,7 @@ const WalletProfile: FC<Props> = ({ wallet }) => {
         target="_blank"
         rel="noreferrer noopener"
       >
-        <img
+        <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getStampFyiURL(wallet?.address);
           }}

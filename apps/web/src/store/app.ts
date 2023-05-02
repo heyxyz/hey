@@ -1,4 +1,4 @@
-import { LS_KEYS } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import type { Profile } from 'lens';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -10,8 +10,6 @@ interface AppState {
   setCurrentProfile: (currentProfile: Profile | null) => void;
   userSigNonce: number;
   setUserSigNonce: (userSigNonce: number) => void;
-  isPro: boolean;
-  setIsPro: (isPro: boolean) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -20,9 +18,7 @@ export const useAppStore = create<AppState>((set) => ({
   currentProfile: null,
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   userSigNonce: 0,
-  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce })),
-  isPro: false,
-  setIsPro: (isPro) => set(() => ({ isPro }))
+  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
 }));
 
 interface AppPersistState {
@@ -30,6 +26,8 @@ interface AppPersistState {
   setProfileId: (profileId: string | null) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
+  modMode: boolean;
+  setModMode: (modMode: boolean) => void;
   notificationCount: number;
   setNotificationCount: (notificationCount: number) => void;
 }
@@ -41,9 +39,11 @@ export const useAppPersistStore = create(
       setProfileId: (profileId) => set(() => ({ profileId })),
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
+      modMode: false,
+      setModMode: (modMode) => set(() => ({ modMode })),
       notificationCount: 0,
       setNotificationCount: (notificationCount) => set(() => ({ notificationCount }))
     }),
-    { name: LS_KEYS.LENSTER_STORE }
+    { name: Localstorage.LensterStore }
   )
 );

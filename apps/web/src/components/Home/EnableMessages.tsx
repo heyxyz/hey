@@ -1,5 +1,3 @@
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
 import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
@@ -9,12 +7,13 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Button, Card } from 'ui';
 
 const EnableMessages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { push } = useRouter();
   const [canMessage, setCanMessage] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const onConversationSelected = () => {
     push('/messages');
@@ -22,15 +21,14 @@ const EnableMessages: FC = () => {
 
   useEffect(() => {
     const fetchCanMessage = async () => {
-      setLoading(true);
       const isMessagesEnabled = await Client.canMessage(currentProfile?.ownedBy, { env: XMTP_ENV });
       setCanMessage(isMessagesEnabled);
-      setLoading(false);
+      setLoaded(true);
     };
     fetchCanMessage();
   }, [currentProfile]);
 
-  if (!currentProfile || loading || canMessage) {
+  if (!currentProfile || !loaded || canMessage) {
     return null;
   }
 
@@ -49,7 +47,7 @@ const EnableMessages: FC = () => {
         <Trans>Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens.</Trans>
       </p>
       <Button
-        className={clsx({ 'text-sm': true }, `mr-auto`)}
+        className={clsx({ 'text-sm': true }, 'mr-auto')}
         icon={<MailIcon className="h-4 w-4" />}
         onClick={onConversationSelected}
       >

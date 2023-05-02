@@ -2,33 +2,30 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
-import { Card } from '@components/UI/Card';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { GridItemFour } from '@components/UI/GridLayout';
-import { Modal } from '@components/UI/Modal';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon, UsersIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { ERROR_MESSAGE } from 'data/constants';
+import Errors from 'data/errors';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
+import { Card, EmptyState, ErrorMessage, GridItemFour, Modal } from 'ui';
 
-interface Props {
+interface PreviewListProps {
   className?: string;
   selectedConversationKey?: string;
 }
 
-const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
+const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
@@ -58,7 +55,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
 
   const newMessageClick = () => {
     setShowSearchModal(true);
-    Leafwatch.track(MESSAGES.OPEN_NEW_CONVERSATION);
+    Mixpanel.track(MESSAGES.OPEN_NEW_CONVERSATION);
   };
 
   const onProfileSelected = (profile: Profile) => {
@@ -77,7 +74,7 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
       )}
     >
       <Card className="flex h-full flex-col justify-between">
-        <div className="flex items-center justify-between border-b p-5 dark:border-gray-700">
+        <div className="divider flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
           {currentProfile && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
@@ -89,9 +86,10 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
           <div
             onClick={() => setSelectedTab('Following')}
             className={clsx(
-              'text-brand-500 tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
               selectedTab === 'Following' ? 'bg-brand-100' : ''
             )}
+            aria-hidden="true"
           >
             <UsersIcon className="mr-2 h-4 w-4" />
             <Trans>Following</Trans>
@@ -99,9 +97,10 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
           <div
             onClick={() => setSelectedTab('Requested')}
             className={clsx(
-              'text-brand-500 tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
               selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
+            aria-hidden="true"
           >
             <Trans>Requested</Trans>
             {requestedCount > 0 && (
@@ -129,7 +128,10 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
             <ErrorMessage
               className="m-5"
               title={t`Failed to load messages`}
-              error={{ message: ERROR_MESSAGE, name: ERROR_MESSAGE }}
+              error={{
+                message: Errors.SomethingWentWrong,
+                name: Errors.SomethingWentWrong
+              }}
             />
           ) : sortedProfiles.length === 0 ? (
             <button className="h-full w-full justify-items-center" onClick={newMessageClick} type="button">
@@ -140,22 +142,26 @@ const PreviewList: FC<Props> = ({ className, selectedConversationKey }) => {
               />
             </button>
           ) : (
-            sortedProfiles?.map(([key, profile]) => {
-              const message = messages.get(key);
-              if (!message) {
-                return null;
-              }
+            <Virtuoso
+              className="h-full"
+              data={sortedProfiles}
+              itemContent={(_, [key, profile]) => {
+                const message = messages.get(key);
+                if (!message) {
+                  return null;
+                }
 
-              return (
-                <Preview
-                  isSelected={key === selectedConversationKey}
-                  key={key}
-                  profile={profile}
-                  conversationKey={key}
-                  message={message}
-                />
-              );
-            })
+                return (
+                  <Preview
+                    isSelected={key === selectedConversationKey}
+                    key={key}
+                    profile={profile}
+                    conversationKey={key}
+                    message={message}
+                  />
+                );
+              }}
+            />
           )}
         </div>
       </Card>

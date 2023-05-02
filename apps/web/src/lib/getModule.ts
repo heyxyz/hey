@@ -2,9 +2,10 @@ import { t } from '@lingui/macro';
 import { CollectModules, FollowModules, ReferenceModules } from 'lens';
 
 /**
+ * Returns the name and field of the specified module.
  *
- * @param name - Module to format
- * @returns module config
+ * @param name Name of the module.
+ * @returns Object containing the name and field of the module.
  */
 export const getModule = (
   name: string
@@ -14,6 +15,8 @@ export const getModule = (
 } => {
   switch (name) {
     // Collect Modules
+    case CollectModules.MultirecipientFeeCollectModule:
+      return { name: t`Multirecipient Paid Collect`, field: 'collectModule' };
     case CollectModules.UnknownCollectModule:
       return { name: t`Unknown Collect`, field: 'collectModule' };
     case CollectModules.FeeCollectModule:

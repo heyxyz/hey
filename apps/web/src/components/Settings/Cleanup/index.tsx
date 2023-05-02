@@ -1,17 +1,16 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
-import { APP_NAME, LS_KEYS } from 'data/constants';
+import { APP_NAME } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { Button, Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import SettingsSidebar from '../Sidebar';
 
@@ -20,7 +19,7 @@ const CleanupSettings: NextPage = () => {
   const disconnectXmtp = useDisconnectXmtp();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
   }, []);
 
   if (!currentProfile) {
@@ -62,7 +61,7 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Clean your posts or comments that are not indexed</Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(LS_KEYS.TRANSACTION_STORE)}>
+              <Button onClick={() => cleanup(Localstorage.TransactionStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>
@@ -75,7 +74,7 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Clean your timeline filter settings</Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(LS_KEYS.TIMELINE_STORE)}>
+              <Button onClick={() => cleanup(Localstorage.TimelineStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>
@@ -106,7 +105,7 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Note: Cleaning will log you out</Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(LS_KEYS.LENSTER_STORE)}>
+              <Button onClick={() => cleanup(Localstorage.LensterStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>

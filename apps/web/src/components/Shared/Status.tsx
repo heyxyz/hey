@@ -1,18 +1,12 @@
-import { Button } from '@components/UI/Button';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { PencilIcon } from '@heroicons/react/outline';
-import getProfileAttribute from '@lib/getProfileAttribute';
-import getSignature from '@lib/getSignature';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
-import { APP_NAME, LENS_PERIPHERY, SIGN_WALLET } from 'data/constants';
+import { APP_NAME, LENS_PERIPHERY } from 'data/constants';
+import Errors from 'data/errors';
 import type { CreatePublicSetProfileMetadataUriRequest } from 'lens';
 import {
   useBroadcastMutation,
@@ -20,11 +14,15 @@ import {
   useCreateSetProfileMetadataViaDispatcherMutation,
   useProfileSettingsQuery
 } from 'lens';
+import getProfileAttribute from 'lib/getProfileAttribute';
+import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { SETTINGS } from 'src/tracking';
+import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
@@ -40,6 +38,7 @@ const editStatusSchema = object({
 
 const Status: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setShowStatusModal = useGlobalModalStateStore((state) => state.setShowStatusModal);
   const [isUploading, setIsUploading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
 
@@ -50,15 +49,19 @@ const Status: FC = () => {
   const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
     skip: !currentProfile?.id,
-    onCompleted: (data) => {
-      const profile = data?.profile;
+    onCompleted: ({ profile }) => {
       form.setValue('status', getProfileAttribute(profile?.attributes, 'statusMessage'));
       setEmoji(getProfileAttribute(profile?.attributes, 'statusEmoji'));
     }
   });
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     toast.success(t`Status updated successfully!`);
+    setShowStatusModal(false);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -68,12 +71,12 @@ const Status: FC = () => {
     abi: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useCreateSetProfileMetadataTypedDataMutation({
@@ -98,7 +101,11 @@ const Status: FC = () => {
     });
 
   const [createSetProfileMetadataViaDispatcher, { loading: dispatcherLoading }] =
-    useCreateSetProfileMetadataViaDispatcherMutation({ onCompleted, onError });
+    useCreateSetProfileMetadataViaDispatcherMutation({
+      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
+        onCompleted(createSetProfileMetadataViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
     const { data } = await createSetProfileMetadataViaDispatcher({
@@ -115,7 +122,7 @@ const Status: FC = () => {
 
   const editStatus = async (emoji: string, status: string) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {
@@ -157,7 +164,7 @@ const Status: FC = () => {
 
       const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
-        metadata: `https://arweave.net/${id}`
+        metadata: `ar://${id}`
       };
 
       if (currentProfile?.dispatcher?.canUseRelay) {
@@ -192,7 +199,7 @@ const Status: FC = () => {
         className="space-y-4"
         onSubmit={({ status }) => {
           editStatus(emoji, status);
-          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
+          Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -210,7 +217,7 @@ const Status: FC = () => {
               setEmoji('');
               form.setValue('status', '');
               editStatus('', '');
-              Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
+              Mixpanel.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
             <Trans>Clear status</Trans>

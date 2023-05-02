@@ -1,4 +1,5 @@
 import type { FeedItem } from 'lens';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 
 import Collected from './Collected';
@@ -7,21 +8,19 @@ import Commented from './Commented';
 import Liked from './Liked';
 import Mirrored from './Mirrored';
 
-interface Props {
-  feedItem: FeedItem;
-  showType?: boolean;
-  showThread?: boolean;
-}
-
 const getCanCombined = (aggregations: number[]) => {
   // show combined reactions if more than 2 items in aggregations
   return aggregations.filter((n) => n > 0).length > 1;
 };
 
-const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
+interface ActionTypeProps {
+  feedItem: FeedItem;
+}
+
+const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   const publication = feedItem.root;
   const isComment = publication.__typename === 'Comment';
-  const commentsCount = feedItem.comments?.length ?? 0;
+  const showThread = isComment || (feedItem.comments?.length ?? 0 > 0);
 
   const canCombined = getCanCombined([
     feedItem.mirrors.length,
@@ -30,12 +29,8 @@ const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
     feedItem.comments?.length ?? 0
   ]);
 
-  if (!showType) {
-    return null;
-  }
-
   return (
-    <span onClick={(event) => event.stopPropagation()}>
+    <span onClick={stopEventPropagation} aria-hidden="true">
       {canCombined ? (
         <Combined feedItem={feedItem} />
       ) : (
@@ -45,9 +40,9 @@ const EventType: FC<Props> = ({ feedItem, showType, showThread = false }) => {
           {feedItem.reactions.length && !isComment ? <Liked reactions={feedItem.reactions} /> : null}
         </>
       )}
-      {(isComment || commentsCount > 0) && showThread && <Commented feedItem={feedItem} />}
+      {showThread ? <Commented feedItem={feedItem} /> : null}
     </span>
   );
 };
 
-export default EventType;
+export default ActionType;

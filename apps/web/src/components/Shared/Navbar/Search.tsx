@@ -1,28 +1,25 @@
-import { Card } from '@components/UI/Card';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
-import { SEARCH } from 'src/tracking';
+import { Card, Input, Spinner } from 'ui';
 
 import UserProfile from '../UserProfile';
 
-interface Props {
+interface SearchProps {
   hideDropdown?: boolean;
   onProfileSelected?: (profile: Profile) => void;
   placeholder?: string;
   modalWidthClassName?: string;
 }
 
-const Search: FC<Props> = ({
+const Search: FC<SearchProps> = ({
   hideDropdown = false,
   onProfileSelected,
   placeholder = t`Search…`,
@@ -56,9 +53,9 @@ const Search: FC<Props> = ({
   const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (pathname === '/search') {
-      push(`/search?q=${searchText}&type=${query.type}`);
+      push(`/search?q=${encodeURIComponent(searchText)}&type=${query.type}`);
     } else {
-      push(`/search?q=${searchText}&type=profiles`);
+      push(`/search?q=${encodeURIComponent(searchText)}&type=profiles`);
     }
     setSearchText('');
   };
@@ -68,32 +65,32 @@ const Search: FC<Props> = ({
   const profiles = isProfileSearchResult ? searchResult.items : [];
 
   return (
-    <div aria-hidden="true" className="w-full">
+    <div aria-hidden="true" className="w-full" data-testid="global-search">
       <form onSubmit={handleKeyDown}>
         <Input
           type="text"
-          className="py-2 px-3 text-sm"
+          className="px-3 py-2 text-sm"
           placeholder={placeholder}
           value={searchText}
-          onFocus={() => Leafwatch.track(SEARCH.FOCUS)}
           iconLeft={<SearchIcon />}
           iconRight={
             <XIcon
               className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
-              onClick={() => {
-                setSearchText('');
-                Leafwatch.track(SEARCH.CLEAR);
-              }}
+              onClick={() => setSearchText('')}
             />
           }
           onChange={handleSearch}
         />
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
-        <div className={clsx('absolute mt-2 flex w-[94%] flex-col', modalWidthClassName)} ref={dropdownRef}>
+        <div
+          className={clsx('absolute mt-2 flex w-[94%] flex-col', modalWidthClassName)}
+          ref={dropdownRef}
+          data-testid="search-profiles-dropdown"
+        >
           <Card className="max-h-[80vh] overflow-y-auto py-2">
             {searchUsersLoading ? (
-              <div className="space-y-2 py-2 px-4 text-center text-sm font-bold">
+              <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>
                   <Trans>Searching users</Trans>
@@ -104,13 +101,15 @@ const Search: FC<Props> = ({
                 {profiles.map((profile: Profile) => (
                   <div
                     key={profile?.handle}
-                    className="cursor-pointer py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => {
                       if (onProfileSelected) {
                         onProfileSelected(profile);
                       }
                       setSearchText('');
                     }}
+                    data-testid={`search-profile-${formatHandle(profile?.handle)}`}
+                    aria-hidden="true"
                   >
                     <UserProfile
                       linkToProfile={!onProfileSelected}
@@ -120,7 +119,7 @@ const Search: FC<Props> = ({
                   </div>
                 ))}
                 {profiles.length === 0 && (
-                  <div className="py-2 px-4">
+                  <div className="px-4 py-2">
                     <Trans>No matching users</Trans>
                   </div>
                 )}

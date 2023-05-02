@@ -21,7 +21,7 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
   </Link>
 );
 
-interface Props {
+interface SidebarProps {
   items: {
     title: ReactNode;
     icon: ReactNode;
@@ -30,15 +30,15 @@ interface Props {
   }[];
 }
 
-const Sidebar: FC<Props> = ({ items }) => {
+const Sidebar: FC<SidebarProps> = ({ items }) => {
   const { pathname } = useRouter();
   const menuItems = items.map((item) => ({ ...item, enabled: item.enabled ?? true }));
 
   return (
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">
-      {menuItems.map((item: any, index: number) =>
+      {menuItems.map((item: any) =>
         item?.enabled ? (
-          <Menu key={index} current={pathname == item.url} url={item.url}>
+          <Menu key={item.title} current={pathname === item.url} url={item.url}>
             {item.icon}
             <div>{item.title}</div>
           </Menu>

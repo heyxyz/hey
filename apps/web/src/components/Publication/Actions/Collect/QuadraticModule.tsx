@@ -5,27 +5,18 @@ import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
-import { Button } from '@components/UI/Button';
-import { Modal } from '@components/UI/Modal';
-import { Spinner } from '@components/UI/Spinner';
-import { WarningMessage } from '@components/UI/WarningMessage';
 import { CashIcon, ClockIcon, CollectionIcon, PuzzleIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import formatAddress from '@lib/formatAddress';
-import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
-import getAssetAddress from '@lib/getAssetAddress';
+import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-import getSignature from '@lib/getSignature';
-import getTokenImage from '@lib/getTokenImage';
-import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
+// import { Leafwatch } from 'lib/leafwatch';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHubProxy, QuadraticVoteCollectModule } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL, SIGN_WALLET } from 'data/constants';
+import { LensHub, QuadraticVoteCollectModule } from 'abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
+import { Errors } from 'data/errors';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
 import { ethers } from 'ethers';
@@ -40,11 +31,17 @@ import {
   useProxyActionMutation,
   usePublicationRevenueQuery
 } from 'lens';
+import formatAddress from 'lib/formatAddress';
+import formatHandle from 'lib/formatHandle';
+import getAssetAddress from 'lib/getAssetAddress';
+import getSignature from 'lib/getSignature';
+import getTokenImage from 'lib/getTokenImage';
+import humanize from 'lib/humanize';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
+import { Button, Modal, Spinner, WarningMessage } from 'ui';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 import TipsOutlineIcon from '../../../Shared/TipIcons/TipsOutlineIcon';
@@ -133,7 +130,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     setTimeout(() => {
       setShowCollectModal && setShowCollectModal(false);
     }, 2000);
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
+    // Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT);
   };
 
   const { isFetching, refetch } = useContractRead({
@@ -145,7 +142,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
@@ -305,7 +302,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
 
   const createCollect = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {
@@ -491,7 +488,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
               type="button"
               onClick={() => {
                 setShowCollectorsModal(!showCollectorsModal);
-                Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
+                // Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
               }}
             >
               <div>

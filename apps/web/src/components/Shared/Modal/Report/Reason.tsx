@@ -7,14 +7,14 @@ import {
 } from 'lens';
 import type { Dispatch, FC } from 'react';
 
-interface Props {
+interface ReasonProps {
   setType: Dispatch<string>;
   setSubReason: Dispatch<string>;
   type: string;
   subReason: string;
 }
 
-const Reason: FC<Props> = ({ setType, setSubReason, type, subReason }) => {
+const Reason: FC<ReasonProps> = ({ setType, setSubReason, type, subReason }) => {
   return (
     <div className="space-y-3">
       <div>
@@ -128,6 +128,12 @@ const Reason: FC<Props> = ({ setType, setSubReason, type, subReason }) => {
                     selected={subReason === PublicationReportingSpamSubreason.FakeEngagement}
                   >
                     <Trans>Fake engagement</Trans>
+                  </option>
+                  <option
+                    value={PublicationReportingSpamSubreason.LowSignal}
+                    selected={subReason === PublicationReportingSpamSubreason.LowSignal}
+                  >
+                    <Trans>Low signal</Trans>
                   </option>
                   <option
                     value={PublicationReportingSpamSubreason.ManipulationAlgo}

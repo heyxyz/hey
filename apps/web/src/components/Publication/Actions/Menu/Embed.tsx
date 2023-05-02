@@ -1,25 +1,26 @@
 import { Menu } from '@headlessui/react';
 import { CodeIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
-import type { FC, MouseEvent } from 'react';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
+import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
-interface Props {
+interface EmbedProps {
   publication: Publication;
 }
 
-const Embed: FC<Props> = ({ publication }) => {
+const Embed: FC<EmbedProps> = ({ publication }) => {
   return (
     <Menu.Item
       as="a"
       className={({ active }) =>
         clsx({ 'dropdown-active': active }, 'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm')
       }
-      onClick={(event: MouseEvent<HTMLAnchorElement>) => {
-        event.stopPropagation();
-        Leafwatch.track(PUBLICATION.EMBED);
+      onClick={(event) => {
+        stopEventPropagation(event);
+        Mixpanel.track(PUBLICATION.EMBED);
       }}
       href={`https://embed.withlens.app/?url=${publication?.id}`}
       target="_blank"

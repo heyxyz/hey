@@ -1,4 +1,5 @@
 import packageJson from '../../package.json';
+import LensEndpoint from './lens-endpoints';
 import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
@@ -7,11 +8,6 @@ export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 // Lens Network
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
-export const MAINNET_API_URL = 'https://api.lens.dev';
-export const TESTNET_API_URL = 'https://api-mumbai.lens.dev';
-export const SANDBOX_API_URL = 'https://api-sandbox-mumbai.lens.dev';
-export const STAGING_API_URL = 'https://staging-api-social-mumbai.lens.crtlkey.com';
-export const STAGING_SANDBOX_API_URL = 'https://staging-api-social-mumbai.sandbox.crtlkey.com';
 export const SANDBOX_GRANTS_URL = 'https://api.thegraph.com/subgraphs/name/bitbeckers/ql-dev';
 export const SANDBOX_VOTES_COLLECT_URL =
   'https://api.thegraph.com/subgraphs/name/bitbeckers/vote-collect-dev';
@@ -22,7 +18,7 @@ export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 
-export const IS_MAINNET = API_URL === MAINNET_API_URL;
+export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 
 // XMTP
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
@@ -38,46 +34,37 @@ export const APP_VERSION = packageJson.version;
 export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
 
 // Misc
-export const CONTACT_EMAIL = 'support@lenster.freshdesk.com';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
+export const OLD_LENS_RELAYER_ADDRESS = '0xD1FecCF6881970105dfb2b654054174007f0e07E';
 
-// Messages
-export const ERROR_MESSAGE = 'Something went wrong!';
-export const SIGN_WALLET = 'Please sign in your wallet.';
-export const WRONG_NETWORK = IS_MAINNET
-  ? 'Please change network to Polygon mainnet.'
-  : 'Please change network to Polygon Mumbai testnet.';
-export const SIGN_ERROR = 'Failed to sign data';
+// Mixpanel
+export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
+export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
 export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://testnet.rarible.com';
-export const ARWEAVE_GATEWAY = 'https://arweave.net';
 export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
+export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
+export const IFRAMELY_URL = 'https://iframely.lenster.xyz/iframely';
 
 // Workers
 export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
 export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
-export const RAVEN_WORKER_URL = IS_PRODUCTION ? 'https://raven.lenster.xyz' : 'http://localhost:8084';
+export const FRESHDESK_WORKER_URL = IS_PRODUCTION ? 'https://freshdesk.lenster.xyz' : 'http://localhost:8084';
 
 // Web3
-// export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
-
-export const ALCHEMY_KEY = process.env.NEXT_PUBLIC_ALCHEMY_ID;
-
-// Errors
-export const ERRORS = {
-  notMined:
-    'A previous transaction may not been mined yet or you have passed in a invalid nonce. You must wait for that to be mined before doing another action, please try again in a few moments. Nonce out of sync.'
-};
+export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
+export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
+export const LIVEPEER_TOKEN = '4d4daf15-a037-4b8c-b7de-51f1994cc416';
 
 // Regex
 export const URL_REGEX =
@@ -103,23 +90,12 @@ export const ALLOWED_MEDIA_TYPES = [...ALLOWED_VIDEO_TYPES, ...ALLOWED_IMAGE_TYP
 
 // UI
 export const MESSAGE_PAGE_LIMIT = 15;
-export const SCROLL_THRESHOLD = 0.5;
 export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms
 export const AVATAR = '300x300';
 export const COVER = '1500x500';
 export const ATTACHMENT = '1000,fit';
-
-// Localstorage keys
-export const LS_KEYS = {
-  LENSTER_STORE: 'lenster.store',
-  PREFERENCES_STORE: 'preferences.store',
-  TRANSACTION_STORE: 'transaction.store',
-  TIMELINE_STORE: 'timeline.store',
-  MESSAGE_STORE: 'message.store',
-  SELECTED_LOCALE: 'selected.locale'
-};
 
 // S3 bucket
 export const S3_BUCKET = {

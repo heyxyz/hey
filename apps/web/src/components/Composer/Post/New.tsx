@@ -1,15 +1,13 @@
-import { Card } from '@components/UI/Card';
-import { Modal } from '@components/UI/Modal';
-import { Tooltip } from '@components/UI/Tooltip';
 import { PencilAltIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
 import { t, Trans } from '@lingui/macro';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
+import { Card, Image, Modal, Tooltip } from 'ui';
 
 import NewPublication from '../NewPublication';
 
@@ -24,7 +22,7 @@ interface ActionProps {
 const Action: FC<ActionProps> = ({ icon, text, onClick }) => (
   <Tooltip content={text} placement="top">
     <button
-      className="lt-text-gray-500 hover:text-brand-500 flex flex-col items-center"
+      className="lt-text-gray-500 hover:text-brand flex flex-col items-center"
       onClick={onClick}
       type="button"
     >
@@ -71,7 +69,7 @@ const NewPost: FC = () => {
   return (
     <Card className="space-y-3 p-5">
       <div className="flex items-center space-x-3">
-        <img
+        <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(currentProfile, false);
           }}

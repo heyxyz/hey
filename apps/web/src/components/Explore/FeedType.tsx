@@ -1,32 +1,37 @@
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { PublicationMainFocus } from 'lens';
 import type { Dispatch, FC } from 'react';
+import { EXPLORE } from 'src/tracking';
 
-interface Props {
+interface FeedLinkProps {
+  name: string;
+  type?: PublicationMainFocus;
+}
+
+interface FeedTypeProps {
   setFocus: Dispatch<PublicationMainFocus>;
   focus?: PublicationMainFocus;
 }
 
-const FeedType: FC<Props> = ({ setFocus, focus }) => {
-  interface FeedLinkProps {
-    name: string;
-    type?: PublicationMainFocus;
-  }
-
+const FeedType: FC<FeedTypeProps> = ({ setFocus, focus }) => {
   const FeedLink: FC<FeedLinkProps> = ({ name, type }) => (
     <button
       type="button"
       onClick={() => {
         setFocus(type as PublicationMainFocus);
-        Leafwatch.track(`select_${(type ?? 'all_posts')?.toLowerCase()}_filter_in_explore`);
+        Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
+          explore_feed_focus: (type ?? 'all_posts').toLowerCase()
+        });
       }}
       className={clsx(
         { '!bg-brand-500 !text-white': focus === type },
         'bg-brand-100 text-brand border-brand-300 dark:border-brand-500 rounded-full border px-3 py-1.5 text-xs dark:bg-opacity-10 sm:px-4'
       )}
       aria-label={name}
+      aria-selected={focus === type}
+      data-testid={`feed-type-${(type ?? 'all_posts').toLowerCase()}`}
     >
       {name}
     </button>

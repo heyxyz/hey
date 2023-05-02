@@ -1,19 +1,15 @@
-import { FollowSource } from '@components/Shared/Follow';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { Card } from '@components/UI/Card';
-import { EmptyState } from '@components/UI/EmptyState';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Modal } from '@components/UI/Modal';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { MISCELLANEOUS } from 'src/tracking';
+import { FollowSource, MISCELLANEOUS } from 'src/tracking';
+import { Card, EmptyState, ErrorMessage, Modal } from 'ui';
 
 import Suggested from './Suggested';
 
@@ -81,7 +77,7 @@ const RecommendedProfiles: FC = () => {
           type="button"
           onClick={() => {
             setShowSuggestedModal(true);
-            Leafwatch.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
+            Mixpanel.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
           }}
         >
           <DotsCircleHorizontalIcon className="h-4 w-4" />

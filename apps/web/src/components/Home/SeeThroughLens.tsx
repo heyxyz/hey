@@ -1,13 +1,9 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { Menu } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FeedItem, FeedRequest, Profile, ProfileSearchResult } from 'lens';
@@ -15,13 +11,16 @@ import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesLazyQuery,
-  useTimelineLazyQuery
+  useSeeThroughProfilesLazyQuery
 } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
-import { MISCELLANEOUS, SEARCH } from 'src/tracking';
+import { MISCELLANEOUS } from 'src/tracking';
+import { Image, Input, Spinner } from 'ui';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -53,10 +52,10 @@ const SeeThroughLens: FC = () => {
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
 
-  const [fetchRecommendedProfiles, { loading, error }] = useTimelineLazyQuery({
-    variables: { request, profileId: profile?.id },
-    onCompleted: (data) => {
-      const feedItems = data?.feed?.items as FeedItem[];
+  const [fetchRecommendedProfiles, { loading, error }] = useSeeThroughProfilesLazyQuery({
+    variables: { request },
+    onCompleted: ({ feed }) => {
+      const feedItems = feed?.items as FeedItem[];
       setRecommendedProfiles(feedItems);
     }
   });
@@ -85,12 +84,12 @@ const SeeThroughLens: FC = () => {
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button
-        onClick={() => fetchRecommendedProfiles()}
-        className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20"
-      >
-        <span className="flex items-center space-x-1 pl-1 text-sm">
-          <img
+      <Menu.Button as={Fragment}>
+        <button
+          className="flex items-center space-x-1 rounded-md p-1 pl-1 text-sm hover:bg-gray-300 hover:bg-opacity-20"
+          onClick={() => fetchRecommendedProfiles()}
+        >
+          <Image
             onError={({ currentTarget }) => {
               currentTarget.src = getAvatar(profile, false);
             }}
@@ -103,7 +102,7 @@ const SeeThroughLens: FC = () => {
           />
           <span>{seeThroughProfile ? `@${formatHandle(profile?.handle)}` : t`My Feed`}</span>
           <ChevronDownIcon className="h-4 w-4" />
-        </span>
+        </button>
       </Menu.Button>
       <MenuTransition>
         <Menu.Items
@@ -116,18 +115,14 @@ const SeeThroughLens: FC = () => {
           <div className="p-2">
             <Input
               type="text"
-              className="py-2 px-3 text-sm"
+              className="px-3 py-2 text-sm"
               placeholder={t`Search`}
               value={searchText}
-              autoFocus
               autoComplete="off"
               iconRight={
                 <XIcon
                   className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
-                  onClick={() => {
-                    setSearchText('');
-                    Leafwatch.track(SEARCH.CLEAR);
-                  }}
+                  onClick={() => setSearchText('')}
                 />
               }
               onChange={handleSearch}
@@ -135,7 +130,7 @@ const SeeThroughLens: FC = () => {
           </div>
           {seeThroughProfile && (
             <button
-              className="mb-2 mt-1 w-full bg-gray-200 py-2 px-3 text-left text-sm outline-none dark:bg-gray-700"
+              className="mb-2 mt-1 w-full bg-gray-200 px-3 py-2 text-left text-sm outline-none dark:bg-gray-700"
               onClick={() => setSeeThroughProfile(null)}
             >
               <Trans>Reset filter to your own feed</Trans>
@@ -143,7 +138,7 @@ const SeeThroughLens: FC = () => {
           )}
           <div className="mx-2 mb-2">
             {searchUsersLoading || loading ? (
-              <div className="space-y-2 py-2 px-4 text-center text-sm font-bold">
+              <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>
                   <Trans>Searching users</Trans>
@@ -161,7 +156,9 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
-                      Leafwatch.track(MISCELLANEOUS.SELECT_USER_FEED);
+                      Mixpanel.track(MISCELLANEOUS.SELECT_USER_FEED, {
+                        see_through_profile: profile?.id
+                      });
                     }}
                   >
                     <UserProfile linkToProfile={false} profile={profile} showUserPreview={false} />

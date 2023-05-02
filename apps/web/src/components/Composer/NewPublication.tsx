@@ -1,14 +1,14 @@
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Spinner } from '@components/UI/Spinner';
-import type { LensterAttachment } from '@generated/types';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
-import type { CollectCondition, EncryptedMetadata, FollowCondition } from '@lens-protocol/sdk-gated';
+import type {
+  CollectCondition,
+  EncryptedMetadata,
+  FollowCondition,
+  LensEnvironment
+} from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type {
   AccessConditionOutput,
@@ -16,16 +16,14 @@ import type {
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import getSignature from '@lib/getSignature';
-import getTags from '@lib/getTags';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
+import { LensHub } from 'abis';
 import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -33,13 +31,14 @@ import {
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
   LENSHUB_PROXY,
-  LIT_PROTOCOL_ENVIRONMENT,
-  SIGN_WALLET
+  LIT_PROTOCOL_ENVIRONMENT
 } from 'data/constants';
+import Errors from 'data/errors';
 import type {
   CreatePublicCommentRequest,
   MetadataAttributeInput,
   Publication,
+  PublicationMetadataMediaInput,
   PublicationMetadataV2Input
 } from 'lens';
 import {
@@ -54,17 +53,22 @@ import {
   useCreatePostViaDispatcherMutation
 } from 'lens';
 import { $getRoot } from 'lexical';
+import getSignature from 'lib/getSignature';
+import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { OptmisticPublicationType } from 'src/enums';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { COMMENT, POST } from 'src/tracking';
+import { PUBLICATION } from 'src/tracking';
+import type { NewLensterAttachment } from 'src/types';
+import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
@@ -86,11 +90,11 @@ const AccessSettings = dynamic(() => import('@components/Composer/Actions/Access
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 
-interface Props {
+interface NewPublicationProps {
   publication: Publication;
 }
 
-const NewPublication: FC<Props> = ({ publication }) => {
+const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -105,6 +109,9 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
   const addAttachments = usePublicationStore((state) => state.addAttachments);
   const isUploading = usePublicationStore((state) => state.isUploading);
+  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
+  const setVideoThumbnail = usePublicationStore((state) => state.setVideoThumbnail);
+  const videoDurationInSeconds = usePublicationStore((state) => state.videoDurationInSeconds);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -134,28 +141,44 @@ const NewPublication: FC<Props> = ({ publication }) => {
   const { data: signer } = useSigner();
 
   const isComment = Boolean(publication);
-  const isAudioPublication = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.type);
+  const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
+  const hasVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType);
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     editor.update(() => {
       $getRoot().clear();
     });
     setPublicationContent('');
     setAttachments([]);
+    setVideoThumbnail({
+      url: '',
+      type: '',
+      uploading: false
+    });
     resetCollectSettings();
     resetAccessSettings();
     if (!isComment) {
       setShowNewPostModal(false);
     }
 
-    // Track in leafwatch
+    // Track in mixpanel
     const eventProperties = {
       publication_type: restricted ? 'token_gated' : 'public',
       publication_collect_module: selectedCollectModule,
       publication_reference_module: selectedReferenceModule,
-      publication_has_attachments: attachments.length > 0
+      publication_reference_module_degrees_of_separation:
+        selectedReferenceModule === ReferenceModules.DegreesOfSeparationReferenceModule
+          ? degreesOfSeparation
+          : null,
+      publication_has_attachments: attachments.length > 0,
+      publication_attachment_types:
+        attachments.length > 0 ? attachments.map((attachment) => attachment.original.mimeType) : null
     };
-    Leafwatch.track(isComment ? COMMENT.NEW : POST.NEW, eventProperties);
+    Mixpanel.track(isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST, eventProperties);
   };
 
   useEffect(() => {
@@ -173,7 +196,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     return {
       id: uuid(),
       ...(isComment && { parent: publication.id }),
-      type: isComment ? 'NEW_COMMENT' : 'NEW_POST',
+      type: isComment ? OptmisticPublicationType.NewComment : OptmisticPublicationType.NewPost,
       txHash,
       txId,
       content: publicationContent,
@@ -186,9 +209,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({ onError });
 
-  const { error, write } = useContractWrite({
+  const {
+    isLoading: writeLoading,
+    error,
+    write
+  } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: isComment ? 'commentWithSig' : 'postWithSig',
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
@@ -199,10 +226,10 @@ const NewPublication: FC<Props> = ({ publication }) => {
   });
 
   const [broadcast] = useBroadcastMutation({
-    onCompleted: (data) => {
-      onCompleted();
-      if (data.broadcast.__typename === 'RelayerResult') {
-        setTxnQueue([generateOptimisticPublication({ txId: data.broadcast.txId }), ...txnQueue]);
+    onCompleted: ({ broadcast }) => {
+      onCompleted(broadcast.__typename);
+      if (broadcast.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPublication({ txId: broadcast.txId }), ...txnQueue]);
       }
     }
   });
@@ -216,6 +243,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       collectModuleInitData,
       referenceModule,
       referenceModuleInitData,
+      referenceModuleData,
       deadline
     } = typedData.value;
     const signature = await signTypedDataAsync(getSignature(typedData));
@@ -228,6 +256,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
       collectModuleInitData,
       referenceModule,
       referenceModuleInitData,
+      referenceModuleData,
       ...(isComment && {
         profileIdPointed: typedData.value.profileIdPointed,
         pubIdPointed: typedData.value.pubIdPointed
@@ -237,7 +266,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
     setUserSigNonce(userSigNonce + 1);
     const { data } = await broadcast({ variables: { request: { id, signature } } });
     if (data?.broadcast.__typename === 'RelayError') {
-      return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      return write({ recklesslySetUnpreparedArgs: [inputStruct] });
     }
   };
 
@@ -252,26 +281,20 @@ const NewPublication: FC<Props> = ({ publication }) => {
   });
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
-    onCompleted: (data) => {
-      onCompleted();
-      if (data.createCommentViaDispatcher.__typename === 'RelayerResult') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: data.createCommentViaDispatcher.txId }),
-          ...txnQueue
-        ]);
+    onCompleted: ({ createCommentViaDispatcher }) => {
+      onCompleted(createCommentViaDispatcher.__typename);
+      if (createCommentViaDispatcher.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPublication({ txId: createCommentViaDispatcher.txId }), ...txnQueue]);
       }
     },
     onError
   });
 
   const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
-    onCompleted: (data) => {
-      onCompleted();
-      if (data.createPostViaDispatcher.__typename === 'RelayerResult') {
-        setTxnQueue([
-          generateOptimisticPublication({ txId: data.createPostViaDispatcher.txId }),
-          ...txnQueue
-        ]);
+    onCompleted: ({ createPostViaDispatcher }) => {
+      onCompleted(createPostViaDispatcher.__typename);
+      if (createPostViaDispatcher.__typename === 'RelayerResult') {
+        setTxnQueue([generateOptimisticPublication({ txId: createPostViaDispatcher.txId }), ...txnQueue]);
       }
     },
     onError
@@ -302,11 +325,11 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   const getMainContentFocus = () => {
     if (attachments.length > 0) {
-      if (isAudioPublication) {
+      if (hasAudio) {
         return PublicationMainFocus.Audio;
-      } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.type)) {
+      } else if (ALLOWED_IMAGE_TYPES.includes(attachments[0]?.original.mimeType)) {
         return PublicationMainFocus.Image;
-      } else if (ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type)) {
+      } else if (hasVideo) {
         return PublicationMainFocus.Video;
       } else {
         return PublicationMainFocus.TextOnly;
@@ -317,44 +340,49 @@ const NewPublication: FC<Props> = ({ publication }) => {
   };
 
   const getAnimationUrl = () => {
-    if (
-      attachments.length > 0 &&
-      (isAudioPublication || ALLOWED_VIDEO_TYPES.includes(attachments[0]?.type))
-    ) {
-      return attachments[0]?.item;
+    if (attachments.length > 0 && (hasAudio || hasVideo)) {
+      return attachments[0]?.original.url;
     }
 
     return null;
   };
 
   const getAttachmentImage = () => {
-    return isAudioPublication ? audioPublication.cover : attachments[0]?.item;
+    return hasAudio ? audioPublication.cover : hasVideo ? videoThumbnail.url : attachments[0]?.original.url;
   };
 
   const getAttachmentImageMimeType = () => {
-    return isAudioPublication ? audioPublication.coverMimeType : attachments[0]?.type;
+    return hasAudio ? audioPublication.coverMimeType : attachments[0]?.original.mimeType;
+  };
+
+  const getTitlePrefix = () => {
+    if (hasVideo) {
+      return 'Video';
+    }
+
+    return isComment ? 'Comment' : 'Post';
   };
 
   const createTokenGatedMetadata = async (metadata: PublicationMetadataV2Input) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     if (!signer) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
-      provider,
+      provider: provider as any,
       signer,
-      env: LIT_PROTOCOL_ENVIRONMENT as any
+      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 
     // Connect to the SDK
     await tokenGatedSdk.connect({
       address: currentProfile.ownedBy,
-      env: LIT_PROTOCOL_ENVIRONMENT as any
+      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 
     // Condition for gating the content
@@ -392,12 +420,12 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
   const createPublication = async () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {
       setLoading(true);
-      if (isAudioPublication) {
+      if (hasAudio) {
         setPublicationContentError('');
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
         if (!parsedData.success) {
@@ -425,10 +453,19 @@ const NewPublication: FC<Props> = ({ publication }) => {
           traitType: 'type',
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
-        }
+        },
+        ...(hasVideo
+          ? [
+              {
+                traitType: 'durationInSeconds',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: videoDurationInSeconds
+              }
+            ]
+          : [])
       ];
 
-      if (isAudioPublication) {
+      if (hasAudio) {
         attributes.push({
           traitType: 'author',
           displayType: PublicationMetadataDisplayTypes.String,
@@ -436,10 +473,10 @@ const NewPublication: FC<Props> = ({ publication }) => {
         });
       }
 
-      const attachmentsInput: LensterAttachment[] = attachments.map((attachment) => ({
-        type: attachment.type,
-        altTag: attachment.altTag,
-        item: attachment.item!
+      const attachmentsInput: PublicationMetadataMediaInput[] = attachments.map((attachment) => ({
+        item: attachment.original.url,
+        type: attachment.original.mimeType,
+        altTag: attachment.original.altTag
       }));
 
       const metadata: PublicationMetadataV2Input = {
@@ -448,10 +485,13 @@ const NewPublication: FC<Props> = ({ publication }) => {
         content: publicationContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image: attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
-        imageMimeType: attachmentsInput.length > 0 ? getAttachmentImageMimeType() : 'image/svg+xml',
-        name: isAudioPublication
-          ? audioPublication.title
-          : `${isComment ? 'Comment' : 'Post'} by @${currentProfile?.handle}`,
+        imageMimeType:
+          attachmentsInput.length > 0
+            ? getAttachmentImageMimeType()
+            : textNftImageUrl
+            ? 'image/svg+xml'
+            : null,
+        name: hasAudio ? audioPublication.title : `${getTitlePrefix()} by @${currentProfile?.handle}`,
         tags: getTags(publicationContent),
         animation_url: getAnimationUrl(),
         mainContentFocus: getMainContentFocus(),
@@ -471,7 +511,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
 
       const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
         profileId: currentProfile?.id,
-        contentURI: `https://arweave.net/${arweaveId}`,
+        contentURI: `ar://${arweaveId}`,
         ...(isComment && {
           publicationId: publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
         }),
@@ -511,16 +551,19 @@ const NewPublication: FC<Props> = ({ publication }) => {
   };
 
   const setGifAttachment = (gif: IGif) => {
-    const attachment = {
+    const attachment: NewLensterAttachment = {
       id: uuid(),
-      item: gif.images.original.url,
-      type: 'image/gif',
-      altTag: gif.title
+      previewItem: gif.images.original.url,
+      original: {
+        url: gif.images.original.url,
+        mimeType: 'image/gif',
+        altTag: gif.title
+      }
     };
     addAttachments([attachment]);
   };
 
-  const isLoading = loading || typedDataLoading;
+  const isLoading = loading || typedDataLoading || writeLoading;
 
   return (
     <Card className={clsx({ 'rounded-none border-none': !isComment }, 'pb-3')}>
@@ -539,7 +582,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isLoading || isUploading}
+            disabled={isLoading || isUploading || videoThumbnail.uploading}
             icon={
               isLoading ? (
                 <Spinner size="xs" />
@@ -551,9 +594,7 @@ const NewPublication: FC<Props> = ({ publication }) => {
             }
             onClick={createPublication}
           >
-            {isComment
-              ? t({ id: '[cta]Comment', message: 'Comment' })
-              : t({ id: '[cta]Post', message: 'Post' })}
+            {isComment ? t`Comment` : t`Post`}
           </Button>
         </div>
       </div>

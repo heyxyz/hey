@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import { useRouter } from 'next/router';
@@ -11,6 +11,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 import FeedType from './FeedType';
 import List from './List';
+import Settings from './Settings';
 
 const Notification: FC = () => {
   const {
@@ -24,7 +25,7 @@ const Notification: FC = () => {
   );
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'notifications' });
+    Mixpanel.track(PAGEVIEW, { page: 'notifications' });
   }, []);
 
   if (!currentProfile) {
@@ -35,8 +36,9 @@ const Notification: FC = () => {
     <div className="flex flex-grow justify-center px-0 py-8 sm:px-6 lg:px-8">
       <MetaTags title={t`Notifications • ${APP_NAME}`} />
       <div className="w-full max-w-4xl space-y-3">
-        <div className="flex gap-3 pb-2">
+        <div className="flex flex-wrap justify-between gap-3 pb-2">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
+          <Settings />
         </div>
         <List feedType={feedType} />
       </div>

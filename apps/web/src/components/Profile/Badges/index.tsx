@@ -6,11 +6,11 @@ import ProofOfHumanity from './ProofOfHumanity';
 import Sybil from './Sybil';
 import Worldcoin from './Worldcoin';
 
-interface Props {
+interface BadgesProps {
   profile: Profile;
 }
 
-const Badges: FC<Props> = ({ profile }) => {
+const Badges: FC<BadgesProps> = ({ profile }) => {
   const hasOnChainIdentity =
     profile?.onChainIdentity?.proofOfHumanity ||
     profile?.onChainIdentity?.sybilDotOrg?.verified ||

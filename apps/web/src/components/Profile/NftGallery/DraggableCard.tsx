@@ -1,66 +1,64 @@
-import type { Identifier } from 'dnd-core';
+import type { UniqueIdentifier } from '@dnd-kit/core';
+import { useSortable } from '@dnd-kit/sortable';
+import { motion } from 'framer-motion';
 import type { Nft } from 'lens';
 import type { FC } from 'react';
-import { useRef } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
+import React from 'react';
 
 import NftCard from './NftCard';
 
 interface CardProps {
-  id: string;
+  id: UniqueIdentifier;
   nft: Nft;
-  index: number;
-  moveCard: (dragIndex: number, hoverIndex: number) => void;
 }
 
-interface DragItem {
-  index: number;
-  id: string;
-  type: string;
-}
+const DraggableCard: FC<CardProps> = ({ id, nft }) => {
+  const { attributes, setNodeRef, listeners, transform, isDragging } = useSortable({
+    id,
+    transition: null
+  });
 
-const DraggableCard: FC<CardProps> = ({ id, nft, index, moveCard }) => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
-    accept: 'card',
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId()
+  const animateStyles = transform
+    ? {
+        x: transform.x,
+        y: transform.y,
+        scale: isDragging ? 1.05 : 1,
+        zIndex: isDragging ? 1 : 0
+      }
+    : {
+        x: 0,
+        y: 0,
+        scale: 1
       };
+
+  const transitionStyles = {
+    duration: !isDragging ? 0.25 : 0,
+    easings: {
+      type: 'spring'
     },
-    hover(item: DragItem) {
-      if (!ref.current) {
-        return;
-      }
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      moveCard(dragIndex, hoverIndex);
-      item.index = hoverIndex;
+    scale: {
+      duration: 0.25
+    },
+    zIndex: {
+      delay: isDragging ? 0 : 0.25
     }
-  });
-
-  const [{ isDragging }, drag] = useDrag({
-    type: 'card',
-    item: () => {
-      return { id, index };
-    },
-    collect: (monitor: any) => ({
-      isDragging: monitor.isDragging()
-    })
-  });
-
-  const opacity = isDragging ? 0 : 1;
-  drag(drop(ref));
+  };
 
   return (
-    <div ref={ref} style={{ opacity }} className="cursor-move" data-handler-id={handlerId}>
+    <motion.div
+      className="relative cursor-move"
+      ref={setNodeRef}
+      layoutId={String(id)}
+      animate={animateStyles}
+      transition={transitionStyles}
+      {...attributes}
+      {...listeners}
+    >
+      {/* overlay to drag iframe elements */}
+      <span className="absolute inset-0" />
       <NftCard nft={nft} />
-    </div>
+    </motion.div>
   );
 };
 
-export default DraggableCard;
+export default React.memo(DraggableCard);

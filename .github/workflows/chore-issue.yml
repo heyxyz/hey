@@ -1,30 +1,24 @@
-name: Create chore issue
+name: Chore Issue
 
 on:
   schedule:
-    - cron: '0 0 * * MON'
+    - cron: "0 1 * * *"
   workflow_dispatch:
 
 jobs:
-  create_issue:
-    name: Create issue
+  create:
+    name: Create
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       issues: write
     steps:
-      - name: Create chore issue 📜
-        uses: imjohnbo/issue-bot@v3
-        with:
-          assignees: "bigint"
-          labels: "chore"
-          title: "📜 Weekly chore activities"
-          body: |
-            ### List to do
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
 
-            - [ ] Extract all i18n strings `yarn i18n:extract`
-            - [ ] Clear all deprecated strings (search by `#~` in vscode)
-            - [ ] Sync all branches `script/sync-branches`
-          pinned: false
-          close-previous: true
+      - name: Create Issue 📝
+        uses: JasonEtco/create-an-issue@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filename: .github/chore-issue.md

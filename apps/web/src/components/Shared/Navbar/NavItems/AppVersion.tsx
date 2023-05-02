@@ -3,13 +3,13 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import React from 'react';
 
-interface Props {
+interface AppVersionProps {
   onClick?: () => void;
 }
 
-const AppVersion: FC<Props> = ({ onClick }) => {
+const AppVersion: FC<AppVersionProps> = ({ onClick }) => {
   return (
-    <div className="py-3 px-6 text-xs">
+    <div className="px-6 py-3 text-xs">
       <Link
         href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
         className="font-mono"

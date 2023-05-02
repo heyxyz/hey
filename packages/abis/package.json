@@ -5,14 +5,13 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "lint": "eslint . --ext .ts"
-  },
-  "dependencies": {
-    "typescript": "4.9.5"
+    "typecheck": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
   },
   "devDependencies": {
-    "eslint-config-weblint": "*",
-    "tsconfig": "*"
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.4"
   }
 }

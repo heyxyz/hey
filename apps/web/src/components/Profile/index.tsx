@@ -1,24 +1,25 @@
 import MetaTags from '@components/Common/MetaTags';
-import NFTFeed from '@components/NFT/NFTFeed';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import { Modal } from '@components/UI/Modal';
-import formatHandle from '@lib/formatHandle';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import NftFeed from '@components/Nft/NftFeed';
+import { useFeature } from '@growthbook/growthbook-react';
+import { Mixpanel } from '@lib/mixpanel';
+import { FeatureFlag } from 'data';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { GridItemEight, GridItemFour, GridLayout, Modal } from 'ui';
 
 import Cover from './Cover';
 import Details from './Details';
-import Feed, { ProfileFeedType } from './Feed';
+import Feed from './Feed';
 import FeedType from './FeedType';
 import FollowDialog from './FollowDialog';
 import NftGallery from './NftGallery';
@@ -34,9 +35,10 @@ const ViewProfile: NextPage = () => {
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
   );
+  const { on: isNftGalleryEnabled } = useFeature(FeatureFlag.NftGallery as string);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'profile' });
+    Mixpanel.track(PAGEVIEW, { page: 'profile' });
   }, []);
 
   const handle = formatHandle(username as string, true);
@@ -48,13 +50,11 @@ const ViewProfile: NextPage = () => {
   const profile = data?.profile;
   const [following, setFollowing] = useState<boolean | null>(null);
   const [showFollowModal, setShowFollowModal] = useState(false);
-
-  // workaround for that profile.isFollowedByMe == true when signed out
-  const isFollowedByMe = !!currentProfile && !!profile?.isFollowedByMe;
+  const isFollowedByMe = Boolean(currentProfile) && Boolean(profile?.isFollowedByMe);
 
   const followType = profile?.followModule?.__typename;
 
-  const initState = following == null;
+  const initState = following === null;
   // profile is not defined until the second render
   if (initState && profile) {
     const canFollow = followType !== 'RevertFollowModuleSettings' && !isFollowedByMe;
@@ -93,12 +93,11 @@ const ViewProfile: NextPage = () => {
     <>
       <Modal show={showFollowModal} onClose={() => setShowFollowModal(false)}>
         <FollowDialog
-          profile={profile as any}
+          profile={profile as Profile}
           setFollowing={setFollowing}
           setShowFollowModal={setShowFollowModal}
         />
       </Modal>
-
       {profile?.name ? (
         <MetaTags title={`${profile?.name} (@${formatHandle(profile?.handle)}) • ${APP_NAME}`} />
       ) : (
@@ -113,7 +112,7 @@ const ViewProfile: NextPage = () => {
       />
       <GridLayout className="pt-6">
         <GridItemFour>
-          <Details profile={profile as any} following={!!following} setFollowing={setFollowing} />
+          <Details profile={profile as Profile} following={Boolean(following)} setFollowing={setFollowing} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
@@ -122,10 +121,10 @@ const ViewProfile: NextPage = () => {
             feedType === ProfileFeedType.Media ||
             feedType === ProfileFeedType.Collects) && <Feed profile={profile as Profile} type={feedType} />}
           {feedType === ProfileFeedType.Nft ? (
-            isFeatureEnabled('nft-gallery', currentProfile?.id) ? (
+            isNftGalleryEnabled ? (
               <NftGallery profile={profile as Profile} />
             ) : (
-              <NFTFeed profile={profile as Profile} />
+              <NftFeed profile={profile as Profile} />
             )
           ) : null}
         </GridItemEight>

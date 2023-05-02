@@ -1,29 +1,30 @@
 import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
-import { Card } from '@components/UI/Card';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
-import formatHandle from '@lib/formatHandle';
-import getAvatar from '@lib/getAvatar';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import { useFeature } from '@growthbook/growthbook-react';
+import { Mixpanel } from '@lib/mixpanel';
+import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';
 import type { FC } from 'react';
 import React, { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
+import { Card, GridItemEight, GridItemFour, GridLayout, Image } from 'ui';
 
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
+  const { on: isNftDetailEnabled } = useFeature(FeatureFlag.NftDetail as string);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'nft' });
+    Mixpanel.track(PAGEVIEW, { page: 'nft' });
   }, []);
 
-  if (!isFeatureEnabled('nft-detail', currentProfile?.id) || !currentProfile) {
+  if (!isNftDetailEnabled || !currentProfile) {
     return <Custom404 />;
   }
 
@@ -49,7 +50,7 @@ const NFTDetail: FC = () => {
           <div className="flex items-center space-x-1 pt-3">
             <div className="contents -space-x-2">
               {profiles?.map((profile) => (
-                <img
+                <Image
                   key={profile.handle}
                   className="h-5 w-5 rounded-full border dark:border-gray-700"
                   onError={({ currentTarget }) => {

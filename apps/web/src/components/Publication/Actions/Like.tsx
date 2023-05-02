@@ -1,18 +1,17 @@
-import type { ApolloCache } from '@apollo/client';
-import { Tooltip } from '@components/UI/Tooltip';
 import { HeartIcon, SunIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid, SunIcon as SunIconSolid } from '@heroicons/react/solid';
-import hasGm from '@lib/hasGm';
-import { publicationKeyFields } from '@lib/keyFields';
-import { Leafwatch } from '@lib/leafwatch';
-import nFormatter from '@lib/nFormatter';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import { SIGN_WALLET } from 'data/constants';
+import Errors from 'data/errors';
 import { motion } from 'framer-motion';
 import type { Publication } from 'lens';
 import { ReactionTypes, useAddReactionMutation, useRemoveReactionMutation } from 'lens';
+import type { ApolloCache } from 'lens/apollo';
+import { publicationKeyFields } from 'lens/apollo/lib';
+import hasGm from 'lib/hasGm';
+import nFormatter from 'lib/nFormatter';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -20,13 +19,14 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
+import { Tooltip } from 'ui';
 
-interface Props {
+interface LikeProps {
   publication: Publication;
   showCount: boolean;
 }
 
-const Like: FC<Props> = ({ publication, showCount }) => {
+const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -68,7 +68,6 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const getEventProperties = (type: 'like' | 'dislike') => {
     return {
-      [`${type}_by`]: currentProfile?.id,
       [`${type}_publication`]: publication?.id,
       [`${type}_source`]: getLikeSource()
     };
@@ -76,7 +75,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.LIKE, getEventProperties('like'));
+      Mixpanel.track(PUBLICATION.LIKE, getEventProperties('like'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -88,7 +87,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
+      Mixpanel.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -100,7 +99,7 @@ const Like: FC<Props> = ({ publication, showCount }) => {
 
   const createLike = () => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     const variable = {

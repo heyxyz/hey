@@ -2,14 +2,13 @@ import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon, UserAddIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { ReferenceModules } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
-import { PUBLICATION } from 'src/tracking';
+import { Tooltip } from 'ui';
 
 const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore((state) => state.selectedReferenceModule);
@@ -44,7 +43,7 @@ const ReferenceSettings: FC = () => {
     <Menu.Item as="a" className={clsx({ 'dropdown-active': selected }, 'menu-item')} onClick={onClick}>
       <div className="flex items-center justify-between space-x-2">
         <div className="flex items-center space-x-1.5">
-          <div className="text-brand-500">{icon}</div>
+          <div className="text-brand">{icon}</div>
           <div>{title}</div>
         </div>
         {selected && <CheckCircleIcon className="w-5 text-green-500" />}
@@ -52,22 +51,30 @@ const ReferenceSettings: FC = () => {
     </Menu.Item>
   );
 
+  const getSelectedReferenceModuleTooltipText = () => {
+    if (isMyFollowers) {
+      return t`My followers can comment and mirror`;
+    } else if (isMyFollows) {
+      return t`My follows can comment and mirror`;
+    } else if (isFriendsOfFriends) {
+      return t`Friend of friends can comment and mirror`;
+    } else {
+      return t`Everyone can comment and mirror`;
+    }
+  };
+
   return (
     <Menu as="div">
-      <Menu.Button
-        as={motion.button}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => {
-          Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.OPEN_REFERENCE_SETTINGS);
-        }}
-      >
-        <div className="text-brand">
-          {isEveryone && <GlobeAltIcon className="w-5" />}
-          {isMyFollowers && <UsersIcon className="w-5" />}
-          {isMyFollows && <UserAddIcon className="w-5" />}
-          {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
-        </div>
-      </Menu.Button>
+      <Tooltip placement="top" content={getSelectedReferenceModuleTooltipText()}>
+        <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
+          <div className="text-brand">
+            {isEveryone && <GlobeAltIcon className="w-5" />}
+            {isMyFollowers && <UsersIcon className="w-5" />}
+            {isMyFollows && <UserAddIcon className="w-5" />}
+            {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+          </div>
+        </Menu.Button>
+      </Tooltip>
       <MenuTransition>
         <Menu.Items
           static
@@ -80,7 +87,6 @@ const ReferenceSettings: FC = () => {
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
               setOnlyFollowers(false);
-              Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.EVERYONE);
             }}
           />
           <Module
@@ -90,7 +96,6 @@ const ReferenceSettings: FC = () => {
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.FollowerOnlyReferenceModule);
               setOnlyFollowers(true);
-              Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWERS);
             }}
           />
           <Module
@@ -100,7 +105,6 @@ const ReferenceSettings: FC = () => {
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
               setDegreesOfSeparation(1);
-              Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.MY_FOLLOWS);
             }}
           />
           <Module
@@ -110,7 +114,6 @@ const ReferenceSettings: FC = () => {
             onClick={() => {
               setSelectedReferenceModule(ReferenceModules.DegreesOfSeparationReferenceModule);
               setDegreesOfSeparation(2);
-              Leafwatch.track(PUBLICATION.NEW.REFERENCE_MODULE.FRIENDS_OF_FRIENDS);
             }}
           />
         </Menu.Items>

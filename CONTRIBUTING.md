@@ -39,7 +39,7 @@ We are using [GitHub Issues](https://github.com/lensterxyz/lenster/issues) to ma
 - Merge Requests should be raised for any change and it will be approved by a maintainer before merging.
 - The latest changes are always in `main` branch, so please create your branch from `main`.
 - If you’ve fixed a bug or added code that should be tested, add the tests and then link the corresponding issue in either your commit or your PR.
-- Run `yarn lint` before committing to make resolving conflicts easier (VSCode users, check out this extension to fix lint issues in development)
+- Run `pnpm lint` before committing to make resolving conflicts easier (VSCode users, check out this extension to fix lint issues in development)
 - We encourage you to test your changes, and if you have the opportunity, please make those tests part of the Merge Request.
 - If you add new functionality, please provide the corresponding documentation as well and make it part of the Merge Request.
 - The Merge Request should be raised against main branch.
@@ -53,7 +53,7 @@ We are using [GitHub Issues](https://github.com/lensterxyz/lenster/issues) to ma
 
 First of all, you need to check if you're satisfying the `Contribution Prerequisites`
 
-Then, please follow the instructions in [LOCAL_SETUP_GUIDE](docs/setup.md).
+Then, please follow the instructions in [LOCAL_DEVELOPMENT_GUIDE](docs/development.md).
 
 ---
 

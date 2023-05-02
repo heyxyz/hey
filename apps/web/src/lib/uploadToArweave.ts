@@ -1,11 +1,14 @@
 import axios from 'axios';
-import { ERROR_MESSAGE, METADATA_WORKER_URL } from 'data/constants';
+import { METADATA_WORKER_URL } from 'data/constants';
+import Errors from 'data/errors';
 import toast from 'react-hot-toast';
 
 /**
+ * Uploads the given data to Arweave.
  *
- * @param data - Data to upload to arweave
- * @returns arweave transaction id
+ * @param data The data to upload.
+ * @returns The Arweave transaction ID.
+ * @throws An error if the upload fails.
  */
 const uploadToArweave = async (data: any): Promise<string> => {
   try {
@@ -21,8 +24,8 @@ const uploadToArweave = async (data: any): Promise<string> => {
 
     return id;
   } catch {
-    toast.error(ERROR_MESSAGE);
-    throw new Error(ERROR_MESSAGE);
+    toast.error(Errors.SomethingWentWrong);
+    throw new Error(Errors.SomethingWentWrong);
   }
 };
 

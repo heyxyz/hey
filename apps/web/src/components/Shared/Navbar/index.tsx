@@ -3,11 +3,11 @@ import NotificationIcon from '@components/Notification/NotificationIcon';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import formatHandle from '@lib/formatHandle';
-import hasPrideLogo from '@lib/hasPrideLogo';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import hasPrideLogo from 'lib/hasPrideLogo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -35,7 +35,11 @@ const Navbar: FC = () => {
 
   const NavItem = ({ url, name, current }: NavItemProps) => {
     return (
-      <Link href={url} aria-current={current ? 'page' : undefined}>
+      <Link
+        href={url}
+        aria-current={current ? 'page' : undefined}
+        data-testid={`nav-item-${name.toLowerCase()}`}
+      >
         <Disclosure.Button
           className={clsx(
             'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
@@ -57,18 +61,15 @@ const Navbar: FC = () => {
 
     return (
       <>
-        <NavItem url="/" name={t`Home`} current={pathname == '/'} />
-        <NavItem url="/explore" name={t`Explore`} current={pathname == '/explore'} />
+        <NavItem url="/" name={t`Home`} current={pathname === '/'} />
+        <NavItem url="/explore" name={t`Explore`} current={pathname === '/explore'} />
         <MoreNavItems />
       </>
     );
   };
 
   return (
-    <Disclosure
-      as="header"
-      className="sticky top-0 z-10 w-full border-b bg-white dark:border-b-gray-700 dark:bg-black"
-    >
+    <Disclosure as="header" className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
       {({ open }) => (
         <>
           {staffMode && <StaffBar />}
@@ -117,7 +118,7 @@ const Navbar: FC = () => {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="md:hidden">
             <div className="m-3">
               <Search hideDropdown onProfileSelected={onProfileSelected} />
             </div>

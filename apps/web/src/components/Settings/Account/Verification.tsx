@@ -1,11 +1,9 @@
-import { Card } from '@components/UI/Card';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import isVerified from '@lib/isVerified';
-import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
+import isVerified from 'lib/isVerified';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
+import { Card } from 'ui';
 
 const Verification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -23,14 +21,7 @@ const Verification: FC = () => {
       ) : (
         <div>
           <Trans>No.</Trans>{' '}
-          <a
-            href="https://tally.so/r/wgDajK"
-            onClick={() => {
-              Leafwatch.track(SETTINGS.ACCOUNT.OPEN_VERIFICATION);
-            }}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
+          <a href="https://tally.so/r/wgDajK" target="_blank" rel="noreferrer noopener">
             <Trans>Request Verification</Trans>
           </a>
         </div>

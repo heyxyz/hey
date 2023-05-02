@@ -1,40 +1,50 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
-import { TextArea } from '@components/UI/TextArea';
-import { Toggle } from '@components/UI/Toggle';
 import { PencilIcon } from '@heroicons/react/outline';
-import getProfileAttribute from '@lib/getProfileAttribute';
-import getSignature from '@lib/getSignature';
-import hasPrideLogo from '@lib/hasPrideLogo';
-import imageProxy from '@lib/imageProxy';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
+import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
-import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
-import { APP_NAME, COVER, LENS_PERIPHERY, SIGN_WALLET, URL_REGEX } from 'data/constants';
+import { APP_NAME, COVER, LENS_PERIPHERY, URL_REGEX } from 'data/constants';
+import Errors from 'data/errors';
+import { getCroppedImg } from 'image-cropper/cropUtils';
+import type { Area } from 'image-cropper/types';
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Profile } from 'lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
 } from 'lens';
+import getProfileAttribute from 'lib/getProfileAttribute';
+import getSignature from 'lib/getSignature';
+import hasPrideLogo from 'lib/hasPrideLogo';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import getIPFSLink from 'utils/getIPFSLink';
+import {
+  Button,
+  Card,
+  ErrorMessage,
+  Form,
+  Image,
+  Input,
+  Modal,
+  Spinner,
+  TextArea,
+  Toggle,
+  useZodForm
+} from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';
+
+import ImageCropperController from './ImageCropperController';
 
 const editProfileSchema = object({
   name: string().max(100, { message: t`Name should not exceed 100 characters` }),
@@ -48,20 +58,28 @@ const editProfileSchema = object({
   bio: string().max(260, { message: t`Bio should not exceed 260 characters` })
 });
 
-interface Props {
+interface ProfileSettingsFormProps {
   profile: Profile & { coverPicture: MediaSet };
 }
 
-const ProfileSettingsForm: FC<Props> = ({ profile }) => {
+const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pride, setPride] = useState(hasPrideLogo(profile));
-  const [cover, setCover] = useState('');
+  const [coverIpfsUrl, setCoverIpfsUrl] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [imageSrc, setImageSrc] = useState('');
+  const [showCropModal, setShowCropModal] = useState(false);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
     toast.success(t`Profile updated successfully!`);
-    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
+    Mixpanel.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
@@ -75,12 +93,12 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
     abi: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
     useCreateSetProfileMetadataTypedDataMutation({
@@ -105,7 +123,11 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
     });
 
   const [createSetProfileMetadataViaDispatcher, { loading: dispatcherLoading }] =
-    useCreateSetProfileMetadataViaDispatcherMutation({ onCompleted, onError });
+    useCreateSetProfileMetadataViaDispatcherMutation({
+      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
+        onCompleted(createSetProfileMetadataViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (request: CreatePublicSetProfileMetadataUriRequest) => {
     const { data } = await createSetProfileMetadataViaDispatcher({
@@ -115,26 +137,6 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
       await createSetProfileMetadataTypedData({
         variables: { request }
       });
-    }
-  };
-
-  useEffect(() => {
-    if (profile?.coverPicture?.original?.url) {
-      setCover(profile?.coverPicture?.original?.url);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleUpload = async (evt: ChangeEvent<HTMLInputElement>) => {
-    evt.preventDefault();
-    setUploading(true);
-    try {
-      const attachment = await uploadToIPFS(evt.target.files);
-      if (attachment[0]?.item) {
-        setCover(attachment[0].item);
-      }
-    } finally {
-      setUploading(false);
     }
   };
 
@@ -160,7 +162,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
     bio?: string | null
   ) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {
@@ -168,7 +170,7 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
       const id = await uploadToArweave({
         name,
         bio,
-        cover_picture: cover ? cover : null,
+        cover_picture: coverIpfsUrl ? coverIpfsUrl : null,
         attributes: [
           ...(profile?.attributes
             ?.filter(
@@ -211,76 +213,150 @@ const ProfileSettingsForm: FC<Props> = ({ profile }) => {
     } catch {}
   };
 
+  const uploadAndSave = async () => {
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+    if (!croppedImage) {
+      return toast.error(Errors.SomethingWentWrong);
+    }
+
+    try {
+      setUploading(true);
+      const ipfsUrl = await uploadCroppedImage(croppedImage);
+      const dataUrl = croppedImage.toDataURL('image/png');
+      setCoverIpfsUrl(ipfsUrl);
+      setUploadedImageUrl(dataUrl);
+    } catch (error) {
+      toast.error(t`Upload failed`);
+    } finally {
+      setShowCropModal(false);
+      setUploading(false);
+    }
+  };
+
+  const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
+    const file = evt.target.files?.[0];
+    if (file) {
+      setImageSrc(await readFile(file));
+      setShowCropModal(true);
+    }
+  };
+
   const isLoading =
-    isUploading || typedDataLoading || dispatcherLoading || signLoading || writeLoading || broadcastLoading;
+    isUploading ||
+    typedDataLoading ||
+    dispatcherLoading ||
+    signLoading ||
+    writeLoading ||
+    broadcastLoading ||
+    uploading;
+
+  const coverPictureUrl = profile?.coverPicture?.original?.url;
+  const coverPictureIpfsUrl = coverPictureUrl ? imageProxy(sanitizeDStorageUrl(coverPictureUrl), COVER) : '';
 
   return (
-    <Card className="p-5">
-      <Form
-        form={form}
-        className="space-y-4"
-        onSubmit={({ name, location, website, twitter, bio }) => {
-          editProfile(name, location, website, twitter, bio);
-        }}
-      >
-        {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
-        <Input label={t`Profile Id`} type="text" value={currentProfile?.id} disabled />
-        <Input label={t`Name`} type="text" placeholder="Gavin" {...form.register('name')} />
-        <Input label={t`Location`} type="text" placeholder="Miami" {...form.register('location')} />
-        <Input label={t`Website`} type="text" placeholder="https://hooli.com" {...form.register('website')} />
-        <Input
-          label={t`Twitter`}
-          type="text"
-          prefix="https://twitter.com"
-          placeholder="gavin"
-          {...form.register('twitter')}
-        />
-        <TextArea label={t`Bio`} placeholder={t`Tell us something about you!`} {...form.register('bio')} />
-        <div className="space-y-1.5">
-          <div className="label">Cover</div>
-          <div className="space-y-3">
-            {cover && (
+    <>
+      <Card className="p-5">
+        <Form
+          form={form}
+          className="space-y-4"
+          onSubmit={({ name, location, website, twitter, bio }) => {
+            editProfile(name, location, website, twitter, bio);
+          }}
+        >
+          {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
+          <Input label={t`Profile Id`} type="text" value={currentProfile?.id} disabled />
+          <Input label={t`Name`} type="text" placeholder="Gavin" {...form.register('name')} />
+          <Input label={t`Location`} type="text" placeholder="Miami" {...form.register('location')} />
+          <Input
+            label={t`Website`}
+            type="text"
+            placeholder="https://hooli.com"
+            {...form.register('website')}
+          />
+          <Input
+            label={t`Twitter`}
+            type="text"
+            prefix="https://twitter.com"
+            placeholder="gavin"
+            {...form.register('twitter')}
+          />
+          <TextArea label={t`Bio`} placeholder={t`Tell us something about you!`} {...form.register('bio')} />
+          <div className="space-y-1.5">
+            <div className="label">Cover</div>
+            <div className="space-y-3">
               <div>
-                <img
+                <Image
                   className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
-                    currentTarget.src = getIPFSLink(cover);
+                    currentTarget.src = sanitizeDStorageUrl(coverIpfsUrl);
                   }}
-                  src={imageProxy(getIPFSLink(cover), COVER)}
-                  alt={cover}
+                  src={uploadedImageUrl || coverPictureIpfsUrl}
+                  alt={t`Cover picture crop preview`}
                 />
               </div>
-            )}
-            <div className="flex items-center space-x-3">
-              <ChooseFile onChange={(evt: ChangeEvent<HTMLInputElement>) => handleUpload(evt)} />
-              {uploading && <Spinner size="sm" />}
+              <div className="flex items-center space-x-3">
+                <ChooseFile onChange={onFileChange} />
+                {uploading && <Spinner size="sm" />}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="space-y-2 pt-4">
-          <div className="label flex items-center space-x-2">
-            <img className="h-5 w-5" src="/pride.svg" alt="Pride Logo" />
-            <span>
-              <Trans>Celebrate pride every day</Trans>
-            </span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Toggle on={pride} setOn={setPride} />
-            <div className="lt-text-gray-500">
-              <Trans>Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day.</Trans>
+          <div className="space-y-2 pt-4">
+            <div className="label flex items-center space-x-2">
+              <img className="h-5 w-5" src="/pride.svg" alt="Pride Logo" />
+              <span>
+                <Trans>Celebrate pride every day</Trans>
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Toggle on={pride} setOn={setPride} />
+              <div className="lt-text-gray-500">
+                <Trans>Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day.</Trans>
+              </div>
             </div>
           </div>
+          <Button
+            className="ml-auto"
+            type="submit"
+            disabled={isLoading}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+          >
+            <Trans>Save</Trans>
+          </Button>
+        </Form>
+      </Card>
+      <Modal
+        title={t`Crop image`}
+        show={showCropModal}
+        size="md"
+        onClose={
+          isLoading
+            ? undefined
+            : () => {
+                setImageSrc('');
+                setShowCropModal(false);
+              }
+        }
+      >
+        <div className="p-5 text-right">
+          <ImageCropperController
+            imageSrc={imageSrc}
+            setCroppedAreaPixels={setCroppedAreaPixels}
+            targetSize={{ width: 1500, height: 500 }}
+          />
+          <Button
+            type="submit"
+            disabled={isLoading || !imageSrc}
+            onClick={() => uploadAndSave()}
+            icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+          >
+            <Trans>Upload</Trans>
+          </Button>
         </div>
-        <Button
-          className="ml-auto"
-          type="submit"
-          disabled={isLoading}
-          icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
-        >
-          <Trans>Save</Trans>
-        </Button>
-      </Form>
-    </Card>
+      </Modal>
+    </>
   );
 };
 

@@ -3,15 +3,15 @@ import type { NewCollectNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-interface Props {
+interface CollectedContentProps {
   notification: NewCollectNotification;
 }
 
-const CollectedContent: FC<Props> = ({ notification }) => {
+const CollectedContent: FC<CollectedContentProps> = ({ notification }) => {
   return (
     <Link
       href={`/posts/${notification?.collectedPublication?.id}`}
-      className="linkify lt-text-gray-500 line-clamp-2 mt-2"
+      className="linkify lt-text-gray-500 mt-2 line-clamp-2"
     >
       <Markup>{notification?.collectedPublication?.metadata?.content}</Markup>
     </Link>

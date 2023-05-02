@@ -1,17 +1,15 @@
 import MetaTags from '@components/Common/MetaTags';
 import MessageHeader from '@components/Messages/MessageHeader';
 import Loader from '@components/Shared/Loader';
-import { Card } from '@components/UI/Card';
-import { GridItemEight, GridLayout } from '@components/UI/GridLayout';
 import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { parseConversationKey } from '@lib/conversationKey';
-import formatHandle from '@lib/formatHandle';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
+import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -20,6 +18,7 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { PAGEVIEW } from 'src/tracking';
+import { Card, GridItemEight, GridLayout } from 'ui';
 
 import Composer from './Composer';
 import MessagesList from './MessagesList';
@@ -106,7 +105,7 @@ const MessagePage: NextPage = () => {
   } = useRouter();
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'conversation' });
+    Mixpanel.track(PAGEVIEW, { page: 'conversation' });
   }, []);
 
   // Need to have a login page for when there is no currentProfileId

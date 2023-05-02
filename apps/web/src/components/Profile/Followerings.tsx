@@ -1,21 +1,19 @@
-import { Modal } from '@components/UI/Modal';
 import { UsersIcon } from '@heroicons/react/outline';
-import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
+import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { PROFILE } from 'src/tracking';
+import { Modal } from 'ui';
 
 import Followers from './Followers';
 import Following from './Following';
 
-interface Props {
+interface FolloweringsProps {
   profile: Profile;
 }
 
-const Followerings: FC<Props> = ({ profile }) => {
+const Followerings: FC<FolloweringsProps> = ({ profile }) => {
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
 
@@ -24,10 +22,8 @@ const Followerings: FC<Props> = ({ profile }) => {
       <button
         type="button"
         className="text-left"
-        onClick={() => {
-          setShowFollowingModal(!showFollowingModal);
-          Leafwatch.track(PROFILE.OPEN_FOLLOWING);
-        }}
+        onClick={() => setShowFollowingModal(!showFollowingModal)}
+        data-testid="profile-followings"
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowing)}</div>
         <div className="lt-text-gray-500">
@@ -37,10 +33,8 @@ const Followerings: FC<Props> = ({ profile }) => {
       <button
         type="button"
         className="text-left"
-        onClick={() => {
-          setShowFollowersModal(!showFollowersModal);
-          Leafwatch.track(PROFILE.OPEN_FOLLOWERS);
-        }}
+        onClick={() => setShowFollowersModal(!showFollowersModal)}
+        data-testid="profile-followers"
       >
         <div className="text-xl">{humanize(profile?.stats?.totalFollowers)}</div>
         <div className="lt-text-gray-500">

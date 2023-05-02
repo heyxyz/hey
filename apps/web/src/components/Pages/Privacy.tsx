@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
@@ -9,7 +9,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'privacy' });
+    Mixpanel.track(PAGEVIEW, { page: 'privacy' });
   }, []);
 
   const updatedAt = 'December 11, 2022';
@@ -21,7 +21,7 @@ const Privacy: FC = () => {
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">Privacy Policy</h1>
           <div className="mt-4 flex justify-center">
-            <div className="rounded-md bg-gray-800 py-0.5 px-2 text-xs text-white">
+            <div className="rounded-md bg-gray-800 px-2 py-0.5 text-xs text-white">
               <Trans>Updated {updatedAt}</Trans>
             </div>
           </div>
@@ -68,7 +68,7 @@ const Privacy: FC = () => {
               </div>
               {/* 1. Overview ends */}
               {/* 2. Information Collection beings */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>2. Information Collection</Trans>
               </div>
               <div className="space-y-5 leading-7">
@@ -115,7 +115,7 @@ const Privacy: FC = () => {
               </div>
               {/* 2. Information Collection ends */}
               {/* 3. Use of Information begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>3. Use of Information</Trans>
               </div>
               <p className="leading-7">
@@ -127,7 +127,7 @@ const Privacy: FC = () => {
               </p>
               {/* 3. Use of Information ends */}
               {/* 4. Third-Parties begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>4. Third-Parties</Trans>
               </div>
               <p className="leading-7">
@@ -139,7 +139,7 @@ const Privacy: FC = () => {
               </p>
               {/* 4. Third-Parties ends */}
               {/* 5. Analytics begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>5. Analytics</Trans>
               </div>
               <div className="space-y-5 leading-7">
@@ -165,7 +165,7 @@ const Privacy: FC = () => {
               </div>
               {/* 5. Analytics ends */}
               {/* 6. Your Rights and Choices begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>6. Your Rights and Choices</Trans>
               </div>
               <div className="space-y-5 leading-7">
@@ -198,7 +198,7 @@ const Privacy: FC = () => {
               </div>
               {/* 6. Your Rights and Choices ends */}
               {/* 7. Data Security begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>7. Data Security</Trans>
               </div>
               <p className="leading-7">
@@ -211,7 +211,7 @@ const Privacy: FC = () => {
               </p>
               {/* 7. Data Security ends */}
               {/* 8. Children begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>8. Children</Trans>
               </div>
               <p className="leading-7">
@@ -223,7 +223,7 @@ const Privacy: FC = () => {
               </p>
               {/* 8. Children ends */}
               {/* 9. Changes to Policy begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>9. Changes to Policy</Trans>
               </div>
               <p className="leading-7">
@@ -236,7 +236,7 @@ const Privacy: FC = () => {
               </p>
               {/* 9. Changes to Policy ends */}
               {/* 10. Contact begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>10. Contact</Trans>
               </div>
               <p className="leading-7">
@@ -249,7 +249,7 @@ const Privacy: FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center pt-2 pb-6">
+        <div className="flex justify-center pb-6 pt-2">
           <Footer />
         </div>
       </div>

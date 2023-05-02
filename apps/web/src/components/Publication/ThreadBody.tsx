@@ -7,11 +7,11 @@ import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
-interface Props {
+interface ThreadBodyProps {
   publication: Publication;
 }
 
-const ThreadBody: FC<Props> = ({ publication }) => {
+const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
   const { push } = useRouter();
 
   return (
@@ -22,11 +22,12 @@ const ThreadBody: FC<Props> = ({ publication }) => {
           push(`/posts/${publication?.id}`);
         }
       }}
+      aria-hidden="true"
     >
       <PublicationHeader publication={publication} />
       <div className="flex">
-        <div className="-my-[3px] mr-8 ml-5 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
-        <div className="!w-[85%] pt-4 pb-5 sm:w-full">
+        <div className="-my-6 ml-5 mr-8 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
+        <div className="w-full max-w-[calc(100%_-_53px)] pb-5">
           {publication?.hidden ? (
             <HiddenPublication type={publication.__typename} />
           ) : (

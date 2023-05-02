@@ -2,12 +2,12 @@ import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
-import { GridItemEight, GridItemFour, GridLayout } from '@components/UI/GridLayout';
+import { useFeature } from '@growthbook/growthbook-react';
 import { Tab } from '@headlessui/react';
-import isFeatureEnabled from '@lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import { FeatureFlag } from 'data';
 import { APP_NAME } from 'data/constants';
 import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
@@ -15,18 +15,20 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
+import { EXPLORE, PAGEVIEW } from 'src/tracking';
+import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
 
 const Explore: NextPage = () => {
+  const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMainFocus>();
-  const router = useRouter();
+  const { on: isTrendingWidgetEnabled } = useFeature(FeatureFlag.TrendingWidget as string);
 
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'explore' });
+    Mixpanel.track(PAGEVIEW, { page: 'explore' });
   }, []);
 
   const tabs = [
@@ -52,10 +54,12 @@ const Explore: NextPage = () => {
           <Tab.List className="divider space-x-8">
             {tabs.map((tab, index) => (
               <Tab
-                key={index}
+                key={tab.type}
                 defaultChecked={index === 1}
                 onClick={() => {
-                  Leafwatch.track(`switch_to_${tab.type?.toLowerCase()}_tab_in_explore`);
+                  Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
+                    explore_feed_type: tab.type.toLowerCase()
+                  });
                 }}
                 className={({ selected }) =>
                   clsx(
@@ -63,6 +67,7 @@ const Explore: NextPage = () => {
                     'lt-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
                   )
                 }
+                data-testid={`explore-tab-${index}`}
               >
                 {tab.name}
               </Tab>
@@ -70,8 +75,8 @@ const Explore: NextPage = () => {
           </Tab.List>
           <FeedType setFocus={setFocus} focus={focus} />
           <Tab.Panels>
-            {tabs.map((tab, index) => (
-              <Tab.Panel key={index}>
+            {tabs.map((tab) => (
+              <Tab.Panel key={tab.type}>
                 <Feed focus={focus} feedType={tab.type} />
               </Tab.Panel>
             ))}
@@ -79,7 +84,7 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {isFeatureEnabled('trending-widget', currentProfile?.id) && <Trending />}
+        {isTrendingWidgetEnabled && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>

@@ -1,9 +1,6 @@
-import { Button } from '@components/UI/Button';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { FC } from 'react';
@@ -11,14 +8,15 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
+import { Button, Input, Spinner } from 'ui';
 
-interface Props {
+interface ComposerProps {
   sendMessage: (message: string) => Promise<boolean>;
   conversationKey: string;
   disabledInput: boolean;
 }
 
-const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) => {
+const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInput }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
   const { width } = useWindowSize();
@@ -36,7 +34,7 @@ const Composer: FC<Props> = ({ sendMessage, conversationKey, disabledInput }) =>
     if (sent) {
       setMessage('');
       setUnsentMessage(conversationKey, null);
-      Leafwatch.track(MESSAGES.SEND);
+      Mixpanel.track(MESSAGES.SEND);
     } else {
       toast.error(t`Error sending message`);
     }

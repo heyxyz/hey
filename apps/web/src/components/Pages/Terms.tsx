@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import { PAGEVIEW } from 'src/tracking';
 
 const Terms: FC = () => {
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'terms' });
+    Mixpanel.track(PAGEVIEW, { page: 'terms' });
   }, []);
 
   const updatedAt = 'December 11, 2022';
@@ -24,7 +24,7 @@ const Terms: FC = () => {
             <Trans>Terms & Conditions</Trans>
           </h1>
           <div className="mt-4 flex justify-center">
-            <div className="rounded-md bg-gray-800 py-0.5 px-2 text-xs text-white">
+            <div className="rounded-md bg-gray-800 px-2 py-0.5 text-xs text-white">
               <Trans>Updated {updatedAt}</Trans>
             </div>
           </div>
@@ -75,7 +75,7 @@ const Terms: FC = () => {
               </div>
               {/* 1. Overview ends */}
               {/* 2. General Conditions beings */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>2. General Conditions</Trans>
               </div>
               <p className="leading-7">
@@ -89,7 +89,7 @@ const Terms: FC = () => {
               </p>
               {/* 2. General Conditions ends */}
               {/* 3. Services begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>3. Services</Trans>
               </div>
               <div className="space-y-5 leading-7">
@@ -162,7 +162,7 @@ const Terms: FC = () => {
               </div>
               {/* 3. Services ends */}
               {/* 4. Accuracy, Completeness and Timeliness of information begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>4. Accuracy, Completeness and Timeliness of information</Trans>
               </div>
               <div className="space-y-5 leading-7">
@@ -181,7 +181,7 @@ const Terms: FC = () => {
               </div>
               {/* 4. Accuracy, Completeness and Timeliness of information ends */}
               {/* 5. Modification of Services begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>5. Modification of Services</Trans>
               </div>
               <p className="leading-7">
@@ -193,7 +193,7 @@ const Terms: FC = () => {
               </p>
               {/* 5. Modification of Services ends */}
               {/* 6. Third-Party Services & Websites begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>6. Third-Party Services & Websites</Trans>
               </div>
               <div className="space-y-5 leading-7">
@@ -215,7 +215,7 @@ const Terms: FC = () => {
               </div>
               {/* 6. Third-Party Services & Websites ends */}
               {/* 7. Personal Information begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>7. Personal Information</Trans>
               </div>
               <p className="linkify leading-7">
@@ -226,7 +226,7 @@ const Terms: FC = () => {
               </p>
               {/* 7. Personal Information ends */}
               {/* 8. Prohibited Usage begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>8. Prohibited Usage</Trans>
               </div>
               <div className="space-y-5 leading-7">
@@ -293,7 +293,7 @@ const Terms: FC = () => {
               </div>
               {/* 8. Prohibited Usage ends */}
               {/* 9. Assumption of Risk begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>9. Assumption of Risk</Trans>
               </div>
               <p className="leading-7">
@@ -305,7 +305,7 @@ const Terms: FC = () => {
               </p>
               {/* 9. Assumption of Risk ends */}
               {/* 10. Disclaimer of Warranties begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>10. Disclaimer of Warranties</Trans>
               </div>
               <p className="leading-7">
@@ -318,7 +318,7 @@ const Terms: FC = () => {
               </p>
               {/* 10. Disclaimer of Warranties ends */}
               {/* 11. Termination and Cancellation begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>11. Termination and Cancellation</Trans>
               </div>
               <div className="space-y-5 leading-7">
@@ -337,7 +337,7 @@ const Terms: FC = () => {
               </div>
               {/* 11. Termination and Cancellation ends */}
               {/* 12. Contact Information begins */}
-              <div className="mt-8 mb-5 text-xl font-bold text-black dark:text-white">
+              <div className="mb-5 mt-8 text-xl font-bold text-black dark:text-white">
                 <Trans>12. Contact Information</Trans>
               </div>
               <p className="leading-7">
@@ -347,7 +347,7 @@ const Terms: FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center pt-2 pb-6">
+        <div className="flex justify-center pb-6 pt-2">
           <Footer />
         </div>
       </div>

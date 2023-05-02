@@ -1,9 +1,9 @@
-import type { NewLensterAttachment } from '@generated/types';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
+import type { NewLensterAttachment } from 'src/types';
 import { v4 as uuid } from 'uuid';
 
 const useUploadAttachments = () => {
@@ -24,9 +24,12 @@ const useUploadAttachments = () => {
 
         return {
           id: attachmentId,
-          type: file.type,
-          altTag: '',
-          previewItem: URL.createObjectURL(file)
+          file: file,
+          previewItem: URL.createObjectURL(file),
+          original: {
+            url: URL.createObjectURL(file),
+            mimeType: file.type
+          }
         };
       });
 
@@ -66,13 +69,16 @@ const useUploadAttachments = () => {
         if (attachmentsUploaded) {
           attachmentsIPFS = previewAttachments.map((attachment: NewLensterAttachment, index: number) => ({
             ...attachment,
-            item: attachmentsUploaded[index].item
+            original: {
+              url: attachmentsUploaded[index].original.url,
+              mimeType: attachmentsUploaded[index].original.mimeType
+            }
           }));
           updateAttachments(attachmentsIPFS);
         }
       } catch {
         removeAttachments(attachmentIds);
-        toast.error('Something went wrong while uploading!');
+        toast.error(t`Something went wrong while uploading!`);
       }
       setIsUploading(false);
 

@@ -1,5 +1,6 @@
 import { Client } from '@xmtp/xmtp-js';
-import { APP_NAME, APP_VERSION, LS_KEYS, XMTP_ENV } from 'data/constants';
+import { APP_NAME, APP_VERSION, XMTP_ENV } from 'data/constants';
+import { Localstorage } from 'data/storage';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
@@ -23,6 +24,9 @@ const storeKeys = (walletAddress: string, keys: Uint8Array) => {
   localStorage.setItem(buildLocalStorageKey(walletAddress), Buffer.from(keys).toString(ENCODING));
 };
 
+/**
+ * This will clear the conversation cache + the private keys
+ */
 const wipeKeys = (walletAddress: string) => {
   localStorage.removeItem(buildLocalStorageKey(walletAddress));
 };
@@ -45,7 +49,9 @@ const useXmtpClient = (cacheOnly = false) => {
           setAwaitingXmtpAuth(true);
           keys = await Client.getKeys(signer, {
             env: XMTP_ENV,
-            appVersion: APP_NAME + '/' + APP_VERSION
+            appVersion: APP_NAME + '/' + APP_VERSION,
+            persistConversations: false,
+            skipContactPublishing: true
           });
           storeKeys(await signer.getAddress(), keys);
         }
@@ -53,7 +59,8 @@ const useXmtpClient = (cacheOnly = false) => {
         const xmtp = await Client.create(null, {
           env: XMTP_ENV,
           appVersion: APP_NAME + '/' + APP_VERSION,
-          privateKeyOverride: keys
+          privateKeyOverride: keys,
+          persistConversations: true
         });
         setClient(xmtp);
         setAwaitingXmtpAuth(false);
@@ -87,7 +94,7 @@ export const useDisconnectXmtp = () => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setClient(undefined);
     }
-    localStorage.removeItem(LS_KEYS.MESSAGE_STORE);
+    localStorage.removeItem(Localstorage.MessageStore);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signer, client]);
 

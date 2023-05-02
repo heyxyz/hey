@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import { useTheme } from 'next-themes';
@@ -9,7 +9,7 @@ import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { PAGEVIEW } from 'src/tracking';
 
-interface Props {
+interface BrandProps {
   name: string;
   logo: string;
   url: string;
@@ -18,7 +18,7 @@ interface Props {
   children: ReactNode;
 }
 
-const Brand: FC<Props> = ({ name, logo, url, size, type, children }) => {
+const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
   const { resolvedTheme } = useTheme();
 
   return (
@@ -41,7 +41,7 @@ const Brand: FC<Props> = ({ name, logo, url, size, type, children }) => {
 
 const Thanks: FC = () => {
   useEffect(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'thanks' });
+    Mixpanel.track(PAGEVIEW, { page: 'thanks' });
   }, []);
 
   return (
@@ -77,7 +77,7 @@ const Thanks: FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center px-5 pt-2 pb-6">
+        <div className="flex justify-center px-5 pb-6 pt-2">
           <Footer />
         </div>
       </div>

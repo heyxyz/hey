@@ -2,8 +2,8 @@
 // import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { getRoundTippingData } from '@components/Publication/Actions/Collect/QuadraticQueries/grantsQueries';
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
-import { Card } from '@components/UI/Card';
-import { SANDBOX_GRANTS_ROUND } from 'data/contracts';
+import { Card } from 'ui';
+import getEnvConfig from 'data/utils/getEnvConfig';
 import { ethers } from 'ethers';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
@@ -73,7 +73,7 @@ const RoundStats: FC<ChildrenProps> = ({ showDetails, roundInfo }) => {
               <p>{formatDate(roundInfo.roundEndTime)}</p>
             </div>
           </div>
-          <div className="mt-8 mb-2 text-xs text-gray-500">Tips per post:</div>
+          <div className="mb-2 mt-8 text-xs text-gray-500">Tips per post:</div>
           <Card>
             <div className="text-md m-4">
               <div className="my-2">
@@ -97,7 +97,7 @@ const RoundStats: FC<ChildrenProps> = ({ showDetails, roundInfo }) => {
 const ClaimReward: FC<ChildrenProps> = ({ showDetails, setShowDetails, roundInfo }) => {
   return (
     <div className="alight-items-center flex flex-col">
-      <button className="mx-auto  w-60 rounded-full bg-green-100 py-2 px-4 text-green-400">
+      <button className="mx-auto  w-60 rounded-full bg-green-100 px-4 py-2 text-green-400">
         Claim Reward
       </button>
       <button onClick={() => setShowDetails(!showDetails)}>
@@ -122,7 +122,7 @@ export const ProfileTipsStats: FC = () => {
   // alert
   const { address } = useAccount();
   const roundOpen = true;
-  const grantsRound = SANDBOX_GRANTS_ROUND.toLowerCase();
+  const grantsRound = getEnvConfig().GrantsRound.toLowerCase();
 
   function filterAmountsByAddress(address: string, roundResults: any): { amount: string }[] {
     const amounts: { amount: string }[] = [];

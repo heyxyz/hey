@@ -1,21 +1,18 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
 import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { CollectModules } from 'lens';
 import type { Dispatch, FC } from 'react';
 import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PUBLICATION } from 'src/tracking';
+import { Button, Card } from 'ui';
 
-interface Props {
+interface BasicSettingsProps {
   setShowModal: Dispatch<boolean>;
 }
 
-const BasicSettings: FC<Props> = ({ setShowModal }) => {
+const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
   const restricted = useAccessSettingsStore((state) => state.restricted);
   const setRestricted = useAccessSettingsStore((state) => state.setRestricted);
   const followToView = useAccessSettingsStore((state) => state.followToView);
@@ -42,50 +39,33 @@ const BasicSettings: FC<Props> = ({ setShowModal }) => {
             reset();
           }
           setRestricted(!restricted);
-          Leafwatch.track(PUBLICATION.NEW.ACCESS.TOGGLE_RESTRICTED_ACCESS);
         }}
-        label={t`Add restrictions on who can view this post`}
+        description={t`Add restrictions on who can view this post`}
       />
       {restricted && (
         <>
           <Card className="mt-5 p-5">
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <CollectionIcon className="text-brand-500 h-4 w-4" />
-                <span>
-                  <Trans>Collectors can view</Trans>
-                </span>
-              </div>
-              <ToggleWithHelper
-                on={collectToView}
-                setOn={() => {
-                  if (!collectToView && selectedCollectModule === CollectModules.RevertCollectModule) {
-                    return toast.error(t`Enable collect first to use collect based token gating`);
-                  }
-                  setCollectToView(!collectToView);
-                  Leafwatch.track(PUBLICATION.NEW.ACCESS.TOGGLE_COLLECT_TO_VIEW_ACCESS);
-                }}
-                label={t`People need to collect it first to be able to view it`}
-              />
-            </div>
+            <ToggleWithHelper
+              on={collectToView}
+              setOn={() => {
+                if (!collectToView && selectedCollectModule === CollectModules.RevertCollectModule) {
+                  return toast.error(t`Enable collect first to use collect based token gating`);
+                }
+                setCollectToView(!collectToView);
+              }}
+              heading={t`Collectors can view`}
+              description={t`People need to collect it first to be able to view it`}
+              icon={<CollectionIcon className="h-4 w-4" />}
+            />
           </Card>
           <Card className="mt-5 p-5">
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <UsersIcon className="text-brand-500 h-4 w-4" />
-                <span>
-                  <Trans>Followers can view</Trans>
-                </span>
-              </div>
-              <ToggleWithHelper
-                on={followToView}
-                setOn={() => {
-                  setFollowToView(!followToView);
-                  Leafwatch.track(PUBLICATION.NEW.ACCESS.TOGGLE_FOLLOW_TO_VIEW_ACCESS);
-                }}
-                label={t`People need to follow you to be able to view it`}
-              />
-            </div>
+            <ToggleWithHelper
+              on={followToView}
+              setOn={() => setFollowToView(!followToView)}
+              heading={t`Followers can view`}
+              description={t`People need to follow you to be able to view it`}
+              icon={<UsersIcon className="h-4 w-4" />}
+            />
           </Card>
         </>
       )}

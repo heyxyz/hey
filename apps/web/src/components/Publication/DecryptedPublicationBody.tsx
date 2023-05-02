@@ -1,10 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
-import { Card } from '@components/UI/Card';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
-import { Tooltip } from '@components/UI/Tooltip';
-import useNFT from '@components/utils/hooks/useNFT';
+import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
   DatabaseIcon,
@@ -15,21 +12,24 @@ import {
   UserAddIcon
 } from '@heroicons/react/outline';
 import { LockClosedIcon } from '@heroicons/react/solid';
+import type { LensEnvironment } from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type {
   CollectConditionOutput,
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import formatHandle from '@lib/formatHandle';
-import getURLs from '@lib/getURLs';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
 import { LIT_PROTOCOL_ENVIRONMENT, POLYGONSCAN_URL, RARIBLE_URL } from 'data/constants';
 import type { Publication, PublicationMetadataV2Input } from 'lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getURLs from 'lib/getURLs';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import { stopEventPropagation } from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -37,7 +37,7 @@ import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
-import getIPFSLink from 'utils/getIPFSLink';
+import { Card, ErrorMessage, Tooltip } from 'ui';
 import { useProvider, useSigner, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
@@ -52,11 +52,11 @@ const DecryptMessage: FC<DecryptMessageProps> = ({ icon, children }) => (
   </div>
 );
 
-interface Props {
+interface DecryptedPublicationBodyProps {
   encryptedPublication: Publication;
 }
 
-const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
+const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({ encryptedPublication }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
@@ -77,9 +77,9 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     },
     pollInterval: 5000,
     skip: canDecrypt || !currentProfile,
-    onCompleted: (data) => {
-      setCanDecrypt(data.publication?.canDecrypt.result || false);
-      setReasons(data.publication?.canDecrypt.reasons || []);
+    onCompleted: ({ publication }) => {
+      setCanDecrypt(publication?.canDecrypt.result || false);
+      setReasons(publication?.canDecrypt.reasons || []);
     }
   });
 
@@ -116,7 +116,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     enabled: Boolean(tokenCondition)
   });
 
-  const { data: nftData } = useNFT({
+  const { data: nftData } = useNft({
     address: nftCondition?.contractAddress,
     chainId: nftCondition?.chainID,
     enabled: Boolean(nftCondition)
@@ -145,9 +145,13 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
     }
 
     setIsDecrypting(true);
-    const contentUri = getIPFSLink(encryptedPublication?.onChainContentURI);
+    const contentUri = sanitizeDStorageUrl(encryptedPublication?.onChainContentURI);
     const { data } = await axios.get(contentUri);
-    const sdk = await LensGatedSDK.create({ provider, signer, env: LIT_PROTOCOL_ENVIRONMENT as any });
+    const sdk = await LensGatedSDK.create({
+      provider: provider as any,
+      signer,
+      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
+    });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);
     setDecryptedData(decrypted);
     setDecryptError(error);
@@ -168,7 +172,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card
         className={clsx(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
-          event.stopPropagation();
+          stopEventPropagation(event);
           setShowAuthModal(true);
         }}
       >
@@ -182,7 +186,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
   if (!canDecrypt) {
     return (
-      <Card className={clsx(cardClasses, 'cursor-text')} onClick={(event) => event.stopPropagation()}>
+      <Card className={clsx(cardClasses, 'cursor-text')} onClick={stopEventPropagation}>
         <div className="flex items-center space-x-2 font-bold">
           <LockClosedIcon className="h-5 w-5 text-green-300" />
           <span className="text-base font-black text-white">
@@ -197,7 +201,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
               <Link
                 href={`/posts/${collectCondition?.publicationId}`}
                 className="font-bold lowercase underline"
-                onClick={() => Leafwatch.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT)}
+                onClick={() => Mixpanel.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT)}
               >
                 {encryptedPublication?.__typename}
               </Link>
@@ -231,7 +235,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
               <a
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
                 className="font-bold underline"
-                onClick={() => Leafwatch.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
+                onClick={() => Mixpanel.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN)}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -249,7 +253,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
                 <a
                   href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
-                  onClick={() => Leafwatch.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
+                  onClick={() => Mixpanel.track(PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT)}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -282,9 +286,9 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
       <Card
         className={clsx(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
-          event.stopPropagation();
+          stopEventPropagation(event);
           getDecryptedData();
-          Leafwatch.track(PUBLICATION.TOKEN_GATED.DECRYPT);
+          Mixpanel.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
       >
         <div className="flex items-center space-x-1 font-bold text-white">
@@ -301,12 +305,7 @@ const DecryptedPublicationBody: FC<Props> = ({ encryptedPublication }) => {
 
   return (
     <div className="break-words">
-      <Markup
-        className={clsx(
-          { 'line-clamp-5': showMore },
-          'leading-md linkify text-md whitespace-pre-wrap break-words'
-        )}
-      >
+      <Markup className={clsx({ 'line-clamp-5': showMore }, 'markup linkify text-md break-words')}>
         {publication?.content}
       </Markup>
       {showMore && (

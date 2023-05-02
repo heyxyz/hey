@@ -1,28 +1,25 @@
-import { Button } from '@components/UI/Button';
-import { Card } from '@components/UI/Card';
-import { Form, useZodForm } from '@components/UI/Form';
-import { Input } from '@components/UI/Input';
-import { Spinner } from '@components/UI/Spinner';
 import { StarIcon, XIcon } from '@heroicons/react/outline';
-import getSignature from '@lib/getSignature';
-import getTokenImage from '@lib/getTokenImage';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
-import { LensHubProxy } from 'abis';
-import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY, SIGN_WALLET } from 'data/constants';
+import { LensHub } from 'abis';
+import { ADDRESS_REGEX, DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from 'data/constants';
+import Errors from 'data/errors';
 import type { Erc20 } from 'lens';
 import {
   useBroadcastMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledCurrencyModulesWithProfileQuery
 } from 'lens';
+import getSignature from 'lib/getSignature';
+import getTokenImage from 'lib/getTokenImage';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
+import { Button, Card, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -45,16 +42,20 @@ const SuperFollow: FC = () => {
     skip: !currentProfile?.id
   });
 
-  const onCompleted = () => {
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
   const { isLoading: writeLoading, write } = useContractWrite({
     address: LENSHUB_PROXY,
-    abi: LensHubProxy,
+    abi: LensHub,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   });
 
@@ -66,7 +67,7 @@ const SuperFollow: FC = () => {
   });
 
   const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
   const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
     useCreateSetFollowModuleTypedDataMutation({
@@ -93,7 +94,7 @@ const SuperFollow: FC = () => {
 
   const setSuperFollow = async (amount: string | null, recipient: string | null) => {
     if (!currentProfile) {
-      return toast.error(SIGN_WALLET);
+      return toast.error(Errors.SignWallet);
     }
 
     try {
@@ -198,7 +199,7 @@ const SuperFollow: FC = () => {
           {...form.register('recipient')}
         />
         <div className="ml-auto">
-          <div className="block space-y-2 space-x-0 sm:flex sm:space-y-0 sm:space-x-2">
+          <div className="block space-x-0 space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
             {followType === 'FeeFollowModuleSettings' && (
               <Button
                 type="button"

@@ -1,15 +1,14 @@
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
-import { Card } from '@components/UI/Card';
-import { ErrorMessage } from '@components/UI/ErrorMessage';
 import { TrendingUpIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
-import nFormatter from '@lib/nFormatter';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
 import { TagSortCriteria, useTrendingQuery } from 'lens';
+import nFormatter from 'lib/nFormatter';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
+import { Card, ErrorMessage } from 'ui';
 
 const Title = () => {
   return (
@@ -53,7 +52,11 @@ const Trending: FC = () => {
             <div key={tag?.tag}>
               <Link
                 href={`/search?q=${tag?.tag}&type=pubs`}
-                onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG)}
+                onClick={() =>
+                  Mixpanel.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                    trending_tag: tag?.tag
+                  })
+                }
               >
                 <div className="font-bold">{tag?.tag}</div>
                 <div className="lt-text-gray-500 text-[12px]">

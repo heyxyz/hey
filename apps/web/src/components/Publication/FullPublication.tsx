@@ -1,27 +1,22 @@
-import UserProfile from '@components/Shared/UserProfile';
-import formatTime from '@lib/formatTime';
-import getAppName from '@lib/getAppName';
+import { formatTime } from '@lib/formatTime';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Publication } from 'lens';
+import getAppName from 'lib/getAppName';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
-import PublicationMenu from './Actions/Menu';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
+import PublicationHeader from './PublicationHeader';
 import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
 
-dayjs.extend(relativeTime);
-
-interface Props {
+interface FullPublicationProps {
   publication: Publication;
 }
 
-const FullPublication: FC<Props> = ({ publication }) => {
+const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const isMirror = publication.__typename === 'Mirror';
-  const profile = isMirror ? publication?.mirrorOf?.profile : publication?.profile;
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
 
   // Count check to show the publication stats only if the publication has a comment, like or collect
@@ -37,13 +32,10 @@ const FullPublication: FC<Props> = ({ publication }) => {
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
   return (
-    <article className="p-5">
+    <article className="p-5" data-testid={`publication-${publication.id}`}>
       <PublicationType publication={publication} showType />
       <div>
-        <div className="flex justify-between space-x-1.5 pb-4">
-          <UserProfile profile={profile} showStatus />
-          <PublicationMenu publication={publication} />
-        </div>
+        <PublicationHeader publication={publication} />
         <div className="ml-[53px]">
           {publication?.hidden ? (
             <HiddenPublication type={publication.__typename} />

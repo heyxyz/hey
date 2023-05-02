@@ -1,4 +1,25 @@
-User-agent: *
+User-agent: Googlebot
+Allow: /*
 Disallow: /_next/*
+Disallow: /settings/*
+Disallow: /messages/*
+
+User-agent: Yandex
+Allow: /*
+Disallow: /_next/*
+Disallow: /settings/*
+Disallow: /messages/*
+
+User-agent: bingbot
+Allow: /*
+Disallow: /_next/*
+Disallow: /settings/*
+Disallow: /messages/*
+
+User-agent: *
+Allow: /*
+Disallow: /_next/*
+Disallow: /settings/*
+Disallow: /messages/*
 
 Sitemap: https://lenster.xyz/sitemap.xml

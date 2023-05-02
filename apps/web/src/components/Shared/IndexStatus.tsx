@@ -1,4 +1,3 @@
-import { Spinner } from '@components/UI/Spinner';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -6,24 +5,22 @@ import { POLYGONSCAN_URL } from 'data/constants';
 import { useHasTxHashBeenIndexedQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { Spinner } from 'ui';
 
-interface Props {
+interface IndexStatusProps {
   type?: string;
   txHash: string;
   reload?: boolean;
 }
 
-const IndexStatus: FC<Props> = ({ type = 'Transaction', txHash, reload = false }) => {
+const IndexStatus: FC<IndexStatusProps> = ({ type = 'Transaction', txHash, reload = false }) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
   const { data, loading } = useHasTxHashBeenIndexedQuery({
     variables: { request: { txHash } },
     pollInterval,
-    onCompleted: (data) => {
-      if (
-        data.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
-        data?.hasTxHashBeenIndexed?.indexed
-      ) {
+    onCompleted: ({ hasTxHashBeenIndexed }) => {
+      if (hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' && hasTxHashBeenIndexed?.indexed) {
         setPollInterval(0);
         if (reload) {
           location.reload();

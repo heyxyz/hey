@@ -1,23 +1,15 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import type { MessageDescriptor } from '@generated/types';
 import { AtSymbolIcon } from '@heroicons/react/solid';
-import formatTime from '@lib/formatTime';
+import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import type { NewMentionNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
-
-dayjs.extend(relativeTime);
-
-interface Props {
-  notification: NewMentionNotification;
-}
 
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
@@ -35,7 +27,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> mentioned you in a <2>' + typeName + '</2></0>';
 };
 
-const MentionNotification: FC<Props> = ({ notification }) => {
+interface MentionNotificationProps {
+  notification: NewMentionNotification;
+}
+
+const MentionNotification: FC<MentionNotificationProps> = ({ notification }) => {
   const profile = notification?.mentionPublication?.profile;
   const typeName = notification?.mentionPublication.__typename?.toLowerCase() || '';
   return (
@@ -58,14 +54,14 @@ const MentionNotification: FC<Props> = ({ notification }) => {
           />
           <Link
             href={`/posts/${notification?.mentionPublication.id}`}
-            className="lt-text-gray-500 line-clamp-2 linkify mt-2"
+            className="lt-text-gray-500 linkify mt-2 line-clamp-2"
           >
             <Markup>{notification?.mentionPublication?.metadata?.content}</Markup>
           </Link>
         </div>
       </div>
       <div className="text-[12px] text-gray-400" title={formatTime(notification?.createdAt)}>
-        {dayjs(new Date(notification?.createdAt)).fromNow()}
+        {getTimeFromNow(notification?.createdAt)}
       </div>
     </div>
   );

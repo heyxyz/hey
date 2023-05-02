@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
@@ -7,12 +7,12 @@ import type { FC } from 'react';
 import React from 'react';
 import { SYSTEM } from 'src/tracking';
 
-interface Props {
+interface ThemeSwitchProps {
   onClick?: () => void;
   className?: string;
 }
 
-const ThemeSwitch: FC<Props> = ({ onClick, className = '' }) => {
+const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
   const { theme, setTheme } = useTheme();
 
   return (
@@ -21,7 +21,7 @@ const ThemeSwitch: FC<Props> = ({ onClick, className = '' }) => {
       className={clsx('flex w-full px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200', className)}
       onClick={() => {
         setTheme(theme === 'light' ? 'dark' : 'light');
-        Leafwatch.track(SYSTEM.SWITCH_THEME, { mode: theme === 'light' ? 'dark' : 'light' });
+        Mixpanel.track(SYSTEM.SWITCH_THEME, { mode: theme === 'light' ? 'dark' : 'light' });
         onClick?.();
       }}
     >

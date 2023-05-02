@@ -1,18 +1,19 @@
-import formatAddress from '@lib/formatAddress';
-import imageProxy from '@lib/imageProxy';
 import { POLYGONSCAN_URL } from 'data/constants';
 import type { Wallet } from 'lens';
+import formatAddress from 'lib/formatAddress';
+import getStampFyiURL from 'lib/getStampFyiURL';
+import imageProxy from 'lib/imageProxy';
 import type { FC } from 'react';
-import getStampFyiURL from 'utils/getStampFyiURL';
+import { Image } from 'ui';
 
-interface Props {
+interface NotificationWalletProfileProps {
   wallet: Wallet;
 }
 
-export const NotificationWalletProfileAvatar: FC<Props> = ({ wallet }) => {
+export const NotificationWalletProfileAvatar: FC<NotificationWalletProfileProps> = ({ wallet }) => {
   return (
     <a href={`${POLYGONSCAN_URL}/address/${wallet?.address}`} target="_blank" rel="noreferrer noopener">
-      <img
+      <Image
         onError={({ currentTarget }) => {
           currentTarget.src = getStampFyiURL(wallet?.address);
         }}
@@ -26,7 +27,7 @@ export const NotificationWalletProfileAvatar: FC<Props> = ({ wallet }) => {
   );
 };
 
-export const NotificationWalletProfileName: FC<Props> = ({ wallet }) => {
+export const NotificationWalletProfileName: FC<NotificationWalletProfileProps> = ({ wallet }) => {
   return (
     <a
       className="inline-flex items-center space-x-1 font-bold"

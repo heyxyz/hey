@@ -3,16 +3,20 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**", ".next/**", "storybook-static/**"]
     },
     "lint": { "outputs": [] },
+    "lint:fix": { "outputs": [] },
     "typecheck": { "outputs": [] },
     "codegen": { "outputs": [] },
     "extract": { "outputs": [] },
-    "worker:deploy": { "outputs": [] },
+    "worker:deploy": {
+      "outputs": [],
+      "cache": false
+    },
     "dev": { "cache": false },
     "start": { "cache": false },
     "test:dev": { "cache": false },
-    "test:e2e": { "dependsOn": ["^build"] }
+    "test:nightly": { "cache": false }
   }
 }

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-02-13 15:19\n"
+"PO-Revision-Date: 2023-04-26 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -24,19 +24,27 @@ msgstr "还没有人评论哦~快来抢沙发！"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
-msgstr "评论加载失败"
+msgstr "评论流加载失败"
+
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Hide more comments"
+msgstr ""
+
+#: src/components/Comment/NoneRelevantFeed.tsx
+msgid "Show more comments"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
 msgstr "限制谁可以看到这个帖子"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-msgid "Collectors can view"
-msgstr "仅收藏者可见"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
 msgstr "您需要先启用收藏模块以便使用基于令牌的权限控制功能"
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Collectors can view"
+msgstr "仅收藏者可见"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
@@ -60,7 +68,7 @@ msgstr "取消"
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -76,17 +84,35 @@ msgid "Add restrictions on who can view your content, and who can't. For instanc
 msgstr "添加对谁可以查看您的内容的限制。例如 - 只有拥有特定 NFT 或代币才可以查看您的帖子。"
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/Composer/Editor/index.tsx
-msgid "Please choose either 1 video or up to 4 photos."
-msgstr "请选择 1 个视频或最多 4 张照片。"
+msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
+msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
 msgstr "文件格式不兼容。"
 
 #: src/components/Composer/Actions/Attachment.tsx
+#: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "上传失败!"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Charge for collecting"
+msgstr "付费收藏"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Get paid whenever someone collects your post"
+msgstr "每当有人收藏您的帖子时您将获得报酬"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+msgid "Price"
+msgstr "价格"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+#: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Settings/Allowance/index.tsx
+msgid "Select Currency"
+msgstr "选择币种"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
@@ -100,63 +126,61 @@ msgstr "模块加载失败"
 msgid "This post can be collected"
 msgstr "这个帖子可以被收藏"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Charge for collecting"
-msgstr "付费收藏"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Get paid whenever someone collects your post"
-msgstr "每当有人收藏您的帖子时您将获得报酬"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Price"
-msgstr "价格"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#: src/components/Settings/Account/SuperFollow.tsx
-#: src/components/Settings/Allowance/index.tsx
-msgid "Select Currency"
-msgstr "选择币种"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Mirror referral reward"
-msgstr "转发奖励"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Share your collect fee with people who amplify your content"
-msgstr "分享收益给转发本文的人"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Referral fee"
-msgstr "转发费"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
 msgstr "限量版"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
 msgstr "设置独家收藏"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
 msgstr "收藏数量上限"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Time limit"
-msgstr "限时"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-msgid "Limit collecting to the first 24h"
-msgstr "24小时限时收藏"
-
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Who can collect"
 msgstr "谁可以收藏"
 
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Only followers can collect"
 msgstr "关注者才能收藏"
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Mirror referral reward"
+msgstr "转发奖励"
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Share your fee with people who amplify your content"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
+msgid "Referral fee"
+msgstr "转发费"
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Split revenue"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Set multiple recipients for the collect fee"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Splits cannot exceed 100%. Total: <0>{splitTotal}</0>%"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/SplitConfig.tsx
+msgid "Duplicate recipient address found"
+msgstr ""
+
+#: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
+msgid "Time limit"
+msgstr "限时"
+
+#: src/components/Composer/Actions/CollectSettings/TimeLimitConfig.tsx
+msgid "Limit collecting to the first 24h"
+msgstr "24小时限时收藏"
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
@@ -194,6 +218,44 @@ msgstr "好友的好友"
 msgid "Everyone"
 msgstr "所有人"
 
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My followers can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "My follows can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Friend of friends can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/Actions/ReferenceSettings/index.tsx
+msgid "Everyone can comment and mirror"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Failed to upload thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Please upload a custom thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+msgid "Choose Thumbnail"
+msgstr ""
+
+#: src/components/Composer/ChooseThumbnail.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload"
+msgstr ""
+
+#: src/components/Composer/Editor/index.tsx
+msgid "Please choose either 1 video or up to 4 photos."
+msgstr "请选择 1 个视频或最多 4 张照片。"
+
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
@@ -202,19 +264,20 @@ msgstr "正在发生什么？"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
 msgstr "交易失败！"
 
 #: src/components/Composer/NewPublication.tsx
-msgid "[cta]Comment"
-msgstr "[cta]评论"
+#: src/components/Publication/Actions/Comment.tsx
+msgid "Comment"
+msgstr "评论"
 
 #: src/components/Composer/NewPublication.tsx
-msgid "[cta]Post"
-msgstr "[cta] 发帖"
+msgid "Post"
+msgstr ""
 
 #: src/components/Composer/Post/New.tsx
 msgid "Create post"
@@ -229,13 +292,14 @@ msgstr "暂无动态！"
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
-msgstr "加载探索信息流失败"
+msgstr "内容流加载失败"
 
 #: src/components/Explore/FeedType.tsx
 msgid "All posts"
 msgstr "所有帖子"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 msgid "Text"
 msgstr "文本"
 
@@ -245,11 +309,13 @@ msgid "Video"
 msgstr "视频"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Audio"
 msgstr "音频"
 
 #: src/components/Explore/FeedType.tsx
+#: src/components/Mod/index.tsx
 #: src/components/Profile/Filters/MediaFilter.tsx
 msgid "Images"
 msgstr "图像"
@@ -275,25 +341,25 @@ msgstr "有趣的内容"
 msgid "Explore • {APP_NAME}"
 msgstr "看看别人都在干吗？ • {APP_NAME}"
 
-#: src/components/Home/BetaWarning.tsx
-msgid "Beta warning!"
-msgstr "这是测试版！"
-
-#: src/components/Home/BetaWarning.tsx
-msgid "{APP_NAME} is still in the beta phase, things may break, please handle us with care."
-msgstr "{APP_NAME} 仍处于测试阶段，可能会出现问题，请谨慎使用。"
-
-#: src/components/Home/BetaWarning.tsx
-msgid "Get testnet tokens"
-msgstr "获取测试网代币"
+#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
-msgid "Action Required"
-msgstr "需要您的操作"
-
-#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr "您可以通过启用 dispatcher 功能使得您今后与 {APP_NAME} 进行交互时不需要签名任何交易。"
+
+#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Signless Transactions Upgrade"
+msgstr ""
+
+#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Signless Transactions"
+msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -345,7 +411,7 @@ msgstr "加载精彩内容失败"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "Who to follow"
-msgstr "关注推荐"
+msgstr "推荐关注"
 
 #: src/components/Home/RecommendedProfiles.tsx
 msgid "No recommendations!"
@@ -368,7 +434,7 @@ msgstr "为您推荐"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "My Feed"
-msgstr "我的信息流"
+msgstr "我的内容流"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "👀 See the feed through..."
@@ -380,7 +446,7 @@ msgstr "搜索"
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
-msgstr "返回您自己的信息流"
+msgstr "返回您自己的内容流"
 
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
@@ -438,10 +504,8 @@ msgid "Nothing to suggest"
 msgstr "没有可以推荐的内容"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
-#: src/components/Publication/Actions/Collect/CollectModule.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Collected by"
-msgstr "收藏者"
+msgid "collected"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
@@ -456,18 +520,14 @@ msgid "collected{0}"
 msgstr "已收藏{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr "已点赞"
 
-#: src/components/Home/Timeline/EventType/Liked.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Liked by"
-msgstr "点赞过的人"
-
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/PublicationStats.tsx
-msgid "Mirrored by"
-msgstr "转发过的人"
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
@@ -561,20 +621,65 @@ msgstr "私信 • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
-msgstr "评论加载失败"
+msgstr "协调内容流加载失败"
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
 msgstr "模块中心 • {APP_NAME}"
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Mod/index.tsx
+msgid "Refresh feed"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Publication filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Posts"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+#: src/components/Notification/FeedType.tsx
+msgid "Comments"
+msgstr "评论您的"
+
+#: src/components/Mod/index.tsx
+msgid "Media filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Articles"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Embeds"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Links"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Videos"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Custom filters"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+msgid "Gardeners"
+msgstr ""
+
+#: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr "没有任何NFT！"
 
-#: src/components/NFT/NFTFeed.tsx
+#: src/components/Nft/NftFeed.tsx
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Failed to load nft feed"
-msgstr "加载NFT信息失败"
+msgstr "NFT流加载失败"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -583,10 +688,6 @@ msgstr "所有通知"
 #: src/components/Notification/FeedType.tsx
 msgid "Mentions"
 msgstr "提及您的"
-
-#: src/components/Notification/FeedType.tsx
-msgid "Comments"
-msgstr "评论您的"
 
 #: src/components/Notification/FeedType.tsx
 msgid "Likes"
@@ -603,6 +704,18 @@ msgstr "无法加载通知"
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
 msgstr "收件箱消息为零！"
+
+#: src/components/Notification/Settings.tsx
+msgid "Notification settings"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Signal filter"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Turn on high-signal notification filter"
+msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
@@ -681,6 +794,10 @@ msgid "Notifications • {APP_NAME}"
 msgstr "通知 • {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
+msgid "Email is not valid"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
 msgid "Subject should not be empty"
 msgstr "主题不能为空"
 
@@ -709,9 +826,12 @@ msgid "Contact us to help you get the issue resolved."
 msgstr "联系我们以帮助您解决问题。"
 
 #: src/components/Pages/Contact.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Publication reported successfully!"
-msgstr "帖子发布成功！"
+msgid "Your message has been sent!"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Email"
+msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -1098,7 +1218,7 @@ msgstr "您认识的关注者"
 
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
-msgstr "无法加载个人主页流"
+msgstr "个人内容流无法加载"
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
@@ -1118,7 +1238,7 @@ msgstr "已收藏"
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
-msgstr "NFT（非同质化代币）"
+msgstr "NFT"
 
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
@@ -1179,6 +1299,18 @@ msgid "Gallery created"
 msgstr "画廊已创建"
 
 #: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name updated"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery updated"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
+msgid "Gallery name should be less than 255 characters"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Create.tsx
 msgid "Gallery name required"
 msgstr "需要您填写画廊的名称"
 
@@ -1223,6 +1355,7 @@ msgid "Rearrrange"
 msgstr "重新排列"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
 msgstr "删除"
 
@@ -1241,6 +1374,10 @@ msgstr "我们开始做吧！"
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
 msgstr "没有任何NFT（非同质化代币）！"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Only 50 items allowed for gallery"
+msgstr ""
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
@@ -1277,6 +1414,11 @@ msgid "{0} collectors"
 msgstr "{0} 位收藏者"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+#: src/components/Publication/PublicationStats.tsx
+msgid "Collected by"
+msgstr "收藏者"
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "{0} available"
 msgstr "{0} 可收藏"
 
@@ -1304,6 +1446,10 @@ msgstr "收藏"
 msgid "You already collected this"
 msgstr "不要重复收藏哦！"
 
+#: src/components/Publication/Actions/Collect/Splits.tsx
+msgid "Fee recipients"
+msgstr ""
+
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
 msgid "Free Collect"
@@ -1317,10 +1463,6 @@ msgstr "未知收藏"
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
 msgstr "{0} 评论"
-
-#: src/components/Publication/Actions/Comment.tsx
-msgid "Comment"
-msgstr "评论"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Dislike"
@@ -1347,18 +1489,17 @@ msgstr "{0} 次转发"
 msgid "Mirror"
 msgstr "转发"
 
-#: src/components/Publication/Actions/ModAction.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Spam"
-msgstr "垃圾信息"
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Publication reported successfully"
+msgstr ""
 
-#: src/components/Publication/Actions/ModAction.tsx
-msgid "Others"
-msgstr "其他"
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Poor content"
+msgstr ""
 
-#: src/components/Publication/Actions/index.tsx
-msgid "Gated Publication"
-msgstr "订阅的帖子"
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Stop Sponsor"
+msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -1397,8 +1538,16 @@ msgid "<0>{0}</0> Mirrors"
 msgstr "<0>{0}</0> 次转发"
 
 #: src/components/Publication/PublicationStats.tsx
+msgid "Mirrored by"
+msgstr "转发过的人"
+
+#: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Likes"
 msgstr "<0>{0}</0> 次赞"
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "Liked by"
+msgstr "点赞过的人"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
@@ -1411,18 +1560,6 @@ msgstr "索引中"
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
 msgstr "加载相关人员失败"
-
-#: src/components/Publication/Type/Collected.tsx
-msgid "collected the <0>{0}</0>"
-msgstr "收藏了 <0>{0}</0>"
-
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "<0><1/> mirrored the <2>comment</2></0>"
-msgstr "<0><1/> 转发了 <2> 评论</2></0>"
-
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "<0><1/> mirrored the <2>post</2></0>"
-msgstr "<0><1/> 转发了 <2> 帖子</2></0>"
 
 #: src/components/Search/Profiles.tsx
 msgid "No profiles for <0>“{query}”</0>"
@@ -1541,6 +1678,7 @@ msgid "Request Verification"
 msgstr "请求验证"
 
 #: src/components/Settings/Account/index.tsx
+#: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
 msgstr "帐户设置 • {APP_NAME}"
 
@@ -1549,8 +1687,12 @@ msgid "Allow"
 msgstr "允许"
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Module {0} successfully!"
-msgstr "模块 {0} 授权成功！"
+msgid "Module disabled successfully!"
+msgstr ""
+
+#: src/components/Settings/Allowance/Button.tsx
+msgid "Module enabled successfully!"
+msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Revoke"
@@ -1691,20 +1833,80 @@ msgid "Profile updated successfully!"
 msgstr "个人资料更新成功！"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
-msgid "Disable dispatcher"
-msgstr "禁用调度员"
+msgid "Disable"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
-msgid "Enable dispatcher"
-msgstr "启用调度员"
+msgid "Update"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
+msgid "Enable"
+msgstr ""
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Disable Signless Transactions"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
-#: src/components/Settings/Dispatcher/index.tsx
-msgid "We suggest you to enable dispatcher so you don't need to sign all your transactions in {APP_NAME}."
-msgstr "我们建议您启用调度员，这样您就不需要在 {APP_NAME} 中签署所有交易。"
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Export all your notifications to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Exported <0>{0}</0> notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+msgid "Download notifications"
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr ""
+
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export profile"
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Export all your profile data to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Profile.tsx
+msgid "Download profile"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export publications"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export all your posts, comments and mirrors to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exported <0>{0}</0> publications"
+msgstr ""
+
+#: src/components/Settings/Export/Publications.tsx
+msgid "Download publications"
+msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -1726,30 +1928,40 @@ msgstr "您不会看到其他人在他们内容流上的总点赞数。您和其
 msgid "Preferences • {APP_NAME}"
 msgstr "偏好设置 • {APP_NAME}"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr "NFT的合约地址不正确（ 42 个字符以内）"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Invalid Contract address"
 msgstr "合约地址无效"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr "头像更新成功！"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract Address"
 msgstr "合约地址"
 
-#: src/components/Settings/Profile/NFTPicture.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
 msgstr "代币ID"
 
 #: src/components/Settings/Profile/Picture.tsx
-msgid "Avatar can't be empty!"
-msgstr "头像不能为空！"
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Upload failed"
+msgstr ""
+
+#: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Crop image"
+msgstr ""
+
+#: src/components/Settings/Profile/Picture.tsx
+msgid "Profile picture crop preview"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
@@ -1800,6 +2012,10 @@ msgid "Tell us something about you!"
 msgstr "告诉我们一些关于您的信息！"
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Cover picture crop preview"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Celebrate pride every day"
 msgstr "每天庆祝一次骄傲（彩虹）大游行"
 
@@ -1839,9 +2055,29 @@ msgstr "调度员"
 msgid "Allowance"
 msgstr "授权设置"
 
+#: src/components/Settings/Sidebar.tsx
+msgid "Export"
+msgstr ""
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Publication deleted successfully"
+msgstr ""
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete Publication?"
+msgstr ""
+
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
+msgstr ""
+
 #: src/components/Shared/Attachments.tsx
 msgid "Open Image in new tab"
 msgstr "在新标签页中打开图片"
+
+#: src/components/Shared/Attachments.tsx
+msgid "Cancel Upload"
+msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
@@ -1888,45 +2124,53 @@ msgstr "已成功关注！"
 msgid "Follow"
 msgstr "关注"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Terms"
 msgstr "条款"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Privacy"
 msgstr "隐私"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Discord"
 msgstr "Discord"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Donate"
 msgstr "捐赠"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Status"
 msgstr "状态"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Feedback"
 msgstr "反馈"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Thanks"
-msgstr "感谢"
+msgstr "鸣谢"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr "GitHub"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Translate"
 msgstr "翻译"
 
-#: src/components/Shared/Footer.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ 由 Vercel 提供支持"
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Mod actions"
+msgstr ""
+
+#: src/components/Shared/GlobalAlerts.tsx
+msgid "Perform mod actions on this publication."
+msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Modal/Report/index.tsx
@@ -1992,6 +2236,7 @@ msgid "Sign up to {APP_NAME}"
 msgstr "注册到 {APP_NAME}"
 
 #: src/components/Shared/Login/New/index.tsx
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr "用户名"
 
@@ -2084,6 +2329,10 @@ msgid "Sensitive"
 msgstr "敏感内容"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Spam"
+msgstr "垃圾信息"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Reason"
 msgstr "原因"
 
@@ -2132,6 +2381,10 @@ msgid "Fake engagement"
 msgstr "虚假交互"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Low signal"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Algorithm manipulation"
 msgstr "算法操纵"
 
@@ -2158,6 +2411,10 @@ msgstr "内容无关"
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Additional comments should not exceed 260 characters"
 msgstr "补充信息不应超过 260 个字符"
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Publication reported successfully!"
+msgstr "帖子发布成功！"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"
@@ -2191,6 +2448,14 @@ msgstr "登出"
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
 msgstr "适度"
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Disable mod mode"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/ModMode.tsx
+msgid "Enable mod mode"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2243,6 +2508,26 @@ msgstr "前往 {type}"
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "将获得 <0>{referralFee}%</0> 的推荐费"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr ""
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
@@ -2341,13 +2626,113 @@ msgstr "您没有足够的 <0>{0}</0>"
 msgid "Swap in Uniswap"
 msgstr "用Uniswap进行代币转换"
 
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stafftools • {APP_NAME}"
-msgstr "员工工具 • {APP_NAME}"
+#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Staff tool"
+msgstr ""
 
-#: src/components/UI/LightBox.tsx
-msgid "Open original"
-msgstr "打开原图"
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "{APP_NAME} account"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Profile ID"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Address"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Can use relay"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Follow module"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+msgid "Metadata"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Open"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Publication ID"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Comment on"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Collect module"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "App ID"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "On-chain content URI"
+msgstr ""
+
+#: src/components/StaffTools/RelayQueues.tsx
+msgid "Transactions"
+msgstr ""
+
+#: src/components/StaffTools/RelayQueues.tsx
+msgid "Stafftools | Relay queues • {APP_NAME}"
+msgstr ""
+
+#: src/components/StaffTools/RelayQueues.tsx
+#: src/components/StaffTools/Sidebar.tsx
+msgid "Relay queues"
+msgstr ""
+
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stafftools | Stats • {APP_NAME}"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total profiles"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "profiles burnt"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total posts"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total mirrors"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total comments"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total collects"
+msgstr ""
+
+#: src/components/StaffTools/Stats/index.tsx
+msgid "total follows"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
@@ -2360,6 +2745,10 @@ msgstr "视频文件应小于 100MB"
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "音频文件应小于 100MB"
+
+#: src/lib/getModule.ts
+msgid "Multirecipient Paid Collect"
+msgstr ""
 
 #: src/lib/getModule.ts
 msgid "Paid Collect"

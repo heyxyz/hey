@@ -1,9 +1,9 @@
-import { Card } from '@components/UI/Card';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'data/constants';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
+import { Card } from 'ui';
 
 interface MetaProps {
   name: string;
@@ -23,11 +23,11 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
   </div>
 );
 
-interface Props {
+interface OnchainMetaProps {
   publication: Publication;
 }
 
-const OnchainMeta: FC<Props> = ({ publication }) => {
+const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
   const hash =
     publication?.__typename === 'Mirror'
       ? publication.mirrorOf.onChainContentURI?.split('/').pop()
@@ -44,7 +44,7 @@ const OnchainMeta: FC<Props> = ({ publication }) => {
   }
 
   return (
-    <Card as="aside">
+    <Card as="aside" dataTestId="onchain-meta">
       <div className="lt-text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
           <Meta name={t`ARWEAVE TRANSACTION`} uri={`https://arweave.app/tx/${hash}`} hash={hash} />

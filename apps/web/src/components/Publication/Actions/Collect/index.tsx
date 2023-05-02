@@ -1,23 +1,22 @@
 import Loader from '@components/Shared/Loader';
 import TipsOutlineIcon from '@components/Shared/TipIcons/TipsOutlineIcon';
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
-import { Modal } from '@components/UI/Modal';
-import { Tooltip } from '@components/UI/Tooltip';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
-import humanize from '@lib/humanize';
-import { Leafwatch } from '@lib/leafwatch';
-import nFormatter from '@lib/nFormatter';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ElectedMirror, Publication } from 'lens';
 import { CollectModules } from 'lens';
+import humanize from 'lib/humanize';
+import nFormatter from 'lib/nFormatter';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
+import { Modal, Tooltip } from 'ui';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message={t`Loading collect`} />
@@ -27,13 +26,13 @@ const QuadraticModule = dynamic(() => import('./QuadraticModule'), {
   loading: () => <Loader message={t`Loading Tips`} />
 });
 
-interface Props {
+interface CollectProps {
   publication: Publication;
   electedMirror?: ElectedMirror;
   showCount: boolean;
 }
 
-const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
+const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
@@ -65,7 +64,7 @@ const Collect: FC<Props> = ({ publication, electedMirror, showCount }) => {
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowCollectModal(true);
-            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+            Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
           aria-label="Collect"
         >

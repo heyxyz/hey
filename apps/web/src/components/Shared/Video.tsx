@@ -1,31 +1,32 @@
 import 'plyr-react/plyr.css';
 
-import imageProxy from '@lib/imageProxy';
-import Plyr from 'plyr-react';
+import { Player } from '@livepeer/react';
+import { IPFS_GATEWAY } from 'data';
+import imageProxy from 'lib/imageProxy';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
-import getIPFSLink from 'utils/getIPFSLink';
+import { memo } from 'react';
 
-interface Props {
+interface VideoProps {
   src: string;
   poster: string;
 }
 
-const Video: FC<Props> = ({ src, poster }) => {
+const Video: FC<VideoProps> = ({ src, poster }) => {
   return (
-    <div className="rounded-lg">
-      <Plyr
-        source={{
-          type: 'video',
-          sources: [{ src, provider: 'html5' }],
-          poster: poster ? imageProxy(getIPFSLink(poster)) : src
-        }}
-        options={{
-          controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
-          ratio: '16:12'
-        }}
+    <div className="lp-player" data-testid={`attachment-video-${src}`}>
+      <Player
+        src={src}
+        poster={imageProxy(sanitizeDStorageUrl(poster))}
+        objectFit="contain"
+        showLoadingSpinner
+        showPipButton={false}
+        showUploadingIndicator={false}
+        controls={{ defaultVolume: 1 }}
+        autoUrlUpload={{ fallback: true, ipfsGateway: IPFS_GATEWAY }}
       />
     </div>
   );
 };
 
-export default Video;
+export default memo(Video);

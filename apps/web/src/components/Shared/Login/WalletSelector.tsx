@@ -1,33 +1,31 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { Button } from '@components/UI/Button';
-import { Spinner } from '@components/UI/Spinner';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
-import getWalletLogo from '@lib/getWalletLogo';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import onError from '@lib/onError';
-import toSnakeCase from '@lib/toSnakeCase';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { ERROR_MESSAGE } from 'data/constants';
+import Errors from 'data/errors';
 import { useAuthenticateMutation, useChallengeLazyQuery, useUserProfilesLazyQuery } from 'lens';
+import getWalletDetails from 'lib/getWalletDetails';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
-import { USER } from 'src/tracking';
+import { AUTH } from 'src/tracking';
+import { Button, Spinner } from 'ui';
 import type { Connector } from 'wagmi';
 import { useAccount, useConnect, useDisconnect, useNetwork, useSignMessage } from 'wagmi';
 
-interface Props {
+interface WalletSelectorProps {
   setHasConnected: Dispatch<boolean>;
   setHasProfile: Dispatch<boolean>;
 }
 
-const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
+const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfile }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
@@ -52,7 +50,9 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       if (account) {
         setHasConnected(true);
       }
-      Leafwatch.track(`connect_with_${toSnakeCase(connector.name.toLowerCase())}`);
+      Mixpanel.track(AUTH.CONNECT_WALLET, {
+        wallet: connector.name.toLowerCase()
+      });
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +68,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        return toast.error(ERROR_MESSAGE);
+        return toast.error(Errors.SomethingWentWrong);
       }
 
       // Get signature
@@ -101,7 +101,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Leafwatch.track(USER.SIWL);
+      Mixpanel.track(AUTH.SIWL);
     } catch (error) {
       console.error(error);
     } finally {
@@ -135,7 +135,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
         <button
           onClick={() => {
             disconnect?.();
-            Leafwatch.track(USER.CHANGE_WALLET);
+            Mixpanel.track(AUTH.CHANGE_WALLET);
           }}
           className="flex items-center space-x-1 text-sm underline"
         >
@@ -148,7 +148,7 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
       {(errorChallenge || errorAuthenticate || errorProfiles) && (
         <div className="flex items-center space-x-1 font-bold text-red-500">
           <XCircleIcon className="h-5 w-5" />
-          <div>{ERROR_MESSAGE}</div>
+          <div>{Errors.SomethingWentWrong}</div>
         </div>
       )}
     </div>
@@ -167,11 +167,15 @@ const WalletSelector: FC<Props> = ({ setHasConnected, setHasProfile }) => {
             disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}
           >
             <span>
-              {mounted ? (connector.id === 'injected' ? t`Browser Wallet` : connector.name) : connector.name}
+              {mounted
+                ? connector.id === 'injected'
+                  ? t`Browser Wallet`
+                  : getWalletDetails(connector.name).name
+                : getWalletDetails(connector.name).name}
               {mounted ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <img
-              src={getWalletLogo(connector.name)}
+              src={getWalletDetails(connector.name).logo}
               draggable={false}
               className="h-6 w-6"
               height={24}

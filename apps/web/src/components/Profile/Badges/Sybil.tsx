@@ -1,15 +1,15 @@
-import { Tooltip } from '@components/UI/Tooltip';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
+import { Tooltip } from 'ui';
 
-interface Props {
+interface SybilProps {
   profile: Profile;
 }
 
-const Sybil: FC<Props> = ({ profile }) => {
+const Sybil: FC<SybilProps> = ({ profile }) => {
   if (!profile?.onChainIdentity?.sybilDotOrg?.verified) {
     return null;
   }
@@ -37,6 +37,7 @@ const Sybil: FC<Props> = ({ profile }) => {
         width={75}
         src={`${STATIC_IMAGES_URL}/badges/sybil.png`}
         alt="Sybil Badge"
+        data-testid="profile-sybil-badge"
       />
     </Tooltip>
   );

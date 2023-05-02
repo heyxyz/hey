@@ -1,8 +1,8 @@
+import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import { IS_MAINNET } from 'data/constants';
 import type { Profile } from 'lens';
 import { useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
@@ -20,17 +20,16 @@ import Navbar from '../Shared/Navbar';
 import useIsMounted from '../utils/hooks/useIsMounted';
 import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
 
-interface Props {
+interface LayoutProps {
   children: ReactNode;
 }
 
-const Layout: FC<Props> = ({ children }) => {
+const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setIsPro = useAppStore((state) => state.setIsPro);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
@@ -90,18 +89,6 @@ const Layout: FC<Props> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chain, disconnect, profileId]);
 
-  // set pro status
-  useEffect(() => {
-    if (currentProfile?.id && currentProfile?.id === '0x0d') {
-      if (IS_MAINNET) {
-        setIsPro(true);
-      } else {
-        setIsPro(true);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProfile?.id]);
-
   if (loading || !mounted) {
     return <Loading />;
   }
@@ -113,6 +100,7 @@ const Layout: FC<Props> = ({ children }) => {
       </Head>
       <Toaster position="bottom-right" toastOptions={getToastOptions(resolvedTheme)} />
       <GlobalModals />
+      <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">
         <Navbar />
         <BottomNavigation />

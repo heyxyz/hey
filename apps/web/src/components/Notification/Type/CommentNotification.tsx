@@ -1,23 +1,15 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import type { MessageDescriptor } from '@generated/types';
 import { ChatAlt2Icon } from '@heroicons/react/solid';
-import formatTime from '@lib/formatTime';
+import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import type { NewCommentNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
-
-dayjs.extend(relativeTime);
-
-interface Props {
-  notification: NewCommentNotification;
-}
 
 const messages: Record<string, MessageDescriptor> = {
   comment: defineMessage({
@@ -35,7 +27,11 @@ const defaultMessage = (typeName: string): string => {
   return '<0><1/> commented on your <2>' + typeName + '</2></0>';
 };
 
-const CommentNotification: FC<Props> = ({ notification }) => {
+interface CommentNotificationProps {
+  notification: NewCommentNotification;
+}
+
+const CommentNotification: FC<CommentNotificationProps> = ({ notification }) => {
   const typeName = notification?.comment?.commentOn?.__typename?.toLowerCase() || '';
   return (
     <div className="flex items-start justify-between">
@@ -57,14 +53,14 @@ const CommentNotification: FC<Props> = ({ notification }) => {
           />
           <Link
             href={`/posts/${notification?.comment.id}`}
-            className="lt-text-gray-500 line-clamp-2 linkify mt-2"
+            className="lt-text-gray-500 linkify mt-2 line-clamp-2"
           >
             <Markup>{notification?.comment?.metadata?.content}</Markup>
           </Link>
         </div>
       </div>
       <div className="text-[12px] text-gray-400" title={formatTime(notification?.createdAt)}>
-        {dayjs(new Date(notification?.createdAt)).fromNow()}
+        {getTimeFromNow(notification?.createdAt)}
       </div>
     </div>
   );

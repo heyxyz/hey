@@ -1,31 +1,37 @@
 import { AVATAR, DEFAULT_OG, USER_CONTENT_URL } from 'data/constants';
+import type { Comment } from 'lens';
 import { Publication } from 'lens';
+import getStampFyiURL from 'lib/getStampFyiURL';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import truncateByWords from 'lib/truncateByWords';
 import type { FC } from 'react';
-import getIPFSLink from 'utils/getIPFSLink';
-import getStampFyiURL from 'utils/getStampFyiURL';
+import { BASE_URL } from 'src/constants';
 
 import DefaultTags from './Shared/DefaultTags';
+import SinglePublication from './Shared/SinglePublication';
 import Tags from './Shared/Tags';
 
-interface Props {
+interface PublicationProps {
   publication: Publication;
+  comments: Comment[];
 }
 
-const Publication: FC<Props> = ({ publication }) => {
+const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   if (!publication) {
     return <DefaultTags />;
   }
 
-  const hasMedia = publication.metadata?.media.length;
-  const profile: any =
-    publication?.__typename === 'Mirror' ? publication?.mirrorOf?.profile : publication?.profile;
-
-  const title = `${publication?.__typename === 'Post' ? 'Post' : 'Comment'} by @${profile.handle} • Lenster`;
-  const description = publication.metadata?.content ?? '';
+  const { metadata, __typename } = publication;
+  const hasMedia = metadata?.media.length;
+  const profile: any = __typename === 'Mirror' ? publication?.mirrorOf?.profile : publication.profile;
+  const title = `${__typename === 'Post' ? 'Post' : __typename === 'Mirror' ? 'Mirror' : 'Comment'} by @${
+    publication.profile.handle
+  } • Lenster`;
+  const description = truncateByWords(metadata?.content, 30);
   const image = hasMedia
-    ? getIPFSLink(publication.metadata?.media[0].original.url)
+    ? sanitizeDStorageUrl(metadata?.media[0].original.url)
     : profile
-    ? `${USER_CONTENT_URL}/${AVATAR}/${getIPFSLink(
+    ? `${USER_CONTENT_URL}/${AVATAR}/${sanitizeDStorageUrl(
         profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)
       )}`
     : DEFAULT_OG;
@@ -36,9 +42,23 @@ const Publication: FC<Props> = ({ publication }) => {
         title={title}
         description={description}
         image={image}
+        publishedTime={publication?.createdAt}
         cardType={hasMedia ? 'summary_large_image' : 'summary'}
+        url={`${BASE_URL}/posts/${publication.id}`}
       />
-      <div>{title}</div>
+      <header>
+        <SinglePublication publication={publication} h1Content />
+      </header>
+      <div data-testid="comment-feed">
+        {comments?.map((comment) => {
+          const { id } = comment;
+          return (
+            <div key={id}>
+              <SinglePublication publication={comment} />
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };

@@ -5,14 +5,15 @@ import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { FollowSource } from 'src/tracking';
 
-import Follow, { FollowSource } from '../Shared/Follow';
+import Follow from '../Shared/Follow';
 
-interface Props {
+interface MessageHeaderProps {
   profile?: Profile;
 }
 
-const MessageHeader: FC<Props> = ({ profile }) => {
+const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
   const router = useRouter();
   const [following, setFollowing] = useState(true);
 
@@ -29,7 +30,7 @@ const MessageHeader: FC<Props> = ({ profile }) => {
   }
 
   return (
-    <div className="flex items-center justify-between border-b-[1px] px-4 py-2 dark:border-gray-700">
+    <div className="divider flex items-center justify-between px-4 py-2">
       <div className="flex items-center">
         <ChevronLeftIcon onClick={onBackClick} className="mr-1 h-6 w-6 cursor-pointer lg:hidden" />
         <UserProfile profile={profile} />

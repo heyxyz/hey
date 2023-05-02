@@ -1,27 +1,24 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import formatHandle from '@lib/formatHandle';
-import formatTime from '@lib/formatTime';
-import getAvatar from '@lib/getAvatar';
-import isVerified from '@lib/isVerified';
+import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import isVerified from 'lib/isVerified';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
+import { Image } from 'ui';
 
-dayjs.extend(relativeTime);
-
-interface Props {
+interface PreviewProps {
   profile: Profile;
   message: DecodedMessage;
   conversationKey: string;
   isSelected: boolean;
 }
 
-const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) => {
+const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelected }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
@@ -37,9 +34,10 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
         isSelected && 'bg-gray-50 dark:bg-gray-800'
       )}
       onClick={() => onConversationSelected(profile.id)}
+      aria-hidden="true"
     >
-      <div className="flex justify-between space-x-3 px-5">
-        <img
+      <div className="flex space-x-3 overflow-hidden px-5">
+        <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(profile, false);
           }}
@@ -50,15 +48,15 @@ const Preview: FC<Props> = ({ profile, message, conversationKey, isSelected }) =
           width={40}
           alt={formatHandle(profile?.handle)}
         />
-        <div className="w-full">
-          <div className="flex w-full justify-between space-x-1">
-            <div className="flex max-w-sm items-center gap-1">
-              <div className="line-clamp-1 text-md">{profile?.name ?? formatHandle(profile.handle)}</div>
+        <div className="grow overflow-hidden">
+          <div className="flex justify-between space-x-1">
+            <div className="flex items-center gap-1 overflow-hidden">
+              <div className="text-md truncate">{profile?.name ?? formatHandle(profile.handle)}</div>
               {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />}
             </div>
             {message.sent && (
-              <span className="lt-text-gray-500 min-w-fit pt-0.5 text-xs" title={formatTime(message.sent)}>
-                {dayjs(new Date(message.sent)).fromNow()}
+              <span className="lt-text-gray-500 shrink-0 pt-0.5 text-xs" title={formatTime(message.sent)}>
+                {getTimeFromNow(message.sent)}
               </span>
             )}
           </div>

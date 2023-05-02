@@ -1,11 +1,7 @@
-import { useApolloClient } from '@apollo/client';
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
 import UserProfile from '@components/Shared/UserProfile';
-import { Tooltip } from '@components/UI/Tooltip';
-import type { OptimisticTransaction } from '@generated/types';
-import getURLs from '@lib/getURLs';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import {
@@ -14,15 +10,19 @@ import {
   useHasTxHashBeenIndexedQuery,
   usePublicationLazyQuery
 } from 'lens';
+import { useApolloClient } from 'lens/apollo';
+import getURLs from 'lib/getURLs';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
+import type { OptimisticTransaction } from 'src/types';
+import { Tooltip } from 'ui';
 
-interface Props {
+interface QueuedPublicationProps {
   txn: OptimisticTransaction;
 }
 
-const QueuedPublication: FC<Props> = ({ txn }) => {
+const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
@@ -39,12 +39,12 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
   };
 
   const [getPublication] = usePublicationLazyQuery({
-    onCompleted: (data) => {
-      if (data?.publication) {
+    onCompleted: ({ publication }) => {
+      if (publication) {
         cache.modify({
           fields: {
             publications() {
-              cache.writeQuery({ data: data?.publication as any, query: PublicationDocument });
+              cache.writeQuery({ data: publication, query: PublicationDocument });
             }
           }
         });
@@ -56,13 +56,13 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
   useHasTxHashBeenIndexedQuery({
     variables: { request: { txHash, txId } },
     pollInterval: 1000,
-    onCompleted: (data) => {
-      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
+    onCompleted: ({ hasTxHashBeenIndexed }) => {
+      if (hasTxHashBeenIndexed.__typename === 'TransactionError') {
         return removeTxn();
       }
 
-      if (data.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
-        const status = data.hasTxHashBeenIndexed.metadataStatus?.status;
+      if (hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
+        const status = hasTxHashBeenIndexed.metadataStatus?.status;
 
         if (
           status === PublicationMetadataStatusType.MetadataValidationFailed ||
@@ -71,10 +71,10 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
           return removeTxn();
         }
 
-        if (data.hasTxHashBeenIndexed.indexed) {
+        if (hasTxHashBeenIndexed.indexed) {
           getPublication({
             variables: {
-              request: { txHash: data.hasTxHashBeenIndexed.txHash },
+              request: { txHash: hasTxHashBeenIndexed.txHash },
               reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
               profileId: currentProfile?.id ?? null
             }
@@ -94,12 +94,12 @@ const QueuedPublication: FC<Props> = ({ txn }) => {
           </div>
         </Tooltip>
       </div>
-      <div className="ml-[53px] break-words">
-        <div className="leading-md linkify text-md whitespace-pre-wrap break-words">
+      <div className="ml-[53px]">
+        <div className="markup linkify text-md break-words">
           <Markup>{txn?.content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (
-          <Attachments attachments={txn?.attachments} txn={txn} isNew hideDelete />
+          <Attachments attachments={txn?.attachments} txn={txn} hideDelete />
         ) : (
           txn?.attachments && getURLs(txn?.content)?.length > 0 && <IFramely url={getURLs(txn?.content)[0]} />
         )}
