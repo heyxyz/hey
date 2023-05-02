@@ -1,16 +1,13 @@
 import useApproveChatRequest from '@components/utils/hooks/push/useApproveChatRequest';
 import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
-import useFetchChats from '@components/utils/hooks/push/useFetchChats';
 import useGetHistoryMessages from '@components/utils/hooks/push/useFetchHistoryMessages';
 import usePushSendMessage from '@components/utils/hooks/push/usePushSendMessage';
-import onError from '@lib/onError';
 import type { IMessageIPFS } from '@pushprotocol/restapi';
 import clsx from 'clsx';
 import EmojiPicker from 'emoji-picker-react';
 import GifPicker from 'gif-picker-react';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
-import { useClickAway } from 'react-use';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image, Input, Spinner } from 'ui';
 
@@ -49,33 +46,17 @@ const MessageCard = ({ chat, position }: { chat: IMessageIPFS; position: number 
   );
 };
 
-const GIFCard = ({ chat, position }: { chat: IMessageIPFS; position: number }) => {
-  return (
-    <div className={clsx(position ? 'self-end' : '', 'relative w-fit')}>
-      <Image
-        className={clsx(
-          position ? 'right-0 rounded-xl rounded-tr-sm' : 'rounded-xl rounded-tl-sm',
-          'font-medium0 relative w-fit border'
-        )}
-        src={chat.messageContent}
-        alt=""
-      />
-      <Image className="absolute right-2.5 top-2.5" src="/push/giticon.svg" alt="" />
-    </div>
+const Messages = ({ chat }: { chat: IMessageIPFS }) => {
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
+
+  return chat.fromDID !== connectedProfile?.did ? (
+    <MessageCard chat={chat} position={0} />
+  ) : (
+    <MessageCard chat={chat} position={1} />
   );
 };
 
-const Messages = ({ chat }: { chat: IMessageIPFS }) => {
-  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
-  const position = chat.fromDID !== connectedProfile?.did ? 0 : 1;
-  if (chat.messageType === 'GIF') {
-    return <GIFCard chat={chat} position={position} />;
-  }
-  return <MessageCard chat={chat} position={position} />;
-};
-
-const MessageField = ({ getChatCall }: { getChatCall: () => Promise<void> }) => {
-  const modalRef = useRef(null);
+const MessageField = () => {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
   const [inputText, setInputText] = useState('');
@@ -83,41 +64,28 @@ const MessageField = ({ getChatCall }: { getChatCall: () => Promise<void> }) => 
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const { createChatProfile } = useCreateChatProfile();
-  const { fetchChats } = useFetchChats();
 
   const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
+  const appendGIF = (emojiObject: GIFType) => {
+    console.log({ emojiObject });
+  };
 
-  const sendPushMessage = async (content: string, type: string) => {
-    try {
-      if (!isProfileExist(connectedProfile)) {
-        await createChatProfile();
-      }
-      await sendMessage({
-        message: content,
-        receiver: getCAIPFromLensID(selectedChatId),
-        messageType: type as any
-      });
-      // after a message has been sent, we can refetch all messages and chats
-      await fetchChats();
-      // await getChatCall(); wierd, calling this does not fetch the latest chat as it should
-    } catch (error) {
-      onError(error);
+  const sendMsg = async () => {
+    console.log({ inputText });
+    if (!isProfileExist(connectedProfile)) {
+      await createChatProfile();
     }
-  };
-
-  const sendGIF = async (emojiObject: GIFType) => {
-    sendPushMessage(emojiObject.url as string, 'GIF');
-  };
-
-  const sendTextMsg = async () => {
-    await sendPushMessage(inputText, 'Text');
+    await sendMessage({
+      message: inputText,
+      receiver: getCAIPFromLensID(selectedChatId),
+      messageType: 'Text'
+    });
     setInputText('');
   };
 
-  useClickAway(modalRef, () => {
-    setGifOpen(false);
-    setEmojiOpen(false);
-  });
+  const gifSample = {
+    url: 'https://media.tenor.com/YGNEnwUYCf4AAAAC/annoyed-irritated.gif'
+  };
 
   return (
     <>
@@ -128,37 +96,24 @@ const MessageField = ({ getChatCall }: { getChatCall: () => Promise<void> }) => 
         alt=""
       />
       <div className="absolute right-4 top-2 flex items-center gap-5">
-        {!msgSendLoading ? (
-          <>
-            <Image
-              onClick={() => setGifOpen((o) => !o)}
-              className="relative cursor-pointer"
-              src="/push/gif.svg"
-              alt="gif"
-            />
-            <Image
-              onClick={sendTextMsg}
-              className="relative cursor-pointer"
-              src="/push/send.svg"
-              alt="send"
-            />
-          </>
-        ) : (
-          <div className="relative pt-[3px]">
-            <Spinner size="sm" className="mx-auto" />
-          </div>
-        )}
+        <Image
+          onClick={() => setGifOpen((o) => !o)}
+          className="relative cursor-pointer"
+          src="/push/gif.svg"
+          alt="gif"
+        />
+        <Image onClick={sendMsg} className="relative cursor-pointer" src="/push/send.svg" alt="send" />
       </div>
       {emojiOpen ? (
-        <div ref={modalRef} className="absolute bottom-[50px]">
+        <div className="absolute bottom-[50px]">
           <EmojiPicker onEmojiClick={appendEmoji} />
         </div>
       ) : (
         ''
       )}
       {gifOpen ? (
-        <div ref={modalRef} className="absolute bottom-[50px] right-0">
-          <GifPicker onGifClick={sendGIF} tenorApiKey={String(process.env.NEXT_PUBLIC_GOOGLE_TOKEN)} />
+        <div className="absolute bottom-[50px] right-0">
+          <GifPicker onGifClick={appendGIF} tenorApiKey={String(process.env.NEXT_PUBLIC_GOOGLE_TOKEN)} />
         </div>
       ) : (
         ''
@@ -304,7 +259,7 @@ export default function MessageBody() {
 
       {/* typebar  design */}
       <div className="relative mt-2">
-        <MessageField getChatCall={getChatCall} />
+        <MessageField />
       </div>
     </section>
   );
