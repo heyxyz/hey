@@ -105,7 +105,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           content={resolvedTheme === 'dark' ? '#1b1b1d' : '#ffffff'}
         />
       </Head>
-
       <Toaster
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
