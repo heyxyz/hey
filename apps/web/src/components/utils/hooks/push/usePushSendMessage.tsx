@@ -52,10 +52,13 @@ const usePushSendMessage = () => {
         if (chats.get(selectedChatId)) {
           setChat(selectedChatId, {
             messages: [...chats.get(selectedChatId)!.messages, modifiedResponse],
-            lastThreadHash: modifiedResponse.link
+            lastThreadHash: chats.get(selectedChatId)!.lastThreadHash
           });
         } else {
-          setChat(selectedChatId, { messages: [modifiedResponse], lastThreadHash: modifiedResponse.link });
+          setChat(selectedChatId, {
+            messages: [modifiedResponse],
+            lastThreadHash: chats.get(selectedChatId)!.lastThreadHash
+          });
         }
 
         console.log(chats);

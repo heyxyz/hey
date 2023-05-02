@@ -9,7 +9,7 @@ import GifPicker from 'gif-picker-react';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
-import { Image, Input } from 'ui';
+import { Image, Input, Spinner } from 'ui';
 
 import { getCAIPFromLensID, isProfileExist } from './helper';
 
@@ -184,7 +184,7 @@ export default function MessageBody() {
       await historyMessages({
         threadHash: threadHash,
         chatId: selectedChatId,
-        limit: 10
+        limit: 15
       });
     }
   };
@@ -211,40 +211,50 @@ export default function MessageBody() {
       if (!decryptedPgpPvtKey) {
         return;
       }
+
       await getChatCall();
     })();
   }, [decryptedPgpPvtKey, selectedChat, selectedChatId]);
-
   return (
     <section className="h-full	p-5 pb-3">
-      <div className="h-[85%] max-h-[85%] overflow-scroll " ref={listInnerRef} onScroll={onScroll}>
-        <div className="flex flex-col gap-2.5">
-          {chats.get(selectedChatId)?.messages.map((chat: IMessageIPFS, index: number) => (
-            <Messages chat={chat} key={index} />
-          ))}
-          {requestFeedids.includes(selectedChatId) && (
-            <div className="flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
-              <div className="text-sm font-normal">
-                This is your first conversation with the sender. Please accept to continue.
-              </div>
-              <Image
-                className="h-12 cursor-pointer"
-                onClick={handleApprovechatRequest}
-                src="/push/CheckCircle.svg"
-                alt="check"
-              />
-            </div>
-          )}
-          {/* uncomment when gifs are implemented */}
-          {/* <div className="relative w-fit rounded-xl rounded-tl-sm border">
+      <div
+        className="h-[85%] max-h-[85%] overflow-x-hidden overflow-y-scroll px-2.5"
+        ref={listInnerRef}
+        onScroll={onScroll}
+      >
+        {loading ? (
+          <div className="flex justify-center">
+            <Spinner size="sm" />
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2.5">
+            {chats.get(selectedChatId)?.messages.map((chat: IMessageIPFS, index: number) => (
+              <Messages chat={chat} key={index} />
+            ))}
+            {requestFeedids.includes(selectedChatId) && (
+              <div className="flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
+                <div className="text-sm font-normal">
+                  This is your first conversation with the sender. Please accept to continue.
+                </div>
                 <Image
-                  className="font-medium0 relative w-fit rounded-xl rounded-tl-sm border"
-                  src={gifSample.url}
-                  alt=""
+                  className="h-12 cursor-pointer"
+                  onClick={handleApprovechatRequest}
+                  src="/push/CheckCircle.svg"
+                  alt="check"
                 />
-                <Image className="absolute right-2.5 top-2.5" src="/push/giticon.svg" alt="" />
-              </div> */}
-        </div>
+              </div>
+            )}
+            {/* uncomment when gifs are implemented */}
+            {/* <div className="relative w-fit rounded-xl rounded-tl-sm border">
+              <Image
+                className="font-medium0 relative w-fit rounded-xl rounded-tl-sm border"
+                src={gifSample.url}
+                alt=""
+              />
+              <Image className="absolute right-2.5 top-2.5" src="/push/giticon.svg" alt="" />
+            </div> */}
+          </div>
+        )}
       </div>
 
       {/* typebar  design */}

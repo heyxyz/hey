@@ -42,9 +42,7 @@ const useGetHistoryMessages = () => {
           limit: limit,
           env: PUSH_ENV
         });
-        chatHistory.sort((a, b) => {
-          return a.timestamp! > b.timestamp! ? 1 : -1;
-        });
+        chatHistory.reverse();
         if (chats.get(chatId)) {
           setChat(chatId, {
             messages: [...chatHistory, ...chats.get(chatId)!.messages],
