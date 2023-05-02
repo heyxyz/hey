@@ -1,5 +1,7 @@
 import useApproveChatRequest from '@components/utils/hooks/push/useApproveChatRequest';
+import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
 import useGetHistoryMessages from '@components/utils/hooks/push/useFetchHistoryMessages';
+import usePushSendMessage from '@components/utils/hooks/push/usePushSendMessage';
 import type { IMessageIPFS } from '@pushprotocol/restapi';
 import clsx from 'clsx';
 import EmojiPicker from 'emoji-picker-react';
@@ -9,7 +11,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image, Input } from 'ui';
 
-import { getCAIPFromLensID } from './helper';
+import { getCAIPFromLensID, isProfileExist } from './helper';
 
 type GIFType = {
   url: String;
@@ -54,12 +56,81 @@ const Messages = ({ chat }: { chat: IMessageIPFS }) => {
   );
 };
 
-export default function MessageBody() {
+const MessageField = () => {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
   const [inputText, setInputText] = useState('');
-  const chats = usePushChatStore((state) => state.chats);
-  const chatsFeed = usePushChatStore((state) => state.chatsFeed);
+  const { sendMessage, loading: msgSendLoading } = usePushSendMessage();
+  const selectedChatId = usePushChatStore((state) => state.selectedChatId);
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
+  const { createChatProfile } = useCreateChatProfile();
+
+  const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
+  const appendGIF = (emojiObject: GIFType) => {
+    console.log({ emojiObject });
+  };
+
+  const sendMsg = async () => {
+    console.log({ inputText });
+    if (!isProfileExist(connectedProfile)) {
+      await createChatProfile();
+    }
+    await sendMessage({
+      message: inputText,
+      receiver: getCAIPFromLensID(selectedChatId),
+      messageType: 'Text'
+    });
+    setInputText('');
+  };
+
+  const gifSample = {
+    url: 'https://media.tenor.com/YGNEnwUYCf4AAAAC/annoyed-irritated.gif'
+  };
+
+  return (
+    <>
+      <Image
+        onClick={() => setEmojiOpen((o) => !o)}
+        className="absolute left-2 top-2.5 cursor-pointer"
+        src="/push/emoji.svg"
+        alt=""
+      />
+      <div className="absolute right-4 top-2 flex items-center gap-5">
+        <Image
+          onClick={() => setGifOpen((o) => !o)}
+          className="relative cursor-pointer"
+          src="/push/gif.svg"
+          alt="gif"
+        />
+        <Image onClick={sendMsg} className="relative cursor-pointer" src="/push/send.svg" alt="send" />
+      </div>
+      {emojiOpen ? (
+        <div className="absolute bottom-[50px]">
+          <EmojiPicker onEmojiClick={appendEmoji} />
+        </div>
+      ) : (
+        ''
+      )}
+      {gifOpen ? (
+        <div className="absolute bottom-[50px] right-0">
+          <GifPicker onGifClick={appendGIF} tenorApiKey={String(process.env.NEXT_PUBLIC_GOOGLE_TOKEN)} />
+        </div>
+      ) : (
+        ''
+      )}
+      <Input
+        onChange={(e) => setInputText(e.target.value)}
+        value={inputText}
+        className="pl-11"
+        type="text"
+        disabled={msgSendLoading}
+        placeholder="Type your message..."
+      />
+    </>
+  );
+};
+
+export default function MessageBody() {
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const listInnerRef = useRef<HTMLDivElement>(null);
 
@@ -67,8 +138,9 @@ export default function MessageBody() {
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const setRequestsFeed = usePushChatStore((state) => state.setRequestsFeed);
-  const chatFeed = usePushChatStore((state) => state.chatsFeed);
   const setChatfeed = usePushChatStore((state) => state.setChatsFeed);
+  const chats = usePushChatStore((state) => state.chats);
+  const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const selectedChat = chatsFeed[selectedChatId] || requestsFeed[selectedChatId];
@@ -88,7 +160,7 @@ export default function MessageBody() {
           delete updatedRequestsfeed[selectedChatId];
           setRequestsFeed(updatedRequestsfeed);
 
-          const chatLe = { ...chatFeed };
+          const chatLe = { ...chatsFeed };
           chatLe[selectedChatId] = selectedRequest;
           setChatfeed(chatLe);
           setActiveTab(PUSH_TABS.CHATS);
@@ -143,18 +215,6 @@ export default function MessageBody() {
     })();
   }, [decryptedPgpPvtKey, selectedChat, selectedChatId]);
 
-  const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
-  const appendGIF = (emojiObject: GIFType) => {
-    console.log({ emojiObject });
-  };
-  const submitText = () => {
-    console.log({ inputText });
-  };
-
-  const gifSample = {
-    url: 'https://media.tenor.com/YGNEnwUYCf4AAAAC/annoyed-irritated.gif'
-  };
-
   return (
     <section className="h-full	p-5 pb-3">
       <div className="h-[85%] max-h-[85%] overflow-scroll " ref={listInnerRef} onScroll={onScroll}>
@@ -189,42 +249,7 @@ export default function MessageBody() {
 
       {/* typebar  design */}
       <div className="relative mt-2">
-        <Image
-          onClick={() => setEmojiOpen((o) => !o)}
-          className="absolute left-2 top-2.5 cursor-pointer"
-          src="/push/emoji.svg"
-          alt=""
-        />
-        <div className="absolute right-4 top-2 flex items-center gap-5">
-          <Image
-            onClick={() => setGifOpen((o) => !o)}
-            className="relative cursor-pointer"
-            src="/push/gif.svg"
-            alt="gif"
-          />
-          <Image onClick={submitText} className="relative cursor-pointer" src="/push/send.svg" alt="send" />
-        </div>
-        {emojiOpen ? (
-          <div className="absolute bottom-[50px]">
-            <EmojiPicker onEmojiClick={appendEmoji} />
-          </div>
-        ) : (
-          ''
-        )}
-        {gifOpen ? (
-          <div className="absolute bottom-[50px] right-0">
-            <GifPicker onGifClick={appendGIF} tenorApiKey={String(process.env.NEXT_PUBLIC_GOOGLE_TOKEN)} />
-          </div>
-        ) : (
-          ''
-        )}
-        <Input
-          onChange={(e) => setInputText(e.target.value)}
-          value={inputText}
-          className="pl-11"
-          type="text"
-          placeholder="Type your message..."
-        />
+        <MessageField />
       </div>
     </section>
   );
