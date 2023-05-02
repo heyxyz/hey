@@ -27,6 +27,7 @@ export type ParsedChatType = {
 type ChatTypes = (typeof CHAT_TYPES)[keyof typeof CHAT_TYPES];
 type PushTabs = (typeof PUSH_TABS)[keyof typeof PUSH_TABS];
 
+type ChatMessagetype = { messages: IMessageIPFS[]; lastThreadHash: string | null };
 export const PUSH_ENV = IS_MAINNET ? ENV.PROD : ENV.STAGING;
 
 interface IPushChatStore {
@@ -34,9 +35,9 @@ interface IPushChatStore {
   setConnectedProfile: (connectedProfile: IUser) => void;
   activeTab: PushTabs;
   setActiveTab: (tabName: PushTabs) => void;
-  chats: Map<string, IMessageIPFS[]>; // chatId -> chat messages array
-  setChats: (chats: Map<string, IMessageIPFS[]>) => void;
-  addChat: (key: string, newChat: Array<IMessageIPFS>) => void;
+  chats: Map<string, ChatMessagetype>; // chatId -> chat messages array
+  setChats: (chats: Map<string, ChatMessagetype>) => void;
+  addChat: (key: string, newChat: ChatMessagetype) => void;
   chatsFeed: { [key: string]: IFeeds }; // chatId -> feed obj
   setChatsFeed: (chatsFeed: { [key: string]: IFeeds }) => void;
   addChatFeed: (id: string, newChatFeed: IFeeds) => void;
@@ -79,7 +80,7 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   setActiveTab: (activeTab) => set(() => ({ activeTab })),
   chats: new Map(),
   setChats: (chats) => set(() => ({ chats })),
-  addChat: (key: string, newChat: IMessageIPFS[]) => {
+  addChat: (key: string, newChat: ChatMessagetype) => {
     set((state) => {
       const chats = new Map(state.chats);
       chats.set(key, newChat);

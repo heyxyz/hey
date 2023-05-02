@@ -1,9 +1,11 @@
 import useApproveChatRequest from '@components/utils/hooks/push/useApproveChatRequest';
 import useGetHistoryMessages from '@components/utils/hooks/push/useFetchHistoryMessages';
+import type { IMessageIPFS } from '@pushprotocol/restapi';
+import clsx from 'clsx';
 import EmojiPicker from 'emoji-picker-react';
 import GifPicker from 'gif-picker-react';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image, Input } from 'ui';
 
@@ -23,42 +25,55 @@ type ChatType = {
   time: string;
 };
 
-function parseDate(dateTimeStamp: number) {
-  let date = moment(dateTimeStamp);
-  if (moment().diff(date, 'days') >= 2) {
-    return date.fromNow(); // '2 days ago' etc.
-  }
-  return date.calendar().split(' ')[0]; // 'Yesterday', 'Today', 'Tomorrow'
-}
+const MessageCard = ({ chat, position }: { chat: IMessageIPFS; position: number }) => {
+  const time = moment(chat.timestamp).format('hh:mm');
+  return (
+    <div
+      className={clsx(
+        position ? 'self-end rounded-xl rounded-tr-sm  bg-violet-500' : 'rounded-xl rounded-tl-sm',
+        'relative w-fit max-w-[80%] border py-3 pl-4 pr-[50px] font-medium'
+      )}
+    >
+      <p className={clsx(position ? 'text-white' : '', 'text-sm')}>{chat.messageContent}</p>
+      <span
+        className={clsx(position ? 'text-white' : 'text-gray-500', 'absolute bottom-1.5	right-1.5 text-xs')}
+      >
+        {time}
+      </span>
+    </div>
+  );
+};
 
-function groupChatByTimestamp(arr: Array<ChatType>) {
-  return arr.reduce((acc, chat) => {
-    const { timestamp } = chat;
-    if (!acc[timestamp]) {
-      acc[timestamp] = [];
-    }
-    acc[timestamp].push(chat);
-    return acc;
-  }, {} as Record<string, ChatType[]>);
-}
+const Messages = ({ chat }: { chat: IMessageIPFS }) => {
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
+
+  return chat.fromDID !== connectedProfile?.did ? (
+    <MessageCard chat={chat} position={0} />
+  ) : (
+    <MessageCard chat={chat} position={1} />
+  );
+};
 
 export default function MessageBody() {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
   const [inputText, setInputText] = useState('');
-  const rawChats = usePushChatStore((state) => state.chats);
+  const chats = usePushChatStore((state) => state.chats);
+  const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
-  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
+  const listInnerRef = useRef<HTMLDivElement>(null);
+
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
-  const threadHash = usePushChatStore((state) => state.threadHash);
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const setRequestsFeed = usePushChatStore((state) => state.setRequestsFeed);
   const chatFeed = usePushChatStore((state) => state.chatsFeed);
   const setChatfeed = usePushChatStore((state) => state.setChatsFeed);
-  const [chats, setChats] = useState<Record<string, Array<ChatType>>>({});
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
+  const selectedChat = chatsFeed[selectedChatId] || requestsFeed[selectedChatId];
+
+  //add loading in jsx
   const { historyMessages, loading } = useGetHistoryMessages();
   const { approveChatRequest, error } = useApproveChatRequest();
   const requestFeedids = Object.keys(requestsFeed);
@@ -86,36 +101,47 @@ export default function MessageBody() {
     }
   };
 
+  const getChatCall = async () => {
+    let threadHash = null;
+    if (!chats.get(selectedChatId) && selectedChat?.threadhash) {
+      threadHash = selectedChat?.threadhash;
+    } else if (chats.size && chats.get(selectedChatId)?.lastThreadHash) {
+      threadHash = chats.get(selectedChatId)?.lastThreadHash;
+    }
+    if (threadHash) {
+      await historyMessages({
+        threadHash: threadHash,
+        chatId: selectedChatId,
+        limit: 10
+      });
+    }
+  };
+
+  const onScroll = async () => {
+    if (listInnerRef.current) {
+      const { scrollTop } = listInnerRef.current;
+      if (scrollTop === 0) {
+        let content = listInnerRef.current;
+        let curScrollPos = content.scrollTop;
+        let oldScroll = content.scrollHeight - content.clientHeight;
+
+        await getChatCall();
+
+        let newScroll = content.scrollHeight - content.clientHeight;
+        content.scrollTop = curScrollPos + (newScroll - oldScroll);
+      }
+    }
+  };
+
   useEffect(() => {
     (async function () {
       // only run this hook when there's a descryted key availabe in storage
       if (!decryptedPgpPvtKey) {
         return;
       }
-      await historyMessages({ threadHash, chatId: selectedChatId, limit: 10 });
+      await getChatCall();
     })();
-  }, [historyMessages, decryptedPgpPvtKey, threadHash, selectedChatId]);
-
-  useEffect(() => {
-    if (!rawChats || !rawChats.size) {
-      return;
-    }
-    console.log({ connectedProfile });
-    console.log({ rawChats });
-    console.log({ key: Array.from(rawChats.values()) });
-    const mappedChats = Array.from(rawChats.values())?.[0]?.map((oneRawChat) => {
-      return {
-        position: oneRawChat.fromDID === connectedProfile?.did ? 1 : -1,
-        content: oneRawChat.messageContent,
-        type: oneRawChat.messageType.toLowerCase(),
-        timestamp: parseDate(oneRawChat.timestamp!),
-        time: moment(oneRawChat.timestamp).format('hh:mm')
-      };
-    });
-    console.log(mappedChats);
-    const groupedChats = groupChatByTimestamp(mappedChats);
-    setChats(groupedChats);
-  }, [rawChats, connectedProfile]);
+  }, [decryptedPgpPvtKey, selectedChat, selectedChatId]);
 
   const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
   const appendGIF = (emojiObject: GIFType) => {
@@ -131,32 +157,28 @@ export default function MessageBody() {
 
   return (
     <section className="h-full	p-5 pb-3">
-      <div className="h-[85%] max-h-[85%] overflow-scroll">
-        {Object.entries(chats).map(([timestamp, chats], index) => (
-          <section key={index} className="mb-6 mt-2">
-            <p className="mb-4 text-center text-sm text-gray-400">{timestamp}</p>
-            <div className="flex flex-col gap-2.5">
-              {chats.map((chat, index) =>
-                chat.position !== 1 ? (
-                  <div
-                    key={index}
-                    className="relative w-fit max-w-[80%] rounded-xl rounded-tl-sm border py-3 pl-4 pr-[50px] font-medium"
-                  >
-                    <p className="text-sm	">{chat.content}</p>
-                    <span className="absolute bottom-1.5	right-1.5 text-xs text-gray-500">{chat.time}</span>
-                  </div>
-                ) : (
-                  <div
-                    key={index}
-                    className="relative w-fit	max-w-[80%] self-end rounded-xl rounded-tr-sm border bg-violet-500 py-3 pl-4 pr-[50px] font-medium"
-                  >
-                    <p className="text-sm	text-white">{chat.content}</p>
-                    <span className="absolute bottom-1.5	right-1.5 text-xs text-white">{chat.time}</span>
-                  </div>
-                )
-              )}
-              {/* uncomment when gifs are implemented */}
-              {/* <div className="relative w-fit rounded-xl rounded-tl-sm border">
+      <div className="h-[85%] max-h-[85%] overflow-scroll " ref={listInnerRef} onScroll={onScroll}>
+        <div className="flex flex-col gap-2.5">
+          {chats.get(selectedChatId)?.messages.map((chat: IMessageIPFS, index: number) => (
+            <Messages chat={chat} key={index} />
+          ))}
+          {requestFeedids.includes(selectedChatId) && (
+            <div className="relative">
+              <div className="absolute top-8 flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
+                <div className="text-sm font-normal">
+                  This is your first conversation with the sender. Please accept to continue.
+                </div>
+                <Image
+                  className="h-12 cursor-pointer"
+                  onClick={handleApprovechatRequest}
+                  src="/push/CheckCircle.svg"
+                  alt="check"
+                />
+              </div>
+            </div>
+          )}
+          {/* uncomment when gifs are implemented */}
+          {/* <div className="relative w-fit rounded-xl rounded-tl-sm border">
                 <Image
                   className="font-medium0 relative w-fit rounded-xl rounded-tl-sm border"
                   src={gifSample.url}
@@ -164,32 +186,10 @@ export default function MessageBody() {
                 />
                 <Image className="absolute right-2.5 top-2.5" src="/push/giticon.svg" alt="" />
               </div> */}
-            </div>
-          </section>
-        ))}
-        {!loading ? (
-          requestFeedids.includes(selectedChatId) &&
-          Object.keys(requestsFeed).map((id: string) => {
-            return (
-              <div className="relative" key={id}>
-                <div className="absolute top-8 flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
-                  <div className="text-sm font-normal">
-                    This is your first conversation with the sender. Please accept to continue.
-                  </div>
-                  <Image
-                    className="h-12 cursor-pointer"
-                    onClick={handleApprovechatRequest}
-                    src="/push/CheckCircle.svg"
-                    alt="check"
-                  />
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <div className="flex h-full items-center justify-center">Loading...</div>
-        )}
+        </div>
       </div>
+
+      {/* typebar  design */}
       <div className="relative mt-2">
         <Image
           onClick={() => setEmojiOpen((o) => !o)}

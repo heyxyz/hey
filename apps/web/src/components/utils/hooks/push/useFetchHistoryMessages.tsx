@@ -17,6 +17,7 @@ const useGetHistoryMessages = () => {
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
+  const chats = usePushChatStore((state) => state.chats);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const addChat = usePushChatStore((state) => state.addChat);
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
@@ -41,9 +42,18 @@ const useGetHistoryMessages = () => {
           limit: limit,
           env: PUSH_ENV
         });
+        chatHistory.sort((a, b) => {
+          return a.timestamp! > b.timestamp! ? 1 : -1;
+        });
+        if (chats.get(chatId)) {
+          addChat(chatId, {
+            messages: [...chatHistory, ...chats.get(chatId)!.messages],
+            lastThreadHash: chatHistory[0].link
+          });
+        } else {
+          addChat(chatId, { messages: chatHistory, lastThreadHash: chatHistory[0].link });
+        }
         setLoading(false);
-        console.log({ chatHistory });
-        addChat(chatId, chatHistory);
         return chatHistory;
       } catch (error: Error | any) {
         setLoading(false);
@@ -51,7 +61,7 @@ const useGetHistoryMessages = () => {
         console.log(error);
       }
     },
-    [decryptedPgpPvtKey]
+    [decryptedPgpPvtKey, chats]
   );
   return { historyMessages, error, loading };
 };
