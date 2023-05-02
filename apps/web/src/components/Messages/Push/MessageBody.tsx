@@ -1,10 +1,13 @@
+import useApproveChatRequest from '@components/utils/hooks/push/useApproveChatRequest';
 import useGetHistoryMessages from '@components/utils/hooks/push/useFetchHistoryMessages';
 import EmojiPicker from 'emoji-picker-react';
 import GifPicker from 'gif-picker-react';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { usePushChatStore } from 'src/store/push-chat';
+import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image, Input } from 'ui';
+
+import { getCAIPFromLensID } from './helper';
 
 type GIFType = {
   url: String;
@@ -46,14 +49,42 @@ export default function MessageBody() {
   const rawChats = usePushChatStore((state) => state.chats);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
-
+  const setActiveTab = usePushChatStore((state) => state.setActiveTab);
   const threadHash = usePushChatStore((state) => state.threadHash);
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
+  const requestsFeed = usePushChatStore((state) => state.requestsFeed);
+  const setRequestsFeed = usePushChatStore((state) => state.setRequestsFeed);
+  const chatFeed = usePushChatStore((state) => state.chatsFeed);
+  const setChatfeed = usePushChatStore((state) => state.setChatsFeed);
   const [chats, setChats] = useState<Record<string, Array<ChatType>>>({});
-
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const { historyMessages, loading } = useGetHistoryMessages();
+  const { approveChatRequest, error } = useApproveChatRequest();
+  const requestFeedids = Object.keys(requestsFeed);
+  const handleApprovechatRequest = async () => {
+    console.log(getCAIPFromLensID(selectedChatId));
+    if (selectedChatId) {
+      try {
+        const response = await approveChatRequest({ senderAddress: getCAIPFromLensID(selectedChatId) });
+        if (response) {
+          const updatedRequestsfeed = { ...requestsFeed };
+          const selectedRequest = updatedRequestsfeed[selectedChatId];
+          delete updatedRequestsfeed[selectedChatId];
+          setRequestsFeed(updatedRequestsfeed);
+
+          const chatLe = { ...chatFeed };
+          chatLe[selectedChatId] = selectedRequest;
+          setChatfeed(chatLe);
+          setActiveTab(PUSH_TABS.CHATS);
+        }
+      } catch (error_: Error | any) {
+        console.log(error_.message);
+      }
+    } else {
+      return;
+    }
+  };
 
   useEffect(() => {
     (async function () {
@@ -136,6 +167,28 @@ export default function MessageBody() {
             </div>
           </section>
         ))}
+        {!loading ? (
+          requestFeedids.includes(selectedChatId) &&
+          Object.keys(requestsFeed).map((id: string) => {
+            return (
+              <div className="relative" key={id}>
+                <div className="absolute top-8 flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
+                  <div className="text-sm font-normal">
+                    This is your first conversation with the sender. Please accept to continue.
+                  </div>
+                  <Image
+                    className="h-12 cursor-pointer"
+                    onClick={handleApprovechatRequest}
+                    src="/push/CheckCircle.svg"
+                    alt="check"
+                  />
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="flex h-full items-center justify-center">Loading...</div>
+        )}
       </div>
       <div className="relative mt-2">
         <Image
