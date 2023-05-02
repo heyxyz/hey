@@ -33,7 +33,7 @@ export default function PUSHPreviewChats() {
       }
       await fetchChats();
     })();
-  }, [chatsFeed, decryptedPgpPvtKey, fetchChats]);
+  }, [decryptedPgpPvtKey, fetchChats]);
 
   // action for when you click on a chat
   const onChatFeedClick = (chatId: string) => {

@@ -105,7 +105,7 @@ const PUSHPreview = () => {
       }
       await fetchRequests();
     })();
-  }, [requestsFeed, decryptedPgpPvtKey, fetchRequests]);
+  }, [decryptedPgpPvtKey, fetchRequests]);
 
   useEffect(() => {
     //set selected chat preview
