@@ -8,6 +8,8 @@ import React from 'react';
 import { usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
+import { PreviewMessage } from './PUSHPreviewChats';
+
 export default function PUSHPreviewChats() {
   const router = useRouter();
 
@@ -49,7 +51,7 @@ export default function PUSHPreviewChats() {
               <div className="flex w-full	justify-between	">
                 <div>
                   <p className="bold max-w-[180px] truncate text-base">{formatHandle(lensProfile?.handle)}</p>
-                  <p className="text-sm text-gray-500	">{feed.msg.messageContent}</p>
+                  <PreviewMessage content={feed.msg.messageContent} messageType={feed.msg.messageType} />
                 </div>
                 <div>
                   <span className="text-xs text-gray-500">{moment(feed.msg.timestamp).fromNow()}</span>
