@@ -7,13 +7,12 @@
     },
     "lint": { "outputs": [] },
     "lint:fix": { "outputs": [] },
+    "prettier": { "outputs": [] },
+    "prettier:fix": { "outputs": [] },
     "typecheck": { "outputs": [] },
     "codegen": { "outputs": [] },
     "extract": { "outputs": [] },
-    "worker:deploy": {
-      "outputs": [],
-      "cache": false
-    },
+    "worker:deploy": { "outputs": [], "cache": false },
     "dev": { "cache": false },
     "start": { "cache": false },
     "test:dev": { "cache": false },
