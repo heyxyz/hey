@@ -12,6 +12,7 @@ import Delete from './Delete';
 import Embed from './Embed';
 import Permalink from './Permalink';
 import Report from './Report';
+import Translate from './Translate';
 
 interface PublicationMenuProps {
   publication: Publication;
@@ -48,6 +49,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           )}
           <Embed publication={publication} />
           <Permalink publication={publication} />
+          <Translate publication={publication} />
         </Menu.Items>
       </MenuTransition>
     </Menu>
