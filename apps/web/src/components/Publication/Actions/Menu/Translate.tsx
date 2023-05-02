@@ -1,11 +1,10 @@
 import { Menu } from '@headlessui/react';
-import { GlobeAltIcon } from '@heroicons/react/outline';
-import { getPrimaryLanguage } from '@lib/i18n';
+import { TranslateIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
+import Link from 'next/link';
 import type { FC } from 'react';
 
 interface TranslateProps {
@@ -13,18 +12,15 @@ interface TranslateProps {
 }
 
 const Translate: FC<TranslateProps> = ({ publication }) => {
-  const { i18n } = useLingui();
-
-  const getGoogleTranslateUrl = (srcText: string): string => {
-    const primaryLocale = getPrimaryLanguage(i18n.locale);
-    const locale = primaryLocale === 'zh' ? 'zh-CN' : primaryLocale;
-    const srcTextEnc = encodeURIComponent(srcText);
-    return `https://translate.google.com/?sl=auto&tl=${locale}&text=${srcTextEnc}&op=translate`;
+  const getGoogleTranslateUrl = (text: string): string => {
+    return encodeURI(
+      `https://translate.google.com/#auto|en|${encodeURIComponent(text)}`
+    );
   };
 
   return (
     <Menu.Item
-      as="a"
+      as={Link}
       className={({ active }) =>
         clsx(
           { 'dropdown-active': active },
@@ -38,7 +34,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       target="_blank"
     >
       <div className="flex items-center space-x-2">
-        <GlobeAltIcon className="h-4 w-4" />
+        <TranslateIcon className="h-4 w-4" />
         <div>
           <Trans>Translate</Trans>
         </div>
