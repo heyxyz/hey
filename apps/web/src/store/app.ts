@@ -28,8 +28,6 @@ interface AppPersistState {
   setStaffMode: (staffMode: boolean) => void;
   modMode: boolean;
   setModMode: (modMode: boolean) => void;
-  notificationCount: number;
-  setNotificationCount: (notificationCount: number) => void;
 }
 
 export const useAppPersistStore = create(
@@ -40,10 +38,7 @@ export const useAppPersistStore = create(
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       modMode: false,
-      setModMode: (modMode) => set(() => ({ modMode })),
-      notificationCount: 0,
-      setNotificationCount: (notificationCount) =>
-        set(() => ({ notificationCount }))
+      setModMode: (modMode) => set(() => ({ modMode }))
     }),
     { name: Localstorage.LensterStore }
   )
