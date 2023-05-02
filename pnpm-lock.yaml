@@ -591,6 +591,9 @@ importers:
       '@graphql-codegen/typescript-react-apollo':
         specifier: ^3.3.6
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.6.0)
+      '@types/node':
+        specifier: ^18.16.3
+        version: 18.16.3
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
