@@ -3,6 +3,7 @@ import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
 import useGetMessagePreviews from '@components/utils/hooks/useGetMessagePreviews';
+import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import {
   MailIcon,
@@ -22,6 +23,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
+import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
 import {
@@ -44,9 +46,7 @@ const PreviewList: FC<PreviewListProps> = ({
 }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const addProfileAndSelectTab = useMessageStore(
-    (state) => state.addProfileAndSelectTab
-  );
+  const { persistProfile } = useMessageDb();
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
@@ -89,13 +89,17 @@ const PreviewList: FC<PreviewListProps> = ({
     Mixpanel.track(MESSAGES.OPEN_NEW_CONVERSATION);
   };
 
-  const onProfileSelected = (profile: Profile) => {
+  const onProfileSelected = async (profile: Profile) => {
     const conversationId = buildConversationId(currentProfile?.id, profile.id);
     const conversationKey = buildConversationKey(
       profile.ownedBy,
       conversationId
     );
-    addProfileAndSelectTab(conversationKey, profile);
+    await persistProfile(conversationKey, profile);
+    const selectedTab: TabValues = profile.isFollowedByMe
+      ? 'Following'
+      : 'Requested';
+    setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
     setShowSearchModal(false);
   };
