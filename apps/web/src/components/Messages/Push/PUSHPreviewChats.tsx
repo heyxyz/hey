@@ -8,6 +8,14 @@ import React, { useEffect } from 'react';
 import { usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
+const PreviewMessage = ({ messageType, content }: { messageType: string; content: string }) => {
+  if (messageType === 'GIF') {
+    return <Image className="right-2.5 top-2.5" src="/push/giticon.svg" alt="" />;
+  }
+
+  return <p className="text-sm text-gray-500">{content}</p>;
+};
+
 export default function PUSHPreviewChats() {
   const router = useRouter();
 
@@ -39,6 +47,7 @@ export default function PUSHPreviewChats() {
   const onChatFeedClick = (chatId: string) => {
     router.push(`/messages/push/chat/${chatId}`);
   };
+  console.log({ chatsFeed });
 
   return (
     <section className="flex flex-col	gap-2.5	">
@@ -68,7 +77,8 @@ export default function PUSHPreviewChats() {
               <div className="flex w-full	justify-between	">
                 <div>
                   <p className="bold max-w-[180px] truncate text-base">{formatHandle(lensProfile?.handle)}</p>
-                  <p className="text-sm text-gray-500	">{feed.msg.messageContent}</p>
+                  {/* <p className="text-sm text-gray-500	">{feed.msg.messageContent}</p> */}
+                  <PreviewMessage content={feed.msg.messageContent} messageType={feed.msg.messageType} />
                 </div>
                 <div>
                   <span className="text-xs text-gray-500">{moment(feed.msg.timestamp).fromNow()}</span>
