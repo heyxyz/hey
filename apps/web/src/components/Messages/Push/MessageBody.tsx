@@ -163,18 +163,16 @@ export default function MessageBody() {
             <Messages chat={chat} key={index} />
           ))}
           {requestFeedids.includes(selectedChatId) && (
-            <div className="relative">
-              <div className="absolute top-8 flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
-                <div className="text-sm font-normal">
-                  This is your first conversation with the sender. Please accept to continue.
-                </div>
-                <Image
-                  className="h-12 cursor-pointer"
-                  onClick={handleApprovechatRequest}
-                  src="/push/CheckCircle.svg"
-                  alt="check"
-                />
+            <div className="flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
+              <div className="text-sm font-normal">
+                This is your first conversation with the sender. Please accept to continue.
               </div>
+              <Image
+                className="h-12 cursor-pointer"
+                onClick={handleApprovechatRequest}
+                src="/push/CheckCircle.svg"
+                alt="check"
+              />
             </div>
           )}
           {/* uncomment when gifs are implemented */}
