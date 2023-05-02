@@ -8,9 +8,11 @@
     "build": "lingui compile; next build",
     "start": "next start --port 4783",
     "typecheck": "tsc --pretty --noEmit",
+    "extract": "lingui compile; lingui extract",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
-    "extract": "lingui compile; lingui extract"
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.321.1",
