@@ -3,13 +3,15 @@
  * @param url Snapshot proposal URL
  * @returns Snapshot proposal ID
  */
-const getSnapshotProposalId = (url: string): string | null => {
-  if (!url) {
+const getSnapshotProposalId = (url: string[]): string | null => {
+  const snapshotUrl = url.find((url) => url.includes('snapshot.org/#/'));
+
+  if (!snapshotUrl) {
     return null;
   }
 
   try {
-    const parsedUrl = new URL(url);
+    const parsedUrl = new URL(snapshotUrl);
     if (parsedUrl.host !== 'snapshot.org') {
       return null;
     }
