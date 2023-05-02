@@ -8,7 +8,9 @@
     "codegen": "graphql-codegen",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx"
+    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
     "@apollo/client": "^3.7.13",
