@@ -37,13 +37,13 @@ interface IPushChatStore {
   setActiveTab: (tabName: PushTabs) => void;
   chats: Map<string, ChatMessagetype>; // chatId -> chat messages array
   setChats: (chats: Map<string, ChatMessagetype>) => void;
-  addChat: (key: string, newChat: ChatMessagetype) => void;
+  setChat: (key: string, newChat: ChatMessagetype) => void;
   chatsFeed: { [key: string]: IFeeds }; // chatId -> feed obj
   setChatsFeed: (chatsFeed: { [key: string]: IFeeds }) => void;
-  addChatFeed: (id: string, newChatFeed: IFeeds) => void;
+  setChatFeed: (id: string, newChatFeed: IFeeds) => void;
   requestsFeed: { [key: string]: IFeeds }; // requestId -> feed obj
   setRequestsFeed: (requestsFeed: { [key: string]: IFeeds }) => void;
-  addRequestFeed: (id: string, newRequestFeed: IFeeds) => void;
+  setRequestFeed: (id: string, newRequestFeed: IFeeds) => void;
   lensProfiles: Map<string, Profile>;
   setLensProfiles: (lensProfiles: Map<string, Profile>) => void;
   reset: () => void;
@@ -80,7 +80,7 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   setActiveTab: (activeTab) => set(() => ({ activeTab })),
   chats: new Map(),
   setChats: (chats) => set(() => ({ chats })),
-  addChat: (key: string, newChat: ChatMessagetype) => {
+  setChat: (key: string, newChat: ChatMessagetype) => {
     set((state) => {
       const chats = new Map(state.chats);
       chats.set(key, newChat);
@@ -89,7 +89,7 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   },
   chatsFeed: {} as { [key: string]: IFeeds },
   setChatsFeed: (chatsFeed) => set(() => ({ chatsFeed })),
-  addChatFeed: (id: string, newChatFeed: IFeeds) => {
+  setChatFeed: (id: string, newChatFeed: IFeeds) => {
     set((state) => {
       const chatsFeed = { ...state.chatsFeed, [id]: newChatFeed };
       return { chatsFeed };
@@ -97,7 +97,7 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   },
   requestsFeed: {} as { [key: string]: IFeeds },
   setRequestsFeed: (requestsFeed) => set(() => ({ requestsFeed })),
-  addRequestFeed: (id: string, newRequestFeed: IFeeds) => {
+  setRequestFeed: (id: string, newRequestFeed: IFeeds) => {
     set((state) => {
       const requestsFeed = { ...state.requestsFeed, [id]: newRequestFeed };
       return { requestsFeed };

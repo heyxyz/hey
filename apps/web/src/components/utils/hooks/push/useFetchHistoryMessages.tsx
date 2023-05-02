@@ -19,7 +19,7 @@ const useGetHistoryMessages = () => {
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const chats = usePushChatStore((state) => state.chats);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const addChat = usePushChatStore((state) => state.addChat);
+  const setChat = usePushChatStore((state) => state.setChat);
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const historyMessages = useCallback(
@@ -46,12 +46,12 @@ const useGetHistoryMessages = () => {
           return a.timestamp! > b.timestamp! ? 1 : -1;
         });
         if (chats.get(chatId)) {
-          addChat(chatId, {
+          setChat(chatId, {
             messages: [...chatHistory, ...chats.get(chatId)!.messages],
             lastThreadHash: chatHistory[0].link
           });
         } else {
-          addChat(chatId, { messages: chatHistory, lastThreadHash: chatHistory[0].link });
+          setChat(chatId, { messages: chatHistory, lastThreadHash: chatHistory[0].link });
         }
         setLoading(false);
         return chatHistory;
