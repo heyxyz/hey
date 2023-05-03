@@ -24,7 +24,7 @@ export type ParsedChatType = {
   threadHash: string;
 };
 
-type ChatTypes = (typeof CHAT_TYPES)[keyof typeof CHAT_TYPES];
+export type ChatTypes = (typeof CHAT_TYPES)[keyof typeof CHAT_TYPES];
 type PushTabs = (typeof PUSH_TABS)[keyof typeof PUSH_TABS];
 
 type ChatMessagetype = { messages: IMessageIPFS[]; lastThreadHash: string | null };

@@ -20,6 +20,7 @@ export default function PUSHPreviewChats() {
 
   // action for when you click on a chat
   const onChatFeedClick = (chatId: string) => {
+    console.log('in here');
     router.push(`/messages/push/chat/${chatId}`);
   };
 

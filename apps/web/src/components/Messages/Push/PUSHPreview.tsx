@@ -22,6 +22,7 @@ const PUSHPreview = () => {
   const resetPushChatStore = usePushChatStore((state) => state.resetPushChatStore);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const activeTab = usePushChatStore((state) => state.activeTab);
+  const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
   const showCreateChatProfileModal = usePushChatStore((state) => state.showCreateChatProfileModal);
@@ -102,7 +103,14 @@ const PUSHPreview = () => {
   useEffect(() => {
     //set selected chat preview
     //find in inbox or reuqests  or new chat and switch tab as per that and set css for selected chat
-  }, [selectedChatId, selectedChatType]);
+    if (chatsFeed.hasOwnProperty(selectedChatId)) {
+      setActiveTab(PUSH_TABS.CHATS);
+    }
+    if (requestsFeed.hasOwnProperty(selectedChatId)) {
+      console.log(activeTab);
+      setActiveTab(PUSH_TABS.REQUESTS);
+    }
+  }, [selectedChatId, selectedChatType, requestsFeed, chatsFeed]);
 
   useEffect(() => {
     if (connectedProfile && connectedProfile.did && currentProfile?.id) {
