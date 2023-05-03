@@ -37,18 +37,19 @@ const useUpgradeChatProfile = () => {
   const { createChatProfile } = useCreateChatProfile();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
+  const setConnectedProfile = usePushChatStore((state) => state.setConnectedProfile);
   const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
   const [step, setStep] = useState<number>(1);
   const [modalClosable, setModalClosable] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [modalInfo, setModalInfo] = useState<modalInfoType>(initModalInfo);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setStep(1);
-    setModalClosable(false);
+    setModalClosable(true);
     setPassword('');
     setModalInfo(initModalInfo);
-  };
+  }, []);
 
   const handleProgress = useCallback(
     (progress: ProgressHookType) => {
@@ -74,11 +75,8 @@ const useUpgradeChatProfile = () => {
   );
 
   const initiateProcess = useCallback(() => {
-    setModalInfo(initModalInfo);
-    setStep(1);
-    setPassword('');
-    setModalClosable(false);
-  }, [setModalClosable, setModalInfo, setStep]);
+    reset();
+  }, [reset]);
 
   const handleContinue: handleSetPassFunc = useCallback(async () => {
     if (!signer || !currentProfile || !connectedProfile) {
@@ -86,14 +84,17 @@ const useUpgradeChatProfile = () => {
     }
 
     try {
-      await PushAPI.user.upgrade({
+      const response = await PushAPI.user.upgrade({
         signer: signer,
         additionalMeta: { password: password },
         account: connectedProfile?.did,
         progressHook: handleProgress,
         env: PUSH_ENV
       });
-      setStep(2);
+
+      if (response) {
+        setConnectedProfile(response);
+      }
     } catch (error) {
       console.log(error);
       // handle error here
@@ -102,7 +103,15 @@ const useUpgradeChatProfile = () => {
         initiateProcess();
       }, timeout);
     }
-  }, [signer, currentProfile, connectedProfile, password, handleProgress, initiateProcess]);
+  }, [
+    signer,
+    currentProfile,
+    connectedProfile,
+    password,
+    handleProgress,
+    setConnectedProfile,
+    initiateProcess
+  ]);
 
   const upgradeChatProfile = useCallback(async () => {
     initiateProcess();

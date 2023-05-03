@@ -33,6 +33,7 @@ const initModalInfo: modalInfoType = {
 const useCreateChatProfile = () => {
   const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setConnectedProfile = usePushChatStore((state) => state.setConnectedProfile);
   const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
   const [step, setStep] = useState<number>(1);
   const [modalClosable, setModalClosable] = useState<boolean>(true);
@@ -62,12 +63,16 @@ const useCreateChatProfile = () => {
     [setShowCreateChatProfileModal]
   );
 
-  const initiateProcess = useCallback(() => {
+  const reset = useCallback(() => {
     setStep(1);
     setModalInfo(initModalInfo);
     setPassword('');
     setModalClosable(true);
   }, []);
+
+  const initiateProcess = useCallback(() => {
+    reset();
+  }, [reset]);
 
   const handleSetPassword: handleSetPassFunc = useCallback(async () => {
     if (!signer || !currentProfile) {
@@ -75,14 +80,16 @@ const useCreateChatProfile = () => {
     }
 
     try {
-      await PushAPI.user.create({
+      const response = await PushAPI.user.create({
         signer: signer,
         additionalMeta: { password: password },
         account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
         progressHook: handleProgress,
         env: PUSH_ENV
       });
-      setStep(2);
+      if (response) {
+        setConnectedProfile(response);
+      }
     } catch (error) {
       console.log(error);
       // handle error here
@@ -91,7 +98,7 @@ const useCreateChatProfile = () => {
         initiateProcess();
       }, timeout);
     }
-  }, [currentProfile, handleProgress, initiateProcess, password, signer]);
+  }, [currentProfile, handleProgress, initiateProcess, password, setConnectedProfile, signer]);
 
   const createChatProfile = useCallback(async () => {
     initiateProcess();

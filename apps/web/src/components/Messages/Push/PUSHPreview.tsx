@@ -8,7 +8,8 @@ import useUpgradeChatProfile from '@components/utils/hooks/push/useUpgradeChatPr
 import { Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import router from 'next/router';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useAppStore } from 'src/store/app';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Card, Modal } from 'ui';
 import * as wagmi from 'wagmi';
@@ -19,9 +20,10 @@ import PUSHPreviewRequests from './PUSHPreviewRequest';
 const PUSHPreview = () => {
   const { data: signer } = wagmi.useSigner();
   const { fetchChatProfile } = useGetChatProfile();
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const activeTab = usePushChatStore((state) => state.activeTab);
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
-  const setPgpPrivateKey = usePushChatStore((state) => state.setPgpPrivateKey);
   const showCreateChatProfileModal = usePushChatStore((state) => state.showCreateChatProfileModal);
   const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
   const showUpgradeChatProfileModal = usePushChatStore((state) => state.showUpgradeChatProfileModal);
@@ -54,44 +56,34 @@ const PUSHPreview = () => {
   // connect Push CHAT Socket
   usePushChatSocket();
 
-  const decryptAndUpgrade = useCallback(
-    async (encryptedPvtKey: string) => {
-      const { decryptedKey, error } = await decryptKey({ encryptedText: encryptedPvtKey });
-      if (decryptedKey) {
-        setPgpPrivateKey({ decrypted: decryptedKey });
-      } else if (typeof error === 'string' && error?.includes('OperationError')) {
-        setShowDecryptionModal(false);
-        await upgradeChatProfile();
-        // eslint-disable-next-line no-use-before-define
-        // connectProfile();
-      } else {
-        console.log(error);
-        const time = 3000;
-        setTimeout(() => {
-          decryptAndUpgrade(encryptedPvtKey);
-        }, time);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [decryptKey, setPgpPrivateKey, setShowDecryptionModal, upgradeChatProfile]
-  );
-
-  const connectProfile = useCallback(async () => {
-    const connectedProfile = await fetchChatProfile();
-    if (connectedProfile && connectedProfile.encryptedPrivateKey) {
-      setPgpPrivateKey({ encrypted: connectedProfile.encryptedPrivateKey });
-      const encryptedPvtKey = connectedProfile.encryptedPrivateKey;
-      decryptAndUpgrade(encryptedPvtKey);
-    }
-  }, [decryptAndUpgrade, fetchChatProfile, setPgpPrivateKey]);
   const { fetchRequests } = useFetchRequests();
 
   useEffect(() => {
-    if (!signer) {
+    if (!currentProfile) {
       return;
     }
-    connectProfile();
-  }, [connectProfile, signer]);
+
+    const connectPushChatProfile = async () => {
+      if (!connectedProfile) {
+        await fetchChatProfile();
+        return;
+      }
+      if (decryptedPgpPvtKey) {
+        return;
+      }
+      if (connectedProfile && connectedProfile?.encryptedPrivateKey && connectedProfile?.nftOwner) {
+        const nftProfileOwnerAddress = connectedProfile.nftOwner.split(':')[1];
+        const { ownedBy } = currentProfile;
+        if (ownedBy.toLowerCase() === nftProfileOwnerAddress.toLocaleLowerCase()) {
+          await decryptKey({ encryptedText: connectedProfile?.encryptedPrivateKey });
+        } else {
+          await upgradeChatProfile();
+        }
+      }
+    };
+    connectPushChatProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connectedProfile, currentProfile]);
 
   useEffect(() => {
     if (Object.keys(requestsFeed).length) {

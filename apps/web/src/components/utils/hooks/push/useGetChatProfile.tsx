@@ -7,11 +7,13 @@ import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 
 const useGetChatProfile = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const setConnectedProfile = usePushChatStore((state) => state.setConnectedProfile);
+  const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
+
+  const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const fetchChatProfile = useCallback(async (): Promise<PushAPI.IUser | undefined> => {
-    if (!currentProfile || connectedProfile) {
+    if (!currentProfile || decryptedPgpPvtKey) {
       return;
     }
     try {
@@ -25,7 +27,7 @@ const useGetChatProfile = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [connectedProfile, currentProfile, setConnectedProfile]);
+  }, [currentProfile, decryptedPgpPvtKey, setConnectedProfile]);
 
   return { fetchChatProfile };
 };

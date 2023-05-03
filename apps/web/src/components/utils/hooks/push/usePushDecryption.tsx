@@ -20,21 +20,25 @@ interface decryptKeyParams {
   additionalMeta?: { password?: string };
 }
 
+type modalInfoType = {
+  title: string;
+  info: string;
+  type: string;
+};
+const initModalInfo: modalInfoType = {
+  title: '',
+  info: '',
+  type: ''
+};
+
 const usePushDecryption = () => {
   const { data: signer } = useSigner();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
   const [step, setStep] = useState<number>(0);
   const [modalClosable, setModalClosable] = useState<boolean>(true);
-  const [modalInfo, setModalInfo] = useState<{
-    title: string;
-    info: string;
-    type: string;
-  }>({
-    title: '',
-    info: '',
-    type: ''
-  });
+  const [modalInfo, setModalInfo] = useState<modalInfoType>(initModalInfo);
+  const setPgpPrivateKey = usePushChatStore((state) => state.setPgpPrivateKey);
 
   const handleProgress = useCallback(
     (progress: ProgressHookType) => {
@@ -59,6 +63,12 @@ const usePushDecryption = () => {
     [setShowDecryptionModal, setModalInfo]
   );
 
+  const reset = useCallback(() => {
+    setStep(0);
+    setModalInfo(initModalInfo);
+    setModalClosable(true);
+  }, []);
+
   const decryptKey = useCallback(
     async ({
       encryptedText,
@@ -67,8 +77,7 @@ const usePushDecryption = () => {
       decryptedKey?: string | undefined;
       error?: string | undefined;
     }> => {
-      setStep(0);
-      setModalClosable(true);
+      reset();
       setShowDecryptionModal(true);
       if (!currentProfile || !signer) {
         return { decryptedKey: undefined, error: undefined };
@@ -87,6 +96,7 @@ const usePushDecryption = () => {
         if (!response) {
           return { decryptedKey: undefined, error: undefined };
         }
+        setPgpPrivateKey({ decrypted: response });
         return { decryptedKey: response, error: undefined };
       } catch (error: Error | any) {
         console.log(error);
@@ -94,7 +104,7 @@ const usePushDecryption = () => {
         return { decryptedKey: undefined, error: error.message };
       }
     },
-    [currentProfile, handleProgress, setShowDecryptionModal, signer]
+    [currentProfile, handleProgress, reset, setShowDecryptionModal, signer]
   );
 
   let modalContent: JSX.Element;
