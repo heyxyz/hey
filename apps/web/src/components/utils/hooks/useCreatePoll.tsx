@@ -13,19 +13,23 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
   );
 
   const createPoll = async (): Promise<CreatePollResponse> => {
-    const response = await axios({
-      url: `${SNAPSHOR_RELAY_WORKER_URL}/createPoll`,
-      method: 'POST',
-      data: {
-        isMainnet: IS_MAINNET,
-        title: `Poll by @${currentProfile?.handle}`,
-        description: publicationContent,
-        choices: pollConfig.choices,
-        length: pollConfig.length
-      }
-    });
+    try {
+      const response = await axios({
+        url: `${SNAPSHOR_RELAY_WORKER_URL}/createPoll`,
+        method: 'POST',
+        data: {
+          isMainnet: IS_MAINNET,
+          title: `Poll by @${currentProfile?.handle}`,
+          description: publicationContent,
+          choices: pollConfig.choices,
+          length: pollConfig.length
+        }
+      });
 
-    return response.data.snapshotUrl;
+      return `${publicationContent}\n\n${response.data.snapshotUrl}`;
+    } catch (error) {
+      throw error;
+    }
   };
 
   return [createPoll];
