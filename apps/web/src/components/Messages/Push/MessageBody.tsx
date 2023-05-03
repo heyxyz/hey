@@ -178,6 +178,11 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
       )}
       <Input
         onChange={(e) => setInputText(e.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
+            sendTextMsg();
+          }
+        }}
         value={inputText}
         className="pl-11 pr-[115px]"
         type="text"
