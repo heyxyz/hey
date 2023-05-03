@@ -50,7 +50,7 @@ export default function PUSHPreviewChats() {
   console.log({ chatsFeed });
 
   return (
-    <section className="flex overflow-auto flex-col	gap-2.5	">
+    <section className="flex flex-col gap-2.5	overflow-auto	">
       {!loading ? (
         Object.keys(chatsFeed).map((id: string) => {
           const feed = chatsFeed[id];

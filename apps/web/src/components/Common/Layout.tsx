@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { usePushChatStore } from 'src/store/push-chat';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
@@ -43,6 +44,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setIsPro = useAppStore((state) => state.setIsPro);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const resetPushChatStore = usePushChatStore((state) => state.resetPushChatStore);
 
   const { mounted } = useIsMounted();
   const { address } = useAccount();
@@ -90,6 +92,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     if (shouldLogout && profileId) {
       disconnectXmtp();
       resetAuthState();
+      resetPushChatStore();
       resetAuthData();
       disconnect?.();
     }

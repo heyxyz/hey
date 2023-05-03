@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { usePushChatStore } from 'src/store/push-chat';
 import { PAGEVIEW } from 'src/tracking';
 import { Button, Card, GridItemEight, GridItemFour, GridLayout, Modal, Spinner, WarningMessage } from 'ui';
 import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
@@ -30,6 +31,7 @@ const DeleteSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const resetPushChatStore = usePushChatStore((state) => state.resetPushChatStore);
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
@@ -42,6 +44,7 @@ const DeleteSettings: FC = () => {
     setCurrentProfile(null);
     setProfileId(null);
     disconnectXmtp();
+    resetPushChatStore();
     resetAuthData();
     disconnect?.();
     location.href = '/';

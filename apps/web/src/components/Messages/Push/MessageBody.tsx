@@ -300,11 +300,7 @@ export default function MessageBody() {
 
   return (
     <section className="flex h-[90%] flex-col p-5 pb-3">
-      <div
-        className="flex-grow overflow-auto px-2.5"
-        ref={listInnerRef}
-        onScroll={onScroll}
-      >
+      <div className="flex-grow overflow-auto px-2.5" ref={listInnerRef} onScroll={onScroll}>
         {loading ? (
           <div className="flex justify-center">
             <Spinner size="sm" />

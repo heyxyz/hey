@@ -46,7 +46,7 @@ interface IPushChatStore {
   setRequestFeed: (id: string, newRequestFeed: IFeeds) => void;
   lensProfiles: Map<string, Profile>;
   setLensProfiles: (lensProfiles: Map<string, Profile>) => void;
-  reset: () => void;
+  resetPushChatStore: () => void;
   selectedChatId: string;
   setSelectedChatId: (selectedChatId: string) => void;
   selectedChatType: ChatTypes | null;
@@ -152,7 +152,7 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   },
   pushChatSocket: null,
   setPushChatSocket: (pushChatSocket) => set(() => ({ pushChatSocket })),
-  reset: () =>
+  resetPushChatStore: () =>
     set((state) => {
       return {
         ...state,

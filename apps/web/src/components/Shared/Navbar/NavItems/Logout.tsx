@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import React from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { usePushChatStore } from 'src/store/push-chat';
 import { PROFILE } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
@@ -21,11 +22,13 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
 
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const resetPushChatStore = usePushChatStore((state) => state.resetPushChatStore);
 
   const logout = () => {
     Mixpanel.track(PROFILE.LOGOUT);
     disconnectXmtp();
     setCurrentProfile(null);
+    resetPushChatStore();
     setProfileId(null);
     resetAuthData();
     disconnect?.();
