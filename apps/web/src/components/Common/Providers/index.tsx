@@ -8,7 +8,11 @@ import {
   studioProvider
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { IS_MAINNET, LIVEPEER_TOKEN } from 'data/constants';
+import {
+  IS_MAINNET,
+  LIVEPEER_TOKEN,
+  WALLETCONNECT_PROJECT_ID
+} from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
 import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
@@ -17,7 +21,7 @@ import { useEffect } from 'react';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
-import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 import ErrorBoundary from '../ErrorBoundary';
@@ -33,7 +37,9 @@ const { chains, provider } = configureChains(
 const connectors = () => {
   return [
     new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-    new WalletConnectLegacyConnector({ chains, options: {} })
+    new WalletConnectConnector({
+      options: { projectId: WALLETCONNECT_PROJECT_ID }
+    })
   ];
 };
 
