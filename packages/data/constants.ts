@@ -76,6 +76,9 @@ export const METADATA_WORKER_URL = IS_PRODUCTION
 export const FRESHDESK_WORKER_URL = IS_PRODUCTION
   ? 'https://freshdesk.lenster.xyz'
   : 'http://localhost:8084';
+export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
+  ? 'https://snapshot-relay.lenster.xyz'
+  : 'http://localhost:8085';
 
 // Web3
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
