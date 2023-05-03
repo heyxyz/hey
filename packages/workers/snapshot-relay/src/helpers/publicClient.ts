@@ -1,9 +1,9 @@
 import { createPublicClient, http } from 'viem';
-import { polygonMumbai } from 'viem/chains';
+import { polygon, polygonMumbai } from 'viem/chains';
 
-const publicClient = (): any => {
+const publicClient = (isMainnet: boolean): any => {
   return createPublicClient({
-    chain: polygonMumbai,
+    chain: isMainnet ? polygon : polygonMumbai,
     transport: http()
   });
 };

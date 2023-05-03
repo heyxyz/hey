@@ -46,8 +46,8 @@ export default async (request: IRequest, env: Env) => {
     return missingKeysError;
   }
 
-  const client = walletClient(env.PROPOSAL_CREATOR_PRIVATE_KEY);
-  const block = await publicClient().getBlockNumber();
+  const client = walletClient(env.PROPOSAL_CREATOR_PRIVATE_KEY, isMainnet);
+  const block = await publicClient(isMainnet).getBlockNumber();
   const blockNumber = Number(block) - 10;
 
   const sequencerUrl = isMainnet

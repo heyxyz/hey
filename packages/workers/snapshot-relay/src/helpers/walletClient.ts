@@ -1,13 +1,13 @@
 import { createWalletClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
-import { polygon } from 'viem/chains';
+import { polygon, polygonMumbai } from 'viem/chains';
 
-const walletClient = (privateKey: string): any => {
+const walletClient = (privateKey: string, isMainnet: boolean): any => {
   const account = privateKeyToAccount(`0x${privateKey}`);
 
   return createWalletClient({
     account,
-    chain: polygon,
+    chain: isMainnet ? polygon : polygonMumbai,
     transport: http()
   });
 };
