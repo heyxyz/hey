@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { SNAPSHOT_URL } from 'data';
 import formatAddress from 'lib/formatAddress';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -11,7 +12,7 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ proposal }) => {
   const { id, title, space, state, author } = proposal;
-  const spaceUrl = `https://snapshot.org/#/${space?.id}`;
+  const spaceUrl = `${SNAPSHOT_URL}/#/${space?.id}`;
 
   return (
     <>
@@ -33,7 +34,7 @@ const Header: FC<HeaderProps> = ({ proposal }) => {
           {space?.name ?? space?.id}
         </Link>
         <span>by</span>
-        <Link href={`https://snapshot.org/#/profile/${author}`} target="_blank">
+        <Link href={`${SNAPSHOT_URL}/#/profile/${author}`} target="_blank">
           {formatAddress(author)}
         </Link>
       </div>
