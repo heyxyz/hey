@@ -54,7 +54,7 @@ export default async (request: IRequest, env: Env) => {
     : 'https://demo.snapshot.org';
   const relayerAddress = isMainnet
     ? '0x81aD96a4bAdE55b3Bfb1Ea84A597FCC6e5e3BEc1'
-    : '0xc1e2E5900733F07659965843555F8917c8F40abA';
+    : '0x4291Aa35b71342541816430B275582Ea8001077e';
   const relayerPrivateKey = isMainnet
     ? env.PROPOSAL_CREATOR_MAINNET_PRIVATE_KEY
     : env.PROPOSAL_CREATOR_TESTNET_PRIVATE_KEY;
