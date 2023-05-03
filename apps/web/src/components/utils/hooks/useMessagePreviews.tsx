@@ -213,7 +213,7 @@ const useMessagePreviews = () => {
     if (selectedProfileId && currentProfile?.id !== selectedProfileId) {
       reset();
       setSelectedProfileId(currentProfile?.id);
-      router.push('/messages');
+      router.push('/messages/xmtp');
     } else {
       setSelectedProfileId(currentProfile?.id);
     }

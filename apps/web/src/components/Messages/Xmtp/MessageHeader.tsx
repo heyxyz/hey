@@ -17,7 +17,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
   const [following, setFollowing] = useState(true);
 
   const onBackClick = () => {
-    router.push('/messages');
+    router.push('/messages/xmtp');
   };
 
   useEffect(() => {

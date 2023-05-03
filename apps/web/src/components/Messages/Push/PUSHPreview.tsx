@@ -12,14 +12,14 @@ import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Card, Modal } from 'ui';
-import * as wagmi from 'wagmi';
 
+import { getProfileFromDID } from './helper';
 import PUSHPreviewChats from './PUSHPreviewChats';
 import PUSHPreviewRequests from './PUSHPreviewRequest';
 
 const PUSHPreview = () => {
-  const { data: signer } = wagmi.useSigner();
   const { fetchChatProfile } = useGetChatProfile();
+  const reset = usePushChatStore((state) => state.reset);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const activeTab = usePushChatStore((state) => state.activeTab);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
@@ -104,6 +104,17 @@ const PUSHPreview = () => {
     //find in inbox or reuqests  or new chat and switch tab as per that and set css for selected chat
   }, [selectedChatId, selectedChatType]);
 
+  useEffect(() => {
+    if (connectedProfile && connectedProfile.did && currentProfile?.id) {
+      const selectedProfilePushId = getProfileFromDID(connectedProfile?.did);
+      if (selectedProfilePushId && currentProfile?.id !== selectedProfilePushId) {
+        reset();
+        router.push('/messages/push');
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile, connectedProfile]);
+
   const onProfileSelected = (profile: Profile) => {
     router.push(`/messages/push/chat/${profile.id}`);
   };
@@ -154,8 +165,6 @@ const PUSHPreview = () => {
         {activeTab === PUSH_TABS.REQUESTS && <PUSHPreviewRequests />}
         {/* sections for requests */}
       </Card>
-      <button onClick={createChatProfile}>Create Profile</button>
-      <button onClick={upgradeChatProfile}>Upgrade Profile</button>
       <Modal
         size="xs"
         show={showCreateChatProfileModal}

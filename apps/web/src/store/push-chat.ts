@@ -51,8 +51,6 @@ interface IPushChatStore {
   setSelectedChatId: (selectedChatId: string) => void;
   selectedChatType: ChatTypes | null;
   setSelectedChatType: (tabName: ChatTypes) => void;
-  threadHash: string;
-  setThreadHash: (threadHash: string) => void;
   showCreateChatProfileModal: boolean;
   setShowCreateChatProfileModal: (showCreateChatProfileModal: boolean) => void;
   showDecryptionModal: boolean;
@@ -109,8 +107,6 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
       lensProfiles:
         state.lensProfiles.size === 0 ? lensProfiles : new Map([...state.lensProfiles, ...lensProfiles])
     })),
-  threadHash: '',
-  setThreadHash: (threadHash: string) => set(() => ({ threadHash })),
   selectedChatId: '',
   selectedChatType: null,
   setSelectedChatId: (selectedChatId) => set(() => ({ selectedChatId })),
@@ -165,6 +161,11 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
         chatsFeed: {} as { [key: string]: IFeeds },
         requestsFeed: {} as { [key: string]: IFeeds },
         activeTab: PUSH_TABS.CHATS,
+        selectedChatId: '',
+        selectedChatType: null,
+        showCreateChatProfileModal: false,
+        showDecryptionModal: false,
+        showUpgradeChatProfileModal: false,
         password: {
           encrypted: null,
           decrypted: null

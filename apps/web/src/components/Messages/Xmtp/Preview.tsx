@@ -25,7 +25,7 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
 
   // @todo instead of hardcoding xmtp in the string below, use the provider converted to lowercase from the state
   const onConversationSelected = (profileId: string) => {
-    router.push(profileId ? `/messages/xmtp/${conversationKey}` : '/messages');
+    router.push(profileId ? `/messages/xmtp/${conversationKey}` : '/messages/xmtp');
   };
 
   return (

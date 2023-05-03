@@ -3,7 +3,7 @@ import { LENSHUB_PROXY } from 'data';
 import { CHAIN_ID } from 'src/constants';
 
 export const getProfileFromDID = (did: string) => {
-  return did.split(':').slice(-2, -1)[0];
+  return did?.split(':')?.slice(-2, -1)[0];
 };
 
 export const getCAIPFromLensID = (id: string) => {
