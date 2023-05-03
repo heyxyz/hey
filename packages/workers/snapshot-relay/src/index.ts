@@ -1,5 +1,6 @@
 import { createCors, error, Router } from 'itty-router';
 
+import createPoll from './handlers/createPoll';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
@@ -10,6 +11,8 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
+router.get('/', () => new Response('Snapshot Relay'));
+router.post('/createPoll', createPoll);
 
 export default {
   fetch: (request: Request, env: Env, context: ExecutionContext) =>
