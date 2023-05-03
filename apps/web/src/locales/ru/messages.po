@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-01 18:35\n"
+"PO-Revision-Date: 2023-05-03 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -79,7 +79,7 @@ msgstr "Сохранить"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access"
-msgstr ""
+msgstr "Доступ"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
@@ -87,7 +87,7 @@ msgstr "Настройки доступа"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
-msgstr ""
+msgstr "Добавить ограничения на то, кто может просматривать ваш контент, а кто нет. Например, можно ограничить доступ к вашим постам на условии владения определенными NFT или токенами."
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
@@ -211,7 +211,7 @@ msgstr "Загрузка GIF"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "GIF"
-msgstr ""
+msgstr "GIF"
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
@@ -219,11 +219,11 @@ msgstr "Выберите GIF"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length"
-msgstr ""
+msgstr "Продолжительность опроса"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length (days)"
-msgstr ""
+msgstr "Продолжительность опроса (дней)"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
@@ -233,16 +233,16 @@ msgstr "Удалить"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Choice {0}"
-msgstr ""
+msgstr "Выбор {0}"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Add another option"
-msgstr ""
+msgstr "Добавить еще один вариант"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Poll"
-msgstr ""
+msgstr "Опрос"
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My follows"
@@ -300,7 +300,7 @@ msgstr "Пожалуйста, выберите либо 1 видео, либо �
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
-msgstr ""
+msgstr "Задать вопрос..."
 
 #: src/components/Composer/Editor/index.tsx
 #: src/components/Composer/Post/New.tsx
@@ -544,7 +544,7 @@ msgstr "Обновить профиль"
 
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
-msgstr ""
+msgstr "Загружается предложенное"
 
 #: src/components/Home/Suggested.tsx
 msgid "Nothing to suggest"
@@ -668,7 +668,7 @@ msgstr "Сообщения • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
-msgstr ""
+msgstr "Не удалось загрузить ленту модерации"
 
 #: src/components/Mod/index.tsx
 msgid "Mod Center • {APP_NAME}"
@@ -693,7 +693,7 @@ msgstr "Комментарии"
 
 #: src/components/Mod/index.tsx
 msgid "Media filters"
-msgstr ""
+msgstr "Медиа фильтры"
 
 #: src/components/Mod/index.tsx
 msgid "Articles"
@@ -701,7 +701,7 @@ msgstr "Статьи"
 
 #: src/components/Mod/index.tsx
 msgid "Embeds"
-msgstr ""
+msgstr "Встраивания"
 
 #: src/components/Mod/index.tsx
 msgid "Links"
@@ -957,7 +957,7 @@ msgstr "<0>Файлы cookie</0>, небольшие данные, хранящ�
 
 #: src/components/Pages/Privacy.tsx
 msgid "<0>Public Information</0>, data from activity that is publicly visible and/or accessible on blockchains. This may include blockchain addresses and information regarding the NFTs in wallets."
-msgstr ""
+msgstr "<0>Публичная информация</0>, данные о деятельности, которая публично видна и/или доступна в блокчейне. Сюда могут входить адреса блокчейна и информация о NFT в кошельках."
 
 #: src/components/Pages/Privacy.tsx
 msgid "3. Use of Information"
@@ -965,7 +965,7 @@ msgstr "3. Использование информации"
 
 #: src/components/Pages/Privacy.tsx
 msgid "We may need to use it to operate and manage the Services on this Site (or other places), provide you support, ensure we comply with laws and regulation, and enforce the security of the Site or make other improvements."
-msgstr ""
+msgstr "Нам может понадобиться использовать его для работы и управления Услугами на этом Сайте (или в других местах), предоставления вам поддержки, обеспечения соблюдения законов и нормативных актов, обеспечения безопасности Сайта или внесения других улучшений."
 
 #: src/components/Pages/Privacy.tsx
 msgid "4. Third-Parties"
@@ -1045,19 +1045,19 @@ msgstr "Условия & Соглашения"
 
 #: src/components/Pages/Terms.tsx
 msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
-msgstr ""
+msgstr "Веб-сайт Lenster.xyz” (далее - ”Сайт”) предлагает вам информацию, инструменты и услуги, позволяющие вам взаимодействовать с Lens Protocol — компонуемым и децентрализованным протоколом социального графа."
 
 #: src/components/Pages/Terms.tsx
 msgid "By visiting the Site, you agree to be bound by the following terms and conditions (“Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink (collectively, the “Agreement”). The Agreement applies to all users of the Site, including without limitation users who are browsers, builders, and/or contributors of content."
-msgstr ""
+msgstr "Посещая Сайт, вы соглашаетесь соблюдать следующие положения и условия (далее - «Условия»), включая те дополнительные положения и условия и политики, которые упоминаются в настоящем документе и/или доступны по гиперссылке (совместно именуемые «Соглашение»). Соглашение распространяется на всех пользователей Сайта, включая, помимо прочего, пользователей, которые являются потребителями, разработчиками и/или авторами контента."
 
 #: src/components/Pages/Terms.tsx
 msgid "Please read these Terms carefully before accessing or using the Site. If you do not agree to all the terms of the Agreement, then you should not access the Site; however, by accessing the Site, you consent to the Agreement."
-msgstr ""
+msgstr "Пожалуйста, внимательно прочитайте настоящие Условия перед доступом к Сайту или его использованием. Если вы не согласны со всеми условиями Соглашения, то вам не следует заходить на Сайт; однако, заходя на Сайт, вы соглашаетесь с Соглашением."
 
 #: src/components/Pages/Terms.tsx
 msgid "Any new features or tools which are added to Site shall also be subject to the Terms. You can review the most current version of the Terms at any time on this page. We reserve the right to update, change or replace any part of these Terms by posting updates and/or changes to our Site. It is your responsibility to check this page periodically for changes. Your continued use of or access to the Site following the posting of any changes constitutes acceptance of those changes."
-msgstr ""
+msgstr "Любые новые функции или инструменты, добавляемые на Сайт, также подпадают под действие Условий. Вы можете просмотреть самую последнюю версию Условий в любое время на этой странице. Мы оставляем за собой право обновлять, изменять или заменять любую часть настоящих Условий, публикуя обновления и/или изменения на нашем Сайте. Вы обязаны периодически проверять эту страницу на наличие изменений. Ваше дальнейшее использование или доступ к Сайту после публикации любых изменений означает принятие этих изменений."
 
 #: src/components/Pages/Terms.tsx
 msgid "2. General Conditions"
@@ -1065,7 +1065,7 @@ msgstr "2. Общие условия"
 
 #: src/components/Pages/Terms.tsx
 msgid "You may not use our Site for any illegal or unauthorised purpose nor may you, in the use of the Service, violate any laws in your jurisdiction (including but not limited to copyright laws). We reserve the right to refuse the services to anyone for any reason at any time. We may stop (permanently or temporarily) providing the services or any features within the Site to you or to users generally."
-msgstr ""
+msgstr "Вы не можете использовать наш Сайт в каких-либо незаконных или несанкционированных целях, а также при использовании Сервиса не можете нарушать какие-либо законы в вашей юрисдикции (включая, помимо прочего, законы об авторском праве). Мы оставляем за собой право отказать в предоставлении услуг кому-либо по любой причине в любое время. Мы можем прекратить (навсегда или временно) предоставление услуг или любых функций Сайта вам или пользователям в целом."
 
 #: src/components/Pages/Terms.tsx
 msgid "3. Services"
@@ -1245,7 +1245,7 @@ msgstr "Proof of Humanity подтвержден"
 
 #: src/components/Profile/Badges/Sybil.tsx
 msgid "Sybil verified"
-msgstr ""
+msgstr "Sybil подтвержден"
 
 #: src/components/Profile/Badges/Worldcoin.tsx
 msgid "Worldcoin verified"
@@ -1400,7 +1400,7 @@ msgstr "Редактировать"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Rearrrange"
-msgstr ""
+msgstr "Переставить"
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"
@@ -1420,7 +1420,7 @@ msgstr "не имеет NFT!"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
-msgstr ""
+msgstr "Для галереи допускается только 50 предметов"
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
@@ -1530,7 +1530,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
-msgstr ""
+msgstr "Публикация успешно обжалована"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Poor content"
@@ -1538,7 +1538,7 @@ msgstr "Некачественный контент"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
-msgstr ""
+msgstr "Прекратить спонсорство"
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -1566,7 +1566,7 @@ msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "DATA AVAILABILITY PROOF"
-msgstr ""
+msgstr "ДОКАЗАТЕЛЬСТВО ДОСТУПНОСТИ ДАННЫХ"
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
@@ -1590,7 +1590,7 @@ msgstr "<0>{0}</0> Лайка(ов)"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
-msgstr ""
+msgstr "Лайк от"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "<0>{0}</0> Collects"
@@ -1598,7 +1598,7 @@ msgstr "<0>{0}</0> Коллекта(ов)"
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
-msgstr ""
+msgstr "Индексирование"
 
 #: src/components/Publication/RelevantPeople.tsx
 msgid "Failed to load relevant people"
@@ -1800,11 +1800,11 @@ msgstr "Настройки временной шкалы"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your timeline filter settings"
-msgstr ""
+msgstr "Очистить настройки фильтра временной шкалы"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Direct message keys"
-msgstr ""
+msgstr "Клавиши личных сообщений"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Clean your DM encryption key"
@@ -2214,7 +2214,7 @@ msgstr "▲ При поддержке Vercel"
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Perform mod actions on this publication."
-msgstr ""
+msgstr "Выполните действия над этой публикацией."
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Modal/Report/index.tsx
@@ -2277,7 +2277,7 @@ msgstr "Псевдоним может содержать только буквы
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "The selected handle is already taken"
-msgstr ""
+msgstr "Выбранное имя уже занято"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
@@ -2514,11 +2514,11 @@ msgstr "Настройки"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Disable staff mode"
-msgstr ""
+msgstr "Отключить режим персонала"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Enable staff mode"
-msgstr ""
+msgstr "Включить режим персонала"
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
@@ -2566,7 +2566,7 @@ msgstr "{type} голосование пока не поддерживается
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Your vote has been casted!"
-msgstr ""
+msgstr "Ваш голос был учтен!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
@@ -2578,11 +2578,11 @@ msgstr "Результаты"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{0} Votes"
-msgstr ""
+msgstr "{0} голоса(ов)"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{0} left"
-msgstr ""
+msgstr "{0} осталось"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
@@ -2602,11 +2602,11 @@ msgstr "Статус успешно обновлен!"
 
 #: src/components/Shared/Status.tsx
 msgid "Loading status settings"
-msgstr ""
+msgstr "Загрузка настроек статуса"
 
 #: src/components/Shared/Status.tsx
 msgid "Failed to load status settings"
-msgstr ""
+msgstr "Не удалось загрузить настройки статуса"
 
 #: src/components/Shared/Status.tsx
 msgid "Clear status"
@@ -2615,7 +2615,7 @@ msgstr "Очистить статус"
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Loading super follow"
-msgstr ""
+msgstr "Загрузка супер подписки"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
@@ -2623,7 +2623,7 @@ msgstr "Получатель:"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can comment on @{0}'s publications"
-msgstr ""
+msgstr "Вы можете комментировать публикации @{0}"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You can collect @{0}'s publications"
@@ -2631,11 +2631,11 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will get super follow badge in @{0}'s profile"
-msgstr ""
+msgstr "Вы получите значок Super Follow в профиле @{0}"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will have high voting power if you followed multiple times"
-msgstr ""
+msgstr "У вас будет большое влияние на голосование, если вы подписались несколько раз"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "More coming soon™"
@@ -2643,15 +2643,15 @@ msgstr "Скоро будет больше™"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow again"
-msgstr ""
+msgstr "Оформить супер подписку опять"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Super follow now"
-msgstr ""
+msgstr "Оформить супер подписку сейчас"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Allow follow module"
-msgstr ""
+msgstr "Разрешить подписки"
 
 #: src/components/Shared/SuperFollow/index.tsx
 msgid "Super follow"
@@ -2659,7 +2659,7 @@ msgstr "Супер подписка"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
-msgstr ""
+msgstr "Пожалуйста, измените сеть в вашем кошельке!"
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
@@ -2712,7 +2712,7 @@ msgstr "Можно использовать обработчик"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Gas sponsored"
-msgstr ""
+msgstr "Газ спонсирован"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
