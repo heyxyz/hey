@@ -716,6 +716,28 @@ importers:
         specifier: ^2.18.0
         version: 2.18.0
 
+  packages/workers/snapshot-relay:
+    dependencies:
+      itty-router:
+        specifier: 4.0.0-next.46
+        version: 4.0.0-next.46
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230404.0
+        version: 4.20230404.0
+      eslint-config-weblint:
+        specifier: workspace:*
+        version: link:../../eslint-config-weblint
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      wrangler:
+        specifier: ^2.18.0
+        version: 2.18.0
+
   packages/workers/sts-generator:
     dependencies:
       '@aws-sdk/client-sts':
@@ -14901,6 +14923,10 @@ packages:
     dependencies:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.0
+    dev: false
+
+  /itty-router@4.0.0-next.46:
+    resolution: {integrity: sha512-p6P9PKwBsKWNoKoT8utJ/rsFZVaWnmY8MuMLlyssjXTUyMp+r9pau2sHbUhgY2n9kE4E/4nRYXcYRbYJLjjz8w==}
     dev: false
 
   /jake@10.8.5:
