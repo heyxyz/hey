@@ -301,7 +301,7 @@ export default function MessageBody() {
   return (
     <section className="flex h-[90%] flex-col p-5 pb-3">
       <div
-        className="flex-grow overflow-x-hidden overflow-y-scroll px-2.5"
+        className="flex-grow overflow-auto px-2.5"
         ref={listInnerRef}
         onScroll={onScroll}
       >
