@@ -58,10 +58,10 @@ const Message = () => {
             </div>
           ) : (
             profile && (
-              <div className="h-full">
+              <>
                 <MessageHeader profile={profile as Profile} />
                 <MessageBody />
-              </div>
+              </>
             )
           )}
         </Card>

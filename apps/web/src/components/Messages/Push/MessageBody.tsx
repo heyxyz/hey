@@ -265,9 +265,9 @@ export default function MessageBody() {
     })();
   }, [decryptedPgpPvtKey, selectedChat, selectedChatId]);
   return (
-    <section className="h-full	p-5 pb-3">
+    <section className="flex h-[90%] flex-col p-5 pb-3">
       <div
-        className="h-[85%] max-h-[85%] overflow-x-hidden overflow-y-scroll px-2.5"
+        className="flex-grow overflow-x-hidden overflow-y-scroll px-2.5"
         ref={listInnerRef}
         onScroll={onScroll}
       >
