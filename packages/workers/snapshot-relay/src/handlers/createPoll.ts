@@ -57,7 +57,7 @@ export default async (request: IRequest, env: Env) => {
     ? 'https://snapshot.org'
     : 'https://demo.snapshot.org';
   const relayerAddress = isMainnet
-    ? '0x6bEDc30348C84718033637a724A2Bf3740CA12B2'
+    ? '0x81aD96a4bAdE55b3Bfb1Ea84A597FCC6e5e3BEc1'
     : '0xc1e2E5900733F07659965843555F8917c8F40abA';
 
   try {
