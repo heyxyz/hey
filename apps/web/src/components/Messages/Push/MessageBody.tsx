@@ -92,6 +92,9 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
   const { createChatProfile } = useCreateChatProfile();
   const { fetchChats } = useFetchChats();
   const { fetchRequests } = useFetchRequests();
+  const requestsFeed = usePushChatStore((state) => state.requestsFeed);
+
+  const requestFeedids = Object.keys(requestsFeed);
 
   const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
 
@@ -178,7 +181,7 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
         value={inputText}
         className="pl-11 pr-[115px]"
         type="text"
-        disabled={msgSendLoading}
+        disabled={msgSendLoading || requestFeedids.includes(selectedChatId)}
         placeholder="Type your message..."
       />
     </>
