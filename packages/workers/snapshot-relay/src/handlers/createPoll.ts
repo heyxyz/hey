@@ -58,7 +58,7 @@ export default async (request: IRequest, env: Env) => {
     : 'https://demo.snapshot.org';
   const relayerAddress = isMainnet
     ? '0x6bEDc30348C84718033637a724A2Bf3740CA12B2'
-    : '0x6bEDc30348C84718033637a724A2Bf3740CA12B2';
+    : '0xc1e2E5900733F07659965843555F8917c8F40abA';
 
   try {
     const typedData = {
@@ -116,6 +116,12 @@ export default async (request: IRequest, env: Env) => {
     });
 
     const snapshotResponse: SnapshotResponse = await response.json();
+
+    if (!snapshotResponse.id) {
+      return new Response(
+        JSON.stringify({ success: false, response: snapshotResponse })
+      );
+    }
 
     return new Response(
       JSON.stringify({
