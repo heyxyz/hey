@@ -306,26 +306,28 @@ export default function MessageBody() {
             <Spinner size="sm" />
           </div>
         ) : (
-          <div className="flex flex-col gap-2.5">
-            {selectedMessages?.messages.map((chat: IMessageIPFS, index: number) => (
-              <Messages chat={chat} key={index} />
-            ))}
-            {requestFeedids.includes(selectedChatId) && (
-              <div className="flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
-                <div className="text-sm font-normal">
-                  This is your first conversation with the sender. Please accept to continue.
-                </div>
-                <Image
-                  className="h-12 cursor-pointer"
-                  onClick={handleApprovechatRequest}
-                  src="/push/CheckCircle.svg"
-                  alt="check"
-                />
-              </div>
-            )}
-            <div ref={bottomRef} />
-          </div>
+          ''
         )}
+
+        <div className="flex flex-col gap-2.5">
+          {selectedMessages?.messages.map((chat: IMessageIPFS, index: number) => (
+            <Messages chat={chat} key={index} />
+          ))}
+          {requestFeedids.includes(selectedChatId) && (
+            <div className="flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
+              <div className="text-sm font-normal">
+                This is your first conversation with the sender. Please accept to continue.
+              </div>
+              <Image
+                className="h-12 cursor-pointer"
+                onClick={handleApprovechatRequest}
+                src="/push/CheckCircle.svg"
+                alt="check"
+              />
+            </div>
+          )}
+          <div ref={bottomRef} />
+        </div>
       </div>
 
       <div className="relative mt-2">
