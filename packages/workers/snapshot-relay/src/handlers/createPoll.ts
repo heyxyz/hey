@@ -46,10 +46,6 @@ export default async (request: IRequest, env: Env) => {
     return missingKeysError;
   }
 
-  const client = walletClient(env.PROPOSAL_CREATOR_PRIVATE_KEY, isMainnet);
-  const block = await publicClient(isMainnet).getBlockNumber();
-  const blockNumber = Number(block) - 10;
-
   const sequencerUrl = isMainnet
     ? 'https://seq.snapshot.org'
     : 'https://testnet.seq.snapshot.org';
@@ -59,6 +55,13 @@ export default async (request: IRequest, env: Env) => {
   const relayerAddress = isMainnet
     ? '0x81aD96a4bAdE55b3Bfb1Ea84A597FCC6e5e3BEc1'
     : '0xc1e2E5900733F07659965843555F8917c8F40abA';
+  const relayerPrivateKey = isMainnet
+    ? env.PROPOSAL_CREATOR_MAINNET_PRIVATE_KEY
+    : env.PROPOSAL_CREATOR_TESTNET_PRIVATE_KEY;
+
+  const client = walletClient(relayerPrivateKey, isMainnet);
+  const block = await publicClient(isMainnet).getBlockNumber();
+  const blockNumber = Number(block) - 10;
 
   try {
     const typedData = {

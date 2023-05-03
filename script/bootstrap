@@ -22,7 +22,7 @@ echo "Updating packages/workers/snapshot-relay env vars 🌎"
 cd ../../../
 cd packages/workers/snapshot-relay
 random_hex=$(head -c 32 /dev/urandom | xxd -p -c 32)
-echo "PROPOSAL_CREATOR_PRIVATE_KEY=dfbecd26ee05219bc9d0470da6f86b9804b657cb18ffd4df91a216996db6e98c" > .dev.vars
+echo "PROPOSAL_CREATOR_TESTNET_PRIVATE_KEY=dfbecd26ee05219bc9d0470da6f86b9804b657cb18ffd4df91a216996db6e98c" > .dev.vars
 cd ../../../
 echo "Updating packages/workers/sts-generator env vars 🌎"
 cd packages/workers/sts-generator; cp .dev.vars.example .dev.vars
