@@ -26,6 +26,9 @@ export const SNAPSHOT_HUB_URL = IS_MAINNET
   ? 'https://hub.snapshot.org'
   : 'https://testnet.snapshot.org';
 export const LENSTER_POLLS_SPACE = 'polls.lenster.xyz';
+export const SNAPSHOT_URL = IS_MAINNET
+  ? 'https://snapshot.org'
+  : 'https://demo.snapshot.org';
 
 // Application
 export const APP_NAME = 'Lenster';
