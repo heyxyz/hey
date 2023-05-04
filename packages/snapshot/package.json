@@ -13,7 +13,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.13",
+    "@apollo/client": "^3.7.14",
     "data": "workspace:*"
   },
   "devDependencies": {
