@@ -110,13 +110,13 @@ export default async (request: IRequest, env: Env) => {
     );
 
     const response = await fetch(sequencerUrl, {
-      headers: { 'content-type': 'application/json' },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         address: relayerAddress,
         sig: signature,
         data: JSON.parse(serializedTypedData)
-      }),
-      method: 'POST'
+      })
     });
 
     const snapshotResponse: SnapshotResponse = await response.json();

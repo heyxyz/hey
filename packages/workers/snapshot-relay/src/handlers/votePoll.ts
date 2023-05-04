@@ -1,15 +1,17 @@
+import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
 import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 
 import { LENSTER_POLLS_SPACE } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
+import validateLensAccount from '../helpers/validateLensAccount';
 import walletClient from '../helpers/walletClient';
 
 type ExtensionRequest = {
   isMainnet: boolean;
+  accessToken: string;
   choice: number;
-  ownedBy: string;
   profileId: string;
   snapshotId: string;
 };
@@ -25,8 +27,8 @@ type SnapshotResponse = {
 
 const requiredKeys: (keyof ExtensionRequest)[] = [
   'isMainnet',
+  'accessToken',
   'choice',
-  'ownedBy',
   'profileId',
   'snapshotId'
 ];
@@ -37,7 +39,7 @@ export default async (request: IRequest) => {
     return error(400, 'Bad request!');
   }
 
-  const { isMainnet, choice, ownedBy, profileId, snapshotId } =
+  const { isMainnet, accessToken, choice, profileId, snapshotId } =
     body as ExtensionRequest;
 
   const missingKeysError = keysValidator(requiredKeys, body);
@@ -50,11 +52,20 @@ export default async (request: IRequest) => {
     : 'https://testnet.seq.snapshot.org';
 
   try {
+    const { payload } = jwt.decode(accessToken);
     const { address, privateKey } = await generateSnapshotAccount({
-      ownedBy,
+      ownedBy: payload.id,
       profileId,
       snapshotId
     });
+
+    const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
+    if (!isAuthenticated) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid access token!' })
+      );
+    }
+
     const client = walletClient(privateKey, isMainnet);
 
     const typedData = {
@@ -93,13 +104,13 @@ export default async (request: IRequest) => {
     );
 
     const response = await fetch(sequencerUrl, {
-      headers: { 'content-type': 'application/json' },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         address,
         sig: signature,
         data: JSON.parse(serializedTypedData)
-      }),
-      method: 'POST'
+      })
     });
 
     const snapshotResponse: SnapshotResponse = await response.json();
@@ -110,7 +121,9 @@ export default async (request: IRequest) => {
       );
     }
 
-    return new Response(JSON.stringify({ success: true, address }));
+    return new Response(
+      JSON.stringify({ success: true, id: snapshotResponse.id })
+    );
   } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })

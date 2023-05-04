@@ -15,7 +15,6 @@ import type { Proposal, Vote } from 'snapshot';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Card, Modal, Spinner } from 'ui';
-import { useSigner } from 'wagmi';
 
 import New from '../Badges/New';
 import VoteProposal from './VoteProposal';
@@ -40,9 +39,8 @@ const Choices: FC<ChoicesProps> = ({
     show: false,
     position: 0
   });
-  const { data: signer } = useSigner();
 
-  const { id, choices, space, symbol, scores, scores_total, state, type, end } =
+  const { id, choices, symbol, scores, scores_total, state, type, end } =
     proposal;
   const vote = votes[0];
   const choicesWithVote = choices.map((choice, index) => ({
@@ -94,8 +92,8 @@ const Choices: FC<ChoicesProps> = ({
         method: 'POST',
         data: {
           isMainnet: IS_MAINNET,
+          accessToken: localStorage.getItem('accessToken'),
           choice: position,
-          ownedBy: currentProfile.ownedBy,
           profileId: currentProfile.id,
           snapshotId: id
         }
