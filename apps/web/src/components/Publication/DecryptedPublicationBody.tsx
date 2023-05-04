@@ -33,7 +33,7 @@ import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getURLs from 'lib/getURLs';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';

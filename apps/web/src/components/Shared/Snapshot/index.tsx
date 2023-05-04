@@ -1,6 +1,6 @@
 import { LENSTER_POLLS_SPACE, ZERO_ADDRESS } from 'data';
 import generateSnapshotAccount from 'lib/generateSnapshotAccount';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import type { Proposal, Vote } from 'snapshot';
