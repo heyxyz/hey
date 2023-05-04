@@ -1,5 +1,7 @@
 import { GrowthBook, GrowthBookProvider } from '@growthbook/growthbook-react';
+import { useQuery } from '@tanstack/react-query';
 import { GROWTHBOOK_KEY, IS_MAINNET, mainnetStaffs, testnetStaffs } from 'data';
+import getIpInfo from 'lib/getIpInfo';
 import isGardener from 'lib/isGardener';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
@@ -17,6 +19,10 @@ interface FeatureFlagsProviderProps {
 const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
+  const { data: ipInfoData } = useQuery(['ipInfoData'], () =>
+    getIpInfo().then((res) => res)
+  );
+
   useEffect(() => {
     if (currentProfile?.id) {
       growthbook.loadFeatures();
@@ -26,11 +32,12 @@ const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
         isStaff: IS_MAINNET
           ? mainnetStaffs.includes(currentProfile.id)
           : testnetStaffs.includes(currentProfile.id),
-        browser: window.navigator.userAgent
+        browser: window.navigator.userAgent,
+        country: ipInfoData?.country ?? 'Unknown'
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProfile]);
+  }, [currentProfile, ipInfoData]);
 
   return (
     <GrowthBookProvider growthbook={growthbook}>{children}</GrowthBookProvider>

@@ -11,6 +11,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "data": "workspace:*",
     "lens": "workspace:*",
     "viem": "^0.3.17"
