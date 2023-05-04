@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 

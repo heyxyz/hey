@@ -1,7 +1,7 @@
 import { Mixpanel } from '@lib/mixpanel';
 import { ATTACHMENT } from 'data/constants';
 import imageProxy from 'lib/imageProxy';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';

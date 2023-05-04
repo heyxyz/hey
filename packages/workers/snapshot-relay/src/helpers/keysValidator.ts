@@ -1,5 +1,11 @@
 import { error } from 'itty-router';
 
+/**
+ * Validate keys in request body
+ * @param requiredKeys Required keys
+ * @param body Request body
+ * @returns Error if missing keys
+ */
 export const keysValidator = (
   requiredKeys: string[],
   body: Record<string, any>

@@ -1,27 +1,24 @@
+import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
+import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 
 import {
   LENSTER_POLLS_SPACE,
-  MAINNET_PROPOSAL_CREATOR_ADDRESS,
-  MAINNET_SNAPSHOT_INTERFACE_URL,
   MAINNET_SNAPSHOT_SEQUNECER_API,
-  TESTNET_PROPOSAL_CREATOR_ADDRESS,
-  TESTNET_SNAPSHOT_INTERFACE_URL,
   TESTNET_SNAPSHOT_SEQUNECER_API
 } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
-import publicClient from '../helpers/publicClient';
 import serializedTypedData from '../helpers/serializedTypedData';
+import validateLensAccount from '../helpers/validateLensAccount';
 import walletClient from '../helpers/walletClient';
-import type { Env } from '../types';
 
 type ExtensionRequest = {
   isMainnet: boolean;
-  title: string;
-  description: string;
-  choices: string[];
-  length: number;
+  accessToken: string;
+  choice: number;
+  profileId: string;
+  snapshotId: string;
 };
 
 type SnapshotResponse = {
@@ -35,19 +32,19 @@ type SnapshotResponse = {
 
 const requiredKeys: (keyof ExtensionRequest)[] = [
   'isMainnet',
-  'title',
-  'description',
-  'choices',
-  'length'
+  'accessToken',
+  'choice',
+  'profileId',
+  'snapshotId'
 ];
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: IRequest) => {
   const body = await request.json();
   if (!body) {
     return error(400, 'Bad request!');
   }
 
-  const { isMainnet, title, description, choices, length } =
+  const { isMainnet, accessToken, choice, profileId, snapshotId } =
     body as ExtensionRequest;
 
   const missingKeysError = keysValidator(requiredKeys, body);
@@ -58,59 +55,52 @@ export default async (request: IRequest, env: Env) => {
   const sequencerUrl = isMainnet
     ? MAINNET_SNAPSHOT_SEQUNECER_API
     : TESTNET_SNAPSHOT_SEQUNECER_API;
-  const snapshotUrl = isMainnet
-    ? MAINNET_SNAPSHOT_INTERFACE_URL
-    : TESTNET_SNAPSHOT_INTERFACE_URL;
-  const relayerAddress = isMainnet
-    ? MAINNET_PROPOSAL_CREATOR_ADDRESS
-    : TESTNET_PROPOSAL_CREATOR_ADDRESS;
-  const relayerPrivateKey = isMainnet
-    ? env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY
-    : env.TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY;
-
-  const client = walletClient(relayerPrivateKey, isMainnet);
-  const block = await publicClient(isMainnet).getBlockNumber();
-  const blockNumber = Number(block) - 10;
 
   try {
+    const { payload } = jwt.decode(accessToken);
+    const { address, privateKey } = await generateSnapshotAccount({
+      ownedBy: payload.id,
+      profileId,
+      snapshotId
+    });
+
+    const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
+    if (!isAuthenticated) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid access token!' })
+      );
+    }
+
+    const client = walletClient(privateKey, isMainnet);
+
     const typedData = {
       domain: { name: 'snapshot', version: '0.1.4' },
       types: {
-        Proposal: [
+        Vote: [
           { name: 'from', type: 'address' },
           { name: 'space', type: 'string' },
           { name: 'timestamp', type: 'uint64' },
-          { name: 'type', type: 'string' },
-          { name: 'title', type: 'string' },
-          { name: 'body', type: 'string' },
-          { name: 'discussion', type: 'string' },
-          { name: 'choices', type: 'string[]' },
-          { name: 'start', type: 'uint64' },
-          { name: 'end', type: 'uint64' },
-          { name: 'snapshot', type: 'uint64' },
-          { name: 'plugins', type: 'string' },
-          { name: 'app', type: 'string' }
+          { name: 'proposal', type: 'bytes32' },
+          { name: 'choice', type: 'uint32' },
+          { name: 'reason', type: 'string' },
+          { name: 'app', type: 'string' },
+          { name: 'metadata', type: 'string' }
         ]
       },
       message: {
         space: LENSTER_POLLS_SPACE,
-        type: 'single-choice',
-        title,
-        body: description,
-        discussion: '',
-        choices,
-        start: Math.floor(Date.now() / 1000),
-        end: Math.floor(Date.now() / 1000) + length * 86400,
-        snapshot: blockNumber,
-        plugins: '{}',
-        app: 'snapshot',
-        from: relayerAddress,
+        proposal: snapshotId,
+        choice,
+        app: 'lenster',
+        reason: '',
+        metadata: '{}',
+        from: address,
         timestamp: Math.floor(Date.now() / 1000)
       }
     };
 
     const signature = await client.signTypedData({
-      primaryType: 'Proposal',
+      primaryType: 'Vote',
       ...typedData
     });
 
@@ -118,7 +108,7 @@ export default async (request: IRequest, env: Env) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        address: relayerAddress,
+        address,
         sig: signature,
         data: JSON.parse(serializedTypedData(typedData))
       })
@@ -133,10 +123,7 @@ export default async (request: IRequest, env: Env) => {
     }
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        snapshotUrl: `${snapshotUrl}/#/${LENSTER_POLLS_SPACE}/proposal/${snapshotResponse.id}`
-      })
+      JSON.stringify({ success: true, id: snapshotResponse.id })
     );
   } catch {
     return new Response(

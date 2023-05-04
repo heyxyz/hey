@@ -1,12 +1,12 @@
 import { GrowthBook, GrowthBookProvider } from '@growthbook/growthbook-react';
-import { IS_MAINNET, mainnetStaffs, testnetStaffs } from 'data';
+import { GROWTHBOOK_KEY, IS_MAINNET, mainnetStaffs, testnetStaffs } from 'data';
 import isGardener from 'lib/isGardener';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 
 const growthbook = new GrowthBook({
-  clientKey: 'sdk-fDLRMwvpyh4Kq3b',
+  clientKey: GROWTHBOOK_KEY,
   enableDevMode: false
 });
 
@@ -26,7 +26,6 @@ const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
         isStaff: IS_MAINNET
           ? mainnetStaffs.includes(currentProfile.id)
           : testnetStaffs.includes(currentProfile.id),
-        loggedIn: true,
         browser: window.navigator.userAgent
       });
     }

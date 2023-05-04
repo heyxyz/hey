@@ -511,23 +511,27 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const { data } = await createDataAvailabilityCommentViaDispatcher({
         variables
       });
+
       if (
         data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
         'RelayError'
       ) {
         await createDataAvailabilityCommentTypedData({ variables });
       }
+
       return;
     }
 
     const { data } = await createDataAvailabilityPostViaDispatcher({
       variables
     });
+
     if (
       data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
     ) {
       await createDataAvailabilityPostTypedData({ variables });
     }
+
     return;
   };
 

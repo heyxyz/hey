@@ -7,7 +7,7 @@
     "dev": "wrangler dev --port 8083 --local",
     "start": "pnpm dev",
     "worker:deploy": "wrangler publish",
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
@@ -17,10 +17,10 @@
     "bundlr": "workspace:*"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230404.0",
+    "@cloudflare/workers-types": "^4.20230419.0",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4",
-    "wrangler": "^2.18.0"
+    "wrangler": "^2.19.0"
   }
 }

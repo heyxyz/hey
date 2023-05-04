@@ -7,7 +7,7 @@
     "dev": "next dev --port 4784",
     "build": "next build",
     "start": "next start --port 4784",
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
@@ -26,8 +26,8 @@
     "schema-dts": "^1.1.2"
   },
   "devDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.1",
+    "@types/react": "^18.2.2",
+    "@types/react-dom": "^18.2.3",
     "eslint-config-weblint": "workspace:*",
     "lens": "workspace:*",
     "tsconfig": "workspace:*",
