@@ -3,7 +3,11 @@ import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
 import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 
-import { LENSTER_POLLS_SPACE } from '../constants';
+import {
+  LENSTER_POLLS_SPACE,
+  MAINNET_SNAPSHOT_SEQUNECER_API,
+  TESTNET_SNAPSHOT_SEQUNECER_API
+} from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
 import validateLensAccount from '../helpers/validateLensAccount';
 import walletClient from '../helpers/walletClient';
@@ -48,8 +52,8 @@ export default async (request: IRequest) => {
   }
 
   const sequencerUrl = isMainnet
-    ? 'https://seq.snapshot.org'
-    : 'https://testnet.seq.snapshot.org';
+    ? MAINNET_SNAPSHOT_SEQUNECER_API
+    : TESTNET_SNAPSHOT_SEQUNECER_API;
 
   try {
     const { payload } = jwt.decode(accessToken);
