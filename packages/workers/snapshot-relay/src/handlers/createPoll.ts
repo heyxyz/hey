@@ -1,7 +1,15 @@
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
 
-import { LENSTER_POLLS_SPACE } from '../constants';
+import {
+  LENSTER_POLLS_SPACE,
+  MAINNET_PROPOSAL_CREATOR_ADDRESS,
+  MAINNET_SNAPSHOT_INTERFACE_URL,
+  MAINNET_SNAPSHOT_SEQUNECER_API,
+  TESTNET_PROPOSAL_CREATOR_ADDRESS,
+  TESTNET_SNAPSHOT_INTERFACE_URL,
+  TESTNET_SNAPSHOT_SEQUNECER_API
+} from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
 import publicClient from '../helpers/publicClient';
 import walletClient from '../helpers/walletClient';
@@ -47,17 +55,17 @@ export default async (request: IRequest, env: Env) => {
   }
 
   const sequencerUrl = isMainnet
-    ? 'https://seq.snapshot.org'
-    : 'https://testnet.seq.snapshot.org';
+    ? MAINNET_SNAPSHOT_SEQUNECER_API
+    : TESTNET_SNAPSHOT_SEQUNECER_API;
   const snapshotUrl = isMainnet
-    ? 'https://snapshot.org'
-    : 'https://demo.snapshot.org';
+    ? MAINNET_SNAPSHOT_INTERFACE_URL
+    : TESTNET_SNAPSHOT_INTERFACE_URL;
   const relayerAddress = isMainnet
-    ? '0x81aD96a4bAdE55b3Bfb1Ea84A597FCC6e5e3BEc1'
-    : '0x4291Aa35b71342541816430B275582Ea8001077e';
+    ? MAINNET_PROPOSAL_CREATOR_ADDRESS
+    : TESTNET_PROPOSAL_CREATOR_ADDRESS;
   const relayerPrivateKey = isMainnet
-    ? env.PROPOSAL_CREATOR_MAINNET_PRIVATE_KEY
-    : env.PROPOSAL_CREATOR_TESTNET_PRIVATE_KEY;
+    ? env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY
+    : env.TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY;
 
   const client = walletClient(relayerPrivateKey, isMainnet);
   const block = await publicClient(isMainnet).getBlockNumber();
