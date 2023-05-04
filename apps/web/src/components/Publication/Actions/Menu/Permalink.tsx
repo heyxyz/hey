@@ -4,7 +4,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { PUBLICATION } from 'src/tracking';

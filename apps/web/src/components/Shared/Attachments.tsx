@@ -12,7 +12,7 @@ import {
 import type { MediaSet, Publication } from 'lens';
 import imageProxy from 'lib/imageProxy';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
