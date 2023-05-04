@@ -13,8 +13,8 @@
   "dependencies": {
     "arbundles": "^0.9.5",
     "base64url": "^3.0.1",
-    "ethers": "5.7.2",
-    "secp256k1": "^5.0.0"
+    "secp256k1": "^5.0.0",
+    "viem": "^0.3.17"
   },
   "devDependencies": {
     "@types/secp256k1": "^4.0.3",
