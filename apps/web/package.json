@@ -15,7 +15,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.325.0",
+    "@aws-sdk/client-s3": "^3.326.0",
     "@dnd-kit/core": "^6.0.7",
     "@dnd-kit/sortable": "^7.0.2",
     "@fingerprintjs/fingerprintjs": "^3.4.1",
@@ -58,7 +58,7 @@
     "lens": "workspace:*",
     "lexical": "^0.10.0",
     "lib": "workspace:*",
-    "make-plural": "^7.2.0",
+    "make-plural": "^7.3.0",
     "mixpanel-browser": "^2.47.0",
     "next": "13.2.3",
     "next-themes": "^0.2.1",
@@ -92,8 +92,8 @@
     "@tailwindcss/forms": "^0.5.3",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "^18.16.3",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.1",
+    "@types/react": "^18.2.2",
+    "@types/react-dom": "^18.2.3",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",
     "eslint-config-weblint": "workspace:*",
