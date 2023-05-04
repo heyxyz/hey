@@ -26,7 +26,6 @@ const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
         isStaff: IS_MAINNET
           ? mainnetStaffs.includes(currentProfile.id)
           : testnetStaffs.includes(currentProfile.id),
-        loggedIn: true,
         browser: window.navigator.userAgent
       });
     }
