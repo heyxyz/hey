@@ -91,5 +91,18 @@ test.describe('Publication attachments', () => {
       );
       await expect(snapshotWidget).toContainText('Yes ser 🙌');
     });
+
+    test('should have poll oembed', async ({ page }) => {
+      const publicationId = '0x0d-0x03ce-DA-f4283318';
+      await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
+
+      const pollWidget = page
+        .getByTestId(`publication-${publicationId}`)
+        .getByTestId(
+          'poll-0x04e4c4bceee9ed9e54b6012d566d139e7c334829ddf27307fd11fd29882f7950'
+        );
+      await expect(pollWidget).toContainText('Yes ✅');
+      await expect(pollWidget).toContainText('No ❎');
+    });
   });
 });

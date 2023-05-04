@@ -1,7 +1,9 @@
 import type { DataItemCreateOptions } from 'arbundles';
 import base64url from 'base64url';
-import { Wallet } from 'ethers';
 import { publicKeyCreate } from 'secp256k1';
+import { createWalletClient, http, toHex } from 'viem';
+import { privateKeyToAccount } from 'viem/accounts';
+import { polygon } from 'viem/chains';
 
 import {
   byteArrayToLong,
@@ -45,10 +47,16 @@ export class EthereumSigner extends Secp256k1 {
   }
 
   sign(message: Uint8Array): Uint8Array {
-    const wallet = new Wallet(this._key);
-    return wallet
-      .signMessage(message)
-      .then((r) => Buffer.from(r.slice(2), 'hex')) as any;
+    const account = privateKeyToAccount(`0x${this._key}`);
+    const wallet = createWalletClient({
+      account,
+      chain: polygon,
+      transport: http()
+    });
+
+    return wallet.signMessage({ message: toHex(message) }).then((r) => {
+      return Buffer.from(r.slice(2), 'hex');
+    }) as any;
   }
 }
 
