@@ -40,6 +40,11 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
     variables: { id: proposalId },
     skip: !proposalId,
     onCompleted: async ({ proposal }) => {
+      if (!currentProfile) {
+        setVoterAddress(ZERO_ADDRESS);
+        return;
+      }
+
       if (proposal?.space?.id === LENSTER_POLLS_SPACE) {
         const { address } = await generateSnapshotAccount({
           ownedBy: currentProfile?.ownedBy,
@@ -60,7 +65,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
       id: proposalId,
       where: { voter: voterAddress, proposal: proposalId }
     },
-    skip: spaceLoading || !voterAddress || !proposalId,
+    skip: spaceLoading,
     fetchPolicy: 'no-cache'
   });
 
@@ -84,7 +89,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
 
   if (isLensterPoll) {
     return (
-      <span onClick={stopEventPropagation}>
+      <span onClick={stopEventPropagation} data-testid={`poll-${proposal.id}`}>
         <Choices
           proposal={proposal as Proposal}
           votes={votes as Vote[]}
