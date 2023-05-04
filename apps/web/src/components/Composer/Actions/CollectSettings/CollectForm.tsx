@@ -1,8 +1,8 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { getTimeAddedNDay } from '@lib/formatTime';
-import isValidEthAddress from '@lib/isValidEthAddress';
 import { t, Trans } from '@lingui/macro';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
+import isValidEthAddress from 'lib/isValidEthAddress';
 import type { Dispatch, FC } from 'react';
 import { useEffect } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
