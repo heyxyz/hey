@@ -12,6 +12,7 @@ import {
 } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
 import publicClient from '../helpers/publicClient';
+import serializedTypedData from '../helpers/serializedTypedData';
 import walletClient from '../helpers/walletClient';
 import type { Env } from '../types';
 
@@ -113,17 +114,13 @@ export default async (request: IRequest, env: Env) => {
       ...typedData
     });
 
-    const serializedTypedData = JSON.stringify(typedData, (_, v) =>
-      typeof v === 'bigint' ? Number(v) : v
-    );
-
     const response = await fetch(sequencerUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         address: relayerAddress,
         sig: signature,
-        data: JSON.parse(serializedTypedData)
+        data: JSON.parse(serializedTypedData(typedData))
       })
     });
 
