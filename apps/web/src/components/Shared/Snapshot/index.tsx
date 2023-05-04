@@ -45,11 +45,10 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
     onCompleted: async ({ proposal }) => {
       console.log(proposal);
       if (proposal?.space?.id === LENSTER_POLLS_SPACE) {
-        const address = await generateSnapshotAccount({
+        const { address } = await generateSnapshotAccount({
           ownedBy: currentProfile?.ownedBy,
           profileId: currentProfile?.id,
-          snapshotId: proposalId,
-          hash: process.env.NEXT_PUBLIC_SNAPSHOT_VOTE_RELAY_HASH as string
+          snapshotId: proposalId
         });
 
         setVoterAddress(address);
@@ -95,7 +94,6 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   if (isLensterPoll) {
     return (
       <span onClick={stopEventPropagation} ref={observe}>
-        {voterAddress}
         <Choices
           proposal={proposal as Proposal}
           votes={votes as Vote[]}

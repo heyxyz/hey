@@ -721,6 +721,9 @@ importers:
       itty-router:
         specifier: 4.0.0-next.46
         version: 4.0.0-next.46
+      lib:
+        specifier: workspace:*
+        version: link:../../lib
       viem:
         specifier: ^0.3.17
         version: 0.3.17(typescript@5.0.4)

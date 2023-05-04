@@ -1,18 +1,17 @@
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
+import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 
 import { LENSTER_POLLS_SPACE } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
-import publicClient from '../helpers/publicClient';
 import walletClient from '../helpers/walletClient';
-import type { Env } from '../types';
 
 type ExtensionRequest = {
   isMainnet: boolean;
-  title: string;
-  description: string;
-  choices: string[];
-  length: number;
+  choice: number;
+  ownedBy: string;
+  profileId: string;
+  snapshotId: string;
 };
 
 type SnapshotResponse = {
@@ -26,19 +25,19 @@ type SnapshotResponse = {
 
 const requiredKeys: (keyof ExtensionRequest)[] = [
   'isMainnet',
-  'title',
-  'description',
-  'choices',
-  'length'
+  'choice',
+  'ownedBy',
+  'profileId',
+  'snapshotId'
 ];
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: IRequest) => {
   const body = await request.json();
   if (!body) {
     return error(400, 'Bad request!');
   }
 
-  const { isMainnet, title, description, choices, length } =
+  const { isMainnet, choice, ownedBy, profileId, snapshotId } =
     body as ExtensionRequest;
 
   const missingKeysError = keysValidator(requiredKeys, body);
@@ -49,59 +48,43 @@ export default async (request: IRequest, env: Env) => {
   const sequencerUrl = isMainnet
     ? 'https://seq.snapshot.org'
     : 'https://testnet.seq.snapshot.org';
-  const snapshotUrl = isMainnet
-    ? 'https://snapshot.org'
-    : 'https://demo.snapshot.org';
-  const relayerAddress = isMainnet
-    ? '0x81aD96a4bAdE55b3Bfb1Ea84A597FCC6e5e3BEc1'
-    : '0x4291Aa35b71342541816430B275582Ea8001077e';
-  const relayerPrivateKey = isMainnet
-    ? env.PROPOSAL_CREATOR_MAINNET_PRIVATE_KEY
-    : env.PROPOSAL_CREATOR_TESTNET_PRIVATE_KEY;
-
-  const client = walletClient(relayerPrivateKey, isMainnet);
-  const block = await publicClient(isMainnet).getBlockNumber();
-  const blockNumber = Number(block) - 10;
 
   try {
+    const { address, privateKey } = await generateSnapshotAccount({
+      ownedBy,
+      profileId,
+      snapshotId
+    });
+    const client = walletClient(privateKey, isMainnet);
+
     const typedData = {
       domain: { name: 'snapshot', version: '0.1.4' },
       types: {
-        Proposal: [
+        Vote: [
           { name: 'from', type: 'address' },
           { name: 'space', type: 'string' },
           { name: 'timestamp', type: 'uint64' },
-          { name: 'type', type: 'string' },
-          { name: 'title', type: 'string' },
-          { name: 'body', type: 'string' },
-          { name: 'discussion', type: 'string' },
-          { name: 'choices', type: 'string[]' },
-          { name: 'start', type: 'uint64' },
-          { name: 'end', type: 'uint64' },
-          { name: 'snapshot', type: 'uint64' },
-          { name: 'plugins', type: 'string' },
-          { name: 'app', type: 'string' }
+          { name: 'proposal', type: 'bytes32' },
+          { name: 'choice', type: 'uint32' },
+          { name: 'reason', type: 'string' },
+          { name: 'app', type: 'string' },
+          { name: 'metadata', type: 'string' }
         ]
       },
       message: {
         space: LENSTER_POLLS_SPACE,
-        type: 'single-choice',
-        title,
-        body: description,
-        discussion: '',
-        choices,
-        start: Math.floor(Date.now() / 1000),
-        end: Math.floor(Date.now() / 1000) + length * 86400,
-        snapshot: blockNumber,
-        plugins: '{}',
-        app: 'snapshot',
-        from: relayerAddress,
+        proposal: snapshotId,
+        choice,
+        app: 'lenster',
+        reason: '',
+        metadata: '{}',
+        from: address,
         timestamp: Math.floor(Date.now() / 1000)
       }
     };
 
     const signature = await client.signTypedData({
-      primaryType: 'Proposal',
+      primaryType: 'Vote',
       ...typedData
     });
 
@@ -112,7 +95,7 @@ export default async (request: IRequest, env: Env) => {
     const response = await fetch(sequencerUrl, {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        address: relayerAddress,
+        address,
         sig: signature,
         data: JSON.parse(serializedTypedData)
       }),
@@ -127,12 +110,7 @@ export default async (request: IRequest, env: Env) => {
       );
     }
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        snapshotUrl: `${snapshotUrl}/#/${LENSTER_POLLS_SPACE}/proposal/${snapshotResponse.id}`
-      })
-    );
+    return new Response(JSON.stringify({ success: true, address }));
   } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })

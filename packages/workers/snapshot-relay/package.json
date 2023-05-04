@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "itty-router": "4.0.0-next.46",
+    "lib": "workspace:*",
     "viem": "^0.3.17"
   },
   "devDependencies": {
