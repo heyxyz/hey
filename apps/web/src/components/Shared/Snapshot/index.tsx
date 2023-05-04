@@ -38,13 +38,8 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   const { loading: spaceLoading } = useSpaceQuery({
     client: webClient,
     variables: { id: proposalId },
-    skip: !proposalId,
+    skip: !proposalId || !currentProfile,
     onCompleted: async ({ proposal }) => {
-      if (!currentProfile) {
-        setVoterAddress(ZERO_ADDRESS);
-        return;
-      }
-
       if (proposal?.space?.id === LENSTER_POLLS_SPACE) {
         const { address } = await generateSnapshotAccount({
           ownedBy: currentProfile?.ownedBy,
