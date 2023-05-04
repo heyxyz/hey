@@ -4,7 +4,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
