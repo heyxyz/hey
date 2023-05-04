@@ -19,8 +19,10 @@ interface FeatureFlagsProviderProps {
 const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const { data: ipInfoData } = useQuery(['ipInfoData'], () =>
-    getIpInfo().then((res) => res)
+  const { data: ipInfoData } = useQuery(
+    ['ipInfoData'],
+    () => getIpInfo().then((res) => res),
+    { enabled: Boolean(currentProfile?.id) }
   );
 
   useEffect(() => {
