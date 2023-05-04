@@ -1,17 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Next.js",
+  "display": "React",
   "extends": "./base.json",
   "compilerOptions": {
-    "target": "ES6",
-    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "module": "esnext",
-    "resolveJsonModule": true,
+    "incremental": true,
     "jsx": "preserve",
-    "incremental": true
+    "lib": ["DOM", "DOM.Iterable", "ESNext"]
   },
   "exclude": [".next", ".turbo"]
 }

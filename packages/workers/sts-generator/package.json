@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wrangler dev --port 8082 --local",
     "worker:deploy": "wrangler publish",
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
