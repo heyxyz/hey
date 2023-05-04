@@ -1,4 +1,4 @@
-import { utils } from 'ethers';
+import { isAddress } from 'viem';
 
 /**
  * Checks if the given string is a valid Ethereum address.
@@ -7,7 +7,7 @@ import { utils } from 'ethers';
  * @returns True if the address is valid, false otherwise.
  */
 const isValidEthAddress = (address: string) => {
-  return utils.isAddress(address);
+  return isAddress(address);
 };
 
 export default isValidEthAddress;
