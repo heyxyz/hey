@@ -406,12 +406,12 @@ importers:
       base64url:
         specifier: ^3.0.1
         version: 3.0.1
-      ethers:
-        specifier: 5.7.2
-        version: 5.7.2
       secp256k1:
         specifier: ^5.0.0
         version: 5.0.0
+      viem:
+        specifier: ^0.3.17
+        version: 0.3.17(typescript@5.0.4)
     devDependencies:
       '@types/secp256k1':
         specifier: ^4.0.3
