@@ -550,16 +550,13 @@ importers:
       lens:
         specifier: workspace:*
         version: link:../lens
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
+      viem:
+        specifier: ^0.3.17
+        version: 0.3.17(typescript@5.0.4)
     devDependencies:
       '@types/node':
         specifier: ^18.16.3
         version: 18.16.3
-      '@types/react':
-        specifier: ^18.2.2
-        version: 18.2.2
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint

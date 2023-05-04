@@ -28,18 +28,18 @@ const Wrapper: FC<WrapperProps> = ({ children, dataTestId = '' }) => (
 );
 
 interface SnapshotProps {
-  propsalId: string;
+  proposalId: string;
 }
 
-const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
+const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pollInterval, setPollInterval] = useState(0);
   const { observe, inView } = useInView();
 
   const { data, loading, error, refetch } = useSnapshotQuery({
     variables: {
-      id: propsalId,
-      where: { voter: currentProfile?.ownedBy ?? null, proposal: propsalId }
+      id: proposalId,
+      where: { voter: currentProfile?.ownedBy ?? null, proposal: proposalId }
     },
     pollInterval: inView ? pollInterval : 0,
     client: webClient,
