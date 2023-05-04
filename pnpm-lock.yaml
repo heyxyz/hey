@@ -419,6 +419,9 @@ importers:
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4

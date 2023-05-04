@@ -4,7 +4,7 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/secp256k1": "^4.0.3",
     "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }
