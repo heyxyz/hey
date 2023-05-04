@@ -1,10 +1,11 @@
 import { LENSTER_POLLS_SPACE } from 'data';
+import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import type { Proposal, Vote } from 'snapshot';
-import { useSnapshotQuery } from 'snapshot';
+import { useSnapshotQuery, useSpaceQuery } from 'snapshot';
 import { webClient } from 'snapshot/apollo';
 import { useAppStore } from 'src/store/app';
 import { Card, Spinner } from 'ui';
@@ -34,15 +35,38 @@ interface SnapshotProps {
 const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pollInterval, setPollInterval] = useState(0);
+  const [voterAddress, setVoterAddress] = useState<string | null>(null);
   const { observe, inView } = useInView();
 
+  const { loading: spaceLoading } = useSpaceQuery({
+    client: webClient,
+    variables: { id: proposalId },
+    skip: !proposalId,
+    onCompleted: async ({ proposal }) => {
+      console.log(proposal);
+      if (proposal?.space?.id === LENSTER_POLLS_SPACE) {
+        const address = await generateSnapshotAccount({
+          ownedBy: currentProfile?.ownedBy,
+          profileId: currentProfile?.id,
+          snapshotId: proposalId,
+          hash: process.env.NEXT_PUBLIC_SNAPSHOT_VOTE_RELAY_HASH as string
+        });
+
+        setVoterAddress(address);
+      } else {
+        setVoterAddress(currentProfile?.ownedBy);
+      }
+    }
+  });
+
   const { data, loading, error, refetch } = useSnapshotQuery({
+    client: webClient,
     variables: {
       id: proposalId,
-      where: { voter: currentProfile?.ownedBy ?? null, proposal: proposalId }
+      where: { voter: voterAddress, proposal: proposalId }
     },
+    skip: spaceLoading,
     pollInterval: inView ? pollInterval : 0,
-    client: webClient,
     onCompleted: (data) => {
       if (data.proposal?.state === 'active') {
         setPollInterval(5000);
@@ -50,7 +74,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
     }
   });
 
-  if (loading) {
+  if (spaceLoading || loading) {
     // TODO: Add skeleton loader here
     return (
       <Wrapper>
@@ -71,6 +95,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   if (isLensterPoll) {
     return (
       <span onClick={stopEventPropagation} ref={observe}>
+        {voterAddress}
         <Choices
           proposal={proposal as Proposal}
           votes={votes as Vote[]}
