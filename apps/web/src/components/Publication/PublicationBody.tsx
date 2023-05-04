@@ -67,7 +67,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
           publication={publication}
         />
       ) : null}
-      {showSnapshot ? <Snapshot propsalId={snapshotProposalId} /> : null}
+      {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showIFramely ? (
         <IFramely url={getURLs(publication?.metadata?.content)[0]} />
       ) : null}

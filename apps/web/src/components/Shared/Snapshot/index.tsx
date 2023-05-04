@@ -1,10 +1,11 @@
 import { LENSTER_POLLS_SPACE } from 'data';
+import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import type { Proposal, Vote } from 'snapshot';
-import { useSnapshotQuery } from 'snapshot';
+import { useSnapshotQuery, useSpaceQuery } from 'snapshot';
 import { webClient } from 'snapshot/apollo';
 import { useAppStore } from 'src/store/app';
 import { Card, Spinner } from 'ui';
@@ -28,29 +29,51 @@ const Wrapper: FC<WrapperProps> = ({ children, dataTestId = '' }) => (
 );
 
 interface SnapshotProps {
-  propsalId: string;
+  proposalId: string;
 }
 
-const Snapshot: FC<SnapshotProps> = ({ propsalId }) => {
+const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pollInterval, setPollInterval] = useState(0);
+  const [voterAddress, setVoterAddress] = useState<string | null>(null);
   const { observe, inView } = useInView();
 
-  const { data, loading, error, refetch } = useSnapshotQuery({
-    variables: {
-      id: propsalId,
-      where: { voter: currentProfile?.ownedBy ?? null, proposal: propsalId }
-    },
-    pollInterval: inView ? pollInterval : 0,
+  const { loading: spaceLoading } = useSpaceQuery({
     client: webClient,
-    onCompleted: (data) => {
-      if (data.proposal?.state === 'active') {
-        setPollInterval(5000);
+    variables: { id: proposalId },
+    skip: !proposalId,
+    onCompleted: async ({ proposal }) => {
+      console.log(proposal);
+      if (proposal?.space?.id === LENSTER_POLLS_SPACE) {
+        const { address } = await generateSnapshotAccount({
+          ownedBy: currentProfile?.ownedBy,
+          profileId: currentProfile?.id,
+          snapshotId: proposalId
+        });
+
+        setVoterAddress(address);
+      } else {
+        setVoterAddress(currentProfile?.ownedBy);
       }
     }
   });
 
-  if (loading) {
+  const { data, loading, error, refetch } = useSnapshotQuery({
+    client: webClient,
+    variables: {
+      id: proposalId,
+      where: { voter: voterAddress, proposal: proposalId }
+    },
+    skip: spaceLoading,
+    pollInterval: inView ? pollInterval : 0,
+    onCompleted: (data) => {
+      if (data.proposal?.state === 'active') {
+        setPollInterval(10000);
+      }
+    }
+  });
+
+  if (spaceLoading || loading) {
     // TODO: Add skeleton loader here
     return (
       <Wrapper>
