@@ -26,7 +26,7 @@ const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
   );
 
   useEffect(() => {
-    if (currentProfile?.id) {
+    if (currentProfile?.id && ipInfoData) {
       growthbook.loadFeatures();
       growthbook.setAttributes({
         id: `${IS_MAINNET ? 'mainnet' : 'testnet'}-${currentProfile.id}`,
