@@ -544,9 +544,6 @@ importers:
 
   packages/lib:
     dependencies:
-      axios:
-        specifier: ^1.4.0
-        version: 1.4.0
       data:
         specifier: workspace:*
         version: link:../data
@@ -662,24 +659,6 @@ importers:
         version: 5.0.4
 
   packages/workers/freshdesk:
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20230419.0
-        version: 4.20230419.0
-      eslint-config-weblint:
-        specifier: workspace:*
-        version: link:../../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
-      typescript:
-        specifier: ^5.0.4
-        version: 5.0.4
-      wrangler:
-        specifier: ^2.19.0
-        version: 2.19.0
-
-  packages/workers/ipinfo:
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230419.0
