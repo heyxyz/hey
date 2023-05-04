@@ -1,17 +1,3 @@
 {
-  "compilerOptions": {
-    "target": "es2021",
-    "lib": ["es2021", "DOM"],
-    "module": "es2022",
-    "moduleResolution": "NodeNext",
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "checkJs": false,
-    "noEmit": true,
-    "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
-  }
+  "extends": "tsconfig/base.json"
 }

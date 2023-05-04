@@ -5,7 +5,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "worker:deploy": "wrangler publish",
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
