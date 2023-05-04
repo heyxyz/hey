@@ -4,6 +4,12 @@ type VerifyResponse = {
   };
 };
 
+/**
+ * Validate lens account using Lens API verify endpoint
+ * @param accessToken Lens access token
+ * @param isMainnet Is mainnet
+ * @returns Is valid lens account or not
+ */
 const validateLensAccount = async (accessToken: string, isMainnet: boolean) => {
   const response = await fetch(
     isMainnet ? 'https://api.lens.dev' : 'https://api-mumbai.lens.dev',
