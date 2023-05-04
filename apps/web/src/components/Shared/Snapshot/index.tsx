@@ -68,7 +68,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
     pollInterval: inView ? pollInterval : 0,
     onCompleted: (data) => {
       if (data.proposal?.state === 'active') {
-        setPollInterval(5000);
+        setPollInterval(10000);
       }
     }
   });
