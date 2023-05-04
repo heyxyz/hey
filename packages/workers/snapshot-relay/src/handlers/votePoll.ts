@@ -9,6 +9,7 @@ import {
   TESTNET_SNAPSHOT_SEQUNECER_API
 } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
+import serializedTypedData from '../helpers/serializedTypedData';
 import validateLensAccount from '../helpers/validateLensAccount';
 import walletClient from '../helpers/walletClient';
 
@@ -103,17 +104,13 @@ export default async (request: IRequest) => {
       ...typedData
     });
 
-    const serializedTypedData = JSON.stringify(typedData, (_, v) =>
-      typeof v === 'bigint' ? Number(v) : v
-    );
-
     const response = await fetch(sequencerUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         address,
         sig: signature,
-        data: JSON.parse(serializedTypedData)
+        data: JSON.parse(serializedTypedData(typedData))
       })
     });
 
