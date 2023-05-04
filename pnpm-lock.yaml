@@ -550,16 +550,13 @@ importers:
       lens:
         specifier: workspace:*
         version: link:../lens
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
+      viem:
+        specifier: ^0.3.17
+        version: 0.3.17(typescript@5.0.4)
     devDependencies:
       '@types/node':
         specifier: ^18.16.3
         version: 18.16.3
-      '@types/react':
-        specifier: ^18.2.2
-        version: 18.2.2
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
@@ -721,9 +718,15 @@ importers:
 
   packages/workers/snapshot-relay:
     dependencies:
+      '@tsndr/cloudflare-worker-jwt':
+        specifier: ^2.2.1
+        version: 2.2.1
       itty-router:
         specifier: 4.0.0-next.46
         version: 4.0.0-next.46
+      lib:
+        specifier: workspace:*
+        version: link:../../lib
       viem:
         specifier: ^0.3.17
         version: 0.3.17(typescript@5.0.4)
@@ -8180,6 +8183,10 @@ packages:
 
   /@tsconfig/node16@1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
+
+  /@tsndr/cloudflare-worker-jwt@2.2.1:
+    resolution: {integrity: sha512-yYxjmag5AXXs7FDCUlse8cCTQlug3fbrqUb4/s4kvdauOg5wq2V6BayHD/OUWOGmgohefFRqu4vA5phU3+Cyng==}
+    dev: false
 
   /@types/babel__core@7.20.0:
     resolution: {integrity: sha512-+n8dL/9GWblDO0iU6eZAwEIJVr5DWigtle+Q6HLOrh/pdbXOhOtqzq8VPPE2zvNJzSKY4vH/z3iT3tn0A3ypiQ==}

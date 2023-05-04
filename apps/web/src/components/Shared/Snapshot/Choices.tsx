@@ -2,11 +2,10 @@ import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/outl
 import { CheckCircleIcon, MenuAlt2Icon } from '@heroicons/react/solid';
 import { getTimetoNow } from '@lib/formatTime';
 import { Mixpanel } from '@lib/mixpanel';
-import { snapshotClient } from '@lib/snapshotClient';
 import { t, Trans } from '@lingui/macro';
-import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
+import axios from 'axios';
 import clsx from 'clsx';
-import { APP_NAME, Errors } from 'data';
+import { APP_NAME, Errors, IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from 'data';
 import humanize from 'lib/humanize';
 import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
@@ -16,7 +15,6 @@ import type { Proposal, Vote } from 'snapshot';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Card, Modal, Spinner } from 'ui';
-import { useSigner } from 'wagmi';
 
 import New from '../Badges/New';
 import VoteProposal from './VoteProposal';
@@ -41,9 +39,8 @@ const Choices: FC<ChoicesProps> = ({
     show: false,
     position: 0
   });
-  const { data: signer } = useSigner();
 
-  const { id, choices, space, symbol, scores, scores_total, state, type, end } =
+  const { id, choices, symbol, scores, scores_total, state, type, end } =
     proposal;
   const vote = votes[0];
   const choicesWithVote = choices.map((choice, index) => ({
@@ -90,12 +87,16 @@ const Choices: FC<ChoicesProps> = ({
 
     try {
       setVoteSubmitting(true);
-      await snapshotClient.vote(signer as any, currentProfile?.ownedBy, {
-        space: space?.id as string,
-        proposal: id as `0x${string}`,
-        type: type as ProposalType,
-        choice: position,
-        app: APP_NAME.toLowerCase()
+      await axios({
+        url: `${SNAPSHOR_RELAY_WORKER_URL}/votePoll`,
+        method: 'POST',
+        data: {
+          isMainnet: IS_MAINNET,
+          accessToken: localStorage.getItem('accessToken'),
+          choice: position,
+          profileId: currentProfile.id,
+          snapshotId: id
+        }
       });
       refetch?.();
       Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
