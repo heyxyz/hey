@@ -1,10 +1,12 @@
 import { S3 } from '@aws-sdk/client-s3';
+import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
 import type { MediaSet } from 'lens';
 import { v4 as uuid } from 'uuid';
 
 const FALLBACK_TYPE = 'image/jpeg';
+const USE_THIRDWEB = false;
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
@@ -35,8 +37,23 @@ const getS3Client = async (): Promise<S3> => {
  */
 const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
   try {
-    const client = await getS3Client();
     const files = Array.from(data);
+
+    if (USE_THIRDWEB) {
+      const storage = new ThirdwebStorage();
+      const uris = await storage.uploadBatch(files);
+
+      return uris.map((uri: string) => {
+        return {
+          original: {
+            url: uri,
+            mimeType: data.type || FALLBACK_TYPE
+          }
+        };
+      });
+    }
+
+    const client = await getS3Client();
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
         const file = data[i];

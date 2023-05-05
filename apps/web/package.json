@@ -39,6 +39,7 @@
     "@livepeer/react": "^2.4.3",
     "@snapshot-labs/snapshot.js": "^0.4.82",
     "@tanstack/react-query": "^4.29.5",
+    "@thirdweb-dev/storage": "^1.1.2",
     "@tippyjs/react": "^4.2.6",
     "@xmtp/xmtp-js": "8.2.0",
     "abis": "workspace:*",
