@@ -64,23 +64,19 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <I18nProvider i18n={i18n}>
       <ErrorBoundary>
-        <FeatureFlagsProvider>
-          <TelemetryProvider />
-          <WagmiConfig client={wagmiClient}>
-            <ApolloProvider client={apolloClient}>
-              <QueryClientProvider client={queryClient}>
-                <LivepeerConfig
-                  client={livepeerClient}
-                  theme={getLivepeerTheme}
-                >
-                  <ThemeProvider defaultTheme="light" attribute="class">
-                    <Layout>{children}</Layout>
-                  </ThemeProvider>
-                </LivepeerConfig>
-              </QueryClientProvider>
-            </ApolloProvider>
-          </WagmiConfig>
-        </FeatureFlagsProvider>
+        <FeatureFlagsProvider />
+        <TelemetryProvider />
+        <WagmiConfig client={wagmiClient}>
+          <ApolloProvider client={apolloClient}>
+            <QueryClientProvider client={queryClient}>
+              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
+                <ThemeProvider defaultTheme="light" attribute="class">
+                  <Layout>{children}</Layout>
+                </ThemeProvider>
+              </LivepeerConfig>
+            </QueryClientProvider>
+          </ApolloProvider>
+        </WagmiConfig>
       </ErrorBoundary>
     </I18nProvider>
   );

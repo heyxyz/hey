@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import NftFeed from '@components/Nft/NftFeed';
-import { useFeature } from '@growthbook/growthbook-react';
+import { Growthbook } from '@lib/growthbook';
 import { Mixpanel } from '@lib/mixpanel';
 import { FeatureFlag } from 'data';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
@@ -36,8 +36,8 @@ const ViewProfile: NextPage = () => {
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
   );
-  const { on: isNftGalleryEnabled } = useFeature(
-    FeatureFlag.NftGallery as string
+  const { on: isNftGalleryEnabled } = Growthbook.feature(
+    FeatureFlag.NftGallery
   );
 
   useEffect(() => {

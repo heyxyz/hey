@@ -1,26 +1,18 @@
-import { GrowthBook, GrowthBookProvider } from '@growthbook/growthbook-react';
-import { GROWTHBOOK_KEY, IS_MAINNET, mainnetStaffs, testnetStaffs } from 'data';
+import { Growthbook } from '@lib/growthbook';
+import { IS_MAINNET, mainnetStaffs, testnetStaffs } from 'data';
 import isGardener from 'lib/isGardener';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 
-const growthbook = new GrowthBook({
-  clientKey: GROWTHBOOK_KEY,
-  enableDevMode: false
-});
+Growthbook.init();
 
-interface FeatureFlagsProviderProps {
-  children: ReactNode;
-}
-
-const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
+const FeatureFlagsProvider: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
     if (currentProfile?.id) {
-      growthbook.loadFeatures();
-      growthbook.setAttributes({
+      Growthbook.setAttributes({
         id: `${IS_MAINNET ? 'mainnet' : 'testnet'}-${currentProfile.id}`,
         isGardener: IS_MAINNET ? isGardener(currentProfile.id) : false,
         isStaff: IS_MAINNET
@@ -32,9 +24,7 @@ const FeatureFlagsProvider: FC<FeatureFlagsProviderProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 
-  return (
-    <GrowthBookProvider growthbook={growthbook}>{children}</GrowthBookProvider>
-  );
+  return null;
 };
 
 export default FeatureFlagsProvider;
