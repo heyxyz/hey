@@ -4,7 +4,6 @@ import {
   SunIcon as SunIconSolid
 } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';
@@ -47,6 +46,12 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       ? publication?.mirrorOf?.stats?.totalUpvotes
       : publication?.stats?.totalUpvotes
   );
+
+  const onError = (error: any) => {
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
 
   const updateCache = (
     cache: ApolloCache<any>,

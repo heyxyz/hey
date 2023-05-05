@@ -20,7 +20,6 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
@@ -194,7 +193,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const resetAccessSettings = useAccessSettingsStore((state) => state.reset);
 
   // States
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
@@ -219,6 +218,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return;
     }
 
+    setIsLoading(false);
     editor.update(() => {
       $getRoot().clear();
     });
@@ -259,6 +259,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     );
   };
 
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
+
   useEffect(() => {
     setPublicationContentError('');
   }, [audioPublication]);
@@ -293,15 +300,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
   };
 
-  const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({
+  const { signTypedDataAsync } = useSignTypedData({
     onError
   });
 
-  const {
-    isLoading: writeLoading,
-    error,
-    write
-  } = useContractWrite({
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: isComment ? 'commentWithSig' : 'postWithSig',
@@ -688,7 +691,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
 
     try {
-      setLoading(true);
+      setIsLoading(true);
       if (hasAudio) {
         setPublicationContentError('');
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
@@ -855,10 +858,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return await createPostTypedData({
         variables: { options: { overrideSigNonce: userSigNonce }, request }
       });
-    } catch {
-    } finally {
-      setLoading(false);
-    }
+    } catch {}
   };
 
   const setGifAttachment = (gif: IGif) => {
@@ -874,8 +874,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     addAttachments([attachment]);
   };
 
-  const isLoading = loading || typedDataLoading || writeLoading;
-
   return (
     <Card
       className={clsx(
@@ -885,7 +883,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     >
       {error && (
         <ErrorMessage
-          className="mb-3"
+          className="!rounded-none"
           title={t`Transaction failed!`}
           error={error}
         />
