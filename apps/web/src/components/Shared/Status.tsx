@@ -44,6 +44,10 @@ const Status: FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
 
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
+
   const form = useZodForm({
     schema: editStatusSchema
   });
@@ -196,7 +200,7 @@ const Status: FC = () => {
         metadata: `ar://${id}`
       };
 
-      if (currentProfile.dispatcher?.canUseRelay) {
+      if (canUseRelay && isSponsored) {
         return await createViaDispatcher(request);
       }
 

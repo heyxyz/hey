@@ -51,6 +51,10 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const [imageSrc, setImageSrc] = useState('');
   const [showCropModal, setShowCropModal] = useState(false);
 
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
+
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
@@ -144,7 +148,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
         url: ipfsUrl
       };
 
-      if (currentProfile.dispatcher?.canUseRelay) {
+      if (canUseRelay && isSponsored) {
         await createViaDispatcher(request);
       } else {
         await createSetProfileImageURITypedData({

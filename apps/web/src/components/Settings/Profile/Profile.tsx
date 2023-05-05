@@ -82,6 +82,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState('');
 
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
+
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
@@ -228,7 +232,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         metadata: `https://arweave.net/${id}`
       };
 
-      if (currentProfile.dispatcher?.canUseRelay) {
+      if (canUseRelay && isSponsored) {
         return await createViaDispatcher(request);
       }
 

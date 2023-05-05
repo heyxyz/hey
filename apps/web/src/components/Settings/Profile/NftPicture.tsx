@@ -47,6 +47,10 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
   });
   const { signMessageAsync } = useSignMessage();
 
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
+
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
@@ -164,7 +168,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
         }
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay) {
+      if (canUseRelay && isSponsored) {
         return await createViaDispatcher(request);
       }
 
