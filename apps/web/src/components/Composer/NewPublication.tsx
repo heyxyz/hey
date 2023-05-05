@@ -3,6 +3,7 @@ import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import useCreatePoll from '@components/utils/hooks/useCreatePoll';
 import type { IGif } from '@giphy/js-types';
+import { useFeature } from '@growthbook/growthbook-react';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
   CollectCondition,
@@ -25,6 +26,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
+import { KillSwitch } from 'data';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -195,6 +197,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+
+  // Feature flags
+  const { on: useThirdwebIpfs } = useFeature(KillSwitch.UseThirdwebIpfs);
 
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
@@ -716,7 +721,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
           currentProfile.handle,
-          new Date().toLocaleString()
+          new Date().toLocaleString(),
+          useThirdwebIpfs
         );
       }
 

@@ -1,4 +1,5 @@
 import ChooseFile from '@components/Shared/ChooseFile';
+import { useFeature } from '@growthbook/growthbook-react';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
@@ -6,6 +7,7 @@ import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
+import { KillSwitch } from 'data';
 import { APP_NAME, COVER, LENS_PERIPHERY, URL_REGEX } from 'data/constants';
 import Errors from 'data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
@@ -80,6 +82,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [showCropModal, setShowCropModal] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState('');
+  const { on: useThirdwebIpfs } = useFeature(KillSwitch.UseThirdwebIpfs);
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -253,7 +256,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
     try {
       setUploading(true);
-      const ipfsUrl = await uploadCroppedImage(croppedImage);
+      const ipfsUrl = await uploadCroppedImage(croppedImage, useThirdwebIpfs);
       const dataUrl = croppedImage.toDataURL('image/png');
       setCoverIpfsUrl(ipfsUrl);
       setUploadedImageUrl(dataUrl);

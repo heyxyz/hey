@@ -1,5 +1,7 @@
+import { useFeature } from '@growthbook/growthbook-react';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t } from '@lingui/macro';
+import { KillSwitch } from 'data';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
@@ -15,6 +17,7 @@ const useUploadAttachments = () => {
     (state) => state.removeAttachments
   );
   const setIsUploading = usePublicationStore((state) => state.setIsUploading);
+  const { on: useThirdwebIpfs } = useFeature(KillSwitch.UseThirdwebIpfs);
 
   const handleUploadAttachments = useCallback(
     async (attachments: any): Promise<NewLensterAttachment[]> => {
@@ -71,7 +74,10 @@ const useUploadAttachments = () => {
           return [];
         }
 
-        const attachmentsUploaded = await uploadToIPFS(attachments);
+        const attachmentsUploaded = await uploadToIPFS(
+          attachments,
+          useThirdwebIpfs
+        );
         if (attachmentsUploaded) {
           attachmentsIPFS = previewAttachments.map(
             (attachment: NewLensterAttachment, index: number) => ({

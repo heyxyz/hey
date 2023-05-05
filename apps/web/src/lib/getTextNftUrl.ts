@@ -11,7 +11,8 @@ import { uploadFileToIPFS } from './uploadToIPFS';
 const getTextNftUrl = async (
   content: string,
   username: string,
-  timestamp: string
+  timestamp: string,
+  useThirdwebIpfs: boolean
 ) => {
   const svg = `<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
     <style>
@@ -60,7 +61,7 @@ const getTextNftUrl = async (
     lastModified: new Date().getTime(),
     type: blob.type
   });
-  const result = await uploadFileToIPFS(file);
+  const result = await uploadFileToIPFS(file, useThirdwebIpfs);
 
   return result.original.url;
 };

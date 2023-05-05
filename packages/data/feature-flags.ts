@@ -6,3 +6,7 @@ export enum FeatureFlag {
   ExportData = 'export-data',
   Polls = 'polls'
 }
+
+export enum KillSwitch {
+  UseThirdwebIpfs = 'use-thirdweb-ipfs'
+}

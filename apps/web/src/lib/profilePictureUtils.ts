@@ -13,13 +13,14 @@ export function readFile(file: Blob): Promise<string> {
 }
 
 const uploadCroppedImage = async (
-  image: HTMLCanvasElement
+  image: HTMLCanvasElement,
+  useThirdwebIpfs: boolean
 ): Promise<string> => {
   const blob = await new Promise((resolve) => image.toBlob(resolve));
   const file = new File([blob as Blob], 'cropped_image.png', {
     type: (blob as Blob).type
   });
-  const attachment = await uploadFileToIPFS(file);
+  const attachment = await uploadFileToIPFS(file, useThirdwebIpfs);
   const ipfsUrl = attachment.original.url;
   if (!ipfsUrl) {
     throw new Error('uploadToIPFS failed');

@@ -1,6 +1,8 @@
+import { useFeature } from '@growthbook/growthbook-react';
 import { PhotographIcon } from '@heroicons/react/outline';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import clsx from 'clsx';
+import { KillSwitch } from 'data';
 import { ATTACHMENT } from 'data/constants';
 import Errors from 'data/errors';
 import imageProxy from 'lib/imageProxy';
@@ -26,6 +28,7 @@ const CoverImage: FC<CoverImageProps> = ({
   expandCover
 }) => {
   const [loading, setLoading] = useState(false);
+  const { on: useThirdwebIpfs } = useFeature(KillSwitch.UseThirdwebIpfs);
 
   const onError = (error: any) => {
     toast.error(
@@ -38,7 +41,10 @@ const CoverImage: FC<CoverImageProps> = ({
     if (event.target.files?.length) {
       try {
         setLoading(true);
-        const attachment = await uploadFileToIPFS(event.target.files[0]);
+        const attachment = await uploadFileToIPFS(
+          event.target.files[0],
+          useThirdwebIpfs
+        );
         setCover(attachment.original.url, attachment.original.mimeType);
       } catch (error) {
         onError(error);

@@ -1,10 +1,12 @@
 import ChooseFile from '@components/Shared/ChooseFile';
+import { useFeature } from '@growthbook/growthbook-react';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
+import { KillSwitch } from 'data';
 import { AVATAR, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
@@ -46,6 +48,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [imageSrc, setImageSrc] = useState('');
   const [showCropModal, setShowCropModal] = useState(false);
+  const { on: useThirdwebIpfs } = useFeature(KillSwitch.UseThirdwebIpfs);
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -139,7 +142,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
 
     try {
       setIsLoading(true);
-      const ipfsUrl = await uploadCroppedImage(croppedImage);
+      const ipfsUrl = await uploadCroppedImage(croppedImage, useThirdwebIpfs);
       const dataUrl = croppedImage.toDataURL('image/png');
 
       const request: UpdateProfileImageRequest = {

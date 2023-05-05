@@ -6,7 +6,6 @@ import type { MediaSet } from 'lens';
 import { v4 as uuid } from 'uuid';
 
 const FALLBACK_TYPE = 'image/jpeg';
-const USE_THIRDWEB = true;
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
@@ -33,22 +32,23 @@ const getS3Client = async (): Promise<S3> => {
  * Uploads a set of files to the IPFS network via S3 and returns an array of MediaSet objects.
  *
  * @param data Files to upload to IPFS.
+ * @param useThirdWeb Whether to use ThirdWeb for the upload.
  * @returns Array of MediaSet objects.
  */
-const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
+const uploadToIPFS = async (
+  data: any,
+  useThirdWeb = false
+): Promise<MediaSet[]> => {
   try {
     const files = Array.from(data);
 
-    if (USE_THIRDWEB) {
+    if (useThirdWeb) {
       const storage = new ThirdwebStorage();
       const uris = await storage.uploadBatch(files);
 
       return uris.map((uri: string) => {
         return {
-          original: {
-            url: uri,
-            mimeType: data.type || FALLBACK_TYPE
-          }
+          original: { url: uri, mimeType: data.type || FALLBACK_TYPE }
         };
       });
     }
@@ -90,20 +90,17 @@ const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
  * @param file File to upload to IPFS.
  * @returns MediaSet object or null if the upload fails.
  */
-export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
+export const uploadFileToIPFS = async (
+  file: File,
+  useThirdWeb = false
+): Promise<MediaSet> => {
   try {
-    const client = await getS3Client();
-    const params = {
-      Bucket: S3_BUCKET.LENSTER_MEDIA,
-      Key: uuid()
-    };
-    await client.putObject({ ...params, Body: file, ContentType: file.type });
-    const result = await client.headObject(params);
-    const metadata = result.Metadata;
+    const ipfsResponse = await uploadToIPFS([file], useThirdWeb);
+    const metadata = ipfsResponse[0];
 
     return {
       original: {
-        url: `ipfs://${metadata?.['ipfs-hash']}`,
+        url: `ipfs://${metadata.original.url}`,
         mimeType: file.type || FALLBACK_TYPE
       }
     };
