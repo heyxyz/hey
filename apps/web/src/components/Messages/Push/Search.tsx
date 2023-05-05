@@ -83,8 +83,8 @@ const Search: FC<SearchProps> = ({
   // console.log(groups)
 
   return (
-    <div aria-hidden="true" className="w-full" data-testid="global-search">
-      <form onSubmit={handleKeyDown} className="flex gap-x-2" ref={dropdownRef}>
+    <div aria-hidden="true" className="w-full" data-testid="global-search" ref={dropdownRef}>
+      <form onSubmit={handleKeyDown} className="flex gap-x-2">
         <Input
           ref={setInputRef}
           type="text"
