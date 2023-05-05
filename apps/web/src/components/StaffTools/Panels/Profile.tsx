@@ -75,17 +75,17 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         ) : null}
         <MetaDetails
           icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
+          value={profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
           title={t`Can use relay`}
         >
-          {profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
+          {profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.dispatcher?.sponsor ? 'Yes' : 'No'}
+          value={profile.dispatcher?.sponsor ? 'Yes' : 'No'}
           title={t`Gas sponsored`}
         >
-          {profile?.dispatcher?.sponsor ? 'Yes' : 'No'}
+          {profile.dispatcher?.sponsor ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<IdentificationIcon className="lt-text-gray-500 h-4 w-4" />}

@@ -309,6 +309,11 @@ msgid "What's happening?"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
+msgstr "Momoka is currently in beta - during this time certain actions are not available to all profiles."
+
+#: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -1511,6 +1516,11 @@ msgstr ""
 msgid "Copied to clipboard!"
 msgstr ""
 
+#: src/components/Publication/Actions/Menu/Translate.tsx
+#: src/components/Shared/Footer/index.tsx
+msgid "Translate"
+msgstr ""
+
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
 msgstr "Post has been mirrored!"
@@ -1675,6 +1685,10 @@ msgstr ""
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
 msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Super Follow updated successfully!"
+msgstr "Super Follow updated successfully!"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -1999,11 +2013,6 @@ msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Upload failed"
-msgstr "Upload failed"
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr "Crop image"
 
@@ -2202,10 +2211,6 @@ msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
-msgstr ""
-
-#: src/components/Shared/Footer/index.tsx
-msgid "Translate"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
@@ -2667,10 +2672,6 @@ msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
-msgstr ""
-
-#: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
 msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
