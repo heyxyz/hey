@@ -15,7 +15,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.326.0",
+    "@aws-sdk/client-s3": "^3.327.0",
     "@dnd-kit/core": "^6.0.7",
     "@dnd-kit/sortable": "^7.0.2",
     "@fingerprintjs/fingerprintjs": "^3.4.1",
@@ -79,9 +79,9 @@
     "ui": "workspace:*",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.0",
-    "wagmi": "^0.12.12",
+    "wagmi": "^0.12.13",
     "zod": "^3.21.4",
-    "zustand": "^4.3.7"
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.18.6",
@@ -92,7 +92,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "^18.16.3",
-    "@types/react": "^18.2.2",
+    "@types/react": "^18.2.5",
     "@types/react-dom": "^18.2.3",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",
