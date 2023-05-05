@@ -36,9 +36,9 @@ export default function PUSHPreviewChats() {
 
     (async function () {
       // only run this hook when there's a descryted key availabe in storage
-      if (!decryptedPgpPvtKey) {
-        return;
-      }
+      // if (!decryptedPgpPvtKey) {
+      //   return;
+      // }
       await fetchChats();
     })();
   }, [decryptedPgpPvtKey, fetchChats]);

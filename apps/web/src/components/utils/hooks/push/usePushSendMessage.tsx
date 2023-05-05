@@ -61,8 +61,6 @@ const usePushSendMessage = () => {
           });
         }
 
-        console.log(chats);
-
         return true;
       } catch (error: Error | any) {
         setLoading(false);
