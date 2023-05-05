@@ -1,8 +1,8 @@
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
+import { Errors } from 'data';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
@@ -28,6 +28,12 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [generateAllowanceQuery, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
+
+  const onError = (error: any) => {
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
 
   const {
     data: txData,

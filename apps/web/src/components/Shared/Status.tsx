@@ -1,6 +1,5 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
@@ -41,12 +40,33 @@ const Status: FC = () => {
   const setShowStatusModal = useGlobalModalStateStore(
     (state) => state.setShowStatusModal
   );
-  const [isUploading, setIsUploading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
+
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
 
   const form = useZodForm({
     schema: editStatusSchema
   });
+
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
+    toast.success(t`Status updated successfully!`);
+    setIsLoading(false);
+    setShowStatusModal(false);
+  };
+
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
 
   const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
@@ -60,20 +80,8 @@ const Status: FC = () => {
     }
   });
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
-      return;
-    }
-
-    toast.success(t`Status updated successfully!`);
-    setShowStatusModal(false);
-  };
-
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
-
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { write } = useContractWrite({
     address: LENS_PERIPHERY,
     abi: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
@@ -82,10 +90,10 @@ const Status: FC = () => {
     onError
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
+  const [createSetProfileMetadataTypedData] =
     useCreateSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createSetProfileMetadataTypedData }) => {
         const { id, typedData } = createSetProfileMetadataTypedData;
@@ -109,14 +117,12 @@ const Status: FC = () => {
       onError
     });
 
-  const [
-    createSetProfileMetadataViaDispatcher,
-    { loading: dispatcherLoading }
-  ] = useCreateSetProfileMetadataViaDispatcherMutation({
-    onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-      onCompleted(createSetProfileMetadataViaDispatcher.__typename),
-    onError
-  });
+  const [createSetProfileMetadataViaDispatcher] =
+    useCreateSetProfileMetadataViaDispatcherMutation({
+      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
+        onCompleted(createSetProfileMetadataViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (
     request: CreatePublicSetProfileMetadataUriRequest
@@ -127,7 +133,7 @@ const Status: FC = () => {
     if (
       data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError'
     ) {
-      await createSetProfileMetadataTypedData({
+      return await createSetProfileMetadataTypedData({
         variables: { request }
       });
     }
@@ -141,7 +147,7 @@ const Status: FC = () => {
     }
 
     try {
-      setIsUploading(true);
+      setIsLoading(true);
       const id = await uploadToArweave({
         name: profile?.name ?? '',
         bio: profile?.bio ?? '',
@@ -189,24 +195,23 @@ const Status: FC = () => {
         ],
         version: '1.0.0',
         metadata_id: uuid()
-      }).finally(() => setIsUploading(false));
+      });
 
       const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
         metadata: `ar://${id}`
       };
 
-      if (
-        currentProfile?.dispatcher?.canUseRelay &&
-        currentProfile.dispatcher.sponsor
-      ) {
+      if (canUseRelay && isSponsored) {
         return await createViaDispatcher(request);
       }
 
       return await createSetProfileMetadataTypedData({
         variables: { request }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (loading) {
@@ -222,14 +227,6 @@ const Status: FC = () => {
       <ErrorMessage title={t`Failed to load status settings`} error={error} />
     );
   }
-
-  const isLoading =
-    isUploading ||
-    typedDataLoading ||
-    dispatcherLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading;
 
   return (
     <div className="space-y-5 p-5">
