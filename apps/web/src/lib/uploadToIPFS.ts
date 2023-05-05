@@ -6,7 +6,7 @@ import type { MediaSet } from 'lens';
 import { v4 as uuid } from 'uuid';
 
 const FALLBACK_TYPE = 'image/jpeg';
-const USE_THIRDWEB = false;
+const USE_THIRDWEB = true;
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
