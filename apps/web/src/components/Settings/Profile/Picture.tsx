@@ -1,7 +1,6 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
@@ -43,10 +42,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [avatarDataUrl, setAvatarDataUrl] = useState('');
-  const [uploading, setUploading] = useState(false);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  const [isLoading, setIsLoading] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [imageSrc, setImageSrc] = useState('');
   const [showCropModal, setShowCropModal] = useState(false);
@@ -60,15 +56,20 @@ const Picture: FC<PictureProps> = ({ profile }) => {
       return;
     }
 
+    setIsLoading(false);
     toast.success(t`Avatar updated successfully!`);
     Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
-  const {
-    isLoading: writeLoading,
-    error,
-    write
-  } = useContractWrite({
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'setProfileImageURIWithSig',
@@ -77,10 +78,10 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     onError
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
+  const [createSetProfileImageURITypedData] =
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         const { id, typedData } = createSetProfileImageURITypedData;
@@ -104,14 +105,12 @@ const Picture: FC<PictureProps> = ({ profile }) => {
       onError
     });
 
-  const [
-    createSetProfileImageURIViaDispatcher,
-    { loading: dispatcherLoading }
-  ] = useCreateSetProfileImageUriViaDispatcherMutation({
-    onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
-      onCompleted(createSetProfileImageURIViaDispatcher.__typename),
-    onError
-  });
+  const [createSetProfileImageURIViaDispatcher] =
+    useCreateSetProfileImageUriViaDispatcherMutation({
+      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+        onCompleted(createSetProfileImageURIViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
@@ -139,7 +138,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     }
 
     try {
-      setUploading(true);
+      setIsLoading(true);
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
 
@@ -148,32 +147,22 @@ const Picture: FC<PictureProps> = ({ profile }) => {
         url: ipfsUrl
       };
 
-      if (canUseRelay && isSponsored) {
-        await createViaDispatcher(request);
-      } else {
-        await createSetProfileImageURITypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request
-          }
-        });
-      }
       setAvatarDataUrl(dataUrl);
+      if (canUseRelay && isSponsored) {
+        return await createViaDispatcher(request);
+      }
+      return await createSetProfileImageURITypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
     } catch (error) {
-      toast.error(t`Upload failed`);
+      onError(error);
     } finally {
       setShowCropModal(false);
-      setUploading(false);
     }
   };
-
-  const isLoading =
-    typedDataLoading ||
-    dispatcherLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading ||
-    uploading;
 
   const onFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

@@ -1,7 +1,6 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -75,7 +74,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [pride, setPride] = useState(hasPrideLogo(profile));
   const [coverIpfsUrl, setCoverIpfsUrl] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
   const [showCropModal, setShowCropModal] = useState(false);
@@ -91,19 +90,20 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       return;
     }
 
+    setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
     Mixpanel.track(SETTINGS.PROFILE.UPDATE);
   };
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
 
-  const {
-    isLoading: writeLoading,
-    error,
-    write
-  } = useContractWrite({
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { error, write } = useContractWrite({
     address: LENS_PERIPHERY,
     abi: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
@@ -112,10 +112,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     onError
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createSetProfileMetadataTypedData, { loading: typedDataLoading }] =
+  const [createSetProfileMetadataTypedData] =
     useCreateSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createSetProfileMetadataTypedData }) => {
         const { id, typedData } = createSetProfileMetadataTypedData;
@@ -139,14 +139,12 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       onError
     });
 
-  const [
-    createSetProfileMetadataViaDispatcher,
-    { loading: dispatcherLoading }
-  ] = useCreateSetProfileMetadataViaDispatcherMutation({
-    onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-      onCompleted(createSetProfileMetadataViaDispatcher.__typename),
-    onError
-  });
+  const [createSetProfileMetadataViaDispatcher] =
+    useCreateSetProfileMetadataViaDispatcherMutation({
+      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
+        onCompleted(createSetProfileMetadataViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (
     request: CreatePublicSetProfileMetadataUriRequest
@@ -189,7 +187,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     }
 
     try {
-      setIsUploading(true);
+      setIsLoading(true);
       const id = await uploadToArweave({
         name,
         bio,
@@ -225,7 +223,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         ],
         version: '1.0.0',
         metadata_id: uuid()
-      }).finally(() => setIsUploading(false));
+      });
 
       const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
@@ -258,7 +256,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       setCoverIpfsUrl(ipfsUrl);
       setUploadedImageUrl(dataUrl);
     } catch (error) {
-      toast.error(t`Upload failed`);
+      onError(error);
     } finally {
       setShowCropModal(false);
       setUploading(false);
@@ -272,15 +270,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       setShowCropModal(true);
     }
   };
-
-  const isLoading =
-    isUploading ||
-    typedDataLoading ||
-    dispatcherLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading ||
-    uploading;
 
   const coverPictureUrl = profile?.coverPicture?.original?.url;
   const coverPictureIpfsUrl = coverPictureUrl
@@ -413,10 +402,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           />
           <Button
             type="submit"
-            disabled={isLoading || !imageSrc}
-            onClick={() => uploadAndSave()}
+            disabled={uploading || !imageSrc}
+            onClick={uploadAndSave}
             icon={
-              isLoading ? (
+              uploading ? (
                 <Spinner size="xs" />
               ) : (
                 <PencilIcon className="h-4 w-4" />

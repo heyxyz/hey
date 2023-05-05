@@ -1,6 +1,5 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -39,13 +38,19 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [isLoading, setIsLoading] = useState(false);
   const [chainId, setChainId] = useState<number>(
     profile?.picture?.chainId || mainnet.id
   );
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
   const { signMessageAsync } = useSignMessage();
+
+  const form = useZodForm({
+    schema: editNftPictureSchema,
+    defaultValues: {
+      contractAddress: profile?.picture?.contractAddress,
+      tokenId: profile?.picture?.tokenId
+    }
+  });
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -56,23 +61,20 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
       return;
     }
 
+    setIsLoading(false);
     toast.success(t`Avatar updated successfully!`);
     Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
 
-  const form = useZodForm({
-    schema: editNftPictureSchema,
-    defaultValues: {
-      contractAddress: profile?.picture?.contractAddress,
-      tokenId: profile?.picture?.tokenId
-    }
-  });
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
 
-  const {
-    isLoading: writeLoading,
-    error,
-    write
-  } = useContractWrite({
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'setProfileImageURIWithSig',
@@ -81,12 +83,11 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     onError
   });
 
-  const [loadChallenge, { loading: challengeLoading }] =
-    useNftChallengeLazyQuery();
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [loadChallenge] = useNftChallengeLazyQuery();
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
+  const [createSetProfileImageURITypedData] =
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         const { id, typedData } = createSetProfileImageURITypedData;
@@ -110,14 +111,12 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
       onError
     });
 
-  const [
-    createSetProfileImageURIViaDispatcher,
-    { loading: dispatcherLoading }
-  ] = useCreateSetProfileImageUriViaDispatcherMutation({
-    onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
-      onCompleted(createSetProfileImageURIViaDispatcher.__typename),
-    onError
-  });
+  const [createSetProfileImageURIViaDispatcher] =
+    useCreateSetProfileImageUriViaDispatcherMutation({
+      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+        onCompleted(createSetProfileImageURIViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
@@ -141,6 +140,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     }
 
     try {
+      setIsLoading(true);
       const challengeRes = await loadChallenge({
         variables: {
           request: {
@@ -180,14 +180,6 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
       });
     } catch {}
   };
-
-  const isLoading =
-    challengeLoading ||
-    typedDataLoading ||
-    dispatcherLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading;
 
   return (
     <Form
