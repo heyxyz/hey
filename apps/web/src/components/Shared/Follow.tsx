@@ -1,9 +1,9 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
+import { Errors } from 'data';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import {
@@ -15,6 +15,7 @@ import type { ApolloCache } from 'lens/apollo';
 import getSignature from 'lib/getSignature';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
@@ -45,27 +46,9 @@ const Follow: FC<FollowProps> = ({
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { address } = useAccount();
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
-
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
-
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
-      return;
-    }
-
-    setFollowing(true);
-    toast.success(t`Followed successfully!`);
-    Mixpanel.track(PROFILE.FOLLOW, {
-      follow_path: pathname,
-      ...(followSource && { follow_source: followSource }),
-      ...(followPosition && { follow_position: followPosition }),
-      follow_target: profile?.id
-    });
-  };
+  const [isLoading, setIsLoading] = useState(false);
+  const { address } = useAccount();
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -76,7 +59,37 @@ const Follow: FC<FollowProps> = ({
     });
   };
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
+    setIsLoading(false);
+    setFollowing(true);
+    toast.success(t`Followed successfully!`);
+    Mixpanel.track(PROFILE.FOLLOW, {
+      follow_path: pathname,
+      ...(followSource && { follow_source: followSource }),
+      ...(followPosition && { follow_position: followPosition }),
+      follow_target: profile?.id
+    });
+  };
+
+  const onError = (error: any) => {
+    if (
+      error?.message?.includes('Usage limit exceeded, please try again later')
+    ) {
+      return;
+    }
+
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'followWithSig',
@@ -85,45 +98,43 @@ const Follow: FC<FollowProps> = ({
     onError
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createFollowTypedData, { loading: typedDataLoading }] =
-    useCreateFollowTypedDataMutation({
-      onCompleted: async ({ createFollowTypedData }) => {
-        const { id, typedData } = createFollowTypedData;
-        const { deadline } = typedData.value;
-        // TODO: Replace deep clone with right helper
-        const signature = await signTypedDataAsync(
-          getSignature(JSON.parse(JSON.stringify(typedData)))
-        );
-        setUserSigNonce(userSigNonce + 1);
-        const { profileIds, datas: followData } = typedData.value;
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          follower: address,
-          profileIds,
-          datas: followData,
-          sig
-        };
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      },
-      onError,
-      update: updateCache
-    });
+  const [createFollowTypedData] = useCreateFollowTypedDataMutation({
+    onCompleted: async ({ createFollowTypedData }) => {
+      const { id, typedData } = createFollowTypedData;
+      const { deadline } = typedData.value;
+      // TODO: Replace deep clone with right helper
+      const signature = await signTypedDataAsync(
+        getSignature(JSON.parse(JSON.stringify(typedData)))
+      );
+      setUserSigNonce(userSigNonce + 1);
+      const { profileIds, datas: followData } = typedData.value;
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        follower: address,
+        profileIds,
+        datas: followData,
+        sig
+      };
+      const { data } = await broadcast({
+        variables: { request: { id, signature } }
+      });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
+    },
+    onError,
+    update: updateCache
+  });
 
-  const [createFollowProxyAction, { loading: proxyActionLoading }] =
-    useProxyActionMutation({
-      onCompleted: () => onCompleted(),
-      onError,
-      update: updateCache
-    });
+  const [createFollowProxyAction] = useProxyActionMutation({
+    onCompleted: () => onCompleted(),
+    onError,
+    update: updateCache
+  });
 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createFollowProxyAction({
@@ -146,8 +157,9 @@ const Follow: FC<FollowProps> = ({
     }
 
     try {
+      setIsLoading(true);
       if (profile?.followModule) {
-        await createFollowTypedData({
+        return await createFollowTypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
             request: {
@@ -166,26 +178,15 @@ const Follow: FC<FollowProps> = ({
             }
           }
         });
-      } else {
-        await createViaProxyAction({
-          request: {
-            follow: {
-              freeFollow: {
-                profileId: profile?.id
-              }
-            }
-          }
-        });
       }
+
+      return await createViaProxyAction({
+        request: {
+          follow: { freeFollow: { profileId: profile?.id } }
+        }
+      });
     } catch {}
   };
-
-  const isLoading =
-    typedDataLoading ||
-    proxyActionLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading;
 
   return (
     <Button
