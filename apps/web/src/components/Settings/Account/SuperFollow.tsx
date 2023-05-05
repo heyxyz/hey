@@ -1,6 +1,5 @@
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -38,12 +37,30 @@ const SuperFollow: FC = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
   );
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] =
     useState('WMATIC');
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
+
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
+    setIsLoading(false);
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
+  };
+
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({
     onError
   });
   const { data: currencyData, loading } =
@@ -52,15 +69,7 @@ const SuperFollow: FC = () => {
       skip: !currentProfile?.id
     });
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
-      return;
-    }
-
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
-  };
-
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'setFollowModuleWithSig',
@@ -76,10 +85,10 @@ const SuperFollow: FC = () => {
     }
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createSetFollowModuleTypedData, { loading: typedDataLoading }] =
+  const [createSetFollowModuleTypedData] =
     useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { id, typedData } = createSetFollowModuleTypedData;
@@ -114,6 +123,7 @@ const SuperFollow: FC = () => {
     }
 
     try {
+      setIsLoading(true);
       await createSetFollowModuleTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
@@ -122,16 +132,11 @@ const SuperFollow: FC = () => {
             followModule: amount
               ? {
                   feeFollowModule: {
-                    amount: {
-                      currency: selectedCurrency,
-                      value: amount
-                    },
+                    amount: { currency: selectedCurrency, value: amount },
                     recipient
                   }
                 }
-              : {
-                  freeFollowModule: true
-                }
+              : { freeFollowModule: true }
           }
         }
       });
@@ -226,12 +231,7 @@ const SuperFollow: FC = () => {
                 variant="danger"
                 outline
                 onClick={() => setSuperFollow(null, null)}
-                disabled={
-                  typedDataLoading ||
-                  signLoading ||
-                  writeLoading ||
-                  broadcastLoading
-                }
+                disabled={isLoading}
                 icon={<XIcon className="h-4 w-4" />}
               >
                 <Trans>Disable Super follow</Trans>
@@ -239,12 +239,7 @@ const SuperFollow: FC = () => {
             )}
             <Button
               type="submit"
-              disabled={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading
-              }
+              disabled={isLoading}
               icon={<StarIcon className="h-4 w-4" />}
             >
               {followType === 'FeeFollowModuleSettings'
