@@ -1,9 +1,7 @@
 import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
-import { useFeature } from '@growthbook/growthbook-react';
 import { CheckCircleIcon, PhotographIcon } from '@heroicons/react/outline';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
-import { KillSwitch } from 'data';
 import type { MediaSet } from 'lens';
 import { generateVideoThumbnails } from 'lib/generateVideoThumbnails';
 import getFileFromDataURL from 'lib/getFileFromDataURL';
@@ -32,14 +30,10 @@ const ChooseThumbnail: FC = () => {
     (state) => state.setVideoThumbnail
   );
   const { file } = attachments[0];
-  const { on: useThirdwebIpfs } = useFeature(KillSwitch.UseThirdwebIpfs);
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
     setVideoThumbnail({ uploading: true });
-    const result: MediaSet = await uploadFileToIPFS(
-      fileToUpload,
-      useThirdwebIpfs
-    );
+    const result: MediaSet = await uploadFileToIPFS(fileToUpload);
     if (!result.original.url) {
       toast.error(t`Failed to upload thumbnail`);
     }

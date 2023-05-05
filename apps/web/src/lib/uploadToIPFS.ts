@@ -1,11 +1,15 @@
 import { S3 } from '@aws-sdk/client-s3';
 import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
+import { KillSwitch } from 'data';
 import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
 import type { MediaSet } from 'lens';
 import { v4 as uuid } from 'uuid';
 
+import { Growthbook } from './growthbook';
+
 const FALLBACK_TYPE = 'image/jpeg';
+const { on: useThirdwebIpfs } = Growthbook.feature(KillSwitch.UseThirdwebIpfs);
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
@@ -32,17 +36,13 @@ const getS3Client = async (): Promise<S3> => {
  * Uploads a set of files to the IPFS network via S3 and returns an array of MediaSet objects.
  *
  * @param data Files to upload to IPFS.
- * @param useThirdWeb Whether to use ThirdWeb for the upload.
  * @returns Array of MediaSet objects.
  */
-const uploadToIPFS = async (
-  data: any,
-  useThirdWeb = false
-): Promise<MediaSet[]> => {
+const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
   try {
     const files = Array.from(data);
 
-    if (useThirdWeb) {
+    if (useThirdwebIpfs) {
       const storage = new ThirdwebStorage();
       const uris = await storage.uploadBatch(files);
 
@@ -90,12 +90,9 @@ const uploadToIPFS = async (
  * @param file File to upload to IPFS.
  * @returns MediaSet object or null if the upload fails.
  */
-export const uploadFileToIPFS = async (
-  file: File,
-  useThirdWeb = false
-): Promise<MediaSet> => {
+export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
   try {
-    const ipfsResponse = await uploadToIPFS([file], useThirdWeb);
+    const ipfsResponse = await uploadToIPFS([file]);
     const metadata = ipfsResponse[0];
 
     return {

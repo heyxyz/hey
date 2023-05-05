@@ -1,6 +1,6 @@
-import { useFeature } from '@growthbook/growthbook-react';
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
+import { Growthbook } from '@lib/growthbook';
 import { setLocale, supportedLocales } from '@lib/i18n';
 import { Mixpanel } from '@lib/mixpanel';
 import { useLingui } from '@lingui/react';
@@ -13,8 +13,8 @@ import MenuTransition from '../MenuTransition';
 
 const Locale: FC = () => {
   const { i18n } = useLingui();
-  const { on: isGatedLocalesEnabled } = useFeature(
-    FeatureFlag.GatedLocales as string
+  const { on: isGatedLocalesEnabled } = Growthbook.feature(
+    FeatureFlag.GatedLocales
   );
   const gatedLocales = ['ta', 'es', 'ru', 'fr'];
   const locales = Object.fromEntries(

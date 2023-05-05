@@ -1,9 +1,7 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { useFeature } from '@growthbook/growthbook-react';
 import { PlusIcon } from '@heroicons/react/outline';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
-import { KillSwitch } from 'data';
 import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
 import { RelayErrorReasons, useCreateProfileMutation } from 'lens';
 import getStampFyiURL from 'lib/getStampFyiURL';
@@ -33,7 +31,6 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
   const [uploading, setUploading] = useState(false);
   const { address } = useAccount();
   const [createProfile, { data, loading }] = useCreateProfileMutation();
-  const { on: useThirdwebIpfs } = useFeature(KillSwitch.UseThirdwebIpfs);
 
   const form = useZodForm({
     schema: newUserSchema
@@ -44,10 +41,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     if (event.target.files?.length) {
       try {
         setUploading(true);
-        const attachment = await uploadFileToIPFS(
-          event.target.files[0],
-          useThirdwebIpfs
-        );
+        const attachment = await uploadFileToIPFS(event.target.files[0]);
         if (attachment.original.url) {
           setAvatar(attachment.original.url);
         }
