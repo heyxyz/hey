@@ -17,7 +17,6 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -76,6 +75,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [isLoading, setIsLoading] = useState(false);
   const [revenue, setRevenue] = useState(0);
   const [hasCollectedByMe, setHasCollectedByMe] = useState(
     publication?.hasCollectedByMe
@@ -83,9 +83,6 @@ const CollectModule: FC<CollectModuleProps> = ({
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
@@ -108,6 +105,7 @@ const CollectModule: FC<CollectModuleProps> = ({
       return;
     }
 
+    setIsLoading(false);
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     setCount(count + 1);
     setHasCollectedByMe(true);
@@ -123,7 +121,15 @@ const CollectModule: FC<CollectModuleProps> = ({
     });
   };
 
-  const { isFetching, refetch } = useContractRead({
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { refetch } = useContractRead({
     address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
     abi: UpdateOwnableFeeCollectModule,
     functionName: 'getPublicationData',
@@ -134,7 +140,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     enabled: false
   });
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'collectWithSig',
@@ -210,45 +216,38 @@ const CollectModule: FC<CollectModuleProps> = ({
     hasAmount = true;
   }
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createCollectTypedData, { loading: typedDataLoading }] =
-    useCreateCollectTypedDataMutation({
-      onCompleted: async ({ createCollectTypedData }) => {
-        const { id, typedData } = createCollectTypedData;
-        const {
-          profileId,
-          pubId,
-          data: collectData,
-          deadline
-        } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          collector: address,
-          profileId,
-          pubId,
-          data: collectData,
-          sig
-        };
-        setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      },
-      onError
-    });
+  const [createCollectTypedData] = useCreateCollectTypedDataMutation({
+    onCompleted: async ({ createCollectTypedData }) => {
+      const { id, typedData } = createCollectTypedData;
+      const { profileId, pubId, data: collectData, deadline } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        collector: address,
+        profileId,
+        pubId,
+        data: collectData,
+        sig
+      };
+      setUserSigNonce(userSigNonce + 1);
+      const { data } = await broadcast({
+        variables: { request: { id, signature } }
+      });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
+    },
+    onError
+  });
 
-  const [createCollectProxyAction, { loading: proxyActionLoading }] =
-    useProxyActionMutation({
-      onCompleted: () => onCompleted(),
-      onError
-    });
+  const [createCollectProxyAction] = useProxyActionMutation({
+    onCompleted: () => onCompleted(),
+    onError
+  });
 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
@@ -268,6 +267,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     }
 
     try {
+      setIsLoading(true);
       if (isFreeCollectModule && !collectModule?.followerOnly) {
         await createViaProxyAction({
           request: {
@@ -318,13 +318,6 @@ const CollectModule: FC<CollectModuleProps> = ({
   const isCollectExpired = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
-  const isLoading =
-    typedDataLoading ||
-    proxyActionLoading ||
-    signLoading ||
-    isFetching ||
-    writeLoading ||
-    broadcastLoading;
 
   return (
     <>
