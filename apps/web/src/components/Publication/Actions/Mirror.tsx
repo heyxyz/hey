@@ -187,7 +187,9 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     }
 
     if (publication.isDataAvailability && !isSponsored) {
-      return toast.error(t`Your profile is not allowed to mirror this post`);
+      return toast.error(
+        t`Momoka is currently in beta phase - during this time certain actions are not available to all users`
+      );
     }
 
     try {

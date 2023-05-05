@@ -309,7 +309,8 @@ msgid "What's happening?"
 msgstr "Что происходит?"
 
 #: src/components/Composer/NewPublication.tsx
-msgid "Your profile is not allowed to comment on this post"
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Momoka is currently in beta phase - during this time certain actions are not available to all users"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
@@ -1525,10 +1526,6 @@ msgid "Post has been mirrored!"
 msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
-msgid "Your profile is not allowed to mirror this post"
-msgstr ""
-
-#: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
 msgstr ""
 
@@ -1688,6 +1685,10 @@ msgstr "Ethereum-адрес должен содержать не более 42 �
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
 msgstr "Неверный Ethereum-адрес"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Super Follow updated successfully!"
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -2009,11 +2010,6 @@ msgstr "Адрес контракта"
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
 msgstr "Идентификатор токена"
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Upload failed"
-msgstr "Загрузка не удалась"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -2677,10 +2673,6 @@ msgstr "Сменить сеть"
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
 msgstr "Отписались успешно!"
-
-#: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
-msgstr "Пользователь отклонил запрос"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"

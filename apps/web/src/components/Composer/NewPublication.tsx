@@ -686,7 +686,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     if (isComment && publication.isDataAvailability && !isSponsored) {
       return toast.error(
-        t`Your profile is not allowed to comment on this post`
+        t`Momoka is currently in beta phase - during this time certain actions are not available to all users`
       );
     }
 

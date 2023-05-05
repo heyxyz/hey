@@ -309,7 +309,8 @@ msgid "What's happening?"
 msgstr "என்ன நடக்கிறது?"
 
 #: src/components/Composer/NewPublication.tsx
-msgid "Your profile is not allowed to comment on this post"
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Momoka is currently in beta phase - during this time certain actions are not available to all users"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
@@ -1525,10 +1526,6 @@ msgid "Post has been mirrored!"
 msgstr "இடுகை மிரர் செய்யப்பட்டது!"
 
 #: src/components/Publication/Actions/Mirror.tsx
-msgid "Your profile is not allowed to mirror this post"
-msgstr ""
-
-#: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
 msgstr "{0} மிரர்கள்"
 
@@ -1688,6 +1685,10 @@ msgstr "Ethereum முகவரி 42 எழுத்துகளுக்க�
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
 msgstr "தவறான Ethereum முகவரி"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Super Follow updated successfully!"
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -2009,11 +2010,6 @@ msgstr "ஒப்பந்த முகவரி"
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
 msgstr "டோக்கன் ஐடி"
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Upload failed"
-msgstr "பதிவேற்றம் தோல்வியுற்றது"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -2677,10 +2673,6 @@ msgstr "நெட்வொர்க்கை மாற்றவும்"
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
 msgstr "வெற்றிகரமாக பின்தொடரவில்லை!"
-
-#: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
-msgstr "பயனர் கோரிக்கையை நிராகரித்தார்"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"

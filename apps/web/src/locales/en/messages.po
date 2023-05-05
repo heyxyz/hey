@@ -309,8 +309,9 @@ msgid "What's happening?"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
-msgid "Your profile is not allowed to comment on this post"
-msgstr "Your profile is not allowed to comment on this post"
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Momoka is currently in beta phase - during this time certain actions are not available to all users"
+msgstr "Momoka is currently in beta phase - during this time certain actions are not available to all users"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
@@ -1525,10 +1526,6 @@ msgid "Post has been mirrored!"
 msgstr "Post has been mirrored!"
 
 #: src/components/Publication/Actions/Mirror.tsx
-msgid "Your profile is not allowed to mirror this post"
-msgstr "Your profile is not allowed to mirror this post"
-
-#: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
 msgstr ""
 
@@ -1688,6 +1685,10 @@ msgstr ""
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
 msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Super Follow updated successfully!"
+msgstr "Super Follow updated successfully!"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -2009,11 +2010,6 @@ msgstr ""
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Token Id"
 msgstr ""
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Upload failed"
-msgstr "Upload failed"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -2676,10 +2672,6 @@ msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
-msgstr ""
-
-#: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
 msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
