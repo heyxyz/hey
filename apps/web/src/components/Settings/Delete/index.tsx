@@ -3,7 +3,6 @@ import UserProfile from '@components/Shared/UserProfile';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import resetAuthData from '@lib/resetAuthData';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
@@ -39,9 +38,7 @@ const DeleteSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  const [isLoading, setIsLoading] = useState(false);
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
 
@@ -58,7 +55,18 @@ const DeleteSettings: FC = () => {
     location.href = '/';
   };
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({
+    onError
+  });
+
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'burnWithSig',
@@ -67,20 +75,19 @@ const DeleteSettings: FC = () => {
     onError
   });
 
-  const [createBurnProfileTypedData, { loading: typedDataLoading }] =
-    useCreateBurnProfileTypedDataMutation({
-      onCompleted: async ({ createBurnProfileTypedData }) => {
-        const { typedData } = createBurnProfileTypedData;
-        const { tokenId, deadline } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
+  const [createBurnProfileTypedData] = useCreateBurnProfileTypedDataMutation({
+    onCompleted: async ({ createBurnProfileTypedData }) => {
+      const { typedData } = createBurnProfileTypedData;
+      const { tokenId, deadline } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
 
-        setUserSigNonce(userSigNonce + 1);
-        write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
-      },
-      onError
-    });
+      setUserSigNonce(userSigNonce + 1);
+      write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
+    },
+    onError
+  });
 
   const handleDelete = async () => {
     if (!currentProfile) {
@@ -96,8 +103,6 @@ const DeleteSettings: FC = () => {
       });
     } catch {}
   };
-
-  const isDeleting = typedDataLoading || signLoading || writeLoading;
 
   if (!currentProfile) {
     return <Custom404 />;
@@ -145,16 +150,16 @@ const DeleteSettings: FC = () => {
           <Button
             variant="danger"
             icon={
-              isDeleting ? (
+              isLoading ? (
                 <Spinner variant="danger" size="xs" />
               ) : (
                 <TrashIcon className="h-5 w-5" />
               )
             }
-            disabled={isDeleting}
+            disabled={isLoading}
             onClick={() => setShowWarningModal(true)}
           >
-            {isDeleting ? t`Deleting...` : t`Delete your account`}
+            {isLoading ? t`Deleting...` : t`Delete your account`}
           </Button>
           <Modal
             title={t`Danger Zone`}

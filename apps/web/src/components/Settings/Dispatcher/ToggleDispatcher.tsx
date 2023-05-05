@@ -1,11 +1,11 @@
 import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
+import { Errors } from 'data';
 import { LENSHUB_PROXY, OLD_LENS_RELAYER_ADDRESS } from 'data/constants';
 import {
   useBroadcastMutation,
@@ -14,6 +14,7 @@ import {
 import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
@@ -28,6 +29,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [isLoading, setIsLoading] = useState(false);
   const canUseRelay = getIsDispatcherEnabled(currentProfile);
   const isOldDispatcherEnabled =
     currentProfile?.dispatcher?.address?.toLocaleLowerCase() ===
@@ -38,6 +40,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
       return;
     }
 
+    setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
     if (isOldDispatcherEnabled) {
       Mixpanel.track(SETTINGS.DISPATCHER.UPDATE);
@@ -46,15 +49,15 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     }
   };
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
 
-  const {
-    data: writeData,
-    isLoading: writeLoading,
-    write
-  } = useContractWrite({
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { data: writeData, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'setDispatcherWithSig',
@@ -63,11 +66,10 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     onError
   });
 
-  const [broadcast, { data: broadcastData, loading: broadcastLoading }] =
-    useBroadcastMutation({
-      onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
-    });
-  const [createSetDispatcherTypedData, { loading: typedDataLoading }] =
+  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  });
+  const [createSetDispatcherTypedData] =
     useCreateSetDispatcherTypedDataMutation({
       onCompleted: async ({ createSetDispatcherTypedData }) => {
         const { id, typedData } = createSetDispatcherTypedData;
@@ -114,8 +116,6 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     }
   };
 
-  const isLoading =
-    signLoading || writeLoading || broadcastLoading || typedDataLoading;
   const broadcastTxHash =
     broadcastData?.broadcast.__typename === 'RelayerResult' &&
     broadcastData.broadcast.txHash;
