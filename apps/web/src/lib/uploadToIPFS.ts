@@ -8,8 +8,8 @@ import { v4 as uuid } from 'uuid';
 
 import { Growthbook } from './growthbook';
 
-const FALLBACK_TYPE = 'image/jpeg';
 const { on: useThirdwebIpfs } = Growthbook.feature(KillSwitch.UseThirdwebIpfs);
+const FALLBACK_TYPE = 'image/jpeg';
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
