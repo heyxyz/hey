@@ -1,6 +1,5 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
@@ -30,12 +29,16 @@ const Unfollow: FC<UnfollowProps> = ({
   setFollowing
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [writeLoading, setWriteLoading] = useState(false);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  const [isLoading, setIsLoading] = useState(false);
   const { data: signer } = useSigner();
 
+  const onError = (error: any) => {
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
   const burnWithSig = async (
     signature: string,
     typedData: CreateBurnEip712TypedData
@@ -62,30 +65,26 @@ const Unfollow: FC<UnfollowProps> = ({
     }
   });
 
-  const [createUnfollowTypedData, { loading: typedDataLoading }] =
-    useCreateUnfollowTypedDataMutation({
-      onCompleted: async ({ createUnfollowTypedData }) => {
-        const { typedData, id } = createUnfollowTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
+  const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
+    onCompleted: async ({ createUnfollowTypedData }) => {
+      const { typedData, id } = createUnfollowTypedData;
+      const signature = await signTypedDataAsync(getSignature(typedData));
 
-        setWriteLoading(true);
-        try {
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          });
-          if (data?.broadcast.__typename === 'RelayError') {
-            await burnWithSig(signature, typedData);
-          }
-          toast.success(t`Unfollowed successfully!`);
-          Mixpanel.track(PROFILE.UNFOLLOW);
-        } catch {
-          toast.error(t`User rejected request`);
-        } finally {
-          setWriteLoading(false);
+      try {
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
+        if (data?.broadcast.__typename === 'RelayError') {
+          await burnWithSig(signature, typedData);
         }
-      },
-      onError
-    });
+        toast.success(t`Unfollowed successfully!`);
+        Mixpanel.track(PROFILE.UNFOLLOW);
+      } catch (error) {
+        onError(error);
+      }
+    },
+    onError
+  });
 
   const createUnfollow = async () => {
     if (!currentProfile) {
@@ -93,6 +92,7 @@ const Unfollow: FC<UnfollowProps> = ({
     }
 
     try {
+      setIsLoading(true);
       await createUnfollowTypedData({
         variables: { request: { profile: profile?.id } }
       });
@@ -106,11 +106,11 @@ const Unfollow: FC<UnfollowProps> = ({
       className="!px-3 !py-1.5 text-sm"
       outline
       onClick={createUnfollow}
-      disabled={typedDataLoading || signLoading || writeLoading}
+      disabled={isLoading}
       variant="danger"
       aria-label="Unfollow"
       icon={
-        typedDataLoading || signLoading || writeLoading ? (
+        isLoading ? (
           <Spinner variant="danger" size="xs" />
         ) : (
           <UserRemoveIcon className="h-4 w-4" />

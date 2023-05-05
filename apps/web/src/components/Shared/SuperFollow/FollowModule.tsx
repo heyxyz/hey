@@ -1,7 +1,6 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -60,17 +59,16 @@ const FollowModule: FC<FollowModuleProps> = ({
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
     }
 
+    setIsLoading(false);
     setFollowing(true);
     setShowFollowModal(false);
     toast.success(t`Followed successfully!`);
@@ -82,7 +80,15 @@ const FollowModule: FC<FollowModuleProps> = ({
     });
   };
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'followWithSig',
@@ -131,33 +137,32 @@ const FollowModule: FC<FollowModuleProps> = ({
     hasAmount = true;
   }
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createFollowTypedData, { loading: typedDataLoading }] =
-    useCreateFollowTypedDataMutation({
-      onCompleted: async ({ createFollowTypedData }) => {
-        const { id, typedData } = createFollowTypedData;
-        const { profileIds, datas: followData, deadline } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          follower: address,
-          profileIds,
-          datas: followData,
-          sig
-        };
-        setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      },
-      onError
-    });
+  const [createFollowTypedData] = useCreateFollowTypedDataMutation({
+    onCompleted: async ({ createFollowTypedData }) => {
+      const { id, typedData } = createFollowTypedData;
+      const { profileIds, datas: followData, deadline } = typedData.value;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        follower: address,
+        profileIds,
+        datas: followData,
+        sig
+      };
+      setUserSigNonce(userSigNonce + 1);
+      const { data } = await broadcast({
+        variables: { request: { id, signature } }
+      });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
+    },
+    onError
+  });
 
   const createFollow = async () => {
     if (!currentProfile) {
@@ -165,7 +170,8 @@ const FollowModule: FC<FollowModuleProps> = ({
     }
 
     try {
-      await createFollowTypedData({
+      setIsLoading(true);
+      return await createFollowTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {
@@ -292,17 +298,9 @@ const FollowModule: FC<FollowModuleProps> = ({
               variant="super"
               outline
               onClick={createFollow}
-              disabled={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading
-              }
+              disabled={isLoading}
               icon={
-                typedDataLoading ||
-                signLoading ||
-                writeLoading ||
-                broadcastLoading ? (
+                isLoading ? (
                   <Spinner variant="super" size="xs" />
                 ) : (
                   <StarIcon className="h-4 w-4" />
