@@ -310,7 +310,7 @@ msgstr "Что происходит?"
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Mirror.tsx
-msgid "Momoka is currently in beta phase - during this time certain actions are not available to all users"
+msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
