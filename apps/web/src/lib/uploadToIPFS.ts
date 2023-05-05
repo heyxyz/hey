@@ -8,7 +8,6 @@ import { v4 as uuid } from 'uuid';
 
 import { Growthbook } from './growthbook';
 
-const { on: useThirdwebIpfs } = Growthbook.feature(KillSwitch.UseThirdwebIpfs);
 const FALLBACK_TYPE = 'image/jpeg';
 
 /**
@@ -40,6 +39,9 @@ const getS3Client = async (): Promise<S3> => {
  */
 const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
   try {
+    const { on: useThirdwebIpfs } = Growthbook.feature(
+      KillSwitch.UseThirdwebIpfs
+    );
     const files = Array.from(data);
 
     if (useThirdwebIpfs) {
