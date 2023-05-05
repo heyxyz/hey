@@ -1,5 +1,5 @@
-import { useFeature } from '@growthbook/growthbook-react';
 import { MenuAlt2Icon } from '@heroicons/react/solid';
+import { Growthbook } from '@lib/growthbook';
 import { t } from '@lingui/macro';
 import { FeatureFlag } from 'data';
 import { motion } from 'framer-motion';
@@ -13,7 +13,7 @@ const PollSettings: FC = () => {
     (state) => state.setShowPollEditor
   );
   const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
-  const { on: isPollsEnabled } = useFeature(FeatureFlag.Polls as string);
+  const { on: isPollsEnabled } = Growthbook.feature(FeatureFlag.Polls);
 
   if (!isPollsEnabled) {
     return null;
