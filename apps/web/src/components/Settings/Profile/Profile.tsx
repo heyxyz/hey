@@ -155,7 +155,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     if (
       data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError'
     ) {
-      await createSetProfileMetadataTypedData({
+      return await createSetProfileMetadataTypedData({
         variables: { request }
       });
     }

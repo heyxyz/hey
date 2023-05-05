@@ -133,7 +133,7 @@ const Status: FC = () => {
     if (
       data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError'
     ) {
-      await createSetProfileMetadataTypedData({
+      return await createSetProfileMetadataTypedData({
         variables: { request }
       });
     }

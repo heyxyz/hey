@@ -119,7 +119,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     if (
       data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError'
     ) {
-      await createSetProfileImageURITypedData({
+      return await createSetProfileImageURITypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request

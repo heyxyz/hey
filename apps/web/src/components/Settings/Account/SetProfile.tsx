@@ -106,7 +106,7 @@ const SetProfile: FC = () => {
       const request: CreateSetDefaultProfileRequest = {
         profileId: selectedUser
       };
-      await createSetDefaultProfileTypedData({
+      return await createSetDefaultProfileTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request

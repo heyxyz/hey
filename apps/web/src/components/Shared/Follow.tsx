@@ -141,7 +141,7 @@ const Follow: FC<FollowProps> = ({
       variables
     });
     if (!data?.proxyAction) {
-      await createFollowTypedData({
+      return await createFollowTypedData({
         variables: {
           request: { follow: [{ profile: profile?.id }] },
           options: { overrideSigNonce: userSigNonce }

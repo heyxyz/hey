@@ -125,7 +125,7 @@ const SuperFollow: FC = () => {
 
     try {
       setIsLoading(true);
-      await createSetFollowModuleTypedData({
+      return await createSetFollowModuleTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {

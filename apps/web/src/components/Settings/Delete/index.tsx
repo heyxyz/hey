@@ -95,7 +95,7 @@ const DeleteSettings: FC = () => {
     }
 
     try {
-      await createBurnProfileTypedData({
+      return await createBurnProfileTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: { profileId: currentProfile?.id }

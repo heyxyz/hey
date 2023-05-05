@@ -252,7 +252,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
     if (!data?.proxyAction) {
-      await createCollectTypedData({
+      return await createCollectTypedData({
         variables: {
           request: { publicationId: publication?.id },
           options: { overrideSigNonce: userSigNonce }
@@ -269,7 +269,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     try {
       setIsLoading(true);
       if (isFreeCollectModule && !collectModule?.followerOnly) {
-        await createViaProxyAction({
+        return await createViaProxyAction({
           request: {
             collect: { freeCollect: { publicationId: publication?.id } }
           }
@@ -282,7 +282,7 @@ const CollectModule: FC<CollectModuleProps> = ({
               ['address', 'uint256'],
               [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
             );
-            await createCollectTypedData({
+            return await createCollectTypedData({
               variables: {
                 options: { overrideSigNonce: userSigNonce },
                 request: {
@@ -293,18 +293,18 @@ const CollectModule: FC<CollectModuleProps> = ({
             });
           }
         });
-      } else {
-        await createCollectTypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request: {
-              publicationId: electedMirror
-                ? electedMirror.mirrorId
-                : publication?.id
-            }
-          }
-        });
       }
+
+      return await createCollectTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: {
+            publicationId: electedMirror
+              ? electedMirror.mirrorId
+              : publication?.id
+          }
+        }
+      });
     } catch (error) {
       onError(error);
     }

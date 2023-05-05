@@ -95,7 +95,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
 
   const toggleDispatcher = async () => {
     try {
-      await createSetDispatcherTypedData({
+      return await createSetDispatcherTypedData({
         variables: {
           request: {
             profileId: currentProfile?.id,
