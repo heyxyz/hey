@@ -2,8 +2,8 @@ import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
-import { useFeature } from '@growthbook/growthbook-react';
 import { Tab } from '@headlessui/react';
+import { Growthbook } from '@lib/growthbook';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -25,8 +25,8 @@ const Explore: NextPage = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMainFocus>();
-  const { on: isTrendingWidgetEnabled } = useFeature(
-    FeatureFlag.TrendingWidget as string
+  const { on: isTrendingWidgetEnabled } = Growthbook.feature(
+    FeatureFlag.TrendingWidget
   );
 
   useEffect(() => {
