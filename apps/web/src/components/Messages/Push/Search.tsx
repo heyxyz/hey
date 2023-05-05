@@ -35,6 +35,13 @@ const Search: FC<SearchProps> = ({
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
   // const [searchGroups, { data: searchGroupsData, loading: searchGroupsLoading }] = useSearchProfilesLazyQuery();
+  const setInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImgClick = () => {
+    if (setInputRef) {
+      setInputRef.current ? setInputRef.current.focus() : null;
+    }
+  };
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
@@ -77,8 +84,9 @@ const Search: FC<SearchProps> = ({
 
   return (
     <div aria-hidden="true" className="w-full" data-testid="global-search">
-      <form onSubmit={handleKeyDown}>
+      <form onSubmit={handleKeyDown} className="flex gap-x-2" ref={dropdownRef}>
         <Input
+          ref={setInputRef}
           type="text"
           className="px-3 py-2 text-sm"
           placeholder={placeholder}
@@ -92,11 +100,13 @@ const Search: FC<SearchProps> = ({
           }
           onChange={handleSearch}
         />
+        <div className="cursor-pointer" onClick={handleImgClick}>
+          <img className="h-10 w-11" src="/push/requestchat.svg" alt="plus icon" />
+        </div>
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
         <div
           className={clsx('absolute mt-2 flex w-[20%] flex-col', modalWidthClassName)}
-          ref={dropdownRef}
           data-testid="search-profiles-dropdown"
         >
           <Card className="z-10 max-h-[70vh] max-w-[295px] overflow-y-auto py-2	">
