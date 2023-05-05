@@ -59,22 +59,22 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
     >
       <Card className="mb-6 flex justify-between font-bold">
         <div
-          onClick={() => changeChatProvider(MESSAGING_PROVIDER.XMTP)}
-          className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-l-xl py-2.5 transition-all hover:bg-gray-200 ${
-            chatProvider === MESSAGING_PROVIDER.XMTP && 'bg-gray-100'
-          }`}
-        >
-          <img width={16} height={16} className="mx-1" src="/xmtp.svg" alt="xmtp" draggable={false} />
-          <Trans>{MESSAGING_PROVIDER.XMTP.toUpperCase()}</Trans>
-        </div>
-        <div
           onClick={() => changeChatProvider(MESSAGING_PROVIDER.PUSH)}
-          className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-r-xl py-2.5 transition-all hover:bg-gray-200 ${
+          className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-l-xl py-2.5 transition-all hover:bg-gray-200 ${
             chatProvider === MESSAGING_PROVIDER.PUSH && 'bg-gray-100'
           }`}
         >
-          <img width={20} height={20} className="mx-1" src="/push.svg" alt="xmtp" draggable={false} />
+          <img width={16} height={16} className="mx-1" src="/push.svg" alt="push" draggable={false} />
           <Trans>{MESSAGING_PROVIDER.PUSH.toUpperCase()}</Trans>
+        </div>
+        <div
+          onClick={() => changeChatProvider(MESSAGING_PROVIDER.XMTP)}
+          className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-r-xl py-2.5 transition-all hover:bg-gray-200 ${
+            chatProvider === MESSAGING_PROVIDER.XMTP && 'bg-gray-100'
+          }`}
+        >
+          <img width={20} height={20} className="mx-1" src="/xmtp.svg" alt="xmtp" draggable={false} />
+          <Trans>{MESSAGING_PROVIDER.XMTP.toUpperCase()}</Trans>
         </div>
       </Card>
 
