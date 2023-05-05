@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-03 00:08\n"
+"PO-Revision-Date: 2023-05-05 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -44,11 +44,11 @@ msgstr "Сначала включите функцию collect, чтобы ис�
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Collectors can view"
-msgstr "Коллекционеры могут просматривать"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
-msgstr "Люди должны коллекционировать эту публикацию, чтобы увидеть ее"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Followers can view"
@@ -109,11 +109,11 @@ msgstr "Медиа"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
-msgstr "Плата за коллекционирование"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Get paid whenever someone collects your post"
-msgstr "Получайте оплату всякий раз, когда кто-то коллекционирует вашу публикацию"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Price"
@@ -127,7 +127,7 @@ msgstr "Выберите валюту"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
-msgstr "Загрузка настроек коллекционирования"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Failed to load modules"
@@ -135,7 +135,7 @@ msgstr "Не удалось загрузить модули"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
-msgstr "Эту публикацию можно коллекционировать"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
@@ -143,19 +143,19 @@ msgstr "Ограниченный выпуск"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
-msgstr "Сделать коллекты эксклюзивными"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
-msgstr "Лимит на коллекционирование"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Who can collect"
-msgstr "Кто может коллекционировать"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Only followers can collect"
-msgstr "Только подписчики могут коллекционировать"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Mirror referral reward"
@@ -195,7 +195,7 @@ msgstr "Лимит на коллект в течение первых 24 час�
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
-msgstr "Настройки коллекционирования"
+msgstr ""
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "Search for GIFs"
@@ -1458,7 +1458,7 @@ msgstr "Доход:"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Sale Ends:"
-msgstr ""
+msgstr "Продажа заканчивается:"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Token:"
