@@ -78,6 +78,7 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     if (__typename === 'RelayError') {
       return;
     }
+
     updateCache();
     setIsLoading(false);
     setMirrored(true);
@@ -221,7 +222,9 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
           request
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   const iconClassName = showCount

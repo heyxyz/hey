@@ -112,7 +112,9 @@ const SetProfile: FC = () => {
           request
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (!currentProfile) {

@@ -103,7 +103,9 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
           }
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   const getButtonText = () => {

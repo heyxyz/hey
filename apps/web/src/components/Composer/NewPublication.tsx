@@ -858,7 +858,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return await createPostTypedData({
         variables: { options: { overrideSigNonce: userSigNonce }, request }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   const setGifAttachment = (gif: IGif) => {

@@ -96,7 +96,9 @@ const Unfollow: FC<UnfollowProps> = ({
       await createUnfollowTypedData({
         variables: { request: { profile: profile?.id } }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   return (

@@ -185,7 +185,9 @@ const FollowModule: FC<FollowModuleProps> = ({
           }
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (loading) {

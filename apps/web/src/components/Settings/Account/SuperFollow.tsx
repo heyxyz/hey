@@ -50,6 +50,7 @@ const SuperFollow: FC = () => {
     }
 
     setIsLoading(false);
+    toast.success(t`Super Follow updated successfully!`);
     Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
@@ -140,7 +141,9 @@ const SuperFollow: FC = () => {
           }
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (loading) {

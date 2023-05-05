@@ -185,7 +185,9 @@ const Follow: FC<FollowProps> = ({
           follow: { freeFollow: { profileId: profile?.id } }
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   return (

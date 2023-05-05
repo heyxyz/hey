@@ -101,7 +101,9 @@ const DeleteSettings: FC = () => {
           request: { profileId: currentProfile?.id }
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (!currentProfile) {

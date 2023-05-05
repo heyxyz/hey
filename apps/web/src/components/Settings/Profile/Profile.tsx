@@ -237,7 +237,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       return await createSetProfileMetadataTypedData({
         variables: { request }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   const uploadAndSave = async () => {

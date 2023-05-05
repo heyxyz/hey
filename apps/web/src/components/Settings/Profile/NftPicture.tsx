@@ -178,7 +178,9 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
           request
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   return (

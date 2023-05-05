@@ -305,7 +305,9 @@ const CollectModule: FC<CollectModuleProps> = ({
           }
         });
       }
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (loading || revenueLoading) {
