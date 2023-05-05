@@ -1,7 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -29,25 +28,28 @@ const SetProfile: FC = () => {
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const [selectedUser, setSelectedUser] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
     }
 
+    setIsLoading(false);
     toast.success(t`Default profile updated successfully!`);
     Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
-  const {
-    isLoading: writeLoading,
-    error,
-    write
-  } = useContractWrite({
+  const onError = (error: any) => {
+    setIsLoading(false);
+    toast.error(
+      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
+    );
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'setDefaultProfileWithSig',
@@ -66,10 +68,10 @@ const SetProfile: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
+  const [createSetDefaultProfileTypedData] =
     useCreateSetDefaultProfileTypedDataMutation({
       onCompleted: async ({ createSetDefaultProfileTypedData }) => {
         const { id, typedData } = createSetDefaultProfileTypedData;
@@ -100,24 +102,24 @@ const SetProfile: FC = () => {
     }
 
     try {
+      setIsLoading(true);
       const request: CreateSetDefaultProfileRequest = {
         profileId: selectedUser
       };
-      await createSetDefaultProfileTypedData({
+      return await createSetDefaultProfileTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (!currentProfile) {
     return <Custom404 />;
   }
-
-  const isLoading =
-    typedDataLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Card className="space-y-5 p-5">

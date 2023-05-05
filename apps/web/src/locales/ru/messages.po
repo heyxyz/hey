@@ -309,6 +309,11 @@ msgid "What's happening?"
 msgstr "Что происходит?"
 
 #: src/components/Composer/NewPublication.tsx
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -1511,6 +1516,11 @@ msgstr "Нравится"
 msgid "Copied to clipboard!"
 msgstr "Скопировано в буфер обмена!"
 
+#: src/components/Publication/Actions/Menu/Translate.tsx
+#: src/components/Shared/Footer/index.tsx
+msgid "Translate"
+msgstr "Перевести"
+
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
 msgstr ""
@@ -1675,6 +1685,10 @@ msgstr "Ethereum-адрес должен содержать не более 42 �
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
 msgstr "Неверный Ethereum-адрес"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Super Follow updated successfully!"
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -1999,11 +2013,6 @@ msgstr "Идентификатор токена"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Upload failed"
-msgstr "Загрузка не удалась"
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr "Обрезать изображение"
 
@@ -2203,10 +2212,6 @@ msgstr "Спасибо"
 #: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr "GitHub"
-
-#: src/components/Shared/Footer/index.tsx
-msgid "Translate"
-msgstr "Перевести"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
@@ -2670,10 +2675,6 @@ msgid "Unfollowed successfully!"
 msgstr "Отписались успешно!"
 
 #: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
-msgstr "Пользователь отклонил запрос"
-
-#: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
 msgstr "Отписаться"
 
@@ -2852,4 +2853,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

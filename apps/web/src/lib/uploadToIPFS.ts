@@ -91,9 +91,7 @@ export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
       }
     };
   } catch {
-    return {
-      original: { url: '', mimeType: file.type || FALLBACK_TYPE }
-    };
+    return { original: { url: '', mimeType: file.type || FALLBACK_TYPE } };
   }
 };
 

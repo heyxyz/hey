@@ -309,6 +309,11 @@ msgid "What's happening?"
 msgstr "என்ன நடக்கிறது?"
 
 #: src/components/Composer/NewPublication.tsx
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -1511,6 +1516,11 @@ msgstr "விரும்பு"
 msgid "Copied to clipboard!"
 msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
 
+#: src/components/Publication/Actions/Menu/Translate.tsx
+#: src/components/Shared/Footer/index.tsx
+msgid "Translate"
+msgstr "மொழிபெயர்"
+
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
 msgstr "இடுகை மிரர் செய்யப்பட்டது!"
@@ -1675,6 +1685,10 @@ msgstr "Ethereum முகவரி 42 எழுத்துகளுக்க�
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
 msgstr "தவறான Ethereum முகவரி"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Super Follow updated successfully!"
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -1999,11 +2013,6 @@ msgstr "டோக்கன் ஐடி"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Upload failed"
-msgstr "பதிவேற்றம் தோல்வியுற்றது"
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr "படத்தைத் திருத்து"
 
@@ -2203,10 +2212,6 @@ msgstr "நன்றி"
 #: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr "கிட்ஹப்"
-
-#: src/components/Shared/Footer/index.tsx
-msgid "Translate"
-msgstr "மொழிபெயர்"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
@@ -2670,10 +2675,6 @@ msgid "Unfollowed successfully!"
 msgstr "வெற்றிகரமாக பின்தொடரவில்லை!"
 
 #: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
-msgstr "பயனர் கோரிக்கையை நிராகரித்தார்"
-
-#: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
 msgstr "பின்தொடராதே"
 
@@ -2852,4 +2853,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
