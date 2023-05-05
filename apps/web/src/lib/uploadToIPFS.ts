@@ -99,7 +99,7 @@ export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
 
     return {
       original: {
-        url: `ipfs://${metadata.original.url}`,
+        url: metadata.original.url,
         mimeType: file.type || FALLBACK_TYPE
       }
     };
