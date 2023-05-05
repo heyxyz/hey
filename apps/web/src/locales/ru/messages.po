@@ -309,6 +309,10 @@ msgid "What's happening?"
 msgstr "Что происходит?"
 
 #: src/components/Composer/NewPublication.tsx
+msgid "Your profile is not allowed to comment on this post"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -1511,8 +1515,17 @@ msgstr "Нравится"
 msgid "Copied to clipboard!"
 msgstr "Скопировано в буфер обмена!"
 
+#: src/components/Publication/Actions/Menu/Translate.tsx
+#: src/components/Shared/Footer/index.tsx
+msgid "Translate"
+msgstr "Перевести"
+
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
+msgstr ""
+
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Your profile is not allowed to mirror this post"
 msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
@@ -2205,10 +2218,6 @@ msgid "GitHub"
 msgstr "GitHub"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Translate"
-msgstr "Перевести"
-
-#: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ При поддержке Vercel"
 
@@ -2852,4 +2861,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

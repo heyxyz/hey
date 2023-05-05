@@ -309,6 +309,10 @@ msgid "What's happening?"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
+msgid "Your profile is not allowed to comment on this post"
+msgstr "Your profile is not allowed to comment on this post"
+
+#: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
 #: src/components/Settings/Profile/Picture.tsx
@@ -1511,9 +1515,18 @@ msgstr ""
 msgid "Copied to clipboard!"
 msgstr ""
 
+#: src/components/Publication/Actions/Menu/Translate.tsx
+#: src/components/Shared/Footer/index.tsx
+msgid "Translate"
+msgstr ""
+
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
 msgstr "Post has been mirrored!"
+
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Your profile is not allowed to mirror this post"
+msgstr "Your profile is not allowed to mirror this post"
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "{0} Mirrors"
@@ -2202,10 +2215,6 @@ msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
-msgstr ""
-
-#: src/components/Shared/Footer/index.tsx
-msgid "Translate"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx

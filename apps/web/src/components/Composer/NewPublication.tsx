@@ -210,6 +210,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     attachments[0]?.original.mimeType
   );
 
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
+
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
@@ -677,6 +681,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (isComment && publication.isDataAvailability && !isSponsored) {
+      return toast.error(
+        t`Your profile is not allowed to comment on this post`
+      );
+    }
+
     try {
       setLoading(true);
       if (hasAudio) {
@@ -823,17 +833,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentURI: `ar://${arweaveId}`
       };
 
-      if (
-        currentProfile?.dispatcher?.canUseRelay &&
-        currentProfile.dispatcher.sponsor
-      ) {
-        if (useDataAvailability) {
+      if (canUseRelay) {
+        if (useDataAvailability && isSponsored) {
           return await createViaDataAvailablityDispatcher(
             dataAvailablityRequest
           );
-        } else {
-          return await createViaDispatcher(request);
         }
+
+        return await createViaDispatcher(request);
       }
 
       if (isComment) {

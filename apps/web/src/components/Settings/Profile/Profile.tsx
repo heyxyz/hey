@@ -228,10 +228,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         metadata: `https://arweave.net/${id}`
       };
 
-      if (
-        currentProfile?.dispatcher?.canUseRelay &&
-        currentProfile.dispatcher.sponsor
-      ) {
+      if (currentProfile.dispatcher?.canUseRelay) {
         return await createViaDispatcher(request);
       }
 

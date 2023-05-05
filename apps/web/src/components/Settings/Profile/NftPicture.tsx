@@ -164,10 +164,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
         }
       };
 
-      if (
-        currentProfile?.dispatcher?.canUseRelay &&
-        currentProfile.dispatcher.sponsor
-      ) {
+      if (currentProfile?.dispatcher?.canUseRelay) {
         return await createViaDispatcher(request);
       }
 

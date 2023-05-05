@@ -52,6 +52,10 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
         publication?.mirrors?.length > 0
   );
 
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
+
   const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
     onError
   });
@@ -179,6 +183,10 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (publication.isDataAvailability && !isSponsored) {
+      return toast.error(t`Your profile is not allowed to mirror this post`);
+    }
+
     try {
       const request: CreateMirrorRequest = {
         profileId: currentProfile?.id,
@@ -194,17 +202,14 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
         mirror: publication?.id
       };
 
-      if (
-        currentProfile?.dispatcher?.canUseRelay &&
-        currentProfile.dispatcher.sponsor
-      ) {
-        if (publication.isDataAvailability) {
+      if (canUseRelay) {
+        if (publication.isDataAvailability && isSponsored) {
           return await createViaDataAvailablityDispatcher(
             dataAvailablityRequest
           );
-        } else {
-          return await createViaDispatcher(request);
         }
+
+        return await createViaDispatcher(request);
       }
 
       return await createMirrorTypedData({
