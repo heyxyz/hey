@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-06 00:08\n"
+"PO-Revision-Date: 2023-05-06 17:15\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -44,7 +44,7 @@ msgstr "Сначала включите функцию collect, чтобы ис�
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Collectors can view"
-msgstr ""
+msgstr "Люди, сделавшие коллект, могут просматривать"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
@@ -109,11 +109,11 @@ msgstr "Медиа"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
-msgstr ""
+msgstr "Плата за коллекты"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Get paid whenever someone collects your post"
-msgstr ""
+msgstr "Получайте оплату всякий раз, когда кто-то коллектит ваш пост"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Price"
@@ -127,7 +127,7 @@ msgstr "Выберите валюту"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
-msgstr ""
+msgstr "Загрузка настроек коллекта"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Failed to load modules"
@@ -135,7 +135,7 @@ msgstr "Не удалось загрузить модули"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
-msgstr ""
+msgstr "Этот пост можно коллектить"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
@@ -147,15 +147,15 @@ msgstr "Сделать коллекты эксклюзивными"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
-msgstr ""
+msgstr "Лимит на коллекты"
 
 #: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Who can collect"
-msgstr ""
+msgstr "Кто может коллектить"
 
 #: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Only followers can collect"
-msgstr ""
+msgstr "Только подписчики могут коллектить"
 
 #: src/components/Composer/Actions/CollectSettings/ReferralConfig.tsx
 msgid "Mirror referral reward"
@@ -2870,3 +2870,4 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
+
