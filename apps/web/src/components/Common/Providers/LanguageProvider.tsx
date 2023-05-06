@@ -5,7 +5,6 @@ import { Localstorage } from 'data';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'src/i18n';
-import defaultLocale from 'src/locales/en/messages';
 
 const getLocale = (): string => {
   if (typeof window === 'undefined') {
@@ -13,7 +12,6 @@ const getLocale = (): string => {
   }
 
   let locale = detect(fromStorage(Localstorage.LocaleStore)) ?? DEFAULT_LOCALE;
-
   if (!SUPPORTED_LOCALES.hasOwnProperty(locale)) {
     locale = DEFAULT_LOCALE;
   }
@@ -21,32 +19,17 @@ const getLocale = (): string => {
   return locale;
 };
 
-const activateDefaultLocale = () => {
-  const { messages } = defaultLocale;
-  i18n.load(DEFAULT_LOCALE, messages);
-  i18n.activate(DEFAULT_LOCALE);
-  dayjs.locale(DEFAULT_LOCALE);
-};
-
 const dynamicActivate = async (locale: string) => {
-  try {
-    console.log(`Loading locale "${locale}"...`);
-    const { messages } = await import(`../../../locales/${locale}/messages`);
-    i18n.load(locale, messages);
-    i18n.activate(locale);
-    dayjs.locale(locale);
-  } catch (error) {
-    console.error(`Error loading locale "${locale}:"`, error);
-    activateDefaultLocale();
-  }
+  const { messages } = await import(
+    `@lingui/loader!../../../locales/${locale}/messages.po`
+  );
+  i18n.load(locale, messages);
+  i18n.activate(locale);
+  dayjs.locale(locale);
 };
 
 const locale = getLocale();
-if (locale === DEFAULT_LOCALE) {
-  activateDefaultLocale();
-} else {
-  dynamicActivate(locale);
-}
+dynamicActivate(locale);
 
 interface LanguageProviderProps {
   children: ReactNode;

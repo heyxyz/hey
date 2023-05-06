@@ -34,6 +34,7 @@
     "@lexical/utils": "^0.10.0",
     "@lingui/core": "4.0.0",
     "@lingui/detect-locale": "^4.0.0",
+    "@lingui/loader": "^4.0.0",
     "@lingui/macro": "4.0.0",
     "@lingui/react": "4.0.0",
     "@lingui/swc-plugin": "4.0.0",
