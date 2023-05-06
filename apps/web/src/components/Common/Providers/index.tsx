@@ -1,7 +1,4 @@
 import getLivepeerTheme from '@lib/getLivepeerTheme';
-import { initLocale } from '@lib/i18n';
-import { i18n } from '@lingui/core';
-import { I18nProvider } from '@lingui/react';
 import {
   createReactClient,
   LivepeerConfig,
@@ -17,7 +14,6 @@ import { ApolloProvider, webClient } from 'lens/apollo';
 import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
-import { useEffect } from 'react';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -27,6 +23,7 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeatureFlagsProvider from './FeatureFlagsProvider';
+import LanguageProvider from './LanguageProvider';
 import TelemetryProvider from './TelemetryProvider';
 
 const { chains, provider } = configureChains(
@@ -57,12 +54,8 @@ const queryClient = new QueryClient();
 const apolloClient = webClient;
 
 const Providers = ({ children }: { children: ReactNode }) => {
-  useEffect(() => {
-    initLocale();
-  }, []);
-
   return (
-    <I18nProvider i18n={i18n}>
+    <LanguageProvider>
       <ErrorBoundary>
         <FeatureFlagsProvider />
         <TelemetryProvider />
@@ -78,7 +71,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
           </ApolloProvider>
         </WagmiConfig>
       </ErrorBoundary>
-    </I18nProvider>
+    </LanguageProvider>
   );
 };
 
