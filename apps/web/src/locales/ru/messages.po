@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-05 00:08\n"
+"PO-Revision-Date: 2023-05-06 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -48,7 +48,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to collect it first to be able to view it"
-msgstr ""
+msgstr "Люди должны сделать коллект публикации, чтобы увидеть ее"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Followers can view"
@@ -143,7 +143,7 @@ msgstr "Ограниченный выпуск"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
-msgstr ""
+msgstr "Сделать коллекты эксклюзивными"
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
@@ -574,7 +574,7 @@ msgstr ""
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
-msgstr ""
+msgstr "лайкнуто"
 
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
 #: src/components/Publication/Type/Mirrored.tsx
@@ -807,15 +807,15 @@ msgstr "<0><1/> оформил платную подписку</0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
-msgstr "<0><1/> понравился ваш <2>комментарий</2></0>"
+msgstr "<0><1/> лайкнул(а) ваш <2>комментарий</2></0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
-msgstr "<0><1/> понравился ваш <2>миррор</2></0>"
+msgstr "<0><1/> лайкнул(а) ваш <2>миррор</2></0>"
 
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
-msgstr "<0><1/> понравилась ваша <2>публикация</2></0>"
+msgstr "<0><1/> лайкнул(а) ваш <2>пост</2></0>"
 
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
@@ -1505,11 +1505,11 @@ msgstr "{0} Комментариев"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Dislike"
-msgstr "Не нравится"
+msgstr "Дизлайкнуть"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
-msgstr "Нравится"
+msgstr "Лайкнуть"
 
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -2853,3 +2853,4 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
+
