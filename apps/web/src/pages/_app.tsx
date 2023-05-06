@@ -3,9 +3,12 @@ import '../styles.css';
 import Loading from '@components/Shared/Loading';
 import circluarStd from '@lib/lensterFont';
 import type { AppProps } from 'next/app';
-import { lazy, Suspense } from 'react';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
-const Providers = lazy(() => import('@components/Common/Providers'));
+const Providers = dynamic(() => import('@components/Common/Providers'), {
+  ssr: false
+});
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
