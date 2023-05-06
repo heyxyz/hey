@@ -35,14 +35,14 @@ pnpm i18n:extract
 
 ## Adding a language (for devs)
 
-1. Add the locale code to `./apps/web/linguirc.json`.
+1. Add the locale code to `./apps/web/lingui.config.js`.
 
 ```diff
-- "locales": ["en", "es"]
-+ "locales": ["en", "es", "ta"]
+- locales: ['en', 'es']
++ locales: ['en', 'es', 'ta']
 ```
 
-2. Add the locale code and long alias's to `./apps/web/src/lib/i18n.ts`.
+2. Add the locale code and long alias's to `./apps/web/src/i18n.ts`.
 
 ```diff
 export const SUPPORTED_LOCALES: Record<string, string> = {
