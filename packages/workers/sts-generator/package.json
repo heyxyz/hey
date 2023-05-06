@@ -13,7 +13,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.327.0"
+    "@aws-sdk/client-sts": "^3.328.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230419.0",
