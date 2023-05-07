@@ -18,7 +18,7 @@ import type { ApolloCache } from 'lens/apollo';
 import { publicationKeyFields } from 'lens/apollo/lib';
 import hasGm from 'lib/hasGm';
 import nFormatter from 'lib/nFormatter';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -33,7 +33,7 @@ interface LikeProps {
 }
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
   const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);

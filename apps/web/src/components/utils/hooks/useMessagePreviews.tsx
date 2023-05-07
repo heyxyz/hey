@@ -10,7 +10,7 @@ import type { Conversation, Stream } from '@xmtp/xmtp-js';
 import { DecodedMessage } from '@xmtp/xmtp-js';
 import type { Profile } from 'lens';
 import { useProfilesLazyQuery } from 'lens';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
@@ -20,7 +20,7 @@ import { useMessageDb } from './useMessageDb';
 const MAX_PROFILES_PER_REQUEST = 50;
 
 const useMessagePreviews = () => {
-  const router = useRouter();
+  const { push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversations = useMessageStore((state) => state.conversations);
   const setConversations = useMessageStore((state) => state.setConversations);
@@ -248,7 +248,7 @@ const useMessagePreviews = () => {
     if (selectedProfileId && currentProfile?.id !== selectedProfileId) {
       reset();
       setSelectedProfileId(currentProfile?.id);
-      router.push('/messages');
+      push('/messages');
     } else {
       setSelectedProfileId(currentProfile?.id);
     }

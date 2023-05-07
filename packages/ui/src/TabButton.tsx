@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 
 interface TabButtonProps {
@@ -23,16 +22,12 @@ const TabButton: FC<TabButtonProps> = ({
   className = '',
   onClick
 }) => {
-  const router = useRouter();
-
   return (
     <button
       type="button"
       onClick={() => {
         if (type) {
-          router.replace({ query: { ...router.query, type } }, undefined, {
-            shallow: true
-          });
+          // replace({ query: { ...router.query, type } });
         }
         onClick();
       }}

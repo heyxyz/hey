@@ -2,7 +2,7 @@ import { PencilAltIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -12,7 +12,9 @@ import { Card, Image, Modal } from 'ui';
 import NewPublication from '../NewPublication';
 
 const NewPost: FC = () => {
-  const { query, isReady, push } = useRouter();
+  const { push } = useRouter();
+  const searchParams = useSearchParams();
+
   const currentProfile = useAppStore((state) => state.currentProfile);
   const showNewPostModal = usePublicationStore(
     (state) => state.showNewPostModal
@@ -29,7 +31,9 @@ const NewPost: FC = () => {
   };
 
   useEffect(() => {
-    if (isReady && query.text) {
+    const query = Object.fromEntries(searchParams.entries());
+
+    if (query.text) {
       const { text, url, via, hashtags } = query;
       let processedHashtags;
 

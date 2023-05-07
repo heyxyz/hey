@@ -9,7 +9,7 @@ import {
   useSearchProfilesLazyQuery
 } from 'lens';
 import formatHandle from 'lib/formatHandle';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { Card, Input, Spinner } from 'ui';
@@ -29,7 +29,11 @@ const Search: FC<SearchProps> = ({
   placeholder = t`Search…`,
   modalWidthClassName = 'max-w-md'
 }) => {
-  const { push, pathname, query } = useRouter();
+  const { push } = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const query = Object.fromEntries(searchParams.entries());
+
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
 

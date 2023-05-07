@@ -12,7 +12,7 @@ import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
@@ -105,10 +105,9 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
 };
 
 const MessagePage: NextPage = () => {
+  const params = useParams();
+  const conversationKey = params?.conversationKey;
   const currentProfileId = useAppStore((state) => state.currentProfile?.id);
-  const {
-    query: { conversationKey }
-  } = useRouter();
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'conversation' });

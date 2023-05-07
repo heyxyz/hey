@@ -35,7 +35,7 @@ import getURLs from 'lib/getURLs';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { FC, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -63,7 +63,7 @@ interface DecryptedPublicationBodyProps {
 const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   encryptedPublication
 }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const [decryptedData, setDecryptedData] = useState<any>(null);

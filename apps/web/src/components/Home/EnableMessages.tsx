@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import { XMTP_ENV } from 'data/constants';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';

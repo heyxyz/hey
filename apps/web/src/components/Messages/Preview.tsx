@@ -6,7 +6,7 @@ import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { Image } from 'ui';
@@ -24,12 +24,12 @@ const Preview: FC<PreviewProps> = ({
   conversationKey,
   isSelected
 }) => {
-  const router = useRouter();
+  const { push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
 
   const onConversationSelected = (profileId: string) => {
-    router.push(profileId ? `/messages/${conversationKey}` : '/messages');
+    push(profileId ? `/messages/${conversationKey}` : '/messages');
   };
 
   return (

@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
@@ -14,9 +14,9 @@ import List from './List';
 import Settings from './Settings';
 
 const Notification: FC = () => {
-  const {
-    query: { type }
-  } = useRouter();
+  const searchParams = useSearchParams();
+  const { type } = Object.fromEntries(searchParams.entries());
+
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
     type &&

@@ -10,7 +10,7 @@ import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
@@ -24,11 +24,11 @@ import RelevantPeople from './RelevantPeople';
 import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
+  const params = useParams();
+  const id = params?.id;
+
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
-  const {
-    query: { id }
-  } = useRouter();
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'publication' });

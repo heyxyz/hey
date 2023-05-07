@@ -12,7 +12,7 @@ import { APP_NAME } from 'data/constants';
 import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { EXPLORE, PAGEVIEW } from 'src/tracking';
@@ -22,7 +22,9 @@ import Feed from './Feed';
 import FeedType from './FeedType';
 
 const Explore: NextPage = () => {
-  const router = useRouter();
+  const searchParams = useSearchParams();
+  const query = Object.fromEntries(searchParams.entries());
+
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMainFocus>();
   const { on: isTrendingWidgetEnabled } = Growthbook.feature(
@@ -48,13 +50,9 @@ const Explore: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Tab.Group
-          defaultIndex={Number(router.query.tab)}
+          defaultIndex={Number(query.tab)}
           onChange={(index) => {
-            router.replace(
-              { query: { ...router.query, tab: index } },
-              undefined,
-              { shallow: true }
-            );
+            // replace({ query: { ...query, tab: index } });
           }}
         >
           <Tab.List className="divider space-x-8">

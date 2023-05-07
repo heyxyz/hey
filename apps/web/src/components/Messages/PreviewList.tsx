@@ -18,7 +18,7 @@ import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';
 import type { Profile } from 'lens';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -44,7 +44,7 @@ const PreviewList: FC<PreviewListProps> = ({
   className,
   selectedConversationKey
 }) => {
-  const router = useRouter();
+  const { push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { persistProfile } = useMessageDb();
   const selectedTab = useMessageStore((state) => state.selectedTab);
@@ -100,7 +100,7 @@ const PreviewList: FC<PreviewListProps> = ({
       ? 'Following'
       : 'Requested';
     setSelectedTab(selectedTab);
-    router.push(`/messages/${conversationKey}`);
+    push(`/messages/${conversationKey}`);
     setShowSearchModal(false);
   };
 

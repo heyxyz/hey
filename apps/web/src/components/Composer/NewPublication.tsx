@@ -64,7 +64,7 @@ import { $getRoot } from 'lexical';
 import getSignature from 'lib/getSignature';
 import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';

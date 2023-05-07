@@ -13,7 +13,7 @@ import {
 } from 'lens';
 import type { ApolloCache } from 'lens/apollo';
 import getSignature from 'lib/getSignature';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -42,7 +42,7 @@ const Follow: FC<FollowProps> = ({
   followSource,
   followPosition
 }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);

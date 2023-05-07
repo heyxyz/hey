@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { FC, ReactNode } from 'react';
 
 interface MenuProps {
@@ -33,7 +33,7 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ items }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const menuItems = items.map((item) => ({
     ...item,
     enabled: item.enabled ?? true

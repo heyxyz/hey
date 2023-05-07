@@ -8,7 +8,7 @@ import type { Profile } from 'lens';
 import { useProfileQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
@@ -26,9 +26,11 @@ import NftGallery from './NftGallery';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
-  const {
-    query: { username, type, followIntent }
-  } = useRouter();
+  const searchParams = useSearchParams();
+  const { username, type, followIntent } = Object.fromEntries(
+    searchParams.entries()
+  );
+
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState(
     type &&

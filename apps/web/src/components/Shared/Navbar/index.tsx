@@ -9,7 +9,7 @@ import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import hasPrideLogo from 'lib/hasPrideLogo';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -21,10 +21,10 @@ import StaffBar from './StaffBar';
 const Navbar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { allowed: staffMode } = useStaffMode();
-  const router = useRouter();
+  const { push } = useRouter();
 
   const onProfileSelected = (profile: Profile) => {
-    router.push(`/u/${formatHandle(profile?.handle)}`);
+    push(`/u/${formatHandle(profile?.handle)}`);
   };
 
   interface NavItemProps {
@@ -58,7 +58,7 @@ const Navbar: FC = () => {
   };
 
   const NavItems = () => {
-    const { pathname } = useRouter();
+    const pathname = usePathname();
 
     return (
       <>

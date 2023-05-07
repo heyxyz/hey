@@ -2,7 +2,7 @@ import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import type { Profile } from 'lens';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
@@ -15,7 +15,7 @@ interface MessageHeaderProps {
 }
 
 const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
-  const router = useRouter();
+  const { push } = useRouter();
   const [following, setFollowing] = useState(true);
   const unsyncProfile = useMessageStore((state) => state.unsyncProfile);
 
@@ -28,7 +28,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
   );
 
   const onBackClick = () => {
-    router.push('/messages');
+    push('/messages');
   };
 
   useEffect(() => {

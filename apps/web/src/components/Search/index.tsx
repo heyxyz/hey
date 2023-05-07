@@ -4,7 +4,7 @@ import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
@@ -14,7 +14,9 @@ import Profiles from './Profiles';
 import Publications from './Publications';
 
 const Search: NextPage = () => {
-  const { query } = useRouter();
+  const searchParams = useSearchParams();
+  const query = Object.fromEntries(searchParams.entries());
+
   const searchText = Array.isArray(query.q)
     ? encodeURIComponent(query.q.join(' '))
     : encodeURIComponent(query.q || '');

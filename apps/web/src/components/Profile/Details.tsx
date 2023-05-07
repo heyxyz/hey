@@ -27,7 +27,7 @@ import getProfileAttribute from 'lib/getProfileAttribute';
 import isStaff from 'lib/isStaff';
 import isVerified from 'lib/isVerified';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -55,7 +55,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
-  const router = useRouter();
+  const { push } = useRouter();
 
   const { persistProfile } = useMessageDb();
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
@@ -74,7 +74,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       ? 'Following'
       : 'Requested';
     setSelectedTab(selectedTab);
-    router.push(`/messages/${conversationKey}`);
+    push(`/messages/${conversationKey}`);
   };
 
   const MetaDetails = ({

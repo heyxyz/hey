@@ -9,7 +9,7 @@ import type { Publication } from 'lens';
 import getSnapshotProposalId from 'lib/getSnapshotProposalId';
 import getURLs from 'lib/getURLs';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
@@ -19,7 +19,7 @@ interface PublicationBodyProps {
 }
 
 const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const showMore =
     publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
   const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;

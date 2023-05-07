@@ -18,7 +18,7 @@ import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getSignature from 'lib/getSignature';
 import getTokenImage from 'lib/getTokenImage';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -55,7 +55,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   followPosition,
   followSource
 }) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
