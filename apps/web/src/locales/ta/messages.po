@@ -2286,12 +2286,12 @@ msgid "Go to profile"
 msgstr "சுயவிவரத்திற்குச் செல்லவும்"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
-msgstr "பயனர்பெயர் குறைந்தது 2 எழுத்துகள் இருக்க வேண்டும்"
+msgid "Handle should be at least 5 characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should not exceed 32 characters"
-msgstr "பயனர்பெயர் 32 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
+msgid "Handle should not exceed 26 characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
@@ -2870,4 +2870,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
