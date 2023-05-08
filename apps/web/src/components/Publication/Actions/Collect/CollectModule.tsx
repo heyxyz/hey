@@ -25,7 +25,6 @@ import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
-import type { BigNumber } from 'ethers';
 import { defaultAbiCoder } from 'ethers/lib/utils';
 import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
 import {
@@ -280,7 +279,7 @@ const CollectModule: FC<CollectModuleProps> = ({
             const decodedData: any = data;
             const encodedData = defaultAbiCoder.encode(
               ['address', 'uint256'],
-              [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
+              [decodedData?.[2] as string, decodedData?.[1]]
             );
             return await createCollectTypedData({
               variables: {
