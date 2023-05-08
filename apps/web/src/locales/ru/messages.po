@@ -2286,12 +2286,12 @@ msgid "Go to profile"
 msgstr "Перейти к профилю"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
-msgstr "В псевдониме должно быть не менее 2 символов"
+msgid "Handle should be at least 5 characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should not exceed 32 characters"
-msgstr "Псевдоним не должен превышать 32 символов"
+msgid "Handle should not exceed 26 characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
@@ -2870,4 +2870,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

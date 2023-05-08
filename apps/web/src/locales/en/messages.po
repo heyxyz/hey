@@ -2286,12 +2286,12 @@ msgid "Go to profile"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
-msgstr ""
+msgid "Handle should be at least 5 characters"
+msgstr "Handle should be at least 5 characters"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should not exceed 32 characters"
-msgstr ""
+msgid "Handle should not exceed 26 characters"
+msgstr "Handle should not exceed 26 characters"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"

@@ -15,8 +15,8 @@ import Pending from './Pending';
 
 const newUserSchema = object({
   handle: string()
-    .min(2, { message: t`Handle should be at least 2 characters` })
-    .max(31, { message: t`Handle should not exceed 32 characters` })
+    .min(5, { message: t`Handle should be at least 5 characters` })
+    .max(26, { message: t`Handle should not exceed 26 characters` })
     .regex(HANDLE_REGEX, {
       message: t`Handle should only contain alphanumeric characters`
     })
