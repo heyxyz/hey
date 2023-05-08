@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-06 17:15\n"
+"PO-Revision-Date: 2023-05-08 06:15\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2287,11 +2287,11 @@ msgstr "转到个人账户"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should be at least 5 characters"
-msgstr ""
+msgstr "用户名应至少为 5 个字符"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should not exceed 26 characters"
-msgstr ""
+msgstr "用户名不应超过 26 个字符"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
@@ -2870,3 +2870,4 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
+

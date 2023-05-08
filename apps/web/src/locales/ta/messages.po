@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-06 17:15\n"
+"PO-Revision-Date: 2023-05-08 06:15\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2287,11 +2287,11 @@ msgstr "சுயவிவரத்திற்குச் செல்லவ�
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should be at least 5 characters"
-msgstr ""
+msgstr "பயனர்பெயர் குறைந்தது 5 எழுத்துகள் இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should not exceed 26 characters"
-msgstr ""
+msgstr "பயனர்பெயர் 26 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
@@ -2870,3 +2870,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+
