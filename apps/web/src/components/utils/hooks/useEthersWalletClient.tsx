@@ -1,36 +1,30 @@
-import axios from 'axios';
-import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL, ZERO_ADDRESS } from 'data';
-import { useAppStore } from 'src/store/app';
-import { usePublicationStore } from 'src/store/publication';
+import { ZERO_ADDRESS } from 'data';
 import { useWalletClient } from 'wagmi';
 
 const useEthersWalletClient = (): any => {
-  const walletClient = useWalletClient();
+  const { data, isLoading } = useWalletClient();
 
   const ethersWalletClient = {
     getAddress: async (): Promise<`0x${string}`> => {
-      return (await walletClient.data?.account.address) ?? ZERO_ADDRESS;
+      return (await data?.account.address) ?? ZERO_ADDRESS;
     },
     signMessage: async (message: string): Promise<string> => {
-      const signature = await walletClient.data?.signMessage({
-        message: message
-      });
+      const signature = await data?.signMessage({ message });
       return signature ?? '';
     }
   };
 
-  // remove signMessage from walletClient
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { signMessage, ...rest } = data ?? {};
+
   const mergedWalletClient = {
-    ...ethersWalletClient,
-    walletClient: {
-      data: {
-        ...walletClient.data,
-        signMessage: undefined
-      }
+    data: {
+      ...ethersWalletClient,
+      ...{ ...rest }
     }
   };
 
-  return mergedWalletClient;
+  return { data: mergedWalletClient.data, isLoading };
 };
 
 export default useEthersWalletClient;

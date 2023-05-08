@@ -1,3 +1,4 @@
+import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -14,7 +15,6 @@ import type { Proposal } from 'snapshot';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Spinner } from 'ui';
-import { useWalletClient } from 'wagmi';
 
 interface VoteProposalProps {
   proposal: Proposal;
@@ -34,7 +34,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [voteSubmitting, setVoteSubmitting] = useState(false);
-  const { data: walletClient } = useWalletClient();
+  const { data: walletClient } = useEthersWalletClient();
 
   const {
     id,

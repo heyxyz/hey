@@ -15,7 +15,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { Button, Spinner } from 'ui';
-import { useSignTypedData, useWalletClient } from 'wagmi';
+import { useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {
   profile: Profile;
@@ -30,7 +30,7 @@ const Unfollow: FC<UnfollowProps> = ({
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
-  const walletClient = useEthersWalletClient();
+  const { data: walletClient } = useEthersWalletClient();
 
   const onError = (error: any) => {
     toast.error(

@@ -2,6 +2,7 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import useCreatePoll from '@components/utils/hooks/useCreatePoll';
+import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
@@ -80,16 +81,10 @@ import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
-import {
-  useContractWrite,
-  usePublicClient,
-  useSignTypedData,
-  useWalletClient
-} from 'wagmi';
+import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
-import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
@@ -200,7 +195,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const [editor] = useLexicalComposerContext();
   const publicClient = usePublicClient();
-  const walletClient = useEthersWalletClient();
+  const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
 
   const isComment = Boolean(publication);

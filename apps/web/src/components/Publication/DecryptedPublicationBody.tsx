@@ -43,7 +43,7 @@ import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
 import { Card, ErrorMessage, Tooltip } from 'ui';
-import { usePublicClient, useToken, useWalletClient } from 'wagmi';
+import { usePublicClient, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
   icon: ReactNode;
@@ -77,7 +77,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     encryptedPublication?.canDecrypt.reasons
   );
   const publicClient = usePublicClient();
-  const walletClient = useEthersWalletClient();
+  const { data: walletClient } = useEthersWalletClient();
 
   const showMore =
     encryptedPublication?.metadata?.content?.length > 450 &&

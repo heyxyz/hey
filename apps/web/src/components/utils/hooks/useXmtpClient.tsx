@@ -4,7 +4,7 @@ import { Localstorage } from 'data/storage';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-import { useWalletClient } from 'wagmi';
+
 import useEthersWalletClient from './useEthersWalletClient';
 
 const ENCODING = 'binary';
@@ -41,7 +41,7 @@ const useXmtpClient = (cacheOnly = false) => {
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
   const [awaitingXmtpAuth, setAwaitingXmtpAuth] = useState<boolean>();
-  const walletClient = useEthersWalletClient();
+  const { data: walletClient, isLoading } = useEthersWalletClient();
 
   useEffect(() => {
     const initXmtpClient = async () => {
@@ -52,7 +52,7 @@ const useXmtpClient = (cacheOnly = false) => {
             return;
           }
           setAwaitingXmtpAuth(true);
-          keys = await Client.getKeys(walletClient as any, {
+          keys = await Client.getKeys(walletClient, {
             env: XMTP_ENV,
             appVersion: APP_NAME + '/' + APP_VERSION,
             persistConversations: false,
@@ -79,16 +79,16 @@ const useXmtpClient = (cacheOnly = false) => {
       setClient(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [walletClient, currentProfile]);
+  }, [currentProfile]);
 
   return {
     client: client,
-    loading: walletClient.isLoading || awaitingXmtpAuth
+    loading: isLoading || awaitingXmtpAuth
   };
 };
 
 export const useDisconnectXmtp = () => {
-  const walletClient = useEthersWalletClient();
+  const { data: walletClient } = useEthersWalletClient();
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
   const disconnect = useCallback(async () => {
