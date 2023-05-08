@@ -72,6 +72,7 @@ import { OptmisticPublicationType } from 'src/enums';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -132,8 +133,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { cache } = useApolloClient();
 
   // App store
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Publication store
@@ -311,12 +312,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
       onCompleted();
+      setUserSigNonce(userSigNonce + 1);
       setTxnQueue([
         generateOptimisticPublication({ txHash: hash }),
         ...txnQueue
       ]);
     },
-    onError
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const [broadcastDataAvailability] = useBroadcastDataAvailabilityMutation({
@@ -404,7 +409,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       });
     }
 
-    setUserSigNonce(userSigNonce + 1);
     const { data } = await broadcast({
       variables: { request: { id, signature } }
     });

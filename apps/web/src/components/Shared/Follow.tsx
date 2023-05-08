@@ -19,6 +19,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
+import { useNonceStore } from 'src/store/nonce';
 import { PROFILE } from 'src/tracking';
 import { Button, Spinner } from 'ui';
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
@@ -43,8 +44,8 @@ const Follow: FC<FollowProps> = ({
   followPosition
 }) => {
   const { pathname } = useRouter();
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const [isLoading, setIsLoading] = useState(false);

@@ -27,6 +27,7 @@ import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
 import { Button, ErrorMessage, Image, Modal, Spinner } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -38,8 +39,8 @@ interface PictureProps {
 }
 
 const Picture: FC<PictureProps> = ({ profile }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [avatarDataUrl, setAvatarDataUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -74,8 +75,14 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     abi: LensHub,
     functionName: 'setProfileImageURIWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
-    onError
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const [broadcast] = useBroadcastMutation({
@@ -94,7 +101,6 @@ const Picture: FC<PictureProps> = ({ profile }) => {
           imageURI,
           sig
         };
-        setUserSigNonce(userSigNonce + 1);
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         });

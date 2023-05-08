@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { PAGEVIEW } from 'src/tracking';
 import {
   Button,
@@ -33,8 +34,8 @@ import SettingsSidebar from '../Sidebar';
 
 const DeleteSettings: FC = () => {
   const [showWarningModal, setShowWarningModal] = useState(false);
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
