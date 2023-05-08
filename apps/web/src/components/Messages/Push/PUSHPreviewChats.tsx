@@ -35,10 +35,10 @@ export default function PUSHPreviewChats() {
     }
 
     (async function () {
-      // only run this hook when there's a descryted key availabe in storage
-      // if (!decryptedPgpPvtKey) {
-      //   return;
-      // }
+      // only run this hook when there's a decrypted key availabe in storage
+      if (!decryptedPgpPvtKey) {
+        return;
+      }
       await fetchChats();
     })();
   }, [decryptedPgpPvtKey, fetchChats]);
@@ -47,7 +47,6 @@ export default function PUSHPreviewChats() {
   const onChatFeedClick = (chatId: string) => {
     router.push(`/messages/push/chat/${chatId}`);
   };
-  console.log({ chatsFeed });
 
   return (
     <section className="flex flex-col gap-2.5	overflow-auto	">

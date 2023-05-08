@@ -36,7 +36,7 @@ export const dateToFromNowDaily = (timestamp: number): string => {
     sameElse: 'DD/MM/YYYY'
   });
   return timestampDate;
-}
+};
 export const getIsHandle = (handle: string) => {
   console.log(HANDLE_SUFFIX.LENS);
   if (PUSH_ENV === ENV.STAGING) {

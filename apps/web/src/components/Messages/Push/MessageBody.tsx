@@ -23,13 +23,6 @@ type GIFType = {
   width: Number;
 };
 
-type ChatType = {
-  position: number;
-  content: string;
-  type: string;
-  timestamp: string;
-  time: string;
-};
 const CHATS_FETCH_LIMIT = 15;
 const MessageCard = ({ chat, position }: { chat: IMessageIPFS; position: number }) => {
   const time = moment(chat.timestamp).format('hh:mm');
@@ -96,7 +89,6 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
 
   const requestFeedids = Object.keys(requestsFeed);
 
-  console.log(selectedChatId);
   const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
 
   const sendPushMessage = async (content: string, type: string) => {
@@ -195,6 +187,7 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
 };
 
 export default function MessageBody() {
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const listInnerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -295,11 +288,25 @@ export default function MessageBody() {
   };
 
   useEffect(() => {
+    // only for user who has requests but hasn't created user in push chat yet
+    if (selectedMessages?.messages.length) {
+      return;
+    }
+
     (async function () {
-      // only run this hook when there's a descryted key availabe in storage
-      // if (!decryptedPgpPvtKey) {
-      //   return;
-      // }
+      if (connectedProfile && !connectedProfile?.encryptedPrivateKey) {
+        await getChatCall();
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connectedProfile, selectedChat]);
+
+  useEffect(() => {
+    (async function () {
+      // only run this hook when there's a decrypted key availabe in storage
+      if (!decryptedPgpPvtKey) {
+        return;
+      }
       await getChatCall();
     })();
   }, [decryptedPgpPvtKey, selectedChat, selectedChatId]);

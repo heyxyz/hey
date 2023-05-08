@@ -28,17 +28,13 @@ const useGetHistoryMessages = () => {
       chatId,
       limit = 10
     }: HistoryMessagesParams): Promise<IMessageIPFS[] | undefined> => {
-      if (!decryptedPgpPvtKey) {
-        setError('something went wrong');
-        return undefined;
-      }
       setLoading(true);
       try {
         const chatHistory = await PushAPI.chat.history({
           threadhash: threadHash,
           account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${(currentProfile as Profile)?.id}`,
-          toDecrypt: true,
-          pgpPrivateKey: decryptedPgpPvtKey,
+          toDecrypt: decryptedPgpPvtKey ? true : false,
+          pgpPrivateKey: String(decryptedPgpPvtKey),
           limit: limit,
           env: PUSH_ENV
         });

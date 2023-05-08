@@ -63,7 +63,7 @@ export default function PUSHPreviewChats() {
         })
       ) : (
         <div className="flex h-full flex-grow items-center justify-center">
-          <Loader message="Loading Chats" />
+          <Loader message="Loading Requests" />
         </div>
       )}
     </section>

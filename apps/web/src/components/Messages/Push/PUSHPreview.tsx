@@ -92,18 +92,33 @@ const PUSHPreview = () => {
   }, [connectedProfile, currentProfile]);
 
   useEffect(() => {
+    // only for user who has requests but hasn't created user in push chat yet
+    if (Object.keys(requestsFeed).length) {
+      return;
+    }
+
+    (async function () {
+      if (connectedProfile && !connectedProfile?.encryptedPrivateKey) {
+        await fetchRequests();
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connectedProfile]);
+
+  useEffect(() => {
     if (Object.keys(requestsFeed).length) {
       return;
     }
 
     (async function () {
       // only run this hook when there's a descryted key availabe in storage
-      // if (!decryptedPgpPvtKey) {
-      //   return;
-      // }
+      if (!decryptedPgpPvtKey) {
+        return;
+      }
       await fetchRequests();
     })();
-  }, [decryptedPgpPvtKey, fetchRequests]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [decryptedPgpPvtKey]);
 
   useEffect(() => {
     //set selected chat preview
