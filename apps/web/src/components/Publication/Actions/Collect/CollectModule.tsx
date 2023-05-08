@@ -46,6 +46,7 @@ import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
 import {
@@ -71,8 +72,8 @@ const CollectModule: FC<CollectModuleProps> = ({
   publication,
   electedMirror
 }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [revenue, setRevenue] = useState(0);
@@ -144,8 +145,14 @@ const CollectModule: FC<CollectModuleProps> = ({
     abi: LensHub,
     functionName: 'collectWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
-    onError
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const percentageCollected = (count / parseInt(collectLimit)) * 100;
@@ -232,7 +239,6 @@ const CollectModule: FC<CollectModuleProps> = ({
         data: collectData,
         sig
       };
-      setUserSigNonce(userSigNonce + 1);
       const { data } = await broadcast({
         variables: { request: { id, signature } }
       });

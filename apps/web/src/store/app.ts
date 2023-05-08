@@ -8,17 +8,13 @@ interface AppState {
   setProfiles: (profiles: Profile[]) => void;
   currentProfile: Profile | null;
   setCurrentProfile: (currentProfile: Profile | null) => void;
-  userSigNonce: number;
-  setUserSigNonce: (userSigNonce: number) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
   currentProfile: null,
-  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
-  userSigNonce: 0,
-  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
+  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile }))
 }));
 
 interface AppPersistState {

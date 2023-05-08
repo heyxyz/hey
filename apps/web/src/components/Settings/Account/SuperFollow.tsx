@@ -21,6 +21,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
 import { Button, Card, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -34,8 +35,8 @@ const newSuperFollowSchema = object({
 });
 
 const SuperFollow: FC = () => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(
@@ -75,8 +76,14 @@ const SuperFollow: FC = () => {
     abi: LensHub,
     functionName: 'setFollowModuleWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
-    onError
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const form = useZodForm({
@@ -104,7 +111,6 @@ const SuperFollow: FC = () => {
           followModuleInitData,
           sig
         };
-        setUserSigNonce(userSigNonce + 1);
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         });
