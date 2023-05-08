@@ -36382,6 +36382,12 @@ export type UserProfilesQuery = {
         | null;
     }>;
   };
+};
+
+export type UserSigNoncesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserSigNoncesQuery = {
+  __typename?: 'Query';
   userSigNonces: { __typename?: 'UserSigNonces'; lensHubOnChainSigNonce: any };
 };
 
@@ -42162,9 +42168,6 @@ export const UserProfilesDocument = gql`
         }
       }
     }
-    userSigNonces {
-      lensHubOnChainSigNonce
-    }
   }
   ${ProfileFieldsFragmentDoc}
 `;
@@ -42218,6 +42221,63 @@ export type UserProfilesLazyQueryHookResult = ReturnType<
 export type UserProfilesQueryResult = Apollo.QueryResult<
   UserProfilesQuery,
   UserProfilesQueryVariables
+>;
+export const UserSigNoncesDocument = gql`
+  query UserSigNonces {
+    userSigNonces {
+      lensHubOnChainSigNonce
+    }
+  }
+`;
+
+/**
+ * __useUserSigNoncesQuery__
+ *
+ * To run a query within a React component, call `useUserSigNoncesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserSigNoncesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserSigNoncesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserSigNoncesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    UserSigNoncesQuery,
+    UserSigNoncesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<UserSigNoncesQuery, UserSigNoncesQueryVariables>(
+    UserSigNoncesDocument,
+    options
+  );
+}
+export function useUserSigNoncesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    UserSigNoncesQuery,
+    UserSigNoncesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<UserSigNoncesQuery, UserSigNoncesQueryVariables>(
+    UserSigNoncesDocument,
+    options
+  );
+}
+export type UserSigNoncesQueryHookResult = ReturnType<
+  typeof useUserSigNoncesQuery
+>;
+export type UserSigNoncesLazyQueryHookResult = ReturnType<
+  typeof useUserSigNoncesLazyQuery
+>;
+export type UserSigNoncesQueryResult = Apollo.QueryResult<
+  UserSigNoncesQuery,
+  UserSigNoncesQueryVariables
 >;
 export const VerifyDocument = gql`
   query Verify($request: VerifyRequest!) {

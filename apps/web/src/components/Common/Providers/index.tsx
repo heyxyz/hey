@@ -25,6 +25,7 @@ import Layout from '../Layout';
 import FeatureFlagsProvider from './FeatureFlagsProvider';
 import LanguageProvider from './LanguageProvider';
 import TelemetryProvider from './TelemetryProvider';
+import UserSigNoncesProvider from './UserSigNoncesProvider';
 
 const { chains, provider } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai, mainnet],
@@ -61,6 +62,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
         <TelemetryProvider />
         <WagmiConfig client={wagmiClient}>
           <ApolloProvider client={apolloClient}>
+            <UserSigNoncesProvider />
             <QueryClientProvider client={queryClient}>
               <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
                 <ThemeProvider defaultTheme="light" attribute="class">

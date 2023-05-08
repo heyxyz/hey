@@ -27,7 +27,6 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const setProfiles = useAppStore((state) => state.setProfiles);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const profileId = useAppPersistStore((state) => state.profileId);
@@ -64,7 +63,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
-      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce);
     },
     onError: () => {
       setProfileId(null);

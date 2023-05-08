@@ -17,6 +17,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
 import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
@@ -35,8 +36,8 @@ interface NftPictureProps {
 }
 
 const NftPicture: FC<NftPictureProps> = ({ profile }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [chainId, setChainId] = useState<number>(

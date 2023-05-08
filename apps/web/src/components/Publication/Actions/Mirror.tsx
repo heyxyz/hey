@@ -27,6 +27,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
 import { Spinner, Tooltip } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -38,8 +39,8 @@ interface MirrorProps {
 
 const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const count = isMirror
@@ -102,8 +103,14 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     abi: LensHub,
     functionName: 'mirrorWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
-    onError
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const [broadcast] = useBroadcastMutation({
@@ -134,7 +141,6 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
         referenceModuleInitData,
         sig
       };
-      setUserSigNonce(userSigNonce + 1);
       const { data } = await broadcast({
         variables: { request: { id, signature } }
       });
