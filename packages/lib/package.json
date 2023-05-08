@@ -13,7 +13,7 @@
   "dependencies": {
     "data": "workspace:*",
     "lens": "workspace:*",
-    "viem": "^0.3.17"
+    "viem": "^0.3.18"
   },
   "devDependencies": {
     "@types/node": "^20.1.0",
