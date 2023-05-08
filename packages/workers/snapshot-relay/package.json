@@ -16,7 +16,7 @@
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "itty-router": "4.0.0-next.46",
     "lib": "workspace:*",
-    "viem": "^0.3.17"
+    "viem": "^0.3.18"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230419.0",
