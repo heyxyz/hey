@@ -2286,12 +2286,12 @@ msgid "Go to profile"
 msgstr "转到个人账户"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
-msgstr "用户名应至少为 2 个字符"
+msgid "Handle should be at least 5 characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should not exceed 32 characters"
-msgstr "用户名不应超过 32 个字符"
+msgid "Handle should not exceed 26 characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
@@ -2870,4 +2870,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
