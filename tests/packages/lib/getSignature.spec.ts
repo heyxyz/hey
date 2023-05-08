@@ -5,13 +5,16 @@ test.describe('getSignature', () => {
   test('should return an object with domain, types, and value keys', () => {
     const result = getSignature({
       domain: {},
-      types: {},
+      types: {
+        Post: []
+      },
       value: {}
     });
 
     expect(result).toHaveProperty('domain');
     expect(result).toHaveProperty('types');
-    expect(result).toHaveProperty('value');
+    expect(result).toHaveProperty('message');
+    expect(result.primaryType).toEqual('Post');
   });
 
   test('should remove __typename property from domain, types, and value properties', () => {
@@ -23,9 +26,10 @@ test.describe('getSignature', () => {
     const result = getSignature(input);
 
     expect(result).toEqual({
+      primaryType: 'key',
       domain: { key: 'value' },
       types: { key: 'value' },
-      value: { key: 'value' }
+      message: { key: 'value' }
     });
   });
 });
