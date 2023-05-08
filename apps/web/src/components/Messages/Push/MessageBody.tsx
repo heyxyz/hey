@@ -15,7 +15,7 @@ import { useClickAway } from 'react-use';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image, Input, Spinner } from 'ui';
 
-import { getCAIPFromLensID, isProfileExist } from './helper';
+import { dateToFromNowDaily, getCAIPFromLensID, isProfileExist } from './helper';
 
 type GIFType = {
   url: String;
@@ -206,6 +206,7 @@ export default function MessageBody() {
   const chats = usePushChatStore((state) => state.chats);
   const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
+  const dates = new Set();
 
   const selectedChat = chatsFeed[selectedChatId] || requestsFeed[selectedChatId];
   const selectedMessages = chats.get(selectedChatId);
@@ -303,6 +304,18 @@ export default function MessageBody() {
     })();
   }, [decryptedPgpPvtKey, selectedChat, selectedChatId]);
 
+  type RenderDataType = {
+    chat: IMessageIPFS;
+    dateNum: string;
+  };
+
+  const renderDate = ({ chat, dateNum }: RenderDataType) => {
+    const timestampDate = dateToFromNowDaily(chat.timestamp as number);
+    // Add to Set so it does not render again
+    dates.add(dateNum);
+    return <p className="py-2 text-center text-xs text-gray-500">{timestampDate}</p>;
+  };
+
   return (
     <section className="flex h-[90%] flex-col p-5 pb-3">
       <div className="flex-grow overflow-auto px-2.5" ref={listInnerRef} onScroll={onScroll}>
@@ -315,9 +328,15 @@ export default function MessageBody() {
         )}
 
         <div className="flex flex-col gap-2.5">
-          {selectedMessages?.messages.map((chat: IMessageIPFS, index: number) => (
-            <Messages chat={chat} key={index} />
-          ))}
+          {selectedMessages?.messages.map((chat: IMessageIPFS, index: number) => {
+            const dateNum = moment(chat.timestamp).format('ddMMyyyy');
+            return (
+              <>
+                {dates.has(dateNum) ? null : renderDate({ chat, dateNum })}
+                <Messages chat={chat} key={index} />
+              </>
+            );
+          })}
           {requestFeedids.includes(selectedChatId) && (
             <div className="flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
               <div className="text-sm font-normal">

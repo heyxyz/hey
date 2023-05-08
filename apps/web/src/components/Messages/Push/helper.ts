@@ -1,6 +1,7 @@
 import type { IUser } from '@pushprotocol/restapi';
 import { ENV } from '@pushprotocol/restapi/src/lib/constants';
 import { LENSHUB_PROXY } from 'data';
+import moment from 'moment';
 import { CHAIN_ID } from 'src/constants';
 import { PUSH_ENV } from 'src/store/push-chat';
 
@@ -26,6 +27,16 @@ export const isProfileExist = (connectedProfile: IUser | undefined) => {
   return true;
 };
 
+export const dateToFromNowDaily = (timestamp: number): string => {
+  const timestampDate = moment(timestamp).calendar(null, {
+    lastWeek: '[Last] dddd',
+    lastDay: '[Yesterday]',
+    sameDay: '[Today]',
+    nextWeek: 'dddd',
+    sameElse: 'DD/MM/YYYY'
+  });
+  return timestampDate;
+}
 export const getIsHandle = (handle: string) => {
   console.log(HANDLE_SUFFIX.LENS);
   if (PUSH_ENV === ENV.STAGING) {
