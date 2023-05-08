@@ -1,7 +1,13 @@
 import { ZERO_ADDRESS } from 'data';
 import { useWalletClient } from 'wagmi';
 
-const useEthersWalletClient = (): any => {
+const useEthersWalletClient = (): {
+  data: {
+    getAddress: () => Promise<`0x${string}`>;
+    signMessage: (message: string) => Promise<string>;
+  };
+  isLoading: boolean;
+} => {
   const { data, isLoading } = useWalletClient();
 
   const ethersWalletClient = {
