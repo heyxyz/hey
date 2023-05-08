@@ -40,8 +40,6 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    request: {},
-    mode: 'recklesslyUnprepared',
     onError
   });
 
@@ -80,11 +78,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     }).then((res) => {
       const data = res?.data?.generateModuleCurrencyApprovalData;
       sendTransaction?.({
-        recklesslySetUnpreparedRequest: {
-          from: data?.from,
-          to: data?.to,
-          data: data?.data
-        }
+        account: data?.from,
+        to: data?.to,
+        data: data?.data
       });
     });
   };

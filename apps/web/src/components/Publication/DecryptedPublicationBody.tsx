@@ -42,7 +42,7 @@ import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
 import { Card, ErrorMessage, Tooltip } from 'ui';
-import { useProvider, useSigner, useToken } from 'wagmi';
+import { usePublicClient, useToken, useWalletClient } from 'wagmi';
 
 interface DecryptMessageProps {
   icon: ReactNode;
@@ -75,8 +75,8 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   const [reasons, setReasons] = useState<any>(
     encryptedPublication?.canDecrypt.reasons
   );
-  const provider = useProvider();
-  const { data: signer } = useSigner();
+  const publicClient = usePublicClient();
+  const { data: walletClient } = useWalletClient();
 
   const showMore =
     encryptedPublication?.metadata?.content?.length > 450 &&
@@ -163,7 +163,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   const doesNotOwnNft = reasons?.includes(DecryptFailReason.DoesNotOwnNft);
 
   const getDecryptedData = async () => {
-    if (!signer || isDecrypting) {
+    if (!walletClient || isDecrypting) {
       return;
     }
 
@@ -173,8 +173,8 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     );
     const { data } = await axios.get(contentUri);
     const sdk = await LensGatedSDK.create({
-      provider: provider as any,
-      signer,
+      provider: publicClient as any,
+      signer: walletClient as any,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);

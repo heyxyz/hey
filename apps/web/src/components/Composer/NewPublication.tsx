@@ -82,9 +82,9 @@ import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import {
   useContractWrite,
-  useProvider,
-  useSigner,
-  useSignTypedData
+  usePublicClient,
+  useSignTypedData,
+  useWalletClient
 } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
@@ -198,8 +198,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
-  const provider = useProvider();
-  const { data: signer } = useSigner();
+  const publicClient = usePublicClient();
+  const { data: walletClient } = useWalletClient();
   const [createPoll] = useCreatePoll();
 
   const isComment = Boolean(publication);
@@ -309,7 +309,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: isComment ? 'commentWithSig' : 'postWithSig',
-    mode: 'recklesslyUnprepared',
     onSuccess: ({ hash }) => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -413,7 +412,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       variables: { request: { id, signature } }
     });
     if (data?.broadcast.__typename === 'RelayError') {
-      return write({ recklesslySetUnpreparedArgs: [inputStruct] });
+      return write({ args: [inputStruct] });
     }
   };
 
@@ -626,14 +625,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return toast.error(Errors.SignWallet);
     }
 
-    if (!signer) {
+    if (!walletClient) {
       return toast.error(Errors.SignWallet);
     }
 
     // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
-      provider: provider as any,
-      signer,
+      provider: publicClient as any,
+      signer: walletClient as any,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 

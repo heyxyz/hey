@@ -4,7 +4,6 @@ import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
 import Errors from 'data/errors';
-import type { Signer } from 'ethers';
 import { Contract } from 'ethers';
 import type { CreateBurnEip712TypedData, Profile } from 'lens';
 import { useBroadcastMutation, useCreateUnfollowTypedDataMutation } from 'lens';
@@ -15,7 +14,7 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { Button, Spinner } from 'ui';
-import { useSigner, useSignTypedData } from 'wagmi';
+import { useSignTypedData, useWalletClient } from 'wagmi';
 
 interface UnfollowProps {
   profile: Profile;
@@ -30,7 +29,7 @@ const Unfollow: FC<UnfollowProps> = ({
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
-  const { data: signer } = useSigner();
+  const { data: walletClient } = useWalletClient();
 
   const onError = (error: any) => {
     toast.error(
@@ -50,7 +49,7 @@ const Unfollow: FC<UnfollowProps> = ({
     const followNftContract = new Contract(
       typedData.domain.verifyingContract,
       FollowNft,
-      signer as Signer
+      walletClient as any
     );
 
     const tx = await followNftContract.burnWithSig(tokenId, sig);

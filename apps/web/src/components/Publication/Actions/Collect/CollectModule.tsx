@@ -144,7 +144,6 @@ const CollectModule: FC<CollectModuleProps> = ({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'collectWithSig',
-    mode: 'recklesslyUnprepared',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -243,7 +242,7 @@ const CollectModule: FC<CollectModuleProps> = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        return write?.({ args: [inputStruct] });
       }
     },
     onError

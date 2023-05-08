@@ -75,7 +75,6 @@ const SuperFollow: FC = () => {
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'setFollowModuleWithSig',
-    mode: 'recklesslyUnprepared',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -115,7 +114,7 @@ const SuperFollow: FC = () => {
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          return write?.({ args: [inputStruct] });
         }
       },
       onError

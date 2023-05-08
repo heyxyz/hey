@@ -26,13 +26,21 @@ interface TypedData {
  * @param typedData The typed data to split.
  * @returns An object containing the three parts of the typed data.
  */
-const getSignature = (typedData: TypedData) => {
+const getSignature = (
+  typedData: TypedData
+): {
+  primaryType: string;
+  domain: Record<string, any>;
+  types: Record<string, any>;
+  message: Record<string, any>;
+} => {
   const { domain, types, value } = typedData;
 
   return {
+    primaryType: Object.keys(types)[0],
     domain: omit(domain, '__typename'),
     types: omit(types, '__typename'),
-    value: omit(value, '__typename')
+    message: omit(value, '__typename')
   };
 };
 

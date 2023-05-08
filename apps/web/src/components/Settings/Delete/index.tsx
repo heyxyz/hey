@@ -71,7 +71,6 @@ const DeleteSettings: FC = () => {
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'burnWithSig',
-    mode: 'recklesslyUnprepared',
     onSuccess: onCompleted,
     onError
   });
@@ -85,7 +84,7 @@ const DeleteSettings: FC = () => {
       const sig = { v, r, s, deadline };
 
       setUserSigNonce(userSigNonce + 1);
-      write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
+      write?.({ args: [tokenId, sig] });
     },
     onError
   });

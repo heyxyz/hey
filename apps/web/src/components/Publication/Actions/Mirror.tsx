@@ -102,7 +102,6 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'mirrorWithSig',
-    mode: 'recklesslyUnprepared',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -145,7 +144,7 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
         variables: { request: { id, signature } }
       });
       if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        return write?.({ args: [inputStruct] });
       }
     },
     onError

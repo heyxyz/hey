@@ -14,7 +14,7 @@ import { ApolloProvider, webClient } from 'lens/apollo';
 import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
@@ -27,7 +27,7 @@ import LanguageProvider from './LanguageProvider';
 import TelemetryProvider from './TelemetryProvider';
 import UserSigNoncesProvider from './UserSigNoncesProvider';
 
-const { chains, provider } = configureChains(
+const { chains, publicClient } = configureChains(
   [IS_MAINNET ? polygon : polygonMumbai, mainnet],
   [jsonRpcProvider({ rpc: (chain) => ({ http: getRpc(chain.id) }) })]
 );
@@ -41,10 +41,16 @@ const connectors = () => {
   ];
 };
 
-const wagmiClient = createClient({
+// const wagmiConfig = createClient({
+//   autoConnect: true,
+//   connectors,
+//   provider
+// });
+
+const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  provider
+  publicClient
 });
 
 const livepeerClient = createReactClient({
@@ -60,7 +66,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
       <ErrorBoundary>
         <FeatureFlagsProvider />
         <TelemetryProvider />
-        <WagmiConfig client={wagmiClient}>
+        <WagmiConfig config={wagmiConfig}>
           <ApolloProvider client={apolloClient}>
             <UserSigNoncesProvider />
             <QueryClientProvider client={queryClient}>

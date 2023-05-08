@@ -93,7 +93,6 @@ const FollowModule: FC<FollowModuleProps> = ({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'followWithSig',
-    mode: 'recklesslyUnprepared',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -164,7 +163,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        return write?.({ args: [inputStruct] });
       }
     },
     onError

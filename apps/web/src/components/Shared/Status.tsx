@@ -85,7 +85,6 @@ const Status: FC = () => {
     address: LENS_PERIPHERY,
     abi: LensPeriphery,
     functionName: 'setProfileMetadataURIWithSig',
-    mode: 'recklesslyUnprepared',
     onSuccess: () => onCompleted(),
     onError
   });
@@ -111,7 +110,7 @@ const Status: FC = () => {
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          return write?.({ args: [inputStruct] });
         }
       },
       onError

@@ -79,7 +79,6 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'setProfileImageURIWithSig',
-    mode: 'recklesslyUnprepared',
     onSuccess: () => onCompleted(),
     onError
   });
@@ -106,7 +105,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          return write?.({ args: [inputStruct] });
         }
       },
       onError
