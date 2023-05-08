@@ -37,7 +37,7 @@ const getSignature = (
   const { domain, types, value } = typedData;
 
   return {
-    primaryType: Object.keys(types)[0],
+    primaryType: Object.keys(omit(types, '__typename'))[0],
     domain: omit(domain, '__typename'),
     types: omit(types, '__typename'),
     message: omit(value, '__typename')
