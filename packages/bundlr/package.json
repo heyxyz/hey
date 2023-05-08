@@ -14,7 +14,7 @@
     "arbundles": "^0.9.5",
     "base64url": "^3.0.1",
     "secp256k1": "^5.0.0",
-    "viem": "^0.3.17"
+    "viem": "^0.3.18"
   },
   "devDependencies": {
     "@types/secp256k1": "^4.0.3",
