@@ -89,6 +89,7 @@ import {
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
+import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
@@ -199,7 +200,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const [editor] = useLexicalComposerContext();
   const publicClient = usePublicClient();
-  const { data: walletClient } = useWalletClient();
+  const walletClient = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
 
   const isComment = Boolean(publication);

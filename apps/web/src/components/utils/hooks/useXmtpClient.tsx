@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useWalletClient } from 'wagmi';
+import useEthersWalletClient from './useEthersWalletClient';
 
 const ENCODING = 'binary';
 
@@ -40,12 +41,12 @@ const useXmtpClient = (cacheOnly = false) => {
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
   const [awaitingXmtpAuth, setAwaitingXmtpAuth] = useState<boolean>();
-  const { data: walletClient } = useWalletClient();
+  const walletClient = useEthersWalletClient();
 
   useEffect(() => {
     const initXmtpClient = async () => {
       if (walletClient && !client && currentProfile) {
-        let keys = loadKeys(walletClient.account.address);
+        let keys = loadKeys(await walletClient.getAddress());
         if (!keys) {
           if (cacheOnly) {
             return;
@@ -57,7 +58,7 @@ const useXmtpClient = (cacheOnly = false) => {
             persistConversations: false,
             skipContactPublishing: true
           });
-          storeKeys(walletClient.account.address, keys);
+          storeKeys(await walletClient.getAddress(), keys);
         }
 
         const xmtp = await Client.create(null, {
@@ -82,17 +83,17 @@ const useXmtpClient = (cacheOnly = false) => {
 
   return {
     client: client,
-    loading: walletClient?.account.address || awaitingXmtpAuth
+    loading: walletClient.isLoading || awaitingXmtpAuth
   };
 };
 
 export const useDisconnectXmtp = () => {
-  const { data: walletClient } = useWalletClient();
+  const walletClient = useEthersWalletClient();
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
   const disconnect = useCallback(async () => {
     if (walletClient) {
-      wipeKeys(walletClient?.account.address);
+      wipeKeys(await walletClient.getAddress());
     }
     if (client) {
       // eslint-disable-next-line unicorn/no-useless-undefined

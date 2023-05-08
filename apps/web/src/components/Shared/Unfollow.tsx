@@ -1,3 +1,4 @@
+import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import splitSignature from '@lib/splitSignature';
@@ -29,7 +30,7 @@ const Unfollow: FC<UnfollowProps> = ({
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
-  const { data: walletClient } = useWalletClient();
+  const walletClient = useEthersWalletClient();
 
   const onError = (error: any) => {
     toast.error(

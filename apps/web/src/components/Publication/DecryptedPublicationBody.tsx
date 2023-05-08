@@ -1,6 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
@@ -76,7 +77,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     encryptedPublication?.canDecrypt.reasons
   );
   const publicClient = usePublicClient();
-  const { data: walletClient } = useWalletClient();
+  const walletClient = useEthersWalletClient();
 
   const showMore =
     encryptedPublication?.metadata?.content?.length > 450 &&
