@@ -14,7 +14,7 @@ interface WalletDetails {
 const getWalletDetails = (name: string): WalletDetails => {
   const walletDetails: Record<string, WalletDetails> = {
     WalletConnect: {
-      name: 'Wallet Connect',
+      name: 'WalletConnect',
       logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`
     }
   };
