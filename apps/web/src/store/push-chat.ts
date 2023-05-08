@@ -53,6 +53,8 @@ interface IPushChatStore {
   setSelectedChatType: (tabName: ChatTypes) => void;
   showCreateChatProfileModal: boolean;
   setShowCreateChatProfileModal: (showCreateChatProfileModal: boolean) => void;
+  showCreateGroupModal: boolean;
+  setShowCreateGroupModal: (showCreateGroupModal: boolean) => void;
   showDecryptionModal: boolean;
   setShowDecryptionModal: (showDecryptionModal: boolean) => void;
   showUpgradeChatProfileModal: boolean;
@@ -113,6 +115,8 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   setSelectedChatType: (selectedChatType) => set(() => ({ selectedChatType })),
   showCreateChatProfileModal: false,
   setShowCreateChatProfileModal: (showCreateChatProfileModal) => set(() => ({ showCreateChatProfileModal })),
+  showCreateGroupModal: false,
+  setShowCreateGroupModal: (showCreateGroupModal) => set(() => ({ showCreateGroupModal })),
   showDecryptionModal: false,
   setShowDecryptionModal: (showDecryptionModal) => set(() => ({ showDecryptionModal })),
   showUpgradeChatProfileModal: false,
@@ -164,6 +168,7 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
         selectedChatId: '',
         selectedChatType: null,
         showCreateChatProfileModal: false,
+        showCreateGroupModal: false,
         showDecryptionModal: false,
         showUpgradeChatProfileModal: false,
         password: {

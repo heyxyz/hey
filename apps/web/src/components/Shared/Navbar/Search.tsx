@@ -17,13 +17,15 @@ interface SearchProps {
   onProfileSelected?: (profile: Profile) => void;
   placeholder?: string;
   modalWidthClassName?: string;
+  zIndex?: string;
 }
 
 const Search: FC<SearchProps> = ({
   hideDropdown = false,
   onProfileSelected,
   placeholder = t`Search…`,
-  modalWidthClassName = 'max-w-md'
+  modalWidthClassName = 'max-w-md',
+  zIndex = 'z-0'
 }) => {
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
@@ -84,7 +86,7 @@ const Search: FC<SearchProps> = ({
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
         <div
-          className={clsx('absolute mt-2 flex w-[94%] flex-col', modalWidthClassName)}
+          className={clsx('absolute mt-2 flex w-[94%] flex-col', modalWidthClassName, zIndex)}
           ref={dropdownRef}
           data-testid="search-profiles-dropdown"
         >

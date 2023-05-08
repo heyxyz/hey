@@ -3,6 +3,7 @@ import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProf
 import useFetchRequests from '@components/utils/hooks/push/useFetchRequests';
 import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
 import usePushChatSocket from '@components/utils/hooks/push/usePushChatSocket';
+import useCreateGroup from '@components/utils/hooks/push/usePushCreateGroupChat';
 import usePushDecryption from '@components/utils/hooks/push/usePushDecryption';
 import useUpgradeChatProfile from '@components/utils/hooks/push/useUpgradeChatProfile';
 import { Trans } from '@lingui/macro';
@@ -25,6 +26,8 @@ const PUSHPreview = () => {
   const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
+  const setShowCreateGroupModal = usePushChatStore((state) => state.setShowCreateGroupModal);
+  const showCreateGroupModal = usePushChatStore((state) => state.showCreateGroupModal);
   const showCreateChatProfileModal = usePushChatStore((state) => state.showCreateChatProfileModal);
   const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
   const showUpgradeChatProfileModal = usePushChatStore((state) => state.showUpgradeChatProfileModal);
@@ -40,6 +43,11 @@ const PUSHPreview = () => {
 
   const { modalContent: createChatProfileModalContent, isModalClosable: isCreateChatProfileModalClosable } =
     useCreateChatProfile();
+  const {
+    createGroup,
+    modalContent: createGroupModalContent,
+    isModalClosable: isCreateModalClosable
+  } = useCreateGroup();
   const {
     upgradeChatProfile,
     modalContent: upgradeChatProfileModalContent,
@@ -167,6 +175,15 @@ const PUSHPreview = () => {
         {activeTab === PUSH_TABS.REQUESTS && <PUSHPreviewRequests />}
         {/* sections for requests */}
       </Card>
+      {/* <button onClick={createChatProfile}>Create Profile</button> */}
+      <button onClick={createGroup}>Create Group</button>
+      <Modal
+        size="xs"
+        show={showCreateGroupModal}
+        onClose={isCreateModalClosable ? () => setShowCreateGroupModal(false) : () => {}}
+      >
+        {createGroupModalContent}
+      </Modal>
       <Modal
         size="xs"
         show={showCreateChatProfileModal}
