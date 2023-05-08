@@ -23,6 +23,7 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { PROFILE } from 'src/tracking';
 import { Button, Spinner, WarningMessage } from 'ui';
 import {
@@ -56,8 +57,8 @@ const FollowModule: FC<FollowModuleProps> = ({
   followSource
 }) => {
   const { pathname } = useRouter();
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
@@ -93,8 +94,14 @@ const FollowModule: FC<FollowModuleProps> = ({
     abi: LensHub,
     functionName: 'followWithSig',
     mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
-    onError
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const { data, loading } = useSuperFollowQuery({
@@ -153,7 +160,6 @@ const FollowModule: FC<FollowModuleProps> = ({
         datas: followData,
         sig
       };
-      setUserSigNonce(userSigNonce + 1);
       const { data } = await broadcast({
         variables: { request: { id, signature } }
       });
