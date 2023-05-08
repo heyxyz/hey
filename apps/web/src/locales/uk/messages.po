@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-06 17:15\n"
+"PO-Revision-Date: 2023-05-08 06:15\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -2286,11 +2286,11 @@ msgid "Go to profile"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
+msgid "Handle should be at least 5 characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should not exceed 32 characters"
+msgid "Handle should not exceed 26 characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
