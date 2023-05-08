@@ -24,7 +24,7 @@ const useFetchRequests = () => {
     }
     setLoading(true);
     try {
-      const chats = await PushAPI.chat.requests({
+      const requests = await PushAPI.chat.requests({
         account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
         toDecrypt: decryptedPgpPvtKey ? true : false,
         pgpPrivateKey: String(decryptedPgpPvtKey),
@@ -34,17 +34,19 @@ const useFetchRequests = () => {
       const lensIds: Array<string> = [];
 
       //conversation to map from array
-      const modifiedChatsObj: { [key: string]: IFeeds } = {};
+      const modifiedRequestsObj: { [key: string]: IFeeds } = {};
 
-      for (const chat of chats) {
-        const profileId: string = getProfileFromDID(chat.did);
-        lensIds.push(profileId);
-        modifiedChatsObj[profileId] = chat;
+      for (const request of requests) {
+        const profileId: string = getProfileFromDID(request.did ?? request.chatId);
+        if (request.did) {
+          lensIds.push(profileId);
+        }
+        modifiedRequestsObj[request.did ?? request.chatId] = request;
       }
 
       await loadLensProfiles(lensIds);
-      setRequestsFeed(modifiedChatsObj);
-      return modifiedChatsObj;
+      setRequestsFeed(modifiedRequestsObj);
+      return modifiedRequestsObj;
     } catch (error: Error | any) {
       setLoading(false);
       setError(error.message);

@@ -8,6 +8,7 @@ import React from 'react';
 import { usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
+import { getProfileFromDID, isCAIP } from './helper';
 import { PreviewMessage } from './PUSHPreviewChats';
 
 export default function PUSHPreviewChats() {
@@ -15,13 +16,20 @@ export default function PUSHPreviewChats() {
 
   const { loading } = useFetchRequests();
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
+  const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const lensProfiles = usePushChatStore((state) => state.lensProfiles);
 
   // action for when you click on a chat
-  const onChatFeedClick = (chatId: string) => {
-    console.log('in here');
-    router.push(`/messages/push/chat/${chatId}`);
+  const onRequestFeedClick = (chatId: string) => {
+    setSelectedChatId(chatId);
+    const profileId: string = getProfileFromDID(chatId);
+    console.log(profileId, chatId);
+    if (isCAIP(chatId)) {
+      router.push(`/messages/push/chat/${profileId}`);
+    } else {
+      router.push(`/messages/push/group/${profileId}`);
+    }
   };
 
   return (
@@ -29,10 +37,11 @@ export default function PUSHPreviewChats() {
       {!loading ? (
         Object.keys(requestsFeed).map((id: string) => {
           const feed = requestsFeed[id];
-          const lensProfile = lensProfiles.get(id);
+          const profileId: string = getProfileFromDID(feed.did ?? feed.chatId);
+          const lensProfile = lensProfiles.get(profileId);
           return (
             <div
-              onClick={() => onChatFeedClick(id)}
+              onClick={() => onRequestFeedClick(id)}
               key={id}
               className={`flex h-16 cursor-pointer gap-2.5 rounded-lg  p-2.5 pr-3 transition-all hover:bg-gray-100 ${
                 selectedChatId === id && 'bg-brand-100'

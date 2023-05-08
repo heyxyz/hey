@@ -15,7 +15,7 @@ import { useClickAway } from 'react-use';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image, Input, Spinner } from 'ui';
 
-import { dateToFromNowDaily, getCAIPFromLensID, isProfileExist } from './helper';
+import { dateToFromNowDaily, isProfileExist } from './helper';
 
 type GIFType = {
   url: String;
@@ -98,7 +98,7 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
       }
       await sendMessage({
         message: content,
-        receiver: getCAIPFromLensID(selectedChatId),
+        receiver: selectedChatId,
         messageType: type as any
       });
       scrollToBottom();
@@ -210,10 +210,9 @@ export default function MessageBody() {
   const { approveChatRequest, error } = useApproveChatRequest();
   const requestFeedids = Object.keys(requestsFeed);
   const handleApprovechatRequest = async () => {
-    console.log(getCAIPFromLensID(selectedChatId));
     if (selectedChatId) {
       try {
-        const response = await approveChatRequest({ senderAddress: getCAIPFromLensID(selectedChatId) });
+        const response = await approveChatRequest({ senderAddress: selectedChatId });
         if (response) {
           const updatedRequestsfeed = { ...requestsFeed };
           const selectedRequest = updatedRequestsfeed[selectedChatId];

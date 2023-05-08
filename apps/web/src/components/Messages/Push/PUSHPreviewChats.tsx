@@ -8,6 +8,8 @@ import React, { useEffect } from 'react';
 import { usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
+import { getProfileFromDID, isCAIP } from './helper';
+
 export const PreviewMessage = ({ messageType, content }: { messageType: string; content: string }) => {
   if (messageType === 'GIF') {
     return <Image className="right-2.5 top-2.5" src="/push/gitIcon.svg" alt="" />;
@@ -25,6 +27,7 @@ export default function PUSHPreviewChats() {
   const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const lensProfiles = usePushChatStore((state) => state.lensProfiles);
+  const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
@@ -45,7 +48,13 @@ export default function PUSHPreviewChats() {
 
   // action for when you click on a chat
   const onChatFeedClick = (chatId: string) => {
-    router.push(`/messages/push/chat/${chatId}`);
+    setSelectedChatId(chatId);
+    const profileId: string = getProfileFromDID(chatId);
+    if (isCAIP(chatId)) {
+      router.push(`/messages/push/chat/${profileId}`);
+    } else {
+      router.push(`/messages/push/group/${profileId}`);
+    }
   };
 
   return (
@@ -53,7 +62,8 @@ export default function PUSHPreviewChats() {
       {!loading ? (
         Object.keys(chatsFeed).map((id: string) => {
           const feed = chatsFeed[id];
-          const lensProfile = lensProfiles.get(id);
+          const profileId: string = getProfileFromDID(feed.did ?? feed.chatId);
+          const lensProfile = lensProfiles.get(profileId);
           return (
             <div
               onClick={() => onChatFeedClick(id)}
