@@ -20,7 +20,7 @@ import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
+import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const SetProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
@@ -29,7 +29,6 @@ const SetProfile: FC = () => {
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const [selectedUser, setSelectedUser] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { address } = useAccount();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
