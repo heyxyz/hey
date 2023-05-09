@@ -2,15 +2,14 @@ import MetaTags from '@components/Common/MetaTags';
 import UserProfile from '@components/Shared/UserProfile';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
 import resetAuthData from '@lib/resetAuthData';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
-import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -28,7 +27,7 @@ import {
   Spinner,
   WarningMessage
 } from 'ui';
-import { useContractWrite, useDisconnect, useSignTypedData } from 'wagmi';
+import { useContractWrite, useDisconnect } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
 
@@ -58,34 +57,28 @@ const DeleteSettings: FC = () => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
-
-  const { signTypedDataAsync } = useSignTypedData({
-    onError
-  });
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'burnWithSig',
-    mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
-    onError
+    functionName: 'burn',
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const [createBurnProfileTypedData] = useCreateBurnProfileTypedDataMutation({
     onCompleted: async ({ createBurnProfileTypedData }) => {
       const { typedData } = createBurnProfileTypedData;
-      const { tokenId, deadline } = typedData.value;
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { v, r, s } = splitSignature(signature);
-      const sig = { v, r, s, deadline };
-
-      setUserSigNonce(userSigNonce + 1);
-      write?.({ recklesslySetUnpreparedArgs: [tokenId, sig] });
+      const { tokenId } = typedData.value;
+      write?.({ args: [tokenId] });
     },
     onError
   });
@@ -96,6 +89,7 @@ const DeleteSettings: FC = () => {
     }
 
     try {
+      setIsLoading(true);
       return await createBurnProfileTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },

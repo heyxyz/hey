@@ -14,18 +14,16 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
+import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
-import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
-import { defaultAbiCoder } from 'ethers/lib/utils';
 import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
 import {
   CollectModules,
@@ -52,7 +50,6 @@ import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
 import {
   useAccount,
   useBalance,
-  useContractRead,
   useContractWrite,
   useSignTypedData
 } from 'wagmi';
@@ -123,28 +120,15 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { refetch } = useContractRead({
-    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
-    abi: UpdateOwnableFeeCollectModule,
-    functionName: 'getPublicationData',
-    args: [
-      parseInt(publication.profile?.id),
-      parseInt(publication?.id.split('-')[1])
-    ],
-    enabled: false
-  });
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'collectWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'collect',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -228,22 +212,13 @@ const CollectModule: FC<CollectModuleProps> = ({
   const [createCollectTypedData] = useCreateCollectTypedDataMutation({
     onCompleted: async ({ createCollectTypedData }) => {
       const { id, typedData } = createCollectTypedData;
-      const { profileId, pubId, data: collectData, deadline } = typedData.value;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { v, r, s } = splitSignature(signature);
-      const sig = { v, r, s, deadline };
-      const inputStruct = {
-        collector: address,
-        profileId,
-        pubId,
-        data: collectData,
-        sig
-      };
       const { data } = await broadcast({
         variables: { request: { id, signature } }
       });
       if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        const { profileId, pubId, data: collectData } = typedData.value;
+        return write?.({ args: [profileId, pubId, collectData] });
       }
     },
     onError
@@ -277,25 +252,6 @@ const CollectModule: FC<CollectModuleProps> = ({
         return await createViaProxyAction({
           request: {
             collect: { freeCollect: { publicationId: publication?.id } }
-          }
-        });
-      } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
-        refetch().then(async ({ data }) => {
-          if (data) {
-            const decodedData: any = data;
-            const encodedData = defaultAbiCoder.encode(
-              ['address', 'uint256'],
-              [decodedData?.[2] as string, decodedData?.[1]]
-            );
-            return await createCollectTypedData({
-              variables: {
-                options: { overrideSigNonce: userSigNonce },
-                request: {
-                  publicationId: publication?.id,
-                  unknownModuleData: encodedData
-                }
-              }
-            });
           }
         });
       }

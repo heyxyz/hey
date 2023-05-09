@@ -1,6 +1,6 @@
 import { PencilIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
@@ -69,17 +69,14 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setProfileImageURIWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'setProfileImageURI',
     onSuccess: () => onCompleted(),
     onError
   });
@@ -92,21 +89,14 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         const { id, typedData } = createSetProfileImageURITypedData;
-        const { profileId, imageURI, deadline } = typedData.value;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          imageURI,
-          sig
-        };
         setUserSigNonce(userSigNonce + 1);
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { profileId, imageURI } = typedData.value;
+          return write?.({ args: [profileId, imageURI] });
         }
       },
       onError
