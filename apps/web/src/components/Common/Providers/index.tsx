@@ -32,20 +32,12 @@ const { chains, publicClient } = configureChains(
   [jsonRpcProvider({ rpc: (chain) => ({ http: getRpc(chain.id) }) })]
 );
 
-const connectors = () => {
-  return [
-    new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-    new WalletConnectConnector({
-      options: { projectId: WALLETCONNECT_PROJECT_ID }
-    })
-  ];
-};
-
-// const wagmiConfig = createClient({
-//   autoConnect: true,
-//   connectors,
-//   provider
-// });
+const connectors = [
+  new InjectedConnector({ chains, options: { shimDisconnect: true } }),
+  new WalletConnectConnector({
+    options: { projectId: WALLETCONNECT_PROJECT_ID }
+  })
+] as any;
 
 const wagmiConfig = createConfig({
   autoConnect: true,
