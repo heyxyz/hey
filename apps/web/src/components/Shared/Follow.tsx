@@ -1,6 +1,5 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { Errors } from 'data';
@@ -22,7 +21,7 @@ import { useAuthStore } from 'src/store/auth';
 import { useNonceStore } from 'src/store/nonce';
 import { PROFILE } from 'src/tracking';
 import { Button, Spinner } from 'ui';
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
+import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {
   profile: Profile;
@@ -49,7 +48,6 @@ const Follow: FC<FollowProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
   const [isLoading, setIsLoading] = useState(false);
-  const { address } = useAccount();
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -93,7 +91,7 @@ const Follow: FC<FollowProps> = ({
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'followWithSig',
+    functionName: 'follow',
     onSuccess: () => onCompleted(),
     onError
   });
@@ -104,26 +102,17 @@ const Follow: FC<FollowProps> = ({
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
-      const { deadline } = typedData.value;
       // TODO: Replace deep clone with right helper
       const signature = await signTypedDataAsync(
         getSignature(JSON.parse(JSON.stringify(typedData)))
       );
       setUserSigNonce(userSigNonce + 1);
-      const { profileIds, datas: followData } = typedData.value;
-      const { v, r, s } = splitSignature(signature);
-      const sig = { v, r, s, deadline };
-      const inputStruct = {
-        follower: address,
-        profileIds,
-        datas: followData,
-        sig
-      };
       const { data } = await broadcast({
         variables: { request: { id, signature } }
       });
       if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ args: [inputStruct] });
+        const { profileIds, datas } = typedData.value;
+        return write?.({ args: [profileIds, datas] });
       }
     },
     onError,

@@ -2,7 +2,6 @@ import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
-import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
@@ -106,7 +105,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const { error, write } = useContractWrite({
     address: LENS_PERIPHERY,
     abi: LensPeriphery,
-    functionName: 'setProfileMetadataURIWithSig',
+    functionName: 'setProfileMetadataURI',
     onSuccess: () => onCompleted(),
     onError
   });
@@ -118,21 +117,13 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     useCreateSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createSetProfileMetadataTypedData }) => {
         const { id, typedData } = createSetProfileMetadataTypedData;
-        const { profileId, metadata, deadline } = typedData.value;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          user: currentProfile?.ownedBy,
-          profileId,
-          metadata,
-          sig
-        };
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ args: [inputStruct] });
+          const { profileId, metadata } = typedData.value;
+          return write?.({ args: [profileId, metadata] });
         }
       },
       onError

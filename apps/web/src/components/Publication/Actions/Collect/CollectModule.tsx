@@ -17,7 +17,6 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
@@ -143,7 +142,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'collectWithSig',
+    functionName: 'collect',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -227,22 +226,13 @@ const CollectModule: FC<CollectModuleProps> = ({
   const [createCollectTypedData] = useCreateCollectTypedDataMutation({
     onCompleted: async ({ createCollectTypedData }) => {
       const { id, typedData } = createCollectTypedData;
-      const { profileId, pubId, data: collectData, deadline } = typedData.value;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { v, r, s } = splitSignature(signature);
-      const sig = { v, r, s, deadline };
-      const inputStruct = {
-        collector: address,
-        profileId,
-        pubId,
-        data: collectData,
-        sig
-      };
       const { data } = await broadcast({
         variables: { request: { id, signature } }
       });
       if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ args: [inputStruct] });
+        const { profileId, pubId, data: collectData } = typedData.value;
+        return write?.({ args: [profileId, pubId, collectData] });
       }
     },
     onError

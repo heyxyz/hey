@@ -21,7 +21,6 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -304,7 +303,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: isComment ? 'commentWithSig' : 'postWithSig',
+    functionName: isComment ? 'comment' : 'post',
     onSuccess: ({ hash }) => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -370,34 +369,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     isDataAvailabilityPublication: boolean = false
   ) => {
     const { id, typedData } = generatedData;
-    const {
-      profileId,
-      contentURI,
-      collectModule,
-      collectModuleInitData,
-      referenceModule,
-      referenceModuleInitData,
-      referenceModuleData,
-      deadline
-    } = typedData.value;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    const { v, r, s } = splitSignature(signature);
-    const sig = { v, r, s, deadline };
-    const inputStruct = {
-      profileId,
-      contentURI,
-      collectModule,
-      collectModuleInitData,
-      referenceModule,
-      referenceModuleInitData,
-      referenceModuleData,
-      ...(isComment && {
-        profileIdPointed: typedData.value.profileIdPointed,
-        pubIdPointed: typedData.value.pubIdPointed
-      }),
-      sig
-    };
-
     if (isDataAvailabilityPublication) {
       return await broadcastDataAvailability({
         variables: { request: { id, signature } }
@@ -408,7 +380,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       variables: { request: { id, signature } }
     });
     if (data?.broadcast.__typename === 'RelayError') {
-      return write({ args: [inputStruct] });
+      return write({ args: [typedData.value] });
     }
   };
 

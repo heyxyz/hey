@@ -1,6 +1,5 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
 import Errors from 'data/errors';
@@ -61,7 +60,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const { write } = useContractWrite({
     address: profile.followNftAddress,
     abi: FollowNft,
-    functionName: 'burnWithSig',
+    functionName: 'burn',
     onSuccess: () => onCompleted(),
     onError
   });
@@ -74,15 +73,12 @@ const Unfollow: FC<UnfollowProps> = ({
     onCompleted: async ({ createUnfollowTypedData }) => {
       const { typedData, id } = createUnfollowTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { tokenId, deadline } = typedData.value;
-      const { v, r, s } = splitSignature(signature);
-      const sig = { v, r, s, deadline };
-
       const { data } = await broadcast({
         variables: { request: { id, signature } }
       });
       if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ args: [tokenId, sig] });
+        const { tokenId } = typedData.value;
+        return write?.({ args: [tokenId] });
       }
     },
     onError,

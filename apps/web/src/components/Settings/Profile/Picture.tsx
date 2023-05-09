@@ -2,7 +2,6 @@ import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { AVATAR, LENSHUB_PROXY } from 'data/constants';
@@ -73,7 +72,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setProfileImageURIWithSig',
+    functionName: 'setProfileImageURI',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -91,20 +90,13 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         const { id, typedData } = createSetProfileImageURITypedData;
-        const { profileId, imageURI, deadline } = typedData.value;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          imageURI,
-          sig
-        };
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ args: [inputStruct] });
+          const { profileId, imageURI } = typedData.value;
+          return write?.({ args: [profileId, imageURI] });
         }
       },
       onError
