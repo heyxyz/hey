@@ -38,7 +38,7 @@ import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
@@ -183,15 +183,6 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     setDecryptError(error);
     setIsDecrypting(false);
   };
-
-  useEffect(() => {
-    const lensLitAuthSig = localStorage.getItem('lens-lit-authsig');
-
-    if (lensLitAuthSig) {
-      getDecryptedData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   if (!currentProfile) {
     return (
