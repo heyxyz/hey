@@ -730,6 +730,9 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../../lib
+      snapshot:
+        specifier: workspace:*
+        version: link:../../snapshot
       viem:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.0.4)(zod@3.21.4)
