@@ -24,7 +24,6 @@ import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
-import { defaultAbiCoder } from 'ethers/lib/utils';
 import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
 import {
   CollectModules,
@@ -266,25 +265,6 @@ const CollectModule: FC<CollectModuleProps> = ({
         return await createViaProxyAction({
           request: {
             collect: { freeCollect: { publicationId: publication?.id } }
-          }
-        });
-      } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
-        refetch().then(async ({ data }) => {
-          if (data) {
-            const decodedData: any = data;
-            const encodedData = defaultAbiCoder.encode(
-              ['address', 'uint256'],
-              [decodedData?.[2] as string, decodedData?.[1]]
-            );
-            return await createCollectTypedData({
-              variables: {
-                options: { overrideSigNonce: userSigNonce },
-                request: {
-                  publicationId: publication?.id,
-                  unknownModuleData: encodedData
-                }
-              }
-            });
           }
         });
       }
