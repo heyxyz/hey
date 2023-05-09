@@ -46,11 +46,13 @@ const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
 
     if (useThirdwebIpfs) {
       const storage = new ThirdwebStorage();
-      const uris = await storage.uploadBatch(files);
+      const uris = await storage.uploadBatch(files, {
+        uploadWithoutDirectory: true
+      });
 
-      return uris.map((uri: string) => {
+      return uris.map((uri: string, index) => {
         return {
-          original: { url: uri, mimeType: data.type || FALLBACK_TYPE }
+          original: { url: uri, mimeType: data[index].type || FALLBACK_TYPE }
         };
       });
     }
