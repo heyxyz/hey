@@ -1511,11 +1511,6 @@ msgstr ""
 msgid "Free Collect"
 msgstr ""
 
-#: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Unknown Collect"
-msgstr ""
-
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
 msgstr ""
@@ -2870,4 +2865,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

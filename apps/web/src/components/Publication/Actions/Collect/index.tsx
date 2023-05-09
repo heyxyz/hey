@@ -35,8 +35,6 @@ const Collect: FC<CollectProps> = ({
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isFreeCollect =
     publication?.collectModule.__typename === 'FreeCollectModuleSettings';
-  const isUnknownCollect =
-    publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
   const isMirror = publication.__typename === 'Mirror';
   const hasCollected = isMirror
     ? publication?.mirrorOf?.hasCollectedByMe
@@ -94,8 +92,6 @@ const Collect: FC<CollectProps> = ({
         title={
           isFreeCollect
             ? t`Free Collect`
-            : isUnknownCollect
-            ? t`Unknown Collect`
             : getModule(publication?.collectModule?.type).name
         }
         icon={

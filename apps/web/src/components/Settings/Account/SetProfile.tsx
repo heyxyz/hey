@@ -1,7 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
@@ -21,7 +21,7 @@ import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
+import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const SetProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
@@ -30,7 +30,6 @@ const SetProfile: FC = () => {
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const [selectedUser, setSelectedUser] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { address } = useAccount();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -44,19 +43,22 @@ const SetProfile: FC = () => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setDefaultProfileWithSig',
-    mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
-    onError
+    functionName: 'setDefaultProfile',
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const hasDefaultProfile = Boolean(profiles.find((o) => o.isDefault));
@@ -76,22 +78,13 @@ const SetProfile: FC = () => {
     useCreateSetDefaultProfileTypedDataMutation({
       onCompleted: async ({ createSetDefaultProfileTypedData }) => {
         const { id, typedData } = createSetDefaultProfileTypedData;
-        const { wallet, profileId, deadline } = typedData.value;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          follower: address,
-          wallet,
-          profileId,
-          sig
-        };
-        setUserSigNonce(userSigNonce + 1);
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { profileId } = typedData.value;
+          return write?.({ args: [profileId] });
         }
       },
       onError

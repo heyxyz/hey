@@ -1,11 +1,10 @@
 import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
-import { Errors } from 'data';
 import { LENSHUB_PROXY, OLD_LENS_RELAYER_ADDRESS } from 'data/constants';
 import {
   useBroadcastMutation,
@@ -52,17 +51,14 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { data: writeData, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setDispatcherWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'setDispatcher',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -80,20 +76,15 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     useCreateSetDispatcherTypedDataMutation({
       onCompleted: async ({ createSetDispatcherTypedData }) => {
         const { id, typedData } = createSetDispatcherTypedData;
-        const { profileId, dispatcher, deadline } = typedData.value;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          dispatcher,
-          sig
-        };
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { profileId, dispatcher } = typedData.value;
+          return write?.({
+            args: [profileId, dispatcher]
+          });
         }
       },
       onError
@@ -101,6 +92,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
 
   const toggleDispatcher = async () => {
     try {
+      setIsLoading(true);
       return await createSetDispatcherTypedData({
         variables: {
           request: {

@@ -53,7 +53,6 @@
     "dexie": "^3.2.3",
     "dexie-react-hooks": "^1.1.3",
     "dotenv": "^16.0.3",
-    "ethers": "5.6.0",
     "framer-motion": "^10.12.8",
     "graphql": "^16.6.0",
     "image-cropper": "workspace:*",
@@ -82,7 +81,8 @@
     "ui": "workspace:*",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.0",
-    "wagmi": "^0.12.13",
+    "viem": "^0.3.18",
+    "wagmi": "^1.0.0",
     "zod": "^3.21.4",
     "zustand": "^4.3.8"
   },

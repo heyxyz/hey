@@ -17,8 +17,6 @@ export const getModule = (
     // Collect Modules
     case CollectModules.MultirecipientFeeCollectModule:
       return { name: t`Multirecipient Paid Collect`, field: 'collectModule' };
-    case CollectModules.UnknownCollectModule:
-      return { name: t`Unknown Collect`, field: 'collectModule' };
     case CollectModules.FeeCollectModule:
       return { name: t`Paid Collect`, field: 'collectModule' };
     case CollectModules.LimitedFeeCollectModule:
