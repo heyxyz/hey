@@ -2,7 +2,7 @@
 module.exports = {
   format: 'po',
   orderBy: 'origin',
-  locales: ['en', 'es', 'ta', 'zh', 'ru', 'fr'],
+  locales: ['en', 'zh', 'fr', 'ru', 'ta'],
   sourceLocale: 'en',
   catalogs: [
     {

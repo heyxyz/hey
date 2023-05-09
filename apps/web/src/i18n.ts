@@ -1,10 +1,9 @@
 export const SUPPORTED_LOCALES: Record<string, string> = {
   en: 'English',
-  es: 'Spanish - Español',
-  ta: 'Tamil - தமிழ்',
   zh: 'Chinese - 中文',
+  fr: 'French - français',
   ru: 'Russian - русский',
-  fr: 'French - français'
+  ta: 'Tamil - தமிழ்'
 };
 
 export const DEFAULT_LOCALE = 'en';
