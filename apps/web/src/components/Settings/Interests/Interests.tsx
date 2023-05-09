@@ -1,8 +1,8 @@
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
-import { Errors } from 'data';
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
@@ -10,7 +10,6 @@ import {
 } from 'lens';
 import { useApolloClient } from 'lens/apollo';
 import type { FC } from 'react';
-import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
 import { Button } from 'ui';
@@ -31,9 +30,7 @@ const Interests: FC = () => {
   };
 
   const onError = (error: any) => {
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { data, loading } = useProfileInterestsQuery();

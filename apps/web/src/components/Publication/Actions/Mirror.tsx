@@ -1,4 +1,5 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -88,14 +89,10 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  const { signTypedDataAsync } = useSignTypedData({ onError });
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,

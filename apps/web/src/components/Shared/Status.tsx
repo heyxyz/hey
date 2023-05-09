@@ -1,4 +1,5 @@
 import { PencilIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
@@ -62,9 +63,7 @@ const Status: FC = () => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { data, loading, error } = useProfileSettingsQuery({

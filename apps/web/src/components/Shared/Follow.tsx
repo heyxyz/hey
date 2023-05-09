@@ -1,8 +1,8 @@
 import { UserAddIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
-import { Errors } from 'data';
 import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import {
@@ -75,16 +75,8 @@ const Follow: FC<FollowProps> = ({
   };
 
   const onError = (error: any) => {
-    if (
-      error?.message?.includes('Usage limit exceeded, please try again later')
-    ) {
-      return;
-    }
-
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });

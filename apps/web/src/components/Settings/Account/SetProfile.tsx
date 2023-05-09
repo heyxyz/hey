@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -42,9 +43,7 @@ const SetProfile: FC = () => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });

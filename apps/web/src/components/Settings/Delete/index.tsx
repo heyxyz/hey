@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import UserProfile from '@components/Shared/UserProfile';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
 import resetAuthData from '@lib/resetAuthData';
 import { t, Trans } from '@lingui/macro';
@@ -56,9 +57,7 @@ const DeleteSettings: FC = () => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { write } = useContractWrite({

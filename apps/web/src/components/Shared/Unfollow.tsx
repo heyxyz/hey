@@ -1,4 +1,5 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
@@ -51,9 +52,7 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });

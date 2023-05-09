@@ -14,15 +14,15 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
+import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
-import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
 import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
 import {
@@ -50,7 +50,6 @@ import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
 import {
   useAccount,
   useBalance,
-  useContractRead,
   useContractWrite,
   useSignTypedData
 } from 'wagmi';
@@ -121,22 +120,10 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
-  const { refetch } = useContractRead({
-    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
-    abi: UpdateOwnableFeeCollectModule,
-    functionName: 'getPublicationData',
-    args: [
-      parseInt(publication.profile?.id),
-      parseInt(publication?.id.split('-')[1])
-    ],
-    enabled: false
-  });
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
