@@ -1587,8 +1587,8 @@ msgid "ARWEAVE TRANSACTION"
 msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
-msgid "DATA AVAILABILITY PROOF"
-msgstr "ДОКАЗАТЕЛЬСТВО ДОСТУПНОСТИ ДАННЫХ"
+msgid "MOMOKA PROOF"
+msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
 msgid "NFT ADDRESS"
