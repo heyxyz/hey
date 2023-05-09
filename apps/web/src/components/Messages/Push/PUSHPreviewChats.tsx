@@ -8,6 +8,8 @@ import React, { useEffect } from 'react';
 import { usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
+import { checkIfGroup, getGroupImage, getGroupPreviewMessage, getProfileFromDID, isCAIP } from './helper';
+
 export const PreviewMessage = ({ messageType, content }: { messageType: string; content: string }) => {
   if (messageType === 'GIF') {
     return <Image className="right-2.5 top-2.5" src="/push/gitIcon.svg" alt="" />;
@@ -22,9 +24,11 @@ export default function PUSHPreviewChats() {
   // const [parsedChats, setParsedChats] = useState<any>([]);
   const { fetchChats, loading } = useFetchChats();
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const lensProfiles = usePushChatStore((state) => state.lensProfiles);
+  const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
@@ -45,7 +49,13 @@ export default function PUSHPreviewChats() {
 
   // action for when you click on a chat
   const onChatFeedClick = (chatId: string) => {
-    router.push(`/messages/push/chat/${chatId}`);
+    setSelectedChatId(chatId);
+    const profileId: string = getProfileFromDID(chatId);
+    if (isCAIP(chatId)) {
+      router.push(`/messages/push/chat/${profileId}`);
+    } else {
+      router.push(`/messages/push/group/${profileId}`);
+    }
   };
 
   return (
@@ -53,7 +63,9 @@ export default function PUSHPreviewChats() {
       {!loading ? (
         Object.keys(chatsFeed).map((id: string) => {
           const feed = chatsFeed[id];
-          const lensProfile = lensProfiles.get(id);
+          const profileId: string = getProfileFromDID(feed.did ?? feed.chatId);
+          const lensProfile = lensProfiles.get(profileId);
+          const isGroup = checkIfGroup(feed);
           return (
             <div
               onClick={() => onChatFeedClick(id)}
@@ -62,22 +74,48 @@ export default function PUSHPreviewChats() {
                 selectedChatId === id && 'bg-brand-100'
               }`}
             >
-              <Image
-                onError={({ currentTarget }) => {
-                  currentTarget.src = getAvatar(lensProfile, false);
-                }}
-                src={getAvatar(lensProfile)}
-                loading="lazy"
-                className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
-                height={40}
-                width={40}
-                alt={formatHandle(lensProfile?.handle)}
-              />
+              {isGroup ? (
+                <Image
+                  src={getGroupImage(feed)}
+                  loading="lazy"
+                  className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
+                  height={40}
+                  width={40}
+                  alt={feed.groupInformation?.groupName!}
+                />
+              ) : (
+                <Image
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getAvatar(lensProfile, false);
+                  }}
+                  src={getAvatar(lensProfile)}
+                  loading="lazy"
+                  className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
+                  height={40}
+                  width={40}
+                  alt={formatHandle(lensProfile?.handle)}
+                />
+              )}
               <div className="flex w-full	justify-between	">
                 <div>
-                  <p className="bold max-w-[180px] truncate text-base">{formatHandle(lensProfile?.handle)}</p>
-                  {/* <p className="text-sm text-gray-500	">{feed.msg.messageContent}</p> */}
-                  <PreviewMessage content={feed.msg.messageContent} messageType={feed.msg.messageType} />
+                  {isGroup ? (
+                    <>
+                      <p className="bold max-w-[180px] truncate text-base">
+                        {feed.groupInformation?.groupName}
+                      </p>
+                      <PreviewMessage
+                        content={getGroupPreviewMessage(feed, connectedProfile?.did!, false).message}
+                        messageType={getGroupPreviewMessage(feed, connectedProfile?.did!, false).type}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <p className="bold max-w-[180px] truncate text-base">
+                        {formatHandle(lensProfile?.handle)}
+                      </p>
+                      <PreviewMessage content={feed.msg.messageContent} messageType={feed.msg.messageType} />
+                    </>
+                  )}
                 </div>
                 <div>
                   <span className="text-xs text-gray-500">{moment(feed.msg.timestamp).fromNow()}</span>

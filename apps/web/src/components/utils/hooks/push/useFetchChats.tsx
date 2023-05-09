@@ -37,9 +37,11 @@ const useFetchChats = () => {
       const modifiedChatsObj: { [key: string]: IFeeds } = {};
 
       for (const chat of chats) {
-        const profileId: string = getProfileFromDID(chat.did);
-        lensIds.push(profileId);
-        modifiedChatsObj[profileId] = chat;
+        const profileId: string = getProfileFromDID(chat.did ?? chat.chatId);
+        if (chat.did) {
+          lensIds.push(profileId);
+        }
+        modifiedChatsObj[chat.did ?? chat.chatId] = chat;
       }
 
       await loadLensProfiles(lensIds);

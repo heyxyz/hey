@@ -1,9 +1,14 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
+import useFetchLensProfiles from '@components/utils/hooks/push/useFetchLensProfiles';
+import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
+import useGetGroup from '@components/utils/hooks/push/useGetGroup';
+import useGroupByName from '@components/utils/hooks/push/useGetGroupbyName';
 import { t } from '@lingui/macro';
+import type { GroupDTO } from '@pushprotocol/restapi';
 import { APP_NAME } from 'data/constants';
 import type { Profile } from 'lens';
-import { useProfileLazyQuery, useProfilesLazyQuery } from 'lens';
+import { useProfileLazyQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
@@ -14,7 +19,7 @@ import { CHAT_TYPES, usePushChatStore } from 'src/store/push-chat';
 import { Card, GridItemEight, GridLayout } from 'ui';
 
 import PreviewList from '../PreviewList';
-import { getIsHandle } from './helper';
+import { getCAIPFromLensID, getIsHandle, getProfileFromDID } from './helper';
 import MessageBody from './MessageBody';
 import MessageHeader from './MessageHeader';
 
@@ -25,18 +30,34 @@ type MessagePropType = {
 
 const Message = ({ conversationType, conversationId }: MessagePropType) => {
   const [showLoading, setShowLoading] = useState(false);
+  const { fetchChatProfile } = useGetChatProfile();
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
-  const selectedChatType = usePushChatStore((state) => state.selectedChatType);
+  const { loadLensProfiles } = useFetchLensProfiles();
+  const { fetchGroup } = useGetGroup();
+  const { fetchGroupByName } = useGroupByName();
   const lensProfiles = usePushChatStore((state) => state.lensProfiles);
   const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
   const setSelectedChatType = usePushChatStore((state) => state.setSelectedChatType);
   const [getProfileByHandle, { loading }] = useProfileLazyQuery();
 
-  const [loadProfiles] = useProfilesLazyQuery();
   const [profile, setProfile] = useState<Profile | null | ''>('');
+  const [groupInfo, setGroupInfo] = useState<GroupDTO | null | ''>('');
 
-  const loadProfile = useCallback(async () => {
-    // only for chat for now, for groups, it'll change
+  const setChatId = async (lensProfile: Profile | null) => {
+    if (lensProfile && getProfileFromDID(selectedChatId) !== lensProfile.id) {
+      const chatProfile = await fetchChatProfile({
+        profileId: lensProfile.id
+      });
+      if (chatProfile) {
+        setSelectedChatId(chatProfile.did);
+      } else {
+        setSelectedChatId(getCAIPFromLensID(lensProfile.id));
+      }
+    }
+  };
+
+  const loadChatProfile = useCallback(async () => {
+    // only for chat profiles
     try {
       setShowLoading(true);
       if (getIsHandle(conversationId)) {
@@ -44,36 +65,90 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
           variables: { request: { handle: conversationId } },
           onCompleted: ({ profile }) => {
             if (profile) {
+              setChatId(profile as Profile);
               setProfile(profile as Profile);
-              setSelectedChatId(profile.id);
             }
           }
         });
       } else {
         const lensProfile = lensProfiles.get(conversationId);
         if (lensProfile) {
+          setChatId(lensProfile as Profile);
           setProfile(lensProfile);
         } else {
-          const result = await loadProfiles({ variables: { request: { profileIds: [conversationId] } } });
-          if (result.data) {
-            setProfile(result.data.profiles.items[0] as Profile);
+          const result = await loadLensProfiles([conversationId]);
+          const lensProfile = result?.get(conversationId);
+          if (lensProfile) {
+            setChatId(lensProfile as Profile);
+            setProfile(lensProfile as Profile);
           } else {
+            setChatId(null);
             setProfile(null);
           }
         }
-        setSelectedChatId(conversationId);
       }
-      setSelectedChatType(conversationType);
+      setSelectedChatType(CHAT_TYPES.CHAT);
     } finally {
       setShowLoading(false);
     }
-  }, [loadProfiles, conversationId, conversationType]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationId, lensProfiles, selectedChatId]);
+
+  const loadGroupProfile = useCallback(async () => {
+    // fetch group info and set profile
+    try {
+      setShowLoading(true);
+      const [result1, result2] = await Promise.allSettled([
+        fetchGroup({ chatId: conversationId }),
+        fetchGroupByName({ name: conversationId })
+      ]);
+
+      if (result1.status === 'fulfilled' && result2.status === 'fulfilled') {
+        // Case 1: Both promises are fulfilled
+        const response = result1.value ?? result2.value;
+        if (response) {
+          setGroupInfo(response as GroupDTO);
+          setSelectedChatId(response?.chatId);
+        }
+      } else if (result1.status === 'fulfilled') {
+        // Case 2: Only the first promise is fulfilled
+        const response = result1.value;
+        if (response) {
+          setGroupInfo(response as GroupDTO);
+          setSelectedChatId(response?.chatId);
+        }
+      } else if (result2.status === 'fulfilled') {
+        // Case 3: Only the second promise is fulfilled
+        const response = result2.value;
+        if (response) {
+          setGroupInfo(response as GroupDTO);
+          setSelectedChatId(response?.chatId);
+        }
+      } else {
+        // Case 4: Both promises are rejected
+        throw result1.reason;
+      }
+      setSelectedChatType(CHAT_TYPES.GROUP);
+    } catch (error: Error | any) {
+      // console.log(error);
+      setGroupInfo(null);
+    } finally {
+      setShowLoading(false);
+    }
+  }, [conversationId]);
 
   useEffect(() => {
-    loadProfile();
+    if (conversationType === CHAT_TYPES.CHAT) {
+      setGroupInfo('');
+      loadChatProfile();
+    } else if (conversationType === CHAT_TYPES.GROUP) {
+      setProfile('');
+      loadGroupProfile();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, conversationType]);
 
-  if (profile === null) {
+  if (profile === null || groupInfo === null) {
     return <Custom404 />;
   }
 
@@ -88,12 +163,20 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
               <Loader message={t`Loading messages`} />
             </div>
           ) : (
-            profile && (
-              <>
-                <MessageHeader profile={profile as Profile} />
-                <MessageBody />
-              </>
-            )
+            <>
+              {profile !== '' && profile && (
+                <>
+                  <MessageHeader profile={profile as Profile} />
+                  <MessageBody />
+                </>
+              )}
+              {groupInfo !== '' && groupInfo && (
+                <>
+                  <MessageHeader groupInfo={groupInfo as GroupDTO} />
+                  <MessageBody />
+                </>
+              )}
+            </>
           )}
         </Card>
       </GridItemEight>

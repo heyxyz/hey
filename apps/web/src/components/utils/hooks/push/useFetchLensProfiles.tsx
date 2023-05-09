@@ -14,7 +14,11 @@ const useFetchLensProfiles = () => {
     async (profilesChunk: Array<string>) => {
       try {
         setLoading(true);
-        const result = await loadProfiles({ variables: { request: { profileIds: profilesChunk } } });
+
+        // Make the profileIds array unique using the Set data structure
+        const uniqueProfileIds = Array.from(new Set(profilesChunk));
+
+        const result = await loadProfiles({ variables: { request: { profileIds: uniqueProfileIds } } });
         if (result.data) {
           const lensIdsMap = new Map(
             result.data.profiles.items.map((profile) => {

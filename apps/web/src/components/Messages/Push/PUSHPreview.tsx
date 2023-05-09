@@ -71,7 +71,9 @@ const PUSHPreview = () => {
 
     const connectPushChatProfile = async () => {
       if (!connectedProfile) {
-        await fetchChatProfile();
+        await fetchChatProfile({
+          profileId: currentProfile.id
+        });
         return;
       }
       if (decryptedPgpPvtKey) {
@@ -123,11 +125,10 @@ const PUSHPreview = () => {
   useEffect(() => {
     //set selected chat preview
     //find in inbox or reuqests  or new chat and switch tab as per that and set css for selected chat
-    if (chatsFeed.hasOwnProperty(selectedChatId)) {
+    if (selectedChatId in chatsFeed) {
       setActiveTab(PUSH_TABS.CHATS);
     }
-    if (requestsFeed.hasOwnProperty(selectedChatId)) {
-      console.log(activeTab);
+    if (selectedChatId in requestsFeed) {
       setActiveTab(PUSH_TABS.REQUESTS);
     }
   }, [selectedChatId, selectedChatType, requestsFeed, chatsFeed]);
