@@ -18,6 +18,7 @@ import { Button, ErrorMessage, Spinner, Toggle } from 'ui';
 import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';
 import FollowersConfig from './FollowersConfig';
+import SelectQuadraticRoundMenu from './SelectQuadraticRoundMenu';
 import SplitConfig from './SplitConfig';
 import TimeLimitConfig from './TimeLimitConfig';
 
@@ -44,6 +45,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
   const [toggleCollectEnabled, setToggleCollectEnabled] = useState(false);
   const [toggleQuadraticEnabled, setToggleQuadraticEnabled] = useState(false);
+  const [selectedQuadraticRound, setSelecedQuadraticRound] = useState('');
 
   const {
     RevertCollectModule,
@@ -106,11 +108,13 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         break;
       case UnknownCollectModule:
         const fee = referralFee === null ? 0 : parseFloat(referralFee);
-        const encodedQuadraticData = ethers.utils.defaultAbiCoder.encode(
-          ['address', 'uint16', 'address'],
-          [selectedCurrency, fee, getEnvConfig().GrantsRound]
-        );
-
+        let encodedQuadraticData = '';
+        if (selectedCollectModule.length > 0 && ethers.utils.isAddress(selectedQuadraticRound)) {
+          encodedQuadraticData = ethers.utils.defaultAbiCoder.encode(
+            ['address', 'uint16', 'address'],
+            [selectedCurrency, fee, selectedQuadraticRound]
+          );
+        }
         setPayload({
           unknownCollectModule: {
             contractAddress: getEnvConfig().QuadraticVoteCollectModuleAddress,
@@ -258,6 +262,14 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
                 </Trans>
               </div>
 
+              <div className="mt-5">
+                <SelectQuadraticRoundMenu setSelectedQuadraticRound={setSelecedQuadraticRound} />
+              </div>
+              {selectedQuadraticRound ? (
+                <div className="mx-auto mt-2 text-center text-xs text-purple-500">
+                  <Trans> Selected Quadratic Round: {selectedQuadraticRound} </Trans>
+                </div>
+              ) : null}
               <div className="space-y-2 pt-5">
                 <div className="flex items-center space-x-2">
                   <UserGroupIcon className="text-brand-500 h-4 w-4" />
@@ -266,22 +278,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  {/* <Toggle
-                    on={followerOnly}
-                    setOn={() => {
-                      followerOnly;
-                      // setFollowerOnly(!followerOnly);
-                      // Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_FOLLOWERS_ONLY_COLLECT);
-                    }}
-                  /> */}
                   <ToggleWithHelper
                     on={(selectedCollectModule as CollectModules) !== RevertCollectModule}
                     setOn={toggleCollect}
                     description={t`This post can be collected`}
                   />
-                  <div className="lt-text-gray-500 text-sm font-bold">
-                    <Trans>Only followers can collect</Trans>
-                  </div>
                 </div>
               </div>
             </div>
