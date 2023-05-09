@@ -17,7 +17,7 @@ const Locale: FC = () => {
   const { on: isGatedLocalesEnabled } = Growthbook.feature(
     FeatureFlag.GatedLocales
   );
-  const gatedLocales = ['ta', 'es', 'ru', 'fr'];
+  const gatedLocales = ['fr', 'ru', 'ta'];
   const locales = Object.fromEntries(
     Object.entries(SUPPORTED_LOCALES).filter(([key]) =>
       isGatedLocalesEnabled ? true : !gatedLocales.includes(key)
