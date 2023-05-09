@@ -1,6 +1,6 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
@@ -89,20 +89,15 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  const { signTypedDataAsync } = useSignTypedData({ onError });
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'mirrorWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: 'mirror',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -120,32 +115,12 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
   const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
     onCompleted: async ({ createMirrorTypedData }) => {
       const { id, typedData } = createMirrorTypedData;
-      const {
-        profileId,
-        profileIdPointed,
-        pubIdPointed,
-        referenceModule,
-        referenceModuleData,
-        referenceModuleInitData,
-        deadline
-      } = typedData.value;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { v, r, s } = splitSignature(signature);
-      const sig = { v, r, s, deadline };
-      const inputStruct = {
-        profileId,
-        profileIdPointed,
-        pubIdPointed,
-        referenceModule,
-        referenceModuleData,
-        referenceModuleInitData,
-        sig
-      };
       const { data } = await broadcast({
         variables: { request: { id, signature } }
       });
       if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+        return write?.({ args: [typedData.value] });
       }
     },
     onError

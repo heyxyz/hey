@@ -1,6 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
@@ -37,12 +38,12 @@ import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
 import { Card, ErrorMessage, Tooltip } from 'ui';
-import { useProvider, useSigner, useToken } from 'wagmi';
+import { usePublicClient, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
   icon: ReactNode;
@@ -75,8 +76,8 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   const [reasons, setReasons] = useState<any>(
     encryptedPublication?.canDecrypt.reasons
   );
-  const provider = useProvider();
-  const { data: signer } = useSigner();
+  const publicClient = usePublicClient();
+  const { data: walletClient } = useEthersWalletClient();
 
   const showMore =
     encryptedPublication?.metadata?.content?.length > 450 &&
@@ -163,7 +164,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   const doesNotOwnNft = reasons?.includes(DecryptFailReason.DoesNotOwnNft);
 
   const getDecryptedData = async () => {
-    if (!signer || isDecrypting) {
+    if (!walletClient || isDecrypting) {
       return;
     }
 
@@ -173,8 +174,8 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     );
     const { data } = await axios.get(contentUri);
     const sdk = await LensGatedSDK.create({
-      provider: provider as any,
-      signer,
+      provider: publicClient as any,
+      signer: walletClient as any,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);
@@ -182,15 +183,6 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     setDecryptError(error);
     setIsDecrypting(false);
   };
-
-  useEffect(() => {
-    const lensLitAuthSig = localStorage.getItem('lens-lit-authsig');
-
-    if (lensLitAuthSig) {
-      getDecryptedData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   if (!currentProfile) {
     return (

@@ -1511,11 +1511,6 @@ msgstr ""
 msgid "Free Collect"
 msgstr "免费收藏"
 
-#: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Unknown Collect"
-msgstr "未知收藏"
-
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
 msgstr "{0} 评论"
@@ -2870,4 +2865,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

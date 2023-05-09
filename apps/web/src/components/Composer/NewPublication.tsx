@@ -2,6 +2,7 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import useCreatePoll from '@components/utils/hooks/useCreatePoll';
+import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
@@ -17,10 +18,10 @@ import type {
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Mixpanel } from '@lib/mixpanel';
-import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -80,12 +81,7 @@ import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
-import {
-  useContractWrite,
-  useProvider,
-  useSigner,
-  useSignTypedData
-} from 'wagmi';
+import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
@@ -198,8 +194,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
-  const provider = useProvider();
-  const { data: signer } = useSigner();
+  const publicClient = usePublicClient();
+  const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
 
   const isComment = Boolean(publication);
@@ -262,9 +258,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const onError = (error: any) => {
     setIsLoading(false);
-    toast.error(
-      error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong
-    );
+    errorToast(error);
   };
 
   useEffect(() => {
@@ -308,8 +302,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: isComment ? 'commentWithSig' : 'postWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: isComment ? 'comment' : 'post',
     onSuccess: ({ hash }) => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -375,34 +368,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     isDataAvailabilityPublication: boolean = false
   ) => {
     const { id, typedData } = generatedData;
-    const {
-      profileId,
-      contentURI,
-      collectModule,
-      collectModuleInitData,
-      referenceModule,
-      referenceModuleInitData,
-      referenceModuleData,
-      deadline
-    } = typedData.value;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    const { v, r, s } = splitSignature(signature);
-    const sig = { v, r, s, deadline };
-    const inputStruct = {
-      profileId,
-      contentURI,
-      collectModule,
-      collectModuleInitData,
-      referenceModule,
-      referenceModuleInitData,
-      referenceModuleData,
-      ...(isComment && {
-        profileIdPointed: typedData.value.profileIdPointed,
-        pubIdPointed: typedData.value.pubIdPointed
-      }),
-      sig
-    };
-
     if (isDataAvailabilityPublication) {
       return await broadcastDataAvailability({
         variables: { request: { id, signature } }
@@ -413,7 +379,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       variables: { request: { id, signature } }
     });
     if (data?.broadcast.__typename === 'RelayError') {
-      return write({ recklesslySetUnpreparedArgs: [inputStruct] });
+      return write({ args: [typedData.value] });
     }
   };
 
@@ -626,14 +592,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return toast.error(Errors.SignWallet);
     }
 
-    if (!signer) {
+    if (!walletClient) {
       return toast.error(Errors.SignWallet);
     }
 
     // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
-      provider: provider as any,
-      signer,
+      provider: publicClient as any,
+      signer: walletClient as any,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 
