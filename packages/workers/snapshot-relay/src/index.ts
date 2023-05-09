@@ -7,14 +7,16 @@ import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
-  methods: ['POST']
+  methods: ['GET', 'POST']
 });
 
 const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('Snapshot Relay'));
-router.get('/getPoll/:id', ({ params }) => getPoll(params.id));
+router.get('/getPoll/:id/:voter', ({ params }) =>
+  getPoll(params.id, params.voter)
+);
 router.post('/createPoll', createPoll);
 router.post('/votePoll', votePoll);
 
