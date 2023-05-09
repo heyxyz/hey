@@ -39,7 +39,7 @@ const useCreateChatProfile = () => {
   const [step, setStep] = useState<number>(1);
   const [modalClosable, setModalClosable] = useState<boolean>(true);
   const [modalInfo, setModalInfo] = useState<modalInfoType>(initModalInfo);
-  const [password, setPassword] = useState<string>('');
+  const [password, setPassword] = useState<string>(generator.generate({ length: 10, numbers: true }));
 
   const handleProgress = useCallback(
     (progress: ProgressHookType) => {

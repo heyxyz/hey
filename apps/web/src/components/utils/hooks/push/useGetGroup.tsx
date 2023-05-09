@@ -4,18 +4,18 @@ import { useCallback, useState } from 'react';
 import { PUSH_ENV } from 'src/store/push-chat';
 
 interface IFetchGroupProps {
-  account: string;
+  chatId: string;
 }
 
 const useGetGroup = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
-  const fetchGroup = useCallback(async ({ account }: IFetchGroupProps): Promise<GroupDTO | undefined> => {
+  const fetchGroup = useCallback(async ({ chatId }: IFetchGroupProps): Promise<GroupDTO | undefined> => {
     setLoading(true);
     try {
       const response = await PushAPI.chat.getGroup({
-        chatId: `eip155:${account}`,
+        chatId: chatId,
         env: PUSH_ENV
       });
       if (!response) {

@@ -1,4 +1,4 @@
-import type { IUser } from '@pushprotocol/restapi';
+import type { IFeeds, IUser } from '@pushprotocol/restapi';
 import { ENV } from '@pushprotocol/restapi/src/lib/constants';
 import { LENSHUB_PROXY } from 'data';
 import moment from 'moment';
@@ -51,5 +51,56 @@ export const getIsHandle = (handle: string) => {
   }
   if (PUSH_ENV === ENV.PROD) {
     return handle.includes(HANDLE_SUFFIX.LENS);
+  }
+};
+
+export const checkIfGroup = (feed: IFeeds): boolean => {
+  if ('groupInformation' in feed && feed?.groupInformation) {
+    return true;
+  }
+  return false;
+};
+
+export const getGroupPreviewMessage = (feed: IFeeds, nftProfile: string, isIntent?: boolean) => {
+  if (checkIfGroup(feed) && !feed.msg.messageContent) {
+    if (feed?.groupInformation?.groupCreator === nftProfile) {
+      return {
+        type: 'Text',
+        message: 'Group created!'
+      };
+    } else {
+      if (isIntent) {
+        return {
+          type: 'Text',
+          message: 'Group Invite Received'
+        };
+      } else {
+        return {
+          type: 'Text',
+          message: 'Joined group!'
+        };
+      }
+    }
+  }
+
+  //Group is there and feeds are also there in the group but it is an Intent
+  if (checkIfGroup(feed) && isIntent) {
+    return {
+      type: 'Text',
+      message: 'Group Invite Received'
+    };
+  }
+
+  return {
+    type: feed.msg.messageType,
+    message: feed.msg.messageContent
+  };
+};
+
+export const getGroupImage = (feed: IFeeds): string => {
+  if (checkIfGroup(feed)) {
+    return feed?.groupInformation?.groupImage!;
+  } else {
+    return feed?.profilePicture!;
   }
 };

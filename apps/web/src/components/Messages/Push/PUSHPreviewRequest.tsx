@@ -8,7 +8,7 @@ import React from 'react';
 import { usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
-import { getProfileFromDID, isCAIP } from './helper';
+import { checkIfGroup, getGroupImage, getGroupPreviewMessage, getProfileFromDID, isCAIP } from './helper';
 import { PreviewMessage } from './PUSHPreviewChats';
 
 export default function PUSHPreviewChats() {
@@ -17,6 +17,7 @@ export default function PUSHPreviewChats() {
   const { loading } = useFetchRequests();
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
   const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const lensProfiles = usePushChatStore((state) => state.lensProfiles);
 
@@ -39,6 +40,7 @@ export default function PUSHPreviewChats() {
           const feed = requestsFeed[id];
           const profileId: string = getProfileFromDID(feed.did ?? feed.chatId);
           const lensProfile = lensProfiles.get(profileId);
+          const isGroup = checkIfGroup(feed);
           return (
             <div
               onClick={() => onRequestFeedClick(id)}
@@ -47,21 +49,48 @@ export default function PUSHPreviewChats() {
                 selectedChatId === id && 'bg-brand-100'
               }`}
             >
-              <Image
-                onError={({ currentTarget }) => {
-                  currentTarget.src = getAvatar(lensProfile, false);
-                }}
-                src={getAvatar(lensProfile)}
-                loading="lazy"
-                className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
-                height={40}
-                width={40}
-                alt={formatHandle(lensProfile?.handle)}
-              />
+              {isGroup ? (
+                <Image
+                  src={getGroupImage(feed)}
+                  loading="lazy"
+                  className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
+                  height={40}
+                  width={40}
+                  alt={feed.groupInformation?.groupName!}
+                />
+              ) : (
+                <Image
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getAvatar(lensProfile, false);
+                  }}
+                  src={getAvatar(lensProfile)}
+                  loading="lazy"
+                  className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
+                  height={40}
+                  width={40}
+                  alt={formatHandle(lensProfile?.handle)}
+                />
+              )}
               <div className="flex w-full	justify-between	">
                 <div>
-                  <p className="bold max-w-[180px] truncate text-base">{formatHandle(lensProfile?.handle)}</p>
-                  <PreviewMessage content={feed.msg.messageContent} messageType={feed.msg.messageType} />
+                  {isGroup ? (
+                    <>
+                      <p className="bold max-w-[180px] truncate text-base">
+                        {feed.groupInformation?.groupName}
+                      </p>
+                      <PreviewMessage
+                        content={getGroupPreviewMessage(feed, connectedProfile?.did!, false).message}
+                        messageType={getGroupPreviewMessage(feed, connectedProfile?.did!, false).type}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <p className="bold max-w-[180px] truncate text-base">
+                        {formatHandle(lensProfile?.handle)}
+                      </p>
+                      <PreviewMessage content={feed.msg.messageContent} messageType={feed.msg.messageType} />
+                    </>
+                  )}
                 </div>
                 <div>
                   <span className="text-xs text-gray-500">{moment(feed.msg.timestamp).fromNow()}</span>

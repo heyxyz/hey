@@ -2,7 +2,10 @@ import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import useFetchLensProfiles from '@components/utils/hooks/push/useFetchLensProfiles';
 import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
+import useGetGroup from '@components/utils/hooks/push/useGetGroup';
+import useGroupByName from '@components/utils/hooks/push/useGetGroupbyName';
 import { t } from '@lingui/macro';
+import type { GroupDTO } from '@pushprotocol/restapi';
 import { APP_NAME } from 'data/constants';
 import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
@@ -30,12 +33,15 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
   const { fetchChatProfile } = useGetChatProfile();
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
   const { loadLensProfiles } = useFetchLensProfiles();
+  const { fetchGroup } = useGetGroup();
+  const { fetchGroupByName } = useGroupByName();
   const lensProfiles = usePushChatStore((state) => state.lensProfiles);
   const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
   const setSelectedChatType = usePushChatStore((state) => state.setSelectedChatType);
   const [getProfileByHandle, { loading }] = useProfileLazyQuery();
 
   const [profile, setProfile] = useState<Profile | null | ''>('');
+  const [groupInfo, setGroupInfo] = useState<GroupDTO | null | ''>('');
 
   const setChatId = async (lensProfile: Profile | null) => {
     if (lensProfile && getProfileFromDID(selectedChatId) !== lensProfile.id) {
@@ -90,18 +96,59 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
 
   const loadGroupProfile = useCallback(async () => {
     // fetch group info and set profile
+    try {
+      setShowLoading(true);
+      const [result1, result2] = await Promise.allSettled([
+        fetchGroup({ chatId: conversationId }),
+        fetchGroupByName({ name: conversationId })
+      ]);
+
+      if (result1.status === 'fulfilled' && result2.status === 'fulfilled') {
+        // Case 1: Both promises are fulfilled
+        const response = result1.value ?? result2.value;
+        if (response) {
+          setGroupInfo(response as GroupDTO);
+          setSelectedChatId(response?.chatId);
+        }
+      } else if (result1.status === 'fulfilled') {
+        // Case 2: Only the first promise is fulfilled
+        const response = result1.value;
+        if (response) {
+          setGroupInfo(response as GroupDTO);
+          setSelectedChatId(response?.chatId);
+        }
+      } else if (result2.status === 'fulfilled') {
+        // Case 3: Only the second promise is fulfilled
+        const response = result2.value;
+        if (response) {
+          setGroupInfo(response as GroupDTO);
+          setSelectedChatId(response?.chatId);
+        }
+      } else {
+        // Case 4: Both promises are rejected
+        throw result1.reason;
+      }
+      setSelectedChatType(CHAT_TYPES.GROUP);
+    } catch (error: Error | any) {
+      // console.log(error);
+      setGroupInfo(null);
+    } finally {
+      setShowLoading(false);
+    }
   }, [conversationId]);
 
   useEffect(() => {
     if (conversationType === CHAT_TYPES.CHAT) {
+      setGroupInfo('');
       loadChatProfile();
     } else if (conversationType === CHAT_TYPES.GROUP) {
+      setProfile('');
       loadGroupProfile();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, conversationType]);
 
-  if (profile === null) {
+  if (profile === null || groupInfo === null) {
     return <Custom404 />;
   }
 
@@ -116,12 +163,20 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
               <Loader message={t`Loading messages`} />
             </div>
           ) : (
-            profile && (
-              <>
-                <MessageHeader profile={profile as Profile} />
-                <MessageBody />
-              </>
-            )
+            <>
+              {profile !== '' && profile && (
+                <>
+                  <MessageHeader profile={profile as Profile} />
+                  <MessageBody />
+                </>
+              )}
+              {groupInfo !== '' && groupInfo && (
+                <>
+                  <MessageHeader groupInfo={groupInfo as GroupDTO} />
+                  <MessageBody />
+                </>
+              )}
+            </>
           )}
         </Card>
       </GridItemEight>
