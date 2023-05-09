@@ -38,8 +38,8 @@ pnpm i18n:extract
 1. Add the locale code to `./apps/web/lingui.config.js`.
 
 ```diff
-- locales: ['en', 'es']
-+ locales: ['en', 'es', 'ta']
+- locales: ['en', 'zh']
++ locales: ['en', 'zh', 'ta']
 ```
 
 2. Add the locale code and long alias's to `./apps/web/src/i18n.ts`.
@@ -47,8 +47,8 @@ pnpm i18n:extract
 ```diff
 export const SUPPORTED_LOCALES: Record<string, string> = {
   en: 'English',
-  es: 'Español',
-+ ta: 'தமிழ்'
+  zh: 'Chinese - 中文',
++ ta: 'Tamil - தமிழ்'
 };
 ```
 

@@ -1587,7 +1587,7 @@ msgid "ARWEAVE TRANSACTION"
 msgstr "ARWEAVE 交易"
 
 #: src/components/Publication/OnchainMeta.tsx
-msgid "DATA AVAILABILITY PROOF"
+msgid "MOMOKA PROOF"
 msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
