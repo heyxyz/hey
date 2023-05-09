@@ -1,7 +1,7 @@
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
@@ -29,13 +29,15 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   const [generateAllowanceQuery, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
 
+  const onError = (error: any) => {
+    errorToast(error);
+  };
+
   const {
     data: txData,
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    request: {},
-    mode: 'recklesslyUnprepared',
     onError
   });
 
@@ -74,11 +76,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     }).then((res) => {
       const data = res?.data?.generateModuleCurrencyApprovalData;
       sendTransaction?.({
-        recklesslySetUnpreparedRequest: {
-          from: data?.from,
-          to: data?.to,
-          data: data?.data
-        }
+        account: data?.from,
+        to: data?.to,
+        data: data?.data
       });
     });
   };

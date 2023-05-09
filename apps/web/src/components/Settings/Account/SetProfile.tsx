@@ -1,8 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
@@ -19,41 +18,47 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi';
+import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const SetProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const [selectedUser, setSelectedUser] = useState('');
-  const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
     }
 
+    setIsLoading(false);
     toast.success(t`Default profile updated successfully!`);
     Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
-  const {
-    isLoading: writeLoading,
-    error,
-    write
-  } = useContractWrite({
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setDefaultProfileWithSig',
-    mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
-    onError
+    functionName: 'setDefaultProfile',
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const hasDefaultProfile = Boolean(profiles.find((o) => o.isDefault));
@@ -66,29 +71,20 @@ const SetProfile: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createSetDefaultProfileTypedData, { loading: typedDataLoading }] =
+  const [createSetDefaultProfileTypedData] =
     useCreateSetDefaultProfileTypedDataMutation({
       onCompleted: async ({ createSetDefaultProfileTypedData }) => {
         const { id, typedData } = createSetDefaultProfileTypedData;
-        const { wallet, profileId, deadline } = typedData.value;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          follower: address,
-          wallet,
-          profileId,
-          sig
-        };
-        setUserSigNonce(userSigNonce + 1);
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { profileId } = typedData.value;
+          return write?.({ args: [profileId] });
         }
       },
       onError
@@ -100,24 +96,24 @@ const SetProfile: FC = () => {
     }
 
     try {
+      setIsLoading(true);
       const request: CreateSetDefaultProfileRequest = {
         profileId: selectedUser
       };
-      await createSetDefaultProfileTypedData({
+      return await createSetDefaultProfileTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (!currentProfile) {
     return <Custom404 />;
   }
-
-  const isLoading =
-    typedDataLoading || signLoading || writeLoading || broadcastLoading;
 
   return (
     <Card className="space-y-5 p-5">

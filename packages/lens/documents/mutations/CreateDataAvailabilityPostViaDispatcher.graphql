@@ -1,4 +1,6 @@
-mutation CreateDataAvailabilityPostViaDispatcher($request: CreateDataAvailabilityPostRequest!) {
+mutation CreateDataAvailabilityPostViaDispatcher(
+  $request: CreateDataAvailabilityPostRequest!
+) {
   createDataAvailabilityPostViaDispatcher(request: $request) {
     ... on CreateDataAvailabilityPublicationResult {
       id

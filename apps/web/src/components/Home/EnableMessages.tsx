@@ -38,7 +38,7 @@ const EnableMessages: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 space-y-2.5 border-green-400 !bg-green-300 !bg-opacity-20 p-5 text-green-600"
+      className="mb-4 space-y-2.5 border-green-400 !bg-green-300/20 p-5 text-green-600"
     >
       <div className="flex items-center space-x-2 font-bold">
         <MailOpenIcon className="h-5 w-5" />

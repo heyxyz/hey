@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
-import { useFeature } from '@growthbook/growthbook-react';
+import { Growthbook } from '@lib/growthbook';
 import { Mixpanel } from '@lib/mixpanel';
 import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
@@ -18,9 +18,7 @@ import { Card, GridItemEight, GridItemFour, GridLayout, Image } from 'ui';
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
-  const { on: isNftDetailEnabled } = useFeature(
-    FeatureFlag.NftDetail as string
-  );
+  const { on: isNftDetailEnabled } = Growthbook.feature(FeatureFlag.NftDetail);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'nft' });

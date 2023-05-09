@@ -1,5 +1,4 @@
 import {
-  AtSymbolIcon,
   CashIcon,
   HandIcon,
   HashtagIcon,
@@ -27,17 +26,14 @@ interface ProfileStaffToolProps {
 
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   return (
-    <Card
-      as="aside"
-      className="mt-5 border-yellow-400 !bg-yellow-300 !bg-opacity-20 p-5"
-    >
+    <Card as="aside" className="mt-5 border-yellow-400 !bg-yellow-300/20 p-5">
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="h-5 w-5" />
         <div className="text-lg font-bold">
           <Trans>Staff tool</Trans>
         </div>
       </div>
-      <div className="mt-3 space-y-1.5">
+      <div className="mt-3 space-y-2">
         {getProfileAttribute(profile?.attributes, 'app') === APP_NAME && (
           <MetaDetails
             icon={
@@ -68,20 +64,6 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         >
           {formatAddress(profile?.ownedBy)}
         </MetaDetails>
-        <MetaDetails
-          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
-          title={t`Can use relay`}
-        >
-          {profile?.dispatcher?.canUseRelay ? 'Yes' : 'No'}
-        </MetaDetails>
-        <MetaDetails
-          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.dispatcher?.sponsor ? 'Yes' : 'No'}
-          title={t`Gas sponsored`}
-        >
-          {profile?.dispatcher?.sponsor ? 'Yes' : 'No'}
-        </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails
             icon={<PhotographIcon className="lt-text-gray-500 h-4 w-4" />}
@@ -92,11 +74,18 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           </MetaDetails>
         ) : null}
         <MetaDetails
-          icon={<AtSymbolIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={formatHandle(profile?.handle)}
-          title={t`Handle`}
+          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
+          value={profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
+          title={t`Can use relay`}
         >
-          {formatHandle(profile?.handle)}
+          {profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
+        </MetaDetails>
+        <MetaDetails
+          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
+          value={profile.dispatcher?.sponsor ? 'Yes' : 'No'}
+          title={t`Gas sponsored`}
+        >
+          {profile.dispatcher?.sponsor ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<IdentificationIcon className="lt-text-gray-500 h-4 w-4" />}

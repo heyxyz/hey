@@ -11,7 +11,4 @@ query UserProfiles($ownedBy: [EthereumAddress!]) {
       }
     }
   }
-  userSigNonces {
-    lensHubOnChainSigNonce
-  }
 }

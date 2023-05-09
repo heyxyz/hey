@@ -1,8 +1,12 @@
 import { S3 } from '@aws-sdk/client-s3';
+import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
+import { KillSwitch } from 'data';
 import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
 import type { MediaSet } from 'lens';
 import { v4 as uuid } from 'uuid';
+
+import { Growthbook } from './growthbook';
 
 const FALLBACK_TYPE = 'image/jpeg';
 
@@ -35,8 +39,25 @@ const getS3Client = async (): Promise<S3> => {
  */
 const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
   try {
-    const client = await getS3Client();
+    const { on: useThirdwebIpfs } = Growthbook.feature(
+      KillSwitch.UseThirdwebIpfs
+    );
     const files = Array.from(data);
+
+    if (useThirdwebIpfs) {
+      const storage = new ThirdwebStorage();
+      const uris = await storage.uploadBatch(files, {
+        uploadWithoutDirectory: true
+      });
+
+      return uris.map((uri: string, index) => {
+        return {
+          original: { url: uri, mimeType: data[index].type || FALLBACK_TYPE }
+        };
+      });
+    }
+
+    const client = await getS3Client();
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
         const file = data[i];
@@ -75,25 +96,17 @@ const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
  */
 export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
   try {
-    const client = await getS3Client();
-    const params = {
-      Bucket: S3_BUCKET.LENSTER_MEDIA,
-      Key: uuid()
-    };
-    await client.putObject({ ...params, Body: file, ContentType: file.type });
-    const result = await client.headObject(params);
-    const metadata = result.Metadata;
+    const ipfsResponse = await uploadToIPFS([file]);
+    const metadata = ipfsResponse[0];
 
     return {
       original: {
-        url: `ipfs://${metadata?.['ipfs-hash']}`,
+        url: metadata.original.url,
         mimeType: file.type || FALLBACK_TYPE
       }
     };
   } catch {
-    return {
-      original: { url: '', mimeType: file.type || FALLBACK_TYPE }
-    };
+    return { original: { url: '', mimeType: file.type || FALLBACK_TYPE } };
   }
 };
 

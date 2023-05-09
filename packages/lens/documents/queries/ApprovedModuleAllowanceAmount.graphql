@@ -1,4 +1,6 @@
-query ApprovedModuleAllowanceAmount($request: ApprovedModuleAllowanceAmountRequest!) {
+query ApprovedModuleAllowanceAmount(
+  $request: ApprovedModuleAllowanceAmountRequest!
+) {
   approvedModuleAllowanceAmount(request: $request) {
     currency
     module

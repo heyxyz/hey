@@ -1,3 +1,4 @@
+import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
@@ -14,7 +15,6 @@ import type { Proposal } from 'snapshot';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Spinner } from 'ui';
-import { useSigner } from 'wagmi';
 
 interface VoteProposalProps {
   proposal: Proposal;
@@ -34,7 +34,8 @@ const VoteProposal: FC<VoteProposalProps> = ({
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [voteSubmitting, setVoteSubmitting] = useState(false);
-  const { data: signer } = useSigner();
+  const { data: walletClient } = useEthersWalletClient();
+
   const {
     id,
     choices,
@@ -79,7 +80,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
   const sign = async (position: number) => {
     try {
       setVoteSubmitting(true);
-      await snapshotClient.vote(signer as any, currentProfile?.ownedBy, {
+      await snapshotClient.vote(walletClient as any, currentProfile?.ownedBy, {
         space: space?.id as string,
         proposal: id as `0x${string}`,
         type: type as ProposalType,
@@ -89,7 +90,8 @@ const VoteProposal: FC<VoteProposalProps> = ({
       refetch?.();
       setVoteConfig({ show: false, position: 0 });
       Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
-        proposal_id: id
+        proposal_id: id,
+        source: 'snapshot'
       });
     } catch {
       toast.error(Errors.SomethingWentWrong);

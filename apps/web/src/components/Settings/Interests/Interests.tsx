@@ -1,7 +1,7 @@
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import {
   useAddProfileInterestMutation,
@@ -27,6 +27,10 @@ const Interests: FC = () => {
       id: `Profile:${currentProfile?.id}`,
       fields: { interests: () => interests }
     });
+  };
+
+  const onError = (error: any) => {
+    errorToast(error);
   };
 
   const { data, loading } = useProfileInterestsQuery();

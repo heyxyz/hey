@@ -4,18 +4,19 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix --ext .ts"
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
     "data": "workspace:*",
     "lens": "workspace:*",
-    "react": "^18.2.0"
+    "viem": "^0.3.19"
   },
   "devDependencies": {
-    "@types/node": "^18.16.3",
-    "@types/react": "^18.2.0",
+    "@types/node": "^20.1.1",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"

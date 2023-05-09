@@ -1,5 +1,5 @@
 import type { Publication } from 'lens';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 

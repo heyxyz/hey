@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-30 00:09\n"
+"PO-Revision-Date: 2023-05-08 06:15\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -240,6 +240,7 @@ msgid "Add another option"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr ""
 
@@ -306,6 +307,11 @@ msgstr ""
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
 msgstr "என்ன நடக்கிறது?"
+
+#: src/components/Composer/NewPublication.tsx
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
+msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
@@ -767,70 +773,87 @@ msgstr "உயர் சிக்னல் அறிவிப்பு வடி
 msgid "Collected for {0} {1}"
 msgstr "{0} {1} க்காகச் சேகரிக்கப்பட்டது"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
 msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> சேகரித்தார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
 msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> சேகரித்தார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
 msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> சேகரித்தார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
 msgstr "<0><1/> உங்கள் <2>கருத்துக்கு</2></0 </0> பதில் கருத்தைத் தெரிவித்துள்ளார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
 msgstr "<0><1/> உங்கள் <2>மிரருக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
 msgstr "<0><1/> உங்கள் <2>இடுகைக்கு</2></0> கருத்துத் தெரிவித்துள்ளார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
 msgstr "<0><1/> உங்களைப் பின்தொடர்ந்தார்</0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
 msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> விரும்பினார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
 msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> லைக் செய்தார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
 msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> விரும்பினார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
 msgstr "<0><1/> ஒரு <2>கருத்தில் </2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
 msgstr "<0><1/> ஒரு <2>மிரரில்</2></0> உங்களைக் குறிப்பிட்டுள்ளார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr "<0><1/> உங்களை ஒரு <2>இடுகையில்</2></0> குறிப்பிட்டுள்ளார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
 msgstr "<0><1/> உங்கள் <2>கருத்தை</2></0> மிரர் செய்துள்ளார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
 msgstr "<0><1/> உங்கள் <2>மிரரை</2></0> மிரர் செய்துள்ளார்"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
 msgstr "<0><1/> உங்கள் <2>இடுகையை</2></0> மிரர் செய்துள்ளார்"
@@ -1488,11 +1511,6 @@ msgstr ""
 msgid "Free Collect"
 msgstr "இலவச சேகரிப்பு"
 
-#: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Unknown Collect"
-msgstr "அறியப்படாத சேகரிப்பு"
-
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
 msgstr "{0} கருத்துகள்"
@@ -1509,6 +1527,11 @@ msgstr "விரும்பு"
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
 msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
+
+#: src/components/Publication/Actions/Menu/Translate.tsx
+#: src/components/Shared/Footer/index.tsx
+msgid "Translate"
+msgstr "மொழிபெயர்"
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
@@ -1564,7 +1587,7 @@ msgid "ARWEAVE TRANSACTION"
 msgstr "ARWEAVE பரிவர்த்தனை"
 
 #: src/components/Publication/OnchainMeta.tsx
-msgid "DATA AVAILABILITY PROOF"
+msgid "MOMOKA PROOF"
 msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
@@ -1619,11 +1642,11 @@ msgstr "<0>“{query}”க்கு வெளியீடுகள் இல்
 msgid "Failed to load publications"
 msgstr "வெளியீடுகளை ஏற்ற முடியவில்லை"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Publications"
 msgstr "வெளியீடுகள்"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr "சுயவிவரங்கள்"
 
@@ -1674,6 +1697,10 @@ msgstr "Ethereum முகவரி 42 எழுத்துகளுக்க�
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
 msgstr "தவறான Ethereum முகவரி"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Super Follow updated successfully!"
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -1998,11 +2025,6 @@ msgstr "டோக்கன் ஐடி"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Upload failed"
-msgstr "பதிவேற்றம் தோல்வியுற்றது"
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr "படத்தைத் திருத்து"
 
@@ -2204,10 +2226,6 @@ msgid "GitHub"
 msgstr "கிட்ஹப்"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Translate"
-msgstr "மொழிபெயர்"
-
-#: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
 
@@ -2263,23 +2281,26 @@ msgid "Go to profile"
 msgstr "சுயவிவரத்திற்குச் செல்லவும்"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
-msgstr "பயனர்பெயர் குறைந்தது 2 எழுத்துகள் இருக்க வேண்டும்"
+msgid "Handle should be at least 5 characters"
+msgstr "பயனர்பெயர் குறைந்தது 5 எழுத்துகள் இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should not exceed 32 characters"
-msgstr "பயனர்பெயர் 32 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
+msgid "Handle should not exceed 26 characters"
+msgstr "பயனர்பெயர் 26 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
 msgstr "பயனர்பெயர் எண்ணெழுத்து எழுத்துக்கள் மட்டுமே இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
+msgid "The selected handle is already taken"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
 msgstr "{APP_NAME} வரை பதிவு செய்யவும்"
 
 #: src/components/Shared/Login/New/index.tsx
-#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr "பயனர்பெயர்"
 
@@ -2561,12 +2582,24 @@ msgid "{type} voting is not supported yet!"
 msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr "தற்போதைய முடிவுகள்"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
 msgstr "முடிவுகள்"
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} Votes"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Cast your vote"
@@ -2654,10 +2687,6 @@ msgid "Unfollowed successfully!"
 msgstr "வெற்றிகரமாக பின்தொடரவில்லை!"
 
 #: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
-msgstr "பயனர் கோரிக்கையை நிராகரித்தார்"
-
-#: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
 msgstr "பின்தொடராதே"
 
@@ -2687,16 +2716,16 @@ msgid "Address"
 msgstr "முகவரி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr "NFT முகவரி"
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
 msgstr "ரிலே பயன்படுத்தலாம்"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Gas sponsored"
 msgstr ""
-
-#: src/components/StaffTools/Panels/Profile.tsx
-msgid "NFT address"
-msgstr "NFT முகவரி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Follow module"
@@ -2707,7 +2736,6 @@ msgid "Metadata"
 msgstr "மீத்தரவு"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
 msgstr "திறக்கவும்"
 
@@ -2721,14 +2749,6 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "App ID"
-msgstr "ஆப் ஐடி"
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "On-chain content URI"
 msgstr ""
 
 #: src/components/StaffTools/RelayQueues.tsx

@@ -1,6 +1,8 @@
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import useCreatePoll from '@components/utils/hooks/useCreatePoll';
+import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import type { IGif } from '@giphy/js-types';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
@@ -16,11 +18,10 @@ import type {
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
-import splitSignature from '@lib/splitSignature';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -72,6 +73,7 @@ import { OptmisticPublicationType } from 'src/enums';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -79,12 +81,7 @@ import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
-import {
-  useContractWrite,
-  useProvider,
-  useSigner,
-  useSignTypedData
-} from 'wagmi';
+import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
@@ -132,8 +129,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { cache } = useApolloClient();
 
   // App store
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Publication store
@@ -161,6 +158,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     (state) => state.videoDurationInSeconds
   );
   const showPollEditor = usePublicationStore((state) => state.showPollEditor);
+  const setShowPollEditor = usePublicationStore(
+    (state) => state.setShowPollEditor
+  );
+  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
 
   // Transaction persist store
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
@@ -189,11 +190,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const resetAccessSettings = useAccessSettingsStore((state) => state.reset);
 
   // States
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+
   const [editor] = useLexicalComposerContext();
-  const provider = useProvider();
-  const { data: signer } = useSigner();
+  const publicClient = usePublicClient();
+  const { data: walletClient } = useEthersWalletClient();
+  const [createPoll] = useCreatePoll();
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
@@ -203,15 +206,22 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     attachments[0]?.original.mimeType
   );
 
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
+
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
     }
 
+    setIsLoading(false);
     editor.update(() => {
       $getRoot().clear();
     });
     setPublicationContent('');
+    setShowPollEditor(false);
+    resetPollConfig();
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -244,6 +254,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST,
       eventProperties
     );
+  };
+
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
   };
 
   useEffect(() => {
@@ -280,27 +295,26 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
   };
 
-  const { signTypedDataAsync, isLoading: typedDataLoading } = useSignTypedData({
+  const { signTypedDataAsync } = useSignTypedData({
     onError
   });
 
-  const {
-    isLoading: writeLoading,
-    error,
-    write
-  } = useContractWrite({
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: isComment ? 'commentWithSig' : 'postWithSig',
-    mode: 'recklesslyUnprepared',
+    functionName: isComment ? 'comment' : 'post',
     onSuccess: ({ hash }) => {
       onCompleted();
+      setUserSigNonce(userSigNonce + 1);
       setTxnQueue([
         generateOptimisticPublication({ txHash: hash }),
         ...txnQueue
       ]);
     },
-    onError
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const [broadcastDataAvailability] = useBroadcastDataAvailabilityMutation({
@@ -354,46 +368,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     isDataAvailabilityPublication: boolean = false
   ) => {
     const { id, typedData } = generatedData;
-    const {
-      profileId,
-      contentURI,
-      collectModule,
-      collectModuleInitData,
-      referenceModule,
-      referenceModuleInitData,
-      referenceModuleData,
-      deadline
-    } = typedData.value;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    const { v, r, s } = splitSignature(signature);
-    const sig = { v, r, s, deadline };
-    const inputStruct = {
-      profileId,
-      contentURI,
-      collectModule,
-      collectModuleInitData,
-      referenceModule,
-      referenceModuleInitData,
-      referenceModuleData,
-      ...(isComment && {
-        profileIdPointed: typedData.value.profileIdPointed,
-        pubIdPointed: typedData.value.pubIdPointed
-      }),
-      sig
-    };
-
     if (isDataAvailabilityPublication) {
       return await broadcastDataAvailability({
         variables: { request: { id, signature } }
       });
     }
 
-    setUserSigNonce(userSigNonce + 1);
     const { data } = await broadcast({
       variables: { request: { id, signature } }
     });
     if (data?.broadcast.__typename === 'RelayError') {
-      return write({ recklesslySetUnpreparedArgs: [inputStruct] });
+      return write({ args: [typedData.value] });
     }
   };
 
@@ -502,23 +488,27 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const { data } = await createDataAvailabilityCommentViaDispatcher({
         variables
       });
+
       if (
         data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
         'RelayError'
       ) {
         await createDataAvailabilityCommentTypedData({ variables });
       }
+
       return;
     }
 
     const { data } = await createDataAvailabilityPostViaDispatcher({
       variables
     });
+
     if (
       data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
     ) {
       await createDataAvailabilityPostTypedData({ variables });
     }
+
     return;
   };
 
@@ -602,14 +592,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return toast.error(Errors.SignWallet);
     }
 
-    if (!signer) {
+    if (!walletClient) {
       return toast.error(Errors.SignWallet);
     }
 
     // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
-      provider: provider as any,
-      signer,
+      provider: publicClient as any,
+      signer: walletClient as any,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 
@@ -664,8 +654,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (isComment && publication.isDataAvailability && !isSponsored) {
+      return toast.error(
+        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+      );
+    }
+
     try {
-      setLoading(true);
+      setIsLoading(true);
       if (hasAudio) {
         setPublicationContentError('');
         const parsedData = AudioPublicationSchema.safeParse(audioPublication);
@@ -727,10 +723,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         })
       );
 
+      let processedPublicationContent = publicationContent;
+
+      if (showPollEditor) {
+        processedPublicationContent = await createPoll();
+      }
+
       const metadata: PublicationMetadataV2Input = {
         version: '2.0.0',
         metadata_id: uuid(),
-        content: publicationContent,
+        content: processedPublicationContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image:
           attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
@@ -804,17 +806,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentURI: `ar://${arweaveId}`
       };
 
-      if (
-        currentProfile?.dispatcher?.canUseRelay &&
-        currentProfile.dispatcher.sponsor
-      ) {
-        if (useDataAvailability) {
+      if (canUseRelay) {
+        if (useDataAvailability && isSponsored) {
           return await createViaDataAvailablityDispatcher(
             dataAvailablityRequest
           );
-        } else {
-          return await createViaDispatcher(request);
         }
+
+        return await createViaDispatcher(request);
       }
 
       if (isComment) {
@@ -829,9 +828,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return await createPostTypedData({
         variables: { options: { overrideSigNonce: userSigNonce }, request }
       });
-    } catch {
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      onError(error);
     }
   };
 
@@ -848,8 +846,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     addAttachments([attachment]);
   };
 
-  const isLoading = loading || typedDataLoading || writeLoading;
-
   return (
     <Card
       className={clsx(
@@ -859,7 +855,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     >
       {error && (
         <ErrorMessage
-          className="mb-3"
+          className="!rounded-none"
           title={t`Transaction failed!`}
           error={error}
         />

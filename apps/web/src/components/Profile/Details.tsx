@@ -5,6 +5,7 @@ import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
+import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import {
   CogIcon,
@@ -31,9 +32,10 @@ import { useTheme } from 'next-themes';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import type { TabValues } from 'src/store/message';
 import { useMessageStore } from 'src/store/message';
 import { FollowSource } from 'src/tracking';
-import { Button, Image, Modal, Tooltip } from 'ui';
+import { Button, Image, LightBox, Modal, Tooltip } from 'ui';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -50,12 +52,13 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
+  const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
-  const addProfileAndSelectTab = useMessageStore(
-    (state) => state.addProfileAndSelectTab
-  );
+
+  const { persistProfile } = useMessageDb();
+  const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
 
   const onMessageClick = () => {
     if (!currentProfile) {
@@ -66,7 +69,11 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       profile.ownedBy,
       conversationId
     );
-    addProfileAndSelectTab(conversationKey, profile);
+    persistProfile(conversationKey, profile);
+    const selectedTab: TabValues = profile.isFollowedByMe
+      ? 'Following'
+      : 'Requested';
+    setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
   };
 
@@ -94,12 +101,18 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(profile, false);
           }}
+          onClick={() => setExpandedImage(getAvatar(profile, false))}
           src={getAvatar(profile)}
-          className="h-32 w-32 rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
+          className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
           width={128}
           alt={formatHandle(profile?.handle)}
           data-testid="profile-avatar"
+        />
+        <LightBox
+          show={Boolean(expandedImage)}
+          url={expandedImage}
+          onClose={() => setExpandedImage(null)}
         />
       </div>
       <div className="space-y-1 py-2">

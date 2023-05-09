@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-30 00:09\n"
+"PO-Revision-Date: 2023-05-08 06:15\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -60,12 +60,14 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "Annuler"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
 #: src/components/Settings/Profile/NftPicture.tsx
@@ -216,12 +218,29 @@ msgid "Select GIF"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Poll length (days)"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "Delete"
 msgstr ""
 
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Choice {0}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "Add another option"
+msgstr ""
+
 #: src/components/Composer/Actions/PollSettings/index.tsx
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr ""
 
@@ -287,6 +306,11 @@ msgstr ""
 #: src/components/Composer/Post/New.tsx
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
@@ -749,70 +773,87 @@ msgstr ""
 msgid "Collected for {0} {1}"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
 msgstr ""
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
 msgstr ""
@@ -1470,11 +1511,6 @@ msgstr ""
 msgid "Free Collect"
 msgstr ""
 
-#: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Unknown Collect"
-msgstr ""
-
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
 msgstr ""
@@ -1490,6 +1526,11 @@ msgstr ""
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/Translate.tsx
+#: src/components/Shared/Footer/index.tsx
+msgid "Translate"
 msgstr ""
 
 #: src/components/Publication/Actions/Mirror.tsx
@@ -1546,7 +1587,7 @@ msgid "ARWEAVE TRANSACTION"
 msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
-msgid "DATA AVAILABILITY PROOF"
+msgid "MOMOKA PROOF"
 msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
@@ -1601,11 +1642,11 @@ msgstr ""
 msgid "Failed to load publications"
 msgstr ""
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Publications"
 msgstr ""
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr ""
 
@@ -1655,6 +1696,10 @@ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
+msgstr ""
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Super Follow updated successfully!"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
@@ -1980,11 +2025,6 @@ msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Upload failed"
-msgstr ""
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr ""
 
@@ -2186,10 +2226,6 @@ msgid "GitHub"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Translate"
-msgstr ""
-
-#: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr ""
 
@@ -2245,11 +2281,11 @@ msgid "Go to profile"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
+msgid "Handle should be at least 5 characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should not exceed 32 characters"
+msgid "Handle should not exceed 26 characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
@@ -2257,11 +2293,14 @@ msgid "Handle should only contain alphanumeric characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
+msgid "The selected handle is already taken"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr ""
 
@@ -2543,11 +2582,23 @@ msgid "{type} voting is not supported yet!"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} Votes"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} left"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
@@ -2636,10 +2687,6 @@ msgid "Unfollowed successfully!"
 msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
-msgstr ""
-
-#: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
 msgstr ""
 
@@ -2669,15 +2716,15 @@ msgid "Address"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Gas sponsored"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Profile.tsx
-msgid "NFT address"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
@@ -2689,7 +2736,6 @@ msgid "Metadata"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
 msgstr ""
 
@@ -2703,14 +2749,6 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "App ID"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "On-chain content URI"
 msgstr ""
 
 #: src/components/StaffTools/RelayQueues.tsx
@@ -2827,4 +2865,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

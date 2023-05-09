@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { SNAPSHOT_URL } from 'data';
 import formatAddress from 'lib/formatAddress';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -10,19 +11,19 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ proposal }) => {
-  const { space } = proposal;
-  const spaceUrl = `https://snapshot.org/#/${space?.id}`;
+  const { id, title, space, state, author } = proposal;
+  const spaceUrl = `${SNAPSHOT_URL}/#/${space?.id}`;
 
   return (
     <>
       <div className="mb-2 flex items-center space-x-1 text-sm">
         <div
           className={clsx(
-            proposal.state === 'active' ? 'bg-green-500' : 'bg-brand-500',
+            state === 'active' ? 'bg-green-500' : 'bg-brand-500',
             'mr-1 rounded-full px-2 py-0.5 text-xs capitalize text-white'
           )}
         >
-          {proposal.state}
+          {state}
         </div>
         <Image
           src={`https://cdn.stamp.fyi/space/${space?.id}`}
@@ -33,19 +34,16 @@ const Header: FC<HeaderProps> = ({ proposal }) => {
           {space?.name ?? space?.id}
         </Link>
         <span>by</span>
-        <Link
-          href={`https://snapshot.org/#/profile/${proposal.author}`}
-          target="_blank"
-        >
-          {formatAddress(proposal.author)}
+        <Link href={`${SNAPSHOT_URL}/#/profile/${author}`} target="_blank">
+          {formatAddress(author)}
         </Link>
       </div>
       <Link
-        href={`${spaceUrl}/proposal/${proposal.id}`}
+        href={`${spaceUrl}/proposal/${id}`}
         className="font-bold"
         target="_blank"
       >
-        {proposal.title}
+        {title}
       </Link>
     </>
   );

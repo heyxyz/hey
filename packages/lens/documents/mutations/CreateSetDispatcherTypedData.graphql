@@ -1,4 +1,7 @@
-mutation CreateSetDispatcherTypedData($options: TypedDataOptions, $request: SetDispatcherRequest!) {
+mutation CreateSetDispatcherTypedData(
+  $options: TypedDataOptions
+  $request: SetDispatcherRequest!
+) {
   createSetDispatcherTypedData(options: $options, request: $request) {
     id
     expiresAt

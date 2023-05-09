@@ -60,8 +60,8 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
         ) : null}
         {publication?.isDataAvailability ? (
           <Meta
-            name={t`DATA AVAILABILITY PROOF`}
-            uri={`https://arweave.app/tx/${publication.dataAvailabilityProofs
+            name={t`MOMOKA PROOF`}
+            uri={`https://momoka.lens.xyz/tx/${publication.dataAvailabilityProofs
               ?.split('/')
               .pop()}`}
             hash={

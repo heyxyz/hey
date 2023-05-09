@@ -1,27 +1,33 @@
-import { useFeature } from '@growthbook/growthbook-react';
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
-import { setLocale, supportedLocales } from '@lib/i18n';
+import { Growthbook } from '@lib/growthbook';
 import { Mixpanel } from '@lib/mixpanel';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
-import { FeatureFlag } from 'data';
+import { FeatureFlag, Localstorage } from 'data';
 import type { FC } from 'react';
+import { useCallback } from 'react';
+import { SUPPORTED_LOCALES } from 'src/i18n';
 import { MISCELLANEOUS } from 'src/tracking';
 
 import MenuTransition from '../MenuTransition';
 
 const Locale: FC = () => {
   const { i18n } = useLingui();
-  const { on: isGatedLocalesEnabled } = useFeature(
-    FeatureFlag.GatedLocales as string
+  const { on: isGatedLocalesEnabled } = Growthbook.feature(
+    FeatureFlag.GatedLocales
   );
-  const gatedLocales = ['ta', 'es', 'kn', 'ru'];
+  const gatedLocales = ['fr', 'ru', 'ta'];
   const locales = Object.fromEntries(
-    Object.entries(supportedLocales).filter(([key]) =>
+    Object.entries(SUPPORTED_LOCALES).filter(([key]) =>
       isGatedLocalesEnabled ? true : !gatedLocales.includes(key)
     )
   );
+
+  const setLanguage = useCallback((locale: string) => {
+    localStorage.setItem(Localstorage.LocaleStore, locale);
+    location.reload();
+  }, []);
 
   return (
     <Menu as="span">
@@ -43,10 +49,11 @@ const Locale: FC = () => {
               key={localeCode}
               as="div"
               onClick={() => {
-                setLocale(localeCode);
+                setLanguage(localeCode);
                 Mixpanel.track(MISCELLANEOUS.SELECT_LOCALE, {
                   locale: localeCode
                 });
+                location.reload();
               }}
               className={({ active }: { active: boolean }) =>
                 clsx({ 'dropdown-active': active }, 'menu-item')

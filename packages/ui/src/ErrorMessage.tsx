@@ -17,7 +17,7 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
 
   return (
     <div
-      className={`space-y-1 rounded-xl border-2 border-red-500 border-opacity-50 bg-red-50 p-4 dark:bg-red-900 dark:bg-opacity-10 ${className}`}
+      className={`space-y-1 rounded-xl border-2 border-red-500/50 bg-red-50 p-4 dark:bg-red-900/10 ${className}`}
     >
       {title && (
         <h3 className="text-sm font-medium text-red-800 dark:text-red-200">

@@ -4,8 +4,8 @@ import getWalletDetails from 'lib/getWalletDetails';
 
 test.describe('getWalletDetails', () => {
   test('should return correct details for WalletConnect', () => {
-    const walletDetails = getWalletDetails('WalletConnectLegacy');
-    expect(walletDetails.name).toBe('Wallet Connect');
+    const walletDetails = getWalletDetails('WalletConnect');
+    expect(walletDetails.name).toBe('WalletConnect');
     expect(walletDetails.logo).toBe(
       `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`
     );

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-04-30 00:09\n"
+"PO-Revision-Date: 2023-05-08 06:15\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -240,6 +240,7 @@ msgid "Add another option"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr ""
 
@@ -306,6 +307,11 @@ msgstr ""
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
 msgstr "正在发生什么？"
+
+#: src/components/Composer/NewPublication.tsx
+#: src/components/Publication/Actions/Mirror.tsx
+msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
+msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
@@ -767,70 +773,87 @@ msgstr ""
 msgid "Collected for {0} {1}"
 msgstr "已为 {0} {1} 收藏"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>comment</2></0>"
 msgstr "<0><1/>收藏了你的<2>评论</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>mirror</2></0>"
 msgstr "<0><1/>收藏了你的<2>转发</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
 msgid "<0><1/> collected your <2>post</2></0>"
 msgstr "<0><1/> 收集了你的 <2> 帖子</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>comment</2></0>"
 msgstr "<0><1/> 评论了您的<2>评论</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>mirror</2></0>"
 msgstr "<0><1/> 评论了您的<2>转帖</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/CommentNotification.tsx
 msgid "<0><1/> commented on your <2>post</2></0>"
 msgstr "<0><1/> 评论了您的<2>帖子</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> followed you</0>"
 msgstr "<0><1/>关注了您</0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/FollowerNotification.tsx
 msgid "<0><1/> super followed you</0>"
 msgstr "<0><1/> 超级关注您</0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>comment</2></0>"
 msgstr "<0><1/> 赞了您的<2>评论</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>mirror</2></0>"
 msgstr "<0><1/> 点赞了您的<2>转帖中</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/LikeNotification.tsx
 msgid "<0><1/> liked your <2>post</2></0>"
 msgstr "<0><1/> 点赞了您的<2>帖子</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>comment</2></0>"
 msgstr "<0><1/> 在 <2> 评论中提到了您</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
 msgstr "<0><1/> 在<2>转帖中提到了您</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MentionNotification.tsx
 msgid "<0><1/> mentioned you in a <2>post</2></0>"
 msgstr "<0><1/> 在 <2> 帖子中提到了您</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
 msgstr "<0><1/> 转发了您的 <2> 评论</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>mirror</2></0>"
 msgstr "<0><1/> 转发了您的<2>转帖</2></0>"
 
+#. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
 msgstr "<0><1/> 转发了 <2> 的帖子</2></0>"
@@ -1488,11 +1511,6 @@ msgstr ""
 msgid "Free Collect"
 msgstr "免费收藏"
 
-#: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Unknown Collect"
-msgstr "未知收藏"
-
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
 msgstr "{0} 评论"
@@ -1509,6 +1527,11 @@ msgstr "点赞"
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
 msgstr "已复制到剪贴板！"
+
+#: src/components/Publication/Actions/Menu/Translate.tsx
+#: src/components/Shared/Footer/index.tsx
+msgid "Translate"
+msgstr "翻译"
 
 #: src/components/Publication/Actions/Mirror.tsx
 msgid "Post has been mirrored!"
@@ -1564,7 +1587,7 @@ msgid "ARWEAVE TRANSACTION"
 msgstr "ARWEAVE 交易"
 
 #: src/components/Publication/OnchainMeta.tsx
-msgid "DATA AVAILABILITY PROOF"
+msgid "MOMOKA PROOF"
 msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
@@ -1619,11 +1642,11 @@ msgstr "<0>“{query}”</0> 没有任何帖子"
 msgid "Failed to load publications"
 msgstr "加载帖子失败"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Publications"
 msgstr "帖子"
 
-#: src/components/Search/Sidebar.tsx
+#: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr "个人账户"
 
@@ -1674,6 +1697,10 @@ msgstr "以太坊地址应在 42 个字符以内"
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid Ethereum address"
 msgstr "无效的以太坊地址"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Super Follow updated successfully!"
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -1998,11 +2025,6 @@ msgstr "代币ID"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Upload failed"
-msgstr ""
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Crop image"
 msgstr ""
 
@@ -2204,10 +2226,6 @@ msgid "GitHub"
 msgstr "GitHub"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Translate"
-msgstr "翻译"
-
-#: src/components/Shared/Footer/index.tsx
 msgid "▲ Powered by Vercel"
 msgstr "▲ 由 Vercel 提供支持"
 
@@ -2263,23 +2281,26 @@ msgid "Go to profile"
 msgstr "转到个人账户"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
-msgstr "用户名应至少为 2 个字符"
+msgid "Handle should be at least 5 characters"
+msgstr "用户名应至少为 5 个字符"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should not exceed 32 characters"
-msgstr "用户名不应超过 32 个字符"
+msgid "Handle should not exceed 26 characters"
+msgstr "用户名不应超过 26 个字符"
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should only contain alphanumeric characters"
 msgstr "用户名应仅包含字母或者数字字符"
 
 #: src/components/Shared/Login/New/index.tsx
+msgid "The selected handle is already taken"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
 msgstr "注册到 {APP_NAME}"
 
 #: src/components/Shared/Login/New/index.tsx
-#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Handle"
 msgstr "用户名"
 
@@ -2561,11 +2582,23 @@ msgid "{type} voting is not supported yet!"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Current results"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "Results"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} Votes"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "{0} left"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
@@ -2654,10 +2687,6 @@ msgid "Unfollowed successfully!"
 msgstr "取消关注成功！"
 
 #: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
-msgstr "用户拒绝了请求"
-
-#: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
 msgstr "取消关注"
 
@@ -2687,15 +2716,15 @@ msgid "Address"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
+msgid "NFT address"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile.tsx
 msgid "Can use relay"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Gas sponsored"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Profile.tsx
-msgid "NFT address"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
@@ -2707,7 +2736,6 @@ msgid "Metadata"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open"
 msgstr ""
 
@@ -2721,14 +2749,6 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "App ID"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "On-chain content URI"
 msgstr ""
 
 #: src/components/StaffTools/RelayQueues.tsx

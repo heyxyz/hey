@@ -14,20 +14,16 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHub, UpdateOwnableFeeCollectModule } from 'abis';
+import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
-import getEnvConfig from 'data/utils/getEnvConfig';
 import dayjs from 'dayjs';
-import type { BigNumber } from 'ethers';
-import { defaultAbiCoder } from 'ethers/lib/utils';
 import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
 import {
   CollectModules,
@@ -48,12 +44,12 @@ import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
 import {
   useAccount,
   useBalance,
-  useContractRead,
   useContractWrite,
   useSignTypedData
 } from 'wagmi';
@@ -73,9 +69,10 @@ const CollectModule: FC<CollectModuleProps> = ({
   publication,
   electedMirror
 }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [isLoading, setIsLoading] = useState(false);
   const [revenue, setRevenue] = useState(0);
   const [hasCollectedByMe, setHasCollectedByMe] = useState(
     publication?.hasCollectedByMe
@@ -83,9 +80,6 @@ const CollectModule: FC<CollectModuleProps> = ({
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
@@ -108,6 +102,7 @@ const CollectModule: FC<CollectModuleProps> = ({
       return;
     }
 
+    setIsLoading(false);
     setRevenue(revenue + parseFloat(collectModule?.amount?.value));
     setCount(count + 1);
     setHasCollectedByMe(true);
@@ -123,24 +118,25 @@ const CollectModule: FC<CollectModuleProps> = ({
     });
   };
 
-  const { isFetching, refetch } = useContractRead({
-    address: getEnvConfig().UpdateOwnableFeeCollectModuleAddress,
-    abi: UpdateOwnableFeeCollectModule,
-    functionName: 'getPublicationData',
-    args: [
-      parseInt(publication.profile?.id),
-      parseInt(publication?.id.split('-')[1])
-    ],
-    enabled: false
-  });
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'collectWithSig',
-    mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
-    onError
+    functionName: 'collect',
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
   const percentageCollected = (count / parseInt(collectLimit)) * 100;
@@ -210,50 +206,33 @@ const CollectModule: FC<CollectModuleProps> = ({
     hasAmount = true;
   }
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createCollectTypedData, { loading: typedDataLoading }] =
-    useCreateCollectTypedDataMutation({
-      onCompleted: async ({ createCollectTypedData }) => {
-        const { id, typedData } = createCollectTypedData;
-        const {
-          profileId,
-          pubId,
-          data: collectData,
-          deadline
-        } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          collector: address,
-          profileId,
-          pubId,
-          data: collectData,
-          sig
-        };
-        setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      },
-      onError
-    });
+  const [createCollectTypedData] = useCreateCollectTypedDataMutation({
+    onCompleted: async ({ createCollectTypedData }) => {
+      const { id, typedData } = createCollectTypedData;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { data } = await broadcast({
+        variables: { request: { id, signature } }
+      });
+      if (data?.broadcast.__typename === 'RelayError') {
+        const { profileId, pubId, data: collectData } = typedData.value;
+        return write?.({ args: [profileId, pubId, collectData] });
+      }
+    },
+    onError
+  });
 
-  const [createCollectProxyAction, { loading: proxyActionLoading }] =
-    useProxyActionMutation({
-      onCompleted: () => onCompleted(),
-      onError
-    });
+  const [createCollectProxyAction] = useProxyActionMutation({
+    onCompleted: () => onCompleted(),
+    onError
+  });
 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
     if (!data?.proxyAction) {
-      await createCollectTypedData({
+      return await createCollectTypedData({
         variables: {
           request: { publicationId: publication?.id },
           options: { overrideSigNonce: userSigNonce }
@@ -268,44 +247,28 @@ const CollectModule: FC<CollectModuleProps> = ({
     }
 
     try {
+      setIsLoading(true);
       if (isFreeCollectModule && !collectModule?.followerOnly) {
-        await createViaProxyAction({
+        return await createViaProxyAction({
           request: {
             collect: { freeCollect: { publicationId: publication?.id } }
           }
         });
-      } else if (collectModule?.__typename === 'UnknownCollectModuleSettings') {
-        refetch().then(async ({ data }) => {
-          if (data) {
-            const decodedData: any = data;
-            const encodedData = defaultAbiCoder.encode(
-              ['address', 'uint256'],
-              [decodedData?.[2] as string, decodedData?.[1] as BigNumber]
-            );
-            await createCollectTypedData({
-              variables: {
-                options: { overrideSigNonce: userSigNonce },
-                request: {
-                  publicationId: publication?.id,
-                  unknownModuleData: encodedData
-                }
-              }
-            });
-          }
-        });
-      } else {
-        await createCollectTypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request: {
-              publicationId: electedMirror
-                ? electedMirror.mirrorId
-                : publication?.id
-            }
-          }
-        });
       }
-    } catch {}
+
+      return await createCollectTypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request: {
+            publicationId: electedMirror
+              ? electedMirror.mirrorId
+              : publication?.id
+          }
+        }
+      });
+    } catch (error) {
+      onError(error);
+    }
   };
 
   if (loading || revenueLoading) {
@@ -318,13 +281,6 @@ const CollectModule: FC<CollectModuleProps> = ({
   const isCollectExpired = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
-  const isLoading =
-    typedDataLoading ||
-    proxyActionLoading ||
-    signLoading ||
-    isFetching ||
-    writeLoading ||
-    broadcastLoading;
 
   return (
     <>

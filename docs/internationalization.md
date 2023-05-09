@@ -35,41 +35,24 @@ pnpm i18n:extract
 
 ## Adding a language (for devs)
 
-1. Add the locale code to `./apps/web/linguirc.json`.
+1. Add the locale code to `./apps/web/lingui.config.js`.
 
 ```diff
-- "locales": ["en", "es"]
-+ "locales": ["en", "es", "ta"]
+- locales: ['en', 'zh']
++ locales: ['en', 'zh', 'ta']
 ```
 
-2. Add the locale code and long alias's to `./apps/web/src/lib/i18n.ts`.
+2. Add the locale code and long alias's to `./apps/web/src/i18n.ts`.
 
 ```diff
-export const supportedLocales: Record<string, string> = {
+export const SUPPORTED_LOCALES: Record<string, string> = {
   en: 'English',
-  es: 'Español',
-+ ta: 'தமிழ்'
+  zh: 'Chinese - 中文',
++ ta: 'Tamil - தமிழ்'
 };
 ```
 
-3. Import the locale plurals in `./apps/web/src/lib/i18n.ts`.
-
-```diff
-- import { en, es } from 'make-plural/plurals'
-+ import { en, es, ta } from 'make-plural/plurals'
-```
-
-4. Load the locale plurals in `./apps/web/src/lib/i18n.ts`
-
-```diff
-i18n.loadLocaleData({
-  en: { plurals: en },
-  es: { plurals: es },
-+ ta: { plurals: ta },
-})
-```
-
-5. Extract and compile the strings marked for translation. This creates a directory for the locale within the `./apps/web/src/locales/` directory:
+3. Extract and compile the strings marked for translation. This creates a directory for the locale within the `./apps/web/src/locales/` directory:
 
 ```bash
 pnpm i18n:extract

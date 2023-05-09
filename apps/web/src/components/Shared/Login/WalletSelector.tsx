@@ -2,8 +2,8 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';
@@ -43,7 +43,12 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
 
   const { mounted } = useIsMounted();
   const { chain } = useNetwork();
@@ -75,7 +80,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   const handleSign = async () => {
     let keepModal = false;
     try {
-      setLoading(true);
+      setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
         variables: { request: { address } }
@@ -124,7 +129,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
       if (!keepModal) {
         setShowAuthModal(false);
       }
@@ -136,9 +141,9 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       <div className="space-y-2.5">
         {chain?.id === CHAIN_ID ? (
           <Button
-            disabled={loading}
+            disabled={isLoading}
             icon={
-              loading ? (
+              isLoading ? (
                 <Spinner className="mr-0.5" size="xs" />
               ) : (
                 <img

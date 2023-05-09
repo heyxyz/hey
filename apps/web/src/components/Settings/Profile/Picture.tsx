@@ -1,9 +1,8 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { AVATAR, LENSHUB_PROXY } from 'data/constants';
@@ -28,6 +27,7 @@ import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
 import { Button, ErrorMessage, Image, Modal, Spinner } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -39,75 +39,74 @@ interface PictureProps {
 }
 
 const Picture: FC<PictureProps> = ({ profile }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [avatarDataUrl, setAvatarDataUrl] = useState('');
-  const [uploading, setUploading] = useState(false);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  const [isLoading, setIsLoading] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [imageSrc, setImageSrc] = useState('');
   const [showCropModal, setShowCropModal] = useState(false);
+
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
     }
 
+    setIsLoading(false);
     toast.success(t`Avatar updated successfully!`);
     Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
-  const {
-    isLoading: writeLoading,
-    error,
-    write
-  } = useContractWrite({
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setProfileImageURIWithSig',
-    mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
-    onError
+    functionName: 'setProfileImageURI',
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
+  const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
+  const [createSetProfileImageURITypedData] =
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         const { id, typedData } = createSetProfileImageURITypedData;
-        const { profileId, imageURI, deadline } = typedData.value;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          imageURI,
-          sig
-        };
-        setUserSigNonce(userSigNonce + 1);
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { profileId, imageURI } = typedData.value;
+          return write?.({ args: [profileId, imageURI] });
         }
       },
       onError
     });
 
-  const [
-    createSetProfileImageURIViaDispatcher,
-    { loading: dispatcherLoading }
-  ] = useCreateSetProfileImageUriViaDispatcherMutation({
-    onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
-      onCompleted(createSetProfileImageURIViaDispatcher.__typename),
-    onError
-  });
+  const [createSetProfileImageURIViaDispatcher] =
+    useCreateSetProfileImageUriViaDispatcherMutation({
+      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+        onCompleted(createSetProfileImageURIViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
@@ -116,7 +115,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     if (
       data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError'
     ) {
-      await createSetProfileImageURITypedData({
+      return await createSetProfileImageURITypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
@@ -135,7 +134,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     }
 
     try {
-      setUploading(true);
+      setIsLoading(true);
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
 
@@ -144,35 +143,22 @@ const Picture: FC<PictureProps> = ({ profile }) => {
         url: ipfsUrl
       };
 
-      if (
-        currentProfile?.dispatcher?.canUseRelay &&
-        currentProfile.dispatcher.sponsor
-      ) {
-        await createViaDispatcher(request);
-      } else {
-        await createSetProfileImageURITypedData({
-          variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request
-          }
-        });
-      }
       setAvatarDataUrl(dataUrl);
+      if (canUseRelay && isSponsored) {
+        return await createViaDispatcher(request);
+      }
+      return await createSetProfileImageURITypedData({
+        variables: {
+          options: { overrideSigNonce: userSigNonce },
+          request
+        }
+      });
     } catch (error) {
-      toast.error(t`Upload failed`);
+      onError(error);
     } finally {
       setShowCropModal(false);
-      setUploading(false);
     }
   };
-
-  const isLoading =
-    typedDataLoading ||
-    dispatcherLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading ||
-    uploading;
 
   const onFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

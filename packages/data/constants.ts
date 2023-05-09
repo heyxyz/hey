@@ -21,6 +21,15 @@ export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 export const XMTP_PREFIX = 'lens.dev/dm';
 
+// Snapshot
+export const SNAPSHOT_HUB_URL = IS_MAINNET
+  ? 'https://hub.snapshot.org'
+  : 'https://testnet.snapshot.org';
+export const LENSTER_POLLS_SPACE = 'polls.lenster.xyz';
+export const SNAPSHOT_URL = IS_MAINNET
+  ? 'https://snapshot.org'
+  : 'https://demo.snapshot.org';
+
 // Application
 export const APP_NAME = 'Lenster';
 export const DESCRIPTION =
@@ -70,11 +79,17 @@ export const METADATA_WORKER_URL = IS_PRODUCTION
 export const FRESHDESK_WORKER_URL = IS_PRODUCTION
   ? 'https://freshdesk.lenster.xyz'
   : 'http://localhost:8084';
+export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
+  ? 'https://snapshot-relay.lenster.xyz'
+  : 'http://localhost:8085';
 
-// Web3
+// Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
 export const LIVEPEER_TOKEN = '4d4daf15-a037-4b8c-b7de-51f1994cc416';
+export const GROWTHBOOK_KEY = IS_MAINNET
+  ? 'sdk-fDLRMwvpyh4Kq3b'
+  : 'sdk-STENQl8vU1da648';
 
 // Regex
 export const URL_REGEX =

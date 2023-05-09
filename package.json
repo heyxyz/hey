@@ -1,6 +1,6 @@
 {
   "name": "lenster",
-  "version": "1.0.8-beta",
+  "version": "1.0.9-beta",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
@@ -8,14 +8,14 @@
     "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
     "start": "turbo run start --parallel",
-    "lint": "turbo run lint --parallel",
-    "lint:fix": "turbo run lint:fix --parallel",
     "typecheck": "turbo run typecheck --parallel",
     "codegen": "turbo run codegen --parallel",
     "i18n:extract": "turbo run extract",
     "workers:deploy": "turbo run worker:deploy --parallel",
-    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"",
+    "lint": "turbo run lint --parallel",
+    "lint:fix": "turbo run lint:fix --parallel",
+    "prettier": "turbo run prettier --parallel",
+    "prettier:fix": "turbo run prettier:fix --parallel",
     "prepare": "husky install",
     "test:dev": "turbo run test:dev",
     "test:e2e": "start-server-and-test start '4783|4784|8083' test:dev",
@@ -30,5 +30,5 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "packageManager": "pnpm@8.3.1"
+  "packageManager": "pnpm@8.4.0"
 }

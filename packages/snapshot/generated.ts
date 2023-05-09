@@ -529,6 +529,7 @@ export type SnapshotQuery = {
     symbol: string;
     network: string;
     type?: string | null;
+    end: number;
     space?: { __typename?: 'Space'; id: string; name?: string | null } | null;
     strategies: Array<{
       __typename?: 'Strategy';
@@ -538,6 +539,18 @@ export type SnapshotQuery = {
     } | null>;
   } | null;
   votes?: Array<{ __typename?: 'Vote'; choice: any } | null> | null;
+};
+
+export type SpaceQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+export type SpaceQuery = {
+  __typename?: 'Query';
+  proposal?: {
+    __typename?: 'Proposal';
+    space?: { __typename?: 'Space'; id: string } | null;
+  } | null;
 };
 
 export const SnapshotDocument = gql`
@@ -554,6 +567,7 @@ export const SnapshotDocument = gql`
       symbol
       network
       type
+      end
       space {
         id
         name
@@ -615,6 +629,56 @@ export type SnapshotLazyQueryHookResult = ReturnType<
 export type SnapshotQueryResult = Apollo.QueryResult<
   SnapshotQuery,
   SnapshotQueryVariables
+>;
+export const SpaceDocument = gql`
+  query Space($id: String) {
+    proposal(id: $id) {
+      space {
+        id
+      }
+    }
+  }
+`;
+
+/**
+ * __useSpaceQuery__
+ *
+ * To run a query within a React component, call `useSpaceQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSpaceQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSpaceQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSpaceQuery(
+  baseOptions?: Apollo.QueryHookOptions<SpaceQuery, SpaceQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SpaceQuery, SpaceQueryVariables>(
+    SpaceDocument,
+    options
+  );
+}
+export function useSpaceLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<SpaceQuery, SpaceQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SpaceQuery, SpaceQueryVariables>(
+    SpaceDocument,
+    options
+  );
+}
+export type SpaceQueryHookResult = ReturnType<typeof useSpaceQuery>;
+export type SpaceLazyQueryHookResult = ReturnType<typeof useSpaceLazyQuery>;
+export type SpaceQueryResult = Apollo.QueryResult<
+  SpaceQuery,
+  SpaceQueryVariables
 >;
 
 export interface PossibleTypesResultData {

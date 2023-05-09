@@ -8,17 +8,13 @@ interface AppState {
   setProfiles: (profiles: Profile[]) => void;
   currentProfile: Profile | null;
   setCurrentProfile: (currentProfile: Profile | null) => void;
-  userSigNonce: number;
-  setUserSigNonce: (userSigNonce: number) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
   currentProfile: null,
-  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
-  userSigNonce: 0,
-  setUserSigNonce: (userSigNonce) => set(() => ({ userSigNonce }))
+  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile }))
 }));
 
 interface AppPersistState {
@@ -28,8 +24,6 @@ interface AppPersistState {
   setStaffMode: (staffMode: boolean) => void;
   modMode: boolean;
   setModMode: (modMode: boolean) => void;
-  notificationCount: number;
-  setNotificationCount: (notificationCount: number) => void;
 }
 
 export const useAppPersistStore = create(
@@ -40,10 +34,7 @@ export const useAppPersistStore = create(
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       modMode: false,
-      setModMode: (modMode) => set(() => ({ modMode })),
-      notificationCount: 0,
-      setNotificationCount: (notificationCount) =>
-        set(() => ({ notificationCount }))
+      setModMode: (modMode) => set(() => ({ modMode }))
     }),
     { name: Localstorage.LensterStore }
   )

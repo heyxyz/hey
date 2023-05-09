@@ -1,7 +1,6 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
-import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
@@ -19,7 +18,7 @@ import {
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
 } from 'lens';
-import type { ApolloCache } from 'lens/apollo';
+import { useApolloClient } from 'lens/apollo';
 import { publicationKeyFields } from 'lens/apollo/lib';
 import getSignature from 'lib/getSignature';
 import humanize from 'lib/humanize';
@@ -28,6 +27,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
 import { Spinner, Tooltip } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -39,9 +39,10 @@ interface MirrorProps {
 
 const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [isLoading, setIsLoading] = useState(false);
   const count = isMirror
     ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
     : publication?.stats?.totalAmountOfMirrors;
@@ -51,12 +52,13 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
       : // @ts-ignore
         publication?.mirrors?.length > 0
   );
+  const { cache } = useApolloClient();
 
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({
-    onError
-  });
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
 
-  const updateCache = (cache: ApolloCache<any>) => {
+  const updateCache = () => {
     cache.modify({
       id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
       fields: {
@@ -78,78 +80,64 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
       return;
     }
 
+    updateCache();
+    setIsLoading(false);
     setMirrored(true);
     toast.success(t`Post has been mirrored!`);
     Mixpanel.track(PUBLICATION.MIRROR);
   };
 
-  const { isLoading: writeLoading, write } = useContractWrite({
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+
+  const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'mirrorWithSig',
-    mode: 'recklesslyUnprepared',
-    onSuccess: () => onCompleted(),
+    functionName: 'mirror',
+    onSuccess: () => {
+      onCompleted();
+      setUserSigNonce(userSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setUserSigNonce(userSigNonce - 1);
+    }
+  });
+
+  const [broadcast] = useBroadcastMutation({
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  });
+
+  const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
+    onCompleted: async ({ createMirrorTypedData }) => {
+      const { id, typedData } = createMirrorTypedData;
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { data } = await broadcast({
+        variables: { request: { id, signature } }
+      });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write?.({ args: [typedData.value] });
+      }
+    },
     onError
   });
 
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename),
-    update: updateCache
-  });
-
-  const [createMirrorTypedData, { loading: typedDataLoading }] =
-    useCreateMirrorTypedDataMutation({
-      onCompleted: async ({ createMirrorTypedData }) => {
-        const { id, typedData } = createMirrorTypedData;
-        const {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          deadline
-        } = typedData.value;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          profileIdPointed,
-          pubIdPointed,
-          referenceModule,
-          referenceModuleData,
-          referenceModuleInitData,
-          sig
-        };
-        setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
-        }
-      },
+  const [createDataAvailabilityMirrorViaDispatcher] =
+    useCreateDataAvailabilityMirrorViaDispatcherMutation({
+      onCompleted: ({ createDataAvailabilityMirrorViaDispatcher }) =>
+        onCompleted(createDataAvailabilityMirrorViaDispatcher.__typename),
       onError
     });
 
-  const [
-    createDataAvailabilityMirrorViaDispatcher,
-    { loading: dataAvailabilityLoading }
-  ] = useCreateDataAvailabilityMirrorViaDispatcherMutation({
-    onCompleted: ({ createDataAvailabilityMirrorViaDispatcher }) =>
-      onCompleted(createDataAvailabilityMirrorViaDispatcher.__typename),
-    onError,
-    update: updateCache
+  const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
+    onCompleted: ({ createMirrorViaDispatcher }) =>
+      onCompleted(createMirrorViaDispatcher.__typename),
+    onError
   });
-
-  const [createMirrorViaDispatcher, { loading: dispatcherLoading }] =
-    useCreateMirrorViaDispatcherMutation({
-      onCompleted: ({ createMirrorViaDispatcher }) =>
-        onCompleted(createMirrorViaDispatcher.__typename),
-      onError,
-      update: updateCache
-    });
 
   const createViaDataAvailablityDispatcher = async (
     request: CreateDataAvailabilityMirrorRequest
@@ -179,7 +167,14 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (publication.isDataAvailability && !isSponsored) {
+      return toast.error(
+        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+      );
+    }
+
     try {
+      setIsLoading(true);
       const request: CreateMirrorRequest = {
         profileId: currentProfile?.id,
         publicationId: publication?.id,
@@ -194,17 +189,14 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
         mirror: publication?.id
       };
 
-      if (
-        currentProfile?.dispatcher?.canUseRelay &&
-        currentProfile.dispatcher.sponsor
-      ) {
-        if (publication.isDataAvailability) {
+      if (canUseRelay) {
+        if (publication.isDataAvailability && isSponsored) {
           return await createViaDataAvailablityDispatcher(
             dataAvailablityRequest
           );
-        } else {
-          return await createViaDispatcher(request);
         }
+
+        return await createViaDispatcher(request);
       }
 
       return await createMirrorTypedData({
@@ -213,16 +205,11 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
           request
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
 
-  const isLoading =
-    typedDataLoading ||
-    dispatcherLoading ||
-    dataAvailabilityLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading;
   const iconClassName = showCount
     ? 'w-[17px] sm:w-[20px]'
     : 'w-[15px] sm:w-[18px]';

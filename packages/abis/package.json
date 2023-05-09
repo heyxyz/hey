@@ -5,9 +5,11 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix --ext .ts"
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "devDependencies": {
     "eslint-config-weblint": "workspace:*",
