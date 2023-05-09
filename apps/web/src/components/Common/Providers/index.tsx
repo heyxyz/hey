@@ -37,7 +37,7 @@ const connectors = [
   new WalletConnectConnector({
     options: { projectId: WALLETCONNECT_PROJECT_ID }
   })
-] as any;
+];
 
 const wagmiConfig = createConfig({
   autoConnect: true,
