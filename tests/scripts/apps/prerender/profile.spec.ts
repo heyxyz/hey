@@ -6,22 +6,22 @@ test.beforeEach(async ({ page }) => {
   await page.goto(`${PRERENDER_BASE_URL}/u/alainnicolas`);
 });
 
-test.skip('should have page title', async ({ page }) => {
-  await expect(page).toHaveTitle(`@alainnicolas.lens • ${APP_NAME}`);
+test('should have page title', async ({ page }) => {
+  await expect(page).toHaveTitle(`Alain Nicolas (@alainnicolas.lens) • ${APP_NAME}`);
 });
 
-test.skip('should have name', async ({ page }) => {
-  await expect(page.getByTestId('profile-name')).toContainText('alainnicolas');
+test('should have name', async ({ page }) => {
+  await expect(page.getByTestId('profile-name')).toContainText('Alain Nicolas');
 });
 
-test.skip('should have handle', async ({ page }) => {
+test('should have handle', async ({ page }) => {
   await expect(page.getByTestId('profile-handle')).toContainText('@alainnicolas');
 });
 
-test.skip('should have bio', async ({ page }) => {
+test('should have bio', async ({ page }) => {
   await expect(page.getByTestId('profile-bio')).toContainText('');
 });
 
-test.skip('should have feed', async ({ page }) => {
+test('should have feed', async ({ page }) => {
   await expect(page.getByTestId('profile-feed')).toBeVisible();
 });
