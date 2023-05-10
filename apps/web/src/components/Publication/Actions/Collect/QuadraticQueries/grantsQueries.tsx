@@ -1,6 +1,13 @@
 import axios from 'axios';
 import { SANDBOX_GRANTS_URL } from 'data/constants';
 
+const apiClient = axios.create({
+  baseURL: SANDBOX_GRANTS_URL,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
 function graphPostID(lensterPostID: string): string {
   const [hex1, hex2] = lensterPostID.split('-').map((hex) => hex.trim());
   const num1 = BigInt(hex1);
@@ -8,11 +15,18 @@ function graphPostID(lensterPostID: string): string {
   return `0x${result}`;
 }
 
+async function request(query: string, variables: any = {}) {
+  try {
+    const response = await apiClient.post('', { query, variables });
+    return response.data.data;
+  } catch (error) {
+    throw new Error('Subgraph fetch error: ' + error);
+  }
+}
+
 export async function getRoundInfo(grantsRound: string) {
   const roundLower = grantsRound.toLowerCase();
-
-  const query = `
-  {
+  const query = `{
     rounds(
       orderDirection: desc
       where: {id: "${roundLower}"}
@@ -26,19 +40,9 @@ export async function getRoundInfo(grantsRound: string) {
       roundStartTime
       token
     }
-  }
-  `;
-
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-
-  try {
-    const response = await axios.post(SANDBOX_GRANTS_URL, { query }, { headers });
-    return response.data.data.rounds[0];
-  } catch (error) {
-    console.error('Subgraph fetch error: ', error);
-  }
+  }`;
+  const data = await request(query);
+  return data.rounds[0];
 }
 
 export async function getRoundTippingData(grantsRound: string) {
@@ -63,28 +67,14 @@ export async function getRoundTippingData(grantsRound: string) {
       }
     }
   `;
-
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-
-  try {
-    const response = await axios.post(
-      SANDBOX_GRANTS_URL,
-      { query, variables: { id: grantsRound } },
-      { headers }
-    );
-    return response.data.data.round;
-  } catch (error) {
-    console.error('Subgraph fetch error: ', error);
-  }
+  const data = await request(query, { id: grantsRound });
+  return data.round;
 }
 
 export async function getPostInfo(address: string, postId: string) {
   const addressLower = address.toLowerCase();
   const graphId = graphPostID(postId);
-  const query = `
-  {
+  const query = `{
     qfvotes(
       where: {from: "${addressLower}", projectId: "${graphId}"}
     ) {
@@ -95,25 +85,13 @@ export async function getPostInfo(address: string, postId: string) {
       to
       projectId
     }
-  }
-  `;
-
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-
-  try {
-    const response = await axios.post(SANDBOX_GRANTS_URL, { query }, { headers });
-    return response.data.data.qfvotes;
-  } catch (error) {
-    console.error('Subgraph fetch error: ', error);
-  }
+  }`;
+  const data = await request(query);
+  return data.qfvotes;
 }
 
-// temp function to get unexpired round, until round selector is implemented in next iteration
 export async function getCurrentRound(blockTimestamp: number) {
-  const query = `
-  {
+  const query = `{
     rounds(
       where: {roundEndTime_gt: "${blockTimestamp}"}
       orderBy: createdAt
@@ -121,17 +99,20 @@ export async function getCurrentRound(blockTimestamp: number) {
     ) {
       id
     }
-  }
-  `;
+  }`;
+  const data = await request(query);
+  return data.rounds;
+}
 
-  const headers = {
-    'Content-Type': 'application/json'
-  };
-
-  try {
-    const response = await axios.post(SANDBOX_GRANTS_URL, { query }, { headers });
-    return response.data.data.rounds;
-  } catch (error) {
-    console.error('Subgraph fetch error: ', error);
-  }
+export async function getAllRounds() {
+  const query = `{
+    rounds(
+      orderBy: createdAt
+      orderDirection: desc
+    ) {
+      id
+    }
+  }`;
+  const data = await request(query);
+  return data.rounds;
 }
