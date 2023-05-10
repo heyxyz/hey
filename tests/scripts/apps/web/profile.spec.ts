@@ -105,12 +105,12 @@ test.describe('Profile badges', async () => {
   });
 
   test('should have sybil badge', async ({ page }) => {
-    //TODO at least one tested profile should have sybil badge
+    //TODO at least one test profile should have sybil badge
     await expect(page.getByTestId('profile-sybil-badge')).not.toBeVisible();
   });
 
   test('should have worldcoin badge', async ({ page }) => {
-    //TODO at least one tested profile should have worldcoin badge
+    //TODO at least one test profile should have worldcoin badge
     await expect(page.getByTestId('profile-worldcoin-badge')).not.toBeVisible();
   });
 });
