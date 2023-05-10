@@ -2,6 +2,7 @@ import { aaveMembers } from './aave-members';
 import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
+  '0x01c8b6', // alchemy
   '0x01a7a3', // bundlr-network
   '0x01c7d4', // messari
   '0x01615e', // livepeer
