@@ -103,6 +103,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
   const [votingStrategyAllowed, setVotingStrategyAllowed] = useState(false);
   const [allAllowancesLoading, setAllAllowancesLoading] = useState(true);
   const [postTipTotal, setPostTipTotal] = useState(0);
+  const [readyToDisplay, setReadyToDisplay] = useState(false);
 
   useEffect(() => {
     const fetchPostInfo = async () => {
@@ -221,7 +222,12 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     } else {
       setAllAllowancesLoading(false);
     }
-  }, [moduleAllowed, votingStrategyAllowed, allowanceLoading, votingApprovalFetched]);
+    if (!allAllowancesLoading) {
+      setReadyToDisplay(true);
+    } else {
+      setReadyToDisplay(false);
+    }
+  }, [moduleAllowed, votingStrategyAllowed, allowanceLoading, votingApprovalFetched, allAllowancesLoading]);
 
   const { data: revenueData, loading: revenueLoading } = usePublicationRevenueQuery({
     variables: {
@@ -431,17 +437,15 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
             )
           ) : null)}
       </div>
-      {allAllowancesLoading ? (
-        <Spinner />
-      ) : (
-        <AllowanceButton
-          title="Allow collect module"
-          module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
-          allowed={allowed}
-          setAllowed={setAllowed}
-          {...(collectModule ? { collectModule: collectModule } : {})}
-        />
-      )}
+
+      <AllowanceButton
+        title="Allow collect module"
+        module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
+        allowed={allowed}
+        setAllowed={setAllowed}
+        readyToDisplay={readyToDisplay}
+        {...(collectModule ? { collectModule: collectModule } : {})}
+      />
       <div className="space-y-1.5 pb-2">
         {publication?.metadata?.name && (
           <div className="text-xl font-bold">{publication?.metadata?.name}</div>

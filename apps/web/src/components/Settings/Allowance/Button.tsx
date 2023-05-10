@@ -23,6 +23,7 @@ interface AllowanceButtonProps {
   allowed: boolean;
   setAllowed: Dispatch<boolean>;
   collectModule?: QuadraticCollectModuleData;
+  readyToDisplay?: boolean;
 }
 
 const AllowanceButton: FC<AllowanceButtonProps> = ({
@@ -30,7 +31,8 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   module,
   allowed,
   setAllowed,
-  collectModule
+  collectModule,
+  readyToDisplay
 }) => {
   const [showWarningModal, setShowWarningModal] = useState(false);
 
@@ -104,7 +106,11 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     });
   };
 
-  return allowed ? (
+  return !readyToDisplay ? (
+    <div className="flex h-full w-full items-center justify-center pb-2">
+      <Spinner />
+    </div>
+  ) : allowed ? (
     <Button
       variant="warning"
       icon={
@@ -116,8 +122,12 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       }
       onClick={() => handleAllowance(module.currency, '0', module.module)}
     >
-      <Trans>Revoke</Trans>
+      <Trans>Revoke Allowance</Trans>
     </Button>
+  ) : readyToDisplay ? (
+    <div className="flex h-full w-full items-center justify-center pb-2">
+      <Spinner />
+    </div>
   ) : (
     <>
       <Button icon={<PlusIcon className="h-4 w-4" />} onClick={() => setShowWarningModal(!showWarningModal)}>
