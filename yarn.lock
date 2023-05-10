@@ -4082,10 +4082,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@pushprotocol/restapi@1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@pushprotocol/restapi/-/restapi-1.2.5.tgz#2cb04c48ad582eba0e2c818640cfa32faa6c8fa9"
-  integrity sha512-RL/cmKB5/5R/7e3sXT/WCQ7Vqj0ye+vmjqn83iOQ9sb46eG10OEXPrkdb0M9Fo4qg1glkVO+17qatzK1/i6zrA==
+"@pushprotocol/restapi@1.2.13":
+  version "1.2.13"
+  resolved "https://registry.yarnpkg.com/@pushprotocol/restapi/-/restapi-1.2.13.tgz#be78270fd068d20dc92daf82cdada66f0191fd13"
+  integrity sha512-tpG09vVG1P3YGhcD5U25J6lxLb6jnvlOa1/qxzPpZ505tqexwJiBhNILfZ2bq2osqpV7Q58Wpb5Qk86hPG5yDA==
   dependencies:
     "@metamask/eth-sig-util" "^5.0.2"
     axios "^0.27.2"
