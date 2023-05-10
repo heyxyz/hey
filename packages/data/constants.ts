@@ -16,6 +16,7 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 export const IS_RELAYER_AVAILABLE = getEnvConfig().isRelayerAvailable;
 export const IS_RARIBLE_AVAILABLE = getEnvConfig().isRaribleAvailable;
+export const IS_LIT_AVAILABLE = getEnvConfig().isLitAvailable;
 export const IS_MORALIS_AVAILABLE = getEnvConfig().isMoralisAvailable;
 export const LENS_PROFILE_CREATOR = '0x923e7786176Ef21d0B31645fB1353b1392Dd0e40';
 export const LENS_PROFILE_CREATOR_ABI = [

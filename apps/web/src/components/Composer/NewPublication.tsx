@@ -25,6 +25,7 @@ import {
   ALLOWED_IMAGE_TYPES,
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
+  IS_LIT_AVAILABLE,
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT
 } from 'data/constants';
@@ -475,7 +476,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         appId: APP_NAME
       };
 
-      let arweaveId = null;
+      let arweaveId;
       if (restricted) {
         arweaveId = await createTokenGatedMetadata(metadata);
       } else {
@@ -491,7 +492,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         collectModule: payload,
         referenceModule:
           selectedReferenceModule === ReferenceModules.FollowerOnlyReferenceModule
-            ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
+            ? { followerOnlyReferenceModule: onlyFollowers }
             : {
                 degreesOfSeparationReferenceModule: {
                   commentsRestricted: true,
@@ -548,7 +549,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <CollectSettings />
           <ReferenceSettings />
-          <AccessSettings />
+          {IS_LIT_AVAILABLE && <AccessSettings />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
