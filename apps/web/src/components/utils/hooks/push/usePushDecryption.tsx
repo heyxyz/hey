@@ -17,7 +17,7 @@ enum ProgressType {
 
 interface decryptKeyParams {
   encryptedText: string;
-  additionalMeta?: { password?: string };
+  additionalMeta?: { NFTPGP_V1?: { password: string } };
 }
 
 type modalInfoType = {
@@ -72,24 +72,25 @@ const usePushDecryption = () => {
   const decryptKey = useCallback(
     async ({
       encryptedText,
-      additionalMeta = { password: undefined }
+      additionalMeta = { NFTPGP_V1: { password: '' } }
     }: decryptKeyParams): Promise<{
       decryptedKey?: string | undefined;
       error?: string | undefined;
     }> => {
       reset();
-      setShowDecryptionModal(true);
+      if (!additionalMeta.NFTPGP_V1?.password) {
+        setShowDecryptionModal(true);
+      }
       if (!currentProfile || !signer) {
         return { decryptedKey: undefined, error: undefined };
       }
-
       const { ownedBy } = currentProfile;
       try {
         const response = await PushAPI.chat.decryptPGPKey({
           encryptedPGPPrivateKey: encryptedText,
           signer: signer,
           account: ownedBy,
-          additionalMeta: additionalMeta,
+          additionalMeta: additionalMeta.NFTPGP_V1?.password ? additionalMeta : undefined,
           progressHook: handleProgress,
           env: PUSH_ENV
         });
