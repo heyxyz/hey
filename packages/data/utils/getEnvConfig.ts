@@ -11,6 +11,7 @@ const getEnvConfig = (): {
   litProtocolEnvironment: string;
   isRelayerAvailable: boolean;
   isRaribleAvailable: boolean;
+  isMoralisAvailable: boolean;
 } => {
   switch (LENS_NETWORK) {
     case 'mainnet':
@@ -22,7 +23,8 @@ const getEnvConfig = (): {
         UpdateOwnableFeeCollectModuleAddress: MainnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'polygon',
         isRelayerAvailable: false,
-        isRaribleAvailable: false
+        isRaribleAvailable: false,
+        isMoralisAvailable: false
       };
     case 'testnet':
       return {
@@ -33,7 +35,8 @@ const getEnvConfig = (): {
         UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai',
         isRelayerAvailable: false,
-        isRaribleAvailable: false
+        isRaribleAvailable: false,
+        isMoralisAvailable: false
       };
     case 'staging':
       return {
@@ -44,7 +47,8 @@ const getEnvConfig = (): {
         UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai',
         isRelayerAvailable: false,
-        isRaribleAvailable: false
+        isRaribleAvailable: false,
+        isMoralisAvailable: false
       };
     case 'sandbox':
       return {
@@ -55,7 +59,8 @@ const getEnvConfig = (): {
         UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai-sandbox',
         isRelayerAvailable: false,
-        isRaribleAvailable: false
+        isRaribleAvailable: false,
+        isMoralisAvailable: false
       };
     case 'staging-sandbox':
       return {
@@ -66,7 +71,8 @@ const getEnvConfig = (): {
         UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai-sandbox',
         isRelayerAvailable: false,
-        isRaribleAvailable: false
+        isRaribleAvailable: false,
+        isMoralisAvailable: false
       };
     default:
       return {
@@ -77,7 +83,8 @@ const getEnvConfig = (): {
         UpdateOwnableFeeCollectModuleAddress: MainnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'polygon',
         isRelayerAvailable: false,
-        isRaribleAvailable: false
+        isRaribleAvailable: false,
+        isMoralisAvailable: false
       };
   }
 };
