@@ -55,15 +55,11 @@ const SettingsSidebar: FC = () => {
                 }
               ]
             : []),
-          ...(IS_RELAYER_AVAILABLE
-            ? [
-                {
-                  title: t`Allowance`,
-                  icon: <ShareIcon className="h-4 w-4" />,
-                  url: '/settings/allowance'
-                }
-              ]
-            : []),
+          {
+            title: t`Allowance`,
+            icon: <ShareIcon className="h-4 w-4" />,
+            url: '/settings/allowance'
+          },
           {
             title: t`Cleanup`,
             icon: <SparklesIcon className="h-4 w-4" />,
