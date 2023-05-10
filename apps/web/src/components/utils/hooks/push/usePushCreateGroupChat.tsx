@@ -1,13 +1,17 @@
 import Search from '@components/Shared/Navbar/Search';
 import Slug from '@components/Shared/Slug';
 import { ArrowLeftIcon, XIcon } from '@heroicons/react/outline';
+import * as PushAPI from '@pushprotocol/restapi';
 import clsx from 'clsx';
+import { LENSHUB_PROXY } from 'data/constants';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
+import router from 'next/router';
 import { useRef, useState } from 'react';
+import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { usePushChatStore } from 'src/store/push-chat';
+import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input } from 'ui';
 import { useSigner } from 'wagmi';
 
@@ -20,12 +24,14 @@ enum ProgressType {
   ERROR = 'ERROR',
   WARN = 'WARN'
 }
+
 type groupOptionsType = {
   id: number;
   title: string;
   subTitle: string;
   value: boolean;
 };
+
 const groupOptions: Array<groupOptionsType> = [
   {
     id: 1,
@@ -40,6 +46,9 @@ const groupOptions: Array<groupOptionsType> = [
     value: false
   }
 ];
+
+const randomGroupImage = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAvklEQVR4AcXBsW2FMBiF0Y8r3GQb6jeBxRauYRpo4yGQkMd4A7kg7Z/GUfSKe8703fKDkTATZsJsrr0RlZSJ9r4RLayMvLmJjnQS1d6IhJkwE2bT13U/DBzp5BN73xgRZsJMmM1HOolqb/yWiWpvjJSUiRZWopIykTATZsJs5g+1N6KSMiO1N/5DmAkzYTa9Lh6MhJkwE2ZzSZlo7xvRwson3txERzqJhJkwE2bT6+JhoKTMJ2pvjAgzYSbMfgDlXixqjH6gRgAAAABJRU5ErkJggg==`;
+
 type ProgressHookType = {
   level: ProgressType;
 };
@@ -48,15 +57,143 @@ type memberProfileListType = {
   memberList: Profile[];
   isAddedMembersList?: boolean;
   onAddMembers?: (profile: Profile) => void;
+  onRemoveMembers?: (profile: Profile) => void;
+  onMakeAdmin?: (profile: Profile) => void;
+  adminAddress: Profile[];
+  removeAdmin?: (profile: Profile) => void;
+  removeUserAdmin?: (profile: Profile) => void;
 };
 
 const MemberProfileList = ({
   memberList,
   isAddedMembersList = false,
-  onAddMembers
+  onAddMembers,
+  onRemoveMembers,
+  onMakeAdmin,
+  adminAddress,
+  removeAdmin,
+  removeUserAdmin
 }: memberProfileListType) => {
+  // have used this state instead of boolean since if I used boolean than I still had to check if the user id is equal to the id selected to make it unique and open only that modal which is suppose to open and not open every modal
+  const [showModalgroupOptions, setShowModalgroupOptions] = useState(-1);
+  const [showModalAdmingroupOptions, setShowModalAdmingroupOptions] = useState(-2);
+
+  const handleRemoveClick = (profile: Profile) => {
+    if (onRemoveMembers) {
+      onRemoveMembers(profile);
+      setShowModalgroupOptions(-1);
+    }
+  };
+
+  const handleMakeAdmin = (profile: Profile) => {
+    if (onMakeAdmin) {
+      onMakeAdmin(profile);
+      setShowModalAdmingroupOptions(-2);
+      setShowModalgroupOptions(-1);
+    }
+  };
+
+  const handleRemoveAdmin = (profile: Profile) => {
+    if (removeAdmin) {
+      console.log('Yoo');
+      removeAdmin(profile);
+      setShowModalAdmingroupOptions(-2);
+    }
+  };
+
+  const handleRemoveUseradmin = (profile: Profile) => {
+    if (removeUserAdmin) {
+      try {
+        console.log('Yoo');
+        removeUserAdmin(profile);
+        setShowModalAdmingroupOptions(-2);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const handleRemoveModal = () => {
+    if (showModalAdmingroupOptions !== -2) {
+      setShowModalAdmingroupOptions(-2);
+    } else if (showModalgroupOptions !== -1) {
+      setShowModalgroupOptions(-1);
+    }
+  };
+
+  const setShowCreateGroupModal = usePushChatStore((s) => s.setShowCreateGroupModal);
+
+  const onProfileSelected = (profile: Profile) => {
+    setShowCreateGroupModal(false);
+    router.push(`/messages/push/chat/${profile.id}`);
+  };
+
   return (
-    <div className="flex flex-col gap-2 py-2">
+    <div className="flex flex-col gap-2 py-2" onClick={handleRemoveModal}>
+      {onAddMembers &&
+        adminAddress.map((member, i) => (
+          <div
+            key={`${member.ownedBy}${i}`}
+            className="flex flex flex-row flex-row items-center items-center justify-between justify-between rounded-xl bg-gray-100  px-4 py-2"
+          >
+            <div className="flex flex-row items-center justify-between">
+              <div className="flex flex-row items-center">
+                <div className="flex-shrink-0">
+                  <Image
+                    src={getAvatar(member)}
+                    className="mr-2 h-14 w-14 rounded-full border bg-gray-200 dark:border-gray-700"
+                    alt={'Yoo'}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <p className="truncate font-bold">{member?.name ?? formatHandle(member?.handle)}</p>
+                  <Slug className="text-sm" slug={formatHandle(member?.handle)} prefix="@" />
+                </div>
+              </div>
+              <span className="font-sm ml-12 text-green-500">Admin</span>
+            </div>
+            <div
+              className="w-fit cursor-pointer"
+              onClick={() => setShowModalAdmingroupOptions(showModalAdmingroupOptions === i ? -2 : i)}
+            >
+              <img className="ml-auto h-10 w-9" src="/push/more.svg" alt="more icon" />
+            </div>
+            {showModalAdmingroupOptions === i && (
+              <div
+                key={i + 1}
+                className="absolute z-50 ml-[100px] mt-[90px] w-[210px] rounded-lg border border-gray-300 bg-white p-4 p-4"
+              >
+                <div className="relative">
+                  <div
+                    className="flex cursor-pointer p-[8px] text-lg font-medium"
+                    onClick={() => onProfileSelected(member)}
+                  >
+                    <Image
+                      src="/push/createmessage.svg"
+                      className="mt-[4px] h-[21px] pr-[10px]"
+                      alt="remove icon"
+                    />
+                    <div className="text-lg font-[450]">Message user</div>
+                  </div>
+                  <div
+                    className="flex cursor-pointer p-[8px] text-lg font-medium"
+                    onClick={() => handleRemoveAdmin(member)}
+                  >
+                    <Image src="/push/Shield.svg" className="h-[25px] pr-[10px]" alt="admin icon" />
+                    <div className="text-lg font-[450]">Remove Admin</div>
+                  </div>
+                  <div
+                    className="flex cursor-pointer p-[8px] text-lg font-medium"
+                    onClick={() => handleRemoveUseradmin(member)}
+                  >
+                    <Image src="/push/MinusCircle.svg" className="h-[25px] pr-[10px]" alt="remove icon" />
+                    <div className="text-lg font-[450] text-red-600">Remove</div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
       {memberList.map((member, i) => (
         //  put styles into a object
         <div
@@ -80,16 +217,52 @@ const MemberProfileList = ({
               <Slug className="text-sm" slug={formatHandle(member?.handle)} prefix="@" />
             </div>
           </div>
-
           {!onAddMembers && (
-            <div className="w-fit cursor-pointer">
-              <img className="h-10 w-9" src="/push/more.svg" alt="plus icon" />
+            <div className="relative flex">
+              <div
+                className="w-fit cursor-pointer"
+                onClick={() => setShowModalgroupOptions(showModalgroupOptions === i ? -1 : i)}
+              >
+                <img className="h-10 w-9" src="/push/more.svg" alt="more icon" />
+              </div>
+              {showModalgroupOptions === i && (
+                <div
+                  key={`${member.ownedBy}${i}`}
+                  className="absolute right-[-16px] z-50 mt-[-17px] w-[250px] rounded-lg border border-gray-300 bg-white p-4 p-4"
+                >
+                  <div
+                    className="flex cursor-pointer p-[8px] text-lg font-medium"
+                    onClick={() => onProfileSelected(member)}
+                  >
+                    <Image
+                      src="/push/createmessage.svg"
+                      className="mt-[4px] h-[21px] pr-[10px]"
+                      alt="remove icon"
+                    />
+                    <div className="text-lg font-[450]">Message user</div>
+                  </div>
+                  <div
+                    className="flex cursor-pointer p-[8px] text-lg font-medium"
+                    onClick={() => handleMakeAdmin(member)}
+                  >
+                    <Image src="/push/Shield.svg" className="h-[25px] pr-[10px]" alt="admin icon" />
+                    <div className="text-lg font-[450]">Make group admin</div>
+                  </div>
+                  <div
+                    className="flex cursor-pointer p-[8px] text-lg font-medium"
+                    onClick={() => handleRemoveClick(member)}
+                  >
+                    <Image src="/push/MinusCircle.svg" className="h-[25px] pr-[10px]" alt="remove icon" />
+                    <div className="text-lg font-[450] text-red-600">Remove</div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
           {/* change to icon for Add + */}
           {onAddMembers && (
             <div
-              className="rounded-lg border border-violet-600 px-2 text-violet-600"
+              className="cursor-pointer rounded-lg border border-violet-600 px-2 text-violet-600"
               onClick={() => onAddMembers(member)}
             >
               <span className="text-sm">Add</span> <span className="text-base">+</span>
@@ -116,6 +289,7 @@ const useCreateGroup = () => {
   const [searchedMembers, setSearchedMembers] = useState<Array<Profile>>([]);
   const [members, setMembers] = useState<Array<Profile>>([]);
   const fileUploadInputRef = useRef<HTMLInputElement>(null);
+  const [adminAddresses, setAdminAddresses] = useState<Profile[]>([]);
 
   const [modalInfo, setModalInfo] = useState<{
     title: string;
@@ -158,31 +332,42 @@ const useCreateGroup = () => {
       title: 'Create Group',
       type: ProgressType.INITIATE
     });
-    setModalClosable(true);
   };
 
   const handleCreateGroupCall = async () => {
-    if (!signer || !currentProfile) {
+    if (!signer || !currentProfile || !decryptedPgpPvtKey) {
       return;
     }
+
     try {
-      const memberAddressList = members.map((member) => member.ownedBy);
-      //add dummy group image if image not uploaded
+      const memberAddressList = members.map(
+        (member) => `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${member.id}`
+      );
+      const adminAddressList = adminAddresses.map(
+        (member) => `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${member.id}`
+      );
+
+      console.log(adminAddressList, 'adminAddresses');
+      console.log(memberAddressList, 'memberAddressList');
 
       //sdk call for create group
-
-      // await PushAPI.chat.createGroup({
-      //   groupName,
-      //   groupDescription: groupDescription as string,
-      //   members: memberAddressList,
-      //   groupImage: groupImage as string,
-      //   admins: [],
-      //   isPublic: true,
-      //   signer: signer,
-      //   pgpPrivateKey: decryptedPgpPvtKey as string //decrypted private key
-      //   env:PUSH_ENV
-      // });
-      setShowCreateGroupModal(false);
+      try {
+        const response = await PushAPI.chat.createGroup({
+          groupName,
+          groupDescription: groupDescription,
+          members: memberAddressList,
+          groupImage: groupImage ?? randomGroupImage,
+          admins: adminAddressList, // pass the adminAddresses array here
+          isPublic: groupType?.value ?? true,
+          account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
+          pgpPrivateKey: decryptedPgpPvtKey, //decrypted private key
+          env: PUSH_ENV
+        });
+        console.log(response, 'response');
+        setShowCreateGroupModal(false);
+      } catch (error: Error | any) {
+        console.log(error.message);
+      }
     } catch (error) {
       console.log(error);
       setModalClosable(true);
@@ -216,8 +401,12 @@ const useCreateGroup = () => {
       handleProgress({ level: ProgressType.ADDMEMBERS });
     }
     if (step === 2 && !isModalInputsEmpty()) {
-      handleCreateGroupCall();
-      setModalClosable(false);
+      try {
+        handleCreateGroupCall();
+        setModalClosable(false);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -236,6 +425,8 @@ const useCreateGroup = () => {
     setGroupType(null);
     setMembers([]);
     setSearchedMembers([]);
+    setAdminAddresses([]);
+    setModalClosable(true);
   };
   const createGroup = async () => {
     setShowCreateGroupModal(true);
@@ -254,10 +445,40 @@ const useCreateGroup = () => {
     if (
       !members.some((member) => member.ownedBy === profile.ownedBy) &&
       members.length < 9 &&
+      !adminAddresses.some((member) => member.ownedBy === profile.ownedBy) &&
       profile.ownedBy !== currentProfile?.ownedBy
     ) {
       setMembers((prevMembers) => [...prevMembers, profile]);
     }
+  };
+
+  const onRemoveMembers = (profile: Profile) => {
+    console.log('onRemoveMembers called');
+    setMembers(members.filter((item) => item !== profile));
+  };
+
+  const onMakeadmin = (profile: Profile) => {
+    setMembers(
+      members.filter((member) => {
+        if (member.ownedBy === profile.ownedBy) {
+          // store the user's address in the adminAddresses array and remove them from the members array
+          setAdminAddresses((adminAddresses): any => [...adminAddresses, member]);
+          return false; // filter out the member from the members array
+        }
+        return true;
+      })
+    );
+  };
+
+  const removeAdmin = (profile: Profile) => {
+    setAdminAddresses(adminAddresses.filter((item) => item !== profile));
+    setMembers([...members, profile]);
+    console.log(adminAddresses, 'adminAddresses');
+    console.log(members, 'members');
+  };
+
+  const removeUserAdmin = (profile: Profile) => {
+    setAdminAddresses(adminAddresses.filter((item) => item !== profile));
   };
 
   const handleUpload = () => {
@@ -335,7 +556,9 @@ const useCreateGroup = () => {
                   'justigy-center flex w-1/2 cursor-pointer flex-col items-center border  border-gray-300 px-2 py-2 hover:bg-gray-100'
                 )}
                 key={option.id}
-                onClick={() => setGroupType(option)}
+                onClick={() => {
+                  setGroupType(option), console.log(option);
+                }}
               >
                 <p className="text-base font-medium">{option?.title}</p>
                 <p className="text-center text-xs font-thin text-gray-400">{option?.subTitle}</p>
@@ -385,11 +608,27 @@ const useCreateGroup = () => {
               zIndex="z-10"
             />
           </div>
-          {!!searchedMembers && !!searchedMembers.length && (
-            <MemberProfileList memberList={searchedMembers} onAddMembers={onAddMembers} />
+          {searchedMembers && (
+            <MemberProfileList
+              memberList={searchedMembers}
+              adminAddress={adminAddresses}
+              onAddMembers={onAddMembers}
+              onMakeAdmin={onMakeadmin}
+              removeAdmin={removeAdmin}
+              removeUserAdmin={removeUserAdmin}
+            />
           )}
           <div className="mt-5">
-            {!!members && !!members.length && <MemberProfileList memberList={members} />}
+            {!!members && !!members.length && (
+              <MemberProfileList
+                memberList={members}
+                adminAddress={adminAddresses}
+                removeUserAdmin={removeUserAdmin}
+                removeAdmin={removeAdmin}
+                onMakeAdmin={onMakeadmin}
+                onRemoveMembers={onRemoveMembers}
+              />
+            )}
           </div>
           <Button
             className="mb-2 mt-4 self-center border-2 text-center"

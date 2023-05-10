@@ -12,7 +12,7 @@ import router from 'next/router';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
-import { Card, Modal } from 'ui';
+import { Card, Image, Modal } from 'ui';
 
 import { getProfileFromDID } from './helper';
 import PUSHPreviewChats from './PUSHPreviewChats';
@@ -183,6 +183,10 @@ const PUSHPreview = () => {
             />
           </div>
         </section>
+        <div onClick={createGroup} className="ml-0 flex cursor-pointer pb-2 pl-4 pr-4">
+          <Image src="/push/creategroup.svg" alt="create group" className="mr-2 h-5" />
+          <button className="text-base font-medium">Create Group</button>
+        </div>
         {/* section for header */}
         {/* section for chats */}
         {activeTab === PUSH_TABS.CHATS && <PUSHPreviewChats />}
@@ -192,7 +196,6 @@ const PUSHPreview = () => {
         {/* sections for requests */}
       </Card>
       {/* <button onClick={createChatProfile}>Create Profile</button> */}
-      <button onClick={createGroup}>Create Group</button>
       <Modal
         size="xs"
         show={showCreateGroupModal}

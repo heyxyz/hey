@@ -129,7 +129,9 @@ const useCreateChatProfile = () => {
             className="px-4 py-4 text-sm"
             value={password}
             autoComplete="off"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value), console.log(e.target.value);
+            }}
           />
           <Button
             className="mt-7 self-center text-center"
