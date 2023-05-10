@@ -27,7 +27,9 @@ echo "Installing dependencies 📦"
 pnpm install --frozen-lockfile
 echo "Dependencies installed 📦"
 echo "Installing playwright 🎭"
-npx playwright install
+npx playwright@1.32.3 install --with-deps
+echo "Check playwright version 👀"
+npx playwright --version
 echo "Playwright installed 🎭"
 echo "GraphQL Codegen 🧬"
 pnpm codegen

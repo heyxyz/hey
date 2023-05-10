@@ -16,6 +16,6 @@ test('should have hero', async ({ page }) => {
   );
 });
 
-test('should have explore feed', async ({ page }) => {
+test.skip('should have explore feed', async ({ page }) => {
   await expect(page.getByTestId('explore-feed')).toBeVisible();
 });

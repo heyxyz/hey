@@ -678,7 +678,7 @@ importers:
         version: link:../packages/lib
     devDependencies:
       '@playwright/test':
-        specifier: ^1.32.3
+        specifier: 1.32.3
         version: 1.32.3
       '@types/node':
         specifier: ^18.15.11

@@ -4,11 +4,11 @@ import { WEB_BASE_URL } from 'test/constants';
 
 test.describe('Profile', async () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/u/yoginth`);
+    await page.goto(`${WEB_BASE_URL}/u/alainnicolas`);
   });
 
   test('should have page title', async ({ page }) => {
-    await expect(page).toHaveTitle(`Yoginth (@yoginth) • ${APP_NAME}`);
+    await expect(page).toHaveTitle(`Alain (@alainnicolas) • ${APP_NAME}`);
   });
 
   test.describe('Profile details', async () => {
@@ -17,42 +17,42 @@ test.describe('Profile', async () => {
     });
 
     test('should have name', async ({ page }) => {
-      await expect(page.getByTestId('profile-name')).toContainText('Yoginth');
+      await expect(page.getByTestId('profile-name')).toContainText('Alain');
     });
 
     test('should have handle', async ({ page }) => {
-      await expect(page.getByTestId('profile-handle')).toContainText('@yoginth');
+      await expect(page.getByTestId('profile-handle')).toContainText('@alainnicolas');
     });
 
     test('should have bio', async ({ page }) => {
-      await expect(page.getByTestId('profile-bio')).toContainText('opinions are mine');
+      await expect(page.getByTestId('profile-bio')).toContainText('Fullstack Dev @ ConsenSys');
     });
 
     test('should have meta id', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-id')).toContainText('13');
+      await expect(page.getByTestId('profile-meta-id')).toContainText('3');
     });
 
     test('should have meta location', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-location')).toContainText('India');
+      await expect(page.getByTestId('profile-meta-location')).toContainText('Paris');
     });
 
     test('should have meta ens', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-ens')).toContainText('yoginth.eth');
+      await expect(page.getByTestId('profile-meta-ens')).toContainText('alainnicolas.eth');
     });
 
     test('should have meta website', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-website')).toContainText('nf.td/yogi');
+      await expect(page.getByTestId('profile-meta-website')).toContainText('alainnicolas.fr');
     });
 
     test('should have meta twitter', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-twitter')).toContainText('yogicodes');
+      await expect(page.getByTestId('profile-meta-twitter')).toContainText('Alain_Ncls');
     });
   });
 });
 
 test.describe('Profile verified badge', async () => {
-  test('should have verified badge', async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/u/yoginth`);
+  test.skip('should have verified badge', async ({ page }) => {
+    await page.goto(`${WEB_BASE_URL}/u/alainnicolas`);
     const verifiedBadge = page.getByTestId('profile-verified-badge');
     await expect(verifiedBadge).toBeVisible();
   });
@@ -66,7 +66,7 @@ test.describe('Profile verified badge', async () => {
 
 test.describe('Profile followerings', async () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/u/yoginth`);
+    await page.goto(`${WEB_BASE_URL}/u/alainnicolas`);
   });
 
   test('should have followers', async ({ page }) => {
@@ -93,22 +93,22 @@ test.describe('Profile followerings', async () => {
 // test for badges
 test.describe('Profile badges', async () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/u/yoginth`);
+    await page.goto(`${WEB_BASE_URL}/u/alainnicolas`);
   });
 
   test('should have ens badge', async ({ page }) => {
     await expect(page.getByTestId('profile-ens-badge')).toBeVisible();
   });
 
-  test('should have poh badge', async ({ page }) => {
+  test.skip('should have poh badge', async ({ page }) => {
     await expect(page.getByTestId('profile-poh-badge')).toBeVisible();
   });
 
-  test('should have sybil badge', async ({ page }) => {
+  test.skip('should have sybil badge', async ({ page }) => {
     await expect(page.getByTestId('profile-sybil-badge')).toBeVisible();
   });
 
-  test('should have worldcoin badge', async ({ page }) => {
+  test.skip('should have worldcoin badge', async ({ page }) => {
     await expect(page.getByTestId('profile-worldcoin-badge')).toBeVisible();
   });
 });

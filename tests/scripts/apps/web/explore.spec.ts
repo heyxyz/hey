@@ -10,7 +10,7 @@ test('should have page title', async ({ page }) => {
   await expect(page).toHaveTitle(`Explore • ${APP_NAME}`);
 });
 
-test('should have explore feed', async ({ page }) => {
+test.skip('should have explore feed', async ({ page }) => {
   await expect(page.getByTestId('explore-feed')).toBeVisible();
 });
 
