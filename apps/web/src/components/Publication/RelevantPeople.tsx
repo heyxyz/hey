@@ -1,7 +1,7 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { t } from '@lingui/macro';
-import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'data/constants';
+import { HANDLE_REGEX, HANDLE_SANITIZE_REGEX } from 'data/constants';
 import type { Profile, Publication } from 'lens';
 import { useRelevantPeopleQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
@@ -15,7 +15,7 @@ interface RelevantPeopleProps {
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   const mentions =
-    publication?.metadata?.content?.match(ALL_HANDLES_REGEX, '$1[~$2]') ?? [];
+    publication?.metadata?.content?.match(HANDLE_REGEX, '$1[~$2]') ?? [];
 
   const processedMentions = mentions.map((mention: string) => {
     const trimmedMention = mention.trim().replace('@', '').replace("'s", '');
