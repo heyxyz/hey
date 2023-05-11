@@ -9,7 +9,6 @@ import { Modal, Tooltip } from 'ui';
 import CollectForm from './CollectForm';
 
 const CollectSettings: FC = () => {
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
   const reset = useCollectModuleStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
 
