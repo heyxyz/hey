@@ -36,7 +36,7 @@ export default function MessageHeader({ profile, groupInfo }: MessageHeaderProps
             <Image
               src={groupInfo.groupImage!}
               loading="lazy"
-              className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+              className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
               height={40}
               width={40}
               alt={groupInfo.groupName}

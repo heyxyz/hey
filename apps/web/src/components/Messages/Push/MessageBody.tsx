@@ -14,9 +14,11 @@ import EmojiPicker from 'emoji-picker-react';
 import GifPicker from 'gif-picker-react';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
+import { useAppStore } from 'src/store/app';
 import { CHAT_TYPES, PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image, Input, Spinner } from 'ui';
 
@@ -31,18 +33,26 @@ type GIFType = {
 const CHATS_FETCH_LIMIT = 15;
 const MessageCard = ({ chat, position }: { chat: IMessageIPFS; position: number }) => {
   const time = moment(chat.timestamp).format('hh:mm');
+  // position = 0 -> DM (another person), 1 -> Connected Profile ID, 2 -> Group (another person)
   return (
     <div
       className={clsx(
-        position ? 'self-end rounded-xl rounded-tr-sm  bg-violet-500' : 'rounded-xl rounded-tl-sm',
+        position === 0
+          ? 'rounded-xl rounded-tl-sm'
+          : position === 1
+          ? 'self-end rounded-xl rounded-tr-sm bg-violet-500'
+          : 'absolute top-[-16px] ml-11 rounded-xl rounded-tl-sm',
         'relative w-fit max-w-[80%] border py-3 pl-4 pr-[50px] font-medium'
       )}
     >
-      <p className={clsx(position ? 'text-white' : '', 'max-w-[100%] break-words text-sm')}>
+      <p className={clsx(position === 1 ? 'text-white' : '', 'max-w-[100%] break-words text-sm')}>
         {chat.messageContent}
       </p>
       <span
-        className={clsx(position ? 'text-white' : 'text-gray-500', 'absolute bottom-1.5	right-1.5 text-xs')}
+        className={clsx(
+          position === 1 ? 'text-white' : 'text-gray-500',
+          'absolute bottom-1.5	right-1.5 text-xs'
+        )}
       >
         {time}
       </span>
@@ -51,11 +61,16 @@ const MessageCard = ({ chat, position }: { chat: IMessageIPFS; position: number 
 };
 
 const GIFCard = ({ chat, position }: { chat: IMessageIPFS; position: number }) => {
+  // position = 0 -> DM (another person), 1 -> Connected Profile ID, 2 -> Group (another person)
   return (
     <div className={clsx(position ? 'self-end' : '', 'relative w-fit')}>
       <Image
         className={clsx(
-          position ? 'right-0 rounded-xl rounded-tr-sm' : 'rounded-xl rounded-tl-sm',
+          position === 0
+            ? 'rounded-xl rounded-tl-sm'
+            : position === 1
+            ? 'right-0 rounded-xl rounded-tr-sm'
+            : 'absolute top-[-16px] ml-11 rounded-xl rounded-tl-sm',
           'font-medium0 relative w-fit border'
         )}
         src={chat.messageContent}
@@ -66,9 +81,49 @@ const GIFCard = ({ chat, position }: { chat: IMessageIPFS; position: number }) =
   );
 };
 
+const SenderProfileInMsg = ({ chat }: { chat: IMessageIPFS }) => {
+  const { getLensProfile } = useFetchLensProfiles();
+  const [profile, setProfile] = useState<Profile>();
+
+  useEffect(() => {
+    (async function () {
+      const profileRes = await getLensProfile(getProfileFromDID(chat.fromDID));
+      if (profileRes) {
+        setProfile(profileRes);
+      }
+    })();
+  }, []);
+
+  return profile ? (
+    <div className="flex items-start space-x-2">
+      <Image
+        onError={({ currentTarget }) => {
+          currentTarget.src = getAvatar(profile, false);
+        }}
+        src={getAvatar(profile)}
+        loading="lazy"
+        className="h-9 w-9 rounded-full border bg-gray-200 dark:border-gray-700"
+        height={36}
+        width={36}
+        alt={formatHandle(profile?.handle)}
+      />
+      <UserPreview profile={profile}>
+        <p className="bold text-base leading-6">{profile.name ?? formatHandle(profile?.handle)}</p>
+      </UserPreview>
+    </div>
+  ) : null;
+};
+
 const Messages = ({ chat }: { chat: IMessageIPFS }) => {
-  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
-  const position = chat.fromDID !== connectedProfile?.did ? 0 : 1;
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const selectedChatType = usePushChatStore((state) => state.selectedChatType);
+  let position = getProfileFromDID(chat.fromDID) !== currentProfile?.id ? 0 : 1;
+
+  // making position 2 for groups messages of different people than connected profile
+  if (!position && selectedChatType === CHAT_TYPES.GROUP) {
+    position = 2;
+  }
+
   if (chat.messageType === 'GIF') {
     return <GIFCard chat={chat} position={position} />;
   }
@@ -195,6 +250,7 @@ interface MessageBodyProps {
   groupInfo?: GroupDTO;
 }
 export default function MessageBody({ groupInfo }: MessageBodyProps) {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const listInnerRef = useRef<HTMLDivElement>(null);
@@ -274,7 +330,6 @@ export default function MessageBody({ groupInfo }: MessageBodyProps) {
       const profile = await getLensProfile(groupCreatorProfileId);
       if (profile) {
         setGroupCreatorProfile(profile);
-        console.log(profile);
       }
     })();
   }, [groupInfo]);
@@ -350,8 +405,8 @@ export default function MessageBody({ groupInfo }: MessageBodyProps) {
   };
 
   return (
-    <section className="flex h-[90%] flex-col p-5 pb-3">
-      <div className="flex-grow overflow-auto px-2.5" ref={listInnerRef} onScroll={onScroll}>
+    <section className="flex h-[90%] flex-col p-3 pb-3">
+      <div className="flex-grow overflow-auto px-2" ref={listInnerRef} onScroll={onScroll}>
         {loading ? (
           <div className="flex justify-center py-2">
             <Spinner size="sm" />
@@ -363,9 +418,19 @@ export default function MessageBody({ groupInfo }: MessageBodyProps) {
         <div className="flex flex-col gap-2.5">
           {selectedMessages?.messages.map((chat: IMessageIPFS, index: number) => {
             const dateNum = moment(chat.timestamp).format('ddMMyyyy');
+            let previousChat = null;
+            if (index > 0) {
+              previousChat = selectedMessages?.messages[index - 1]; // Get the previous chat
+            }
+
             return (
               <>
                 {dates.has(dateNum) ? null : renderDate({ chat, dateNum })}
+                {getProfileFromDID(chat.fromDID) !== currentProfile?.id &&
+                selectedChatType === CHAT_TYPES.GROUP &&
+                (index === 0 || previousChat?.fromDID !== chat.fromDID) ? (
+                  <SenderProfileInMsg chat={chat} />
+                ) : null}
                 <Messages chat={chat} key={index} />
               </>
             );
