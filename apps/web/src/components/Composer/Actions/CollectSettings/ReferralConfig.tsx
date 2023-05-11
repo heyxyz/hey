@@ -21,10 +21,8 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
           setCollectType({
             type: collectModule.recipients?.length
               ? CollectModules.MultirecipientFeeCollectModule
-              : collectModule.referralFee
-              ? CollectModules.SimpleCollectModule
-              : CollectModules.FeeCollectModule,
-            referralFee: collectModule.referralFee ? null : '25'
+              : CollectModules.SimpleCollectModule,
+            referralFee: collectModule.referralFee ? null : 25
           })
         }
         heading={t`Mirror referral reward`}
@@ -43,7 +41,9 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
             value={collectModule.referralFee}
             onChange={(event) => {
               setCollectType({
-                referralFee: event.target.value ? event.target.value : '0'
+                referralFee: parseInt(
+                  event.target.value ? event.target.value : '0'
+                )
               });
             }}
           />

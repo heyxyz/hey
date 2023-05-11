@@ -19,16 +19,15 @@ interface CollectFormProps {
 }
 
 const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
-  const amount = useCollectModuleStore((state) => state.amount);
-  const recipients = useCollectModuleStore((state) => state.recipients);
-  const reset = useCollectModuleStore((state) => state.reset);
   const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const reset = useCollectModuleStore((state) => state.reset);
   const setCollectModule = useCollectModuleStore(
     (state) => state.setCollectModule
   );
 
   const { RevertCollectModule, FreeCollectModule, SimpleCollectModule } =
     CollectModules;
+  const recipients = collectModule.recipients ?? [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
   const hasEmptyRecipients = recipients.some(
     (recipient) => !recipient.recipient
@@ -75,18 +74,15 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   }
 
   const toggleCollect = () => {
-    setCollectType({
-      type:
-        collectModule.type === RevertCollectModule
-          ? SimpleCollectModule
-          : RevertCollectModule,
-      isFreeCollect: true
-    });
+    if (collectModule.type === RevertCollectModule) {
+      setCollectType({ type: SimpleCollectModule });
+    } else {
+      reset();
+    }
   };
 
   return (
     <div className="space-y-3 p-5">
-      {JSON.stringify(collectModule.type)}
       <ToggleWithHelper
         on={collectModule.type !== RevertCollectModule}
         setOn={toggleCollect}
@@ -118,7 +114,6 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           variant="danger"
           outline
           onClick={() => {
-            reset();
             setShowModal(false);
           }}
         >
@@ -126,7 +121,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         </Button>
         <Button
           disabled={
-            (parseFloat(amount as string) <= 0 &&
+            (parseFloat(collectModule.amount?.value as string) <= 0 &&
               collectModule.type !== FreeCollectModule) ||
             splitTotal > 100 ||
             hasEmptyRecipients ||

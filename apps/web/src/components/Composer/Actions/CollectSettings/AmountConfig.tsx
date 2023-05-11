@@ -30,12 +30,9 @@ const AmountConfig: FC<AmountConfigProps> = ({
               : collectModule.recipients?.length
               ? CollectModules.MultirecipientFeeCollectModule
               : CollectModules.SimpleCollectModule,
-            amount: {
-              currency: collectModule.amount?.value
-                ? null
-                : DEFAULT_COLLECT_TOKEN,
-              value: collectModule.amount?.value ? null : '1'
-            }
+            amount: collectModule.amount?.value
+              ? null
+              : { currency: DEFAULT_COLLECT_TOKEN, value: '1' }
           });
         }}
         heading={t`Charge for collecting`}

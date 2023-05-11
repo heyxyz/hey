@@ -89,17 +89,16 @@ const SplitConfig: FC<SplitConfigProps> = ({
       <ToggleWithHelper
         on={recipients.length > 0}
         setOn={() => {
-          if (recipients.length > 0) {
-            setCollectType({
-              type: CollectModules.SimpleCollectModule,
-              recipients: []
-            });
-          } else {
-            setCollectType({
-              type: CollectModules.MultirecipientFeeCollectModule,
-              recipients: [{ recipient: currentProfile?.ownedBy, split: 100 }]
-            });
-          }
+          setCollectType({
+            type:
+              recipients.length > 0
+                ? CollectModules.SimpleCollectModule
+                : CollectModules.MultirecipientFeeCollectModule,
+            recipients:
+              recipients.length > 0
+                ? []
+                : [{ recipient: currentProfile?.ownedBy, split: 100 }]
+          });
         }}
         heading={
           <div className="flex items-center space-x-2">

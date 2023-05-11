@@ -1,6 +1,5 @@
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CashIcon } from '@heroicons/react/outline';
-import { getModule } from '@lib/getModule';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -11,15 +10,13 @@ import { Modal, Tooltip } from 'ui';
 import CollectForm from './CollectForm';
 
 const CollectSettings: FC = () => {
-  const selectedCollectModule = useCollectModuleStore(
-    (state) => state.selectedCollectModule
-  );
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
   const reset = useCollectModuleStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <Tooltip placement="top" content={getModule(selectedCollectModule).name}>
+      <Tooltip placement="top" content="WIP">
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
@@ -27,7 +24,7 @@ const CollectSettings: FC = () => {
           aria-label="Choose Collect Module"
         >
           <div className="text-brand">
-            <GetModuleIcon module={selectedCollectModule} size={5} />
+            <GetModuleIcon module={collectModule.type} size={5} />
           </div>
         </motion.button>
       </Tooltip>

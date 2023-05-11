@@ -13,9 +13,6 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
   setCollectType
 }) => {
   const collectModule = useCollectModuleStore((state) => state.collectModule);
-  const setCollectLimit = useCollectModuleStore(
-    (state) => state.setCollectLimit
-  );
 
   return (
     <div className="pt-5">
@@ -23,7 +20,7 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
         on={Boolean(collectModule.collectLimit)}
         setOn={() =>
           setCollectType({
-            collectLimit: collectModule.collectLimit ? null : 1
+            collectLimit: collectModule.collectLimit ? null : '1'
           })
         }
         heading={t`Limited edition`}
@@ -38,9 +35,11 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
             placeholder="5"
             min="1"
             max="100000"
-            value={parseFloat(collectModule.collectLimit)}
+            value={collectModule.collectLimit}
             onChange={(event) => {
-              setCollectLimit(event.target.value ? event.target.value : '1');
+              setCollectType({
+                collectLimit: event.target.value ? event.target.value : '1'
+              });
             }}
           />
         </div>
