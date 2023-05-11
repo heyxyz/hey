@@ -15,7 +15,7 @@ export type CollectModuleType = {
 const INITIAL_COLLECT_MODULE: CollectModuleType = {
   type: CollectModules.RevertCollectModule,
   amount: null,
-  referralFee: null,
+  referralFee: 0,
   collectLimit: null,
   timeLimit: false,
   recipients: [],

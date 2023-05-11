@@ -1,5 +1,4 @@
-import GetModuleIcon from '@components/utils/GetModuleIcon';
-import { CashIcon } from '@heroicons/react/outline';
+import { CollectionIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -16,21 +15,19 @@ const CollectSettings: FC = () => {
 
   return (
     <>
-      <Tooltip placement="top" content="WIP">
+      <Tooltip placement="top" content="Collect">
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => setShowModal(!showModal)}
           aria-label="Choose Collect Module"
         >
-          <div className="text-brand">
-            <GetModuleIcon module={collectModule.type} size={5} />
-          </div>
+          <CollectionIcon className="text-brand h-5 w-5" />
         </motion.button>
       </Tooltip>
       <Modal
         title={t`Collect settings`}
-        icon={<CashIcon className="text-brand h-5 w-5" />}
+        icon={<CollectionIcon className="text-brand h-5 w-5" />}
         show={showModal}
         onClose={() => {
           setShowModal(false);

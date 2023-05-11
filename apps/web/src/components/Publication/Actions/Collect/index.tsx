@@ -1,13 +1,10 @@
 import Loader from '@components/Shared/Loader';
-import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
-import getCollectModule from '@lib/getCollectModule';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ElectedMirror, Publication } from 'lens';
-import { CollectModules } from 'lens';
 import humanize from 'lib/humanize';
 import nFormatter from 'lib/nFormatter';
 import dynamic from 'next/dynamic';
@@ -89,27 +86,11 @@ const Collect: FC<CollectProps> = ({
         )}
       </div>
       <Modal
-        title={
-          isFreeCollect
-            ? t`Free Collect`
-            : getCollectModule(publication?.collectModule).name
-        }
-        icon={
-          <div className="text-brand">
-            <GetModuleIcon
-              module={
-                isFreeCollect
-                  ? CollectModules.FreeCollectModule
-                  : publication?.collectModule?.type
-              }
-              size={5}
-            />
-          </div>
-        }
+        title={t`Collect`}
+        icon={<CollectionIcon className="text-brand h-5 w-5" />}
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >
-        {JSON.stringify(publication?.collectModule)}
         <CollectModule
           electedMirror={electedMirror}
           publication={publication}

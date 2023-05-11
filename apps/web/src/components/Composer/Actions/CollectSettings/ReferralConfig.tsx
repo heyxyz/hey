@@ -22,7 +22,7 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
             type: collectModule.recipients?.length
               ? CollectModules.MultirecipientFeeCollectModule
               : CollectModules.SimpleCollectModule,
-            referralFee: collectModule.referralFee ? null : 25
+            referralFee: collectModule.referralFee ? 0 : 25
           })
         }
         heading={t`Mirror referral reward`}
