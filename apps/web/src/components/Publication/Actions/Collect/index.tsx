@@ -2,7 +2,7 @@ import Loader from '@components/Shared/Loader';
 import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
-import { getModule } from '@lib/getModule';
+import getAllowanceModule from '@lib/getAllowanceModule';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -92,7 +92,7 @@ const Collect: FC<CollectProps> = ({
         title={
           isFreeCollect
             ? t`Free Collect`
-            : getModule(publication?.collectModule?.type).name
+            : getAllowanceModule(publication?.collectModule?.type).name
         }
         icon={
           <div className="text-brand">
