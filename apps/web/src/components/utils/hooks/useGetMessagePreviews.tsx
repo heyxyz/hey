@@ -1,8 +1,7 @@
 import chunkArray from '@lib/chunkArray';
 import { buildConversationKey } from '@lib/conversationKey';
-import type { Conversation } from '@xmtp/xmtp-js';
+import type { Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
-import type { DecodedMessage } from '@xmtp/xmtp-js/dist/types/src/Message';
 import { useEffect, useRef, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
