@@ -3,7 +3,7 @@ import { APP_NAME } from 'data/constants';
 import { PRERENDER_BASE_URL } from 'test/constants';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto(`${PRERENDER_BASE_URL}/posts/0x03-0x13`);
+  await page.goto(`${PRERENDER_BASE_URL}/posts/0x03-0x16`);
 });
 
 test.skip('should have page title', async ({ page }) => {
@@ -11,7 +11,7 @@ test.skip('should have page title', async ({ page }) => {
 });
 
 test.skip('should have publication', async ({ page }) => {
-  await expect(page.getByTestId('publication-0x03-0x13')).toContainText('gm frens 👋');
+  await expect(page.getByTestId('publication-0x03-0x16')).toContainText('gm frens 👋');
 });
 
 test.skip('should have comment feed', async ({ page }) => {

@@ -4,7 +4,7 @@ import { WEB_BASE_URL } from 'test/constants';
 
 test.describe('Publication', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/posts/0x03-0x13`);
+    await page.goto(`${WEB_BASE_URL}/posts/0x03-0x16`);
   });
 
   test('should have publication title', async ({ page }) => {
@@ -12,20 +12,20 @@ test.describe('Publication', () => {
   });
 
   test('should have publication', async ({ page }) => {
-    const publication = page.getByTestId('publication-0x03-0x13');
+    const publication = page.getByTestId('publication-0x03-0x16');
     await expect(publication).toBeVisible();
   });
 
   test.describe('Publication header', async () => {
     test('should have profile', async ({ page }) => {
-      const publication = page.getByTestId('publication-0x03-0x13');
+      const publication = page.getByTestId('publication-0x03-0x16');
       await expect(publication).toContainText('Alain');
     });
 
     test('should have menu', async ({ page }) => {
-      const publicationMenu = page.getByTestId('publication-0x03-0x13-menu');
+      const publicationMenu = page.getByTestId('publication-0x03-0x16-menu');
       await publicationMenu.click();
-      const localeSelectorMenuItems = page.getByTestId('publication-0x03-0x13-menu-items');
+      const localeSelectorMenuItems = page.getByTestId('publication-0x03-0x16-menu-items');
       await expect(localeSelectorMenuItems).toContainText('Report Post');
       await expect(localeSelectorMenuItems).toContainText('Embed');
       await expect(localeSelectorMenuItems).toContainText('Permalink');
@@ -34,27 +34,27 @@ test.describe('Publication', () => {
 
   test.describe('Publication body', async () => {
     test('should have body', async ({ page }) => {
-      const publication = page.getByTestId('publication-0x03-0x13');
+      const publication = page.getByTestId('publication-0x03-0x16');
       await expect(publication).toContainText('Hello world! 👋');
     });
   });
 
   test.describe('Publication meta', async () => {
     test('should have meta', async ({ page }) => {
-      const publication = page.getByTestId('publication-0x03-0x13');
+      const publication = page.getByTestId('publication-0x03-0x16');
       await expect(publication).toContainText('Posted via Lineaster');
-      await expect(publication).toContainText('May 9, 2023');
+      await expect(publication).toContainText('May 10, 2023');
     });
   });
 
   test.describe('Publication stats', async () => {
-    test.skip('should have comment stats', async ({ page }) => {
-      const publicationCommentStats = page.getByTestId('publication-0x03-0x13').getByTestId('comment-stats');
+    test('should have comment stats', async ({ page }) => {
+      const publicationCommentStats = page.getByTestId('publication-0x03-0x16').getByTestId('comment-stats');
       await expect(publicationCommentStats).toContainText('Comments');
     });
 
-    test.skip('should have mirror stats', async ({ page }) => {
-      const publicationMirrorStats = page.getByTestId('publication-0x03-0x13').getByTestId('mirror-stats');
+    test('should have mirror stats', async ({ page }) => {
+      const publicationMirrorStats = page.getByTestId('publication-0x03-0x16').getByTestId('mirror-stats');
       await expect(publicationMirrorStats).toContainText('Mirror');
 
       // click mirror stats and check if it opens mirror modal
@@ -63,8 +63,8 @@ test.describe('Publication', () => {
       await expect(mirrorsModal).toBeVisible();
     });
 
-    test.skip('should have like stats', async ({ page }) => {
-      const publicationLikeStats = page.getByTestId('publication-0x03-0x13').getByTestId('like-stats');
+    test('should have like stats', async ({ page }) => {
+      const publicationLikeStats = page.getByTestId('publication-0x03-0x16').getByTestId('like-stats');
       await expect(publicationLikeStats).toContainText('Likes');
 
       // click like stats and check if it opens likes modal
@@ -73,8 +73,8 @@ test.describe('Publication', () => {
       await expect(likesModal).toBeVisible();
     });
 
-    test.skip('should have collect stats', async ({ page }) => {
-      const publicationCollectStats = page.getByTestId('publication-0x03-0x13').getByTestId('collect-stats');
+    test('should have collect stats', async ({ page }) => {
+      const publicationCollectStats = page.getByTestId('publication-0x03-0x16').getByTestId('collect-stats');
       await expect(publicationCollectStats).toContainText('Collects');
 
       // click collect stats and check if it opens collectors modal
@@ -83,7 +83,7 @@ test.describe('Publication', () => {
       await expect(collectorsModal).toBeVisible();
     });
 
-    test.skip('should have comments feed', async ({ page }) => {
+    test('should have comments feed', async ({ page }) => {
       await expect(page.getByTestId('comments-feed')).toBeVisible();
     });
 
@@ -124,7 +124,7 @@ test.describe('Publication attachments', () => {
   });
 
   test.skip('should have publication audio', async ({ page }) => {
-    const publicationId = '0x03-0x13ec';
+    const publicationId = '0x03-0x16ec';
     await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
     const audioURL = `${IPFS_GATEWAY}bafybeihabco35vpefrlgzx3rvxccfx4th6ti5ktidw2tf5vjmnmjwx5ki4`;
@@ -143,8 +143,8 @@ test.describe('Publication attachments', () => {
   });
 
   test.describe('Publication oembed', () => {
-    test.skip('should have normal oembed', async ({ page }) => {
-      const publicationId = '0x0d-0x0375';
+    test('should have normal oembed', async ({ page }) => {
+      const publicationId = '0x03-0x19';
       await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
       const publicationOembed = page
@@ -153,8 +153,8 @@ test.describe('Publication attachments', () => {
       await expect(publicationOembed).toBeVisible();
     });
 
-    test.skip('should have rich oembed', async ({ page }) => {
-      const publicationId = '0x0d-0x02fb';
+    test('should have rich oembed', async ({ page }) => {
+      const publicationId = '0x03-0x1a';
       await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
       const publicationOembed = page
@@ -165,8 +165,8 @@ test.describe('Publication attachments', () => {
   });
 
   test.describe('Publication snapshot widget', () => {
-    test.skip('should have snapshot oembed', async ({ page }) => {
-      const publicationId = '0x0c-0x2c';
+    test('should have snapshot oembed', async ({ page }) => {
+      const publicationId = '0x03-0x1c';
       await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
       const snapshotWidget = page
@@ -180,25 +180,26 @@ test.describe('Publication attachments', () => {
 
 test.describe('Publication sidebar', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(`${WEB_BASE_URL}/posts/0x0d-0x037d`);
+    await page.goto(`${WEB_BASE_URL}/posts/0x03-0x1e`);
   });
 
-  test.skip('should have og poster profile', async ({ page }) => {
+  test('should have og poster profile', async ({ page }) => {
     const posterProfile = page.getByTestId('poster-profile');
     await expect(posterProfile).toContainText('Alain');
   });
 
-  test.skip('should have relevant profiles', async ({ page }) => {
+  test('should have relevant profiles', async ({ page }) => {
     const relevantProfiles = page.getByTestId('relevant-profiles');
-    await expect(relevantProfiles).toContainText('@lenster');
-    await expect(relevantProfiles).toContainText('@sagargowda');
+    await expect(relevantProfiles).toContainText('@igorms');
+    await expect(relevantProfiles).toContainText('@matt17');
+    await expect(relevantProfiles).toContainText('@sebhandle2');
   });
 
-  test.skip('should have on chain meta', async ({ page }) => {
+  test('should have on chain meta', async ({ page }) => {
     const onChainMeta = page.getByTestId('onchain-meta');
     // Arweave transaction
-    await expect(onChainMeta).toContainText('t0zAPjaeoh3M1TZQV0ZcbSCw_Q0wlQE4LgJuKnO1HLE');
+    await expect(onChainMeta).toContainText('c77oPfsGAgNh4AXDejJWFqqngjNJdCqlc5SHeVibaNw');
     // NFT address
-    await expect(onChainMeta).toContainText('0x89e19Acb4ac03FDf6a09dc299961F51059195612');
+    await expect(onChainMeta).toContainText('0x8Ee6D711A0e9dD531235674F495D36eE2f9Dc611');
   });
 });
