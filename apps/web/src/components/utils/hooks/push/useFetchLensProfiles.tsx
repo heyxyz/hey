@@ -7,6 +7,7 @@ const useFetchLensProfiles = () => {
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const setLensProfiles = usePushChatStore((state) => state.setLensProfiles);
+  const lensProfiles = usePushChatStore((state) => state.lensProfiles);
 
   const [loadProfiles] = useProfilesLazyQuery();
 
@@ -38,7 +39,28 @@ const useFetchLensProfiles = () => {
     [loadProfiles, setLensProfiles]
   );
 
-  return { loadLensProfiles, error, loading };
+  const getLensProfile = useCallback(
+    async (profileId: string) => {
+      try {
+        setLoading(true);
+
+        if (lensProfiles.get(profileId)) {
+          return lensProfiles.get(profileId);
+        } else {
+          const lensIdMap = await loadLensProfiles([profileId]);
+          return lensIdMap?.get(profileId);
+        }
+      } catch (error: Error | any) {
+        console.log(error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [lensProfiles, loadLensProfiles]
+  );
+
+  return { loadLensProfiles, getLensProfile, error, loading };
 };
 
 export default useFetchLensProfiles;

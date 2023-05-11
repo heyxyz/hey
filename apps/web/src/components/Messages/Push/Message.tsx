@@ -166,14 +166,14 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
             <>
               {profile !== '' && profile && (
                 <>
-                  <MessageHeader profile={profile as Profile} />
+                  <MessageHeader profile={profile} />
                   <MessageBody />
                 </>
               )}
               {groupInfo !== '' && groupInfo && (
                 <>
-                  <MessageHeader groupInfo={groupInfo as GroupDTO} />
-                  <MessageBody />
+                  <MessageHeader groupInfo={groupInfo} />
+                  <MessageBody groupInfo={groupInfo} />
                 </>
               )}
             </>

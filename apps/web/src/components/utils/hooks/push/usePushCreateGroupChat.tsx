@@ -503,7 +503,7 @@ const useCreateGroup = () => {
 
           <div onClick={handleUpload} className=" w-fit cursor-pointer self-center">
             {!!!groupImage && (
-              <div className="rounded-4xl my-4 w-fit cursor-pointer bg-gray-100 p-10">
+              <div className="my-4 w-fit cursor-pointer rounded-[2.5rem] bg-gray-100 p-10">
                 <img className="h-11 w-11" src="/push/uploadImage.svg" alt="plus icon" />
               </div>
             )}
@@ -593,7 +593,7 @@ const useCreateGroup = () => {
           >
             <XIcon className="h-5 w-5" />
           </button>
-          <div className="mb-4 mt-1  text-center text-xl font-medium">{modalInfo.title}</div>
+          <div className="mb-4 mt-1 text-center text-xl font-medium">{modalInfo.title}</div>
           <div className="flex flex-row justify-between pt-4 text-base">
             <span className="font-medium">Add users</span>
             <span className="text-sm text-slate-500">{`0${

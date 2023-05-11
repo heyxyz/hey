@@ -1,6 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import { ChatAlt2Icon } from '@heroicons/react/solid';
+import { AtSymbolIcon } from '@heroicons/react/solid';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
@@ -37,7 +37,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({ notification }) => 
     <div className="flex items-start justify-between">
       <div className="w-4/5 space-y-2">
         <div className="flex items-center space-x-3">
-          <ChatAlt2Icon className="h-6 w-6 text-blue-500/70" />
+          <AtSymbolIcon className="h-6 w-6 text-blue-500/70" />
           <UserPreview profile={notification?.profile}>
             <NotificationProfileAvatar profile={notification?.profile} />
           </UserPreview>

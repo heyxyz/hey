@@ -79,8 +79,8 @@ export default function PUSHPreviewChats() {
                         {feed.groupInformation?.groupName}
                       </p>
                       <PreviewMessage
-                        content={getGroupPreviewMessage(feed, connectedProfile?.did!, false).message}
-                        messageType={getGroupPreviewMessage(feed, connectedProfile?.did!, false).type}
+                        content={getGroupPreviewMessage(feed, connectedProfile?.did!, true).message}
+                        messageType={getGroupPreviewMessage(feed, connectedProfile?.did!, true).type}
                       />
                     </>
                   ) : (

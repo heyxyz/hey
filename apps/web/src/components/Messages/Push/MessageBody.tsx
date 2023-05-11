@@ -1,21 +1,26 @@
+import Slug from '@components/Shared/Slug';
+import UserPreview from '@components/Shared/UserPreview';
 import useApproveChatRequest from '@components/utils/hooks/push/useApproveChatRequest';
 import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
 import useFetchChats from '@components/utils/hooks/push/useFetchChats';
 import useGetHistoryMessages from '@components/utils/hooks/push/useFetchHistoryMessages';
+import useFetchLensProfiles from '@components/utils/hooks/push/useFetchLensProfiles';
 import useFetchRequests from '@components/utils/hooks/push/useFetchRequests';
 import usePushSendMessage from '@components/utils/hooks/push/usePushSendMessage';
 import onError from '@lib/onError';
-import type { IMessageIPFS } from '@pushprotocol/restapi';
+import type { GroupDTO, IMessageIPFS } from '@pushprotocol/restapi';
 import clsx from 'clsx';
 import EmojiPicker from 'emoji-picker-react';
 import GifPicker from 'gif-picker-react';
+import type { Profile } from 'lens';
+import formatHandle from 'lib/formatHandle';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
-import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
+import { CHAT_TYPES, PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image, Input, Spinner } from 'ui';
 
-import { dateToFromNowDaily, isProfileExist } from './helper';
+import { dateToFromNowDaily, getProfileFromDID, isProfileExist } from './helper';
 
 type GIFType = {
   url: String;
@@ -186,7 +191,10 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
   );
 };
 
-export default function MessageBody() {
+interface MessageBodyProps {
+  groupInfo?: GroupDTO;
+}
+export default function MessageBody({ groupInfo }: MessageBodyProps) {
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const listInnerRef = useRef<HTMLDivElement>(null);
@@ -196,10 +204,14 @@ export default function MessageBody() {
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const setRequestsFeed = usePushChatStore((state) => state.setRequestsFeed);
   const setChatfeed = usePushChatStore((state) => state.setChatsFeed);
+  const selectedChatType = usePushChatStore((state) => state.selectedChatType);
   const chats = usePushChatStore((state) => state.chats);
   const chatsFeed = usePushChatStore((state) => state.chatsFeed);
+  const { getLensProfile } = useFetchLensProfiles();
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
   const dates = new Set();
+
+  const [groupCreatorProfile, setGroupCreatorProfile] = useState<Profile>();
 
   const selectedChat = chatsFeed[selectedChatId] || requestsFeed[selectedChatId];
   const selectedMessages = chats.get(selectedChatId);
@@ -251,6 +263,21 @@ export default function MessageBody() {
   const scrollToBottom = (behavior?: string | null) => {
     bottomRef?.current?.scrollIntoView(!behavior ? true : { behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    if (!groupInfo) {
+      return;
+    }
+
+    (async function () {
+      const groupCreatorProfileId = getProfileFromDID(groupInfo.groupCreator);
+      const profile = await getLensProfile(groupCreatorProfileId);
+      if (profile) {
+        setGroupCreatorProfile(profile);
+        console.log(profile);
+      }
+    })();
+  }, [groupInfo]);
 
   useEffect(() => {
     if (prevSelectedId.current !== selectedChatId) {
@@ -344,10 +371,33 @@ export default function MessageBody() {
             );
           })}
           {requestFeedids.includes(selectedChatId) && (
-            <div className="flex w-96 rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
-              <div className="text-sm font-normal">
-                This is your first conversation with the sender. Please accept to continue.
-              </div>
+            <div className="flex w-fit rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
+              {selectedChatType === CHAT_TYPES.CHAT ? (
+                <div className="flex flex-col text-sm font-normal">
+                  <span>This is your first conversation with the sender.</span>
+                  <span>Please accept to continue.</span>
+                </div>
+              ) : selectedChatType === CHAT_TYPES.GROUP ? (
+                <div className="flex flex-col text-sm font-normal">
+                  <span>
+                    You were invited to the group by{' '}
+                    {groupCreatorProfile?.name ?? formatHandle(groupCreatorProfile?.handle)} (
+                    <span className="cursor-pointer">
+                      {groupCreatorProfile && (
+                        <UserPreview profile={groupCreatorProfile}>
+                          <Slug
+                            className="text-sm"
+                            slug={formatHandle(groupCreatorProfile.handle)}
+                            prefix="@"
+                          />
+                        </UserPreview>
+                      )}
+                    </span>
+                    ) .
+                  </span>
+                  <span> Please accept to continue messaging in this group.</span>
+                </div>
+              ) : null}
               <Image
                 className="h-12 cursor-pointer"
                 onClick={handleApprovechatRequest}

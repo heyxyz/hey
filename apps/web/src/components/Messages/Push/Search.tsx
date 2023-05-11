@@ -134,7 +134,7 @@ const Search: FC<SearchProps> = ({
                     <UserProfile
                       linkToProfile={!onProfileSelected}
                       profile={profile}
-                      showUserPreview={false}
+                      showUserPreview={true}
                     />
                   </div>
                 ))}
