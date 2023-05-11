@@ -13,10 +13,10 @@
   "dependencies": {
     "data": "workspace:*",
     "lens": "workspace:*",
-    "viem": "^0.3.19"
+    "viem": "^0.3.21"
   },
   "devDependencies": {
-    "@types/node": "^20.1.1",
+    "@types/node": "^20.1.2",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
