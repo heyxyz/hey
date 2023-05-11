@@ -30,7 +30,7 @@ const getAllowanceModule = (
     case ReferenceModules.FollowerOnlyReferenceModule:
       return { name: t`Follower Only Reference`, field: 'referenceModule' };
     default:
-      return { name: name, field: 'collectModule' };
+      return { name, field: 'collectModule' };
   }
 };
 

@@ -46,17 +46,31 @@ fragment CollectModuleFields on CollectModule {
   }
   ... on MultirecipientFeeCollectModuleSettings {
     type
+    optionalCollectLimit: collectLimit
+    optionalEndTimestamp: endTimestamp
+    referralFee
+    followerOnly
     contractAddress
     amount {
       ...ModuleFeeAmountFields
     }
-    optionalCollectLimit: collectLimit
-    referralFee
-    followerOnly
-    optionalEndTimestamp: endTimestamp
     recipients {
       recipient
       split
+    }
+  }
+  ... on SimpleCollectModuleSettings {
+    type
+    optionalCollectLimit: collectLimit
+    optionalEndTimestamp: endTimestamp
+    contractAddress
+    followerOnly
+    fee {
+      amount {
+        ...ModuleFeeAmountFields
+      }
+      recipient
+      referralFee
     }
   }
 }
