@@ -1,3 +1,5 @@
+import { URL_REGEX } from 'data';
+
 /**
  * Returns an array of URLs found in the specified text.
  *
@@ -9,8 +11,7 @@ const getURLs = (text: string): string[] => {
     return [];
   }
 
-  const urlRegex = /(((https?:\/\/)|(www\.))\S+)/g;
-  return text.match(urlRegex) || [];
+  return text.match(URL_REGEX) || [];
 };
 
 export default getURLs;
