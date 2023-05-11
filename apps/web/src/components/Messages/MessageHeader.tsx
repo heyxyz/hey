@@ -7,17 +7,26 @@ import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 import { FollowSource } from 'src/tracking';
+import useSendMessage from '@components/utils/hooks/useSendMessage';
+import useGetConversation from '@components/utils/hooks/useGetConversation';
 
 import Follow from '../Shared/Follow';
 
 interface MessageHeaderProps {
   profile?: Profile;
+  conversationKey: string;
 }
 
-const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
+const MessageHeader: FC<MessageHeaderProps> = ({
+  profile,
+  conversationKey
+}) => {
   const router = useRouter();
   const [following, setFollowing] = useState(true);
   const unsyncProfile = useMessageStore((state) => state.unsyncProfile);
+
+  const { selectedConversation } = useGetConversation(conversationKey, profile);
+  const { sendMessage } = useSendMessage(selectedConversation);
 
   const setFollowingWrapped = useCallback(
     (following: boolean) => {
@@ -62,6 +71,22 @@ const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
           setFollowing={setFollowingWrapped}
         />
       )}
+      <div className="hidden lg:block">
+        <button
+          onClick={() => {
+            sendMessage(
+              `<a href="javascript:window.open('https://iframe.huddle01.com/jmz-vraz-rge', 'newwindow', 'width=1000px, height=700px');"}> Click here </a>`
+            );
+            window.open(
+              'https://iframe.huddle01.com/jmz-vraz-rge',
+              'newwindow',
+              'width=1000px, height=700px'
+            );
+          }}
+        >
+          Video
+        </button>
+      </div>
     </div>
   );
 };

@@ -82,7 +82,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
             </div>
           ) : (
             <>
-              <MessageHeader profile={profile} />
+              <MessageHeader profile={profile} conversationKey={conversationKey} />
               <MessagesList
                 currentProfile={currentProfile}
                 profile={profile}

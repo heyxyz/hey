@@ -12,6 +12,7 @@ import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { Card, Image } from 'ui';
+import parse from 'html-react-parser';
 
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');
@@ -66,7 +67,12 @@ const MessageTile: FC<MessageTileProps> = ({
           >
             {message.error
               ? `Error: ${message.error?.message}`
-              : <Markup>{message.content}</Markup> ?? ''}
+              : (message.content ==
+                `<a href="javascript:window.open('https://iframe.huddle01.com/jmz-vraz-rge', 'newwindow', 'width=1000px, height=700px');"}> Click here </a>` ? (
+                  <div>{parse(message.content)}</div>
+                ) : (
+                  <Markup>{message.content}</Markup>
+                )) ?? ''}
           </span>
         </div>
       </div>

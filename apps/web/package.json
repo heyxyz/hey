@@ -55,6 +55,7 @@
     "dotenv": "^16.0.3",
     "framer-motion": "^10.12.9",
     "graphql": "^16.6.0",
+    "html-react-parser": "^3.0.16",
     "image-cropper": "workspace:*",
     "jwt-decode": "^3.1.2",
     "lens": "workspace:*",
