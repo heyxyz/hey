@@ -5,6 +5,7 @@ import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
+import parse from 'html-react-parser';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
@@ -12,7 +13,6 @@ import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { Card, Image } from 'ui';
-import parse from 'html-react-parser';
 
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');

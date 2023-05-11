@@ -1,5 +1,7 @@
 import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
+import useGetConversation from '@components/utils/hooks/useGetConversation';
+import useSendMessage from '@components/utils/hooks/useSendMessage';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
@@ -7,8 +9,6 @@ import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 import { FollowSource } from 'src/tracking';
-import useSendMessage from '@components/utils/hooks/useSendMessage';
-import useGetConversation from '@components/utils/hooks/useGetConversation';
 
 import Follow from '../Shared/Follow';
 
