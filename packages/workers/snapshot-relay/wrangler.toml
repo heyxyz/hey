@@ -1,0 +1,13 @@
+name = "snapshot-relay"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+node_compat = true
+
+routes = [
+	{ pattern = "snapshot-relay.lenster.xyz", custom_domain = true }
+]
+
+[env.production.vars]
+MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY = ""
+TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY = ""

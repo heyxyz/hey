@@ -44,7 +44,10 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
         cache.modify({
           fields: {
             publications() {
-              cache.writeQuery({ data: publication as any, query: PublicationDocument });
+              cache.writeQuery({
+                data: publication,
+                query: PublicationDocument
+              });
             }
           }
         });
@@ -75,7 +78,9 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
           getPublication({
             variables: {
               request: { txHash: hasTxHashBeenIndexed.txHash },
-              reactionRequest: currentProfile ? { profileId: currentProfile?.id } : null,
+              reactionRequest: currentProfile
+                ? { profileId: currentProfile?.id }
+                : null,
               profileId: currentProfile?.id ?? null
             }
           });
@@ -99,9 +104,12 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
           <Markup>{txn?.content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (
-          <Attachments attachments={txn?.attachments} txn={txn} isNew hideDelete />
+          <Attachments attachments={txn?.attachments} txn={txn} hideDelete />
         ) : (
-          txn?.attachments && getURLs(txn?.content)?.length > 0 && <IFramely url={getURLs(txn?.content)[0]} />
+          txn?.attachments &&
+          getURLs(txn?.content)?.length > 0 && (
+            <IFramely url={getURLs(txn?.content)[0]} />
+          )
         )}
       </div>
     </article>

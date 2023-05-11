@@ -41,8 +41,10 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
 
   const { cache } = useApolloClient();
   const [createGallery, { loading }] = useCreateNftGalleryMutation();
-  const [updateGallery, { loading: updating }] = useUpdateNftGalleryItemsMutation();
-  const [renameGallery, { loading: renaming }] = useUpdateNftGalleryInfoMutation();
+  const [updateGallery, { loading: updating }] =
+    useUpdateNftGalleryItemsMutation();
+  const [renameGallery, { loading: renaming }] =
+    useUpdateNftGalleryInfoMutation();
   const [fetchNftGalleries] = useNftGalleriesLazyQuery();
 
   const closeModal = () => {
@@ -54,7 +56,11 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const create = async () => {
     try {
       const sanitizedItems = gallery.items.map((el) => {
-        return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
+        return {
+          tokenId: el.tokenId,
+          contractAddress: el.contractAddress,
+          chainId: el.chainId
+        };
       });
       const { data } = await createGallery({
         variables: {
@@ -72,7 +78,10 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         cache.modify({
           fields: {
             nftGalleries() {
-              cache.writeQuery({ data: data?.nftGalleries as NftGallery[], query: NftGalleriesDocument });
+              cache.writeQuery({
+                data: data?.nftGalleries as NftGallery[],
+                query: NftGalleriesDocument
+              });
             }
           }
         });
@@ -100,7 +109,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           fields: {
             nftGalleries() {
               cache.updateQuery({ query: NftGalleriesDocument }, () => ({
-                data: gallery as any
+                data: gallery
               }));
             }
           }
@@ -117,17 +126,29 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
     try {
       const newlyAddedItems = gallery.toAdd?.filter(
         (value) =>
-          value.itemId !== gallery.alreadySelectedItems.find((t) => t.itemId === value.itemId)?.itemId
+          value.itemId !==
+          gallery.alreadySelectedItems.find((t) => t.itemId === value.itemId)
+            ?.itemId
       );
       const newlyRemovedItems = gallery.toRemove?.filter(
         (value) =>
-          value.itemId === gallery.alreadySelectedItems.find((t) => t.itemId === value.itemId)?.itemId
+          value.itemId ===
+          gallery.alreadySelectedItems.find((t) => t.itemId === value.itemId)
+            ?.itemId
       );
       const sanitizedAddItems = newlyAddedItems?.map((el) => {
-        return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
+        return {
+          tokenId: el.tokenId,
+          contractAddress: el.contractAddress,
+          chainId: el.chainId
+        };
       });
       const sanitizedRemoveItems = newlyRemovedItems?.map((el) => {
-        return { tokenId: el.tokenId, contractAddress: el.contractAddress, chainId: el.chainId };
+        return {
+          tokenId: el.tokenId,
+          contractAddress: el.contractAddress,
+          chainId: el.chainId
+        };
       });
       // if gallery name only update
       if (!sanitizedAddItems.length && !sanitizedRemoveItems.length) {
@@ -172,7 +193,8 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
       return toast.error(t`Gallery name required`);
     } else if (
       !gallery.items.length &&
-      (currentStep === CreateSteps.REVIEW || currentStep === CreateSteps.PICK_NFTS)
+      (currentStep === CreateSteps.REVIEW ||
+        currentStep === CreateSteps.PICK_NFTS)
     ) {
       return toast.error(t`Select collectibles for your gallery`);
     }
@@ -203,7 +225,10 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   };
 
   const getModalTitle = () => {
-    if (currentStep === CreateSteps.PICK_NFTS || currentStep === CreateSteps.REVIEW) {
+    if (
+      currentStep === CreateSteps.PICK_NFTS ||
+      currentStep === CreateSteps.REVIEW
+    ) {
       return (
         <div className="flex items-center space-x-1">
           <button type="button" onClick={() => setCurrentStep(getBackStep())}>
@@ -238,7 +263,13 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           <textarea
             className="w-full resize-none border-none bg-white px-4 py-2 outline-none !ring-0 dark:bg-gray-800"
             value={gallery.name}
-            onChange={(e) => setGallery({ ...gallery, name: e.target.value, items: gallery.items })}
+            onChange={(e) =>
+              setGallery({
+                ...gallery,
+                name: e.target.value,
+                items: gallery.items
+              })
+            }
             rows={4}
           />
         )}

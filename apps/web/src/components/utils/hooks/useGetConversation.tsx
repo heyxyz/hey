@@ -8,7 +8,9 @@ import { useMessageStore } from 'src/store/message';
 
 const useGetConversation = (conversationKey: string, profile?: Profile) => {
   const client = useMessageStore((state) => state.client);
-  const selectedConversation = useMessageStore((state) => state.conversations.get(conversationKey));
+  const selectedConversation = useMessageStore((state) =>
+    state.conversations.get(conversationKey)
+  );
   const addConversation = useMessageStore((state) => state.addConversation);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [missingXmtpAuth, setMissingXmtpAuth] = useState<boolean>();
@@ -26,17 +28,23 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
       return;
     }
     const createNewConversation = async () => {
-      const conversationId = parseConversationKey(conversationKey)?.conversationId;
-      const canMessage = await Client.canMessage(profile.ownedBy, { env: XMTP_ENV });
+      const conversationId =
+        parseConversationKey(conversationKey)?.conversationId;
+      const canMessage = await Client.canMessage(profile.ownedBy, {
+        env: XMTP_ENV
+      });
       setMissingXmtpAuth(!canMessage);
 
       if (!canMessage || !conversationId) {
         return;
       }
-      const conversation = await client.conversations.newConversation(profile.ownedBy, {
-        conversationId: conversationId,
-        metadata: {}
-      });
+      const conversation = await client.conversations.newConversation(
+        profile.ownedBy,
+        {
+          conversationId: conversationId,
+          metadata: {}
+        }
+      );
       addConversation(conversationKey, conversation);
     };
     createNewConversation();

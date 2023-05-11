@@ -16,7 +16,7 @@ import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment
 
 interface PreviewProps {
   profile: Profile;
-  message: DecodedMessage;
+  message?: DecodedMessage;
   conversationKey: string;
   isSelected: boolean;
 }
@@ -32,7 +32,12 @@ function contentFor(message: DecodedMessage): JSX.Element | string {
   }
 }
 
-const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelected }) => {
+const Preview: FC<PreviewProps> = ({
+  profile,
+  message,
+  conversationKey,
+  isSelected
+}) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
@@ -48,8 +53,9 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
         isSelected && 'bg-gray-50 dark:bg-gray-800'
       )}
       onClick={() => onConversationSelected(profile.id)}
+      aria-hidden="true"
     >
-      <div className="flex justify-between space-x-3 px-5">
+      <div className="flex space-x-3 overflow-hidden px-5">
         <Image
           onError={({ currentTarget }) => {
             currentTarget.src = getAvatar(profile, false);
@@ -61,21 +67,31 @@ const Preview: FC<PreviewProps> = ({ profile, message, conversationKey, isSelect
           width={40}
           alt={formatHandle(profile?.handle)}
         />
-        <div className="w-full">
-          <div className="flex w-full justify-between space-x-1">
-            <div className="flex max-w-sm items-center gap-1">
-              <div className="text-md line-clamp-1">{profile?.name ?? formatHandle(profile.handle)}</div>
-              {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />}
+        <div className="grow overflow-hidden">
+          <div className="flex justify-between space-x-1">
+            <div className="flex items-center gap-1 overflow-hidden">
+              <div className="text-md truncate">
+                {profile?.name ?? formatHandle(profile.handle)}
+              </div>
+              {isVerified(profile?.id) && (
+                <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
+              )}
             </div>
-            {message.sent && (
-              <span className="lt-text-gray-500 min-w-fit pt-0.5 text-xs" title={formatTime(message.sent)}>
+            {message?.sent && (
+              <span
+                className="lt-text-gray-500 shrink-0 pt-0.5 text-xs"
+                title={formatTime(message.sent)}
+              >
                 {getTimeFromNow(message.sent)}
               </span>
             )}
           </div>
-          <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
-            {address === message.senderAddress && 'You: '} {contentFor(message)}
-          </span>
+          {message && (
+            <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
+              {address === message.senderAddress && 'You: '}
+              {contentFor(message)}
+            </span>
+          )}
         </div>
       </div>
     </div>

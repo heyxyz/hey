@@ -44,7 +44,8 @@ const Navbar: FC = () => {
           className={clsx(
             'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
             {
-              'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
+              'bg-gray-200 text-black dark:bg-gray-800 dark:text-white':
+                current,
               'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
                 !current
             }
@@ -62,14 +63,21 @@ const Navbar: FC = () => {
     return (
       <>
         <NavItem url="/" name={t`Home`} current={pathname === '/'} />
-        <NavItem url="/explore" name={t`Explore`} current={pathname === '/explore'} />
+        <NavItem
+          url="/explore"
+          name={t`Explore`}
+          current={pathname === '/explore'}
+        />
         <MoreNavItems />
       </>
     );
   };
 
   return (
-    <Disclosure as="header" className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
+    <Disclosure
+      as="header"
+      className="divider sticky top-0 z-10 w-full bg-white dark:bg-black"
+    >
       {({ open }) => (
         <>
           {staffMode && <StaffBar />}
@@ -77,14 +85,22 @@ const Navbar: FC = () => {
             <div className="relative flex h-14 items-center justify-between sm:h-16">
               <div className="flex items-center justify-start">
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-500 focus:outline-none md:hidden">
-                  {open ? <XIcon className="h-6 w-6" /> : <SearchIcon className="h-6 w-6" />}
+                  {open ? (
+                    <XIcon className="h-6 w-6" />
+                  ) : (
+                    <SearchIcon className="h-6 w-6" />
+                  )}
                 </Disclosure.Button>
                 <Link href="/" className="hidden md:block">
                   <img
                     className="h-8 w-8"
                     height={32}
                     width={32}
-                    src={currentProfile && hasPrideLogo(currentProfile) ? '/pride.svg' : '/logo.svg'}
+                    src={
+                      currentProfile && hasPrideLogo(currentProfile)
+                        ? '/pride.svg'
+                        : '/logo.svg'
+                    }
                     alt="Logo"
                   />
                 </Link>
@@ -97,12 +113,22 @@ const Navbar: FC = () => {
                   </div>
                 </div>
               </div>
-              <Link href="/" className={clsx('md:hidden', !currentProfile?.id && 'ml-[60px]')}>
+              <Link
+                href="/"
+                className={clsx(
+                  'md:hidden',
+                  !currentProfile?.id && 'ml-[60px]'
+                )}
+              >
                 <img
                   className="h-7 w-7"
                   height={32}
                   width={32}
-                  src={currentProfile && hasPrideLogo(currentProfile) ? '/pride.svg' : '/logo.svg'}
+                  src={
+                    currentProfile && hasPrideLogo(currentProfile)
+                      ? '/pride.svg'
+                      : '/logo.svg'
+                  }
                   alt="Logo"
                 />
               </Link>

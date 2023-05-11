@@ -11,12 +11,6 @@ for (const [k, v] of Object.entries(map)) {
   map[v] = k;
 }
 
-export const sign = async (item: DataItem, signer: EthereumSigner): Promise<Buffer> => {
-  const { signature, id } = await getSignatureAndId(item, signer);
-  item.getRaw().set(signature, 2);
-  return id;
-};
-
 export const getSignatureAndId = async (
   item: DataItem,
   signer: EthereumSigner
@@ -26,6 +20,15 @@ export const getSignatureAndId = async (
   const idBytes = await crypto.subtle.digest('SHA-256', signatureBytes);
 
   return { signature: Buffer.from(signatureBytes), id: Buffer.from(idBytes) };
+};
+
+export const sign = async (
+  item: DataItem,
+  signer: EthereumSigner
+): Promise<Buffer> => {
+  const { signature, id } = await getSignatureAndId(item, signer);
+  item.getRaw().set(signature, 2);
+  return id;
 };
 
 export const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
@@ -55,7 +58,9 @@ const shimClass = class {
   }
 
   async digest() {
-    return Buffer.from(await crypto.subtle.digest(this.algo, Buffer.concat(this.context)));
+    return Buffer.from(
+      await crypto.subtle.digest(this.algo, Buffer.concat(this.context))
+    );
   }
 };
 
@@ -128,7 +133,9 @@ const encodeLong = (n: number): Buffer => {
   return buf;
 };
 
-export const serializeTags = (tags?: { name: string; value: string }[]): Buffer => {
+export const serializeTags = (
+  tags?: { name: string; value: string }[]
+): Buffer => {
   let byt = Buffer.from('');
   if (!tags) {
     return byt;
@@ -137,7 +144,9 @@ export const serializeTags = (tags?: { name: string; value: string }[]): Buffer 
   byt = Buffer.concat([byt, encodeLong(tags.length)]);
   for (const tag of tags) {
     if (tag?.name === undefined || tag?.value === undefined) {
-      throw new Error(`Invalid tag format for ${tag}, expected {name:string, value: string}`);
+      throw new Error(
+        `Invalid tag format for ${tag}, expected {name:string, value: string}`
+      );
     }
     const name = Buffer.from(tag.name);
     const value = Buffer.from(tag.value);

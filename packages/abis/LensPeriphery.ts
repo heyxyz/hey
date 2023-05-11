@@ -1,6 +1,8 @@
 export const LensPeriphery = [
   {
-    inputs: [{ internalType: 'contract ILensHub', name: 'hub', type: 'address' }],
+    inputs: [
+      { internalType: 'contract ILensHub', name: 'hub', type: 'address' }
+    ],
     stateMutability: 'nonpayable',
     type: 'constructor'
   },

@@ -3,14 +3,14 @@ import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
+import { Growthbook } from '@lib/growthbook';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import { FeatureFlag } from 'data';
 import { APP_NAME } from 'data/constants';
-import { FeatureFlag } from 'data/feature-flags';
 import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
-import isFeatureEnabled from 'lib/isFeatureEnabled';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -22,9 +22,12 @@ import Feed from './Feed';
 import FeedType from './FeedType';
 
 const Explore: NextPage = () => {
+  const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMainFocus>();
-  const router = useRouter();
+  const { on: isTrendingWidgetEnabled } = Growthbook.feature(
+    FeatureFlag.TrendingWidget
+  );
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'explore' });
@@ -47,13 +50,17 @@ const Explore: NextPage = () => {
         <Tab.Group
           defaultIndex={Number(router.query.tab)}
           onChange={(index) => {
-            router.replace({ query: { ...router.query, tab: index } }, undefined, { shallow: true });
+            router.replace(
+              { query: { ...router.query, tab: index } },
+              undefined,
+              { shallow: true }
+            );
           }}
         >
           <Tab.List className="divider space-x-8">
             {tabs.map((tab, index) => (
               <Tab
-                key={index}
+                key={tab.type}
                 defaultChecked={index === 1}
                 onClick={() => {
                   Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
@@ -62,7 +69,10 @@ const Explore: NextPage = () => {
                 }}
                 className={({ selected }) =>
                   clsx(
-                    { 'border-brand-500 border-b-2 !text-black dark:!text-white': selected },
+                    {
+                      'border-brand-500 border-b-2 !text-black dark:!text-white':
+                        selected
+                    },
                     'lt-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
                   )
                 }
@@ -74,8 +84,8 @@ const Explore: NextPage = () => {
           </Tab.List>
           <FeedType setFocus={setFocus} focus={focus} />
           <Tab.Panels>
-            {tabs.map((tab, index) => (
-              <Tab.Panel key={index}>
+            {tabs.map((tab) => (
+              <Tab.Panel key={tab.type}>
                 <Feed focus={focus} feedType={tab.type} />
               </Tab.Panel>
             ))}
@@ -83,7 +93,7 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {isFeatureEnabled(FeatureFlag.TrendingWidget, currentProfile?.id) && <Trending />}
+        {isTrendingWidgetEnabled && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>

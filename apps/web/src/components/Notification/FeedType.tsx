@@ -1,4 +1,10 @@
-import { AtSymbolIcon, BellIcon, ChatAlt2Icon, CollectionIcon, HeartIcon } from '@heroicons/react/outline';
+import {
+  AtSymbolIcon,
+  BellIcon,
+  ChatAlt2Icon,
+  CollectionIcon,
+  HeartIcon
+} from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';

@@ -25,8 +25,8 @@ export const PUBLICATION = {
   LIKE: 'Like publication',
   DISLIKE: 'Dislike publication',
   MIRROR: 'Mirror publication',
-  EMBED: 'Embed publication',
   PERMALINK: 'Permalink publication',
+  TRANSLATE: 'Translate publication',
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   OEMBED_CLICK: 'Click publication oembed',
@@ -95,6 +95,11 @@ export const SETTINGS = {
     ADD: 'Add profile interest',
     REMOVE: 'Remove profile interest'
   },
+  EXPORT: {
+    PROFILE: 'Export profile',
+    PUBLICATIONS: 'Export publications',
+    NOTIFICATIONS: 'Export notifications'
+  },
   DELETE: 'Delete profile'
 };
 
@@ -123,7 +128,8 @@ export const MISCELLANEOUS = {
 
 export const ONBOARDING = {
   NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
-  NAVIGATE_UPDATE_PROFILE_INTERESTS: 'Navigate to update profile interests from onboarding'
+  NAVIGATE_UPDATE_PROFILE_INTERESTS:
+    'Navigate to update profile interests from onboarding'
 };
 
 // enums

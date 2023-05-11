@@ -1,7 +1,7 @@
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
@@ -19,25 +19,36 @@ interface AllowanceButtonProps {
   setAllowed: Dispatch<boolean>;
 }
 
-const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, allowed, setAllowed }) => {
+const AllowanceButton: FC<AllowanceButtonProps> = ({
+  title = t`Allow`,
+  module,
+  allowed,
+  setAllowed
+}) => {
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [generateAllowanceQuery, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
+
+  const onError = (error: any) => {
+    errorToast(error);
+  };
 
   const {
     data: txData,
     isLoading: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    request: {},
-    mode: 'recklesslyUnprepared',
     onError
   });
 
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
     onSuccess: () => {
-      toast.success(t`Module ${allowed ? 'disabled' : 'enabled'} successfully!`);
+      toast.success(
+        allowed
+          ? t`Module disabled successfully!`
+          : t`Module enabled successfully!`
+      );
       setShowWarningModal(false);
       setAllowed(!allowed);
       Mixpanel.track(SETTINGS.ALLOWANCE.TOGGLE, {
@@ -49,7 +60,11 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
     onError
   });
 
-  const handleAllowance = (currencies: string, value: string, selectedModule: string) => {
+  const handleAllowance = (
+    currencies: string,
+    value: string,
+    selectedModule: string
+  ) => {
     generateAllowanceQuery({
       variables: {
         request: {
@@ -61,11 +76,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
     }).then((res) => {
       const data = res?.data?.generateModuleCurrencyApprovalData;
       sendTransaction?.({
-        recklesslySetUnpreparedRequest: {
-          from: data?.from,
-          to: data?.to,
-          data: data?.data
-        }
+        account: data?.from,
+        to: data?.to,
+        data: data?.data
       });
     });
   };
@@ -86,7 +99,10 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
     </Button>
   ) : (
     <>
-      <Button icon={<PlusIcon className="h-4 w-4" />} onClick={() => setShowWarningModal(!showWarningModal)}>
+      <Button
+        icon={<PlusIcon className="h-4 w-4" />}
+        onClick={() => setShowWarningModal(!showWarningModal)}
+      >
         {title}
       </Button>
       <Modal
@@ -101,8 +117,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
             message={
               <div className="leading-6">
                 <Trans>
-                  Please be aware that by allowing this module, the amount indicated will be automatically
-                  deducted when you <b>collect</b> and <b>super follow</b>.
+                  Please be aware that by allowing this module, the amount
+                  indicated will be automatically deducted when you{' '}
+                  <b>collect</b> and <b>super follow</b>.
                 </Trans>
               </div>
             }
@@ -116,7 +133,11 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({ title = t`Allow`, module, a
               )
             }
             onClick={() =>
-              handleAllowance(module.currency, Number.MAX_SAFE_INTEGER.toString(), module.module)
+              handleAllowance(
+                module.currency,
+                Number.MAX_SAFE_INTEGER.toString(),
+                module.module
+              )
             }
           >
             {title}

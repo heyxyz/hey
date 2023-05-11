@@ -5,7 +5,7 @@ import { forwardRef, useId } from 'react';
 
 import { FieldError } from './Form';
 
-const HelpTooltip = dynamic(() => import('ui').then((Component) => Component.HelpTooltip));
+const HelpTooltip = dynamic(() => import('./HelpTooltip'));
 
 interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string;
@@ -18,13 +18,23 @@ interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { label, prefix, type = 'text', iconLeft, iconRight, error, className = '', helper, ...props },
+  {
+    label,
+    prefix,
+    type = 'text',
+    iconLeft,
+    iconRight,
+    error,
+    className = '',
+    helper,
+    ...props
+  },
   ref
 ) {
   const id = useId();
 
   const iconStyles = [
-    'text-zinc-500 [&>*]:peer-focus:text-brand-500 [&>*]:h-5',
+    'text-zinc-500 [&>*]:peer-focus:text-brand [&>*]:h-5',
     { '!text-red-500 [&>*]:peer-focus:!text-red-500': error }
   ];
 
@@ -32,7 +42,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     <label className="w-full" htmlFor={id}>
       {label && (
         <div className="mb-1 flex items-center space-x-1.5">
-          <div className="font-medium text-gray-800 dark:text-gray-200">{label}</div>
+          <div className="font-medium text-gray-800 dark:text-gray-200">
+            {label}
+          </div>
           <HelpTooltip content={helper} />
         </div>
       )}
@@ -44,7 +56,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         )}
         <div
           className={clsx(
-            { 'bg-gray-500 bg-opacity-20 opacity-60': props.disabled },
+            { 'bg-gray-500/20 opacity-60': props.disabled },
             error ? '!border-red-500' : 'focus-within:ring-1',
             prefix ? 'rounded-r-xl' : 'rounded-xl',
             'focus-within:border-brand-500 focus-within:ring-brand-400 flex w-full items-center border border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-900'
@@ -53,7 +65,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           <input
             id={id}
             className={clsx(
-              { 'placeholder-red-500': error },
+              { 'placeholder:text-red-500': error },
               prefix ? 'rounded-r-xl' : 'rounded-xl',
               'peer w-full border-none bg-transparent outline-none focus:ring-0',
               className
@@ -62,10 +74,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             ref={ref}
             {...props}
           />
-          <span tabIndex={-1} className={clsx({ 'order-first pl-3': iconLeft }, iconStyles)}>
+          <span
+            tabIndex={-1}
+            className={clsx({ 'order-first pl-3': iconLeft }, iconStyles)}
+          >
             {iconLeft}
           </span>
-          <span tabIndex={-1} className={clsx({ 'order-last pr-3': iconRight }, iconStyles)}>
+          <span
+            tabIndex={-1}
+            className={clsx({ 'order-last pr-3': iconRight }, iconStyles)}
+          >
             {iconRight}
           </span>
         </div>

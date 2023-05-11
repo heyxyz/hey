@@ -5,6 +5,7 @@ import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
+import { Virtuoso } from 'react-virtuoso';
 import { FollowSource } from 'src/tracking';
 import { EmptyState, ErrorMessage } from 'ui';
 
@@ -28,10 +29,12 @@ const Suggested: FC = () => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage title={t`Failed to load recommendations`} error={error} />
-      <div className="space-y-3">
-        <div className="divide-y dark:divide-gray-700">
-          {data?.recommendedProfiles?.map((profile, index) => (
-            <div className="p-5" key={profile?.id}>
+      <Virtuoso
+        className="virtual-profile-list"
+        data={data?.recommendedProfiles}
+        itemContent={(index, profile) => {
+          return (
+            <div className="p-5">
               <UserProfile
                 profile={profile as Profile}
                 isFollowing={profile?.isFollowedByMe}
@@ -42,9 +45,9 @@ const Suggested: FC = () => {
                 showUserPreview={false}
               />
             </div>
-          ))}
-        </div>
-      </div>
+          );
+        }}
+      />
     </div>
   );
 };

@@ -1,10 +1,16 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { ComponentProps, FC } from 'react';
-import type { FieldValues, SubmitHandler, UseFormProps, UseFormReturn } from 'react-hook-form';
+import type {
+  FieldValues,
+  SubmitHandler,
+  UseFormProps,
+  UseFormReturn
+} from 'react-hook-form';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import type { TypeOf, ZodSchema } from 'zod';
 
-interface UseZodFormProps<T extends ZodSchema<FieldValues>> extends UseFormProps<TypeOf<T>> {
+interface UseZodFormProps<T extends ZodSchema<FieldValues>>
+  extends UseFormProps<TypeOf<T>> {
   schema: T;
 }
 
@@ -37,7 +43,11 @@ export const FieldError: FC<FieldErrorProps> = ({ name }) => {
     return null;
   }
 
-  return <div className="mt-1 text-sm font-bold text-red-500">{error.message as any}</div>;
+  return (
+    <div className="mt-1 text-sm font-bold text-red-500">
+      {error.message as string}
+    </div>
+  );
 };
 
 interface FormProps<T extends FieldValues = Record<string, unknown>>
@@ -47,11 +57,19 @@ interface FormProps<T extends FieldValues = Record<string, unknown>>
   className?: string;
 }
 
-export const Form = <T extends FieldValues>({ form, onSubmit, children, className = '' }: FormProps<T>) => {
+export const Form = <T extends FieldValues>({
+  form,
+  onSubmit,
+  children,
+  className = ''
+}: FormProps<T>) => {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <fieldset className={`flex flex-col ${className}`} disabled={form.formState.isSubmitting}>
+        <fieldset
+          className={`flex flex-col ${className}`}
+          disabled={form.formState.isSubmitting}
+        >
           {children}
         </fieldset>
       </form>

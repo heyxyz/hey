@@ -48,10 +48,13 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
     }
   });
 
-  const onDelete = async () => {
+  const onDelete = () => {
     try {
       if (confirm(t`Are you sure you want to delete?`)) {
-        const normalizedId = cache.identify({ id: gallery.id, __typename: 'NftGallery' });
+        const normalizedId = cache.identify({
+          id: gallery.id,
+          __typename: 'NftGallery'
+        });
         cache.evict({ id: normalizedId });
         cache.gc();
         deleteNftGallery({
@@ -82,7 +85,10 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
 
   const onClickRearrange = () => {
     const items = nfts.map((nft) => {
-      return { ...nft, itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}` };
+      return {
+        ...nft,
+        itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`
+      };
     });
     setIsRearrange(true);
     setItemsToGallery(items);
@@ -91,7 +97,10 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const onClickEditGallery = () => {
     setShowCreateModal(true);
     const items = nfts.map((nft) => {
-      return { ...nft, itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}` };
+      return {
+        ...nft,
+        itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`
+      };
     });
     setItemsToGallery(items);
   };
@@ -133,11 +142,22 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h6 className="line-clamp-1 text-lg font-medium">{isRearrange ? 'Arrange gallery' : gallery.name}</h6>
-        {galleryStore?.isEdit && <Create showModal={showCreateModal} setShowModal={setShowCreateModal} />}
+        <h6 className="line-clamp-1 text-lg font-medium">
+          {isRearrange ? 'Arrange gallery' : gallery.name}
+        </h6>
+        {galleryStore?.isEdit && (
+          <Create
+            showModal={showCreateModal}
+            setShowModal={setShowCreateModal}
+          />
+        )}
         {isRearrange ? (
           <div className="flex items-center space-x-2">
-            <Button onClick={() => setIsRearrange(false)} size="sm" variant="secondary">
+            <Button
+              onClick={() => setIsRearrange(false)}
+              size="sm"
+              variant="secondary"
+            >
               <Trans>Cancel</Trans>
             </Button>
             <Button onClick={onSaveRearrange} size="sm">
@@ -146,7 +166,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
           </div>
         ) : currentProfile && currentProfile?.id === gallery.profileId ? (
           <Menu as="div" className="relative">
-            <Menu.Button className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20">
+            <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
               <DotsVerticalIcon className="h-4 w-4" />
             </Menu.Button>
             <MenuTransition>
@@ -180,7 +200,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 </Menu.Item>
                 <Menu.Item
                   as="label"
-                  onClick={() => onDelete()}
+                  onClick={onDelete}
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },

@@ -3,6 +3,7 @@ import MessageHeader from '@components/Messages/MessageHeader';
 import Loader from '@components/Shared/Loader';
 import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
+import { useGetProfile } from '@components/utils/hooks/useMessageDb';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { parseConversationKey } from '@lib/conversationKey';
@@ -16,7 +17,6 @@ import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridLayout } from 'ui';
 
@@ -30,8 +30,11 @@ interface MessageProps {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profile = useMessageStore((state) => state.messageProfiles.get(conversationKey));
-  const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
+  const { profile } = useGetProfile(currentProfile?.id, conversationKey);
+  const { selectedConversation, missingXmtpAuth } = useGetConversation(
+    conversationKey,
+    profile
+  );
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(
     conversationKey,
@@ -56,10 +59,13 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     return <Custom404 />;
   }
 
-  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
+  const showLoading =
+    !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
   const userNameForTitle = profile?.name ?? formatHandle(profile?.handle);
-  const title = userNameForTitle ? `${userNameForTitle} • ${APP_NAME}` : APP_NAME;
+  const title = userNameForTitle
+    ? `${userNameForTitle} • ${APP_NAME}`
+    : APP_NAME;
 
   return (
     <GridLayout classNameChild="md:gap-8">
@@ -71,7 +77,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
       <GridItemEight className="xs:mx-2 relative mb-0 sm:mx-2 md:col-span-8">
         <Card className="flex h-[87vh] flex-col justify-between">
           {showLoading ? (
-            <div className="flex h-full flex-grow items-center justify-center">
+            <div className="flex h-full grow items-center justify-center">
               <Loader message={t`Loading messages`} />
             </div>
           ) : (
@@ -109,7 +115,11 @@ const MessagePage: NextPage = () => {
   }, []);
 
   // Need to have a login page for when there is no currentProfileId
-  if (!conversationKey || !currentProfileId || !Array.isArray(conversationKey)) {
+  if (
+    !conversationKey ||
+    !currentProfileId ||
+    !Array.isArray(conversationKey)
+  ) {
     return <Custom404 />;
   }
 

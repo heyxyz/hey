@@ -9,12 +9,16 @@ import type { Dispatch, FC } from 'react';
 import { Button, Image } from 'ui';
 
 interface FollowModalProps {
+  profile: Profile;
   setShowFollowModal: Dispatch<boolean>;
   setFollowing: Dispatch<boolean | null>;
-  profile: Profile;
 }
 
-const FollowModal: FC<FollowModalProps> = ({ profile, setFollowing, setShowFollowModal }) => {
+const FollowModal: FC<FollowModalProps> = ({
+  profile,
+  setFollowing,
+  setShowFollowModal
+}) => {
   const followType = profile?.followModule?.__typename;
 
   return (
@@ -29,16 +33,29 @@ const FollowModal: FC<FollowModalProps> = ({ profile, setFollowing, setShowFollo
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />
-          <Slug className="flex items-center" slug={formatHandle(profile?.handle)} prefix="@" />{' '}
+          <Slug
+            className="flex items-center"
+            slug={formatHandle(profile?.handle)}
+            prefix="@"
+          />{' '}
         </span>
         <span className="flex">
           {followType === 'FeeFollowModuleSettings' ? (
             <div className="flex space-x-2">
-              <SuperFollow profile={profile as any} setFollowing={setFollowing} showText />
+              <SuperFollow
+                profile={profile}
+                setFollowing={setFollowing}
+                showText
+              />
             </div>
           ) : (
             <div className="flex space-x-2">
-              <Follow profile={profile as any} setFollowing={setFollowing} showText outline={false} />
+              <Follow
+                profile={profile}
+                setFollowing={setFollowing}
+                showText
+                outline={false}
+              />
             </div>
           )}
           <Button

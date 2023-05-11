@@ -15,7 +15,9 @@ dayjs.extend(dayjsTwitter);
  * @returns The formatted date and time.
  */
 export const formatTime = (date: Date | undefined): string => {
-  return date ? i18n.date(date, { dateStyle: 'medium', timeStyle: 'medium' }) : '';
+  return date
+    ? i18n.date(date, { dateStyle: 'medium', timeStyle: 'medium' })
+    : '';
 };
 
 /**
@@ -56,6 +58,16 @@ export const getTimeMinusNDayUnix = (day: number) => {
  */
 export const getTimeFromNow = (date: Date) => {
   return dayjs(new Date(date)).fromNow();
+};
+
+/**
+ * Formats a date as a string representing the elapsed time between the date and the current time.
+ *
+ * @param date The date to format.
+ * @returns A string representing the elapsed time between the date and the current time.
+ */
+export const getTimetoNow = (date: Date) => {
+  return dayjs(date).toNow(true);
 };
 
 /**

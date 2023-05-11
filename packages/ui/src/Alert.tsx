@@ -1,7 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react';
 import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
-import { Button } from 'ui';
+
+import { Button } from './Button';
 
 interface AlertProps {
   title: ReactNode;
@@ -28,7 +29,11 @@ export const Alert: FC<AlertProps> = ({
 }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={() => onClose?.()}>
+      <Dialog
+        as="div"
+        className="fixed inset-0 z-10 overflow-y-auto"
+        onClose={() => onClose?.()}
+      >
         <div className="flex min-h-screen items-center justify-center p-4 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -39,9 +44,12 @@ export const Alert: FC<AlertProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity dark:bg-gray-900 dark:bg-opacity-80" />
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80" />
           </Transition.Child>
-          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true" />
+          <span
+            className="hidden sm:inline-block sm:h-screen sm:align-middle"
+            aria-hidden="true"
+          />
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-100"
@@ -51,7 +59,7 @@ export const Alert: FC<AlertProps> = ({
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="inline-block w-full transform space-y-6 rounded-xl bg-white p-5 text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:max-w-sm sm:align-middle">
+            <div className="inline-block w-full scale-100 space-y-6 rounded-xl bg-white p-5 text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:max-w-sm sm:align-middle">
               <div className="space-y-2">
                 <b className="text-xl">{title}</b>
                 <p>{description}</p>
@@ -69,7 +77,13 @@ export const Alert: FC<AlertProps> = ({
                     {confirmText}
                   </Button>
                 ) : null}
-                <Button className="w-full" size="lg" variant="secondary" outline onClick={onClose}>
+                <Button
+                  className="w-full"
+                  size="lg"
+                  variant="secondary"
+                  outline
+                  onClick={onClose}
+                >
                   Cancel
                 </Button>
               </div>

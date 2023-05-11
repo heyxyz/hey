@@ -18,19 +18,24 @@ cd packages/workers/metadata
 # Generate private key and insert into .dev.vars
 random_hex=$(head -c 32 /dev/urandom | xxd -p -c 32)
 echo "BUNDLR_PRIVATE_KEY=$random_hex" > .dev.vars
+echo "Updating packages/workers/snapshot-relay env vars 🌎"
+cd ../../../
+cd packages/workers/snapshot-relay
+random_hex=$(head -c 32 /dev/urandom | xxd -p -c 32)
+echo "PROPOSAL_CREATOR_TESTNET_PRIVATE_KEY=701e559a4db7cc91035084c175ccad9d94f7a014e9e40efd5154bebbc42c944a" > .dev.vars
 cd ../../../
 echo "Updating packages/workers/sts-generator env vars 🌎"
 cd packages/workers/sts-generator; cp .dev.vars.example .dev.vars
 cd ../../../
 # -------------------------------------
 echo "Installing dependencies 📦"
-yarn install --frozen-lockfile
+pnpm install --frozen-lockfile
 echo "Dependencies installed 📦"
 echo "Installing playwright 🎭"
-yarn playwright install
+npx playwright install
 echo "Playwright installed 🎭"
 echo "GraphQL Codegen 🧬"
-yarn codegen
+pnpm codegen
 echo "GraphQL Codegen complete 🧬"
 # -------------------------------------
 echo "Project bootstrap complete 🎉"

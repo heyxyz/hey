@@ -12,7 +12,11 @@ interface ProfileNameOrHandleProps {
   separator?: ReactNode;
 }
 
-const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({ profile, className = '', separator = '' }) => {
+const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({
+  profile,
+  className = '',
+  separator = ''
+}) => {
   if (!profile) {
     return null;
   }
@@ -24,7 +28,11 @@ const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({ profile, className 
         className={clsx('max-w-sm truncate hover:underline', className)}
       >
         <b className="whitespace-nowrap">
-          {profile?.name ? profile?.name : <Slug slug={formatHandle(profile?.handle)} prefix="@" />}
+          {profile?.name ? (
+            profile?.name
+          ) : (
+            <Slug slug={formatHandle(profile?.handle)} prefix="@" />
+          )}
         </b>
       </Link>
       {separator ? <span>{separator}</span> : null}

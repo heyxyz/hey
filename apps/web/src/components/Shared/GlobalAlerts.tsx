@@ -7,9 +7,15 @@ import { Alert } from 'ui';
 import DeletePublication from './Alert/DeletePublication';
 
 const GlobalAlerts: FC = () => {
-  const showModActionAlert = useGlobalAlertStateStore((state) => state.showModActionAlert);
-  const modingPublication = useGlobalAlertStateStore((state) => state.modingPublication);
-  const setShowModActionAlert = useGlobalAlertStateStore((state) => state.setShowModActionAlert);
+  const showModActionAlert = useGlobalAlertStateStore(
+    (state) => state.showModActionAlert
+  );
+  const modingPublication = useGlobalAlertStateStore(
+    (state) => state.modingPublication
+  );
+  const setShowModActionAlert = useGlobalAlertStateStore(
+    (state) => state.setShowModActionAlert
+  );
 
   return (
     <>

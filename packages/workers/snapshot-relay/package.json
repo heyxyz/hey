@@ -1,0 +1,29 @@
+{
+  "name": "@workers/snapshot-relay",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "dev": "wrangler dev --port 8085 --local",
+    "worker:deploy": "wrangler publish",
+    "typecheck": "tsc --pretty",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+  },
+  "dependencies": {
+    "@tsndr/cloudflare-worker-jwt": "^2.2.1",
+    "itty-router": "4.0.0-next.46",
+    "lib": "workspace:*",
+    "snapshot": "workspace:*",
+    "viem": "^0.3.19"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230419.0",
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.4",
+    "wrangler": "^2.20.0"
+  }
+}

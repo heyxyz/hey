@@ -6,7 +6,12 @@ interface PublicationState {
   setShowNewPostModal: (showNewPostModal: boolean) => void;
   publicationContent: string;
   setPublicationContent: (publicationContent: string) => void;
-  audioPublication: { title: string; author: string; cover: string; coverMimeType: string };
+  audioPublication: {
+    title: string;
+    author: string;
+    cover: string;
+    coverMimeType: string;
+  };
   setAudioPublication: (audioPublication: {
     title: string;
     author: string;
@@ -18,16 +23,42 @@ interface PublicationState {
   addAttachments: (attachments: NewLensterAttachment[]) => void;
   updateAttachments: (attachments: NewLensterAttachment[]) => void;
   removeAttachments: (ids: string[]) => void;
+  videoThumbnail: {
+    url?: string;
+    type?: string;
+    uploading?: boolean;
+  };
+  setVideoThumbnail: (videoThumbnail: {
+    url?: string;
+    type?: string;
+    uploading?: boolean;
+  }) => void;
+  videoDurationInSeconds: string;
+  setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
   isUploading: boolean;
   setIsUploading: (isUploading: boolean) => void;
+  showPollEditor: boolean;
+  setShowPollEditor: (showPollEditor: boolean) => void;
+  pollConfig: {
+    length: number;
+    choices: string[];
+  };
+  setPollConfig: (pollConfig: { length: number; choices: string[] }) => void;
+  resetPollConfig: () => void;
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
   showNewPostModal: false,
   setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
   publicationContent: '',
-  setPublicationContent: (publicationContent) => set(() => ({ publicationContent })),
-  audioPublication: { title: '', author: '', cover: '', coverMimeType: 'image/jpeg' },
+  setPublicationContent: (publicationContent) =>
+    set(() => ({ publicationContent })),
+  audioPublication: {
+    title: '',
+    author: '',
+    cover: '',
+    coverMimeType: 'image/jpeg'
+  },
   setAudioPublication: (audioPublication) => set(() => ({ audioPublication })),
   attachments: [],
   setAttachments: (attachments) => set(() => ({ attachments })),
@@ -57,6 +88,17 @@ export const usePublicationStore = create<PublicationState>((set) => ({
       });
       return { attachments };
     }),
+  videoThumbnail: { url: '', type: '', uploading: false },
+  setVideoThumbnail: (videoThumbnail) => set(() => ({ videoThumbnail })),
+  videoDurationInSeconds: '',
+  setVideoDurationInSeconds: (videoDurationInSeconds) =>
+    set(() => ({ videoDurationInSeconds })),
   isUploading: false,
-  setIsUploading: (isUploading) => set(() => ({ isUploading }))
+  setIsUploading: (isUploading) => set(() => ({ isUploading })),
+  showPollEditor: false,
+  setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
+  pollConfig: { length: 7, choices: ['', ''] },
+  setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
+  resetPollConfig: () =>
+    set(() => ({ pollConfig: { length: 7, choices: ['', ''] } }))
 }));

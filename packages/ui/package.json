@@ -5,25 +5,30 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --fix --ext .ts,.tsx"
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.13",
+    "@headlessui/react": "^1.7.14",
     "@heroicons/react": "v1",
-    "@hookform/resolvers": "^3.0.1",
+    "@hookform/resolvers": "^3.1.0",
     "@tippyjs/react": "^4.2.6",
     "clsx": "^1.2.1",
-    "data": "*",
-    "next": "^13.3.0",
+    "data": "workspace:*",
+    "lib": "workspace:*",
+    "next": "^13.4.1",
     "react": "^18.2.0",
     "react-hook-form": "^7.43.9",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "eslint-config-weblint": "*",
-    "tsconfig": "*",
+    "@types/node": "^20.1.1",
+    "@types/react": "^18.2.6",
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

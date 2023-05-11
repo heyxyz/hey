@@ -4,34 +4,37 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "storybook dev -p 4785",
+    "dev": "storybook dev -p 4785 --ci",
     "build": "storybook build",
-    "start": "serve storybook-static",
-    "typecheck": "tsc --pretty --noEmit",
+    "start": "serve storybook-static -p 4785",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --fix --ext .ts,.tsx"
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "storybook": "^7.0.2",
-    "ui": "*"
-  },
-  "devDependencies": {
-    "@storybook/addon-essentials": "^7.0.2",
-    "@storybook/addon-links": "^7.0.2",
-    "@storybook/addon-styling": "^0.3.2",
-    "@storybook/blocks": "^7.0.2",
-    "@storybook/manager-api": "^7.0.2",
-    "@storybook/nextjs": "^7.0.2",
-    "@storybook/react": "^7.0.2",
-    "@storybook/theming": "^7.0.2",
-    "autoprefixer": "^10.4.14",
-    "eslint-config-weblint": "*",
-    "postcss": "^8.4.21",
+    "@storybook/addon-essentials": "^7.0.10",
+    "@storybook/addon-links": "^7.0.10",
+    "@storybook/addon-styling": "^1.0.6",
+    "@storybook/blocks": "^7.0.10",
+    "@storybook/manager-api": "^7.0.10",
+    "@storybook/nextjs": "^7.0.10",
+    "@storybook/react": "^7.0.10",
+    "@storybook/theming": "^7.0.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "storybook": "^7.0.10",
+    "ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.6",
+    "autoprefixer": "^10.4.14",
+    "eslint-config-weblint": "workspace:*",
+    "postcss": "^8.4.23",
     "serve": "^14.2.0",
-    "storybook-addon-turbo-build": "^1.1.0",
-    "tsconfig": "*",
+    "storybook-addon-turbo-build": "^2.0.1",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

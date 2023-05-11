@@ -13,7 +13,7 @@ import {
 import { PencilAltIcon } from '@heroicons/react/solid';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
 import { Mixpanel } from '@lib/mixpanel';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
 import Errors from 'data/errors';
@@ -24,7 +24,7 @@ import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
+import { Card, GridItemEight, GridItemFour, GridLayout, Spinner } from 'ui';
 
 import StaffToolsSidebar from '../Sidebar';
 
@@ -36,7 +36,13 @@ interface StatBoxProps {
   title: string;
 }
 
-export const StatBox: FC<StatBoxProps> = ({ icon, value, todayValue, differenceValue, title }) => (
+export const StatBox: FC<StatBoxProps> = ({
+  icon,
+  value,
+  todayValue,
+  differenceValue,
+  title
+}) => (
   <Card className="w-full px-7 py-4" forceRounded>
     <div className="lt-text-gray-500">{title}</div>
     <div className="flex items-center space-x-2.5">
@@ -91,15 +97,16 @@ const Stats: NextPage = () => {
     }
   });
 
-  const { data: yesterdayData, loading: yesterdayLoading } = useLensterStatsQuery({
-    variables: {
-      request: {
-        sources: [APP_NAME],
-        fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
-        toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
+  const { data: yesterdayData, loading: yesterdayLoading } =
+    useLensterStatsQuery({
+      variables: {
+        request: {
+          sources: [APP_NAME],
+          fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
+          toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
+        }
       }
-    }
-  });
+    });
 
   if (!allowed) {
     return <Custom404 />;
@@ -111,7 +118,7 @@ const Stats: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Stafftools • ${APP_NAME}`} />
+      <MetaTags title={t`Stafftools | Stats • ${APP_NAME}`} />
       <GridItemFour>
         <StaffToolsSidebar />
       </GridItemFour>
@@ -120,31 +127,42 @@ const Stats: NextPage = () => {
           {error ? (
             <b className="text-red-500">{Errors.SomethingWentWrong}</b>
           ) : loading || todayLoading || yesterdayLoading ? (
-            <div>Loading...</div>
+            <div className="flex justify-center">
+              <Spinner size="sm" />
+            </div>
           ) : (
             <section className="space-y-3">
-              <h1 className="mb-4 text-xl font-bold">Stats</h1>
+              <h1 className="mb-4 text-xl font-bold">
+                <Trans>Stats</Trans>
+              </h1>
               <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
                 <StatBox
                   icon={<UsersIcon className="h-6 w-6" />}
                   value={stats?.totalProfiles}
                   todayValue={todayStats?.totalProfiles}
-                  differenceValue={yesterdayStats?.totalProfiles - todayStats?.totalProfiles}
-                  title="total profiles"
+                  differenceValue={
+                    yesterdayStats?.totalProfiles - todayStats?.totalProfiles
+                  }
+                  title={t`total profiles`}
                 />
                 <StatBox
                   icon={<FireIcon className="h-6 w-6" />}
                   value={stats?.totalBurntProfiles}
                   todayValue={todayStats?.totalBurntProfiles}
-                  differenceValue={yesterdayStats?.totalBurntProfiles - todayStats?.totalBurntProfiles}
-                  title="profiles burnt"
+                  differenceValue={
+                    yesterdayStats?.totalBurntProfiles -
+                    todayStats?.totalBurntProfiles
+                  }
+                  title={t`profiles burnt`}
                 />
                 <StatBox
                   icon={<PencilAltIcon className="h-6 w-6" />}
                   value={stats?.totalPosts}
                   todayValue={todayStats?.totalPosts}
-                  differenceValue={yesterdayStats?.totalPosts - todayStats?.totalPosts}
-                  title="total posts"
+                  differenceValue={
+                    yesterdayStats?.totalPosts - todayStats?.totalPosts
+                  }
+                  title={t`total posts`}
                 />
               </div>
               <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
@@ -152,15 +170,19 @@ const Stats: NextPage = () => {
                   icon={<SwitchHorizontalIcon className="h-6 w-6" />}
                   value={stats?.totalMirrors}
                   todayValue={todayStats?.totalMirrors}
-                  differenceValue={yesterdayStats?.totalMirrors - todayStats?.totalMirrors}
-                  title="total mirrors"
+                  differenceValue={
+                    yesterdayStats?.totalMirrors - todayStats?.totalMirrors
+                  }
+                  title={t`total mirrors`}
                 />
                 <StatBox
                   icon={<ChatAlt2Icon className="h-6 w-6" />}
                   value={stats?.totalComments}
                   todayValue={todayStats?.totalComments}
-                  differenceValue={yesterdayStats?.totalComments - todayStats?.totalComments}
-                  title="total comments"
+                  differenceValue={
+                    yesterdayStats?.totalComments - todayStats?.totalComments
+                  }
+                  title={t`total comments`}
                 />
               </div>
               <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
@@ -168,15 +190,19 @@ const Stats: NextPage = () => {
                   icon={<CollectionIcon className="h-6 w-6" />}
                   value={stats?.totalCollects}
                   todayValue={todayStats?.totalCollects}
-                  differenceValue={yesterdayStats?.totalCollects - todayStats?.totalCollects}
-                  title="total collects"
+                  differenceValue={
+                    yesterdayStats?.totalCollects - todayStats?.totalCollects
+                  }
+                  title={t`total collects`}
                 />
                 <StatBox
                   icon={<UserAddIcon className="h-6 w-6" />}
                   value={stats?.totalFollows}
                   todayValue={todayStats?.totalFollows}
-                  differenceValue={yesterdayStats?.totalFollows - todayStats?.totalFollows}
-                  title="total follows"
+                  differenceValue={
+                    yesterdayStats?.totalFollows - todayStats?.totalFollows
+                  }
+                  title={t`total follows`}
                 />
               </div>
             </section>

@@ -6,23 +6,25 @@
   "license": "GPL-3.0",
   "scripts": {
     "codegen": "graphql-codegen",
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx"
+    "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.11",
-    "data": "*"
+    "@apollo/client": "^3.7.14",
+    "data": "workspace:*"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^3.3.0",
+    "@graphql-codegen/cli": "^3.3.1",
     "@graphql-codegen/fragment-matcher": "^4.0.1",
-    "@graphql-codegen/typescript": "^3.0.3",
-    "@graphql-codegen/typescript-operations": "^3.0.3",
+    "@graphql-codegen/typescript": "^3.0.4",
+    "@graphql-codegen/typescript-operations": "^3.0.4",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
-    "eslint-config-weblint": "*",
-    "prettier": "^2.8.7",
-    "tsconfig": "*",
+    "@types/node": "^20.1.1",
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

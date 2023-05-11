@@ -26,7 +26,8 @@ interface CollectModuleState {
 
 export const useCollectModuleStore = create<CollectModuleState>((set) => ({
   selectedCollectModule: CollectModules.RevertCollectModule,
-  setSelectedCollectModule: (selectedCollectModule) => set(() => ({ selectedCollectModule })),
+  setSelectedCollectModule: (selectedCollectModule) =>
+    set(() => ({ selectedCollectModule })),
   amount: null,
   setAmount: (amount) => set(() => ({ amount })),
   selectedCurrency: DEFAULT_COLLECT_TOKEN,

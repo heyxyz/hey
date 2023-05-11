@@ -20,21 +20,36 @@ interface PublicationBodyProps {
 
 const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
   const { pathname } = useRouter();
-  const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+  const showMore =
+    publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
   const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
-  const snapshotProposalId = hasURLs && getSnapshotProposalId(getURLs(publication?.metadata?.content)[0]);
+  const snapshotProposalId =
+    hasURLs && getSnapshotProposalId(getURLs(publication?.metadata?.content));
   let content = publication?.metadata?.content;
   if (snapshotProposalId) {
-    content = content?.replace(getURLs(publication?.metadata?.content)[0], '');
+    for (const url of getURLs(publication?.metadata?.content)) {
+      if (url.includes(snapshotProposalId)) {
+        content = content?.replace(url, '');
+      }
+    }
   }
 
   if (publication?.metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
+  const showAttachments = publication?.metadata?.media?.length > 0;
+  const showSnapshot = snapshotProposalId;
+  const showIFramely = hasURLs && !showAttachments && !showSnapshot;
+
   return (
     <div className="break-words">
-      <Markup className={clsx({ 'line-clamp-5': showMore }, 'markup linkify text-md break-words')}>
+      <Markup
+        className={clsx(
+          { 'line-clamp-5': showMore },
+          'markup linkify text-md break-words'
+        )}
+      >
         {content}
       </Markup>
       {showMore && (
@@ -46,14 +61,16 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
         </div>
       )}
       {/* Snapshot, Attachments and Opengraph */}
-      {snapshotProposalId ? (
-        <Snapshot propsalId={snapshotProposalId} />
-      ) : publication?.metadata?.media?.length > 0 ? (
-        <Attachments attachments={publication?.metadata?.media} publication={publication} />
-      ) : (
-        publication?.metadata?.content &&
-        hasURLs && <IFramely url={getURLs(publication?.metadata?.content)[0]} />
-      )}
+      {showAttachments ? (
+        <Attachments
+          attachments={publication?.metadata?.media}
+          publication={publication}
+        />
+      ) : null}
+      {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
+      {showIFramely ? (
+        <IFramely url={getURLs(publication?.metadata?.content)[0]} />
+      ) : null}
     </div>
   );
 };

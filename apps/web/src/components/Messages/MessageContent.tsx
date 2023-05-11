@@ -11,7 +11,11 @@ type MessageContentProps = {
   sentByMe: boolean;
 };
 
-const MessageContent = ({ message, profile, sentByMe }: MessageContentProps): JSX.Element => {
+const MessageContent = ({
+  message,
+  profile,
+  sentByMe
+}: MessageContentProps): JSX.Element => {
   function content(): JSX.Element {
     if (message.error) {
       return <span>Error: {`${message.error}`}</span>;
@@ -19,7 +23,11 @@ const MessageContent = ({ message, profile, sentByMe }: MessageContentProps): JS
 
     if (message.contentType.sameAs(ContentTypeRemoteAttachment)) {
       return (
-        <RemoteAttachmentPreview remoteAttachment={message.content} profile={profile} sentByMe={sentByMe} />
+        <RemoteAttachmentPreview
+          remoteAttachment={message.content}
+          profile={profile}
+          sentByMe={sentByMe}
+        />
       );
     } else {
       return <Markup>{message.content}</Markup>;

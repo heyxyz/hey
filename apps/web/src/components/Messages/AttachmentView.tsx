@@ -24,7 +24,13 @@ function contentFor(attachment: Attachment): JSX.Element {
   );
 
   if (isImage(attachment.mimeType)) {
-    return <Image className="max-h-48 rounded object-contain" src={objectURL} alt="" />;
+    return (
+      <Image
+        className="max-h-48 rounded object-contain"
+        src={objectURL}
+        alt=""
+      />
+    );
   }
 
   return (

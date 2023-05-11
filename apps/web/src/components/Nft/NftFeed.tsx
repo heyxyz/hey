@@ -58,7 +58,9 @@ const NftFeed: FC<NftFeedProps> = ({ profile }) => {
       <EmptyState
         message={
           <div>
-            <span className="mr-1 font-bold">@{formatHandle(profile?.handle)}</span>
+            <span className="mr-1 font-bold">
+              @{formatHandle(profile?.handle)}
+            </span>
             <span>
               <Trans>doesn’t have any NFTs!</Trans>
             </span>

@@ -6,8 +6,10 @@ exclude_patterns = [
   ".github",
   ".husky",
   ".vscode",
-  "apps/web/src/generated/types.ts",
-  "yarn.lock"
+  "tests",
+  "pnpm-lock.yaml",
+  "packages/lens/generated.ts",
+  "packages/snapshot/generated.ts",
 ]
 
 [[analyzers]]

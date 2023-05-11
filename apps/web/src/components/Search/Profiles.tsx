@@ -2,11 +2,15 @@ import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer'
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
-import type { Profile, ProfileSearchResult, SearchQueryRequest } from 'lens';
-import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesQuery } from 'lens';
+import type { ProfileSearchResult, SearchQueryRequest } from 'lens';
+import {
+  CustomFiltersTypes,
+  SearchRequestTypes,
+  useSearchProfilesQuery
+} from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface ProfilesProps {
@@ -33,20 +37,18 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   const profiles = search?.items;
   const pageInfo = search?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      }).then(({ data }) => {
-        const search = data?.search as ProfileSearchResult;
-        setHasMore(search?.items?.length > 0);
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    }).then(({ data }) => {
+      const search = data?.search as ProfileSearchResult;
+      setHasMore(search?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return <UserProfilesShimmer isBig />;
@@ -70,14 +72,19 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   }
 
   return (
-    <div className="space-y-3">
-      {profiles?.map((profile: Profile) => (
-        <Card key={profile?.id} className="p-5">
-          <UserProfile profile={profile} showBio isBig />
-        </Card>
-      ))}
-      {hasMore && <span ref={observe} />}
-    </div>
+    <Virtuoso
+      useWindowScroll
+      className="[&>div>div]:space-y-3"
+      data={profiles}
+      endReached={onEndReached}
+      itemContent={(_, profile) => {
+        return (
+          <Card key={profile?.id} className="p-5">
+            <UserProfile profile={profile} showBio isBig />
+          </Card>
+        );
+      }}
+    />
   );
 };
 

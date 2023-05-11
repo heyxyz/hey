@@ -9,11 +9,17 @@ import { MIN_WIDTH_DESKTOP } from 'data/constants';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAttachmentCacheStore, useAttachmentStore } from 'src/store/attachment';
+import {
+  useAttachmentCacheStore,
+  useAttachmentStore
+} from 'src/store/attachment';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
 import { Button, Input, Spinner } from 'ui';
-import type { Attachment, RemoteAttachment } from 'xmtp-content-type-remote-attachment';
+import type {
+  Attachment,
+  RemoteAttachment
+} from 'xmtp-content-type-remote-attachment';
 import {
   AttachmentCodec,
   ContentTypeRemoteAttachment,
@@ -37,7 +43,7 @@ const AttachmentComposerPreview = ({
 }): JSX.Element => {
   return (
     <div className="relative ml-12 inline-block rounded pt-6">
-      <Button className="absolute top-4 right-4" size="sm" onClick={onDismiss}>
+      <Button className="absolute right-4 top-4" size="sm" onClick={onDismiss}>
         Remove
       </Button>
       <AttachmentView attachment={attachment} />
@@ -45,18 +51,31 @@ const AttachmentComposerPreview = ({
   );
 };
 
-const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInput }) => {
+const Composer: FC<ComposerProps> = ({
+  sendMessage,
+  conversationKey,
+  disabledInput
+}) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
   const [attachment, setAttachment] = useState<Attachment | null>(null);
   const { width } = useWindowSize();
-  const unsentMessage = useMessagePersistStore((state) => state.unsentMessages.get(conversationKey));
-  const setUnsentMessage = useMessagePersistStore((state) => state.setUnsentMessage);
+  const unsentMessage = useMessagePersistStore((state) =>
+    state.unsentMessages.get(conversationKey)
+  );
+  const setUnsentMessage = useMessagePersistStore(
+    (state) => state.setUnsentMessage
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const addLoadedAttachmentURL = useAttachmentStore((state) => state.addLoadedAttachmentURL);
-  const cacheAttachment = useAttachmentCacheStore((state) => state.cacheAttachment);
+  const addLoadedAttachmentURL = useAttachmentStore(
+    (state) => state.addLoadedAttachmentURL
+  );
+  const cacheAttachment = useAttachmentCacheStore(
+    (state) => state.cacheAttachment
+  );
 
-  const canSendMessage = !disabledInput && !sending && (message.length > 0 || attachment);
+  const canSendMessage =
+    !disabledInput && !sending && (message.length > 0 || attachment);
 
   const handleSend = async () => {
     if (!canSendMessage) {
@@ -66,17 +85,22 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
 
     let sent: boolean;
     if (attachment) {
-      const encryptedEncodedContent = await RemoteAttachmentCodec.encodeEncrypted(
-        attachment,
-        new AttachmentCodec()
+      const encryptedEncodedContent =
+        await RemoteAttachmentCodec.encodeEncrypted(
+          attachment,
+          new AttachmentCodec()
+        );
+
+      const file = new File(
+        [encryptedEncodedContent.payload],
+        'XMTPEncryptedContent',
+        {
+          type: attachment.mimeType
+        }
       );
 
-      const file = new File([encryptedEncodedContent.payload], 'XMTPEncryptedContent', {
-        type: attachment.mimeType
-      });
-
       const lensterAttachment = await uploadFileToIPFS(file);
-      const cid = lensterAttachment?.item.replace('ipfs://', '');
+      const cid = lensterAttachment?.original.url.replace('ipfs://', '');
       const url = `https://${cid}.ipfs.w3s.link`;
 
       const remoteAttachment: RemoteAttachment = {
@@ -162,7 +186,12 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
 
   return (
     <div className="bg-brand-100/75">
-      {attachment && <AttachmentComposerPreview onDismiss={onDismiss} attachment={attachment} />}
+      {attachment && (
+        <AttachmentComposerPreview
+          onDismiss={onDismiss}
+          attachment={attachment}
+        />
+      )}
       <div className="flex space-x-4 p-4">
         <label className="flex cursor-pointer items-center">
           <PhotographIcon className="text-brand-900 h-6 w-5" />
@@ -183,7 +212,12 @@ const Composer: FC<ComposerProps> = ({ sendMessage, conversationKey, disabledInp
           onKeyDown={handleKeyDown}
           onChange={(event) => onChangeCallback(event.target.value)}
         />
-        <Button disabled={!canSendMessage} onClick={handleSend} variant="primary" aria-label="Send message">
+        <Button
+          disabled={!canSendMessage}
+          onClick={handleSend}
+          variant="primary"
+          aria-label="Send message"
+        >
           <div className="flex items-center space-x-2">
             {Number(width) > MIN_WIDTH_DESKTOP ? (
               <span>

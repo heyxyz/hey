@@ -1,5 +1,5 @@
 import type { FeedItem } from 'lens';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 
 import Collected from './Collected';
@@ -20,7 +20,7 @@ interface ActionTypeProps {
 const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   const publication = feedItem.root;
   const isComment = publication.__typename === 'Comment';
-  const showThread = isComment || (feedItem.comments?.length ?? 0 > 0);
+  const showThread = isComment || (feedItem.comments?.length ?? 0) > 0;
 
   const canCombined = getCanCombined([
     feedItem.mirrors.length,
@@ -30,14 +30,20 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   ]);
 
   return (
-    <span onClick={stopEventPropagation}>
+    <span onClick={stopEventPropagation} aria-hidden="true">
       {canCombined ? (
         <Combined feedItem={feedItem} />
       ) : (
         <>
-          {feedItem.mirrors.length && !isComment ? <Mirrored mirrors={feedItem.mirrors} /> : null}
-          {feedItem.collects.length && !isComment ? <Collected collects={feedItem.collects} /> : null}
-          {feedItem.reactions.length && !isComment ? <Liked reactions={feedItem.reactions} /> : null}
+          {feedItem.mirrors.length && !isComment ? (
+            <Mirrored mirrors={feedItem.mirrors} />
+          ) : null}
+          {feedItem.collects.length && !isComment ? (
+            <Collected collects={feedItem.collects} />
+          ) : null}
+          {feedItem.reactions.length && !isComment ? (
+            <Liked reactions={feedItem.reactions} />
+          ) : null}
         </>
       )}
       {showThread ? <Commented feedItem={feedItem} /> : null}
