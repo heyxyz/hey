@@ -1,18 +1,16 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { getTimeAddedNDay } from '@lib/formatTime';
 import { t, Trans } from '@lingui/macro';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import isValidEthAddress from 'lib/isValidEthAddress';
 import type { Dispatch, FC } from 'react';
-import { useEffect } from 'react';
-import { useAccessSettingsStore } from 'src/store/access-settings';
-import { useAppStore } from 'src/store/app';
+import type { CollectModuleType } from 'src/store/collect-module';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { Button, ErrorMessage, Spinner } from 'ui';
 
 import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';
 import FollowersConfig from './FollowersConfig';
+import ReferralConfig from './ReferralConfig';
 import SplitConfig from './SplitConfig';
 import TimeLimitConfig from './TimeLimitConfig';
 
@@ -21,44 +19,16 @@ interface CollectFormProps {
 }
 
 const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const selectedCollectModule = useCollectModuleStore(
-    (state) => state.selectedCollectModule
-  );
-  const setSelectedCollectModule = useCollectModuleStore(
-    (state) => state.setSelectedCollectModule
-  );
   const amount = useCollectModuleStore((state) => state.amount);
-  const selectedCurrency = useCollectModuleStore(
-    (state) => state.selectedCurrency
-  );
-  const referralFee = useCollectModuleStore((state) => state.referralFee);
-  const collectLimit = useCollectModuleStore((state) => state.collectLimit);
-  const setCollectLimit = useCollectModuleStore(
-    (state) => state.setCollectLimit
-  );
-  const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
-  const setHasTimeLimit = useCollectModuleStore(
-    (state) => state.setHasTimeLimit
-  );
   const recipients = useCollectModuleStore((state) => state.recipients);
-  const followerOnly = useCollectModuleStore((state) => state.followerOnly);
-  const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
-  const setCollectToView = useAccessSettingsStore(
-    (state) => state.setCollectToView
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
+  const setCollectModule = useCollectModuleStore(
+    (state) => state.setCollectModule
   );
 
-  const {
-    RevertCollectModule,
-    FreeCollectModule,
-    FeeCollectModule,
-    LimitedFeeCollectModule,
-    LimitedTimedFeeCollectModule,
-    TimedFeeCollectModule,
-    MultirecipientFeeCollectModule
-  } = CollectModules;
-  const hasRecipients = recipients.length > 0;
+  const { RevertCollectModule, FreeCollectModule, SimpleCollectModule } =
+    CollectModules;
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
   const hasEmptyRecipients = recipients.some(
     (recipient) => !recipient.recipient
@@ -74,129 +44,12 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     return recipientsSet.size !== recipients.length;
   };
 
-  useEffect(() => {
-    const baseFeeData = {
-      amount: {
-        currency: selectedCurrency,
-        value: amount
-      },
-      [hasRecipients ? 'recipients' : 'recipient']: hasRecipients
-        ? recipients
-        : currentProfile?.ownedBy,
-      referralFee: parseFloat(referralFee ?? '0'),
-      followerOnly
-    };
-
-    switch (selectedCollectModule) {
-      case RevertCollectModule:
-        setCollectToView(false);
-        setPayload({ revertCollectModule: true });
-        break;
-      case FreeCollectModule:
-        setPayload({ freeCollectModule: { followerOnly } });
-        break;
-      case FeeCollectModule:
-        setPayload({
-          feeCollectModule: { ...baseFeeData }
-        });
-        break;
-      case LimitedFeeCollectModule:
-      case LimitedTimedFeeCollectModule:
-        setPayload({
-          [selectedCollectModule === LimitedFeeCollectModule
-            ? 'limitedFeeCollectModule'
-            : 'limitedTimedFeeCollectModule']: {
-            ...baseFeeData,
-            collectLimit
-          }
-        });
-        break;
-      case TimedFeeCollectModule:
-        setPayload({ timedFeeCollectModule: { ...baseFeeData } });
-        break;
-      case MultirecipientFeeCollectModule:
-        setPayload({
-          multirecipientFeeCollectModule: {
-            ...baseFeeData,
-            ...(collectLimit && { collectLimit }),
-            ...(hasTimeLimit && {
-              endTimestamp: getTimeAddedNDay(1)
-            })
-          }
-        });
-        break;
-      default:
-        setPayload({ revertCollectModule: true });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    amount,
-    referralFee,
-    collectLimit,
-    hasTimeLimit,
-    followerOnly,
-    recipients,
-    selectedCollectModule
-  ]);
-
-  useEffect(() => {
-    if (hasTimeLimit) {
-      if (amount) {
-        if (collectLimit) {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(LimitedTimedFeeCollectModule);
-          }
-        } else {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(TimedFeeCollectModule);
-          }
-        }
-      } else {
-        setHasTimeLimit(false);
-        if (collectLimit) {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(LimitedFeeCollectModule);
-          }
-        } else {
-          setSelectedCollectModule(FreeCollectModule);
-        }
-      }
-    } else {
-      if (amount) {
-        if (collectLimit) {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(LimitedFeeCollectModule);
-          }
-        } else {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(FeeCollectModule);
-          }
-        }
-      } else {
-        setCollectLimit(null);
-        if (collectLimit) {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(LimitedFeeCollectModule);
-          }
-        } else {
-          setSelectedCollectModule(FreeCollectModule);
-        }
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, collectLimit, hasTimeLimit, recipients]);
+  const setCollectType = (data: CollectModuleType) => {
+    setCollectModule({
+      ...collectModule,
+      ...data
+    });
+  };
 
   const { error, data, loading } = useEnabledModulesQuery();
 
@@ -222,33 +75,41 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   }
 
   const toggleCollect = () => {
-    if (selectedCollectModule === RevertCollectModule) {
-      return setSelectedCollectModule(FreeCollectModule);
-    } else {
-      return reset();
-    }
+    setCollectType({
+      type:
+        collectModule.type === RevertCollectModule
+          ? SimpleCollectModule
+          : RevertCollectModule,
+      isFreeCollect: true
+    });
   };
 
   return (
     <div className="space-y-3 p-5">
+      {JSON.stringify(collectModule.type)}
       <ToggleWithHelper
-        on={selectedCollectModule !== RevertCollectModule}
+        on={collectModule.type !== RevertCollectModule}
         setOn={toggleCollect}
         description={t`This post can be collected`}
       />
-      {selectedCollectModule !== RevertCollectModule && (
+      {collectModule.type !== RevertCollectModule && (
         <div className="ml-5">
           <AmountConfig
             enabledModuleCurrencies={data?.enabledModuleCurrencies}
+            setCollectType={setCollectType}
           />
-          {selectedCollectModule !== FreeCollectModule && amount && (
+          {collectModule.amount?.value ? (
             <>
-              <CollectLimitConfig />
-              <TimeLimitConfig />
-              <SplitConfig isRecipientsDuplicated={isRecipientsDuplicated} />
+              <ReferralConfig setCollectType={setCollectType} />
+              <SplitConfig
+                isRecipientsDuplicated={isRecipientsDuplicated}
+                setCollectType={setCollectType}
+              />
             </>
-          )}
-          <FollowersConfig />
+          ) : null}
+          <CollectLimitConfig setCollectType={setCollectType} />
+          <TimeLimitConfig setCollectType={setCollectType} />
+          <FollowersConfig setCollectType={setCollectType} />
         </div>
       )}
       <div className="flex space-x-2 pt-5">
@@ -266,7 +127,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         <Button
           disabled={
             (parseFloat(amount as string) <= 0 &&
-              selectedCollectModule !== FreeCollectModule) ||
+              collectModule.type !== FreeCollectModule) ||
             splitTotal > 100 ||
             hasEmptyRecipients ||
             hasInvalidEthAddressInRecipients ||

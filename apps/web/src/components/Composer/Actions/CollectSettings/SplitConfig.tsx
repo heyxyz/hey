@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
-import { useProfileLazyQuery } from 'lens';
+import { CollectModules, useProfileLazyQuery } from 'lens';
 import isValidEthAddress from 'lib/isValidEthAddress';
 import splitNumber from 'lib/splitNumber';
 import type { FC } from 'react';
@@ -18,15 +18,19 @@ import { Button, Input } from 'ui';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;
+  setCollectType: (data: any) => void;
 }
 
-const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
+const SplitConfig: FC<SplitConfigProps> = ({
+  isRecipientsDuplicated,
+  setCollectType
+}) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const recipients = useCollectModuleStore((state) => state.recipients);
-  const setRecipients = useCollectModuleStore((state) => state.setRecipients);
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
 
-  const hasRecipients = recipients.length > 0;
-  const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
+  const recipients = collectModule.recipients ?? [];
+  const hasRecipients = (recipients ?? []).length > 0;
+  const splitTotal = recipients?.reduce((acc, curr) => acc + curr.split, 0);
 
   const [getProfileByHandle, { loading }] = useProfileLazyQuery();
 
@@ -38,7 +42,9 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
         split: equalSplits[i]
       };
     });
-    setRecipients([...splits]);
+    setCollectType({
+      recipients: [...splits]
+    });
   };
 
   const getIsHandle = (handle: string) => {
@@ -69,13 +75,13 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
         variables: { request: { handle: value } },
         onCompleted: ({ profile }) => {
           if (profile) {
-            setRecipients(getRecipients(profile.ownedBy));
+            setCollectType({ recipients: getRecipients(profile.ownedBy) });
           }
         }
       });
     }
 
-    setRecipients(getRecipients(value));
+    setCollectType({ recipients: getRecipients(value) });
   };
 
   return (
@@ -84,9 +90,15 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
         on={recipients.length > 0}
         setOn={() => {
           if (recipients.length > 0) {
-            setRecipients([]);
+            setCollectType({
+              type: CollectModules.SimpleCollectModule,
+              recipients: []
+            });
           } else {
-            setRecipients([{ recipient: currentProfile?.ownedBy, split: 100 }]);
+            setCollectType({
+              type: CollectModules.MultirecipientFeeCollectModule,
+              recipients: [{ recipient: currentProfile?.ownedBy, split: 100 }]
+            });
           }
         }}
         heading={
@@ -140,7 +152,9 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
                 </div>
                 <button
                   onClick={() => {
-                    setRecipients(recipients.filter((_, i) => i !== index));
+                    setCollectType({
+                      recipients: recipients.filter((_, i) => i !== index)
+                    });
                   }}
                 >
                   <XCircleIcon className="h-5 w-5 text-red-500" />
@@ -157,7 +171,9 @@ const SplitConfig: FC<SplitConfigProps> = ({ isRecipientsDuplicated }) => {
                 outline
                 icon={<PlusIcon className="h-3 w-3" />}
                 onClick={() => {
-                  setRecipients([...recipients, { recipient: '', split: 0 }]);
+                  setCollectType({
+                    recipients: [...recipients, { recipient: '', split: 0 }]
+                  });
                 }}
               >
                 Add recipient

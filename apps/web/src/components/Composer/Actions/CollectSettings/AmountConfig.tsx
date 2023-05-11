@@ -1,41 +1,48 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
+import { DEFAULT_COLLECT_TOKEN } from 'data';
 import type { Erc20 } from 'lens';
+import { CollectModules } from 'lens';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { Input } from 'ui';
 
-import ReferralConfig from './ReferralConfig';
-
 interface AmountConfigProps {
   enabledModuleCurrencies?: Erc20[];
+  setCollectType: (data: any) => void;
 }
 
-const AmountConfig: FC<AmountConfigProps> = ({ enabledModuleCurrencies }) => {
-  const amount = useCollectModuleStore((state) => state.amount);
-  const setAmount = useCollectModuleStore((state) => state.setAmount);
-  const setRecipients = useCollectModuleStore((state) => state.setRecipients);
-  const selectedCurrency = useCollectModuleStore(
-    (state) => state.selectedCurrency
-  );
-  const setSelectedCurrency = useCollectModuleStore(
-    (state) => state.setSelectedCurrency
-  );
+const AmountConfig: FC<AmountConfigProps> = ({
+  enabledModuleCurrencies,
+  setCollectType
+}) => {
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
     <div className="pt-3">
       <ToggleWithHelper
-        on={Boolean(amount)}
+        on={Boolean(collectModule.amount?.value)}
         setOn={() => {
-          setAmount(amount ? null : '1');
-          setRecipients([]);
+          setCollectType({
+            type: collectModule.amount?.value
+              ? CollectModules.SimpleCollectModule
+              : collectModule.recipients?.length
+              ? CollectModules.MultirecipientFeeCollectModule
+              : CollectModules.SimpleCollectModule,
+            amount: {
+              currency: collectModule.amount?.value
+                ? null
+                : DEFAULT_COLLECT_TOKEN,
+              value: collectModule.amount?.value ? null : '1'
+            }
+          });
         }}
         heading={t`Charge for collecting`}
         description={t`Get paid whenever someone collects your post`}
         icon={<CollectionIcon className="h-4 w-4" />}
       />
-      {amount ? (
+      {collectModule.amount?.value ? (
         <div className="pt-4">
           <div className="flex space-x-2 text-sm">
             <Input
@@ -44,9 +51,14 @@ const AmountConfig: FC<AmountConfigProps> = ({ enabledModuleCurrencies }) => {
               placeholder="0.5"
               min="0"
               max="100000"
-              value={parseFloat(amount)}
+              value={parseFloat(collectModule.amount.value)}
               onChange={(event) => {
-                setAmount(event.target.value ? event.target.value : '0');
+                setCollectType({
+                  amount: {
+                    currency: collectModule.amount?.currency,
+                    value: event.target.value ? event.target.value : '0'
+                  }
+                });
               }}
             />
             <div>
@@ -55,13 +67,22 @@ const AmountConfig: FC<AmountConfigProps> = ({ enabledModuleCurrencies }) => {
               </div>
               <select
                 className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
-                onChange={(e) => setSelectedCurrency(e.target.value)}
+                onChange={(e) => {
+                  setCollectType({
+                    amount: {
+                      currency: e.target.value,
+                      value: collectModule.amount?.value
+                    }
+                  });
+                }}
               >
                 {enabledModuleCurrencies?.map((currency: Erc20) => (
                   <option
                     key={currency.address}
                     value={currency.address}
-                    selected={currency?.address === selectedCurrency}
+                    selected={
+                      currency?.address === collectModule.amount?.currency
+                    }
                   >
                     {currency.name}
                   </option>
@@ -69,7 +90,6 @@ const AmountConfig: FC<AmountConfigProps> = ({ enabledModuleCurrencies }) => {
               </select>
             </div>
           </div>
-          <ReferralConfig />
         </div>
       ) : null}
     </div>

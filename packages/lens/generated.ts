@@ -328,6 +328,8 @@ export type CollectModuleParams = {
   multirecipientFeeCollectModule?: InputMaybe<MultirecipientFeeCollectModuleParams>;
   /** The collect revert collect module */
   revertCollectModule?: InputMaybe<Scalars['Boolean']>;
+  /** The collect simple fee collect module */
+  simpleCollectModule?: InputMaybe<SimpleCollectModuleParams>;
   /** The collect timed fee collect module */
   timedFeeCollectModule?: InputMaybe<TimedFeeCollectModuleParams>;
   /** A unknown collect module */
@@ -344,6 +346,7 @@ export enum CollectModules {
   LimitedTimedFeeCollectModule = 'LimitedTimedFeeCollectModule',
   MultirecipientFeeCollectModule = 'MultirecipientFeeCollectModule',
   RevertCollectModule = 'RevertCollectModule',
+  SimpleCollectModule = 'SimpleCollectModule',
   TimedFeeCollectModule = 'TimedFeeCollectModule',
   UnknownCollectModule = 'UnknownCollectModule'
 }
@@ -2127,6 +2130,15 @@ export type ModuleFeeAmountParams = {
   currency: Scalars['ContractAddress'];
   /** Floating point number as string (e.g. 42.009837). It could have the entire precision of the Asset or be truncated to the last significant decimal. */
   value: Scalars['String'];
+};
+
+export type ModuleFeeParams = {
+  /** The fee amount */
+  amount: ModuleFeeAmountParams;
+  /** The fee recipient */
+  recipient: Scalars['EthereumAddress'];
+  /** The referral fee */
+  referralFee: Scalars['Float'];
 };
 
 export type ModuleInfo = {
@@ -4124,6 +4136,17 @@ export type SignedAuthChallenge = {
   address: Scalars['EthereumAddress'];
   /** The signature */
   signature: Scalars['Signature'];
+};
+
+export type SimpleCollectModuleParams = {
+  /** The collect module limit */
+  collectLimit?: InputMaybe<Scalars['String']>;
+  /** The timestamp that this collect module will expire */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>;
+  /** The collect module fee params */
+  fee?: InputMaybe<ModuleFeeParams>;
+  /** Collectible by followers only */
+  followerOnly: Scalars['Boolean'];
 };
 
 export type SingleProfileQueryRequest = {
