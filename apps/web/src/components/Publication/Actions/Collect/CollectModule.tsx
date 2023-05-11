@@ -96,6 +96,13 @@ const CollectModule: FC<CollectModuleProps> = ({
     collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
   const collectLimit =
     collectModule?.collectLimit ?? collectModule?.optionalCollectLimit;
+  const amount =
+    collectModule?.amount?.value ?? collectModule?.fee?.amount?.value;
+  const currency =
+    collectModule?.amount?.asset?.symbol ??
+    collectModule?.fee?.amount?.asset?.symbol;
+  const referralFee =
+    collectModule?.referralFee ?? collectModule?.fee?.referralFee;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -103,7 +110,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     }
 
     setIsLoading(false);
-    setRevenue(revenue + parseFloat(collectModule?.amount?.value));
+    setRevenue(revenue + parseFloat(amount));
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
@@ -111,8 +118,8 @@ const CollectModule: FC<CollectModuleProps> = ({
       collect_module: collectModule?.type,
       collect_publication_id: publication?.id,
       ...(!isRevertCollectModule && {
-        collect_amount: collectModule?.amount?.value,
-        collect_currency: collectModule?.amount?.asset?.symbol,
+        collect_amount: amount,
+        collect_currency: currency,
         collect_limit: collectLimit
       })
     });
@@ -173,10 +180,7 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   const { data: usdPrice } = useQuery(
     ['coingeckoData'],
-    () =>
-      getCoingeckoPrice(
-        getAssetAddress(collectModule?.amount?.asset?.symbol)
-      ).then((res) => res),
+    () => getCoingeckoPrice(getAssetAddress(currency)).then((res) => res),
     { enabled: Boolean(collectModule?.amount) }
   );
 
@@ -196,11 +200,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   });
 
   let hasAmount = false;
-  if (
-    balanceData &&
-    parseFloat(balanceData?.formatted) <
-      parseFloat(collectModule?.amount?.value)
-  ) {
+  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(amount)) {
     hasAmount = false;
   } else {
     hasAmount = true;
@@ -323,31 +323,27 @@ const CollectModule: FC<CollectModuleProps> = ({
           <ReferralAlert
             electedMirror={electedMirror}
             mirror={publication}
-            referralFee={collectModule?.referralFee}
+            referralFee={referralFee}
           />
         </div>
-        {collectModule?.amount && (
+        {amount && (
           <div className="flex items-center space-x-1.5 py-2">
             <img
               className="h-7 w-7"
               height={28}
               width={28}
-              src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-              alt={collectModule?.amount?.asset?.symbol}
-              title={collectModule?.amount?.asset?.symbol}
+              src={getTokenImage(currency)}
+              alt={currency}
+              title={currency}
             />
             <span className="space-x-1">
-              <span className="text-2xl font-bold">
-                {collectModule.amount.value}
-              </span>
-              <span className="text-xs">
-                {collectModule?.amount?.asset?.symbol}
-              </span>
+              <span className="text-2xl font-bold">{amount}</span>
+              <span className="text-xs">{currency}</span>
               {usdPrice ? (
                 <>
                   <span className="lt-text-gray-500 px-0.5">·</span>
                   <span className="lt-text-gray-500 text-xs font-bold">
-                    ${(collectModule.amount.value * usdPrice).toFixed(2)}
+                    ${(amount * usdPrice).toFixed(2)}
                   </span>
                 </>
               ) : null}
@@ -388,11 +384,11 @@ const CollectModule: FC<CollectModuleProps> = ({
                 </div>
               </div>
             )}
-            {collectModule?.referralFee ? (
+            {referralFee ? (
               <div className="flex items-center space-x-2">
                 <CashIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
-                  <Trans>{collectModule.referralFee}% referral fee</Trans>
+                  <Trans>{referralFee}% referral fee</Trans>
                 </div>
               </div>
             ) : null}
@@ -406,18 +402,16 @@ const CollectModule: FC<CollectModuleProps> = ({
                 </span>
                 <span className="flex items-center space-x-1">
                   <img
-                    src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+                    src={getTokenImage(currency)}
                     className="h-5 w-5"
                     height={20}
                     width={20}
-                    alt={collectModule?.amount?.asset?.symbol}
-                    title={collectModule?.amount?.asset?.symbol}
+                    alt={currency}
+                    title={currency}
                   />
                   <div className="flex items-baseline space-x-1.5">
                     <div className="font-bold">{revenue}</div>
-                    <div className="text-[10px]">
-                      {collectModule?.amount?.asset?.symbol}
-                    </div>
+                    <div className="text-[10px]">{currency}</div>
                     {usdPrice ? (
                       <>
                         <span className="lt-text-gray-500">·</span>
