@@ -98,6 +98,8 @@ export default function PUSHPreviewRequests() {
     return newArray;
   };
 
+  console.log(requestsFeed);
+  
   useEffect(() => {
     setRequestsFeed(requestsFeed);
     let getItems = withNestedKeys(requestsFeed);

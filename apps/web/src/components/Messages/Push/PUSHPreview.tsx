@@ -126,7 +126,7 @@ const PUSHPreview = () => {
       }
       let feeds = await fetchRequests({ page, requestLimit });
       let firstFeeds: { [key: string]: IFeeds } = { ...feeds };
-      // setRequestsFeed(firstFeeds);
+      setRequestsFeed(firstFeeds);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [decryptedPgpPvtKey]);
