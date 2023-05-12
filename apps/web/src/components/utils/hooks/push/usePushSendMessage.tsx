@@ -66,12 +66,11 @@ const usePushSendMessage = () => {
         } else {
           let fetchChatsMessages: IFeeds = (await fetchChat({ recipientAddress: receiver })) as IFeeds;
           setChatFeed(selectedChatId, fetchChatsMessages);
-
           setChat(selectedChatId, {
             messages: Array.isArray(chats.get(selectedChatId)?.messages)
               ? [...chats.get(selectedChatId)!.messages, modifiedResponse]
               : [modifiedResponse],
-            lastThreadHash: chats.get(selectedChatId)!.lastThreadHash
+            lastThreadHash: chats.get(selectedChatId)?.lastThreadHash ?? response.link
           });
         }
 

@@ -48,7 +48,7 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
 
   const [profile, setProfile] = useState<Profile | null | ''>('');
   const [groupInfo, setGroupInfo] = useState<GroupDTO | null | ''>('');
-  const [selectedChat, setSelectedChat] = useState<IFeeds | undefined>();
+  const [selectedChat, setSelectedChat] = useState<IFeeds>();
 
   useEffect(() => {
     if (!selectedChatId) {
@@ -56,9 +56,7 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
     }
     const fetchSelectedChat = async () => {
       const response = await fetchChat({ recipientAddress: selectedChatId });
-      if (response) {
-        setSelectedChat(response);
-      }
+      setSelectedChat(response);
     };
 
     fetchSelectedChat();

@@ -301,11 +301,15 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
   };
 
   const getChatCall = async () => {
+    if (!selectedChat || selectedChatId !== selectedChat?.did) {
+      return;
+    }
     let threadHash = null;
-    if (!selectedMessages && selectedChat?.threadhash) {
+    const messages = chats.get(selectedChatId);
+    if (!messages && selectedChat?.threadhash) {
       threadHash = selectedChat?.threadhash;
-    } else if (chats.size && selectedMessages?.lastThreadHash) {
-      threadHash = selectedMessages?.lastThreadHash;
+    } else if (chats.size && messages?.lastThreadHash) {
+      threadHash = messages?.lastThreadHash;
     }
     if (threadHash) {
       await historyMessages({
@@ -390,7 +394,7 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
       }
       await getChatCall();
     })();
-  }, [decryptedPgpPvtKey, selectedChat, selectedChatId]);
+  }, [decryptedPgpPvtKey, selectedChat]);
 
   type RenderDataType = {
     chat: IMessageIPFS;
