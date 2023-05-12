@@ -579,7 +579,7 @@ const useCreateGroup = () => {
                 : ''
             } / 09 Members`}</span>
           </div>
-          <div className="w-full pt-4">
+          <div className="h-fit w-full pt-4">
             <Search
               modalWidthClassName="max-w-xs"
               placeholder={`Search for someone to message...`}
