@@ -312,6 +312,9 @@ const useCreateGroup = () => {
           env: PUSH_ENV
         });
         setShowCreateGroupModal(false);
+        if (response) {
+          router.push(`/messages/push/group/${response.chatId}`);
+        }
       } catch (error: Error | any) {
         console.log(error.message);
       }
