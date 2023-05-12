@@ -19,7 +19,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import { useAppStore } from 'src/store/app';
 import { CHAT_TYPES, PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
-import { Image, Input, Spinner } from 'ui';
+import { Button, Image, Input, Spinner } from 'ui';
 
 import { dateToFromNowDaily, getProfileFromDID, isProfileExist } from './helper';
 
@@ -131,12 +131,13 @@ const Messages = ({ chat }: { chat: IMessageIPFS }) => {
 
 type MessageFieldPropType = {
   scrollToBottom: () => void;
+  selectedChat: IFeeds;
 };
 
 const requestLimit: number = 30;
 const page: number = 1;
 
-const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
+const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) => {
   const modalRef = useRef(null);
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
@@ -144,13 +145,63 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
   const { sendMessage, loading: msgSendLoading } = usePushSendMessage();
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const { createChatProfile } = useCreateChatProfile();
   const { fetchRequests } = useFetchRequests();
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
+  const { approveChatRequest } = useApproveChatRequest();
 
   const requestFeedids = Object.keys(requestsFeed);
+  const [toShowJoinPublicGroup, setToShowJoinPublicGroup] = useState<boolean>(false);
 
   const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
+
+  const ifPublicGroupAndNotMember = (): boolean => {
+    if (!selectedChat) {
+      return false;
+    }
+    if (
+      (selectedChat && selectedChat?.did) ||
+      (selectedChat?.groupInformation && selectedChat?.groupInformation?.isPublic === false)
+    ) {
+      return false;
+    }
+
+    let response = true;
+    if (connectedProfile && connectedProfile?.did) {
+      selectedChat?.groupInformation?.members.map((member) => {
+        if (member.wallet === connectedProfile.did) {
+          response = false;
+          return;
+        }
+      });
+      selectedChat?.groupInformation?.pendingMembers.map((member) => {
+        if (member.wallet === connectedProfile.did) {
+          response = false;
+          return;
+        }
+      });
+    } else {
+      selectedChat?.groupInformation?.members.map((member) => {
+        if (getProfileFromDID(member.wallet) === currentProfile?.id) {
+          response = false;
+          return;
+        }
+      });
+      selectedChat?.groupInformation?.pendingMembers.map((member) => {
+        if (getProfileFromDID(member.wallet) === currentProfile?.id) {
+          response = false;
+          return;
+        }
+      });
+    }
+    return response;
+  };
+
+  useEffect(() => {
+    const response = ifPublicGroupAndNotMember();
+    setToShowJoinPublicGroup(response);
+  }, []);
 
   const sendPushMessage = async (content: string, type: string) => {
     try {
@@ -184,7 +235,21 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
     setEmojiOpen(false);
   });
 
-  return (
+  const handleJoinGroup = async () => {
+    const response = await approveChatRequest({ senderAddress: selectedChatId });
+    setToShowJoinPublicGroup(false);
+  };
+
+  return toShowJoinPublicGroup ? (
+    <div className="flex justify-between rounded-lg border border-solid p-2">
+      <div className="align-center self-center text-sm text-[#9E9EA9]">
+        You need to join the group in order to send a message
+      </div>
+      <Button onClick={handleJoinGroup} className="self-center px-8 py-2 text-center" variant="primary">
+        Join Group
+      </Button>
+    </div>
+  ) : (
     <>
       <Image
         onClick={() => setEmojiOpen((o) => !o)}
@@ -214,19 +279,15 @@ const MessageField = ({ scrollToBottom }: MessageFieldPropType) => {
           </div>
         )}
       </div>
-      {emojiOpen ? (
+      {emojiOpen && (
         <div ref={modalRef} className="absolute bottom-[50px]">
           <EmojiPicker onEmojiClick={appendEmoji} />
         </div>
-      ) : (
-        ''
       )}
-      {gifOpen ? (
+      {gifOpen && (
         <div ref={modalRef} className="absolute bottom-[50px] right-0">
           <GifPicker onGifClick={sendGIF} tenorApiKey={String(process.env.NEXT_PUBLIC_GOOGLE_TOKEN)} />
         </div>
-      ) : (
-        ''
       )}
       <Input
         onChange={(e) => setInputText(e.target.value)}
@@ -480,7 +541,7 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
       </div>
 
       <div className="relative mt-2">
-        <MessageField scrollToBottom={scrollToBottom} />
+        <MessageField scrollToBottom={scrollToBottom} selectedChat={selectedChat} />
       </div>
     </section>
   );
