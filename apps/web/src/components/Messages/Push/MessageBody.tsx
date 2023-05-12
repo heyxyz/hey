@@ -301,7 +301,7 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
   };
 
   const getChatCall = async () => {
-    if (!selectedChat || selectedChatId !== selectedChat?.did) {
+    if (!selectedChat || selectedChatId !== (selectedChat?.did ?? selectedChat?.chatId)) {
       return;
     }
     let threadHash = null;

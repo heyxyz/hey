@@ -109,7 +109,7 @@ const Search: FC<SearchProps> = ({
           className={clsx('absolute mt-2 flex w-[20%] flex-col', modalWidthClassName)}
           data-testid="search-profiles-dropdown"
         >
-          <Card className="z-10 max-h-[70vh] max-w-[295px] overflow-y-auto py-2	">
+          <Card className="z-10 max-h-[70vh] max-w-[340px] overflow-y-auto py-2	">
             {searchUsersLoading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
