@@ -111,7 +111,7 @@ export default function PUSHPreviewChats() {
                   ) : (
                     <>
                       <p className="bold max-w-[180px] truncate text-base">
-                        {formatHandle(lensProfile?.handle)}
+                        {lensProfile?.name ?? formatHandle(lensProfile?.handle)}
                       </p>
                       <PreviewMessage content={feed.msg.messageContent} messageType={feed.msg.messageType} />
                     </>
