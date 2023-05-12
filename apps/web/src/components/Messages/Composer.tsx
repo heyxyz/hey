@@ -29,22 +29,27 @@ import {
 import AttachmentView from './AttachmentView';
 
 interface ComposerProps {
-  sendMessage: (content: any, contentType: ContentTypeId) => Promise<boolean>;
+  sendMessage: (
+    content: string | RemoteAttachment,
+    contentType: ContentTypeId
+  ) => Promise<boolean>;
   conversationKey: string;
   disabledInput: boolean;
 }
 
-const AttachmentComposerPreview = ({
-  onDismiss,
-  attachment
-}: {
+interface AttachmentComposerPreviewProps {
   onDismiss: () => void;
   attachment: Attachment;
-}): JSX.Element => {
+}
+
+const AttachmentComposerPreview: FC<AttachmentComposerPreviewProps> = ({
+  onDismiss,
+  attachment
+}) => {
   return (
     <div className="relative ml-12 inline-block rounded pt-6">
       <Button className="absolute right-4 top-4" size="sm" onClick={onDismiss}>
-        Remove
+        <Trans>Remove</Trans>
       </Button>
       <AttachmentView attachment={attachment} />
     </div>
@@ -99,9 +104,9 @@ const Composer: FC<ComposerProps> = ({
         }
       );
 
-      const lensterAttachment = await uploadFileToIPFS(file);
-      const cid = lensterAttachment?.original.url.replace('ipfs://', '');
-      const url = `https://${cid}.ipfs.w3s.link`;
+      const uploadedAttachment = await uploadFileToIPFS(file);
+      const cid = uploadedAttachment?.original.url.replace('ipfs://', '');
+      const url = `https://ipfs.thirdwebcdn.com/ipfs/${cid}`;
 
       const remoteAttachment: RemoteAttachment = {
         url,
@@ -175,23 +180,23 @@ const Composer: FC<ComposerProps> = ({
     }
   };
 
-  function onDismiss() {
+  const onDismiss = () => {
     setAttachment(null);
 
     const el = fileInputRef.current;
     if (el) {
       el.value = '';
     }
-  }
+  };
 
   return (
     <div className="bg-brand-100/75">
-      {attachment && (
+      {attachment ? (
         <AttachmentComposerPreview
           onDismiss={onDismiss}
           attachment={attachment}
         />
-      )}
+      ) : null}
       <div className="flex space-x-4 p-4">
         <label className="flex cursor-pointer items-center">
           <PhotographIcon className="text-brand-900 h-6 w-5" />

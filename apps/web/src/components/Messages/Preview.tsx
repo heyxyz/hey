@@ -86,12 +86,12 @@ const Preview: FC<PreviewProps> = ({
               </span>
             )}
           </div>
-          {message && (
+          {message ? (
             <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
               {address === message.senderAddress && 'You: '}
               {contentFor(message)}
             </span>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

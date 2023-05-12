@@ -1,4 +1,6 @@
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
+import humanFileSize from '@lib/humanFileSize';
+import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -14,31 +16,10 @@ import { RemoteAttachmentCodec } from 'xmtp-content-type-remote-attachment';
 
 import AttachmentView from './AttachmentView';
 
-type RemoteAttachmentPreviewProps = {
+interface RemoteAttachmentPreviewProps {
   remoteAttachment: RemoteAttachment;
   profile: Profile | undefined;
   sentByMe: boolean;
-};
-
-function humanFileSize(bytes: number) {
-  const thresh = 1024;
-
-  if (Math.abs(bytes) < thresh) {
-    return bytes + ' B';
-  }
-
-  const units = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  let u = -1;
-
-  do {
-    bytes /= thresh;
-    ++u;
-  } while (
-    Math.round(Math.abs(bytes) * 10) / 10 >= thresh &&
-    u < units.length - 1
-  );
-
-  return bytes.toFixed(1) + ' ' + units[u];
 }
 
 type Status = 'unloaded' | 'loading' | 'loaded';
@@ -73,12 +54,12 @@ const RemoteAttachmentPreview = ({
     }
 
     if (profile && !profile.isFollowedByMe && !sentByMe) {
-      return 'Attachments are not loaded automatically from people you don’t follow.';
+      return t`Attachments are not loaded automatically from people you don’t follow.`;
     }
 
     // if it's bigger than 100 megabytes
     if (remoteAttachment.contentLength > 104857600 && !sentByMe) {
-      return 'Large attachments are not loaded automatically.';
+      return t`Large attachments are not loaded automatically.`;
     }
 
     return null;

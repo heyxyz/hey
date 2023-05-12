@@ -1,22 +1,23 @@
 import Markup from '@components/Shared/Markup';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { Profile } from 'lens';
+import type { FC } from 'react';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 
 import RemoteAttachmentPreview from './RemoteAttachmentPreview';
 
-type MessageContentProps = {
+interface MessageContentProps {
   message: DecodedMessage;
   profile: Profile | undefined;
   sentByMe: boolean;
-};
+}
 
-const MessageContent = ({
+const MessageContent: FC<MessageContentProps> = ({
   message,
   profile,
   sentByMe
-}: MessageContentProps): JSX.Element => {
-  function content(): JSX.Element {
+}) => {
+  const content = (): JSX.Element => {
     if (message.error) {
       return <span>Error: {`${message.error}`}</span>;
     }
@@ -29,10 +30,9 @@ const MessageContent = ({
           sentByMe={sentByMe}
         />
       );
-    } else {
-      return <Markup>{message.content}</Markup>;
     }
-  }
+    return <Markup>{message.content}</Markup>;
+  };
 
   return content();
 };

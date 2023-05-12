@@ -1,15 +1,15 @@
+import type { FC } from 'react';
 import { Image } from 'ui';
 import type { Attachment } from 'xmtp-content-type-remote-attachment';
 
-type AttachmentViewProps = {
+interface AttachmentViewProps {
   attachment: Attachment;
-};
-
-function isImage(mimeType: string): boolean {
-  return ['image/png', 'image/jpeg', 'image/gif'].includes(mimeType);
 }
 
-function contentFor(attachment: Attachment): JSX.Element {
+const isImage = (mimeType: string): boolean =>
+  ['image/png', 'image/jpeg', 'image/gif'].includes(mimeType);
+
+const contentFor = (attachment: Attachment): JSX.Element => {
   // The attachment.data gets turned into an object when it's serialized
   // via JSON.stringify in the store persistence. This check restores it
   // to the correct type.
@@ -28,7 +28,7 @@ function contentFor(attachment: Attachment): JSX.Element {
       <Image
         className="max-h-48 rounded object-contain"
         src={objectURL}
-        alt=""
+        alt={attachment.filename}
       />
     );
   }
@@ -38,10 +38,9 @@ function contentFor(attachment: Attachment): JSX.Element {
       {attachment.filename}
     </a>
   );
-}
-
-const AttachmentView = ({ attachment }: AttachmentViewProps): JSX.Element => {
-  return contentFor(attachment);
 };
+
+const AttachmentView: FC<AttachmentViewProps> = ({ attachment }) =>
+  contentFor(attachment);
 
 export default AttachmentView;

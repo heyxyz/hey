@@ -43,7 +43,7 @@
     "@tanstack/react-query": "^4.29.5",
     "@thirdweb-dev/storage": "^1.1.2",
     "@tippyjs/react": "^4.2.6",
-    "@xmtp/xmtp-js": "^8.2.1",
+    "@xmtp/xmtp-js": "^9.0.1",
     "abis": "workspace:*",
     "axios": "^1.4.0",
     "clsx": "^1.2.1",
