@@ -1,6 +1,9 @@
+import * as PushAPI from '@pushprotocol/restapi';
+import { LENSHUB_PROXY } from 'data';
 import { useCallback, useState } from 'react';
+import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import { usePushChatStore } from 'src/store/push-chat';
+import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 
 interface fetchChat {
   recipientAddress: string;
@@ -16,21 +19,22 @@ const useFetchChat = () => {
 
   const fetchChat = useCallback(
     async ({ recipientAddress }: fetchChat) => {
+      console.log(recipientAddress, 'receipient');
       setLoading(true);
-      // try {
-      //   const chat = await PushAPI.chat.chat({
-      //     account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${(currentProfile as Profile)?.id}`,
-      //     toDecrypt: true,
-      //     pgpPrivateKey: String(decryptedPgpPvtKey),
-      //     recipient:recipientAddress,
-      //     env: PUSH_ENV
-      //   });
-      //   return chat;
-      // } catch (error: Error | any) {
-      //   setLoading(false);
-      //   setError(error.message);
-      //   console.log(error);
-      // }
+      try {
+        const chat = await PushAPI.chat.chat({
+          account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile?.id}`,
+          toDecrypt: decryptedPgpPvtKey ? true : false,
+          pgpPrivateKey: String(decryptedPgpPvtKey),
+          recipient: recipientAddress,
+          env: PUSH_ENV
+        });
+        return chat;
+      } catch (error: Error | any) {
+        setLoading(false);
+        setError(error.message);
+        console.log(error);
+      }
     },
     [decryptedPgpPvtKey]
   );

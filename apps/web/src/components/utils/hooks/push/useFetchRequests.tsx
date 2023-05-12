@@ -9,6 +9,11 @@ import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 
 import useFetchLensProfiles from './useFetchLensProfiles';
 
+interface fetchRequestsType {
+  page: number;
+  requestLimit: number;
+}
+
 const useFetchRequests = () => {
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -18,43 +23,51 @@ const useFetchRequests = () => {
   const { loadLensProfiles } = useFetchLensProfiles();
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
-  const fetchRequests = useCallback(async () => {
-    if (!currentProfile) {
-      return;
-    }
-    setLoading(true);
-    try {
-      const requests = await PushAPI.chat.requests({
-        account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
-        toDecrypt: decryptedPgpPvtKey ? true : false,
-        pgpPrivateKey: String(decryptedPgpPvtKey),
-        env: PUSH_ENV
-      });
-
-      const lensIds: Array<string> = [];
-
-      //conversation to map from array
-      const modifiedRequestsObj: { [key: string]: IFeeds } = {};
-
-      for (const request of requests) {
-        const profileId: string = getProfileFromDID(request.did ?? request.chatId);
-        if (request.did) {
-          lensIds.push(profileId);
-        }
-        modifiedRequestsObj[request.did ?? request.chatId] = request;
+  const fetchRequests = useCallback(
+    async ({ page, requestLimit }: fetchRequestsType) => {
+      if (!currentProfile) {
+        return;
       }
+      if (page === 1) {
+        setLoading(true);
+      }
+      setLoading(true);
+      try {
+        const requests = await PushAPI.chat.requests({
+          account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
+          toDecrypt: decryptedPgpPvtKey ? true : false,
+          pgpPrivateKey: String(decryptedPgpPvtKey),
+          env: PUSH_ENV,
+          page: page,
+          limit: requestLimit
+        });
 
-      await loadLensProfiles(lensIds);
-      setRequestsFeed(modifiedRequestsObj);
-      return modifiedRequestsObj;
-    } catch (error: Error | any) {
-      setLoading(false);
-      setError(error.message);
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [currentProfile, decryptedPgpPvtKey, loadLensProfiles, setRequestsFeed]);
+        const lensIds: Array<string> = [];
+
+        //conversation to map from array
+        const modifiedRequestsObj: { [key: string]: IFeeds } = {};
+
+        for (const request of requests) {
+          const profileId: string = getProfileFromDID(request.did ?? request.chatId);
+          if (request.did) {
+            lensIds.push(profileId);
+          }
+          modifiedRequestsObj[request.did ?? request.chatId] = request;
+        }
+
+        await loadLensProfiles(lensIds);
+        // setRequestsFeed(modifiedRequestsObj);
+        return modifiedRequestsObj;
+      } catch (error: Error | any) {
+        setLoading(false);
+        setError(error.message);
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [currentProfile, decryptedPgpPvtKey, loadLensProfiles, setRequestsFeed]
+  );
 
   return { fetchRequests, error, loading };
 };

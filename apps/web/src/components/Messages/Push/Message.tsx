@@ -1,11 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
+import useFetchChat from '@components/utils/hooks/push/useFetchChat';
 import useFetchLensProfiles from '@components/utils/hooks/push/useFetchLensProfiles';
 import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
 import useGetGroup from '@components/utils/hooks/push/useGetGroup';
 import useGroupByName from '@components/utils/hooks/push/useGetGroupbyName';
 import { t } from '@lingui/macro';
-import type { GroupDTO } from '@pushprotocol/restapi';
+import type { GroupDTO, IFeeds } from '@pushprotocol/restapi';
 import { APP_NAME } from 'data/constants';
 import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
@@ -39,9 +40,29 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
   const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
   const setSelectedChatType = usePushChatStore((state) => state.setSelectedChatType);
   const [getProfileByHandle, { loading }] = useProfileLazyQuery();
+  const { fetchChat } = useFetchChat();
+  const requestsFeed = usePushChatStore((state) => state.requestsFeed);
+  const chatsFeed = usePushChatStore((state) => state.chatsFeed);
+  const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
+  const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const [profile, setProfile] = useState<Profile | null | ''>('');
   const [groupInfo, setGroupInfo] = useState<GroupDTO | null | ''>('');
+  const [selectedChat, setSelectedChat] = useState<IFeeds | undefined>();
+
+  useEffect(() => {
+    if (!selectedChatId) {
+      return;
+    }
+    const fetchSelectedChat = async () => {
+      const response = await fetchChat({ recipientAddress: selectedChatId });
+      if (response) {
+        setSelectedChat(response);
+      }
+    };
+
+    fetchSelectedChat();
+  }, [selectedChatId, decryptedPgpPvtKey]);
 
   const setChatId = async (lensProfile: Profile | null) => {
     if (lensProfile && getProfileFromDID(selectedChatId) !== lensProfile.id) {
@@ -167,13 +188,18 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
               {profile !== '' && profile && (
                 <>
                   <MessageHeader profile={profile} />
-                  <MessageBody />
+                  <MessageBody
+                    selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
+                  />
                 </>
               )}
               {groupInfo !== '' && groupInfo && (
                 <>
                   <MessageHeader groupInfo={groupInfo} />
-                  <MessageBody groupInfo={groupInfo} />
+                  <MessageBody
+                    groupInfo={groupInfo}
+                    selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
+                  />
                 </>
               )}
             </>

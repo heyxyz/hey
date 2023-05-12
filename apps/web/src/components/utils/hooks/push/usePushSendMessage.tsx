@@ -1,9 +1,12 @@
 import { getCAIPFromLensID } from '@components/Messages/Push/helper';
+import type { IFeeds } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
 import { useCallback, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { useSigner } from 'wagmi';
+
+import useFetchChat from './useFetchChat';
 
 interface SendMessageParams {
   message: string;
@@ -11,7 +14,6 @@ interface SendMessageParams {
   messageType?: 'Text' | 'Image' | 'File' | 'GIF' | 'MediaURL';
 }
 
-// ToDo: Need to enable it for gif and image type msg as well
 const usePushSendMessage = () => {
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -19,8 +21,11 @@ const usePushSendMessage = () => {
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
   const chats = usePushChatStore((state) => state.chats);
   const setChat = usePushChatStore((state) => state.setChat);
+  const chatsFeed = usePushChatStore((state) => state.chatsFeed);
+  const setChatFeed = usePushChatStore((state) => state.setChatFeed);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { data: signer } = useSigner();
+  const { fetchChat } = useFetchChat();
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
@@ -49,14 +54,23 @@ const usePushSendMessage = () => {
         }
 
         const modifiedResponse = { ...response, messageContent: message };
-        if (chats.get(selectedChatId)) {
+        if (chatsFeed[selectedChatId]) {
+          let newOne: IFeeds = chatsFeed[selectedChatId];
           setChat(selectedChatId, {
             messages: [...chats.get(selectedChatId)!.messages, modifiedResponse],
             lastThreadHash: chats.get(selectedChatId)!.lastThreadHash
           });
+
+          newOne['msg'] = modifiedResponse;
+          setChatFeed(selectedChatId, newOne);
         } else {
+          let fetchChatsMessages: IFeeds = (await fetchChat({ recipientAddress: receiver })) as IFeeds;
+          setChatFeed(selectedChatId, fetchChatsMessages);
+
           setChat(selectedChatId, {
-            messages: [modifiedResponse],
+            messages: Array.isArray(chats.get(selectedChatId)?.messages)
+              ? [...chats.get(selectedChatId)!.messages, modifiedResponse]
+              : [modifiedResponse],
             lastThreadHash: chats.get(selectedChatId)!.lastThreadHash
           });
         }

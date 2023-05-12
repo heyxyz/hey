@@ -18,6 +18,9 @@ import { getProfileFromDID } from './helper';
 import PUSHPreviewChats from './PUSHPreviewChats';
 import PUSHPreviewRequests from './PUSHPreviewRequest';
 
+const requestLimit: number = 30;
+const page: number = 1;
+
 const PUSHPreview = () => {
   const { fetchChatProfile } = useGetChatProfile();
   const resetPushChatStore = usePushChatStore((state) => state.resetPushChatStore);
@@ -101,7 +104,7 @@ const PUSHPreview = () => {
 
     (async function () {
       if (connectedProfile && !connectedProfile?.encryptedPrivateKey) {
-        await fetchRequests();
+        await fetchRequests({ page, requestLimit });
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,21 +120,21 @@ const PUSHPreview = () => {
       if (!decryptedPgpPvtKey) {
         return;
       }
-      await fetchRequests();
+      await fetchRequests({ page, requestLimit });
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [decryptedPgpPvtKey]);
 
-  useEffect(() => {
-    //set selected chat preview
-    //find in inbox or reuqests  or new chat and switch tab as per that and set css for selected chat
-    if (selectedChatId in chatsFeed) {
-      setActiveTab(PUSH_TABS.CHATS);
-    }
-    if (selectedChatId in requestsFeed) {
-      setActiveTab(PUSH_TABS.REQUESTS);
-    }
-  }, [selectedChatId, selectedChatType, requestsFeed, chatsFeed]);
+  // useEffect(() => {
+  //   //set selected chat preview
+  //   //find in inbox or reuqests  or new chat and switch tab as per that and set css for selected chat
+  //   if (selectedChatId in chatsFeed) {
+  //     setActiveTab(PUSH_TABS.CHATS);
+  //   }
+  //   if (selectedChatId in requestsFeed) {
+  //     setActiveTab(PUSH_TABS.REQUESTS);
+  //   }
+  // }, [selectedChatId, selectedChatType, requestsFeed, chatsFeed]);
 
   useEffect(() => {
     if (connectedProfile && connectedProfile.did && currentProfile?.id) {
@@ -183,7 +186,7 @@ const PUSHPreview = () => {
             />
           </div>
         </section>
-        <div onClick={createGroup} className="ml-0 flex cursor-pointer pb-2 pl-4 pr-4">
+        <div onClick={createGroup} className="ml-0 flex cursor-pointer px-4 pb-4">
           <Image src="/push/creategroup.svg" alt="create group" className="mr-2 h-5" />
           <button className="text-base font-medium">Create Group</button>
         </div>
