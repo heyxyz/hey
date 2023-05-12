@@ -9,6 +9,7 @@ import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import router from 'next/router';
 import { useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
@@ -311,12 +312,20 @@ const useCreateGroup = () => {
           pgpPrivateKey: decryptedPgpPvtKey, //decrypted private key
           env: PUSH_ENV
         });
+        console.log(response);
+        if (response) {
+          toast.success(`Successfully created group`);
+        }
         setShowCreateGroupModal(false);
         if (response) {
           router.push(`/messages/push/group/${response.chatId}`);
         }
       } catch (error: Error | any) {
         console.log(error.message);
+        setModalClosable(true);
+        if (error.message === `Group name ${groupName} already exists`) {
+          toast.error(`Group name ${groupName} already exists`);
+        }
       }
     } catch (error) {
       console.log(error);

@@ -4082,7 +4082,7 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@pushprotocol/restapi@1.2.15":
+"@pushprotocol/restapi@^1.2.15":
   version "1.2.15"
   resolved "https://registry.yarnpkg.com/@pushprotocol/restapi/-/restapi-1.2.15.tgz#cc5e1e1fb82a107358ab3b0a03e2a3121f547663"
   integrity sha512-zZ65e/bDX4XHFy7i83JgwEsHAWdnVGGsK8cGlbAqlY/z6qceqih39ZChEw7zRHSl5IqsIV0IVkrPFjtxASVCAw==

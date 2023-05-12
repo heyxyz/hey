@@ -7,6 +7,7 @@ import useCreateGroup from '@components/utils/hooks/push/usePushCreateGroupChat'
 import usePushDecryption from '@components/utils/hooks/push/usePushDecryption';
 import useUpgradeChatProfile from '@components/utils/hooks/push/useUpgradeChatProfile';
 import { Trans } from '@lingui/macro';
+import type { IFeeds } from '@pushprotocol/restapi';
 import type { Profile } from 'lens';
 import router from 'next/router';
 import { useEffect } from 'react';
@@ -41,6 +42,7 @@ const PUSHPreview = () => {
   const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
+  const setRequestsFeed = usePushChatStore((state) => state.setRequestsFeed);
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
@@ -104,7 +106,9 @@ const PUSHPreview = () => {
 
     (async function () {
       if (connectedProfile && !connectedProfile?.encryptedPrivateKey) {
-        await fetchRequests({ page, requestLimit });
+        let feeds = await fetchRequests({ page, requestLimit });
+        let firstFeeds: { [key: string]: IFeeds } = { ...feeds };
+        setRequestsFeed(firstFeeds);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,7 +124,9 @@ const PUSHPreview = () => {
       if (!decryptedPgpPvtKey) {
         return;
       }
-      await fetchRequests({ page, requestLimit });
+      let feeds = await fetchRequests({ page, requestLimit });
+      let firstFeeds: { [key: string]: IFeeds } = { ...feeds };
+      // setRequestsFeed(firstFeeds);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [decryptedPgpPvtKey]);
