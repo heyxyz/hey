@@ -55,7 +55,8 @@ export const getIsHandle = (handle: string) => {
 };
 
 export const checkIfGroup = (feed: IFeeds): boolean => {
-  if ('groupInformation' in feed && feed?.groupInformation) {
+  if (feed && 'groupInformation' in feed && feed?.groupInformation) {
+    // if ('groupInformation' in feed && feed?.groupInformation) {
     return true;
   }
   return false;

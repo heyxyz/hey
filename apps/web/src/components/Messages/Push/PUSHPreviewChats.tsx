@@ -147,7 +147,7 @@ export default function PUSHPreviewChats() {
                     className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
                     height={40}
                     width={40}
-                    alt={feed.groupInformation?.groupName!}
+                    alt={feed?.groupInformation?.groupName!}
                   />
                 ) : (
                   <Image
@@ -167,7 +167,7 @@ export default function PUSHPreviewChats() {
                     {isGroup ? (
                       <>
                         <p className="bold max-w-[180px] truncate text-base">
-                          {feed.groupInformation?.groupName}
+                          {feed?.groupInformation?.groupName}
                         </p>
                         <PreviewMessage
                           content={getGroupPreviewMessage(feed, connectedProfile?.did!, false).message}
@@ -180,14 +180,14 @@ export default function PUSHPreviewChats() {
                           {lensProfile?.name ?? formatHandle(lensProfile?.handle)}
                         </p>
                         <PreviewMessage
-                          content={feed.msg.messageContent}
-                          messageType={feed.msg.messageType}
+                          content={feed?.msg.messageContent}
+                          messageType={feed?.msg.messageType}
                         />
                       </>
                     )}
                   </div>
                   <div>
-                    <span className="text-xs text-gray-500">{moment(feed.msg.timestamp).fromNow()}</span>
+                    <span className="text-xs text-gray-500">{moment(feed?.msg.timestamp).fromNow()}</span>
                   </div>
                 </div>
               </div>
