@@ -40,8 +40,19 @@ const useGetHistoryMessages = () => {
         });
         chatHistory.reverse();
         if (chats.get(chatId)) {
+          const uniqueMap: { [timestamp: number]: IMessageIPFS } = {};
+
+          const messages = Object.values(
+            [...chatHistory, ...chats.get(chatId)!.messages].reduce((uniqueMap, message) => {
+              if (message.timestamp && !uniqueMap[message.timestamp]) {
+                uniqueMap[message.timestamp] = message;
+              }
+              return uniqueMap;
+            }, uniqueMap)
+          );
+
           setChat(chatId, {
-            messages: [...chatHistory, ...chats.get(chatId)!.messages],
+            messages: messages,
             lastThreadHash: chatHistory[0].link
           });
         } else {

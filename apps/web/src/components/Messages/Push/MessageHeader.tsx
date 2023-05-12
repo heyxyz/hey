@@ -46,6 +46,11 @@ export default function MessageHeader({ profile, groupInfo }: MessageHeaderProps
         )}
       </div>
       <div className="flex items-center gap-4	">
+        {groupInfo && (
+          <div className="w-fit cursor-pointer">
+            <Image className="h-10 w-9" src="/push/more.svg" alt="group info settings" />
+          </div>
+        )}
         <img className="cursor-pointer" src="/push/video.svg" alt="video icon" />
         {profile &&
           (following ? (
@@ -53,11 +58,6 @@ export default function MessageHeader({ profile, groupInfo }: MessageHeaderProps
           ) : (
             <Follow profile={profile!} setFollowing={setFollowing} showText />
           ))}
-        {groupInfo && (
-          <div className="w-fit cursor-pointer">
-            <Image className="h-10 w-9" src="/push/more.svg" alt="group info settings" />
-          </div>
-        )}
       </div>
     </section>
   );
