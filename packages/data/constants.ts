@@ -93,11 +93,11 @@ export const GROWTHBOOK_KEY = IS_MAINNET
 
 // Regex
 export const URL_REGEX =
-  /((https?:\/\/(www\.)?)|(www\.))[\w#%+.:=@~-]{1,256}\.[\d()A-Za-z]{1,6}\b([\w#%&()+./:=?@~-]*)/g;
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[\da-z]+([.\-][\da-z]+)*\.[a-z]{2,63}(:\d{1,5})?(\/.*)?$/;
 export const ADDRESS_REGEX = /^(0x)?[\da-f]{40}$/i;
-export const HANDLE_REGEX = /(?<=^| )@[a-z\d-_.]{3,26}/g;
+export const HANDLE_REGEX = /^[\da-z]+$/;
+export const ALL_HANDLES_REGEX = /([\s+])@(\S+)/g;
 export const HANDLE_SANITIZE_REGEX = /[^\d .A-Za-z]/g;
-export const HASHTAG_REGEX = /([#＃]+)(\w*[_a-z]+[\wÀ-ÖØ-öø-ÿ]*)/gi;
 
 // Utils
 export const ALLOWED_IMAGE_TYPES = [
