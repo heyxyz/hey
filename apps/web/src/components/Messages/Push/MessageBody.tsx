@@ -156,41 +156,38 @@ const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) =>
 
   const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
 
-  const ifPublicGroupAndNotMember = (): boolean => {
-    if (!selectedChat) {
-      return false;
+  const ifPublicGroup = () => {
+    if (selectedChat && selectedChat.groupInformation && selectedChat.groupInformation.isPublic) {
+      return true;
     }
-    if (
-      (selectedChat && selectedChat?.did) ||
-      (selectedChat?.groupInformation && selectedChat?.groupInformation?.isPublic === false)
-    ) {
-      return false;
-    }
+    return false;
+  };
 
-    let response = true;
+  const ifGroupMember = () => {
+    let response = false;
     if (connectedProfile && connectedProfile?.did) {
       selectedChat?.groupInformation?.members.map((member) => {
         if (member.wallet === connectedProfile.did) {
-          response = false;
+          response = true;
           return;
         }
       });
       selectedChat?.groupInformation?.pendingMembers.map((member) => {
         if (member.wallet === connectedProfile.did) {
-          response = false;
+          response = true;
           return;
         }
       });
     } else {
       selectedChat?.groupInformation?.members.map((member) => {
         if (getProfileFromDID(member.wallet) === currentProfile?.id) {
-          response = false;
+          response = true;
           return;
         }
       });
       selectedChat?.groupInformation?.pendingMembers.map((member) => {
         if (getProfileFromDID(member.wallet) === currentProfile?.id) {
-          response = false;
+          response = true;
           return;
         }
       });
@@ -198,10 +195,18 @@ const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) =>
     return response;
   };
 
+  const ifPublicGroupAndNotMember = (): boolean => {
+    if (ifPublicGroup() && !ifGroupMember()) {
+      return true;
+    }
+
+    return false;
+  };
+
   useEffect(() => {
     const response = ifPublicGroupAndNotMember();
     setToShowJoinPublicGroup(response);
-  }, []);
+  }, [selectedChat]);
 
   const sendPushMessage = async (content: string, type: string) => {
     try {
@@ -236,8 +241,12 @@ const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) =>
   });
 
   const handleJoinGroup = async () => {
-    const response = await approveChatRequest({ senderAddress: selectedChatId });
-    setToShowJoinPublicGroup(false);
+    try {
+      const response = await approveChatRequest({ senderAddress: selectedChatId });
+      setToShowJoinPublicGroup(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return toShowJoinPublicGroup ? (
