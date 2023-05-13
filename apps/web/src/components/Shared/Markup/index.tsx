@@ -1,4 +1,4 @@
-import { HANDLE_REGEX, HASHTAG_REGEX, URL_REGEX } from 'data';
+import { hashtagRegex, mentionRegex, urlRegex } from '@lib/markupUtils';
 import trimify from 'lib/trimify';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -13,9 +13,9 @@ import MarkupLink from './MarkupLink';
 const plugins = [
   [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
   remarkBreaks,
-  linkifyRegex(HANDLE_REGEX),
-  linkifyRegex(HASHTAG_REGEX),
-  linkifyRegex(URL_REGEX)
+  linkifyRegex(mentionRegex),
+  linkifyRegex(hashtagRegex),
+  linkifyRegex(urlRegex)
 ];
 
 const components = {
