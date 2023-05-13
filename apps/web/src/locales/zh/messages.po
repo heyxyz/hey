@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-10 00:08\n"
+"PO-Revision-Date: 2023-05-13 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2815,7 +2815,7 @@ msgstr "音频文件应小于 100MB"
 
 #: src/lib/getModule.ts
 msgid "Multirecipient Paid Collect"
-msgstr ""
+msgstr "多收款人的付费收藏"
 
 #: src/lib/getModule.ts
 msgid "Paid Collect"
