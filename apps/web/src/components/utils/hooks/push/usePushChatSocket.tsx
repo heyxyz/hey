@@ -67,8 +67,10 @@ const usePushChatSocket = (): PushChatSocket => {
         if (chatsFeed[chatId]) {
           let newOne: IFeeds = chatsFeed[chatId];
           setChat(chatId, {
-            messages: [...chats.get(chatId)!.messages, msg],
-            lastThreadHash: chats.get(chatId)!.lastThreadHash
+            messages: Array.isArray(chats.get(chatId)?.messages)
+              ? [...chats.get(chatId)!.messages, msg]
+              : [msg],
+            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
           });
 
           newOne['msg'] = msg;
@@ -76,8 +78,10 @@ const usePushChatSocket = (): PushChatSocket => {
         } else if (requestsFeed[chatId]) {
           let newOne: IFeeds = requestsFeed[chatId];
           setChat(chatId, {
-            messages: [...chats.get(chatId)!.messages, msg],
-            lastThreadHash: chats.get(chatId)!.lastThreadHash
+            messages: Array.isArray(chats.get(chatId)?.messages)
+              ? [...chats.get(chatId)!.messages, msg]
+              : [msg],
+            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
           });
 
           newOne['msg'] = msg;

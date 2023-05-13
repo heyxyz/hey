@@ -57,8 +57,10 @@ const usePushSendMessage = () => {
         if (chatsFeed[selectedChatId]) {
           let newOne: IFeeds = chatsFeed[selectedChatId];
           setChat(selectedChatId, {
-            messages: [...chats.get(selectedChatId)!.messages, modifiedResponse],
-            lastThreadHash: chats.get(selectedChatId)!.lastThreadHash
+            messages: Array.isArray(chats.get(selectedChatId)?.messages)
+              ? [...chats.get(selectedChatId)!.messages, modifiedResponse]
+              : [modifiedResponse],
+            lastThreadHash: chats.get(selectedChatId)?.lastThreadHash ?? response.link
           });
 
           newOne['msg'] = modifiedResponse;

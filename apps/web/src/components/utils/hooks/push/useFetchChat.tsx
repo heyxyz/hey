@@ -19,7 +19,6 @@ const useFetchChat = () => {
 
   const fetchChat = useCallback(
     async ({ recipientAddress }: fetchChat) => {
-      console.log(recipientAddress, 'receipient');
       setLoading(true);
       try {
         const chat = await PushAPI.chat.chat({

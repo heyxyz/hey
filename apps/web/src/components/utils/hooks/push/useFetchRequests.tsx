@@ -56,8 +56,6 @@ const useFetchRequests = () => {
         }
 
         await loadLensProfiles(lensIds);
-        console.log(modifiedRequestsObj, requests);
-        // setRequestsFeed(modifiedRequestsObj);
         return modifiedRequestsObj;
       } catch (error: Error | any) {
         setLoading(false);

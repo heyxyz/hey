@@ -1,6 +1,7 @@
 import Search from '@components/Shared/Navbar/Search';
 import Slug from '@components/Shared/Slug';
 import { ArrowLeftIcon, XIcon } from '@heroicons/react/outline';
+import type { IFeeds } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
 import clsx from 'clsx';
 import { LENSHUB_PROXY } from 'data/constants';
@@ -15,6 +16,8 @@ import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input } from 'ui';
 import { useSigner } from 'wagmi';
+
+import useFetchChat from './useFetchChat';
 
 type handleSetPassFunc = () => void;
 enum ProgressType {
@@ -241,6 +244,10 @@ const useCreateGroup = () => {
   const [members, setMembers] = useState<Array<Profile>>([]);
   const fileUploadInputRef = useRef<HTMLInputElement>(null);
   const [adminAddresses, setAdminAddresses] = useState<Profile[]>([]);
+  const setChatFeed = usePushChatStore((state) => state.setChatFeed);
+  const chats = usePushChatStore((state) => state.chats);
+  const setChat = usePushChatStore((state) => state.setChat);
+  const { fetchChat } = useFetchChat();
 
   const [modalInfo, setModalInfo] = useState<{
     title: string;
@@ -312,13 +319,20 @@ const useCreateGroup = () => {
           pgpPrivateKey: decryptedPgpPvtKey, //decrypted private key
           env: PUSH_ENV
         });
-        console.log(response);
-        if (response) {
-          toast.success(`Successfully created group`);
-        }
         setShowCreateGroupModal(false);
         if (response) {
+          toast.success(`Successfully created group`);
           router.push(`/messages/push/group/${response.chatId}`);
+
+          let fetchChatsMessages: IFeeds = (await fetchChat({ recipientAddress: response.chatId })) as IFeeds;
+          const msg = fetchChatsMessages?.msg;
+          setChatFeed(response.chatId, fetchChatsMessages);
+          setChat(response.chatId, {
+            messages: Array.isArray(chats.get(response.chatId)?.messages)
+              ? [...chats.get(response.chatId)!.messages, msg]
+              : [msg],
+            lastThreadHash: chats.get(response.chatId)?.lastThreadHash ?? msg.link
+          });
         }
       } catch (error: Error | any) {
         console.log(error.message);
