@@ -8,10 +8,10 @@ import usePushDecryption from '@components/utils/hooks/push/usePushDecryption';
 import useUpgradeChatProfile from '@components/utils/hooks/push/useUpgradeChatProfile';
 import { Trans } from '@lingui/macro';
 import type { IFeeds } from '@pushprotocol/restapi';
-import type { Profile } from 'lens';
 import router from 'next/router';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
+import type { ChatTypes } from 'src/store/push-chat';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Card, Image, Modal } from 'ui';
 
@@ -153,8 +153,8 @@ const PUSHPreview = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile, connectedProfile]);
 
-  const onProfileSelected = (profile: Profile) => {
-    router.push(`/messages/push/chat/${profile.id}`);
+  const onProfileSelected = (type: ChatTypes, chatId: string) => {
+    router.push(`/messages/push/${type}/${chatId}`);
   };
 
   return (

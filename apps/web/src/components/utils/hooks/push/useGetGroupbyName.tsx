@@ -7,7 +7,7 @@ interface IGroupByNameProps {
   name: string;
 }
 
-const useGroupByName = () => {
+const useGetGroupByName = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
@@ -32,4 +32,4 @@ const useGroupByName = () => {
   return { fetchGroupByName, loading, error };
 };
 
-export default useGroupByName;
+export default useGetGroupByName;

@@ -1,8 +1,10 @@
 // import useGroupByName from '@components/utils/hooks/push/getGroupByName';
 import UserProfile from '@components/Shared/UserProfile';
+import useGetGroupByName from '@components/utils/hooks/push/useGetGroupbyName';
 import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
+import type { GroupDTO } from '@pushprotocol/restapi';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
 import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
@@ -10,12 +12,17 @@ import formatHandle from 'lib/formatHandle';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
-import { Card, Input, Spinner } from 'ui';
+import { useAppStore } from 'src/store/app';
+import type { ChatTypes } from 'src/store/push-chat';
+import { usePushChatStore } from 'src/store/push-chat';
+import { Card, Image, Input, Spinner } from 'ui';
+
+import { getProfileFromDID } from './helper';
 // import { GroupDTO } from '@pushprotocol/restapi';
 
 interface SearchProps {
   hideDropdown?: boolean;
-  onProfileSelected?: (profile: Profile) => void;
+  onProfileSelected?: (type: ChatTypes, chatId: string) => void;
   placeholder?: string;
   modalWidthClassName?: string;
 }
@@ -29,12 +36,14 @@ const Search: FC<SearchProps> = ({
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
-  // const {fetchGroupByName, loading, error} = useGroupByName({ name });
+  const { fetchGroupByName } = useGetGroupByName();
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   useOnClickOutside(dropdownRef, () => setSearchText(''));
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
-  // const [searchGroups, { data: searchGroupsData, loading: searchGroupsLoading }] = useSearchProfilesLazyQuery();
+  const [groupData, setGroupData] = useState<GroupDTO>();
   const setInputRef = useRef<HTMLInputElement>(null);
 
   const handleImgClick = () => {
@@ -43,7 +52,46 @@ const Search: FC<SearchProps> = ({
     }
   };
 
-  const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
+  const ifPrivateGroup = (groupInfo: GroupDTO) => {
+    if (groupInfo && groupInfo.isPublic === false) {
+      return true;
+    }
+    return false;
+  };
+
+  const ifGroupMember = (groupInfo: GroupDTO) => {
+    let response = false;
+    if (connectedProfile && connectedProfile?.did) {
+      groupInfo?.members.map((member) => {
+        if (member.wallet === connectedProfile.did) {
+          response = true;
+          return;
+        }
+      });
+      groupInfo?.pendingMembers.map((member) => {
+        if (member.wallet === connectedProfile.did) {
+          response = true;
+          return;
+        }
+      });
+    } else {
+      groupInfo?.members.map((member) => {
+        if (getProfileFromDID(member.wallet) === currentProfile?.id) {
+          response = true;
+          return;
+        }
+      });
+      groupInfo?.pendingMembers.map((member) => {
+        if (getProfileFromDID(member.wallet) === currentProfile?.id) {
+          response = true;
+          return;
+        }
+      });
+    }
+    return response;
+  };
+
+  const handleSearch = async (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
     setSearchText(keyword);
     if (pathname !== '/search' && !hideDropdown) {
@@ -57,8 +105,16 @@ const Search: FC<SearchProps> = ({
           }
         }
       });
-      // ToDo
-      // fetchGroupByName({ name: keyword });
+      // Groups Data
+      try {
+        const response = await fetchGroupByName({ name: keyword });
+        if (
+          response &&
+          (!ifPrivateGroup(response) || (ifPrivateGroup(response) && ifGroupMember(response)))
+        ) {
+          setGroupData(response);
+        }
+      } catch (error) {}
     }
   };
 
@@ -77,10 +133,6 @@ const Search: FC<SearchProps> = ({
   const searchResult = searchUsersData?.search as ProfileSearchResult;
   const isProfileSearchResult = searchResult && searchResult.hasOwnProperty('items');
   const profiles = isProfileSearchResult ? searchResult.items : [];
-  // const groupsResult = searchGroupsData?.search;
-  // const isGroupSearchResult = groupsResult && groupsResult.hasOwnProperty('items');
-  // const groups = isGroupSearchResult ? groupsResult : [];
-  // console.log(groups)
 
   return (
     <div aria-hidden="true" className="w-full" data-testid="global-search" ref={dropdownRef}>
@@ -125,7 +177,7 @@ const Search: FC<SearchProps> = ({
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => {
                       if (onProfileSelected) {
-                        onProfileSelected(profile);
+                        onProfileSelected('chat', profile.id);
                       }
                       setSearchText('');
                     }}
@@ -138,24 +190,29 @@ const Search: FC<SearchProps> = ({
                     />
                   </div>
                 ))}
-                {/* {groups.map((groups: GroupDTO) => (
-                                    <div
-                                        key={groups?.chatId}
-                                        className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                                        onClick={() => {
-                                            if (onProfileSelected) {
-                                                onProfileSelected(groups);
-                                            }
-                                            setSearchText('');
-                                        }}
-                                        data-testid={`search-profile-${formatHandle(profile?.handle)}`}
-                                    >
-                                        <Card className="max-h-[80vh] overflow-y-auto py-2">
-                                            {groups.chatId}
-                                        </Card>
-                                    </div>
-                                ))} */}
-                {profiles.length === 0 && (
+                {groupData && (
+                  <div
+                    key={groupData.chatId}
+                    className="flex cursor-pointer flex-row items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    onClick={() => {
+                      if (onProfileSelected) {
+                        onProfileSelected('group', groupData.chatId);
+                      }
+                      setSearchText('');
+                    }}
+                  >
+                    <Image
+                      src={groupData.groupImage ?? ''}
+                      loading="lazy"
+                      className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+                      height={40}
+                      width={40}
+                      alt={groupData.groupName}
+                    />
+                    <p className="bold max-w-[180px] truncate text-base leading-6">{groupData.groupName}</p>
+                  </div>
+                )}
+                {profiles.length === 0 && !groupData && (
                   <div className="px-4 py-2">
                     <Trans>No matching users</Trans>
                   </div>
