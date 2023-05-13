@@ -43,7 +43,7 @@ const Search: FC<SearchProps> = ({
   useOnClickOutside(dropdownRef, () => setSearchText(''));
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
-  const [groupData, setGroupData] = useState<GroupDTO>();
+  const [groupData, setGroupData] = useState<GroupDTO | null>();
   const setInputRef = useRef<HTMLInputElement>(null);
 
   const handleImgClick = () => {
@@ -114,7 +114,9 @@ const Search: FC<SearchProps> = ({
         ) {
           setGroupData(response);
         }
-      } catch (error) {}
+      } catch (error) {
+        setGroupData(null);
+      }
     }
   };
 
@@ -190,7 +192,7 @@ const Search: FC<SearchProps> = ({
                     />
                   </div>
                 ))}
-                {groupData && (
+                {groupData && groupData.groupName === searchText && (
                   <div
                     key={groupData.chatId}
                     className="flex cursor-pointer flex-row items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -212,7 +214,7 @@ const Search: FC<SearchProps> = ({
                     <p className="bold max-w-[180px] truncate text-base leading-6">{groupData.groupName}</p>
                   </div>
                 )}
-                {profiles.length === 0 && !groupData && (
+                {profiles.length === 0 && (!groupData || groupData.groupName !== searchText) && (
                   <div className="px-4 py-2">
                     <Trans>No matching users</Trans>
                   </div>
