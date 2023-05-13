@@ -150,6 +150,9 @@ const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) =>
   const { fetchRequests } = useFetchRequests();
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const { approveChatRequest } = useApproveChatRequest();
+  const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
+
+  const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const requestFeedids = Object.keys(requestsFeed);
   const [toShowJoinPublicGroup, setToShowJoinPublicGroup] = useState<boolean>(false);
@@ -213,6 +216,9 @@ const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) =>
       if (!isProfileExist(connectedProfile)) {
         await createChatProfile();
       }
+      if (!decryptedPgpPvtKey) {
+        return;
+      }
       await sendMessage({
         message: content,
         receiver: selectedChatId,
@@ -245,8 +251,10 @@ const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) =>
       if (!isProfileExist(connectedProfile)) {
         await createChatProfile();
       }
-      const response = await approveChatRequest({ senderAddress: selectedChatId });
-      setToShowJoinPublicGroup(false);
+      if (decryptedPgpPvtKey) {
+        const response = await approveChatRequest({ senderAddress: selectedChatId });
+        setToShowJoinPublicGroup(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -356,6 +364,9 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
       try {
         if (!isProfileExist(connectedProfile)) {
           await createChatProfile();
+        }
+        if (!decryptedPgpPvtKey) {
+          return;
         }
         const response = await approveChatRequest({ senderAddress: selectedChatId });
         if (response) {

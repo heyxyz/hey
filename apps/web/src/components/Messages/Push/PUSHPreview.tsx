@@ -27,7 +27,6 @@ const PUSHPreview = () => {
   const resetPushChatStore = usePushChatStore((state) => state.resetPushChatStore);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const activeTab = usePushChatStore((state) => state.activeTab);
-  const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
   const setShowCreateGroupModal = usePushChatStore((state) => state.setShowCreateGroupModal);
@@ -36,8 +35,6 @@ const PUSHPreview = () => {
   const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
   const showUpgradeChatProfileModal = usePushChatStore((state) => state.showUpgradeChatProfileModal);
   const showDecryptionModal = usePushChatStore((state) => state.showDecryptionModal);
-  const selectedChatId = usePushChatStore((state) => state.selectedChatId);
-  const selectedChatType = usePushChatStore((state) => state.selectedChatType);
   const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
   const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
@@ -164,6 +161,9 @@ const PUSHPreview = () => {
     try {
       if (!isProfileExist(connectedProfile)) {
         await createChatProfile();
+      }
+      if (decryptedPgpPvtKey) {
+        createGroup();
       }
     } catch (error) {
       console.log(error);
