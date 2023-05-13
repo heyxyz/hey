@@ -242,6 +242,9 @@ const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) =>
 
   const handleJoinGroup = async () => {
     try {
+      if (!isProfileExist(connectedProfile)) {
+        await createChatProfile();
+      }
       const response = await approveChatRequest({ senderAddress: selectedChatId });
       setToShowJoinPublicGroup(false);
     } catch (error) {
@@ -335,6 +338,7 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
   const chats = usePushChatStore((state) => state.chats);
   const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const { getLensProfile } = useFetchLensProfiles();
+  const { createChatProfile } = useCreateChatProfile();
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
   const dates = new Set();
 
@@ -350,6 +354,9 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
   const handleApprovechatRequest = async () => {
     if (selectedChatId) {
       try {
+        if (!isProfileExist(connectedProfile)) {
+          await createChatProfile();
+        }
         const response = await approveChatRequest({ senderAddress: selectedChatId });
         if (response) {
           const updatedRequestsfeed = { ...requestsFeed };

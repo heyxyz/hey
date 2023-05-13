@@ -15,7 +15,7 @@ import type { ChatTypes } from 'src/store/push-chat';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Card, Image, Modal } from 'ui';
 
-import { getProfileFromDID } from './helper';
+import { getProfileFromDID, isProfileExist } from './helper';
 import PUSHPreviewChats from './PUSHPreviewChats';
 import PUSHPreviewRequests from './PUSHPreviewRequest';
 
@@ -46,8 +46,11 @@ const PUSHPreview = () => {
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
-  const { modalContent: createChatProfileModalContent, isModalClosable: isCreateChatProfileModalClosable } =
-    useCreateChatProfile();
+  const {
+    createChatProfile,
+    modalContent: createChatProfileModalContent,
+    isModalClosable: isCreateChatProfileModalClosable
+  } = useCreateChatProfile();
   const {
     createGroup,
     modalContent: createGroupModalContent,
@@ -157,6 +160,16 @@ const PUSHPreview = () => {
     router.push(`/messages/push/${type}/${chatId}`);
   };
 
+  const handleCreateGroup = async () => {
+    try {
+      if (!isProfileExist(connectedProfile)) {
+        await createChatProfile();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex h-full flex-col justify-between">
       <Card className="flex h-full flex-col p-4 pt-7">
@@ -192,7 +205,7 @@ const PUSHPreview = () => {
             />
           </div>
         </section>
-        <div onClick={createGroup} className="ml-0 flex cursor-pointer px-4 pb-4">
+        <div onClick={handleCreateGroup} className="ml-0 flex cursor-pointer px-4 pb-4">
           <Image src="/push/creategroup.svg" alt="create group" className="mr-2 h-5" />
           <button className="text-base font-medium">Create Group</button>
         </div>
