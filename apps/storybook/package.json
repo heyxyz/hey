@@ -14,17 +14,17 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "@storybook/addon-essentials": "^7.0.10",
-    "@storybook/addon-links": "^7.0.10",
-    "@storybook/addon-styling": "^1.0.6",
-    "@storybook/blocks": "^7.0.10",
-    "@storybook/manager-api": "^7.0.10",
-    "@storybook/nextjs": "^7.0.10",
-    "@storybook/react": "^7.0.10",
-    "@storybook/theming": "^7.0.10",
+    "@storybook/addon-essentials": "^7.0.11",
+    "@storybook/addon-links": "^7.0.11",
+    "@storybook/addon-styling": "^1.0.8",
+    "@storybook/blocks": "^7.0.11",
+    "@storybook/manager-api": "^7.0.11",
+    "@storybook/nextjs": "^7.0.11",
+    "@storybook/react": "^7.0.11",
+    "@storybook/theming": "^7.0.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.0.10",
+    "storybook": "^7.0.11",
     "ui": "workspace:*"
   },
   "devDependencies": {
