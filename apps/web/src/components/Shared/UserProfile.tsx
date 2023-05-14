@@ -2,6 +2,7 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import filterProfileName from 'lib/filterProfileName';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import getProfileAttribute from 'lib/getProfileAttribute';
@@ -78,7 +79,7 @@ const UserProfile: FC<UserProfileProps> = ({
       <div className="flex max-w-sm items-center">
         <div className={clsx(isBig ? 'font-bold' : 'text-md', 'grid')}>
           <div className="truncate">
-            {profile?.name ?? formatHandle(profile?.handle)}
+            {filterProfileName(profile?.name) ?? formatHandle(profile?.handle)}
           </div>
         </div>
         {isVerified(profile?.id) && (

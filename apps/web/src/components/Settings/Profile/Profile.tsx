@@ -6,7 +6,13 @@ import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
-import { APP_NAME, COVER, LENS_PERIPHERY, URL_REGEX } from 'data/constants';
+import {
+  APP_NAME,
+  COVER,
+  LENS_PERIPHERY,
+  PROFILE_NAME_VALIDATOR_REGEX,
+  URL_REGEX
+} from 'data/constants';
 import Errors from 'data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
 import type { Area } from 'image-cropper/types';
@@ -50,9 +56,13 @@ import { object, string, union } from 'zod';
 import ImageCropperController from './ImageCropperController';
 
 const editProfileSchema = object({
-  name: string().max(100, {
-    message: t`Name should not exceed 100 characters`
-  }),
+  name: string()
+    .max(100, {
+      message: t`Name should not exceed 100 characters`
+    })
+    .regex(PROFILE_NAME_VALIDATOR_REGEX, {
+      message: t`Profile name must not contain restricted symbols`
+    }),
   location: string().max(100, {
     message: t`Location should not exceed 100 characters`
   }),

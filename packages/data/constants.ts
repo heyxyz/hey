@@ -96,6 +96,14 @@ export const URL_REGEX =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[\da-z]+([.\-][\da-z]+)*\.[a-z]{2,63}(:\d{1,5})?(\/.*)?$/;
 export const ADDRESS_REGEX = /^(0x)?[\da-f]{40}$/i;
 export const HANDLE_REGEX = /^[\da-z]+$/;
+export const RESTRICTED_SYMBOLS = '✅🔵';
+export const PROFILE_NAME_VALIDATOR_REGEX = new RegExp(
+  '^[^' + RESTRICTED_SYMBOLS + ']+$'
+);
+export const PROFILE_NAME_FILTER_REGEX = new RegExp(
+  '[' + RESTRICTED_SYMBOLS + ']',
+  'gu'
+);
 export const ALL_HANDLES_REGEX = /([\s+])@(\S+)/g;
 export const HANDLE_SANITIZE_REGEX = /[^\d .A-Za-z]/g;
 

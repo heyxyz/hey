@@ -2,6 +2,7 @@ import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
+import filterProfileName from 'lib/filterProfileName';
 import getPublicationAttribute from 'lib/getPublicationAttribute';
 import getThumbnailUrl from 'lib/getThumbnailUrl';
 import type { APITypes } from 'plyr-react';
@@ -138,7 +139,7 @@ const Audio: FC<AudioProps> = ({
                           publication?.metadata.attributes,
                           'author'
                         ) ??
-                        publication?.profile.name}
+                        filterProfileName(publication?.profile.name)}
                     </h6>
                   </>
                 )}

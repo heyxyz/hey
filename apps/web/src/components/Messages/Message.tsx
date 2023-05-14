@@ -10,6 +10,7 @@ import { parseConversationKey } from '@lib/conversationKey';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
+import filterProfileName from 'lib/filterProfileName';
 import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -62,7 +63,8 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const showLoading =
     !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
-  const userNameForTitle = profile?.name ?? formatHandle(profile?.handle);
+  const userNameForTitle =
+    filterProfileName(profile?.name) ?? formatHandle(profile?.handle);
   const title = userNameForTitle
     ? `${userNameForTitle} • ${APP_NAME}`
     : APP_NAME;

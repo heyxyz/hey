@@ -3,6 +3,7 @@ import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
+import filterProfileName from 'lib/filterProfileName';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';
@@ -61,7 +62,8 @@ const UserPreview: FC<UserPreviewProps> = ({
     <>
       <div className="flex max-w-sm items-center gap-1 truncate">
         <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
-          {lazyProfile?.name ?? formatHandle(lazyProfile?.handle)}
+          {filterProfileName(lazyProfile?.name) ??
+            formatHandle(lazyProfile?.handle)}
         </div>
         {isVerified(lazyProfile?.id) && (
           <BadgeCheckIcon className="text-brand h-4 w-4" />

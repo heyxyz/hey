@@ -11,6 +11,7 @@ import { AVATAR } from 'data/constants';
 import type { MediaSet, NftImage, Profile, ProfileSearchResult } from 'lens';
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import type { TextNode } from 'lexical';
+import filterProfileName from 'lib/filterProfileName';
 import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import imageProxy from 'lib/imageProxy';
@@ -206,7 +207,7 @@ const MentionsPlugin: FC = () => {
           (user: Profile) =>
             ({
               id: user?.id,
-              name: user?.name,
+              name: filterProfileName(user?.name),
               handle: user?.handle,
               picture: getUserPicture(user)
             } as Record<string, string>)
