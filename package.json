@@ -25,7 +25,7 @@
     "husky": "^8.0.3",
     "prettier": "^2.8.8",
     "start-server-and-test": "^2.0.0",
-    "turbo": "^1.9.3"
+    "turbo": "^1.9.4"
   },
   "engines": {
     "node": ">=18.0.0"
