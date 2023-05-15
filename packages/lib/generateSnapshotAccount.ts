@@ -4,22 +4,22 @@ import { privateKeyToAccount } from 'viem/accounts';
  * Generate a snapshot account from the given parameters.
  * @param ownedBy Address of the current owner of the profile.
  * @param profileId ID of the profile.
- * @param snapshotId ID of the snapshot.
+ * @param proposalId ID of the snapshot proposal.
  * @returns The generated snapshot account.
  */
 const generateSnapshotAccount = async ({
   ownedBy,
   profileId,
-  snapshotId
+  proposalId
 }: {
   ownedBy: string;
   profileId: string;
-  snapshotId: string;
+  proposalId: string;
 }): Promise<{
   address: string;
   privateKey: string;
 }> => {
-  const seed = `${ownedBy}${profileId}${snapshotId}`;
+  const seed = `${ownedBy}${profileId}${proposalId}`;
   const encodedSeed = new TextEncoder().encode(seed);
   const digest = await crypto.subtle.digest({ name: 'SHA-256' }, encodedSeed);
   const privateKey = [...new Uint8Array(digest)]
