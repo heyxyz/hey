@@ -96,6 +96,12 @@ const CollectModule: FC<CollectModuleProps> = ({
   const currency =
     collectModule?.amount?.asset?.symbol ??
     collectModule?.fee?.amount?.asset?.symbol;
+  const assetAddress =
+    collectModule?.amount?.asset?.address ??
+    collectModule?.fee?.amount?.asset?.address;
+  const assetDecimals =
+    collectModule?.amount?.asset?.decimals ??
+    collectModule?.fee?.amount?.asset?.decimals;
   const referralFee =
     collectModule?.referralFee ?? collectModule?.fee?.referralFee;
 
@@ -156,13 +162,13 @@ const CollectModule: FC<CollectModuleProps> = ({
     useApprovedModuleAllowanceAmountQuery({
       variables: {
         request: {
-          currencies: collectModule?.amount?.asset?.address,
+          currencies: assetAddress,
           followModules: [],
           collectModules: collectModule?.type,
           referenceModules: []
         }
       },
-      skip: !collectModule?.amount?.asset?.address || !currentProfile,
+      skip: !assetAddress || !currentProfile,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
       }
@@ -185,7 +191,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const { data: usdPrice } = useQuery(
     ['coingeckoData'],
     () => getCoingeckoPrice(getAssetAddress(currency)).then((res) => res),
-    { enabled: Boolean(collectModule?.amount) }
+    { enabled: Boolean(amount) }
   );
 
   useEffect(() => {
@@ -198,8 +204,8 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address,
-    token: collectModule?.amount?.asset?.address,
-    formatUnits: collectModule?.amount?.asset?.decimals,
+    token: assetAddress,
+    formatUnits: assetDecimals,
     watch: true
   });
 
@@ -234,7 +240,13 @@ const CollectModule: FC<CollectModuleProps> = ({
   });
 
   const createViaProxyAction = async (variables: any) => {
-    const { data } = await createCollectProxyAction({ variables });
+    const { data, errors } = await createCollectProxyAction({ variables });
+
+    if (
+      errors?.toString().includes('You have already collected this publication')
+    ) {
+      return;
+    }
 
     if (!data?.proxyAction) {
       return await createCollectTypedData({
@@ -473,7 +485,9 @@ const CollectModule: FC<CollectModuleProps> = ({
           )}
         </div>
         <div className="flex items-center space-x-2">
-          {currentProfile && (!hasCollectedByMe || !isFreeCollectModule) ? (
+          {currentProfile &&
+          (!hasCollectedByMe ||
+            (!isFreeCollectModule && !isSimpleFreeCollectModule)) ? (
             allowanceLoading || balanceLoading ? (
               <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
             ) : allowed ? (
