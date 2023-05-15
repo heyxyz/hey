@@ -1,4 +1,4 @@
-import { AVATAR, IS_MORALIS_AVAILABLE, USER_CONTENT_URL } from 'data/constants';
+import { AVATAR, USER_CONTENT_URL } from 'data/constants';
 import type { MediaSet, NftImage, Publication } from 'lens';
 import { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
@@ -106,11 +106,9 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
           <div>
             <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=collects`}>Collected</a>
           </div>
-          {IS_MORALIS_AVAILABLE && (
-            <div>
-              <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=nft`}>NFTs</a>
-            </div>
-          )}
+          <div>
+            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=nft`}>NFTs</a>
+          </div>
         </nav>
         <hr />
       </header>

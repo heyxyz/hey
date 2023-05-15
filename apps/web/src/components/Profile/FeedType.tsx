@@ -7,7 +7,6 @@ import {
 } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
-import { IS_MORALIS_AVAILABLE } from 'data';
 import type { Dispatch, FC } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import { PROFILE } from 'src/tracking';
@@ -59,15 +58,13 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           type={ProfileFeedType.Collects.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Collects)}
         />
-        {IS_MORALIS_AVAILABLE && (
-          <TabButton
-            name={t`NFTs`}
-            icon={<PhotographIcon className="h-4 w-4" />}
-            active={feedType === ProfileFeedType.Nft}
-            type={ProfileFeedType.Nft.toLowerCase()}
-            onClick={() => switchTab(ProfileFeedType.Nft)}
-          />
-        )}
+        <TabButton
+          name={t`NFTs`}
+          icon={<PhotographIcon className="h-4 w-4" />}
+          active={feedType === ProfileFeedType.Nft}
+          type={ProfileFeedType.Nft.toLowerCase()}
+          onClick={() => switchTab(ProfileFeedType.Nft)}
+        />
       </div>
       <div>{feedType === ProfileFeedType.Media && <MediaFilter />}</div>
     </div>
