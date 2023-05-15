@@ -10,6 +10,9 @@ export const TESTNET_SNAPSHOT_SEQUNECER_API =
 export const MAINNET_SNAPSHOT_INTERFACE_URL = 'https://snapshot.org';
 export const TESTNET_SNAPSHOT_INTERFACE_URL = 'https://demo.snapshot.org';
 
+export const MAINNET_SNAPSHOT_HUB_URL = 'https://hub.snapshot.org';
+export const TESTNET_SNAPSHOT_HUB_URL = 'https://testnet.snapshot.org';
+
 export const MAINNET_PROPOSAL_CREATOR_ADDRESS =
   '0x81aD96a4bAdE55b3Bfb1Ea84A597FCC6e5e3BEc1';
 export const TESTNET_PROPOSAL_CREATOR_ADDRESS =

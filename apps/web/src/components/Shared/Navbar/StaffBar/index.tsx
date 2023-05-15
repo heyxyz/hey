@@ -15,14 +15,14 @@ interface BadgeProps {
 }
 
 export const Badge: FC<BadgeProps> = ({ children }) => (
-  <span className="rounded-md bg-gray-300 px-1.5 py-0.5 text-xs font-bold dark:bg-gray-900">
+  <span className="rounded-md bg-gray-300 px-1.5 py-0.5 text-xs font-bold dark:bg-gray-600">
     {children}
   </span>
 );
 
 const StaffBar: FC = () => {
   return (
-    <div className="flex justify-between bg-gray-200 px-3 py-1 text-sm dark:bg-black">
+    <div className="flex justify-between bg-gray-200 px-3 py-1 text-sm dark:bg-gray-800">
       <div className="mr-5 flex flex-wrap items-center gap-2">
         <Performance />
         <div className="flex items-center space-x-1">
@@ -32,6 +32,7 @@ const StaffBar: FC = () => {
               'h-4 w-4'
             )}
           />
+          {IS_PRODUCTION.toString()}
           <Badge>
             {IS_PRODUCTION ? 'prod' : 'dev'}{' '}
             <span className="text-[10px]">

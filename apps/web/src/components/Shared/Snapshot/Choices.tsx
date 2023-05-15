@@ -85,6 +85,10 @@ const Choices: FC<ChoicesProps> = ({
       return toast.error(Errors.SignWallet);
     }
 
+    if (state !== 'active') {
+      return toast.error(t`This poll is ended!`);
+    }
+
     try {
       setVoteSubmitting(true);
       await axios({
@@ -101,7 +105,7 @@ const Choices: FC<ChoicesProps> = ({
       refetch?.();
       Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
-        source: APP_NAME.toLowerCase()
+        proposal_source: APP_NAME.toLowerCase()
       });
       toast.success(t`Your vote has been casted!`);
     } catch {
@@ -186,10 +190,14 @@ const Choices: FC<ChoicesProps> = ({
               <span>
                 <Trans>{humanize(scores_total ?? 0)} Votes</Trans>
               </span>
-              <span>·</span>
-              <span>
-                <Trans>{getTimetoNow(new Date(end * 1000))} left</Trans>
-              </span>
+              {state === 'active' && (
+                <>
+                  <span>·</span>
+                  <span>
+                    <Trans>{getTimetoNow(new Date(end * 1000))} left</Trans>
+                  </span>
+                </>
+              )}
             </div>
             <New />
           </div>

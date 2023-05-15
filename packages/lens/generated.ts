@@ -8923,6 +8923,15 @@ export type DeleteNftGalleryMutation = {
   deleteNftGallery?: any | null;
 };
 
+export type DismissRecommendedProfilesMutationVariables = Exact<{
+  request: DismissRecommendedProfilesRequest;
+}>;
+
+export type DismissRecommendedProfilesMutation = {
+  __typename?: 'Mutation';
+  dismissRecommendedProfiles?: any | null;
+};
+
 export type HidePublicationMutationVariables = Exact<{
   request: HidePublicationRequest;
 }>;
@@ -38723,6 +38732,57 @@ export type DeleteNftGalleryMutationOptions = Apollo.BaseMutationOptions<
   DeleteNftGalleryMutation,
   DeleteNftGalleryMutationVariables
 >;
+export const DismissRecommendedProfilesDocument = gql`
+  mutation DismissRecommendedProfiles(
+    $request: DismissRecommendedProfilesRequest!
+  ) {
+    dismissRecommendedProfiles(request: $request)
+  }
+`;
+export type DismissRecommendedProfilesMutationFn = Apollo.MutationFunction<
+  DismissRecommendedProfilesMutation,
+  DismissRecommendedProfilesMutationVariables
+>;
+
+/**
+ * __useDismissRecommendedProfilesMutation__
+ *
+ * To run a mutation, you first call `useDismissRecommendedProfilesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDismissRecommendedProfilesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [dismissRecommendedProfilesMutation, { data, loading, error }] = useDismissRecommendedProfilesMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useDismissRecommendedProfilesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DismissRecommendedProfilesMutation,
+    DismissRecommendedProfilesMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DismissRecommendedProfilesMutation,
+    DismissRecommendedProfilesMutationVariables
+  >(DismissRecommendedProfilesDocument, options);
+}
+export type DismissRecommendedProfilesMutationHookResult = ReturnType<
+  typeof useDismissRecommendedProfilesMutation
+>;
+export type DismissRecommendedProfilesMutationResult =
+  Apollo.MutationResult<DismissRecommendedProfilesMutation>;
+export type DismissRecommendedProfilesMutationOptions =
+  Apollo.BaseMutationOptions<
+    DismissRecommendedProfilesMutation,
+    DismissRecommendedProfilesMutationVariables
+  >;
 export const HidePublicationDocument = gql`
   mutation HidePublication($request: HidePublicationRequest!) {
     hidePublication(request: $request)
