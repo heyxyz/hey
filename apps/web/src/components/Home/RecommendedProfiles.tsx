@@ -1,3 +1,4 @@
+import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
@@ -67,13 +68,23 @@ const RecommendedProfiles: FC = () => {
             error={error}
           />
           {data?.recommendedProfiles?.slice(0, 5)?.map((profile, index) => (
-            <div key={profile?.id} className="truncate">
-              <UserProfile
+            <div
+              key={profile?.id}
+              className="flex items-center space-x-3 truncate"
+            >
+              <div className="w-full">
+                <UserProfile
+                  profile={profile as Profile}
+                  isFollowing={profile.isFollowedByMe}
+                  followPosition={index + 1}
+                  followSource={FollowSource.WHO_TO_FOLLOW}
+                  showFollow
+                />
+              </div>
+              <DismissRecommendedProfile
                 profile={profile as Profile}
-                isFollowing={profile.isFollowedByMe}
-                followPosition={index + 1}
-                followSource={FollowSource.WHO_TO_FOLLOW}
-                showFollow
+                dismissPosition={index + 1}
+                dismissSource={FollowSource.WHO_TO_FOLLOW}
               />
             </div>
           ))}
