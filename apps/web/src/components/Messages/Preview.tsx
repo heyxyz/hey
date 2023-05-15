@@ -28,7 +28,7 @@ interface MessagePreviewProps {
 
 const MessagePreview: FC<MessagePreviewProps> = ({ message }) => {
   if (message.contentType.sameAs(ContentTypeText)) {
-    return <span>message.content</span>;
+    return <span>{message.content}</span>;
   } else if (message.contentType.sameAs(ContentTypeRemoteAttachment)) {
     const remoteAttachment: RemoteAttachment = message.content;
     return <span>{remoteAttachment.filename}</span>;
