@@ -11,6 +11,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import formatHandle from 'lib/formatHandle';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -62,7 +63,8 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const showLoading =
     !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
-  const userNameForTitle = profile?.name ?? formatHandle(profile?.handle);
+  const userNameForTitle =
+    sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle);
   const title = userNameForTitle
     ? `${userNameForTitle} • ${APP_NAME}`
     : APP_NAME;

@@ -7,6 +7,7 @@ import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';
 import nFormatter from 'lib/nFormatter';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -61,7 +62,8 @@ const UserPreview: FC<UserPreviewProps> = ({
     <>
       <div className="flex max-w-sm items-center gap-1 truncate">
         <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
-          {lazyProfile?.name ?? formatHandle(lazyProfile?.handle)}
+          {sanitizeDisplayName(lazyProfile?.name) ??
+            formatHandle(lazyProfile?.handle)}
         </div>
         {isVerified(lazyProfile?.id) && (
           <BadgeCheckIcon className="text-brand h-4 w-4" />
