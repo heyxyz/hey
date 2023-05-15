@@ -12,7 +12,8 @@ const sanitizeDisplayName = (
   if (!name) {
     return null;
   }
-  return name.replace(PROFILE_NAME_FILTER_REGEX, ' ');
+
+  return name.replace(PROFILE_NAME_FILTER_REGEX, ' ').trim();
 };
 
 export default sanitizeDisplayName;
