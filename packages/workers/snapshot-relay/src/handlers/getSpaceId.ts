@@ -1,14 +1,24 @@
-import { SnapshotDocument } from 'snapshot';
-import { webClient } from 'snapshot/apollo';
+import { SpaceDocument } from 'snapshot';
 
-export default async (id: string) => {
+import client from '../apollo/client';
+
+export default async (network: 'mainnet' | 'testnet' | string, id: string) => {
   try {
-    const { data } = await webClient.query({
-      query: SnapshotDocument,
+    const apolloClient = client(network === 'mainnet');
+    const { data } = await apolloClient.query({
+      query: SpaceDocument,
       variables: { id }
     });
 
-    return new Response(JSON.stringify({ success: true, poll: data }));
+    if (data.proposal) {
+      return new Response(
+        JSON.stringify({ success: true, spaceId: data.proposal.space.id })
+      );
+    }
+
+    return new Response(
+      JSON.stringify({ success: false, error: 'Invalid proposal id!' })
+    );
   } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })

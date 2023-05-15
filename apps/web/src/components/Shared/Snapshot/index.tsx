@@ -1,4 +1,5 @@
 import getSnapshotProposal from '@lib/getSnapshotProposal';
+import getSnapshotSpace from '@lib/getSnapshotSpace';
 import { useQuery } from '@tanstack/react-query';
 import { LENSTER_POLLS_SPACE, ZERO_ADDRESS } from 'data';
 import generateSnapshotAccount from 'lib/generateSnapshotAccount';
@@ -35,24 +36,22 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [voterAddress, setVoterAddress] = useState<string>(ZERO_ADDRESS);
 
-  const { isLoading: spaceLoading } = useQuery(
-    ['poll', proposalId, voterAddress],
-    () =>
-      getSnapshotProposal(proposalId, voterAddress).then(async (res) => {
-        if (res.poll?.proposal.space.id === LENSTER_POLLS_SPACE) {
-          const { address } = await generateSnapshotAccount({
-            ownedBy: currentProfile?.ownedBy,
-            profileId: currentProfile?.id,
-            proposalId
-          });
+  const { isLoading: spaceLoading } = useQuery(['space', proposalId], () =>
+    getSnapshotSpace(proposalId).then(async (res) => {
+      if (res.spaceId === LENSTER_POLLS_SPACE) {
+        const { address } = await generateSnapshotAccount({
+          ownedBy: currentProfile?.ownedBy,
+          profileId: currentProfile?.id,
+          proposalId
+        });
 
-          setVoterAddress(address);
-        } else {
-          setVoterAddress(currentProfile?.ownedBy);
-        }
+        setVoterAddress(address);
+      } else {
+        setVoterAddress(currentProfile?.ownedBy);
+      }
 
-        return res;
-      })
+      return res;
+    })
   );
 
   const { data, isLoading, error, refetch } = useQuery(

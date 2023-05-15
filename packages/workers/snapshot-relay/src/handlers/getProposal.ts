@@ -1,9 +1,15 @@
 import { SnapshotDocument } from 'snapshot';
-import { webClient } from 'snapshot/apollo';
 
-export default async (id: string, voter: string) => {
+import client from '../apollo/client';
+
+export default async (
+  network: 'mainnet' | 'testnet' | string,
+  id: string,
+  voter: string
+) => {
   try {
-    const { data } = await webClient.query({
+    const apolloClient = client(network === 'mainnet');
+    const { data } = await apolloClient.query({
       query: SnapshotDocument,
       fetchPolicy: 'no-cache',
       variables: { id, where: { voter, proposal: id } }
