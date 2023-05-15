@@ -6,6 +6,7 @@ import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import getProfileAttribute from 'lib/getProfileAttribute';
 import isVerified from 'lib/isVerified';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
@@ -78,7 +79,8 @@ const UserProfile: FC<UserProfileProps> = ({
       <div className="flex max-w-sm items-center">
         <div className={clsx(isBig ? 'font-bold' : 'text-md', 'grid')}>
           <div className="truncate">
-            {profile?.name ?? formatHandle(profile?.handle)}
+            {sanitizeDisplayName(profile?.name) ??
+              formatHandle(profile?.handle)}
           </div>
         </div>
         {isVerified(profile?.id) && (
