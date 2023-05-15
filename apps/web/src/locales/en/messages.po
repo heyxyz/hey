@@ -2582,6 +2582,10 @@ msgid "{type} voting is not supported yet!"
 msgstr "{type} voting is not supported yet!"
 
 #: src/components/Shared/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr "This poll is ended!"
+
+#: src/components/Shared/Snapshot/Choices.tsx
 msgid "Your vote has been casted!"
 msgstr "Your vote has been casted!"
 
