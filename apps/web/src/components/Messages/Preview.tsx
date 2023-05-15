@@ -1,6 +1,7 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
+import { ContentTypeText } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
@@ -11,6 +12,8 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { Image } from 'ui';
+import type { RemoteAttachment } from 'xmtp-content-type-remote-attachment';
+import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 
 interface PreviewProps {
   profile: Profile;
@@ -18,6 +21,21 @@ interface PreviewProps {
   conversationKey: string;
   isSelected: boolean;
 }
+
+interface MessagePreviewProps {
+  message: DecodedMessage;
+}
+
+const MessagePreview: FC<MessagePreviewProps> = ({ message }) => {
+  if (message.contentType.sameAs(ContentTypeText)) {
+    return <span>message.content</span>;
+  } else if (message.contentType.sameAs(ContentTypeRemoteAttachment)) {
+    const remoteAttachment: RemoteAttachment = message.content;
+    return <span>{remoteAttachment.filename}</span>;
+  } else {
+    return <span>''</span>;
+  }
+};
 
 const Preview: FC<PreviewProps> = ({
   profile,
@@ -74,9 +92,12 @@ const Preview: FC<PreviewProps> = ({
               </span>
             )}
           </div>
-          <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
-            {address === message?.senderAddress && 'You: '} {message?.content}
-          </span>
+          {message ? (
+            <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
+              {address === message.senderAddress && 'You: '}
+              <MessagePreview message={message} />
+            </span>
+          ) : null}
         </div>
       </div>
     </div>
