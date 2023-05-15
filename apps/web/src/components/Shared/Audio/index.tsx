@@ -4,6 +4,7 @@ import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
 import getPublicationAttribute from 'lib/getPublicationAttribute';
 import getThumbnailUrl from 'lib/getThumbnailUrl';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
@@ -138,7 +139,7 @@ const Audio: FC<AudioProps> = ({
                           publication?.metadata.attributes,
                           'author'
                         ) ??
-                        publication?.profile.name}
+                        sanitizeDisplayName(publication?.profile.name)}
                     </h6>
                   </>
                 )}
