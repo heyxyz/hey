@@ -7,10 +7,10 @@ import { Errors, SNAPSHOR_RELAY_WORKER_URL } from 'data';
  * @param voter The voter address.
  * @returns The poll.
  */
-const getLensterPoll = async (proposalId: string, voter: string) => {
+const getSnapshotProposal = async (proposalId: string, voter: string) => {
   try {
     const response = await axios(
-      `${SNAPSHOR_RELAY_WORKER_URL}/getPoll/${proposalId}/${voter}`
+      `${SNAPSHOR_RELAY_WORKER_URL}/getProposal/${proposalId}/${voter}`
     );
 
     return response.data;
@@ -19,4 +19,4 @@ const getLensterPoll = async (proposalId: string, voter: string) => {
   }
 };
 
-export default getLensterPoll;
+export default getSnapshotProposal;

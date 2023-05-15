@@ -1,4 +1,4 @@
-import getLensterPoll from '@lib/getLensterPoll';
+import getSnapshotProposal from '@lib/getSnapshotProposal';
 import { useQuery } from '@tanstack/react-query';
 import { LENSTER_POLLS_SPACE, ZERO_ADDRESS } from 'data';
 import generateSnapshotAccount from 'lib/generateSnapshotAccount';
@@ -58,7 +58,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
 
   const { data, isLoading, error, refetch } = useQuery(
     ['poll', proposalId, voterAddress],
-    () => getLensterPoll(proposalId, voterAddress).then((res) => res),
+    () => getSnapshotProposal(proposalId, voterAddress).then((res) => res),
     { enabled: !spaceLoading }
   );
 
