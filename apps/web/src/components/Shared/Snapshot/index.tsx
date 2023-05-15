@@ -83,7 +83,6 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   if (isLensterPoll) {
     return (
       <span onClick={stopEventPropagation} data-testid={`poll-${proposal.id}`}>
-        {voterAddress}
         <Choices
           proposal={proposal as Proposal}
           votes={votes as Vote[]}
