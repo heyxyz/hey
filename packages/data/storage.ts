@@ -1,5 +1,7 @@
 // Localstorage keys
 export const Localstorage = {
+  AttachmentStore: 'attachment.store',
+  AttachmentCache: 'attachment-cache.store',
   LensterStore: 'lenster.store',
   NotificationStore: 'notification.store',
   NonceStore: 'nonce.store',
