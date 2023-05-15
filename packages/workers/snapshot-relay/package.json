@@ -5,6 +5,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "dev": "wrangler dev --port 8085 --local",
+    "start": "pnpm dev",
     "worker:deploy": "wrangler publish",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
@@ -13,6 +14,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.14",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "itty-router": "4.0.0-next.46",
     "lib": "workspace:*",
