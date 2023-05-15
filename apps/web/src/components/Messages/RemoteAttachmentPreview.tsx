@@ -1,7 +1,6 @@
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
-import humanFileSize from 'lib/humanFileSize';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -10,12 +9,12 @@ import {
 } from 'src/store/attachment';
 import { Spinner } from 'ui';
 import type {
-  Attachment,
+  Attachment as TAttachment,
   RemoteAttachment
 } from 'xmtp-content-type-remote-attachment';
 import { RemoteAttachmentCodec } from 'xmtp-content-type-remote-attachment';
 
-import AttachmentView from './AttachmentView';
+import Attachment from './AttachmentView';
 
 interface RemoteAttachmentPreviewProps {
   remoteAttachment: RemoteAttachment;
@@ -35,7 +34,7 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
   sentByMe
 }) => {
   const [status, setStatus] = useState<Status>(Status.UNLOADED);
-  const [attachment, setAttachment] = useState<Attachment | null>(null);
+  const [attachment, setAttachment] = useState<TAttachment | null>(null);
   const { client } = useXmtpClient();
   const loadedAttachmentURLs = useAttachmentStore(
     (state) => state.loadedAttachmentURLs
@@ -86,7 +85,7 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
         return;
       }
 
-      const attachment: Attachment = await RemoteAttachmentCodec.load(
+      const attachment: TAttachment = await RemoteAttachmentCodec.load(
         remoteAttachment,
         client
       );
@@ -126,16 +125,12 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
 
   return (
     <div className="mt-1 space-y-1">
-      {attachment ? <AttachmentView attachment={attachment} /> : null}
+      {attachment ? <Attachment attachment={attachment} /> : null}
       {status === Status.LOADING && (
         <Spinner className="mx-28 my-4 h-48 w-48" size="sm" />
       )}
       {status === Status.UNLOADED && (
         <div className="space-y-2 text-sm">
-          <p>
-            {remoteAttachment.filename} -{' '}
-            {humanFileSize(remoteAttachment.contentLength)}
-          </p>
           <p className="text-gray-500">{redactionReason}</p>
           <button
             className="text-brand-700 inline-block text-xs"

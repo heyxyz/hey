@@ -19,7 +19,7 @@ import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
 import { Button, Input, Spinner } from 'ui';
 import type {
-  Attachment,
+  Attachment as TAttachment,
   RemoteAttachment
 } from 'xmtp-content-type-remote-attachment';
 import {
@@ -28,7 +28,7 @@ import {
   RemoteAttachmentCodec
 } from 'xmtp-content-type-remote-attachment';
 
-import AttachmentView from './AttachmentView';
+import Attachment from './AttachmentView';
 
 interface ComposerProps {
   sendMessage: (
@@ -41,7 +41,7 @@ interface ComposerProps {
 
 interface AttachmentPreviewProps {
   onDismiss: () => void;
-  attachment: Attachment;
+  attachment: TAttachment;
 }
 
 const AttachmentPreview: FC<AttachmentPreviewProps> = ({
@@ -57,7 +57,7 @@ const AttachmentPreview: FC<AttachmentPreviewProps> = ({
       >
         <XIcon className="h-4 w-4 text-white" />
       </button>
-      <AttachmentView attachment={attachment} />
+      <Attachment attachment={attachment} />
     </div>
   );
 };
@@ -69,7 +69,7 @@ const Composer: FC<ComposerProps> = ({
 }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
-  const [attachment, setAttachment] = useState<Attachment | null>(null);
+  const [attachment, setAttachment] = useState<TAttachment | null>(null);
   const { width } = useWindowSize();
   const unsentMessage = useMessagePersistStore((state) =>
     state.unsentMessages.get(conversationKey)
@@ -171,7 +171,7 @@ const Composer: FC<ComposerProps> = ({
           return;
         }
 
-        const attachment: Attachment = {
+        const attachment: TAttachment = {
           filename: file.name,
           mimeType: file.type,
           data: new Uint8Array(data)

@@ -1,16 +1,16 @@
 import Link from 'next/link';
 import type { FC } from 'react';
 import { Image } from 'ui';
-import type { Attachment } from 'xmtp-content-type-remote-attachment';
+import type { Attachment as TAttachment } from 'xmtp-content-type-remote-attachment';
 
-interface AttachmentViewProps {
-  attachment: Attachment;
+interface AttachmentProps {
+  attachment: TAttachment;
 }
 
 const isImage = (mimeType: string): boolean =>
   ['image/png', 'image/jpeg', 'image/gif'].includes(mimeType);
 
-const AttachmentView: FC<AttachmentViewProps> = ({ attachment }) => {
+const Attachment: FC<AttachmentProps> = ({ attachment }) => {
   /**
    * The attachment.data gets turned into an object when it's serialized
    * via JSON.stringify in the store persistence. This check restores it
@@ -43,4 +43,4 @@ const AttachmentView: FC<AttachmentViewProps> = ({ attachment }) => {
   );
 };
 
-export default AttachmentView;
+export default Attachment;
