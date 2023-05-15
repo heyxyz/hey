@@ -1,10 +1,12 @@
+import getLensterPoll from '@lib/getLensterPoll';
+import { useQuery } from '@tanstack/react-query';
 import { LENSTER_POLLS_SPACE, ZERO_ADDRESS } from 'data';
 import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import type { Proposal, Vote } from 'snapshot';
-import { useSnapshotQuery, useSpaceQuery } from 'snapshot';
+import { useSpaceQuery } from 'snapshot';
 import { webClient } from 'snapshot/apollo';
 import { useAppStore } from 'src/store/app';
 import { Card, Spinner } from 'ui';
@@ -54,17 +56,13 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
     }
   });
 
-  const { data, loading, error, refetch } = useSnapshotQuery({
-    client: webClient,
-    variables: {
-      id: proposalId,
-      where: { voter: voterAddress, proposal: proposalId }
-    },
-    skip: spaceLoading,
-    fetchPolicy: 'no-cache'
-  });
+  const { data, isLoading, error, refetch } = useQuery(
+    ['poll', proposalId, voterAddress],
+    () => getLensterPoll(proposalId, voterAddress).then((res) => res),
+    { enabled: !spaceLoading }
+  );
 
-  if (spaceLoading || loading) {
+  if (spaceLoading || isLoading) {
     // TODO: Add skeleton loader here
     return (
       <Wrapper>
@@ -75,16 +73,17 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
     );
   }
 
-  if (!data?.proposal || error) {
+  if (!data.success || error) {
     return null;
   }
 
-  const { proposal, votes } = data;
+  const { proposal, votes } = data.poll;
   const isLensterPoll = proposal?.space?.id === LENSTER_POLLS_SPACE;
 
   if (isLensterPoll) {
     return (
       <span onClick={stopEventPropagation} data-testid={`poll-${proposal.id}`}>
+        {voterAddress}
         <Choices
           proposal={proposal as Proposal}
           votes={votes as Vote[]}
