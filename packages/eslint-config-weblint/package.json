@@ -10,7 +10,7 @@
     "eslint-config-next": "^13.4.2",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-tailwindcss": "^3.11.0",
+    "eslint-plugin-tailwindcss": "^3.12.0",
     "eslint-plugin-unicorn": "^47.0.0",
     "eslint-plugin-unused-imports": "^2.0.0"
   },
