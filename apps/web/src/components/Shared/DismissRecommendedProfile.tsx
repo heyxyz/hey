@@ -34,7 +34,7 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
 
   return (
     <button onClick={handleDismiss}>
-      <XIcon className="h-4 w-4 text-gray-400" />
+      <XIcon className="h-4 w-4 text-gray-500" />
     </button>
   );
 };
