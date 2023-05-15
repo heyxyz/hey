@@ -1,4 +1,4 @@
-import { createCors, error, Router } from 'itty-router';
+import { createCors, error, json, Router } from 'itty-router';
 
 import createPoll from './handlers/createPoll';
 import getProposal from './handlers/getProposal';
@@ -7,7 +7,7 @@ import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
-  methods: ['GET', 'POST']
+  methods: ['HEAD', 'GET', 'POST']
 });
 
 const router = Router();
@@ -20,10 +20,22 @@ router.get('/getProposal/:id/:voter', ({ params }) =>
 router.post('/createPoll', createPoll);
 router.post('/votePoll', votePoll);
 
+const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
+  router.handle(request, env, ctx).then(json);
+
+const handleFetch = async (
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext
+) => {
+  try {
+    return await routerHandleStack(request, env, ctx);
+  } catch {
+    return error(500);
+  }
+};
+
 export default {
   fetch: (request: Request, env: Env, context: ExecutionContext) =>
-    router
-      .handle(request, env, context)
-      .then(corsify)
-      .catch((error_) => error(500, error_))
+    handleFetch(request, env, context).then(corsify)
 };
