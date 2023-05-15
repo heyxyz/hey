@@ -15,6 +15,7 @@ import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import imageProxy from 'lib/imageProxy';
 import isVerified from 'lib/isVerified';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -206,7 +207,7 @@ const MentionsPlugin: FC = () => {
           (user: Profile) =>
             ({
               id: user?.id,
-              name: user?.name,
+              name: sanitizeDisplayName(user?.name),
               handle: user?.handle,
               picture: getUserPicture(user)
             } as Record<string, string>)

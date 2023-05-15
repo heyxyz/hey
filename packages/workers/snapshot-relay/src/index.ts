@@ -2,6 +2,7 @@ import { createCors, error, json, Router } from 'itty-router';
 
 import createPoll from './handlers/createPoll';
 import getProposal from './handlers/getProposal';
+import getSpaceId from './handlers/getSpaceId';
 import votePoll from './handlers/votePoll';
 import type { Env } from './types';
 
@@ -14,8 +15,11 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('Snapshot Relay'));
-router.get('/getProposal/:id/:voter', ({ params }) =>
-  getProposal(params.id, params.voter)
+router.get('/getProposal/:network/:id/:voter', ({ params }) =>
+  getProposal(params.network, params.id, params.voter)
+);
+router.get('/getSpaceId/:network/:id', ({ params }) =>
+  getSpaceId(params.network, params.id)
 );
 router.post('/createPoll', createPoll);
 router.post('/votePoll', votePoll);
