@@ -1,3 +1,4 @@
+import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
@@ -34,15 +35,22 @@ const Suggested: FC = () => {
         data={data?.recommendedProfiles}
         itemContent={(index, profile) => {
           return (
-            <div className="p-5">
-              <UserProfile
+            <div className="flex items-center space-x-3 p-5">
+              <div className="w-full">
+                <UserProfile
+                  profile={profile as Profile}
+                  isFollowing={profile?.isFollowedByMe}
+                  followPosition={index + 1}
+                  followSource={FollowSource.WHO_TO_FOLLOW_MODAL}
+                  showBio
+                  showFollow
+                  showUserPreview={false}
+                />
+              </div>
+              <DismissRecommendedProfile
                 profile={profile as Profile}
-                isFollowing={profile?.isFollowedByMe}
-                followPosition={index + 1}
-                followSource={FollowSource.WHO_TO_FOLLOW_MODAL}
-                showBio
-                showFollow
-                showUserPreview={false}
+                dismissPosition={index + 1}
+                dismissSource={FollowSource.WHO_TO_FOLLOW_MODAL}
               />
             </div>
           );
