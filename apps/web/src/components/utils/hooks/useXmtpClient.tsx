@@ -108,6 +108,8 @@ export const useDisconnectXmtp = () => {
       setClient(undefined);
     }
     localStorage.removeItem(Localstorage.MessageStore);
+    localStorage.removeItem(Localstorage.AttachmentCache);
+    localStorage.removeItem(Localstorage.AttachmentStore);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletClient, client]);
 

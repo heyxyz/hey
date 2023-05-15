@@ -1,16 +1,18 @@
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
+import { XIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
-import { MIN_WIDTH_DESKTOP } from 'data/constants';
+import { IPFS_GATEWAY, MIN_WIDTH_DESKTOP } from 'data/constants';
+import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
-  useAttachmentCacheStore,
+  useAttachmentCachePersistStore,
   useAttachmentStore
 } from 'src/store/attachment';
 import { useMessagePersistStore } from 'src/store/message';
@@ -37,20 +39,24 @@ interface ComposerProps {
   disabledInput: boolean;
 }
 
-interface AttachmentComposerPreviewProps {
+interface AttachmentPreviewProps {
   onDismiss: () => void;
   attachment: Attachment;
 }
 
-const AttachmentComposerPreview: FC<AttachmentComposerPreviewProps> = ({
+const AttachmentPreview: FC<AttachmentPreviewProps> = ({
   onDismiss,
   attachment
 }) => {
   return (
     <div className="relative ml-12 inline-block rounded pt-6">
-      <Button className="absolute right-4 top-4" size="sm" onClick={onDismiss}>
-        <Trans>Remove</Trans>
-      </Button>
+      <button
+        type="button"
+        className="absolute left-2 top-8 rounded-full bg-gray-900 p-1.5 opacity-75"
+        onClick={onDismiss}
+      >
+        <XIcon className="h-4 w-4 text-white" />
+      </button>
       <AttachmentView attachment={attachment} />
     </div>
   );
@@ -75,7 +81,7 @@ const Composer: FC<ComposerProps> = ({
   const addLoadedAttachmentURL = useAttachmentStore(
     (state) => state.addLoadedAttachmentURL
   );
-  const cacheAttachment = useAttachmentCacheStore(
+  const cacheAttachment = useAttachmentCachePersistStore(
     (state) => state.cacheAttachment
   );
 
@@ -105,8 +111,8 @@ const Composer: FC<ComposerProps> = ({
       );
 
       const uploadedAttachment = await uploadFileToIPFS(file);
-      const cid = uploadedAttachment?.original.url.replace('ipfs://', '');
-      const url = `https://ipfs.thirdwebcdn.com/ipfs/${cid}`;
+      const cid = sanitizeDStorageUrl(uploadedAttachment?.original.url);
+      const url = `${IPFS_GATEWAY}${cid}`;
 
       const remoteAttachment: RemoteAttachment = {
         url,
@@ -192,10 +198,7 @@ const Composer: FC<ComposerProps> = ({
   return (
     <div className="bg-brand-100/75">
       {attachment ? (
-        <AttachmentComposerPreview
-          onDismiss={onDismiss}
-          attachment={attachment}
-        />
+        <AttachmentPreview onDismiss={onDismiss} attachment={attachment} />
       ) : null}
       <div className="flex space-x-4 p-4">
         <label className="flex cursor-pointer items-center">
@@ -229,8 +232,11 @@ const Composer: FC<ComposerProps> = ({
                 <Trans>Send</Trans>
               </span>
             ) : null}
-            {!sending && <ArrowRightIcon className="h-5 w-5" />}
-            {sending && <Spinner size="sm" className="h-5 w-5" />}
+            {sending ? (
+              <Spinner size="sm" className="h-5 w-5" />
+            ) : (
+              <ArrowRightIcon className="h-5 w-5" />
+            )}
           </div>
         </Button>
       </div>

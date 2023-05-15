@@ -1,10 +1,11 @@
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
-import humanFileSize from '@lib/humanFileSize';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
+import humanFileSize from 'lib/humanFileSize';
+import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  useAttachmentCacheStore,
+  useAttachmentCachePersistStore,
   useAttachmentStore
 } from 'src/store/attachment';
 import { Spinner } from 'ui';
@@ -22,14 +23,18 @@ interface RemoteAttachmentPreviewProps {
   sentByMe: boolean;
 }
 
-type Status = 'unloaded' | 'loading' | 'loaded';
+enum Status {
+  UNLOADED = 'unloaded',
+  LOADING = 'loading',
+  LOADED = 'loaded'
+}
 
-const RemoteAttachmentPreview = ({
+const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
   remoteAttachment,
   profile,
   sentByMe
-}: RemoteAttachmentPreviewProps): JSX.Element => {
-  const [status, setStatus] = useState<Status>('unloaded');
+}) => {
+  const [status, setStatus] = useState<Status>(Status.UNLOADED);
   const [attachment, setAttachment] = useState<Attachment | null>(null);
   const { client } = useXmtpClient();
   const loadedAttachmentURLs = useAttachmentStore(
@@ -38,10 +43,10 @@ const RemoteAttachmentPreview = ({
   const addLoadedAttachmentURL = useAttachmentStore(
     (state) => state.addLoadedAttachmentURL
   );
-  const cachedAttachments = useAttachmentCacheStore(
+  const cachedAttachments = useAttachmentCachePersistStore(
     (state) => state.cachedAttachments
   );
-  const cacheAttachment = useAttachmentCacheStore(
+  const cacheAttachment = useAttachmentCachePersistStore(
     (state) => state.cacheAttachment
   );
 
@@ -71,11 +76,11 @@ const RemoteAttachmentPreview = ({
 
       if (cachedAttachment) {
         setAttachment(cachedAttachment);
-        setStatus('loaded');
+        setStatus(Status.LOADED);
         return;
       }
 
-      setStatus('loading');
+      setStatus(Status.LOADING);
 
       if (!client) {
         return;
@@ -87,7 +92,7 @@ const RemoteAttachmentPreview = ({
       );
 
       setAttachment(attachment);
-      setStatus('loaded');
+      setStatus(Status.LOADED);
 
       cacheAttachment(remoteAttachment.url, attachment);
       addLoadedAttachmentURL(remoteAttachment.url);
@@ -121,11 +126,11 @@ const RemoteAttachmentPreview = ({
 
   return (
     <div className="mt-1 space-y-1">
-      {attachment && <AttachmentView attachment={attachment} />}
-      {status === 'loading' && (
+      {attachment ? <AttachmentView attachment={attachment} /> : null}
+      {status === Status.LOADING && (
         <Spinner className="mx-28 my-4 h-48 w-48" size="sm" />
       )}
-      {status === 'unloaded' && (
+      {status === Status.UNLOADED && (
         <div className="space-y-2 text-sm">
           <p>
             {remoteAttachment.filename} -{' '}

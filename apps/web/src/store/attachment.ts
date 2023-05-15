@@ -8,32 +8,33 @@ interface AttachmentState {
   loadedAttachmentURLs: string[];
   addLoadedAttachmentURL: (attachmentURL: string) => void;
 }
-interface AttachmentCache {
+
+interface AttachmentCachePersistState {
   cachedAttachments: Map<string, Attachment>;
   cacheAttachment: (url: string, attachment: Attachment) => void;
 }
 
-function replacer(key: string, value: any) {
+const replacer = (key: String, value: any) => {
   if (value instanceof Map) {
     return {
       dataType: 'Map',
       value: [...value]
     };
-  } else {
-    return value;
   }
-}
 
-function reviver(key: string, value: any) {
+  return value;
+};
+
+const reviver = (key: string, value: any) => {
   if (typeof value === 'object' && value !== null && value.dataType === 'Map') {
     return new Map(value.value);
   }
 
   return value;
-}
+};
 
-export const useAttachmentCacheStore = create(
-  persist<AttachmentCache>(
+export const useAttachmentCachePersistStore = create(
+  persist<AttachmentCachePersistState>(
     (set) => ({
       cachedAttachments: new Map<string, Attachment>(),
       cacheAttachment: (url: string, attachment: Attachment) => {

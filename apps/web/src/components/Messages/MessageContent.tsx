@@ -17,24 +17,21 @@ const MessageContent: FC<MessageContentProps> = ({
   profile,
   sentByMe
 }) => {
-  const content = (): JSX.Element => {
-    if (message.error) {
-      return <span>Error: {`${message.error}`}</span>;
-    }
+  if (message.error) {
+    return <span>Error: {`${message.error}`}</span>;
+  }
 
-    if (message.contentType.sameAs(ContentTypeRemoteAttachment)) {
-      return (
-        <RemoteAttachmentPreview
-          remoteAttachment={message.content}
-          profile={profile}
-          sentByMe={sentByMe}
-        />
-      );
-    }
-    return <Markup>{message.content}</Markup>;
-  };
+  if (message.contentType.sameAs(ContentTypeRemoteAttachment)) {
+    return (
+      <RemoteAttachmentPreview
+        remoteAttachment={message.content}
+        profile={profile}
+        sentByMe={sentByMe}
+      />
+    );
+  }
 
-  return content();
+  return <Markup>{message.content}</Markup>;
 };
 
 export default MessageContent;

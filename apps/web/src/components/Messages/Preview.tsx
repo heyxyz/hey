@@ -21,16 +21,20 @@ interface PreviewProps {
   isSelected: boolean;
 }
 
-function contentFor(message: DecodedMessage): JSX.Element | string {
+interface MessagePreviewProps {
+  message: DecodedMessage;
+}
+
+const MessagePreview: FC<MessagePreviewProps> = ({ message }) => {
   if (message.contentType.sameAs(ContentTypeText)) {
-    return message.content;
+    return <span>message.content</span>;
   } else if (message.contentType.sameAs(ContentTypeRemoteAttachment)) {
     const remoteAttachment: RemoteAttachment = message.content;
     return <span>{remoteAttachment.filename}</span>;
   } else {
-    return '';
+    return <span>''</span>;
   }
-}
+};
 
 const Preview: FC<PreviewProps> = ({
   profile,
@@ -89,7 +93,7 @@ const Preview: FC<PreviewProps> = ({
           {message ? (
             <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
               {address === message.senderAddress && 'You: '}
-              {contentFor(message)}
+              <MessagePreview message={message} />
             </span>
           ) : null}
         </div>
