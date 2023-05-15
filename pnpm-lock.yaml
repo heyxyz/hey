@@ -509,7 +509,7 @@ importers:
     dependencies:
       '@apollo/client':
         specifier: ^3.7.14
-        version: 3.7.14(graphql@16.6.0)
+        version: 3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -574,7 +574,7 @@ importers:
     dependencies:
       '@apollo/client':
         specifier: ^3.7.14
-        version: 3.7.14(graphql@16.6.0)
+        version: 3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
       data:
         specifier: workspace:*
         version: link:../data
@@ -721,6 +721,9 @@ importers:
 
   packages/workers/snapshot-relay:
     dependencies:
+      '@apollo/client':
+        specifier: ^3.7.14
+        version: 3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
       '@tsndr/cloudflare-worker-jwt':
         specifier: ^2.2.1
         version: 2.2.1
@@ -821,8 +824,8 @@ packages:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.18
 
-  /@apollo/client@3.7.11(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-uLg2KtxoAyj9ta7abLxXx8cGRM7HypCkXVmxtL7Ko//N5g37aoJ3ca7VYoFCMUFO1BXBulj+yKVl0U3+ILj5AQ==}
+  /@apollo/client@3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-BRvdkwq5PAXBkjXjboO12uksDm3nrZEqDi4xF97Fk3Mnaa0zDOEfJa7hoKTY9b9KA1EkeWv9BL3i7hSd4SfGBg==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
@@ -850,40 +853,6 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      response-iterator: 0.2.6
-      symbol-observable: 4.0.0
-      ts-invariant: 0.10.3
-      tslib: 2.5.0
-      zen-observable-ts: 1.2.5
-    dev: false
-
-  /@apollo/client@3.7.14(graphql@16.6.0):
-    resolution: {integrity: sha512-BRvdkwq5PAXBkjXjboO12uksDm3nrZEqDi4xF97Fk3Mnaa0zDOEfJa7hoKTY9b9KA1EkeWv9BL3i7hSd4SfGBg==}
-    peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
-      graphql-ws: ^5.5.5
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-      subscriptions-transport-ws: ^0.9.0 || ^0.11.0
-    peerDependenciesMeta:
-      graphql-ws:
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      subscriptions-transport-ws:
-        optional: true
-    dependencies:
-      '@graphql-typed-document-node/core': 3.2.0(graphql@16.6.0)
-      '@wry/context': 0.7.1
-      '@wry/equality': 0.5.4
-      '@wry/trie': 0.3.2
-      graphql: 16.6.0
-      graphql-tag: 2.12.6(graphql@16.6.0)
-      hoist-non-react-statics: 3.3.2
-      optimism: 0.16.2
-      prop-types: 15.8.1
       response-iterator: 0.2.6
       symbol-observable: 4.0.0
       ts-invariant: 0.10.3
@@ -5569,7 +5538,7 @@ packages:
     resolution: {integrity: sha512-9r2+nKUhI7n6940oN1iM4shPNUVDsqNbFLgTajN0ojJNnDdDA29uUzzEZgXMCLTwKTcGkoVeJmuf1zPVQtltFA==}
     engines: {node: '>=18.0.0'}
     dependencies:
-      '@apollo/client': 3.7.11(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+      '@apollo/client': 3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
       '@ethersproject/address': 5.7.0
       '@ethersproject/bignumber': 5.7.0
       '@ethersproject/bytes': 5.7.0

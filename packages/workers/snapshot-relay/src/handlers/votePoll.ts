@@ -61,7 +61,7 @@ export default async (request: IRequest) => {
     const { address, privateKey } = await generateSnapshotAccount({
       ownedBy: payload.id,
       profileId,
-      snapshotId
+      proposalId: snapshotId
     });
 
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
