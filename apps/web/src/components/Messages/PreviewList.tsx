@@ -56,8 +56,10 @@ const PreviewList: FC<PreviewListProps> = ({
     messages,
     profilesToShow,
     requestedCount,
-    profilesError
+    profilesError,
+    othersCount
   } = useMessagePreviews();
+
   const { loading: previewsLoading, progress: previewsProgress } =
     useGetMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore(
@@ -145,6 +147,15 @@ const PreviewList: FC<PreviewListProps> = ({
             count={requestedCount > 99 ? '99+' : requestedCount.toString()}
             showOnSm
           />
+          <TabButton
+            className="w-full !py-2"
+            name={t`Others`}
+            active={selectedTab === 'Others'}
+            onClick={() => setSelectedTab('Others')}
+            icon={<UserAddIcon className="h-4 w-4" />}
+            count={othersCount > 99 ? '99+' : othersCount.toString()}
+            showOnSm
+          />
         </div>
         {selectedTab === 'Requested' ? (
           <div className="bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
@@ -192,6 +203,7 @@ const PreviewList: FC<PreviewListProps> = ({
                 const message = messages.get(key);
                 return (
                   <Preview
+                    previewKey={key}
                     isSelected={key === selectedConversationKey}
                     key={key}
                     profile={profile}

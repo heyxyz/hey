@@ -12,13 +12,15 @@ import { useAppStore } from 'src/store/app';
 import { Image } from 'ui';
 
 interface PreviewProps {
-  profile: Profile;
+  previewKey: string;
+  profile?: Profile;
   message?: DecodedMessage;
   conversationKey: string;
   isSelected: boolean;
 }
 
 const Preview: FC<PreviewProps> = ({
+  previewKey,
   profile,
   message,
   conversationKey,
@@ -38,7 +40,7 @@ const Preview: FC<PreviewProps> = ({
         'cursor-pointer py-3 hover:bg-gray-100 dark:hover:bg-gray-800',
         isSelected && 'bg-gray-50 dark:bg-gray-800'
       )}
-      onClick={() => onConversationSelected(profile.id)}
+      onClick={() => onConversationSelected(profile ? profile.id : previewKey)}
       aria-hidden="true"
     >
       <div className="flex space-x-3 overflow-hidden px-5">
@@ -57,7 +59,9 @@ const Preview: FC<PreviewProps> = ({
           <div className="flex justify-between space-x-1">
             <div className="flex items-center gap-1 overflow-hidden">
               <div className="text-md truncate">
-                {profile?.name ?? formatHandle(profile.handle)}
+                {profile
+                  ? profile?.name ?? formatHandle(profile.handle)
+                  : previewKey}
               </div>
               {isVerified(profile?.id) && (
                 <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />

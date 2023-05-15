@@ -51,11 +51,12 @@ const MessageIcon: FC = () => {
 
     const fetchShowBadge = async () => {
       const convos = await cachedClient.conversations.list();
-      const matchingConvos = convos.filter(
-        (convo) =>
-          convo.context?.conversationId &&
-          matcherRegex.test(convo.context.conversationId)
-      );
+      const matchingConvos = convos;
+      // convos.filter(
+      //   (convo) =>
+      //     convo.context?.conversationId &&
+      //     matcherRegex.test(convo.context.conversationId)
+      // );
 
       if (matchingConvos.length <= 0) {
         return;
@@ -118,8 +119,8 @@ const MessageIcon: FC = () => {
           const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
           if (
             isFromPeer &&
-            conversationId &&
-            matcherRegex.test(conversationId)
+            conversationId
+            // && matcherRegex.test(conversationId)
           ) {
             const showBadge = shouldShowBadge(
               viewedMessagesAtNs.get(currentProfile.id),

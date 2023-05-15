@@ -12,7 +12,10 @@ const CONVERSATION_KEY_RE = /^(.*)\/lens\.dev\/dm\/(.*)-(.*)$/;
 export const buildConversationKey = (
   peerAddress: string,
   conversationId: string
-): string => `${peerAddress.toLowerCase()}/${conversationId}`;
+): string =>
+  conversationId
+    ? `${peerAddress.toLowerCase()}/${conversationId}`
+    : peerAddress.toLowerCase();
 
 /**
  * Parses a conversation key into its peer address, members, and conversation id

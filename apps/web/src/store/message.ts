@@ -5,7 +5,7 @@ import { Localstorage } from 'data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type TabValues = 'Following' | 'Requested';
+export type TabValues = 'Following' | 'Requested' | 'Others';
 
 interface MessageState {
   client: Client | undefined;
@@ -19,6 +19,10 @@ interface MessageState {
   setHasSyncedMessages: (hasSyncedMessages: boolean) => void;
   previewMessages: Map<string, DecodedMessage>;
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
+  previewMessagesNonLens: Map<string, DecodedMessage>;
+  setPreviewMessagesNonLens: (
+    previewMessagesNonLens: Map<string, DecodedMessage>
+  ) => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
   selectedTab: TabValues;
@@ -63,6 +67,9 @@ export const useMessageStore = create<MessageState>((set) => ({
     set(() => ({ hasSyncedMessages })),
   previewMessages: new Map(),
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
+  previewMessagesNonLens: new Map(),
+  setPreviewMessagesNonLens: (previewMessagesNonLens) =>
+    set(() => ({ previewMessagesNonLens })),
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
     set(() => ({ selectedProfileId })),
@@ -87,7 +94,8 @@ export const useMessageStore = create<MessageState>((set) => ({
         messages: new Map(),
         messageProfiles: new Map(),
         previewMessages: new Map(),
-        selectedTab: 'Following'
+        selectedTab: 'Following',
+        previewMessagesNonLens: new Map()
       };
     })
 }));
