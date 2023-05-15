@@ -18,7 +18,7 @@
     "prettier:fix": "turbo run prettier:fix --parallel",
     "prepare": "husky install",
     "test:dev": "turbo run test:dev",
-    "test:e2e": "start-server-and-test start '4783|4784|8083' test:dev",
+    "test:e2e": "start-server-and-test start '4783|4784|8083|8085' test:dev",
     "test:nightly": "turbo run test:nightly"
   },
   "devDependencies": {
