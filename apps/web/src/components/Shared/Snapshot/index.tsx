@@ -6,8 +6,6 @@ import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import type { Proposal, Vote } from 'snapshot';
-import { useSpaceQuery } from 'snapshot';
-import { webClient } from 'snapshot/apollo';
 import { useAppStore } from 'src/store/app';
 import { Card, Spinner } from 'ui';
 
@@ -37,24 +35,25 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [voterAddress, setVoterAddress] = useState<string>(ZERO_ADDRESS);
 
-  const { loading: spaceLoading } = useSpaceQuery({
-    client: webClient,
-    variables: { id: proposalId },
-    skip: !proposalId || !currentProfile,
-    onCompleted: async ({ proposal }) => {
-      if (proposal?.space?.id === LENSTER_POLLS_SPACE) {
-        const { address } = await generateSnapshotAccount({
-          ownedBy: currentProfile?.ownedBy,
-          profileId: currentProfile?.id,
-          snapshotId: proposalId
-        });
+  const { isLoading: spaceLoading } = useQuery(
+    ['poll', proposalId, voterAddress],
+    () =>
+      getSnapshotProposal(proposalId, voterAddress).then(async (res) => {
+        if (res.poll?.proposal.space.id === LENSTER_POLLS_SPACE) {
+          const { address } = await generateSnapshotAccount({
+            ownedBy: currentProfile?.ownedBy,
+            profileId: currentProfile?.id,
+            proposalId
+          });
 
-        setVoterAddress(address);
-      } else {
-        setVoterAddress(currentProfile?.ownedBy);
-      }
-    }
-  });
+          setVoterAddress(address);
+        } else {
+          setVoterAddress(currentProfile?.ownedBy);
+        }
+
+        return res;
+      })
+  );
 
   const { data, isLoading, error, refetch } = useQuery(
     ['poll', proposalId, voterAddress],
@@ -79,6 +78,10 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
 
   const { proposal, votes } = data.poll;
   const isLensterPoll = proposal?.space?.id === LENSTER_POLLS_SPACE;
+
+  if (!proposal) {
+    return null;
+  }
 
   if (isLensterPoll) {
     return (
