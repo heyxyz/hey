@@ -114,9 +114,9 @@ const SenderProfileInMsg = ({ chat }: { chat: IMessageIPFS }) => {
 };
 
 const Messages = ({ chat }: { chat: IMessageIPFS }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const selectedChatType = usePushChatStore((state) => state.selectedChatType);
-  let position = getProfileFromDID(chat.fromDID) !== currentProfile?.id ? 0 : 1;
+  let position = chat.fromDID !== connectedProfile?.did ? 0 : 1;
 
   // making position 2 for groups messages of different people than connected profile
   if (!position && selectedChatType === CHAT_TYPES.GROUP) {
@@ -518,7 +518,7 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
             return (
               <>
                 {dates.has(dateNum) ? null : renderDate({ chat, dateNum })}
-                {getProfileFromDID(chat.fromDID) !== currentProfile?.id &&
+                {chat.fromDID !== connectedProfile?.did &&
                 selectedChatType === CHAT_TYPES.GROUP &&
                 (index === 0 || previousChat?.fromDID !== chat.fromDID) ? (
                   <SenderProfileInMsg chat={chat} />

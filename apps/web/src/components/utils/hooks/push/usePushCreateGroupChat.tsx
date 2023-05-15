@@ -327,12 +327,14 @@ const useCreateGroup = () => {
           let fetchChatsMessages: IFeeds = (await fetchChat({ recipientAddress: response.chatId })) as IFeeds;
           const msg = fetchChatsMessages?.msg;
           setChatFeed(response.chatId, fetchChatsMessages);
-          setChat(response.chatId, {
-            messages: Array.isArray(chats.get(response.chatId)?.messages)
-              ? [...chats.get(response.chatId)!.messages, msg]
-              : [msg],
-            lastThreadHash: chats.get(response.chatId)?.lastThreadHash ?? msg.link
-          });
+          if (msg?.timestamp) {
+            setChat(response.chatId, {
+              messages: Array.isArray(chats.get(response.chatId)?.messages)
+                ? [...chats.get(response.chatId)!.messages, msg]
+                : [msg],
+              lastThreadHash: chats.get(response.chatId)?.lastThreadHash ?? msg.link
+            });
+          }
         }
       } catch (error: Error | any) {
         console.log(error.message);

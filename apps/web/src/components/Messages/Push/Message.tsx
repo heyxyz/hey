@@ -193,27 +193,11 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
           return;
         }
       });
-    } else {
-      selectedChat?.groupInformation?.members.map((member) => {
-        if (getProfileFromDID(member.wallet) === currentProfile?.id) {
-          response = true;
-          return;
-        }
-      });
-      selectedChat?.groupInformation?.pendingMembers.map((member) => {
-        if (getProfileFromDID(member.wallet) === currentProfile?.id) {
-          response = true;
-          return;
-        }
-      });
     }
     return response;
   };
 
-  const CHAT_NOT_FOUND =
-    profile === null ||
-    groupInfo === null ||
-    (groupInfo && selectedChat && ifPrivateGroup() && !ifGroupMember());
+  const CHAT_NOT_FOUND = profile === null || groupInfo === null;
 
   if (CHAT_NOT_FOUND) {
     toast.error('Chat Not Found!');
