@@ -86,12 +86,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   });
 
   const collectModule: any = data?.publication?.collectModule;
-  const isRevertCollectModule =
-    collectModule?.type === CollectModules.RevertCollectModule;
-  const isMultirecipientFeeCollectModule =
-    collectModule?.type === CollectModules.MultirecipientFeeCollectModule;
-  const isFreeCollectModule =
-    collectModule?.type === CollectModules.FreeCollectModule;
+
   const endTimestamp =
     collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
   const collectLimit =
@@ -103,6 +98,15 @@ const CollectModule: FC<CollectModuleProps> = ({
     collectModule?.fee?.amount?.asset?.symbol;
   const referralFee =
     collectModule?.referralFee ?? collectModule?.fee?.referralFee;
+
+  const isRevertCollectModule =
+    collectModule?.type === CollectModules.RevertCollectModule;
+  const isMultirecipientFeeCollectModule =
+    collectModule?.type === CollectModules.MultirecipientFeeCollectModule;
+  const isFreeCollectModule =
+    collectModule?.type === CollectModules.FreeCollectModule;
+  const isSimpleFreeCollectModule =
+    collectModule?.type === CollectModules.SimpleCollectModule && !amount;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -175,7 +179,7 @@ const CollectModule: FC<CollectModuleProps> = ({
         }
       },
       pollInterval: 5000,
-      skip: !publication?.id
+      skip: !publication?.id || isFreeCollectModule || isSimpleFreeCollectModule
     });
 
   const { data: usdPrice } = useQuery(
@@ -231,6 +235,7 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   const createViaProxyAction = async (variables: any) => {
     const { data } = await createCollectProxyAction({ variables });
+
     if (!data?.proxyAction) {
       return await createCollectTypedData({
         variables: {
@@ -248,7 +253,10 @@ const CollectModule: FC<CollectModuleProps> = ({
 
     try {
       setIsLoading(true);
-      if (isFreeCollectModule && !collectModule?.followerOnly) {
+      const canUseProxy =
+        (isSimpleFreeCollectModule || isFreeCollectModule) &&
+        !collectModule?.followerOnly;
+      if (canUseProxy) {
         return await createViaProxyAction({
           request: {
             collect: { freeCollect: { publicationId: publication?.id } }
