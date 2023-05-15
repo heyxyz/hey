@@ -91,7 +91,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
       setVoteConfig({ show: false, position: 0 });
       Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
-        source: 'snapshot'
+        proposal_source: 'snapshot'
       });
     } catch {
       toast.error(Errors.SomethingWentWrong);

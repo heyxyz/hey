@@ -101,7 +101,7 @@ const Choices: FC<ChoicesProps> = ({
       refetch?.();
       Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
-        source: APP_NAME.toLowerCase()
+        proposal_source: APP_NAME.toLowerCase()
       });
       toast.success(t`Your vote has been casted!`);
     } catch {
