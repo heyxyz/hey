@@ -4,6 +4,10 @@ import { Localstorage } from 'data/storage';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+import {
+  AttachmentCodec,
+  RemoteAttachmentCodec
+} from 'xmtp-content-type-remote-attachment';
 
 import useEthersWalletClient from './useEthersWalletClient';
 
@@ -67,6 +71,10 @@ const useXmtpClient = (cacheOnly = false) => {
           privateKeyOverride: keys,
           persistConversations: true
         });
+
+        xmtp.registerCodec(new AttachmentCodec());
+        xmtp.registerCodec(new RemoteAttachmentCodec());
+
         setClient(xmtp);
         setAwaitingXmtpAuth(false);
       } else {
@@ -100,6 +108,8 @@ export const useDisconnectXmtp = () => {
       setClient(undefined);
     }
     localStorage.removeItem(Localstorage.MessageStore);
+    localStorage.removeItem(Localstorage.AttachmentCache);
+    localStorage.removeItem(Localstorage.AttachmentStore);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletClient, client]);
 
