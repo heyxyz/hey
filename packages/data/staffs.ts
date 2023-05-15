@@ -1,11 +1,11 @@
-import { lensterMembers } from './lenster-members';
+import { lineasterMembers } from './lenster-members';
 
 export const mainnetStaffs = [
   '0x2d', // sasicodes
   '0x16', // davidev
   '0x06', // wagmi
   '0x05', // stani
-  ...lensterMembers
+  ...lineasterMembers
 ];
 
 export const testnetStaffs = [

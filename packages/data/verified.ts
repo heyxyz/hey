@@ -1,5 +1,5 @@
 import { aaveMembers } from './aave-members';
-import { lensterMembers } from './lenster-members';
+import { lineasterMembers } from './lenster-members';
 
 export const mainnetVerified = [
   '0x01c688', // instadapp
@@ -234,11 +234,11 @@ export const mainnetVerified = [
   '0x84ed', // bensparks
   '0x0636', // jenny
   ...aaveMembers,
-  ...lensterMembers
+  ...lineasterMembers
 ];
 
 export const testnetVerified = [
-  '0x15', // yoginth.test
   '0x01', // lensprotocol.test
-  '0x02' // donosonaumczuk.test
+  '0x02', // donosonaumczuk.test
+  '0x03' // alain
 ];

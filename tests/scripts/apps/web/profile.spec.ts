@@ -51,7 +51,7 @@ test.describe('Profile', async () => {
 });
 
 test.describe('Profile verified badge', async () => {
-  test.skip('should have verified badge', async ({ page }) => {
+  test('should have verified badge', async ({ page }) => {
     await page.goto(`${WEB_BASE_URL}/u/alainnicolas`);
     const verifiedBadge = page.getByTestId('profile-verified-badge');
     await expect(verifiedBadge).toBeVisible();

@@ -1,5 +1,7 @@
-export const lensterMembers = [
-  '0x01b69c', // sagargowda
-  '0x0d', // yoginth
-  '0x0c' // lenster
+export const lineasterMembers = [
+  '0x0c', // lenster
+  '0x03', // alain
+  '0x17', // igor
+  '0x09', // seb
+  '0x0a' // matthieu
 ];
