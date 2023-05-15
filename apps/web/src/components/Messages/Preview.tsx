@@ -6,6 +6,7 @@ import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -57,7 +58,8 @@ const Preview: FC<PreviewProps> = ({
           <div className="flex justify-between space-x-1">
             <div className="flex items-center gap-1 overflow-hidden">
               <div className="text-md truncate">
-                {profile?.name ?? formatHandle(profile.handle)}
+                {sanitizeDisplayName(profile?.name) ??
+                  formatHandle(profile.handle)}
               </div>
               {isVerified(profile?.id) && (
                 <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
