@@ -13,6 +13,7 @@ export const PROFILE = {
   FOLLOW: 'Follow profile',
   SUPER_FOLLOW: 'Super follow profile',
   UNFOLLOW: 'Unfollow profile',
+  DISMISS_RECOMMENDED_PROFILE: 'Dismiss recommended profile',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
   SWITCH_PROFILE: 'Switch profile',
