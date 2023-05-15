@@ -1,9 +1,9 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import type { Profile } from 'lens';
-import filterProfileName from 'lib/filterProfileName';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { Image } from 'ui';
@@ -40,7 +40,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
       className="inline-flex items-center space-x-1 font-bold"
     >
       <div>
-        {filterProfileName(profile?.name) ?? formatHandle(profile?.handle)}
+        {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
       </div>
       {isVerified(profile?.id) && (
         <BadgeCheckIcon className="text-brand h-4 w-4" />

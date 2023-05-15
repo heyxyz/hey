@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { Profile } from 'lens';
-import filterProfileName from 'lib/filterProfileName';
 import formatHandle from 'lib/formatHandle';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 
@@ -30,7 +30,7 @@ const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({
       >
         <b className="whitespace-nowrap">
           {profile?.name ? (
-            filterProfileName(profile?.name)
+            sanitizeDisplayName(profile?.name)
           ) : (
             <Slug slug={formatHandle(profile?.handle)} prefix="@" />
           )}

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
-import filterProfileName from 'lib/filterProfileName';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -59,7 +59,7 @@ const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
         {!isOwner ? (
           <>
             <h5 className="mb-2 text-xl">
-              {filterProfileName(profile.name) ?? profile.handle} hasn't setup
+              {sanitizeDisplayName(profile.name) ?? profile.handle} hasn't setup
               gallery yet!
             </h5>
             <p className="text-sm opacity-60">Check again later</p>

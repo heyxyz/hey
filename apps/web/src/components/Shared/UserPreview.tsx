@@ -3,11 +3,11 @@ import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
-import filterProfileName from 'lib/filterProfileName';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';
 import nFormatter from 'lib/nFormatter';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -62,7 +62,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     <>
       <div className="flex max-w-sm items-center gap-1 truncate">
         <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
-          {filterProfileName(lazyProfile?.name) ??
+          {sanitizeDisplayName(lazyProfile?.name) ??
             formatHandle(lazyProfile?.handle)}
         </div>
         {isVerified(lazyProfile?.id) && (

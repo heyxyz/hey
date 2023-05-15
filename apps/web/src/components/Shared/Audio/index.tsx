@@ -2,9 +2,9 @@ import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
-import filterProfileName from 'lib/filterProfileName';
 import getPublicationAttribute from 'lib/getPublicationAttribute';
 import getThumbnailUrl from 'lib/getThumbnailUrl';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
@@ -139,7 +139,7 @@ const Audio: FC<AudioProps> = ({
                           publication?.metadata.attributes,
                           'author'
                         ) ??
-                        filterProfileName(publication?.profile.name)}
+                        sanitizeDisplayName(publication?.profile.name)}
                     </h6>
                   </>
                 )}

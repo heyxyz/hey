@@ -2,11 +2,11 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
-import filterProfileName from 'lib/filterProfileName';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import getProfileAttribute from 'lib/getProfileAttribute';
 import isVerified from 'lib/isVerified';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
@@ -79,7 +79,8 @@ const UserProfile: FC<UserProfileProps> = ({
       <div className="flex max-w-sm items-center">
         <div className={clsx(isBig ? 'font-bold' : 'text-md', 'grid')}>
           <div className="truncate">
-            {filterProfileName(profile?.name) ?? formatHandle(profile?.handle)}
+            {sanitizeDisplayName(profile?.name) ??
+              formatHandle(profile?.handle)}
           </div>
         </div>
         {isVerified(profile?.id) && (

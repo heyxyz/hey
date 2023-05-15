@@ -20,13 +20,13 @@ import { t, Trans } from '@lingui/macro';
 import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import type { Profile } from 'lens';
-import filterProfileName from 'lib/filterProfileName';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import getProfileAttribute from 'lib/getProfileAttribute';
 import isStaff from 'lib/isStaff';
 import isVerified from 'lib/isVerified';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
@@ -119,7 +119,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
           <div className="truncate" data-testid="profile-name">
-            {filterProfileName(profile?.name) ?? formatHandle(profile?.handle)}
+            {sanitizeDisplayName(profile?.name) ??
+              formatHandle(profile?.handle)}
           </div>
           {isVerified(profile?.id) && (
             <Tooltip content={t`Verified`}>
