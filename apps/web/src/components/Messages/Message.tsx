@@ -63,7 +63,6 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const showLoading =
     !missingXmtpAuth && (!currentProfile || !selectedConversation);
 
-
   const userNameForTitle =
     sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle);
 
