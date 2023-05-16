@@ -60,9 +60,10 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   }
 
   const showLoading =
-    !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
+    !missingXmtpAuth && (!currentProfile || !selectedConversation);
 
   const userNameForTitle = profile?.name ?? formatHandle(profile?.handle);
+
   const title = userNameForTitle
     ? `${userNameForTitle} • ${APP_NAME}`
     : APP_NAME;
@@ -82,7 +83,10 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
             </div>
           ) : (
             <>
-              <MessageHeader profile={profile} />
+              <MessageHeader
+                profile={profile}
+                conversationKey={conversationKey}
+              />
               <MessagesList
                 currentProfile={currentProfile}
                 profile={profile}
@@ -133,7 +137,7 @@ const MessagePage: NextPage = () => {
   const { members } = parsed;
   const profileId = members.find((member) => member !== currentProfileId);
 
-  if (!profileId) {
+  if (members.length > 1 && !profileId) {
     return <Custom404 />;
   }
 

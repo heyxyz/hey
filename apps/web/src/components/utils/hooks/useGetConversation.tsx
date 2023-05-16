@@ -20,7 +20,7 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
   };
 
   useEffect(() => {
-    if (!profile || !client) {
+    if (!client) {
       return;
     }
     if (selectedConversation) {
@@ -28,9 +28,8 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
       return;
     }
     const createNewConversation = async () => {
-      const conversationId =
-        parseConversationKey(conversationKey)?.conversationId;
-      const canMessage = await Client.canMessage(profile.ownedBy, {
+      const conversationId = conversationKey.split('/')[0];
+      const canMessage = await Client.canMessage(conversationId, {
         env: XMTP_ENV
       });
       setMissingXmtpAuth(!canMessage);
@@ -38,15 +37,20 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
       if (!canMessage || !conversationId) {
         return;
       }
-      const conversation = await client.conversations.newConversation(
-        profile.ownedBy,
-        {
-          conversationId: conversationId,
-          metadata: {}
-        }
-      );
+
+      const conversationXmtpId =
+        parseConversationKey(conversationKey)?.conversationId;
+
+      const conversation = conversationXmtpId
+        ? await client.conversations.newConversation(conversationId, {
+            conversationId: conversationXmtpId,
+            metadata: {}
+          })
+        : await client.conversations.newConversation(conversationId);
+
       addConversation(conversationKey, conversation);
     };
+
     createNewConversation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile, selectedConversation]);

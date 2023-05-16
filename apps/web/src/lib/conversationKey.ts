@@ -31,8 +31,13 @@ export const parseConversationKey = (
   conversationId: string;
 } | null => {
   const matches = conversationKey.match(CONVERSATION_KEY_RE);
+
   if (!matches || matches.length !== 4) {
-    return null;
+    return {
+      peerAddress: conversationKey,
+      members: [],
+      conversationId: conversationKey
+    };
   }
 
   const [, peerAddress, memberA, memberB] = Array.from(matches);

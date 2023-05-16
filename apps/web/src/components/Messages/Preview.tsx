@@ -43,7 +43,7 @@ const Preview: FC<PreviewProps> = ({
           isSelected && 'bg-gray-50 dark:bg-gray-800'
         )}
         onClick={() =>
-          onConversationSelected(profile ? profile.id : previewKey)
+          onConversationSelected(profile?.id ? profile.id : previewKey)
         }
         aria-hidden="true"
       >
@@ -65,7 +65,7 @@ const Preview: FC<PreviewProps> = ({
                 <div className="text-md truncate">
                   {profile?.name
                     ? profile?.name ?? formatHandle(profile.handle)
-                    : shortAddress(previewKey)}
+                    : shortAddress(previewKey.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) && (
                   <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
