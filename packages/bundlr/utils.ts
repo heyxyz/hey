@@ -7,7 +7,7 @@ const map = {
 };
 
 for (const [k, v] of Object.entries(map)) {
-  // @ts-ignore
+  // @ts-expect-error
   map[v] = k;
 }
 
@@ -46,13 +46,13 @@ export const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
 
 const shimClass = class {
   context = [];
-  // @ts-ignore
+  // @ts-expect-error
   constructor(private algo) {
     this.context = [];
   }
 
   update(data: Buffer) {
-    // @ts-ignore
+    // @ts-expect-error
     this.context.push(data);
     return this;
   }
@@ -65,7 +65,7 @@ const shimClass = class {
 };
 
 export const getShim = (algo: string) => {
-  // @ts-ignore
+  // @ts-expect-error
   algo = algo.includes('-') ? algo : (algo = map[algo]);
   return new shimClass(algo);
 };

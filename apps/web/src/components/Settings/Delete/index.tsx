@@ -115,20 +115,22 @@ const DeleteSettings: FC = () => {
         <Card className="space-y-5 p-5">
           <UserProfile profile={currentProfile} />
           <div className="text-lg font-bold text-red-500">
-            <Trans>This will deactivate your account</Trans>
+            <Trans>This will delete your Lens profile</Trans>
           </div>
           <p>
             <Trans>
-              Deleting your account is permanent. All your data will be wiped
-              out immediately and you won't be able to get it back.
+              This will permanently delete your Profile NFT on the Lens
+              Protocol. You will not be able to use any apps built on Lens,
+              including Lenster. All your data will be wiped out immediately and
+              you won't be able to get it back.
             </Trans>
           </p>
           <div className="text-lg font-bold">What else you should know</div>
           <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
             <p className="pb-3">
               <Trans>
-                You cannot restore your {APP_NAME} account if it was
-                accidentally or wrongfully deleted.
+                You cannot restore your Lens profile if it was accidentally or
+                wrongfully deleted.
               </Trans>
             </p>
             <p className="py-3">
@@ -179,9 +181,9 @@ const DeleteSettings: FC = () => {
               <Button
                 variant="danger"
                 icon={<TrashIcon className="h-5 w-5" />}
-                onClick={() => {
+                onClick={async () => {
                   setShowWarningModal(false);
-                  handleDelete();
+                  await handleDelete();
                 }}
               >
                 <Trans>Yes, delete my account</Trans>

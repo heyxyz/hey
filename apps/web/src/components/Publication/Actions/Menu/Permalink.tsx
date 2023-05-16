@@ -23,9 +23,9 @@ const Permalink: FC<PermalinkProps> = ({ publication }) => {
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
       }
-      onClick={(event) => {
+      onClick={async (event) => {
         stopEventPropagation(event);
-        navigator.clipboard.writeText(
+        await navigator.clipboard.writeText(
           `${location.origin}/posts/${publication?.id}`
         );
         toast.success(t`Copied to clipboard!`);
