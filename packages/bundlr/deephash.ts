@@ -5,7 +5,7 @@ export type DeepHashChunks = DeepHashChunk[];
 
 export async function deepHash(data: DeepHashChunk): Promise<Uint8Array> {
   if (
-    // @ts-ignore
+    // @ts-expect-error
     typeof data[Symbol.asyncIterator as keyof AsyncIterable<Buffer>] ===
     'function'
   ) {

@@ -49,7 +49,7 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
   const [mirrored, setMirrored] = useState(
     isMirror
       ? publication?.mirrorOf?.mirrors?.length > 0
-      : // @ts-ignore
+      : // @ts-expect-error
         publication?.mirrors?.length > 0
   );
   const { cache } = useApolloClient();
