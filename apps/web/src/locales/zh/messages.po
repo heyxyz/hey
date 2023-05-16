@@ -218,7 +218,7 @@ msgid "Select GIF"
 msgstr "请选择GIF图片"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-msgid "{0, plural, one {day} other {days}}"
+msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
@@ -630,7 +630,6 @@ msgid "Loading..."
 msgstr "加载中..."
 
 #: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr "正在关注"
@@ -1328,6 +1327,15 @@ msgid "Not now"
 msgstr "暂时不可以"
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "关注者"
@@ -1607,11 +1615,11 @@ msgid "NFT ADDRESS"
 msgstr "NFT地址"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{commentsCount, plural, one {Comment} other {Comments}}"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{mirrorCount, plural, one {Mirror} other {Mirrors}}"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1619,7 +1627,7 @@ msgid "Mirrored by"
 msgstr "转发过的人"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{reactionCount, plural, one {Like} other {Likes}}"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1627,7 +1635,7 @@ msgid "Liked by"
 msgstr "点赞过的人"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{collectCount, plural, one {Collect} other {Collects}}"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx

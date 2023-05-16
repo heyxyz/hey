@@ -218,8 +218,8 @@ msgid "Select GIF"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-msgid "{0, plural, one {day} other {days}}"
-msgstr "{0, plural, one {day} other {days}}"
+msgid "{0, plural, zero {day} one {day} other {days}}"
+msgstr "{0, plural, zero {day} one {day} other {days}}"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length"
@@ -630,7 +630,6 @@ msgid "Loading..."
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr ""
@@ -1328,6 +1327,15 @@ msgid "Not now"
 msgstr "Not now"
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr "{0, plural, zero {Following} one {Following} other {Following}}"
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
@@ -1607,28 +1615,28 @@ msgid "NFT ADDRESS"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{commentsCount, plural, one {Comment} other {Comments}}"
-msgstr "{commentsCount, plural, one {Comment} other {Comments}}"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
+msgstr "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{mirrorCount, plural, one {Mirror} other {Mirrors}}"
-msgstr "{mirrorCount, plural, one {Mirror} other {Mirrors}}"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
+msgstr "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{reactionCount, plural, one {Like} other {Likes}}"
-msgstr "{reactionCount, plural, one {Like} other {Likes}}"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
+msgstr "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{collectCount, plural, one {Collect} other {Collects}}"
-msgstr "{collectCount, plural, one {Collect} other {Collects}}"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
