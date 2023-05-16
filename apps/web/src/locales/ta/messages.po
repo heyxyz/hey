@@ -218,7 +218,7 @@ msgid "Select GIF"
 msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-msgid "{0, plural, one {day} other {days}}"
+msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
@@ -594,8 +594,8 @@ msgid "Failed to load trending"
 msgstr "டிரெண்டிங்கை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Home/Trending.tsx
-msgid "{0} Publications"
-msgstr "{0} பப்ளிகேஷன்ஸ்"
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
@@ -630,7 +630,6 @@ msgid "Loading..."
 msgstr "ஏற்றுகிறது..."
 
 #: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr "பின்தொடர்கிறீர்கள்"
@@ -1328,6 +1327,15 @@ msgid "Not now"
 msgstr "இப்போது வேண்டாம்"
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "பின்பற்றுபவர்கள்"
@@ -1470,8 +1478,8 @@ msgid "Loading collect"
 msgstr "சேகரிப்பு ஏற்றுகிறது"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
-msgstr "{0} சேகரிப்பாளர்கள்"
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
@@ -1511,11 +1519,7 @@ msgid "Fee recipients"
 msgstr "கட்டணம் பெறுவோர்"
 
 #: src/components/Publication/Actions/Collect/index.tsx
-msgid "{0} Collects"
-msgstr ""
-
-#: src/components/Publication/Actions/Collect/index.tsx
-msgid "Collect"
+msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -1528,8 +1532,8 @@ msgid "{0} Comments"
 msgstr "{0} கருத்துகள்"
 
 #: src/components/Publication/Actions/Like.tsx
-msgid "Dislike"
-msgstr "விருப்பமில்லை"
+msgid "Unlike"
+msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
@@ -1607,28 +1611,28 @@ msgid "NFT ADDRESS"
 msgstr "NFT முகவரி"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Comments"
-msgstr "<0>{0}</0> கருத்துகள்"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Mirrors"
-msgstr "<0>{0}</0> மிரர்கள்"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
 msgstr "இவர்களால் மிரர் செய்யப்பட்டது"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Likes"
-msgstr "<0>{0}</0> விருப்பங்கள்"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
 msgstr "இவர்களால் விரும்பப்பட்டது"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Collects"
-msgstr "<0>{0}</0> சேகரிப்புகள்"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -2614,7 +2618,7 @@ msgid "Results"
 msgstr "முடிவுகள்"
 
 #: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} Votes"
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
