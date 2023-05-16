@@ -45,13 +45,15 @@ const PreviewList: FC<PreviewListProps> = ({
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
+
   const {
     authenticating,
     loading,
     messages,
     profilesToShow,
     requestedCount,
-    profilesError
+    profilesError,
+    ensNames
   } = useMessagePreviews();
 
   const { loading: previewsLoading, progress: previewsProgress } =
@@ -193,6 +195,7 @@ const PreviewList: FC<PreviewListProps> = ({
                 const message = messages.get(key);
                 return (
                   <Preview
+                    ensName={ensNames.get(key)}
                     isSelected={key === selectedConversationKey}
                     key={key}
                     profile={profile}

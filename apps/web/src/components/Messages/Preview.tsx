@@ -17,6 +17,7 @@ import type { RemoteAttachment } from 'xmtp-content-type-remote-attachment';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 
 interface PreviewProps {
+  ensName?: string;
   profile?: Profile;
   message?: DecodedMessage;
   conversationKey: string;
@@ -39,6 +40,7 @@ const MessagePreview: FC<MessagePreviewProps> = ({ message }) => {
 };
 
 const Preview: FC<PreviewProps> = ({
+  ensName,
   profile,
   message,
   conversationKey,
@@ -83,6 +85,8 @@ const Preview: FC<PreviewProps> = ({
                   {profile?.name
                     ? sanitizeDisplayName(profile?.name) ??
                       formatHandle(profile.handle)
+                    : ensName !== ''
+                    ? ensName
                     : shortAddress(conversationKey.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) && (

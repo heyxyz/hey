@@ -6,6 +6,7 @@ import {
   parseConversationKey
 } from '@lib/conversationKey';
 import conversationMatchesProfile from '@lib/conversationMatchesProfile';
+import { resolveEns } from '@lib/resolveEns';
 import type { Conversation, Stream } from '@xmtp/xmtp-js';
 import { DecodedMessage } from '@xmtp/xmtp-js';
 import type { Profile } from 'lens';
@@ -49,6 +50,7 @@ const useMessagePreviews = () => {
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(
     new Map()
   );
+  const [ensNames, setEnsNames] = useState<Map<string, string>>(new Map());
 
   const [requestedCount, setRequestedCount] = useState(0);
   const {
@@ -92,6 +94,23 @@ const useMessagePreviews = () => {
     mapPreviewMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, rawPreviewMessages]);
+
+  useEffect(() => {
+    const getEns = async () => {
+      if (selectedTab === 'Other') {
+        const keys = Array.from([...nonLensProfiles]);
+        const ensResponse = await resolveEns(keys);
+        const ensNamesData = ensResponse.data;
+        let i = 0;
+        for (const ensName of ensNamesData) {
+          ensNames.set(keys[i], ensName);
+          i++;
+        }
+        setEnsNames(new Map(ensNames));
+      }
+    };
+    getEns();
+  }, [selectedTab]);
 
   useEffect(() => {
     if (profilesLoading) {
@@ -310,7 +329,8 @@ const useMessagePreviews = () => {
     messages: previewMessages,
     profilesToShow,
     requestedCount,
-    profilesError: profilesError
+    profilesError: profilesError,
+    ensNames
   };
 };
 
