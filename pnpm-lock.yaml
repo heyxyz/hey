@@ -667,6 +667,31 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4
 
+  packages/workers/ens-resolver:
+    dependencies:
+      itty-router:
+        specifier: 4.0.0-next.46
+        version: 4.0.0-next.46
+      viem:
+        specifier: ^0.3.19
+        version: 0.3.19(typescript@5.0.4)(zod@3.21.4)
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230511.0
+        version: 4.20230511.0
+      eslint-config-weblint:
+        specifier: workspace:*
+        version: link:../../eslint-config-weblint
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      wrangler:
+        specifier: ^2.20.0
+        version: 2.20.0
+
   packages/workers/freshdesk:
     devDependencies:
       '@cloudflare/workers-types':
@@ -8251,7 +8276,7 @@ packages:
   /@types/better-sqlite3@7.6.4:
     resolution: {integrity: sha512-dzrRZCYPXIXfSR1/surNbJ/grU3scTaygS0OMzjlGf71i9sc2fGyHPXXiXmEvNIoE0cGwsanEFMVJxPXmco9Eg==}
     dependencies:
-      '@types/node': 20.1.4
+      '@types/node': 20.1.5
     dev: true
 
   /@types/body-parser@1.19.2:
@@ -8447,6 +8472,7 @@ packages:
 
   /@types/node@20.1.4:
     resolution: {integrity: sha512-At4pvmIOki8yuwLtd7BNHl3CiWNbtclUbNtScGx4OHfBd4/oWoJC8KRCIxXwkdndzhxOsPXihrsOoydxBjlE9Q==}
+    dev: false
 
   /@types/node@20.1.5:
     resolution: {integrity: sha512-IvGD1CD/nego63ySR7vrAKEX3AJTcmrAN2kn+/sDNLi1Ff5kBzDeEdqWDplK+0HAEoLYej137Sk0cUU8OLOlMg==}
