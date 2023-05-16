@@ -1607,11 +1607,11 @@ msgid "NFT ADDRESS"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Comments"
+msgid "{commentsCount, plural, one {Comment} other {Comments}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Mirrors"
+msgid "{mirrorCount, plural, one {Mirror} other {Mirrors}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1619,7 +1619,7 @@ msgid "Mirrored by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Likes"
+msgid "{reactionCount, plural, one {Like} other {Likes}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1627,7 +1627,7 @@ msgid "Liked by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Collects"
+msgid "{collectCount, plural, one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
