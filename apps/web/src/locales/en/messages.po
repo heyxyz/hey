@@ -1528,8 +1528,8 @@ msgid "{0} Comments"
 msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
-msgid "Dislike"
-msgstr ""
+msgid "Unlike"
+msgstr "Unlike"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
