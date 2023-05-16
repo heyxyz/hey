@@ -83,7 +83,8 @@ const Preview: FC<PreviewProps> = ({
               <div className="flex items-center gap-1 overflow-hidden">
                 <div className="text-md truncate">
                   {profile?.name
-                    ? profile?.name ?? formatHandle(profile.handle)
+                    ? sanitizeDisplayName(profile?.name) ??
+                      formatHandle(profile.handle)
                     : shortAddress(previewKey.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) && (
@@ -100,7 +101,8 @@ const Preview: FC<PreviewProps> = ({
               )}
             </div>
             <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
-              {address === message?.senderAddress && 'You: '} {message?.content}
+              {address === message?.senderAddress && 'You: '}
+              <MessagePreview message={message} />
             </span>
           </div>
         </div>
