@@ -1877,15 +1877,15 @@ msgid "Delete Profile • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "This will deactivate your account"
+msgid "This will delete your Lens profile"
 msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "Deleting your account is permanent. All your data will be wiped out immediately and you won't be able to get it back."
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted."
+msgid "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
 msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
