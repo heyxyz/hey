@@ -218,6 +218,10 @@ msgid "Select GIF"
 msgstr "Выберите GIF"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "{0, plural, one {day} other {days}}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length"
 msgstr "Продолжительность опроса"
 
@@ -658,6 +662,14 @@ msgstr "Новое сообщение"
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
 msgstr "Найдите, кому написать..."
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Attachments are not loaded automatically from people you don’t follow."
+msgstr ""
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Large attachments are not loaded automatically."
+msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
@@ -2037,6 +2049,10 @@ msgid "Name should not exceed 100 characters"
 msgstr "Имя не должно превышать 100 символов"
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Profile name must not contain restricted symbols"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
 msgstr "Местоположение не должно превышать 100 символов"
 
@@ -2869,4 +2885,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-
