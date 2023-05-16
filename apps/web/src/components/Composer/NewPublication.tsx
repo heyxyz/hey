@@ -366,7 +366,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const typedDataGenerator = async (
     generatedData: any,
-    isDataAvailabilityPublication: boolean = false
+    isDataAvailabilityPublication = false
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
