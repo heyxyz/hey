@@ -17,8 +17,8 @@ const MetaDetails: FC<MetaDetailsProps> = ({
 }) => (
   <div
     className="linkify flex cursor-pointer items-center gap-1 text-sm font-bold"
-    onClick={() => {
-      navigator.clipboard.writeText(value);
+    onClick={async () => {
+      await navigator.clipboard.writeText(value);
       toast.success(t`Copied to clipboard!`);
     }}
     aria-hidden="true"

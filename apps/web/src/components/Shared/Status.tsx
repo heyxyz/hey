@@ -222,8 +222,8 @@ const Status: FC = () => {
       <Form
         form={form}
         className="space-y-4"
-        onSubmit={({ status }) => {
-          editStatus(emoji, status);
+        onSubmit={async ({ status }) => {
+          await editStatus(emoji, status);
           Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
@@ -238,10 +238,10 @@ const Status: FC = () => {
             variant="danger"
             disabled={isLoading}
             outline
-            onClick={() => {
+            onClick={async () => {
               setEmoji('');
               form.setValue('status', '');
-              editStatus('', '');
+              await editStatus('', '');
               Mixpanel.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
