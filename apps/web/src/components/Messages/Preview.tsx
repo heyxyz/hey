@@ -17,7 +17,6 @@ import type { RemoteAttachment } from 'xmtp-content-type-remote-attachment';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 
 interface PreviewProps {
-  previewKey: string;
   profile?: Profile;
   message?: DecodedMessage;
   conversationKey: string;
@@ -40,7 +39,6 @@ const MessagePreview: FC<MessagePreviewProps> = ({ message }) => {
 };
 
 const Preview: FC<PreviewProps> = ({
-  previewKey,
   profile,
   message,
   conversationKey,
@@ -49,7 +47,7 @@ const Preview: FC<PreviewProps> = ({
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
-
+  
   const onConversationSelected = (profileId: string) => {
     router.push(profileId ? `/messages/${conversationKey}` : '/messages');
   };
@@ -62,7 +60,7 @@ const Preview: FC<PreviewProps> = ({
           isSelected && 'bg-gray-50 dark:bg-gray-800'
         )}
         onClick={() =>
-          onConversationSelected(profile?.id ? profile.id : previewKey)
+          onConversationSelected(profile?.id ? profile.id : conversationKey)
         }
         aria-hidden="true"
       >
@@ -85,7 +83,7 @@ const Preview: FC<PreviewProps> = ({
                   {profile?.name
                     ? sanitizeDisplayName(profile?.name) ??
                       formatHandle(profile.handle)
-                    : shortAddress(previewKey.split('/')[0])}
+                    : shortAddress(conversationKey.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) && (
                   <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />

@@ -193,7 +193,6 @@ const PreviewList: FC<PreviewListProps> = ({
                 const message = messages.get(key);
                 return (
                   <Preview
-                    previewKey={key}
                     isSelected={key === selectedConversationKey}
                     key={key}
                     profile={profile}
