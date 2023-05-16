@@ -5,7 +5,6 @@ import {
   buildConversationKey,
   parseConversationKey
 } from '@lib/conversationKey';
-import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import { resolveEns } from '@lib/resolveEns';
 import type { Conversation, Stream } from '@xmtp/xmtp-js';
 import { DecodedMessage } from '@xmtp/xmtp-js';
@@ -175,7 +174,6 @@ const useMessagePreviews = () => {
     if (!client || !currentProfile) {
       return;
     }
-    const matcherRegex = conversationMatchesProfile(currentProfile.id);
     let messageStream: AsyncGenerator<DecodedMessage>;
     let conversationStream: Stream<Conversation>;
 
@@ -184,14 +182,12 @@ const useMessagePreviews = () => {
 
       for await (const message of messageStream) {
         const conversationId = message.conversation.context?.conversationId;
-        // && matcherRegex.test(conversationId)
-        // if (conversationId) {
+
         const key = buildConversationKey(
           message.conversation.peerAddress,
           conversationId ?? ''
         );
         persistPreviewMessage(key, message);
-        // }
       }
     };
 
@@ -201,14 +197,8 @@ const useMessagePreviews = () => {
       const newProfileIds = new Set(profileIds);
       const newNonLensProfiles = new Set(nonLensProfiles);
       const convos = await client.conversations.list();
-      const matchingConvos = convos;
-      // .filter(
-      //   (convo) =>
-      //     convo.context?.conversationId &&
-      //     matcherRegex.test(convo.context.conversationId)
-      // );
 
-      for (const convo of matchingConvos) {
+      for (const convo of convos) {
         const key = buildConversationKey(
           convo.peerAddress,
           (convo.context?.conversationId as string) ?? ''
@@ -251,16 +241,7 @@ const useMessagePreviews = () => {
     const streamConversations = async () => {
       closeConversationStream();
       conversationStream = (await client?.conversations?.stream()) || [];
-      const matcherRegex = conversationMatchesProfile(currentProfile?.id);
       for await (const convo of conversationStream) {
-        // Ignore any new conversations not matching the current profile
-        // if (
-        //   !convo.context?.conversationId
-        //   // ||
-        //   // !matcherRegex.test(convo.context.conversationId)
-        // ) {
-        //   continue;
-        // }
         const newConversations = new Map(conversations);
         const newProfileIds = new Set(profileIds);
         const newNonLensProfiles = new Set(nonLensProfiles);

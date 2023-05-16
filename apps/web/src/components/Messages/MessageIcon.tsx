@@ -1,6 +1,5 @@
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import { MailIcon } from '@heroicons/react/outline';
-import conversationMatchesProfile from '@lib/conversationMatchesProfile';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
@@ -47,16 +46,9 @@ const MessageIcon: FC = () => {
       return;
     }
 
-    const matcherRegex = conversationMatchesProfile(currentProfile.id);
-
     const fetchShowBadge = async () => {
       const convos = await cachedClient.conversations.list();
       const matchingConvos = convos;
-      // convos.filter(
-      //   (convo) =>
-      //     convo.context?.conversationId &&
-      //     matcherRegex.test(convo.context.conversationId)
-      // );
 
       if (matchingConvos.length <= 0) {
         return;
@@ -115,13 +107,8 @@ const MessageIcon: FC = () => {
 
       for await (const message of messageStream) {
         if (messageValidator(currentProfile.id)) {
-          const conversationId = message.conversation.context?.conversationId;
           const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
-          if (
-            isFromPeer &&
-            conversationId
-            // && matcherRegex.test(conversationId)
-          ) {
+          if (isFromPeer) {
             const showBadge = shouldShowBadge(
               viewedMessagesAtNs.get(currentProfile.id),
               message.sent
