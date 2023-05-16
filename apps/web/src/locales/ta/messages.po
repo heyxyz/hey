@@ -1478,8 +1478,8 @@ msgid "Loading collect"
 msgstr "சேகரிப்பு ஏற்றுகிறது"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
-msgstr "{0} சேகரிப்பாளர்கள்"
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
