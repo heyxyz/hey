@@ -2706,6 +2706,10 @@ msgstr "Пожалуйста, измените сеть в вашем кошел
 msgid "Switch Network"
 msgstr "Сменить сеть"
 
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Create Profile"
+msgstr ""
+
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
 msgstr "Отписались успешно!"

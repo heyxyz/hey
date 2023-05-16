@@ -2706,6 +2706,10 @@ msgstr "请更换您的钱包网络！"
 msgid "Switch Network"
 msgstr "切换网络"
 
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Create Profile"
+msgstr ""
+
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
 msgstr "取消关注成功！"

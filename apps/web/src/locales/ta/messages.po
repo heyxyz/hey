@@ -2706,6 +2706,10 @@ msgstr "தயவுசெய்து உங்கள் நெட்வொர�
 msgid "Switch Network"
 msgstr "நெட்வொர்க்கை மாற்றவும்"
 
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Create Profile"
+msgstr ""
+
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
 msgstr "வெற்றிகரமாக பின்தொடரவில்லை!"
