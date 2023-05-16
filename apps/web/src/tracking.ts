@@ -24,7 +24,7 @@ export const PUBLICATION = {
   NEW_POST: 'New post',
   NEW_COMMENT: 'New comment',
   LIKE: 'Like publication',
-  DISLIKE: 'Dislike publication',
+  UNLIKE: 'Unlike publication',
   MIRROR: 'Mirror publication',
   PERMALINK: 'Permalink publication',
   TRANSLATE: 'Translate publication',

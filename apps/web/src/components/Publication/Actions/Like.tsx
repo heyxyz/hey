@@ -88,7 +88,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     }
   };
 
-  const getEventProperties = (type: 'like' | 'dislike') => {
+  const getEventProperties = (type: 'like' | 'unlike') => {
     return {
       [`${type}_publication`]: publication?.id,
       [`${type}_source`]: getLikeSource()
@@ -109,7 +109,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.DISLIKE, getEventProperties('dislike'));
+      Mixpanel.track(PUBLICATION.UNLIKE, getEventProperties('unlike'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -177,7 +177,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
         >
           <Tooltip
             placement="top"
-            content={liked ? t`Dislike` : t`Like`}
+            content={liked ? t`Unlike` : t`Like`}
             withDelay
           >
             {liked ? (
