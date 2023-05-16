@@ -218,6 +218,10 @@ msgid "Select GIF"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "{0, plural, one {day} other {days}}"
+msgstr "{0, plural, one {day} other {days}}"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length"
 msgstr "Poll length"
 
@@ -658,6 +662,14 @@ msgstr ""
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
 msgstr ""
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Attachments are not loaded automatically from people you don’t follow."
+msgstr "Attachments are not loaded automatically from people you don’t follow."
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Large attachments are not loaded automatically."
+msgstr "Large attachments are not loaded automatically."
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
@@ -2035,6 +2047,10 @@ msgstr "Profile picture crop preview"
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
 msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Profile name must not contain restricted symbols"
+msgstr "Profile name must not contain restricted symbols"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
