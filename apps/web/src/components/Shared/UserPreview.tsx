@@ -1,4 +1,5 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -121,13 +122,25 @@ const UserPreview: FC<UserPreviewProps> = ({
             <div className="text-base">
               {nFormatter(lazyProfile?.stats?.totalFollowing)}
             </div>
-            <div className="lt-text-gray-500 text-sm">Following</div>
+            <div className="lt-text-gray-500 text-sm">
+              {plural(lazyProfile?.stats?.totalFollowers, {
+                zero: 'Following',
+                one: 'Following',
+                other: 'Following'
+              })}
+            </div>
           </div>
           <div className="text-md flex items-center space-x-1">
             <div className="text-base">
               {nFormatter(lazyProfile?.stats?.totalFollowers)}
             </div>
-            <div className="lt-text-gray-500 text-sm">Followers</div>
+            <div className="lt-text-gray-500 text-sm">
+              {plural(lazyProfile?.stats?.totalFollowers, {
+                zero: 'Follower',
+                one: 'Follower',
+                other: 'Followers'
+              })}
+            </div>
           </div>
         </div>
       </div>

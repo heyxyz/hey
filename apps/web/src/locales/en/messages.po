@@ -218,8 +218,8 @@ msgid "Select GIF"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-msgid "{0, plural, one {day} other {days}}"
-msgstr "{0, plural, one {day} other {days}}"
+msgid "{0, plural, zero {day} one {day} other {days}}"
+msgstr "{0, plural, zero {day} one {day} other {days}}"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length"
@@ -594,8 +594,8 @@ msgid "Failed to load trending"
 msgstr ""
 
 #: src/components/Home/Trending.tsx
-msgid "{0} Publications"
-msgstr ""
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
@@ -630,7 +630,6 @@ msgid "Loading..."
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr ""
@@ -1328,6 +1327,15 @@ msgid "Not now"
 msgstr "Not now"
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr "{0, plural, zero {Following} one {Following} other {Following}}"
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
@@ -1470,8 +1478,8 @@ msgid "Loading collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
-msgstr ""
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
+msgstr "{count, plural, zero {collector} one {collector} other {collectors}}"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
@@ -1511,12 +1519,8 @@ msgid "Fee recipients"
 msgstr "Fee recipients"
 
 #: src/components/Publication/Actions/Collect/index.tsx
-msgid "{0} Collects"
-msgstr "{0} Collects"
-
-#: src/components/Publication/Actions/Collect/index.tsx
-msgid "Collect"
-msgstr "Collect"
+msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
@@ -1528,8 +1532,8 @@ msgid "{0} Comments"
 msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
-msgid "Dislike"
-msgstr ""
+msgid "Unlike"
+msgstr "Unlike"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
@@ -1607,28 +1611,28 @@ msgid "NFT ADDRESS"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Comments"
-msgstr "<0>{0}</0> Comments"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
+msgstr "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Mirrors"
-msgstr "<0>{0}</0> Mirrors"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
+msgstr "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Likes"
-msgstr "<0>{0}</0> Likes"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
+msgstr "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Collects"
-msgstr "<0>{0}</0> Collects"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -2614,8 +2618,8 @@ msgid "Results"
 msgstr "Results"
 
 #: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} Votes"
-msgstr "{0} Votes"
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{0} left"

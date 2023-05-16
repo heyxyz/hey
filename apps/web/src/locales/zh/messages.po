@@ -218,7 +218,7 @@ msgid "Select GIF"
 msgstr "请选择GIF图片"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-msgid "{0, plural, one {day} other {days}}"
+msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
@@ -594,8 +594,8 @@ msgid "Failed to load trending"
 msgstr "无法加载热搜"
 
 #: src/components/Home/Trending.tsx
-msgid "{0} Publications"
-msgstr "{0} 帖子"
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
@@ -630,7 +630,6 @@ msgid "Loading..."
 msgstr "加载中..."
 
 #: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr "正在关注"
@@ -1328,6 +1327,15 @@ msgid "Not now"
 msgstr "暂时不可以"
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "关注者"
@@ -1470,8 +1478,8 @@ msgid "Loading collect"
 msgstr "正在加载收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
-msgstr "{0} 位收藏者"
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
@@ -1511,11 +1519,7 @@ msgid "Fee recipients"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
-msgid "{0} Collects"
-msgstr ""
-
-#: src/components/Publication/Actions/Collect/index.tsx
-msgid "Collect"
+msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -1528,8 +1532,8 @@ msgid "{0} Comments"
 msgstr "{0} 评论"
 
 #: src/components/Publication/Actions/Like.tsx
-msgid "Dislike"
-msgstr "取消点赞"
+msgid "Unlike"
+msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
@@ -1607,28 +1611,28 @@ msgid "NFT ADDRESS"
 msgstr "NFT地址"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Comments"
-msgstr "<0>{0}</0> 条评论"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Mirrors"
-msgstr "<0>{0}</0> 次转发"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
 msgstr "转发过的人"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Likes"
-msgstr "<0>{0}</0> 次赞"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
 msgstr "点赞过的人"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Collects"
-msgstr "<0>{0}</0> 次收藏"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -2614,7 +2618,7 @@ msgid "Results"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} Votes"
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
