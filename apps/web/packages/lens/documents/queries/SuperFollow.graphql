@@ -1,0 +1,19 @@
+query SuperFollow($request: SingleProfileQueryRequest!) {
+  profile(request: $request) {
+    id
+    followModule {
+      ... on FeeFollowModuleSettings {
+        amount {
+          asset {
+            name
+            symbol
+            decimals
+            address
+          }
+          value
+        }
+        recipient
+      }
+    }
+  }
+}

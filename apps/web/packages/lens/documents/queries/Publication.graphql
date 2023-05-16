@@ -1,0 +1,38 @@
+query Publication(
+  $request: PublicationQueryRequest!
+  $reactionRequest: ReactionFieldResolverRequest
+  $profileId: ProfileId
+) {
+  publication(request: $request) {
+    ... on Post {
+      ...PostFields
+      collectNftAddress
+      profile {
+        isFollowedByMe
+      }
+      referenceModule {
+        __typename
+      }
+    }
+    ... on Comment {
+      ...CommentFields
+      collectNftAddress
+      profile {
+        isFollowedByMe
+      }
+      referenceModule {
+        __typename
+      }
+    }
+    ... on Mirror {
+      ...MirrorFields
+      collectNftAddress
+      profile {
+        isFollowedByMe
+      }
+      referenceModule {
+        __typename
+      }
+    }
+  }
+}

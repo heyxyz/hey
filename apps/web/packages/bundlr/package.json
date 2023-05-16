@@ -1,0 +1,22 @@
+{
+  "name": "bundlr",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "typecheck": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
+  },
+  "dependencies": {
+    "arbundles": "^0.8.0",
+    "base64url": "^3.0.1",
+    "ethers": "5.7.2",
+    "secp256k1": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/secp256k1": "^4.0.3",
+    "eslint-config-weblint": "workspace:*",
+    "typescript": "^5.0.4"
+  }
+}

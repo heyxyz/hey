@@ -1,0 +1,8 @@
+query RelevantPeople($request: ProfileQueryRequest!) {
+  profiles(request: $request) {
+    items {
+      ...ProfileFields
+      isFollowedByMe
+    }
+  }
+}

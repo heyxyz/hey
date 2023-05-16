@@ -1,0 +1,81 @@
+fragment CommentFields on Comment {
+  id
+  profile {
+    ...ProfileFields
+  }
+  reaction(request: $reactionRequest)
+  mirrors(by: $profileId)
+  hasCollectedByMe
+  onChainContentURI
+  isGated
+  canComment(profileId: $profileId) {
+    result
+  }
+  canMirror(profileId: $profileId) {
+    result
+  }
+  canDecrypt(profileId: $profileId) {
+    result
+    reasons
+  }
+  collectModule {
+    ...CollectModuleFields
+  }
+  stats {
+    ...StatsFields
+  }
+  metadata {
+    ...MetadataFields
+  }
+  hidden
+  createdAt
+  appId
+  commentOn {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      id
+      profile {
+        ...ProfileFields
+      }
+      reaction(request: $reactionRequest)
+      mirrors(by: $profileId)
+      hasCollectedByMe
+      onChainContentURI
+      isGated
+      canComment(profileId: $profileId) {
+        result
+      }
+      canMirror(profileId: $profileId) {
+        result
+      }
+      canDecrypt(profileId: $profileId) {
+        result
+        reasons
+      }
+      collectModule {
+        ...CollectModuleFields
+      }
+      metadata {
+        ...MetadataFields
+      }
+      stats {
+        ...StatsFields
+      }
+      mainPost {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Mirror {
+          ...MirrorFields
+        }
+      }
+      hidden
+      createdAt
+    }
+    ... on Mirror {
+      ...MirrorFields
+    }
+  }
+}

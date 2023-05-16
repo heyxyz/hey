@@ -1,0 +1,17 @@
+query Followers($request: FollowersRequest!) {
+  followers(request: $request) {
+    items {
+      wallet {
+        address
+        defaultProfile {
+          ...ProfileFields
+          isFollowedByMe
+        }
+      }
+      totalAmountOfTimesFollowed
+    }
+    pageInfo {
+      next
+    }
+  }
+}

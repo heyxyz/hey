@@ -1,0 +1,5 @@
+mutation CreateCommentViaDispatcher($request: CreatePublicCommentRequest!) {
+  createCommentViaDispatcher(request: $request) {
+    ...RelayerResultFields
+  }
+}

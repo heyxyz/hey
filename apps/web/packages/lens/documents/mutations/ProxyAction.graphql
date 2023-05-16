@@ -1,0 +1,3 @@
+mutation ProxyAction($request: ProxyActionRequest!) {
+  proxyAction(request: $request)
+}

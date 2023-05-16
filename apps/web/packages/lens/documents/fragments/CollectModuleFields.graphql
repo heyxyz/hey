@@ -1,0 +1,62 @@
+fragment CollectModuleFields on CollectModule {
+  ... on FreeCollectModuleSettings {
+    type
+    contractAddress
+    followerOnly
+  }
+  ... on FeeCollectModuleSettings {
+    type
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      ...ModuleFeeAmountFields
+    }
+  }
+  ... on LimitedFeeCollectModuleSettings {
+    type
+    collectLimit
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      ...ModuleFeeAmountFields
+    }
+  }
+  ... on LimitedTimedFeeCollectModuleSettings {
+    type
+    collectLimit
+    endTimestamp
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      ...ModuleFeeAmountFields
+    }
+  }
+  ... on TimedFeeCollectModuleSettings {
+    type
+    endTimestamp
+    referralFee
+    contractAddress
+    followerOnly
+    amount {
+      ...ModuleFeeAmountFields
+    }
+  }
+  ... on MultirecipientFeeCollectModuleSettings {
+    type
+    contractAddress
+    amount {
+      ...ModuleFeeAmountFields
+    }
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    optionalEndTimestamp: endTimestamp
+    recipients {
+      recipient
+      split
+    }
+  }
+}

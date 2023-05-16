@@ -1,0 +1,5 @@
+mutation CreateMirrorViaDispatcher($request: CreateMirrorRequest!) {
+  createMirrorViaDispatcher(request: $request) {
+    ...RelayerResultFields
+  }
+}

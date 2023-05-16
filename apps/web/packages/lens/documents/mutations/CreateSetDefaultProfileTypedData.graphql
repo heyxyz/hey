@@ -1,0 +1,29 @@
+mutation CreateSetDefaultProfileTypedData(
+  $options: TypedDataOptions
+  $request: CreateSetDefaultProfileRequest!
+) {
+  createSetDefaultProfileTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        SetDefaultProfileWithSig {
+          name
+          type
+        }
+      }
+      value {
+        nonce
+        deadline
+        wallet
+        profileId
+      }
+    }
+  }
+}

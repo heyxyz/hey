@@ -1,0 +1,61 @@
+fragment MirrorFields on Mirror {
+  id
+  profile {
+    ...ProfileFields
+  }
+  reaction(request: $reactionRequest)
+  hasCollectedByMe
+  isGated
+  canComment(profileId: $profileId) {
+    result
+  }
+  canMirror(profileId: $profileId) {
+    result
+  }
+  canDecrypt(profileId: $profileId) {
+    result
+    reasons
+  }
+  collectModule {
+    ...CollectModuleFields
+  }
+  stats {
+    ...StatsFields
+  }
+  metadata {
+    ...MetadataFields
+  }
+  hidden
+  mirrorOf {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      id
+      profile {
+        ...ProfileFields
+      }
+      collectNftAddress
+      reaction(request: $reactionRequest)
+      mirrors(by: $profileId)
+      onChainContentURI
+      isGated
+      canComment(profileId: $profileId) {
+        result
+      }
+      canMirror(profileId: $profileId) {
+        result
+      }
+      canDecrypt(profileId: $profileId) {
+        result
+        reasons
+      }
+      stats {
+        ...StatsFields
+      }
+      createdAt
+    }
+  }
+  createdAt
+  appId
+}

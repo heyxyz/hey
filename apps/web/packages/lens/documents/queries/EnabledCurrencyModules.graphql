@@ -1,0 +1,8 @@
+query EnabledCurrencyModules {
+  enabledModuleCurrencies {
+    name
+    symbol
+    decimals
+    address
+  }
+}

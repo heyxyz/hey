@@ -1,0 +1,24 @@
+{
+  "name": "image-cropper",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "typecheck": "tsc --pretty --noEmit",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts"
+  },
+  "dependencies": {
+    "clsx": "^1.2.1",
+    "normalize-wheel": "^1.0.1",
+    "rc-slider": "^10.1.1",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/normalize-wheel": "^1.0.1",
+    "@types/react": "^18.0.35",
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.4"
+  }
+}

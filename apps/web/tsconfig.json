@@ -10,5 +10,6 @@
       "@generated*": ["src/generated*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["packages/*"]
 }
