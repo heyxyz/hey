@@ -82,8 +82,8 @@
     "ui": "workspace:*",
     "use-resize-observer": "^9.1.0",
     "uuid": "^9.0.0",
-    "viem": "^0.3.19",
-    "wagmi": "^1.0.1",
+    "viem": "^0.3.24",
+    "wagmi": "^1.0.5",
     "xmtp-content-type-remote-attachment": "^1.0.6",
     "zod": "^3.21.4",
     "zustand": "^4.3.8"
