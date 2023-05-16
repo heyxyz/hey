@@ -10,15 +10,20 @@
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "test": "playwright test --project=chromium",
+    "test:headless": "HEADLESS_MODE=true playwright test --project=chromium",
+    "start:server": "run dev ../../node_modules/@metamask/test-dapp/dist -p 3000"
   },
   "dependencies": {
     "data": "workspace:*",
+    "dotenv": "^16.0.3",
     "lens": "workspace:*",
     "lib": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.33.0",
+    "@synthetixio/synpress": "^3.6.4",
     "@types/node": "^20.1.5",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",

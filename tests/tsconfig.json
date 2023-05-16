@@ -4,6 +4,10 @@
     "baseUrl": ".",
     "paths": {
       "test/constants": ["constants.ts"]
-    }
+    },
+    "types": [
+      "@synthetixio/synpress/support",
+    ],
+    "outDir": "./output"
   }
 }
