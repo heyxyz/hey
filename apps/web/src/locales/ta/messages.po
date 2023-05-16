@@ -1528,8 +1528,8 @@ msgid "{0} Comments"
 msgstr "{0} கருத்துகள்"
 
 #: src/components/Publication/Actions/Like.tsx
-msgid "Dislike"
-msgstr "விருப்பமில்லை"
+msgid "Unlike"
+msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
