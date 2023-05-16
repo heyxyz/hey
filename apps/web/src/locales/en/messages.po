@@ -594,8 +594,8 @@ msgid "Failed to load trending"
 msgstr ""
 
 #: src/components/Home/Trending.tsx
-msgid "{0} Publications"
-msgstr ""
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
@@ -1519,12 +1519,8 @@ msgid "Fee recipients"
 msgstr "Fee recipients"
 
 #: src/components/Publication/Actions/Collect/index.tsx
-msgid "{0} Collects"
-msgstr "{0} Collects"
-
-#: src/components/Publication/Actions/Collect/index.tsx
-msgid "Collect"
-msgstr "Collect"
+msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
@@ -2622,8 +2618,8 @@ msgid "Results"
 msgstr "Results"
 
 #: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} Votes"
-msgstr "{0} Votes"
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{0} left"
