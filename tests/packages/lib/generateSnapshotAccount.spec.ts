@@ -8,7 +8,7 @@ test.describe('generateSnapshotAccount', () => {
     const input = {
       ownedBy: '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3',
       profileId: '0x15',
-      snapshotId:
+      proposalId:
         '0xf463e18ec96c45c61d1e846bdd63246ac5660f7932d4c6fe7d132bd83bfea18f'
     };
 

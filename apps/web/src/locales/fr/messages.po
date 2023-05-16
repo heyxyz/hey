@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-10 00:08\n"
+"PO-Revision-Date: 2023-05-16 00:08\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -2579,6 +2579,10 @@ msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{type} voting is not supported yet!"
+msgstr ""
+
+#: src/components/Shared/Snapshot/Choices.tsx
+msgid "This poll is ended!"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx

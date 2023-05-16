@@ -1,6 +1,5 @@
 import { InMemoryCache } from '@apollo/client';
-
-import result from '../generated';
+import result from 'snapshot';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes

@@ -2,17 +2,16 @@ import axios from 'axios';
 import { Errors, IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from 'data';
 
 /**
- * Get the poll from the snapshot relay worker.
+ * Get the space from the snapshot relay worker.
  * @param proposalId The proposal id.
- * @param voter The voter address.
- * @returns The poll.
+ * @returns The space id.
  */
-const getSnapshotProposal = async (proposalId: string, voter: string) => {
+const getSnapshotSpace = async (proposalId: string) => {
   try {
     const response = await axios(
-      `${SNAPSHOR_RELAY_WORKER_URL}/getProposal/${
+      `${SNAPSHOR_RELAY_WORKER_URL}/getSpaceId/${
         IS_MAINNET ? 'mainnet' : 'testnet'
-      }/${proposalId}/${voter}`
+      }/${proposalId}`
     );
 
     return response.data;
@@ -21,4 +20,4 @@ const getSnapshotProposal = async (proposalId: string, voter: string) => {
   }
 };
 
-export default getSnapshotProposal;
+export default getSnapshotSpace;
