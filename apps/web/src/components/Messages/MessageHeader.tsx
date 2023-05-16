@@ -26,6 +26,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   const router = useRouter();
   const [following, setFollowing] = useState(true);
   const unsyncProfile = useMessageStore((state) => state.unsyncProfile);
+  const ensNames = useMessageStore((state) => state.ensNames);
 
   const setFollowingWrapped = useCallback(
     (following: boolean) => {
@@ -69,7 +70,8 @@ const MessageHeader: FC<MessageHeaderProps> = ({
               width={40}
               alt={formatHandle('')}
             />
-            {shortAddress(conversationKey ?? '')}
+            {ensNames.get(conversationKey ?? '') ??
+              shortAddress(conversationKey ?? '')}
           </>
         )}
       </div>

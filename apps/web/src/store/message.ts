@@ -19,6 +19,8 @@ interface MessageState {
   setHasSyncedMessages: (hasSyncedMessages: boolean) => void;
   previewMessages: Map<string, DecodedMessage>;
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
+  ensNames: Map<string, string>;
+  setEnsNames: (ensNames: Map<string, string>) => void;
   previewMessagesNonLens: Map<string, DecodedMessage>;
   setPreviewMessagesNonLens: (
     previewMessagesNonLens: Map<string, DecodedMessage>
@@ -67,6 +69,8 @@ export const useMessageStore = create<MessageState>((set) => ({
     set(() => ({ hasSyncedMessages })),
   previewMessages: new Map(),
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
+  ensNames: new Map(),
+  setEnsNames: (ensNames) => set(() => ({ ensNames })),
   previewMessagesNonLens: new Map(),
   setPreviewMessagesNonLens: (previewMessagesNonLens) =>
     set(() => ({ previewMessagesNonLens })),
@@ -95,7 +99,8 @@ export const useMessageStore = create<MessageState>((set) => ({
         messageProfiles: new Map(),
         previewMessages: new Map(),
         selectedTab: 'Following',
-        previewMessagesNonLens: new Map()
+        previewMessagesNonLens: new Map(),
+        ensNames: new Map()
       };
     })
 }));

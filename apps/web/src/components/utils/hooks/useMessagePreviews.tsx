@@ -47,10 +47,11 @@ const useMessagePreviews = () => {
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useProfilesLazyQuery();
   const selectedTab = useMessageStore((state) => state.selectedTab);
+  const setEnsNames = useMessageStore((state) => state.setEnsNames);
+  const ensNames = useMessageStore((state) => state.ensNames);
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(
     new Map()
   );
-  const [ensNames, setEnsNames] = useState<Map<string, string>>(new Map());
 
   const [requestedCount, setRequestedCount] = useState(0);
   const {
@@ -97,16 +98,24 @@ const useMessagePreviews = () => {
 
   useEffect(() => {
     const getEns = async () => {
-      if (selectedTab === 'Other') {
-        const keys = Array.from([...nonLensProfiles]);
-        const ensResponse = await resolveEns(keys);
-        const ensNamesData = ensResponse.data;
-        let i = 0;
-        for (const ensName of ensNamesData) {
-          ensNames.set(keys[i], ensName);
-          i++;
+      if (selectedTab === 'Other' && ensNames.size < nonLensProfiles.size) {
+        const chunks = chunkArray(
+          Array.from(nonLensProfiles),
+          MAX_PROFILES_PER_REQUEST
+        );
+        let newEnsNames = new Map();
+        for (const chunk of chunks) {
+          const ensResponse = await resolveEns(chunk);
+          const ensNamesData = ensResponse.data;
+          let i = 0;
+          for (const ensName of ensNamesData) {
+            if (ensName !== '') {
+              newEnsNames.set(chunk[i], ensName);
+            }
+            i++;
+          }
         }
-        setEnsNames(new Map(ensNames));
+        setEnsNames(new Map(newEnsNames));
       }
     };
     getEns();
@@ -329,8 +338,7 @@ const useMessagePreviews = () => {
     messages: previewMessages,
     profilesToShow,
     requestedCount,
-    profilesError: profilesError,
-    ensNames
+    profilesError: profilesError
   };
 };
 

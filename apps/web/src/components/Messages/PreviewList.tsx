@@ -43,6 +43,7 @@ const PreviewList: FC<PreviewListProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { persistProfile } = useMessageDb();
   const selectedTab = useMessageStore((state) => state.selectedTab);
+  const ensNames = useMessageStore((state) => state.ensNames);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
@@ -52,8 +53,7 @@ const PreviewList: FC<PreviewListProps> = ({
     messages,
     profilesToShow,
     requestedCount,
-    profilesError,
-    ensNames
+    profilesError
   } = useMessagePreviews();
 
   const { loading: previewsLoading, progress: previewsProgress } =
