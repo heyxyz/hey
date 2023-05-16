@@ -100,5 +100,5 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   pollConfig: { length: 7, choices: ['', ''] },
   setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
   resetPollConfig: () =>
-    set(() => ({ pollConfig: { length: 7, choices: ['', ''] } }))
+    set(() => ({ pollConfig: { length: 1, choices: ['', ''] } }))
 }));
