@@ -1478,8 +1478,8 @@ msgid "Loading collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
-msgstr ""
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
+msgstr "{count, plural, zero {collector} one {collector} other {collectors}}"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx

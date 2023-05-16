@@ -1478,8 +1478,8 @@ msgid "Loading collect"
 msgstr "正在加载收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
-msgstr "{0} 位收藏者"
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
