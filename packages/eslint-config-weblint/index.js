@@ -12,10 +12,9 @@ module.exports = {
     'unused-imports',
     'simple-import-sort',
     'prettier',
-    'unicorn',
-    'tailwindcss'
+    'unicorn'
   ],
-  extends: ['next', 'next/core-web-vitals', 'plugin:tailwindcss/recommended'],
+  extends: ['next', 'next/core-web-vitals'],
   rules: {
     curly: 'error',
     'no-unused-vars': 'off',
@@ -45,7 +44,6 @@ module.exports = {
     'unicorn/no-for-loop': 'error',
     'unicorn/no-lonely-if': 'error',
     'unicorn/no-useless-undefined': 'error',
-    'unicorn/prefer-array-find': 'error',
-    'tailwindcss/no-custom-classname': 'off'
+    'unicorn/prefer-array-find': 'error'
   }
 };

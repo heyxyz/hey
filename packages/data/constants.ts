@@ -3,7 +3,7 @@ import LensEndpoint from './lens-endpoints';
 import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
-export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
 export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 // Lens Network
@@ -93,11 +93,19 @@ export const GROWTHBOOK_KEY = IS_MAINNET
 
 // Regex
 export const URL_REGEX =
-  /((https?:\/\/(www\.)?)|(www\.))[\w#%+.:=@~-]{1,256}\.[\d()A-Za-z]{1,6}\b([\w#%&()+./:=?@~-]*)/g;
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[\da-z]+([.\-][\da-z]+)*\.[a-z]{2,63}(:\d{1,5})?(\/.*)?$/;
 export const ADDRESS_REGEX = /^(0x)?[\da-f]{40}$/i;
-export const HANDLE_REGEX = /(?<=^| )@[a-z\d-_.]{3,26}/g;
+export const HANDLE_REGEX = /^[\da-z]+$/;
+export const RESTRICTED_SYMBOLS = '☑️✓✔✅';
+export const PROFILE_NAME_VALIDATOR_REGEX = new RegExp(
+  '^[^' + RESTRICTED_SYMBOLS + ']+$'
+);
+export const PROFILE_NAME_FILTER_REGEX = new RegExp(
+  '[' + RESTRICTED_SYMBOLS + ']',
+  'gu'
+);
+export const ALL_HANDLES_REGEX = /([\s+])@(\S+)/g;
 export const HANDLE_SANITIZE_REGEX = /[^\d .A-Za-z]/g;
-export const HASHTAG_REGEX = /([#＃]+)(\w*[_a-z]+[\wÀ-ÖØ-öø-ÿ]*)/gi;
 
 // Utils
 export const ALLOWED_IMAGE_TYPES = [

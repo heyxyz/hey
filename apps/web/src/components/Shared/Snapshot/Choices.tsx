@@ -2,7 +2,7 @@ import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/outl
 import { CheckCircleIcon, MenuAlt2Icon } from '@heroicons/react/solid';
 import { getTimetoNow } from '@lib/formatTime';
 import { Mixpanel } from '@lib/mixpanel';
-import { t, Trans } from '@lingui/macro';
+import { plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
 import { APP_NAME, Errors, IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from 'data';
@@ -85,6 +85,10 @@ const Choices: FC<ChoicesProps> = ({
       return toast.error(Errors.SignWallet);
     }
 
+    if (state !== 'active') {
+      return toast.error(t`This poll is ended!`);
+    }
+
     try {
       setVoteSubmitting(true);
       await axios({
@@ -101,7 +105,7 @@ const Choices: FC<ChoicesProps> = ({
       refetch?.();
       Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
-        source: APP_NAME.toLowerCase()
+        proposal_source: APP_NAME.toLowerCase()
       });
       toast.success(t`Your vote has been casted!`);
     } catch {
@@ -184,12 +188,21 @@ const Choices: FC<ChoicesProps> = ({
               </b>
               <span>·</span>
               <span>
-                <Trans>{humanize(scores_total ?? 0)} Votes</Trans>
+                {humanize(scores_total ?? 0)}{' '}
+                {plural(scores_total ?? 0, {
+                  zero: 'Vote',
+                  one: 'Vote',
+                  other: 'Votes'
+                })}
               </span>
-              <span>·</span>
-              <span>
-                <Trans>{getTimetoNow(new Date(end * 1000))} left</Trans>
-              </span>
+              {state === 'active' && (
+                <>
+                  <span>·</span>
+                  <span>
+                    <Trans>{getTimetoNow(new Date(end * 1000))} left</Trans>
+                  </span>
+                </>
+              )}
             </div>
             <New />
           </div>

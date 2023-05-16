@@ -1,4 +1,5 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -7,6 +8,7 @@ import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';
 import nFormatter from 'lib/nFormatter';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -61,7 +63,8 @@ const UserPreview: FC<UserPreviewProps> = ({
     <>
       <div className="flex max-w-sm items-center gap-1 truncate">
         <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
-          {lazyProfile?.name ?? formatHandle(lazyProfile?.handle)}
+          {sanitizeDisplayName(lazyProfile?.name) ??
+            formatHandle(lazyProfile?.handle)}
         </div>
         {isVerified(lazyProfile?.id) && (
           <BadgeCheckIcon className="text-brand h-4 w-4" />
@@ -119,13 +122,25 @@ const UserPreview: FC<UserPreviewProps> = ({
             <div className="text-base">
               {nFormatter(lazyProfile?.stats?.totalFollowing)}
             </div>
-            <div className="lt-text-gray-500 text-sm">Following</div>
+            <div className="lt-text-gray-500 text-sm">
+              {plural(lazyProfile?.stats?.totalFollowers, {
+                zero: 'Following',
+                one: 'Following',
+                other: 'Following'
+              })}
+            </div>
           </div>
           <div className="text-md flex items-center space-x-1">
             <div className="text-base">
               {nFormatter(lazyProfile?.stats?.totalFollowers)}
             </div>
-            <div className="lt-text-gray-500 text-sm">Followers</div>
+            <div className="lt-text-gray-500 text-sm">
+              {plural(lazyProfile?.stats?.totalFollowers, {
+                zero: 'Follower',
+                one: 'Follower',
+                other: 'Followers'
+              })}
+            </div>
           </div>
         </div>
       </div>

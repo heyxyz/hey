@@ -1,4 +1,3 @@
-import Markup from '@components/Shared/Markup';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import { formatTime } from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
@@ -12,6 +11,8 @@ import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { Card, Image } from 'ui';
+
+import MessageContent from './MessageContent';
 
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');
@@ -64,9 +65,11 @@ const MessageTile: FC<MessageTileProps> = ({
               'text-md linkify-message block break-words'
             )}
           >
-            {message.error
-              ? `Error: ${message.error?.message}`
-              : <Markup>{message.content}</Markup> ?? ''}
+            <MessageContent
+              message={message}
+              profile={profile}
+              sentByMe={address == message.senderAddress}
+            />
           </span>
         </div>
       </div>
@@ -164,9 +167,9 @@ const MessagesList: FC<MessageListProps> = ({
   });
 
   return (
-    <div className="flex h-[75%] grow">
+    <div className="flex grow overflow-y-hidden">
       <div className="relative flex h-full w-full pl-4">
-        <div className="flex h-full w-full flex-col-reverse overflow-y-auto">
+        <div className="flex h-full w-full flex-col-reverse overflow-y-hidden">
           {missingXmtpAuth && <MissingXmtpAuth />}
           <span className="flex flex-col-reverse overflow-y-auto overflow-x-hidden">
             {messages?.map((msg: DecodedMessage, index) => {

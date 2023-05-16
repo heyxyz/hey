@@ -4,7 +4,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
-import { t } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ElectedMirror, Publication } from 'lens';
 import { CollectModules } from 'lens';
@@ -73,7 +73,11 @@ const Collect: FC<CollectProps> = ({
           <div className="rounded-full p-1.5 hover:bg-red-300/20">
             <Tooltip
               placement="top"
-              content={count > 0 ? t`${humanize(count)} Collects` : t`Collect`}
+              content={`${humanize(count)} ${plural(count, {
+                zero: 'Collect',
+                one: 'Collect',
+                other: 'Collects'
+              })}`}
               withDelay
             >
               {hasCollected ? (
