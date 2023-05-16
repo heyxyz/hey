@@ -68,8 +68,8 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
       size="sm"
       outline
       icon={icon}
-      onClick={() => {
-        reportPublication({ type, subreason });
+      onClick={async () => {
+        await reportPublication({ type, subreason });
         Mixpanel.track(MOD.REPORT, {
           report_reason: type,
           report_subreason: subreason,

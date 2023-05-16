@@ -331,9 +331,9 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     return (
       <Card
         className={clsx(cardClasses, '!cursor-pointer')}
-        onClick={(event) => {
+        onClick={async (event) => {
           stopEventPropagation(event);
-          getDecryptedData();
+          await getDecryptedData();
           Mixpanel.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
       >

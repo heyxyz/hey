@@ -181,9 +181,9 @@ const DeleteSettings: FC = () => {
               <Button
                 variant="danger"
                 icon={<TrashIcon className="h-5 w-5" />}
-                onClick={() => {
+                onClick={async () => {
                   setShowWarningModal(false);
-                  handleDelete();
+                  await handleDelete();
                 }}
               >
                 <Trans>Yes, delete my account</Trans>

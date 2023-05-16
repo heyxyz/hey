@@ -163,8 +163,8 @@ const SuperFollow: FC = () => {
       <Form
         form={form}
         className="space-y-4 p-5"
-        onSubmit={({ amount, recipient }) => {
-          setSuperFollow(amount, recipient);
+        onSubmit={async ({ amount, recipient }) => {
+          await setSuperFollow(amount, recipient);
         }}
       >
         <div className="text-lg font-bold">
