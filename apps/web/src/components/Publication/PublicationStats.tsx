@@ -6,7 +6,7 @@ import {
   HeartIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline';
-import { t, Trans } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
 import type { Publication } from 'lens';
 import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
@@ -44,24 +44,26 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
       {mirrorCount > 0 && (
         <>
           <span data-testid="comment-stats">
-            <Trans>
-              <b className="text-black dark:text-white">
-                {nFormatter(commentsCount)}
-              </b>{' '}
-              Comments
-            </Trans>
+            <b className="text-black dark:text-white">
+              {nFormatter(commentsCount)}
+            </b>{' '}
+            {plural(commentsCount, {
+              one: 'Comment',
+              other: 'Comments'
+            })}
           </span>
           <button
             type="button"
             onClick={() => setShowMirrorsModal(true)}
             data-testid="mirror-stats"
           >
-            <Trans>
-              <b className="text-black dark:text-white">
-                {nFormatter(mirrorCount)}
-              </b>{' '}
-              Mirrors
-            </Trans>
+            <b className="text-black dark:text-white">
+              {nFormatter(mirrorCount)}
+            </b>{' '}
+            {plural(mirrorCount, {
+              one: 'Mirror',
+              other: 'Mirrors'
+            })}
           </button>
           <Modal
             title={t`Mirrored by`}
@@ -80,12 +82,13 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             onClick={() => setShowLikesModal(true)}
             data-testid="like-stats"
           >
-            <Trans>
-              <b className="text-black dark:text-white">
-                {nFormatter(reactionCount)}
-              </b>{' '}
-              Likes
-            </Trans>
+            <b className="text-black dark:text-white">
+              {nFormatter(reactionCount)}
+            </b>{' '}
+            {plural(reactionCount, {
+              one: 'Like',
+              other: 'Likes'
+            })}
           </button>
           <Modal
             title={t`Liked by`}
@@ -104,12 +107,13 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             onClick={() => setShowCollectorsModal(true)}
             data-testid="collect-stats"
           >
-            <Trans>
-              <b className="text-black dark:text-white">
-                {nFormatter(collectCount)}
-              </b>{' '}
-              Collects
-            </Trans>
+            <b className="text-black dark:text-white">
+              {nFormatter(collectCount)}
+            </b>{' '}
+            {plural(collectCount, {
+              one: 'Collect',
+              other: 'Collects'
+            })}
           </button>
           <Modal
             title={t`Collected by`}
