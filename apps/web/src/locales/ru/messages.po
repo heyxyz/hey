@@ -218,7 +218,7 @@ msgid "Select GIF"
 msgstr "Выберите GIF"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-msgid "{0, plural, one {day} other {days}}"
+msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
@@ -630,7 +630,6 @@ msgid "Loading..."
 msgstr "Загрузка..."
 
 #: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
 #: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr "Подписан"
@@ -1328,6 +1327,15 @@ msgid "Not now"
 msgstr "Не сейчас"
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "Подписчики"
@@ -1607,11 +1615,11 @@ msgid "NFT ADDRESS"
 msgstr "АДРЕС NFT"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{commentsCount, plural, one {Comment} other {Comments}}"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{mirrorCount, plural, one {Mirror} other {Mirrors}}"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1619,7 +1627,7 @@ msgid "Mirrored by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{reactionCount, plural, one {Like} other {Likes}}"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1627,7 +1635,7 @@ msgid "Liked by"
 msgstr "Лайк от"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "{collectCount, plural, one {Collect} other {Collects}}"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx

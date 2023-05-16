@@ -48,6 +48,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               {nFormatter(commentsCount)}
             </b>{' '}
             {plural(commentsCount, {
+              zero: 'Comment',
               one: 'Comment',
               other: 'Comments'
             })}
@@ -61,6 +62,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               {nFormatter(mirrorCount)}
             </b>{' '}
             {plural(mirrorCount, {
+              zero: 'Mirror',
               one: 'Mirror',
               other: 'Mirrors'
             })}
@@ -86,6 +88,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               {nFormatter(reactionCount)}
             </b>{' '}
             {plural(reactionCount, {
+              zero: 'Like',
               one: 'Like',
               other: 'Likes'
             })}
@@ -111,6 +114,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               {nFormatter(collectCount)}
             </b>{' '}
             {plural(collectCount, {
+              zero: 'Collect',
               one: 'Collect',
               other: 'Collects'
             })}
