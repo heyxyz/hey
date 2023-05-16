@@ -218,6 +218,10 @@ msgid "Select GIF"
 msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "{0, plural, one {day} other {days}}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length"
 msgstr ""
 
@@ -658,6 +662,14 @@ msgstr "புதிய தகவல்"
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
 msgstr "செய்தி அனுப்ப யாரையாவது தேடுங்கள்..."
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Attachments are not loaded automatically from people you don’t follow."
+msgstr ""
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Large attachments are not loaded automatically."
+msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
@@ -2037,6 +2049,10 @@ msgid "Name should not exceed 100 characters"
 msgstr "பெயர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Profile name must not contain restricted symbols"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
 msgstr "இருப்பிடம் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
@@ -2869,4 +2885,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
