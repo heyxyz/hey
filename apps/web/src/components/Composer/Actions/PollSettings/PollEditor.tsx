@@ -32,6 +32,7 @@ const PollEditor: FC = () => {
           >
             {pollConfig.length}{' '}
             {plural(pollConfig.length, {
+              zero: 'day',
               one: 'day',
               other: 'days'
             })}
