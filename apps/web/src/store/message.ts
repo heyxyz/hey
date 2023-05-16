@@ -5,7 +5,7 @@ import { Localstorage } from 'data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type TabValues = 'Following' | 'Requested' | 'Others';
+export type TabValues = 'Following' | 'Requested' | 'Other';
 
 interface MessageState {
   client: Client | undefined;

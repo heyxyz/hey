@@ -1,5 +1,6 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
+import { shortAddress } from '@lib/shortAddress';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -35,53 +36,57 @@ const Preview: FC<PreviewProps> = ({
   };
 
   return (
-    <div
-      className={clsx(
-        'cursor-pointer py-3 hover:bg-gray-100 dark:hover:bg-gray-800',
-        isSelected && 'bg-gray-50 dark:bg-gray-800'
-      )}
-      onClick={() => onConversationSelected(profile ? profile.id : previewKey)}
-      aria-hidden="true"
-    >
-      <div className="flex space-x-3 overflow-hidden px-5">
-        <Image
-          onError={({ currentTarget }) => {
-            currentTarget.src = getAvatar(profile, false);
-          }}
-          src={getAvatar(profile)}
-          loading="lazy"
-          className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
-          height={40}
-          width={40}
-          alt={formatHandle(profile?.handle)}
-        />
-        <div className="grow overflow-hidden">
-          <div className="flex justify-between space-x-1">
-            <div className="flex items-center gap-1 overflow-hidden">
-              <div className="text-md truncate">
-                {profile
-                  ? profile?.name ?? formatHandle(profile.handle)
-                  : previewKey}
+    message?.content && (
+      <div
+        className={clsx(
+          'cursor-pointer py-3 hover:bg-gray-100 dark:hover:bg-gray-800',
+          isSelected && 'bg-gray-50 dark:bg-gray-800'
+        )}
+        onClick={() =>
+          onConversationSelected(profile ? profile.id : previewKey)
+        }
+        aria-hidden="true"
+      >
+        <div className="flex space-x-3 overflow-hidden px-5">
+          <Image
+            onError={({ currentTarget }) => {
+              currentTarget.src = getAvatar(profile, false);
+            }}
+            src={getAvatar(profile)}
+            loading="lazy"
+            className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+            height={40}
+            width={40}
+            alt={formatHandle(profile?.handle)}
+          />
+          <div className="grow overflow-hidden">
+            <div className="flex justify-between space-x-1">
+              <div className="flex items-center gap-1 overflow-hidden">
+                <div className="text-md truncate">
+                  {profile?.name
+                    ? profile?.name ?? formatHandle(profile.handle)
+                    : shortAddress(previewKey)}
+                </div>
+                {isVerified(profile?.id) && (
+                  <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
+                )}
               </div>
-              {isVerified(profile?.id) && (
-                <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
+              {message?.sent && (
+                <span
+                  className="lt-text-gray-500 shrink-0 pt-0.5 text-xs"
+                  title={formatTime(message.sent)}
+                >
+                  {getTimeFromNow(message.sent)}
+                </span>
               )}
             </div>
-            {message?.sent && (
-              <span
-                className="lt-text-gray-500 shrink-0 pt-0.5 text-xs"
-                title={formatTime(message.sent)}
-              >
-                {getTimeFromNow(message.sent)}
-              </span>
-            )}
+            <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
+              {address === message?.senderAddress && 'You: '} {message?.content}
+            </span>
           </div>
-          <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
-            {address === message?.senderAddress && 'You: '} {message?.content}
-          </span>
         </div>
       </div>
-    </div>
+    )
   );
 };
 

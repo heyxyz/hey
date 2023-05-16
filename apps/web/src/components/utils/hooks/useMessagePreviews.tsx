@@ -49,9 +49,7 @@ const useMessagePreviews = () => {
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(
     new Map()
   );
-  const [nonLensProfilesToShow, setNonLensProfilesToShow] = useState<
-    Map<string, Profile>
-  >(new Map());
+
   const [requestedCount, setRequestedCount] = useState(0);
   const {
     persistPreviewMessage,
@@ -202,7 +200,7 @@ const useMessagePreviews = () => {
         setProfileIds(newProfileIds);
       }
 
-      if (newNonLensProfiles.size > newNonLensProfiles.size) {
+      if (newNonLensProfiles.size > nonLensProfiles.size) {
         setNonLensProfiles(newNonLensProfiles);
       }
 
@@ -299,7 +297,7 @@ const useMessagePreviews = () => {
       Array.from(nonLensProfiles).map((key) => {
         otherProfiles.set(key, {} as Profile);
       });
-      setNonLensProfilesToShow(otherProfiles);
+      setProfilesToShow(otherProfiles);
     }
 
     setRequestedCount(partitionedProfiles[1].size);
@@ -312,9 +310,7 @@ const useMessagePreviews = () => {
     messages: previewMessages,
     profilesToShow,
     requestedCount,
-    profilesError: profilesError,
-    nonLensProfiles,
-    othersCount: nonLensProfiles.size
+    profilesError: profilesError
   };
 };
 

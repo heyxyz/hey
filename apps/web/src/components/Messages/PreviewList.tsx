@@ -5,12 +5,7 @@ import Search from '@components/Shared/Navbar/Search';
 import useGetMessagePreviews from '@components/utils/hooks/useGetMessagePreviews';
 import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
-import {
-  MailIcon,
-  PlusCircleIcon,
-  UserAddIcon,
-  UsersIcon
-} from '@heroicons/react/outline';
+import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Mixpanel } from '@lib/mixpanel';
@@ -56,8 +51,7 @@ const PreviewList: FC<PreviewListProps> = ({
     messages,
     profilesToShow,
     requestedCount,
-    profilesError,
-    othersCount
+    profilesError
   } = useMessagePreviews();
 
   const { loading: previewsLoading, progress: previewsProgress } =
@@ -135,7 +129,6 @@ const PreviewList: FC<PreviewListProps> = ({
             name={t`Following`}
             active={selectedTab === 'Following'}
             onClick={() => setSelectedTab('Following')}
-            icon={<UsersIcon className="h-4 w-4" />}
             showOnSm
           />
           <TabButton
@@ -143,17 +136,14 @@ const PreviewList: FC<PreviewListProps> = ({
             name={t`Requested`}
             active={selectedTab === 'Requested'}
             onClick={() => setSelectedTab('Requested')}
-            icon={<UserAddIcon className="h-4 w-4" />}
             count={requestedCount > 99 ? '99+' : requestedCount.toString()}
             showOnSm
           />
           <TabButton
             className="w-full !py-2"
-            name={t`Others`}
-            active={selectedTab === 'Others'}
-            onClick={() => setSelectedTab('Others')}
-            icon={<UserAddIcon className="h-4 w-4" />}
-            count={othersCount > 99 ? '99+' : othersCount.toString()}
+            name={t`Other`}
+            active={selectedTab === 'Other'}
+            onClick={() => setSelectedTab('Other')}
             showOnSm
           />
         </div>
@@ -203,7 +193,7 @@ const PreviewList: FC<PreviewListProps> = ({
                 const message = messages.get(key);
                 return (
                   <Preview
-                    previewKey={key}
+                    previewKey={key.split('/')[0]}
                     isSelected={key === selectedConversationKey}
                     key={key}
                     profile={profile}
