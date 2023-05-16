@@ -1607,28 +1607,28 @@ msgid "NFT ADDRESS"
 msgstr "NFT முகவரி"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Comments"
-msgstr "<0>{0}</0> கருத்துகள்"
+msgid "{commentsCount, plural, one {Comment} other {Comments}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Mirrors"
-msgstr "<0>{0}</0> மிரர்கள்"
+msgid "{mirrorCount, plural, one {Mirror} other {Mirrors}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
 msgstr "இவர்களால் மிரர் செய்யப்பட்டது"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Likes"
-msgstr "<0>{0}</0> விருப்பங்கள்"
+msgid "{reactionCount, plural, one {Like} other {Likes}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
 msgstr "இவர்களால் விரும்பப்பட்டது"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Collects"
-msgstr "<0>{0}</0> சேகரிப்புகள்"
+msgid "{collectCount, plural, one {Collect} other {Collects}}"
+msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
