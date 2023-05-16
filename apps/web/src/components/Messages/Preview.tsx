@@ -47,7 +47,7 @@ const Preview: FC<PreviewProps> = ({
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const address = currentProfile?.ownedBy;
-  
+
   const onConversationSelected = (profileId: string) => {
     router.push(profileId ? `/messages/${conversationKey}` : '/messages');
   };
