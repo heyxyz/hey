@@ -80,7 +80,7 @@ const useGetMessagePreviews = () => {
               }
             })
           )
-        ).filter((m) => !!m) as [string, DecodedMessage][];
+        ).filter((m) => Boolean(m)) as [string, DecodedMessage][];
 
         await batchPersistPreviewMessages(new Map(batch));
       }

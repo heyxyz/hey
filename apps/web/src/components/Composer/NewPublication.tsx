@@ -161,6 +161,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setShowPollEditor = usePublicationStore(
     (state) => state.setShowPollEditor
   );
+  const pollConfig = usePublicationStore((state) => state.pollConfig);
   const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
 
   // Transaction persist store
@@ -365,7 +366,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const typedDataGenerator = async (
     generatedData: any,
-    isDataAvailabilityPublication: boolean = false
+    isDataAvailabilityPublication = false
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
@@ -846,6 +847,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     addAttachments([attachment]);
   };
 
+  const isSubmitDisabledByPoll = showPollEditor
+    ? !pollConfig.choices.length ||
+      pollConfig.choices.some((choice) => !choice.length)
+    : false;
+
   return (
     <Card
       className={clsx(
@@ -882,7 +888,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isLoading || isUploading || videoThumbnail.uploading}
+            disabled={
+              isLoading ||
+              isUploading ||
+              isSubmitDisabledByPoll ||
+              videoThumbnail.uploading
+            }
             icon={
               isLoading ? (
                 <Spinner size="xs" />

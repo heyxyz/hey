@@ -218,6 +218,10 @@ msgid "Select GIF"
 msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "{0, plural, zero {day} one {day} other {days}}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length"
 msgstr ""
 
@@ -590,8 +594,8 @@ msgid "Failed to load trending"
 msgstr "டிரெண்டிங்கை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Home/Trending.tsx
-msgid "{0} Publications"
-msgstr "{0} பப்ளிகேஷன்ஸ்"
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
@@ -627,7 +631,6 @@ msgstr "ஏற்றுகிறது..."
 
 #: src/components/Messages/PreviewList.tsx
 #: src/components/Profile/Followerings.tsx
-#: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr "பின்தொடர்கிறீர்கள்"
 
@@ -658,6 +661,14 @@ msgstr "புதிய தகவல்"
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
 msgstr "செய்தி அனுப்ப யாரையாவது தேடுங்கள்..."
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Attachments are not loaded automatically from people you don’t follow."
+msgstr ""
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Large attachments are not loaded automatically."
+msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
@@ -1316,6 +1327,15 @@ msgid "Not now"
 msgstr "இப்போது வேண்டாம்"
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "பின்பற்றுபவர்கள்"
@@ -1458,8 +1478,8 @@ msgid "Loading collect"
 msgstr "சேகரிப்பு ஏற்றுகிறது"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
-msgstr "{0} சேகரிப்பாளர்கள்"
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
@@ -1499,11 +1519,7 @@ msgid "Fee recipients"
 msgstr "கட்டணம் பெறுவோர்"
 
 #: src/components/Publication/Actions/Collect/index.tsx
-msgid "{0} Collects"
-msgstr ""
-
-#: src/components/Publication/Actions/Collect/index.tsx
-msgid "Collect"
+msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -1516,8 +1532,8 @@ msgid "{0} Comments"
 msgstr "{0} கருத்துகள்"
 
 #: src/components/Publication/Actions/Like.tsx
-msgid "Dislike"
-msgstr "விருப்பமில்லை"
+msgid "Unlike"
+msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
@@ -1595,28 +1611,28 @@ msgid "NFT ADDRESS"
 msgstr "NFT முகவரி"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Comments"
-msgstr "<0>{0}</0> கருத்துகள்"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Mirrors"
-msgstr "<0>{0}</0> மிரர்கள்"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
 msgstr "இவர்களால் மிரர் செய்யப்பட்டது"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Likes"
-msgstr "<0>{0}</0> விருப்பங்கள்"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
 msgstr "இவர்களால் விரும்பப்பட்டது"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Collects"
-msgstr "<0>{0}</0> சேகரிப்புகள்"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -1861,16 +1877,16 @@ msgid "Delete Profile • {APP_NAME}"
 msgstr "சுயவிவரத்தை நீக்கு • {APP_NAME}"
 
 #: src/components/Settings/Delete/index.tsx
-msgid "This will deactivate your account"
-msgstr "இது உங்கள் கணக்கை செயலிழக்கச் செய்யும்"
+msgid "This will delete your Lens profile"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "Deleting your account is permanent. All your data will be wiped out immediately and you won't be able to get it back."
-msgstr "உங்கள் கணக்கை நீக்குவது நிரந்தரமானது. உங்களின் எல்லாத் தரவுகளும் உடனடியாக அழிக்கப்படும், உங்களால் அதைத் திரும்பப் பெற முடியாது."
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted."
-msgstr "உங்கள் {APP_NAME} கணக்கு தற்செயலாக அல்லது தவறாக நீக்கப்பட்டிருந்தால் அதை மீட்டெடுக்க முடியாது."
+msgid "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
@@ -2035,6 +2051,10 @@ msgstr "சுயவிவரப் படம் திருத்து மு
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
 msgstr "பெயர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Profile name must not contain restricted symbols"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
@@ -2598,7 +2618,7 @@ msgid "Results"
 msgstr "முடிவுகள்"
 
 #: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} Votes"
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
@@ -2685,6 +2705,10 @@ msgstr "தயவுசெய்து உங்கள் நெட்வொர�
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
 msgstr "நெட்வொர்க்கை மாற்றவும்"
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Create Profile"
+msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
@@ -2869,4 +2893,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

@@ -216,7 +216,7 @@ const Composer: FC<ComposerProps> = ({
           type="text"
           placeholder={t`Type Something`}
           value={message}
-          disabled={disabledInput || attachment != null}
+          disabled={disabledInput || attachment !== null}
           onKeyDown={handleKeyDown}
           onChange={(event) => onChangeCallback(event.target.value)}
         />

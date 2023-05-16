@@ -152,7 +152,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
       });
       // if gallery name only update
       if (!sanitizedAddItems.length && !sanitizedRemoveItems.length) {
-        return rename();
+        return await rename();
       }
       const { data } = await updateGallery({
         variables: {

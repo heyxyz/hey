@@ -218,6 +218,10 @@ msgid "Select GIF"
 msgstr "Выберите GIF"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "{0, plural, zero {day} one {day} other {days}}"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length"
 msgstr "Продолжительность опроса"
 
@@ -590,8 +594,8 @@ msgid "Failed to load trending"
 msgstr "Не удалось загрузить тренды"
 
 #: src/components/Home/Trending.tsx
-msgid "{0} Publications"
-msgstr "{0} Публикаций"
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
@@ -627,7 +631,6 @@ msgstr "Загрузка..."
 
 #: src/components/Messages/PreviewList.tsx
 #: src/components/Profile/Followerings.tsx
-#: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr "Подписан"
 
@@ -658,6 +661,14 @@ msgstr "Новое сообщение"
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
 msgstr "Найдите, кому написать..."
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Attachments are not loaded automatically from people you don’t follow."
+msgstr ""
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Large attachments are not loaded automatically."
+msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
@@ -1316,6 +1327,15 @@ msgid "Not now"
 msgstr "Не сейчас"
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "Подписчики"
@@ -1458,7 +1478,7 @@ msgid "Loading collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -1499,11 +1519,7 @@ msgid "Fee recipients"
 msgstr "Получатели вознаграждения"
 
 #: src/components/Publication/Actions/Collect/index.tsx
-msgid "{0} Collects"
-msgstr ""
-
-#: src/components/Publication/Actions/Collect/index.tsx
-msgid "Collect"
+msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -1516,8 +1532,8 @@ msgid "{0} Comments"
 msgstr "{0} Комментариев"
 
 #: src/components/Publication/Actions/Like.tsx
-msgid "Dislike"
-msgstr "Дизлайкнуть"
+msgid "Unlike"
+msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
@@ -1595,11 +1611,11 @@ msgid "NFT ADDRESS"
 msgstr "АДРЕС NFT"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Comments"
-msgstr "<0>{0}</0> Комментарии"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Mirrors"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1607,16 +1623,16 @@ msgid "Mirrored by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Likes"
-msgstr "<0>{0}</0> Лайка(ов)"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
+msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
 msgstr "Лайк от"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Collects"
-msgstr "<0>{0}</0> Коллекта(ов)"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -1861,16 +1877,16 @@ msgid "Delete Profile • {APP_NAME}"
 msgstr "Удалить профиль • {APP_NAME}"
 
 #: src/components/Settings/Delete/index.tsx
-msgid "This will deactivate your account"
-msgstr "Это приведет к деактивации Вашей учетной записи"
+msgid "This will delete your Lens profile"
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "Deleting your account is permanent. All your data will be wiped out immediately and you won't be able to get it back."
-msgstr "Удаление учетной записи необратимо. Все ваши данные будут удалены немедленно, и вы не сможете их вернуть."
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted."
-msgstr "Вы не сможете восстановить свою учетную запись {APP_NAME}, если она была случайно или ошибочно удалена."
+msgid "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
+msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
@@ -2035,6 +2051,10 @@ msgstr "Предварительный просмотр обрезанной а�
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
 msgstr "Имя не должно превышать 100 символов"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Profile name must not contain restricted symbols"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
@@ -2598,8 +2618,8 @@ msgid "Results"
 msgstr "Результаты"
 
 #: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} Votes"
-msgstr "{0} голоса(ов)"
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{0} left"
@@ -2685,6 +2705,10 @@ msgstr "Пожалуйста, измените сеть в вашем кошел
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
 msgstr "Сменить сеть"
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Create Profile"
+msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
@@ -2869,4 +2893,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

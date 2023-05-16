@@ -178,8 +178,8 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     <Form
       form={form}
       className="space-y-4"
-      onSubmit={({ contractAddress, tokenId }) => {
-        setAvatar(contractAddress, tokenId);
+      onSubmit={async ({ contractAddress, tokenId }) => {
+        await setAvatar(contractAddress, tokenId);
       }}
     >
       {error && (

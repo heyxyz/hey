@@ -2,7 +2,7 @@ import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/outl
 import { CheckCircleIcon, MenuAlt2Icon } from '@heroicons/react/solid';
 import { getTimetoNow } from '@lib/formatTime';
 import { Mixpanel } from '@lib/mixpanel';
-import { t, Trans } from '@lingui/macro';
+import { plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
 import { APP_NAME, Errors, IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from 'data';
@@ -188,7 +188,12 @@ const Choices: FC<ChoicesProps> = ({
               </b>
               <span>·</span>
               <span>
-                <Trans>{humanize(scores_total ?? 0)} Votes</Trans>
+                {humanize(scores_total ?? 0)}{' '}
+                {plural(scores_total ?? 0, {
+                  zero: 'Vote',
+                  one: 'Vote',
+                  other: 'Votes'
+                })}
               </span>
               {state === 'active' && (
                 <>

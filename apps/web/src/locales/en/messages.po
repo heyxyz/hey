@@ -218,6 +218,10 @@ msgid "Select GIF"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "{0, plural, zero {day} one {day} other {days}}"
+msgstr "{0, plural, zero {day} one {day} other {days}}"
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length"
 msgstr "Poll length"
 
@@ -590,8 +594,8 @@ msgid "Failed to load trending"
 msgstr ""
 
 #: src/components/Home/Trending.tsx
-msgid "{0} Publications"
-msgstr ""
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
@@ -627,7 +631,6 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 #: src/components/Profile/Followerings.tsx
-#: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr ""
 
@@ -658,6 +661,14 @@ msgstr ""
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
 msgstr ""
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Attachments are not loaded automatically from people you don’t follow."
+msgstr "Attachments are not loaded automatically from people you don’t follow."
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Large attachments are not loaded automatically."
+msgstr "Large attachments are not loaded automatically."
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
@@ -1316,6 +1327,15 @@ msgid "Not now"
 msgstr "Not now"
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr "{0, plural, zero {Following} one {Following} other {Following}}"
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
@@ -1458,8 +1478,8 @@ msgid "Loading collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
-msgstr ""
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
+msgstr "{count, plural, zero {collector} one {collector} other {collectors}}"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/PublicationStats.tsx
@@ -1499,12 +1519,8 @@ msgid "Fee recipients"
 msgstr "Fee recipients"
 
 #: src/components/Publication/Actions/Collect/index.tsx
-msgid "{0} Collects"
-msgstr "{0} Collects"
-
-#: src/components/Publication/Actions/Collect/index.tsx
-msgid "Collect"
-msgstr "Collect"
+msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 
 #: src/components/Publication/Actions/Collect/index.tsx
 #: src/lib/getModule.ts
@@ -1516,8 +1532,8 @@ msgid "{0} Comments"
 msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
-msgid "Dislike"
-msgstr ""
+msgid "Unlike"
+msgstr "Unlike"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
@@ -1595,28 +1611,28 @@ msgid "NFT ADDRESS"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Comments"
-msgstr "<0>{0}</0> Comments"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
+msgstr "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Mirrors"
-msgstr "<0>{0}</0> Mirrors"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
+msgstr "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Mirrored by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Likes"
-msgstr "<0>{0}</0> Likes"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
+msgstr "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "Liked by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Collects"
-msgstr "<0>{0}</0> Collects"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
 
 #: src/components/Publication/QueuedPublication.tsx
 msgid "Indexing"
@@ -1861,16 +1877,16 @@ msgid "Delete Profile • {APP_NAME}"
 msgstr "Delete Profile • {APP_NAME}"
 
 #: src/components/Settings/Delete/index.tsx
-msgid "This will deactivate your account"
-msgstr ""
+msgid "This will delete your Lens profile"
+msgstr "This will delete your Lens profile"
 
 #: src/components/Settings/Delete/index.tsx
-msgid "Deleting your account is permanent. All your data will be wiped out immediately and you won't be able to get it back."
-msgstr ""
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+msgstr "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
 
 #: src/components/Settings/Delete/index.tsx
-msgid "You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted."
-msgstr ""
+msgid "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
+msgstr "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
 
 #: src/components/Settings/Delete/index.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
@@ -2035,6 +2051,10 @@ msgstr "Profile picture crop preview"
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
 msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Profile name must not contain restricted symbols"
+msgstr "Profile name must not contain restricted symbols"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
@@ -2598,8 +2618,8 @@ msgid "Results"
 msgstr "Results"
 
 #: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} Votes"
-msgstr "{0} Votes"
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "{0} left"
@@ -2685,6 +2705,10 @@ msgstr ""
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
 msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Create Profile"
+msgstr "Create Profile"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"

@@ -1,0 +1,7 @@
+name = "ens-resolver"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+
+routes = [
+	{ pattern = "ens-resolver.lenster.xyz", custom_domain = true }
+]

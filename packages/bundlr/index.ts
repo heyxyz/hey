@@ -87,7 +87,7 @@ export class DataItem {
     this._id = base64url.toBuffer(id);
   }
 
-  // @ts-ignore
+  // @ts-expect-error
   get rawId(): Promise<Buffer> {
     return getShim('sha256').update(this.rawSignature).digest();
   }
