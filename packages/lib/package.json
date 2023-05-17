@@ -16,7 +16,7 @@
     "viem": "^0.3.19"
   },
   "devDependencies": {
-    "@types/node": "^20.1.5",
+    "@types/node": "^20.1.7",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
