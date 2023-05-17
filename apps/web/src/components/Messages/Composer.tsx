@@ -135,7 +135,7 @@ const Composer: FC<ComposerProps> = ({
       const sentAttachment = await sendMessage(
         remoteAttachment,
         ContentTypeRemoteAttachment,
-        `[Attachment] Cannot display "${attachment.filename}". This app does not support attachments yet.}`
+        `[Attachment] Cannot display "${attachment.filename}". This app does not support attachments yet.`
       );
 
       if (sentAttachment) {
