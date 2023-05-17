@@ -132,12 +132,13 @@ const Messages = ({ chat }: { chat: IMessageIPFS }) => {
 type MessageFieldPropType = {
   scrollToBottom: () => void;
   selectedChat: IFeeds;
+  disablePrivateGroup: boolean;
 };
 
 const requestLimit: number = 30;
 const page: number = 1;
 
-const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) => {
+const MessageField = ({ scrollToBottom, selectedChat, disablePrivateGroup }: MessageFieldPropType) => {
   const modalRef = useRef(null);
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
@@ -269,6 +270,10 @@ const MessageField = ({ scrollToBottom, selectedChat }: MessageFieldPropType) =>
         Join Group
       </Button>
     </div>
+  ) : disablePrivateGroup ? (
+    <div className="flex rounded-lg border border-solid py-4">
+      <div className="m-auto text-sm text-[#9E9EA9]">Invitation request required to join the group.</div>
+    </div>
   ) : (
     <>
       <Image
@@ -351,9 +356,28 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
   const dates = new Set();
 
   const [groupCreatorProfile, setGroupCreatorProfile] = useState<Profile>();
+  const [disablePrivateGroup, setDisablePrivateGroup] = useState<boolean>(false);
 
   const selectedMessages = chats.get(selectedChatId);
   const prevSelectedId = useRef<string>('');
+  const deprecatedChat = selectedChat?.deprecated ? true : false;
+
+  const ifPrivateGroup = () => {
+    if (groupInfo && groupInfo.isPublic === false) {
+      return true;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    // selectedChat will be undefined in case of private group when user isn't a member
+    if (selectedChat) {
+      return;
+    }
+    const response = ifPrivateGroup();
+    console.log(selectedChat, response);
+    setDisablePrivateGroup(response);
+  }, [selectedChat]);
 
   //add loading in jsx
   const { historyMessages, loading } = useGetHistoryMessages();
@@ -508,25 +532,35 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
         )}
 
         <div className="flex flex-col gap-2.5">
-          {selectedMessages?.messages.map((chat: IMessageIPFS, index: number) => {
-            const dateNum = moment(chat.timestamp).format('ddMMyyyy');
-            let previousChat = null;
-            if (index > 0) {
-              previousChat = selectedMessages?.messages[index - 1]; // Get the previous chat
-            }
+          {disablePrivateGroup ? (
+            <div className="m-auto mt-8 flex flex-row space-x-2 rounded-md bg-[#F4F4F5] p-2">
+              <Image alt="deprecated icon" src="/push/lock.svg" className="h-4 w-4" />
+              <div className="max-w-[380px] text-center text-sm text-[#9E9EA9]">
+                This is a private group. You will only be able to see messages once you have been invited to
+                the group.
+              </div>
+            </div>
+          ) : (
+            selectedMessages?.messages.map((chat: IMessageIPFS, index: number) => {
+              const dateNum = moment(chat.timestamp).format('ddMMyyyy');
+              let previousChat = null;
+              if (index > 0) {
+                previousChat = selectedMessages?.messages[index - 1]; // Get the previous chat
+              }
 
-            return (
-              <>
-                {dates.has(dateNum) ? null : renderDate({ chat, dateNum })}
-                {chat.fromDID !== connectedProfile?.did &&
-                selectedChatType === CHAT_TYPES.GROUP &&
-                (index === 0 || previousChat?.fromDID !== chat.fromDID) ? (
-                  <SenderProfileInMsg chat={chat} />
-                ) : null}
-                <Messages chat={chat} key={index} />
-              </>
-            );
-          })}
+              return (
+                <>
+                  {dates.has(dateNum) ? null : renderDate({ chat, dateNum })}
+                  {chat.fromDID !== connectedProfile?.did &&
+                  selectedChatType === CHAT_TYPES.GROUP &&
+                  (index === 0 || previousChat?.fromDID !== chat.fromDID) ? (
+                    <SenderProfileInMsg chat={chat} />
+                  ) : null}
+                  <Messages chat={chat} key={index} />
+                </>
+              );
+            })
+          )}
           {requestFeedids.includes(selectedChatId) && (
             <div className="flex w-fit rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
               {selectedChatType === CHAT_TYPES.CHAT ? (
@@ -567,9 +601,19 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
         </div>
       </div>
 
-      <div className="relative mt-2">
-        <MessageField scrollToBottom={scrollToBottom} selectedChat={selectedChat} />
-      </div>
+      {deprecatedChat ? (
+        <div className="m-auto mb-8 max-w-[350px] text-center text-base text-[#657795]">
+          The ownership of this account has changed. Please start a new conversation to continue.
+        </div>
+      ) : (
+        <div className="relative mt-2">
+          <MessageField
+            scrollToBottom={scrollToBottom}
+            selectedChat={selectedChat}
+            disablePrivateGroup={disablePrivateGroup}
+          />
+        </div>
+      )}
     </section>
   );
 }

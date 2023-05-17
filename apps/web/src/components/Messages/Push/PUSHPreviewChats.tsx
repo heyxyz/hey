@@ -11,6 +11,7 @@ import { usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
 import { checkIfGroup, getGroupImage, getGroupPreviewMessage, getProfileFromDID, isCAIP } from './helper';
+import ModifiedImage from './ModifiedImage';
 
 export const PreviewMessage = ({ messageType, content }: { messageType: string; content: string }) => {
   if (messageType === 'GIF') {
@@ -21,6 +22,8 @@ export const PreviewMessage = ({ messageType, content }: { messageType: string; 
 };
 
 const chatLimit = 10;
+
+const ImageWithDeprecatedIcon = ModifiedImage(Image);
 
 export default function PUSHPreviewChats() {
   const router = useRouter();
@@ -132,6 +135,7 @@ export default function PUSHPreviewChats() {
             const profileId: string = getProfileFromDID(feed?.did ?? feed?.chatId);
             const lensProfile = lensProfiles.get(profileId);
             const isGroup = checkIfGroup(feed);
+            const deprecated = feed?.deprecated ? true : false;
             return (
               <div
                 onClick={() => onChatFeedClick(id)}
@@ -148,6 +152,18 @@ export default function PUSHPreviewChats() {
                     height={40}
                     width={40}
                     alt={feed?.groupInformation?.groupName!}
+                  />
+                ) : deprecated ? (
+                  <ImageWithDeprecatedIcon
+                    onError={({ currentTarget }) => {
+                      currentTarget.src = getAvatar(lensProfile, false);
+                    }}
+                    src={getAvatar(lensProfile)}
+                    loading="lazy"
+                    className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
+                    height={40}
+                    width={40}
+                    alt={formatHandle(lensProfile?.handle)}
                   />
                 ) : (
                   <Image

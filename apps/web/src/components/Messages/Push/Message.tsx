@@ -171,32 +171,6 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, conversationType]);
 
-  const ifPrivateGroup = () => {
-    if (selectedChat && selectedChat.groupInformation && selectedChat.groupInformation.isPublic === false) {
-      return true;
-    }
-    return false;
-  };
-
-  const ifGroupMember = () => {
-    let response = false;
-    if (connectedProfile && connectedProfile?.did) {
-      selectedChat?.groupInformation?.members.map((member) => {
-        if (member.wallet === connectedProfile.did) {
-          response = true;
-          return;
-        }
-      });
-      selectedChat?.groupInformation?.pendingMembers.map((member) => {
-        if (member.wallet === connectedProfile.did) {
-          response = true;
-          return;
-        }
-      });
-    }
-    return response;
-  };
-
   const CHAT_NOT_FOUND = profile === null || groupInfo === null;
 
   if (CHAT_NOT_FOUND) {
@@ -224,7 +198,10 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
               <>
                 {profile !== '' && profile && (
                   <>
-                    <MessageHeader profile={profile} />
+                    <MessageHeader
+                      profile={profile}
+                      selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
+                    />
                     <MessageBody
                       selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
                     />
@@ -232,7 +209,10 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
                 )}
                 {groupInfo !== '' && groupInfo && (
                   <>
-                    <MessageHeader groupInfo={groupInfo} />
+                    <MessageHeader
+                      groupInfo={groupInfo}
+                      selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
+                    />
                     <MessageBody
                       groupInfo={groupInfo}
                       selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
