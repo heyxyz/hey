@@ -21,6 +21,9 @@ export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 export const XMTP_PREFIX = 'lens.dev/dm';
 
+// ENS
+export const ENS_FETCH_URL = 'https://ens-resolver.lenster.xyz';
+
 // Snapshot
 export const SNAPSHOT_HUB_URL = IS_MAINNET
   ? 'https://hub.snapshot.org'

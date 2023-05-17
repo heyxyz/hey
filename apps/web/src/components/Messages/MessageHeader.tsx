@@ -1,8 +1,8 @@
 import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
-import { shortAddress } from '@lib/shortAddress';
 import type { Profile } from 'lens';
+import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import { useRouter } from 'next/router';
@@ -71,7 +71,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
               alt={formatHandle('')}
             />
             {ensNames.get(conversationKey ?? '') ??
-              shortAddress(conversationKey ?? '')}
+              formatAddress(conversationKey ?? '')}
           </>
         )}
       </div>

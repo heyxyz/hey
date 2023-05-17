@@ -1,10 +1,10 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
-import { shortAddress } from '@lib/shortAddress';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
+import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';
@@ -85,7 +85,7 @@ const Preview: FC<PreviewProps> = ({
                   {profile?.name
                     ? sanitizeDisplayName(profile?.name) ??
                       formatHandle(profile.handle)
-                    : ensName ?? shortAddress(conversationKey.split('/')[0])}
+                    : ensName ?? formatAddress(conversationKey.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) && (
                   <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
