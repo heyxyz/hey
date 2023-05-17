@@ -297,16 +297,19 @@ const useMessagePreviews = () => {
       [new Map<string, Profile>(), new Map<string, Profile>()]
     );
 
-    if (selectedTab === 'Following') {
+    const otherProfiles = new Map();
+    Array.from(nonLensProfiles).map((key) => {
+      otherProfiles.set(key, {} as Profile);
+    });
+
+    if (selectedTab === 'Lens') {
       setProfilesToShow(partitionedProfiles[0]);
     } else if (selectedTab === 'Requested') {
       setProfilesToShow(partitionedProfiles[1]);
-    } else {
-      const otherProfiles = new Map();
-      Array.from(nonLensProfiles).map((key) => {
-        otherProfiles.set(key, {} as Profile);
-      });
+    } else if (selectedTab === 'Other') {
       setProfilesToShow(otherProfiles);
+    } else {
+      setProfilesToShow(new Map([...partitionedProfiles[0], ...otherProfiles]));
     }
 
     setRequestedCount(partitionedProfiles[1].size);

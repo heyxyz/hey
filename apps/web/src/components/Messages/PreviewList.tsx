@@ -95,7 +95,7 @@ const PreviewList: FC<PreviewListProps> = ({
     );
     await persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
-      ? 'Following'
+      ? 'Lens'
       : 'Requested';
     setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
@@ -125,29 +125,36 @@ const PreviewList: FC<PreviewListProps> = ({
             />
           )}
         </div>
-        <div className="flex space-x-2 px-4 py-3">
-          <TabButton
-            className="w-full !py-2"
-            name={t`Following`}
-            active={selectedTab === 'Following'}
-            onClick={() => setSelectedTab('Following')}
-            showOnSm
-          />
-          <TabButton
-            className="w-full !py-2"
-            name={t`Requested`}
-            active={selectedTab === 'Requested'}
+        <div className="flex justify-between px-4 py-3">
+          <div className="flex space-x-2">
+            <TabButton
+              className="p-2 px-4"
+              name={t`All`}
+              active={selectedTab === 'All'}
+              onClick={() => setSelectedTab('All')}
+              showOnSm
+            />
+            <TabButton
+              className="p-2 px-4"
+              name={t`Lens`}
+              active={selectedTab === 'Lens'}
+              onClick={() => setSelectedTab('Lens')}
+              showOnSm
+            />
+            <TabButton
+              className="p-2 px-4"
+              name={t`Other`}
+              active={selectedTab === 'Other'}
+              onClick={() => setSelectedTab('Other')}
+              showOnSm
+            />
+          </div>
+          <div
             onClick={() => setSelectedTab('Requested')}
-            count={requestedCount > 99 ? '99+' : requestedCount.toString()}
-            showOnSm
-          />
-          <TabButton
-            className="w-full !py-2"
-            name={t`Other`}
-            active={selectedTab === 'Other'}
-            onClick={() => setSelectedTab('Other')}
-            showOnSm
-          />
+            className="cursor-pointer py-2 text-xs font-bold text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+          >
+            {requestedCount > 99 ? '99+' : requestedCount.toString()} Requests
+          </div>
         </div>
         {selectedTab === 'Requested' ? (
           <div className="bg-yellow-100 p-2 px-5 text-sm text-yellow-800">

@@ -5,7 +5,7 @@ import { Localstorage } from 'data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type TabValues = 'Following' | 'Requested' | 'Other';
+export type TabValues = 'All' | 'Lens' | 'Other' | 'Requested';
 
 interface MessageState {
   client: Client | undefined;
@@ -77,7 +77,7 @@ export const useMessageStore = create<MessageState>((set) => ({
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
     set(() => ({ selectedProfileId })),
-  selectedTab: 'Following',
+  selectedTab: 'All',
   setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   syncedProfiles: new Set(),
   addSyncedProfiles: (profileIds) =>
@@ -98,7 +98,7 @@ export const useMessageStore = create<MessageState>((set) => ({
         messages: new Map(),
         messageProfiles: new Map(),
         previewMessages: new Map(),
-        selectedTab: 'Following',
+        selectedTab: 'All',
         previewMessagesNonLens: new Map(),
         ensNames: new Map()
       };
