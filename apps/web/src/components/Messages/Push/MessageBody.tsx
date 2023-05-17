@@ -25,6 +25,7 @@ import {
   getProfileFromDID,
   isProfileExist
 } from './helper';
+import ModifiedImage from './ModifiedImage';
 
 type GIFType = {
   url: String;
@@ -104,9 +105,12 @@ const GIFCard = ({
   );
 };
 
-const SenderProfileInMsg = ({ chat }: { chat: IMessageIPFS }) => {
+const ImageWithDeprecatedIcon = ModifiedImage(Image);
+
+const SenderProfileInMsg = ({ chat }: { chat: any }) => {
   const { getLensProfile } = useFetchLensProfiles();
   const [profile, setProfile] = useState<Profile>();
+  const deprecated = chat?.deprecated ? true : false;
 
   useEffect(() => {
     (async function () {
@@ -119,17 +123,31 @@ const SenderProfileInMsg = ({ chat }: { chat: IMessageIPFS }) => {
 
   return profile ? (
     <div className="flex items-start space-x-2">
-      <Image
-        onError={({ currentTarget }) => {
-          currentTarget.src = getAvatar(profile, false);
-        }}
-        src={getAvatar(profile)}
-        loading="lazy"
-        className="h-9 w-9 rounded-full border bg-gray-200 dark:border-gray-700"
-        height={36}
-        width={36}
-        alt={formatHandle(profile?.handle)}
-      />
+      {deprecated ? (
+        <ImageWithDeprecatedIcon
+          onError={({ currentTarget }) => {
+            currentTarget.src = getAvatar(profile, false);
+          }}
+          src={getAvatar(profile)}
+          loading="lazy"
+          className="h-9 w-9 rounded-full border bg-gray-200 dark:border-gray-700"
+          height={36}
+          width={36}
+          alt={formatHandle(profile?.handle)}
+        />
+      ) : (
+        <Image
+          onError={({ currentTarget }) => {
+            currentTarget.src = getAvatar(profile, false);
+          }}
+          src={getAvatar(profile)}
+          loading="lazy"
+          className="h-9 w-9 rounded-full border bg-gray-200 dark:border-gray-700"
+          height={36}
+          width={36}
+          alt={formatHandle(profile?.handle)}
+        />
+      )}
       <UserPreview profile={profile}>
         <p className="bold text-base leading-6">
           {profile.name ?? formatHandle(profile?.handle)}
