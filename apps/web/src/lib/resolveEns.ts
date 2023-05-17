@@ -1,13 +1,14 @@
+import axios from 'axios';
 import { ENS_FETCH_URL } from 'data';
 
 export const resolveEns = async (addresses: string[]) => {
-  const response = await fetch(ENS_FETCH_URL, {
+  const response = await axios(ENS_FETCH_URL, {
     method: 'POST',
-    body: JSON.stringify({
+    data: JSON.stringify({
       addresses: addresses.map((address) => {
         return address.split('/')[0];
       })
     })
   });
-  return await response.json();
+  return response.data;
 };
