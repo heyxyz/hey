@@ -33,7 +33,8 @@ import Attachment from './AttachmentView';
 interface ComposerProps {
   sendMessage: (
     content: string | RemoteAttachment,
-    contentType: ContentTypeId
+    contentType: ContentTypeId,
+    fallback?: string
   ) => Promise<boolean>;
   conversationKey: string;
   disabledInput: boolean;
@@ -41,18 +42,21 @@ interface ComposerProps {
 
 interface AttachmentPreviewProps {
   onDismiss: () => void;
+  dismissDisabled: boolean;
   attachment: TAttachment;
 }
 
 const AttachmentPreview: FC<AttachmentPreviewProps> = ({
   onDismiss,
+  dismissDisabled,
   attachment
 }) => {
   return (
     <div className="relative ml-12 inline-block rounded pt-6">
       <button
+        disabled={dismissDisabled}
         type="button"
-        className="absolute left-2 top-8 rounded-full bg-gray-900 p-1.5 opacity-75"
+        className="absolute top-2 rounded-full bg-gray-900 p-1.5 opacity-75"
         onClick={onDismiss}
       >
         <XIcon className="h-4 w-4 text-white" />
@@ -86,7 +90,7 @@ const Composer: FC<ComposerProps> = ({
   );
 
   const canSendMessage =
-    !disabledInput && !sending && (message.length > 0 || attachment);
+    !sending && (attachment || (!disabledInput && message.length > 0));
 
   const handleSend = async () => {
     if (!canSendMessage) {
@@ -94,7 +98,6 @@ const Composer: FC<ComposerProps> = ({
     }
     setSending(true);
 
-    let sent: boolean;
     if (attachment) {
       const encryptedEncodedContent =
         await RemoteAttachmentCodec.encodeEncrypted(
@@ -129,18 +132,32 @@ const Composer: FC<ComposerProps> = ({
       addLoadedAttachmentURL(url);
       cacheAttachment(url, attachment);
 
-      sent = await sendMessage(remoteAttachment, ContentTypeRemoteAttachment);
-    } else {
-      sent = await sendMessage(message, ContentTypeText);
+      const sentAttachment = await sendMessage(
+        remoteAttachment,
+        ContentTypeRemoteAttachment,
+        `[Attachment] Cannot display "${attachment.filename}". This app does not support attachments yet.}`
+      );
+
+      if (sentAttachment) {
+        setAttachment(null);
+        Mixpanel.track(MESSAGES.SEND);
+      } else {
+        toast.error(t`Error sending attachment`);
+      }
     }
-    if (sent) {
-      setAttachment(null);
-      setMessage('');
-      setUnsentMessage(conversationKey, null);
-      Mixpanel.track(MESSAGES.SEND);
-    } else {
-      toast.error(t`Error sending message`);
+
+    if (message.length > 0) {
+      const sentMessage = await sendMessage(message, ContentTypeText);
+
+      if (sentMessage) {
+        setMessage('');
+        setUnsentMessage(conversationKey, null);
+        Mixpanel.track(MESSAGES.SEND);
+      } else {
+        toast.error(t`Error sending message`);
+      }
     }
+
     setSending(false);
   };
 
@@ -198,7 +215,11 @@ const Composer: FC<ComposerProps> = ({
   return (
     <div className="bg-brand-100/75">
       {attachment ? (
-        <AttachmentPreview onDismiss={onDismiss} attachment={attachment} />
+        <AttachmentPreview
+          onDismiss={onDismiss}
+          dismissDisabled={!canSendMessage}
+          attachment={attachment}
+        />
       ) : null}
       <div className="flex space-x-4 p-4">
         <label className="flex cursor-pointer items-center">
@@ -216,7 +237,7 @@ const Composer: FC<ComposerProps> = ({
           type="text"
           placeholder={t`Type Something`}
           value={message}
-          disabled={disabledInput || attachment !== null}
+          disabled={disabledInput}
           onKeyDown={handleKeyDown}
           onChange={(event) => onChangeCallback(event.target.value)}
         />

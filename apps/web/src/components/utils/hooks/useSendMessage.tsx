@@ -6,14 +6,16 @@ const useSendMessage = (conversation?: Conversation) => {
   const sendMessage = useCallback(
     async (
       content: string | RemoteAttachment,
-      contentType: ContentTypeId
+      contentType: ContentTypeId,
+      fallback: string | undefined
     ): Promise<boolean> => {
       if (!conversation) {
         return false;
       }
       try {
         await conversation.send(content, {
-          contentType
+          contentType,
+          contentFallback: fallback
         });
       } catch {
         return false;
