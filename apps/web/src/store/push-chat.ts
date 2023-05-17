@@ -59,6 +59,8 @@ interface IPushChatStore {
   setShowDecryptionModal: (showDecryptionModal: boolean) => void;
   showUpgradeChatProfileModal: boolean;
   setShowUpgradeChatProfileModal: (showUpgradeChatProfileModal: boolean) => void;
+  showCreatePasswordModal: boolean;
+  setShowCreatePasswordModal: (showCreatePasswordModal: boolean) => void;
   password: {
     encrypted: string | null;
     decrypted: string | null;
@@ -122,6 +124,8 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   showUpgradeChatProfileModal: false,
   setShowUpgradeChatProfileModal: (showUpgradeChatProfileModal) =>
     set(() => ({ showUpgradeChatProfileModal })),
+  showCreatePasswordModal: false,
+  setShowCreatePasswordModal: (showCreatePasswordModal) => set(() => ({ showCreatePasswordModal })),
   password: {
     encrypted: null,
     decrypted: null

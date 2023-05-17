@@ -65,6 +65,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
     "react-hot-toast": "^2.4.0",
+    "react-icons": "^4.8.0",
     "react-markdown": "^8.0.6",
     "react-use": "^17.4.0",
     "react-waypoint": "^10.3.0",

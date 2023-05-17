@@ -1,5 +1,7 @@
 import Search from '@components/Messages/Push/Search';
+import Slug from '@components/Shared/Slug';
 import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
+import useCreatePassword from '@components/utils/hooks/push/useCreatePassword';
 import useFetchRequests from '@components/utils/hooks/push/useFetchRequests';
 import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
 import usePushChatSocket from '@components/utils/hooks/push/usePushChatSocket';
@@ -8,8 +10,13 @@ import usePushDecryption from '@components/utils/hooks/push/usePushDecryption';
 import useUpgradeChatProfile from '@components/utils/hooks/push/useUpgradeChatProfile';
 import { Trans } from '@lingui/macro';
 import type { IFeeds } from '@pushprotocol/restapi';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
 import router from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { BsKey } from 'react-icons/bs';
+import { useClickAway } from 'react-use';
 import { useAppStore } from 'src/store/app';
 import type { ChatTypes } from 'src/store/push-chat';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
@@ -23,6 +30,7 @@ const requestLimit: number = 30;
 const page: number = 1;
 
 const PUSHPreview = () => {
+  const containerRef = useRef(null);
   const { fetchChatProfile } = useGetChatProfile();
   const resetPushChatStore = usePushChatStore((state) => state.resetPushChatStore);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -37,9 +45,12 @@ const PUSHPreview = () => {
   const showDecryptionModal = usePushChatStore((state) => state.showDecryptionModal);
   const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
   const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
+  const showCreatePasswordModal = usePushChatStore((state) => state.showCreatePasswordModal);
+  const setShowCreatePasswordModal = usePushChatStore((state) => state.setShowCreatePasswordModal);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const setRequestsFeed = usePushChatStore((state) => state.setRequestsFeed);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
@@ -63,6 +74,11 @@ const PUSHPreview = () => {
     modalContent: decryptionModalContent,
     isModalClosable: isDecryptionModalClosable
   } = usePushDecryption();
+  const {
+    createPassword,
+    modalContent: createPasswordModalContent,
+    isModalClosable: isCreatePasswordModalClosable
+  } = useCreatePassword();
 
   // connect Push CHAT Socket
   usePushChatSocket();
@@ -131,6 +147,11 @@ const PUSHPreview = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [decryptedPgpPvtKey]);
 
+  const closeDropdown = () => {
+    setShowDropdown(false);
+  };
+  useClickAway(containerRef, () => closeDropdown());
+
   // useEffect(() => {
   //   //set selected chat preview
   //   //find in inbox or reuqests  or new chat and switch tab as per that and set css for selected chat
@@ -170,8 +191,21 @@ const PUSHPreview = () => {
     }
   };
 
+  const handleAccountPassword = async () => {
+    try {
+      // if (!isProfileExist(connectedProfile)) {
+      //   await createChatProfile();
+      // }
+      if (decryptedPgpPvtKey) {
+        createPassword();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="flex h-full flex-col justify-between">
+    <div className="flex h-full flex-col justify-between" ref={containerRef}>
       <Card className="flex h-full flex-col p-4 pt-7">
         {/* section for header */}
         <section className="mb-4">
@@ -209,15 +243,52 @@ const PUSHPreview = () => {
           <Image src="/push/creategroup.svg" alt="create group" className="mr-2 h-5" />
           <button className="text-base font-medium">Create Group</button>
         </div>
-        {/* section for header */}
-        {/* section for chats */}
-        {activeTab === PUSH_TABS.CHATS && <PUSHPreviewChats />}
-        {/* section for chats */}
-        {/* sections for requests */}
-        {activeTab === PUSH_TABS.REQUESTS && <PUSHPreviewRequests />}
-        {/* sections for requests */}
+
+        <div className="relative flex-1">
+          {/* section for header */}
+          {/* section for chats */}
+          {activeTab === PUSH_TABS.CHATS && <PUSHPreviewChats />}
+          {/* section for chats */}
+          {/* sections for requests */}
+          {activeTab === PUSH_TABS.REQUESTS && <PUSHPreviewRequests />}
+          {/* sections for requests */}
+          {showDropdown && (
+            <div
+              className="absolute -bottom-3 right-0 z-10 flex cursor-pointer flex-row rounded-2xl border-2 border-gray-200 bg-white px-6 py-3"
+              onClick={handleAccountPassword}
+            >
+              <BsKey size={27} style={{ transform: 'scaleX(-1)', rotate: '-45deg' }} />
+              <div className="ml-2">Account Password</div>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-row items-center border-t-2 border-[#E4E8EF] pt-2">
+          <div className="flex flex-row items-center space-x-3">
+            <Image
+              src={getAvatar(currentProfile)}
+              loading="lazy"
+              className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
+              height={40}
+              width={40}
+              alt="Profile Picture"
+            />
+            <div className="flex flex-col">
+              <p className="text-base">{currentProfile?.name ?? formatHandle(currentProfile?.handle)}</p>
+              <Slug className="text-sm" slug={formatHandle(currentProfile?.handle)} prefix="@" />
+            </div>
+          </div>
+
+          <div
+            className="relative ml-auto h-fit w-fit cursor-pointer"
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            <BiDotsVerticalRounded size={27} />
+          </div>
+        </div>
       </Card>
       {/* <button onClick={createChatProfile}>Create Profile</button> */}
+
       <Modal
         size="xs"
         show={showCreateGroupModal}
@@ -245,6 +316,13 @@ const PUSHPreview = () => {
         onClose={isDecryptionModalClosable ? () => setShowDecryptionModal(false) : () => {}}
       >
         {decryptionModalContent}
+      </Modal>
+      <Modal
+        size="xs"
+        show={showCreatePasswordModal}
+        onClose={isCreatePasswordModalClosable ? () => setShowCreatePasswordModal(false) : () => {}}
+      >
+        {createPasswordModalContent}
       </Modal>
     </div>
   );
