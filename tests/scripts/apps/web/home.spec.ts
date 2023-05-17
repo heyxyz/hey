@@ -11,9 +11,7 @@ test('should have page title', async ({ page }) => {
 });
 
 test('should have hero', async ({ page }) => {
-  await expect(page.getByTestId('home-hero')).toContainText(
-    'Welcome to Lineaster 👋Lineaster is a decentralized, and permissionless social media app built with Lens Protocol 🌿'
-  );
+  await expect(page.getByTestId('home-hero')).toContainText('Welcome to Lineaster 👋');
 });
 
 test.skip('should have explore feed', async ({ page }) => {

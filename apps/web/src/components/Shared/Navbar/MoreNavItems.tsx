@@ -5,7 +5,6 @@ import type { FC } from 'react';
 
 import MenuTransition from '../MenuTransition';
 import Contact from './NavItems/Contact';
-import ReportBug from './NavItems/ReportBug';
 
 const MoreNavItems: FC = () => {
   return (
@@ -31,12 +30,6 @@ const MoreNavItems: FC = () => {
                 className={({ active }: { active: boolean }) => clsx({ 'dropdown-active': active })}
               >
                 <Contact className="bg-dark hover:bg-darker hover:text-brand-500 text-sm text-gray-300" />
-              </Menu.Item>
-              <Menu.Item
-                as="div"
-                className={({ active }: { active: boolean }) => clsx({ 'dropdown-active': active })}
-              >
-                <ReportBug className="bg-dark hover:bg-darker hover:text-brand-500 text-sm text-gray-300" />
               </Menu.Item>
             </Menu.Items>
           </MenuTransition>

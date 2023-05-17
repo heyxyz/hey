@@ -1,10 +1,9 @@
+import Locale from '@components/Shared/Footer/Locale';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
-
-import Locale from './Locale';
 
 const Footer: FC = () => {
   const { allowed: staffMode } = useStaffMode();
@@ -21,38 +20,24 @@ const Footer: FC = () => {
         <Link href="/privacy">
           <Trans>Privacy</Trans>
         </Link>
+        <a href="https://discord.com/invite/9QwXqsyAps" target="_blank" rel="noreferrer noopener">
+          <Trans>ConsenSys Discord</Trans>
+        </a>
         <a href="https://lenster.xyz/discord" target="_blank" rel="noreferrer noopener">
-          <Trans>Discord</Trans>
+          <Trans>Lenster Discord</Trans>
         </a>
         <a href="https://lenster.xyz/donate" target="_blank" rel="noreferrer noopener">
-          <Trans>Donate</Trans>
-        </a>
-        <a href="https://status.lenster.xyz" target="_blank" rel="noreferrer noopener">
-          <Trans>Status</Trans>
+          <Trans>Donate to Lenster</Trans>
         </a>
         <a href="https://feedback.lenster.xyz" target="_blank" rel="noreferrer noopener">
           <Trans>Feedback</Trans>
         </a>
-        <Link href="/thanks">
-          <Trans>Thanks</Trans>
-        </Link>
         <a href="https://github.com/ConsenSys/lineaster" target="_blank" rel="noreferrer noopener">
           <Trans>GitHub</Trans>
-        </a>
-        <a href="https://translate.lenster.xyz" target="_blank" rel="noreferrer noopener">
-          <Trans>Translate</Trans>
         </a>
       </div>
       <div className="mt-2 flex space-x-4">
         <Locale />
-        <a
-          className="hover:font-bold"
-          href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          <Trans>▲ Powered by Vercel</Trans>
-        </a>
       </div>
     </footer>
   );
