@@ -72,7 +72,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     );
     persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
-      ? 'Following'
+      ? 'Lens'
       : 'Requested';
     setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
