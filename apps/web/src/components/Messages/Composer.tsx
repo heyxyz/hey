@@ -6,7 +6,7 @@ import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
-import { IPFS_GATEWAY, MIN_WIDTH_DESKTOP } from 'data/constants';
+import { MIN_WIDTH_DESKTOP } from 'data/constants';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
@@ -114,8 +114,8 @@ const Composer: FC<ComposerProps> = ({
       );
 
       const uploadedAttachment = await uploadFileToIPFS(file);
-      const cid = sanitizeDStorageUrl(uploadedAttachment?.original.url);
-      const url = `${IPFS_GATEWAY}${cid}`;
+      const hash = uploadedAttachment?.original.url.replace('ipfs://', '');
+      const url = sanitizeDStorageUrl(hash);
 
       const remoteAttachment: RemoteAttachment = {
         url,
