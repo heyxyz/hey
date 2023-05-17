@@ -1,6 +1,6 @@
 import { aaveMembers } from './aave-members';
 import { IS_PRODUCTION } from './constants';
-import { lensterMembers } from './lenster-members';
+import { lineasterMembers } from './lineaster-members';
 import { mainnetStaffs, testnetStaffs } from './staffs';
 
 export enum FeatureFlag {
@@ -15,7 +15,7 @@ export const featureFlags = [
   {
     key: FeatureFlag.TrendingWidget,
     name: 'Trending widget',
-    enabledFor: [...lensterMembers]
+    enabledFor: [...lineasterMembers]
   },
   {
     key: FeatureFlag.NftGallery,
@@ -30,7 +30,7 @@ export const featureFlags = [
   {
     key: FeatureFlag.GatedLocales,
     name: 'Gated locales',
-    enabledFor: ['0x01adb7', '0x216f', '0x6b66', '0x6b15', '0x01adb3', ...lensterMembers, ...aaveMembers]
+    enabledFor: [...lineasterMembers, ...aaveMembers]
   },
   {
     key: FeatureFlag.PublicationAnalytics,
