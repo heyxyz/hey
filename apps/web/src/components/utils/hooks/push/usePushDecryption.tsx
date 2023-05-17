@@ -1,7 +1,9 @@
 import { XIcon } from '@heroicons/react/outline';
 import type { ProgressHookType, SignerType } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
+import { LENSHUB_PROXY } from 'data';
 import { useCallback, useState } from 'react';
+import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { Image, Spinner } from 'ui';
@@ -33,7 +35,7 @@ const initModalInfo: modalInfoType = {
 };
 
 const usePushDecryption = () => {
-  const { data: walletClient } = useEthersWalletClient();
+  const { data: walletClient, isLoading } = useEthersWalletClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowDecryptionModal = usePushChatStore(
     (state) => state.setShowDecryptionModal
@@ -87,12 +89,11 @@ const usePushDecryption = () => {
       if (!currentProfile || !walletClient) {
         return { decryptedKey: undefined, error: undefined };
       }
-      const { ownedBy } = currentProfile;
       try {
         const response = await PushAPI.chat.decryptPGPKey({
           encryptedPGPPrivateKey: encryptedText,
           signer: walletClient as SignerType,
-          account: ownedBy,
+          account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
           additionalMeta: additionalMeta.NFTPGP_V1?.password
             ? additionalMeta
             : undefined,
@@ -115,7 +116,8 @@ const usePushDecryption = () => {
       handleProgress,
       reset,
       setShowDecryptionModal,
-      walletClient
+      walletClient,
+      isLoading
     ]
   );
 

@@ -21,6 +21,7 @@ import { useAppStore } from 'src/store/app';
 import type { ChatTypes } from 'src/store/push-chat';
 import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Card, Image, Modal } from 'ui';
+import { useWalletClient } from 'wagmi';
 
 import { getProfileFromDID, isProfileExist } from './helper';
 import PUSHPreviewChats from './PUSHPreviewChats';
@@ -31,6 +32,7 @@ const page: number = 1;
 
 const PUSHPreview = () => {
   const containerRef = useRef(null);
+  const { data: walletClient } = useWalletClient();
   const { fetchChatProfile } = useGetChatProfile();
   const resetPushChatStore = usePushChatStore(
     (state) => state.resetPushChatStore
@@ -108,7 +110,7 @@ const PUSHPreview = () => {
   const { fetchRequests } = useFetchRequests();
 
   useEffect(() => {
-    if (!currentProfile) {
+    if (!currentProfile || !walletClient) {
       return;
     }
 
@@ -142,7 +144,7 @@ const PUSHPreview = () => {
     };
     connectPushChatProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connectedProfile, currentProfile]);
+  }, [connectedProfile, currentProfile, walletClient]);
 
   useEffect(() => {
     // only for user who has requests but hasn't created user in push chat yet
