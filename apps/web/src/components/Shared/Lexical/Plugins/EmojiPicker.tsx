@@ -40,20 +40,30 @@ interface EmojiMenuItemProps {
   option: EmojiOption;
 }
 
-const EmojiMenuItem: FC<EmojiMenuItemProps> = ({ index, isSelected, onClick, onMouseEnter, option }) => {
+const EmojiMenuItem: FC<EmojiMenuItemProps> = ({
+  index,
+  isSelected,
+  onClick,
+  onMouseEnter,
+  option
+}) => {
   const { key, title, emoji, setRefElement } = option;
 
   return (
     <li
       key={key}
       tabIndex={-1}
-      className={clsx({ 'dropdown-active': isSelected }, 'm-2 cursor-pointer rounded-lg p-2 outline-none')}
+      className={clsx(
+        { 'dropdown-active': isSelected },
+        'm-2 cursor-pointer rounded-lg p-2 outline-none'
+      )}
       ref={setRefElement}
       role="option"
-      aria-selected={isSelected}
       id={'typeahead-item-' + index}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
+      aria-selected={isSelected}
+      aria-hidden="true"
     >
       <div className="flex items-center space-x-2">
         <span className="text-base">{emoji}</span>
@@ -101,8 +111,11 @@ const EmojiPickerPlugin: FC = () => {
     return emojiOptions
       .filter((option: EmojiOption) => {
         return queryString !== null
-          ? new RegExp(queryString, 'gi').exec(option.title) || option.keywords !== null
-            ? option.keywords.some((keyword: string) => new RegExp(queryString, 'gi').exec(keyword))
+          ? new RegExp(queryString, 'gi').exec(option.title) ||
+            option.keywords !== null
+            ? option.keywords.some((keyword: string) =>
+                new RegExp(queryString, 'gi').exec(keyword)
+              )
             : false
           : emojiOptions;
       })
@@ -110,7 +123,11 @@ const EmojiPickerPlugin: FC = () => {
   }, [emojiOptions, queryString]);
 
   const onSelectOption = useCallback(
-    (selectedOption: EmojiOption, nodeToRemove: TextNode | null, closeMenu: () => void) => {
+    (
+      selectedOption: EmojiOption,
+      nodeToRemove: TextNode | null,
+      closeMenu: () => void
+    ) => {
       editor.update(() => {
         const selection = $getSelection();
 
@@ -136,7 +153,10 @@ const EmojiPickerPlugin: FC = () => {
       onSelectOption={onSelectOption}
       triggerFn={checkForTriggerMatch}
       options={options}
-      menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
+      menuRenderFn={(
+        anchorElementRef,
+        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
+      ) => {
         if (anchorElementRef.current === null || options.length === 0) {
           return null;
         }

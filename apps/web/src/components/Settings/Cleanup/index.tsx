@@ -45,8 +45,9 @@ const CleanupSettings: NextPage = () => {
             </div>
             <p>
               <Trans>
-                If you stuck with some issues, you can try to clean up the localstorage. This will remove all
-                the data stored in your browser.
+                If you stuck with some issues, you can try to clean up the
+                localstorage. This will remove all the data stored in your
+                browser.
               </Trans>
             </p>
           </div>
@@ -58,7 +59,9 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Optimistic publications</Trans>
                 </b>
                 <div className="lt-text-gray-500 text-xs font-bold">
-                  <Trans>Clean your posts or comments that are not indexed</Trans>
+                  <Trans>
+                    Clean your posts or comments that are not indexed
+                  </Trans>
                 </div>
               </div>
               <Button onClick={() => cleanup(Localstorage.TransactionStore)}>
@@ -93,6 +96,19 @@ const CleanupSettings: NextPage = () => {
                   toast.success(t`Cleared DM keys`);
                 }}
               >
+                <Trans>Cleanup</Trans>
+              </Button>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <b>
+                  <Trans>Feature flags cache</Trans>
+                </b>
+                <div className="lt-text-gray-500 text-xs font-bold">
+                  <Trans>Clean your feature flags cache</Trans>
+                </div>
+              </div>
+              <Button onClick={() => cleanup(Localstorage.FeaturesCache)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>

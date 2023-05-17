@@ -32,7 +32,9 @@ const useGetHistoryMessages = () => {
       try {
         const chatHistory = await PushAPI.chat.history({
           threadhash: threadHash,
-          account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${(currentProfile as Profile)?.id}`,
+          account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${
+            (currentProfile as Profile)?.id
+          }`,
           toDecrypt: decryptedPgpPvtKey ? true : false,
           pgpPrivateKey: String(decryptedPgpPvtKey),
           limit: limit,
@@ -43,12 +45,15 @@ const useGetHistoryMessages = () => {
           const uniqueMap: { [timestamp: number]: IMessageIPFS } = {};
 
           const messages = Object.values(
-            [...chatHistory, ...chats.get(chatId)!.messages].reduce((uniqueMap, message) => {
-              if (message.timestamp && !uniqueMap[message.timestamp]) {
-                uniqueMap[message.timestamp] = message;
-              }
-              return uniqueMap;
-            }, uniqueMap)
+            [...chatHistory, ...chats.get(chatId)!.messages].reduce(
+              (uniqueMap, message) => {
+                if (message.timestamp && !uniqueMap[message.timestamp]) {
+                  uniqueMap[message.timestamp] = message;
+                }
+                return uniqueMap;
+              },
+              uniqueMap
+            )
           );
 
           setChat(chatId, {
@@ -56,7 +61,10 @@ const useGetHistoryMessages = () => {
             lastThreadHash: chatHistory[0].link
           });
         } else {
-          setChat(chatId, { messages: chatHistory, lastThreadHash: chatHistory[0].link });
+          setChat(chatId, {
+            messages: chatHistory,
+            lastThreadHash: chatHistory[0].link
+          });
         }
         setLoading(false);
         return chatHistory;

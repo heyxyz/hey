@@ -1,7 +1,6 @@
 import { PencilIcon } from '@heroicons/react/outline';
+import errorToast from '@lib/errorToast';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
-import splitSignature from '@lib/splitSignature';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
@@ -18,6 +17,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
 import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
@@ -36,17 +36,14 @@ interface NftPictureProps {
 }
 
 const NftPicture: FC<NftPictureProps> = ({ profile }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [chainId, setChainId] = useState<number>(profile?.picture?.chainId || mainnet.id);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
+  const [isLoading, setIsLoading] = useState(false);
+  const [chainId, setChainId] = useState<number>(
+    profile?.picture?.chainId || mainnet.id
+  );
   const { signMessageAsync } = useSignMessage();
-
-  const onCompleted = () => {
-    toast.success(t`Avatar updated successfully!`);
-    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
-  };
 
   const form = useZodForm({
     schema: editNftPictureSchema,
@@ -56,54 +53,70 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     }
   });
 
-  const {
-    isLoading: writeLoading,
-    error,
-    write
-  } = useContractWrite({
+  // Dispatcher
+  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
+  const isSponsored = currentProfile?.dispatcher?.sponsor;
+
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return;
+    }
+
+    setIsLoading(false);
+    toast.success(t`Avatar updated successfully!`);
+    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
+  };
+
+  const onError = (error: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setProfileImageURIWithSig',
-    mode: 'recklesslyUnprepared',
-    onSuccess: onCompleted,
+    functionName: 'setProfileImageURI',
+    onSuccess: () => onCompleted(),
     onError
   });
 
-  const [loadChallenge, { loading: challengeLoading }] = useNftChallengeLazyQuery();
-  const [broadcast, { loading: broadcastLoading }] = useBroadcastMutation({
-    onCompleted
+  const [loadChallenge] = useNftChallengeLazyQuery();
+  const [broadcast] = useBroadcastMutation({
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   });
-  const [createSetProfileImageURITypedData, { loading: typedDataLoading }] =
+  const [createSetProfileImageURITypedData] =
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         const { id, typedData } = createSetProfileImageURITypedData;
-        const { profileId, imageURI, deadline } = typedData.value;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { v, r, s } = splitSignature(signature);
-        const sig = { v, r, s, deadline };
-        const inputStruct = {
-          profileId,
-          imageURI,
-          sig
-        };
         setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
+        });
         if (data?.broadcast.__typename === 'RelayError') {
-          return write?.({ recklesslySetUnpreparedArgs: [inputStruct] });
+          const { profileId, imageURI } = typedData.value;
+          return write?.({ args: [profileId, imageURI] });
         }
       },
       onError
     });
 
-  const [createSetProfileImageURIViaDispatcher, { loading: dispatcherLoading }] =
-    useCreateSetProfileImageUriViaDispatcherMutation({ onCompleted, onError });
+  const [createSetProfileImageURIViaDispatcher] =
+    useCreateSetProfileImageUriViaDispatcherMutation({
+      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+        onCompleted(createSetProfileImageURIViaDispatcher.__typename),
+      onError
+    });
 
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
       variables: { request }
     });
-    if (data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError') {
-      await createSetProfileImageURITypedData({
+    if (
+      data?.createSetProfileImageURIViaDispatcher?.__typename === 'RelayError'
+    ) {
+      return await createSetProfileImageURITypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
@@ -118,6 +131,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
     }
 
     try {
+      setIsLoading(true);
       const challengeRes = await loadChallenge({
         variables: {
           request: {
@@ -145,7 +159,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
         }
       };
 
-      if (currentProfile?.dispatcher?.canUseRelay) {
+      if (canUseRelay && isSponsored) {
         return await createViaDispatcher(request);
       }
 
@@ -155,31 +169,31 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
           request
         }
       });
-    } catch {}
+    } catch (error) {
+      onError(error);
+    }
   };
-
-  const isLoading =
-    challengeLoading ||
-    typedDataLoading ||
-    dispatcherLoading ||
-    signLoading ||
-    writeLoading ||
-    broadcastLoading;
 
   return (
     <Form
       form={form}
       className="space-y-4"
-      onSubmit={({ contractAddress, tokenId }) => {
-        setAvatar(contractAddress, tokenId);
+      onSubmit={async ({ contractAddress, tokenId }) => {
+        await setAvatar(contractAddress, tokenId);
       }}
     >
-      {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
+      {error && (
+        <ErrorMessage
+          className="mb-3"
+          title={t`Transaction failed!`}
+          error={error}
+        />
+      )}
       <div>
         <div className="label">Chain</div>
         <div>
           <select
-            className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
+            className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
             onChange={(e) => setChainId(parseInt(e.target.value))}
             value={chainId}
           >
@@ -196,12 +210,19 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
         placeholder="0x277f5959e22f94d5bd4c2cc0a77c4c71f31da3ac"
         {...form.register('contractAddress')}
       />
-      <Input label={t`Token Id`} type="text" placeholder="1" {...form.register('tokenId')} />
+      <Input
+        label={t`Token Id`}
+        type="text"
+        placeholder="1"
+        {...form.register('tokenId')}
+      />
       <Button
         className="ml-auto"
         type="submit"
         disabled={isLoading}
-        icon={isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />}
+        icon={
+          isLoading ? <Spinner size="xs" /> : <PencilIcon className="h-4 w-4" />
+        }
       >
         <Trans>Save</Trans>
       </Button>

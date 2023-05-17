@@ -15,26 +15,35 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v3
 
+      - name: Setup pnpm 🌸
+        uses: pnpm/action-setup@v2.2.4
+
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
-          node-version-file: ".nvmrc"
-          cache: "yarn"
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Turborepo local server 🚀
+        uses: felixmosh/turborepo-gh-artifacts@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          server-token: ${{ secrets.TURBO_SERVER_TOKEN }}
 
       - name: Bootstrap 📦
         run: script/bootstrap
 
       - name: Typecheck 🔡
-        run: yarn typecheck
+        run: pnpm typecheck --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Lint 🪩
-        run: yarn lint
+        run: pnpm lint --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Prettier ✨
-        run: yarn prettier
+        run: pnpm prettier --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Build 🎁
-        run: yarn build
+        run: pnpm build --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
 
       - name: Run Tests 🧪
-        run: yarn test:e2e
+        run: pnpm test:e2e

@@ -1,13 +1,12 @@
 import { PhotographIcon } from '@heroicons/react/outline';
-import uploadToIPFS from '@lib/uploadToIPFS';
+import errorToast from '@lib/errorToast';
+import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import clsx from 'clsx';
 import { ATTACHMENT } from 'data/constants';
-import Errors from 'data/errors';
 import imageProxy from 'lib/imageProxy';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import { Image, Spinner } from 'ui';
 
 interface CoverImageProps {
@@ -18,20 +17,26 @@ interface CoverImageProps {
   expandCover: (url: string) => void;
 }
 
-const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, imageRef, expandCover }) => {
+const CoverImage: FC<CoverImageProps> = ({
+  isNew = false,
+  cover,
+  setCover,
+  imageRef,
+  expandCover
+}) => {
   const [loading, setLoading] = useState(false);
 
   const onError = (error: any) => {
-    toast.error(error?.data?.message ?? error?.message ?? Errors.SomethingWentWrong);
     setLoading(false);
+    errorToast(error);
   };
 
-  const onChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
+  const onChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.length) {
       try {
         setLoading(true);
-        const attachment = await uploadToIPFS(e.target.files);
-        setCover(attachment[0].item, attachment[0].type);
+        const attachment = await uploadFileToIPFS(event.target.files[0]);
+        setCover(attachment.original.url, attachment.original.mimeType);
       } catch (error) {
         onError(error);
       }
@@ -49,7 +54,9 @@ const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, image
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? sanitizeDStorageUrl(cover) : cover;
           }}
-          src={cover ? imageProxy(sanitizeDStorageUrl(cover), ATTACHMENT) : cover}
+          src={
+            cover ? imageProxy(sanitizeDStorageUrl(cover), ATTACHMENT) : cover
+          }
           className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
           draggable={false}
           alt={`attachment-audio-cover-${cover}`}
@@ -72,7 +79,12 @@ const CoverImage: FC<CoverImageProps> = ({ isNew = false, cover, setCover, image
               <span>Add cover</span>
             </div>
           )}
-          <input type="file" accept=".png, .jpg, .jpeg, .svg" className="hidden w-full" onChange={onChange} />
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg, .svg"
+            className="hidden w-full"
+            onChange={onChange}
+          />
         </label>
       )}
     </div>

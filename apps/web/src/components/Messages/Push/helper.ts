@@ -62,7 +62,11 @@ export const checkIfGroup = (feed: IFeeds): boolean => {
   return false;
 };
 
-export const getGroupPreviewMessage = (feed: IFeeds, nftProfile: string, isIntent?: boolean) => {
+export const getGroupPreviewMessage = (
+  feed: IFeeds,
+  nftProfile: string,
+  isIntent?: boolean
+) => {
   if (checkIfGroup(feed) && !feed.msg.messageContent) {
     if (feed?.groupInformation?.groupCreator === nftProfile) {
       return {

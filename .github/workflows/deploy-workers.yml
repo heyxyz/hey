@@ -13,18 +13,21 @@ jobs:
       - name: Checkout 🚪
         uses: actions/checkout@v3
 
+      - name: Setup pnpm 🌸
+        uses: pnpm/action-setup@v2.2.4
+
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
-          node-version-file: ".nvmrc"
-          cache: "yarn"
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Install 📦
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Deploy 🚀
         run: |
-          yarn global add wrangler
-          yarn workers:deploy
+          pnpm add wrangler -g
+          pnpm workers:deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

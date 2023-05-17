@@ -1,7 +1,7 @@
 import { Mixpanel } from '@lib/mixpanel';
 import { ATTACHMENT } from 'data/constants';
 import imageProxy from 'lib/imageProxy';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
@@ -14,7 +14,10 @@ interface EmbedProps {
 
 const Embed: FC<EmbedProps> = ({ og }) => {
   return (
-    <div className="mt-4 text-sm sm:w-4/6" data-testid={`normal-oembed-${og.url}`}>
+    <div
+      className="mt-4 text-sm sm:w-4/6"
+      data-testid={`normal-oembed-${og.url}`}
+    >
       <Link
         href={og.url}
         onClick={(event) => {
@@ -27,7 +30,7 @@ const Embed: FC<EmbedProps> = ({ og }) => {
         <Card forceRounded>
           {!og.isSquare && og.thumbnail && (
             <Image
-              className="w-full rounded-t-xl border-b"
+              className="divider w-full rounded-t-xl"
               onError={({ currentTarget }) => {
                 currentTarget.src = og.thumbnail;
               }}
@@ -50,8 +53,14 @@ const Embed: FC<EmbedProps> = ({ og }) => {
             )}
             <div className="truncate p-5">
               <div className="space-y-1.5">
-                {og.title && <div className="line-clamp-1 font-bold">{og.title}</div>}
-                {og.description && <div className="lt-text-gray-500 line-clamp-2">{og.description}</div>}
+                {og.title && (
+                  <div className="line-clamp-1 font-bold">{og.title}</div>
+                )}
+                {og.description && (
+                  <div className="lt-text-gray-500 line-clamp-2">
+                    {og.description}
+                  </div>
+                )}
                 {og.site && (
                   <div className="flex items-center space-x-2 pt-1.5">
                     {og.favicon && (

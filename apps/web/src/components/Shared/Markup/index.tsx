@@ -3,7 +3,7 @@ import trimify from 'lib/trimify';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
-// @ts-ignore
+// @ts-expect-error
 import linkifyRegex from 'remark-linkify-regex';
 import stripMarkdown from 'strip-markdown';
 
@@ -31,7 +31,11 @@ interface MarkupProps {
 
 const Markup: FC<MarkupProps> = ({ children, className = '' }) => {
   return (
-    <ReactMarkdown className={className} components={components} remarkPlugins={plugins}>
+    <ReactMarkdown
+      className={className}
+      components={components}
+      remarkPlugins={plugins}
+    >
       {trimify(children)}
     </ReactMarkdown>
   );

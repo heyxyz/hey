@@ -4,7 +4,7 @@ import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import { getModule } from '@lib/getModule';
 import { Mixpanel } from '@lib/mixpanel';
-import { t } from '@lingui/macro';
+import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ElectedMirror, Publication } from 'lens';
 import { CollectModules } from 'lens';
@@ -26,13 +26,19 @@ interface CollectProps {
   showCount: boolean;
 }
 
-const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) => {
+const Collect: FC<CollectProps> = ({
+  publication,
+  electedMirror,
+  showCount
+}) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const isFreeCollect = publication?.collectModule.__typename === 'FreeCollectModuleSettings';
-  const isUnknownCollect = publication?.collectModule.__typename === 'UnknownCollectModuleSettings';
+  const isFreeCollect =
+    publication?.collectModule.__typename === 'FreeCollectModuleSettings';
   const isMirror = publication.__typename === 'Mirror';
-  const hasCollected = isMirror ? publication?.mirrorOf?.hasCollectedByMe : publication?.hasCollectedByMe;
+  const hasCollected = isMirror
+    ? publication?.mirrorOf?.hasCollectedByMe
+    : publication?.hasCollectedByMe;
 
   useEffect(() => {
     if (
@@ -49,7 +55,9 @@ const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) =>
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
 
-  const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
+  const iconClassName = showCount
+    ? 'w-[17px] sm:w-[20px]'
+    : 'w-[15px] sm:w-[18px]';
 
   return (
     <>
@@ -62,10 +70,14 @@ const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) =>
           }}
           aria-label="Collect"
         >
-          <div className="rounded-full p-1.5 hover:bg-red-300 hover:bg-opacity-20">
+          <div className="rounded-full p-1.5 hover:bg-red-300/20">
             <Tooltip
               placement="top"
-              content={count > 0 ? `${humanize(count)} Collects` : 'Collect'}
+              content={`${humanize(count)} ${plural(count, {
+                zero: 'Collect',
+                one: 'Collect',
+                other: 'Collects'
+              })}`}
               withDelay
             >
               {hasCollected ? (
@@ -76,20 +88,24 @@ const Collect: FC<CollectProps> = ({ publication, electedMirror, showCount }) =>
             </Tooltip>
           </div>
         </motion.button>
-        {count > 0 && !showCount && <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>}
+        {count > 0 && !showCount && (
+          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+        )}
       </div>
       <Modal
         title={
           isFreeCollect
             ? t`Free Collect`
-            : isUnknownCollect
-            ? t`Unknown Collect`
             : getModule(publication?.collectModule?.type).name
         }
         icon={
           <div className="text-brand">
             <GetModuleIcon
-              module={isFreeCollect ? CollectModules.FreeCollectModule : publication?.collectModule?.type}
+              module={
+                isFreeCollect
+                  ? CollectModules.FreeCollectModule
+                  : publication?.collectModule?.type
+              }
               size={5}
             />
           </div>

@@ -13,6 +13,7 @@ export const PROFILE = {
   FOLLOW: 'Follow profile',
   SUPER_FOLLOW: 'Super follow profile',
   UNFOLLOW: 'Unfollow profile',
+  DISMISS_RECOMMENDED_PROFILE: 'Dismiss recommended profile',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
   SWITCH_PROFILE: 'Switch profile',
@@ -23,10 +24,10 @@ export const PUBLICATION = {
   NEW_POST: 'New post',
   NEW_COMMENT: 'New comment',
   LIKE: 'Like publication',
-  DISLIKE: 'Dislike publication',
+  UNLIKE: 'Unlike publication',
   MIRROR: 'Mirror publication',
-  EMBED: 'Embed publication',
   PERMALINK: 'Permalink publication',
+  TRANSLATE: 'Translate publication',
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   OEMBED_CLICK: 'Click publication oembed',
@@ -49,6 +50,12 @@ export const PUBLICATION = {
     CHECKLIST_NAVIGATED_TO_TOKEN: 'Decrypt checklist navigated to token',
     CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT',
     DECRYPT: 'Decrypt token gated publication'
+  },
+  WIDGET: {
+    SNAPSHOT: {
+      OPEN_CAST_VOTE: 'Snapshot: Open cast vote modal',
+      VOTE: 'Snapshot: Vote'
+    }
   }
 };
 
@@ -89,6 +96,11 @@ export const SETTINGS = {
     ADD: 'Add profile interest',
     REMOVE: 'Remove profile interest'
   },
+  EXPORT: {
+    PROFILE: 'Export profile',
+    PUBLICATIONS: 'Export publications',
+    NOTIFICATIONS: 'Export notifications'
+  },
   DELETE: 'Delete profile'
 };
 
@@ -117,7 +129,8 @@ export const MISCELLANEOUS = {
 
 export const ONBOARDING = {
   NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
-  NAVIGATE_UPDATE_PROFILE_INTERESTS: 'Navigate to update profile interests from onboarding'
+  NAVIGATE_UPDATE_PROFILE_INTERESTS:
+    'Navigate to update profile interests from onboarding'
 };
 
 // enums

@@ -19,7 +19,9 @@ const useFetchLensProfiles = () => {
         // Make the profileIds array unique using the Set data structure
         const uniqueProfileIds = Array.from(new Set(profilesChunk));
 
-        const result = await loadProfiles({ variables: { request: { profileIds: uniqueProfileIds } } });
+        const result = await loadProfiles({
+          variables: { request: { profileIds: uniqueProfileIds } }
+        });
         if (result.data) {
           const lensIdsMap = new Map(
             result.data.profiles.items.map((profile) => {

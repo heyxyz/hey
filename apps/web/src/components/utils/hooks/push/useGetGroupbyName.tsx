@@ -11,23 +11,26 @@ const useGetGroupByName = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>();
 
-  const fetchGroupByName = useCallback(async ({ name }: IGroupByNameProps): Promise<GroupDTO | undefined> => {
-    setLoading(true);
-    try {
-      const response = await PushAPI.chat.getGroupByName({
-        groupName: name,
-        env: PUSH_ENV
-      });
-      if (!response) {
-        return;
+  const fetchGroupByName = useCallback(
+    async ({ name }: IGroupByNameProps): Promise<GroupDTO | undefined> => {
+      setLoading(true);
+      try {
+        const response = await PushAPI.chat.getGroupByName({
+          groupName: name,
+          env: PUSH_ENV
+        });
+        if (!response) {
+          return;
+        }
+        return response;
+      } catch (error: Error | any) {
+        setLoading(false);
+        console.log(error);
+        setError(error.message);
       }
-      return response;
-    } catch (error: Error | any) {
-      setLoading(false);
-      console.log(error);
-      setError(error.message);
-    }
-  }, []);
+    },
+    []
+  );
 
   return { fetchGroupByName, loading, error };
 };

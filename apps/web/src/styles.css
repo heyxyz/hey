@@ -19,6 +19,21 @@ body {
   @apply dark:bg-gray-600;
 }
 
+progress::-webkit-progress-bar {
+  background-color: transparent;
+}
+
+progress::-webkit-progress-value {
+  @apply bg-brand-500;
+  transition: width 0.5s ease;
+}
+
+progress::-moz-progress-bar {
+  @apply rounded-bl;
+  @apply bg-brand-500;
+  transition: width 0.5s ease;
+}
+
 .menu-item {
   @apply m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200;
 }
@@ -113,22 +128,6 @@ body {
   @apply text-gray-500 dark:text-gray-200;
 }
 
-.plyr {
-  @apply rounded-lg;
-}
-
-.plyr__control--overlaid {
-  @apply !bg-brand-500;
-}
-
-.plyr--full-ui input[type='range'] {
-  @apply !text-brand-500;
-}
-
-.plyr__control {
-  @apply hover:!bg-brand-500;
-}
-
 .text-md {
   @apply !text-sm sm:!text-base;
 }
@@ -206,4 +205,24 @@ div[data-lexical-editor='true'] {
 ul {
   @apply !leading-6 sm:!leading-7;
   @apply [&:not(:last-child)]:mb-5;
+}
+
+.lp-player {
+  @apply [&>div>div]:shadow-none;
+  @apply [&>div>div]:border;
+  @apply [&>div>div]:border-gray-100;
+  @apply [&>div>div]:dark:border-gray-700;
+}
+
+/* react-virtuoso - Virtual profile list */
+.virtual-profile-list {
+  @apply !h-[80vh];
+  @apply [&>div>div]:divide-y;
+  @apply [&>div>div]:dark:divide-gray-700;
+}
+
+/* react-virtuoso - Virtual notifications list */
+.virtual-notification-list {
+  @apply [&>div>div]:divide-y;
+  @apply [&>div>div]:dark:divide-gray-700;
 }

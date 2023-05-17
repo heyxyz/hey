@@ -17,14 +17,19 @@ interface PreviewListProps {
   selectedConversationKey?: string;
 }
 
-const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey }) => {
+const PreviewList: FC<PreviewListProps> = ({
+  className,
+  selectedConversationKey
+}) => {
   const router = useRouter();
 
   const chatProvider = useMessageStore((state) => state.chatProvider);
   const setChatProvider = useMessageStore((state) => state.setChatProvider);
 
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const clearMessagesBadge = useXmtpMessagePersistStore((state) => state.clearMessagesBadge);
+  const clearMessagesBadge = useXmtpMessagePersistStore(
+    (state) => state.clearMessagesBadge
+  );
 
   const changeChatProvider = useCallback(
     (provider: string) => {
@@ -64,7 +69,14 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
             chatProvider === MESSAGING_PROVIDER.PUSH && 'bg-gray-100'
           }`}
         >
-          <img width={16} height={16} className="mx-1" src="/push.svg" alt="push" draggable={false} />
+          <img
+            width={16}
+            height={16}
+            className="mx-1"
+            src="/push.svg"
+            alt="push"
+            draggable={false}
+          />
           <Trans>{MESSAGING_PROVIDER.PUSH.toUpperCase()}</Trans>
         </div>
         <div
@@ -73,7 +85,14 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
             chatProvider === MESSAGING_PROVIDER.XMTP && 'bg-gray-100'
           }`}
         >
-          <img width={20} height={20} className="mx-1" src="/xmtp.svg" alt="xmtp" draggable={false} />
+          <img
+            width={20}
+            height={20}
+            className="mx-1"
+            src="/xmtp.svg"
+            alt="xmtp"
+            draggable={false}
+          />
           <Trans>{MESSAGING_PROVIDER.XMTP.toUpperCase()}</Trans>
         </div>
       </Card>

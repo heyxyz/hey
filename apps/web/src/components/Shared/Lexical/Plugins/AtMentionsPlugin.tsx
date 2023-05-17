@@ -15,6 +15,7 @@ import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import imageProxy from 'lib/imageProxy';
 import isVerified from 'lib/isVerified';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -22,7 +23,8 @@ import * as ReactDOM from 'react-dom';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 
-const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
+const PUNCTUATION =
+  '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 const NAME = '\\b[A-Z][^\\s' + PUNCTUATION + ']';
 
 const DocumentMentionsRegex = {
@@ -53,10 +55,22 @@ const AtSignMentionsRegex = new RegExp(
 );
 
 const AtSignMentionsRegexAliasRegex = new RegExp(
-  '(^|\\s|\\()(' + '[' + TRIGGERS + ']' + '((?:' + VALID_CHARS + '){0,' + ALIAS_LENGTH_LIMIT + '})' + ')$'
+  '(^|\\s|\\()(' +
+    '[' +
+    TRIGGERS +
+    ']' +
+    '((?:' +
+    VALID_CHARS +
+    '){0,' +
+    ALIAS_LENGTH_LIMIT +
+    '})' +
+    ')$'
 );
 
-const checkForAtSignMentions = (text: string, minMatchLength: number): QueryMatch | null => {
+const checkForAtSignMentions = (
+  text: string,
+  minMatchLength: number
+): QueryMatch | null => {
   let match = AtSignMentionsRegex.exec(text);
 
   if (match === null) {
@@ -119,9 +133,10 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
       className="cursor-pointer"
       ref={option.setRefElement}
       role="option"
-      aria-selected={isSelected}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
+      aria-selected={isSelected}
+      aria-hidden="true"
     >
       <div
         className={clsx(
@@ -139,7 +154,9 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
         <div className="flex flex-col truncate">
           <div className="flex items-center space-x-1 text-sm">
             <span>{option.name}</span>
-            {isVerified(option.id) && <BadgeCheckIcon className="text-brand h-4 w-4" />}
+            {isVerified(option.id) && (
+              <BadgeCheckIcon className="text-brand h-4 w-4" />
+            )}
           </div>
           <span className="text-xs">{formatHandle(option.handle)}</span>
         </div>
@@ -172,17 +189,25 @@ const MentionsPlugin: FC = () => {
   useEffect(() => {
     if (queryString) {
       searchUsers({
-        variables: { request: { type: SearchRequestTypes.Profile, query: queryString, limit: 5 } }
+        variables: {
+          request: {
+            type: SearchRequestTypes.Profile,
+            query: queryString,
+            limit: 5
+          }
+        }
       }).then(({ data }) => {
         const search = data?.search;
         const profileSearchResult = search as ProfileSearchResult;
         const profiles: Profile[] =
-          search && search.hasOwnProperty('items') ? profileSearchResult?.items : [];
+          search && search.hasOwnProperty('items')
+            ? profileSearchResult?.items
+            : [];
         const profilesResults = profiles.map(
           (user: Profile) =>
             ({
               id: user?.id,
-              name: user?.name,
+              name: sanitizeDisplayName(user?.name),
               handle: user?.handle,
               picture: getUserPicture(user)
             } as Record<string, string>)
@@ -213,7 +238,11 @@ const MentionsPlugin: FC = () => {
   );
 
   const onSelectOption = useCallback(
-    (selectedOption: MentionTypeaheadOption, nodeToReplace: TextNode | null, closeMenu: () => void) => {
+    (
+      selectedOption: MentionTypeaheadOption,
+      nodeToReplace: TextNode | null,
+      closeMenu: () => void
+    ) => {
       editor.update(() => {
         const mentionNode = $createMentionNode(selectedOption.handle);
         if (nodeToReplace) {
@@ -241,7 +270,10 @@ const MentionsPlugin: FC = () => {
       onSelectOption={onSelectOption}
       triggerFn={checkForMentionMatch}
       options={options}
-      menuRenderFn={(anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) =>
+      menuRenderFn={(
+        anchorElementRef,
+        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
+      ) =>
         anchorElementRef.current && results.length
           ? ReactDOM.createPortal(
               <div className="bg-brand sticky z-40 mt-8 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">

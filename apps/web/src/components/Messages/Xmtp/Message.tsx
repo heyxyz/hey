@@ -1,7 +1,9 @@
 import MetaTags from '@components/Common/MetaTags';
+import MessageHeader from '@components/Messages/Xmtp/MessageHeader';
 import Loader from '@components/Shared/Loader';
 import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
+import { useGetProfile } from '@components/utils/hooks/useMessageDb';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { parseConversationKey } from '@lib/conversationKey';
@@ -9,20 +11,19 @@ import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import formatHandle from 'lib/formatHandle';
+import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { useXmtpMessageStore } from 'src/store/xmtp-message';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridLayout } from 'ui';
 
-import PreviewList from '../PreviewList';
 import Composer from './Composer';
-import MessageHeader from './MessageHeader';
 import MessagesList from './MessagesList';
+import PreviewList from './XMTPPreview';
 
 interface MessageProps {
   conversationKey: string;
@@ -30,8 +31,11 @@ interface MessageProps {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profile = useXmtpMessageStore((state) => state.messageProfiles.get(conversationKey));
-  const { selectedConversation, missingXmtpAuth } = useGetConversation(conversationKey, profile);
+  const { profile } = useGetProfile(currentProfile?.id, conversationKey);
+  const { selectedConversation, missingXmtpAuth } = useGetConversation(
+    conversationKey,
+    profile
+  );
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(
     conversationKey,
@@ -56,10 +60,14 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     return <Custom404 />;
   }
 
-  const showLoading = !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
+  const showLoading =
+    !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
 
-  const userNameForTitle = profile?.name ?? formatHandle(profile?.handle);
-  const title = userNameForTitle ? `${userNameForTitle} • ${APP_NAME}` : APP_NAME;
+  const userNameForTitle =
+    sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle);
+  const title = userNameForTitle
+    ? `${userNameForTitle} • ${APP_NAME}`
+    : APP_NAME;
 
   return (
     <GridLayout classNameChild="md:gap-8">
@@ -68,10 +76,10 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
         className="xs:hidden sm:hidden md:hidden lg:block"
         selectedConversationKey={conversationKey}
       />
-      <GridItemEight className="xs:h-[85vh] xs:mx-2 mb-0 sm:mx-2 sm:h-[76vh] md:col-span-8 md:h-[80vh] xl:h-[84vh]">
-        <Card className="flex h-full flex-col justify-between">
+      <GridItemEight className="xs:mx-2 relative mb-0 sm:mx-2 md:col-span-8">
+        <Card className="flex h-[87vh] flex-col justify-between">
           {showLoading ? (
-            <div className="flex h-full flex-grow items-center justify-center">
+            <div className="flex h-full grow items-center justify-center">
               <Loader message={t`Loading messages`} />
             </div>
           ) : (
@@ -109,7 +117,11 @@ const MessagePage: NextPage = () => {
   }, []);
 
   // Need to have a login page for when there is no currentProfileId
-  if (!conversationKey || !currentProfileId || !Array.isArray(conversationKey)) {
+  if (
+    !conversationKey ||
+    !currentProfileId ||
+    !Array.isArray(conversationKey)
+  ) {
     return <Custom404 />;
   }
 

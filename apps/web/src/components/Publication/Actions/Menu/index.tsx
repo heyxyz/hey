@@ -3,15 +3,15 @@ import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Delete from './Delete';
-import Embed from './Embed';
 import Permalink from './Permalink';
 import Report from './Report';
+import Translate from './Translate';
 
 interface PublicationMenuProps {
   publication: Publication;
@@ -25,12 +25,14 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
     <Menu as="div" className="relative">
       <Menu.Button as={Fragment}>
         <button
-          className="rounded-full p-1.5 hover:bg-gray-300 hover:bg-opacity-20"
+          className="rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           aria-label="More"
           data-testid={`publication-${publication.id}-menu`}
         >
-          <DotsVerticalIcon className={clsx('lt-text-gray-500', iconClassName)} />
+          <DotsVerticalIcon
+            className={clsx('lt-text-gray-500', iconClassName)}
+          />
         </button>
       </Menu.Button>
       <MenuTransition>
@@ -44,8 +46,8 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           ) : (
             <Report publication={publication} />
           )}
-          <Embed publication={publication} />
           <Permalink publication={publication} />
+          <Translate publication={publication} />
         </Menu.Items>
       </MenuTransition>
     </Menu>

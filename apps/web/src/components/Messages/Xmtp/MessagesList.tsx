@@ -1,4 +1,3 @@
-import Markup from '@components/Shared/Markup';
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import { formatTime } from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
@@ -13,6 +12,8 @@ import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { Card, Image } from 'ui';
 
+import MessageContent from './MessageContent';
+
 const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
   return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');
 };
@@ -25,7 +26,11 @@ interface MessageTileProps {
   currentProfile?: Profile | null;
 }
 
-const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile }) => {
+const MessageTile: FC<MessageTileProps> = ({
+  message,
+  profile,
+  currentProfile
+}) => {
   const address = currentProfile?.ownedBy;
 
   return (
@@ -48,7 +53,9 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
         )}
         <div
           className={clsx(
-            address === message.senderAddress ? 'bg-brand-500' : 'bg-gray-100 dark:bg-gray-700',
+            address === message.senderAddress
+              ? 'bg-brand-500'
+              : 'bg-gray-100 dark:bg-gray-700',
             'w-full rounded-lg px-4 py-2'
           )}
         >
@@ -58,12 +65,19 @@ const MessageTile: FC<MessageTileProps> = ({ message, profile, currentProfile })
               'text-md linkify-message block break-words'
             )}
           >
-            {message.error ? `Error: ${message.error?.message}` : <Markup>{message.content}</Markup> ?? ''}
+            <MessageContent
+              message={message}
+              profile={profile}
+              sentByMe={address == message.senderAddress}
+            />
           </span>
         </div>
       </div>
       <div className={clsx(address !== message.senderAddress ? 'ml-12' : '')}>
-        <span className="place-self-end text-xs text-gray-400" title={formatTime(message.sent)}>
+        <span
+          className="place-self-end text-xs text-gray-400"
+          title={formatTime(message.sent)}
+        >
           {dayjs(message.sent).fromNow()}
         </span>
       </div>
@@ -86,13 +100,18 @@ const DateDividerBorder: FC<DateDividerBorderProps> = ({ children }) => (
 const DateDivider: FC<{ date?: Date }> = ({ date }) => (
   <div className="align-items-center flex items-center p-4 pl-2 pt-0">
     <DateDividerBorder>
-      <span className="mx-11 flex-none text-sm font-bold text-gray-300">{formatDate(date)}</span>
+      <span className="mx-11 flex-none text-sm font-bold text-gray-300">
+        {formatDate(date)}
+      </span>
     </DateDividerBorder>
   </div>
 );
 
 const MissingXmtpAuth: FC = () => (
-  <Card as="aside" className="mb-2 mr-4 space-y-2.5 border-gray-400 !bg-gray-300 !bg-opacity-20 p-5">
+  <Card
+    as="aside"
+    className="mb-2 mr-4 space-y-2.5 border-gray-400 !bg-gray-300/20 p-5"
+  >
     <div className="flex items-center space-x-2 font-bold">
       <EmojiSadIcon className="h-5 w-5" />
       <p>
@@ -138,7 +157,7 @@ const MessagesList: FC<MessageListProps> = ({
 }) => {
   let lastMessageDate: Date | undefined;
   const { observe } = useInView({
-    onChange: async ({ inView }) => {
+    onChange: ({ inView }) => {
       if (!inView) {
         return;
       }
@@ -148,17 +167,28 @@ const MessagesList: FC<MessageListProps> = ({
   });
 
   return (
-    <div className="flex h-[75%] flex-grow">
+    <div className="flex grow overflow-y-hidden">
       <div className="relative flex h-full w-full pl-4">
-        <div className="flex h-full w-full flex-col-reverse overflow-y-auto">
+        <div className="flex h-full w-full flex-col-reverse overflow-y-hidden">
           {missingXmtpAuth && <MissingXmtpAuth />}
           <span className="flex flex-col-reverse overflow-y-auto overflow-x-hidden">
             {messages?.map((msg: DecodedMessage, index) => {
-              const dateHasChanged = lastMessageDate ? !isOnSameDay(lastMessageDate, msg.sent) : false;
+              const dateHasChanged = lastMessageDate
+                ? !isOnSameDay(lastMessageDate, msg.sent)
+                : false;
               const messageDiv = (
-                <div key={`${msg.id}_${index}`} ref={index === messages.length - 1 ? observe : null}>
-                  <MessageTile currentProfile={currentProfile} profile={profile} message={msg} />
-                  {dateHasChanged ? <DateDivider date={lastMessageDate} /> : null}
+                <div
+                  key={`${msg.id}_${index}`}
+                  ref={index === messages.length - 1 ? observe : null}
+                >
+                  <MessageTile
+                    currentProfile={currentProfile}
+                    profile={profile}
+                    message={msg}
+                  />
+                  {dateHasChanged ? (
+                    <DateDivider date={lastMessageDate} />
+                  ) : null}
                 </div>
               );
               lastMessageDate = msg.sent;

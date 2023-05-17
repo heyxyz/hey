@@ -4,8 +4,8 @@ import * as PushAPI from '@pushprotocol/restapi';
 import { useCallback, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
-import { useSigner } from 'wagmi';
 
+import useEthersWalletClient from '../useEthersWalletClient';
 import useFetchChat from './useFetchChat';
 
 interface SendMessageParams {
@@ -24,17 +24,21 @@ const usePushSendMessage = () => {
   const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const setChatFeed = usePushChatStore((state) => state.setChatFeed);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { data: signer } = useSigner();
+  const { data: walletClient } = useEthersWalletClient();
   const { fetchChat } = useFetchChat();
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const sendMessage = useCallback(
-    async ({ message, receiver, messageType = 'Text' }: SendMessageParams): Promise<boolean | undefined> => {
+    async ({
+      message,
+      receiver,
+      messageType = 'Text'
+    }: SendMessageParams): Promise<boolean | undefined> => {
       if (!currentProfile) {
         return;
       }
-      if (!decryptedPgpPvtKey || !message || !signer) {
+      if (!decryptedPgpPvtKey || !message || !walletClient) {
         setError('something went wrong');
         return false;
       }
@@ -60,19 +64,23 @@ const usePushSendMessage = () => {
             messages: Array.isArray(chats.get(selectedChatId)?.messages)
               ? [...chats.get(selectedChatId)!.messages, modifiedResponse]
               : [modifiedResponse],
-            lastThreadHash: chats.get(selectedChatId)?.lastThreadHash ?? response.link
+            lastThreadHash:
+              chats.get(selectedChatId)?.lastThreadHash ?? response.link
           });
 
           newOne['msg'] = modifiedResponse;
           setChatFeed(selectedChatId, newOne);
         } else {
-          let fetchChatsMessages: IFeeds = (await fetchChat({ recipientAddress: receiver })) as IFeeds;
+          let fetchChatsMessages: IFeeds = (await fetchChat({
+            recipientAddress: receiver
+          })) as IFeeds;
           setChatFeed(selectedChatId, fetchChatsMessages);
           setChat(selectedChatId, {
             messages: Array.isArray(chats.get(selectedChatId)?.messages)
               ? [...chats.get(selectedChatId)!.messages, modifiedResponse]
               : [modifiedResponse],
-            lastThreadHash: chats.get(selectedChatId)?.lastThreadHash ?? response.link
+            lastThreadHash:
+              chats.get(selectedChatId)?.lastThreadHash ?? response.link
           });
         }
 
@@ -83,7 +91,14 @@ const usePushSendMessage = () => {
         console.log(error);
       }
     },
-    [currentProfile, decryptedPgpPvtKey, signer, setChat, selectedChatId, chats]
+    [
+      currentProfile,
+      decryptedPgpPvtKey,
+      walletClient,
+      setChat,
+      selectedChatId,
+      chats
+    ]
   );
   return { sendMessage, error, loading };
 };

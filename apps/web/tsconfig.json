@@ -1,8 +1,7 @@
 {
-  "extends": "tsconfig/nextjs.json",
+  "extends": "tsconfig/react.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "noEmit": true,
     "paths": {
       "@components*": ["src/components*"],
       "@lib*": ["src/lib*"],
@@ -10,5 +9,5 @@
       "@generated*": ["src/generated*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

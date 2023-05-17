@@ -7,7 +7,11 @@ import { t, Trans } from '@lingui/macro';
 import type { GroupDTO } from '@pushprotocol/restapi';
 import clsx from 'clsx';
 import type { Profile, ProfileSearchResult } from 'lens';
-import { CustomFiltersTypes, SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
+import {
+  CustomFiltersTypes,
+  SearchRequestTypes,
+  useSearchProfilesLazyQuery
+} from 'lens';
 import formatHandle from 'lib/formatHandle';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
@@ -42,7 +46,8 @@ const Search: FC<SearchProps> = ({
 
   useOnClickOutside(dropdownRef, () => setSearchText(''));
 
-  const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] = useSearchProfilesLazyQuery();
+  const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
+    useSearchProfilesLazyQuery();
   const [groupData, setGroupData] = useState<GroupDTO | null>();
   const setInputRef = useRef<HTMLInputElement>(null);
 
@@ -110,7 +115,8 @@ const Search: FC<SearchProps> = ({
         const response = await fetchGroupByName({ name: keyword });
         if (
           response &&
-          (!ifPrivateGroup(response) || (ifPrivateGroup(response) && ifGroupMember(response)))
+          (!ifPrivateGroup(response) ||
+            (ifPrivateGroup(response) && ifGroupMember(response)))
         ) {
           setGroupData(response);
         }
@@ -133,11 +139,17 @@ const Search: FC<SearchProps> = ({
   };
 
   const searchResult = searchUsersData?.search as ProfileSearchResult;
-  const isProfileSearchResult = searchResult && searchResult.hasOwnProperty('items');
+  const isProfileSearchResult =
+    searchResult && searchResult.hasOwnProperty('items');
   const profiles = isProfileSearchResult ? searchResult.items : [];
 
   return (
-    <div aria-hidden="true" className="w-full" data-testid="global-search" ref={dropdownRef}>
+    <div
+      aria-hidden="true"
+      className="w-full"
+      data-testid="global-search"
+      ref={dropdownRef}
+    >
       <form onSubmit={handleKeyDown} className="flex gap-x-2">
         <Input
           ref={setInputRef}
@@ -148,19 +160,29 @@ const Search: FC<SearchProps> = ({
           iconLeft={<SearchIcon />}
           iconRight={
             <XIcon
-              className={clsx('cursor-pointer', searchText ? 'visible' : 'invisible')}
+              className={clsx(
+                'cursor-pointer',
+                searchText ? 'visible' : 'invisible'
+              )}
               onClick={() => setSearchText('')}
             />
           }
           onChange={handleSearch}
         />
         <div className="cursor-pointer" onClick={handleImgClick}>
-          <img className="h-10 w-11" src="/push/requestchat.svg" alt="plus icon" />
+          <img
+            className="h-10 w-11"
+            src="/push/requestchat.svg"
+            alt="plus icon"
+          />
         </div>
       </form>
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
         <div
-          className={clsx('absolute mt-2 flex w-[20%] flex-col', modalWidthClassName)}
+          className={clsx(
+            'absolute mt-2 flex w-[20%] flex-col',
+            modalWidthClassName
+          )}
           data-testid="search-profiles-dropdown"
         >
           <Card className="z-10 max-h-[70vh] max-w-[340px] overflow-y-auto py-2	">
@@ -183,7 +205,9 @@ const Search: FC<SearchProps> = ({
                       }
                       setSearchText('');
                     }}
-                    data-testid={`search-profile-${formatHandle(profile?.handle)}`}
+                    data-testid={`search-profile-${formatHandle(
+                      profile?.handle
+                    )}`}
                   >
                     <UserProfile
                       linkToProfile={!onProfileSelected}
@@ -211,14 +235,17 @@ const Search: FC<SearchProps> = ({
                       width={40}
                       alt={groupData.groupName}
                     />
-                    <p className="bold max-w-[180px] truncate text-base leading-6">{groupData.groupName}</p>
+                    <p className="bold max-w-[180px] truncate text-base leading-6">
+                      {groupData.groupName}
+                    </p>
                   </div>
                 )}
-                {profiles.length === 0 && (!groupData || groupData.groupName !== searchText) && (
-                  <div className="px-4 py-2">
-                    <Trans>No matching users</Trans>
-                  </div>
-                )}
+                {profiles.length === 0 &&
+                  (!groupData || groupData.groupName !== searchText) && (
+                    <div className="px-4 py-2">
+                      <Trans>No matching users</Trans>
+                    </div>
+                  )}
               </>
             )}
           </Card>

@@ -5,21 +5,27 @@ import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { ChangeEvent } from 'react';
 import { useProfileFeedStore } from 'src/store/profile-feed';
-import { Tooltip } from 'ui';
-import { Checkbox } from 'ui/Checkbox';
+import { Checkbox, Tooltip } from 'ui';
 
 const MediaFilter = () => {
-  const mediaFeedFilters = useProfileFeedStore((state) => state.mediaFeedFilters);
-  const setMediaFeedFilters = useProfileFeedStore((state) => state.setMediaFeedFilters);
+  const mediaFeedFilters = useProfileFeedStore(
+    (state) => state.mediaFeedFilters
+  );
+  const setMediaFeedFilters = useProfileFeedStore(
+    (state) => state.setMediaFeedFilters
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setMediaFeedFilters({ ...mediaFeedFilters, [e.target.name]: e.target.checked });
+    setMediaFeedFilters({
+      ...mediaFeedFilters,
+      [e.target.name]: e.target.checked
+    });
   };
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="rounded-md hover:bg-gray-300 hover:bg-opacity-20">
-        <Tooltip placement="top" content="Filter">
+      <Menu.Button className="rounded-md hover:bg-gray-300/20">
+        <Tooltip placement="top" content={t`Filter`}>
           <AdjustmentsIcon className="text-brand h-5 w-5" />
         </Tooltip>
       </Menu.Button>

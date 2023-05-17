@@ -7,7 +7,10 @@ interface MetaTagsProps {
   description?: string;
 }
 
-const MetaTags: FC<MetaTagsProps> = ({ title = APP_NAME, description = DESCRIPTION }) => {
+const MetaTags: FC<MetaTagsProps> = ({
+  title = APP_NAME,
+  description = DESCRIPTION
+}) => {
   return (
     <Head>
       <title>{title}</title>
@@ -29,7 +32,7 @@ const MetaTags: FC<MetaTagsProps> = ({ title = APP_NAME, description = DESCRIPTI
       <meta property="twitter:site" content={APP_NAME} />
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
-      <meta property="twitter:image:src" content={DEFAULT_OG} />
+      <meta property="twitter:image" content={DEFAULT_OG} />
       <meta property="twitter:image:width" content="400" />
       <meta property="twitter:image:height" content="400" />
       <meta property="twitter:creator" content="lensterxyz" />

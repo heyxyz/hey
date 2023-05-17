@@ -20,6 +20,8 @@ const clearStorage = () => {
   localStorage.removeItem(Localstorage.LensterStore);
   localStorage.removeItem(Localstorage.TransactionStore);
   localStorage.removeItem(Localstorage.MessageStore);
+  localStorage.removeItem(Localstorage.AttachmentCache);
+  localStorage.removeItem(Localstorage.AttachmentStore);
 };
 
 const authLink = new ApolloLink((operation, forward) => {

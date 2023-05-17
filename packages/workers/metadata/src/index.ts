@@ -4,12 +4,6 @@ interface EnvType {
   BUNDLR_PRIVATE_KEY: string;
 }
 
-export default {
-  async fetch(request: Request, env: EnvType) {
-    return await handleRequest(request, env);
-  }
-};
-
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
@@ -18,9 +12,15 @@ const headers = {
 
 const handleRequest = async (request: Request, env: EnvType) => {
   if (request.method !== 'POST') {
-    return new Response(JSON.stringify({ success: false, message: 'Only POST requests are supported' }), {
-      headers
-    });
+    return new Response(
+      JSON.stringify({
+        success: false,
+        message: 'Only POST requests are supported'
+      }),
+      {
+        headers
+      }
+    );
   }
 
   try {
@@ -40,13 +40,27 @@ const handleRequest = async (request: Request, env: EnvType) => {
     });
 
     if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
-      return new Response(JSON.stringify({ success: true, id: tx.id }), { headers });
-    } else {
-      return new Response(JSON.stringify({ success: false, message: 'Bundlr error!', bundlrRes }), {
+      return new Response(JSON.stringify({ success: true, id: tx.id }), {
         headers
       });
+    } else {
+      return new Response(
+        JSON.stringify({ success: false, message: 'Bundlr error!', bundlrRes }),
+        {
+          headers
+        }
+      );
     }
   } catch {
-    return new Response(JSON.stringify({ success: false, message: 'Something went wrong!' }), { headers });
+    return new Response(
+      JSON.stringify({ success: false, message: 'Something went wrong!' }),
+      { headers }
+    );
+  }
+};
+
+export default {
+  async fetch(request: Request, env: EnvType) {
+    return await handleRequest(request, env);
   }
 };

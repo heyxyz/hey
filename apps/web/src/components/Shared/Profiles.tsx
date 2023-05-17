@@ -43,14 +43,18 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
     return (
       <Wrapper>
         <ProfileNameOrHandle profile={profileOne} separator=", " />
-        <ProfileNameOrHandle profile={profileTwo} separator={isZero ? ' and ' : ', '} />
+        <ProfileNameOrHandle
+          profile={profileTwo}
+          separator={isZero ? ' and ' : ', '}
+        />
         <ProfileNameOrHandle
           profile={profileThree}
           separator={
             !isZero && (
               <span className="whitespace-nowrap">
                 {' '}
-                and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
+                and {calculatedCount}{' '}
+                {calculatedCount === 1 ? 'other' : 'others'}
               </span>
             )
           }

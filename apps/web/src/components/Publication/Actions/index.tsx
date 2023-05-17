@@ -1,10 +1,9 @@
 import useModMode from '@components/utils/hooks/useModMode';
 import type { ElectedMirror, Publication } from 'lens';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-import Analytics from './Analytics';
 import Collect from './Collect';
 import Comment from './Comment';
 import Like from './Like';
@@ -31,15 +30,21 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     <span
       className="-ml-2 flex flex-wrap items-center gap-x-6 gap-y-1 pt-3 sm:gap-8"
       onClick={stopEventPropagation}
+      aria-hidden="true"
     >
       <Comment publication={publication} showCount={showCount} />
       {canMirror && <Mirror publication={publication} showCount={showCount} />}
       <Like publication={publication} showCount={showCount} />
       {collectModuleType !== 'RevertCollectModuleSettings' && (
-        <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
+        <Collect
+          electedMirror={electedMirror}
+          publication={publication}
+          showCount={showCount}
+        />
       )}
-      {modMode && <Mod publication={publication} isFullPublication={showCount} />}
-      <Analytics publication={publication} />
+      {modMode && (
+        <Mod publication={publication} isFullPublication={showCount} />
+      )}
     </span>
   );
 };

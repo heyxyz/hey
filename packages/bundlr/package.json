@@ -4,19 +4,22 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --pretty --noEmit",
+    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix --ext .ts"
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "arbundles": "^0.8.0",
+    "arbundles": "^0.9.6",
     "base64url": "^3.0.1",
-    "ethers": "5.7.2",
-    "secp256k1": "^5.0.0"
+    "secp256k1": "^5.0.0",
+    "viem": "^0.3.19"
   },
   "devDependencies": {
     "@types/secp256k1": "^4.0.3",
-    "eslint-config-weblint": "*",
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

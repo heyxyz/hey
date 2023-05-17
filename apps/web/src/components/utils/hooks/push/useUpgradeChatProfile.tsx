@@ -1,6 +1,6 @@
 import usePushDecryption from '@components/utils/hooks/push/usePushDecryption';
 import { XIcon } from '@heroicons/react/outline';
-import type { ProgressHookType } from '@pushprotocol/restapi';
+import type { ProgressHookType, SignerType } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
 import { ENCRYPTION_TYPE } from '@pushprotocol/restapi/src/lib/constants';
 // import { LENSHUB_PROXY } from 'data';
@@ -9,8 +9,8 @@ import { useCallback, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input, Spinner } from 'ui';
-import { useSigner } from 'wagmi';
 
+import useEthersWalletClient from '../useEthersWalletClient';
 import useCreateChatProfile from './useCreateChatProfile';
 
 type handleSetPassFunc = () => void;
@@ -35,12 +35,16 @@ const initModalInfo: modalInfoType = {
 };
 
 const useUpgradeChatProfile = () => {
-  const { data: signer } = useSigner();
+  const { data: walletClient } = useEthersWalletClient();
   const { createChatProfile } = useCreateChatProfile();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
-  const setConnectedProfile = usePushChatStore((state) => state.setConnectedProfile);
-  const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
+  const setConnectedProfile = usePushChatStore(
+    (state) => state.setConnectedProfile
+  );
+  const setShowUpgradeChatProfileModal = usePushChatStore(
+    (state) => state.setShowUpgradeChatProfileModal
+  );
 
   const [step, setStep] = useState<number>(1);
   const [modalClosable, setModalClosable] = useState<boolean>(false);
@@ -86,7 +90,7 @@ const useUpgradeChatProfile = () => {
   }, [reset]);
 
   const handleContinue: handleSetPassFunc = useCallback(async () => {
-    if (!signer || !currentProfile || !connectedProfile) {
+    if (!walletClient || !currentProfile || !connectedProfile) {
       return;
     }
 
@@ -103,7 +107,7 @@ const useUpgradeChatProfile = () => {
       const response = await PushAPI.user.auth.update({
         pgpPrivateKey: decryptedKey,
         pgpEncryptionVersion: ENCRYPTION_TYPE.NFTPGP_V1,
-        signer: signer,
+        signer: walletClient as SignerType,
         pgpPublicKey: connectedProfile?.publicKey,
         account: connectedProfile?.did,
         env: PUSH_ENV,
@@ -129,7 +133,14 @@ const useUpgradeChatProfile = () => {
         initiateProcess();
       }, timeout);
     }
-  }, [signer, currentProfile, connectedProfile, password, setConnectedProfile, initiateProcess]);
+  }, [
+    walletClient,
+    currentProfile,
+    connectedProfile,
+    password,
+    setConnectedProfile,
+    initiateProcess
+  ]);
 
   const upgradeChatProfile = useCallback(async () => {
     initiateProcess();
@@ -144,8 +155,12 @@ const useUpgradeChatProfile = () => {
           <div className="pb-1.5 text-center text-base font-medium">
             {step}/{totalSteps} - {modalInfo.title}
           </div>
-          <div className="px-5 pb-4 text-center text-xs font-[450] text-[#818189]">{modalInfo.info}</div>
-          <div className="px-1 pb-2 text-base font-medium">Enter your password</div>
+          <div className="px-5 pb-4 text-center text-xs font-[450] text-[#818189]">
+            {modalInfo.info}
+          </div>
+          <div className="px-1 pb-2 text-base font-medium">
+            Enter your password
+          </div>
           <Input
             type="text"
             className="px-4 py-4 text-sm"
@@ -153,7 +168,9 @@ const useUpgradeChatProfile = () => {
             autoComplete="off"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="mt-6 text-center text-xs font-[450] text-[#818189]">Forgot your password?</div>
+          <div className="mt-6 text-center text-xs font-[450] text-[#818189]">
+            Forgot your password?
+          </div>
           <div className="pb-2 text-center text-xs font-[450] text-[#818189]">
             Start fresh by creating a new profile
           </div>
@@ -195,7 +212,9 @@ const useUpgradeChatProfile = () => {
           <div className="pb-4 text-center text-base font-medium">
             {step}/{totalSteps} - {modalInfo.title}
           </div>
-          <div className="pb-4 text-center text-xs font-[450] text-[#818189]">{modalInfo.info}</div>
+          <div className="pb-4 text-center text-xs font-[450] text-[#818189]">
+            {modalInfo.info}
+          </div>
           <Spinner variant="primary" size="sm" className="mb-4 self-center" />
           <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
             <div
@@ -219,7 +238,10 @@ const useUpgradeChatProfile = () => {
             {totalSteps}/{totalSteps} - {modalInfo.title}
           </div>
           <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-            <div className="bg-brand-500 h-2 rounded-full p-0.5 leading-none" style={{ width: `100%` }} />
+            <div
+              className="bg-brand-500 h-2 rounded-full p-0.5 leading-none"
+              style={{ width: `100%` }}
+            />
           </div>
         </div>
       );
@@ -249,8 +271,12 @@ const useUpgradeChatProfile = () => {
           >
             <XIcon className="h-5 w-5" />
           </button>
-          <div className="pb-4 text-center text-base font-medium">{modalInfo.title}</div>
-          <div className="text-center text-xs font-[450] text-[#818189]">{modalInfo.info}</div>
+          <div className="pb-4 text-center text-base font-medium">
+            {modalInfo.title}
+          </div>
+          <div className="text-center text-xs font-[450] text-[#818189]">
+            {modalInfo.info}
+          </div>
         </div>
       );
   }

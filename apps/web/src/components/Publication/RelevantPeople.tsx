@@ -14,25 +14,32 @@ interface RelevantPeopleProps {
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
-  const mentions = publication?.metadata?.content?.match(ALL_HANDLES_REGEX, '$1[~$2]') ?? [];
+  const mentions =
+    publication?.metadata?.content?.match(ALL_HANDLES_REGEX, '$1[~$2]') ?? [];
 
   const processedMentions = mentions.map((mention: string) => {
     const trimmedMention = mention.trim().replace('@', '').replace("'s", '');
 
     if (trimmedMention.length > 9) {
-      return mention.trim().replace("'s", '').replace(HANDLE_SANITIZE_REGEX, '');
+      return mention
+        .trim()
+        .replace("'s", '')
+        .replace(HANDLE_SANITIZE_REGEX, '');
     }
 
     return formatHandle(publication?.profile?.handle);
   });
 
-  const cleanedMentions = processedMentions.reduce((handles: string[], handle: string) => {
-    if (!handles.includes(handle)) {
-      handles.push(handle);
-    }
+  const cleanedMentions = processedMentions.reduce(
+    (handles: string[], handle: string) => {
+      if (!handles.includes(handle)) {
+        handles.push(handle);
+      }
 
-    return handles;
-  }, []);
+      return handles;
+    },
+    []
+  );
 
   const { data, loading, error } = useRelevantPeopleQuery({
     variables: { request: { handles: cleanedMentions.slice(0, 5) } },

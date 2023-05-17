@@ -1,7 +1,12 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import { Trans } from '@lingui/macro';
 import type { Comment, Publication, PublicationsQueryRequest } from 'lens';
-import { CommentOrderingTypes, CommentRankingFilter, CustomFiltersTypes, useCommentFeedQuery } from 'lens';
+import {
+  CommentOrderingTypes,
+  CommentRankingFilter,
+  CustomFiltersTypes,
+  useCommentFeedQuery
+} from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -13,7 +18,10 @@ interface NoneRelevantFeedProps {
 }
 
 const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
-  const publicationId = publication?.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id;
+  const publicationId =
+    publication?.__typename === 'Mirror'
+      ? publication?.mirrorOf?.id
+      : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [hasMore, setHasMore] = useState(true);
   const [showMore, setShowMore] = useState(false);
@@ -26,7 +34,9 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
     commentsRankingFilter: CommentRankingFilter.NoneRelevant,
     limit: 30
   };
-  const reactionRequest = currentProfile ? { profileId: currentProfile?.id } : null;
+  const reactionRequest = currentProfile
+    ? { profileId: currentProfile?.id }
+    : null;
   const profileId = currentProfile?.id ?? null;
 
   const { data, fetchMore } = useCommentFeedQuery({
@@ -45,7 +55,11 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
       }
 
       await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next }, reactionRequest, profileId }
+        variables: {
+          request: { ...request, cursor: pageInfo?.next },
+          reactionRequest,
+          profileId
+        }
       }).then(({ data }) => {
         setHasMore(data?.publications?.items?.length > 0);
       });
@@ -65,7 +79,11 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
         }}
         dataTestId="none-relevant-feed"
       >
-        {showMore ? <Trans>Hide more comments</Trans> : <Trans>Show more comments</Trans>}
+        {showMore ? (
+          <Trans>Hide more comments</Trans>
+        ) : (
+          <Trans>Show more comments</Trans>
+        )}
       </Card>
       {showMore ? (
         <Card className="divide-y-[1px] dark:divide-gray-700">

@@ -1,4 +1,7 @@
-mutation CreateCollectTypedData($options: TypedDataOptions, $request: CreateCollectRequest!) {
+mutation CreateCollectTypedData(
+  $options: TypedDataOptions
+  $request: CreateCollectRequest!
+) {
   createCollectTypedData(options: $options, request: $request) {
     id
     expiresAt

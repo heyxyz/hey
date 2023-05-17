@@ -48,7 +48,9 @@ const useFetchRequests = () => {
         const modifiedRequestsObj: { [key: string]: IFeeds } = {};
 
         for (const request of requests) {
-          const profileId: string = getProfileFromDID(request.did ?? request.chatId);
+          const profileId: string = getProfileFromDID(
+            request.did ?? request.chatId
+          );
           if (request.did) {
             lensIds.push(profileId);
           }

@@ -10,7 +10,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
-import { checkIfGroup, getGroupImage, getGroupPreviewMessage, getProfileFromDID, isCAIP } from './helper';
+import {
+  checkIfGroup,
+  getGroupImage,
+  getGroupPreviewMessage,
+  getProfileFromDID,
+  isCAIP
+} from './helper';
 import ModifiedImage from './ModifiedImage';
 import { PreviewMessage } from './PUSHPreviewChats';
 
@@ -24,7 +30,9 @@ export default function PUSHPreviewRequests() {
 
   const { fetchRequests, loading } = useFetchRequests();
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
-  const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
+  const setSelectedChatId = usePushChatStore(
+    (state) => state.setSelectedChatId
+  );
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const setRequestsFeed = usePushChatStore((state) => state.setRequestsFeed);
@@ -56,7 +64,11 @@ export default function PUSHPreviewRequests() {
   }, [decryptedPgpPvtKey, fetchRequests, page]);
 
   useEffect(() => {
-    if (!isInViewport1 || loading || Object.keys(requestsFeed).length < requestLimit) {
+    if (
+      !isInViewport1 ||
+      loading ||
+      Object.keys(requestsFeed).length < requestLimit
+    ) {
       return;
     }
 
@@ -127,7 +139,9 @@ export default function PUSHPreviewRequests() {
           .map((item) => {
             let id = item?.id;
             const feed = requestsFeed[id];
-            const profileId: string = getProfileFromDID(feed?.did ?? feed?.chatId);
+            const profileId: string = getProfileFromDID(
+              feed?.did ?? feed?.chatId
+            );
             const lensProfile = lensProfiles.get(profileId);
             const isGroup = checkIfGroup(feed);
             const deprecated = feed?.deprecated ? true : false;
@@ -181,14 +195,27 @@ export default function PUSHPreviewRequests() {
                           {feed.groupInformation?.groupName}
                         </p>
                         <PreviewMessage
-                          content={getGroupPreviewMessage(feed, connectedProfile?.did!, true).message}
-                          messageType={getGroupPreviewMessage(feed, connectedProfile?.did!, true).type}
+                          content={
+                            getGroupPreviewMessage(
+                              feed,
+                              connectedProfile?.did!,
+                              true
+                            ).message
+                          }
+                          messageType={
+                            getGroupPreviewMessage(
+                              feed,
+                              connectedProfile?.did!,
+                              true
+                            ).type
+                          }
                         />
                       </>
                     ) : (
                       <>
                         <p className="bold max-w-[180px] truncate text-base">
-                          {lensProfile?.name ?? formatHandle(lensProfile?.handle)}
+                          {lensProfile?.name ??
+                            formatHandle(lensProfile?.handle)}
                         </p>
                         <PreviewMessage
                           content={feed?.msg.messageContent}
@@ -198,7 +225,9 @@ export default function PUSHPreviewRequests() {
                     )}
                   </div>
                   <div>
-                    <span className="text-xs text-gray-500">{moment(feed?.msg.timestamp).fromNow()}</span>
+                    <span className="text-xs text-gray-500">
+                      {moment(feed?.msg.timestamp).fromNow()}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -211,7 +240,9 @@ export default function PUSHPreviewRequests() {
       )}
 
       {!loading && Object.keys(requestsFeed).length === 0 && (
-        <div className="mt-12 flex h-full flex-grow items-center justify-center">No requests yet</div>
+        <div className="mt-12 flex h-full flex-grow items-center justify-center">
+          No requests yet
+        </div>
       )}
 
       <div ref={pageRef} className="invisible" />

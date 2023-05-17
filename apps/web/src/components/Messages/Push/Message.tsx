@@ -39,8 +39,12 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
   const { fetchGroup } = useGetGroup();
   const { fetchGroupByName } = useGroupByName();
   const lensProfiles = usePushChatStore((state) => state.lensProfiles);
-  const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
-  const setSelectedChatType = usePushChatStore((state) => state.setSelectedChatType);
+  const setSelectedChatId = usePushChatStore(
+    (state) => state.setSelectedChatId
+  );
+  const setSelectedChatType = usePushChatStore(
+    (state) => state.setSelectedChatType
+  );
   const [getProfileByHandle, { loading }] = useProfileLazyQuery();
   const { fetchChat } = useFetchChat();
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
@@ -200,10 +204,18 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
                   <>
                     <MessageHeader
                       profile={profile}
-                      selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
+                      selectedChat={
+                        chatsFeed[selectedChatId] ??
+                        requestsFeed[selectedChatId] ??
+                        selectedChat
+                      }
                     />
                     <MessageBody
-                      selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
+                      selectedChat={
+                        chatsFeed[selectedChatId] ??
+                        requestsFeed[selectedChatId] ??
+                        selectedChat
+                      }
                     />
                   </>
                 )}
@@ -211,11 +223,19 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
                   <>
                     <MessageHeader
                       groupInfo={groupInfo}
-                      selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
+                      selectedChat={
+                        chatsFeed[selectedChatId] ??
+                        requestsFeed[selectedChatId] ??
+                        selectedChat
+                      }
                     />
                     <MessageBody
                       groupInfo={groupInfo}
-                      selectedChat={chatsFeed[selectedChatId] ?? requestsFeed[selectedChatId] ?? selectedChat}
+                      selectedChat={
+                        chatsFeed[selectedChatId] ??
+                        requestsFeed[selectedChatId] ??
+                        selectedChat
+                      }
                     />
                   </>
                 )}
@@ -235,18 +255,30 @@ const MessagePage: NextPage = () => {
     query: { conversationKey }
   } = useRouter();
 
-  if (!conversationKey || !currentProfileId || !Array.isArray(conversationKey)) {
+  if (
+    !conversationKey ||
+    !currentProfileId ||
+    !Array.isArray(conversationKey)
+  ) {
     return <Custom404 />;
   }
 
   //case where type is not given
   const [conversationType, conversationId] = conversationKey;
 
-  if (conversationType !== CHAT_TYPES.CHAT && conversationType !== CHAT_TYPES.GROUP) {
+  if (
+    conversationType !== CHAT_TYPES.CHAT &&
+    conversationType !== CHAT_TYPES.GROUP
+  ) {
     return <Custom404 />;
   }
 
-  return <Message conversationType={conversationType} conversationId={conversationId} />;
+  return (
+    <Message
+      conversationType={conversationType}
+      conversationId={conversationId}
+    />
+  );
 };
 
 export default MessagePage;

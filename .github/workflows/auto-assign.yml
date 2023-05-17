@@ -14,7 +14,8 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - name: "Auto-assign issue"
+      - name: 'Auto-assign issue'
+        if: github.repository == 'lensterxyz/lenster'
         uses: pozil/auto-assign-issue@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}

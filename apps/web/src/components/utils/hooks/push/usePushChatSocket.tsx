@@ -22,10 +22,17 @@ const usePushChatSocket = (): PushChatSocket => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const pushChatSocket = usePushChatStore((state) => state.pushChatSocket);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
-  const setPushChatSocket = usePushChatStore((state) => state.setPushChatSocket);
-  const [isSDKSocketConnected, setIsSDKSocketConnected] = useState<boolean>(false);
-  const [messagesSinceLastConnection, setMessagesSinceLastConnection] = useState<any>('');
-  const [groupInformationSinceLastConnection, setGroupInformationSinceLastConnection] = useState<any>('');
+  const setPushChatSocket = usePushChatStore(
+    (state) => state.setPushChatSocket
+  );
+  const [isSDKSocketConnected, setIsSDKSocketConnected] =
+    useState<boolean>(false);
+  const [messagesSinceLastConnection, setMessagesSinceLastConnection] =
+    useState<any>('');
+  const [
+    groupInformationSinceLastConnection,
+    setGroupInformationSinceLastConnection
+  ] = useState<any>('');
   const { fetchChat } = useFetchChat();
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const chatsFeed = usePushChatStore((state) => state.chatsFeed);
@@ -45,60 +52,65 @@ const usePushChatSocket = (): PushChatSocket => {
       setIsSDKSocketConnected(false);
     });
 
-    pushChatSocket?.on(EVENTS.CHAT_RECEIVED_MESSAGE, async (chat: IMessageIPFS) => {
-      if (!connectedProfile || !decryptedPgpPvtKey) {
-        return;
-      }
-      if (chat.fromDID === connectedProfile.did) {
-        return;
-      }
-
-      const response = await PushAPI.chat.decryptConversation({
-        messages: [chat],
-        connectedUser: connectedProfile,
-        pgpPrivateKey: decryptedPgpPvtKey,
-        env: PUSH_ENV
-      });
-
-      if (response && response.length) {
-        const msg = response[0];
-        const chatId = !isCAIP(msg.toDID) ? msg.toDID : msg.fromDID;
-
-        if (chatsFeed[chatId]) {
-          let newOne: IFeeds = chatsFeed[chatId];
-          setChat(chatId, {
-            messages: Array.isArray(chats.get(chatId)?.messages)
-              ? [...chats.get(chatId)!.messages, msg]
-              : [msg],
-            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
-          });
-
-          newOne['msg'] = msg;
-          setChatFeed(chatId, newOne);
-        } else if (requestsFeed[chatId]) {
-          let newOne: IFeeds = requestsFeed[chatId];
-          setChat(chatId, {
-            messages: Array.isArray(chats.get(chatId)?.messages)
-              ? [...chats.get(chatId)!.messages, msg]
-              : [msg],
-            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
-          });
-
-          newOne['msg'] = msg;
-          setRequestFeed(chatId, newOne);
-        } else {
-          let fetchChatsMessages: IFeeds = (await fetchChat({ recipientAddress: chatId })) as IFeeds;
-          setChatFeed(chatId, fetchChatsMessages);
-          setChat(chatId, {
-            messages: Array.isArray(chats.get(chatId)?.messages)
-              ? [...chats.get(chatId)!.messages, msg]
-              : [msg],
-            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
-          });
+    pushChatSocket?.on(
+      EVENTS.CHAT_RECEIVED_MESSAGE,
+      async (chat: IMessageIPFS) => {
+        if (!connectedProfile || !decryptedPgpPvtKey) {
+          return;
         }
+        if (chat.fromDID === connectedProfile.did) {
+          return;
+        }
+
+        const response = await PushAPI.chat.decryptConversation({
+          messages: [chat],
+          connectedUser: connectedProfile,
+          pgpPrivateKey: decryptedPgpPvtKey,
+          env: PUSH_ENV
+        });
+
+        if (response && response.length) {
+          const msg = response[0];
+          const chatId = !isCAIP(msg.toDID) ? msg.toDID : msg.fromDID;
+
+          if (chatsFeed[chatId]) {
+            let newOne: IFeeds = chatsFeed[chatId];
+            setChat(chatId, {
+              messages: Array.isArray(chats.get(chatId)?.messages)
+                ? [...chats.get(chatId)!.messages, msg]
+                : [msg],
+              lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
+            });
+
+            newOne['msg'] = msg;
+            setChatFeed(chatId, newOne);
+          } else if (requestsFeed[chatId]) {
+            let newOne: IFeeds = requestsFeed[chatId];
+            setChat(chatId, {
+              messages: Array.isArray(chats.get(chatId)?.messages)
+                ? [...chats.get(chatId)!.messages, msg]
+                : [msg],
+              lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
+            });
+
+            newOne['msg'] = msg;
+            setRequestFeed(chatId, newOne);
+          } else {
+            let fetchChatsMessages: IFeeds = (await fetchChat({
+              recipientAddress: chatId
+            })) as IFeeds;
+            setChatFeed(chatId, fetchChatsMessages);
+            setChat(chatId, {
+              messages: Array.isArray(chats.get(chatId)?.messages)
+                ? [...chats.get(chatId)!.messages, msg]
+                : [msg],
+              lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
+            });
+          }
+        }
+        setMessagesSinceLastConnection(chat);
       }
-      setMessagesSinceLastConnection(chat);
-    });
+    );
 
     pushChatSocket?.on(EVENTS.CHAT_GROUPS, (groupInfo: any) => {
       console.log(groupInfo);

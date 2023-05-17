@@ -28,7 +28,9 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
     : `@${profile?.handle} • Lenster`;
   const description = truncateByWords(profile?.bio ?? '', 30);
   const image = `${USER_CONTENT_URL}/${AVATAR}/${sanitizeDStorageUrl(
-    profile?.picture?.original?.url ?? profile?.picture?.uri ?? getStampFyiURL(profile?.ownedBy)
+    profile?.picture?.original?.url ??
+      profile?.picture?.uri ??
+      getStampFyiURL(profile?.ownedBy)
   )}`;
 
   return (
@@ -81,10 +83,16 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         }
       />
       <header>
-        <img alt={`@${formatHandle(profile.handle)}'s avatar`} src={image} width="64" />
+        <img
+          alt={`@${formatHandle(profile.handle)}'s avatar`}
+          src={image}
+          width="64"
+        />
         <h1 data-testid="profile-name">{profile.name ?? profile.handle}</h1>
         <h2 data-testid="profile-handle">@{formatHandle(profile.handle)}</h2>
-        <h3 data-testid="profile-bio">{truncateByWords(profile?.bio ?? '', 30)}</h3>
+        <h3 data-testid="profile-bio">
+          {truncateByWords(profile?.bio ?? '', 30)}
+        </h3>
         <div>
           <div>{profile.stats.totalPosts} Posts</div>
           <div>{profile.stats.totalComments} Replies</div>
@@ -98,16 +106,34 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
             <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>Feed</a>
           </div>
           <div>
-            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=replies`}>Replies</a>
+            <a
+              href={`${BASE_URL}/u/${formatHandle(
+                profile.handle
+              )}?type=replies`}
+            >
+              Replies
+            </a>
           </div>
           <div>
-            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=media`}>Media</a>
+            <a
+              href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=media`}
+            >
+              Media
+            </a>
           </div>
           <div>
-            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=collects`}>Collected</a>
+            <a
+              href={`${BASE_URL}/u/${formatHandle(
+                profile.handle
+              )}?type=collects`}
+            >
+              Collected
+            </a>
           </div>
           <div>
-            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=nft`}>NFTs</a>
+            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=nft`}>
+              NFTs
+            </a>
           </div>
         </nav>
         <hr />
@@ -116,7 +142,13 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         {publications?.map((publication) => {
           const { __typename } = publication;
           return (
-            <div key={__typename === 'Mirror' ? publication.mirrorOf.id : publication.id}>
+            <div
+              key={
+                __typename === 'Mirror'
+                  ? publication.mirrorOf.id
+                  : publication.id
+              }
+            >
               <SinglePublication publication={publication} />
             </div>
           );

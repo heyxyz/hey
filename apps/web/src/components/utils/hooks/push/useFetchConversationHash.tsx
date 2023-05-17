@@ -21,12 +21,18 @@ const useGetConversationHash = () => {
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
 
   const getConversationHash = useCallback(
-    async ({ conversationId }: conversationHashParams): Promise<conversationHashResponseType | undefined> => {
+    async ({
+      conversationId
+    }: conversationHashParams): Promise<
+      conversationHashResponseType | undefined
+    > => {
       setLoading(true);
       try {
         const response = await PushAPI.chat.conversationHash({
           conversationId,
-          account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${(currentProfile as Profile)?.id}`,
+          account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${
+            (currentProfile as Profile)?.id
+          }`,
           env: PUSH_ENV
         });
         setLoading(false);

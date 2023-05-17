@@ -1,11 +1,12 @@
 import { XIcon } from '@heroicons/react/outline';
-import type { ProgressHookType } from '@pushprotocol/restapi';
+import type { ProgressHookType, SignerType } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
 import { useCallback, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { Image, Spinner } from 'ui';
-import { useSigner } from 'wagmi';
+
+import useEthersWalletClient from '../useEthersWalletClient';
 
 const totalSteps: number = 2;
 enum ProgressType {
@@ -32,9 +33,11 @@ const initModalInfo: modalInfoType = {
 };
 
 const usePushDecryption = () => {
-  const { data: signer } = useSigner();
+  const { data: walletClient } = useEthersWalletClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
+  const setShowDecryptionModal = usePushChatStore(
+    (state) => state.setShowDecryptionModal
+  );
   const [step, setStep] = useState<number>(0);
   const [modalClosable, setModalClosable] = useState<boolean>(true);
   const [modalInfo, setModalInfo] = useState<modalInfoType>(initModalInfo);
@@ -81,16 +84,18 @@ const usePushDecryption = () => {
       if (!additionalMeta.NFTPGP_V1?.password) {
         setShowDecryptionModal(true);
       }
-      if (!currentProfile || !signer) {
+      if (!currentProfile || !walletClient) {
         return { decryptedKey: undefined, error: undefined };
       }
       const { ownedBy } = currentProfile;
       try {
         const response = await PushAPI.chat.decryptPGPKey({
           encryptedPGPPrivateKey: encryptedText,
-          signer: signer,
+          signer: walletClient as SignerType,
           account: ownedBy,
-          additionalMeta: additionalMeta.NFTPGP_V1?.password ? additionalMeta : undefined,
+          additionalMeta: additionalMeta.NFTPGP_V1?.password
+            ? additionalMeta
+            : undefined,
           progressHook: handleProgress,
           env: PUSH_ENV
         });
@@ -105,7 +110,13 @@ const usePushDecryption = () => {
         return { decryptedKey: undefined, error: error.message };
       }
     },
-    [currentProfile, handleProgress, reset, setShowDecryptionModal, signer]
+    [
+      currentProfile,
+      handleProgress,
+      reset,
+      setShowDecryptionModal,
+      walletClient
+    ]
   );
 
   let modalContent: JSX.Element;
@@ -116,7 +127,9 @@ const usePushDecryption = () => {
           <div className="pb-4 text-center text-base font-medium">
             {step}/{totalSteps} - {modalInfo.title}
           </div>
-          <div className="pb-4 text-center text-xs font-[450] text-[#818189]">{modalInfo.info}</div>
+          <div className="pb-4 text-center text-xs font-[450] text-[#818189]">
+            {modalInfo.info}
+          </div>
           <Spinner variant="primary" size="sm" className="mb-4 self-center" />
           <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
             <div
@@ -140,7 +153,10 @@ const usePushDecryption = () => {
             {step}/{totalSteps} - {modalInfo.title}
           </div>
           <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-            <div className="bg-brand-500 h-2 rounded-full p-0.5 leading-none" style={{ width: `100%` }} />
+            <div
+              className="bg-brand-500 h-2 rounded-full p-0.5 leading-none"
+              style={{ width: `100%` }}
+            />
           </div>
         </div>
       );
@@ -170,8 +186,12 @@ const usePushDecryption = () => {
           >
             <XIcon className="h-5 w-5" />
           </button>
-          <div className="pb-4 text-center text-base font-medium">{modalInfo.title}</div>
-          <div className="text-center text-xs font-[450] text-[#818189]">{modalInfo.info}</div>
+          <div className="pb-4 text-center text-base font-medium">
+            {modalInfo.title}
+          </div>
+          <div className="text-center text-xs font-[450] text-[#818189]">
+            {modalInfo.info}
+          </div>
         </div>
       );
   }

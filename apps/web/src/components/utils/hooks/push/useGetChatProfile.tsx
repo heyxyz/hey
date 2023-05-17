@@ -11,13 +11,17 @@ interface GetProfileParams {
 
 const useGetChatProfile = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setConnectedProfile = usePushChatStore((state) => state.setConnectedProfile);
+  const setConnectedProfile = usePushChatStore(
+    (state) => state.setConnectedProfile
+  );
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const fetchChatProfile = useCallback(
-    async ({ profileId }: GetProfileParams): Promise<PushAPI.IUser | undefined> => {
+    async ({
+      profileId
+    }: GetProfileParams): Promise<PushAPI.IUser | undefined> => {
       if (currentProfile?.id === profileId && decryptedPgpPvtKey) {
         return;
       }

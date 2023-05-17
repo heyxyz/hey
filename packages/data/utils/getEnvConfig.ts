@@ -1,5 +1,9 @@
 import { LENS_NETWORK } from '../constants';
-import { MainnetContracts, SandboxContracts, TestnetContracts } from '../contracts';
+import {
+  MainnetContracts,
+  SandboxContracts,
+  TestnetContracts
+} from '../contracts';
 import LensEndpoint from '../lens-endpoints';
 
 const getEnvConfig = (): {
@@ -7,7 +11,6 @@ const getEnvConfig = (): {
   lensHubProxyAddress: `0x${string}`;
   lensPeripheryAddress: `0x${string}`;
   defaultCollectToken: string;
-  UpdateOwnableFeeCollectModuleAddress: `0x${string}`;
   litProtocolEnvironment: string;
 } => {
   switch (LENS_NETWORK) {
@@ -17,7 +20,6 @@ const getEnvConfig = (): {
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
         lensPeripheryAddress: MainnetContracts.LensPeriphery,
         defaultCollectToken: MainnetContracts.DefaultToken,
-        UpdateOwnableFeeCollectModuleAddress: MainnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'polygon'
       };
     case 'testnet':
@@ -26,7 +28,6 @@ const getEnvConfig = (): {
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
         lensPeripheryAddress: TestnetContracts.LensPeriphery,
         defaultCollectToken: TestnetContracts.DefaultToken,
-        UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai'
       };
     case 'staging':
@@ -35,7 +36,6 @@ const getEnvConfig = (): {
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
         lensPeripheryAddress: TestnetContracts.LensPeriphery,
         defaultCollectToken: TestnetContracts.DefaultToken,
-        UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai'
       };
     case 'sandbox':
@@ -44,7 +44,6 @@ const getEnvConfig = (): {
         lensHubProxyAddress: SandboxContracts.LensHubProxy,
         lensPeripheryAddress: SandboxContracts.LensPeriphery,
         defaultCollectToken: TestnetContracts.DefaultToken,
-        UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai-sandbox'
       };
     case 'staging-sandbox':
@@ -53,7 +52,6 @@ const getEnvConfig = (): {
         lensHubProxyAddress: SandboxContracts.LensHubProxy,
         lensPeripheryAddress: SandboxContracts.LensPeriphery,
         defaultCollectToken: TestnetContracts.DefaultToken,
-        UpdateOwnableFeeCollectModuleAddress: TestnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'mumbai-sandbox'
       };
     default:
@@ -62,7 +60,6 @@ const getEnvConfig = (): {
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
         lensPeripheryAddress: MainnetContracts.LensPeriphery,
         defaultCollectToken: MainnetContracts.DefaultToken,
-        UpdateOwnableFeeCollectModuleAddress: MainnetContracts.UpdateOwnableFeeCollectModule,
         litProtocolEnvironment: 'polygon'
       };
   }

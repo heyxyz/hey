@@ -1,5 +1,5 @@
 import { XIcon } from '@heroicons/react/outline';
-import type { ProgressHookType } from '@pushprotocol/restapi';
+import type { ProgressHookType, SignerType } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
 import { ENCRYPTION_TYPE } from '@pushprotocol/restapi/src/lib/constants';
 import { LENSHUB_PROXY } from 'data';
@@ -9,8 +9,8 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input, Spinner } from 'ui';
-import { useSigner } from 'wagmi';
 
+import useEthersWalletClient from '../useEthersWalletClient';
 import usePushDecryption from './usePushDecryption';
 
 const totalSteps: number = 2;
@@ -35,12 +35,16 @@ const initModalInfo: modalInfoType = {
 };
 
 const useCreatePassword = () => {
-  const { data: signer } = useSigner();
+  const { data: walletClient } = useEthersWalletClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const setPasswordStore = usePushChatStore((state) => state.setPassword);
-  const { decrypted: decryptedPassword } = usePushChatStore((state) => state.password);
-  const setShowCreatePasswordModal = usePushChatStore((state) => state.setShowCreatePasswordModal);
+  const { decrypted: decryptedPassword } = usePushChatStore(
+    (state) => state.password
+  );
+  const setShowCreatePasswordModal = usePushChatStore(
+    (state) => state.setShowCreatePasswordModal
+  );
   const [step, setStep] = useState<number>(0);
   const [password, setPassword] = useState<string>('');
   const [oldPassword, setOldPassword] = useState<string>('testtest');
@@ -50,7 +54,9 @@ const useCreatePassword = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { decryptKey } = usePushDecryption();
-  const setConnectedProfile = usePushChatStore((state) => state.setConnectedProfile);
+  const setConnectedProfile = usePushChatStore(
+    (state) => state.setConnectedProfile
+  );
 
   // const setPgpPrivateKey = usePushChatStore((state) => state.setPgpPrivateKey);
 
@@ -103,14 +109,14 @@ const useCreatePassword = () => {
     } else {
       reset();
     }
-    if (!connectedProfile || !signer || !currentProfile) {
+    if (!connectedProfile || !walletClient || !currentProfile) {
       return { password: undefined, error: undefined };
     }
     let keyOne = JSON.parse(connectedProfile?.encryptedPrivateKey);
     let testService = JSON.stringify(keyOne.encryptedPassword);
     try {
       const response = await PushAPI.user.decryptAuth({
-        signer: signer,
+        signer: walletClient as SignerType,
         account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
         additionalMeta: {
           NFTPGP_V1: {
@@ -140,7 +146,7 @@ const useCreatePassword = () => {
     handleProgress,
     reset,
     setShowCreatePasswordModal,
-    signer,
+    walletClient,
     connectedProfile,
     decryptedPassword
   ]);
@@ -150,7 +156,7 @@ const useCreatePassword = () => {
   }, [reset]);
 
   const handleNext: handleSetPassFunc = useCallback(async () => {
-    if (!signer || !currentProfile || !connectedProfile) {
+    if (!walletClient || !currentProfile || !connectedProfile) {
       return;
     }
 
@@ -168,7 +174,7 @@ const useCreatePassword = () => {
       const response = await PushAPI.user.auth.update({
         pgpPrivateKey: decryptedKey,
         pgpEncryptionVersion: ENCRYPTION_TYPE.NFTPGP_V1,
-        signer: signer,
+        signer: walletClient as SignerType,
         pgpPublicKey: connectedProfile?.publicKey,
         account: connectedProfile?.did,
         env: PUSH_ENV,
@@ -202,7 +208,7 @@ const useCreatePassword = () => {
       setLoading(false);
     }
   }, [
-    signer,
+    walletClient,
     currentProfile,
     connectedProfile,
     password,
@@ -229,8 +235,12 @@ const useCreatePassword = () => {
           >
             <XIcon className="h-5 w-5" />
           </button>
-          <div className="pb-2 text-center text-base font-medium">{modalInfo.title}</div>
-          <div className="text-center text-xs font-[450] text-[#818189]">{modalInfo.info}</div>
+          <div className="pb-2 text-center text-base font-medium">
+            {modalInfo.title}
+          </div>
+          <div className="text-center text-xs font-[450] text-[#818189]">
+            {modalInfo.info}
+          </div>
 
           <div className="my-4">
             <div className="flex items-center justify-between">
@@ -265,7 +275,13 @@ const useCreatePassword = () => {
             >
               <span className="flex">
                 Change Password{' '}
-                {loading && <Spinner variant="primary" size="xs" className="ml-2 self-center" />}
+                {loading && (
+                  <Spinner
+                    variant="primary"
+                    size="xs"
+                    className="ml-2 self-center"
+                  />
+                )}
               </span>
             </Button>
           </div>
@@ -278,7 +294,9 @@ const useCreatePassword = () => {
           <div className="pb-4 text-center text-base font-medium">
             {step}/{totalSteps} - {modalInfo.title}
           </div>
-          <div className="pb-4 text-center text-xs font-[450] text-[#818189]">{modalInfo.info}</div>
+          <div className="pb-4 text-center text-xs font-[450] text-[#818189]">
+            {modalInfo.info}
+          </div>
           <Spinner variant="primary" size="sm" className="mb-4 self-center" />
           <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
             <div
@@ -302,7 +320,10 @@ const useCreatePassword = () => {
             {step}/{totalSteps} - {modalInfo.title}
           </div>
           <div className="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-            <div className="bg-brand-500 h-2 rounded-full p-0.5 leading-none" style={{ width: `100%` }} />
+            <div
+              className="bg-brand-500 h-2 rounded-full p-0.5 leading-none"
+              style={{ width: `100%` }}
+            />
           </div>
         </div>
       );
@@ -332,8 +353,12 @@ const useCreatePassword = () => {
           >
             <XIcon className="h-5 w-5" />
           </button>
-          <div className="pb-4 text-center text-base font-medium">{modalInfo.title}</div>
-          <div className="text-center text-xs font-[450] text-[#818189]">{modalInfo.info}</div>
+          <div className="pb-4 text-center text-base font-medium">
+            {modalInfo.title}
+          </div>
+          <div className="text-center text-xs font-[450] text-[#818189]">
+            {modalInfo.info}
+          </div>
         </div>
       );
   }

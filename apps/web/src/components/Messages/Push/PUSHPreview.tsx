@@ -32,21 +32,43 @@ const page: number = 1;
 const PUSHPreview = () => {
   const containerRef = useRef(null);
   const { fetchChatProfile } = useGetChatProfile();
-  const resetPushChatStore = usePushChatStore((state) => state.resetPushChatStore);
+  const resetPushChatStore = usePushChatStore(
+    (state) => state.resetPushChatStore
+  );
   const currentProfile = useAppStore((state) => state.currentProfile);
   const activeTab = usePushChatStore((state) => state.activeTab);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const setActiveTab = usePushChatStore((state) => state.setActiveTab);
-  const setShowCreateGroupModal = usePushChatStore((state) => state.setShowCreateGroupModal);
-  const showCreateGroupModal = usePushChatStore((state) => state.showCreateGroupModal);
-  const showCreateChatProfileModal = usePushChatStore((state) => state.showCreateChatProfileModal);
-  const setShowCreateChatProfileModal = usePushChatStore((state) => state.setShowCreateChatProfileModal);
-  const showUpgradeChatProfileModal = usePushChatStore((state) => state.showUpgradeChatProfileModal);
-  const showDecryptionModal = usePushChatStore((state) => state.showDecryptionModal);
-  const setShowUpgradeChatProfileModal = usePushChatStore((state) => state.setShowUpgradeChatProfileModal);
-  const setShowDecryptionModal = usePushChatStore((state) => state.setShowDecryptionModal);
-  const showCreatePasswordModal = usePushChatStore((state) => state.showCreatePasswordModal);
-  const setShowCreatePasswordModal = usePushChatStore((state) => state.setShowCreatePasswordModal);
+  const setShowCreateGroupModal = usePushChatStore(
+    (state) => state.setShowCreateGroupModal
+  );
+  const showCreateGroupModal = usePushChatStore(
+    (state) => state.showCreateGroupModal
+  );
+  const showCreateChatProfileModal = usePushChatStore(
+    (state) => state.showCreateChatProfileModal
+  );
+  const setShowCreateChatProfileModal = usePushChatStore(
+    (state) => state.setShowCreateChatProfileModal
+  );
+  const showUpgradeChatProfileModal = usePushChatStore(
+    (state) => state.showUpgradeChatProfileModal
+  );
+  const showDecryptionModal = usePushChatStore(
+    (state) => state.showDecryptionModal
+  );
+  const setShowUpgradeChatProfileModal = usePushChatStore(
+    (state) => state.setShowUpgradeChatProfileModal
+  );
+  const setShowDecryptionModal = usePushChatStore(
+    (state) => state.setShowDecryptionModal
+  );
+  const showCreatePasswordModal = usePushChatStore(
+    (state) => state.showCreatePasswordModal
+  );
+  const setShowCreatePasswordModal = usePushChatStore(
+    (state) => state.setShowCreatePasswordModal
+  );
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const setRequestsFeed = usePushChatStore((state) => state.setRequestsFeed);
@@ -100,11 +122,19 @@ const PUSHPreview = () => {
       if (decryptedPgpPvtKey) {
         return;
       }
-      if (connectedProfile && connectedProfile?.encryptedPrivateKey && connectedProfile?.nftOwner) {
+      if (
+        connectedProfile &&
+        connectedProfile?.encryptedPrivateKey &&
+        connectedProfile?.nftOwner
+      ) {
         const nftProfileOwnerAddress = connectedProfile.nftOwner.split(':')[1];
         const { ownedBy } = currentProfile;
-        if (ownedBy.toLowerCase() === nftProfileOwnerAddress.toLocaleLowerCase()) {
-          await decryptKey({ encryptedText: connectedProfile?.encryptedPrivateKey });
+        if (
+          ownedBy.toLowerCase() === nftProfileOwnerAddress.toLocaleLowerCase()
+        ) {
+          await decryptKey({
+            encryptedText: connectedProfile?.encryptedPrivateKey
+          });
         } else {
           await upgradeChatProfile();
         }
@@ -166,7 +196,10 @@ const PUSHPreview = () => {
   useEffect(() => {
     if (connectedProfile && connectedProfile.did && currentProfile?.id) {
       const selectedProfilePushId = getProfileFromDID(connectedProfile?.did);
-      if (selectedProfilePushId && currentProfile?.id !== selectedProfilePushId) {
+      if (
+        selectedProfilePushId &&
+        currentProfile?.id !== selectedProfilePushId
+      ) {
         resetPushChatStore();
         router.push('/messages/push');
       }
@@ -213,7 +246,9 @@ const PUSHPreview = () => {
             <div
               onClick={() => setActiveTab(PUSH_TABS.CHATS)}
               className={`w-6/12 cursor-pointer border-b-4 pb-3.5 text-center  font-bold ${
-                activeTab === PUSH_TABS.CHATS ? 'border-b-brand-500' : 'border-b-transparent text-gray-500'
+                activeTab === PUSH_TABS.CHATS
+                  ? 'border-b-brand-500'
+                  : 'border-b-transparent text-gray-500'
               }`}
             >
               <Trans>Chats</Trans>
@@ -221,7 +256,9 @@ const PUSHPreview = () => {
             <div
               onClick={() => setActiveTab(PUSH_TABS.REQUESTS)}
               className={`align-items-center flex w-6/12 cursor-pointer justify-center gap-x-1.5 border-b-4 pb-3.5 font-bold ${
-                activeTab === PUSH_TABS.REQUESTS ? 'border-b-brand-500' : 'border-b-transparent text-gray-500'
+                activeTab === PUSH_TABS.REQUESTS
+                  ? 'border-b-brand-500'
+                  : 'border-b-transparent text-gray-500'
               }`}
             >
               <Trans>Requests</Trans>
@@ -239,8 +276,15 @@ const PUSHPreview = () => {
             />
           </div>
         </section>
-        <div onClick={handleCreateGroup} className="ml-0 flex cursor-pointer px-4 pb-4">
-          <Image src="/push/creategroup.svg" alt="create group" className="mr-2 h-5" />
+        <div
+          onClick={handleCreateGroup}
+          className="ml-0 flex cursor-pointer px-4 pb-4"
+        >
+          <Image
+            src="/push/creategroup.svg"
+            alt="create group"
+            className="mr-2 h-5"
+          />
           <button className="text-base font-medium">Create Group</button>
         </div>
 
@@ -257,7 +301,10 @@ const PUSHPreview = () => {
               className="absolute -bottom-3 right-0 z-10 flex cursor-pointer flex-row rounded-2xl border-2 border-gray-200 bg-white px-6 py-3"
               onClick={handleAccountPassword}
             >
-              <BsKey size={27} style={{ transform: 'scaleX(-1)', rotate: '-45deg' }} />
+              <BsKey
+                size={27}
+                style={{ transform: 'scaleX(-1)', rotate: '-45deg' }}
+              />
               <div className="ml-2">Account Password</div>
             </div>
           )}
@@ -274,8 +321,14 @@ const PUSHPreview = () => {
               alt="Profile Picture"
             />
             <div className="flex flex-col">
-              <p className="text-base">{currentProfile?.name ?? formatHandle(currentProfile?.handle)}</p>
-              <Slug className="text-sm" slug={formatHandle(currentProfile?.handle)} prefix="@" />
+              <p className="text-base">
+                {currentProfile?.name ?? formatHandle(currentProfile?.handle)}
+              </p>
+              <Slug
+                className="text-sm"
+                slug={formatHandle(currentProfile?.handle)}
+                prefix="@"
+              />
             </div>
           </div>
 
@@ -292,35 +345,55 @@ const PUSHPreview = () => {
       <Modal
         size="xs"
         show={showCreateGroupModal}
-        onClose={isCreateModalClosable ? () => setShowCreateGroupModal(false) : () => {}}
+        onClose={
+          isCreateModalClosable
+            ? () => setShowCreateGroupModal(false)
+            : () => {}
+        }
       >
         {createGroupModalContent}
       </Modal>
       <Modal
         size="xs"
         show={showCreateChatProfileModal}
-        onClose={isCreateChatProfileModalClosable ? () => setShowCreateChatProfileModal(false) : () => {}}
+        onClose={
+          isCreateChatProfileModalClosable
+            ? () => setShowCreateChatProfileModal(false)
+            : () => {}
+        }
       >
         {createChatProfileModalContent}
       </Modal>
       <Modal
         size="xs"
         show={showUpgradeChatProfileModal}
-        onClose={isUpgradeChatProfileModalClosable ? () => setShowUpgradeChatProfileModal(false) : () => {}}
+        onClose={
+          isUpgradeChatProfileModalClosable
+            ? () => setShowUpgradeChatProfileModal(false)
+            : () => {}
+        }
       >
         {upgradeChatProfileModalContent}
       </Modal>
       <Modal
         size="xs"
         show={showDecryptionModal}
-        onClose={isDecryptionModalClosable ? () => setShowDecryptionModal(false) : () => {}}
+        onClose={
+          isDecryptionModalClosable
+            ? () => setShowDecryptionModal(false)
+            : () => {}
+        }
       >
         {decryptionModalContent}
       </Modal>
       <Modal
         size="xs"
         show={showCreatePasswordModal}
-        onClose={isCreatePasswordModalClosable ? () => setShowCreatePasswordModal(false) : () => {}}
+        onClose={
+          isCreatePasswordModalClosable
+            ? () => setShowCreatePasswordModal(false)
+            : () => {}
+        }
       >
         {createPasswordModalContent}
       </Modal>

@@ -27,7 +27,10 @@ export type ParsedChatType = {
 export type ChatTypes = (typeof CHAT_TYPES)[keyof typeof CHAT_TYPES];
 type PushTabs = (typeof PUSH_TABS)[keyof typeof PUSH_TABS];
 
-type ChatMessagetype = { messages: IMessageIPFS[]; lastThreadHash: string | null };
+type ChatMessagetype = {
+  messages: IMessageIPFS[];
+  lastThreadHash: string | null;
+};
 export const PUSH_ENV = IS_MAINNET ? ENV.PROD : ENV.STAGING;
 
 interface IPushChatStore {
@@ -58,7 +61,9 @@ interface IPushChatStore {
   showDecryptionModal: boolean;
   setShowDecryptionModal: (showDecryptionModal: boolean) => void;
   showUpgradeChatProfileModal: boolean;
-  setShowUpgradeChatProfileModal: (showUpgradeChatProfileModal: boolean) => void;
+  setShowUpgradeChatProfileModal: (
+    showUpgradeChatProfileModal: boolean
+  ) => void;
   showCreatePasswordModal: boolean;
   setShowCreatePasswordModal: (showCreatePasswordModal: boolean) => void;
   password: {
@@ -70,7 +75,10 @@ interface IPushChatStore {
     encrypted: string | null;
     decrypted: string | null;
   };
-  setPgpPrivateKey: (pgpPrivateKey: { encrypted?: string; decrypted?: string }) => void;
+  setPgpPrivateKey: (pgpPrivateKey: {
+    encrypted?: string;
+    decrypted?: string;
+  }) => void;
   pushChatSocket: any; // replace any with the actual type of socket connection
   setPushChatSocket: (pushChatSocket: any) => void;
 }
@@ -109,23 +117,29 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   setLensProfiles: (lensProfiles) =>
     set((state) => ({
       lensProfiles:
-        state.lensProfiles.size === 0 ? lensProfiles : new Map([...state.lensProfiles, ...lensProfiles])
+        state.lensProfiles.size === 0
+          ? lensProfiles
+          : new Map([...state.lensProfiles, ...lensProfiles])
     })),
   selectedChatId: '',
   selectedChatType: null,
   setSelectedChatId: (selectedChatId) => set(() => ({ selectedChatId })),
   setSelectedChatType: (selectedChatType) => set(() => ({ selectedChatType })),
   showCreateChatProfileModal: false,
-  setShowCreateChatProfileModal: (showCreateChatProfileModal) => set(() => ({ showCreateChatProfileModal })),
+  setShowCreateChatProfileModal: (showCreateChatProfileModal) =>
+    set(() => ({ showCreateChatProfileModal })),
   showCreateGroupModal: false,
-  setShowCreateGroupModal: (showCreateGroupModal) => set(() => ({ showCreateGroupModal })),
+  setShowCreateGroupModal: (showCreateGroupModal) =>
+    set(() => ({ showCreateGroupModal })),
   showDecryptionModal: false,
-  setShowDecryptionModal: (showDecryptionModal) => set(() => ({ showDecryptionModal })),
+  setShowDecryptionModal: (showDecryptionModal) =>
+    set(() => ({ showDecryptionModal })),
   showUpgradeChatProfileModal: false,
   setShowUpgradeChatProfileModal: (showUpgradeChatProfileModal) =>
     set(() => ({ showUpgradeChatProfileModal })),
   showCreatePasswordModal: false,
-  setShowCreatePasswordModal: (showCreatePasswordModal) => set(() => ({ showCreatePasswordModal })),
+  setShowCreatePasswordModal: (showCreatePasswordModal) =>
+    set(() => ({ showCreatePasswordModal })),
   password: {
     encrypted: null,
     decrypted: null

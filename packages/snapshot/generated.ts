@@ -2,9 +2,15 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -522,6 +528,8 @@ export type SnapshotQuery = {
     snapshot?: string | null;
     symbol: string;
     network: string;
+    type?: string | null;
+    end: number;
     space?: { __typename?: 'Space'; id: string; name?: string | null } | null;
     strategies: Array<{
       __typename?: 'Strategy';
@@ -533,15 +541,17 @@ export type SnapshotQuery = {
   votes?: Array<{ __typename?: 'Vote'; choice: any } | null> | null;
 };
 
-export interface PossibleTypesResultData {
-  possibleTypes: {
-    [key: string]: string[];
-  };
-}
-const result: PossibleTypesResultData = {
-  possibleTypes: {}
+export type SpaceQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['String']>;
+}>;
+
+export type SpaceQuery = {
+  __typename?: 'Query';
+  proposal?: {
+    __typename?: 'Proposal';
+    space?: { __typename?: 'Space'; id: string } | null;
+  } | null;
 };
-export default result;
 
 export const SnapshotDocument = gql`
   query Snapshot($id: String, $where: VoteWhere) {
@@ -556,6 +566,8 @@ export const SnapshotDocument = gql`
       snapshot
       symbol
       network
+      type
+      end
       space {
         id
         name
@@ -593,14 +605,88 @@ export function useSnapshotQuery(
   baseOptions?: Apollo.QueryHookOptions<SnapshotQuery, SnapshotQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<SnapshotQuery, SnapshotQueryVariables>(SnapshotDocument, options);
+  return Apollo.useQuery<SnapshotQuery, SnapshotQueryVariables>(
+    SnapshotDocument,
+    options
+  );
 }
 export function useSnapshotLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<SnapshotQuery, SnapshotQueryVariables>
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SnapshotQuery,
+    SnapshotQueryVariables
+  >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<SnapshotQuery, SnapshotQueryVariables>(SnapshotDocument, options);
+  return Apollo.useLazyQuery<SnapshotQuery, SnapshotQueryVariables>(
+    SnapshotDocument,
+    options
+  );
 }
 export type SnapshotQueryHookResult = ReturnType<typeof useSnapshotQuery>;
-export type SnapshotLazyQueryHookResult = ReturnType<typeof useSnapshotLazyQuery>;
-export type SnapshotQueryResult = Apollo.QueryResult<SnapshotQuery, SnapshotQueryVariables>;
+export type SnapshotLazyQueryHookResult = ReturnType<
+  typeof useSnapshotLazyQuery
+>;
+export type SnapshotQueryResult = Apollo.QueryResult<
+  SnapshotQuery,
+  SnapshotQueryVariables
+>;
+export const SpaceDocument = gql`
+  query Space($id: String) {
+    proposal(id: $id) {
+      space {
+        id
+      }
+    }
+  }
+`;
+
+/**
+ * __useSpaceQuery__
+ *
+ * To run a query within a React component, call `useSpaceQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSpaceQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSpaceQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSpaceQuery(
+  baseOptions?: Apollo.QueryHookOptions<SpaceQuery, SpaceQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SpaceQuery, SpaceQueryVariables>(
+    SpaceDocument,
+    options
+  );
+}
+export function useSpaceLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<SpaceQuery, SpaceQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SpaceQuery, SpaceQueryVariables>(
+    SpaceDocument,
+    options
+  );
+}
+export type SpaceQueryHookResult = ReturnType<typeof useSpaceQuery>;
+export type SpaceLazyQueryHookResult = ReturnType<typeof useSpaceLazyQuery>;
+export type SpaceQueryResult = Apollo.QueryResult<
+  SpaceQuery,
+  SpaceQueryVariables
+>;
+
+export interface PossibleTypesResultData {
+  possibleTypes: {
+    [key: string]: string[];
+  };
+}
+const result: PossibleTypesResultData = {
+  possibleTypes: {}
+};
+export default result;

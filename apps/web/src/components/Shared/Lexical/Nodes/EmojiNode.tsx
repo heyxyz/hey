@@ -1,7 +1,16 @@
-import type { EditorConfig, LexicalNode, NodeKey, SerializedTextNode, Spread } from 'lexical';
+import type {
+  EditorConfig,
+  LexicalNode,
+  NodeKey,
+  SerializedTextNode,
+  Spread
+} from 'lexical';
 import { TextNode } from 'lexical';
 
-export type SerializedEmojiNode = Spread<{ className: string; type: 'emoji' }, SerializedTextNode>;
+export type SerializedEmojiNode = Spread<
+  { className: string; type: 'emoji' },
+  SerializedTextNode
+>;
 
 export class EmojiNode extends TextNode {
   __className: string;
@@ -29,7 +38,11 @@ export class EmojiNode extends TextNode {
     return dom;
   }
 
-  updateDOM(prevNode: TextNode, dom: HTMLElement, config: EditorConfig): boolean {
+  updateDOM(
+    prevNode: TextNode,
+    dom: HTMLElement,
+    config: EditorConfig
+  ): boolean {
     const inner = dom.firstChild;
     if (inner === null) {
       return true;
@@ -41,7 +54,10 @@ export class EmojiNode extends TextNode {
 
   static importJSON(serializedNode: SerializedEmojiNode): EmojiNode {
     // eslint-disable-next-line no-use-before-define
-    const node = $createEmojiNode(serializedNode.className, serializedNode.text);
+    const node = $createEmojiNode(
+      serializedNode.className,
+      serializedNode.text
+    );
     node.setFormat(serializedNode.format);
     node.setDetail(serializedNode.detail);
     node.setMode(serializedNode.mode);
@@ -64,10 +80,15 @@ export class EmojiNode extends TextNode {
   }
 }
 
-export const $isEmojiNode = (node: LexicalNode | null | undefined): node is EmojiNode => {
+export const $isEmojiNode = (
+  node: LexicalNode | null | undefined
+): node is EmojiNode => {
   return node instanceof EmojiNode;
 };
 
-export const $createEmojiNode = (className: string, emojiText: string): EmojiNode => {
+export const $createEmojiNode = (
+  className: string,
+  emojiText: string
+): EmojiNode => {
   return new EmojiNode(className, emojiText).setMode('token');
 };

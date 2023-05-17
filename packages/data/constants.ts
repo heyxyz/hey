@@ -3,7 +3,7 @@ import LensEndpoint from './lens-endpoints';
 import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
-export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
 export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 // Lens Network
@@ -21,6 +21,15 @@ export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 export const XMTP_PREFIX = 'lens.dev/dm';
 
+// Snapshot
+export const SNAPSHOT_HUB_URL = IS_MAINNET
+  ? 'https://hub.snapshot.org'
+  : 'https://testnet.snapshot.org';
+export const LENSTER_POLLS_SPACE = 'polls.lenster.xyz';
+export const SNAPSHOT_URL = IS_MAINNET
+  ? 'https://snapshot.org'
+  : 'https://demo.snapshot.org';
+
 // Application
 export const APP_NAME = 'Lenster';
 export const DESCRIPTION =
@@ -28,13 +37,15 @@ export const DESCRIPTION =
 export const APP_VERSION = packageJson.version;
 
 // Git
-export const GIT_COMMIT_SHA = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
+export const GIT_COMMIT_SHA =
+  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
 
 // Misc
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
-export const OLD_LENS_RELAYER_ADDRESS = '0xD1FecCF6881970105dfb2b654054174007f0e07E';
+export const OLD_LENS_RELAYER_ADDRESS =
+  '0xD1FecCF6881970105dfb2b654054174007f0e07E';
 
 // Mixpanel
 export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
@@ -43,35 +54,66 @@ export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
-export const POLYGONSCAN_URL = IS_MAINNET ? 'https://polygonscan.com' : 'https://mumbai.polygonscan.com';
-export const RARIBLE_URL = IS_MAINNET ? 'https://rarible.com' : 'https://testnet.rarible.com';
+export const POLYGONSCAN_URL = IS_MAINNET
+  ? 'https://polygonscan.com'
+  : 'https://mumbai.polygonscan.com';
+export const RARIBLE_URL = IS_MAINNET
+  ? 'https://rarible.com'
+  : 'https://testnet.rarible.com';
 export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
-export const SIMPLEANALYTICS_API = 'https://simpleanalytics.com/lenster.xyz.json';
+export const SIMPLEANALYTICS_API =
+  'https://simpleanalytics.com/lenster.xyz.json';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 export const IFRAMELY_URL = 'https://iframely.lenster.xyz/iframely';
 
 // Workers
 export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
-export const STS_TOKEN_URL = IS_PRODUCTION ? 'https://sts.lenster.xyz' : 'http://localhost:8082';
-export const METADATA_WORKER_URL = IS_PRODUCTION ? 'https://metadata.lenster.xyz' : 'http://localhost:8083';
-export const FRESHDESK_WORKER_URL = IS_PRODUCTION ? 'https://freshdesk.lenster.xyz' : 'http://localhost:8084';
+export const STS_TOKEN_URL = IS_PRODUCTION
+  ? 'https://sts.lenster.xyz'
+  : 'http://localhost:8082';
+export const METADATA_WORKER_URL = IS_PRODUCTION
+  ? 'https://metadata.lenster.xyz'
+  : 'http://localhost:8083';
+export const FRESHDESK_WORKER_URL = IS_PRODUCTION
+  ? 'https://freshdesk.lenster.xyz'
+  : 'http://localhost:8084';
+export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
+  ? 'https://snapshot-relay.lenster.xyz'
+  : 'http://localhost:8085';
 
-// Web3
+// Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
+export const LIVEPEER_TOKEN = '4d4daf15-a037-4b8c-b7de-51f1994cc416';
+export const GROWTHBOOK_KEY = IS_MAINNET
+  ? 'sdk-fDLRMwvpyh4Kq3b'
+  : 'sdk-STENQl8vU1da648';
 
 // Regex
 export const URL_REGEX =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[\da-z]+([.\-][\da-z]+)*\.[a-z]{2,63}(:\d{1,5})?(\/.*)?$/;
 export const ADDRESS_REGEX = /^(0x)?[\da-f]{40}$/i;
 export const HANDLE_REGEX = /^[\da-z]+$/;
+export const RESTRICTED_SYMBOLS = '☑️✓✔✅';
+export const PROFILE_NAME_VALIDATOR_REGEX = new RegExp(
+  '^[^' + RESTRICTED_SYMBOLS + ']+$'
+);
+export const PROFILE_NAME_FILTER_REGEX = new RegExp(
+  '[' + RESTRICTED_SYMBOLS + ']',
+  'gu'
+);
 export const ALL_HANDLES_REGEX = /([\s+])@(\S+)/g;
 export const HANDLE_SANITIZE_REGEX = /[^\d .A-Za-z]/g;
 
 // Utils
-export const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+export const ALLOWED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/gif'
+];
 export const ALLOWED_AUDIO_TYPES = [
   'audio/mpeg',
   'audio/wav',
@@ -81,8 +123,18 @@ export const ALLOWED_AUDIO_TYPES = [
   'audio/webm',
   'audio/flac'
 ];
-export const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/mpeg', 'video/ogg', 'video/webm', 'video/quicktime'];
-export const ALLOWED_MEDIA_TYPES = [...ALLOWED_VIDEO_TYPES, ...ALLOWED_IMAGE_TYPES, ...ALLOWED_AUDIO_TYPES];
+export const ALLOWED_VIDEO_TYPES = [
+  'video/mp4',
+  'video/mpeg',
+  'video/ogg',
+  'video/webm',
+  'video/quicktime'
+];
+export const ALLOWED_MEDIA_TYPES = [
+  ...ALLOWED_VIDEO_TYPES,
+  ...ALLOWED_IMAGE_TYPES,
+  ...ALLOWED_AUDIO_TYPES
+];
 
 // UI
 export const MESSAGE_PAGE_LIMIT = 15;

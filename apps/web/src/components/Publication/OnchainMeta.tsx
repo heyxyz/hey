@@ -13,7 +13,12 @@ interface MetaProps {
 
 const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
   <div className="px-5 py-3">
-    <a href={uri} className="space-y-1" target="_blank" rel="noreferrer noopener">
+    <a
+      href={uri}
+      className="space-y-1"
+      target="_blank"
+      rel="noreferrer noopener"
+    >
       <div className="flex items-center space-x-1">
         <div className="text-[10px]">{name}</div>
         <ExternalLinkIcon className="h-4 w-4" />
@@ -47,9 +52,30 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
     <Card as="aside" dataTestId="onchain-meta">
       <div className="lt-text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
-          <Meta name={t`ARWEAVE TRANSACTION`} uri={`https://arweave.app/tx/${hash}`} hash={hash} />
+          <Meta
+            name={t`ARWEAVE TRANSACTION`}
+            uri={`https://arweave.app/tx/${hash}`}
+            hash={hash}
+          />
         ) : null}
-        {isIPFSHash ? <Meta name="IPFS TRANSACTION" uri={`${IPFS_GATEWAY}${hash}`} hash={hash} /> : null}
+        {publication?.isDataAvailability ? (
+          <Meta
+            name={t`MOMOKA PROOF`}
+            uri={`https://momoka.lens.xyz/tx/${publication.dataAvailabilityProofs
+              ?.split('/')
+              .pop()}`}
+            hash={
+              publication.dataAvailabilityProofs?.split('/').pop() as string
+            }
+          />
+        ) : null}
+        {isIPFSHash ? (
+          <Meta
+            name="IPFS TRANSACTION"
+            uri={`${IPFS_GATEWAY}${hash}`}
+            hash={hash}
+          />
+        ) : null}
         {collectNftAddress ? (
           <Meta
             name={t`NFT ADDRESS`}

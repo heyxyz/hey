@@ -4,24 +4,33 @@ import {
   AdjustmentsIcon,
   BookmarkIcon,
   ChipIcon,
+  DatabaseIcon,
   ExclamationIcon,
   FingerPrintIcon,
   ShareIcon,
   SparklesIcon,
   UserIcon
 } from '@heroicons/react/outline';
+import { Growthbook } from '@lib/growthbook';
 import { t, Trans } from '@lingui/macro';
+import { FeatureFlag } from 'data';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 const SettingsSidebar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const { on: isExportDataEnabled } = Growthbook.feature(
+    FeatureFlag.ExportData
+  );
 
   return (
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">
       <div className="pb-3">
-        <UserProfile profile={currentProfile as Profile} showUserPreview={false} />
+        <UserProfile
+          profile={currentProfile as Profile}
+          showUserPreview={false}
+        />
       </div>
       <Sidebar
         items={[
@@ -59,6 +68,12 @@ const SettingsSidebar: FC = () => {
             title: t`Cleanup`,
             icon: <SparklesIcon className="h-4 w-4" />,
             url: '/settings/cleanup'
+          },
+          {
+            title: t`Export`,
+            icon: <DatabaseIcon className="h-4 w-4" />,
+            url: '/settings/export',
+            enabled: isExportDataEnabled
           },
           {
             title: (

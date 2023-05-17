@@ -10,15 +10,31 @@ import React, { useEffect, useRef, useState } from 'react';
 import { usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
-import { checkIfGroup, getGroupImage, getGroupPreviewMessage, getProfileFromDID, isCAIP } from './helper';
+import {
+  checkIfGroup,
+  getGroupImage,
+  getGroupPreviewMessage,
+  getProfileFromDID,
+  isCAIP
+} from './helper';
 import ModifiedImage from './ModifiedImage';
 
-export const PreviewMessage = ({ messageType, content }: { messageType: string; content: string }) => {
+export const PreviewMessage = ({
+  messageType,
+  content
+}: {
+  messageType: string;
+  content: string;
+}) => {
   if (messageType === 'GIF') {
-    return <Image className="right-2.5 top-2.5" src="/push/gitIcon.svg" alt="" />;
+    return (
+      <Image className="right-2.5 top-2.5" src="/push/gitIcon.svg" alt="" />
+    );
   }
 
-  return <p className="max-w-[150px] truncate text-sm text-gray-500">{content}</p>;
+  return (
+    <p className="max-w-[150px] truncate text-sm text-gray-500">{content}</p>
+  );
 };
 
 const chatLimit = 10;
@@ -41,7 +57,9 @@ export default function PUSHPreviewChats() {
   const [allFeeds, setAllFeeds] = useState<Array<any>>();
   const [paginateLoading, setPaginateLoading] = useState<boolean>(false);
   const isInViewport1 = useIsInViewport(testRef, '0px');
-  const setSelectedChatId = usePushChatStore((state) => state.setSelectedChatId);
+  const setSelectedChatId = usePushChatStore(
+    (state) => state.setSelectedChatId
+  );
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
@@ -63,7 +81,11 @@ export default function PUSHPreviewChats() {
   }, [decryptedPgpPvtKey, fetchChats, page]);
 
   useEffect(() => {
-    if (!isInViewport1 || loading || Object.keys(chatsFeed).length < chatLimit) {
+    if (
+      !isInViewport1 ||
+      loading ||
+      Object.keys(chatsFeed).length < chatLimit
+    ) {
       return;
     }
 
@@ -132,7 +154,9 @@ export default function PUSHPreviewChats() {
           .map((item) => {
             let id = item?.id;
             const feed = chatsFeed[id];
-            const profileId: string = getProfileFromDID(feed?.did ?? feed?.chatId);
+            const profileId: string = getProfileFromDID(
+              feed?.did ?? feed?.chatId
+            );
             const lensProfile = lensProfiles.get(profileId);
             const isGroup = checkIfGroup(feed);
             const deprecated = feed?.deprecated ? true : false;
@@ -186,14 +210,27 @@ export default function PUSHPreviewChats() {
                           {feed?.groupInformation?.groupName}
                         </p>
                         <PreviewMessage
-                          content={getGroupPreviewMessage(feed, connectedProfile?.did!, false).message}
-                          messageType={getGroupPreviewMessage(feed, connectedProfile?.did!, false).type}
+                          content={
+                            getGroupPreviewMessage(
+                              feed,
+                              connectedProfile?.did!,
+                              false
+                            ).message
+                          }
+                          messageType={
+                            getGroupPreviewMessage(
+                              feed,
+                              connectedProfile?.did!,
+                              false
+                            ).type
+                          }
                         />
                       </>
                     ) : (
                       <>
                         <p className="bold max-w-[180px] truncate text-base">
-                          {lensProfile?.name ?? formatHandle(lensProfile?.handle)}
+                          {lensProfile?.name ??
+                            formatHandle(lensProfile?.handle)}
                         </p>
                         <PreviewMessage
                           content={feed?.msg.messageContent}
@@ -203,7 +240,9 @@ export default function PUSHPreviewChats() {
                     )}
                   </div>
                   <div>
-                    <span className="text-xs text-gray-500">{moment(feed?.msg.timestamp).fromNow()}</span>
+                    <span className="text-xs text-gray-500">
+                      {moment(feed?.msg.timestamp).fromNow()}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -216,7 +255,9 @@ export default function PUSHPreviewChats() {
       )}
 
       {!loading && Object.keys(chatsFeed).length === 0 && (
-        <div className="mt-12 flex h-full flex-grow items-center justify-center">No chats yet</div>
+        <div className="mt-12 flex h-full flex-grow items-center justify-center">
+          No chats yet
+        </div>
       )}
 
       <div ref={testRef} className="invisible" />

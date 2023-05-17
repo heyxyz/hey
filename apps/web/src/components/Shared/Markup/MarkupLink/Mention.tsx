@@ -1,6 +1,6 @@
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
-import { stopEventPropagation } from 'lib/stopEventPropagation';
+import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
 import type { MarkupLinkProps } from 'src/types';
@@ -25,7 +25,11 @@ const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
   return (
     <Link href={`/u/${formatHandle(handle)}`} onClick={stopEventPropagation}>
       {profile?.handle ? (
-        <UserPreview isBig={false} profile={profile as Profile} followStatusLoading={false}>
+        <UserPreview
+          isBig={false}
+          profile={profile as Profile}
+          followStatusLoading={false}
+        >
           <Slug slug={formatHandle(handle)} prefix="@" />
         </UserPreview>
       ) : (

@@ -6,7 +6,6 @@ import useGetHistoryMessages from '@components/utils/hooks/push/useFetchHistoryM
 import useFetchLensProfiles from '@components/utils/hooks/push/useFetchLensProfiles';
 import useFetchRequests from '@components/utils/hooks/push/useFetchRequests';
 import usePushSendMessage from '@components/utils/hooks/push/usePushSendMessage';
-import onError from '@lib/onError';
 import type { GroupDTO, IFeeds, IMessageIPFS } from '@pushprotocol/restapi';
 import clsx from 'clsx';
 import EmojiPicker from 'emoji-picker-react';
@@ -21,7 +20,11 @@ import { useAppStore } from 'src/store/app';
 import { CHAT_TYPES, PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input, Spinner } from 'ui';
 
-import { dateToFromNowDaily, getProfileFromDID, isProfileExist } from './helper';
+import {
+  dateToFromNowDaily,
+  getProfileFromDID,
+  isProfileExist
+} from './helper';
 
 type GIFType = {
   url: String;
@@ -30,7 +33,13 @@ type GIFType = {
 };
 
 const CHATS_FETCH_LIMIT = 15;
-const MessageCard = ({ chat, position }: { chat: IMessageIPFS; position: number }) => {
+const MessageCard = ({
+  chat,
+  position
+}: {
+  chat: IMessageIPFS;
+  position: number;
+}) => {
   const time = moment(chat.timestamp).format('hh:mm');
   // position = 0 -> DM (another person), 1 -> Connected Profile ID, 2 -> Group (another person)
   return (
@@ -44,7 +53,12 @@ const MessageCard = ({ chat, position }: { chat: IMessageIPFS; position: number 
         'relative w-fit max-w-[80%] border py-3 pl-4 pr-[50px] font-medium'
       )}
     >
-      <p className={clsx(position === 1 ? 'text-white' : '', 'max-w-[100%] break-words text-sm')}>
+      <p
+        className={clsx(
+          position === 1 ? 'text-white' : '',
+          'max-w-[100%] break-words text-sm'
+        )}
+      >
         {chat.messageContent}
       </p>
       <span
@@ -59,7 +73,13 @@ const MessageCard = ({ chat, position }: { chat: IMessageIPFS; position: number 
   );
 };
 
-const GIFCard = ({ chat, position }: { chat: IMessageIPFS; position: number }) => {
+const GIFCard = ({
+  chat,
+  position
+}: {
+  chat: IMessageIPFS;
+  position: number;
+}) => {
   // position = 0 -> DM (another person), 1 -> Connected Profile ID, 2 -> Group (another person)
   return (
     <div className={clsx(position ? 'self-end' : '', 'relative w-fit')}>
@@ -75,7 +95,11 @@ const GIFCard = ({ chat, position }: { chat: IMessageIPFS; position: number }) =
         src={chat.messageContent}
         alt=""
       />
-      <Image className="absolute right-2.5 top-2.5" src="/push/giticon.svg" alt="" />
+      <Image
+        className="absolute right-2.5 top-2.5"
+        src="/push/giticon.svg"
+        alt=""
+      />
     </div>
   );
 };
@@ -107,7 +131,9 @@ const SenderProfileInMsg = ({ chat }: { chat: IMessageIPFS }) => {
         alt={formatHandle(profile?.handle)}
       />
       <UserPreview profile={profile}>
-        <p className="bold text-base leading-6">{profile.name ?? formatHandle(profile?.handle)}</p>
+        <p className="bold text-base leading-6">
+          {profile.name ?? formatHandle(profile?.handle)}
+        </p>
       </UserPreview>
     </div>
   ) : null;
@@ -138,7 +164,11 @@ type MessageFieldPropType = {
 const requestLimit: number = 30;
 const page: number = 1;
 
-const MessageField = ({ scrollToBottom, selectedChat, disablePrivateGroup }: MessageFieldPropType) => {
+const MessageField = ({
+  scrollToBottom,
+  selectedChat,
+  disablePrivateGroup
+}: MessageFieldPropType) => {
   const modalRef = useRef(null);
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [gifOpen, setGifOpen] = useState(false);
@@ -156,12 +186,18 @@ const MessageField = ({ scrollToBottom, selectedChat, disablePrivateGroup }: Mes
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const requestFeedids = Object.keys(requestsFeed);
-  const [toShowJoinPublicGroup, setToShowJoinPublicGroup] = useState<boolean>(false);
+  const [toShowJoinPublicGroup, setToShowJoinPublicGroup] =
+    useState<boolean>(false);
 
-  const appendEmoji = ({ emoji }: { emoji: string }) => setInputText(`${inputText}${emoji}`);
+  const appendEmoji = ({ emoji }: { emoji: string }) =>
+    setInputText(`${inputText}${emoji}`);
 
   const ifPublicGroup = () => {
-    if (selectedChat && selectedChat.groupInformation && selectedChat.groupInformation.isPublic) {
+    if (
+      selectedChat &&
+      selectedChat.groupInformation &&
+      selectedChat.groupInformation.isPublic
+    ) {
       return true;
     }
     return false;
@@ -229,7 +265,7 @@ const MessageField = ({ scrollToBottom, selectedChat, disablePrivateGroup }: Mes
 
       fetchRequests({ page, requestLimit });
     } catch (error) {
-      onError(error);
+      console.log(error);
     }
   };
 
@@ -253,7 +289,9 @@ const MessageField = ({ scrollToBottom, selectedChat, disablePrivateGroup }: Mes
         await createChatProfile();
       }
       if (decryptedPgpPvtKey) {
-        const response = await approveChatRequest({ senderAddress: selectedChatId });
+        const response = await approveChatRequest({
+          senderAddress: selectedChatId
+        });
         setToShowJoinPublicGroup(false);
       }
     } catch (error) {
@@ -266,13 +304,19 @@ const MessageField = ({ scrollToBottom, selectedChat, disablePrivateGroup }: Mes
       <div className="align-center self-center text-sm text-[#9E9EA9]">
         You need to join the group in order to send a message
       </div>
-      <Button onClick={handleJoinGroup} className="self-center px-8 py-2 text-center" variant="primary">
+      <Button
+        onClick={handleJoinGroup}
+        className="self-center px-8 py-2 text-center"
+        variant="primary"
+      >
         Join Group
       </Button>
     </div>
   ) : disablePrivateGroup ? (
     <div className="flex rounded-lg border border-solid py-4">
-      <div className="m-auto text-sm text-[#9E9EA9]">Invitation request required to join the group.</div>
+      <div className="m-auto text-sm text-[#9E9EA9]">
+        Invitation request required to join the group.
+      </div>
     </div>
   ) : (
     <>
@@ -311,7 +355,10 @@ const MessageField = ({ scrollToBottom, selectedChat, disablePrivateGroup }: Mes
       )}
       {gifOpen && (
         <div ref={modalRef} className="absolute bottom-[50px] right-0">
-          <GifPicker onGifClick={sendGIF} tenorApiKey={String(process.env.NEXT_PUBLIC_GOOGLE_TOKEN)} />
+          <GifPicker
+            onGifClick={sendGIF}
+            tenorApiKey={String(process.env.NEXT_PUBLIC_GOOGLE_TOKEN)}
+          />
         </div>
       )}
       <Input
@@ -336,7 +383,10 @@ interface MessageBodyProps {
   selectedChat: IFeeds;
 }
 
-export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProps) {
+export default function MessageBody({
+  groupInfo,
+  selectedChat
+}: MessageBodyProps) {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
@@ -356,7 +406,8 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
   const dates = new Set();
 
   const [groupCreatorProfile, setGroupCreatorProfile] = useState<Profile>();
-  const [disablePrivateGroup, setDisablePrivateGroup] = useState<boolean>(false);
+  const [disablePrivateGroup, setDisablePrivateGroup] =
+    useState<boolean>(false);
 
   const selectedMessages = chats.get(selectedChatId);
   const prevSelectedId = useRef<string>('');
@@ -392,7 +443,9 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
         if (!decryptedPgpPvtKey) {
           return;
         }
-        const response = await approveChatRequest({ senderAddress: selectedChatId });
+        const response = await approveChatRequest({
+          senderAddress: selectedChatId
+        });
         if (response) {
           const updatedRequestsfeed = { ...requestsFeed };
           const selectedRequest = updatedRequestsfeed[selectedChatId];
@@ -413,7 +466,10 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
   };
 
   const getChatCall = async () => {
-    if (!selectedChat || selectedChatId !== (selectedChat?.did ?? selectedChat?.chatId)) {
+    if (
+      !selectedChat ||
+      selectedChatId !== (selectedChat?.did ?? selectedChat?.chatId)
+    ) {
       return;
     }
     let threadHash = null;
@@ -433,7 +489,9 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
   };
 
   const scrollToBottom = (behavior?: string | null) => {
-    bottomRef?.current?.scrollIntoView(!behavior ? true : { behavior: 'smooth' });
+    bottomRef?.current?.scrollIntoView(
+      !behavior ? true : { behavior: 'smooth' }
+    );
   };
 
   useEffect(() => {
@@ -517,12 +575,18 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
     const timestampDate = dateToFromNowDaily(chat.timestamp as number);
     // Add to Set so it does not render again
     dates.add(dateNum);
-    return <p className="py-2 text-center text-xs text-gray-500">{timestampDate}</p>;
+    return (
+      <p className="py-2 text-center text-xs text-gray-500">{timestampDate}</p>
+    );
   };
 
   return (
     <section className="flex h-[90%] flex-col p-3 pb-3">
-      <div className="flex-grow overflow-auto px-2" ref={listInnerRef} onScroll={onScroll}>
+      <div
+        className="flex-grow overflow-auto px-2"
+        ref={listInnerRef}
+        onScroll={onScroll}
+      >
         {loading ? (
           <div className="flex justify-center py-2">
             <Spinner size="sm" />
@@ -534,32 +598,38 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
         <div className="flex flex-col gap-2.5">
           {disablePrivateGroup ? (
             <div className="m-auto mt-8 flex flex-row space-x-2 rounded-md bg-[#F4F4F5] p-2">
-              <Image alt="deprecated icon" src="/push/lock.svg" className="h-4 w-4" />
+              <Image
+                alt="deprecated icon"
+                src="/push/lock.svg"
+                className="h-4 w-4"
+              />
               <div className="max-w-[380px] text-center text-sm text-[#9E9EA9]">
-                This is a private group. You will only be able to see messages once you have been invited to
-                the group.
+                This is a private group. You will only be able to see messages
+                once you have been invited to the group.
               </div>
             </div>
           ) : (
-            selectedMessages?.messages.map((chat: IMessageIPFS, index: number) => {
-              const dateNum = moment(chat.timestamp).format('ddMMyyyy');
-              let previousChat = null;
-              if (index > 0) {
-                previousChat = selectedMessages?.messages[index - 1]; // Get the previous chat
-              }
+            selectedMessages?.messages.map(
+              (chat: IMessageIPFS, index: number) => {
+                const dateNum = moment(chat.timestamp).format('ddMMyyyy');
+                let previousChat = null;
+                if (index > 0) {
+                  previousChat = selectedMessages?.messages[index - 1]; // Get the previous chat
+                }
 
-              return (
-                <>
-                  {dates.has(dateNum) ? null : renderDate({ chat, dateNum })}
-                  {chat.fromDID !== connectedProfile?.did &&
-                  selectedChatType === CHAT_TYPES.GROUP &&
-                  (index === 0 || previousChat?.fromDID !== chat.fromDID) ? (
-                    <SenderProfileInMsg chat={chat} />
-                  ) : null}
-                  <Messages chat={chat} key={index} />
-                </>
-              );
-            })
+                return (
+                  <>
+                    {dates.has(dateNum) ? null : renderDate({ chat, dateNum })}
+                    {chat.fromDID !== connectedProfile?.did &&
+                    selectedChatType === CHAT_TYPES.GROUP &&
+                    (index === 0 || previousChat?.fromDID !== chat.fromDID) ? (
+                      <SenderProfileInMsg chat={chat} />
+                    ) : null}
+                    <Messages chat={chat} key={index} />
+                  </>
+                );
+              }
+            )
           )}
           {requestFeedids.includes(selectedChatId) && (
             <div className="flex w-fit rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
@@ -572,7 +642,9 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
                 <div className="flex flex-col text-sm font-normal">
                   <span>
                     You were invited to the group by{' '}
-                    {groupCreatorProfile?.name ?? formatHandle(groupCreatorProfile?.handle)} (
+                    {groupCreatorProfile?.name ??
+                      formatHandle(groupCreatorProfile?.handle)}{' '}
+                    (
                     <span className="cursor-pointer">
                       {groupCreatorProfile && (
                         <UserPreview profile={groupCreatorProfile}>
@@ -586,7 +658,10 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
                     </span>
                     ) .
                   </span>
-                  <span> Please accept to continue messaging in this group.</span>
+                  <span>
+                    {' '}
+                    Please accept to continue messaging in this group.
+                  </span>
                 </div>
               ) : null}
               <Image
@@ -603,7 +678,8 @@ export default function MessageBody({ groupInfo, selectedChat }: MessageBodyProp
 
       {deprecatedChat ? (
         <div className="m-auto mb-8 max-w-[350px] text-center text-base text-[#657795]">
-          The ownership of this account has changed. Please start a new conversation to continue.
+          The ownership of this account has changed. Please start a new
+          conversation to continue.
         </div>
       ) : (
         <div className="relative mt-2">

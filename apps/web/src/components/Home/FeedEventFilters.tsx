@@ -5,20 +5,26 @@ import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { useTimelinePersistStore } from 'src/store/timeline';
-import { Tooltip } from 'ui';
-import { Checkbox } from 'ui/Checkbox';
+import { Checkbox, Tooltip } from 'ui';
 
 const FeedEventFilters: FC = () => {
-  const feedEventFilters = useTimelinePersistStore((state) => state.feedEventFilters);
-  const setFeedEventFilters = useTimelinePersistStore((state) => state.setFeedEventFilters);
+  const feedEventFilters = useTimelinePersistStore(
+    (state) => state.feedEventFilters
+  );
+  const setFeedEventFilters = useTimelinePersistStore(
+    (state) => state.setFeedEventFilters
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFeedEventFilters({ ...feedEventFilters, [e.target.name]: e.target.checked });
+    setFeedEventFilters({
+      ...feedEventFilters,
+      [e.target.name]: e.target.checked
+    });
   };
 
   return (
     <Menu as="div" className="relative">
-      <Menu.Button className="rounded-md p-1 hover:bg-gray-300 hover:bg-opacity-20">
+      <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
         <Tooltip placement="top" content={t`Filter`}>
           <AdjustmentsIcon className="text-brand h-5 w-5" />
         </Tooltip>

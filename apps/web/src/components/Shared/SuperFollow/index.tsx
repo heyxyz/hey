@@ -23,9 +23,20 @@ interface SuperFollowProps {
   setFollowing: Dispatch<boolean>;
   showText?: boolean;
   again?: boolean;
+
+  // For data analytics
+  followPosition?: number;
+  followSource?: string;
 }
 
-const SuperFollow: FC<SuperFollowProps> = ({ profile, setFollowing, showText = false, again = false }) => {
+const SuperFollow: FC<SuperFollowProps> = ({
+  profile,
+  setFollowing,
+  showText = false,
+  again = false,
+  followPosition,
+  followSource
+}) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
@@ -52,7 +63,9 @@ const SuperFollow: FC<SuperFollowProps> = ({ profile, setFollowing, showText = f
       <Modal
         title={
           <span>
-            Super follow <Slug slug={formatHandle(profile?.handle)} prefix="@" /> {again ? 'again' : ''}
+            Super follow{' '}
+            <Slug slug={formatHandle(profile?.handle)} prefix="@" />{' '}
+            {again ? 'again' : ''}
           </span>
         }
         icon={<StarIcon className="h-5 w-5 text-pink-500" />}
@@ -64,6 +77,8 @@ const SuperFollow: FC<SuperFollowProps> = ({ profile, setFollowing, showText = f
           setFollowing={setFollowing}
           setShowFollowModal={setShowFollowModal}
           again={again}
+          followPosition={followPosition}
+          followSource={followSource}
         />
       </Modal>
     </>
