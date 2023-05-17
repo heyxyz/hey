@@ -288,7 +288,8 @@ const PUSHPreview = () => {
           <button className="text-base font-medium">Create Group</button>
         </div>
 
-        <div className="relative flex-1">
+        {/* <div className="flex-1 h-auto overflow-y-scroll"> */}
+        <div className="z-10 h-full flex-1 overflow-y-scroll">
           {/* section for header */}
           {/* section for chats */}
           {activeTab === PUSH_TABS.CHATS && <PUSHPreviewChats />}
@@ -296,9 +297,12 @@ const PUSHPreview = () => {
           {/* sections for requests */}
           {activeTab === PUSH_TABS.REQUESTS && <PUSHPreviewRequests />}
           {/* sections for requests */}
+        </div>
+
+        <div className="relative flex flex-row items-center border-t-2 border-[#E4E8EF] pt-2">
           {showDropdown && (
             <div
-              className="absolute -bottom-3 right-0 z-10 flex cursor-pointer flex-row rounded-2xl border-2 border-gray-200 bg-white px-6 py-3"
+              className="absolute -top-8 right-0 z-20 flex cursor-pointer flex-row rounded-2xl border-2 border-gray-200 bg-white px-6 py-3"
               onClick={handleAccountPassword}
             >
               <BsKey
@@ -308,9 +312,6 @@ const PUSHPreview = () => {
               <div className="ml-2">Account Password</div>
             </div>
           )}
-        </div>
-
-        <div className="flex flex-row items-center border-t-2 border-[#E4E8EF] pt-2">
           <div className="flex flex-row items-center space-x-3">
             <Image
               src={getAvatar(currentProfile)}
