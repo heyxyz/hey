@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-16 00:08\n"
+"PO-Revision-Date: 2023-05-17 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1533,7 +1533,7 @@ msgstr "{0} கருத்துகள்"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Unlike"
-msgstr ""
+msgstr "விரும்பவில்லை"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
@@ -1576,7 +1576,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
-msgstr ""
+msgstr "ஸ்பான்சரை நிறுத்து"
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -2893,3 +2893,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+

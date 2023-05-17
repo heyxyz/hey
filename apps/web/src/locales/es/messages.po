@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-16 00:08\n"
+"PO-Revision-Date: 2023-05-17 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -215,6 +215,10 @@ msgstr ""
 
 #: src/components/Composer/Actions/Giphy/index.tsx
 msgid "Select GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
@@ -590,7 +594,7 @@ msgid "Failed to load trending"
 msgstr ""
 
 #: src/components/Home/Trending.tsx
-msgid "{0} Publications"
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
@@ -627,7 +631,6 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 #: src/components/Profile/Followerings.tsx
-#: src/components/Profile/Followerings.tsx
 msgid "Following"
 msgstr ""
 
@@ -657,6 +660,14 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
+msgstr ""
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Attachments are not loaded automatically from people you don’t follow."
+msgstr ""
+
+#: src/components/Messages/RemoteAttachmentPreview.tsx
+msgid "Large attachments are not loaded automatically."
 msgstr ""
 
 #: src/components/Messages/index.tsx
@@ -1316,6 +1327,15 @@ msgid "Not now"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Following} one {Following} other {Following}}"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
+#: src/components/Shared/UserPreview.tsx
+msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
+msgstr ""
+
 #: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
@@ -1458,7 +1478,7 @@ msgid "Loading collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0} collectors"
+msgid "{count, plural, zero {collector} one {collector} other {collectors}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -1499,11 +1519,7 @@ msgid "Fee recipients"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
-msgid "{0} Collects"
-msgstr ""
-
-#: src/components/Publication/Actions/Collect/index.tsx
-msgid "Collect"
+msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -1516,7 +1532,7 @@ msgid "{0} Comments"
 msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
-msgid "Dislike"
+msgid "Unlike"
 msgstr ""
 
 #: src/components/Publication/Actions/Like.tsx
@@ -1595,11 +1611,11 @@ msgid "NFT ADDRESS"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Comments"
+msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Mirrors"
+msgid "{mirrorCount, plural, zero {Mirror} one {Mirror} other {Mirrors}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1607,7 +1623,7 @@ msgid "Mirrored by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Likes"
+msgid "{reactionCount, plural, zero {Like} one {Like} other {Likes}}"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
@@ -1615,7 +1631,7 @@ msgid "Liked by"
 msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
-msgid "<0>{0}</0> Collects"
+msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
@@ -1861,15 +1877,15 @@ msgid "Delete Profile • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "This will deactivate your account"
+msgid "This will delete your Lens profile"
 msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "Deleting your account is permanent. All your data will be wiped out immediately and you won't be able to get it back."
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
-msgid "You cannot restore your {APP_NAME} account if it was accidentally or wrongfully deleted."
+msgid "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
 msgstr ""
 
 #: src/components/Settings/Delete/index.tsx
@@ -2034,6 +2050,10 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
+msgstr ""
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Profile name must not contain restricted symbols"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -2598,7 +2618,7 @@ msgid "Results"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} Votes"
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
 msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
@@ -2684,6 +2704,10 @@ msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
+msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Create Profile"
 msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
