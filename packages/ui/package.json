@@ -25,7 +25,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@types/node": "^20.1.5",
+    "@types/node": "^20.1.7",
     "@types/react": "^18.2.6",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
