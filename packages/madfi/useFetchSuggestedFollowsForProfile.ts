@@ -30,7 +30,8 @@ const useFetchSuggestedFollowsForProfile = (
     ['suggested-follows-for-profile', profileId],
     () => fetchSuggestedProfiles().then((res) => res),
     {
-      enabled: !!profileId
+      enabled: !!profileId,
+      staleTime: 3_600_000 // 1hr, considering api gateway caching
     }
   );
 };

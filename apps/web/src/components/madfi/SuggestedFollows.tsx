@@ -92,8 +92,7 @@ const SuggestedFollows: FC = () => {
   }
 
   if (
-    !(loadingSuggested && loadingProfiles) &&
-    !recommendedProfilesNotFollowed.length
+    !loadingSuggested && !loadingProfiles && !recommendedProfilesNotFollowed.length
   ) {
     return (
       <>
@@ -152,7 +151,11 @@ const SuggestedFollows: FC = () => {
         show={showSuggestedModal}
         onClose={() => setShowSuggestedModal(false)}
       >
-        <SuggestedFull recommendedProfiles={(recommendedProfilesNotFollowed as unknown) as Profile[]} />
+        <SuggestedFull
+          recommendedProfiles={
+            recommendedProfilesNotFollowed as unknown as Profile[]
+          }
+        />
       </Modal>
     </>
   );

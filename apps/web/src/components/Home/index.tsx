@@ -14,7 +14,7 @@ import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
 import Hero from './Hero';
 import Highlights from './Highlights';
-import RecommendedProfiles from './RecommendedProfiles';
+import SuggestedFollows from '@components/madfi/SuggestedFollows';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import Timeline from './Timeline';
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
               <EnableMessages />
               <SetDefaultProfile />
               <SetProfile />
-              <RecommendedProfiles />
+              <SuggestedFollows />
             </>
           ) : null}
           <Footer />
