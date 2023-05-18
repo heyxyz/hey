@@ -10,6 +10,7 @@ const LoginButton: FC = () => {
 
   return (
     <Button
+      id="login-button"
       icon={
         <img
           className="mr-0.5 h-4 w-4"

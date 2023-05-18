@@ -13,6 +13,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
+    "@synthetixio/synpress": "3.7.0",
     "data": "workspace:*",
     "lens": "workspace:*",
     "lib": "workspace:*"

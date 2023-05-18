@@ -141,6 +141,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       <div className="space-y-2.5">
         {chain?.id === CHAIN_ID ? (
           <Button
+            id="lenster-login"
             disabled={isLoading}
             icon={
               isLoading ? (
@@ -187,6 +188,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       {connectors.map((connector) => {
         return (
           <button
+            id="metamask-button"
             type="button"
             key={connector.id}
             className={clsx(
