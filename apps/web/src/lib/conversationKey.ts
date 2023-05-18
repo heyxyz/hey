@@ -28,15 +28,14 @@ export const parseConversationKey = (
 ): {
   peerAddress: string;
   members: string[];
-  conversationId: string;
+  conversationId?: string;
 } | null => {
   const matches = conversationKey.match(CONVERSATION_KEY_RE);
 
   if (!matches || matches.length !== 4) {
     return {
       peerAddress: conversationKey,
-      members: [],
-      conversationId: conversationKey
+      members: []
     };
   }
 

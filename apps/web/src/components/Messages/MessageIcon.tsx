@@ -48,13 +48,12 @@ const MessageIcon: FC = () => {
 
     const fetchShowBadge = async () => {
       const convos = await cachedClient.conversations.list();
-      const matchingConvos = convos;
 
-      if (matchingConvos.length <= 0) {
+      if (convos.length <= 0) {
         return;
       }
 
-      const topics = matchingConvos.map((convo) => convo.topic);
+      const topics = convos.map((convo) => convo.topic);
       const queryResults = await cachedClient.apiClient.batchQuery(
         topics.map((topic) => ({
           contentTopic: topic,
