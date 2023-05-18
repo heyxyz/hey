@@ -88,6 +88,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
                 conversationKey={conversationKey}
               />
               <MessagesList
+                conversationKey={conversationKey}
                 currentProfile={currentProfile}
                 profile={profile}
                 fetchNextMessages={fetchNextMessages}
