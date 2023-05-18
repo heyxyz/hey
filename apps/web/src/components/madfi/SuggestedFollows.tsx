@@ -92,7 +92,9 @@ const SuggestedFollows: FC = () => {
   }
 
   if (
-    !loadingSuggested && !loadingProfiles && !recommendedProfilesNotFollowed.length
+    !loadingSuggested &&
+    !loadingProfiles &&
+    !recommendedProfilesNotFollowed.length
   ) {
     return (
       <>

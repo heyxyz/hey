@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
+import SuggestedFollows from '@components/madfi/SuggestedFollows';
 import Footer from '@components/Shared/Footer';
 import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
@@ -14,7 +15,6 @@ import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
 import Hero from './Hero';
 import Highlights from './Highlights';
-import SuggestedFollows from '@components/madfi/SuggestedFollows';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import Timeline from './Timeline';
