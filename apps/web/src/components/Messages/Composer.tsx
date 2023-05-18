@@ -114,8 +114,7 @@ const Composer: FC<ComposerProps> = ({
       );
 
       const uploadedAttachment = await uploadFileToIPFS(file);
-      const hash = uploadedAttachment?.original.url.replace('ipfs://', '');
-      const url = sanitizeDStorageUrl(hash);
+      const url = sanitizeDStorageUrl(uploadedAttachment.original.url);
 
       const remoteAttachment: RemoteAttachment = {
         url,
