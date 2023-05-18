@@ -96,7 +96,7 @@ const Search: FC<SearchProps> = ({
       {pathname !== '/search' && !hideDropdown && searchText.length > 0 && (
         <div
           className={clsx(
-            'absolute mt-2 flex w-[94%] flex-col',
+            'static mt-2 flex w-[94%] flex-col',
             modalWidthClassName,
             zIndex
           )}

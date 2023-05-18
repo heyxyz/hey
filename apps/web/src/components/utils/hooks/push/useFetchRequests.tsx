@@ -31,7 +31,6 @@ const useFetchRequests = () => {
       if (page === 1) {
         setLoading(true);
       }
-      setLoading(true);
       try {
         const requests = await PushAPI.chat.requests({
           account: `nft:eip155:${CHAIN_ID}:${LENSHUB_PROXY}:${currentProfile.id}`,
