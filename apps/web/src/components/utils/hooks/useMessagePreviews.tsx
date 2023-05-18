@@ -12,6 +12,7 @@ import type { Profile } from 'lens';
 import { useProfilesLazyQuery } from 'lens';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
@@ -308,11 +309,11 @@ const useMessagePreviews = () => {
       otherProfiles.set(key, {} as Profile);
     });
 
-    if (selectedTab === 'Lens') {
+    if (selectedTab === MessageTabs.Lens) {
       setProfilesToShow(partitionedProfiles[0]);
-    } else if (selectedTab === 'Requested') {
+    } else if (selectedTab === MessageTabs.Requests) {
       setProfilesToShow(partitionedProfiles[1]);
-    } else if (selectedTab === 'Other') {
+    } else if (selectedTab === MessageTabs.Other) {
       setProfilesToShow(otherProfiles);
     } else {
       setProfilesToShow(new Map([...partitionedProfiles[0], ...otherProfiles]));

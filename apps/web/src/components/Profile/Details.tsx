@@ -32,6 +32,7 @@ import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessageStore } from 'src/store/message';
@@ -72,8 +73,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     );
     persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
-      ? 'Lens'
-      : 'Requested';
+      ? MessageTabs.Lens
+      : MessageTabs.Requests;
     setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
   };

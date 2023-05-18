@@ -18,3 +18,10 @@ export enum ProfileFeedType {
   Collects = 'COLLECTS',
   Nft = 'NFT'
 }
+
+export enum MessageTabs {
+  All = 'All',
+  Lens = 'Lens',
+  Other = 'Other',
+  Requests = 'Requests'
+}

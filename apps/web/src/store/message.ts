@@ -5,7 +5,7 @@ import { Localstorage } from 'data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type TabValues = 'All' | 'Lens' | 'Other' | 'Requested';
+export type TabValues = 'All' | 'Lens' | 'Other' | 'Requests';
 
 interface MessageState {
   client: Client | undefined;

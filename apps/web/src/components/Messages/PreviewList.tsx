@@ -17,6 +17,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
@@ -95,8 +96,8 @@ const PreviewList: FC<PreviewListProps> = ({
     );
     await persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
-      ? 'Lens'
-      : 'Requested';
+      ? MessageTabs.Lens
+      : MessageTabs.Requests;
     setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
     setShowSearchModal(false);
@@ -151,14 +152,14 @@ const PreviewList: FC<PreviewListProps> = ({
           </div>
           {requestedCount > 0 && (
             <div
-              onClick={() => setSelectedTab('Requested')}
+              onClick={() => setSelectedTab(MessageTabs.Requests)}
               className="cursor-pointer py-2 text-xs font-bold text-gray-500 dark:bg-gray-700 dark:text-gray-400"
             >
               {requestedCount > 99 ? '99+' : requestedCount.toString()} Requests
             </div>
           )}
         </div>
-        {selectedTab === 'Requested' ? (
+        {selectedTab === MessageTabs.Requests ? (
           <div className="bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
             <Trans>
               These conversations are from Lens profiles that you don't
