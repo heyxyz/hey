@@ -7,6 +7,7 @@ import type { Profile } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
+import getStampFyiURL from 'lib/getStampFyiURL';
 import isVerified from 'lib/isVerified';
 import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import { useRouter } from 'next/router';
@@ -54,6 +55,8 @@ const Preview: FC<PreviewProps> = ({
     router.push(profileId ? `/messages/${conversationKey}` : '/messages');
   };
 
+  const url = (ensName && getStampFyiURL(conversationKey?.split('/')[0])) ?? '';
+
   return (
     message?.content && (
       <div
@@ -69,9 +72,9 @@ const Preview: FC<PreviewProps> = ({
         <div className="flex space-x-3 overflow-hidden px-5">
           <Image
             onError={({ currentTarget }) => {
-              currentTarget.src = getAvatar(profile, false);
+              currentTarget.src = ensName ? url : getAvatar(profile, false);
             }}
-            src={getAvatar(profile)}
+            src={ensName ? url : getAvatar(profile)}
             loading="lazy"
             className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             height={40}

@@ -292,10 +292,12 @@ const useMessagePreviews = () => {
   useEffect(() => {
     const partitionedProfiles = Array.from(messageProfiles || []).reduce(
       (result, [key, profile]) => {
-        if (profile.isFollowedByMe) {
-          result[0].set(key, profile);
-        } else {
-          result[1].set(key, profile);
+        if (previewMessages.has(key)) {
+          if (profile.isFollowedByMe) {
+            result[0].set(key, profile);
+          } else {
+            result[1].set(key, profile);
+          }
         }
         return result;
       },
