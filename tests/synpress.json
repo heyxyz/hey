@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:3000",
+  "baseUrl": "http://localhost:4783",
   "userAgent": "synpress",
   "retries": { "runMode": 0, "openMode": 0 },
   "integrationFolder": "integration",

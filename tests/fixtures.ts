@@ -40,7 +40,7 @@ export const test = base.extend<TestFixtures>({
     }
     // launch browser
     const context = await chromium.launchPersistentContext('', {
-      headless: false,
+      headless: true,
       args: browserArgs
     });
     // wait for metamask
