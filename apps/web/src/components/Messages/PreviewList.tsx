@@ -132,7 +132,7 @@ const PreviewList: FC<PreviewListProps> = ({
             <TabButton
               className="p-2 px-4"
               name={t`All`}
-              active={selectedTab === 'All'}
+              active={selectedTab === t`All`}
               onClick={() => setSelectedTab('All')}
               showOnSm
             />
@@ -140,7 +140,7 @@ const PreviewList: FC<PreviewListProps> = ({
               <TabButton
                 className="p-2 px-4"
                 name={t`Lens`}
-                active={selectedTab === 'Lens'}
+                active={selectedTab === t`Lens`}
                 onClick={() => setSelectedTab('Lens')}
                 showOnSm
               />
@@ -149,7 +149,7 @@ const PreviewList: FC<PreviewListProps> = ({
               <TabButton
                 className="p-2 px-4"
                 name={t`Other`}
-                active={selectedTab === 'Other'}
+                active={selectedTab === t`Other`}
                 onClick={() => setSelectedTab('Other')}
                 showOnSm
               />
