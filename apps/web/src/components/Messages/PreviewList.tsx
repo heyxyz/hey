@@ -131,16 +131,16 @@ const PreviewList: FC<PreviewListProps> = ({
           <div className="flex space-x-2">
             <TabButton
               className="p-2 px-4"
-              name={t`All`}
-              active={selectedTab === t`All`}
+              name={'All'}
+              active={selectedTab === 'All'}
               onClick={() => setSelectedTab('All')}
               showOnSm
             />
             {lensCount > 0 && (
               <TabButton
                 className="p-2 px-4"
-                name={t`Lens`}
-                active={selectedTab === t`Lens`}
+                name={'Lens'}
+                active={selectedTab === 'Lens'}
                 onClick={() => setSelectedTab('Lens')}
                 showOnSm
               />
@@ -148,8 +148,8 @@ const PreviewList: FC<PreviewListProps> = ({
             {otherCount > 0 && (
               <TabButton
                 className="p-2 px-4"
-                name={t`Other`}
-                active={selectedTab === t`Other`}
+                name={'Other'}
+                active={selectedTab === 'Other'}
                 onClick={() => setSelectedTab('Other')}
                 showOnSm
               />
