@@ -11,9 +11,12 @@ export const test = base.extend<TestFixtures>({
   // eslint-disable-next-line no-empty-pattern
   context: async ({}, use) => {
     if (
-      '0x23618e81e3f5cdf7f54c3d65f7fbc0abf5b21e8f' ||
-      'test test test test test test test test test test test junk' ||
-      'Tester@1234'
+      !'0x23618e81e3f5cdf7f54c3d65f7fbc0abf5b21e8f' ||
+      !'test test test test test test test test test test test junk' ||
+      !'Tester@1234'
+      //!process.env.ADDRESS ||
+      //!process.env.SEED_PHRASE ||
+      //!process.env.PASSWORD ||
     ) {
       throw new Error(
         'To connect a wallet, set the following environment variables: wallet ADDRESS, SEED_PHRASE and PASSWORD'
