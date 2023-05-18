@@ -1,0 +1,24 @@
+{
+  "name": "madfi",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "typecheck": "tsc --pretty",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.29.7",
+    "@types/node": "^20.1.7",
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.4"
+  }
+}

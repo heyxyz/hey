@@ -61,6 +61,7 @@
     "lens": "workspace:*",
     "lexical": "^0.10.0",
     "lib": "workspace:*",
+    "madfi": "workspace:*",
     "mixpanel-browser": "^2.47.0",
     "next": "^13.4.2",
     "next-themes": "^0.2.1",

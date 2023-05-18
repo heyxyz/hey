@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
-import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
+import SuggestedFollows from '@components/madfi/SuggestedFollows';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { Growthbook } from '@lib/growthbook';
@@ -94,7 +94,7 @@ const Explore: NextPage = () => {
       </GridItemEight>
       <GridItemFour>
         {isTrendingWidgetEnabled && <Trending />}
-        {currentProfile ? <RecommendedProfiles /> : null}
+        {currentProfile ? <SuggestedFollows /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>
