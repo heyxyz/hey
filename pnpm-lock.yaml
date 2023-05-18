@@ -208,8 +208,8 @@ importers:
         specifier: ^2.4.4
         version: 2.4.4(react-dom@18.2.0)(react@18.2.0)
       '@pushprotocol/restapi':
-        specifier: ^1.2.15
-        version: 1.2.15(ethers@5.6.0)
+        specifier: 0.0.1-alpha.10
+        version: 0.0.1-alpha.10(ethers@5.6.0)
       '@pushprotocol/socket':
         specifier: ^0.5.0
         version: 0.5.0(ethers@5.6.0)
@@ -5306,7 +5306,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.0
     dev: true
 
   /@graphql-tools/optimize@1.4.0(graphql@16.6.0):
@@ -5358,7 +5358,7 @@ packages:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 9.2.1(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.0
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -5422,7 +5422,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.0
     dev: true
 
   /@graphql-tools/utils@9.2.1(graphql@16.6.0):
@@ -6669,8 +6669,8 @@ packages:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
     dev: false
 
-  /@pushprotocol/restapi@1.2.15(ethers@5.6.0):
-    resolution: {integrity: sha512-zZ65e/bDX4XHFy7i83JgwEsHAWdnVGGsK8cGlbAqlY/z6qceqih39ZChEw7zRHSl5IqsIV0IVkrPFjtxASVCAw==}
+  /@pushprotocol/restapi@0.0.1-alpha.10(ethers@5.6.0):
+    resolution: {integrity: sha512-IpUlsOrShRQS8cRek4/vVCWLvhioKaWfrW9deBRzzbJJLcUSSOVOJGiHxLYNq599rOXGcJm8bLS21ohS1x0T8w==}
     peerDependencies:
       ethers: ^5.6.8
     dependencies:
@@ -6679,11 +6679,14 @@ packages:
       buffer: 6.0.3
       crypto-js: 4.1.1
       ethers: 5.6.0
+      immer: 10.0.2
       openpgp: 5.9.0
+      simple-peer: 9.11.1
       tslib: 2.5.0
       uuid: 9.0.0
     transitivePeerDependencies:
       - debug
+      - supports-color
     dev: false
 
   /@pushprotocol/socket@0.5.0(ethers@5.6.0):
@@ -13203,6 +13206,10 @@ packages:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
 
+  /get-browser-rtc@1.1.0:
+    resolution: {integrity: sha512-MghbMJ61EJrRsDe7w1Bvqt3ZsBuqhce5nrn/XAwgwOXhcsz53/ltdxOse1h/8eKXj5slzxdsz56g5rzOFSGwfQ==}
+    dev: false
+
   /get-caller-file@2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
     engines: {node: 6.* || 8.* || >= 10.*}
@@ -13788,6 +13795,10 @@ packages:
     hasBin: true
     dependencies:
       queue: 6.0.2
+    dev: false
+
+  /immer@10.0.2:
+    resolution: {integrity: sha512-Rx3CqeqQ19sxUtYV9CU911Vhy8/721wRFnJv3REVGWUmoAcIwzifTsdmJte/MV+0/XpM35LZdQMBGkRIoLPwQA==}
     dev: false
 
   /immutable@3.7.6:
@@ -18156,6 +18167,20 @@ packages:
   /signedsource@1.0.0:
     resolution: {integrity: sha512-6+eerH9fEnNmi/hyM1DXcRK3pWdoMQtlkQ+ns0ntzunjKqp5i3sKCc80ym8Fib3iaYhdJUOPdhlJWj1tvge2Ww==}
     dev: true
+
+  /simple-peer@9.11.1:
+    resolution: {integrity: sha512-D1SaWpOW8afq1CZGWB8xTfrT3FekjQmPValrqncJMX7QFl8YwhrPTZvMCANLtgBwwdS+7zURyqxDDEmY558tTw==}
+    dependencies:
+      buffer: 6.0.3
+      debug: 4.3.4
+      err-code: 3.0.1
+      get-browser-rtc: 1.1.0
+      queue-microtask: 1.2.3
+      randombytes: 2.1.0
+      readable-stream: 3.6.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /simple-update-notifier@1.1.0:
     resolution: {integrity: sha512-VpsrsJSUcJEseSbMHkrsrAVSdvVS5I96Qo1QAQ4FxQ9wXFcB+pjj7FB7/us9+GcgfW4ziHtYMc1J0PLczb55mg==}

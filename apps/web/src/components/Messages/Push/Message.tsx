@@ -35,7 +35,7 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
   const [showLoading, setShowLoading] = useState(false);
   const { fetchChatProfile } = useGetChatProfile();
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
-  const { loadLensProfiles } = useFetchLensProfiles();
+  const { loadLensProfiles, getLensProfile } = useFetchLensProfiles();
   const { fetchGroup } = useGetGroup();
   const { fetchGroupByName } = useGroupByName();
   const lensProfiles = usePushChatStore((state) => state.lensProfiles);
@@ -90,10 +90,11 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
       if (getIsHandle(conversationId)) {
         getProfileByHandle({
           variables: { request: { handle: conversationId } },
-          onCompleted: ({ profile }) => {
+          onCompleted: async ({ profile }) => {
             if (profile) {
               setChatId(profile as Profile);
               setProfile(profile as Profile);
+              await getLensProfile(profile.id);
             }
           }
         });

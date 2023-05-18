@@ -2,6 +2,7 @@ import Slug from '@components/Shared/Slug';
 import UserPreview from '@components/Shared/UserPreview';
 import useApproveChatRequest from '@components/utils/hooks/push/useApproveChatRequest';
 import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProfile';
+import useFetchChat from '@components/utils/hooks/push/useFetchChat';
 import useGetHistoryMessages from '@components/utils/hooks/push/useFetchHistoryMessages';
 import useFetchLensProfiles from '@components/utils/hooks/push/useFetchLensProfiles';
 import useFetchRequests from '@components/utils/hooks/push/useFetchRequests';
@@ -281,7 +282,7 @@ const MessageField = ({
       });
       scrollToBottom();
 
-      fetchRequests({ page, requestLimit });
+      // fetchRequests({ page, requestLimit });
     } catch (error) {
       console.log(error);
     }
@@ -389,7 +390,16 @@ const MessageField = ({
         value={inputText}
         className="pl-11 pr-[115px]"
         type="text"
-        disabled={msgSendLoading || requestFeedids.includes(selectedChatId)}
+        disabled={
+          msgSendLoading ||
+          requestFeedids.includes(selectedChatId) ||
+          (selectedChat &&
+          connectedProfile &&
+          selectedChat.intent &&
+          !selectedChat?.intent?.split('+')?.includes(connectedProfile?.did)
+            ? true
+            : false)
+        }
         placeholder="Type your message..."
       />
     </>
@@ -420,6 +430,7 @@ export default function MessageBody({
   const chatsFeed = usePushChatStore((state) => state.chatsFeed);
   const { getLensProfile } = useFetchLensProfiles();
   const { createChatProfile } = useCreateChatProfile();
+  const { fetchChat } = useFetchChat();
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
   const dates = new Set();
 
@@ -466,12 +477,16 @@ export default function MessageBody({
         });
         if (response) {
           const updatedRequestsfeed = { ...requestsFeed };
-          const selectedRequest = updatedRequestsfeed[selectedChatId];
-          delete updatedRequestsfeed[selectedChatId];
-          setRequestsFeed(updatedRequestsfeed);
+          const { [selectedChatId]: selectedRequest, ...updatedRequests } =
+            updatedRequestsfeed;
+          setRequestsFeed(updatedRequests);
+
+          const updatedChatFeed: IFeeds = (await fetchChat({
+            recipientAddress: selectedChatId
+          })) as IFeeds;
 
           const chatLe = { ...chatsFeed };
-          chatLe[selectedChatId] = selectedRequest;
+          chatLe[selectedChatId] = updatedChatFeed ?? selectedRequest;
           setChatfeed(chatLe);
           setActiveTab(PUSH_TABS.CHATS);
         }
@@ -649,7 +664,13 @@ export default function MessageBody({
               }
             )
           )}
-          {requestFeedids.includes(selectedChatId) && (
+          {(requestFeedids.includes(selectedChatId) ||
+            (selectedChat &&
+              connectedProfile &&
+              selectedChat.intent &&
+              !selectedChat?.intent
+                ?.split('+')
+                ?.includes(connectedProfile?.did))) && (
             <div className="flex w-fit rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
               {selectedChatType === CHAT_TYPES.CHAT ? (
                 <div className="flex flex-col text-sm font-normal">

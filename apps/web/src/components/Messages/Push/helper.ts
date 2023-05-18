@@ -109,3 +109,32 @@ export const getGroupImage = (feed: IFeeds): string => {
     return feed?.profilePicture!;
   }
 };
+
+const getRandomCharacter = (characterSet: string): string => {
+  const randomIndex = Math.floor(Math.random() * characterSet.length);
+  return characterSet[randomIndex];
+};
+
+export const generateRandomPassword = (length: number): string => {
+  const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
+  const digits = '0123456789';
+  const specialCharacters = "!@#$%^&*()_+-=[]{};:'\\|,.<>/?";
+
+  let password = '';
+
+  // Randomly select at least one character from each character set
+  password += getRandomCharacter(uppercaseLetters);
+  password += getRandomCharacter(lowercaseLetters);
+  password += getRandomCharacter(digits);
+  password += getRandomCharacter(specialCharacters);
+
+  // Fill the remaining length with random characters
+  while (password.length < length) {
+    const characterSet =
+      uppercaseLetters + lowercaseLetters + digits + specialCharacters;
+    password += getRandomCharacter(characterSet);
+  }
+
+  return password;
+};

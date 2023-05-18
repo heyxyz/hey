@@ -1,5 +1,5 @@
-import { isCAIP } from '@components/Messages/Push/helper';
-import type { IFeeds, IMessageIPFS } from '@pushprotocol/restapi';
+import { getProfileFromDID, isCAIP } from '@components/Messages/Push/helper';
+import type { IFeeds } from '@pushprotocol/restapi';
 import * as PushAPI from '@pushprotocol/restapi';
 import { createSocketConnection, EVENTS } from '@pushprotocol/socket';
 import { LENSHUB_PROXY } from 'data';
@@ -9,6 +9,8 @@ import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 
 import useFetchChat from './useFetchChat';
+import useFetchLensProfiles from './useFetchLensProfiles';
+import useGetChatProfile from './useGetChatProfile';
 
 const CHAT_SOCKET_TYPE = 'chat';
 
@@ -41,6 +43,8 @@ const usePushChatSocket = (): PushChatSocket => {
   const setChatFeed = usePushChatStore((state) => state.setChatFeed);
   const setRequestFeed = usePushChatStore((state) => state.setRequestFeed);
   const chats = usePushChatStore((state) => state.chats);
+  const { getLensProfile } = useFetchLensProfiles();
+  const { fetchChatProfile } = useGetChatProfile();
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
   const addSocketEvents = useCallback(() => {
@@ -52,68 +56,138 @@ const usePushChatSocket = (): PushChatSocket => {
       setIsSDKSocketConnected(false);
     });
 
-    pushChatSocket?.on(
-      EVENTS.CHAT_RECEIVED_MESSAGE,
-      async (chat: IMessageIPFS) => {
-        if (!connectedProfile || !decryptedPgpPvtKey) {
-          return;
-        }
-        if (chat.fromDID === connectedProfile.did) {
-          return;
-        }
-
-        const response = await PushAPI.chat.decryptConversation({
-          messages: [chat],
-          connectedUser: connectedProfile,
-          pgpPrivateKey: decryptedPgpPvtKey,
-          env: PUSH_ENV
-        });
-
-        if (response && response.length) {
-          const msg = response[0];
-          const chatId = !isCAIP(msg.toDID) ? msg.toDID : msg.fromDID;
-
-          if (chatsFeed[chatId]) {
-            let newOne: IFeeds = chatsFeed[chatId];
-            setChat(chatId, {
-              messages: Array.isArray(chats.get(chatId)?.messages)
-                ? [...chats.get(chatId)!.messages, msg]
-                : [msg],
-              lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
-            });
-
-            newOne['msg'] = msg;
-            setChatFeed(chatId, newOne);
-          } else if (requestsFeed[chatId]) {
-            let newOne: IFeeds = requestsFeed[chatId];
-            setChat(chatId, {
-              messages: Array.isArray(chats.get(chatId)?.messages)
-                ? [...chats.get(chatId)!.messages, msg]
-                : [msg],
-              lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
-            });
-
-            newOne['msg'] = msg;
-            setRequestFeed(chatId, newOne);
-          } else {
-            let fetchChatsMessages: IFeeds = (await fetchChat({
-              recipientAddress: chatId
-            })) as IFeeds;
-            setChatFeed(chatId, fetchChatsMessages);
-            setChat(chatId, {
-              messages: Array.isArray(chats.get(chatId)?.messages)
-                ? [...chats.get(chatId)!.messages, msg]
-                : [msg],
-              lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
-            });
-          }
-        }
-        setMessagesSinceLastConnection(chat);
+    pushChatSocket?.on(EVENTS.CHAT_RECEIVED_MESSAGE, async (chat: any) => {
+      console.log(chat);
+      if (!currentProfile) {
+        return;
       }
-    );
+      const profile =
+        connectedProfile ??
+        (await fetchChatProfile({ profileId: currentProfile.id }));
 
-    pushChatSocket?.on(EVENTS.CHAT_GROUPS, (groupInfo: any) => {
+      if (profile && !profile?.encryptedPrivateKey) {
+        if (isCAIP(chat.fromCAIP10)) {
+          await getLensProfile(getProfileFromDID(chat?.fromCAIP10));
+        }
+        const chatId = !isCAIP(chat.toDID) ? chat.toDID : chat.fromDID;
+        if (requestsFeed[chatId]) {
+          let newOne: IFeeds = requestsFeed[chatId];
+          setChat(chatId, {
+            messages: Array.isArray(chats.get(chatId)?.messages)
+              ? [...chats.get(chatId)!.messages, chat]
+              : [chat],
+            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? chat.link
+          });
+
+          newOne['msg'] = chat;
+          setRequestFeed(chatId, newOne);
+        } else {
+          let fetchChatsMessages: IFeeds = (await fetchChat({
+            recipientAddress: chatId
+          })) as IFeeds;
+          if (chat.messageCategory === 'Chat') {
+            setChatFeed(chatId, fetchChatsMessages);
+          } else if (chat.messageCategory === 'Request') {
+            setRequestFeed(chatId, fetchChatsMessages);
+          }
+          setChat(chatId, {
+            messages: Array.isArray(chats.get(chatId)?.messages)
+              ? [...chats.get(chatId)!.messages, chat]
+              : [chat],
+            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? chat.link
+          });
+        }
+      }
+
+      if (!profile || !decryptedPgpPvtKey) {
+        return;
+      }
+      // for self input and approve event
+      if (
+        chat.messageOrigin === 'self' ||
+        (chat.messageCategory === 'Request' &&
+          chat.messageOrigin === 'other' &&
+          !chat.messageContent)
+      ) {
+        return;
+      }
+
+      const response = await PushAPI.chat.decryptConversation({
+        messages: [chat],
+        connectedUser: profile,
+        pgpPrivateKey: decryptedPgpPvtKey,
+        env: PUSH_ENV
+      });
+
+      if (response && response.length) {
+        const msg = response[0];
+        const chatId = !isCAIP(msg.toDID) ? msg.toDID : msg.fromDID;
+        if (isCAIP(msg.fromCAIP10)) {
+          await getLensProfile(getProfileFromDID(msg.fromCAIP10));
+        }
+        if (chatsFeed[chatId]) {
+          let newOne: IFeeds = chatsFeed[chatId];
+          setChat(chatId, {
+            messages: Array.isArray(chats.get(chatId)?.messages)
+              ? [...chats.get(chatId)!.messages, msg]
+              : [msg],
+            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
+          });
+
+          newOne['msg'] = msg;
+          setChatFeed(chatId, newOne);
+        } else if (requestsFeed[chatId]) {
+          let newOne: IFeeds = requestsFeed[chatId];
+          setChat(chatId, {
+            messages: Array.isArray(chats.get(chatId)?.messages)
+              ? [...chats.get(chatId)!.messages, msg]
+              : [msg],
+            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
+          });
+
+          newOne['msg'] = msg;
+          setRequestFeed(chatId, newOne);
+        } else {
+          let fetchChatsMessages: IFeeds = (await fetchChat({
+            recipientAddress: chatId
+          })) as IFeeds;
+          if (chat.messageCategory === 'Chat') {
+            setChatFeed(chatId, fetchChatsMessages);
+          } else if (chat.messageCategory === 'Request') {
+            setRequestFeed(chatId, fetchChatsMessages);
+          }
+          setChat(chatId, {
+            messages: Array.isArray(chats.get(chatId)?.messages)
+              ? [...chats.get(chatId)!.messages, msg]
+              : [msg],
+            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
+          });
+        }
+      }
+      setMessagesSinceLastConnection(chat);
+    });
+
+    pushChatSocket?.on(EVENTS.CHAT_GROUPS, async (groupInfo: any) => {
       console.log(groupInfo);
+      if (!currentProfile) {
+        return;
+      }
+      const profile =
+        connectedProfile ??
+        (await fetchChatProfile({ profileId: currentProfile.id }));
+
+      if (!profile) {
+        return;
+      }
+      if (
+        groupInfo?.eventType === 'create' &&
+        groupInfo?.groupCreator !== profile?.did
+      ) {
+        let fetchChatsMessages: IFeeds = (await fetchChat({
+          recipientAddress: groupInfo?.chatId
+        })) as IFeeds;
+        setRequestFeed(groupInfo.chatId, fetchChatsMessages);
+      }
       setGroupInformationSinceLastConnection(groupInfo);
     });
   }, [
