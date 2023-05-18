@@ -7,7 +7,7 @@ import getAvatar from 'lib/getAvatar';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
-import { usePushChatStore } from 'src/store/push-chat';
+import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
 import {
@@ -60,6 +60,7 @@ export default function PUSHPreviewChats() {
   const setSelectedChatId = usePushChatStore(
     (state) => state.setSelectedChatId
   );
+  const activeTab = usePushChatStore((state) => state.activeTab);
 
   const decryptedPgpPvtKey = pgpPrivateKey.decrypted;
 
@@ -262,7 +263,7 @@ export default function PUSHPreviewChats() {
 
       <div ref={testRef} className="invisible" />
 
-      {paginateLoading && (
+      {paginateLoading && activeTab === PUSH_TABS.CHATS && (
         <div className="flex h-full flex-grow items-center justify-center">
           <Loader message="Loading More Chats" />
         </div>

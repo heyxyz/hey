@@ -7,7 +7,7 @@ import getAvatar from 'lib/getAvatar';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
-import { usePushChatStore } from 'src/store/push-chat';
+import { PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Image } from 'ui';
 
 import {
@@ -41,6 +41,7 @@ export default function PUSHPreviewRequests() {
   const [page, setPage] = useState<number>(1);
   const [allFeeds, setAllFeeds] = useState<Array<any>>();
   const [paginateLoading, setPaginateLoading] = useState<boolean>(false);
+  const activeTab = usePushChatStore((state) => state.activeTab);
 
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
 
@@ -72,6 +73,12 @@ export default function PUSHPreviewRequests() {
       return;
     }
 
+    console.log(
+      !isInViewport1,
+      loading,
+      Object.keys(requestsFeed).length < requestLimit
+    );
+
     let newPage = page + 1;
     setPage(newPage);
     // eslint-disable-next-line no-use-before-define
@@ -85,6 +92,7 @@ export default function PUSHPreviewRequests() {
 
     try {
       setPaginateLoading(true);
+      console.log(page, 'times 2');
       let feeds = await fetchRequests({ page, requestLimit });
       let newFeed: { [key: string]: IFeeds } = { ...requestsFeed, ...feeds };
       setRequestsFeed(newFeed);
@@ -247,9 +255,9 @@ export default function PUSHPreviewRequests() {
 
       <div ref={pageRef} className="invisible" />
 
-      {paginateLoading && (
+      {paginateLoading && activeTab === PUSH_TABS.REQUESTS && (
         <div className="flex h-full flex-grow items-center justify-center">
-          <Loader message="Loading More Chats" />
+          <Loader message="Loading More Requests" />
         </div>
       )}
     </section>
