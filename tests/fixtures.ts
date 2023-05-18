@@ -10,7 +10,7 @@ type TestFixtures = {
 export const test = base.extend<TestFixtures>({
   // eslint-disable-next-line no-empty-pattern
   context: async ({}, use) => {
-    if (
+    /* if (
       !process.env.ADDRESS ||
       !process.env.SEED_PHRASE ||
       !process.env.PASSWORD
@@ -18,7 +18,7 @@ export const test = base.extend<TestFixtures>({
       throw new Error(
         'To connect a wallet, set the following environment variables: wallet ADDRESS, SEED_PHRASE and PASSWORD'
       );
-    }
+    } */
 
     // download metamask
     const metamaskPath = await prepareMetamask(
