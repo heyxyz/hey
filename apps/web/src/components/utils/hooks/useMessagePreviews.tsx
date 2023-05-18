@@ -53,6 +53,8 @@ const useMessagePreviews = () => {
   );
 
   const [requestedCount, setRequestedCount] = useState(0);
+  const [lensCount, setLensCount] = useState(0);
+
   const {
     persistPreviewMessage,
     previewMessages: rawPreviewMessages,
@@ -97,7 +99,10 @@ const useMessagePreviews = () => {
 
   useEffect(() => {
     const getEns = async () => {
-      if (selectedTab === 'Other' && ensNames.size < nonLensProfiles.size) {
+      if (
+        (selectedTab === 'Other' || selectedTab === 'All') &&
+        ensNames.size < nonLensProfiles.size
+      ) {
         const chunks = chunkArray(
           Array.from(nonLensProfiles),
           MAX_PROFILES_PER_REQUEST
@@ -312,6 +317,7 @@ const useMessagePreviews = () => {
       setProfilesToShow(new Map([...partitionedProfiles[0], ...otherProfiles]));
     }
 
+    setLensCount(partitionedProfiles[0].size);
     setRequestedCount(partitionedProfiles[1].size);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageProfiles, selectedTab]);
@@ -322,7 +328,9 @@ const useMessagePreviews = () => {
     messages: previewMessages,
     profilesToShow,
     requestedCount,
-    profilesError: profilesError
+    profilesError: profilesError,
+    lensCount,
+    otherCount: nonLensProfiles.size
   };
 };
 

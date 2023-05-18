@@ -53,7 +53,9 @@ const PreviewList: FC<PreviewListProps> = ({
     messages,
     profilesToShow,
     requestedCount,
-    profilesError
+    profilesError,
+    lensCount,
+    otherCount
   } = useMessagePreviews();
 
   const { loading: previewsLoading, progress: previewsProgress } =
@@ -134,27 +136,33 @@ const PreviewList: FC<PreviewListProps> = ({
               onClick={() => setSelectedTab('All')}
               showOnSm
             />
-            <TabButton
-              className="p-2 px-4"
-              name={t`Lens`}
-              active={selectedTab === 'Lens'}
-              onClick={() => setSelectedTab('Lens')}
-              showOnSm
-            />
-            <TabButton
-              className="p-2 px-4"
-              name={t`Other`}
-              active={selectedTab === 'Other'}
-              onClick={() => setSelectedTab('Other')}
-              showOnSm
-            />
+            {lensCount > 0 && (
+              <TabButton
+                className="p-2 px-4"
+                name={t`Lens`}
+                active={selectedTab === 'Lens'}
+                onClick={() => setSelectedTab('Lens')}
+                showOnSm
+              />
+            )}
+            {otherCount > 0 && (
+              <TabButton
+                className="p-2 px-4"
+                name={t`Other`}
+                active={selectedTab === 'Other'}
+                onClick={() => setSelectedTab('Other')}
+                showOnSm
+              />
+            )}
           </div>
-          <div
-            onClick={() => setSelectedTab('Requested')}
-            className="cursor-pointer py-2 text-xs font-bold text-gray-500 dark:bg-gray-700 dark:text-gray-400"
-          >
-            {requestedCount > 99 ? '99+' : requestedCount.toString()} Requests
-          </div>
+          {requestedCount > 0 && (
+            <div
+              onClick={() => setSelectedTab('Requested')}
+              className="cursor-pointer py-2 text-xs font-bold text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+            >
+              {requestedCount > 99 ? '99+' : requestedCount.toString()} Requests
+            </div>
+          )}
         </div>
         {selectedTab === 'Requested' ? (
           <div className="bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
