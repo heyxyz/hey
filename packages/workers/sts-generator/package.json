@@ -20,6 +20,6 @@
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4",
-    "wrangler": "^2.20.0"
+    "wrangler": "^3.0.0"
   }
 }
