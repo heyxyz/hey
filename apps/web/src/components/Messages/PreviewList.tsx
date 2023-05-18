@@ -53,9 +53,7 @@ const PreviewList: FC<PreviewListProps> = ({
     messages,
     profilesToShow,
     requestedCount,
-    profilesError,
-    lensCount,
-    otherCount
+    profilesError
   } = useMessagePreviews();
 
   const { loading: previewsLoading, progress: previewsProgress } =
@@ -136,24 +134,20 @@ const PreviewList: FC<PreviewListProps> = ({
               onClick={() => setSelectedTab('All')}
               showOnSm
             />
-            {lensCount > 0 && (
-              <TabButton
-                className="p-2 px-4"
-                name={'Lens'}
-                active={selectedTab === 'Lens'}
-                onClick={() => setSelectedTab('Lens')}
-                showOnSm
-              />
-            )}
-            {otherCount > 0 && (
-              <TabButton
-                className="p-2 px-4"
-                name={'Other'}
-                active={selectedTab === 'Other'}
-                onClick={() => setSelectedTab('Other')}
-                showOnSm
-              />
-            )}
+            <TabButton
+              className="p-2 px-4"
+              name={'Lens'}
+              active={selectedTab === 'Lens'}
+              onClick={() => setSelectedTab('Lens')}
+              showOnSm
+            />
+            <TabButton
+              className="p-2 px-4"
+              name={'Other'}
+              active={selectedTab === 'Other'}
+              onClick={() => setSelectedTab('Other')}
+              showOnSm
+            />
           </div>
           {requestedCount > 0 && (
             <div

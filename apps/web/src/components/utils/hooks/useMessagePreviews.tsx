@@ -53,7 +53,6 @@ const useMessagePreviews = () => {
   );
 
   const [requestedCount, setRequestedCount] = useState(0);
-  const [lensCount, setLensCount] = useState(0);
 
   const {
     persistPreviewMessage,
@@ -319,7 +318,6 @@ const useMessagePreviews = () => {
       setProfilesToShow(new Map([...partitionedProfiles[0], ...otherProfiles]));
     }
 
-    setLensCount(partitionedProfiles[0].size);
     setRequestedCount(partitionedProfiles[1].size);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageProfiles, selectedTab]);
@@ -330,9 +328,7 @@ const useMessagePreviews = () => {
     messages: previewMessages,
     profilesToShow,
     requestedCount,
-    profilesError: profilesError,
-    lensCount,
-    otherCount: nonLensProfiles.size
+    profilesError: profilesError
   };
 };
 
