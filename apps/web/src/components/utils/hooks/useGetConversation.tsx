@@ -28,7 +28,7 @@ const useGetConversation = (conversationKey: string, profile?: Profile) => {
       return;
     }
     const createNewConversation = async () => {
-      const conversationId = conversationKey.split('/')[0];
+      const conversationId = conversationKey?.split('/')[0];
       const canMessage = await Client.canMessage(conversationId, {
         env: XMTP_ENV
       });

@@ -85,7 +85,7 @@ const Preview: FC<PreviewProps> = ({
                   {profile?.name
                     ? sanitizeDisplayName(profile?.name) ??
                       formatHandle(profile.handle)
-                    : ensName ?? formatAddress(conversationKey.split('/')[0])}
+                    : ensName ?? formatAddress(conversationKey?.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) && (
                   <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
