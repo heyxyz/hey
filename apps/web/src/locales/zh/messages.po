@@ -598,6 +598,10 @@ msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
+msgid "Error sending attachment"
+msgstr ""
+
+#: src/components/Messages/Composer.tsx
 msgid "Error sending message"
 msgstr "发送消息时出错"
 
@@ -630,13 +634,8 @@ msgid "Loading..."
 msgstr "加载中..."
 
 #: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr "正在关注"
-
-#: src/components/Messages/PreviewList.tsx
-msgid "Requested"
-msgstr "已请求"
+#~ msgid "Requested"
+#~ msgstr "已请求"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -781,8 +780,12 @@ msgid "Turn on high-signal notification filter"
 msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
-msgid "Collected for {0} {1}"
-msgstr "已为 {0} {1} 收藏"
+#~ msgid "Collected for {0} {1}"
+#~ msgstr "已为 {0} {1} 收藏"
+
+#: src/components/Notification/Type/CollectNotification/Amount.tsx
+msgid "Collected for {0} {currency}"
+msgstr ""
 
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
@@ -1337,6 +1340,10 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr "正在关注"
+
+#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "关注者"
 
@@ -1469,6 +1476,10 @@ msgid "No collectables selected!"
 msgstr "没有选择收藏品！"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+#~ msgid "{0}% referral fee"
+#~ msgstr "{0}% 推荐费"
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
 msgstr "收藏成功！"
 
@@ -1491,8 +1502,8 @@ msgid "{0} available"
 msgstr "{0} 可收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0}% referral fee"
-msgstr "{0}% 推荐费"
+msgid "{referralFee}% referral fee"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
@@ -1519,13 +1530,17 @@ msgid "Fee recipients"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
+#: src/lib/getModule.ts
+#~ msgid "Free Collect"
+#~ msgstr "免费收藏"
+
+#: src/components/Publication/Actions/Collect/index.tsx
 msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Free Collect"
-msgstr "免费收藏"
+msgid "Collect"
+msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
@@ -2841,37 +2856,41 @@ msgstr "视频文件应小于 100MB"
 msgid "Audio size should be less than 100MB"
 msgstr "音频文件应小于 100MB"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Multirecipient Paid Collect"
 msgstr "多收款人的付费收藏"
 
-#: src/lib/getModule.ts
-msgid "Paid Collect"
-msgstr "付费收藏"
+#: src/lib/getAllowanceModule.ts
+msgid "Basic Collect"
+msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Rare Paid Collect"
-msgstr "稀有付费收藏"
-
-#: src/lib/getModule.ts
-msgid "24 Hour Collect"
-msgstr "24 小时限时收藏"
-
-#: src/lib/getModule.ts
-msgid "Rare 24 Hour Collect"
-msgstr "24 小时限时限量收藏"
-
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "No Collect"
 msgstr "没有收藏"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Fee Follow"
 msgstr "付费关注"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Follower Only Reference"
 msgstr "只有账户的关注者可以评论和转发"
+
+#: src/lib/getModule.ts
+#~ msgid "Paid Collect"
+#~ msgstr "付费收藏"
+
+#: src/lib/getModule.ts
+#~ msgid "Rare Paid Collect"
+#~ msgstr "稀有付费收藏"
+
+#: src/lib/getModule.ts
+#~ msgid "24 Hour Collect"
+#~ msgstr "24 小时限时收藏"
+
+#: src/lib/getModule.ts
+#~ msgid "Rare 24 Hour Collect"
+#~ msgstr "24 小时限时限量收藏"
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
@@ -2893,4 +2912,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

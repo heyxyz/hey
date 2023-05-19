@@ -598,6 +598,10 @@ msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
+msgid "Error sending attachment"
+msgstr ""
+
+#: src/components/Messages/Composer.tsx
 msgid "Error sending message"
 msgstr "Erreur lors de l'envoi du message"
 
@@ -630,13 +634,8 @@ msgid "Loading..."
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
-msgid "Requested"
-msgstr ""
+#~ msgid "Requested"
+#~ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -781,7 +780,11 @@ msgid "Turn on high-signal notification filter"
 msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
-msgid "Collected for {0} {1}"
+#~ msgid "Collected for {0} {1}"
+#~ msgstr ""
+
+#: src/components/Notification/Type/CollectNotification/Amount.tsx
+msgid "Collected for {0} {currency}"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -1337,6 +1340,10 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
 
@@ -1469,6 +1476,10 @@ msgid "No collectables selected!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+#~ msgid "{0}% referral fee"
+#~ msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
 msgstr ""
 
@@ -1491,7 +1502,7 @@ msgid "{0} available"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0}% referral fee"
+msgid "{referralFee}% referral fee"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -1519,12 +1530,16 @@ msgid "Fee recipients"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
+#: src/lib/getModule.ts
+#~ msgid "Free Collect"
+#~ msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
 msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Free Collect"
+msgid "Collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
@@ -2841,37 +2856,41 @@ msgstr ""
 msgid "Audio size should be less than 100MB"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Multirecipient Paid Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Paid Collect"
+#: src/lib/getAllowanceModule.ts
+msgid "Basic Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Rare Paid Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "24 Hour Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "Rare 24 Hour Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "No Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Fee Follow"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Follower Only Reference"
 msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Paid Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Rare Paid Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "24 Hour Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Rare 24 Hour Collect"
+#~ msgstr ""
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
@@ -2893,4 +2912,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
