@@ -1,5 +1,7 @@
+import { Growthbook } from '@lib/growthbook';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { FeatureFlag } from 'data';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect } from 'react';
@@ -11,6 +13,8 @@ import { Card, GridItemFour } from 'ui';
 
 import PUSHPreviewList from './Push/PUSHPreview';
 import XMTPPreviewList from './Xmtp/XMTPPreview';
+
+const { on: isPushDMsEnabled } = Growthbook.feature(FeatureFlag.PushDMs);
 
 interface PreviewListProps {
   className?: string;
@@ -62,42 +66,48 @@ const PreviewList: FC<PreviewListProps> = ({
         className
       )}
     >
-      <Card className="mb-6 flex justify-between font-bold">
-        <div
-          onClick={() => changeChatProvider(MESSAGING_PROVIDER.PUSH)}
-          className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-l-xl py-2.5 transition-all hover:bg-gray-200 ${
-            chatProvider === MESSAGING_PROVIDER.PUSH && 'bg-gray-100'
-          }`}
-        >
-          <img
-            width={16}
-            height={16}
-            className="mx-1"
-            src="/push.svg"
-            alt="push"
-            draggable={false}
-          />
-          <Trans>{MESSAGING_PROVIDER.PUSH.toUpperCase()}</Trans>
-        </div>
-        <div
-          onClick={() => changeChatProvider(MESSAGING_PROVIDER.XMTP)}
-          className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-r-xl py-2.5 transition-all hover:bg-gray-200 ${
-            chatProvider === MESSAGING_PROVIDER.XMTP && 'bg-gray-100'
-          }`}
-        >
-          <img
-            width={20}
-            height={20}
-            className="mx-1"
-            src="/xmtp.svg"
-            alt="xmtp"
-            draggable={false}
-          />
-          <Trans>{MESSAGING_PROVIDER.XMTP.toUpperCase()}</Trans>
-        </div>
-      </Card>
+      {isPushDMsEnabled && (
+        <Card className="mb-6 flex justify-between font-bold">
+          <div
+            onClick={() => changeChatProvider(MESSAGING_PROVIDER.PUSH)}
+            className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-l-xl py-2.5 transition-all hover:bg-gray-200 ${
+              chatProvider === MESSAGING_PROVIDER.PUSH && 'bg-gray-100'
+            }`}
+          >
+            <img
+              width={16}
+              height={16}
+              className="mx-1"
+              src="/push.svg"
+              alt="push"
+              draggable={false}
+            />
+            <Trans>{MESSAGING_PROVIDER.PUSH.toUpperCase()}</Trans>
+          </div>
+          <div
+            onClick={() => changeChatProvider(MESSAGING_PROVIDER.XMTP)}
+            className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-r-xl py-2.5 transition-all hover:bg-gray-200 ${
+              chatProvider === MESSAGING_PROVIDER.XMTP && 'bg-gray-100'
+            }`}
+          >
+            <img
+              width={20}
+              height={20}
+              className="mx-1"
+              src="/xmtp.svg"
+              alt="xmtp"
+              draggable={false}
+            />
+            <Trans>{MESSAGING_PROVIDER.XMTP.toUpperCase()}</Trans>
+          </div>
+        </Card>
+      )}
 
-      <div className="flex h-[91.8%] flex-col justify-between">
+      <div
+        className={`flex flex-col justify-between ${
+          isPushDMsEnabled ? 'h-[91.8%]' : 'h-full'
+        }`}
+      >
         {chatProvider === MESSAGING_PROVIDER.XMTP ? (
           <XMTPPreviewList selectedConversationKey={selectedConversationKey} />
         ) : (

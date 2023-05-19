@@ -5,8 +5,10 @@ import useFetchLensProfiles from '@components/utils/hooks/push/useFetchLensProfi
 import useGetChatProfile from '@components/utils/hooks/push/useGetChatProfile';
 import useGetGroup from '@components/utils/hooks/push/useGetGroup';
 import useGroupByName from '@components/utils/hooks/push/useGetGroupbyName';
+import { Growthbook } from '@lib/growthbook';
 import { t } from '@lingui/macro';
 import type { GroupDTO, IFeeds } from '@pushprotocol/restapi';
+import { FeatureFlag } from 'data';
 import { APP_NAME } from 'data/constants';
 import type { Profile } from 'lens';
 import { useProfileLazyQuery } from 'lens';
@@ -25,6 +27,8 @@ import { getCAIPFromLensID, getIsHandle, getProfileFromDID } from './helper';
 import MessageBody from './MessageBody';
 import MessageHeader from './MessageHeader';
 import PUSHNoConversationSelected from './PUSHNoConversationSelected';
+
+const { on: isPushDMsEnabled } = Growthbook.feature(FeatureFlag.PushDMs);
 
 type MessagePropType = {
   conversationType: ChatTypes;
@@ -259,7 +263,8 @@ const MessagePage: NextPage = () => {
   if (
     !conversationKey ||
     !currentProfileId ||
-    !Array.isArray(conversationKey)
+    !Array.isArray(conversationKey) ||
+    !isPushDMsEnabled
   ) {
     return <Custom404 />;
   }

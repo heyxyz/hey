@@ -1,6 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
+import { Growthbook } from '@lib/growthbook';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
+import { FeatureFlag } from 'data';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -12,6 +14,8 @@ import { useMessageStore } from 'src/store/message';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridLayout } from 'ui';
 
+const { on: isPushDMsEnabled } = Growthbook.feature(FeatureFlag.PushDMs);
+
 import NoConversationSelected from './NoConversationSelected';
 import PreviewList from './PreviewList';
 
@@ -19,20 +23,25 @@ const Messages: NextPage = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setChatProvider = useMessageStore((state) => state.setChatProvider);
+  const path = router.pathname;
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'messages' });
   }, []);
 
   useEffect(() => {
-    const path = router.pathname;
     if (path === '/messages') {
-      router.push(`/messages/${MESSAGING_PROVIDER.PUSH}`);
-      setChatProvider(MESSAGING_PROVIDER.PUSH);
+      if (isPushDMsEnabled) {
+        router.push(`/messages/${MESSAGING_PROVIDER.PUSH}`);
+        setChatProvider(MESSAGING_PROVIDER.PUSH);
+      } else {
+        router.push(`/messages/${MESSAGING_PROVIDER.XMTP}`);
+        setChatProvider(MESSAGING_PROVIDER.XMTP);
+      }
     }
-  }, [router, setChatProvider]);
+  }, [path, router, setChatProvider]);
 
-  if (!currentProfile) {
+  if (!currentProfile || (!isPushDMsEnabled && path === '/messages/push')) {
     return <Custom404 />;
   }
 
