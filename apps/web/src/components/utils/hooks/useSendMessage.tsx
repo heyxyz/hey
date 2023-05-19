@@ -68,6 +68,7 @@ const useSendMessage = (conversationKey: string) => {
       }
     };
     checkUserIsOnXmtp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationKey, client]);
 
   return { sendMessage, missingXmtpAuth };
