@@ -3,9 +3,6 @@ fragment ProfilePictureFields on ProfileMedia {
     original {
       url
     }
-    optimized {
-      url
-    }
   }
   ... on NftImage {
     uri

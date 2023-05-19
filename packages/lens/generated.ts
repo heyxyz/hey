@@ -4625,7 +4625,6 @@ export type CommentFieldsFragment = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
-          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -4775,11 +4774,6 @@ export type CommentFieldsFragment = {
     media: Array<{
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-      optimized?: {
-        __typename?: 'Media';
-        url: any;
-        mimeType?: any | null;
-      } | null;
     }>;
     encryptionParams?: {
       __typename?: 'EncryptionParamsOutput';
@@ -4922,7 +4916,6 @@ export type CommentFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -5065,11 +5058,6 @@ export type CommentFieldsFragment = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-            optimized?: {
-              __typename?: 'Media';
-              url: any;
-              mimeType?: any | null;
-            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -5221,7 +5209,6 @@ export type CommentFieldsFragment = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -5378,11 +5365,6 @@ export type CommentFieldsFragment = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -5527,10 +5509,6 @@ export type CommentFieldsFragment = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -5597,10 +5575,6 @@ export type CommentFieldsFragment = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -5760,11 +5734,6 @@ export type CommentFieldsFragment = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -5912,7 +5881,6 @@ export type CommentFieldsFragment = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -6069,11 +6037,6 @@ export type CommentFieldsFragment = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -6219,7 +6182,6 @@ export type CommentFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -6369,11 +6331,6 @@ export type CommentFieldsFragment = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-            optimized?: {
-              __typename?: 'Media';
-              url: any;
-              mimeType?: any | null;
-            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -6518,7 +6475,6 @@ export type CommentFieldsFragment = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -6582,7 +6538,6 @@ export type CommentFieldsFragment = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -6739,11 +6694,6 @@ export type CommentFieldsFragment = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -6891,7 +6841,6 @@ export type CommentFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -7041,11 +6990,6 @@ export type CommentFieldsFragment = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-            optimized?: {
-              __typename?: 'Media';
-              url: any;
-              mimeType?: any | null;
-            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -7177,11 +7121,6 @@ export type MetadataFieldsFragment = {
   media: Array<{
     __typename?: 'MediaSet';
     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-    optimized?: {
-      __typename?: 'Media';
-      url: any;
-      mimeType?: any | null;
-    } | null;
   }>;
   encryptionParams?: {
     __typename?: 'EncryptionParamsOutput';
@@ -7317,7 +7256,6 @@ export type MirrorFieldsFragment = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
-          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -7467,11 +7405,6 @@ export type MirrorFieldsFragment = {
     media: Array<{
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-      optimized?: {
-        __typename?: 'Media';
-        url: any;
-        mimeType?: any | null;
-      } | null;
     }>;
     encryptionParams?: {
       __typename?: 'EncryptionParamsOutput';
@@ -7613,7 +7546,6 @@ export type MirrorFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -7674,7 +7606,6 @@ export type MirrorFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -7824,11 +7755,6 @@ export type MirrorFieldsFragment = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-            optimized?: {
-              __typename?: 'Media';
-              url: any;
-              mimeType?: any | null;
-            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -7988,7 +7914,6 @@ export type PostFieldsFragment = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
-          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -8138,11 +8063,6 @@ export type PostFieldsFragment = {
     media: Array<{
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-      optimized?: {
-        __typename?: 'Media';
-        url: any;
-        mimeType?: any | null;
-      } | null;
     }>;
     encryptionParams?: {
       __typename?: 'EncryptionParamsOutput';
@@ -8271,11 +8191,7 @@ export type ProfileFieldsFragment = {
     value: string;
   }> | null;
   picture?:
-    | {
-        __typename?: 'MediaSet';
-        original: { __typename?: 'Media'; url: any };
-        optimized?: { __typename?: 'Media'; url: any } | null;
-      }
+    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
     | { __typename?: 'NftImage'; uri: any }
     | null;
   followModule?:
@@ -8289,7 +8205,6 @@ export type ProfileFieldsFragment = {
 type ProfilePictureFields_MediaSet_Fragment = {
   __typename?: 'MediaSet';
   original: { __typename?: 'Media'; url: any };
-  optimized?: { __typename?: 'Media'; url: any } | null;
 };
 
 type ProfilePictureFields_NftImage_Fragment = {
@@ -9632,7 +9547,6 @@ export type CollectorsQuery = {
           | {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any };
-              optimized?: { __typename?: 'Media'; url: any } | null;
             }
           | { __typename?: 'NftImage'; uri: any }
           | null;
@@ -9694,7 +9608,6 @@ export type CommentFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -9848,11 +9761,6 @@ export type CommentFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -9998,7 +9906,6 @@ export type CommentFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -10151,11 +10058,6 @@ export type CommentFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -10307,10 +10209,6 @@ export type CommentFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -10470,11 +10368,6 @@ export type CommentFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -10622,10 +10515,6 @@ export type CommentFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
-                                    optimized?: {
-                                      __typename?: 'Media';
-                                      url: any;
-                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -10695,10 +10584,6 @@ export type CommentFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
-                                    optimized?: {
-                                      __typename?: 'Media';
-                                      url: any;
-                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -10860,11 +10745,6 @@ export type CommentFeedQuery = {
                                   url: any;
                                   mimeType?: any | null;
                                 };
-                                optimized?: {
-                                  __typename?: 'Media';
-                                  url: any;
-                                  mimeType?: any | null;
-                                } | null;
                               }>;
                               encryptionParams?: {
                                 __typename?: 'EncryptionParamsOutput';
@@ -11012,10 +10892,6 @@ export type CommentFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -11175,11 +11051,6 @@ export type CommentFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -11325,7 +11196,6 @@ export type CommentFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -11485,11 +11355,6 @@ export type CommentFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -11634,10 +11499,6 @@ export type CommentFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -11704,10 +11565,6 @@ export type CommentFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -11867,11 +11724,6 @@ export type CommentFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -12019,7 +11871,6 @@ export type CommentFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -12179,11 +12030,6 @@ export type CommentFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -12410,7 +12256,6 @@ export type ExploreFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -12564,11 +12409,6 @@ export type ExploreFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -12714,7 +12554,6 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -12867,11 +12706,6 @@ export type ExploreFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -13023,10 +12857,6 @@ export type ExploreFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -13186,11 +13016,6 @@ export type ExploreFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -13338,10 +13163,6 @@ export type ExploreFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
-                                    optimized?: {
-                                      __typename?: 'Media';
-                                      url: any;
-                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -13411,10 +13232,6 @@ export type ExploreFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
-                                    optimized?: {
-                                      __typename?: 'Media';
-                                      url: any;
-                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -13576,11 +13393,6 @@ export type ExploreFeedQuery = {
                                   url: any;
                                   mimeType?: any | null;
                                 };
-                                optimized?: {
-                                  __typename?: 'Media';
-                                  url: any;
-                                  mimeType?: any | null;
-                                } | null;
                               }>;
                               encryptionParams?: {
                                 __typename?: 'EncryptionParamsOutput';
@@ -13728,10 +13540,6 @@ export type ExploreFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -13891,11 +13699,6 @@ export type ExploreFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -14041,7 +13844,6 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -14201,11 +14003,6 @@ export type ExploreFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -14350,10 +14147,6 @@ export type ExploreFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -14420,10 +14213,6 @@ export type ExploreFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -14583,11 +14372,6 @@ export type ExploreFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -14735,7 +14519,6 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -14895,11 +14678,6 @@ export type ExploreFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -15046,7 +14824,6 @@ export type ExploreFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -15200,11 +14977,6 @@ export type ExploreFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -15349,7 +15121,6 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -15416,7 +15187,6 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -15576,11 +15346,6 @@ export type ExploreFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -15728,7 +15493,6 @@ export type ExploreFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -15882,11 +15646,6 @@ export type ExploreFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -16049,7 +15808,6 @@ export type FeedHighlightsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -16203,11 +15961,6 @@ export type FeedHighlightsQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -16353,7 +16106,6 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -16506,11 +16258,6 @@ export type FeedHighlightsQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -16662,10 +16409,6 @@ export type FeedHighlightsQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -16825,11 +16568,6 @@ export type FeedHighlightsQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -16977,10 +16715,6 @@ export type FeedHighlightsQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
-                                    optimized?: {
-                                      __typename?: 'Media';
-                                      url: any;
-                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -17050,10 +16784,6 @@ export type FeedHighlightsQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
-                                    optimized?: {
-                                      __typename?: 'Media';
-                                      url: any;
-                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -17215,11 +16945,6 @@ export type FeedHighlightsQuery = {
                                   url: any;
                                   mimeType?: any | null;
                                 };
-                                optimized?: {
-                                  __typename?: 'Media';
-                                  url: any;
-                                  mimeType?: any | null;
-                                } | null;
                               }>;
                               encryptionParams?: {
                                 __typename?: 'EncryptionParamsOutput';
@@ -17367,10 +17092,6 @@ export type FeedHighlightsQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -17530,11 +17251,6 @@ export type FeedHighlightsQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -17680,7 +17396,6 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -17840,11 +17555,6 @@ export type FeedHighlightsQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -17989,10 +17699,6 @@ export type FeedHighlightsQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -18059,10 +17765,6 @@ export type FeedHighlightsQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -18222,11 +17924,6 @@ export type FeedHighlightsQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -18374,7 +18071,6 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -18534,11 +18230,6 @@ export type FeedHighlightsQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -18685,7 +18376,6 @@ export type FeedHighlightsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -18839,11 +18529,6 @@ export type FeedHighlightsQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -18988,7 +18673,6 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -19055,7 +18739,6 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -19215,11 +18898,6 @@ export type FeedHighlightsQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -19367,7 +19045,6 @@ export type FeedHighlightsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -19521,11 +19198,6 @@ export type FeedHighlightsQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -19678,7 +19350,6 @@ export type FollowersQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -19728,7 +19399,6 @@ export type FollowingQuery = {
           | {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any };
-              optimized?: { __typename?: 'Media'; url: any } | null;
             }
           | { __typename?: 'NftImage'; uri: any }
           | null;
@@ -19828,7 +19498,6 @@ export type LikesQuery = {
           | {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any };
-              optimized?: { __typename?: 'Media'; url: any } | null;
             }
           | { __typename?: 'NftImage'; uri: any }
           | null;
@@ -19874,7 +19543,6 @@ export type MirrorsQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
-            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -19905,7 +19573,6 @@ export type MutualFollowersQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
-            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -19947,7 +19614,6 @@ export type MutualFollowersListQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
-            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -20081,7 +19747,6 @@ export type NotificationsQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
-                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -20354,7 +20019,6 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -20405,7 +20069,6 @@ export type NotificationsQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
-                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -20448,7 +20111,6 @@ export type NotificationsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -20489,7 +20151,6 @@ export type NotificationsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -20532,7 +20193,6 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -20587,7 +20247,6 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -20687,7 +20346,6 @@ export type ProfileQuery = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
-          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -20762,7 +20420,6 @@ export type ProfileFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -20916,11 +20573,6 @@ export type ProfileFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -21066,7 +20718,6 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -21219,11 +20870,6 @@ export type ProfileFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -21375,10 +21021,6 @@ export type ProfileFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -21538,11 +21180,6 @@ export type ProfileFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -21690,10 +21327,6 @@ export type ProfileFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
-                                    optimized?: {
-                                      __typename?: 'Media';
-                                      url: any;
-                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -21763,10 +21396,6 @@ export type ProfileFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
-                                    optimized?: {
-                                      __typename?: 'Media';
-                                      url: any;
-                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -21928,11 +21557,6 @@ export type ProfileFeedQuery = {
                                   url: any;
                                   mimeType?: any | null;
                                 };
-                                optimized?: {
-                                  __typename?: 'Media';
-                                  url: any;
-                                  mimeType?: any | null;
-                                } | null;
                               }>;
                               encryptionParams?: {
                                 __typename?: 'EncryptionParamsOutput';
@@ -22080,10 +21704,6 @@ export type ProfileFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -22243,11 +21863,6 @@ export type ProfileFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -22393,7 +22008,6 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -22553,11 +22167,6 @@ export type ProfileFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -22702,10 +22311,6 @@ export type ProfileFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -22772,10 +22377,6 @@ export type ProfileFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -22935,11 +22536,6 @@ export type ProfileFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
-                          optimized?: {
-                            __typename?: 'Media';
-                            url: any;
-                            mimeType?: any | null;
-                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -23087,7 +22683,6 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -23247,11 +22842,6 @@ export type ProfileFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -23398,7 +22988,6 @@ export type ProfileFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -23552,11 +23141,6 @@ export type ProfileFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -23701,7 +23285,6 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -23768,7 +23351,6 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
-                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -23928,11 +23510,6 @@ export type ProfileFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
-                    optimized?: {
-                      __typename?: 'Media';
-                      url: any;
-                      mimeType?: any | null;
-                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -24080,7 +23657,6 @@ export type ProfileFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
-                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -24234,11 +23810,6 @@ export type ProfileFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
-              optimized?: {
-                __typename?: 'Media';
-                url: any;
-                mimeType?: any | null;
-              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -24390,7 +23961,6 @@ export type ProfileSettingsQuery = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
-          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | {
           __typename?: 'NftImage';
@@ -24434,7 +24004,6 @@ export type ProfilesQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
-            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -24494,7 +24063,6 @@ export type PublicationQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -24649,11 +24217,6 @@ export type PublicationQuery = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-            optimized?: {
-              __typename?: 'Media';
-              url: any;
-              mimeType?: any | null;
-            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -24799,7 +24362,6 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -24949,11 +24511,6 @@ export type PublicationQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -25105,10 +24662,6 @@ export type PublicationQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -25268,11 +24821,6 @@ export type PublicationQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -25417,10 +24965,6 @@ export type PublicationQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
-                                  optimized?: {
-                                    __typename?: 'Media';
-                                    url: any;
-                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -25487,10 +25031,6 @@ export type PublicationQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
-                                  optimized?: {
-                                    __typename?: 'Media';
-                                    url: any;
-                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -25650,11 +25190,6 @@ export type PublicationQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                                mimeType?: any | null;
-                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -25802,10 +25337,6 @@ export type PublicationQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -25965,11 +25496,6 @@ export type PublicationQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -26115,7 +25641,6 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -26272,11 +25797,6 @@ export type PublicationQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -26421,10 +25941,6 @@ export type PublicationQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -26491,10 +26007,6 @@ export type PublicationQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -26654,11 +26166,6 @@ export type PublicationQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -26806,7 +26313,6 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -26963,11 +26469,6 @@ export type PublicationQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -27115,7 +26616,6 @@ export type PublicationQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -27270,11 +26770,6 @@ export type PublicationQuery = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-            optimized?: {
-              __typename?: 'Media';
-              url: any;
-              mimeType?: any | null;
-            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -27419,7 +26914,6 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -27483,7 +26977,6 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -27640,11 +27133,6 @@ export type PublicationQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -27793,7 +27281,6 @@ export type PublicationQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -27948,11 +27435,6 @@ export type PublicationQuery = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-            optimized?: {
-              __typename?: 'Media';
-              url: any;
-              mimeType?: any | null;
-            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -28110,7 +27592,6 @@ export type RecommendedProfilesQuery = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
-          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -28165,7 +27646,6 @@ export type RelevantPeopleQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
-            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -28210,7 +27690,6 @@ export type SearchProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -28274,7 +27753,6 @@ export type SearchPublicationsQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -28431,11 +27909,6 @@ export type SearchPublicationsQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -28581,10 +28054,6 @@ export type SearchPublicationsQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -28737,11 +28206,6 @@ export type SearchPublicationsQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -28893,10 +28357,6 @@ export type SearchPublicationsQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
-                                  optimized?: {
-                                    __typename?: 'Media';
-                                    url: any;
-                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -29056,11 +28516,6 @@ export type SearchPublicationsQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                                mimeType?: any | null;
-                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -29208,10 +28663,6 @@ export type SearchPublicationsQuery = {
                                           __typename?: 'Media';
                                           url: any;
                                         };
-                                        optimized?: {
-                                          __typename?: 'Media';
-                                          url: any;
-                                        } | null;
                                       }
                                     | { __typename?: 'NftImage'; uri: any }
                                     | null;
@@ -29287,10 +28738,6 @@ export type SearchPublicationsQuery = {
                                           __typename?: 'Media';
                                           url: any;
                                         };
-                                        optimized?: {
-                                          __typename?: 'Media';
-                                          url: any;
-                                        } | null;
                                       }
                                     | { __typename?: 'NftImage'; uri: any }
                                     | null;
@@ -29469,11 +28916,6 @@ export type SearchPublicationsQuery = {
                                       url: any;
                                       mimeType?: any | null;
                                     };
-                                    optimized?: {
-                                      __typename?: 'Media';
-                                      url: any;
-                                      mimeType?: any | null;
-                                    } | null;
                                   }>;
                                   encryptionParams?: {
                                     __typename?: 'EncryptionParamsOutput';
@@ -29625,10 +29067,6 @@ export type SearchPublicationsQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
-                                  optimized?: {
-                                    __typename?: 'Media';
-                                    url: any;
-                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -29788,11 +29226,6 @@ export type SearchPublicationsQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                                mimeType?: any | null;
-                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -29938,10 +29371,6 @@ export type SearchPublicationsQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -30101,11 +29530,6 @@ export type SearchPublicationsQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -30250,10 +29674,6 @@ export type SearchPublicationsQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
-                                  optimized?: {
-                                    __typename?: 'Media';
-                                    url: any;
-                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -30320,10 +29740,6 @@ export type SearchPublicationsQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
-                                  optimized?: {
-                                    __typename?: 'Media';
-                                    url: any;
-                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -30483,11 +29899,6 @@ export type SearchPublicationsQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                                mimeType?: any | null;
-                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -30635,10 +30046,6 @@ export type SearchPublicationsQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -30798,11 +30205,6 @@ export type SearchPublicationsQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -30951,7 +30353,6 @@ export type SearchPublicationsQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -31108,11 +30509,6 @@ export type SearchPublicationsQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -31264,7 +30660,6 @@ export type SeeThroughProfilesQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
-                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -31300,7 +30695,6 @@ export type SeeThroughProfilesQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
-                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -31336,7 +30730,6 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -31372,7 +30765,6 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -31408,7 +30800,6 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -31444,7 +30835,6 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -31480,7 +30870,6 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -31576,7 +30965,6 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
-                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -31730,11 +31118,6 @@ export type TimelineQuery = {
                   url: any;
                   mimeType?: any | null;
                 };
-                optimized?: {
-                  __typename?: 'Media';
-                  url: any;
-                  mimeType?: any | null;
-                } | null;
               }>;
               encryptionParams?: {
                 __typename?: 'EncryptionParamsOutput';
@@ -31880,7 +31263,6 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any };
-                          optimized?: { __typename?: 'Media'; url: any } | null;
                         }
                       | { __typename?: 'NftImage'; uri: any }
                       | null;
@@ -32033,11 +31415,6 @@ export type TimelineQuery = {
                         url: any;
                         mimeType?: any | null;
                       };
-                      optimized?: {
-                        __typename?: 'Media';
-                        url: any;
-                        mimeType?: any | null;
-                      } | null;
                     }>;
                     encryptionParams?: {
                       __typename?: 'EncryptionParamsOutput';
@@ -32189,10 +31566,6 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any };
-                                optimized?: {
-                                  __typename?: 'Media';
-                                  url: any;
-                                } | null;
                               }
                             | { __typename?: 'NftImage'; uri: any }
                             | null;
@@ -32352,11 +31725,6 @@ export type TimelineQuery = {
                               url: any;
                               mimeType?: any | null;
                             };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                              mimeType?: any | null;
-                            } | null;
                           }>;
                           encryptionParams?: {
                             __typename?: 'EncryptionParamsOutput';
@@ -32504,10 +31872,6 @@ export type TimelineQuery = {
                                         __typename?: 'Media';
                                         url: any;
                                       };
-                                      optimized?: {
-                                        __typename?: 'Media';
-                                        url: any;
-                                      } | null;
                                     }
                                   | { __typename?: 'NftImage'; uri: any }
                                   | null;
@@ -32581,10 +31945,6 @@ export type TimelineQuery = {
                                         __typename?: 'Media';
                                         url: any;
                                       };
-                                      optimized?: {
-                                        __typename?: 'Media';
-                                        url: any;
-                                      } | null;
                                     }
                                   | { __typename?: 'NftImage'; uri: any }
                                   | null;
@@ -32754,11 +32114,6 @@ export type TimelineQuery = {
                                     url: any;
                                     mimeType?: any | null;
                                   };
-                                  optimized?: {
-                                    __typename?: 'Media';
-                                    url: any;
-                                    mimeType?: any | null;
-                                  } | null;
                                 }>;
                                 encryptionParams?: {
                                   __typename?: 'EncryptionParamsOutput';
@@ -32906,10 +32261,6 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any };
-                                optimized?: {
-                                  __typename?: 'Media';
-                                  url: any;
-                                } | null;
                               }
                             | { __typename?: 'NftImage'; uri: any }
                             | null;
@@ -33069,11 +32420,6 @@ export type TimelineQuery = {
                               url: any;
                               mimeType?: any | null;
                             };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                              mimeType?: any | null;
-                            } | null;
                           }>;
                           encryptionParams?: {
                             __typename?: 'EncryptionParamsOutput';
@@ -33219,7 +32565,6 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any };
-                          optimized?: { __typename?: 'Media'; url: any } | null;
                         }
                       | { __typename?: 'NftImage'; uri: any }
                       | null;
@@ -33379,11 +32724,6 @@ export type TimelineQuery = {
                         url: any;
                         mimeType?: any | null;
                       };
-                      optimized?: {
-                        __typename?: 'Media';
-                        url: any;
-                        mimeType?: any | null;
-                      } | null;
                     }>;
                     encryptionParams?: {
                       __typename?: 'EncryptionParamsOutput';
@@ -33528,10 +32868,6 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any };
-                                optimized?: {
-                                  __typename?: 'Media';
-                                  url: any;
-                                } | null;
                               }
                             | { __typename?: 'NftImage'; uri: any }
                             | null;
@@ -33598,10 +32934,6 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any };
-                                optimized?: {
-                                  __typename?: 'Media';
-                                  url: any;
-                                } | null;
                               }
                             | { __typename?: 'NftImage'; uri: any }
                             | null;
@@ -33761,11 +33093,6 @@ export type TimelineQuery = {
                               url: any;
                               mimeType?: any | null;
                             };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                              mimeType?: any | null;
-                            } | null;
                           }>;
                           encryptionParams?: {
                             __typename?: 'EncryptionParamsOutput';
@@ -33913,7 +33240,6 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any };
-                          optimized?: { __typename?: 'Media'; url: any } | null;
                         }
                       | { __typename?: 'NftImage'; uri: any }
                       | null;
@@ -34073,11 +33399,6 @@ export type TimelineQuery = {
                         url: any;
                         mimeType?: any | null;
                       };
-                      optimized?: {
-                        __typename?: 'Media';
-                        url: any;
-                        mimeType?: any | null;
-                      } | null;
                     }>;
                     encryptionParams?: {
                       __typename?: 'EncryptionParamsOutput';
@@ -34226,7 +33547,6 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
-                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -34380,11 +33700,6 @@ export type TimelineQuery = {
                   url: any;
                   mimeType?: any | null;
                 };
-                optimized?: {
-                  __typename?: 'Media';
-                  url: any;
-                  mimeType?: any | null;
-                } | null;
               }>;
               encryptionParams?: {
                 __typename?: 'EncryptionParamsOutput';
@@ -34522,7 +33837,6 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -34559,7 +33873,6 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -34596,7 +33909,6 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -34634,7 +33946,6 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -34681,7 +33992,6 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
-                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -34831,11 +34141,6 @@ export type TimelineQuery = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
-            optimized?: {
-              __typename?: 'Media';
-              url: any;
-              mimeType?: any | null;
-            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -34981,7 +34286,6 @@ export type TimelineQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -35131,11 +34435,6 @@ export type TimelineQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -35287,10 +34586,6 @@ export type TimelineQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -35450,11 +34745,6 @@ export type TimelineQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -35599,10 +34889,6 @@ export type TimelineQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
-                                  optimized?: {
-                                    __typename?: 'Media';
-                                    url: any;
-                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -35669,10 +34955,6 @@ export type TimelineQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
-                                  optimized?: {
-                                    __typename?: 'Media';
-                                    url: any;
-                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -35832,11 +35114,6 @@ export type TimelineQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
-                              optimized?: {
-                                __typename?: 'Media';
-                                url: any;
-                                mimeType?: any | null;
-                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -35984,10 +35261,6 @@ export type TimelineQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -36147,11 +35420,6 @@ export type TimelineQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -36297,7 +35565,6 @@ export type TimelineQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -36454,11 +35721,6 @@ export type TimelineQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -36603,10 +35865,6 @@ export type TimelineQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -36673,10 +35931,6 @@ export type TimelineQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
-                            optimized?: {
-                              __typename?: 'Media';
-                              url: any;
-                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -36836,11 +36090,6 @@ export type TimelineQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
-                        optimized?: {
-                          __typename?: 'Media';
-                          url: any;
-                          mimeType?: any | null;
-                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -36988,7 +36237,6 @@ export type TimelineQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
-                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -37145,11 +36393,6 @@ export type TimelineQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
-                  optimized?: {
-                    __typename?: 'Media';
-                    url: any;
-                    mimeType?: any | null;
-                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -37320,7 +36563,6 @@ export type UserProfilesQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
-            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -37351,9 +36593,6 @@ export const ProfilePictureFieldsFragmentDoc = gql`
   fragment ProfilePictureFields on ProfileMedia {
     ... on MediaSet {
       original {
-        url
-      }
-      optimized {
         url
       }
     }
@@ -37513,10 +36752,6 @@ export const MetadataFieldsFragmentDoc = gql`
     }
     media {
       original {
-        url
-        mimeType
-      }
-      optimized {
         url
         mimeType
       }
