@@ -16,11 +16,7 @@ query ProfileSettings($request: SingleProfileQueryRequest!) {
       }
     }
     picture {
-      ... on MediaSet {
-        original {
-          url
-        }
-      }
+      ...ProfilePictureFields
       ... on NftImage {
         uri
         tokenId

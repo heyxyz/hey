@@ -16,6 +16,10 @@ fragment MetadataFields on MetadataOutput {
       url
       mimeType
     }
+    optimized {
+      url
+      mimeType
+    }
   }
   encryptionParams {
     accessCondition {

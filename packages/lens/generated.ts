@@ -308,6 +308,7 @@ export type CollectModule =
   | LimitedTimedFeeCollectModuleSettings
   | MultirecipientFeeCollectModuleSettings
   | RevertCollectModuleSettings
+  | SimpleCollectModuleSettings
   | TimedFeeCollectModuleSettings
   | UnknownCollectModuleSettings;
 
@@ -328,6 +329,8 @@ export type CollectModuleParams = {
   multirecipientFeeCollectModule?: InputMaybe<MultirecipientFeeCollectModuleParams>;
   /** The collect revert collect module */
   revertCollectModule?: InputMaybe<Scalars['Boolean']>;
+  /** The collect simple fee collect module */
+  simpleCollectModule?: InputMaybe<SimpleCollectModuleParams>;
   /** The collect timed fee collect module */
   timedFeeCollectModule?: InputMaybe<TimedFeeCollectModuleParams>;
   /** A unknown collect module */
@@ -344,6 +347,7 @@ export enum CollectModules {
   LimitedTimedFeeCollectModule = 'LimitedTimedFeeCollectModule',
   MultirecipientFeeCollectModule = 'MultirecipientFeeCollectModule',
   RevertCollectModule = 'RevertCollectModule',
+  SimpleCollectModule = 'SimpleCollectModule',
   TimedFeeCollectModule = 'TimedFeeCollectModule',
   UnknownCollectModule = 'UnknownCollectModule'
 }
@@ -1974,14 +1978,18 @@ export type MediaSet = {
   __typename?: 'MediaSet';
   /**
    * Medium media - will always be null on the public API
-   * @deprecated should not be used will always be null
+   * @deprecated should not be used will always be null - use transform function to get small media
    */
   medium?: Maybe<Media>;
-  /** Original media */
+  /** Original media as found on the publication metadata */
+  onChain: Media;
+  /** Optimized media, snapshotted and served from a CDN */
+  optimized?: Maybe<Media>;
+  /** On-chain or snapshotted media on a CDN */
   original: Media;
   /**
    * Small media - will always be null on the public API
-   * @deprecated should not be used will always be null
+   * @deprecated should not be used will always be null - use transform function to get small media
    */
   small?: Maybe<Media>;
 };
@@ -2114,6 +2122,16 @@ export type MirrorEvent = {
 
 export type MirrorablePublication = Comment | Post;
 
+export type ModuleFee = {
+  __typename?: 'ModuleFee';
+  /** The fee amount */
+  amount: ModuleFeeAmount;
+  /** The fee recipient */
+  recipient: Scalars['EthereumAddress'];
+  /** The referral fee */
+  referralFee: Scalars['Float'];
+};
+
 export type ModuleFeeAmount = {
   __typename?: 'ModuleFeeAmount';
   /** The erc20 token info */
@@ -2127,6 +2145,15 @@ export type ModuleFeeAmountParams = {
   currency: Scalars['ContractAddress'];
   /** Floating point number as string (e.g. 42.009837). It could have the entire precision of the Asset or be truncated to the last significant decimal. */
   value: Scalars['String'];
+};
+
+export type ModuleFeeParams = {
+  /** The fee amount */
+  amount: ModuleFeeAmountParams;
+  /** The fee recipient */
+  recipient: Scalars['EthereumAddress'];
+  /** The referral fee */
+  referralFee: Scalars['Float'];
 };
 
 export type ModuleInfo = {
@@ -2244,6 +2271,7 @@ export type Mutation = {
   /** Delete an NFT Gallery */
   deleteNftGallery?: Maybe<Scalars['Void']>;
   dismissRecommendedProfiles?: Maybe<Scalars['Void']>;
+  dss?: Maybe<Scalars['Void']>;
   gci?: Maybe<Scalars['Void']>;
   gcr?: Maybe<Scalars['Void']>;
   gdi?: Maybe<Scalars['Void']>;
@@ -2428,6 +2456,10 @@ export type MutationDeleteNftGalleryArgs = {
 
 export type MutationDismissRecommendedProfilesArgs = {
   request: DismissRecommendedProfilesRequest;
+};
+
+export type MutationDssArgs = {
+  request: PrfRequest;
 };
 
 export type MutationGciArgs = {
@@ -3011,6 +3043,11 @@ export type PostMirrorsArgs = {
 /** The social post */
 export type PostReactionArgs = {
   request?: InputMaybe<ReactionFieldResolverRequest>;
+};
+
+export type PrfRequest = {
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
 };
 
 /** The Profile */
@@ -3612,6 +3649,7 @@ export type Query = {
   hasTxHashBeenIndexed: TransactionResult;
   internalPublicationFilter: PaginatedPublicationResult;
   isIDKitPhoneVerified: Scalars['Boolean'];
+  iss: Scalars['Boolean'];
   mutualFollowersProfiles: PaginatedProfileResult;
   /** Get all NFT galleries for a profile */
   nftGalleries: Array<NftGallery>;
@@ -3729,6 +3767,10 @@ export type QueryHasTxHashBeenIndexedArgs = {
 
 export type QueryInternalPublicationFilterArgs = {
   request: InternalPublicationsFilterRequest;
+};
+
+export type QueryIssArgs = {
+  request: PrfRequest;
 };
 
 export type QueryMutualFollowersProfilesArgs = {
@@ -4126,6 +4168,32 @@ export type SignedAuthChallenge = {
   signature: Scalars['Signature'];
 };
 
+export type SimpleCollectModuleParams = {
+  /** The collect module limit */
+  collectLimit?: InputMaybe<Scalars['String']>;
+  /** The timestamp that this collect module will expire */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>;
+  /** The collect module fee params */
+  fee?: InputMaybe<ModuleFeeParams>;
+  /** Collectible by followers only */
+  followerOnly: Scalars['Boolean'];
+};
+
+export type SimpleCollectModuleSettings = {
+  __typename?: 'SimpleCollectModuleSettings';
+  /** The maximum number of collects for this publication. 0 for no limit. */
+  collectLimit?: Maybe<Scalars['String']>;
+  contractAddress: Scalars['ContractAddress'];
+  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
+  endTimestamp?: Maybe<Scalars['DateTime']>;
+  /** The collect module fee params */
+  fee?: Maybe<ModuleFee>;
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean'];
+  /** The collect modules enum */
+  type: CollectModules;
+};
+
 export type SingleProfileQueryRequest = {
   /** The handle for the profile */
   handle?: InputMaybe<Scalars['Handle']>;
@@ -4482,6 +4550,10 @@ type CollectModuleFields_RevertCollectModuleSettings_Fragment = {
   __typename?: 'RevertCollectModuleSettings';
 };
 
+type CollectModuleFields_SimpleCollectModuleSettings_Fragment = {
+  __typename?: 'SimpleCollectModuleSettings';
+};
+
 type CollectModuleFields_TimedFeeCollectModuleSettings_Fragment = {
   __typename?: 'TimedFeeCollectModuleSettings';
   type: CollectModules;
@@ -4514,6 +4586,7 @@ export type CollectModuleFieldsFragment =
   | CollectModuleFields_LimitedTimedFeeCollectModuleSettings_Fragment
   | CollectModuleFields_MultirecipientFeeCollectModuleSettings_Fragment
   | CollectModuleFields_RevertCollectModuleSettings_Fragment
+  | CollectModuleFields_SimpleCollectModuleSettings_Fragment
   | CollectModuleFields_TimedFeeCollectModuleSettings_Fragment
   | CollectModuleFields_UnknownCollectModuleSettings_Fragment;
 
@@ -4552,6 +4625,7 @@ export type CommentFieldsFragment = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
+          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -4657,6 +4731,7 @@ export type CommentFieldsFragment = {
         }>;
       }
     | { __typename?: 'RevertCollectModuleSettings' }
+    | { __typename?: 'SimpleCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
         type: CollectModules;
@@ -4700,6 +4775,11 @@ export type CommentFieldsFragment = {
     media: Array<{
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+      optimized?: {
+        __typename?: 'Media';
+        url: any;
+        mimeType?: any | null;
+      } | null;
     }>;
     encryptionParams?: {
       __typename?: 'EncryptionParamsOutput';
@@ -4842,6 +4922,7 @@ export type CommentFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -4947,6 +5028,7 @@ export type CommentFieldsFragment = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -4983,6 +5065,11 @@ export type CommentFieldsFragment = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            optimized?: {
+              __typename?: 'Media';
+              url: any;
+              mimeType?: any | null;
+            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -5134,6 +5221,7 @@ export type CommentFieldsFragment = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -5242,6 +5330,7 @@ export type CommentFieldsFragment = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -5289,6 +5378,11 @@ export type CommentFieldsFragment = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -5433,6 +5527,10 @@ export type CommentFieldsFragment = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -5499,6 +5597,10 @@ export type CommentFieldsFragment = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -5610,6 +5712,7 @@ export type CommentFieldsFragment = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -5657,6 +5760,11 @@ export type CommentFieldsFragment = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -5804,6 +5912,7 @@ export type CommentFieldsFragment = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -5912,6 +6021,7 @@ export type CommentFieldsFragment = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -5959,6 +6069,11 @@ export type CommentFieldsFragment = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -6104,6 +6219,7 @@ export type CommentFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -6209,6 +6325,7 @@ export type CommentFieldsFragment = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -6252,6 +6369,11 @@ export type CommentFieldsFragment = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            optimized?: {
+              __typename?: 'Media';
+              url: any;
+              mimeType?: any | null;
+            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -6396,6 +6518,7 @@ export type CommentFieldsFragment = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -6459,6 +6582,7 @@ export type CommentFieldsFragment = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -6567,6 +6691,7 @@ export type CommentFieldsFragment = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -6614,6 +6739,11 @@ export type CommentFieldsFragment = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -6761,6 +6891,7 @@ export type CommentFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -6866,6 +6997,7 @@ export type CommentFieldsFragment = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -6909,6 +7041,11 @@ export type CommentFieldsFragment = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            optimized?: {
+              __typename?: 'Media';
+              url: any;
+              mimeType?: any | null;
+            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -7040,6 +7177,11 @@ export type MetadataFieldsFragment = {
   media: Array<{
     __typename?: 'MediaSet';
     original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+    optimized?: {
+      __typename?: 'Media';
+      url: any;
+      mimeType?: any | null;
+    } | null;
   }>;
   encryptionParams?: {
     __typename?: 'EncryptionParamsOutput';
@@ -7175,6 +7317,7 @@ export type MirrorFieldsFragment = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
+          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -7280,6 +7423,7 @@ export type MirrorFieldsFragment = {
         }>;
       }
     | { __typename?: 'RevertCollectModuleSettings' }
+    | { __typename?: 'SimpleCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
         type: CollectModules;
@@ -7323,6 +7467,11 @@ export type MirrorFieldsFragment = {
     media: Array<{
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+      optimized?: {
+        __typename?: 'Media';
+        url: any;
+        mimeType?: any | null;
+      } | null;
     }>;
     encryptionParams?: {
       __typename?: 'EncryptionParamsOutput';
@@ -7464,6 +7613,7 @@ export type MirrorFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -7524,6 +7674,7 @@ export type MirrorFieldsFragment = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -7629,6 +7780,7 @@ export type MirrorFieldsFragment = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -7672,6 +7824,11 @@ export type MirrorFieldsFragment = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            optimized?: {
+              __typename?: 'Media';
+              url: any;
+              mimeType?: any | null;
+            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -7831,6 +7988,7 @@ export type PostFieldsFragment = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
+          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -7936,6 +8094,7 @@ export type PostFieldsFragment = {
         }>;
       }
     | { __typename?: 'RevertCollectModuleSettings' }
+    | { __typename?: 'SimpleCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
         type: CollectModules;
@@ -7979,6 +8138,11 @@ export type PostFieldsFragment = {
     media: Array<{
       __typename?: 'MediaSet';
       original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+      optimized?: {
+        __typename?: 'Media';
+        url: any;
+        mimeType?: any | null;
+      } | null;
     }>;
     encryptionParams?: {
       __typename?: 'EncryptionParamsOutput';
@@ -8107,7 +8271,11 @@ export type ProfileFieldsFragment = {
     value: string;
   }> | null;
   picture?:
-    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+    | {
+        __typename?: 'MediaSet';
+        original: { __typename?: 'Media'; url: any };
+        optimized?: { __typename?: 'Media'; url: any } | null;
+      }
     | { __typename?: 'NftImage'; uri: any }
     | null;
   followModule?:
@@ -8117,6 +8285,21 @@ export type ProfileFieldsFragment = {
     | { __typename: 'UnknownFollowModuleSettings' }
     | null;
 };
+
+type ProfilePictureFields_MediaSet_Fragment = {
+  __typename?: 'MediaSet';
+  original: { __typename?: 'Media'; url: any };
+  optimized?: { __typename?: 'Media'; url: any } | null;
+};
+
+type ProfilePictureFields_NftImage_Fragment = {
+  __typename?: 'NftImage';
+  uri: any;
+};
+
+export type ProfilePictureFieldsFragment =
+  | ProfilePictureFields_MediaSet_Fragment
+  | ProfilePictureFields_NftImage_Fragment;
 
 type RelayerResultFields_RelayError_Fragment = {
   __typename?: 'RelayError';
@@ -9168,6 +9351,7 @@ export type CollectModuleQuery = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -9279,6 +9463,7 @@ export type CollectModuleQuery = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -9390,6 +9575,7 @@ export type CollectModuleQuery = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -9446,6 +9632,7 @@ export type CollectorsQuery = {
           | {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any };
+              optimized?: { __typename?: 'Media'; url: any } | null;
             }
           | { __typename?: 'NftImage'; uri: any }
           | null;
@@ -9507,6 +9694,7 @@ export type CommentFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -9612,6 +9800,7 @@ export type CommentFeedQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -9659,6 +9848,11 @@ export type CommentFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -9804,6 +9998,7 @@ export type CommentFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -9915,6 +10110,7 @@ export type CommentFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -9955,6 +10151,11 @@ export type CommentFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -10106,6 +10307,10 @@ export type CommentFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -10217,6 +10422,7 @@ export type CommentFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -10264,6 +10470,11 @@ export type CommentFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -10411,6 +10622,10 @@ export type CommentFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
+                                    optimized?: {
+                                      __typename?: 'Media';
+                                      url: any;
+                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -10480,6 +10695,10 @@ export type CommentFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
+                                    optimized?: {
+                                      __typename?: 'Media';
+                                      url: any;
+                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -10593,6 +10812,7 @@ export type CommentFeedQuery = {
                                   }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
+                              | { __typename?: 'SimpleCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
@@ -10640,6 +10860,11 @@ export type CommentFeedQuery = {
                                   url: any;
                                   mimeType?: any | null;
                                 };
+                                optimized?: {
+                                  __typename?: 'Media';
+                                  url: any;
+                                  mimeType?: any | null;
+                                } | null;
                               }>;
                               encryptionParams?: {
                                 __typename?: 'EncryptionParamsOutput';
@@ -10787,6 +11012,10 @@ export type CommentFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -10898,6 +11127,7 @@ export type CommentFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -10945,6 +11175,11 @@ export type CommentFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -11090,6 +11325,7 @@ export type CommentFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -11201,6 +11437,7 @@ export type CommentFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -11248,6 +11485,11 @@ export type CommentFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -11392,6 +11634,10 @@ export type CommentFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -11458,6 +11704,10 @@ export type CommentFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -11569,6 +11819,7 @@ export type CommentFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -11616,6 +11867,11 @@ export type CommentFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -11763,6 +12019,7 @@ export type CommentFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -11874,6 +12131,7 @@ export type CommentFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -11921,6 +12179,11 @@ export type CommentFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -12147,6 +12410,7 @@ export type ExploreFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -12252,6 +12516,7 @@ export type ExploreFeedQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -12299,6 +12564,11 @@ export type ExploreFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -12444,6 +12714,7 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -12555,6 +12826,7 @@ export type ExploreFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -12595,6 +12867,11 @@ export type ExploreFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -12746,6 +13023,10 @@ export type ExploreFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -12857,6 +13138,7 @@ export type ExploreFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -12904,6 +13186,11 @@ export type ExploreFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -13051,6 +13338,10 @@ export type ExploreFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
+                                    optimized?: {
+                                      __typename?: 'Media';
+                                      url: any;
+                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -13120,6 +13411,10 @@ export type ExploreFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
+                                    optimized?: {
+                                      __typename?: 'Media';
+                                      url: any;
+                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -13233,6 +13528,7 @@ export type ExploreFeedQuery = {
                                   }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
+                              | { __typename?: 'SimpleCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
@@ -13280,6 +13576,11 @@ export type ExploreFeedQuery = {
                                   url: any;
                                   mimeType?: any | null;
                                 };
+                                optimized?: {
+                                  __typename?: 'Media';
+                                  url: any;
+                                  mimeType?: any | null;
+                                } | null;
                               }>;
                               encryptionParams?: {
                                 __typename?: 'EncryptionParamsOutput';
@@ -13427,6 +13728,10 @@ export type ExploreFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -13538,6 +13843,7 @@ export type ExploreFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -13585,6 +13891,11 @@ export type ExploreFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -13730,6 +14041,7 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -13841,6 +14153,7 @@ export type ExploreFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -13888,6 +14201,11 @@ export type ExploreFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -14032,6 +14350,10 @@ export type ExploreFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -14098,6 +14420,10 @@ export type ExploreFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -14209,6 +14535,7 @@ export type ExploreFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -14256,6 +14583,11 @@ export type ExploreFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -14403,6 +14735,7 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -14514,6 +14847,7 @@ export type ExploreFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -14561,6 +14895,11 @@ export type ExploreFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -14707,6 +15046,7 @@ export type ExploreFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -14812,6 +15152,7 @@ export type ExploreFeedQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -14859,6 +15200,11 @@ export type ExploreFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -15003,6 +15349,7 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -15069,6 +15416,7 @@ export type ExploreFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -15180,6 +15528,7 @@ export type ExploreFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -15227,6 +15576,11 @@ export type ExploreFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -15374,6 +15728,7 @@ export type ExploreFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -15479,6 +15834,7 @@ export type ExploreFeedQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -15526,6 +15882,11 @@ export type ExploreFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -15688,6 +16049,7 @@ export type FeedHighlightsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -15793,6 +16155,7 @@ export type FeedHighlightsQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -15840,6 +16203,11 @@ export type FeedHighlightsQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -15985,6 +16353,7 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -16096,6 +16465,7 @@ export type FeedHighlightsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -16136,6 +16506,11 @@ export type FeedHighlightsQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -16287,6 +16662,10 @@ export type FeedHighlightsQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -16398,6 +16777,7 @@ export type FeedHighlightsQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -16445,6 +16825,11 @@ export type FeedHighlightsQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -16592,6 +16977,10 @@ export type FeedHighlightsQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
+                                    optimized?: {
+                                      __typename?: 'Media';
+                                      url: any;
+                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -16661,6 +17050,10 @@ export type FeedHighlightsQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
+                                    optimized?: {
+                                      __typename?: 'Media';
+                                      url: any;
+                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -16774,6 +17167,7 @@ export type FeedHighlightsQuery = {
                                   }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
+                              | { __typename?: 'SimpleCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
@@ -16821,6 +17215,11 @@ export type FeedHighlightsQuery = {
                                   url: any;
                                   mimeType?: any | null;
                                 };
+                                optimized?: {
+                                  __typename?: 'Media';
+                                  url: any;
+                                  mimeType?: any | null;
+                                } | null;
                               }>;
                               encryptionParams?: {
                                 __typename?: 'EncryptionParamsOutput';
@@ -16968,6 +17367,10 @@ export type FeedHighlightsQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -17079,6 +17482,7 @@ export type FeedHighlightsQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -17126,6 +17530,11 @@ export type FeedHighlightsQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -17271,6 +17680,7 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -17382,6 +17792,7 @@ export type FeedHighlightsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -17429,6 +17840,11 @@ export type FeedHighlightsQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -17573,6 +17989,10 @@ export type FeedHighlightsQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -17639,6 +18059,10 @@ export type FeedHighlightsQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -17750,6 +18174,7 @@ export type FeedHighlightsQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -17797,6 +18222,11 @@ export type FeedHighlightsQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -17944,6 +18374,7 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -18055,6 +18486,7 @@ export type FeedHighlightsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -18102,6 +18534,11 @@ export type FeedHighlightsQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -18248,6 +18685,7 @@ export type FeedHighlightsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -18353,6 +18791,7 @@ export type FeedHighlightsQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -18400,6 +18839,11 @@ export type FeedHighlightsQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -18544,6 +18988,7 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -18610,6 +19055,7 @@ export type FeedHighlightsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -18721,6 +19167,7 @@ export type FeedHighlightsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -18768,6 +19215,11 @@ export type FeedHighlightsQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -18915,6 +19367,7 @@ export type FeedHighlightsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -19020,6 +19473,7 @@ export type FeedHighlightsQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -19067,6 +19521,11 @@ export type FeedHighlightsQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -19219,6 +19678,7 @@ export type FollowersQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -19268,6 +19728,7 @@ export type FollowingQuery = {
           | {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any };
+              optimized?: { __typename?: 'Media'; url: any } | null;
             }
           | { __typename?: 'NftImage'; uri: any }
           | null;
@@ -19367,6 +19828,7 @@ export type LikesQuery = {
           | {
               __typename?: 'MediaSet';
               original: { __typename?: 'Media'; url: any };
+              optimized?: { __typename?: 'Media'; url: any } | null;
             }
           | { __typename?: 'NftImage'; uri: any }
           | null;
@@ -19412,6 +19874,7 @@ export type MirrorsQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
+            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -19442,6 +19905,7 @@ export type MutualFollowersQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
+            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -19483,6 +19947,7 @@ export type MutualFollowersListQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
+            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -19616,6 +20081,7 @@ export type NotificationsQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
+                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -19723,6 +20189,7 @@ export type NotificationsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -19839,6 +20306,7 @@ export type NotificationsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -19886,6 +20354,7 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -19936,6 +20405,7 @@ export type NotificationsQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
+                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -19978,6 +20448,7 @@ export type NotificationsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -20018,6 +20489,7 @@ export type NotificationsQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -20060,6 +20532,7 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -20114,6 +20587,7 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -20213,6 +20687,7 @@ export type ProfileQuery = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
+          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -20287,6 +20762,7 @@ export type ProfileFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -20392,6 +20868,7 @@ export type ProfileFeedQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -20439,6 +20916,11 @@ export type ProfileFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -20584,6 +21066,7 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -20695,6 +21178,7 @@ export type ProfileFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -20735,6 +21219,11 @@ export type ProfileFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -20886,6 +21375,10 @@ export type ProfileFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -20997,6 +21490,7 @@ export type ProfileFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -21044,6 +21538,11 @@ export type ProfileFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -21191,6 +21690,10 @@ export type ProfileFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
+                                    optimized?: {
+                                      __typename?: 'Media';
+                                      url: any;
+                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -21260,6 +21763,10 @@ export type ProfileFeedQuery = {
                                       __typename?: 'Media';
                                       url: any;
                                     };
+                                    optimized?: {
+                                      __typename?: 'Media';
+                                      url: any;
+                                    } | null;
                                   }
                                 | { __typename?: 'NftImage'; uri: any }
                                 | null;
@@ -21373,6 +21880,7 @@ export type ProfileFeedQuery = {
                                   }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
+                              | { __typename?: 'SimpleCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
@@ -21420,6 +21928,11 @@ export type ProfileFeedQuery = {
                                   url: any;
                                   mimeType?: any | null;
                                 };
+                                optimized?: {
+                                  __typename?: 'Media';
+                                  url: any;
+                                  mimeType?: any | null;
+                                } | null;
                               }>;
                               encryptionParams?: {
                                 __typename?: 'EncryptionParamsOutput';
@@ -21567,6 +22080,10 @@ export type ProfileFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -21678,6 +22195,7 @@ export type ProfileFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -21725,6 +22243,11 @@ export type ProfileFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -21870,6 +22393,7 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -21981,6 +22505,7 @@ export type ProfileFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -22028,6 +22553,11 @@ export type ProfileFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -22172,6 +22702,10 @@ export type ProfileFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -22238,6 +22772,10 @@ export type ProfileFeedQuery = {
                           | {
                               __typename?: 'MediaSet';
                               original: { __typename?: 'Media'; url: any };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                              } | null;
                             }
                           | { __typename?: 'NftImage'; uri: any }
                           | null;
@@ -22349,6 +22887,7 @@ export type ProfileFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -22396,6 +22935,11 @@ export type ProfileFeedQuery = {
                             url: any;
                             mimeType?: any | null;
                           };
+                          optimized?: {
+                            __typename?: 'Media';
+                            url: any;
+                            mimeType?: any | null;
+                          } | null;
                         }>;
                         encryptionParams?: {
                           __typename?: 'EncryptionParamsOutput';
@@ -22543,6 +23087,7 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -22654,6 +23199,7 @@ export type ProfileFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -22701,6 +23247,11 @@ export type ProfileFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -22847,6 +23398,7 @@ export type ProfileFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -22952,6 +23504,7 @@ export type ProfileFeedQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -22999,6 +23552,11 @@ export type ProfileFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -23143,6 +23701,7 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -23209,6 +23768,7 @@ export type ProfileFeedQuery = {
                     | {
                         __typename?: 'MediaSet';
                         original: { __typename?: 'Media'; url: any };
+                        optimized?: { __typename?: 'Media'; url: any } | null;
                       }
                     | { __typename?: 'NftImage'; uri: any }
                     | null;
@@ -23320,6 +23880,7 @@ export type ProfileFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -23367,6 +23928,11 @@ export type ProfileFeedQuery = {
                       url: any;
                       mimeType?: any | null;
                     };
+                    optimized?: {
+                      __typename?: 'Media';
+                      url: any;
+                      mimeType?: any | null;
+                    } | null;
                   }>;
                   encryptionParams?: {
                     __typename?: 'EncryptionParamsOutput';
@@ -23514,6 +24080,7 @@ export type ProfileFeedQuery = {
               | {
                   __typename?: 'MediaSet';
                   original: { __typename?: 'Media'; url: any };
+                  optimized?: { __typename?: 'Media'; url: any } | null;
                 }
               | { __typename?: 'NftImage'; uri: any }
               | null;
@@ -23619,6 +24186,7 @@ export type ProfileFeedQuery = {
                 }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -23666,6 +24234,11 @@ export type ProfileFeedQuery = {
                 url: any;
                 mimeType?: any | null;
               };
+              optimized?: {
+                __typename?: 'Media';
+                url: any;
+                mimeType?: any | null;
+              } | null;
             }>;
             encryptionParams?: {
               __typename?: 'EncryptionParamsOutput';
@@ -23817,6 +24390,7 @@ export type ProfileSettingsQuery = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
+          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | {
           __typename?: 'NftImage';
@@ -23860,6 +24434,7 @@ export type ProfilesQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
+            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -23919,6 +24494,7 @@ export type PublicationQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -24029,6 +24605,7 @@ export type PublicationQuery = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -24072,6 +24649,11 @@ export type PublicationQuery = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            optimized?: {
+              __typename?: 'Media';
+              url: any;
+              mimeType?: any | null;
+            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -24217,6 +24799,7 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -24325,6 +24908,7 @@ export type PublicationQuery = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -24365,6 +24949,11 @@ export type PublicationQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -24516,6 +25105,10 @@ export type PublicationQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -24627,6 +25220,7 @@ export type PublicationQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -24674,6 +25268,11 @@ export type PublicationQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -24818,6 +25417,10 @@ export type PublicationQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
+                                  optimized?: {
+                                    __typename?: 'Media';
+                                    url: any;
+                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -24884,6 +25487,10 @@ export type PublicationQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
+                                  optimized?: {
+                                    __typename?: 'Media';
+                                    url: any;
+                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -24995,6 +25602,7 @@ export type PublicationQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -25042,6 +25650,11 @@ export type PublicationQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                                mimeType?: any | null;
+                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -25189,6 +25802,10 @@ export type PublicationQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -25300,6 +25917,7 @@ export type PublicationQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -25347,6 +25965,11 @@ export type PublicationQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -25492,6 +26115,7 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -25600,6 +26224,7 @@ export type PublicationQuery = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -25647,6 +26272,11 @@ export type PublicationQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -25791,6 +26421,10 @@ export type PublicationQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -25857,6 +26491,10 @@ export type PublicationQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -25968,6 +26606,7 @@ export type PublicationQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -26015,6 +26654,11 @@ export type PublicationQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -26162,6 +26806,7 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -26270,6 +26915,7 @@ export type PublicationQuery = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -26317,6 +26963,11 @@ export type PublicationQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -26464,6 +27115,7 @@ export type PublicationQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -26574,6 +27226,7 @@ export type PublicationQuery = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -26617,6 +27270,11 @@ export type PublicationQuery = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            optimized?: {
+              __typename?: 'Media';
+              url: any;
+              mimeType?: any | null;
+            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -26761,6 +27419,7 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -26824,6 +27483,7 @@ export type PublicationQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -26932,6 +27592,7 @@ export type PublicationQuery = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -26979,6 +27640,11 @@ export type PublicationQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -27127,6 +27793,7 @@ export type PublicationQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -27237,6 +27904,7 @@ export type PublicationQuery = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -27280,6 +27948,11 @@ export type PublicationQuery = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            optimized?: {
+              __typename?: 'Media';
+              url: any;
+              mimeType?: any | null;
+            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -27437,6 +28110,7 @@ export type RecommendedProfilesQuery = {
       | {
           __typename?: 'MediaSet';
           original: { __typename?: 'Media'; url: any };
+          optimized?: { __typename?: 'Media'; url: any } | null;
         }
       | { __typename?: 'NftImage'; uri: any }
       | null;
@@ -27491,6 +28165,7 @@ export type RelevantPeopleQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
+            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -27535,6 +28210,7 @@ export type SearchProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -27598,6 +28274,7 @@ export type SearchPublicationsQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -27706,6 +28383,7 @@ export type SearchPublicationsQuery = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -27753,6 +28431,11 @@ export type SearchPublicationsQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -27898,6 +28581,10 @@ export type SearchPublicationsQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -28009,6 +28696,7 @@ export type SearchPublicationsQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -28049,6 +28737,11 @@ export type SearchPublicationsQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -28200,6 +28893,10 @@ export type SearchPublicationsQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
+                                  optimized?: {
+                                    __typename?: 'Media';
+                                    url: any;
+                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -28311,6 +29008,7 @@ export type SearchPublicationsQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -28358,6 +29056,11 @@ export type SearchPublicationsQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                                mimeType?: any | null;
+                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -28505,6 +29208,10 @@ export type SearchPublicationsQuery = {
                                           __typename?: 'Media';
                                           url: any;
                                         };
+                                        optimized?: {
+                                          __typename?: 'Media';
+                                          url: any;
+                                        } | null;
                                       }
                                     | { __typename?: 'NftImage'; uri: any }
                                     | null;
@@ -28580,6 +29287,10 @@ export type SearchPublicationsQuery = {
                                           __typename?: 'Media';
                                           url: any;
                                         };
+                                        optimized?: {
+                                          __typename?: 'Media';
+                                          url: any;
+                                        } | null;
                                       }
                                     | { __typename?: 'NftImage'; uri: any }
                                     | null;
@@ -28704,6 +29415,9 @@ export type SearchPublicationsQuery = {
                                       __typename?: 'RevertCollectModuleSettings';
                                     }
                                   | {
+                                      __typename?: 'SimpleCollectModuleSettings';
+                                    }
+                                  | {
                                       __typename?: 'TimedFeeCollectModuleSettings';
                                       type: CollectModules;
                                       endTimestamp: any;
@@ -28755,6 +29469,11 @@ export type SearchPublicationsQuery = {
                                       url: any;
                                       mimeType?: any | null;
                                     };
+                                    optimized?: {
+                                      __typename?: 'Media';
+                                      url: any;
+                                      mimeType?: any | null;
+                                    } | null;
                                   }>;
                                   encryptionParams?: {
                                     __typename?: 'EncryptionParamsOutput';
@@ -28906,6 +29625,10 @@ export type SearchPublicationsQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
+                                  optimized?: {
+                                    __typename?: 'Media';
+                                    url: any;
+                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -29017,6 +29740,7 @@ export type SearchPublicationsQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -29064,6 +29788,11 @@ export type SearchPublicationsQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                                mimeType?: any | null;
+                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -29209,6 +29938,10 @@ export type SearchPublicationsQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -29320,6 +30053,7 @@ export type SearchPublicationsQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -29367,6 +30101,11 @@ export type SearchPublicationsQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -29511,6 +30250,10 @@ export type SearchPublicationsQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
+                                  optimized?: {
+                                    __typename?: 'Media';
+                                    url: any;
+                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -29577,6 +30320,10 @@ export type SearchPublicationsQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
+                                  optimized?: {
+                                    __typename?: 'Media';
+                                    url: any;
+                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -29688,6 +30435,7 @@ export type SearchPublicationsQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -29735,6 +30483,11 @@ export type SearchPublicationsQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                                mimeType?: any | null;
+                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -29882,6 +30635,10 @@ export type SearchPublicationsQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -29993,6 +30750,7 @@ export type SearchPublicationsQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -30040,6 +30798,11 @@ export type SearchPublicationsQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -30188,6 +30951,7 @@ export type SearchPublicationsQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -30296,6 +31060,7 @@ export type SearchPublicationsQuery = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -30343,6 +31108,11 @@ export type SearchPublicationsQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -30494,6 +31264,7 @@ export type SeeThroughProfilesQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
+                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -30529,6 +31300,7 @@ export type SeeThroughProfilesQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
+                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -30564,6 +31336,7 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -30599,6 +31372,7 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -30634,6 +31408,7 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -30669,6 +31444,7 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -30704,6 +31480,7 @@ export type SeeThroughProfilesQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -30799,6 +31576,7 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
+                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -30904,6 +31682,7 @@ export type TimelineQuery = {
                   }>;
                 }
               | { __typename?: 'RevertCollectModuleSettings' }
+              | { __typename?: 'SimpleCollectModuleSettings' }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings';
                   type: CollectModules;
@@ -30951,6 +31730,11 @@ export type TimelineQuery = {
                   url: any;
                   mimeType?: any | null;
                 };
+                optimized?: {
+                  __typename?: 'Media';
+                  url: any;
+                  mimeType?: any | null;
+                } | null;
               }>;
               encryptionParams?: {
                 __typename?: 'EncryptionParamsOutput';
@@ -31096,6 +31880,7 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any };
+                          optimized?: { __typename?: 'Media'; url: any } | null;
                         }
                       | { __typename?: 'NftImage'; uri: any }
                       | null;
@@ -31207,6 +31992,7 @@ export type TimelineQuery = {
                         }>;
                       }
                     | { __typename?: 'RevertCollectModuleSettings' }
+                    | { __typename?: 'SimpleCollectModuleSettings' }
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
                         type: CollectModules;
@@ -31247,6 +32033,11 @@ export type TimelineQuery = {
                         url: any;
                         mimeType?: any | null;
                       };
+                      optimized?: {
+                        __typename?: 'Media';
+                        url: any;
+                        mimeType?: any | null;
+                      } | null;
                     }>;
                     encryptionParams?: {
                       __typename?: 'EncryptionParamsOutput';
@@ -31398,6 +32189,10 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any };
+                                optimized?: {
+                                  __typename?: 'Media';
+                                  url: any;
+                                } | null;
                               }
                             | { __typename?: 'NftImage'; uri: any }
                             | null;
@@ -31509,6 +32304,7 @@ export type TimelineQuery = {
                               }>;
                             }
                           | { __typename?: 'RevertCollectModuleSettings' }
+                          | { __typename?: 'SimpleCollectModuleSettings' }
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
                               type: CollectModules;
@@ -31556,6 +32352,11 @@ export type TimelineQuery = {
                               url: any;
                               mimeType?: any | null;
                             };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                              mimeType?: any | null;
+                            } | null;
                           }>;
                           encryptionParams?: {
                             __typename?: 'EncryptionParamsOutput';
@@ -31703,6 +32504,10 @@ export type TimelineQuery = {
                                         __typename?: 'Media';
                                         url: any;
                                       };
+                                      optimized?: {
+                                        __typename?: 'Media';
+                                        url: any;
+                                      } | null;
                                     }
                                   | { __typename?: 'NftImage'; uri: any }
                                   | null;
@@ -31776,6 +32581,10 @@ export type TimelineQuery = {
                                         __typename?: 'Media';
                                         url: any;
                                       };
+                                      optimized?: {
+                                        __typename?: 'Media';
+                                        url: any;
+                                      } | null;
                                     }
                                   | { __typename?: 'NftImage'; uri: any }
                                   | null;
@@ -31895,6 +32704,7 @@ export type TimelineQuery = {
                                     }>;
                                   }
                                 | { __typename?: 'RevertCollectModuleSettings' }
+                                | { __typename?: 'SimpleCollectModuleSettings' }
                                 | {
                                     __typename?: 'TimedFeeCollectModuleSettings';
                                     type: CollectModules;
@@ -31944,6 +32754,11 @@ export type TimelineQuery = {
                                     url: any;
                                     mimeType?: any | null;
                                   };
+                                  optimized?: {
+                                    __typename?: 'Media';
+                                    url: any;
+                                    mimeType?: any | null;
+                                  } | null;
                                 }>;
                                 encryptionParams?: {
                                   __typename?: 'EncryptionParamsOutput';
@@ -32091,6 +32906,10 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any };
+                                optimized?: {
+                                  __typename?: 'Media';
+                                  url: any;
+                                } | null;
                               }
                             | { __typename?: 'NftImage'; uri: any }
                             | null;
@@ -32202,6 +33021,7 @@ export type TimelineQuery = {
                               }>;
                             }
                           | { __typename?: 'RevertCollectModuleSettings' }
+                          | { __typename?: 'SimpleCollectModuleSettings' }
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
                               type: CollectModules;
@@ -32249,6 +33069,11 @@ export type TimelineQuery = {
                               url: any;
                               mimeType?: any | null;
                             };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                              mimeType?: any | null;
+                            } | null;
                           }>;
                           encryptionParams?: {
                             __typename?: 'EncryptionParamsOutput';
@@ -32394,6 +33219,7 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any };
+                          optimized?: { __typename?: 'Media'; url: any } | null;
                         }
                       | { __typename?: 'NftImage'; uri: any }
                       | null;
@@ -32505,6 +33331,7 @@ export type TimelineQuery = {
                         }>;
                       }
                     | { __typename?: 'RevertCollectModuleSettings' }
+                    | { __typename?: 'SimpleCollectModuleSettings' }
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
                         type: CollectModules;
@@ -32552,6 +33379,11 @@ export type TimelineQuery = {
                         url: any;
                         mimeType?: any | null;
                       };
+                      optimized?: {
+                        __typename?: 'Media';
+                        url: any;
+                        mimeType?: any | null;
+                      } | null;
                     }>;
                     encryptionParams?: {
                       __typename?: 'EncryptionParamsOutput';
@@ -32696,6 +33528,10 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any };
+                                optimized?: {
+                                  __typename?: 'Media';
+                                  url: any;
+                                } | null;
                               }
                             | { __typename?: 'NftImage'; uri: any }
                             | null;
@@ -32762,6 +33598,10 @@ export type TimelineQuery = {
                             | {
                                 __typename?: 'MediaSet';
                                 original: { __typename?: 'Media'; url: any };
+                                optimized?: {
+                                  __typename?: 'Media';
+                                  url: any;
+                                } | null;
                               }
                             | { __typename?: 'NftImage'; uri: any }
                             | null;
@@ -32873,6 +33713,7 @@ export type TimelineQuery = {
                               }>;
                             }
                           | { __typename?: 'RevertCollectModuleSettings' }
+                          | { __typename?: 'SimpleCollectModuleSettings' }
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
                               type: CollectModules;
@@ -32920,6 +33761,11 @@ export type TimelineQuery = {
                               url: any;
                               mimeType?: any | null;
                             };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                              mimeType?: any | null;
+                            } | null;
                           }>;
                           encryptionParams?: {
                             __typename?: 'EncryptionParamsOutput';
@@ -33067,6 +33913,7 @@ export type TimelineQuery = {
                       | {
                           __typename?: 'MediaSet';
                           original: { __typename?: 'Media'; url: any };
+                          optimized?: { __typename?: 'Media'; url: any } | null;
                         }
                       | { __typename?: 'NftImage'; uri: any }
                       | null;
@@ -33178,6 +34025,7 @@ export type TimelineQuery = {
                         }>;
                       }
                     | { __typename?: 'RevertCollectModuleSettings' }
+                    | { __typename?: 'SimpleCollectModuleSettings' }
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
                         type: CollectModules;
@@ -33225,6 +34073,11 @@ export type TimelineQuery = {
                         url: any;
                         mimeType?: any | null;
                       };
+                      optimized?: {
+                        __typename?: 'Media';
+                        url: any;
+                        mimeType?: any | null;
+                      } | null;
                     }>;
                     encryptionParams?: {
                       __typename?: 'EncryptionParamsOutput';
@@ -33373,6 +34226,7 @@ export type TimelineQuery = {
                 | {
                     __typename?: 'MediaSet';
                     original: { __typename?: 'Media'; url: any };
+                    optimized?: { __typename?: 'Media'; url: any } | null;
                   }
                 | { __typename?: 'NftImage'; uri: any }
                 | null;
@@ -33478,6 +34332,7 @@ export type TimelineQuery = {
                   }>;
                 }
               | { __typename?: 'RevertCollectModuleSettings' }
+              | { __typename?: 'SimpleCollectModuleSettings' }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings';
                   type: CollectModules;
@@ -33525,6 +34380,11 @@ export type TimelineQuery = {
                   url: any;
                   mimeType?: any | null;
                 };
+                optimized?: {
+                  __typename?: 'Media';
+                  url: any;
+                  mimeType?: any | null;
+                } | null;
               }>;
               encryptionParams?: {
                 __typename?: 'EncryptionParamsOutput';
@@ -33662,6 +34522,7 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -33698,6 +34559,7 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -33734,6 +34596,7 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -33771,6 +34634,7 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -33817,6 +34681,7 @@ export type TimelineQuery = {
             | {
                 __typename?: 'MediaSet';
                 original: { __typename?: 'Media'; url: any };
+                optimized?: { __typename?: 'Media'; url: any } | null;
               }
             | { __typename?: 'NftImage'; uri: any }
             | null;
@@ -33922,6 +34787,7 @@ export type TimelineQuery = {
               }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -33965,6 +34831,11 @@ export type TimelineQuery = {
           media: Array<{
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any; mimeType?: any | null };
+            optimized?: {
+              __typename?: 'Media';
+              url: any;
+              mimeType?: any | null;
+            } | null;
           }>;
           encryptionParams?: {
             __typename?: 'EncryptionParamsOutput';
@@ -34110,6 +34981,7 @@ export type TimelineQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -34218,6 +35090,7 @@ export type TimelineQuery = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -34258,6 +35131,11 @@ export type TimelineQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -34409,6 +35287,10 @@ export type TimelineQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -34520,6 +35402,7 @@ export type TimelineQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -34567,6 +35450,11 @@ export type TimelineQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -34711,6 +35599,10 @@ export type TimelineQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
+                                  optimized?: {
+                                    __typename?: 'Media';
+                                    url: any;
+                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -34777,6 +35669,10 @@ export type TimelineQuery = {
                               | {
                                   __typename?: 'MediaSet';
                                   original: { __typename?: 'Media'; url: any };
+                                  optimized?: {
+                                    __typename?: 'Media';
+                                    url: any;
+                                  } | null;
                                 }
                               | { __typename?: 'NftImage'; uri: any }
                               | null;
@@ -34888,6 +35784,7 @@ export type TimelineQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -34935,6 +35832,11 @@ export type TimelineQuery = {
                                 url: any;
                                 mimeType?: any | null;
                               };
+                              optimized?: {
+                                __typename?: 'Media';
+                                url: any;
+                                mimeType?: any | null;
+                              } | null;
                             }>;
                             encryptionParams?: {
                               __typename?: 'EncryptionParamsOutput';
@@ -35082,6 +35984,10 @@ export type TimelineQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -35193,6 +36099,7 @@ export type TimelineQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -35240,6 +36147,11 @@ export type TimelineQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -35385,6 +36297,7 @@ export type TimelineQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -35493,6 +36406,7 @@ export type TimelineQuery = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -35540,6 +36454,11 @@ export type TimelineQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -35684,6 +36603,10 @@ export type TimelineQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -35750,6 +36673,10 @@ export type TimelineQuery = {
                         | {
                             __typename?: 'MediaSet';
                             original: { __typename?: 'Media'; url: any };
+                            optimized?: {
+                              __typename?: 'Media';
+                              url: any;
+                            } | null;
                           }
                         | { __typename?: 'NftImage'; uri: any }
                         | null;
@@ -35861,6 +36788,7 @@ export type TimelineQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -35908,6 +36836,11 @@ export type TimelineQuery = {
                           url: any;
                           mimeType?: any | null;
                         };
+                        optimized?: {
+                          __typename?: 'Media';
+                          url: any;
+                          mimeType?: any | null;
+                        } | null;
                       }>;
                       encryptionParams?: {
                         __typename?: 'EncryptionParamsOutput';
@@ -36055,6 +36988,7 @@ export type TimelineQuery = {
                   | {
                       __typename?: 'MediaSet';
                       original: { __typename?: 'Media'; url: any };
+                      optimized?: { __typename?: 'Media'; url: any } | null;
                     }
                   | { __typename?: 'NftImage'; uri: any }
                   | null;
@@ -36163,6 +37097,7 @@ export type TimelineQuery = {
                     }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -36210,6 +37145,11 @@ export type TimelineQuery = {
                     url: any;
                     mimeType?: any | null;
                   };
+                  optimized?: {
+                    __typename?: 'Media';
+                    url: any;
+                    mimeType?: any | null;
+                  } | null;
                 }>;
                 encryptionParams?: {
                   __typename?: 'EncryptionParamsOutput';
@@ -36380,6 +37320,7 @@ export type UserProfilesQuery = {
         | {
             __typename?: 'MediaSet';
             original: { __typename?: 'Media'; url: any };
+            optimized?: { __typename?: 'Media'; url: any } | null;
           }
         | { __typename?: 'NftImage'; uri: any }
         | null;
@@ -36406,6 +37347,21 @@ export type VerifyQueryVariables = Exact<{
 
 export type VerifyQuery = { __typename?: 'Query'; verify: boolean };
 
+export const ProfilePictureFieldsFragmentDoc = gql`
+  fragment ProfilePictureFields on ProfileMedia {
+    ... on MediaSet {
+      original {
+        url
+      }
+      optimized {
+        url
+      }
+    }
+    ... on NftImage {
+      uri
+    }
+  }
+`;
 export const ProfileFieldsFragmentDoc = gql`
   fragment ProfileFields on Profile {
     id
@@ -36423,19 +37379,13 @@ export const ProfileFieldsFragmentDoc = gql`
       value
     }
     picture {
-      ... on MediaSet {
-        original {
-          url
-        }
-      }
-      ... on NftImage {
-        uri
-      }
+      ...ProfilePictureFields
     }
     followModule {
       __typename
     }
   }
+  ${ProfilePictureFieldsFragmentDoc}
 `;
 export const ModuleFeeAmountFieldsFragmentDoc = gql`
   fragment ModuleFeeAmountFields on ModuleFeeAmount {
@@ -36563,6 +37513,10 @@ export const MetadataFieldsFragmentDoc = gql`
     }
     media {
       original {
+        url
+        mimeType
+      }
+      optimized {
         url
         mimeType
       }
@@ -40377,14 +41331,7 @@ export const MutualFollowersDocument = gql`
         handle
         name
         picture {
-          ... on MediaSet {
-            original {
-              url
-            }
-          }
-          ... on NftImage {
-            uri
-          }
+          ...ProfilePictureFields
         }
       }
       pageInfo {
@@ -40392,6 +41339,7 @@ export const MutualFollowersDocument = gql`
       }
     }
   }
+  ${ProfilePictureFieldsFragmentDoc}
 `;
 
 /**
@@ -41007,14 +41955,7 @@ export const ProfileDocument = gql`
         totalMirrors
       }
       picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-        ... on NftImage {
-          uri
-        }
+        ...ProfilePictureFields
       }
       coverPicture {
         ... on MediaSet {
@@ -41028,6 +41969,7 @@ export const ProfileDocument = gql`
       }
     }
   }
+  ${ProfilePictureFieldsFragmentDoc}
 `;
 
 /**
@@ -41282,11 +42224,7 @@ export const ProfileSettingsDocument = gql`
         }
       }
       picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
+        ...ProfilePictureFields
         ... on NftImage {
           uri
           tokenId
@@ -41296,6 +42234,7 @@ export const ProfileSettingsDocument = gql`
       }
     }
   }
+  ${ProfilePictureFieldsFragmentDoc}
 `;
 
 /**
@@ -42406,6 +43345,7 @@ const result: PossibleTypesResultData = {
       'LimitedTimedFeeCollectModuleSettings',
       'MultirecipientFeeCollectModuleSettings',
       'RevertCollectModuleSettings',
+      'SimpleCollectModuleSettings',
       'TimedFeeCollectModuleSettings',
       'UnknownCollectModuleSettings'
     ],
