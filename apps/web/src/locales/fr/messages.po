@@ -634,10 +634,6 @@ msgid "Loading..."
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
-#~ msgid "Requested"
-#~ msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
 msgstr ""
 
@@ -778,10 +774,6 @@ msgstr ""
 #: src/components/Notification/Settings.tsx
 msgid "Turn on high-signal notification filter"
 msgstr ""
-
-#: src/components/Notification/Type/CollectNotification/Amount.tsx
-#~ msgid "Collected for {0} {1}"
-#~ msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {currency}"
@@ -1476,10 +1468,6 @@ msgid "No collectables selected!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-#~ msgid "{0}% referral fee"
-#~ msgstr ""
-
-#: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
 msgstr ""
 
@@ -1528,11 +1516,6 @@ msgstr ""
 #: src/components/Publication/Actions/Collect/Splits.tsx
 msgid "Fee recipients"
 msgstr ""
-
-#: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-#~ msgid "Free Collect"
-#~ msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
 msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
@@ -2875,22 +2858,6 @@ msgstr ""
 #: src/lib/getAllowanceModule.ts
 msgid "Follower Only Reference"
 msgstr ""
-
-#: src/lib/getModule.ts
-#~ msgid "Paid Collect"
-#~ msgstr ""
-
-#: src/lib/getModule.ts
-#~ msgid "Rare Paid Collect"
-#~ msgstr ""
-
-#: src/lib/getModule.ts
-#~ msgid "24 Hour Collect"
-#~ msgstr ""
-
-#: src/lib/getModule.ts
-#~ msgid "Rare 24 Hour Collect"
-#~ msgstr ""
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
