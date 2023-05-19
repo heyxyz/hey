@@ -2267,6 +2267,7 @@ export type Mutation = {
   /** Delete an NFT Gallery */
   deleteNftGallery?: Maybe<Scalars['Void']>;
   dismissRecommendedProfiles?: Maybe<Scalars['Void']>;
+  dss?: Maybe<Scalars['Void']>;
   gci?: Maybe<Scalars['Void']>;
   gcr?: Maybe<Scalars['Void']>;
   gdi?: Maybe<Scalars['Void']>;
@@ -2451,6 +2452,10 @@ export type MutationDeleteNftGalleryArgs = {
 
 export type MutationDismissRecommendedProfilesArgs = {
   request: DismissRecommendedProfilesRequest;
+};
+
+export type MutationDssArgs = {
+  request: PrfRequest;
 };
 
 export type MutationGciArgs = {
@@ -3034,6 +3039,11 @@ export type PostMirrorsArgs = {
 /** The social post */
 export type PostReactionArgs = {
   request?: InputMaybe<ReactionFieldResolverRequest>;
+};
+
+export type PrfRequest = {
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
 };
 
 /** The Profile */
@@ -3635,6 +3645,7 @@ export type Query = {
   hasTxHashBeenIndexed: TransactionResult;
   internalPublicationFilter: PaginatedPublicationResult;
   isIDKitPhoneVerified: Scalars['Boolean'];
+  iss: Scalars['Boolean'];
   mutualFollowersProfiles: PaginatedProfileResult;
   /** Get all NFT galleries for a profile */
   nftGalleries: Array<NftGallery>;
@@ -3752,6 +3763,10 @@ export type QueryHasTxHashBeenIndexedArgs = {
 
 export type QueryInternalPublicationFilterArgs = {
   request: InternalPublicationsFilterRequest;
+};
+
+export type QueryIssArgs = {
+  request: PrfRequest;
 };
 
 export type QueryMutualFollowersProfilesArgs = {
