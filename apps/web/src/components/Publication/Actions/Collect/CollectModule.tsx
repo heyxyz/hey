@@ -86,16 +86,33 @@ const CollectModule: FC<CollectModuleProps> = ({
   });
 
   const collectModule: any = data?.publication?.collectModule;
+
+  const endTimestamp =
+    collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
+  const collectLimit =
+    collectModule?.collectLimit ?? collectModule?.optionalCollectLimit;
+  const amount =
+    collectModule?.amount?.value ?? collectModule?.fee?.amount?.value;
+  const currency =
+    collectModule?.amount?.asset?.symbol ??
+    collectModule?.fee?.amount?.asset?.symbol;
+  const assetAddress =
+    collectModule?.amount?.asset?.address ??
+    collectModule?.fee?.amount?.asset?.address;
+  const assetDecimals =
+    collectModule?.amount?.asset?.decimals ??
+    collectModule?.fee?.amount?.asset?.decimals;
+  const referralFee =
+    collectModule?.referralFee ?? collectModule?.fee?.referralFee;
+
   const isRevertCollectModule =
     collectModule?.type === CollectModules.RevertCollectModule;
   const isMultirecipientFeeCollectModule =
     collectModule?.type === CollectModules.MultirecipientFeeCollectModule;
   const isFreeCollectModule =
     collectModule?.type === CollectModules.FreeCollectModule;
-  const endTimestamp =
-    collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
-  const collectLimit =
-    collectModule?.collectLimit ?? collectModule?.optionalCollectLimit;
+  const isSimpleFreeCollectModule =
+    collectModule?.type === CollectModules.SimpleCollectModule && !amount;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -103,7 +120,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     }
 
     setIsLoading(false);
-    setRevenue(revenue + parseFloat(collectModule?.amount?.value));
+    setRevenue(revenue + parseFloat(amount));
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
@@ -111,8 +128,8 @@ const CollectModule: FC<CollectModuleProps> = ({
       collect_module: collectModule?.type,
       collect_publication_id: publication?.id,
       ...(!isRevertCollectModule && {
-        collect_amount: collectModule?.amount?.value,
-        collect_currency: collectModule?.amount?.asset?.symbol,
+        collect_amount: amount,
+        collect_currency: currency,
         collect_limit: collectLimit
       })
     });
@@ -145,13 +162,13 @@ const CollectModule: FC<CollectModuleProps> = ({
     useApprovedModuleAllowanceAmountQuery({
       variables: {
         request: {
-          currencies: collectModule?.amount?.asset?.address,
+          currencies: assetAddress,
           followModules: [],
           collectModules: collectModule?.type,
           referenceModules: []
         }
       },
-      skip: !collectModule?.amount?.asset?.address || !currentProfile,
+      skip: !assetAddress || !currentProfile,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
       }
@@ -168,16 +185,13 @@ const CollectModule: FC<CollectModuleProps> = ({
         }
       },
       pollInterval: 5000,
-      skip: !publication?.id
+      skip: !publication?.id || isFreeCollectModule || isSimpleFreeCollectModule
     });
 
   const { data: usdPrice } = useQuery(
     ['coingeckoData'],
-    () =>
-      getCoingeckoPrice(
-        getAssetAddress(collectModule?.amount?.asset?.symbol)
-      ).then((res) => res),
-    { enabled: Boolean(collectModule?.amount) }
+    () => getCoingeckoPrice(getAssetAddress(currency)).then((res) => res),
+    { enabled: Boolean(amount) }
   );
 
   useEffect(() => {
@@ -190,17 +204,13 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address,
-    token: collectModule?.amount?.asset?.address,
-    formatUnits: collectModule?.amount?.asset?.decimals,
+    token: assetAddress,
+    formatUnits: assetDecimals,
     watch: true
   });
 
   let hasAmount = false;
-  if (
-    balanceData &&
-    parseFloat(balanceData?.formatted) <
-      parseFloat(collectModule?.amount?.value)
-  ) {
+  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(amount)) {
     hasAmount = false;
   } else {
     hasAmount = true;
@@ -230,7 +240,14 @@ const CollectModule: FC<CollectModuleProps> = ({
   });
 
   const createViaProxyAction = async (variables: any) => {
-    const { data } = await createCollectProxyAction({ variables });
+    const { data, errors } = await createCollectProxyAction({ variables });
+
+    if (
+      errors?.toString().includes('You have already collected this publication')
+    ) {
+      return;
+    }
+
     if (!data?.proxyAction) {
       return await createCollectTypedData({
         variables: {
@@ -248,7 +265,10 @@ const CollectModule: FC<CollectModuleProps> = ({
 
     try {
       setIsLoading(true);
-      if (isFreeCollectModule && !collectModule?.followerOnly) {
+      const canUseProxy =
+        (isSimpleFreeCollectModule || isFreeCollectModule) &&
+        !collectModule?.followerOnly;
+      if (canUseProxy) {
         return await createViaProxyAction({
           request: {
             collect: { freeCollect: { publicationId: publication?.id } }
@@ -323,31 +343,27 @@ const CollectModule: FC<CollectModuleProps> = ({
           <ReferralAlert
             electedMirror={electedMirror}
             mirror={publication}
-            referralFee={collectModule?.referralFee}
+            referralFee={referralFee}
           />
         </div>
-        {collectModule?.amount && (
+        {amount && (
           <div className="flex items-center space-x-1.5 py-2">
             <img
               className="h-7 w-7"
               height={28}
               width={28}
-              src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-              alt={collectModule?.amount?.asset?.symbol}
-              title={collectModule?.amount?.asset?.symbol}
+              src={getTokenImage(currency)}
+              alt={currency}
+              title={currency}
             />
             <span className="space-x-1">
-              <span className="text-2xl font-bold">
-                {collectModule.amount.value}
-              </span>
-              <span className="text-xs">
-                {collectModule?.amount?.asset?.symbol}
-              </span>
+              <span className="text-2xl font-bold">{amount}</span>
+              <span className="text-xs">{currency}</span>
               {usdPrice ? (
                 <>
                   <span className="lt-text-gray-500 px-0.5">·</span>
                   <span className="lt-text-gray-500 text-xs font-bold">
-                    ${(collectModule.amount.value * usdPrice).toFixed(2)}
+                    ${(amount * usdPrice).toFixed(2)}
                   </span>
                 </>
               ) : null}
@@ -393,11 +409,11 @@ const CollectModule: FC<CollectModuleProps> = ({
                 </div>
               </div>
             )}
-            {collectModule?.referralFee ? (
+            {referralFee ? (
               <div className="flex items-center space-x-2">
                 <CashIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
-                  <Trans>{collectModule.referralFee}% referral fee</Trans>
+                  <Trans>{referralFee}% referral fee</Trans>
                 </div>
               </div>
             ) : null}
@@ -411,18 +427,16 @@ const CollectModule: FC<CollectModuleProps> = ({
                 </span>
                 <span className="flex items-center space-x-1">
                   <img
-                    src={getTokenImage(collectModule?.amount?.asset?.symbol)}
+                    src={getTokenImage(currency)}
                     className="h-5 w-5"
                     height={20}
                     width={20}
-                    alt={collectModule?.amount?.asset?.symbol}
-                    title={collectModule?.amount?.asset?.symbol}
+                    alt={currency}
+                    title={currency}
                   />
                   <div className="flex items-baseline space-x-1.5">
                     <div className="font-bold">{revenue}</div>
-                    <div className="text-[10px]">
-                      {collectModule?.amount?.asset?.symbol}
-                    </div>
+                    <div className="text-[10px]">{currency}</div>
                     {usdPrice ? (
                       <>
                         <span className="lt-text-gray-500">·</span>
@@ -476,7 +490,9 @@ const CollectModule: FC<CollectModuleProps> = ({
           )}
         </div>
         <div className="flex items-center space-x-2">
-          {currentProfile && (!hasCollectedByMe || !isFreeCollectModule) ? (
+          {currentProfile &&
+          (!hasCollectedByMe ||
+            (!isFreeCollectModule && !isSimpleFreeCollectModule)) ? (
             allowanceLoading || balanceLoading ? (
               <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />
             ) : allowed ? (

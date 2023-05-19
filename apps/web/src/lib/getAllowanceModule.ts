@@ -7,7 +7,7 @@ import { CollectModules, FollowModules, ReferenceModules } from 'lens';
  * @param name Name of the module.
  * @returns Object containing the name and field of the module.
  */
-export const getModule = (
+const getAllowanceModule = (
   name: string
 ): {
   name: string;
@@ -17,16 +17,8 @@ export const getModule = (
     // Collect Modules
     case CollectModules.MultirecipientFeeCollectModule:
       return { name: t`Multirecipient Paid Collect`, field: 'collectModule' };
-    case CollectModules.FeeCollectModule:
-      return { name: t`Paid Collect`, field: 'collectModule' };
-    case CollectModules.LimitedFeeCollectModule:
-      return { name: t`Rare Paid Collect`, field: 'collectModule' };
-    case CollectModules.TimedFeeCollectModule:
-      return { name: t`24 Hour Collect`, field: 'collectModule' };
-    case CollectModules.LimitedTimedFeeCollectModule:
-      return { name: t`Rare 24 Hour Collect`, field: 'collectModule' };
-    case CollectModules.FreeCollectModule:
-      return { name: t`Free Collect`, field: 'collectModule' };
+    case CollectModules.SimpleCollectModule:
+      return { name: t`Basic Collect`, field: 'collectModule' };
     case CollectModules.RevertCollectModule:
       return { name: t`No Collect`, field: 'collectModule' };
 
@@ -38,6 +30,8 @@ export const getModule = (
     case ReferenceModules.FollowerOnlyReferenceModule:
       return { name: t`Follower Only Reference`, field: 'referenceModule' };
     default:
-      return { name: name, field: 'collectModule' };
+      return { name, field: 'collectModule' };
   }
 };
+
+export default getAllowanceModule;
