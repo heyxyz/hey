@@ -3,7 +3,7 @@ import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import { KillSwitch } from 'data';
 import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
-import type { MediaSet } from 'lens';
+import type { MediaSetWithoutOnChain } from 'src/types';
 import { v4 as uuid } from 'uuid';
 
 import { Growthbook } from './growthbook';
@@ -53,7 +53,7 @@ const getS3Client = async (): Promise<S3> => {
  * @param data Files to upload to IPFS.
  * @returns Array of MediaSet objects.
  */
-const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
+const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
   try {
     const { on: useThirdwebIpfs } = Growthbook.feature(
       KillSwitch.UseThirdwebIpfs
@@ -110,7 +110,9 @@ const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
  * @param file File to upload to IPFS.
  * @returns MediaSet object or null if the upload fails.
  */
-export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
+export const uploadFileToIPFS = async (
+  file: File
+): Promise<MediaSetWithoutOnChain> => {
   try {
     const ipfsResponse = await uploadToIPFS([file]);
     const metadata = ipfsResponse[0];

@@ -1,4 +1,4 @@
-import { STATIC_ASSETS_URL, USER_CONTENT_URL } from 'data/constants';
+import { LENS_MEDIA_SNAPSHOT_URL, STATIC_ASSETS_URL } from 'data/constants';
 
 /**
  * Returns a URL for the specified image that is compatible with imgproxy.
@@ -16,9 +16,14 @@ const imageProxy = (url: string, name?: string): string => {
     return url;
   }
 
-  return name
-    ? `${USER_CONTENT_URL}/${name}/${url}`
-    : `${USER_CONTENT_URL}/${url}`;
+  if (url.includes(LENS_MEDIA_SNAPSHOT_URL)) {
+    const splitedUrl = url.split('/');
+    const path = splitedUrl[splitedUrl.length - 1];
+
+    return name ? `${LENS_MEDIA_SNAPSHOT_URL}/${name}/${path}` : url;
+  }
+
+  return url;
 };
 
 export default imageProxy;

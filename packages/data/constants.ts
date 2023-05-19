@@ -53,6 +53,8 @@ export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
+export const LENS_MEDIA_SNAPSHOT_URL =
+  'https://ik.imagekit.io/lens/media-snapshot';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
@@ -142,9 +144,9 @@ export const MESSAGE_PAGE_LIMIT = 15;
 export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms
-export const AVATAR = '300x300';
-export const COVER = '1500x500';
-export const ATTACHMENT = '1000,fit';
+export const AVATAR = 'tr:w-300,h-300';
+export const COVER = 'tr:w-1500,h-500';
+export const ATTACHMENT = 'tr:w-1000';
 
 // S3 bucket
 export const S3_BUCKET = {
