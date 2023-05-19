@@ -3,5 +3,6 @@ module.exports = {
   extends: ['weblint'],
   rules: {
     'import/no-anonymous-default-export': 'off'
-  }
+  },
+  ignorePatterns: ['generated.ts']
 };
