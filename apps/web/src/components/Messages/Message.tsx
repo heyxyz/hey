@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import MessageHeader from '@components/Messages/MessageHeader';
 import Loader from '@components/Shared/Loader';
-import useGetConversation from '@components/utils/hooks/useGetConversation';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import { useGetProfile } from '@components/utils/hooks/useMessageDb';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
@@ -18,6 +17,7 @@ import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { useMessageStore } from 'src/store/message';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridLayout } from 'ui';
 
@@ -32,9 +32,8 @@ interface MessageProps {
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { profile } = useGetProfile(currentProfile?.id, conversationKey);
-  const { selectedConversation, missingXmtpAuth } = useGetConversation(
-    conversationKey,
-    profile
+  const selectedConversation = useMessageStore((state) =>
+    state.conversations.get(conversationKey)
   );
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(
@@ -43,7 +42,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     endTime.get(conversationKey)
   );
   useStreamMessages(conversationKey, selectedConversation);
-  const { sendMessage } = useSendMessage(selectedConversation);
+  const { missingXmtpAuth, sendMessage } = useSendMessage(conversationKey);
 
   const fetchNextMessages = useCallback(() => {
     if (hasMore && Array.isArray(messages) && messages.length > 0) {
@@ -60,11 +59,11 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     return <Custom404 />;
   }
 
-  const showLoading =
-    !missingXmtpAuth && (!profile || !currentProfile || !selectedConversation);
+  const showLoading = !missingXmtpAuth && !currentProfile;
 
   const userNameForTitle =
     sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle);
+
   const title = userNameForTitle
     ? `${userNameForTitle} • ${APP_NAME}`
     : APP_NAME;
@@ -84,8 +83,12 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
             </div>
           ) : (
             <>
-              <MessageHeader profile={profile} />
+              <MessageHeader
+                profile={profile}
+                conversationKey={conversationKey}
+              />
               <MessagesList
+                conversationKey={conversationKey}
                 currentProfile={currentProfile}
                 profile={profile}
                 fetchNextMessages={fetchNextMessages}
@@ -135,7 +138,7 @@ const MessagePage: NextPage = () => {
   const { members } = parsed;
   const profileId = members.find((member) => member !== currentProfileId);
 
-  if (!profileId) {
+  if (members.length > 1 && !profileId) {
     return <Custom404 />;
   }
 
