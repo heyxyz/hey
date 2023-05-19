@@ -28,6 +28,22 @@ const getS3Client = async (): Promise<S3> => {
     maxAttempts: 3
   });
 
+  client.middlewareStack.addRelativeTo(
+    (next: Function) => async (args: any) => {
+      const { response } = await next(args);
+      if (response.body == null) {
+        response.body = new Uint8Array();
+      }
+      return { response };
+    },
+    {
+      name: 'nullFetchResponseBodyMiddleware',
+      toMiddleware: 'deserializerMiddleware',
+      relation: 'after',
+      override: true
+    }
+  );
+
   return client;
 };
 
