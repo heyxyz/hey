@@ -598,6 +598,10 @@ msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
+msgid "Error sending attachment"
+msgstr ""
+
+#: src/components/Messages/Composer.tsx
 msgid "Error sending message"
 msgstr "Ошибка при отправке сообщения"
 
@@ -630,13 +634,8 @@ msgid "Loading..."
 msgstr "Загрузка..."
 
 #: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr "Подписан"
-
-#: src/components/Messages/PreviewList.tsx
-msgid "Requested"
-msgstr "Запрошено"
+#~ msgid "Requested"
+#~ msgstr "Запрошено"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -781,7 +780,11 @@ msgid "Turn on high-signal notification filter"
 msgstr "Включить индикатор фильтра оповещений"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
-msgid "Collected for {0} {1}"
+#~ msgid "Collected for {0} {1}"
+#~ msgstr ""
+
+#: src/components/Notification/Type/CollectNotification/Amount.tsx
+msgid "Collected for {0} {currency}"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -1337,6 +1340,10 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr "Подписан"
+
+#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "Подписчики"
 
@@ -1469,6 +1476,10 @@ msgid "No collectables selected!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
+#~ msgid "{0}% referral fee"
+#~ msgstr ""
+
+#: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
 msgstr ""
 
@@ -1491,7 +1502,7 @@ msgid "{0} available"
 msgstr "{0} доступно"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0}% referral fee"
+msgid "{referralFee}% referral fee"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -1519,12 +1530,16 @@ msgid "Fee recipients"
 msgstr "Получатели вознаграждения"
 
 #: src/components/Publication/Actions/Collect/index.tsx
+#: src/lib/getModule.ts
+#~ msgid "Free Collect"
+#~ msgstr ""
+
+#: src/components/Publication/Actions/Collect/index.tsx
 msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Free Collect"
+msgid "Collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
@@ -2841,37 +2856,41 @@ msgstr "Размер видео должен быть меньше 100MB"
 msgid "Audio size should be less than 100MB"
 msgstr "Размер аудио должен быть меньше 100MB"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Multirecipient Paid Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Paid Collect"
+#: src/lib/getAllowanceModule.ts
+msgid "Basic Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Rare Paid Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "24 Hour Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "Rare 24 Hour Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "No Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Fee Follow"
 msgstr "Плата за подписку"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Follower Only Reference"
 msgstr "Ссылка только для подписчиков"
+
+#: src/lib/getModule.ts
+#~ msgid "Paid Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Rare Paid Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "24 Hour Collect"
+#~ msgstr ""
+
+#: src/lib/getModule.ts
+#~ msgid "Rare 24 Hour Collect"
+#~ msgstr ""
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
@@ -2893,4 +2912,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-
