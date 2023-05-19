@@ -1,5 +1,4 @@
-import { SnapshotDocument } from 'snapshot';
-
+import { SnapshotDocument } from '../../generated';
 import client from '../apollo/client';
 
 export default async (
