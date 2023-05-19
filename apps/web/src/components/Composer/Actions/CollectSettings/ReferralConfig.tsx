@@ -1,24 +1,35 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
+import { CollectModules } from 'lens';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { Input } from 'ui';
 
-const ReferralConfig: FC = () => {
-  const referralFee = useCollectModuleStore((state) => state.referralFee);
-  const setReferralFee = useCollectModuleStore((state) => state.setReferralFee);
+interface ReferralConfigProps {
+  setCollectType: (data: any) => void;
+}
+
+const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
     <div className="pt-5">
       <ToggleWithHelper
-        on={Boolean(referralFee)}
-        setOn={() => setReferralFee(referralFee ? null : '25')}
+        on={Boolean(collectModule.referralFee)}
+        setOn={() =>
+          setCollectType({
+            type: collectModule.recipients?.length
+              ? CollectModules.MultirecipientFeeCollectModule
+              : CollectModules.SimpleCollectModule,
+            referralFee: collectModule.referralFee ? 0 : 25
+          })
+        }
         heading={t`Mirror referral reward`}
         description={t`Share your fee with people who amplify your content`}
         icon={<SwitchHorizontalIcon className="h-4 w-4" />}
       />
-      {referralFee ? (
+      {collectModule.referralFee ? (
         <div className="flex space-x-2 pt-4 text-sm">
           <Input
             label={t`Referral fee`}
@@ -27,9 +38,13 @@ const ReferralConfig: FC = () => {
             iconRight="%"
             min="0"
             max="100"
-            value={parseFloat(referralFee ?? '0')}
+            value={collectModule.referralFee}
             onChange={(event) => {
-              setReferralFee(event.target.value ? event.target.value : '0');
+              setCollectType({
+                referralFee: parseInt(
+                  event.target.value ? event.target.value : '0'
+                )
+              });
             }}
           />
         </div>

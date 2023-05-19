@@ -1,6 +1,6 @@
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { getModule } from '@lib/getModule';
+import getAllowanceModule from '@lib/getAllowanceModule';
 import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { ApprovedAllowanceAmount } from 'lens';
@@ -70,7 +70,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         request: {
           currency: currencies,
           value: value,
-          [getModule(module.module).field]: selectedModule
+          [getAllowanceModule(module.module).field]: selectedModule
         }
       }
     }).then((res) => {
