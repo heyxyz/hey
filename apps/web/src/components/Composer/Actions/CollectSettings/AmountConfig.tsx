@@ -1,5 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { CurrencyDollarIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import { DEFAULT_COLLECT_TOKEN } from 'data';
 import type { Erc20 } from 'lens';
@@ -37,7 +37,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
         }}
         heading={t`Charge for collecting`}
         description={t`Get paid whenever someone collects your post`}
-        icon={<CollectionIcon className="h-4 w-4" />}
+        icon={<CurrencyDollarIcon className="h-4 w-4" />}
       />
       {collectModule.amount?.value ? (
         <div className="pt-4">
