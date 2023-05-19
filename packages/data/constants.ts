@@ -71,7 +71,6 @@ export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 export const IFRAMELY_URL = 'https://iframely.lenster.xyz/iframely';
 
 // Workers
-export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
 export const STS_TOKEN_URL = IS_PRODUCTION
   ? 'https://sts.lenster.xyz'
   : 'http://localhost:8082';
