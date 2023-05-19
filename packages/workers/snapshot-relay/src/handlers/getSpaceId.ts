@@ -1,5 +1,4 @@
-import { SpaceDocument } from 'snapshot';
-
+import { SpaceDocument } from '../../generated';
 import client from '../apollo/client';
 
 export default async (network: 'mainnet' | 'testnet' | string, id: string) => {
