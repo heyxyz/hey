@@ -82,6 +82,7 @@ export const FRESHDESK_WORKER_URL = IS_PRODUCTION
 export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
   ? 'https://snapshot-relay.lenster.xyz'
   : 'http://localhost:8085';
+export const ENS_RESOLVER_WORKER_URL = 'https://ens-resolver.lenster.xyz';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
