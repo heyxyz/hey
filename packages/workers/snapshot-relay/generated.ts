@@ -115,6 +115,12 @@ export type MessageWhere = {
   type_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+export type Metrics = {
+  __typename?: 'Metrics';
+  categories?: Maybe<Scalars['Any']>;
+  total?: Maybe<Scalars['Int']>;
+};
+
 export enum OrderDirection {
   Asc = 'asc',
   Desc = 'desc'
@@ -129,6 +135,7 @@ export type Proposal = {
   created: Scalars['Int'];
   discussion: Scalars['String'];
   end: Scalars['Int'];
+  flagged?: Maybe<Scalars['Boolean']>;
   id: Scalars['String'];
   ipfs?: Maybe<Scalars['String']>;
   link?: Maybe<Scalars['String']>;
@@ -183,6 +190,7 @@ export type ProposalWhere = {
   scores_state_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   space?: InputMaybe<Scalars['String']>;
   space_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  space_verified?: InputMaybe<Scalars['Boolean']>;
   start?: InputMaybe<Scalars['Int']>;
   start_gt?: InputMaybe<Scalars['Int']>;
   start_gte?: InputMaybe<Scalars['Int']>;
@@ -206,6 +214,7 @@ export type Query = {
   plugins?: Maybe<Array<Maybe<Item>>>;
   proposal?: Maybe<Proposal>;
   proposals?: Maybe<Array<Maybe<Proposal>>>;
+  ranking?: Maybe<RankingObject>;
   skins?: Maybe<Array<Maybe<Item>>>;
   space?: Maybe<Space>;
   spaces?: Maybe<Array<Maybe<Space>>>;
@@ -254,6 +263,12 @@ export type QueryProposalsArgs = {
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<ProposalWhere>;
+};
+
+export type QueryRankingArgs = {
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<RankingWhere>;
 };
 
 export type QuerySpaceArgs = {
@@ -310,9 +325,24 @@ export type QueryVpArgs = {
   voter: Scalars['String'];
 };
 
+export type RankingObject = {
+  __typename?: 'RankingObject';
+  items?: Maybe<Array<Maybe<Space>>>;
+  metrics?: Maybe<Metrics>;
+};
+
+export type RankingWhere = {
+  category?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['String']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  network?: InputMaybe<Scalars['String']>;
+  search?: InputMaybe<Scalars['String']>;
+};
+
 export type Space = {
   __typename?: 'Space';
   about?: Maybe<Scalars['String']>;
+  activeProposals?: Maybe<Scalars['Int']>;
   admins?: Maybe<Array<Maybe<Scalars['String']>>>;
   avatar?: Maybe<Scalars['String']>;
   categories?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -321,7 +351,9 @@ export type Space = {
   domain?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   filters?: Maybe<SpaceFilters>;
+  flagged?: Maybe<Scalars['Boolean']>;
   followersCount?: Maybe<Scalars['Int']>;
+  followersCount7d?: Maybe<Scalars['Int']>;
   github?: Maybe<Scalars['String']>;
   guidelines?: Maybe<Scalars['String']>;
   id: Scalars['String'];
@@ -334,6 +366,8 @@ export type Space = {
   plugins?: Maybe<Scalars['Any']>;
   private?: Maybe<Scalars['Boolean']>;
   proposalsCount?: Maybe<Scalars['Int']>;
+  proposalsCount7d?: Maybe<Scalars['Int']>;
+  rank?: Maybe<Scalars['Float']>;
   skin?: Maybe<Scalars['String']>;
   strategies?: Maybe<Array<Maybe<Strategy>>>;
   symbol?: Maybe<Scalars['String']>;
@@ -342,7 +376,10 @@ export type Space = {
   treasuries?: Maybe<Array<Maybe<Treasury>>>;
   twitter?: Maybe<Scalars['String']>;
   validation?: Maybe<Validation>;
+  verified?: Maybe<Scalars['Boolean']>;
   voteValidation?: Maybe<Validation>;
+  votesCount?: Maybe<Scalars['Int']>;
+  votesCount7d?: Maybe<Scalars['Int']>;
   voting?: Maybe<SpaceVoting>;
   website?: Maybe<Scalars['String']>;
 };
