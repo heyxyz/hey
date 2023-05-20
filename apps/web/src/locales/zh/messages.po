@@ -2828,16 +2828,12 @@ msgid "total follows"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-#~ msgid "Video size should be less than 100MB"
-#~ msgstr "视频文件应小于 100MB"
-
-#: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
 msgstr "图片尺寸应小于 10MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 200MB"
-msgstr ""
+msgstr "视频文件应小于 200MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
