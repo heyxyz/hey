@@ -33,7 +33,9 @@ export const PreviewMessage = ({
   }
 
   return (
-    <p className="max-w-[150px] truncate text-sm text-gray-500">{content}</p>
+    <p className="max-w-[150px] truncate text-sm text-gray-500 dark:text-[#D4D4D8]">
+      {content}
+    </p>
   );
 };
 
@@ -165,15 +167,15 @@ export default function PUSHPreviewChats() {
               <div
                 onClick={() => onChatFeedClick(id)}
                 key={id}
-                className={`flex h-16 cursor-pointer gap-2.5 rounded-lg  p-2.5 pr-3 transition-all hover:bg-gray-100 ${
-                  selectedChatId === id && 'bg-brand-100'
+                className={`flex h-16 cursor-pointer gap-2.5 rounded-lg  p-2.5 pr-3 transition-all hover:bg-gray-100 hover:dark:bg-[#3F3F46] ${
+                  selectedChatId === id && 'bg-brand-100 dark:bg-[#27272A]'
                 }`}
               >
                 {isGroup ? (
                   <Image
                     src={getGroupImage(feed)}
                     loading="lazy"
-                    className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
+                    className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700 dark:bg-[#3F3F46]"
                     height={40}
                     width={40}
                     alt={feed?.groupInformation?.groupName!}
@@ -185,7 +187,7 @@ export default function PUSHPreviewChats() {
                     }}
                     src={getAvatar(lensProfile)}
                     loading="lazy"
-                    className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
+                    className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700 dark:bg-[#3F3F46]"
                     height={40}
                     width={40}
                     alt={formatHandle(lensProfile?.handle)}
@@ -197,13 +199,13 @@ export default function PUSHPreviewChats() {
                     }}
                     src={getAvatar(lensProfile)}
                     loading="lazy"
-                    className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700"
+                    className="h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700 dark:bg-[#3F3F46]"
                     height={40}
                     width={40}
                     alt={formatHandle(lensProfile?.handle)}
                   />
                 )}
-                <div className="flex w-full	justify-between	">
+                <div className="flex w-full	justify-between">
                   <div>
                     {isGroup ? (
                       <>
@@ -241,7 +243,7 @@ export default function PUSHPreviewChats() {
                     )}
                   </div>
                   <div>
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-gray-500 dark:text-[#D4D4D8]">
                       {moment(feed?.msg.timestamp).fromNow()}
                     </span>
                   </div>

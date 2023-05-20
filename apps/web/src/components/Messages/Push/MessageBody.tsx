@@ -48,11 +48,11 @@ const MessageCard = ({
     <div
       className={clsx(
         position === 0
-          ? 'rounded-xl rounded-tl-sm'
+          ? 'rounded-xl rounded-tl-sm dark:bg-[#27272A]'
           : position === 1
           ? 'self-end rounded-xl rounded-tr-sm bg-violet-500'
-          : 'absolute top-[-16px] ml-11 rounded-xl rounded-tl-sm',
-        'relative w-fit max-w-[80%] border py-3 pl-4 pr-[50px] font-medium'
+          : 'absolute top-[-16px] ml-11 rounded-xl rounded-tl-sm dark:bg-[#27272A]',
+        'relative w-fit max-w-[80%] border py-3 pl-4 pr-[50px] font-medium dark:border-[#3F3F46]'
       )}
     >
       <p
@@ -65,7 +65,7 @@ const MessageCard = ({
       </p>
       <span
         className={clsx(
-          position === 1 ? 'text-white' : 'text-gray-500',
+          position === 1 ? 'text-white' : 'text-gray-500 dark:text-[#B1B1B1]',
           'absolute bottom-1.5	right-1.5 text-xs'
         )}
       >
@@ -671,7 +671,7 @@ export default function MessageBody({
               !selectedChat?.intent
                 ?.split('+')
                 ?.includes(connectedProfile?.did))) && (
-            <div className="flex w-fit rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2">
+            <div className="flex w-fit rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2 dark:border-[#3F3F46] dark:bg-[#27272a]">
               {selectedChatType === CHAT_TYPES.CHAT ? (
                 <div className="flex flex-col text-sm font-normal">
                   <span>This is your first conversation with the sender.</span>

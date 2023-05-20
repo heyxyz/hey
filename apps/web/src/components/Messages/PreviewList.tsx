@@ -70,8 +70,9 @@ const PreviewList: FC<PreviewListProps> = ({
         <Card className="mb-6 flex justify-between font-bold">
           <div
             onClick={() => changeChatProvider(MESSAGING_PROVIDER.PUSH)}
-            className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-l-xl py-2.5 transition-all hover:bg-gray-200 ${
-              chatProvider === MESSAGING_PROVIDER.PUSH && 'bg-gray-100'
+            className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-l-xl py-2.5 transition-all hover:bg-gray-200 dark:hover:bg-[#27272A] ${
+              chatProvider !== MESSAGING_PROVIDER.PUSH &&
+              'bg-gray-100 dark:bg-[#3F3F46]'
             }`}
           >
             <img
@@ -86,8 +87,9 @@ const PreviewList: FC<PreviewListProps> = ({
           </div>
           <div
             onClick={() => changeChatProvider(MESSAGING_PROVIDER.XMTP)}
-            className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-r-xl py-2.5 transition-all hover:bg-gray-200 ${
-              chatProvider === MESSAGING_PROVIDER.XMTP && 'bg-gray-100'
+            className={`flex basis-1/2 cursor-pointer items-center justify-center rounded-r-xl py-2.5 transition-all hover:bg-gray-200 dark:hover:bg-[#27272A] ${
+              chatProvider !== MESSAGING_PROVIDER.XMTP &&
+              'bg-gray-100 dark:bg-[#3F3F46]'
             }`}
           >
             <img

@@ -184,17 +184,6 @@ const PUSHPreview = () => {
   };
   useClickAway(containerRef, () => closeDropdown());
 
-  // useEffect(() => {
-  //   //set selected chat preview
-  //   //find in inbox or reuqests  or new chat and switch tab as per that and set css for selected chat
-  //   if (selectedChatId in chatsFeed) {
-  //     setActiveTab(PUSH_TABS.CHATS);
-  //   }
-  //   if (selectedChatId in requestsFeed) {
-  //     setActiveTab(PUSH_TABS.REQUESTS);
-  //   }
-  // }, [selectedChatId, selectedChatType, requestsFeed, chatsFeed]);
-
   useEffect(() => {
     if (connectedProfile && connectedProfile.did && currentProfile?.id) {
       const selectedProfilePushId = getProfileFromDID(connectedProfile?.did);
@@ -244,7 +233,7 @@ const PUSHPreview = () => {
       <Card className="flex h-full flex-col p-4 pt-7">
         {/* section for header */}
         <section className="mb-4">
-          <div className="mb-6 flex gap-x-5 border-b border-b-gray-300">
+          <div className="mb-6 flex gap-x-5 border-b border-b-gray-300 dark:border-b-[#3F3F46]">
             <div
               onClick={() => setActiveTab(PUSH_TABS.CHATS)}
               className={`w-6/12 cursor-pointer border-b-4 pb-3.5 text-center  font-bold ${
@@ -302,10 +291,10 @@ const PUSHPreview = () => {
         </div>
 
         {decryptedPgpPvtKey && (
-          <div className="relative flex flex-row items-center border-t-2 border-[#E4E8EF] pt-2">
+          <div className="relative flex flex-row items-center border-t-2 border-[#E4E8EF] pt-2 dark:border-[#3F3F46]">
             {showDropdown && (
               <div
-                className="absolute -top-8 right-0 z-20 flex cursor-pointer flex-row rounded-2xl border-2 border-gray-200 bg-white px-6 py-3"
+                className="absolute -top-8 right-0 z-20 flex cursor-pointer flex-row rounded-2xl border-2 border-gray-200 bg-white px-6 py-3 dark:border-[#3F3F46] dark:bg-[#27272A]"
                 onClick={handleAccountPassword}
               >
                 <BsKey

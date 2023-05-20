@@ -41,7 +41,7 @@ export default function MessageHeader({
   }, [lensProfiles, selectedChatId, selectedChatType]);
 
   return (
-    <section className="flex w-full justify-between border-b px-5	py-2.5">
+    <section className="flex w-full justify-between border-b px-5	py-2.5 dark:border-b-[#3F3F46]">
       <div className="flex items-center">
         {profile && (
           <div className="flex flex-row items-center space-x-3">
