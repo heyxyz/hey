@@ -2828,16 +2828,12 @@ msgid "total follows"
 msgstr "மொத்த பின்பற்றுபவர்கள்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-#~ msgid "Video size should be less than 100MB"
-#~ msgstr "வீடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
-
-#: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 10MB"
 msgstr "படத்தின் அளவு 10MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 200MB"
-msgstr ""
+msgstr "வீடியோ அளவு than க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
