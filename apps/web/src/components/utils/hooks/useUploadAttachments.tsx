@@ -49,8 +49,8 @@ const useUploadAttachments = () => {
           return false;
         }
 
-        if (isVideo && file.size > 100000000) {
-          toast.error(t`Video size should be less than 100MB`);
+        if (isVideo && file.size > 200000000) {
+          toast.error(t`Video size should be less than 200MB`);
           return false;
         }
 
