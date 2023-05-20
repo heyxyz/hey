@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-17 00:09\n"
+"PO-Revision-Date: 2023-05-20 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -598,6 +598,10 @@ msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
+msgid "Error sending attachment"
+msgstr ""
+
+#: src/components/Messages/Composer.tsx
 msgid "Error sending message"
 msgstr "Ошибка при отправке сообщения"
 
@@ -628,15 +632,6 @@ msgstr "Это начало разговора"
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
 msgstr "Загрузка..."
-
-#: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr "Подписан"
-
-#: src/components/Messages/PreviewList.tsx
-msgid "Requested"
-msgstr "Запрошено"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -781,7 +776,7 @@ msgid "Turn on high-signal notification filter"
 msgstr "Включить индикатор фильтра оповещений"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
-msgid "Collected for {0} {1}"
+msgid "Collected for {0} {currency}"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -1337,6 +1332,10 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr "Подписан"
+
+#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "Подписчики"
 
@@ -1491,7 +1490,7 @@ msgid "{0} available"
 msgstr "{0} доступно"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0}% referral fee"
+msgid "{referralFee}% referral fee"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -1523,8 +1522,7 @@ msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Free Collect"
+msgid "Collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
@@ -2841,35 +2839,23 @@ msgstr "Размер видео должен быть меньше 100MB"
 msgid "Audio size should be less than 100MB"
 msgstr "Размер аудио должен быть меньше 100MB"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Multirecipient Paid Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Paid Collect"
+#: src/lib/getAllowanceModule.ts
+msgid "Basic Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Rare Paid Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "24 Hour Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "Rare 24 Hour Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "No Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Fee Follow"
 msgstr "Плата за подписку"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Follower Only Reference"
 msgstr "Ссылка только для подписчиков"
 

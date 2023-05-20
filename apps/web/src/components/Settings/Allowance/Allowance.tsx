@@ -16,8 +16,7 @@ const Allowance: FC<AllowanceProps> = ({ allowance }) => {
     <div className="space-y-4 p-5">
       {allowance?.approvedModuleAllowanceAmount?.map(
         (item: ApprovedAllowanceAmount) =>
-          item?.module === CollectModules.RevertCollectModule ||
-          item?.module === CollectModules.FreeCollectModule ? (
+          item?.module === CollectModules.RevertCollectModule ? (
             ''
           ) : (
             <Module key={item?.contractAddress} module={item} />
