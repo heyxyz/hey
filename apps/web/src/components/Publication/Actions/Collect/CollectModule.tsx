@@ -18,7 +18,7 @@ import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import { Mixpanel } from '@lib/mixpanel';
-import { plural, t, Trans } from '@lingui/macro';
+import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
@@ -380,11 +380,12 @@ const CollectModule: FC<CollectModuleProps> = ({
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
                 {humanize(count)}{' '}
-                {plural(count, {
-                  zero: 'collector',
-                  one: 'collector',
-                  other: 'collectors'
-                })}
+                <Plural
+                  value={count}
+                  zero="collector"
+                  one="collector"
+                  other="collectors"
+                />
               </button>
               <Modal
                 title={t`Collected by`}
