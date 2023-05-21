@@ -598,6 +598,10 @@ msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 
 #: src/components/Messages/Composer.tsx
+msgid "Error sending attachment"
+msgstr "Error sending attachment"
+
+#: src/components/Messages/Composer.tsx
 msgid "Error sending message"
 msgstr ""
 
@@ -627,15 +631,6 @@ msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
-msgid "Requested"
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
@@ -781,8 +776,8 @@ msgid "Turn on high-signal notification filter"
 msgstr "Turn on high-signal notification filter"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
-msgid "Collected for {0} {1}"
-msgstr ""
+msgid "Collected for {0} {currency}"
+msgstr "Collected for {0} {currency}"
 
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
@@ -1337,6 +1332,10 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 
 #: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
 
@@ -1491,8 +1490,8 @@ msgid "{0} available"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0}% referral fee"
-msgstr ""
+msgid "{referralFee}% referral fee"
+msgstr "{referralFee}% referral fee"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
@@ -1523,9 +1522,8 @@ msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 
 #: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Free Collect"
-msgstr ""
+msgid "Collect"
+msgstr "Collect"
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
@@ -2834,42 +2832,30 @@ msgid "Image size should be less than 10MB"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 100MB"
-msgstr "Video size should be less than 100MB"
+msgid "Video size should be less than 200MB"
+msgstr "Video size should be less than 200MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "Audio size should be less than 100MB"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Multirecipient Paid Collect"
 msgstr "Multirecipient Paid Collect"
 
-#: src/lib/getModule.ts
-msgid "Paid Collect"
-msgstr "Paid Collect"
+#: src/lib/getAllowanceModule.ts
+msgid "Basic Collect"
+msgstr "Basic Collect"
 
-#: src/lib/getModule.ts
-msgid "Rare Paid Collect"
-msgstr "Rare Paid Collect"
-
-#: src/lib/getModule.ts
-msgid "24 Hour Collect"
-msgstr "24 Hour Collect"
-
-#: src/lib/getModule.ts
-msgid "Rare 24 Hour Collect"
-msgstr "Rare 24 Hour Collect"
-
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "No Collect"
 msgstr "No Collect"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Fee Follow"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Follower Only Reference"
 msgstr ""
 

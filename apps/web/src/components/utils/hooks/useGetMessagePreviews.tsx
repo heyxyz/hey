@@ -62,7 +62,7 @@ const useGetMessagePreviews = () => {
             chunk.map(async (convo) => {
               const key = buildConversationKey(
                 convo.peerAddress,
-                convo.context?.conversationId as string
+                (convo.context?.conversationId as string) ?? ''
               );
               const existingValue = previewMessages.get(key)?.sent;
               const latestMessage = await fetchMostRecentMessage(
@@ -83,6 +83,7 @@ const useGetMessagePreviews = () => {
             })
           )
         ).filter((m) => Boolean(m)) as [string, DecodedMessage][];
+
         await batchPersistPreviewMessages(new Map(batch));
       }
       setLoading(false);

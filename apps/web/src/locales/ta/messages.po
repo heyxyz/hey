@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-17 00:09\n"
+"PO-Revision-Date: 2023-05-21 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -598,6 +598,10 @@ msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
+msgid "Error sending attachment"
+msgstr ""
+
+#: src/components/Messages/Composer.tsx
 msgid "Error sending message"
 msgstr "செய்தியை அனுப்புவதில் பிழை"
 
@@ -628,15 +632,6 @@ msgstr "இதுதான் உரையாடலின் ஆரம்பம�
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
 msgstr "ஏற்றுகிறது..."
-
-#: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr "பின்தொடர்கிறீர்கள்"
-
-#: src/components/Messages/PreviewList.tsx
-msgid "Requested"
-msgstr "கோரப்பட்டது"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -781,8 +776,8 @@ msgid "Turn on high-signal notification filter"
 msgstr "உயர் சிக்னல் அறிவிப்பு வடிப்பானை இயக்கவும்"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
-msgid "Collected for {0} {1}"
-msgstr "{0} {1} க்காகச் சேகரிக்கப்பட்டது"
+msgid "Collected for {0} {currency}"
+msgstr ""
 
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
@@ -1337,6 +1332,10 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr "பின்தொடர்கிறீர்கள்"
+
+#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "பின்பற்றுபவர்கள்"
 
@@ -1491,8 +1490,8 @@ msgid "{0} available"
 msgstr "{0} கிடைக்கிறது"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0}% referral fee"
-msgstr "{0}% பரிந்துரை கட்டணம்"
+msgid "{referralFee}% referral fee"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
@@ -1523,9 +1522,8 @@ msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Free Collect"
-msgstr "இலவச சேகரிப்பு"
+msgid "Collect"
+msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
@@ -2834,42 +2832,30 @@ msgid "Image size should be less than 10MB"
 msgstr "படத்தின் அளவு 10MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 100MB"
-msgstr "வீடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
+msgid "Video size should be less than 200MB"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Multirecipient Paid Collect"
 msgstr "பல பெறுனர்களின் கட்டண சேகரிப்பு"
 
-#: src/lib/getModule.ts
-msgid "Paid Collect"
-msgstr "கட்டண சேகரிப்பு"
+#: src/lib/getAllowanceModule.ts
+msgid "Basic Collect"
+msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Rare Paid Collect"
-msgstr "அரிய கட்டண சேகரிப்பு"
-
-#: src/lib/getModule.ts
-msgid "24 Hour Collect"
-msgstr "24 மணி நேர சேகரிப்பு"
-
-#: src/lib/getModule.ts
-msgid "Rare 24 Hour Collect"
-msgstr "அரிய 24 மணிநேர சேகரிப்பு"
-
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "No Collect"
 msgstr "சேகரிப்பு இல்லை"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Fee Follow"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Follower Only Reference"
 msgstr ""
 

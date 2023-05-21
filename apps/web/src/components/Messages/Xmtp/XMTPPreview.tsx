@@ -5,12 +5,7 @@ import Search from '@components/Shared/Navbar/Search';
 import useGetMessagePreviews from '@components/utils/hooks/useGetMessagePreviews';
 import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
-import {
-  MailIcon,
-  PlusCircleIcon,
-  UserAddIcon,
-  UsersIcon
-} from '@heroicons/react/outline';
+import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Mixpanel } from '@lib/mixpanel';
@@ -22,6 +17,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/xmtp-message';
 import {
@@ -51,8 +47,10 @@ const PreviewList: FC<PreviewListProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { persistProfile } = useMessageDb();
   const selectedTab = useXmtpMessageStore((state) => state.selectedTab);
+  const ensNames = useXmtpMessageStore((state) => state.ensNames);
   const setSelectedTab = useXmtpMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
+
   const {
     authenticating,
     loading,
@@ -61,6 +59,7 @@ const PreviewList: FC<PreviewListProps> = ({
     requestedCount,
     profilesError
   } = useMessagePreviews();
+
   const { loading: previewsLoading, progress: previewsProgress } =
     useGetMessagePreviews();
   const clearMessagesBadge = useXmtpMessagePersistStore(
@@ -100,8 +99,8 @@ const PreviewList: FC<PreviewListProps> = ({
     );
     await persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
-      ? 'Following'
-      : 'Requested';
+      ? MessageTabs.Lens
+      : MessageTabs.Requests;
     setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
     setShowSearchModal(false);
@@ -130,26 +129,40 @@ const PreviewList: FC<PreviewListProps> = ({
             />
           )}
         </div>
-        <div className="flex space-x-2 px-4 py-3">
-          <TabButton
-            className="w-full !py-2"
-            name={t`Following`}
-            active={selectedTab === 'Following'}
-            onClick={() => setSelectedTab('Following')}
-            icon={<UsersIcon className="h-4 w-4" />}
-            showOnSm
-          />
-          <TabButton
-            className="w-full !py-2"
-            name={t`Requested`}
-            active={selectedTab === 'Requested'}
-            onClick={() => setSelectedTab('Requested')}
-            icon={<UserAddIcon className="h-4 w-4" />}
-            count={requestedCount > 99 ? '99+' : requestedCount.toString()}
-            showOnSm
-          />
+        <div className="flex justify-between px-4 py-3">
+          <div className="flex space-x-2">
+            <TabButton
+              className="p-2 px-4"
+              name={'All'}
+              active={selectedTab === 'All'}
+              onClick={() => setSelectedTab('All')}
+              showOnSm
+            />
+            <TabButton
+              className="p-2 px-4"
+              name={'Lens'}
+              active={selectedTab === 'Lens'}
+              onClick={() => setSelectedTab('Lens')}
+              showOnSm
+            />
+            <TabButton
+              className="p-2 px-4"
+              name={'Other'}
+              active={selectedTab === 'Other'}
+              onClick={() => setSelectedTab('Other')}
+              showOnSm
+            />
+          </div>
+          {requestedCount > 0 && (
+            <div
+              onClick={() => setSelectedTab(MessageTabs.Requests)}
+              className="cursor-pointer py-2 text-xs font-bold text-gray-500 dark:bg-gray-700 dark:text-gray-400"
+            >
+              {requestedCount > 99 ? '99+' : requestedCount.toString()} Requests
+            </div>
+          )}
         </div>
-        {selectedTab === 'Requested' ? (
+        {selectedTab === MessageTabs.Requests ? (
           <div className="bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
             <Trans>
               These conversations are from Lens profiles that you don't
@@ -195,6 +208,7 @@ const PreviewList: FC<PreviewListProps> = ({
                 const message = messages.get(key);
                 return (
                   <Preview
+                    ensName={ensNames.get(key)}
                     isSelected={key === selectedConversationKey}
                     key={key}
                     profile={profile}

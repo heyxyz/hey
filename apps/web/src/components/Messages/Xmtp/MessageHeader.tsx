@@ -3,20 +3,33 @@ import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import type { Profile } from 'lens';
+import formatAddress from 'lib/formatAddress';
+import formatHandle from 'lib/formatHandle';
+import getAvatar from 'lib/getAvatar';
+import getStampFyiURL from 'lib/getStampFyiURL';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useXmtpMessageStore } from 'src/store/xmtp-message';
 import { FollowSource } from 'src/tracking';
+import { Image } from 'ui';
 
 interface MessageHeaderProps {
   profile?: Profile;
+  conversationKey?: string;
 }
 
-const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
+const MessageHeader: FC<MessageHeaderProps> = ({
+  profile,
+  conversationKey
+}) => {
   const router = useRouter();
   const [following, setFollowing] = useState(true);
   const unsyncProfile = useXmtpMessageStore((state) => state.unsyncProfile);
+  const ensNames = useXmtpMessageStore((state) => state.ensNames);
+  const ensName = ensNames.get(conversationKey?.split('/')[0] ?? '');
+  const url =
+    (ensName && getStampFyiURL(conversationKey?.split('/')[0] ?? '')) ?? '';
 
   const setFollowingWrapped = useCallback(
     (following: boolean) => {
@@ -34,7 +47,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
     setFollowing(profile?.isFollowedByMe ?? false);
   }, [profile?.isFollowedByMe]);
 
-  if (!profile) {
+  if (!profile && !conversationKey) {
     return null;
   }
 
@@ -45,21 +58,42 @@ const MessageHeader: FC<MessageHeaderProps> = ({ profile }) => {
           onClick={onBackClick}
           className="mr-1 h-6 w-6 cursor-pointer lg:hidden"
         />
-        <UserProfile profile={profile} />
+        {profile ? (
+          <UserProfile profile={profile} />
+        ) : (
+          <>
+            <Image
+              onError={({ currentTarget }) => {
+                currentTarget.src = ensName ? url : getAvatar(profile, false);
+              }}
+              src={ensName ? url : getAvatar(profile)}
+              loading="lazy"
+              className="mr-4 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+              height={40}
+              width={40}
+              alt={formatHandle('')}
+            />
+            {ensName ?? formatAddress(conversationKey ?? '')}
+          </>
+        )}
       </div>
-      {!following ? (
-        <Follow
-          showText
-          profile={profile}
-          setFollowing={setFollowingWrapped}
-          followSource={FollowSource.DIRECT_MESSAGE_HEADER}
-        />
-      ) : (
-        <Unfollow
-          showText
-          profile={profile}
-          setFollowing={setFollowingWrapped}
-        />
+      {profile && (
+        <div>
+          {!following ? (
+            <Follow
+              showText
+              profile={profile}
+              setFollowing={setFollowingWrapped}
+              followSource={FollowSource.DIRECT_MESSAGE_HEADER}
+            />
+          ) : (
+            <Unfollow
+              showText
+              profile={profile}
+              setFollowing={setFollowingWrapped}
+            />
+          )}
+        </div>
       )}
     </div>
   );
