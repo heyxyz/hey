@@ -60,7 +60,7 @@ const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
     );
     const files = Array.from(data);
 
-    if (!useThirdwebIpfs) {
+    if (useThirdwebIpfs) {
       const storage = new ThirdwebStorage();
       const uris = await storage.uploadBatch(files, {
         uploadWithoutDirectory: true
