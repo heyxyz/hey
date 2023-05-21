@@ -2,7 +2,7 @@ name: Clean cache
 
 on:
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '00 01,13 * * *'
   workflow_dispatch:
 
 jobs:
