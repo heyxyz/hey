@@ -66,7 +66,7 @@ const PreviewList: FC<PreviewListProps> = ({
         className
       )}
     >
-      {isPushDMsEnabled && (
+      {!isPushDMsEnabled && (
         <Card className="mb-6 flex justify-between font-bold">
           <div
             onClick={() => changeChatProvider(MESSAGING_PROVIDER.PUSH)}
@@ -107,7 +107,7 @@ const PreviewList: FC<PreviewListProps> = ({
 
       <div
         className={`flex flex-col justify-between ${
-          isPushDMsEnabled ? 'h-[91.8%]' : 'h-full'
+          !isPushDMsEnabled ? 'h-[91.8%]' : 'h-full'
         }`}
       >
         {chatProvider === MESSAGING_PROVIDER.XMTP ? (

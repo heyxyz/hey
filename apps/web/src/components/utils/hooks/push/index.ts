@@ -10,6 +10,7 @@ export * from './useGetChatProfile';
 export * from './useGetGroup';
 export * from './useGetGroupbyName';
 export * from './useGetUsersBatch';
+export * from './useGroupInfoModal';
 export * from './usePushChatSocket';
 export * from './usePushCreateGroupChat';
 export * from './usePushDecryption';

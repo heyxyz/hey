@@ -228,6 +228,7 @@ const Message = ({ conversationType, conversationId }: MessagePropType) => {
                   <>
                     <MessageHeader
                       groupInfo={groupInfo}
+                      setGroupInfo={setGroupInfo}
                       selectedChat={
                         chatsFeed[selectedChatId] ??
                         requestsFeed[selectedChatId] ??
@@ -264,7 +265,7 @@ const MessagePage: NextPage = () => {
     !conversationKey ||
     !currentProfileId ||
     !Array.isArray(conversationKey) ||
-    !isPushDMsEnabled
+    isPushDMsEnabled
   ) {
     return <Custom404 />;
   }

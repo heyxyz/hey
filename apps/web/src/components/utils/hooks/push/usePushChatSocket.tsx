@@ -65,41 +65,11 @@ const usePushChatSocket = (): PushChatSocket => {
         connectedProfile ??
         (await fetchChatProfile({ profileId: currentProfile.id }));
 
-      if (profile && !profile?.encryptedPrivateKey) {
-        if (isCAIP(chat.fromCAIP10)) {
-          await getLensProfile(getProfileFromDID(chat?.fromCAIP10));
-        }
-        const chatId = !isCAIP(chat.toDID) ? chat.toDID : chat.fromDID;
-        if (requestsFeed[chatId]) {
-          let newOne: IFeeds = requestsFeed[chatId];
-          setChat(chatId, {
-            messages: Array.isArray(chats.get(chatId)?.messages)
-              ? [...chats.get(chatId)!.messages, chat]
-              : [chat],
-            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? chat.link
-          });
-
-          newOne['msg'] = chat;
-          setRequestFeed(chatId, newOne);
-        } else {
-          let fetchChatsMessages: IFeeds = (await fetchChat({
-            recipientAddress: chatId
-          })) as IFeeds;
-          if (chat.messageCategory === 'Chat') {
-            setChatFeed(chatId, fetchChatsMessages);
-          } else if (chat.messageCategory === 'Request') {
-            setRequestFeed(chatId, fetchChatsMessages);
-          }
-          setChat(chatId, {
-            messages: Array.isArray(chats.get(chatId)?.messages)
-              ? [...chats.get(chatId)!.messages, chat]
-              : [chat],
-            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? chat.link
-          });
-        }
+      if (isCAIP(chat.fromCAIP10)) {
+        await getLensProfile(getProfileFromDID(chat?.fromCAIP10));
       }
 
-      if (!profile || !decryptedPgpPvtKey) {
+      if (!profile) {
         return;
       }
       // for self input and approve event
@@ -112,58 +82,57 @@ const usePushChatSocket = (): PushChatSocket => {
         return;
       }
 
-      const response = await PushAPI.chat.decryptConversation({
-        messages: [chat],
-        connectedUser: profile,
-        pgpPrivateKey: decryptedPgpPvtKey,
-        env: PUSH_ENV
-      });
+      const isEncrypted = chat.encType === 'pgp';
+      if (isEncrypted && !decryptedPgpPvtKey) {
+        return;
+      }
+      const decryptedChat = isEncrypted
+        ? await PushAPI.chat.decryptConversation({
+            messages: [chat],
+            connectedUser: profile,
+            pgpPrivateKey: decryptedPgpPvtKey!,
+            env: PUSH_ENV
+          })
+        : [chat];
 
-      if (response && response.length) {
-        const msg = response[0];
+      if (decryptedChat && decryptedChat.length) {
+        const msg = decryptedChat[0];
         const chatId = !isCAIP(msg.toDID) ? msg.toDID : msg.fromDID;
+
         if (isCAIP(msg.fromCAIP10)) {
           await getLensProfile(getProfileFromDID(msg.fromCAIP10));
         }
+
+        const chatsMessages = Array.isArray(chats.get(chatId)?.messages)
+          ? [...chats.get(chatId)!.messages, msg]
+          : [msg];
+
+        setChat(chatId, {
+          messages: chatsMessages,
+          lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
+        });
+
         if (chatsFeed[chatId]) {
           let newOne: IFeeds = chatsFeed[chatId];
-          setChat(chatId, {
-            messages: Array.isArray(chats.get(chatId)?.messages)
-              ? [...chats.get(chatId)!.messages, msg]
-              : [msg],
-            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
-          });
-
           newOne['msg'] = msg;
           setChatFeed(chatId, newOne);
         } else if (requestsFeed[chatId]) {
           let newOne: IFeeds = requestsFeed[chatId];
-          setChat(chatId, {
-            messages: Array.isArray(chats.get(chatId)?.messages)
-              ? [...chats.get(chatId)!.messages, msg]
-              : [msg],
-            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
-          });
-
           newOne['msg'] = msg;
           setRequestFeed(chatId, newOne);
         } else {
           let fetchChatsMessages: IFeeds = (await fetchChat({
             recipientAddress: chatId
           })) as IFeeds;
+
           if (chat.messageCategory === 'Chat') {
             setChatFeed(chatId, fetchChatsMessages);
           } else if (chat.messageCategory === 'Request') {
             setRequestFeed(chatId, fetchChatsMessages);
           }
-          setChat(chatId, {
-            messages: Array.isArray(chats.get(chatId)?.messages)
-              ? [...chats.get(chatId)!.messages, msg]
-              : [msg],
-            lastThreadHash: chats.get(chatId)?.lastThreadHash ?? msg.link
-          });
         }
       }
+
       setMessagesSinceLastConnection(chat);
     });
 
@@ -187,6 +156,19 @@ const usePushChatSocket = (): PushChatSocket => {
           recipientAddress: groupInfo?.chatId
         })) as IFeeds;
         setRequestFeed(groupInfo.chatId, fetchChatsMessages);
+      } else if (groupInfo?.eventType === 'update') {
+        const chatId = groupInfo?.chatId;
+        if (chatsFeed[chatId]) {
+          setChatFeed(chatId, {
+            ...chatsFeed[chatId],
+            groupInformation: groupInfo
+          });
+        } else if (requestsFeed[chatId]) {
+          setRequestFeed(chatId, {
+            ...requestsFeed[chatId],
+            groupInformation: groupInfo
+          });
+        }
       }
       setGroupInformationSinceLastConnection(groupInfo);
     });

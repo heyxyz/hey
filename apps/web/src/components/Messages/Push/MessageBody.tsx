@@ -5,7 +5,6 @@ import useCreateChatProfile from '@components/utils/hooks/push/useCreateChatProf
 import useFetchChat from '@components/utils/hooks/push/useFetchChat';
 import useGetHistoryMessages from '@components/utils/hooks/push/useFetchHistoryMessages';
 import useFetchLensProfiles from '@components/utils/hooks/push/useFetchLensProfiles';
-import useFetchRequests from '@components/utils/hooks/push/useFetchRequests';
 import usePushSendMessage from '@components/utils/hooks/push/usePushSendMessage';
 import type { GroupDTO, IFeeds, IMessageIPFS } from '@pushprotocol/restapi';
 import clsx from 'clsx';
@@ -15,9 +14,8 @@ import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import moment from 'moment';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
-import { useAppStore } from 'src/store/app';
 import { CHAT_TYPES, PUSH_TABS, usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input, Spinner } from 'ui';
 
@@ -32,6 +30,11 @@ type GIFType = {
   url: String;
   height: Number;
   width: Number;
+};
+
+const GroupType = {
+  PUBLIC: 'public',
+  PRIVATE: 'private'
 };
 
 const CHATS_FETCH_LIMIT = 15;
@@ -177,7 +180,8 @@ const Messages = ({ chat }: { chat: IMessageIPFS }) => {
 type MessageFieldPropType = {
   scrollToBottom: () => void;
   selectedChat: IFeeds;
-  disablePrivateGroup: boolean;
+  groupType?: (typeof GroupType)[keyof typeof GroupType];
+  isMember?: boolean;
 };
 
 const requestLimit: number = 30;
@@ -186,7 +190,8 @@ const page: number = 1;
 const MessageField = ({
   scrollToBottom,
   selectedChat,
-  disablePrivateGroup
+  groupType,
+  isMember
 }: MessageFieldPropType) => {
   const modalRef = useRef(null);
   const [emojiOpen, setEmojiOpen] = useState(false);
@@ -195,9 +200,7 @@ const MessageField = ({
   const { sendMessage, loading: msgSendLoading } = usePushSendMessage();
   const selectedChatId = usePushChatStore((state) => state.selectedChatId);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const { createChatProfile } = useCreateChatProfile();
-  const { fetchRequests } = useFetchRequests();
   const requestsFeed = usePushChatStore((state) => state.requestsFeed);
   const { approveChatRequest } = useApproveChatRequest();
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
@@ -211,61 +214,21 @@ const MessageField = ({
   const appendEmoji = ({ emoji }: { emoji: string }) =>
     setInputText(`${inputText}${emoji}`);
 
-  const ifPublicGroup = () => {
-    if (
-      selectedChat &&
-      selectedChat.groupInformation &&
-      selectedChat.groupInformation.isPublic
-    ) {
-      return true;
+  const ifGroupRequest = useCallback(() => {
+    if (!selectedChat) {
+      return false;
     }
-    return false;
-  };
-
-  const ifGroupMember = () => {
     let response = false;
     if (connectedProfile && connectedProfile?.did) {
-      selectedChat?.groupInformation?.members.map((member) => {
-        if (member.wallet === connectedProfile.did) {
-          response = true;
-          return;
-        }
-      });
       selectedChat?.groupInformation?.pendingMembers.map((member) => {
         if (member.wallet === connectedProfile.did) {
-          response = true;
-          return;
-        }
-      });
-    } else {
-      selectedChat?.groupInformation?.members.map((member) => {
-        if (getProfileFromDID(member.wallet) === currentProfile?.id) {
-          response = true;
-          return;
-        }
-      });
-      selectedChat?.groupInformation?.pendingMembers.map((member) => {
-        if (getProfileFromDID(member.wallet) === currentProfile?.id) {
           response = true;
           return;
         }
       });
     }
     return response;
-  };
-
-  const ifPublicGroupAndNotMember = (): boolean => {
-    if (ifPublicGroup() && !ifGroupMember()) {
-      return true;
-    }
-
-    return false;
-  };
-
-  useEffect(() => {
-    const response = ifPublicGroupAndNotMember();
-    setToShowJoinPublicGroup(response);
-  }, [selectedChat]);
+  }, [selectedChat, connectedProfile]);
 
   const sendPushMessage = async (content: string, type: string) => {
     try {
@@ -318,7 +281,8 @@ const MessageField = ({
     }
   };
 
-  return toShowJoinPublicGroup ? (
+  return (groupType && groupType === GroupType.PUBLIC && !isMember) ||
+    toShowJoinPublicGroup ? (
     <div className="flex justify-between rounded-lg border border-solid p-2">
       <div className="align-center self-center text-sm text-[#9E9EA9]">
         You need to join the group in order to send a message
@@ -331,7 +295,7 @@ const MessageField = ({
         Join Group
       </Button>
     </div>
-  ) : disablePrivateGroup ? (
+  ) : groupType && groupType === GroupType.PRIVATE && !isMember ? (
     <div className="flex rounded-lg border border-solid py-4">
       <div className="m-auto text-sm text-[#9E9EA9]">
         Invitation request required to join the group.
@@ -398,7 +362,8 @@ const MessageField = ({
           selectedChat.intent &&
           !selectedChat?.intent?.split('+')?.includes(connectedProfile?.did)
             ? true
-            : false)
+            : false) ||
+          (selectedChat?.groupInformation && ifGroupRequest())
         }
         placeholder="Type your message..."
       />
@@ -415,7 +380,6 @@ export default function MessageBody({
   groupInfo,
   selectedChat
 }: MessageBodyProps) {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const connectedProfile = usePushChatStore((state) => state.connectedProfile);
   const pgpPrivateKey = usePushChatStore((state) => state.pgpPrivateKey);
   const listInnerRef = useRef<HTMLDivElement>(null);
@@ -435,29 +399,74 @@ export default function MessageBody({
   const dates = new Set();
 
   const [groupCreatorProfile, setGroupCreatorProfile] = useState<Profile>();
-  const [disablePrivateGroup, setDisablePrivateGroup] =
-    useState<boolean>(false);
+  const [groupDetail, setGroupDetail] = useState<{
+    groupType: (typeof GroupType)[keyof typeof GroupType];
+    isMember: boolean;
+  }>();
 
   const selectedMessages = chats.get(selectedChatId);
   const prevSelectedId = useRef<string>('');
   const deprecatedChat = selectedChat?.deprecated ? true : false;
 
-  const ifPrivateGroup = () => {
-    if (groupInfo && groupInfo.isPublic === false) {
-      return true;
+  const ifGroupMember = useCallback(() => {
+    if (!groupInfo) {
+      return false;
     }
-    return false;
-  };
+    let response = false;
+    if (connectedProfile && connectedProfile?.did) {
+      groupInfo.members.map((member) => {
+        if (member.wallet === connectedProfile.did) {
+          response = true;
+          return;
+        }
+      });
+      groupInfo.pendingMembers.map((member) => {
+        if (member.wallet === connectedProfile.did) {
+          response = true;
+          return;
+        }
+      });
+    }
+    return response;
+  }, [groupInfo, connectedProfile]);
+
+  const ifGroupRequest = useCallback(() => {
+    if (!groupInfo) {
+      return false;
+    }
+    let response = false;
+    if (connectedProfile && connectedProfile?.did) {
+      groupInfo.pendingMembers.map((member) => {
+        if (member.wallet === connectedProfile.did) {
+          response = true;
+          return;
+        }
+      });
+    }
+    return response;
+  }, [groupInfo, connectedProfile]);
+
+  const groupTypeFunc = useCallback(() => {
+    if (groupInfo) {
+      if (groupInfo.isPublic) {
+        return GroupType.PUBLIC;
+      } else {
+        return GroupType.PRIVATE;
+      }
+    }
+  }, [groupInfo]);
 
   useEffect(() => {
-    // selectedChat will be undefined in case of private group when user isn't a member
-    if (selectedChat) {
+    if (!groupInfo) {
       return;
     }
-    const response = ifPrivateGroup();
-    console.log(selectedChat, response);
-    setDisablePrivateGroup(response);
-  }, [selectedChat]);
+    const isMember = ifGroupMember();
+    const groupType = groupTypeFunc();
+    setGroupDetail({
+      groupType: groupType!,
+      isMember: isMember
+    });
+  }, [groupInfo, groupTypeFunc, ifGroupMember]);
 
   //add loading in jsx
   const { historyMessages, loading } = useGetHistoryMessages();
@@ -629,7 +638,9 @@ export default function MessageBody({
         )}
 
         <div className="flex flex-col gap-2.5">
-          {disablePrivateGroup ? (
+          {groupDetail?.groupType &&
+          groupDetail.groupType === GroupType.PRIVATE &&
+          !groupDetail.isMember ? (
             <div className="m-auto mt-8 flex flex-row space-x-2 rounded-md bg-[#F4F4F5] p-2">
               <Image
                 alt="deprecated icon"
@@ -666,11 +677,13 @@ export default function MessageBody({
           )}
           {(requestFeedids.includes(selectedChatId) ||
             (selectedChat &&
+              !groupInfo &&
               connectedProfile &&
               selectedChat.intent &&
               !selectedChat?.intent
                 ?.split('+')
-                ?.includes(connectedProfile?.did))) && (
+                ?.includes(connectedProfile?.did)) ||
+            (groupInfo && ifGroupRequest())) && (
             <div className="flex w-fit rounded-e rounded-r-2xl rounded-bl-2xl border border-solid border-gray-300 p-2 dark:border-[#3F3F46] dark:bg-[#27272a]">
               {selectedChatType === CHAT_TYPES.CHAT ? (
                 <div className="flex flex-col text-sm font-normal">
@@ -725,7 +738,8 @@ export default function MessageBody({
           <MessageField
             scrollToBottom={scrollToBottom}
             selectedChat={selectedChat}
-            disablePrivateGroup={disablePrivateGroup}
+            groupType={groupDetail?.groupType}
+            isMember={groupDetail?.isMember}
           />
         </div>
       )}

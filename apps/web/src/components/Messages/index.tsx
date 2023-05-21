@@ -31,7 +31,7 @@ const Messages: NextPage = () => {
 
   useEffect(() => {
     if (path === '/messages') {
-      if (isPushDMsEnabled) {
+      if (!isPushDMsEnabled) {
         router.push(`/messages/${MESSAGING_PROVIDER.PUSH}`);
         setChatProvider(MESSAGING_PROVIDER.PUSH);
       } else {
@@ -41,7 +41,7 @@ const Messages: NextPage = () => {
     }
   }, [path, router, setChatProvider]);
 
-  if (!currentProfile || (!isPushDMsEnabled && path === '/messages/push')) {
+  if (!currentProfile || (isPushDMsEnabled && path === '/messages/push')) {
     return <Custom404 />;
   }
 

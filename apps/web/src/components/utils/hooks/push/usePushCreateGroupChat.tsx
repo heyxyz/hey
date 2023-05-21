@@ -9,13 +9,14 @@ import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import router from 'next/router';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { PUSH_ENV, usePushChatStore } from 'src/store/push-chat';
 import { Button, Image, Input } from 'ui';
 
+import useOnClickOutside from '../useOnClickOutside';
 import useFetchChat from './useFetchChat';
 
 type handleSetPassFunc = () => void;
@@ -65,9 +66,11 @@ type memberProfileListType = {
   adminAddress: Profile[];
   removeAdmin?: (profile: Profile) => void;
   removeUserAdmin?: (profile: Profile) => void;
+  messageUser?: (profile: Profile) => void;
+  isOwner: Profile[];
 };
 
-const MemberProfileList = ({
+export const MemberProfileList = ({
   memberList,
   isAddedMembersList = false,
   onAddMembers,
@@ -75,12 +78,25 @@ const MemberProfileList = ({
   onMakeAdmin,
   adminAddress,
   removeAdmin,
-  removeUserAdmin
+  removeUserAdmin,
+  messageUser,
+  isOwner
 }: memberProfileListType) => {
   // have used this state instead of boolean since if I used boolean than I still had to check if the user id is equal to the id selected to make it unique and open only that modal which is suppose to open and not open every modal
   const [showModalgroupOptions, setShowModalgroupOptions] = useState(-1);
   const [showModalAdmingroupOptions, setShowModalAdmingroupOptions] =
     useState(-2);
+
+  const handleCloseAllmodals = () => {
+    setShowModalgroupOptions(-1);
+    setShowModalAdmingroupOptions(-2);
+  };
+  const downRef = useRef(null);
+  useOnClickOutside(downRef, () => handleCloseAllmodals());
+  const currentProfile = useAppStore((s) => s.currentProfile);
+  const setShowCreateGroupModal = usePushChatStore(
+    (s) => s.setShowCreateGroupModal
+  );
 
   const handleRemoveClick = (profile: Profile) => {
     if (onRemoveMembers) {
@@ -119,29 +135,46 @@ const MemberProfileList = ({
     }
   };
 
-  const setShowCreateGroupModal = usePushChatStore(
-    (s) => s.setShowCreateGroupModal
-  );
-
   const onProfileSelected = (profile: Profile) => {
     setShowCreateGroupModal(false);
     router.push(`/messages/push/chat/${profile.id}`);
+  };
+
+  const handleMessageUser = (profile: Profile) => {
+    if (messageUser) {
+      messageUser(profile);
+      setShowModalgroupOptions(-1);
+    }
   };
   const isAdmin = (member: Profile) => {
     const isAdmin = adminAddress.some((admin) => admin.id === member.id);
     return isAdmin;
   };
 
+  const isOwners = (member: Profile) => {
+    const isOwners = isOwner?.some((admin) => admin.id === currentProfile?.id);
+    // console.log(isOwners, 'isonwer');
+    return isOwners;
+  };
+
+  const isCurrentlyLoggedinAdmin = (member: Profile) => {
+    const isCurrentlyLoggedinAdmin = member?.id === currentProfile?.id;
+    return isCurrentlyLoggedinAdmin;
+  };
+
   return (
-    <div className="flex flex-col gap-2 py-2" onClick={handleRemoveModal}>
+    <div
+      className="relative flex flex-col gap-2 py-2"
+      onClick={handleRemoveModal}
+    >
       {memberList.map((member, i) => (
         //  put styles into a object
         <div
           className={clsx(
             isAddedMembersList
               ? 'border border-gray-300 dark:border-[#3F3F46]'
-              : 'bg-gray-100 dark:bg-[#3F3F46]',
-            'flex flex-row items-center justify-between rounded-xl  px-2 py-2'
+              : '',
+            'flex flex-row items-center justify-between rounded-xl  px-2 py-1'
           )}
           key={`${member.id}${i}`}
         >
@@ -151,14 +184,16 @@ const MemberProfileList = ({
                 currentTarget.src = getAvatar(member, false);
               }}
               src={getAvatar(member)}
-              className="mr-2 h-14 w-14 rounded-full border bg-gray-200 dark:border-gray-700 dark:bg-[#3F3F46]"
+              className="mr-2 h-12 w-12 rounded-full border bg-gray-200 dark:border-gray-700 dark:bg-[#3F3F46]"
               alt={formatHandle(member?.handle)}
             />
 
             <div className="flex flex-col">
-              <p className="truncate font-bold">
-                {member?.name ?? formatHandle(member?.handle)}
-              </p>
+              {!isAddedMembersList && (
+                <p className="text-md truncate font-bold">
+                  {member?.name ?? formatHandle(member?.handle)}
+                </p>
+              )}
               <Slug
                 className="text-sm"
                 slug={formatHandle(member?.handle)}
@@ -167,88 +202,102 @@ const MemberProfileList = ({
             </div>
           </div>
           {isAdmin(member) && !onAddMembers ? (
-            <div className="absolute left-[250px] rounded-lg bg-[#E5DAFF] pb-1 pl-2.5 pr-2.5 pt-1 text-xs text-[#8B5CF6]">
+            <div
+              className="absolute right-[40px] rounded-lg bg-[#E5DAFF] pb-1 pl-2.5 pr-2.5 pt-1 text-xs text-[#8B5CF6] dark:bg-[#000000]
+              dark:text-[#8B5CF6]"
+            >
               Admin
             </div>
           ) : (
             <div />
           )}
-          {!onAddMembers && (
-            <div className="relative flex">
-              <div
-                className="w-fit cursor-pointer"
-                onClick={() =>
-                  setShowModalgroupOptions(showModalgroupOptions === i ? -1 : i)
-                }
-              >
-                <img
-                  className="h-10 w-9"
-                  src="/push/more.svg"
-                  alt="more icon"
-                />
-              </div>
-              {showModalgroupOptions === i && (
+          {!onAddMembers &&
+            isOwners(member) &&
+            !isCurrentlyLoggedinAdmin(member) && (
+              <div className="relative flex">
                 <div
-                  key={`${member.id}${i}`}
-                  className="absolute right-[-16px] z-50 mt-[-17px] w-[260px] rounded-lg border border-gray-300 bg-white p-4 p-4 dark:bg-[#3F3F46]"
+                  className="w-fit cursor-pointer"
+                  onClick={() =>
+                    setShowModalgroupOptions(
+                      showModalgroupOptions === i ? -1 : i
+                    )
+                  }
                 >
-                  <div
-                    className="flex cursor-pointer p-[8px] text-lg font-medium"
-                    onClick={() => onProfileSelected(member)}
-                  >
-                    <Image
-                      src="/push/createmessage.svg"
-                      className="mt-[4px] h-[21px] pr-[10px]"
-                      alt="remove icon"
-                    />
-                    <div className="text-lg font-[450]">Message user</div>
-                  </div>
-                  <div
-                    className="flex cursor-pointer p-[8px] text-lg font-medium"
-                    onClick={() =>
-                      isAdmin(member)
-                        ? handleRemoveAdmin(member)
-                        : handleMakeAdmin(member)
-                    }
-                  >
-                    <Image
-                      src={
-                        isAdmin(member)
-                          ? '/push/dismissadmin.svg'
-                          : '/push/Shield.svg'
-                      }
-                      className="h-[25px] pr-[10px]"
-                      alt="admin icon"
-                    />
-                    <div className="text-lg font-[450]">
-                      {isAdmin(member)
-                        ? `Dismiss as admin`
-                        : `Make group admin`}
-                    </div>
-                  </div>
-                  <div
-                    className="flex cursor-pointer p-[8px] text-lg font-medium"
-                    onClick={() =>
-                      isAdmin(member)
-                        ? handleRemoveUseradmin(member)
-                        : handleRemoveClick(member)
-                    }
-                  >
-                    <Image
-                      src="/push/MinusCircle.svg"
-                      className="h-[25px] pr-[10px]"
-                      alt="remove icon"
-                    />
-                    <div className="text-lg font-[450] text-red-600">
-                      Remove
-                    </div>
-                  </div>
+                  <Image
+                    className="h-10 w-9 dark:hidden"
+                    src="/push/more.svg"
+                    alt="group info settings"
+                  />
+
+                  <Image
+                    className="hidden h-10 w-9 dark:flex"
+                    src="/push/darkmodemore.svg"
+                    alt="group info settings"
+                  />
                 </div>
-              )}
-            </div>
-          )}
+                {showModalgroupOptions === i && (
+                  <div
+                    ref={downRef}
+                    key={`${member.id}${i}`}
+                    className="absolute right-[-16px] z-50 mt-[-17px] w-[260px] rounded-lg border border-gray-300 bg-white p-4 p-4 dark:bg-[#3F3F46]"
+                  >
+                    <div
+                      className="flex cursor-pointer items-center p-[8px] text-lg font-medium"
+                      onClick={() => handleMessageUser(member)}
+                    >
+                      <Image
+                        src="/push/createmessage.svg"
+                        className="mt-[4px] h-[20px] pr-[10px]"
+                        alt="remove icon"
+                      />
+                      <div className="text-[15px] font-[450]">Message user</div>
+                    </div>
+                    <div
+                      className="flex cursor-pointer items-center p-[8px] text-lg font-medium"
+                      onClick={() =>
+                        isAdmin(member)
+                          ? handleRemoveAdmin(member)
+                          : handleMakeAdmin(member)
+                      }
+                    >
+                      <Image
+                        src={
+                          isAdmin(member)
+                            ? '/push/dismissadmin.svg'
+                            : '/push/Shield.svg'
+                        }
+                        className="h-[20px] pr-[10px]"
+                        alt="admin icon"
+                      />
+                      <div className="text-[15px] font-[450]">
+                        {isAdmin(member)
+                          ? `Dismiss as admin`
+                          : `Make group admin`}
+                      </div>
+                    </div>
+                    <div
+                      className="flex cursor-pointer items-center p-[8px] text-lg font-medium"
+                      onClick={() =>
+                        isAdmin(member)
+                          ? handleRemoveUseradmin(member)
+                          : handleRemoveClick(member)
+                      }
+                    >
+                      <Image
+                        src="/push/MinusCircle.svg"
+                        className="h-[20px] pr-[10px]"
+                        alt="remove icon"
+                      />
+                      <div className="text-[15px] font-[450] text-red-600">
+                        Remove
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           {/* change to icon for Add + */}
-          {onAddMembers && (
+          {onAddMembers && isOwners(member) && (
             <div
               className="cursor-pointer rounded-lg border border-violet-600 px-2 text-violet-600"
               onClick={() => onAddMembers(member)}
@@ -284,6 +333,13 @@ const useCreateGroup = () => {
   const chats = usePushChatStore((state) => state.chats);
   const setChat = usePushChatStore((state) => state.setChat);
   const { fetchChat } = useFetchChat();
+  const [currentProfileState, setCurrentProfileState] = useState<Profile[]>([]);
+
+  useEffect(() => {
+    if (currentProfile) {
+      setCurrentProfileState([currentProfile]);
+    }
+  }, []);
 
   const [modalInfo, setModalInfo] = useState<{
     title: string;
@@ -687,6 +743,7 @@ const useCreateGroup = () => {
           </div>
           {searchedMembers && (
             <MemberProfileList
+              isOwner={currentProfileState}
               memberList={searchedMembers}
               adminAddress={adminAddresses}
               onAddMembers={onAddMembers}
@@ -698,6 +755,7 @@ const useCreateGroup = () => {
           <div className="mt-5">
             {!!members && !!members.length && (
               <MemberProfileList
+                isOwner={currentProfileState}
                 memberList={members}
                 adminAddress={adminAddresses}
                 removeUserAdmin={removeUserAdmin}

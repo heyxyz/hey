@@ -66,6 +66,8 @@ interface IPushChatStore {
   ) => void;
   showCreatePasswordModal: boolean;
   setShowCreatePasswordModal: (showCreatePasswordModal: boolean) => void;
+  showGroupInfoModal: boolean;
+  setShowGroupInfoModal: (showGroupInfoModal: boolean) => void;
   password: {
     encrypted: string | null;
     decrypted: string | null;
@@ -140,6 +142,9 @@ export const usePushChatStore = create<IPushChatStore>((set) => ({
   showCreatePasswordModal: false,
   setShowCreatePasswordModal: (showCreatePasswordModal) =>
     set(() => ({ showCreatePasswordModal })),
+  showGroupInfoModal: false,
+  setShowGroupInfoModal: (showGroupInfoModal) =>
+    set(() => ({ showGroupInfoModal })),
   password: {
     encrypted: null,
     decrypted: null
