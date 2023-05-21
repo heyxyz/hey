@@ -1,7 +1,7 @@
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { TrendingUpIcon } from '@heroicons/react/solid';
 import { Mixpanel } from '@lib/mixpanel';
-import { plural, t, Trans } from '@lingui/macro';
+import { Plural, t, Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
 import { TagSortCriteria, useTrendingQuery } from 'lens';
 import nFormatter from 'lib/nFormatter';
@@ -61,11 +61,12 @@ const Trending: FC = () => {
                 <div className="font-bold">{tag?.tag}</div>
                 <div className="lt-text-gray-500 text-[12px]">
                   {nFormatter(tag?.total)}{' '}
-                  {plural(tag?.total, {
-                    zero: 'Publication',
-                    one: 'Publication',
-                    other: 'Publications'
-                  })}
+                  <Plural
+                    value={tag?.total}
+                    zero="Publication"
+                    one="Publication"
+                    other="Publications"
+                  />
                 </div>
               </Link>
             </div>
