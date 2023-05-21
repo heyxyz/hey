@@ -265,7 +265,7 @@ const MessagePage: NextPage = () => {
     !conversationKey ||
     !currentProfileId ||
     !Array.isArray(conversationKey) ||
-    isPushDMsEnabled
+    !isPushDMsEnabled
   ) {
     return <Custom404 />;
   }
