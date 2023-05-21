@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-20 00:08\n"
+"PO-Revision-Date: 2023-05-21 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2832,8 +2832,8 @@ msgid "Image size should be less than 10MB"
 msgstr "图片尺寸应小于 10MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 100MB"
-msgstr "视频文件应小于 100MB"
+msgid "Video size should be less than 200MB"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"

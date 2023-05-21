@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-20 00:08\n"
+"PO-Revision-Date: 2023-05-21 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2832,8 +2832,8 @@ msgid "Image size should be less than 10MB"
 msgstr "படத்தின் அளவு 10MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 100MB"
-msgstr "வீடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
+msgid "Video size should be less than 200MB"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
