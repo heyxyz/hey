@@ -1,5 +1,5 @@
 import { UsersIcon } from '@heroicons/react/outline';
-import { plural, t } from '@lingui/macro';
+import { Plural, t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import humanize from 'lib/humanize';
 import type { FC } from 'react';
@@ -29,11 +29,12 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
           {humanize(profile?.stats?.totalFollowing)}
         </div>
         <div className="lt-text-gray-500">
-          {plural(profile?.stats?.totalFollowers, {
-            zero: 'Following',
-            one: 'Following',
-            other: 'Following'
-          })}
+          <Plural
+            value={profile?.stats?.totalFollowing}
+            zero="Following"
+            one="Following"
+            other="Following"
+          />
         </div>
       </button>
       <button
@@ -46,11 +47,12 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
           {humanize(profile?.stats?.totalFollowers)}
         </div>
         <div className="lt-text-gray-500">
-          {plural(profile?.stats?.totalFollowers, {
-            zero: 'Follower',
-            one: 'Follower',
-            other: 'Followers'
-          })}
+          <Plural
+            value={profile?.stats?.totalFollowers}
+            zero="Follower"
+            one="Follower"
+            other="Followers"
+          />
         </div>
       </button>
       <Modal
