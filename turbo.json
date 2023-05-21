@@ -3,7 +3,7 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "storybook-static/**"]
+      "outputs": ["dist/**", ".next/**"]
     },
     "lint": { "outputs": [] },
     "lint:fix": { "outputs": [] },
