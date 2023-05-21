@@ -85,11 +85,11 @@ export default function MessageHeader({
         )}
       </div>
       <div className="flex items-center gap-4	">
-        <img
+        {/* <img
           className="cursor-pointer"
           src="/push/video.svg"
           alt="video icon"
-        />
+        /> */}
         {profile &&
           (following ? (
             <Unfollow profile={profile!} setFollowing={setFollowing} showText />
