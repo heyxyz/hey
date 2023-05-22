@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { AVATAR, STATIC_ASSETS_URL } from 'data/constants';
+import { AVATAR, STATIC_IMAGES_URL } from 'data/constants';
 import imageProxy from 'lib/imageProxy';
 
 test.describe('imageProxy', () => {

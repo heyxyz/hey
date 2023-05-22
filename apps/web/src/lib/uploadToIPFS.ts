@@ -2,7 +2,7 @@ import { S3 } from '@aws-sdk/client-s3';
 import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import { KillSwitch } from 'data';
-import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
+import { EVER_API, S3_BUCKET, STS_GENERATOR_WORKER_URL } from 'data/constants';
 import type { MediaSetWithoutOnChain } from 'src/types';
 import { v4 as uuid } from 'uuid';
 
