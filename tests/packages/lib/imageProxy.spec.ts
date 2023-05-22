@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { AVATAR, STATIC_ASSETS_URL, USER_CONTENT_URL } from 'data/constants';
+import { AVATAR, STATIC_IMAGES_URL, USER_CONTENT_URL } from 'data/constants';
 import imageProxy from 'lib/imageProxy';
 
 test.describe('imageProxy', () => {
@@ -9,7 +9,7 @@ test.describe('imageProxy', () => {
   });
 
   test('should return the same url if it includes static-assets.lenster.xyz', () => {
-    const url = `${STATIC_ASSETS_URL}/images/placeholder.webp`;
+    const url = `${STATIC_IMAGES_URL}/placeholder.webp`;
     const result = imageProxy(url);
     expect(result).toEqual(url);
   });
