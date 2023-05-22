@@ -71,9 +71,6 @@ const Preview: FC<PreviewProps> = ({
       >
         <div className="flex space-x-3 overflow-hidden px-5">
           <Image
-            onError={({ currentTarget }) => {
-              currentTarget.src = ensName ? url : getAvatar(profile, false);
-            }}
             src={ensName ? url : getAvatar(profile)}
             loading="lazy"
             className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"

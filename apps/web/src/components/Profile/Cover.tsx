@@ -1,5 +1,5 @@
 import { COVER, STATIC_IMAGES_URL } from 'data/constants';
-import imageProxy from 'lib/imageProxy';
+import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import colors from 'tailwindcss/colors';
@@ -16,7 +16,7 @@ const Cover: FC<CoverProps> = ({ cover }) => {
       style={{
         backgroundImage: `url(${
           cover
-            ? imageProxy(sanitizeDStorageUrl(cover), COVER)
+            ? imageKit(sanitizeDStorageUrl(cover), COVER)
             : `${STATIC_IMAGES_URL}/patterns/2.svg`
         })`,
         backgroundColor: colors.violet[500],

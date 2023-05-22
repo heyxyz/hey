@@ -1,6 +1,6 @@
 import { Mixpanel } from '@lib/mixpanel';
 import { ATTACHMENT } from 'data/constants';
-import imageProxy from 'lib/imageProxy';
+import imageKit from 'lib/imageKit';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -34,7 +34,7 @@ const Embed: FC<EmbedProps> = ({ og }) => {
               onError={({ currentTarget }) => {
                 currentTarget.src = og.thumbnail;
               }}
-              src={imageProxy(og.thumbnail, ATTACHMENT)}
+              src={imageKit(og.thumbnail, ATTACHMENT)}
               alt="Thumbnail"
             />
           )}
@@ -47,7 +47,7 @@ const Embed: FC<EmbedProps> = ({ og }) => {
                 onError={({ currentTarget }) => {
                   currentTarget.src = og.thumbnail;
                 }}
-                src={imageProxy(og.thumbnail, ATTACHMENT)}
+                src={imageKit(og.thumbnail, ATTACHMENT)}
                 alt="Thumbnail"
               />
             )}

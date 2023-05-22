@@ -1,19 +1,15 @@
-import { LENS_MEDIA_SNAPSHOT_URL, STATIC_ASSETS_URL } from 'data/constants';
+import { LENS_MEDIA_SNAPSHOT_URL } from 'data/constants';
 
 /**
- * Returns a URL for the specified image that is compatible with imgproxy.
+ * Transforms the URL of an image to use ImageKit.
  *
  * @param url The original URL of the image.
  * @param name The transformation name (optional).
- * @returns A URL for the image that is compatible with imgproxy.
+ * @returns A transformed URL.
  */
-const imageProxy = (url: string, name?: string): string => {
+const imageKit = (url: string, name?: string): string => {
   if (!url) {
     return '';
-  }
-
-  if (url.includes(STATIC_ASSETS_URL)) {
-    return url;
   }
 
   if (url.includes(LENS_MEDIA_SNAPSHOT_URL)) {
@@ -26,4 +22,4 @@ const imageProxy = (url: string, name?: string): string => {
   return url;
 };
 
-export default imageProxy;
+export default imageKit;

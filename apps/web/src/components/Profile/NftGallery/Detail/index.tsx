@@ -53,9 +53,6 @@ const NFTDetail: FC = () => {
                 <Image
                   key={profile.handle}
                   className="h-5 w-5 rounded-full border dark:border-gray-700"
-                  onError={({ currentTarget }) => {
-                    currentTarget.src = getAvatar(profile, false);
-                  }}
                   src={getAvatar(profile)}
                   alt={formatHandle(profile?.handle)}
                 />

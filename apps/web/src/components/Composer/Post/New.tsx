@@ -54,9 +54,6 @@ const NewPost: FC = () => {
     <Card className="space-y-3 p-5">
       <div className="flex items-center space-x-3">
         <Image
-          onError={({ currentTarget }) => {
-            currentTarget.src = getAvatar(currentProfile, false);
-          }}
           src={getAvatar(currentProfile)}
           className="h-9 w-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           onClick={() => push(`/u/${currentProfile?.handle}`)}

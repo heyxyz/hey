@@ -17,7 +17,11 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { t, Trans } from '@lingui/macro';
-import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
+import {
+  EXPANDED_AVATAR,
+  RARIBLE_URL,
+  STATIC_IMAGES_URL
+} from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import type { Profile } from 'lens';
 import formatAddress from 'lib/formatAddress';
@@ -100,10 +104,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     <div className="mb-4 space-y-5 px-5 sm:px-0">
       <div className="relative -mt-24 h-32 w-32 sm:-mt-32 sm:h-52 sm:w-52">
         <Image
-          onError={({ currentTarget }) => {
-            currentTarget.src = getAvatar(profile, false);
-          }}
-          onClick={() => setExpandedImage(getAvatar(profile, false))}
+          onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
           src={getAvatar(profile)}
           className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
