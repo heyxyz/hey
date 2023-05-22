@@ -4,7 +4,6 @@ import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
 export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
-export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 // Lens Network
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
@@ -44,6 +43,7 @@ export const GIT_COMMIT_SHA =
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
+// TODO: Remove this once everyone has migrated to the new Lens relayer
 export const OLD_LENS_RELAYER_ADDRESS =
   '0xD1FecCF6881970105dfb2b654054174007f0e07E';
 
@@ -63,14 +63,12 @@ export const RARIBLE_URL = IS_MAINNET
 export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
-export const SIMPLEANALYTICS_API =
-  'https://simpleanalytics.com/lenster.xyz.json';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 export const IFRAMELY_URL = 'https://iframely.lenster.xyz/iframely';
 
 // Workers
 export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
-export const STS_TOKEN_URL = IS_PRODUCTION
+export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
   ? 'https://sts.lenster.xyz'
   : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION
@@ -141,7 +139,7 @@ export const ALLOWED_MEDIA_TYPES = [
 export const MESSAGE_PAGE_LIMIT = 15;
 export const MIN_WIDTH_DESKTOP = 1024;
 
-// Named transforms
+// Named transforms for ImageKit
 export const AVATAR = '300x300';
 export const COVER = '1500x500';
 export const ATTACHMENT = '1000,fit';
