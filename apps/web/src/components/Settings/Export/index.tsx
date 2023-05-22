@@ -11,6 +11,7 @@ import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import SettingsSidebar from '../Sidebar';
 import Fingerprint from './Fingerprint';
+import Followers from './Followers';
 import Following from './Following';
 import Notifications from './Notifications';
 import Profile from './Profile';
@@ -38,6 +39,7 @@ const ExportSettings: NextPage = () => {
         <Publications />
         <Notifications />
         <Following />
+        <Followers />
         <Fingerprint />
       </GridItemEight>
     </GridLayout>
