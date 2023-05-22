@@ -1940,6 +1940,58 @@ msgstr "அடையாளமற்ற பரிவர்த்தனைகள�
 msgid "Dispatcher • {APP_NAME}"
 msgstr "டிஸ்பெட்சேர் • {APP_NAME}"
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export all your followers to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Exported <0>{0}</0> followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Download followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr "ஏற்றுகிறது..."
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr "ஏற்றுமதி செய்யவும்"
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export following"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export all your following to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Exported <0>{0}</0> following"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Download following"
+msgstr ""
+
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export notifications"
 msgstr "அறிவிப்புகள் ஏற்றுமதி"
@@ -1955,18 +2007,6 @@ msgstr ""
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Download notifications"
 msgstr "அறிவிப்புகளைப் பதிவிறக்கவும்"
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Exporting..."
-msgstr "ஏற்றுகிறது..."
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Export now"
-msgstr "ஏற்றுமதி செய்யவும்"
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Export profile"

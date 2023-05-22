@@ -16,7 +16,7 @@ const FALLBACK_TYPE = 'image/jpeg';
  * @returns S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
-  const token = await axios.get(STS_TOKEN_URL);
+  const token = await axios.get(STS_GENERATOR_WORKER_URL);
   const client = new S3({
     endpoint: EVER_API,
     credentials: {

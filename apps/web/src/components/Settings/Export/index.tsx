@@ -10,6 +10,9 @@ import { PAGEVIEW } from 'src/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import SettingsSidebar from '../Sidebar';
+import Fingerprint from './Fingerprint';
+import Followers from './Followers';
+import Following from './Following';
 import Notifications from './Notifications';
 import Profile from './Profile';
 import Publications from './Publications';
@@ -35,6 +38,9 @@ const ExportSettings: NextPage = () => {
         <Profile />
         <Publications />
         <Notifications />
+        <Following />
+        <Followers />
+        <Fingerprint />
       </GridItemEight>
     </GridLayout>
   );

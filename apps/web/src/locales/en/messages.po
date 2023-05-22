@@ -1940,6 +1940,58 @@ msgstr "Disable Signless Transactions"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Dispatcher • {APP_NAME}"
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr "Your unique fingerprint"
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export followers"
+msgstr "Export followers"
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export all your followers to a JSON file."
+msgstr "Export all your followers to a JSON file."
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Exported <0>{0}</0> followers"
+msgstr "Exported <0>{0}</0> followers"
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Download followers"
+msgstr "Download followers"
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr "Exporting..."
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr "Export now"
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export following"
+msgstr "Export following"
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export all your following to a JSON file."
+msgstr "Export all your following to a JSON file."
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Exported <0>{0}</0> following"
+msgstr "Exported <0>{0}</0> following"
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Download following"
+msgstr "Download following"
+
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export notifications"
 msgstr "Export notifications"
@@ -1955,18 +2007,6 @@ msgstr "Exported <0>{0}</0> notifications"
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Download notifications"
 msgstr "Download notifications"
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Exporting..."
-msgstr "Exporting..."
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Export now"
-msgstr "Export now"
 
 #: src/components/Settings/Export/Profile.tsx
 msgid "Export profile"
