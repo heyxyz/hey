@@ -1940,6 +1940,10 @@ msgstr "Отключить транзакции без подписи"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Диспетчер • {APP_NAME}"
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr ""
+
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export notifications"
 msgstr "Экспортировать уведомления"
@@ -2879,4 +2883,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-
