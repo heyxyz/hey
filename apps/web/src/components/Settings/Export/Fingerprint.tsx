@@ -6,6 +6,10 @@ import { Card } from 'ui';
 const Fingerprint: FC = () => {
   const fingerprint = useFingerprintStore((state) => state.fingerprint);
 
+  if (!fingerprint) {
+    return null;
+  }
+
   return (
     <Card className="space-y-2 p-5">
       <div className="pb-1 text-lg font-bold">
