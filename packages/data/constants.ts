@@ -68,7 +68,7 @@ export const IFRAMELY_URL = 'https://iframely.lenster.xyz/iframely';
 
 // Workers
 export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
-export const STS_TOKEN_URL = IS_PRODUCTION
+export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
   ? 'https://sts.lenster.xyz'
   : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION
@@ -139,7 +139,7 @@ export const ALLOWED_MEDIA_TYPES = [
 export const MESSAGE_PAGE_LIMIT = 15;
 export const MIN_WIDTH_DESKTOP = 1024;
 
-// Named transforms
+// Named transforms for ImageKit
 export const AVATAR = '300x300';
 export const COVER = '1500x500';
 export const ATTACHMENT = '1000,fit';

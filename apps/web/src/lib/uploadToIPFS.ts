@@ -2,7 +2,7 @@ import { S3 } from '@aws-sdk/client-s3';
 import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import { KillSwitch } from 'data';
-import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
+import { EVER_API, S3_BUCKET, STS_GENERATOR_WORKER_URL } from 'data/constants';
 import type { MediaSet } from 'lens';
 import { v4 as uuid } from 'uuid';
 
@@ -16,7 +16,7 @@ const FALLBACK_TYPE = 'image/jpeg';
  * @returns S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
-  const token = await axios.get(STS_TOKEN_URL);
+  const token = await axios.get(STS_GENERATOR_WORKER_URL);
   const client = new S3({
     endpoint: EVER_API,
     credentials: {
