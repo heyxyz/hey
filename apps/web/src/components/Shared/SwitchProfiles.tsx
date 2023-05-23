@@ -8,7 +8,6 @@ import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';
 import type { FC } from 'react';
-import React from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE } from 'src/tracking';

@@ -1,7 +1,6 @@
 import { APP_VERSION } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
-import React from 'react';
 
 interface AppVersionProps {
   onClick?: () => void;
