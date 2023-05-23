@@ -49,7 +49,8 @@ const useSendMessage = (conversationKey: string) => {
         contentType,
         contentFallback: fallback
       });
-    } catch {
+    } catch (error) {
+      console.error('Failed to send message', error);
       return false;
     }
     return true;
