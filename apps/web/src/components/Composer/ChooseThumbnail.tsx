@@ -93,7 +93,9 @@ const ChooseThumbnail: FC = () => {
       }
       setThumbnails(thumbnailList);
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX);
-    } catch {}
+    } catch (error) {
+      console.error('Failed to generate thumbnails', error);
+    }
   };
 
   useEffect(() => {
@@ -129,7 +131,8 @@ const ChooseThumbnail: FC = () => {
           ...thumbnails
         ]);
         setSelectedThumbnailIndex(0);
-      } catch {
+      } catch (error) {
+        console.error('Failed to upload thumbnail', error);
         toast.error(t`Failed to upload thumbnail`);
       } finally {
         setImageUploading(false);

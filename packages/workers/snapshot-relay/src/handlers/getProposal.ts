@@ -22,7 +22,8 @@ export default async (
     response.headers.set('Cache-Control', 'no-store');
 
     return response;
-  } catch {
+  } catch (error) {
+    console.error('Failed to get proposal', error);
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );
