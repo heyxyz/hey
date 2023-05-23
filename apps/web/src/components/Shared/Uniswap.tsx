@@ -2,6 +2,7 @@ import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import getUniswapURL from 'lib/getUniswapURL';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
 
@@ -17,7 +18,7 @@ const Uniswap: FC<UniswapProps> = ({ module }) => {
           You don't have enough <b>{module?.amount?.asset?.symbol}</b>
         </Trans>
       </div>
-      <a
+      <Link
         href={getUniswapURL(
           parseFloat(module?.amount?.value),
           module?.amount?.asset?.address
@@ -39,7 +40,7 @@ const Uniswap: FC<UniswapProps> = ({ module }) => {
         <div>
           <Trans>Swap in Uniswap</Trans>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };
