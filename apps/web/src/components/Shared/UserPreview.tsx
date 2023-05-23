@@ -164,7 +164,7 @@ const UserPreview: FC<UserPreviewProps> = ({
   };
 
   return showUserPreview ? (
-    <span onFocus={onPreviewStart}>
+    <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
       {lazyProfile?.id ? (
         <Tippy
           placement="bottom-start"
