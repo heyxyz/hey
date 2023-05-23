@@ -63,13 +63,13 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                       <Slug slug={formatHandle(profile?.handle)} prefix="@" />
                     </Link>
                   ) : (
-                    <a
+                    <Link
                       href={`${POLYGONSCAN_URL}/address/${address}`}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noreferrer noopener"
                     >
                       {formatAddress(address, 6)}
-                    </a>
+                    </Link>
                   )}
                 </>
               )}

@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import stopEventPropagation from 'lib/stopEventPropagation';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 
@@ -54,16 +55,16 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
             />
             {url ? (
               <div className="mt-1">
-                <a
+                <Link
                   className="text-sm text-gray-200 hover:underline"
                   href={url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noreferrer noopener"
                   onClick={stopEventPropagation}
                   data-testid="lightbox-open-original"
                 >
                   Open original
-                </a>
+                </Link>
               </div>
             ) : null}
           </Transition.Child>

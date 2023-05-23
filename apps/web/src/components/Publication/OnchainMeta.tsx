@@ -2,6 +2,7 @@ import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from 'data/constants';
 import type { Publication } from 'lens';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { Card } from 'ui';
 
@@ -13,7 +14,7 @@ interface MetaProps {
 
 const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
   <div className="px-5 py-3">
-    <a
+    <Link
       href={uri}
       className="space-y-1"
       target="_blank"
@@ -24,7 +25,7 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
         <ExternalLinkIcon className="h-4 w-4" />
       </div>
       <div className="truncate text-xs">{hash}</div>
-    </a>
+    </Link>
   </div>
 );
 

@@ -2,6 +2,7 @@ import { ArrowRightIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX } from 'data/constants';
 import { useHasTxHashBeenIndexedQuery } from 'lens';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { Button, Spinner } from 'ui';
 
@@ -32,14 +33,14 @@ const Pending: FC<PendingProps> = ({ handle, txHash }) => {
           <div className="text-[40px]">🌿</div>
           <div>Account created successfully</div>
           <div className="pt-3">
-            <a href={`/u/${handle}${HANDLE_SUFFIX}`}>
+            <Link href={`/u/${handle}${HANDLE_SUFFIX}`}>
               <Button
                 className="mx-auto"
                 icon={<ArrowRightIcon className="mr-1 h-4 w-4" />}
               >
                 <Trans>Go to profile</Trans>
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       )}
