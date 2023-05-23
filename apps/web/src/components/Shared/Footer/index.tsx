@@ -24,62 +24,62 @@ const Footer: FC = () => {
         <Link href="/privacy">
           <Trans>Privacy</Trans>
         </Link>
-        <a
+        <Link
           href="https://lenster.xyz/discord"
           target="_blank"
           rel="noreferrer noopener"
         >
           <Trans>Discord</Trans>
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://lenster.xyz/donate"
           target="_blank"
           rel="noreferrer noopener"
         >
           <Trans>Donate</Trans>
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://status.lenster.xyz"
           target="_blank"
           rel="noreferrer noopener"
         >
           <Trans>Status</Trans>
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://feedback.lenster.xyz"
           target="_blank"
           rel="noreferrer noopener"
         >
           <Trans>Feedback</Trans>
-        </a>
+        </Link>
         <Link href="/thanks">
           <Trans>Thanks</Trans>
         </Link>
-        <a
+        <Link
           href="https://github.com/lensterxyz/lenster"
           target="_blank"
           rel="noreferrer noopener"
         >
           <Trans>GitHub</Trans>
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://translate.lenster.xyz"
           target="_blank"
           rel="noreferrer noopener"
         >
           <Trans>Translate</Trans>
-        </a>
+        </Link>
       </div>
       <div className="mt-2 flex space-x-4">
         <Locale />
-        <a
+        <Link
           className="hover:font-bold"
           href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
           target="_blank"
           rel="noreferrer noopener"
         >
           <Trans>▲ Powered by Vercel</Trans>
-        </a>
+        </Link>
       </div>
     </footer>
   );
