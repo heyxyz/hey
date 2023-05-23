@@ -18,6 +18,7 @@ import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getSignature from 'lib/getSignature';
 import getTokenImage from 'lib/getTokenImage';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -222,14 +223,14 @@ const FollowModule: FC<FollowModuleProps> = ({
           <span>
             <Trans>Recipient:</Trans>
           </span>
-          <a
+          <Link
             href={`${POLYGONSCAN_URL}/address/${followModule?.recipient}`}
             target="_blank"
             className="font-bold text-gray-600"
             rel="noreferrer noopener"
           >
             {formatAddress(followModule?.recipient)}
-          </a>
+          </Link>
         </div>
       </div>
       <div className="space-y-2 pt-5">

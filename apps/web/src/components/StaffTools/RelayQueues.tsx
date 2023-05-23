@@ -6,6 +6,7 @@ import { APP_NAME, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
 import { useRelayQueuesQuery } from 'lens';
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
@@ -38,13 +39,14 @@ export const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
       <div>
         <b>{getRelayerName(relayer)}</b>
         <div>
-          <a
+          <Link
             className="text-sm"
             href={`${POLYGONSCAN_URL}/address/${address}`}
             target="_blank"
+            rel="noreferrer noopener"
           >
             {address}
-          </a>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col items-center">

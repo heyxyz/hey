@@ -15,6 +15,7 @@ import formatHandle from 'lib/formatHandle';
 import getFollowModule from 'lib/getFollowModule';
 import getProfileAttribute from 'lib/getProfileAttribute';
 import hasPrideLogo from 'lib/hasPrideLogo';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { Card } from 'ui';
 
@@ -99,9 +100,9 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           value={profile?.metadata}
           title={t`Metadata`}
         >
-          <a href={profile?.metadata} target="_blank" rel="noreferrer">
+          <Link href={profile?.metadata} target="_blank" rel="noreferrer">
             <Trans>Open</Trans>
-          </a>
+          </Link>
         </MetaDetails>
       </div>
     </Card>

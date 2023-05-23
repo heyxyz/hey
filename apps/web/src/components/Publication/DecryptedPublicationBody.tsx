@@ -265,7 +265,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
           {unauthorizedBalance && (
             <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
               You need{' '}
-              <a
+              <Link
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
                 className="font-bold underline"
                 onClick={() =>
@@ -274,10 +274,10 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                   )
                 }
                 target="_blank"
-                rel="noreferrer"
+                rel="noreferrer noopener"
               >
                 {tokenCondition.amount} {tokenData?.symbol}
-              </a>{' '}
+              </Link>{' '}
               to unlock
             </DecryptMessage>
           )}
@@ -290,7 +290,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                 content={nftData?.contractMetadata?.name}
                 placement="top"
               >
-                <a
+                <Link
                   href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
                   onClick={() =>
@@ -299,10 +299,10 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                     )
                   }
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                 >
                   {nftData?.contractMetadata?.symbol}
-                </a>
+                </Link>
               </Tooltip>{' '}
               nft to unlock
             </DecryptMessage>

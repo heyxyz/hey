@@ -241,7 +241,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             dataTestId="profile-meta-id"
           >
             <Tooltip content={`#${profile?.id}`}>
-              <a
+              <Link
                 href={`${RARIBLE_URL}/token/polygon/${
                   getEnvConfig().lensHubProxyAddress
                 }:${parseInt(profile?.id)}`}
@@ -249,7 +249,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 rel="noreferrer"
               >
                 {parseInt(profile?.id)}
-              </a>
+              </Link>
             </Tooltip>
           </MetaDetails>
           {getProfileAttribute(profile?.attributes, 'location') && (
@@ -294,7 +294,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               }
               dataTestId="profile-meta-website"
             >
-              <a
+              <Link
                 href={`https://${getProfileAttribute(
                   profile?.attributes,
                   'website'
@@ -307,7 +307,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 {getProfileAttribute(profile?.attributes, 'website')
                   ?.replace('https://', '')
                   .replace('http://', '')}
-              </a>
+              </Link>
             </MetaDetails>
           )}
           {getProfileAttribute(profile?.attributes, 'twitter') && (
@@ -333,7 +333,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               }
               dataTestId="profile-meta-twitter"
             >
-              <a
+              <Link
                 href={`https://twitter.com/${getProfileAttribute(
                   profile?.attributes,
                   'twitter'
@@ -345,7 +345,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   'https://twitter.com/',
                   ''
                 )}
-              </a>
+              </Link>
             </MetaDetails>
           )}
         </div>
