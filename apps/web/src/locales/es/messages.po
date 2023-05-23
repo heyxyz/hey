@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-21 00:09\n"
+"PO-Revision-Date: 2023-05-23 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1940,6 +1940,58 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export all your followers to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Exported <0>{0}</0> followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Download followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export following"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export all your following to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Exported <0>{0}</0> following"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Download following"
+msgstr ""
+
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export notifications"
 msgstr ""
@@ -1954,18 +2006,6 @@ msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Download notifications"
-msgstr ""
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Exporting..."
-msgstr ""
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Export now"
 msgstr ""
 
 #: src/components/Settings/Export/Profile.tsx
