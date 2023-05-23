@@ -1,5 +1,3 @@
-import React from 'react';
-
 import NftShimmer from './NftShimmer';
 
 const NftPickerShimmer = () => {
