@@ -125,7 +125,8 @@ export default async (request: IRequest) => {
     return new Response(
       JSON.stringify({ success: true, id: snapshotResponse.id })
     );
-  } catch {
+  } catch (error) {
+    console.error('Failed to vote on snapshot', error);
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

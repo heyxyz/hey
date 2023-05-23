@@ -4,6 +4,7 @@ import type { Wallet } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import imageKit from 'lib/imageKit';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { Image } from 'ui';
 
@@ -16,7 +17,7 @@ interface WalletProfileProps {
 const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
   return (
     <div className="flex items-center justify-between">
-      <a
+      <Link
         href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
         className="flex items-center space-x-3"
         target="_blank"
@@ -39,7 +40,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
           </div>
           <Slug className="text-sm" slug={formatAddress(wallet?.address)} />
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

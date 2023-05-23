@@ -40,6 +40,7 @@ import getAssetAddress from 'lib/getAssetAddress';
 import getSignature from 'lib/getSignature';
 import getTokenImage from 'lib/getTokenImage';
 import humanize from 'lib/humanize';
+import Link from 'next/link';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -475,14 +476,14 @@ const CollectModule: FC<CollectModuleProps> = ({
                 <span>
                   <Trans>Token:</Trans>
                 </span>
-                <a
+                <Link
                   href={`${POLYGONSCAN_URL}/token/${data?.publication?.collectNftAddress}`}
                   target="_blank"
                   className="font-bold text-gray-600"
                   rel="noreferrer noopener"
                 >
                   {formatAddress(data?.publication?.collectNftAddress)}
-                </a>
+                </Link>
               </div>
             </div>
           )}

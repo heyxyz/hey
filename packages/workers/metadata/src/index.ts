@@ -51,7 +51,8 @@ const handleRequest = async (request: Request, env: EnvType) => {
         }
       );
     }
-  } catch {
+  } catch (error) {
+    console.error('Failed to upload to Bundlr', error);
     return new Response(
       JSON.stringify({ success: false, message: 'Something went wrong!' }),
       { headers }

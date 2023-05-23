@@ -138,7 +138,8 @@ export default async (request: IRequest, env: Env) => {
         snapshotUrl: `${snapshotUrl}/#/${LENSTER_POLLS_SPACE}/proposal/${snapshotResponse.id}`
       })
     );
-  } catch {
+  } catch (error) {
+    console.error('Failed to create poll', error);
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

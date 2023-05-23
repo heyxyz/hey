@@ -15,7 +15,8 @@ const getSnapshotSpace = async (proposalId: string) => {
     );
 
     return response.data;
-  } catch {
+  } catch (error) {
+    console.error('Failed to get space from snapshot relay worker', error);
     return { success: false, error: Errors.SomethingWentWrong };
   }
 };

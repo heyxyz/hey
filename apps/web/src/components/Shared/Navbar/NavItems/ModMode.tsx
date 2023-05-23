@@ -5,7 +5,6 @@ import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import React from 'react';
 import { useAppPersistStore } from 'src/store/app';
 import { MOD } from 'src/tracking';
 

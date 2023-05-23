@@ -4,7 +4,6 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
-import React from 'react';
 import { SYSTEM } from 'src/tracking';
 
 interface ThemeSwitchProps {
