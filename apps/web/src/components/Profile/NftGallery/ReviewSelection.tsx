@@ -2,7 +2,6 @@ import SingleNft from '@components/Nft/SingleNft';
 import { CollectionIcon, XIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Nft } from 'lens';
-import React from 'react';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { EmptyState } from 'ui';

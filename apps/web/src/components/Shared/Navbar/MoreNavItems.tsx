@@ -2,7 +2,6 @@ import { Menu } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { Fragment } from 'react';
 
 import MenuTransition from '../MenuTransition';
 import Contact from './NavItems/Contact';
