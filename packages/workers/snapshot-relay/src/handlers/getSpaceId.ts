@@ -18,7 +18,8 @@ export default async (network: 'mainnet' | 'testnet' | string, id: string) => {
     return new Response(
       JSON.stringify({ success: false, error: 'Invalid proposal id!' })
     );
-  } catch {
+  } catch (error) {
+    console.error('Failed to get space id', error);
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

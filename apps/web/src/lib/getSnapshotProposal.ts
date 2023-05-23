@@ -16,7 +16,8 @@ const getSnapshotProposal = async (proposalId: string, voter: string) => {
     );
 
     return response.data;
-  } catch {
+  } catch (error) {
+    console.error('Failed to get proposal from snapshot relay worker', error);
     return { success: false, error: Errors.SomethingWentWrong };
   }
 };

@@ -2,7 +2,12 @@ import { S3 } from '@aws-sdk/client-s3';
 import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import { KillSwitch } from 'data';
-import { EVER_API, S3_BUCKET, STS_GENERATOR_WORKER_URL } from 'data/constants';
+import {
+  EVER_API,
+  IS_PRODUCTION,
+  S3_BUCKET,
+  STS_GENERATOR_WORKER_URL
+} from 'data/constants';
 import type { MediaSet } from 'lens';
 import { v4 as uuid } from 'uuid';
 
@@ -60,7 +65,7 @@ const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
     );
     const files = Array.from(data);
 
-    if (useThirdwebIpfs) {
+    if (useThirdwebIpfs || !IS_PRODUCTION) {
       const storage = new ThirdwebStorage();
       const uris = await storage.uploadBatch(files, {
         uploadWithoutDirectory: true
@@ -121,7 +126,8 @@ export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
         mimeType: file.type || FALLBACK_TYPE
       }
     };
-  } catch {
+  } catch (error) {
+    console.error('Failed to upload file to IPFS', error);
     return { original: { url: '', mimeType: file.type || FALLBACK_TYPE } };
   }
 };
