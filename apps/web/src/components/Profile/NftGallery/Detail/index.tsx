@@ -9,7 +9,7 @@ import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';
 import type { FC } from 'react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';

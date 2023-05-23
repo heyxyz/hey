@@ -2,7 +2,6 @@ import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import React from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 interface SwitchProfileProps {

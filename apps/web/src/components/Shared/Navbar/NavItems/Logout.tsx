@@ -5,7 +5,6 @@ import resetAuthData from '@lib/resetAuthData';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import React from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { PROFILE } from 'src/tracking';
 import { useDisconnect } from 'wagmi';

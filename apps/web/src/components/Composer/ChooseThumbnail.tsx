@@ -6,7 +6,7 @@ import type { MediaSet } from 'lens';
 import { generateVideoThumbnails } from 'lib/generateVideoThumbnails';
 import getFileFromDataURL from 'lib/getFileFromDataURL';
 import type { ChangeEvent, FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 import { Spinner } from 'ui';

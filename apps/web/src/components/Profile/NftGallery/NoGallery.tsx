@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import type { FC } from 'react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { Button } from 'ui';
 
