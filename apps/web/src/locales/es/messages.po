@@ -379,8 +379,12 @@ msgid "Welcome to {APP_NAME} 👋"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
+msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿 on Linea"
 msgstr ""
+
+#: src/components/Home/Hero.tsx
+#~ msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
+#~ msgstr ""
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
@@ -630,12 +634,15 @@ msgid "Gardeners"
 msgstr ""
 
 #: src/components/Nft/NftFeed.tsx
+msgid "NFTs are loading..."
+msgstr ""
+
+#: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr ""
 
 #: src/components/Nft/NftFeed.tsx
-#: src/components/Profile/NftGallery/Picker.tsx
-msgid "Failed to load nft feed"
+msgid "Failed to load NFTs feed"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
@@ -660,6 +667,18 @@ msgstr ""
 
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Notification settings"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Quality filter"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Choose to filter out low-quality notifications"
 msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
@@ -1318,6 +1337,10 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Failed to load nft feed"
 msgstr ""
 
 #: src/components/Profile/NftGallery/Picker.tsx
@@ -2038,15 +2061,15 @@ msgid "Privacy"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Discord"
+msgid "ConsenSys Discord"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Donate"
+msgid "Lenster Discord"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Status"
+msgid "Donate to Lenster"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
@@ -2054,20 +2077,32 @@ msgid "Feedback"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Thanks"
-msgstr ""
-
-#: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Translate"
-msgstr ""
+#~ msgid "Discord"
+#~ msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "▲ Powered by Vercel"
-msgstr ""
+#~ msgid "Donate"
+#~ msgstr ""
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Status"
+#~ msgstr ""
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Thanks"
+#~ msgstr ""
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Translate"
+#~ msgstr ""
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "▲ Powered by Vercel"
+#~ msgstr ""
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
@@ -2120,7 +2155,7 @@ msgid "Go to profile"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
+msgid "Handle should be at least 5 characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
@@ -2128,7 +2163,7 @@ msgid "Handle should not exceed 32 characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should only contain alphanumeric characters"
+msgid "Handle should only contain lowercase alphanumeric characters"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
@@ -2140,8 +2175,20 @@ msgid "Handle"
 msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Sign up"
+msgid "{0}"
 msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+#~ msgid "Handle should be at least 2 characters"
+#~ msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+#~ msgid "Handle should only contain alphanumeric characters"
+#~ msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+#~ msgid "Sign up"
+#~ msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
@@ -2317,6 +2364,7 @@ msgid "More"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
+#: src/components/Shared/Navbar/index.tsx
 msgid "Contact"
 msgstr ""
 
@@ -2337,8 +2385,8 @@ msgid "Enable mod mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
-msgid "Report a bug"
-msgstr ""
+#~ msgid "Report a bug"
+#~ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
 msgid "Settings"
@@ -2573,4 +2621,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

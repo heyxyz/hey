@@ -379,8 +379,12 @@ msgid "Welcome to {APP_NAME} 👋"
 msgstr "{APP_NAME} க்கு வரவேற்கிறோம் 👋"
 
 #: src/components/Home/Hero.tsx
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr "{APP_NAME} என்பது லென்ஸ் புரோட்டோகால் 🌿 மூலம் உருவாக்கப்பட்ட ஒரு பரவலாக்கப்பட்ட மற்றும் அனுமதியற்ற சமூக ஊடகப் பயன்பாடாகும்"
+msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿 on Linea"
+msgstr ""
+
+#: src/components/Home/Hero.tsx
+#~ msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
+#~ msgstr "{APP_NAME} என்பது லென்ஸ் புரோட்டோகால் 🌿 மூலம் உருவாக்கப்பட்ட ஒரு பரவலாக்கப்பட்ட மற்றும் அனுமதியற்ற சமூக ஊடகப் பயன்பாடாகும்"
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
@@ -630,13 +634,16 @@ msgid "Gardeners"
 msgstr "கார்ட்னர்ஸ்"
 
 #: src/components/Nft/NftFeed.tsx
+msgid "NFTs are loading..."
+msgstr ""
+
+#: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr ""
 
 #: src/components/Nft/NftFeed.tsx
-#: src/components/Profile/NftGallery/Picker.tsx
-msgid "Failed to load nft feed"
-msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
+msgid "Failed to load NFTs feed"
+msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -661,6 +668,18 @@ msgstr "அறிவிப்புகளை ஏற்றுவதில் த�
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
 msgstr "இன்பாக்ஸ் பூஜ்யம்!"
+
+#: src/components/Notification/Settings.tsx
+msgid "Notification settings"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Quality filter"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Choose to filter out low-quality notifications"
+msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
@@ -1319,6 +1338,10 @@ msgstr "அதைச் செய்யுங்கள்!"
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
 msgstr "என்எஃப்டிகள் எதுவும் இல்லை!"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Failed to load nft feed"
+msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
@@ -2038,36 +2061,48 @@ msgid "Privacy"
 msgstr "தனியுரிமை"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Discord"
-msgstr "டிஸ்கார்ட்"
+msgid "ConsenSys Discord"
+msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Donate"
-msgstr "நன்கொடை"
+msgid "Lenster Discord"
+msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Status"
-msgstr "நிலை"
+msgid "Donate to Lenster"
+msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Feedback"
 msgstr "பின்னூட்டம்"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Thanks"
-msgstr "நன்றி"
-
-#: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr "கிட்ஹப்"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Translate"
-msgstr "மொழிபெயர்"
+#~ msgid "Discord"
+#~ msgstr "டிஸ்கார்ட்"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "▲ Powered by Vercel"
-msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
+#~ msgid "Donate"
+#~ msgstr "நன்கொடை"
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Status"
+#~ msgstr "நிலை"
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Thanks"
+#~ msgstr "நன்றி"
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Translate"
+#~ msgstr "மொழிபெயர்"
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "▲ Powered by Vercel"
+#~ msgstr "▲ வெர்செல் மூலம் இயக்கப்படுகிறது"
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
@@ -2120,16 +2155,16 @@ msgid "Go to profile"
 msgstr "சுயவிவரத்திற்குச் செல்லவும்"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
-msgstr "பயனர்பெயர் குறைந்தது 2 எழுத்துகள் இருக்க வேண்டும்"
+msgid "Handle should be at least 5 characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should not exceed 32 characters"
 msgstr "பயனர்பெயர் 32 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should only contain alphanumeric characters"
-msgstr "பயனர்பெயர் எண்ணெழுத்து எழுத்துக்கள் மட்டுமே இருக்க வேண்டும்"
+msgid "Handle should only contain lowercase alphanumeric characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
@@ -2140,8 +2175,20 @@ msgid "Handle"
 msgstr "பயனர்பெயர்"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Sign up"
-msgstr "பதிவு செய்யவும்"
+msgid "{0}"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+#~ msgid "Handle should be at least 2 characters"
+#~ msgstr "பயனர்பெயர் குறைந்தது 2 எழுத்துகள் இருக்க வேண்டும்"
+
+#: src/components/Shared/Login/New/index.tsx
+#~ msgid "Handle should only contain alphanumeric characters"
+#~ msgstr "பயனர்பெயர் எண்ணெழுத்து எழுத்துக்கள் மட்டுமே இருக்க வேண்டும்"
+
+#: src/components/Shared/Login/New/index.tsx
+#~ msgid "Sign up"
+#~ msgstr "பதிவு செய்யவும்"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
@@ -2317,6 +2364,7 @@ msgid "More"
 msgstr "மேலும்"
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
+#: src/components/Shared/Navbar/index.tsx
 msgid "Contact"
 msgstr "தொடர்புகொள்ளவும்"
 
@@ -2337,8 +2385,8 @@ msgid "Enable mod mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
-msgid "Report a bug"
-msgstr "ஒரு பிழையைப் புகாரளிக்கவும்"
+#~ msgid "Report a bug"
+#~ msgstr "ஒரு பிழையைப் புகாரளிக்கவும்"
 
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
 msgid "Settings"
@@ -2573,4 +2621,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

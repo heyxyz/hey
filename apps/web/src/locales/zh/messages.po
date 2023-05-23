@@ -379,8 +379,12 @@ msgid "Welcome to {APP_NAME} 👋"
 msgstr "欢迎来到 {APP_NAME} 👋"
 
 #: src/components/Home/Hero.tsx
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr "{APP_NAME} 是一个基于Lens Protocol🌿开发的去中心化的、无需许可的社交媒体应用程序。"
+msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿 on Linea"
+msgstr ""
+
+#: src/components/Home/Hero.tsx
+#~ msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
+#~ msgstr "{APP_NAME} 是一个基于Lens Protocol🌿开发的去中心化的、无需许可的社交媒体应用程序。"
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
@@ -630,13 +634,16 @@ msgid "Gardeners"
 msgstr ""
 
 #: src/components/Nft/NftFeed.tsx
+msgid "NFTs are loading..."
+msgstr ""
+
+#: src/components/Nft/NftFeed.tsx
 msgid "doesn’t have any NFTs!"
 msgstr "没有任何NFT！"
 
 #: src/components/Nft/NftFeed.tsx
-#: src/components/Profile/NftGallery/Picker.tsx
-msgid "Failed to load nft feed"
-msgstr "NFT流加载失败"
+msgid "Failed to load NFTs feed"
+msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -661,6 +668,18 @@ msgstr "无法加载通知"
 #: src/components/Notification/List.tsx
 msgid "Inbox zero!"
 msgstr "收件箱消息为零！"
+
+#: src/components/Notification/Settings.tsx
+msgid "Notification settings"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Quality filter"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Choose to filter out low-quality notifications"
+msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {1}"
@@ -1319,6 +1338,10 @@ msgstr "我们开始做吧！"
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
 msgstr "没有任何NFT（非同质化代币）！"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Failed to load nft feed"
+msgstr "NFT流加载失败"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
@@ -2038,36 +2061,48 @@ msgid "Privacy"
 msgstr "隐私"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Discord"
-msgstr "Discord"
+msgid "ConsenSys Discord"
+msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Donate"
-msgstr "捐赠"
+msgid "Lenster Discord"
+msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Status"
-msgstr "状态"
+msgid "Donate to Lenster"
+msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Feedback"
 msgstr "反馈"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Thanks"
-msgstr "鸣谢"
-
-#: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr "GitHub"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Translate"
-msgstr "翻译"
+#~ msgid "Discord"
+#~ msgstr "Discord"
 
 #: src/components/Shared/Footer/index.tsx
-msgid "▲ Powered by Vercel"
-msgstr "▲ 由 Vercel 提供支持"
+#~ msgid "Donate"
+#~ msgstr "捐赠"
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Status"
+#~ msgstr "状态"
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Thanks"
+#~ msgstr "鸣谢"
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Translate"
+#~ msgstr "翻译"
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "▲ Powered by Vercel"
+#~ msgstr "▲ 由 Vercel 提供支持"
 
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
@@ -2120,16 +2155,16 @@ msgid "Go to profile"
 msgstr "转到个人账户"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should be at least 2 characters"
-msgstr "用户名应至少为 2 个字符"
+msgid "Handle should be at least 5 characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Handle should not exceed 32 characters"
 msgstr "用户名不应超过 32 个字符"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Handle should only contain alphanumeric characters"
-msgstr "用户名应仅包含字母或者数字字符"
+msgid "Handle should only contain lowercase alphanumeric characters"
+msgstr ""
 
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up to {APP_NAME}"
@@ -2140,8 +2175,20 @@ msgid "Handle"
 msgstr "用户名"
 
 #: src/components/Shared/Login/New/index.tsx
-msgid "Sign up"
-msgstr "注册"
+msgid "{0}"
+msgstr ""
+
+#: src/components/Shared/Login/New/index.tsx
+#~ msgid "Handle should be at least 2 characters"
+#~ msgstr "用户名应至少为 2 个字符"
+
+#: src/components/Shared/Login/New/index.tsx
+#~ msgid "Handle should only contain alphanumeric characters"
+#~ msgstr "用户名应仅包含字母或者数字字符"
+
+#: src/components/Shared/Login/New/index.tsx
+#~ msgid "Sign up"
+#~ msgstr "注册"
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Sign-In with Lens"
@@ -2317,6 +2364,7 @@ msgid "More"
 msgstr "更多"
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
+#: src/components/Shared/Navbar/index.tsx
 msgid "Contact"
 msgstr "联系我们"
 
@@ -2337,8 +2385,8 @@ msgid "Enable mod mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
-msgid "Report a bug"
-msgstr "报告错误"
+#~ msgid "Report a bug"
+#~ msgstr "报告错误"
 
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
 msgid "Settings"
@@ -2573,4 +2621,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
