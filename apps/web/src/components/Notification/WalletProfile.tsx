@@ -2,7 +2,6 @@ import { POLYGONSCAN_URL } from 'data/constants';
 import type { Wallet } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import getStampFyiURL from 'lib/getStampFyiURL';
-import imageProxy from 'lib/imageProxy';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { Image } from 'ui';
