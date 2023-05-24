@@ -1,9 +1,9 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import type { QueryMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
+import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
   LexicalTypeaheadMenuPlugin,
-  TypeaheadOption,
+  MenuOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import clsx from 'clsx';
@@ -70,7 +70,7 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
 const checkForAtSignMentions = (
   text: string,
   minMatchLength: number
-): QueryMatch | null => {
+): MenuTextMatch | null => {
   let match = AtSignMentionsRegex.exec(text);
 
   if (match === null) {
@@ -92,12 +92,12 @@ const checkForAtSignMentions = (
   return null;
 };
 
-const getPossibleQueryMatch = (text: string): QueryMatch | null => {
+const getPossibleQueryMatch = (text: string): MenuTextMatch | null => {
   const match = checkForAtSignMentions(text, 1);
   return match;
 };
 
-class MentionTypeaheadOption extends TypeaheadOption {
+class MentionTypeaheadOption extends MenuOption {
   id: string;
   name: string;
   picture: string;
