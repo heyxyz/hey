@@ -1,0 +1,11 @@
+name = "iframely"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+
+routes = [
+	{ pattern = "iframely.lenster.xyz", custom_domain = true }
+]
+
+[env.production.vars]
+IFRAMELY_API_KEY = ""
