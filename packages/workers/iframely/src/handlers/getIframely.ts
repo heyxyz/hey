@@ -1,7 +1,18 @@
+import type { IRequest } from 'itty-router';
+
 import type { Env } from '../types';
 
-export default async (url: string, env: Env) => {
+export default async (request: IRequest, env: Env) => {
+  console.log(request.query);
   try {
+    const url = request.query.url as string;
+
+    if (!url) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Missing URL' })
+      );
+    }
+
     const decodedUrl = decodeURIComponent(url);
 
     const response = await fetch(
@@ -29,7 +40,8 @@ export default async (url: string, env: Env) => {
           success: true,
           cached: true,
           key,
-          data: await responseBody.json()
+          decodedUrl,
+          iframely: await responseBody.json()
         })
       );
     }
@@ -37,7 +49,7 @@ export default async (url: string, env: Env) => {
     await env.LENSTER_IFRAMELY.put(key, JSON.stringify(data));
 
     return new Response(
-      JSON.stringify({ success: true, cached: false, key, data })
+      JSON.stringify({ success: true, cached: false, key, iframely: data })
     );
   } catch (error) {
     console.error('Failed to get iframely data', error);

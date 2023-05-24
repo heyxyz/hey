@@ -4,7 +4,7 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "wrangler dev --port 8086",
+    "dev": "wrangler dev --port 8087 --local",
     "start": "pnpm dev",
     "worker:deploy": "wrangler publish",
     "typecheck": "tsc --pretty",
