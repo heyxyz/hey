@@ -31,15 +31,21 @@ export default async (request: IRequest, env: Env) => {
       object.writeHttpMetadata(headers);
       headers.set('etag', object.httpEtag);
       const responseBody = new Response(object.body, { headers });
-
-      return new Response(
+      const cachedResponse = new Response(
         JSON.stringify({
           success: true,
           cached: true,
           key,
           iframely: await responseBody.json()
-        })
+        }),
+        {
+          headers: {
+            'Cache-Control': 'public, max-age=31536000'
+          }
+        }
       );
+
+      return cachedResponse;
     }
 
     await env.LENSTER_IFRAMELY.put(key, JSON.stringify(data));
