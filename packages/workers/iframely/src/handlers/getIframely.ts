@@ -15,7 +15,7 @@ export default async (request: IRequest, env: Env) => {
 
     const decodedUrl = decodeURIComponent(url);
     const response = await fetch(
-      `https://iframely.lenster.xyz/iframely?url=${decodedUrl}`
+      `https://iframely-node.lenster.xyz/iframely?url=${decodedUrl}`
     );
 
     const encodedSeed = new TextEncoder().encode(url);
