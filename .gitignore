@@ -45,10 +45,18 @@ yarn-error.log*
 # playwright
 .gitsigners
 
-# JetBrains IDE
+# IDE
 .idea
+.vscode
+.VSCodeCounter/
 
 test-results/
 playwright-report/
 playwright/.cache/
 apps/storybook
+
+# Blockchain
+cache
+artifacts
+typechain-types
+Flattened.sol

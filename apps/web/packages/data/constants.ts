@@ -17,7 +17,7 @@ export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 export const IS_RELAYER_AVAILABLE = getEnvConfig().isRelayerAvailable;
 export const IS_RARIBLE_AVAILABLE = getEnvConfig().isRaribleAvailable;
 export const IS_LIT_AVAILABLE = getEnvConfig().isLitAvailable;
-export const LENS_PROFILE_CREATOR = '0x923e7786176Ef21d0B31645fB1353b1392Dd0e40';
+export const LENS_PROFILE_CREATOR = '0xe8b206541bFc57948a23213b2714248ca64438E8';
 export const LENS_PROFILE_CREATOR_ABI = [
   {
     inputs: [
@@ -35,15 +35,35 @@ export const LENS_PROFILE_CREATOR_ABI = [
     name: 'HandleContainsInvalidCharacters',
     type: 'error'
   },
-  { inputs: [], name: 'HandleFirstCharInvalid', type: 'error' },
-  { inputs: [], name: 'HandleLengthInvalid', type: 'error' },
+  {
+    inputs: [],
+    name: 'HandleFirstCharInvalid',
+    type: 'error'
+  },
+  {
+    inputs: [],
+    name: 'HandleLengthInvalid',
+    type: 'error'
+  },
   {
     inputs: [
       {
         components: [
-          { internalType: 'address', name: 'to', type: 'address' },
-          { internalType: 'string', name: 'handle', type: 'string' },
-          { internalType: 'string', name: 'imageURI', type: 'string' },
+          {
+            internalType: 'address',
+            name: 'to',
+            type: 'address'
+          },
+          {
+            internalType: 'string',
+            name: 'handle',
+            type: 'string'
+          },
+          {
+            internalType: 'string',
+            name: 'imageURI',
+            type: 'string'
+          },
           {
             internalType: 'address',
             name: 'followModule',
