@@ -66,7 +66,6 @@ export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
-export const IFRAMELY_URL = 'https://iframely.lenster.xyz/iframely';
 
 // Workers
 export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
@@ -81,7 +80,12 @@ export const FRESHDESK_WORKER_URL = IS_PRODUCTION
 export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
   ? 'https://snapshot-relay.lenster.xyz'
   : 'http://localhost:8085';
-export const ENS_RESOLVER_WORKER_URL = 'https://ens-resolver.lenster.xyz';
+export const ENS_RESOLVER_WORKER_URL = IS_PRODUCTION
+  ? 'https://ens-resolver.lenster.xyz'
+  : 'http://localhost:8086';
+export const IFRAMELY_WORKER_URL = IS_PRODUCTION
+  ? 'https://iframely.lenster.xyz'
+  : 'http://localhost:8087';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
