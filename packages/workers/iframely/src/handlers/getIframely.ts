@@ -3,7 +3,6 @@ import type { IRequest } from 'itty-router';
 import type { Env } from '../types';
 
 export default async (request: IRequest, env: Env) => {
-  console.log(request.query);
   try {
     const url = request.query.url as string;
 
