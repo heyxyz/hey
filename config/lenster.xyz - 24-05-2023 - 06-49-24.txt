@@ -1,0 +1,69 @@
+;;
+;; Domain:     lenster.xyz.
+;; Exported:   2023-05-24 06:49:24
+;;
+;; This file is intended for use for informational and archival
+;; purposes ONLY and MUST be edited before use on a production
+;; DNS server.  In particular, you must:
+;;   -- update the SOA record with the correct authoritative name server
+;;   -- update the SOA record with the contact e-mail address information
+;;   -- update the NS record(s) with the authoritative name servers for this domain.
+;;
+;; For further information, please consult the BIND documentation
+;; located on the following website:
+;;
+;; http://www.isc.org/
+;;
+;; And RFC 1035:
+;;
+;; http://www.ietf.org/rfc/rfc1035.txt
+;;
+;; Please note that we do NOT offer technical support for any use
+;; of this zone data, the BIND name server, or any other third-party
+;; DNS software.
+;;
+;; Use at your own risk.
+;; SOA Record
+lenster.xyz	3600	IN	SOA	bryce.ns.cloudflare.com dns.cloudflare.com 2043657756 10000 2400 604800 3600
+
+;; NS Records
+lenster.xyz.	86400	IN	NS	bryce.ns.cloudflare.com.
+lenster.xyz.	86400	IN	NS	leah.ns.cloudflare.com.
+
+;; A Records
+iframely.lenster.xyz.	1	IN	A	103.120.179.136
+lenster.xyz.	1	IN	A	76.76.21.21
+user-content.lenster.xyz.	1	IN	A	103.120.179.33
+
+;; CNAME Records
+f079e79556da2e5e9e969024a1ba1443.lenster.xyz.	1	IN	CNAME	verify.bing.com.
+feedback.lenster.xyz.	1	IN	CNAME	cname.canny.io.
+prerender.lenster.xyz.	1	IN	CNAME	cname.vercel-dns.com.
+preview.lenster.xyz.	1	IN	CNAME	cname.vercel-dns.com.
+sandbox.lenster.xyz.	1	IN	CNAME	cname.vercel-dns.com.
+sitemap.lenster.xyz.	1	IN	CNAME	cname.vercel-dns.com.
+staging.lenster.xyz.	1	IN	CNAME	cname.vercel-dns.com.
+staging-sandbox.lenster.xyz.	1	IN	CNAME	cname.vercel-dns.com.
+static-assets.lenster.xyz.	1	IN	CNAME	public.r2.dev.
+status.lenster.xyz.	1	IN	CNAME	statuspage.betteruptime.com.
+testnet.lenster.xyz.	1	IN	CNAME	cname.vercel-dns.com.
+translate.lenster.xyz.	1	IN	CNAME	cname.crowdin.com.
+vote.lenster.xyz.	1	IN	CNAME	cname.snapshot.org.
+www.lenster.xyz.	1	IN	CNAME	lenster.xyz.
+
+;; MX Records
+lenster.xyz.	1	IN	MX	46 route3.mx.cloudflare.net.
+lenster.xyz.	1	IN	MX	10 route2.mx.cloudflare.net.
+lenster.xyz.	1	IN	MX	63 route1.mx.cloudflare.net.
+
+;; TXT Records
+_atproto.lenster.xyz.	1	IN	TXT	"did=did:plc:pqjdi4s3h53b3hpwczpa2g7q"
+_atproto.yogi.lenster.xyz.	1	IN	TXT	"did=did:plc:66qvpr6xpkzrkt5mlzkpzwgw"
+_dmarc.lenster.xyz.	1	IN	TXT	"v=DMARC1; p=quarantine; rua=mailto:036010cd64dd4cc8a6d12e6da1d78f10@dmarc-reports.cloudflare.net,mailto:report@lenster.xyz"
+*._domainkey.lenster.xyz.	1	IN	TXT	"v=DKIM1; p="
+_ens.lenster.xyz.	1	IN	TXT	"a=0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3"
+_github-challenge-lensterxyz-org.lenster.xyz.	1	IN	TXT	"b64f47e428"
+lenster.xyz.	1	IN	TXT	"v=spf1 include:_spf.mx.cloudflare.net ~all"
+lenster.xyz.	1	IN	TXT	"yandex-verification: f828abaedf1cb2d7"
+lenster.xyz.	1	IN	TXT	"1password-site-verification=TWKWHGPIONGBLJ5WMT5N6WK7NM"
+lenster.xyz.	1	IN	TXT	"google-site-verification=7WAj80ip8Ah8x_fYOuEWZyX9o8KuxdtCP5cPLkGW9AU"
