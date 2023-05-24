@@ -72,7 +72,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
   };
 
   const { data, isLoading, error } = useQuery(
-    ['statsData', currentProfile?.ownedBy, id],
+    ['scoreData', currentProfile?.ownedBy, id],
     () => getVotingPower().then((res) => res),
     { enabled: state === 'active' }
   );
