@@ -22,7 +22,6 @@ export default async (url: string, env: Env) => {
       const headers = new Headers();
       object.writeHttpMetadata(headers);
       headers.set('etag', object.httpEtag);
-
       const responseBody = new Response(object.body, { headers });
 
       return new Response(
