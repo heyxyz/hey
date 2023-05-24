@@ -150,14 +150,17 @@ const PreviewList: FC<PreviewListProps> = ({
               showOnSm
             />
           </div>
-          {requestedCount > 0 && (
-            <div
-              onClick={() => setSelectedTab(MessageTabs.Requests)}
-              className="cursor-pointer py-2 text-xs font-bold text-gray-500 dark:bg-gray-700 dark:text-gray-400"
-            >
-              {requestedCount > 99 ? '99+' : requestedCount.toString()} Requests
-            </div>
-          )}
+          <TabButton
+            className="p-2 px-4"
+            name={
+              requestedCount > 99
+                ? '99+'
+                : `${requestedCount.toString()} Requests`
+            }
+            active={selectedTab === MessageTabs.Requests}
+            onClick={() => setSelectedTab(MessageTabs.Requests)}
+            showOnSm
+          />
         </div>
         {selectedTab === MessageTabs.Requests ? (
           <div className="bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
