@@ -12,7 +12,7 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('IFramely Proxy'));
-router.get('/:url', ({ params }) => getIframely(params.url));
+router.get('/:url', ({ params }, env) => getIframely(params.url, env));
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);

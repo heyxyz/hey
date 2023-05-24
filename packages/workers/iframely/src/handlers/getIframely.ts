@@ -1,15 +1,33 @@
-export default async (url: string) => {
+import type { Env } from '../types';
+
+export default async (url: string, env: Env) => {
   try {
-    const response = new Response(
-      JSON.stringify({ success: true, poll: 'gm' })
+    const decodedUrl = decodeURIComponent(url);
+
+    const response = await fetch(
+      `https://iframely.lenster.xyz/iframely?url=${decodedUrl}`
     );
 
-    // Disable caching because the poll data is dynamic and changes frequently because of live polling.
-    response.headers.set('Cache-Control', 'no-store');
+    const encodedSeed = new TextEncoder().encode(url);
+    const digest = await crypto.subtle.digest({ name: 'SHA-256' }, encodedSeed);
+    const key = [...new Uint8Array(digest)]
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
 
-    return response;
+    const data = await response.json();
+
+    const object = await env.LENSTER_IFRAMELY.get(key);
+
+    if (object) {
+      return new Response(
+        JSON.stringify({ success: true, fromR2: true, data: object.body })
+      );
+    }
+    await env.LENSTER_IFRAMELY.put(key, JSON.stringify(data));
+
+    return new Response(JSON.stringify({ success: true, data }));
   } catch (error) {
-    console.error('Failed to get proposal', error);
+    console.error('Failed to get iframely data', error);
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );
