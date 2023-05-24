@@ -609,6 +609,31 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
 
+  packages/workers/iframely:
+    dependencies:
+      itty-router:
+        specifier: 4.0.0-next.46
+        version: 4.0.0-next.46
+      lib:
+        specifier: workspace:*
+        version: link:../../lib
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230518.0
+        version: 4.20230518.0
+      eslint-config-weblint:
+        specifier: workspace:*
+        version: link:../../eslint-config-weblint
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../tsconfig
+      typescript:
+        specifier: ^5.0.4
+        version: 5.0.4
+      wrangler:
+        specifier: ^3.0.1
+        version: 3.0.1
+
   packages/workers/metadata:
     dependencies:
       bundlr:

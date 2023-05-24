@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { IFRAMELY_URL } from 'data/constants';
+import { IFRAMELY_WORKER_URL } from 'data/constants';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 
@@ -24,9 +24,9 @@ const IFramely: FC<IFramelyProps> = ({ url }) => {
     [url],
     () =>
       axios({
-        url: IFRAMELY_URL,
+        url: IFRAMELY_WORKER_URL,
         params: { url }
-      }).then((res) => res.data),
+      }).then((res) => res.data.iframely),
     { enabled: Boolean(url) }
   );
 

@@ -1,0 +1,27 @@
+{
+  "name": "@workers/iframely",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "dev": "wrangler dev --port 8087 --local",
+    "start": "pnpm dev",
+    "worker:deploy": "wrangler publish",
+    "typecheck": "tsc --pretty",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+  },
+  "dependencies": {
+    "itty-router": "4.0.0-next.46",
+    "lib": "workspace:*"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230518.0",
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.4",
+    "wrangler": "^3.0.1"
+  }
+}
