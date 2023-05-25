@@ -1,11 +1,11 @@
 import type { IRequest } from 'itty-router';
 
-import { getMeta } from '../helper/metadata';
+import getMetadata from '../helper/metadata';
 
 export default async (request: IRequest) => {
   try {
     const url = request.query.url as string;
-    const data = await getMeta(url as string);
+    const data = await getMetadata(url as string);
 
     return new Response(JSON.stringify({ success: true, oembed: data }));
   } catch (error) {

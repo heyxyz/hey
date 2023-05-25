@@ -14,7 +14,7 @@ interface Metadata {
   html: string | null;
 }
 
-export const getMeta = async (url: string): Promise<any> => {
+const getMetadata = async (url: string): Promise<any> => {
   const { html } = await fetch(url, {
     cf: {
       cacheTtl: 60 * 60 * 24 * 7,
@@ -118,3 +118,5 @@ export const getMeta = async (url: string): Promise<any> => {
 
   return metadata;
 };
+
+export default getMetadata;
