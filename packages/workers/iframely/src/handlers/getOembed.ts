@@ -1,16 +1,13 @@
 import type { IRequest } from 'itty-router';
 
 import { getMeta } from '../helper/metadata';
-import type { Env } from '../types';
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: IRequest) => {
   try {
     const url = request.query.url as string;
     const data = await getMeta(url as string);
 
-    return new Response(
-      JSON.stringify({ success: true, snapshotted: false, iframely: data })
-    );
+    return new Response(JSON.stringify({ success: true, oembed: data }));
   } catch (error) {
     console.error('Failed to get iframely data', error);
     return new Response(

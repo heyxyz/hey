@@ -6,6 +6,7 @@ interface Metadata {
   description: string | null;
   image: string | null;
   site: string | null;
+  card: string | null;
 }
 
 export const getMeta = async (url: string): Promise<any> => {
@@ -31,18 +32,24 @@ export const getMeta = async (url: string): Promise<any> => {
 
   // Image
   const ogImage = document.querySelector('meta[property="og:image"]');
-  const twitterImage = document.querySelector('meta[name="twitter:image"]');
+  const twitterImage =
+    document.querySelector('meta[name="twitter:image"]') ||
+    document.querySelector('meta[name="twitter:image:src"]');
 
   // Site
   const ogSite = document.querySelector('meta[property="og:site_name"]');
   const twitterSite = document.querySelector('meta[name="twitter:site"]');
+
+  // Card
+  const twitterCard = document.querySelector('meta[name="twitter:card"]');
 
   const metadata: Metadata = {
     url,
     title: null,
     description: null,
     image: null,
-    site: null
+    site: null,
+    card: null
   };
 
   if (ogTitle) {
@@ -67,6 +74,10 @@ export const getMeta = async (url: string): Promise<any> => {
     metadata.site = ogSite.getAttribute('content');
   } else if (twitterSite) {
     metadata.site = twitterSite.getAttribute('content');
+  }
+
+  if (twitterCard) {
+    metadata.card = twitterCard.getAttribute('content');
   }
 
   return metadata;

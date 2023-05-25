@@ -1,6 +1,6 @@
 import { createCors, error, json, Router } from 'itty-router';
 
-import getIframely from './handlers/getIframely';
+import getOembed from './handlers/getOembed';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
@@ -11,7 +11,7 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', getIframely);
+router.get('/', getOembed);
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);
