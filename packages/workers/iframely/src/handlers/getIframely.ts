@@ -29,12 +29,7 @@ export default async (request: IRequest, env: Env) => {
           cached: true,
           key,
           iframely: await responseBody.json()
-        }),
-        {
-          headers: {
-            'cache-control': 'public, max-age=31536000, immutable'
-          }
-        }
+        })
       );
     }
 
