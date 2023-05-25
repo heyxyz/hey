@@ -36,7 +36,7 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const response = await fetch(
-      `https://iframely-node.lenster.xyz/iframely?url=${decodedUrl}`,
+      `https://cdn.iframe.ly/api/iframely?url=${decodedUrl}&api_key=${env.IFRAMELY_API_KEY}`,
       {
         cf: {
           cacheTtl: 60 * 60 * 24 * 30,
