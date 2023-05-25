@@ -17,7 +17,7 @@ export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 export const IS_RELAYER_AVAILABLE = getEnvConfig().isRelayerAvailable;
 export const IS_RARIBLE_AVAILABLE = getEnvConfig().isRaribleAvailable;
 export const IS_LIT_AVAILABLE = getEnvConfig().isLitAvailable;
-export const LENS_PROFILE_CREATOR = '0xe8b206541bFc57948a23213b2714248ca64438E8';
+export const LENS_PROFILE_CREATOR = '0x513405570f239a838f613CbE509c86455b0B6E8C';
 export const LENS_PROFILE_CREATOR_ABI = [
   {
     inputs: [

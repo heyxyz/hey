@@ -8,7 +8,8 @@ async function main() {
     'MockProfileCreationProxy'
   );
   const mockProfileCreationProxy = await mockProfileCreationProxy__factory.deploy(
-    signers[0].address
+    '0x97F1d4aFE1A3D501731ca7993fE6E518F4FbcE76',
+    '0x117F113aEFb9AeD23d901C1fa02fDdaA1d20cCaB'
   );
   await mockProfileCreationProxy.deployed();
   await mockProfileCreationProxy.deployTransaction.wait();
