@@ -28,7 +28,7 @@ const Embed: FC<EmbedProps> = ({ og }) => {
         rel="noreferrer noopener"
       >
         <Card forceRounded>
-          {!og.isSquare && og.thumbnail && (
+          {og.isLarge && og.thumbnail && (
             <Image
               className="divider w-full rounded-t-xl"
               onError={({ currentTarget }) => {
@@ -39,7 +39,7 @@ const Embed: FC<EmbedProps> = ({ og }) => {
             />
           )}
           <div className="flex items-center">
-            {og.isSquare && og.thumbnail && (
+            {!og.isLarge && og.thumbnail && (
               <Image
                 className="h-36 w-36 rounded-l-xl border-r"
                 height={144}

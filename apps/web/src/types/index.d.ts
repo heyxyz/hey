@@ -21,7 +21,7 @@ export interface OG {
   url: string;
   favicon: string;
   thumbnail: string;
-  isSquare: boolean;
+  isLarge: boolean;
   html: string;
 }
 

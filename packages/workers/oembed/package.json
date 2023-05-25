@@ -1,5 +1,5 @@
 {
-  "name": "@workers/iframely",
+  "name": "@workers/oembed",
   "version": "0.0.0",
   "private": true,
   "license": "GPL-3.0",
@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "itty-router": "4.0.0-next.46",
-    "lib": "workspace:*"
+    "lib": "workspace:*",
+    "linkedom": "^0.14.26"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
