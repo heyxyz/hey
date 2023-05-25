@@ -10,7 +10,7 @@ interface Metadata {
 }
 
 export const getMeta = async (url: string): Promise<any> => {
-  const { html } = await fetch(url as string, {
+  const { html } = await fetch(url, {
     headers: { 'User-Agent': 'Googlebot' }
   }).then(async (res) => ({
     html: await res.text()
