@@ -20,7 +20,7 @@ const getWalletDetails = (name: string): WalletDetails => {
   };
   const defaultDetails: WalletDetails = {
     name,
-    logo: `${STATIC_IMAGES_URL}/wallets/browser-wallet.svg`
+    logo: `/logo_metamask.svg`
   };
   return walletDetails[name] || defaultDetails;
 };

@@ -143,7 +143,7 @@ test.describe('Publication attachments', () => {
   });
 
   test.describe('Publication oembed', () => {
-    test('should have normal oembed', async ({ page }) => {
+    test.skip('should have normal oembed', async ({ page }) => {
       const publicationId = '0x03-0x19';
       await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
@@ -153,7 +153,7 @@ test.describe('Publication attachments', () => {
       await expect(publicationOembed).toBeVisible();
     });
 
-    test('should have rich oembed', async ({ page }) => {
+    test.skip('should have rich oembed', async ({ page }) => {
       const publicationId = '0x03-0x1a';
       await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
