@@ -2,7 +2,7 @@ import { parseHTML } from 'linkedom';
 
 import generateIframe from './iframe';
 
-const knownSites = ['youtube.com', 'lenstube.xyz'];
+const knownSites = ['youtube.com', 'youtu.be', 'lenstube.xyz'];
 
 interface Metadata {
   url: string;
