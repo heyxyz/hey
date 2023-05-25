@@ -6,11 +6,15 @@ interface Metadata {
   description: string | null;
   image: string | null;
   site: string | null;
-  card: string | null;
+  isLarge: boolean | null;
 }
 
 export const getMeta = async (url: string): Promise<any> => {
   const { html } = await fetch(url, {
+    cf: {
+      cacheTtl: 60 * 60 * 24 * 7,
+      cacheEverything: true
+    },
     headers: { 'User-Agent': 'Googlebot' }
   }).then(async (res) => ({
     html: await res.text()
@@ -49,7 +53,7 @@ export const getMeta = async (url: string): Promise<any> => {
     description: null,
     image: null,
     site: null,
-    card: null
+    isLarge: null
   };
 
   if (ogTitle) {
@@ -77,7 +81,10 @@ export const getMeta = async (url: string): Promise<any> => {
   }
 
   if (twitterCard) {
-    metadata.card = twitterCard.getAttribute('content');
+    const largeTypes = ['summary_large_image', 'player'];
+    const card = twitterCard.getAttribute('content') || '';
+
+    metadata.isLarge = largeTypes.includes(card);
   }
 
   return metadata;

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { OEMBED_WORKER_URL } from 'data/constants';
 import type { FC } from 'react';
+import type { OG } from 'src/types';
 
 import Embed from './Embed';
 import Player from './Player';
@@ -25,7 +26,7 @@ const IFramely: FC<IFramelyProps> = ({ url }) => {
       axios({
         url: OEMBED_WORKER_URL,
         params: { url }
-      }).then((res) => res.data.iframely),
+      }).then((res) => res.data.oembed),
     { enabled: Boolean(url) }
   );
 
@@ -33,19 +34,15 @@ const IFramely: FC<IFramelyProps> = ({ url }) => {
     return null;
   }
 
-  const og = {
+  const og: OG = {
     url: url as string,
-    title: data?.meta?.title,
-    description: data?.meta?.description,
-    site: data?.meta?.site,
-    favicon: `https://www.google.com/s2/favicons?domain=${url}`,
-    thumbnail: data?.links?.thumbnail && data?.links?.thumbnail[0]?.href,
-    isSquare:
-      data?.links?.thumbnail &&
-      data?.links?.thumbnail[0]?.media?.width ===
-        data?.links?.thumbnail[0]?.media?.height,
-    html:
-      data?.links?.player?.[0]?.html ?? data?.links?.reader?.[0]?.html ?? null
+    title: data?.title,
+    description: data?.description,
+    site: data?.site,
+    favicon: `https://www.google.com/s2/favicons?domain=${data.url}`,
+    thumbnail: data?.image,
+    isLarge: data?.isLarge,
+    html: data?.html
   };
 
   if (!og.title) {
