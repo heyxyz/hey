@@ -8,7 +8,7 @@ routes = [
 ]
 
 kv_namespaces = [
-  { binding = "LENSTER_IFRAMELY", id = "f163e4a9a3a742d4bc6f3713b2959e2e", preview_id = "f163e4a9a3a742d4bc6f3713b2959e2e" }
+  { binding = "LENSTER_IFRAMELY", id = "9c7a95492bbc43a89dc22cee5977cf1f", preview_id = "9c7a95492bbc43a89dc22cee5977cf1f" }
 ]
 
 [env.production.vars]
