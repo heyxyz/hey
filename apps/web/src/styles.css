@@ -132,7 +132,7 @@ progress::-moz-progress-bar {
   @apply !text-sm sm:!text-base;
 }
 
-.iframely-player,
+.oembed-player,
 iframe {
   @apply rounded-xl;
 }
