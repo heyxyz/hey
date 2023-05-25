@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { IFRAMELY_WORKER_URL } from 'data/constants';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 
 import Embed from './Embed';
 import Player from './Player';
@@ -29,10 +28,6 @@ const IFramely: FC<IFramelyProps> = ({ url }) => {
       }).then((res) => res.data.iframely),
     { enabled: Boolean(url) }
   );
-
-  useEffect(() => {
-    (window as any).iframely && (window as any).iframely.load();
-  }, []);
 
   if (error || isLoading || !data) {
     return null;
