@@ -1,5 +1,9 @@
 import { parseHTML } from 'linkedom';
 
+import generateIframe from './iframe';
+
+const knownSites = ['youtube.com', 'lenstube.xyz'];
+
 interface Metadata {
   url: string;
   title: string | null;
@@ -7,6 +11,7 @@ interface Metadata {
   image: string | null;
   site: string | null;
   isLarge: boolean | null;
+  html: string | null;
 }
 
 export const getMeta = async (url: string): Promise<any> => {
@@ -21,6 +26,7 @@ export const getMeta = async (url: string): Promise<any> => {
   }));
 
   const { document } = parseHTML(html);
+  const parsedUrl = new URL(url);
 
   // Title
   const ogTitle = document.querySelector('meta[property="og:title"]');
@@ -47,13 +53,20 @@ export const getMeta = async (url: string): Promise<any> => {
   // Card
   const twitterCard = document.querySelector('meta[name="twitter:card"]');
 
+  // Embed URL
+  const ogEmbed =
+    document.querySelector('meta[property="og:video:url"]') ||
+    document.querySelector('meta[property="og:video:secure_url"]');
+  const twitterEmbed = document.querySelector('meta[name="twitter:player"]');
+
   const metadata: Metadata = {
     url,
     title: null,
     description: null,
     image: null,
     site: null,
-    isLarge: null
+    isLarge: null,
+    html: null
   };
 
   if (ogTitle) {
@@ -85,6 +98,22 @@ export const getMeta = async (url: string): Promise<any> => {
     const card = twitterCard.getAttribute('content') || '';
 
     metadata.isLarge = largeTypes.includes(card);
+  }
+
+  // Sanitize hostname
+  const hostname = parsedUrl.hostname.replace('www.', '');
+
+  if (knownSites.includes(hostname)) {
+    let embedUrl;
+    if (ogEmbed) {
+      embedUrl = ogEmbed.getAttribute('content');
+    } else if (twitterEmbed) {
+      embedUrl = twitterEmbed.getAttribute('content');
+    }
+
+    if (embedUrl) {
+      metadata.html = generateIframe(embedUrl, hostname);
+    }
   }
 
   return metadata;
