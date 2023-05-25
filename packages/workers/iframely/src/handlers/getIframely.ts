@@ -13,7 +13,6 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const decodedUrl = decodeURIComponent(url);
-
     const encodedSeed = new TextEncoder().encode(url);
     const digest = await crypto.subtle.digest({ name: 'SHA-256' }, encodedSeed);
     const key = [...new Uint8Array(digest)]
@@ -22,10 +21,7 @@ export default async (request: IRequest, env: Env) => {
     const object = await env.LENSTER_IFRAMELY.get(key);
 
     if (object) {
-      const headers = new Headers();
-      object.writeHttpMetadata(headers);
-      headers.set('etag', object.httpEtag);
-      const responseBody = new Response(object.body, { headers });
+      const responseBody = new Response(object.body);
 
       return new Response(
         JSON.stringify({
