@@ -1,0 +1,8 @@
+name = "oembed"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+
+routes = [
+	{ pattern = "oembed.lenster.xyz", custom_domain = true }
+]
