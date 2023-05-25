@@ -35,6 +35,7 @@ export type Scalars = {
   FollowModuleData: any;
   Handle: any;
   HandleClaimIdScalar: any;
+  ImageSizeTransform: any;
   InternalPublicationId: any;
   IpfsCid: any;
   Jwt: any;
@@ -1954,10 +1955,16 @@ export type Media = {
   mimeType?: Maybe<Scalars['MimeType']>;
   /** Size - will always be null on the public API */
   size?: Maybe<Scalars['Int']>;
+  transform?: Maybe<Scalars['Url']>;
   /** The token image nft */
   url: Scalars['Url'];
   /** Width - will always be null on the public API */
   width?: Maybe<Scalars['Int']>;
+};
+
+/** The Media url */
+export type MediaTransformArgs = {
+  params: MediaTransformParams;
 };
 
 /** Media object output */
@@ -1992,6 +1999,15 @@ export type MediaSet = {
    * @deprecated should not be used will always be null - use transform function to get small media
    */
   small?: Maybe<Media>;
+};
+
+export type MediaTransformParams = {
+  /** Set the transformed image's height. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
+  height?: InputMaybe<Scalars['ImageSizeTransform']>;
+  /** Set if you want to keep the image's original aspect ratio. True by default. If explicitly set to false, the image will stretch based on the width and height values. */
+  keepAspectRatio?: InputMaybe<Scalars['Boolean']>;
+  /** Set the transformed image's width. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
+  width?: InputMaybe<Scalars['ImageSizeTransform']>;
 };
 
 export type MentionPublication = Comment | Post;
@@ -3046,6 +3062,19 @@ export type PostReactionArgs = {
 };
 
 export type PrfRequest = {
+  dd: Scalars['Boolean'];
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
+  ss: Scalars['Boolean'];
+};
+
+export type PrfResponse = {
+  __typename?: 'PrfResponse';
+  dd: Scalars['Boolean'];
+  ss: Scalars['Boolean'];
+};
+
+export type PriRequest = {
   hhh: Scalars['String'];
   secret: Scalars['String'];
 };
@@ -3649,7 +3678,7 @@ export type Query = {
   hasTxHashBeenIndexed: TransactionResult;
   internalPublicationFilter: PaginatedPublicationResult;
   isIDKitPhoneVerified: Scalars['Boolean'];
-  iss: Scalars['Boolean'];
+  iss: PrfResponse;
   mutualFollowersProfiles: PaginatedProfileResult;
   /** Get all NFT galleries for a profile */
   nftGalleries: Array<NftGallery>;
@@ -3770,7 +3799,7 @@ export type QueryInternalPublicationFilterArgs = {
 };
 
 export type QueryIssArgs = {
-  request: PrfRequest;
+  request: PriRequest;
 };
 
 export type QueryMutualFollowersProfilesArgs = {
