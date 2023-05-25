@@ -717,6 +717,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const attachmentsInput: PublicationMetadataMediaInput[] = attachments.map(
         (attachment) => ({
           item: attachment.original.url,
+          cover: getAttachmentImage(),
           type: attachment.original.mimeType,
           altTag: attachment.original.altTag
         })
