@@ -22,8 +22,7 @@ export default async (request: IRequest, env: Env) => {
 
     if (object) {
       const responseBody = new Response(object.body);
-
-      return new Response(
+      const response = new Response(
         JSON.stringify({
           success: true,
           cached: true,
@@ -31,10 +30,19 @@ export default async (request: IRequest, env: Env) => {
           iframely: await responseBody.json()
         })
       );
+      response.headers.set('Cache-Control', 'max-age=1500');
+
+      return response;
     }
 
     const response = await fetch(
-      `https://iframely-node.lenster.xyz/iframely?url=${decodedUrl}`
+      `https://iframely-node.lenster.xyz/iframely?url=${decodedUrl}`,
+      {
+        cf: {
+          cacheTtl: 60 * 60 * 24 * 30,
+          cacheEverything: true
+        }
+      }
     );
     const data = await response.json();
 
