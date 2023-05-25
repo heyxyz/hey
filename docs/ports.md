@@ -11,4 +11,4 @@ The following ports are exposed by the repository
 | 8084 | Freshdesk worker           | http://localhost:8084 | https://freshdesk.lenster.xyz      |
 | 8085 | Snapshot relay worker      | http://localhost:8085 | https://snapshot-relay.lenster.xyz |
 | 8086 | ENS resolver worker        | http://localhost:8086 | https://ens-resolver.lenster.xyz   |
-| 8087 | IFramely worker            | http://localhost:8087 | https://iframely.lenster.xyz       |
+| 8087 | Oembed worker              | http://localhost:8087 | https://oembed.lenster.xyz         |

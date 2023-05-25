@@ -609,17 +609,11 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
 
-  packages/workers/iframely:
+  packages/workers/metadata:
     dependencies:
-      itty-router:
-        specifier: 4.0.0-next.46
-        version: 4.0.0-next.46
-      lib:
+      bundlr:
         specifier: workspace:*
-        version: link:../../lib
-      linkedom:
-        specifier: ^0.14.26
-        version: 0.14.26
+        version: link:../../bundlr
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -637,11 +631,17 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
 
-  packages/workers/metadata:
+  packages/workers/oembed:
     dependencies:
-      bundlr:
+      itty-router:
+        specifier: 4.0.0-next.46
+        version: 4.0.0-next.46
+      lib:
         specifier: workspace:*
-        version: link:../../bundlr
+        version: link:../../lib
+      linkedom:
+        specifier: ^0.14.26
+        version: 0.14.26
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0

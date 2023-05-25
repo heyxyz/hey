@@ -9,7 +9,7 @@ export default async (request: IRequest) => {
 
     return new Response(JSON.stringify({ success: true, oembed: data }));
   } catch (error) {
-    console.error('Failed to get iframely data', error);
+    console.error('Failed to get oembed data', error);
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );
