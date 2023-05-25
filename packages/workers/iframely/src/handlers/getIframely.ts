@@ -22,17 +22,15 @@ export default async (request: IRequest, env: Env) => {
 
     if (object) {
       const responseBody = new Response(object.body);
-      const response = new Response(
+
+      return new Response(
         JSON.stringify({
           success: true,
-          cached: true,
+          snapshotted: true,
           key,
           iframely: await responseBody.json()
         })
       );
-      response.headers.set('Cache-Control', 'max-age=1500');
-
-      return response;
     }
 
     const response = await fetch(
@@ -49,7 +47,7 @@ export default async (request: IRequest, env: Env) => {
     await env.LENSTER_IFRAMELY.put(key, JSON.stringify(data));
 
     return new Response(
-      JSON.stringify({ success: true, cached: false, key, iframely: data })
+      JSON.stringify({ success: true, snapshotted: false, key, iframely: data })
     );
   } catch (error) {
     console.error('Failed to get iframely data', error);

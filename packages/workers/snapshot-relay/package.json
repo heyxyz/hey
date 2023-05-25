@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "wrangler dev --port 8085 --local",
     "start": "pnpm dev",
-    "worker:deploy": "wrangler publish",
+    "worker:deploy": "wrangler deploy",
     "codegen": "graphql-codegen",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",

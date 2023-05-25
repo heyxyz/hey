@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wrangler dev --port 8083 --local",
     "start": "pnpm dev",
-    "worker:deploy": "wrangler publish",
+    "worker:deploy": "wrangler deploy",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
