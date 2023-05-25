@@ -7,19 +7,7 @@ pragma solidity 0.8.18;
 @author ConsenSys
 */
 interface ILineaResolver {
-  // Mapping to store Ethereum domain names (as bytes32) and their corresponding addresses (as uint256)
-  mapping(bytes32 => uint256) public addresses;
-  // Mapping to store token IDs (as uint256) and their corresponding domain name (as string)
-  mapping(uint256 => string) public tokenDomains;
-  // Counter to keep track of token IDs for minting new tokens
-  using Counters for Counters.Counter;
-  Counters.Counter private _tokenIds;
-  // Private string variable to store the base URI for the token URI generation
-  string private _baseTokenURI;
-
-  // Fees to send to mint a sub domain, initial set to 0.001 ETH
-  uint256 public baseFee = 1000000000000000;
-
+ 
   /**
    * @dev Emitted when the address associated with a specific node is changed.
    * @param node The bytes32 value representing the node whose address is being changed.
@@ -34,14 +22,14 @@ interface ILineaResolver {
    * @param _symbol The symbol of the ERC721 token.
    * @param baseURI The base URI for the token URI.
    */
-  constructor(
-    string memory _name,
-    string memory _symbol,
-    string memory baseURI
-  ) ERC721(_name, _symbol) {
-    _baseTokenURI = baseURI;
-    _tokenIds.increment();
-  }
+  // constructor(
+  //   string memory _name,
+  //   string memory _symbol,
+  //   string memory baseURI
+  // ) ERC721(_name, _symbol) {
+  //   _baseTokenURI = baseURI;
+  //   _tokenIds.increment();
+  // }
 
   /**
    * @dev Mints a new subdomain token for the given name and address.
@@ -69,15 +57,13 @@ interface ILineaResolver {
    */
   function setBaseTokenURI(
     string memory baseURI
-  ) external onlyOwner returns (string memory);
+  ) external returns (string memory);
 
   /**
    * @dev Sets the base fee to mint a sub domain
    * @param newBaseFee the new base fee used to send to mint a sub domain
    */
-  function setBaseFee(uint256 newBaseFee) external onlyOwner {
-    baseFee = newBaseFee;
-  }
+  function setBaseFee(uint256 newBaseFee) external;
 
   /**
    * @dev Retrieves the token URI for a specific ERC721 token.
@@ -87,7 +73,7 @@ interface ILineaResolver {
    */
   function tokenURI(
     uint256 tokenId
-  ) public view override returns (string memory);
+  ) external view returns (string memory);
 
   /**
    * @dev Retrieves the name associated with a specific ERC721 token.
@@ -95,9 +81,7 @@ interface ILineaResolver {
    * @param tokenId The ID of the ERC721 token to retrieve the name for.
    * @return The name associated with the specified ERC721 token ID.
    */
-  function tokenName(uint256 tokenId) public view returns (string memory) {
-    return tokenDomains[tokenId];
-  }
+  function tokenName(uint256 tokenId) external view returns (string memory);
 
   /**
    * @dev Burns a specific ERC721 token.
@@ -107,5 +91,5 @@ interface ILineaResolver {
   function burn(uint256 tokenId) external;
 
 
-    function balanceOf(address wallet) external view returns (uint256);
+  function balanceOf(address wallet) external view returns (uint256);
 }

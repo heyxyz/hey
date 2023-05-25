@@ -577,4 +577,6 @@ interface ILensHub {
      * @return address The collect NFT implementation address.
      */
     function getCollectNFTImpl() external view returns (address);
+
+    function balanceOf(address wallet) external view returns (uint256);
 }

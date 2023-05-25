@@ -49,7 +49,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     schema: newUserSchema
   });
 
-  const { config } = usePrepareContractWrite({
+  const { config, error: contractError } = usePrepareContractWrite({
     address: LENS_PROFILE_CREATOR,
     abi: LENS_PROFILE_CREATOR_ABI,
     functionName: 'proxyCreateProfile',
@@ -130,6 +130,16 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
           error={{
             name: 'Create profile failed!',
             message: IS_RELAYER_AVAILABLE ? data?.createProfile?.reason : error?.message || ''
+          }}
+        />
+      )}
+      {(contractError as any) && (
+        <ErrorMessage
+          className="mb-3"
+          title="Create profile failed!"
+          error={{
+            name: 'Create profile failed!',
+            message: (contractError as any).data?.message
           }}
         />
       )}

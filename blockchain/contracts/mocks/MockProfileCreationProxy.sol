@@ -16,7 +16,6 @@ import {ILineaResolver} from '../interfaces/ILineaResolver.sol';
 contract MockProfileCreationProxy {
     ILensHub immutable LENS_HUB;
     ILineaResolver immutable LINEA_RESOLVER;
-//    address internal immutable LINEA_RESOLVER;
 
     constructor(ILensHub hub, ILineaResolver lineaResolver) {
         LENS_HUB = hub;
@@ -25,11 +24,11 @@ contract MockProfileCreationProxy {
 
     function proxyCreateProfile(DataTypes.CreateProfileData memory vars) external {
         // (bool successLens, bytes memory dataLens) = 0x97F1d4aFE1A3D501731ca7993fE6E518F4FbcE76.call(abi.encodeWithSignature("balanceOf(address)", msg.sender));
-        uint256  balanceLens = hub.balanceOf(msg.sender);
+        uint256  balanceLens = LENS_HUB.balanceOf(msg.sender);
         require(balanceLens == 0, "Already has a Lens handle");
 
         // (bool successEns, bytes memory dataEns) = 0x117F113aEFb9AeD23d901C1fa02fDdaA1d20cCaB.call(abi.encodeWithSignature("balanceOf(address)", msg.sender));
-        uint256 balanceEns = lineaResolver.balanceOf(msg.sender);
+        uint256 balanceEns = LINEA_RESOLVER.balanceOf(msg.sender);
         require(balanceEns > 0, "Doesn't have an ENS token");
 
         uint256 handleLength = bytes(vars.handle).length;
