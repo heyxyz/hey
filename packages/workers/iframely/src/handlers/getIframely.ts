@@ -18,12 +18,10 @@ export default async (request: IRequest, env: Env) => {
     const key = [...new Uint8Array(digest)]
       .map((b) => b.toString(16).padStart(2, '0'))
       .join('');
-    const object = await env.LENSTER_IFRAMELY.get(key, {
-      cacheTtl: 60 * 60 * 24 * 30
-    });
+    const object = await env.LENSTER_IFRAMELY.get(key);
 
     if (object) {
-      const responseBody = new Response(object);
+      const responseBody = new Response(object.body);
 
       return new Response(
         JSON.stringify({
