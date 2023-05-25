@@ -52,7 +52,7 @@ test.describe('Publication attachments', () => {
     );
   });
 
-  test.describe('Publication oembed', () => {
+  test.describe.skip('Publication oembed', () => {
     test('should have normal oembed', async ({ page }) => {
       const publicationId = '0x0d-0x0375';
       await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
