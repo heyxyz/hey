@@ -2,7 +2,7 @@ import { parseHTML } from 'linkedom';
 
 import generateIframe from './iframe';
 
-const knownSites = ['youtube.com', 'youtu.be', 'lenstube.xyz'];
+const knownSites = ['youtube.com', 'youtu.be', 'lenstube.xyz', 'oohlala.xyz'];
 
 interface Metadata {
   url: string;
@@ -100,9 +100,7 @@ const getMetadata = async (url: string): Promise<any> => {
     metadata.isLarge = largeTypes.includes(card);
   }
 
-  // Sanitize hostname
   const hostname = parsedUrl.hostname.replace('www.', '');
-
   if (knownSites.includes(hostname)) {
     let embedUrl;
     if (ogEmbed) {
