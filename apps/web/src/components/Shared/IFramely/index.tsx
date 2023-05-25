@@ -12,14 +12,6 @@ interface IFramelyProps {
 }
 
 const IFramely: FC<IFramelyProps> = ({ url }) => {
-  const allowedSites = [
-    'YouTube',
-    'Spotify',
-    'SoundCloud',
-    'oohlala_xyz',
-    'Lenstube'
-  ];
-
   const { isLoading, error, data } = useQuery(
     [url],
     () =>
@@ -49,11 +41,7 @@ const IFramely: FC<IFramelyProps> = ({ url }) => {
     return null;
   }
 
-  return og.html && allowedSites.includes(og.site) ? (
-    <Player og={og} />
-  ) : (
-    <Embed og={og} />
-  );
+  return og.html ? <Player og={og} /> : <Embed og={og} />;
 };
 
 export default IFramely;
