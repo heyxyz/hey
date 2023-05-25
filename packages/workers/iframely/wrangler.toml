@@ -7,10 +7,9 @@ routes = [
 	{ pattern = "iframely.lenster.xyz", custom_domain = true }
 ]
 
-[[r2_buckets]]
-binding = 'LENSTER_IFRAMELY'
-bucket_name = 'lenster-iframely'
-preview_bucket_name = 'lenster-iframely'
+kv_namespaces = [
+  { binding = "LENSTER_IFRAMELY", id = "f163e4a9a3a742d4bc6f3713b2959e2e", preview_id = "f163e4a9a3a742d4bc6f3713b2959e2e" }
+]
 
 [env.production.vars]
 IFRAMELY_API_KEY = ""
