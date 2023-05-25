@@ -1,6 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
-import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import Oembed from '@components/Shared/Oembed';
 import Snapshot from '@components/Shared/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
@@ -40,7 +40,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
 
   const showAttachments = publication?.metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
-  const showIFramely = hasURLs && !showAttachments && !showSnapshot;
+  const showOembed = hasURLs && !showAttachments && !showSnapshot;
 
   return (
     <div className="break-words">
@@ -68,8 +68,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
         />
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
-      {showIFramely ? (
-        <IFramely url={getURLs(publication?.metadata?.content)[0]} />
+      {showOembed ? (
+        <Oembed url={getURLs(publication?.metadata?.content)[0]} />
       ) : null}
     </div>
   );

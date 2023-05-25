@@ -7,11 +7,11 @@ import type { OG } from 'src/types';
 import Embed from './Embed';
 import Player from './Player';
 
-interface IFramelyProps {
+interface OembedProps {
   url?: string;
 }
 
-const IFramely: FC<IFramelyProps> = ({ url }) => {
+const Oembed: FC<OembedProps> = ({ url }) => {
   const { isLoading, error, data } = useQuery(
     [url],
     () =>
@@ -44,4 +44,4 @@ const IFramely: FC<IFramelyProps> = ({ url }) => {
   return og.html ? <Player og={og} /> : <Embed og={og} />;
 };
 
-export default IFramely;
+export default Oembed;
