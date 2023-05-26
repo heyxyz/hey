@@ -29,7 +29,7 @@ import {
 import getProfileAttribute from 'lib/getProfileAttribute';
 import getSignature from 'lib/getSignature';
 import hasPrideLogo from 'lib/hasPrideLogo';
-import imageProxy from 'lib/imageProxy';
+import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
@@ -274,7 +274,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
   const coverPictureUrl = profile?.coverPicture?.original?.url;
   const coverPictureIpfsUrl = coverPictureUrl
-    ? imageProxy(sanitizeDStorageUrl(coverPictureUrl), COVER)
+    ? imageKit(sanitizeDStorageUrl(coverPictureUrl), COVER)
     : '';
 
   return (

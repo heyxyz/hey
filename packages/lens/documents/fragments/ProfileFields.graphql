@@ -14,14 +14,7 @@ fragment ProfileFields on Profile {
     value
   }
   picture {
-    ... on MediaSet {
-      original {
-        url
-      }
-    }
-    ... on NftImage {
-      uri
-    }
+    ...ProfilePictureFields
   }
   followModule {
     __typename

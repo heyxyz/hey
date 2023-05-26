@@ -5,11 +5,7 @@ import {
   studioProvider
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {
-  IS_MAINNET,
-  LIVEPEER_TOKEN,
-  WALLETCONNECT_PROJECT_ID
-} from 'data/constants';
+import { IS_MAINNET, WALLETCONNECT_PROJECT_ID } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
 import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
@@ -46,7 +42,7 @@ const wagmiConfig = createConfig({
 });
 
 const livepeerClient = createReactClient({
-  provider: studioProvider({ apiKey: LIVEPEER_TOKEN })
+  provider: studioProvider({ apiKey: '' })
 });
 
 const queryClient = new QueryClient();

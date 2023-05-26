@@ -64,9 +64,6 @@ const MessageHeader: FC<MessageHeaderProps> = ({
         ) : (
           <>
             <Image
-              onError={({ currentTarget }) => {
-                currentTarget.src = ensName ? url : getAvatar(profile, false);
-              }}
               src={ensName ? url : getAvatar(profile)}
               loading="lazy"
               className="mr-4 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"

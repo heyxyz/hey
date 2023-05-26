@@ -3,7 +3,7 @@ import { POLYGONSCAN_URL } from 'data/constants';
 import type { Wallet } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import getStampFyiURL from 'lib/getStampFyiURL';
-import imageProxy from 'lib/imageProxy';
+import imageKit from 'lib/imageKit';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { Image } from 'ui';
@@ -27,7 +27,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
           onError={({ currentTarget }) => {
             currentTarget.src = getStampFyiURL(wallet?.address);
           }}
-          src={imageProxy(getStampFyiURL(wallet?.address))}
+          src={imageKit(getStampFyiURL(wallet?.address))}
           className="h-10 w-10 rounded-full border bg-gray-200"
           height={40}
           width={40}

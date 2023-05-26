@@ -35,6 +35,7 @@ export type Scalars = {
   FollowModuleData: any;
   Handle: any;
   HandleClaimIdScalar: any;
+  ImageSizeTransform: any;
   InternalPublicationId: any;
   IpfsCid: any;
   Jwt: any;
@@ -1978,16 +1979,35 @@ export type MediaSet = {
   __typename?: 'MediaSet';
   /**
    * Medium media - will always be null on the public API
-   * @deprecated should not be used will always be null
+   * @deprecated should not be used will always be null - use transform function to get small media
    */
   medium?: Maybe<Media>;
-  /** Original media */
+  /** Original media as found on the publication metadata */
+  onChain: Media;
+  /** Optimized media, snapshotted and served from a CDN */
+  optimized?: Maybe<Media>;
+  /** On-chain or snapshotted media on a CDN */
   original: Media;
   /**
    * Small media - will always be null on the public API
-   * @deprecated should not be used will always be null
+   * @deprecated should not be used will always be null - use transform function to get small media
    */
   small?: Maybe<Media>;
+  transformed?: Maybe<Media>;
+};
+
+/** The Media Set */
+export type MediaSetTransformedArgs = {
+  params: MediaTransformParams;
+};
+
+export type MediaTransformParams = {
+  /** Set the transformed image's height. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
+  height?: InputMaybe<Scalars['ImageSizeTransform']>;
+  /** Set if you want to keep the image's original aspect ratio. True by default. If explicitly set to false, the image will stretch based on the width and height values. */
+  keepAspectRatio?: InputMaybe<Scalars['Boolean']>;
+  /** Set the transformed image's width. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
+  width?: InputMaybe<Scalars['ImageSizeTransform']>;
 };
 
 export type MentionPublication = Comment | Post;
@@ -3042,6 +3062,19 @@ export type PostReactionArgs = {
 };
 
 export type PrfRequest = {
+  dd: Scalars['Boolean'];
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
+  ss: Scalars['Boolean'];
+};
+
+export type PrfResponse = {
+  __typename?: 'PrfResponse';
+  dd: Scalars['Boolean'];
+  ss: Scalars['Boolean'];
+};
+
+export type PriRequest = {
   hhh: Scalars['String'];
   secret: Scalars['String'];
 };
@@ -3645,7 +3678,7 @@ export type Query = {
   hasTxHashBeenIndexed: TransactionResult;
   internalPublicationFilter: PaginatedPublicationResult;
   isIDKitPhoneVerified: Scalars['Boolean'];
-  iss: Scalars['Boolean'];
+  iss: PrfResponse;
   mutualFollowersProfiles: PaginatedProfileResult;
   /** Get all NFT galleries for a profile */
   nftGalleries: Array<NftGallery>;
@@ -3766,7 +3799,7 @@ export type QueryInternalPublicationFilterArgs = {
 };
 
 export type QueryIssArgs = {
-  request: PrfRequest;
+  request: PriRequest;
 };
 
 export type QueryMutualFollowersProfilesArgs = {
@@ -8459,6 +8492,20 @@ export type ProfileFieldsFragment = {
     | { __typename: 'UnknownFollowModuleSettings' }
     | null;
 };
+
+type ProfilePictureFields_MediaSet_Fragment = {
+  __typename?: 'MediaSet';
+  original: { __typename?: 'Media'; url: any };
+};
+
+type ProfilePictureFields_NftImage_Fragment = {
+  __typename?: 'NftImage';
+  uri: any;
+};
+
+export type ProfilePictureFieldsFragment =
+  | ProfilePictureFields_MediaSet_Fragment
+  | ProfilePictureFields_NftImage_Fragment;
 
 type RelayerResultFields_RelayError_Fragment = {
   __typename?: 'RelayError';
@@ -38657,6 +38704,18 @@ export type VerifyQueryVariables = Exact<{
 
 export type VerifyQuery = { __typename?: 'Query'; verify: boolean };
 
+export const ProfilePictureFieldsFragmentDoc = gql`
+  fragment ProfilePictureFields on ProfileMedia {
+    ... on MediaSet {
+      original {
+        url
+      }
+    }
+    ... on NftImage {
+      uri
+    }
+  }
+`;
 export const ProfileFieldsFragmentDoc = gql`
   fragment ProfileFields on Profile {
     id
@@ -38674,19 +38733,13 @@ export const ProfileFieldsFragmentDoc = gql`
       value
     }
     picture {
-      ... on MediaSet {
-        original {
-          url
-        }
-      }
-      ... on NftImage {
-        uri
-      }
+      ...ProfilePictureFields
     }
     followModule {
       __typename
     }
   }
+  ${ProfilePictureFieldsFragmentDoc}
 `;
 export const ModuleFeeAmountFieldsFragmentDoc = gql`
   fragment ModuleFeeAmountFields on ModuleFeeAmount {
@@ -42642,14 +42695,7 @@ export const MutualFollowersDocument = gql`
         handle
         name
         picture {
-          ... on MediaSet {
-            original {
-              url
-            }
-          }
-          ... on NftImage {
-            uri
-          }
+          ...ProfilePictureFields
         }
       }
       pageInfo {
@@ -42657,6 +42703,7 @@ export const MutualFollowersDocument = gql`
       }
     }
   }
+  ${ProfilePictureFieldsFragmentDoc}
 `;
 
 /**
@@ -43272,14 +43319,7 @@ export const ProfileDocument = gql`
         totalMirrors
       }
       picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-        ... on NftImage {
-          uri
-        }
+        ...ProfilePictureFields
       }
       coverPicture {
         ... on MediaSet {
@@ -43293,6 +43333,7 @@ export const ProfileDocument = gql`
       }
     }
   }
+  ${ProfilePictureFieldsFragmentDoc}
 `;
 
 /**
@@ -43547,11 +43588,7 @@ export const ProfileSettingsDocument = gql`
         }
       }
       picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
+        ...ProfilePictureFields
         ... on NftImage {
           uri
           tokenId
@@ -43561,6 +43598,7 @@ export const ProfileSettingsDocument = gql`
       }
     }
   }
+  ${ProfilePictureFieldsFragmentDoc}
 `;
 
 /**
