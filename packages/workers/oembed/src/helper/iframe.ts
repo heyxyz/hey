@@ -1,5 +1,4 @@
 const generateIframe = (url: string, site: string) => {
-  console.log(site);
   switch (site) {
     case 'youtube.com':
     case 'youtu.be':
@@ -10,7 +9,6 @@ const generateIframe = (url: string, site: string) => {
     case 'open.spotify.com':
       const spotifyUrl = url.replace('/track', '/embed/track');
       return `<iframe src="${spotifyUrl}" style="border-radius: 12px" width="100%" height="152" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-
     default:
       return `<iframe src="${url}" frameborder="0" allowfullscreen></iframe>`;
   }
