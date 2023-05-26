@@ -1,6 +1,6 @@
 import type { IRequest } from 'itty-router';
 
-import getMetadata from '../helper/metadata';
+import getMetadata from '../helper/getMetadata';
 
 export default async (request: IRequest) => {
   try {
