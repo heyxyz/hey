@@ -7,7 +7,8 @@ const knownSites = [
   'youtu.be',
   'lenstube.xyz',
   'open.spotify.com',
-  'soundcloud.com'
+  'soundcloud.com',
+  'oohlala.xyz'
 ];
 
 interface Metadata {
