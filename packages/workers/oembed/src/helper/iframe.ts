@@ -3,12 +3,14 @@ const generateIframe = (url: string, site: string) => {
     case 'youtube.com':
     case 'youtu.be':
     case 'lenstube.xyz':
-      return `<iframe src="${url}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media" allowfullscreen></iframe>`;
+      return `<iframe src="${url}" width="560" height="315" allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
     case 'open.spotify.com':
       const spotifyUrl = url.replace('/track', '/embed/track');
-      return `<iframe src="${spotifyUrl}" width="560" height="155" frameborder="0" allow="autoplay; clipboard-write; encrypted-media"></iframe>`;
+      return `<iframe src="${spotifyUrl}" width="560" height="155" allow="encrypted-media"></iframe>`;
+    case 'soundcloud.com':
+      return `<iframe src="${url}" width="560" height="315"></iframe>`;
     default:
-      return `<iframe src="${url}" frameborder="0" allowfullscreen></iframe>`;
+      return `<iframe src="${url}" width="560"></iframe>`;
   }
 };
 
