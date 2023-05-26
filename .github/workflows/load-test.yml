@@ -1,0 +1,15 @@
+name: Load testing
+on:
+  workflow_dispatch:
+
+jobs:
+  load-test:
+    name: Load testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run k6 local test
+        uses: grafana/k6-action@v0.3.0
+        with:
+          filename: k6/scripts/test.js
