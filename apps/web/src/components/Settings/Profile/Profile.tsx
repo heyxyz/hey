@@ -7,7 +7,7 @@ import uploadToArweave from '@lib/uploadToArweave';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
-import { APP_NAME, COVER, LENS_PERIPHERY, URL_REGEX } from 'data/constants';
+import { APP_NAME, COVER, HANDLE_SUFFIX, LENS_PERIPHERY, URL_REGEX } from 'data/constants';
 import Errors from 'data/errors';
 import type { CreatePublicSetProfileMetadataUriRequest, MediaSet, Profile } from 'lens';
 import {
@@ -135,7 +135,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const form = useZodForm({
     schema: editProfileSchema,
     defaultValues: {
-      name: profile?.name ?? '',
+      name: profile?.name ?? currentProfile?.handle?.replace(HANDLE_SUFFIX, ''),
       location: getProfileAttribute(profile?.attributes, 'location'),
       website: getProfileAttribute(profile?.attributes, 'website'),
       twitter: getProfileAttribute(profile?.attributes, 'twitter')?.replace(
