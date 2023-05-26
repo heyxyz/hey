@@ -6,7 +6,8 @@ const knownSites = [
   'youtube.com',
   'youtu.be',
   'lenstube.xyz',
-  'open.spotify.com'
+  'open.spotify.com',
+  'soundcloud.com'
 ];
 
 interface Metadata {
@@ -62,7 +63,9 @@ const getMetadata = async (url: string): Promise<any> => {
   const ogEmbed =
     document.querySelector('meta[property="og:video:url"]') ||
     document.querySelector('meta[property="og:video:secure_url"]');
-  const twitterEmbed = document.querySelector('meta[name="twitter:player"]');
+  const twitterEmbed =
+    document.querySelector('meta[name="twitter:player"]') ||
+    document.querySelector('meta[property="twitter:player"]');
 
   const metadata: Metadata = {
     url,
