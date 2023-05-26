@@ -2,7 +2,13 @@ import { parseHTML } from 'linkedom';
 
 import generateIframe from './iframe';
 
-const knownSites = ['youtube.com', 'youtu.be', 'lenstube.xyz', 'oohlala.xyz'];
+const knownSites = [
+  'youtube.com',
+  'youtu.be',
+  'lenstube.xyz',
+  'oohlala.xyz',
+  'open.spotify.com'
+];
 
 interface Metadata {
   url: string;
@@ -109,8 +115,8 @@ const getMetadata = async (url: string): Promise<any> => {
       embedUrl = twitterEmbed.getAttribute('content');
     }
 
-    if (embedUrl) {
-      metadata.html = generateIframe(embedUrl, hostname);
+    if (embedUrl || url) {
+      metadata.html = generateIframe(embedUrl || url, hostname);
     }
   }
 
