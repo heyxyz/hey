@@ -14,6 +14,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
+    "@cfworker/base64url": "^1.12.5",
     "itty-router": "4.0.0-next.46",
     "lib": "workspace:*",
     "linkedom": "^0.14.26"
