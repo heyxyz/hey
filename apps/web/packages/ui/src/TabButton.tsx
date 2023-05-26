@@ -24,13 +24,19 @@ const TabButton: FC<TabButtonProps> = ({ name, icon, active, type, showOnSm = fa
         onClick();
       }}
       className={clsx(
-        { 'text-brand bg-brand-100 bg-opacity-100 dark:bg-opacity-20': active },
-        'hover:bg-brand-100 flex items-center space-x-2 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-opacity-100 dark:hover:bg-opacity-20 sm:px-3 sm:py-1.5'
+        {
+          'text-dark bg-brand-500 flex items-center space-x-2 rounded-full px-4 py-2 text-sm font-medium hover:cursor-default sm:px-3 sm:py-1.5':
+            active
+        },
+        {
+          'text-dark dark:hover:text-dark hover:bg-brand-500 flex items-center space-x-2 rounded-full px-4 py-2 text-sm font-medium dark:text-white sm:px-3 sm:py-1.5':
+            !active
+        }
       )}
       aria-label={name}
     >
       {icon}
-      <span className={clsx({ 'hidden sm:block': !showOnSm })}>{name}</span>
+      <span className={clsx({ 'hidden uppercase sm:block': !showOnSm })}>{name}</span>
     </button>
   );
 };

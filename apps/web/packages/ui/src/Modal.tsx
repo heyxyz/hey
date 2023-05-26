@@ -71,7 +71,7 @@ export const Modal: FC<ModalProps> = ({
                   {onClose ? (
                     <button
                       type="button"
-                      className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
+                      className="dark:hover:bg-brand-500 hover:bg-brand-500 rounded-full p-1 text-gray-800 dark:text-gray-100"
                       onClick={onClose}
                     >
                       <XIcon className="h-5 w-5" />
