@@ -1,6 +1,8 @@
 import { createCors, error, json, Router } from 'itty-router';
 
+import getImage from './handlers/getImage';
 import getOembed from './handlers/getOembed';
+import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
@@ -11,13 +13,18 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', getOembed);
+router.get('/image', getImage);
 
-const routerHandleStack = (request: Request, ctx: ExecutionContext) =>
-  router.handle(request, ctx).then(json);
+const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
+  router.handle(request, env, ctx).then(json);
 
-const handleFetch = async (request: Request, ctx: ExecutionContext) => {
+const handleFetch = async (
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext
+) => {
   try {
-    return await routerHandleStack(request, ctx);
+    return await routerHandleStack(request, env, ctx);
   } catch (error_) {
     console.error('Failed to handle request', error_);
     return error(500);
@@ -25,6 +32,6 @@ const handleFetch = async (request: Request, ctx: ExecutionContext) => {
 };
 
 export default {
-  fetch: (request: Request, context: ExecutionContext) =>
-    handleFetch(request, context).then(corsify)
+  fetch: (request: Request, env: Env, context: ExecutionContext) =>
+    handleFetch(request, env, context).then(corsify)
 };
