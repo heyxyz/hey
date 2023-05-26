@@ -20,7 +20,7 @@ const getMetadata = async (url: string): Promise<any> => {
       cacheTtl: 60 * 60 * 24 * 7,
       cacheEverything: true
     },
-    headers: { 'User-Agent': 'Googlebot' }
+    headers: { 'User-Agent': 'Twitterbot' }
   }).then(async (res) => ({
     html: await res.text()
   }));
