@@ -8,15 +8,6 @@ import getIsLarge from './meta/getIsLarge';
 import getSite from './meta/getSite';
 import getTitle from './meta/getTitle';
 
-const knownSites = [
-  'youtube.com',
-  'youtu.be',
-  'lenstube.xyz',
-  'open.spotify.com',
-  'soundcloud.com',
-  'oohlala.xyz'
-];
-
 interface Metadata {
   url: string;
   title: string | null;
@@ -39,32 +30,15 @@ const getMetadata = async (url: string): Promise<any> => {
   }));
 
   const { document } = parseHTML(html);
-  const parsedUrl = new URL(url);
-  const hostname = parsedUrl.hostname.replace('www.', '');
-
   const metadata: Metadata = {
     url,
-    title: null,
-    description: null,
-    image: null,
-    site: null,
-    isLarge: null,
-    html: null
+    title: getTitle(document),
+    description: getDescription(document),
+    image: getImage(document),
+    site: getSite(document),
+    isLarge: getIsLarge(document),
+    html: generateIframe(getEmbedUrl(document), url)
   };
-
-  metadata.title = getTitle(document);
-  metadata.description = getDescription(document);
-  metadata.image = getImage(document);
-  metadata.site = getSite(document);
-  metadata.isLarge = getIsLarge(document);
-
-  if (knownSites.includes(hostname)) {
-    const embedUrl = getEmbedUrl(document);
-
-    if (embedUrl || url) {
-      metadata.html = generateIframe(embedUrl || url, hostname);
-    }
-  }
 
   return metadata;
 };
