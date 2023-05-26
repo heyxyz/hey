@@ -1955,16 +1955,10 @@ export type Media = {
   mimeType?: Maybe<Scalars['MimeType']>;
   /** Size - will always be null on the public API */
   size?: Maybe<Scalars['Int']>;
-  transform?: Maybe<Scalars['Url']>;
   /** The token image nft */
   url: Scalars['Url'];
   /** Width - will always be null on the public API */
   width?: Maybe<Scalars['Int']>;
-};
-
-/** The Media url */
-export type MediaTransformArgs = {
-  params: MediaTransformParams;
 };
 
 /** Media object output */
@@ -1999,6 +1993,12 @@ export type MediaSet = {
    * @deprecated should not be used will always be null - use transform function to get small media
    */
   small?: Maybe<Media>;
+  transformed?: Maybe<Media>;
+};
+
+/** The Media Set */
+export type MediaSetTransformedArgs = {
+  params: MediaTransformParams;
 };
 
 export type MediaTransformParams = {
