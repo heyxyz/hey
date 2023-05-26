@@ -45,12 +45,12 @@ const Tags: FC<TagsProps> = ({
       <meta property="twitter:image:width" content="400" />
       <meta property="twitter:image:height" content="400" />
       <meta property="twitter:creator" content="lensterxyz" />
-      {/* Lenster OG */}
-      <meta property="lenster:card" content={cardType} />
-      <meta property="lenster:site" content="Lenster" />
-      <meta property="lenster:title" content={title} />
-      <meta property="lenster:description" content={description} />
-      <meta property="lenster:image" content={image} />
+      {/* Lens OG */}
+      <meta property="lens:card" content={cardType} />
+      <meta property="lens:site" content="Lenster" />
+      <meta property="lens:title" content={title} />
+      <meta property="lens:description" content={description} />
+      <meta property="lens:image" content={image} />
       {publishedTime ? (
         <meta property="article:published_time" content={publishedTime} />
       ) : null}
