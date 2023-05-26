@@ -1,18 +1,22 @@
 import type { Document } from 'linkedom';
 
 const getDescription = (document: Document): string | null => {
-  const og = document.querySelector('meta[property="og:description"]');
+  const lens =
+    document.querySelector('meta[name="lens:description"]') ||
+    document.querySelector('meta[property="lens:description"]');
+  const og =
+    document.querySelector('meta[name="og:description"]') ||
+    document.querySelector('meta[property="og:description"]');
   const twitter =
     document.querySelector('meta[name="twitter:description"]') ||
     document.querySelector('meta[property="twitter:description"]');
-  const lenster = document.querySelector('meta[name="lenster:description"]');
 
-  if (og) {
+  if (lens) {
+    return lens.getAttribute('content');
+  } else if (og) {
     return og.getAttribute('content');
   } else if (twitter) {
     return twitter.getAttribute('content');
-  } else if (lenster) {
-    return lenster.getAttribute('content');
   }
 
   return null;
