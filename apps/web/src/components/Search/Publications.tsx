@@ -33,7 +33,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   });
 
   const search = data?.search as PublicationSearchResult;
-  const publications = search?.items as Publication[];
+  const publications = [...new Set(search?.items)] as Publication[];
   const pageInfo = search?.pageInfo;
 
   const { observe } = useInView({

@@ -27,7 +27,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
     skip: !publicationId
   });
 
-  const profiles = data?.whoCollectedPublication?.items;
+  const profiles = [...new Set(data?.whoCollectedPublication?.items)];
   const pageInfo = data?.whoCollectedPublication?.pageInfo;
 
   const { observe } = useInView({

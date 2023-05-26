@@ -47,7 +47,7 @@ const Timeline: FC = () => {
     variables: { request, reactionRequest, profileId }
   });
 
-  const publications = data?.feed?.items;
+  const publications = [...new Set(data?.feed?.items)];
   const pageInfo = data?.feed?.pageInfo;
 
   const { observe } = useInView({

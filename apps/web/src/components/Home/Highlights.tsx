@@ -27,7 +27,7 @@ const Highlights: FC = () => {
     variables: { request, reactionRequest, profileId }
   });
 
-  const publications = data?.feedHighlights?.items;
+  const publications = [...new Set(data?.feedHighlights?.items)];
   const pageInfo = data?.feedHighlights?.pageInfo;
 
   const { observe } = useInView({

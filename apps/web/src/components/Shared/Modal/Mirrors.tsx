@@ -26,7 +26,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
     skip: !publicationId
   });
 
-  const profiles = data?.profiles?.items;
+  const profiles = [...new Set(data?.profiles?.items)];
   const pageInfo = data?.profiles?.pageInfo;
 
   const { observe } = useInView({

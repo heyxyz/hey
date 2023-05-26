@@ -65,7 +65,7 @@ const List: FC<ListProps> = ({ feedType }) => {
     variables: { request }
   });
 
-  const notifications = data?.notifications?.items;
+  const notifications = [...new Set(data?.notifications?.items)];
   const pageInfo = data?.notifications?.pageInfo;
 
   const { observe } = useInView({

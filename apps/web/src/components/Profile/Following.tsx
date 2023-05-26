@@ -27,7 +27,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
     skip: !profile?.id
   });
 
-  const followings = data?.following?.items;
+  const followings = [...new Set(data?.following?.items)];
   const pageInfo = data?.following?.pageInfo;
 
   const { observe } = useInView({

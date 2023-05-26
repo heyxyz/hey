@@ -66,7 +66,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
     skip: !profile?.id
   });
 
-  const publications = data?.publications?.items;
+  const publications = [...new Set(data?.publications?.items)];
   const pageInfo = data?.publications?.pageInfo;
 
   const { observe } = useInView({

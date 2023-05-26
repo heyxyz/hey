@@ -30,7 +30,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
     skip: !profileId
   });
 
-  const profiles = data?.mutualFollowersProfiles?.items;
+  const profiles = [...new Set(data?.mutualFollowersProfiles?.items)];
   const pageInfo = data?.mutualFollowersProfiles?.pageInfo;
 
   const { observe } = useInView({

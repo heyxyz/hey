@@ -36,7 +36,7 @@ const Picker: FC = () => {
     skip: !currentProfile?.ownedBy
   });
 
-  const nfts = data?.nfts?.items;
+  const nfts = [...new Set(data?.nfts?.items)];
   const pageInfo = data?.nfts?.pageInfo;
 
   const { observe } = useInView({
