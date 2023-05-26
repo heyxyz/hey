@@ -12,7 +12,7 @@ export default async (request: IRequest, env: Env) => {
     const height = isSquare ? 400 : 600;
     const width = isSquare ? 400 : 1000;
     const image = await fetch(
-      `${env.IMAGEKIT_URL}/tr:h-${height},w-${width}/${url}`,
+      `${env.IMAGEKIT_URL}/tr:di-placeholder.webp,h-${height},w-${width}/${url}`,
       {
         cf: {
           cacheTtl: 60 * 60 * 24 * 7,
