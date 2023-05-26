@@ -6,7 +6,6 @@ const knownSites = [
   'youtube.com',
   'youtu.be',
   'lenstube.xyz',
-  'oohlala.xyz',
   'open.spotify.com'
 ];
 
