@@ -21,7 +21,7 @@ import {
   useCreateSetProfileImageUriViaDispatcherMutation
 } from 'lens';
 import getSignature from 'lib/getSignature';
-import imageProxy from 'lib/imageProxy';
+import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
@@ -171,7 +171,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const profilePictureUrl =
     profile?.picture?.original?.url ?? profile?.picture?.uri;
   const profilePictureIpfsUrl = profilePictureUrl
-    ? imageProxy(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
+    ? imageKit(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : '';
 
   return (

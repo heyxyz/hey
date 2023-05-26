@@ -13,7 +13,7 @@ import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import type { TextNode } from 'lexical';
 import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';
-import imageProxy from 'lib/imageProxy';
+import imageKit from 'lib/imageKit';
 import isVerified from 'lib/isVerified';
 import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
@@ -229,7 +229,7 @@ const MentionsPlugin: FC = () => {
           return new MentionTypeaheadOption(
             id,
             name ?? handle,
-            imageProxy(sanitizeDStorageUrl(picture), AVATAR),
+            imageKit(sanitizeDStorageUrl(picture), AVATAR),
             handle
           );
         })

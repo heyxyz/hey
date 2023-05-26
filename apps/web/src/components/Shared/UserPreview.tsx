@@ -44,9 +44,6 @@ const UserPreview: FC<UserPreviewProps> = ({
 
   const UserAvatar = () => (
     <Image
-      onError={({ currentTarget }) => {
-        currentTarget.src = getAvatar(lazyProfile, false);
-      }}
       src={getAvatar(lazyProfile)}
       loading="lazy"
       className={clsx(

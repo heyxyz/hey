@@ -4,14 +4,7 @@ query MutualFollowers($request: MutualFollowersProfilesQueryRequest!) {
       handle
       name
       picture {
-        ... on MediaSet {
-          original {
-            url
-          }
-        }
-        ... on NftImage {
-          uri
-        }
+        ...ProfilePictureFields
       }
     }
     pageInfo {
