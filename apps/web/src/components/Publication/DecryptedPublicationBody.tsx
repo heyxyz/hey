@@ -1,6 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
-import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import Oembed from '@components/Shared/Oembed';
 import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import useNft from '@components/utils/hooks/useNft';
 import {
@@ -372,7 +372,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
         <Attachments attachments={publication?.media} />
       ) : publication?.content ? (
         getURLs(publication?.content)?.length > 0 && (
-          <IFramely url={getURLs(publication?.content)[0]} />
+          <Oembed url={getURLs(publication?.content)[0]} />
         )
       ) : null}
     </div>

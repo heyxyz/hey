@@ -83,8 +83,8 @@ export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
 export const ENS_RESOLVER_WORKER_URL = IS_PRODUCTION
   ? 'https://ens-resolver.lenster.xyz'
   : 'http://localhost:8086';
-export const IFRAMELY_WORKER_URL = IS_PRODUCTION
-  ? 'https://iframely.lenster.xyz'
+export const OEMBED_WORKER_URL = IS_PRODUCTION
+  ? 'https://oembed.lenster.xyz'
   : 'http://localhost:8087';
 
 // Tokens / Keys
