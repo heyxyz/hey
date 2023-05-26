@@ -59,9 +59,6 @@ const UserProfile: FC<UserProfileProps> = ({
 
   const UserAvatar = () => (
     <Image
-      onError={({ currentTarget }) => {
-        currentTarget.src = getAvatar(profile, false);
-      }}
       src={getAvatar(profile)}
       loading="lazy"
       className={clsx(

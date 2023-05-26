@@ -53,6 +53,8 @@ export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
+export const LENS_MEDIA_SNAPSHOT_URL =
+  'https://ik.imagekit.io/lens/media-snapshot';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
@@ -66,7 +68,6 @@ export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 
 // Workers
-export const USER_CONTENT_URL = 'https://user-content.lenster.xyz';
 export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
   ? 'https://sts.lenster.xyz'
   : 'http://localhost:8082';
@@ -89,7 +90,6 @@ export const OEMBED_WORKER_URL = IS_PRODUCTION
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
-export const LIVEPEER_TOKEN = '4d4daf15-a037-4b8c-b7de-51f1994cc416';
 export const GROWTHBOOK_KEY = IS_MAINNET
   ? 'sdk-fDLRMwvpyh4Kq3b'
   : 'sdk-STENQl8vU1da648';
@@ -144,9 +144,10 @@ export const MESSAGE_PAGE_LIMIT = 15;
 export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms for ImageKit
-export const AVATAR = '300x300';
-export const COVER = '1500x500';
-export const ATTACHMENT = '1000,fit';
+export const AVATAR = 'tr:w-300,h-300';
+export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
+export const COVER = 'tr:w-1500,h-500';
+export const ATTACHMENT = 'tr:w-1000';
 
 // S3 bucket
 export const S3_BUCKET = {

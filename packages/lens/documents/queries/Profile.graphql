@@ -43,14 +43,7 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
       totalMirrors
     }
     picture {
-      ... on MediaSet {
-        original {
-          url
-        }
-      }
-      ... on NftImage {
-        uri
-      }
+      ...ProfilePictureFields
     }
     coverPicture {
       ... on MediaSet {

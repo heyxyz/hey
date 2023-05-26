@@ -99,9 +99,6 @@ const SeeThroughLens: FC = () => {
           onClick={() => fetchRecommendedProfiles()}
         >
           <Image
-            onError={({ currentTarget }) => {
-              currentTarget.src = getAvatar(profile, false);
-            }}
             src={getAvatar(profile)}
             loading="lazy"
             width={20}

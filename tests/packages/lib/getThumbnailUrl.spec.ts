@@ -10,7 +10,10 @@ test.describe('getThumbnailUrl', () => {
     media: [],
     tags: [],
     mainContentFocus: PublicationMainFocus.Article,
-    cover: { original: { url: 'https://example.com/cover.png' } },
+    cover: {
+      original: { url: 'https://example.com/cover.png' },
+      onChain: { url: null }
+    },
     image: 'https://example.com/image.png'
   };
 
