@@ -44,8 +44,8 @@ const useUploadAttachments = () => {
         const isVideo = file.type.includes('video');
         const isAudio = file.type.includes('audio');
 
-        if (isImage && file.size > 10000000) {
-          toast.error(t`Image size should be less than 10MB`);
+        if (isImage && file.size > 50000000) {
+          toast.error(t`Image size should be less than 50MB`);
           return false;
         }
 
