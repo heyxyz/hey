@@ -4,7 +4,7 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "wrangler dev --port 8082 --local",
+    "dev": "wrangler dev --port 8082",
     "worker:deploy": "wrangler deploy",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
