@@ -27,6 +27,7 @@ const Tags: FC<TagsProps> = ({
       <meta httpEquiv="content-language" content="en" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={description} />
+      {/* General OG */}
       <meta property="og:url" content={url} />
       <meta property="og:site_name" content="Lenster" />
       <meta property="og:title" content={title} />
@@ -35,6 +36,7 @@ const Tags: FC<TagsProps> = ({
       <meta property="og:image:width" content="512" />
       <meta property="og:image:height" content="512" />
       <meta property="og:type" content="article" />
+      {/* Twitter OG */}
       <meta property="twitter:card" content={cardType} />
       <meta property="twitter:site" content="Lenster" />
       <meta property="twitter:title" content={title} />
@@ -43,6 +45,12 @@ const Tags: FC<TagsProps> = ({
       <meta property="twitter:image:width" content="400" />
       <meta property="twitter:image:height" content="400" />
       <meta property="twitter:creator" content="lensterxyz" />
+      {/* Lens OG */}
+      <meta property="lens:card" content={cardType} />
+      <meta property="lens:site" content="Lenster" />
+      <meta property="lens:title" content={title} />
+      <meta property="lens:description" content={description} />
+      <meta property="lens:image" content={image} />
       {publishedTime ? (
         <meta property="article:published_time" content={publishedTime} />
       ) : null}
