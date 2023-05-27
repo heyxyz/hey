@@ -19,9 +19,9 @@
     "clsx": "^1.2.1",
     "data": "workspace:*",
     "lib": "workspace:*",
-    "next": "^13.4.2",
+    "next": "^13.4.4",
     "react": "^18.2.0",
-    "react-hook-form": "^7.44.0",
+    "react-hook-form": "^7.44.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
