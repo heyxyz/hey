@@ -8,3 +8,6 @@ export const PRERENDER_BASE_URL = isNightly
 export const METADATA_BASE_URL = isNightly
   ? 'https://metadata.lenster.xyz'
   : 'http://localhost:8083';
+export const OEMBED_BASE_URL = isNightly
+  ? 'https://oembed.lenster.xyz'
+  : 'http://localhost:8087';
