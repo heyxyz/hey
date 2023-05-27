@@ -40,11 +40,6 @@ const SettingsSidebar: FC = () => {
             url: '/settings/account'
           },
           {
-            title: t`Preferences`,
-            icon: <AdjustmentsIcon className="h-4 w-4" />,
-            url: '/settings/preferences'
-          },
-          {
             title: t`Interests`,
             icon: <BookmarkIcon className="h-4 w-4" />,
             url: '/settings/interests'

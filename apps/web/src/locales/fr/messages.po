@@ -2044,18 +2044,6 @@ msgstr ""
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr ""
 
-#: src/components/Settings/Preferences/LikesPreferences.tsx
-msgid "Hide number of likes"
-msgstr ""
-
-#: src/components/Settings/Preferences/LikesPreferences.tsx
-msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
-msgstr ""
-
-#: src/components/Settings/Preferences/index.tsx
-msgid "Preferences • {APP_NAME}"
-msgstr ""
-
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr ""
@@ -2164,10 +2152,6 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
-msgstr ""
-
-#: src/components/Settings/Sidebar.tsx
-msgid "Preferences"
 msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
@@ -2919,4 +2903,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
