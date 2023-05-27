@@ -11,7 +11,6 @@ import type { Publication } from 'lens';
 import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { usePreferencesStore } from 'src/store/preferences';
 import { Modal } from 'ui';
 
 interface PublicationStatsProps {
@@ -19,7 +18,6 @@ interface PublicationStatsProps {
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
-  const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
@@ -79,7 +77,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           </Modal>
         </>
       )}
-      {!hideLikesCount && reactionCount > 0 && (
+      {reactionCount > 0 && (
         <>
           <button
             type="button"
