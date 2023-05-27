@@ -2044,18 +2044,6 @@ msgstr "Настройки интересов • {APP_NAME}"
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr "Выбранные вами интересы используются для персонализации вашего взаимодействия с Lenster. Вы можете изменить свои интересы, если что-то не соответствует действительности."
 
-#: src/components/Settings/Preferences/LikesPreferences.tsx
-msgid "Hide number of likes"
-msgstr "Скрыть количество лайков"
-
-#: src/components/Settings/Preferences/LikesPreferences.tsx
-msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
-msgstr "Вы не будете видеть общее количество \"лайков\" для публикаций, которыми другие делятся в ленте. Ваши \"лайки\" к публикации по-прежнему будут видны Вам и всем остальным."
-
-#: src/components/Settings/Preferences/index.tsx
-msgid "Preferences • {APP_NAME}"
-msgstr "Настройки • {APP_NAME}"
-
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
 msgstr "Адрес контракта должен быть в пределах 42 символов"
@@ -2165,10 +2153,6 @@ msgstr "Профиль"
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
 msgstr "Учетная запись"
-
-#: src/components/Settings/Sidebar.tsx
-msgid "Preferences"
-msgstr "Настройки"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Interests"
@@ -2919,4 +2903,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-
