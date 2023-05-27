@@ -1,7 +1,6 @@
 import Sidebar from '@components/Shared/Sidebar';
 import UserProfile from '@components/Shared/UserProfile';
 import {
-  AdjustmentsIcon,
   BookmarkIcon,
   ChipIcon,
   DatabaseIcon,
