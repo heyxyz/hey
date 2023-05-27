@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.34.3",
-    "@types/node": "^20.2.4",
+    "@types/node": "^20.2.5",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
