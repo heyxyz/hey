@@ -52,7 +52,7 @@ test.describe('Publication attachments', () => {
     // );
   });
 
-  test.describe.skip('Publication oembed', () => {
+  test.describe('Publication oembed', () => {
     test('should have normal oembed', async ({ page }) => {
       const publicationId = '0x0d-0x0375';
       await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
@@ -62,7 +62,9 @@ test.describe('Publication attachments', () => {
         .getByTestId(
           'normal-oembed-https://testflight.apple.com/join/U9YkOlOy'
         );
-      await expect(publicationOembed).toBeVisible();
+      await expect(publicationOembed).toContainText(
+        'Join the Uniswap Wallet beta'
+      );
     });
 
     test('should have rich oembed', async ({ page }) => {
