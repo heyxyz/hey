@@ -6,7 +6,7 @@ import { useGetProfile } from '@components/utils/hooks/useMessageDb';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { parseConversationKey } from '@lib/conversationKey';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import formatHandle from 'lib/formatHandle';
@@ -116,7 +116,7 @@ const MessagePage: NextPage = () => {
   } = useRouter();
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'conversation' });
+    Leafwatch.track(PAGEVIEW, { page: 'conversation' });
   }, []);
 
   // Need to have a login page for when there is no currentProfileId

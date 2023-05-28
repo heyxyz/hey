@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { TranslateIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
@@ -32,7 +32,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       href={getGoogleTranslateUrl(publication?.metadata?.content)}
       onClick={(event) => {
         stopEventPropagation(event);
-        Mixpanel.track(PUBLICATION.TRANSLATE);
+        Leafwatch.track(PUBLICATION.TRANSLATE);
       }}
       target="_blank"
     >

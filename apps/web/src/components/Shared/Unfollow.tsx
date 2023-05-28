@@ -1,6 +1,6 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
 import Errors from 'data/errors';
@@ -47,7 +47,7 @@ const Unfollow: FC<UnfollowProps> = ({
     setIsLoading(false);
     setFollowing(false);
     toast.success(t`Unfollowed successfully!`);
-    Mixpanel.track(PROFILE.UNFOLLOW);
+    Leafwatch.track(PROFILE.UNFOLLOW);
   };
 
   const onError = (error: any) => {

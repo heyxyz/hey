@@ -1,4 +1,4 @@
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { ATTACHMENT } from 'data/constants';
 import imageKit from 'lib/imageKit';
 import stopEventPropagation from 'lib/stopEventPropagation';
@@ -22,7 +22,7 @@ const Embed: FC<EmbedProps> = ({ og }) => {
         href={og.url}
         onClick={(event) => {
           stopEventPropagation(event);
-          Mixpanel.track(PUBLICATION.OEMBED_CLICK);
+          Leafwatch.track(PUBLICATION.OEMBED_CLICK);
         }}
         target={og.url.includes(location.host) ? '_self' : '_blank'}
         rel="noreferrer noopener"

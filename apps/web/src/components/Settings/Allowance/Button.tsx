@@ -1,7 +1,7 @@
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
@@ -51,7 +51,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       );
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Mixpanel.track(SETTINGS.ALLOWANCE.TOGGLE, {
+      Leafwatch.track(SETTINGS.ALLOWANCE.TOGGLE, {
         allowance_module: module.module,
         allowance_currency: module.currency,
         allowance_allowed: !allowed

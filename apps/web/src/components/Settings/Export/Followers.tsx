@@ -1,5 +1,5 @@
 import downloadJson from '@lib/downloadJson';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FollowersRequest } from 'lens';
 import { useFollowersLazyQuery } from 'lens';
@@ -25,7 +25,7 @@ const Followers: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Mixpanel.track(SETTINGS.EXPORT.FOLLOWERS);
+    Leafwatch.track(SETTINGS.EXPORT.FOLLOWERS);
     setExporting(true);
     const fetchFollowers = async (cursor?: string) => {
       const { data } = await exportFollowers({

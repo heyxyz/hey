@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -43,7 +43,7 @@ const DeleteSettings: FC = () => {
   const { disconnect } = useDisconnect();
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
   }, []);
 
   const onCompleted = () => {

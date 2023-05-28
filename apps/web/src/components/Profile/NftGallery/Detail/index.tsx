@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
@@ -21,7 +21,7 @@ const NFTDetail: FC = () => {
   const { on: isNftDetailEnabled } = Growthbook.feature(FeatureFlag.NftDetail);
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'nft' });
+    Leafwatch.track(PAGEVIEW, { page: 'nft' });
   }, []);
 
   if (!isNftDetailEnabled || !currentProfile) {

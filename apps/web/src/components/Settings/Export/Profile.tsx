@@ -1,5 +1,5 @@
 import downloadJson from '@lib/downloadJson';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { Profile as TProfile, SingleProfileQueryRequest } from 'lens';
 import { useProfileLazyQuery } from 'lens';
@@ -25,7 +25,7 @@ const Profile: FC = () => {
   });
 
   const handleExportClick = () => {
-    Mixpanel.track(SETTINGS.EXPORT.PROFILE);
+    Leafwatch.track(SETTINGS.EXPORT.PROFILE);
     setExporting(true);
     exportProfile({
       onCompleted: ({ profile }) => {

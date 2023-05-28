@@ -20,7 +20,7 @@ import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeatureFlagsProvider from './FeatureFlagsProvider';
 import LanguageProvider from './LanguageProvider';
-import TelemetryProvider from './TelemetryProvider';
+import LeafwatchProvider from './LeafwatchProvider';
 import UserSigNoncesProvider from './UserSigNoncesProvider';
 
 const { chains, publicClient } = configureChains(
@@ -53,7 +53,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <LanguageProvider>
       <ErrorBoundary>
         <FeatureFlagsProvider />
-        <TelemetryProvider />
+        <LeafwatchProvider />
         <WagmiConfig config={wagmiConfig}>
           <ApolloProvider client={apolloClient}>
             <UserSigNoncesProvider />

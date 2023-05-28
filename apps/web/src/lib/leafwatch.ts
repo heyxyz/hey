@@ -1,5 +1,4 @@
 import { LEAFWATCH_WORKER_URL, Localstorage } from 'data';
-import type { Dict } from 'mixpanel-browser';
 
 let worker: Worker;
 
@@ -10,8 +9,8 @@ if (typeof Worker !== 'undefined') {
 /**
  * Leafwatch analytics
  */
-export const Mixpanel = {
-  track: (name: string, properties?: Dict) => {
+export const Leafwatch = {
+  track: (name: string, properties?: Record<string, unknown>) => {
     const fingerprint = JSON.parse(
       localStorage.getItem(Localstorage.FingerprintStore) ||
         JSON.stringify({ state: { fingerprint: null } })

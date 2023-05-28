@@ -1,5 +1,5 @@
 import { CashIcon, DocumentTextIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
@@ -70,7 +70,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
       icon={icon}
       onClick={async () => {
         await reportPublication({ type, subreason });
-        Mixpanel.track(MOD.REPORT, {
+        Leafwatch.track(MOD.REPORT, {
           report_reason: type,
           report_subreason: subreason,
           report_publication_id: publication?.id

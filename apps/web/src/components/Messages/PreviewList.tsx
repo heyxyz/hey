@@ -8,7 +8,7 @@ import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';
@@ -85,7 +85,7 @@ const PreviewList: FC<PreviewListProps> = ({
 
   const newMessageClick = () => {
     setShowSearchModal(true);
-    Mixpanel.track(MESSAGES.OPEN_NEW_CONVERSATION);
+    Leafwatch.track(MESSAGES.OPEN_NEW_CONVERSATION);
   };
 
   const onProfileSelected = async (profile: Profile) => {

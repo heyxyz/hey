@@ -1,5 +1,5 @@
 import downloadJson from '@lib/downloadJson';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { NotificationRequest } from 'lens';
 import { useNotificationsLazyQuery } from 'lens';
@@ -25,7 +25,7 @@ const Notifications: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Mixpanel.track(SETTINGS.EXPORT.NOTIFICATIONS);
+    Leafwatch.track(SETTINGS.EXPORT.NOTIFICATIONS);
     setExporting(true);
     const fetchNotifications = async (cursor?: string) => {
       const { data } = await exportNotificiations({

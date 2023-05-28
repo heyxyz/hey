@@ -1,6 +1,6 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
@@ -224,7 +224,7 @@ const Status: FC = () => {
         className="space-y-4"
         onSubmit={async ({ status }) => {
           await editStatus(emoji, status);
-          Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
+          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -242,7 +242,7 @@ const Status: FC = () => {
               setEmoji('');
               form.setValue('status', '');
               await editStatus('', '');
-              Mixpanel.track(SETTINGS.PROFILE.CLEAR_STATUS);
+              Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
             <Trans>Clear status</Trans>

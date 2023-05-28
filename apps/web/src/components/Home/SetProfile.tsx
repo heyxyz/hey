@@ -5,7 +5,7 @@ import {
   PhotographIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';
@@ -75,7 +75,7 @@ const SetProfile: FC = () => {
           <Link
             className="flex items-center space-x-2"
             onClick={() =>
-              Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
+              Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
             }
             href="/settings/interests"
           >
@@ -90,7 +90,7 @@ const SetProfile: FC = () => {
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilAltIcon className="h-4 w-4" />
         <Link
-          onClick={() => Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
+          onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
           href="/settings"
         >
           <Trans>Update profile now</Trans>

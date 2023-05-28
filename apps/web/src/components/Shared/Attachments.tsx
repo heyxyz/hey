@@ -1,6 +1,6 @@
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import {
@@ -192,7 +192,7 @@ const Attachments: FC<AttachmentsProps> = ({
                     }}
                     onClick={() => {
                       setExpandedImage(url);
-                      Mixpanel.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
+                      Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
                     }}
                     src={isNew ? url : imageKit(url, ATTACHMENT)}
                     alt={isNew ? url : imageKit(url, ATTACHMENT)}

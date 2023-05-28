@@ -1,7 +1,7 @@
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import {
   useAddProfileInterestMutation,
@@ -35,11 +35,11 @@ const Interests: FC = () => {
 
   const { data, loading } = useProfileInterestsQuery();
   const [addProfileInterests] = useAddProfileInterestMutation({
-    onCompleted: () => Mixpanel.track(SETTINGS.INTERESTS.ADD),
+    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
     onError
   });
   const [removeProfileInterests] = useRemoveProfileInterestMutation({
-    onCompleted: () => Mixpanel.track(SETTINGS.INTERESTS.REMOVE),
+    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.REMOVE),
     onError
   });
 

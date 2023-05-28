@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import NftFeed from '@components/Nft/NftFeed';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { FeatureFlag } from 'data';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
@@ -41,7 +41,7 @@ const ViewProfile: NextPage = () => {
   );
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'profile' });
+    Leafwatch.track(PAGEVIEW, { page: 'profile' });
   }, []);
 
   const handle = formatHandle(username as string, true);

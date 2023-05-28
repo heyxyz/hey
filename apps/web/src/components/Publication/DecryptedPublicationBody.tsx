@@ -20,7 +20,7 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -222,7 +222,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                 href={`/posts/${collectCondition?.publicationId}`}
                 className="font-bold lowercase underline"
                 onClick={() =>
-                  Mixpanel.track(
+                  Leafwatch.track(
                     PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT
                   )
                 }
@@ -269,7 +269,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
                 className="font-bold underline"
                 onClick={() =>
-                  Mixpanel.track(
+                  Leafwatch.track(
                     PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN
                   )
                 }
@@ -294,7 +294,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                   href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
                   onClick={() =>
-                    Mixpanel.track(
+                    Leafwatch.track(
                       PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT
                     )
                   }
@@ -334,7 +334,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
         onClick={async (event) => {
           stopEventPropagation(event);
           await getDecryptedData();
-          Mixpanel.track(PUBLICATION.TOKEN_GATED.DECRYPT);
+          Leafwatch.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
       >
         <div className="flex items-center space-x-1 font-bold text-white">

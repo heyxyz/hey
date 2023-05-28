@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import Link from 'next/link';
@@ -49,7 +49,7 @@ const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
 
 const Thanks: FC = () => {
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'thanks' });
+    Leafwatch.track(PAGEVIEW, { page: 'thanks' });
   }, []);
 
   return (

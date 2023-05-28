@@ -1,4 +1,4 @@
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { useHidePublicationMutation } from 'lens';
 import { publicationKeyFields } from 'lens/apollo/lib';
@@ -22,7 +22,7 @@ const DeletePublication: FC = () => {
   const [hidePost, { loading }] = useHidePublicationMutation({
     onCompleted: () => {
       setShowPublicationDeleteAlert(false, null);
-      Mixpanel.track(PUBLICATION.DELETE);
+      Leafwatch.track(PUBLICATION.DELETE);
       toast.success(t`Publication deleted successfully`);
     },
     update: (cache) => {

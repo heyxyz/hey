@@ -4,7 +4,7 @@ import {
   SunIcon as SunIconSolid
 } from '@heroicons/react/solid';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';
@@ -95,7 +95,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.LIKE, getEventProperties('like'));
+      Leafwatch.track(PUBLICATION.LIKE, getEventProperties('like'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -107,7 +107,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.UNLIKE, getEventProperties('unlike'));
+      Leafwatch.track(PUBLICATION.UNLIKE, getEventProperties('unlike'));
     },
     onError: (error) => {
       setLiked(!liked);

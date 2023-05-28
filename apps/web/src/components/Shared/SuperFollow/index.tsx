@@ -1,5 +1,5 @@
 import { StarIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
@@ -53,7 +53,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
             return;
           }
           setShowFollowModal(!showFollowModal);
-          Mixpanel.track(PROFILE.OPEN_SUPER_FOLLOW);
+          Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
         aria-label="Super Follow"
         icon={<StarIcon className="h-4 w-4" />}

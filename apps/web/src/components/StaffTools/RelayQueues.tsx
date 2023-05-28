@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
@@ -63,7 +63,7 @@ const RelayQueues: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
+    Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
   }, []);
 
   const { data, loading, error } = useRelayQueuesQuery({

@@ -1,7 +1,7 @@
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
@@ -139,7 +139,7 @@ const Composer: FC<ComposerProps> = ({
 
       if (sentAttachment) {
         setAttachment(null);
-        Mixpanel.track(MESSAGES.SEND);
+        Leafwatch.track(MESSAGES.SEND);
       } else {
         toast.error(t`Error sending attachment`);
       }
@@ -151,7 +151,7 @@ const Composer: FC<ComposerProps> = ({
       if (sentMessage) {
         setMessage('');
         setUnsentMessage(conversationKey, null);
-        Mixpanel.track(MESSAGES.SEND);
+        Leafwatch.track(MESSAGES.SEND);
       } else {
         toast.error(t`Error sending message`);
       }

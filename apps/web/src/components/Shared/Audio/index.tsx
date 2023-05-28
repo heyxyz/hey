@@ -1,5 +1,5 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
 import getPublicationAttribute from 'lib/getPublicationAttribute';
@@ -59,13 +59,13 @@ const Audio: FC<AudioProps> = ({
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Mixpanel.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY);
+      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY);
 
       return playerRef.current?.plyr.play();
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Mixpanel.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE);
+    Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

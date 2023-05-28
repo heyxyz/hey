@@ -1,5 +1,5 @@
 import downloadJson from '@lib/downloadJson';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { PublicationsQueryRequest } from 'lens';
 import { PublicationTypes, useProfileFeedLazyQuery } from 'lens';
@@ -30,7 +30,7 @@ const Publications: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Mixpanel.track(SETTINGS.EXPORT.PUBLICATIONS);
+    Leafwatch.track(SETTINGS.EXPORT.PUBLICATIONS);
     setExporting(true);
     const fetchPublications = async (cursor?: string) => {
       const { data } = await exportPublications({

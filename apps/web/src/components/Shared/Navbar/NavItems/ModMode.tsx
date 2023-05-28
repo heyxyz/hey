@@ -1,7 +1,7 @@
 import useModMode from '@components/utils/hooks/useModMode';
 import { LightningBoltIcon as LightningBoltIconOutline } from '@heroicons/react/outline';
 import { LightningBoltIcon as LightningBoltIconSolid } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -18,7 +18,7 @@ const ModMode: FC<ModModeProps> = ({ className = '' }) => {
 
   const toggleStaffMode = () => {
     setModMode(!modMode);
-    Mixpanel.track(MOD.TOGGLE_MODE);
+    Leafwatch.track(MOD.TOGGLE_MODE);
   };
 
   return (

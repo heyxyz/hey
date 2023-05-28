@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import { CubeIcon, PhotographIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import { useProfileSettingsQuery } from 'lens';
@@ -29,7 +29,7 @@ const ProfileSettings: NextPage = () => {
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
   }, []);
 
   const { data, loading, error } = useProfileSettingsQuery({

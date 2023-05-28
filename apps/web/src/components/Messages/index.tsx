@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
@@ -34,7 +34,7 @@ const Messages: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'messages' });
+    Leafwatch.track(PAGEVIEW, { page: 'messages' });
   }, []);
 
   if (!currentProfile) {

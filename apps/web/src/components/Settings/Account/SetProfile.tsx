@@ -1,7 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
@@ -38,7 +38,7 @@ const SetProfile: FC = () => {
 
     setIsLoading(false);
     toast.success(t`Default profile updated successfully!`);
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const onError = (error: any) => {

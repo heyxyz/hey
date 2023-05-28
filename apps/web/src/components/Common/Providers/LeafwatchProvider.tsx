@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useFingerprintStore } from 'src/store/fingerprint';
 
-const TelemetryProvider: FC = () => {
+const LeafwatchProvider: FC = () => {
   const setFingerprint = useFingerprintStore((state) => state.setFingerprint);
 
   const saveFingerprint = async () => {
@@ -19,4 +19,4 @@ const TelemetryProvider: FC = () => {
   return null;
 };
 
-export default TelemetryProvider;
+export default LeafwatchProvider;

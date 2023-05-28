@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import {
@@ -49,7 +49,7 @@ const Mod: NextPage = () => {
   ]);
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'mod' });
+    Leafwatch.track(PAGEVIEW, { page: 'mod' });
   }, []);
 
   if (!isGardener(currentProfile?.id)) {

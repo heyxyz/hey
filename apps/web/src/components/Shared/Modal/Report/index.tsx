@@ -1,6 +1,6 @@
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
@@ -38,7 +38,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'report' });
+    Leafwatch.track(PAGEVIEW, { page: 'report' });
   }, []);
 
   const [
@@ -46,7 +46,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
     { data: submitData, loading: submitLoading, error: submitError }
   ] = useReportPublicationMutation({
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.REPORT, {
+      Leafwatch.track(PUBLICATION.REPORT, {
         report_publication_id: publication?.id
       });
     }

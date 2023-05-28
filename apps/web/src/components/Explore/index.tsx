@@ -4,7 +4,7 @@ import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/leafwatch';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { FeatureFlag } from 'data';
@@ -30,7 +30,7 @@ const Explore: NextPage = () => {
   );
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'explore' });
+    Leafwatch.track(PAGEVIEW, { page: 'explore' });
   }, []);
 
   const tabs = [
@@ -63,7 +63,7 @@ const Explore: NextPage = () => {
                 key={tab.type}
                 defaultChecked={index === 1}
                 onClick={() => {
-                  Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
+                  Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
                     explore_feed_type: tab.type.toLowerCase()
                   });
                 }}
