@@ -12,10 +12,6 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/collect/:match',
-        destination: 'https://api.mixpanel.com/:match'
-      },
-      {
         source: '/sitemap.xml',
         destination: 'https://sitemap.lenster.xyz/sitemap.xml'
       },

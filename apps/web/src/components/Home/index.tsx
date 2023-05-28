@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
   );
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'home' });
+    Leafwatch.track(PAGEVIEW, { page: 'home' });
   }, []);
 
   return (

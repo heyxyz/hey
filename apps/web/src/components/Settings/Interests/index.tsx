@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Interests from '@components/Settings/Interests/Interests';
 import Beta from '@components/Shared/Badges/Beta';
 import New from '@components/Shared/Badges/New';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
@@ -18,7 +18,7 @@ const InterestsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'interests' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'interests' });
   }, []);
 
   if (!currentProfile) {

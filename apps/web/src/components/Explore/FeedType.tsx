@@ -1,4 +1,4 @@
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { PublicationMainFocus } from 'lens';
@@ -21,7 +21,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFocus, focus }) => {
       type="button"
       onClick={() => {
         setFocus(type as PublicationMainFocus);
-        Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
+        Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
           explore_feed_focus: (type ?? 'all_posts').toLowerCase()
         });
       }}

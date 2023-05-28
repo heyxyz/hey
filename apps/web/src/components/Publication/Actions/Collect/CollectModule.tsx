@@ -17,7 +17,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { LensHub } from 'abis';
@@ -125,7 +125,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
-    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       collect_module: collectModule?.type,
       collect_publication_id: publication?.id,
       ...(!isRevertCollectModule && {

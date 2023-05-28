@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
 import { FeatureFlag, Localstorage } from 'data';
@@ -50,7 +50,7 @@ const Locale: FC = () => {
               as="div"
               onClick={() => {
                 setLanguage(localeCode);
-                Mixpanel.track(MISCELLANEOUS.SELECT_LOCALE, {
+                Leafwatch.track(MISCELLANEOUS.SELECT_LOCALE, {
                   locale: localeCode
                 });
                 location.reload();
