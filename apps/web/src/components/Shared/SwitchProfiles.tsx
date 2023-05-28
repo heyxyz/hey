@@ -1,6 +1,6 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import { IS_MAINNET } from 'data';
 import type { Profile } from 'lens';
@@ -34,7 +34,7 @@ const SwitchProfiles: FC = () => {
             setCurrentProfile(selectedProfile);
             setProfileId(selectedProfile.id);
             setShowProfileSwitchModal(false);
-            Mixpanel.track(PROFILE.SWITCH_PROFILE, {
+            Leafwatch.track(PROFILE.SWITCH_PROFILE, {
               switch_profile_to: selectedProfile.id
             });
           }}

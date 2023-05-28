@@ -1,5 +1,5 @@
 import downloadJson from '@lib/downloadJson';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FollowingRequest } from 'lens';
 import { useFollowingLazyQuery } from 'lens';
@@ -25,7 +25,7 @@ const Following: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Mixpanel.track(SETTINGS.EXPORT.FOLLOWING);
+    Leafwatch.track(SETTINGS.EXPORT.FOLLOWING);
     setExporting(true);
     const fetchFollowing = async (cursor?: string) => {
       const { data } = await exportFollowing({

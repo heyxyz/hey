@@ -1,6 +1,6 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
@@ -84,7 +84,7 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     setIsLoading(false);
     setMirrored(true);
     toast.success(t`Post has been mirrored!`);
-    Mixpanel.track(PUBLICATION.MIRROR);
+    Leafwatch.track(PUBLICATION.MIRROR);
   };
 
   const onError = (error: any) => {

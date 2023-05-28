@@ -1,7 +1,7 @@
 import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import clsx from 'clsx';
@@ -43,9 +43,9 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
     if (isOldDispatcherEnabled) {
-      Mixpanel.track(SETTINGS.DISPATCHER.UPDATE);
+      Leafwatch.track(SETTINGS.DISPATCHER.UPDATE);
     } else {
-      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE);
+      Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
     }
   };
 

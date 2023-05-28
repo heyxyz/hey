@@ -1,6 +1,6 @@
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { TrendingUpIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
 import { TagSortCriteria, useTrendingQuery } from 'lens';
@@ -53,7 +53,7 @@ const Trending: FC = () => {
               <Link
                 href={`/search?q=${tag?.tag}&type=pubs`}
                 onClick={() =>
-                  Mixpanel.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                  Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
                     trending_tag: tag?.tag
                   })
                 }

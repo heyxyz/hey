@@ -47,10 +47,6 @@ export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
 export const OLD_LENS_RELAYER_ADDRESS =
   '0xD1FecCF6881970105dfb2b654054174007f0e07E';
 
-// Mixpanel
-export const MIXPANEL_TOKEN = process.env.NEXT_PUBLIC_MIXPANEL_TOKEN ?? '';
-export const MIXPANEL_ENABLED = MIXPANEL_TOKEN && IS_PRODUCTION;
-
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
 export const LENS_MEDIA_SNAPSHOT_URL =
@@ -86,6 +82,9 @@ export const ENS_RESOLVER_WORKER_URL = IS_PRODUCTION
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.lenster.xyz'
   : 'http://localhost:8087';
+export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
+  ? 'https://leafwatch.lenster.xyz'
+  : 'http://localhost:8088';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';

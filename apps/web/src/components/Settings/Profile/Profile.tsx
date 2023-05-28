@@ -1,7 +1,7 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
@@ -102,7 +102,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
     setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
-    Mixpanel.track(SETTINGS.PROFILE.UPDATE);
+    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const onError = (error: any) => {

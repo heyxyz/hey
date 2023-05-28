@@ -45,6 +45,7 @@ export default async (request: IRequest, env: Env) => {
           referrer VARCHAR(255),
           properties JSONB
         );
+        CREATE INDEX idx_events_name ON events (name);
       `
     });
 
