@@ -1,4 +1,4 @@
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import getUniswapURL from 'lib/getUniswapURL';
@@ -24,7 +24,7 @@ const Uniswap: FC<UniswapProps> = ({ module }) => {
           module?.amount?.asset?.address
         )}
         onClick={() => {
-          Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP);
+          Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP);
         }}
         className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
         target="_blank"

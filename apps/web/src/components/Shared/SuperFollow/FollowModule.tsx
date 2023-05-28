@@ -1,7 +1,7 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
@@ -68,7 +68,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     setFollowing(true);
     setShowFollowModal(false);
     toast.success(t`Followed successfully!`);
-    Mixpanel.track(PROFILE.SUPER_FOLLOW, {
+    Leafwatch.track(PROFILE.SUPER_FOLLOW, {
       follow_path: pathname,
       ...(followSource && { follow_source: followSource }),
       ...(followPosition && { follow_position: followPosition }),

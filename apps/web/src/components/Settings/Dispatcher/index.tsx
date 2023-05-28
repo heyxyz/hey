@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from 'data/constants';
 import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
@@ -21,7 +21,7 @@ const DispatcherSettings: FC = () => {
     OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'dispatcher' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'dispatcher' });
   }, []);
 
   const getTitleText = () => {

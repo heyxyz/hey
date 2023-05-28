@@ -5,7 +5,7 @@ import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { APP_NAME } from 'data/constants';
 import { usePublicationQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
@@ -31,7 +31,7 @@ const ViewPublication: NextPage = () => {
   } = useRouter();
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'publication' });
+    Leafwatch.track(PAGEVIEW, { page: 'publication' });
   }, []);
 
   const { data, loading, error } = usePublicationQuery({

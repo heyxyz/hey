@@ -212,9 +212,6 @@ importers:
       lib:
         specifier: workspace:*
         version: link:../../packages/lib
-      mixpanel-browser:
-        specifier: ^2.47.0
-        version: 2.47.0
       next:
         specifier: ^13.4.2
         version: 13.4.2(@babel/core@7.21.8)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -300,9 +297,6 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.3
         version: 0.5.3(tailwindcss@3.3.2)
-      '@types/mixpanel-browser':
-        specifier: ^2.38.1
-        version: 2.38.1
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -6019,13 +6013,8 @@ packages:
     resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
     dev: true
 
-  /@types/json-schema@7.0.11:
-    resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
-    dev: true
-
   /@types/json-schema@7.0.12:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
-    dev: false
 
   /@types/json-stable-stringify@1.0.34:
     resolution: {integrity: sha512-s2cfwagOQAS8o06TcwKfr9Wx11dNGbH2E9vJz1cqV+a/LOyhWNLUNd6JSRYNzvB4d29UuJX2M0Dj9vE1T8fRXw==}
@@ -6044,10 +6033,6 @@ packages:
     dependencies:
       '@types/unist': 2.0.6
     dev: false
-
-  /@types/mixpanel-browser@2.38.1:
-    resolution: {integrity: sha512-XzQbwgiOPsFXUQnjz3vSwcwrvJDbQ35bCiwa/1VXGrHvU1ti9+eqO1GY91DShzkEzKkkEEkxfNshS5dbBZqd7w==}
-    dev: true
 
   /@types/ms@0.7.31:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
@@ -6253,7 +6238,7 @@ packages:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.41.0)
-      '@types/json-schema': 7.0.11
+      '@types/json-schema': 7.0.12
       '@types/semver': 7.5.0
       '@typescript-eslint/scope-manager': 5.59.7
       '@typescript-eslint/types': 5.59.7
@@ -11381,10 +11366,6 @@ packages:
 
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-
-  /mixpanel-browser@2.47.0:
-    resolution: {integrity: sha512-Ldrva0fRBEIFWmEibBQO1PulfpJVF3pf28Guk09lDirDaSQqqU/xs9zQLwN2rL5VwVtsP1aD3JaCgaa98EjojQ==}
-    dev: false
 
   /mkdirp-classic@0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
