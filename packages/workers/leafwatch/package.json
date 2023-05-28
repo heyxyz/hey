@@ -14,10 +14,12 @@
   },
   "dependencies": {
     "itty-router": "4.0.2",
-    "lib": "workspace:*"
+    "lib": "workspace:*",
+    "pg": "^8.11.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
+    "@types/pg": "^8.10.1",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4",

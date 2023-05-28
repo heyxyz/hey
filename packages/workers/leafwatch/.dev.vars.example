@@ -1,1 +1,2 @@
-WORKER_ENV=""
+DB_URL=""
+SECRET=""

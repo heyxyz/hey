@@ -1,3 +1,4 @@
 export interface Env {
-  WORKER_ENV: string;
+  DB_URL: string;
+  SECRET: string;
 }
