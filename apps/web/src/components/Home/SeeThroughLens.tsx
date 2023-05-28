@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FeedItem, FeedRequest, Profile, ProfileSearchResult } from 'lens';

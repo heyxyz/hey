@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';

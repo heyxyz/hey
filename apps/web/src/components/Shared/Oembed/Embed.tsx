@@ -1,4 +1,4 @@
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { ATTACHMENT } from 'data/constants';
 import imageKit from 'lib/imageKit';
 import stopEventPropagation from 'lib/stopEventPropagation';

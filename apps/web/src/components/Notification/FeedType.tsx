@@ -5,7 +5,7 @@ import {
   CollectionIcon,
   HeartIcon
 } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { NotificationType } from 'src/enums';

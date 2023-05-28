@@ -1,5 +1,5 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';

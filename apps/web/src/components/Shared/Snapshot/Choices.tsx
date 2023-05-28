@@ -1,7 +1,7 @@
 import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/outline';
 import { CheckCircleIcon, MenuAlt2Icon } from '@heroicons/react/solid';
 import { getTimetoNow } from '@lib/formatTime';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import type { Proposal, Vote } from '@workers/snapshot-relay';
 import axios from 'axios';

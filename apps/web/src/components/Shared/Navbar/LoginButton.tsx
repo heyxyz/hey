@@ -1,4 +1,4 @@
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAuthStore } from 'src/store/auth';

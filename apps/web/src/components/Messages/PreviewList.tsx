@@ -8,7 +8,7 @@ import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';

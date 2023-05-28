@@ -1,7 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ElectedMirror, Publication } from 'lens';

@@ -1,6 +1,6 @@
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { TrendingUpIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import type { TagResult } from 'lens';
 import { TagSortCriteria, useTrendingQuery } from 'lens';

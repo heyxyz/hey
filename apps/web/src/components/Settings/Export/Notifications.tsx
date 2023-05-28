@@ -1,5 +1,5 @@
 import downloadJson from '@lib/downloadJson';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { NotificationRequest } from 'lens';
 import { useNotificationsLazyQuery } from 'lens';

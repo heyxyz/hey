@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import NftFeed from '@components/Nft/NftFeed';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { FeatureFlag } from 'data';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';

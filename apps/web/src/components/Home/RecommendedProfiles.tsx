@@ -3,7 +3,7 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { Profile } from 'lens';
 import { useRecommendedProfilesQuery } from 'lens';

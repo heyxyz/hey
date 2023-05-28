@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import { APP_NAME, FRESHDESK_WORKER_URL } from 'data/constants';

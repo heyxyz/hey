@@ -1,5 +1,5 @@
 import { XIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import type { Profile } from 'lens';
 import { useDismissRecommendedProfilesMutation } from 'lens';
 import type { FC } from 'react';

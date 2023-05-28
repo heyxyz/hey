@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';

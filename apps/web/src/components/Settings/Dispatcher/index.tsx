@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from 'data/constants';
 import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';

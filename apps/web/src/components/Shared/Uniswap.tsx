@@ -1,4 +1,4 @@
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
 import getUniswapURL from 'lib/getUniswapURL';

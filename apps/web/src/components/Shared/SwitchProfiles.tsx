@@ -1,6 +1,6 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import { IS_MAINNET } from 'data';
 import type { Profile } from 'lens';

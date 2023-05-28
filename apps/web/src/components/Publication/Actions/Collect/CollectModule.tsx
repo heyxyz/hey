@@ -17,7 +17,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { LensHub } from 'abis';

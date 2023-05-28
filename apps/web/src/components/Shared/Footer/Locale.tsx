@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
 import { FeatureFlag, Localstorage } from 'data';

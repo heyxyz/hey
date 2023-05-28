@@ -3,7 +3,7 @@ import type { Dict } from 'mixpanel-browser';
 import mixpanel from 'mixpanel-browser';
 
 /**
- * Mixpanel analytics
+ * Leafwatch analytics
  */
 export const Mixpanel = {
   track: (name: string, props?: Dict) => {

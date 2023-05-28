@@ -1,6 +1,6 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
 import Errors from 'data/errors';

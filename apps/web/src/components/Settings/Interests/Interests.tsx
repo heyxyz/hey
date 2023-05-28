@@ -1,7 +1,7 @@
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import {
   useAddProfileInterestMutation,

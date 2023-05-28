@@ -1,5 +1,5 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Publication } from 'lens';
 import getPublicationAttribute from 'lib/getPublicationAttribute';

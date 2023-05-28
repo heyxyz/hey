@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { Erc20 } from 'lens';

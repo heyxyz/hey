@@ -1,4 +1,4 @@
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { useHidePublicationMutation } from 'lens';
 import { publicationKeyFields } from 'lens/apollo/lib';

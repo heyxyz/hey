@@ -1,7 +1,7 @@
 import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';

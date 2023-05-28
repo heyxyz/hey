@@ -20,7 +20,7 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';

@@ -22,7 +22,7 @@ import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';

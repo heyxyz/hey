@@ -4,7 +4,7 @@ import {
   SunIcon as SunIconSolid
 } from '@heroicons/react/solid';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';

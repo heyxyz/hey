@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';

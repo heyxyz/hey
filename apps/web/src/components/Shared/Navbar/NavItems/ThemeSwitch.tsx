@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';

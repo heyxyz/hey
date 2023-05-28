@@ -12,7 +12,7 @@ import {
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { APP_NAME } from 'data/constants';

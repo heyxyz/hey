@@ -4,7 +4,7 @@ import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { FeatureFlag } from 'data';

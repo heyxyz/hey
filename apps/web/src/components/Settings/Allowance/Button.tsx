@@ -1,7 +1,7 @@
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { ApprovedAllowanceAmount } from 'lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';

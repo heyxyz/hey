@@ -1,5 +1,5 @@
 import { StarIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';

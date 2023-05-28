@@ -6,7 +6,7 @@ import { useGetProfile } from '@components/utils/hooks/useMessageDb';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { parseConversationKey } from '@lib/conversationKey';
-import { Mixpanel } from '@lib/mixpanel';
+import { Mixpanel } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import formatHandle from 'lib/formatHandle';
