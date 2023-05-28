@@ -40,7 +40,6 @@ export default async (request: IRequest, env: Env) => {
           user_id VARCHAR(255),
           fingerprint VARCHAR(255),
           ip VARCHAR(255),
-          city VARCHAR(255),
           country VARCHAR(255),
           user_agent VARCHAR(255),
           referrer VARCHAR(255),

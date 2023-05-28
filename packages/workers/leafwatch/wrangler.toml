@@ -8,5 +8,8 @@ routes = [
 	{ pattern = "leafwatch.lenster.xyz", custom_domain = true }
 ]
 
+[placement]
+mode = "smart"
+
 [env.production.vars]
 WORKER_ENV = "production"

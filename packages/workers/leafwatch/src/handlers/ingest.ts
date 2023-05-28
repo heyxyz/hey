@@ -8,10 +8,6 @@ type ExtensionRequest = {
   name: string;
   user_id?: string;
   fingerprint?: string;
-  ip?: string;
-  city?: string;
-  country?: string;
-  user_agent?: string;
   referrer?: string;
   properties?: string;
 };
@@ -24,17 +20,8 @@ export default async (request: IRequest, env: Env) => {
     return error(400, 'Bad request!');
   }
 
-  const {
-    name,
-    user_id,
-    fingerprint,
-    ip,
-    city,
-    country,
-    user_agent,
-    referrer,
-    properties
-  } = body as ExtensionRequest;
+  const { name, user_id, fingerprint, referrer, properties } =
+    body as ExtensionRequest;
 
   const missingKeysError = keysValidator(requiredKeys, body);
   if (missingKeysError) {
@@ -45,22 +32,24 @@ export default async (request: IRequest, env: Env) => {
     const client = new Client(env.DB_URL);
     await client.connect();
 
-    const text = `
-      INSERT INTO events (name, user_id, fingerprint, ip, city, country, user_agent, referrer, properties)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    const ip = request.headers.get('cf-connecting-ip');
+    const country = request.headers.get('cf-ipcountry');
+    const userAgent = request.headers.get('user-agent');
+
+    const insertQuery = `
+      INSERT INTO events (name, user_id, fingerprint, ip, country, user_agent, referrer, properties)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `;
-    const values = [
+    await client.query(insertQuery, [
       name,
       user_id,
       fingerprint,
       ip,
-      city,
       country,
-      user_agent,
+      userAgent,
       referrer,
       properties
-    ];
-    await client.query(text, values);
+    ]);
 
     return new Response(JSON.stringify({ success: true }));
   } catch (error) {
