@@ -1,6 +1,5 @@
 import { createCors, error, json, Router } from 'itty-router';
 
-import createTables from './handlers/createTables';
 import ingest from './handlers/ingest';
 import type { Env } from './types';
 
@@ -14,7 +13,6 @@ const router = Router();
 router.all('*', preflight);
 router.get('/', () => new Response('Leafwatch'));
 router.post('/ingest', ingest);
-router.post('/createTables', createTables);
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);
