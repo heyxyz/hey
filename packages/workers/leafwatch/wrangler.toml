@@ -12,4 +12,4 @@ routes = [
 mode = "smart"
 
 [env.production.vars]
-WORKER_ENV = "production"
+DB_URL = ""
