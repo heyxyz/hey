@@ -1,0 +1,10 @@
+fragment ProfilePictureFields on ProfileMedia {
+  ... on MediaSet {
+    original {
+      url
+    }
+  }
+  ... on NftImage {
+    uri
+  }
+}

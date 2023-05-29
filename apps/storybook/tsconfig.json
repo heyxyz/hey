@@ -1,8 +1,0 @@
-{
-  "extends": "tsconfig/react.json",
-  "compilerOptions": {
-    "declaration": false,
-    "declarationMap": false
-  },
-  "include": ["**/*.ts", "**/*.tsx"]
-}

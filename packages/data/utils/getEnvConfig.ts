@@ -14,14 +14,6 @@ const getEnvConfig = (): {
   litProtocolEnvironment: string;
 } => {
   switch (LENS_NETWORK) {
-    case 'mainnet':
-      return {
-        apiEndpoint: LensEndpoint.Mainnet,
-        lensHubProxyAddress: MainnetContracts.LensHubProxy,
-        lensPeripheryAddress: MainnetContracts.LensPeriphery,
-        defaultCollectToken: MainnetContracts.DefaultToken,
-        litProtocolEnvironment: 'polygon'
-      };
     case 'testnet':
       return {
         apiEndpoint: LensEndpoint.Testnet,

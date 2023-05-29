@@ -1,6 +1,6 @@
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import {
@@ -10,7 +10,7 @@ import {
   STATIC_IMAGES_URL
 } from 'data/constants';
 import type { MediaSet, Publication } from 'lens';
-import imageProxy from 'lib/imageProxy';
+import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
@@ -192,10 +192,10 @@ const Attachments: FC<AttachmentsProps> = ({
                     }}
                     onClick={() => {
                       setExpandedImage(url);
-                      Mixpanel.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
+                      Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN);
                     }}
-                    src={isNew ? url : imageProxy(url, ATTACHMENT)}
-                    alt={isNew ? url : imageProxy(url, ATTACHMENT)}
+                    src={isNew ? url : imageKit(url, ATTACHMENT)}
+                    alt={isNew ? url : imageKit(url, ATTACHMENT)}
                     data-testid={`attachment-image-${url}`}
                   />
                 )}

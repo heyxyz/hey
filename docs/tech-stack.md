@@ -21,4 +21,3 @@
 - [Turborepo](https://turbo.build/) - Monorepo tool
 - [GitHub](https://github.com/) - Code hosting platform
 - [GitHub Actions](https://github.com/features/actions/) - CI/CD platform
-- [Mixpanel](https://mixpanel.com/) - Analytics platform

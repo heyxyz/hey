@@ -4,9 +4,9 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "wrangler dev --port 8083 --local",
+    "dev": "wrangler dev --port 8083",
     "start": "pnpm dev",
-    "worker:deploy": "wrangler publish",
+    "worker:deploy": "wrangler deploy",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
@@ -17,10 +17,10 @@
     "bundlr": "workspace:*"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230511.0",
+    "@cloudflare/workers-types": "^4.20230518.0",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4",
-    "wrangler": "^2.20.0"
+    "wrangler": "^3.0.1"
   }
 }

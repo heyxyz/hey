@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,
-  TypeaheadOption,
+  MenuOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import clsx from 'clsx';
@@ -13,7 +13,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import type { Emoji } from 'src/types';
 
-class EmojiOption extends TypeaheadOption {
+class EmojiOption extends MenuOption {
   title: string;
   emoji: string;
   keywords: string[];

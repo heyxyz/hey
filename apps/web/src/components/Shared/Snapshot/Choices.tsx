@@ -1,8 +1,9 @@
 import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/outline';
 import { CheckCircleIcon, MenuAlt2Icon } from '@heroicons/react/solid';
 import { getTimetoNow } from '@lib/formatTime';
-import { Mixpanel } from '@lib/mixpanel';
-import { plural, t, Trans } from '@lingui/macro';
+import { Leafwatch } from '@lib/leafwatch';
+import { Plural, t, Trans } from '@lingui/macro';
+import type { Proposal, Vote } from '@workers/snapshot-relay';
 import axios from 'axios';
 import clsx from 'clsx';
 import { APP_NAME, Errors, IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from 'data';
@@ -11,7 +12,6 @@ import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import type { Proposal, Vote } from 'snapshot';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Card, Modal, Spinner } from 'ui';
@@ -75,7 +75,7 @@ const Choices: FC<ChoicesProps> = ({
     }
 
     setVoteConfig({ show: true, position });
-    Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.OPEN_CAST_VOTE, {
+    Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.OPEN_CAST_VOTE, {
       proposal_id: id
     });
   };
@@ -103,12 +103,13 @@ const Choices: FC<ChoicesProps> = ({
         }
       });
       refetch?.();
-      Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+      Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
         proposal_source: APP_NAME.toLowerCase()
       });
       toast.success(t`Your vote has been casted!`);
-    } catch {
+    } catch (error) {
+      console.error('Failed to vote on snapshot', error);
       toast.error(Errors.SomethingWentWrong);
     } finally {
       setVoteSubmitting(false);
@@ -189,11 +190,12 @@ const Choices: FC<ChoicesProps> = ({
               <span>·</span>
               <span>
                 {humanize(scores_total ?? 0)}{' '}
-                {plural(scores_total ?? 0, {
-                  zero: 'Vote',
-                  one: 'Vote',
-                  other: 'Votes'
-                })}
+                <Plural
+                  value={scores_total ?? 0}
+                  zero="Vote"
+                  one="Vote"
+                  other="Votes"
+                />
               </span>
               {state === 'active' && (
                 <>

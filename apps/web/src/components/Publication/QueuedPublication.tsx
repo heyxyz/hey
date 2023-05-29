@@ -1,6 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
-import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import Oembed from '@components/Shared/Oembed';
 import UserProfile from '@components/Shared/UserProfile';
 import { t } from '@lingui/macro';
 import type { Profile } from 'lens';
@@ -108,7 +108,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
         ) : (
           txn?.attachments &&
           getURLs(txn?.content)?.length > 0 && (
-            <IFramely url={getURLs(txn?.content)[0]} />
+            <Oembed url={getURLs(txn?.content)[0]} />
           )
         )}
       </div>

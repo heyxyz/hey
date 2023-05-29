@@ -1,0 +1,15 @@
+name = "leafwatch"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+node_compat = true
+
+routes = [
+	{ pattern = "leafwatch.lenster.xyz", custom_domain = true }
+]
+
+[placement]
+mode = "smart"
+
+[env.production.vars]
+DB_URL = ""

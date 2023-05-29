@@ -4,7 +4,7 @@ import type { FC, ReactNode } from 'react';
 
 interface TabButtonProps {
   name: string;
-  icon: ReactNode;
+  icon?: ReactNode;
   active: boolean;
   type?: string;
   count?: string;

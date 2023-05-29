@@ -37,9 +37,6 @@ const SignedUser: FC = () => {
 
   const Avatar = () => (
     <Image
-      onError={({ currentTarget }) => {
-        currentTarget.src = getAvatar(currentProfile, false);
-      }}
       src={getAvatar(currentProfile as Profile)}
       className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
       alt={formatHandle(currentProfile?.handle)}

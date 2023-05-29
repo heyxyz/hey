@@ -1,5 +1,5 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import { plural } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -44,9 +44,6 @@ const UserPreview: FC<UserPreviewProps> = ({
 
   const UserAvatar = () => (
     <Image
-      onError={({ currentTarget }) => {
-        currentTarget.src = getAvatar(lazyProfile, false);
-      }}
       src={getAvatar(lazyProfile)}
       loading="lazy"
       className={clsx(
@@ -123,11 +120,12 @@ const UserPreview: FC<UserPreviewProps> = ({
               {nFormatter(lazyProfile?.stats?.totalFollowing)}
             </div>
             <div className="lt-text-gray-500 text-sm">
-              {plural(lazyProfile?.stats?.totalFollowers, {
-                zero: 'Following',
-                one: 'Following',
-                other: 'Following'
-              })}
+              <Plural
+                value={lazyProfile?.stats?.totalFollowing}
+                zero="Following"
+                one="Following"
+                other="Following"
+              />
             </div>
           </div>
           <div className="text-md flex items-center space-x-1">
@@ -135,11 +133,12 @@ const UserPreview: FC<UserPreviewProps> = ({
               {nFormatter(lazyProfile?.stats?.totalFollowers)}
             </div>
             <div className="lt-text-gray-500 text-sm">
-              {plural(lazyProfile?.stats?.totalFollowers, {
-                zero: 'Follower',
-                one: 'Follower',
-                other: 'Followers'
-              })}
+              <Plural
+                value={lazyProfile?.stats?.totalFollowers}
+                zero="Follower"
+                one="Follower"
+                other="Followers"
+              />
             </div>
           </div>
         </div>
@@ -162,7 +161,7 @@ const UserPreview: FC<UserPreviewProps> = ({
   };
 
   return showUserPreview ? (
-    <span onMouseOver={onPreviewStart}>
+    <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
       {lazyProfile?.id ? (
         <Tippy
           placement="bottom-start"

@@ -1,7 +1,7 @@
-import GetModuleIcon from '@components/utils/GetModuleIcon';
-import { getModule } from '@lib/getModule';
+import getAllowanceModule from '@lib/getAllowanceModule';
 import { POLYGONSCAN_URL } from 'data/constants';
 import type { ApprovedAllowanceAmount } from 'lens';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Card } from 'ui';
@@ -22,22 +22,17 @@ const Module: FC<ModuleProps> = ({ module }) => {
       forceRounded
     >
       <div className="mb-3 mr-1.5 overflow-hidden sm:mb-0">
-        <div className="flex items-center space-x-2">
-          <div className="text-brand">
-            <GetModuleIcon module={module?.module} size={4} />
-          </div>
-          <div className="whitespace-nowrap font-bold">
-            {getModule(module?.module).name}
-          </div>
+        <div className="whitespace-nowrap font-bold">
+          {getAllowanceModule(module?.module).name}
         </div>
-        <a
+        <Link
           href={`${POLYGONSCAN_URL}/address/${module?.contractAddress}`}
           className="lt-text-gray-500 truncate text-sm"
           target="_blank"
           rel="noreferrer noopener"
         >
           {module?.contractAddress}
-        </a>
+        </Link>
       </div>
       <AllowanceButton
         module={module}

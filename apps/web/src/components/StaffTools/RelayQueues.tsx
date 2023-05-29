@@ -1,11 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
 import { useRelayQueuesQuery } from 'lens';
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
@@ -38,13 +39,14 @@ export const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
       <div>
         <b>{getRelayerName(relayer)}</b>
         <div>
-          <a
+          <Link
             className="text-sm"
             href={`${POLYGONSCAN_URL}/address/${address}`}
             target="_blank"
+            rel="noreferrer noopener"
           >
             {address}
-          </a>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col items-center">
@@ -61,7 +63,7 @@ const RelayQueues: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
+    Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
   }, []);
 
   const { data, loading, error } = useRelayQueuesQuery({

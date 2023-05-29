@@ -7,9 +7,11 @@ import dayjs from 'dayjs';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
+import getStampFyiURL from 'lib/getStampFyiURL';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
+import { useMessageStore } from 'src/store/message';
 import { Card, Image } from 'ui';
 
 import MessageContent from './MessageContent';
@@ -21,12 +23,14 @@ const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
 const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
 interface MessageTileProps {
+  url?: string;
   message: DecodedMessage;
   profile?: Profile;
   currentProfile?: Profile | null;
 }
 
 const MessageTile: FC<MessageTileProps> = ({
+  url,
   message,
   profile,
   currentProfile
@@ -43,10 +47,7 @@ const MessageTile: FC<MessageTileProps> = ({
       <div className="flex max-w-[60%]">
         {address !== message.senderAddress && (
           <Image
-            onError={({ currentTarget }) => {
-              currentTarget.src = getAvatar(profile, false);
-            }}
-            src={getAvatar(profile)}
+            src={url ?? getAvatar(profile)}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />
@@ -139,6 +140,7 @@ const LoadingMore: FC = () => (
 );
 
 interface MessageListProps {
+  conversationKey?: string;
   messages: DecodedMessage[];
   fetchNextMessages: () => void;
   profile?: Profile;
@@ -148,6 +150,7 @@ interface MessageListProps {
 }
 
 const MessagesList: FC<MessageListProps> = ({
+  conversationKey,
   messages,
   fetchNextMessages,
   profile,
@@ -166,6 +169,11 @@ const MessagesList: FC<MessageListProps> = ({
     }
   });
 
+  const ensNames = useMessageStore((state) => state.ensNames);
+  const ensName = ensNames.get(conversationKey?.split('/')[0] ?? '');
+  const url =
+    (ensName && getStampFyiURL(conversationKey?.split('/')[0] ?? '')) ?? '';
+
   return (
     <div className="flex grow overflow-y-hidden">
       <div className="relative flex h-full w-full pl-4">
@@ -182,6 +190,7 @@ const MessagesList: FC<MessageListProps> = ({
                   ref={index === messages.length - 1 ? observe : null}
                 >
                   <MessageTile
+                    url={url}
                     currentProfile={currentProfile}
                     profile={profile}
                     message={msg}

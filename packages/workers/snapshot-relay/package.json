@@ -1,12 +1,14 @@
 {
   "name": "@workers/snapshot-relay",
   "version": "0.0.0",
+  "main": "generated.ts",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "wrangler dev --port 8085 --local",
+    "dev": "wrangler dev --port 8085",
     "start": "pnpm dev",
-    "worker:deploy": "wrangler publish",
+    "worker:deploy": "wrangler deploy",
+    "codegen": "graphql-codegen",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
@@ -16,16 +18,20 @@
   "dependencies": {
     "@apollo/client": "^3.7.14",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
-    "itty-router": "4.0.0-next.46",
+    "itty-router": "4.0.6",
     "lib": "workspace:*",
-    "snapshot": "workspace:*",
     "viem": "^0.3.19"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230511.0",
+    "@cloudflare/workers-types": "^4.20230518.0",
+    "@graphql-codegen/cli": "^4.0.0",
+    "@graphql-codegen/fragment-matcher": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "eslint-config-weblint": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.4",
-    "wrangler": "^2.20.0"
+    "wrangler": "^3.0.1"
   }
 }

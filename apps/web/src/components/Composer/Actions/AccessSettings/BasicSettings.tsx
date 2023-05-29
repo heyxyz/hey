@@ -25,9 +25,7 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
   );
   const hasConditions = useAccessSettingsStore((state) => state.hasConditions);
   const reset = useAccessSettingsStore((state) => state.reset);
-  const selectedCollectModule = useCollectModuleStore(
-    (state) => state.selectedCollectModule
-  );
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   const onSave = () => {
     if (!hasConditions()) {
@@ -56,7 +54,7 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
               setOn={() => {
                 if (
                   !collectToView &&
-                  selectedCollectModule === CollectModules.RevertCollectModule
+                  collectModule.type === CollectModules.RevertCollectModule
                 ) {
                   return toast.error(
                     t`Enable collect first to use collect based token gating`

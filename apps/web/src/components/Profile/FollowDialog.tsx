@@ -26,9 +26,6 @@ const FollowModal: FC<FollowModalProps> = ({
       <div className="flex justify-between text-lg font-bold">
         <span className="flex">
           <Image
-            onError={({ currentTarget }) => {
-              currentTarget.src = getAvatar(profile, false);
-            }}
             src={getAvatar(profile)}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
