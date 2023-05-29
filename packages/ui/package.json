@@ -21,7 +21,7 @@
     "lib": "workspace:*",
     "next": "^13.4.2",
     "react": "^18.2.0",
-    "react-hook-form": "^7.44.1",
+    "react-hook-form": "^7.44.2",
     "zod": "^3.21.4"
   },
   "devDependencies": {
