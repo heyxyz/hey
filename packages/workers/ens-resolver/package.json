@@ -13,7 +13,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "itty-router": "4.0.5",
+    "itty-router": "4.0.6",
     "viem": "^0.3.19"
   },
   "devDependencies": {
