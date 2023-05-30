@@ -130,7 +130,7 @@ const ViewProfile: NextPage = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
-          {currentProfile ? <NewPost /> : null}
+          {currentProfile?.id === profile?.id ? <NewPost /> : null}
           {(feedType === ProfileFeedType.Feed ||
             feedType === ProfileFeedType.Replies ||
             feedType === ProfileFeedType.Media ||
