@@ -2,6 +2,7 @@
 import { getTokenFromGCPServiceAccount } from '@sagi.io/workers-jwt';
 import { error, type IRequest } from 'itty-router';
 
+import getPrivateKey from '../helpers/getPrivateKey';
 import { keysValidator } from '../helpers/keysValidator';
 import type { Env } from '../types';
 
@@ -38,7 +39,7 @@ export default async (request: IRequest, env: Env) => {
       type: 'service_account',
       project_id: projectName,
       private_key_id: env.BQ_PRIVATE_KEY_ID,
-      private_key: env.BQ_PRIVATE_KEY,
+      private_key: getPrivateKey(env),
       client_email: `${datasetName}@${projectName}.iam.gserviceaccount.com`,
       client_id: '108061307956868790691',
       auth_uri: 'https://accounts.google.com/o/oauth2/auth',
