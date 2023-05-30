@@ -13,7 +13,7 @@
   "dependencies": {
     "clsx": "^1.2.1",
     "normalize-wheel": "^1.0.1",
-    "rc-slider": "^10.1.1",
+    "rc-slider": "^10.2.0",
     "react": "^18.2.0"
   },
   "devDependencies": {
