@@ -18,10 +18,12 @@ import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getSignature from 'lib/getSignature';
 import getTokenImage from 'lib/getTokenImage';
+import { useLogImpression } from 'madfi';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { PROFILE } from 'src/tracking';
@@ -41,6 +43,9 @@ interface FollowModuleProps {
   // For data analytics
   followPosition?: number;
   followSource?: string;
+
+  // User is promoted on MadFi
+  isPromoted?: boolean;
 }
 
 const FollowModule: FC<FollowModuleProps> = ({
@@ -49,7 +54,8 @@ const FollowModule: FC<FollowModuleProps> = ({
   setShowFollowModal,
   again,
   followPosition,
-  followSource
+  followSource,
+  isPromoted
 }) => {
   const { pathname } = useRouter();
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
@@ -57,6 +63,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
+  const [logImpression] = useLogImpression();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -160,6 +167,17 @@ const FollowModule: FC<FollowModuleProps> = ({
 
     try {
       setIsLoading(true);
+
+      if (isPromoted) {
+        await logImpression({
+          chainId: CHAIN_ID.toString(),
+          impressionType: 'FOLLOW_CLICK',
+          promotedProfileId: profile?.id,
+          profileId: currentProfile.id,
+          address: currentProfile.ownedBy
+        });
+      }
+
       return await createFollowTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },

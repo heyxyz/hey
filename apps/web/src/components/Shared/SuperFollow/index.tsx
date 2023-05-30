@@ -27,6 +27,9 @@ interface SuperFollowProps {
   // For data analytics
   followPosition?: number;
   followSource?: string;
+
+  // User is promoted on MadFi
+  isPromoted?: boolean;
 }
 
 const SuperFollow: FC<SuperFollowProps> = ({
@@ -35,7 +38,8 @@ const SuperFollow: FC<SuperFollowProps> = ({
   showText = false,
   again = false,
   followPosition,
-  followSource
+  followSource,
+  isPromoted = false
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -79,6 +83,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
           again={again}
           followPosition={followPosition}
           followSource={followSource}
+          isPromoted={isPromoted}
         />
       </Modal>
     </>

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { MADFI_API_URL } from './utils';
+import { MADFI_API_KEY, MADFI_API_URL } from './utils';
 
 const useFetchSuggestedFollowsForProfile = (
   profileId: string
@@ -18,7 +18,8 @@ const useFetchSuggestedFollowsForProfile = (
     const response = await axios({
       method: 'GET',
       url: `${MADFI_API_URL}/suggested_follows`,
-      params: { profileId }
+      params: { profileId },
+      headers: { 'x-api-key': MADFI_API_KEY }
     });
 
     const { allProfiles, interest, promotedProfile } =

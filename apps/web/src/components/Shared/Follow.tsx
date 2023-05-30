@@ -12,10 +12,12 @@ import {
 } from 'lens';
 import type { ApolloCache } from 'lens/apollo';
 import getSignature from 'lib/getSignature';
+import { useLogImpression } from 'madfi';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { useNonceStore } from 'src/store/nonce';
@@ -32,6 +34,9 @@ interface FollowProps {
   // For data analytics
   followPosition?: number;
   followSource?: string;
+
+  // To log impression
+  isPromoted?: boolean;
 }
 
 const Follow: FC<FollowProps> = ({
@@ -40,13 +45,15 @@ const Follow: FC<FollowProps> = ({
   setFollowing,
   outline = true,
   followSource,
-  followPosition
+  followPosition,
+  isPromoted = false
 }) => {
   const { pathname } = useRouter();
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const [logImpression] = useLogImpression();
   const [isLoading, setIsLoading] = useState(false);
 
   const updateCache = (cache: ApolloCache<any>) => {
@@ -139,6 +146,17 @@ const Follow: FC<FollowProps> = ({
 
     try {
       setIsLoading(true);
+
+      if (isPromoted) {
+        await logImpression({
+          chainId: CHAIN_ID.toString(),
+          impressionType: 'FOLLOW_CLICK',
+          promotedProfileId: profile?.id,
+          profileId: currentProfile.id,
+          address: currentProfile.ownedBy
+        });
+      }
+
       if (profile?.followModule) {
         return await createFollowTypedData({
           variables: {

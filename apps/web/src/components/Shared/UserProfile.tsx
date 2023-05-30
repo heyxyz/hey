@@ -172,6 +172,7 @@ const UserProfile: FC<UserProfileProps> = ({
               setFollowing={setFollowing}
               followPosition={followPosition}
               followSource={followSource}
+              isPromoted={isPromoted}
             />
           ) : (
             <Follow
@@ -179,6 +180,7 @@ const UserProfile: FC<UserProfileProps> = ({
               setFollowing={setFollowing}
               followPosition={followPosition}
               followSource={followSource}
+              isPromoted={isPromoted}
             />
           ))}
       </div>
