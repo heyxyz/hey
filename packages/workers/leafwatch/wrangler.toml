@@ -12,4 +12,6 @@ routes = [
 mode = "smart"
 
 [env.production.vars]
-DB_URL = ""
+BQ_PRIVATE_KEY_ID = ""
+BQ_PRIVATE_KEY_FIRST = ""
+BQ_PRIVATE_KEY_LAST = ""
