@@ -94,7 +94,6 @@ export default async (request: IRequest, env: Env) => {
     );
 
     const json: { kind: string } = await bqResponse.json();
-
     if (json.kind !== 'bigquery#tableDataInsertAllResponse') {
       return new Response(
         JSON.stringify({ success: false, error: 'Ingestion failed!' })
