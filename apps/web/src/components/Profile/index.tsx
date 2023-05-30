@@ -1,4 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
+import NewPost from '@components/Composer/Post/New';
 import NftFeed from '@components/Nft/NftFeed';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
@@ -129,6 +130,7 @@ const ViewProfile: NextPage = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
+          {currentProfile ? <NewPost /> : null}
           {(feedType === ProfileFeedType.Feed ||
             feedType === ProfileFeedType.Replies ||
             feedType === ProfileFeedType.Media ||
