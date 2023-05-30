@@ -1,0 +1,38 @@
+import type { Env } from '../types';
+
+const getPrivateKey = (env: Env): string => {
+  const privateKey = `
+  -----BEGIN PRIVATE KEY-----
+  ${env.BQ_PRIVATE_KEY_FIRST}
+  l4mQLGtyeFDxoNOf1KpTmYII91eMzHad9G6G4n4QmRt/eYyc+vuSCXtxjTBYMFgj
+  pd4SPkyqELokgClN+UTRxn5/lNidd8hLZS6awQRfEt6I0i1gaNdoUMtUigtxtTT2
+  5f0PzP5JpoutK1gq+ERiNSrEO/m2chYxB7+3QWuAK7SM2F8CSDxKDvo/a5gG0fU/
+  NPweSPHkRBvQI27kssVJKTTHD1Z4yM4fUzBD8JQLulz1G+PV85/yy3/UWbcZmDSQ
+  I6v6psNzc804MyNAQD1t38gHhy9ulCklYhPUAnUqZRd/tC9UP6OqZkQkr6+qPeB4
+  Vel1EBfDAgMBAAECgf9SAhUymK99VBYhQa3Wl4EIfsZlUeBb6tHrWNYheLWX8KUN
+  P2PbavcnAmkz1jK5Od2lTOkCpdOUi6XNeuQ337b1/xNwdiNiU2G9aKFeqyVogyS5
+  FORPdm2jQG2rT1B+AeF9PVR0Sd81wtqvxdDQxq1mtZ5mlWzHOIGirejeX/KatWz4
+  dhFp+7cwPC7AQ9FdSVygblPKKyscs7pnOJwkZE72Y7eAKKl/qzouPAUQSGoTjWMq
+  krh+UP2DwK+J1kGTgNWPwCPZYR9ir4ijqj8NXf+MWPJNPA/LwlmW+KtE6TwQiXe0
+  qvB+OZywKLKOcMuBh5SfrYSONn/5AOpK2T4RKwECgYEA2C3bLHbqbwaapk4+BrU2
+  wnqZTr7j3bqH34hE5omsYcG3Y7XvK+6boOU3aBRvh7lHZxLDz5LSvCOtwA2FJadi
+  VR+wWas1TtXHHwL1UfYWDNBNGDsC4s5gaIG6urtTNtE+Paskg/9d00YWvDV4TuQ3
+  H+DQ3K0/URc9gxeCNfnEeIECgYEAyiCMPBiwNmTbNdFxncFnYQPsZlwdqyUDpy/C
+  RLG/Ad5+0U5+2YcXtmUQmiBNpF/VxUsU0PGPTuRr740BURgsiSD6eCokd1LI7VSS
+  ff0LZ7lTd0e9BhrVHx+CLAQ7P23w6OQa6xK9Y6IuVaNxQl61FSjJJGEa67dqvpVZ
+  311NjkMCgYEApi+SVvtPu2w7RO/PNP7oCteOtX9/0ruLqmaqeQOLNldiMM/y/jXf
+  A/BSCLv1BUSExJMjXpZDVIilEIgUPF8R89h5jGVWhLVI7ukqSAjC6LTVH3R2An+e
+  k5hvQQ+yp+hxTZ0cZDDTIxC1d5gvVY6RZftA9PRmQWN5USaoXfAVfoECgYAtFy2x
+  imBlAgLU8rBB3Q9O2S03eH013L//3+uan3xY0mXAE57AsB5eFhWqDGLFtItfw+wU
+  4I5zrwlVG0Ob76SfwredbulLpTAloaQ8buLIdNNl3J8SaZH5q3HCl/8Pm1sO2TQY
+  FMojG97yQ8/UWoRTABI/B1qWEwjBE1hFN+9BOQKBgQCWALFaJJYjCX5v9WDayAsN
+  dOy4tvf6PqcaChcsQpkBXm/nZGh72ZhkNwj8LjXGSrzQrZUAYZJzGMjvmb/qkafb
+  ${env.BQ_PRIVATE_KEY_LAST}
+  a/QyJjsmRTGE29x2xQFjKw==
+  -----END PRIVATE KEY-----
+  `;
+
+  return privateKey;
+};
+
+export default getPrivateKey;
