@@ -1,5 +1,6 @@
+// @ts-ignore
+import { getTokenFromGCPServiceAccount } from '@sagi.io/workers-jwt';
 import { error, type IRequest } from 'itty-router';
-import { Client } from 'pg';
 
 import { keysValidator } from '../helpers/keysValidator';
 import type { Env } from '../types';
@@ -29,29 +30,75 @@ export default async (request: IRequest, env: Env) => {
   }
 
   try {
-    const client = new Client(env.DB_URL);
-    await client.connect();
+    const projectName = 'leafwatch';
+    const datasetName = 'leafwatch';
+    const tableName = 'events';
+
+    const serviceAccountJSON = {
+      type: 'service_account',
+      project_id: projectName,
+      private_key_id: env.BQ_PRIVATE_KEY_ID,
+      private_key: env.BQ_PRIVATE_KEY,
+      client_email: `${datasetName}@${projectName}.iam.gserviceaccount.com`,
+      client_id: '108061307956868790691',
+      auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+      token_uri: 'https://oauth2.googleapis.com/token',
+      auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+      client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${datasetName}%40${projectName}.iam.gserviceaccount.com`,
+      universe_domain: 'googleapis.com'
+    };
+    const aud = 'https://bigquery.googleapis.com/';
+    const token = await getTokenFromGCPServiceAccount({
+      serviceAccountJSON,
+      aud
+    });
 
     const ip = request.headers.get('cf-connecting-ip');
     const country = request.headers.get('cf-ipcountry');
-    const userAgent = request.headers.get('user-agent');
+    const user_agent = request.headers.get('user-agent');
+    const id = crypto.randomUUID();
 
-    const insertQuery = `
-      INSERT INTO events (name, user_id, fingerprint, ip, country, user_agent, referrer, properties)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-    `;
-    await client.query(insertQuery, [
-      name,
-      user_id,
-      fingerprint,
-      ip,
-      country,
-      userAgent,
-      referrer,
-      properties
-    ]);
+    const payload = {
+      kind: 'bigquery#tableDataInsertAllResponse',
+      rows: [
+        {
+          insertId: id,
+          json: {
+            name,
+            time: new Date(),
+            user_id,
+            fingerprint,
+            ip,
+            country,
+            user_agent,
+            referrer,
+            properties: JSON.stringify(properties)
+          }
+        }
+      ]
+    };
 
-    return new Response(JSON.stringify({ success: true }));
+    const bqResponse = await fetch(
+      `https://bigquery.googleapis.com/bigquery/v2/projects/${projectName}/datasets/${datasetName}/tables/${tableName}/insertAll`,
+      {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+          Authorization: 'Bearer ' + token
+        }
+      }
+    );
+
+    const json: { kind: string } = await bqResponse.json();
+
+    if (json.kind !== 'bigquery#tableDataInsertAllResponse') {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Ingestion failed!' })
+      );
+    }
+
+    return new Response(JSON.stringify({ success: true, id }));
   } catch (error) {
     console.error('Failed to ingest event', error);
     return new Response(
