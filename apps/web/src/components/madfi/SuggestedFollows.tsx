@@ -56,23 +56,52 @@ const SuggestedFollows: FC = () => {
 
   const recommendedProfilesNotFollowed = useMemo(() => {
     if (recommendedProfiles?.profiles?.items?.length) {
-      return recommendedProfiles.profiles.items.filter(
+      const res = recommendedProfiles.profiles.items.filter(
         ({ isFollowedByMe, id }) => !isFollowedByMe && id !== currentProfile?.id
       );
+
+      if (data?.promotedProfile) {
+        return res.sort((a, b) => {
+          if (a.id === data.promotedProfile) {
+            return -1;
+          } else if (b.id === data.promotedProfile) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+      }
+
+      return res;
     }
 
     return [];
   }, [recommendedProfiles]);
 
   const sampleRecommendedProfiles = useMemo(() => {
-    return recommendedProfilesNotFollowed?.length
+    const sample = recommendedProfilesNotFollowed?.length
       ? sampleFromArray(recommendedProfilesNotFollowed, 5)
       : [];
-  }, [recommendedProfilesNotFollowed]);
+
+    // include the promoted profile at the top
+    if (sample.length && data?.promotedProfile) {
+      const promoted = recommendedProfiles?.profiles?.items.find(
+        ({ id }) => id === data.promotedProfile
+      );
+
+      if (promoted) {
+        sample[0] = promoted;
+      }
+    }
+
+    return sample;
+  }, [recommendedProfilesNotFollowed, data]);
 
   const sanitizedInterest = useMemo(() => {
     if (!loadingSuggested && data?.interest) {
       return sanitizeSingleProfileInterest(data.interest);
+    } else if (!loadingSuggested) {
+      return 'Trending'; // default when user is not tagged
     }
   }, [loadingSuggested, data]);
 
@@ -128,6 +157,7 @@ const SuggestedFollows: FC = () => {
                   followPosition={index + 1}
                   followSource={FollowSource.WHO_TO_FOLLOW}
                   showFollow
+                  isPromoted={profile.id === data?.promotedProfile}
                 />
               </div>
             </div>

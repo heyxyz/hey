@@ -1,4 +1,4 @@
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { ArrowUpIcon, BadgeCheckIcon } from '@heroicons/react/solid';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import clsx from 'clsx';
 import type { Profile } from 'lens';
@@ -33,6 +33,9 @@ interface UserProfileProps {
   // For data analytics
   followPosition?: number;
   followSource?: string;
+
+  // User is promoted on MadFi
+  isPromoted?: boolean;
 }
 
 const UserProfile: FC<UserProfileProps> = ({
@@ -47,7 +50,8 @@ const UserProfile: FC<UserProfileProps> = ({
   showUserPreview = true,
   timestamp = '',
   followPosition,
-  followSource
+  followSource,
+  isPromoted = false
 }) => {
   const [following, setFollowing] = useState(isFollowing);
   const statusEmoji = getProfileAttribute(profile?.attributes, 'statusEmoji');
@@ -146,37 +150,47 @@ const UserProfile: FC<UserProfileProps> = ({
   };
 
   return (
-    <div
-      className="flex items-center justify-between"
-      data-testid={`user-profile-${profile.id}`}
-    >
-      {linkToProfile ? (
-        <Link href={`/u/${formatHandle(profile?.handle)}`}>
-          <UserInfo />
-        </Link>
-      ) : (
-        <UserInfo />
-      )}
-      {showFollow &&
-        (followStatusLoading ? (
-          <div className="shimmer h-8 w-10 rounded-lg" />
-        ) : following ? null : profile?.followModule?.__typename ===
-          'FeeFollowModuleSettings' ? (
-          <SuperFollow
-            profile={profile}
-            setFollowing={setFollowing}
-            followPosition={followPosition}
-            followSource={followSource}
-          />
+    <>
+      <div
+        className="flex items-center justify-between"
+        data-testid={`user-profile-${profile.id}`}
+      >
+        {linkToProfile ? (
+          <Link href={`/u/${formatHandle(profile?.handle)}`}>
+            <UserInfo />
+          </Link>
         ) : (
-          <Follow
-            profile={profile}
-            setFollowing={setFollowing}
-            followPosition={followPosition}
-            followSource={followSource}
-          />
-        ))}
-    </div>
+          <UserInfo />
+        )}
+        {showFollow &&
+          (followStatusLoading ? (
+            <div className="shimmer h-8 w-10 rounded-lg" />
+          ) : following ? null : profile?.followModule?.__typename ===
+            'FeeFollowModuleSettings' ? (
+            <SuperFollow
+              profile={profile}
+              setFollowing={setFollowing}
+              followPosition={followPosition}
+              followSource={followSource}
+            />
+          ) : (
+            <Follow
+              profile={profile}
+              setFollowing={setFollowing}
+              followPosition={followPosition}
+              followSource={followSource}
+            />
+          ))}
+      </div>
+      {isPromoted && (
+        <div className="mt-2 flex items-center">
+          <div className="flex w-[85px] items-center rounded-lg bg-gray-200 px-2 dark:bg-gray-700">
+            <ArrowUpIcon className="text-brand mr-1 h-5 w-5" />
+            <span className="text-xs">Promoted</span>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

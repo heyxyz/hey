@@ -6,7 +6,11 @@ import { MADFI_API_URL } from './utils';
 const useFetchSuggestedFollowsForProfile = (
   profileId: string
 ): {
-  data?: { interest?: string; suggestedFollows: string[] };
+  data?: {
+    interest?: string;
+    suggestedFollows: string[];
+    promotedProfile?: string;
+  };
   error?: unknown;
   loading?: unknown;
 } => {
@@ -17,13 +21,20 @@ const useFetchSuggestedFollowsForProfile = (
       params: { profileId }
     });
 
-    const { allProfiles, interest } = response.data?.suggestedFollows || {};
+    const { allProfiles, interest, promotedProfile } =
+      response.data?.suggestedFollows || {};
 
     if (!allProfiles?.length) {
       return { suggestedFollows: [] };
     }
 
-    return { suggestedFollows: allProfiles, interest };
+    // include any promoted profile in the full array
+    if (promotedProfile) {
+      allProfiles.unshift(promotedProfile);
+      allProfiles.pop();
+    }
+
+    return { suggestedFollows: allProfiles, interest, promotedProfile };
   };
 
   return useQuery(
@@ -31,7 +42,7 @@ const useFetchSuggestedFollowsForProfile = (
     () => fetchSuggestedProfiles().then((res) => res),
     {
       enabled: !!profileId,
-      staleTime: 3_600_000 // 1hr, considering api gateway caching
+      staleTime: 300 // 5min, considering api gateway caching
     }
   );
 };
