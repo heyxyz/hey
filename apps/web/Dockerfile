@@ -1,6 +1,6 @@
 # Stage 1: install dependencies
 FROM node:18 AS deps
-RUN npm install -g pnpm
+RUN npm install -g pnpm@8.5.1
 COPY packages ./packages
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 RUN pnpm install
