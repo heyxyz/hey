@@ -1,7 +1,7 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
@@ -29,7 +29,7 @@ import {
 import getProfileAttribute from 'lib/getProfileAttribute';
 import getSignature from 'lib/getSignature';
 import hasPrideLogo from 'lib/hasPrideLogo';
-import imageProxy from 'lib/imageProxy';
+import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
@@ -102,7 +102,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
     setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
-    Mixpanel.track(SETTINGS.PROFILE.UPDATE);
+    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const onError = (error: any) => {
@@ -274,7 +274,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
   const coverPictureUrl = profile?.coverPicture?.original?.url;
   const coverPictureIpfsUrl = coverPictureUrl
-    ? imageProxy(sanitizeDStorageUrl(coverPictureUrl), COVER)
+    ? imageKit(sanitizeDStorageUrl(coverPictureUrl), COVER)
     : '';
 
   return (

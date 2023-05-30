@@ -13,7 +13,7 @@ import {
 } from 'lens';
 import { useApolloClient } from 'lens/apollo';
 import type { FC } from 'react';
-import React, { Fragment, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import type { NftGalleryItem } from 'src/store/nft-gallery';

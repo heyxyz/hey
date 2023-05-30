@@ -59,7 +59,8 @@ async function handleRequest(request: Request, env: EnvType) {
       }),
       { headers }
     );
-  } catch {
+  } catch (error) {
+    console.error('Failed to generate STS token', error);
     return new Response(
       JSON.stringify({ success: false, message: 'Something went wrong!' }),
       { headers }

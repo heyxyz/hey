@@ -1,7 +1,7 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import sampleFromArray from '@lib/sampleFromArray';
 import sanitizeSingleProfileInterest from '@lib/sanitizeSingleProfileInterest';
 import { t, Trans } from '@lingui/macro';
@@ -168,7 +168,7 @@ const SuggestedFollows: FC = () => {
           type="button"
           onClick={() => {
             setShowSuggestedModal(true);
-            Mixpanel.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
+            Leafwatch.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
           }}
         >
           <DotsCircleHorizontalIcon className="h-4 w-4" />

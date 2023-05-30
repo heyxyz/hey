@@ -1,9 +1,9 @@
+import type { Proposal } from '@workers/snapshot-relay';
 import clsx from 'clsx';
 import { SNAPSHOT_URL } from 'data';
 import formatAddress from 'lib/formatAddress';
 import Link from 'next/link';
 import type { FC } from 'react';
-import type { Proposal } from 'snapshot';
 import { Image } from 'ui';
 
 interface HeaderProps {

@@ -2,14 +2,14 @@ import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { FeatureFlag } from 'data/feature-flags';
 import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';
 import type { FC } from 'react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
@@ -21,7 +21,7 @@ const NFTDetail: FC = () => {
   const { on: isNftDetailEnabled } = Growthbook.feature(FeatureFlag.NftDetail);
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'nft' });
+    Leafwatch.track(PAGEVIEW, { page: 'nft' });
   }, []);
 
   if (!isNftDetailEnabled || !currentProfile) {
@@ -53,9 +53,6 @@ const NFTDetail: FC = () => {
                 <Image
                   key={profile.handle}
                   className="h-5 w-5 rounded-full border dark:border-gray-700"
-                  onError={({ currentTarget }) => {
-                    currentTarget.src = getAvatar(profile, false);
-                  }}
                   src={getAvatar(profile)}
                   alt={formatHandle(profile?.handle)}
                 />

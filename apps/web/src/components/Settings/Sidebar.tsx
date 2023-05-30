@@ -1,7 +1,6 @@
 import Sidebar from '@components/Shared/Sidebar';
 import UserProfile from '@components/Shared/UserProfile';
 import {
-  AdjustmentsIcon,
   BookmarkIcon,
   ChipIcon,
   DatabaseIcon,
@@ -11,18 +10,13 @@ import {
   SparklesIcon,
   UserIcon
 } from '@heroicons/react/outline';
-import { Growthbook } from '@lib/growthbook';
 import { t, Trans } from '@lingui/macro';
-import { FeatureFlag } from 'data';
 import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 const SettingsSidebar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { on: isExportDataEnabled } = Growthbook.feature(
-    FeatureFlag.ExportData
-  );
 
   return (
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">
@@ -43,11 +37,6 @@ const SettingsSidebar: FC = () => {
             title: t`Account`,
             icon: <ChipIcon className="h-4 w-4" />,
             url: '/settings/account'
-          },
-          {
-            title: t`Preferences`,
-            icon: <AdjustmentsIcon className="h-4 w-4" />,
-            url: '/settings/preferences'
           },
           {
             title: t`Interests`,
@@ -72,8 +61,7 @@ const SettingsSidebar: FC = () => {
           {
             title: t`Export`,
             icon: <DatabaseIcon className="h-4 w-4" />,
-            url: '/settings/export',
-            enabled: isExportDataEnabled
+            url: '/settings/export'
           },
           {
             title: (

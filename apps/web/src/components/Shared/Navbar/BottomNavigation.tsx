@@ -12,7 +12,6 @@ import {
 } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
 
 const BottomNavigation = () => {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Publication } from 'lens';
@@ -29,7 +29,7 @@ const Permalink: FC<PermalinkProps> = ({ publication }) => {
           `${location.origin}/posts/${publication?.id}`
         );
         toast.success(t`Copied to clipboard!`);
-        Mixpanel.track(PUBLICATION.PERMALINK);
+        Leafwatch.track(PUBLICATION.PERMALINK);
       }}
     >
       <div className="flex items-center space-x-2">

@@ -40,6 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 
 # cloudflare workers
+.wrangler
 .dev.vars
 
 # playwright
@@ -51,6 +52,3 @@ yarn-error.log*
 test-results/
 playwright-report/
 playwright/.cache/
-
-# storybook
-storybook-static

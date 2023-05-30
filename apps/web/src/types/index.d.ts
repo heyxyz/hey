@@ -1,6 +1,8 @@
 import type { MediaSet } from 'lens';
 
-export interface NewLensterAttachment extends MediaSet {
+export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
+
+export interface NewLensterAttachment extends MediaSetWithoutOnChain {
   id: string;
   file?: File;
   previewItem: string;
@@ -21,7 +23,7 @@ export interface OG {
   url: string;
   favicon: string;
   thumbnail: string;
-  isSquare: boolean;
+  isLarge: boolean;
   html: string;
 }
 

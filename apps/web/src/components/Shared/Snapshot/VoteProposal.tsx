@@ -1,17 +1,17 @@
 import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { snapshotClient } from '@lib/snapshotClient';
 import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
 import { useQuery } from '@tanstack/react-query';
+import type { Proposal } from '@workers/snapshot-relay';
 import axios from 'axios';
 import { APP_NAME, Errors } from 'data';
 import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import type { Proposal } from 'snapshot';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Spinner } from 'ui';
@@ -72,7 +72,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
   };
 
   const { data, isLoading, error } = useQuery(
-    ['statsData', currentProfile?.ownedBy, id],
+    ['scoreData', currentProfile?.ownedBy, id],
     () => getVotingPower().then((res) => res),
     { enabled: state === 'active' }
   );
@@ -89,11 +89,12 @@ const VoteProposal: FC<VoteProposalProps> = ({
       });
       refetch?.();
       setVoteConfig({ show: false, position: 0 });
-      Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+      Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
         proposal_source: 'snapshot'
       });
-    } catch {
+    } catch (error) {
+      console.error('Failed to vote on snapshot proposal', error);
       toast.error(Errors.SomethingWentWrong);
     } finally {
       setVoteSubmitting(false);

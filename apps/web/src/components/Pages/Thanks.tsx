@@ -1,9 +1,10 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/outline';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
+import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useEffect } from 'react';
@@ -33,14 +34,14 @@ const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
       />
       <div className="mx-auto pt-2 sm:w-2/3">{children}</div>
       <div>
-        <a
+        <Link
           className="font-bold"
           href={url}
           target="_blank"
           rel="noreferrer noopener"
         >
           ➜ Go to {name}
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -48,7 +49,7 @@ const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
 
 const Thanks: FC = () => {
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'thanks' });
+    Leafwatch.track(PAGEVIEW, { page: 'thanks' });
   }, []);
 
   return (

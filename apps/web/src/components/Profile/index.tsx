@@ -1,7 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
+import NewPost from '@components/Composer/Post/New';
 import NftFeed from '@components/Nft/NftFeed';
 import { Growthbook } from '@lib/growthbook';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { FeatureFlag } from 'data';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
 import type { Profile } from 'lens';
@@ -41,7 +42,7 @@ const ViewProfile: NextPage = () => {
   );
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'profile' });
+    Leafwatch.track(PAGEVIEW, { page: 'profile' });
   }, []);
 
   const handle = formatHandle(username as string, true);
@@ -129,6 +130,7 @@ const ViewProfile: NextPage = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
+          {currentProfile?.id === profile?.id ? <NewPost /> : null}
           {(feedType === ProfileFeedType.Feed ||
             feedType === ProfileFeedType.Replies ||
             feedType === ProfileFeedType.Media ||

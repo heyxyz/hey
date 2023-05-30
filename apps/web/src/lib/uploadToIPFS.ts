@@ -2,8 +2,13 @@ import { S3 } from '@aws-sdk/client-s3';
 import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import { KillSwitch } from 'data';
-import { EVER_API, S3_BUCKET, STS_TOKEN_URL } from 'data/constants';
-import type { MediaSet } from 'lens';
+import {
+  EVER_API,
+  IS_PRODUCTION,
+  S3_BUCKET,
+  STS_GENERATOR_WORKER_URL
+} from 'data/constants';
+import type { MediaSetWithoutOnChain } from 'src/types';
 import { v4 as uuid } from 'uuid';
 
 import { Growthbook } from './growthbook';
@@ -16,7 +21,7 @@ const FALLBACK_TYPE = 'image/jpeg';
  * @returns S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
-  const token = await axios.get(STS_TOKEN_URL);
+  const token = await axios.get(STS_GENERATOR_WORKER_URL);
   const client = new S3({
     endpoint: EVER_API,
     credentials: {
@@ -28,6 +33,22 @@ const getS3Client = async (): Promise<S3> => {
     maxAttempts: 3
   });
 
+  client.middlewareStack.addRelativeTo(
+    (next: Function) => async (args: any) => {
+      const { response } = await next(args);
+      if (response.body === null) {
+        response.body = new Uint8Array();
+      }
+      return { response };
+    },
+    {
+      name: 'nullFetchResponseBodyMiddleware',
+      toMiddleware: 'deserializerMiddleware',
+      relation: 'after',
+      override: true
+    }
+  );
+
   return client;
 };
 
@@ -37,14 +58,14 @@ const getS3Client = async (): Promise<S3> => {
  * @param data Files to upload to IPFS.
  * @returns Array of MediaSet objects.
  */
-const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
+const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
   try {
     const { on: useThirdwebIpfs } = Growthbook.feature(
       KillSwitch.UseThirdwebIpfs
     );
     const files = Array.from(data);
 
-    if (useThirdwebIpfs) {
+    if (useThirdwebIpfs || !IS_PRODUCTION) {
       const storage = new ThirdwebStorage();
       const uris = await storage.uploadBatch(files, {
         uploadWithoutDirectory: true
@@ -94,7 +115,9 @@ const uploadToIPFS = async (data: any): Promise<MediaSet[]> => {
  * @param file File to upload to IPFS.
  * @returns MediaSet object or null if the upload fails.
  */
-export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
+export const uploadFileToIPFS = async (
+  file: File
+): Promise<MediaSetWithoutOnChain> => {
   try {
     const ipfsResponse = await uploadToIPFS([file]);
     const metadata = ipfsResponse[0];
@@ -105,7 +128,8 @@ export const uploadFileToIPFS = async (file: File): Promise<MediaSet> => {
         mimeType: file.type || FALLBACK_TYPE
       }
     };
-  } catch {
+  } catch (error) {
+    console.error('Failed to upload file to IPFS', error);
     return { original: { url: '', mimeType: file.type || FALLBACK_TYPE } };
   }
 };

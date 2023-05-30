@@ -13,7 +13,7 @@ import {
 import { useApolloClient } from 'lens/apollo';
 import trimify from 'lib/trimify';
 import type { Dispatch, FC } from 'react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';

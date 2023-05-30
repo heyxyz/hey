@@ -4,7 +4,7 @@ import {
   SunIcon as SunIconSolid
 } from '@heroicons/react/solid';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';
@@ -24,7 +24,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
 import { PUBLICATION } from 'src/tracking';
 import { Tooltip } from 'ui';
 
@@ -37,7 +36,6 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const hideLikesCount = usePreferencesStore((state) => state.hideLikesCount);
   const [liked, setLiked] = useState(
     (isMirror ? publication?.mirrorOf?.reaction : publication?.reaction) ===
       'UPVOTE'
@@ -56,7 +54,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     cache: ApolloCache<any>,
     type: ReactionTypes.Upvote | ReactionTypes.Downvote
   ) => {
-    if (showCount || hideLikesCount) {
+    if (showCount) {
       cache.modify({
         id: publicationKeyFields(
           isMirror ? publication?.mirrorOf : publication
@@ -97,7 +95,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.LIKE, getEventProperties('like'));
+      Leafwatch.track(PUBLICATION.LIKE, getEventProperties('like'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -109,7 +107,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Mixpanel.track(PUBLICATION.UNLIKE, getEventProperties('unlike'));
+      Leafwatch.track(PUBLICATION.UNLIKE, getEventProperties('unlike'));
     },
     onError: (error) => {
       setLiked(!liked);
@@ -194,7 +192,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
           </Tooltip>
         </div>
       </motion.button>
-      {count > 0 && !showCount && !hideLikesCount && (
+      {count > 0 && !showCount && (
         <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
       )}
     </div>

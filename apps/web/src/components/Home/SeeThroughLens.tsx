@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FeedItem, FeedRequest, Profile, ProfileSearchResult } from 'lens';
@@ -99,9 +99,6 @@ const SeeThroughLens: FC = () => {
           onClick={() => fetchRecommendedProfiles()}
         >
           <Image
-            onError={({ currentTarget }) => {
-              currentTarget.src = getAvatar(profile, false);
-            }}
             src={getAvatar(profile)}
             loading="lazy"
             width={20}
@@ -175,7 +172,7 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
-                      Mixpanel.track(MISCELLANEOUS.SELECT_USER_FEED, {
+                      Leafwatch.track(MISCELLANEOUS.SELECT_USER_FEED, {
                         see_through_profile: profile?.id
                       });
                     }}

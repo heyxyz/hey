@@ -18,10 +18,11 @@ import type {
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
@@ -169,10 +170,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
 
   // Collect module store
-  const selectedCollectModule = useCollectModuleStore(
-    (state) => state.selectedCollectModule
-  );
-  const payload = useCollectModuleStore((state) => state.payload);
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
   const resetCollectSettings = useCollectModuleStore((state) => state.reset);
 
   // Reference module store
@@ -235,10 +233,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       setShowNewPostModal(false);
     }
 
-    // Track in mixpanel
+    // Track in leafwatch
     const eventProperties = {
       publication_type: restricted ? 'token_gated' : 'public',
-      publication_collect_module: selectedCollectModule,
+      publication_collect_module: collectModule.type,
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
         selectedReferenceModule ===
@@ -251,7 +249,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ? attachments.map((attachment) => attachment.original.mimeType)
           : null
     };
-    Mixpanel.track(
+    Leafwatch.track(
       isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST,
       eventProperties
     );
@@ -682,7 +680,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       let textNftImageUrl = null;
       if (
         !attachments.length &&
-        selectedCollectModule !== CollectModules.RevertCollectModule
+        collectModule.type !== CollectModules.RevertCollectModule
       ) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
@@ -719,6 +717,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const attachmentsInput: PublicationMetadataMediaInput[] = attachments.map(
         (attachment) => ({
           item: attachment.original.url,
+          cover: getAttachmentImage(),
           type: attachment.original.mimeType,
           altTag: attachment.original.altTag
         })
@@ -757,7 +756,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       };
 
       const isRevertCollectModule =
-        selectedCollectModule === CollectModules.RevertCollectModule;
+        collectModule.type === CollectModules.RevertCollectModule;
       const useDataAvailability =
         !restricted &&
         (isComment
@@ -781,7 +780,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               ? publication?.mirrorOf?.id
               : publication?.id
         }),
-        collectModule: payload,
+        collectModule: collectModuleParams(collectModule, currentProfile),
         referenceModule:
           selectedReferenceModule ===
           ReferenceModules.FollowerOnlyReferenceModule

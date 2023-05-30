@@ -1,0 +1,26 @@
+{
+  "name": "@workers/leafwatch",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "scripts": {
+    "dev": "wrangler dev --port 8088",
+    "worker:deploy": "wrangler deploy",
+    "typecheck": "tsc --pretty",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+  },
+  "dependencies": {
+    "@sagi.io/workers-jwt": "^0.0.23",
+    "itty-router": "4.0.6"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230518.0",
+    "eslint-config-weblint": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.4",
+    "wrangler": "^3.0.1"
+  }
+}

@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import type { NextPage } from 'next';
@@ -10,6 +10,9 @@ import { PAGEVIEW } from 'src/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 import SettingsSidebar from '../Sidebar';
+import Fingerprint from './Fingerprint';
+import Followers from './Followers';
+import Following from './Following';
 import Notifications from './Notifications';
 import Profile from './Profile';
 import Publications from './Publications';
@@ -18,7 +21,7 @@ const ExportSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'export' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'export' });
   }, []);
 
   if (!currentProfile) {
@@ -35,6 +38,9 @@ const ExportSettings: NextPage = () => {
         <Profile />
         <Publications />
         <Notifications />
+        <Following />
+        <Followers />
+        <Fingerprint />
       </GridItemEight>
     </GridLayout>
   );

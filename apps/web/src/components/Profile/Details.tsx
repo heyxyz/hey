@@ -17,7 +17,11 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { t, Trans } from '@lingui/macro';
-import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
+import {
+  EXPANDED_AVATAR,
+  RARIBLE_URL,
+  STATIC_IMAGES_URL
+} from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import type { Profile } from 'lens';
 import formatAddress from 'lib/formatAddress';
@@ -32,6 +36,7 @@ import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessageStore } from 'src/store/message';
@@ -72,8 +77,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     );
     persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
-      ? 'Following'
-      : 'Requested';
+      ? MessageTabs.Lens
+      : MessageTabs.Requests;
     setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
   };
@@ -99,10 +104,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     <div className="mb-4 space-y-5 px-5 sm:px-0">
       <div className="relative -mt-24 h-32 w-32 sm:-mt-32 sm:h-52 sm:w-52">
         <Image
-          onError={({ currentTarget }) => {
-            currentTarget.src = getAvatar(profile, false);
-          }}
-          onClick={() => setExpandedImage(getAvatar(profile, false))}
+          onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
           src={getAvatar(profile)}
           className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
@@ -240,7 +242,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             dataTestId="profile-meta-id"
           >
             <Tooltip content={`#${profile?.id}`}>
-              <a
+              <Link
                 href={`${RARIBLE_URL}/token/polygon/${
                   getEnvConfig().lensHubProxyAddress
                 }:${parseInt(profile?.id)}`}
@@ -248,7 +250,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 rel="noreferrer"
               >
                 {parseInt(profile?.id)}
-              </a>
+              </Link>
             </Tooltip>
           </MetaDetails>
           {getProfileAttribute(profile?.attributes, 'location') && (
@@ -293,7 +295,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               }
               dataTestId="profile-meta-website"
             >
-              <a
+              <Link
                 href={`https://${getProfileAttribute(
                   profile?.attributes,
                   'website'
@@ -306,7 +308,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 {getProfileAttribute(profile?.attributes, 'website')
                   ?.replace('https://', '')
                   .replace('http://', '')}
-              </a>
+              </Link>
             </MetaDetails>
           )}
           {getProfileAttribute(profile?.attributes, 'twitter') && (
@@ -332,7 +334,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               }
               dataTestId="profile-meta-twitter"
             >
-              <a
+              <Link
                 href={`https://twitter.com/${getProfileAttribute(
                   profile?.attributes,
                   'twitter'
@@ -344,7 +346,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   'https://twitter.com/',
                   ''
                 )}
-              </a>
+              </Link>
             </MetaDetails>
           )}
         </div>

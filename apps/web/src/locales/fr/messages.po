@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-17 00:09\n"
+"PO-Revision-Date: 2023-05-28 00:09\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -598,6 +598,10 @@ msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
+msgid "Error sending attachment"
+msgstr ""
+
+#: src/components/Messages/Composer.tsx
 msgid "Error sending message"
 msgstr "Erreur lors de l'envoi du message"
 
@@ -627,15 +631,6 @@ msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
-msgid "Requested"
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
@@ -781,7 +776,7 @@ msgid "Turn on high-signal notification filter"
 msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
-msgid "Collected for {0} {1}"
+msgid "Collected for {0} {currency}"
 msgstr ""
 
 #. js-lingui-explicit-id
@@ -1337,6 +1332,10 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr ""
+
+#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
 
@@ -1491,7 +1490,7 @@ msgid "{0} available"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0}% referral fee"
+msgid "{referralFee}% referral fee"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -1523,8 +1522,7 @@ msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Free Collect"
+msgid "Collect"
 msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
@@ -1942,6 +1940,58 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export all your followers to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Exported <0>{0}</0> followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Download followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export following"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export all your following to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Exported <0>{0}</0> following"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Download following"
+msgstr ""
+
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export notifications"
 msgstr ""
@@ -1956,18 +2006,6 @@ msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Download notifications"
-msgstr ""
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Exporting..."
-msgstr ""
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Export now"
 msgstr ""
 
 #: src/components/Settings/Export/Profile.tsx
@@ -2004,18 +2042,6 @@ msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-msgstr ""
-
-#: src/components/Settings/Preferences/LikesPreferences.tsx
-msgid "Hide number of likes"
-msgstr ""
-
-#: src/components/Settings/Preferences/LikesPreferences.tsx
-msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
-msgstr ""
-
-#: src/components/Settings/Preferences/index.tsx
-msgid "Preferences • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
@@ -2126,10 +2152,6 @@ msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
-msgstr ""
-
-#: src/components/Settings/Sidebar.tsx
-msgid "Preferences"
 msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
@@ -2830,46 +2852,34 @@ msgid "total follows"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Image size should be less than 10MB"
+msgid "Image size should be less than 50MB"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 100MB"
+msgid "Video size should be less than 200MB"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Multirecipient Paid Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Paid Collect"
+#: src/lib/getAllowanceModule.ts
+msgid "Basic Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Rare Paid Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "24 Hour Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
-msgid "Rare 24 Hour Collect"
-msgstr ""
-
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "No Collect"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Fee Follow"
 msgstr ""
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Follower Only Reference"
 msgstr ""
 

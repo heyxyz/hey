@@ -3,7 +3,8 @@ import { POLYGONSCAN_URL } from 'data/constants';
 import type { Wallet } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import getStampFyiURL from 'lib/getStampFyiURL';
-import imageProxy from 'lib/imageProxy';
+import imageKit from 'lib/imageKit';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { Image } from 'ui';
 
@@ -16,7 +17,7 @@ interface WalletProfileProps {
 const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
   return (
     <div className="flex items-center justify-between">
-      <a
+      <Link
         href={`${POLYGONSCAN_URL}/address/${wallet?.address}`}
         className="flex items-center space-x-3"
         target="_blank"
@@ -26,7 +27,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
           onError={({ currentTarget }) => {
             currentTarget.src = getStampFyiURL(wallet?.address);
           }}
-          src={imageProxy(getStampFyiURL(wallet?.address))}
+          src={imageKit(getStampFyiURL(wallet?.address))}
           className="h-10 w-10 rounded-full border bg-gray-200"
           height={40}
           width={40}
@@ -39,7 +40,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
           </div>
           <Slug className="text-sm" slug={formatAddress(wallet?.address)} />
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

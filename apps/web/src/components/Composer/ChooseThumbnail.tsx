@@ -2,13 +2,13 @@ import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotographIcon } from '@heroicons/react/outline';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
-import type { MediaSet } from 'lens';
 import { generateVideoThumbnails } from 'lib/generateVideoThumbnails';
 import getFileFromDataURL from 'lib/getFileFromDataURL';
 import type { ChangeEvent, FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
+import type { MediaSetWithoutOnChain } from 'src/types';
 import { Spinner } from 'ui';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
@@ -33,7 +33,7 @@ const ChooseThumbnail: FC = () => {
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
     setVideoThumbnail({ uploading: true });
-    const result: MediaSet = await uploadFileToIPFS(fileToUpload);
+    const result: MediaSetWithoutOnChain = await uploadFileToIPFS(fileToUpload);
     if (!result.original.url) {
       toast.error(t`Failed to upload thumbnail`);
     }
@@ -93,7 +93,9 @@ const ChooseThumbnail: FC = () => {
       }
       setThumbnails(thumbnailList);
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX);
-    } catch {}
+    } catch (error) {
+      console.error('Failed to generate thumbnails', error);
+    }
   };
 
   useEffect(() => {
@@ -129,7 +131,8 @@ const ChooseThumbnail: FC = () => {
           ...thumbnails
         ]);
         setSelectedThumbnailIndex(0);
-      } catch {
+      } catch (error) {
+        console.error('Failed to upload thumbnail', error);
         toast.error(t`Failed to upload thumbnail`);
       } finally {
         setImageUploading(false);

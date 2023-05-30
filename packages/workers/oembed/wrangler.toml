@@ -1,0 +1,12 @@
+name = "oembed"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+
+routes = [
+	{ pattern = "oembed.lenster.xyz", custom_domain = true }
+]
+
+[env.production.vars]
+WORKER_ENV = "production"
+IMAGEKIT_URL = ""

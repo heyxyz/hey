@@ -4,17 +4,18 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
-const FollowersConfig: FC = () => {
-  const followerOnly = useCollectModuleStore((state) => state.followerOnly);
-  const setFollowerOnly = useCollectModuleStore(
-    (state) => state.setFollowerOnly
-  );
+interface ReferralConfigProps {
+  setCollectType: (data: any) => void;
+}
+
+const FollowersConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
+  const collectModule = useCollectModuleStore((state) => state.collectModule);
 
   return (
     <div className="pt-5">
       <ToggleWithHelper
-        on={followerOnly}
-        setOn={() => setFollowerOnly(!followerOnly)}
+        on={collectModule.followerOnlyCollect ?? false}
+        setOn={() => setCollectType({ followerOnlyCollect: true })}
         heading={t`Who can collect`}
         description={t`Only followers can collect`}
         icon={<UserGroupIcon className="h-4 w-4" />}

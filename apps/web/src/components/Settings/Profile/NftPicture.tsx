@@ -1,6 +1,6 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
@@ -64,7 +64,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
 
     setIsLoading(false);
     toast.success(t`Avatar updated successfully!`);
-    Mixpanel.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
+    Leafwatch.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
 
   const onError = (error: any) => {

@@ -1,15 +1,16 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
+import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { PAGEVIEW } from 'src/tracking';
 
 const Privacy: FC = () => {
   useEffect(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'privacy' });
+    Leafwatch.track(PAGEVIEW, { page: 'privacy' });
   }, []);
 
   const updatedAt = 'December 11, 2022';
@@ -216,13 +217,13 @@ const Privacy: FC = () => {
                       do so, we do not monitor or take action with respect to
                       “Do Not Track” signals. For more information on “Do Not
                       Track,” visit{' '}
-                      <a
+                      <Link
                         href="https://allaboutdnt.com"
                         target="_blank"
                         rel="noreferrer"
                       >
                         https://allaboutdnt.com
-                      </a>
+                      </Link>
                       .
                     </Trans>
                   </li>

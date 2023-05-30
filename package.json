@@ -1,6 +1,6 @@
 {
   "name": "lenster",
-  "version": "1.0.10-beta",
+  "version": "1.1.0-beta",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
@@ -18,7 +18,7 @@
     "prettier:fix": "turbo run prettier:fix --parallel",
     "prepare": "husky install",
     "test:dev": "turbo run test:dev",
-    "test:e2e": "start-server-and-test start '4783|4784|8083|8085' test:dev",
+    "test:e2e": "start-server-and-test start '4783|4784|8083|8085|8087' test:dev",
     "test:nightly": "turbo run test:nightly"
   },
   "devDependencies": {
@@ -26,7 +26,7 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "start-server-and-test": "^2.0.0",
-    "turbo": "^1.9.6"
+    "turbo": "^1.9.9"
   },
   "engines": {
     "node": ">=18.0.0"

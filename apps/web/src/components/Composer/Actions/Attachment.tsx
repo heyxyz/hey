@@ -72,7 +72,8 @@ const Attachment: FC = () => {
       } else {
         return toast.error(t`File format not allowed.`);
       }
-    } catch {
+    } catch (error) {
+      console.error('Failed to upload attachments', error);
       toast.error(t`Something went wrong while uploading!`);
     }
   };

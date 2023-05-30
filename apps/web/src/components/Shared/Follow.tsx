@@ -1,6 +1,6 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { LENSHUB_PROXY } from 'data/constants';
@@ -73,7 +73,7 @@ const Follow: FC<FollowProps> = ({
     setIsLoading(false);
     setFollowing(true);
     toast.success(t`Followed successfully!`);
-    Mixpanel.track(PROFILE.FOLLOW, {
+    Leafwatch.track(PROFILE.FOLLOW, {
       follow_path: pathname,
       ...(followSource && { follow_source: followSource }),
       ...(followPosition && { follow_position: followPosition }),

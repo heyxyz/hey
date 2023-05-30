@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-05-17 00:09\n"
+"PO-Revision-Date: 2023-05-28 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -598,6 +598,10 @@ msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
+msgid "Error sending attachment"
+msgstr ""
+
+#: src/components/Messages/Composer.tsx
 msgid "Error sending message"
 msgstr "发送消息时出错"
 
@@ -628,15 +632,6 @@ msgstr "这是对话的开始"
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
 msgstr "加载中..."
-
-#: src/components/Messages/PreviewList.tsx
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr "正在关注"
-
-#: src/components/Messages/PreviewList.tsx
-msgid "Requested"
-msgstr "已请求"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "These conversations are from Lens profiles that you don't currently follow."
@@ -781,8 +776,8 @@ msgid "Turn on high-signal notification filter"
 msgstr ""
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
-msgid "Collected for {0} {1}"
-msgstr "已为 {0} {1} 收藏"
+msgid "Collected for {0} {currency}"
+msgstr ""
 
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/CollectNotification/index.tsx
@@ -1337,6 +1332,10 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr "正在关注"
+
+#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "关注者"
 
@@ -1491,8 +1490,8 @@ msgid "{0} available"
 msgstr "{0} 可收藏"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-msgid "{0}% referral fee"
-msgstr "{0}% 推荐费"
+msgid "{referralFee}% referral fee"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Revenue:"
@@ -1523,9 +1522,8 @@ msgid "{count, plural, zero {Collect} one {Collect} other {Collects}}"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/index.tsx
-#: src/lib/getModule.ts
-msgid "Free Collect"
-msgstr "免费收藏"
+msgid "Collect"
+msgstr ""
 
 #: src/components/Publication/Actions/Comment.tsx
 msgid "{0} Comments"
@@ -1942,6 +1940,58 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Export all your followers to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Exported <0>{0}</0> followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+msgid "Download followers"
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Exporting..."
+msgstr ""
+
+#: src/components/Settings/Export/Followers.tsx
+#: src/components/Settings/Export/Following.tsx
+#: src/components/Settings/Export/Notifications.tsx
+#: src/components/Settings/Export/Profile.tsx
+#: src/components/Settings/Export/Publications.tsx
+msgid "Export now"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export following"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Export all your following to a JSON file."
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Exported <0>{0}</0> following"
+msgstr ""
+
+#: src/components/Settings/Export/Following.tsx
+msgid "Download following"
+msgstr ""
+
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Export notifications"
 msgstr ""
@@ -1956,18 +2006,6 @@ msgstr ""
 
 #: src/components/Settings/Export/Notifications.tsx
 msgid "Download notifications"
-msgstr ""
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Exporting..."
-msgstr ""
-
-#: src/components/Settings/Export/Notifications.tsx
-#: src/components/Settings/Export/Profile.tsx
-#: src/components/Settings/Export/Publications.tsx
-msgid "Export now"
 msgstr ""
 
 #: src/components/Settings/Export/Profile.tsx
@@ -2005,18 +2043,6 @@ msgstr "兴趣设置 • {APP_NAME}"
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr "您选择的兴趣用于个性化您在 Lenster 的体验。如果不符合您的兴趣，您可以调整自己的兴趣设置。"
-
-#: src/components/Settings/Preferences/LikesPreferences.tsx
-msgid "Hide number of likes"
-msgstr "隐藏点赞数"
-
-#: src/components/Settings/Preferences/LikesPreferences.tsx
-msgid "You won't see the total number of likes for publications others share to Feed. Your likes to a post will still be visible to you and everyone else."
-msgstr "您不会看到其他人在他们内容流上的总点赞数。您和其他所有人仍然可以看到您对帖子的点赞。"
-
-#: src/components/Settings/Preferences/index.tsx
-msgid "Preferences • {APP_NAME}"
-msgstr "偏好设置 • {APP_NAME}"
 
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Contract address should be within 42 characters"
@@ -2127,10 +2153,6 @@ msgstr "个人资料"
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
 msgstr "账户"
-
-#: src/components/Settings/Sidebar.tsx
-msgid "Preferences"
-msgstr "偏好设置"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Interests"
@@ -2830,46 +2852,34 @@ msgid "total follows"
 msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Image size should be less than 10MB"
-msgstr "图片尺寸应小于 10MB"
+msgid "Image size should be less than 50MB"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 100MB"
-msgstr "视频文件应小于 100MB"
+msgid "Video size should be less than 200MB"
+msgstr ""
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "音频文件应小于 100MB"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Multirecipient Paid Collect"
 msgstr "多收款人的付费收藏"
 
-#: src/lib/getModule.ts
-msgid "Paid Collect"
-msgstr "付费收藏"
+#: src/lib/getAllowanceModule.ts
+msgid "Basic Collect"
+msgstr ""
 
-#: src/lib/getModule.ts
-msgid "Rare Paid Collect"
-msgstr "稀有付费收藏"
-
-#: src/lib/getModule.ts
-msgid "24 Hour Collect"
-msgstr "24 小时限时收藏"
-
-#: src/lib/getModule.ts
-msgid "Rare 24 Hour Collect"
-msgstr "24 小时限时限量收藏"
-
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "No Collect"
 msgstr "没有收藏"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Fee Follow"
 msgstr "付费关注"
 
-#: src/lib/getModule.ts
+#: src/lib/getAllowanceModule.ts
 msgid "Follower Only Reference"
 msgstr "只有账户的关注者可以评论和转发"
 

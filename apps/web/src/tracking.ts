@@ -99,7 +99,9 @@ export const SETTINGS = {
   EXPORT: {
     PROFILE: 'Export profile',
     PUBLICATIONS: 'Export publications',
-    NOTIFICATIONS: 'Export notifications'
+    NOTIFICATIONS: 'Export notifications',
+    FOLLOWING: 'Export following',
+    FOLLOWERS: 'Export followers'
   },
   DELETE: 'Delete profile'
 };

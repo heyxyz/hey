@@ -1,13 +1,10 @@
 import Loader from '@components/Shared/Loader';
-import GetModuleIcon from '@components/utils/GetModuleIcon';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
-import { getModule } from '@lib/getModule';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ElectedMirror, Publication } from 'lens';
-import { CollectModules } from 'lens';
 import humanize from 'lib/humanize';
 import nFormatter from 'lib/nFormatter';
 import dynamic from 'next/dynamic';
@@ -33,8 +30,6 @@ const Collect: FC<CollectProps> = ({
 }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const isFreeCollect =
-    publication?.collectModule.__typename === 'FreeCollectModuleSettings';
   const isMirror = publication.__typename === 'Mirror';
   const hasCollected = isMirror
     ? publication?.mirrorOf?.hasCollectedByMe
@@ -66,7 +61,7 @@ const Collect: FC<CollectProps> = ({
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowCollectModal(true);
-            Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
           aria-label="Collect"
         >
@@ -93,23 +88,8 @@ const Collect: FC<CollectProps> = ({
         )}
       </div>
       <Modal
-        title={
-          isFreeCollect
-            ? t`Free Collect`
-            : getModule(publication?.collectModule?.type).name
-        }
-        icon={
-          <div className="text-brand">
-            <GetModuleIcon
-              module={
-                isFreeCollect
-                  ? CollectModules.FreeCollectModule
-                  : publication?.collectModule?.type
-              }
-              size={5}
-            />
-          </div>
-        }
+        title={t`Collect`}
+        icon={<CollectionIcon className="text-brand h-5 w-5" />}
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >

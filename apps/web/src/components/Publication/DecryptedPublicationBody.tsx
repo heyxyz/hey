@@ -1,6 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
-import IFramely from '@components/Shared/IFramely';
 import Markup from '@components/Shared/Markup';
+import Oembed from '@components/Shared/Oembed';
 import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import useNft from '@components/utils/hooks/useNft';
 import {
@@ -20,7 +20,7 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -222,7 +222,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                 href={`/posts/${collectCondition?.publicationId}`}
                 className="font-bold lowercase underline"
                 onClick={() =>
-                  Mixpanel.track(
+                  Leafwatch.track(
                     PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT
                   )
                 }
@@ -265,19 +265,19 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
           {unauthorizedBalance && (
             <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
               You need{' '}
-              <a
+              <Link
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
                 className="font-bold underline"
                 onClick={() =>
-                  Mixpanel.track(
+                  Leafwatch.track(
                     PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN
                   )
                 }
                 target="_blank"
-                rel="noreferrer"
+                rel="noreferrer noopener"
               >
                 {tokenCondition.amount} {tokenData?.symbol}
-              </a>{' '}
+              </Link>{' '}
               to unlock
             </DecryptMessage>
           )}
@@ -290,19 +290,19 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                 content={nftData?.contractMetadata?.name}
                 placement="top"
               >
-                <a
+                <Link
                   href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
                   onClick={() =>
-                    Mixpanel.track(
+                    Leafwatch.track(
                       PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT
                     )
                   }
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                 >
                   {nftData?.contractMetadata?.symbol}
-                </a>
+                </Link>
               </Tooltip>{' '}
               nft to unlock
             </DecryptMessage>
@@ -334,7 +334,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
         onClick={async (event) => {
           stopEventPropagation(event);
           await getDecryptedData();
-          Mixpanel.track(PUBLICATION.TOKEN_GATED.DECRYPT);
+          Leafwatch.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
       >
         <div className="flex items-center space-x-1 font-bold text-white">
@@ -372,7 +372,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
         <Attachments attachments={publication?.media} />
       ) : publication?.content ? (
         getURLs(publication?.content)?.length > 0 && (
-          <IFramely url={getURLs(publication?.content)[0]} />
+          <Oembed url={getURLs(publication?.content)[0]} />
         )
       ) : null}
     </div>
