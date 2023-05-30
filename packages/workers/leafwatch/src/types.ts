@@ -1,3 +1,4 @@
 export interface Env {
-  DB_URL: string;
+  BQ_PRIVATE_KEY_ID: string;
+  BQ_PRIVATE_KEY: string;
 }
