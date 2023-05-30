@@ -62,7 +62,7 @@
     "lens": "workspace:*",
     "lexical": "^0.11.1",
     "lib": "workspace:*",
-    "next": "^13.4.2",
+    "next": "^13.4.4",
     "next-themes": "^0.2.1",
     "plyr-react": "^5.2.0",
     "rc-slider": "^10.2.0",
