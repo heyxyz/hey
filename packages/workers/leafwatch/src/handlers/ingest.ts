@@ -69,7 +69,6 @@ export default async (request: IRequest, env: Env) => {
           insertId: id,
           json: {
             name,
-            time: new Date(),
             user_id,
             fingerprint,
             ip,
