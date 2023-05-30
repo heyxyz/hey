@@ -30,7 +30,7 @@ const useLogImpression = (): [
         method: 'POST',
         data: {
           ...data,
-          appId: 'lenster',
+          appId: 'lenster'
         },
         headers: { 'x-api-key': MADFI_API_KEY }
       });
