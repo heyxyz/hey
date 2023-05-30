@@ -31,33 +31,36 @@ export default async (request: IRequest, env: Env) => {
   }
 
   try {
+    // BigQuery details
     const projectName = 'leafwatch';
     const datasetName = 'leafwatch';
     const tableName = 'events';
 
-    const serviceAccountJSON = {
-      type: 'service_account',
-      project_id: projectName,
-      private_key_id: env.BQ_PRIVATE_KEY_ID,
-      private_key: getPrivateKey(env),
-      client_email: `${datasetName}@${projectName}.iam.gserviceaccount.com`,
-      client_id: '108061307956868790691',
-      auth_uri: 'https://accounts.google.com/o/oauth2/auth',
-      token_uri: 'https://oauth2.googleapis.com/token',
-      auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-      client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${datasetName}%40${projectName}.iam.gserviceaccount.com`,
-      universe_domain: 'googleapis.com'
-    };
-    const aud = 'https://bigquery.googleapis.com/';
-    const token = await getTokenFromGCPServiceAccount({
-      serviceAccountJSON,
-      aud
-    });
-
+    // Event details from Cloudflare request
     const ip = request.headers.get('cf-connecting-ip');
     const country = request.headers.get('cf-ipcountry');
     const user_agent = request.headers.get('user-agent');
+
+    // Insert ID
     const id = crypto.randomUUID();
+
+    const token = await getTokenFromGCPServiceAccount({
+      serviceAccountJSON: {
+        type: 'service_account',
+        project_id: projectName,
+        private_key_id: env.BQ_PRIVATE_KEY_ID,
+        private_key: getPrivateKey(env),
+        client_email: `${datasetName}@${projectName}.iam.gserviceaccount.com`,
+        client_id: '108061307956868790691',
+        auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+        token_uri: 'https://oauth2.googleapis.com/token',
+        auth_provider_x509_cert_url:
+          'https://www.googleapis.com/oauth2/v1/certs',
+        client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${datasetName}%40${projectName}.iam.gserviceaccount.com`,
+        universe_domain: 'googleapis.com'
+      },
+      aud: 'https://bigquery.googleapis.com/'
+    });
 
     const payload = {
       kind: 'bigquery#tableDataInsertAllResponse',
