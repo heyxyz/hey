@@ -8,8 +8,8 @@ async function main() {
     'MockProfileCreationProxy'
   );
   const mockProfileCreationProxy = await mockProfileCreationProxy__factory.deploy(
-    '0x97F1d4aFE1A3D501731ca7993fE6E518F4FbcE76',
-    '0x117F113aEFb9AeD23d901C1fa02fDdaA1d20cCaB'
+    '0x28af365578586eD5Fd500A1Dc0a3E20Fc7b2Cffa', // LensHub
+    '0x117F113aEFb9AeD23d901C1fa02fDdaA1d20cCaB' // Linea ENS Resolver
   );
   await mockProfileCreationProxy.deployed();
   await mockProfileCreationProxy.deployTransaction.wait();
