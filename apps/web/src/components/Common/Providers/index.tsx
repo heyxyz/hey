@@ -9,7 +9,7 @@ import { IS_MAINNET, WALLETCONNECT_PROJECT_ID } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
 import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { InjectedConnector } from 'wagmi/connectors/injected';
