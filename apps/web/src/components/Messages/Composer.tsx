@@ -1,4 +1,3 @@
-import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
@@ -18,7 +17,7 @@ import {
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
 import { Button, Input, Spinner } from 'ui';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useUpdateEffect, useWindowSize } from 'usehooks-ts';
 import type {
   Attachment as TAttachment,
   RemoteAttachment
