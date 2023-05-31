@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import { HomeIcon } from '@heroicons/react/outline';
+import circluarStd from '@lib/lensterFont';
 import { Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
@@ -9,6 +10,11 @@ import { Button } from 'ui';
 const Custom500: FC = () => {
   return (
     <div className="page-center flex-col">
+      <style jsx global>{`
+        body {
+          font-family: ${circluarStd.style.fontFamily};
+        }
+      `}</style>
       <MetaTags title={`500 • ${APP_NAME}`} />
       <div className="py-10 text-center">
         <h1 className="mb-4 text-3xl font-bold">
