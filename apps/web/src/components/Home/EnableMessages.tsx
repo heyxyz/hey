@@ -5,9 +5,10 @@ import clsx from 'clsx';
 import { XMTP_ENV } from 'data/constants';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { Button, Card } from 'ui';
+import { useUpdateEffect } from 'usehooks-ts';
 
 const EnableMessages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -19,7 +20,7 @@ const EnableMessages: FC = () => {
     push('/messages');
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     const fetchCanMessage = async () => {
       const isMessagesEnabled = await Client.canMessage(
         currentProfile?.ownedBy,

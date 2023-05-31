@@ -68,7 +68,7 @@ import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAccessSettingsStore } from 'src/store/access-settings';
@@ -81,6 +81,7 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
@@ -260,16 +261,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     errorToast(error);
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setPublicationContentError('');
   }, [audioPublication]);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     editor.update(() => {
       $convertFromMarkdownString(publicationContent);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   const generateOptimisticPublication = ({
     txHash,

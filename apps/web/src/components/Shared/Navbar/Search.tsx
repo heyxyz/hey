@@ -1,4 +1,3 @@
-import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -13,6 +12,7 @@ import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { Card, Input, Spinner } from 'ui';
+import { useOnClickOutside } from 'usehooks-ts';
 
 import UserProfile from '../UserProfile';
 

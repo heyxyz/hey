@@ -4,10 +4,10 @@ import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 import { Card, Image, Modal } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import NewPublication from '../NewPublication';
 
@@ -28,7 +28,7 @@ const NewPost: FC = () => {
     setShowNewPostModal(true);
   };
 
-  useEffect(() => {
+  useEffectOnce(() => {
     if (isReady && query.text) {
       const { text, url, via, hashtags } = query;
       let processedHashtags;
@@ -47,8 +47,7 @@ const NewPost: FC = () => {
       setShowNewPostModal(true);
       setPublicationContent(content);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   return (
     <Card className="space-y-3 p-5">

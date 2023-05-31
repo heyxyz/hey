@@ -5,7 +5,7 @@ import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import { useProfileSettingsQuery } from 'lens';
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -18,6 +18,7 @@ import {
   PageLoading,
   TabButton
 } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import NftPicture from './NftPicture';
@@ -28,9 +29,9 @@ const ProfileSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
-  }, []);
+  });
 
   const { data, loading, error } = useProfileSettingsQuery({
     variables: { request: { profileId: currentProfile?.id } },
