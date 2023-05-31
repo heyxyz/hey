@@ -17,7 +17,6 @@ const useEthersWalletClient = (): {
     },
     signMessage: async (message: string): Promise<string> => {
       const signature = await data?.signMessage({ message });
-      console.log(`Signature IS: ${signature}`);
       return signature ?? '';
     }
   };
