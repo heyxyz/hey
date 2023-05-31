@@ -9656,13 +9656,6 @@ export type ApprovedModuleAllowanceAmountQuery = {
     allowance: string;
     contractAddress: any;
   }>;
-  enabledModuleCurrencies: Array<{
-    __typename?: 'Erc20';
-    name: string;
-    symbol: string;
-    decimals: number;
-    address: any;
-  }>;
 };
 
 export type CanDecryptStatusQueryVariables = Exact<{
@@ -13127,45 +13120,6 @@ export type CommentFeedQuery = {
     >;
     pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
-};
-
-export type EnabledCurrencyModulesQueryVariables = Exact<{
-  [key: string]: never;
-}>;
-
-export type EnabledCurrencyModulesQuery = {
-  __typename?: 'Query';
-  enabledModuleCurrencies: Array<{
-    __typename?: 'Erc20';
-    name: string;
-    symbol: string;
-    decimals: number;
-    address: any;
-  }>;
-};
-
-export type EnabledCurrencyModulesWithProfileQueryVariables = Exact<{
-  request: SingleProfileQueryRequest;
-}>;
-
-export type EnabledCurrencyModulesWithProfileQuery = {
-  __typename?: 'Query';
-  enabledModuleCurrencies: Array<{
-    __typename?: 'Erc20';
-    name: string;
-    symbol: string;
-    decimals: number;
-    address: any;
-  }>;
-  profile?: {
-    __typename?: 'Profile';
-    followModule?:
-      | { __typename: 'FeeFollowModuleSettings' }
-      | { __typename: 'ProfileFollowModuleSettings' }
-      | { __typename: 'RevertFollowModuleSettings' }
-      | { __typename: 'UnknownFollowModuleSettings' }
-      | null;
-  } | null;
 };
 
 export type EnabledModulesQueryVariables = Exact<{ [key: string]: never }>;
@@ -21515,67 +21469,6 @@ export type LikesQuery = {
   };
 };
 
-export type MirrorsQueryVariables = Exact<{
-  request: ProfileQueryRequest;
-}>;
-
-export type MirrorsQuery = {
-  __typename?: 'Query';
-  profiles: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{
-      __typename?: 'Profile';
-      isFollowedByMe: boolean;
-      id: any;
-      name?: string | null;
-      handle: any;
-      bio?: string | null;
-      ownedBy: any;
-      stats: {
-        __typename?: 'ProfileStats';
-        totalFollowers: number;
-        totalFollowing: number;
-        totalPosts: number;
-        totalComments: number;
-        totalMirrors: number;
-      };
-      attributes?: Array<{
-        __typename?: 'Attribute';
-        traitType?: string | null;
-        key: string;
-        value: string;
-      }> | null;
-      picture?:
-        | {
-            __typename?: 'MediaSet';
-            original: { __typename?: 'Media'; url: any };
-          }
-        | {
-            __typename?: 'NftImage';
-            uri: any;
-            tokenId: string;
-            contractAddress: any;
-            chainId: number;
-          }
-        | null;
-      coverPicture?:
-        | {
-            __typename?: 'MediaSet';
-            original: { __typename?: 'Media'; url: any };
-          }
-        | { __typename?: 'NftImage' }
-        | null;
-      followModule?:
-        | { __typename: 'FeeFollowModuleSettings' }
-        | { __typename: 'ProfileFollowModuleSettings' }
-        | { __typename: 'RevertFollowModuleSettings' }
-        | { __typename: 'UnknownFollowModuleSettings' }
-        | null;
-    }>;
-    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
-  };
-};
-
 export type MutualFollowersQueryVariables = Exact<{
   request: MutualFollowersProfilesQueryRequest;
 }>;
@@ -22546,15 +22439,6 @@ export type ProfileQuery = {
       | { __typename: 'UnknownFollowModuleSettings' }
       | null;
   } | null;
-};
-
-export type ProfileAddressQueryVariables = Exact<{
-  request: SingleProfileQueryRequest;
-}>;
-
-export type ProfileAddressQuery = {
-  __typename?: 'Query';
-  profile?: { __typename?: 'Profile'; id: any; ownedBy: any } | null;
 };
 
 export type ProfileFeedQueryVariables = Exact<{
@@ -30814,66 +30698,6 @@ export type RelayQueuesQuery = {
     address: any;
     queue: number;
   }>;
-};
-
-export type RelevantPeopleQueryVariables = Exact<{
-  request: ProfileQueryRequest;
-}>;
-
-export type RelevantPeopleQuery = {
-  __typename?: 'Query';
-  profiles: {
-    __typename?: 'PaginatedProfileResult';
-    items: Array<{
-      __typename?: 'Profile';
-      isFollowedByMe: boolean;
-      id: any;
-      name?: string | null;
-      handle: any;
-      bio?: string | null;
-      ownedBy: any;
-      stats: {
-        __typename?: 'ProfileStats';
-        totalFollowers: number;
-        totalFollowing: number;
-        totalPosts: number;
-        totalComments: number;
-        totalMirrors: number;
-      };
-      attributes?: Array<{
-        __typename?: 'Attribute';
-        traitType?: string | null;
-        key: string;
-        value: string;
-      }> | null;
-      picture?:
-        | {
-            __typename?: 'MediaSet';
-            original: { __typename?: 'Media'; url: any };
-          }
-        | {
-            __typename?: 'NftImage';
-            uri: any;
-            tokenId: string;
-            contractAddress: any;
-            chainId: number;
-          }
-        | null;
-      coverPicture?:
-        | {
-            __typename?: 'MediaSet';
-            original: { __typename?: 'Media'; url: any };
-          }
-        | { __typename?: 'NftImage' }
-        | null;
-      followModule?:
-        | { __typename: 'FeeFollowModuleSettings' }
-        | { __typename: 'ProfileFollowModuleSettings' }
-        | { __typename: 'RevertFollowModuleSettings' }
-        | { __typename: 'UnknownFollowModuleSettings' }
-        | null;
-    }>;
-  };
 };
 
 export type SearchProfilesQueryVariables = Exact<{
@@ -43953,12 +43777,6 @@ export const ApprovedModuleAllowanceAmountDocument = gql`
       allowance
       contractAddress
     }
-    enabledModuleCurrencies {
-      name
-      symbol
-      decimals
-      address
-    }
   }
 `;
 
@@ -44358,134 +44176,6 @@ export type CommentFeedLazyQueryHookResult = ReturnType<
 export type CommentFeedQueryResult = Apollo.QueryResult<
   CommentFeedQuery,
   CommentFeedQueryVariables
->;
-export const EnabledCurrencyModulesDocument = gql`
-  query EnabledCurrencyModules {
-    enabledModuleCurrencies {
-      name
-      symbol
-      decimals
-      address
-    }
-  }
-`;
-
-/**
- * __useEnabledCurrencyModulesQuery__
- *
- * To run a query within a React component, call `useEnabledCurrencyModulesQuery` and pass it any options that fit your needs.
- * When your component renders, `useEnabledCurrencyModulesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEnabledCurrencyModulesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useEnabledCurrencyModulesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    EnabledCurrencyModulesQuery,
-    EnabledCurrencyModulesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    EnabledCurrencyModulesQuery,
-    EnabledCurrencyModulesQueryVariables
-  >(EnabledCurrencyModulesDocument, options);
-}
-export function useEnabledCurrencyModulesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    EnabledCurrencyModulesQuery,
-    EnabledCurrencyModulesQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    EnabledCurrencyModulesQuery,
-    EnabledCurrencyModulesQueryVariables
-  >(EnabledCurrencyModulesDocument, options);
-}
-export type EnabledCurrencyModulesQueryHookResult = ReturnType<
-  typeof useEnabledCurrencyModulesQuery
->;
-export type EnabledCurrencyModulesLazyQueryHookResult = ReturnType<
-  typeof useEnabledCurrencyModulesLazyQuery
->;
-export type EnabledCurrencyModulesQueryResult = Apollo.QueryResult<
-  EnabledCurrencyModulesQuery,
-  EnabledCurrencyModulesQueryVariables
->;
-export const EnabledCurrencyModulesWithProfileDocument = gql`
-  query EnabledCurrencyModulesWithProfile(
-    $request: SingleProfileQueryRequest!
-  ) {
-    enabledModuleCurrencies {
-      name
-      symbol
-      decimals
-      address
-    }
-    profile(request: $request) {
-      followModule {
-        __typename
-      }
-    }
-  }
-`;
-
-/**
- * __useEnabledCurrencyModulesWithProfileQuery__
- *
- * To run a query within a React component, call `useEnabledCurrencyModulesWithProfileQuery` and pass it any options that fit your needs.
- * When your component renders, `useEnabledCurrencyModulesWithProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEnabledCurrencyModulesWithProfileQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useEnabledCurrencyModulesWithProfileQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    EnabledCurrencyModulesWithProfileQuery,
-    EnabledCurrencyModulesWithProfileQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    EnabledCurrencyModulesWithProfileQuery,
-    EnabledCurrencyModulesWithProfileQueryVariables
-  >(EnabledCurrencyModulesWithProfileDocument, options);
-}
-export function useEnabledCurrencyModulesWithProfileLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    EnabledCurrencyModulesWithProfileQuery,
-    EnabledCurrencyModulesWithProfileQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    EnabledCurrencyModulesWithProfileQuery,
-    EnabledCurrencyModulesWithProfileQueryVariables
-  >(EnabledCurrencyModulesWithProfileDocument, options);
-}
-export type EnabledCurrencyModulesWithProfileQueryHookResult = ReturnType<
-  typeof useEnabledCurrencyModulesWithProfileQuery
->;
-export type EnabledCurrencyModulesWithProfileLazyQueryHookResult = ReturnType<
-  typeof useEnabledCurrencyModulesWithProfileLazyQuery
->;
-export type EnabledCurrencyModulesWithProfileQueryResult = Apollo.QueryResult<
-  EnabledCurrencyModulesWithProfileQuery,
-  EnabledCurrencyModulesWithProfileQueryVariables
 >;
 export const EnabledModulesDocument = gql`
   query EnabledModules {
@@ -45091,61 +44781,6 @@ export type LikesQueryResult = Apollo.QueryResult<
   LikesQuery,
   LikesQueryVariables
 >;
-export const MirrorsDocument = gql`
-  query Mirrors($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        ...ProfileFields
-        isFollowedByMe
-      }
-      pageInfo {
-        next
-      }
-    }
-  }
-  ${ProfileFieldsFragmentDoc}
-`;
-
-/**
- * __useMirrorsQuery__
- *
- * To run a query within a React component, call `useMirrorsQuery` and pass it any options that fit your needs.
- * When your component renders, `useMirrorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMirrorsQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useMirrorsQuery(
-  baseOptions: Apollo.QueryHookOptions<MirrorsQuery, MirrorsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<MirrorsQuery, MirrorsQueryVariables>(
-    MirrorsDocument,
-    options
-  );
-}
-export function useMirrorsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<MirrorsQuery, MirrorsQueryVariables>
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<MirrorsQuery, MirrorsQueryVariables>(
-    MirrorsDocument,
-    options
-  );
-}
-export type MirrorsQueryHookResult = ReturnType<typeof useMirrorsQuery>;
-export type MirrorsLazyQueryHookResult = ReturnType<typeof useMirrorsLazyQuery>;
-export type MirrorsQueryResult = Apollo.QueryResult<
-  MirrorsQuery,
-  MirrorsQueryVariables
->;
 export const MutualFollowersDocument = gql`
   query MutualFollowers($request: MutualFollowersProfilesQueryRequest!) {
     mutualFollowersProfiles(request: $request) {
@@ -45739,65 +45374,6 @@ export type ProfileQueryResult = Apollo.QueryResult<
   ProfileQuery,
   ProfileQueryVariables
 >;
-export const ProfileAddressDocument = gql`
-  query ProfileAddress($request: SingleProfileQueryRequest!) {
-    profile(request: $request) {
-      id
-      ownedBy
-    }
-  }
-`;
-
-/**
- * __useProfileAddressQuery__
- *
- * To run a query within a React component, call `useProfileAddressQuery` and pass it any options that fit your needs.
- * When your component renders, `useProfileAddressQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProfileAddressQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useProfileAddressQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ProfileAddressQuery,
-    ProfileAddressQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ProfileAddressQuery, ProfileAddressQueryVariables>(
-    ProfileAddressDocument,
-    options
-  );
-}
-export function useProfileAddressLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ProfileAddressQuery,
-    ProfileAddressQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<ProfileAddressQuery, ProfileAddressQueryVariables>(
-    ProfileAddressDocument,
-    options
-  );
-}
-export type ProfileAddressQueryHookResult = ReturnType<
-  typeof useProfileAddressQuery
->;
-export type ProfileAddressLazyQueryHookResult = ReturnType<
-  typeof useProfileAddressLazyQuery
->;
-export type ProfileAddressQueryResult = Apollo.QueryResult<
-  ProfileAddressQuery,
-  ProfileAddressQueryVariables
->;
 export const ProfileFeedDocument = gql`
   query ProfileFeed(
     $request: PublicationsQueryRequest!
@@ -46323,68 +45899,6 @@ export type RelayQueuesLazyQueryHookResult = ReturnType<
 export type RelayQueuesQueryResult = Apollo.QueryResult<
   RelayQueuesQuery,
   RelayQueuesQueryVariables
->;
-export const RelevantPeopleDocument = gql`
-  query RelevantPeople($request: ProfileQueryRequest!) {
-    profiles(request: $request) {
-      items {
-        ...ProfileFields
-        isFollowedByMe
-      }
-    }
-  }
-  ${ProfileFieldsFragmentDoc}
-`;
-
-/**
- * __useRelevantPeopleQuery__
- *
- * To run a query within a React component, call `useRelevantPeopleQuery` and pass it any options that fit your needs.
- * When your component renders, `useRelevantPeopleQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useRelevantPeopleQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useRelevantPeopleQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    RelevantPeopleQuery,
-    RelevantPeopleQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<RelevantPeopleQuery, RelevantPeopleQueryVariables>(
-    RelevantPeopleDocument,
-    options
-  );
-}
-export function useRelevantPeopleLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    RelevantPeopleQuery,
-    RelevantPeopleQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<RelevantPeopleQuery, RelevantPeopleQueryVariables>(
-    RelevantPeopleDocument,
-    options
-  );
-}
-export type RelevantPeopleQueryHookResult = ReturnType<
-  typeof useRelevantPeopleQuery
->;
-export type RelevantPeopleLazyQueryHookResult = ReturnType<
-  typeof useRelevantPeopleLazyQuery
->;
-export type RelevantPeopleQueryResult = Apollo.QueryResult<
-  RelevantPeopleQuery,
-  RelevantPeopleQueryVariables
 >;
 export const SearchProfilesDocument = gql`
   query SearchProfiles($request: SearchQueryRequest!) {

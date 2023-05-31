@@ -2,7 +2,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
 import type { Profile, ProfileQueryRequest } from 'lens';
-import { useMirrorsQuery } from 'lens';
+import { useProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -24,7 +24,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
     limit: 10
   };
 
-  const { data, loading, error, fetchMore } = useMirrorsQuery({
+  const { data, loading, error, fetchMore } = useProfilesQuery({
     variables: { request },
     skip: !publicationId
   });

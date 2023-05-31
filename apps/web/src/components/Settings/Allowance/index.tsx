@@ -8,7 +8,8 @@ import {
   CollectModules,
   FollowModules,
   ReferenceModules,
-  useApprovedModuleAllowanceAmountQuery
+  useApprovedModuleAllowanceAmountQuery,
+  useEnabledModulesQuery
 } from 'lens';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
@@ -37,19 +38,24 @@ const getAllowancePayload = (currency: string) => {
 const AllowanceSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
+
+  const {
+    data: enabledModules,
+    loading: enabledModulesLoading,
+    error: enabledModulesError
+  } = useEnabledModulesQuery();
+
   const { data, loading, error, refetch } =
     useApprovedModuleAllowanceAmountQuery({
-      variables: {
-        request: getAllowancePayload(DEFAULT_COLLECT_TOKEN)
-      },
-      skip: !currentProfile?.id
+      variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) },
+      skip: !currentProfile?.id || enabledModulesLoading
     });
 
   useEffect(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
   }, []);
 
-  if (error) {
+  if (error || enabledModulesError) {
     return <Custom500 />;
   }
 
@@ -90,18 +96,20 @@ const AllowanceSettings: NextPage = () => {
                 }).finally(() => setCurrencyLoading(false));
               }}
             >
-              {loading ? (
+              {enabledModulesLoading ? (
                 <option>Loading...</option>
               ) : (
-                data?.enabledModuleCurrencies.map((currency: Erc20) => (
-                  <option key={currency.address} value={currency.address}>
-                    {currency.name}
-                  </option>
-                ))
+                enabledModules?.enabledModuleCurrencies.map(
+                  (currency: Erc20) => (
+                    <option key={currency.address} value={currency.address}>
+                      {currency.name}
+                    </option>
+                  )
+                )
               )}
             </select>
           </div>
-          {loading || currencyLoading ? (
+          {loading || enabledModulesLoading || currencyLoading ? (
             <div className="py-5">
               <Loader />
             </div>

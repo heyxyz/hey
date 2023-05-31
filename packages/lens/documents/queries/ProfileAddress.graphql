@@ -1,6 +1,0 @@
-query ProfileAddress($request: SingleProfileQueryRequest!) {
-  profile(request: $request) {
-    id
-    ownedBy
-  }
-}
