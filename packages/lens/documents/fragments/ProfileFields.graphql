@@ -8,13 +8,34 @@ fragment ProfileFields on Profile {
   stats {
     totalFollowers
     totalFollowing
+    totalPosts
+    totalComments
+    totalMirrors
   }
   attributes {
+    traitType
     key
     value
   }
   picture {
-    ...ProfilePictureFields
+    ... on MediaSet {
+      original {
+        url
+      }
+    }
+    ... on NftImage {
+      uri
+      tokenId
+      contractAddress
+      chainId
+    }
+  }
+  coverPicture {
+    ... on MediaSet {
+      original {
+        url
+      }
+    }
   }
   followModule {
     __typename
