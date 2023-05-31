@@ -9,20 +9,20 @@ import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout, Image } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
   const { on: isNftDetailEnabled } = Growthbook.feature(FeatureFlag.NftDetail);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'nft' });
-  }, []);
+  });
 
   if (!isNftDetailEnabled || !currentProfile) {
     return <Custom404 />;

@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useEffectOnce } from 'usehooks-ts';
 
 import { Badge } from '.';
 
@@ -8,7 +9,7 @@ const Performance: FC = () => {
   const [ttfb, setTtfb] = useState(0);
 
   // Calculate TTFB
-  useEffect(() => {
+  useEffectOnce(() => {
     new PerformanceObserver((entryList) => {
       const [pageNav] = entryList.getEntriesByType('navigation');
       setTtfb(pageNav.toJSON().responseStart.toFixed(0));
@@ -16,7 +17,7 @@ const Performance: FC = () => {
       type: 'navigation',
       buffered: true
     });
-  }, []);
+  });
 
   return (
     <Badge>

@@ -10,7 +10,7 @@ import {
 } from 'lens';
 import isGardener from 'lib/isGardener';
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
@@ -22,6 +22,7 @@ import {
   GridItemFour,
   GridLayout
 } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
@@ -48,9 +49,9 @@ const Mod: NextPage = () => {
     CustomFiltersTypes.Gardeners
   ]);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'mod' });
-  }, []);
+  });
 
   if (!isGardener(currentProfile?.id)) {
     return <Custom404 />;

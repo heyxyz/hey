@@ -13,10 +13,11 @@ import type { PublicationMainFocus } from 'lens';
 import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { EXPLORE, PAGEVIEW } from 'src/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
@@ -29,9 +30,9 @@ const Explore: NextPage = () => {
     FeatureFlag.TrendingWidget
   );
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'explore' });
-  }, []);
+  });
 
   const tabs = [
     { name: t`For you`, type: PublicationSortCriteria.CuratedProfiles },
