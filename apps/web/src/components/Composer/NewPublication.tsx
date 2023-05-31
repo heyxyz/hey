@@ -81,6 +81,7 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
+import { useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
@@ -260,7 +261,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     errorToast(error);
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setPublicationContentError('');
   }, [audioPublication]);
 

@@ -8,10 +8,10 @@ import { useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
-import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
@@ -86,9 +86,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     }
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     validateAuthentication();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chain, disconnect, profileId]);
 
   if (loading || !mounted) {

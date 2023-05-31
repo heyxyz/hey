@@ -42,12 +42,13 @@ import getTokenImage from 'lib/getTokenImage';
 import humanize from 'lib/humanize';
 import Link from 'next/link';
 import type { Dispatch, FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
+import { useUpdateEffect } from 'usehooks-ts';
 import {
   useAccount,
   useBalance,
@@ -195,7 +196,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     { enabled: Boolean(amount) }
   );
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setRevenue(
       parseFloat(
         (revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0

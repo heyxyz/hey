@@ -17,6 +17,7 @@ import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from 'ui';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import Cover from './Cover';
 import Details from './Details';
@@ -58,7 +59,6 @@ const ViewProfile: NextPage = () => {
     Boolean(currentProfile) && Boolean(profile?.isFollowedByMe);
 
   const followType = profile?.followModule?.__typename;
-
   const initState = following === null;
   // profile is not defined until the second render
   if (initState && profile) {
@@ -70,14 +70,14 @@ const ViewProfile: NextPage = () => {
     setFollowing(isFollowedByMe);
   }
 
-  // profile changes when user selects a new profile from search box
-  useEffect(() => {
+  // Profile changes when user selects a new profile from search box
+  useUpdateEffect(() => {
     if (profile) {
       setFollowing(null);
     }
   }, [profile]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (following) {
       setShowFollowModal(false);
     }

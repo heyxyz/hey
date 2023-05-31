@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { LexicalEditor } from 'lexical';
 import { TextNode } from 'lexical';
-import { useEffect } from 'react';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { $createEmojiNode, EmojiNode } from '../Nodes/EmojiNode';
 
@@ -60,7 +60,7 @@ const textNodeTransform = (node: TextNode): void => {
 };
 
 const useEmojis = (editor: LexicalEditor): void => {
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (!editor.hasNodes([EmojiNode])) {
       throw new Error('EmojisPlugin: EmojiNode not registered on editor');
     }
