@@ -7,7 +7,7 @@ import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import { APP_NAME, FRESHDESK_WORKER_URL } from 'data/constants';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { PAGEVIEW } from 'src/tracking';
 import {
   Button,
@@ -22,6 +22,7 @@ import {
   TextArea,
   useZodForm
 } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
@@ -42,9 +43,9 @@ const Contact: FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'contact' });
-  }, []);
+  });
 
   const form = useZodForm({
     schema: newContactSchema

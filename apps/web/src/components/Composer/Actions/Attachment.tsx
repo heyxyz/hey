@@ -1,5 +1,4 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu } from '@headlessui/react';
 import {
@@ -20,6 +19,7 @@ import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 import { Spinner, Tooltip } from 'ui';
+import { useOnClickOutside } from 'usehooks-ts';
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);
   const isUploading = usePublicationStore((state) => state.isUploading);

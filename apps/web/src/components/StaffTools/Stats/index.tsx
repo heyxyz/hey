@@ -21,10 +21,10 @@ import { useLensterStatsQuery } from 'lens';
 import humanize from 'lib/humanize';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
-import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout, Spinner } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import StaffToolsSidebar from '../Sidebar';
 
@@ -79,9 +79,9 @@ export const StatBox: FC<StatBoxProps> = ({
 const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
-  }, []);
+  });
 
   const { data, loading, error } = useLensterStatsQuery({
     variables: { request: { sources: [APP_NAME] } }

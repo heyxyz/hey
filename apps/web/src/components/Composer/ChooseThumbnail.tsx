@@ -10,6 +10,7 @@ import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 import type { MediaSetWithoutOnChain } from 'src/types';
 import { Spinner } from 'ui';
+import { useUpdateEffect } from 'usehooks-ts';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;
@@ -98,9 +99,8 @@ const ChooseThumbnail: FC = () => {
     }
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     onSelectThumbnail(selectedThumbnailIndex);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedThumbnailIndex]);
 
   useEffect(() => {

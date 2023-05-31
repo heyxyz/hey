@@ -5,12 +5,12 @@ import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import { Localstorage } from 'data/storage';
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { Button, Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 
@@ -18,9 +18,9 @@ const CleanupSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const disconnectXmtp = useDisconnectXmtp();
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
-  }, []);
+  });
 
   if (!currentProfile) {
     return <Custom404 />;

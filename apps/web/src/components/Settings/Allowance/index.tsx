@@ -12,12 +12,13 @@ import {
   useEnabledModulesQuery
 } from 'lens';
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import Allowance from './Allowance';
@@ -51,9 +52,9 @@ const AllowanceSettings: NextPage = () => {
       skip: !currentProfile?.id || enabledModulesLoading
     });
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
-  }, []);
+  });
 
   if (error || enabledModulesError) {
     return <Custom500 />;

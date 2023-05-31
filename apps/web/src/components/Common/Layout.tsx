@@ -8,16 +8,15 @@ import { useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
-import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
-import useIsMounted from '../utils/hooks/useIsMounted';
 import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
 
 interface LayoutProps {
@@ -32,7 +31,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
-  const { mounted } = useIsMounted();
+  const isMounted = useIsMounted();
   const { address } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
@@ -86,12 +85,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     }
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     validateAuthentication();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, chain, disconnect, profileId]);
 
-  if (loading || !mounted) {
+  if (loading || !isMounted()) {
     return <Loading />;
   }
 

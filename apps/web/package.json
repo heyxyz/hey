@@ -80,6 +80,7 @@
     "tlds": "^1.238.0",
     "ui": "workspace:*",
     "use-resize-observer": "^9.1.0",
+    "usehooks-ts": "^2.9.1",
     "uuid": "^9.0.0",
     "viem": "^0.3.19",
     "wagmi": "^1.0.9",

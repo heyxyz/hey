@@ -8,10 +8,10 @@ import { useRelayQueuesQuery } from 'lens';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout, Spinner } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import StaffToolsSidebar from './Sidebar';
 
@@ -62,9 +62,9 @@ export const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
 const RelayQueues: NextPage = () => {
   const { allowed } = useStaffMode();
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
-  }, []);
+  });
 
   const { data, loading, error } = useRelayQueuesQuery({
     pollInterval: 5000
