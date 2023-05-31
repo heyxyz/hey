@@ -106,14 +106,12 @@ const Attachments: FC<AttachmentsProps> = ({
   )
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
+  const attachmentsLength = slicedAttachments?.length;
 
-  return slicedAttachments?.length !== 0 ? (
+  return attachmentsLength !== 0 ? (
     <>
       <div
-        className={clsx(
-          getClass(slicedAttachments?.length)?.row,
-          'mt-3 grid gap-2'
-        )}
+        className={clsx(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}
       >
         {slicedAttachments?.map(
           (attachment: NewLensterAttachment & MediaSet, index: number) => {
@@ -129,15 +127,15 @@ const Attachments: FC<AttachmentsProps> = ({
               <div
                 className={clsx(
                   isImage
-                    ? `${getClass(slicedAttachments?.length, isNew)?.aspect} ${
-                        slicedAttachments?.length === 3 && index === 0
+                    ? `${getClass(attachmentsLength, isNew)?.aspect} ${
+                        attachmentsLength === 3 && index === 0
                           ? 'row-span-2'
                           : ''
                       }`
                     : '',
                   {
                     'w-full': isAudio || isVideo,
-                    'w-2/3': !isVideo && slicedAttachments.length === 1
+                    'w-2/3': !isVideo && attachmentsLength === 1
                   },
                   'relative'
                 )}
