@@ -1,6 +1,7 @@
 name: Docker Image Dev - STS
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - packages/workers/sts-generator
