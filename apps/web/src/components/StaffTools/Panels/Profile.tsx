@@ -100,7 +100,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           value={profile?.metadata}
           title={t`Metadata`}
         >
-          <Link href={profile?.metadata} target="_blank" rel="noreferrer">
+          <Link href={profile?.metadata ?? ''} target="_blank" rel="noreferrer">
             <Trans>Open</Trans>
           </Link>
         </MetaDetails>
