@@ -1,13 +1,11 @@
 query MutualFollowers($request: MutualFollowersProfilesQueryRequest!) {
   mutualFollowersProfiles(request: $request) {
     items {
-      handle
-      name
-      picture {
-        ...ProfilePictureFields
-      }
+      ...ProfileFields
+      isFollowedByMe
     }
     pageInfo {
+      next
       totalCount
     }
   }
