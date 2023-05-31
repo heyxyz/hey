@@ -16,7 +16,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "data": "workspace:*",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.1.1",
     "lens": "workspace:*",
     "lib": "workspace:*",
     "next": "^13.4.2",
