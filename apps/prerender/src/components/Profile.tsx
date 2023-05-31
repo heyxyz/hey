@@ -32,6 +32,8 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
       getStampFyiURL(profile?.ownedBy)
   );
 
+  console.log('yoginth', profile);
+
   return (
     <>
       <Tags
