@@ -14,11 +14,12 @@ import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { Button, Image, LightBox } from 'ui';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -66,15 +67,15 @@ const Attachments: FC<AttachmentsProps> = ({
 
   const onDataLoaded = () => {
     if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
+      alert(videoRef.current.duration.toFixed(2));
       setVideoDurationInSeconds(videoRef.current.duration.toFixed(2));
     }
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (videoRef.current) {
       videoRef.current.onloadeddata = onDataLoaded;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoRef, attachments]);
 
   const removeAttachment = (attachment: any) => {

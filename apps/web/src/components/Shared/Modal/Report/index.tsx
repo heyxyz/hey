@@ -6,7 +6,7 @@ import type { Publication } from 'lens';
 import { useReportPublicationMutation } from 'lens';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PAGEVIEW, PUBLICATION } from 'src/tracking';
 import {
@@ -18,6 +18,7 @@ import {
   TextArea,
   useZodForm
 } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -37,9 +38,9 @@ const Report: FC<ReportProps> = ({ publication }) => {
   const [type, setType] = useState(reportConfig?.type ?? '');
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'report' });
-  }, []);
+  });
 
   const [
     createReport,

@@ -18,8 +18,9 @@ import isVerified from 'lib/isVerified';
 import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { $createMentionNode } from '../Nodes/MentionsNode';
 
@@ -186,7 +187,7 @@ const MentionsPlugin: FC = () => {
     return getStampFyiURL(user?.ownedBy);
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (queryString) {
       searchUsers({
         variables: {
@@ -215,7 +216,6 @@ const MentionsPlugin: FC = () => {
         setResults(profilesResults);
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryString]);
 
   const checkForSlashTriggerMatch = useBasicTypeaheadTriggerMatch('/', {

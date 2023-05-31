@@ -1,5 +1,4 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import useIsMounted from '@components/utils/hooks/useIsMounted';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
 import errorToast from '@lib/errorToast';
@@ -21,6 +20,7 @@ import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { AUTH } from 'src/tracking';
 import { Button, Spinner } from 'ui';
+import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {
   useAccount,
@@ -50,7 +50,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     errorToast(error);
   };
 
-  const { mounted } = useIsMounted();
+  const isMounted = useIsMounted();
   const { chain } = useNetwork();
   const { connectors, error, connectAsync } = useConnect({ chainId: CHAIN_ID });
   const { disconnect } = useDisconnect();
@@ -198,18 +198,18 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             )}
             onClick={() => onConnect(connector)}
             disabled={
-              mounted
+              isMounted()
                 ? !connector.ready || connector.id === activeConnector?.id
                 : false
             }
           >
             <span>
-              {mounted
+              {isMounted()
                 ? connector.id === 'injected'
                   ? t`Browser Wallet`
                   : getWalletDetails(connector.name).name
                 : getWalletDetails(connector.name).name}
-              {mounted ? !connector.ready && ' (unsupported)' : ''}
+              {isMounted() ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <img
               src={getWalletDetails(connector.name).logo}

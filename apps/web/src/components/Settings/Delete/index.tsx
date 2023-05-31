@@ -11,7 +11,7 @@ import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import { useCreateBurnProfileTypedDataMutation } from 'lens';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -27,6 +27,7 @@ import {
   Spinner,
   WarningMessage
 } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
@@ -42,9 +43,9 @@ const DeleteSettings: FC = () => {
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
-  }, []);
+  });
 
   const onCompleted = () => {
     setCurrentProfile(null);

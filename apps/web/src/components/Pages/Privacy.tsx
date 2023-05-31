@@ -5,13 +5,13 @@ import { t, Trans } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import { PAGEVIEW } from 'src/tracking';
+import { useEffectOnce } from 'usehooks-ts';
 
 const Privacy: FC = () => {
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'privacy' });
-  }, []);
+  });
 
   const updatedAt = 'December 11, 2022';
 
