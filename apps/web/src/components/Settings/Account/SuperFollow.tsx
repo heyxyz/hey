@@ -13,7 +13,7 @@ import type { Erc20 } from 'lens';
 import {
   useBroadcastMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useEnabledCurrencyModulesWithProfileQuery
+  useEnabledModulesQuery
 } from 'lens';
 import getSignature from 'lib/getSignature';
 import getTokenImage from 'lib/getTokenImage';
@@ -63,11 +63,7 @@ const SuperFollow: FC = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   });
-  const { data: currencyData, loading } =
-    useEnabledCurrencyModulesWithProfileQuery({
-      variables: { request: { profileId: currentProfile?.id } },
-      skip: !currentProfile?.id
-    });
+  const { data: currencyData, loading } = useEnabledModulesQuery();
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -156,7 +152,7 @@ const SuperFollow: FC = () => {
     );
   }
 
-  const followType = currencyData?.profile?.followModule?.__typename;
+  const followType = currentProfile?.followModule?.__typename;
 
   return (
     <Card>

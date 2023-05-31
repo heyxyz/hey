@@ -2,7 +2,7 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { t } from '@lingui/macro';
 import type { MutualFollowersProfilesQueryRequest, Profile } from 'lens';
-import { useMutualFollowersListQuery } from 'lens';
+import { useMutualFollowersQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -25,7 +25,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
     limit: 10
   };
 
-  const { data, loading, error, fetchMore } = useMutualFollowersListQuery({
+  const { data, loading, error, fetchMore } = useMutualFollowersQuery({
     variables: { request },
     skip: !profileId
   });
