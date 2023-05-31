@@ -11,7 +11,7 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { t, Trans } from '@lingui/macro';
-import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
+import { STATIC_IMAGES_URL, ZONIC_URL } from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import type { Profile } from 'lens';
 import formatAddress from 'lib/formatAddress';
@@ -174,7 +174,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           <MetaDetails icon={<HashtagIcon className="h-4 w-4" />} dataTestId="profile-meta-id">
             <Tooltip content={`#${profile?.id}`}>
               <a
-                href={`${RARIBLE_URL}/token/polygon/${getEnvConfig().lensHubProxyAddress}:${parseInt(
+                href={`${ZONIC_URL}/asset/linea_goerli/${getEnvConfig().lensHubProxyAddress}/${parseInt(
                   profile?.id
                 )}`}
                 target="_blank"
