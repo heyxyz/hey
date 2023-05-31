@@ -1,0 +1,64 @@
+name: Docker Image Dev - STS
+
+on:
+  push:
+    paths:
+      - packages/workers/sts-generator
+    branches:
+      - develop
+  release:
+    types:
+      - released
+  pull_request_target:
+    branches:
+      - develop
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set Docker Tag
+        id: docker-tag
+        if: ${{ github.event_name != 'release' }}
+        run: echo "DOCKER_TAG=${GITHUB_SHA:0:7}-$(date +%s)" | tee $GITHUB_ENV
+
+      - name: Set Docker Tag - Release
+        id: docker-tag-release
+        if: ${{ github.event_name == 'release' }}
+        run: echo "DOCKER_TAG=${GITHUB_SHA:0:7}-$(date +%s)-${GITHUB_REF#refs/tags/}" | tee $GITHUB_ENV
+
+      - name: Login to Docker Repository
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_REPO_USER }}
+          password: ${{ secrets.DOCKER_REPO_TOKEN }}
+
+      - # Setting up Docker Buildx with docker-container driver is required
+        # at the moment to be able to use a subdirectory with Git context
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Docker Image Build
+        id: docker-build
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: docker/build-push-action@v4
+        with:
+          context: ./apps/web
+          push: false
+          tags: consensys/lineaster-sts:${{ env.DOCKER_TAG }}
+          # Env file dedicated for dev
+          build-args: ENV_FILE=.env.development
+
+      - name: Docker Image Build and Publish
+        id: docker-build-publish
+        if: ${{ github.ref == 'refs/heads/develop' || startsWith(github.ref,'refs/tags/') }}
+        uses: docker/build-push-action@v4
+        with:
+          context: ./apps/web
+          push: true
+          tags: consensys/lineaster-sts:${{ env.DOCKER_TAG }}
+          # Env file dedicated for dev
+          build-args: ENV_FILE=.env.development

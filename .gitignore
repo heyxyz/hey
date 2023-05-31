@@ -60,3 +60,5 @@ cache
 artifacts
 typechain-types
 Flattened.sol
+
+dist

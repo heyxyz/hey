@@ -1,4 +1,4 @@
-name: Docker Image Dev
+name: Docker Image Dev - Webapp
 
 on:
   workflow_dispatch:
