@@ -7,10 +7,4 @@ query ApprovedModuleAllowanceAmount(
     allowance
     contractAddress
   }
-  enabledModuleCurrencies {
-    name
-    symbol
-    decimals
-    address
-  }
 }
