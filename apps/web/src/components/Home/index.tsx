@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
-import SuggestedFollows from '@components/madfi/SuggestedFollows';
+import RecommendedProfiles from './RecommendedProfiles';
 import Footer from '@components/Shared/Footer';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
               <EnableMessages />
               <SetDefaultProfile />
               <SetProfile />
-              <SuggestedFollows />
+              <RecommendedProfiles />
             </>
           ) : null}
           <Footer />

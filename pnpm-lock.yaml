@@ -512,8 +512,8 @@ importers:
   packages/madfi:
     dependencies:
       '@tanstack/react-query':
-        specifier: ^4.29.7
-        version: 4.29.7(react@18.2.0)
+        specifier: ^4.29.12
+        version: 4.29.12(react-dom@18.2.0)(react@18.2.0)
       '@types/node':
         specifier: ^20.1.7
         version: 20.1.7
@@ -5902,10 +5902,6 @@ packages:
     resolution: {integrity: sha512-8C+hF6SFAb/TlFZyS9FItgNwrw4PMa7YeX+KQYe2ZAiEz6uzg6yIr+QBzPkUwZ/L0bXvGd1sufTm3wotoz+GwQ==}
     dev: false
 
-  /@tanstack/query-core@4.29.7:
-    resolution: {integrity: sha512-GXG4b5hV2Loir+h2G+RXhJdoZhJLnrBWsuLB2r0qBRyhWuXq9w/dWxzvpP89H0UARlH6Mr9DiVj4SMtpkF/aUA==}
-    dev: false
-
   /@tanstack/query-persist-client-core@4.22.4(@tanstack/query-core@4.22.4):
     resolution: {integrity: sha512-F5rCLczSw8RjFlwWASD3oRR7D4oyG90QbBFaOqBCjGbvE3bcD+m/E4GGCp1qfACoLuH4KtxhdwdOFfE+e0TRZQ==}
     peerDependencies:
@@ -5979,23 +5975,6 @@ packages:
       '@tanstack/query-core': 4.29.11
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
-
-  /@tanstack/react-query@4.29.7(react@18.2.0):
-    resolution: {integrity: sha512-ijBWEzAIo09fB1yd22slRZzprrZ5zMdWYzBnCg5qiXuFbH78uGN1qtGz8+Ed4MuhaPaYSD+hykn+QEKtQviEtg==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 4.29.7
-      react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 

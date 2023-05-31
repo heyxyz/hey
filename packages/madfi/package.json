@@ -12,7 +12,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.29.7",
+    "@tanstack/react-query": "^4.29.12",
     "@types/node": "^20.1.7",
     "axios": "^1.4.0"
   },
