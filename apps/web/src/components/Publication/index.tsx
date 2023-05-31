@@ -11,12 +11,12 @@ import { usePublicationQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
@@ -30,9 +30,9 @@ const ViewPublication: NextPage = () => {
     query: { id }
   } = useRouter();
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'publication' });
-  }, []);
+  });
 
   const { data, loading, error } = usePublicationQuery({
     variables: {

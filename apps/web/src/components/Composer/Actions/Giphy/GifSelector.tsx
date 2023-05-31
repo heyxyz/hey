@@ -4,9 +4,9 @@ import type { IGif } from '@giphy/js-types';
 import { Grid } from '@giphy/react-components';
 import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, Dispatch, FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Input } from 'ui';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounce, useEffectOnce } from 'usehooks-ts';
 
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh');
 
@@ -35,9 +35,9 @@ const GifSelector: FC<GifSelectorProps> = ({
     setShowModal(false);
   };
 
-  useEffect(() => {
+  useEffectOnce(() => {
     fetchGiphyCategories();
-  }, []);
+  });
 
   const fetchGifs = (offset: number) => {
     return giphyFetch.search(debouncedGifInput, { offset, limit: 10 });

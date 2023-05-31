@@ -1,7 +1,7 @@
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 import type { FC } from 'react';
 import { useFingerprintStore } from 'src/store/fingerprint';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce } from 'usehooks-ts';
 
 const LeafwatchProvider: FC = () => {
   const setFingerprint = useFingerprintStore((state) => state.setFingerprint);
@@ -12,9 +12,10 @@ const LeafwatchProvider: FC = () => {
     setFingerprint(visitorId);
   };
 
-  useUpdateEffect(() => {
+  useEffectOnce(() => {
     saveFingerprint();
-  }, []);
+  });
+
   return null;
 };
 

@@ -48,7 +48,6 @@ const Collect: FC<CollectProps> = ({
           : publication?.stats?.totalAmountOfCollects
       );
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
 
   const iconClassName = showCount
