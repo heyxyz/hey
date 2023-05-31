@@ -1,5 +1,4 @@
 import { ZERO_ADDRESS } from 'data';
-import { CHAIN_ID } from 'src/constants';
 import { useWalletClient } from 'wagmi';
 
 const useEthersWalletClient = (): {
@@ -9,7 +8,7 @@ const useEthersWalletClient = (): {
   };
   isLoading: boolean;
 } => {
-  const { data, isLoading } = useWalletClient({ chainId: CHAIN_ID });
+  const { data, isLoading } = useWalletClient();
 
   const ethersWalletClient = {
     getAddress: async (): Promise<`0x${string}`> => {

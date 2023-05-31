@@ -32,7 +32,7 @@ const connectors = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
   new WalletConnectConnector({
     options: { projectId: WALLETCONNECT_PROJECT_ID },
-    chains: [IS_MAINNET ? polygon : polygonMumbai, mainnet]
+    chains
   })
 ];
 
