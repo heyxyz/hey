@@ -1,5 +1,6 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -10,7 +11,6 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { LENSHUB_PROXY } from '@lenster/data/constants';
 import getSignature from 'lib/getSignature';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';

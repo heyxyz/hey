@@ -8,6 +8,9 @@ import {
   PROFILE_NAME_VALIDATOR_REGEX,
   URL_REGEX
 } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
+import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
+import type { Area } from '@lenster/image-cropper/types';
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
@@ -23,9 +26,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
-import Errors from '@lenster/data/errors';
-import { getCroppedImg } from 'image-cropper/cropUtils';
-import type { Area } from 'image-cropper/types';
 import getProfileAttribute from 'lib/getProfileAttribute';
 import getSignature from 'lib/getSignature';
 import hasPrideLogo from 'lib/hasPrideLogo';

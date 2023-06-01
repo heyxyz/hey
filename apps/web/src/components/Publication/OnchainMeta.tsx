@@ -1,7 +1,7 @@
 import { ExternalLinkIcon } from '@heroicons/react/outline';
+import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import type { Publication } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { Card } from 'ui';

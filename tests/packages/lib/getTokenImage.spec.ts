@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { expect, test } from '@playwright/test';
 import getTokenImage from 'lib/getTokenImage';
 
 test.describe('getTokenImage', () => {

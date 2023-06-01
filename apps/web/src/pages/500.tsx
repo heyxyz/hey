@@ -1,8 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
 import { HomeIcon } from '@heroicons/react/outline';
+import { APP_NAME } from '@lenster/data/constants';
 import circluarStd from '@lib/lensterFont';
 import { Trans } from '@lingui/macro';
-import { APP_NAME } from '@lenster/data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { Button } from 'ui';

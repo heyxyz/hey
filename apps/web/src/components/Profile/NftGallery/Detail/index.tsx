@@ -1,10 +1,10 @@
 import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import type { Profile } from '@lenster/lens';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';

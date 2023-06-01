@@ -3,12 +3,12 @@ import {
   HashtagIcon,
   TemplateIcon
 } from '@heroicons/react/outline';
-import clsx from 'clsx';
 import {
   GIT_COMMIT_SHA,
   IS_MAINNET,
   IS_PRODUCTION
 } from '@lenster/data/constants';
+import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 

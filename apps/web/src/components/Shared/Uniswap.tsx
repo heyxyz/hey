@@ -1,6 +1,6 @@
+import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import getUniswapURL from 'lib/getUniswapURL';
 import Link from 'next/link';
 import type { FC } from 'react';
