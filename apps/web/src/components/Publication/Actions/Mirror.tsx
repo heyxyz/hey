@@ -1,4 +1,5 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { LensHub } from '@lenster/abis';
 import type {
   CreateDataAvailabilityMirrorRequest,
   CreateMirrorRequest,
@@ -15,7 +16,6 @@ import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { LensHub } from 'abis';
 import clsx from 'clsx';
 import { LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';

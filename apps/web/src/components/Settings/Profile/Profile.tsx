@@ -1,5 +1,6 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
+import { LensPeriphery } from '@lenster/abis';
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
@@ -15,7 +16,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
-import { LensPeriphery } from 'abis';
 import {
   APP_NAME,
   COVER,

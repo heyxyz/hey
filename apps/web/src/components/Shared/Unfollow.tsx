@@ -1,4 +1,5 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
+import { FollowNft } from '@lenster/abis';
 import type { Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -8,7 +9,6 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { FollowNft } from 'abis';
 import Errors from 'data/errors';
 import getSignature from 'lib/getSignature';
 import type { Dispatch, FC } from 'react';
