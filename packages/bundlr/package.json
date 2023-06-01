@@ -1,14 +1,14 @@
 {
-  "name": "bundlr",
+  "name": "@lenster/bundlr",
   "version": "0.0.0",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "arbundles": "^0.9.6",
@@ -17,9 +17,9 @@
     "viem": "^0.3.19"
   },
   "devDependencies": {
+    "@lenster/tsconfig": "workspace:*",
     "@types/secp256k1": "^4.0.3",
-    "eslint-config-weblint": "workspace:*",
-    "tsconfig": "workspace:*",
+    "eslint-config-node": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

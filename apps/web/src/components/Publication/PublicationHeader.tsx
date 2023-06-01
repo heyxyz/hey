@@ -1,7 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
 import useModMode from '@components/utils/hooks/useModMode';
-import type { FeedItem, Publication } from 'lens';
-import stopEventPropagation from 'lib/stopEventPropagation';
+import type { FeedItem, Publication } from '@lenster/lens';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
 
 import PublicationMenu from './Actions/Menu';

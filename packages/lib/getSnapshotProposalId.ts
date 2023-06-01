@@ -1,4 +1,4 @@
-import { SNAPSHOT_URL } from 'data';
+import { SNAPSHOT_URL } from '@lenster/data';
 
 /**
  * Get Snapshot proposal ID from URL

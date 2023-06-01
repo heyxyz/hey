@@ -1,10 +1,10 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
+import { FeatureFlag, Localstorage } from '@lenster/data';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
-import { FeatureFlag, Localstorage } from 'data';
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import { SUPPORTED_LOCALES } from 'src/i18n';

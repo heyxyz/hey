@@ -1,5 +1,5 @@
+import getAppName from '@lenster/lib/getAppName';
 import { expect, test } from '@playwright/test';
-import getAppName from 'lib/getAppName';
 
 test.describe('getAppName', () => {
   test('should capitalize first character and replace hyphen with a space in a string', () => {

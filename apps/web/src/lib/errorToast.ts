@@ -1,4 +1,4 @@
-import { Errors } from 'data';
+import { Errors } from '@lenster/data';
 import { toast } from 'react-hot-toast';
 
 const errorToast = (error: any) => {

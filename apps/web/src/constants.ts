@@ -1,4 +1,4 @@
-import { IS_MAINNET } from 'data/constants';
+import { IS_MAINNET } from '@lenster/data/constants';
 import { polygon, polygonMumbai } from 'wagmi/chains';
 
 // Web3

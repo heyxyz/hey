@@ -1,8 +1,7 @@
 module.exports = {
   root: true,
-  extends: ['weblint'],
+  extends: ['node'],
   rules: {
     'import/no-anonymous-default-export': 'off'
-  },
-  ignorePatterns: ['generated.ts']
+  }
 };

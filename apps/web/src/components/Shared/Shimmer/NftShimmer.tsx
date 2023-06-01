@@ -1,5 +1,5 @@
+import { Card } from '@lenster/ui';
 import type { FC } from 'react';
-import { Card } from 'ui';
 
 const NftShimmer: FC = () => {
   return (

@@ -1,67 +1,36 @@
-import { createData, EthereumSigner } from 'bundlr';
+import { createCors, error, json, Router } from 'itty-router';
 
-interface EnvType {
-  BUNDLR_PRIVATE_KEY: string;
-}
+import postMetadata from './handlers/postMetadata';
+import type { Env } from './types';
 
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Content-Type': 'application/json'
-};
+const { preflight, corsify } = createCors({
+  origins: ['*'],
+  methods: ['HEAD', 'GET', 'POST']
+});
 
-const handleRequest = async (request: Request, env: EnvType) => {
-  if (request.method !== 'POST') {
-    return new Response(
-      JSON.stringify({
-        success: false,
-        message: 'Only POST requests are supported'
-      }),
-      {
-        headers
-      }
-    );
-  }
+const router = Router();
 
+router.all('*', preflight);
+router.get('/', () => new Response('say gm to metadata service 👋'));
+router.post('/', postMetadata);
+
+const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
+  router.handle(request, env, ctx).then(json);
+
+const handleFetch = async (
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext
+) => {
   try {
-    const payload = await request.json();
-    const signer = new EthereumSigner(env.BUNDLR_PRIVATE_KEY);
-    const tx = createData(JSON.stringify(payload), signer, {
-      tags: [
-        { name: 'content-type', value: 'application/json' },
-        { name: 'App-Name', value: 'Lenster' }
-      ]
-    });
-    await tx.sign(signer);
-    const bundlrRes = await fetch('http://node2.bundlr.network/tx/matic', {
-      method: 'POST',
-      headers: { 'content-type': 'application/octet-stream' },
-      body: tx.getRaw()
-    });
-
-    if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
-      return new Response(JSON.stringify({ success: true, id: tx.id }), {
-        headers
-      });
-    } else {
-      return new Response(
-        JSON.stringify({ success: false, message: 'Bundlr error!', bundlrRes }),
-        {
-          headers
-        }
-      );
-    }
-  } catch (error) {
-    console.error('Failed to upload to Bundlr', error);
-    return new Response(
-      JSON.stringify({ success: false, message: 'Something went wrong!' }),
-      { headers }
-    );
+    return await routerHandleStack(request, env, ctx);
+  } catch (error_) {
+    console.error('Failed to handle request', error_);
+    return error(500);
   }
 };
 
 export default {
-  async fetch(request: Request, env: EnvType) {
-    return await handleRequest(request, env);
-  }
+  fetch: (request: Request, env: Env, context: ExecutionContext) =>
+    handleFetch(request, env, context).then(corsify)
 };

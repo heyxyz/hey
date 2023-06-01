@@ -1,3 +1,6 @@
+import { IS_MAINNET, WALLETCONNECT_PROJECT_ID } from '@lenster/data/constants';
+import { ApolloProvider, webClient } from '@lenster/lens/apollo';
+import getRpc from '@lenster/lib/getRpc';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,
@@ -5,9 +8,6 @@ import {
   studioProvider
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { IS_MAINNET, WALLETCONNECT_PROJECT_ID } from 'data/constants';
-import { ApolloProvider, webClient } from 'lens/apollo';
-import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
@@ -31,7 +31,8 @@ const { chains, publicClient } = configureChains(
 const connectors = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
   new WalletConnectConnector({
-    options: { projectId: WALLETCONNECT_PROJECT_ID }
+    options: { projectId: WALLETCONNECT_PROJECT_ID },
+    chains
   })
 ];
 

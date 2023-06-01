@@ -2,16 +2,16 @@ import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { CollectionIcon } from '@heroicons/react/outline';
+import type { FeedHighlightsRequest, Publication } from '@lenster/lens';
+import { useFeedHighlightsQuery } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FeedHighlightsRequest, Publication } from 'lens';
-import { useFeedHighlightsQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { Card, EmptyState, ErrorMessage } from 'ui';
 
 const Highlights: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

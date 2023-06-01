@@ -1,22 +1,23 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import NftFeed from '@components/Nft/NftFeed';
+import { FeatureFlag } from '@lenster/data';
+import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import type { Profile } from '@lenster/lens';
+import { useProfileQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lenster/ui';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
-import { FeatureFlag } from 'data';
-import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
-import type { Profile } from 'lens';
-import { useProfileQuery } from 'lens';
-import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { GridItemEight, GridItemFour, GridLayout, Modal } from 'ui';
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Cover from './Cover';
 import Details from './Details';
@@ -41,9 +42,9 @@ const ViewProfile: NextPage = () => {
     FeatureFlag.NftGallery
   );
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });
-  }, []);
+  });
 
   const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({
@@ -58,7 +59,6 @@ const ViewProfile: NextPage = () => {
     Boolean(currentProfile) && Boolean(profile?.isFollowedByMe);
 
   const followType = profile?.followModule?.__typename;
-
   const initState = following === null;
   // profile is not defined until the second render
   if (initState && profile) {
@@ -70,14 +70,14 @@ const ViewProfile: NextPage = () => {
     setFollowing(isFollowedByMe);
   }
 
-  // profile changes when user selects a new profile from search box
-  useEffect(() => {
+  // Profile changes when user selects a new profile from search box
+  useUpdateEffect(() => {
     if (profile) {
       setFollowing(null);
     }
   }, [profile]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (following) {
       setShowFollowModal(false);
     }

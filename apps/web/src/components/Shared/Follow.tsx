@@ -1,17 +1,18 @@
 import { UserAddIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
-import { LensHub } from 'abis';
-import { LENSHUB_PROXY } from 'data/constants';
-import type { Profile } from 'lens';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
+import type { Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useProxyActionMutation
-} from 'lens';
-import type { ApolloCache } from 'lens/apollo';
-import getSignature from 'lib/getSignature';
+} from '@lenster/lens';
+import type { ApolloCache } from '@lenster/lens/apollo';
+import getSignature from '@lenster/lib/getSignature';
+import { Button, Spinner } from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { t } from '@lingui/macro';
 import { useLogImpression } from 'madfi';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
@@ -22,7 +23,6 @@ import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { useNonceStore } from 'src/store/nonce';
 import { PROFILE } from 'src/tracking';
-import { Button, Spinner } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {

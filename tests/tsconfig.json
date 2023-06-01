@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": "@lenster/tsconfig/base.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

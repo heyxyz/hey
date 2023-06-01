@@ -1,17 +1,21 @@
 import SinglePublication from '@components/Publication/SinglePublication';
-import { Trans } from '@lingui/macro';
-import type { Comment, Publication, PublicationsQueryRequest } from 'lens';
+import type {
+  Comment,
+  Publication,
+  PublicationsQueryRequest
+} from '@lenster/lens';
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
   CustomFiltersTypes,
   useCommentFeedQuery
-} from 'lens';
+} from '@lenster/lens';
+import { Card } from '@lenster/ui';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-import { Card } from 'ui';
 
 interface NoneRelevantFeedProps {
   publication?: Publication;

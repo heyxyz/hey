@@ -17,8 +17,8 @@
     "axios": "^1.4.0"
   },
   "devDependencies": {
-    "eslint-config-weblint": "workspace:*",
-    "tsconfig": "workspace:*",
+    "@lenster/tsconfig": "workspace:*",
+    "eslint-config-node": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

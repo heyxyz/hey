@@ -1,22 +1,22 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { t, Trans } from '@lingui/macro';
 import type {
   Publication,
   PublicationSearchResult,
   SearchQueryRequest
-} from 'lens';
+} from '@lenster/lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchPublicationsQuery
-} from 'lens';
+} from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface PublicationsProps {
   query: string | string[];

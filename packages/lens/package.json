@@ -1,21 +1,21 @@
 {
-  "name": "lens",
+  "name": "@lenster/lens",
   "version": "0.0.0",
-  "main": "generated.ts",
   "private": true,
   "license": "GPL-3.0",
+  "main": "generated.ts",
   "scripts": {
     "codegen": "graphql-codegen",
-    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.14",
-    "axios": "^1.4.0",
-    "data": "workspace:*"
+    "@apollo/client": "^3.7.15",
+    "@lenster/data": "workspace:*",
+    "axios": "^1.4.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^4.0.0",
@@ -23,9 +23,9 @@
     "@graphql-codegen/typescript": "^4.0.0",
     "@graphql-codegen/typescript-operations": "^4.0.0",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
+    "@lenster/tsconfig": "workspace:*",
     "@types/node": "^20.2.5",
-    "eslint-config-weblint": "workspace:*",
-    "tsconfig": "workspace:*",
+    "eslint-config-node": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

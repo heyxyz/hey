@@ -1,35 +1,35 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
-import { LensHub } from 'abis';
-import clsx from 'clsx';
-import { LENSHUB_PROXY } from 'data/constants';
-import Errors from 'data/errors';
-import { motion } from 'framer-motion';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
 import type {
   CreateDataAvailabilityMirrorRequest,
   CreateMirrorRequest,
   Publication
-} from 'lens';
+} from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateDataAvailabilityMirrorViaDispatcherMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
-} from 'lens';
-import { useApolloClient } from 'lens/apollo';
-import { publicationKeyFields } from 'lens/apollo/lib';
-import getSignature from 'lib/getSignature';
-import humanize from 'lib/humanize';
-import nFormatter from 'lib/nFormatter';
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
+import { publicationKeyFields } from '@lenster/lens/apollo/lib';
+import getSignature from '@lenster/lib/getSignature';
+import humanize from '@lenster/lib/humanize';
+import nFormatter from '@lenster/lib/nFormatter';
+import { Spinner, Tooltip } from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { t } from '@lingui/macro';
+import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
-import { Spinner, Tooltip } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {

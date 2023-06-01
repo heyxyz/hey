@@ -1,12 +1,12 @@
 import { ExternalLinkIcon } from '@heroicons/react/outline';
-import { POLYGONSCAN_URL } from 'data/constants';
-import type { Wallet } from 'lens';
-import formatAddress from 'lib/formatAddress';
-import getStampFyiURL from 'lib/getStampFyiURL';
-import imageKit from 'lib/imageKit';
+import { POLYGONSCAN_URL } from '@lenster/data/constants';
+import type { Wallet } from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import imageKit from '@lenster/lib/imageKit';
+import { Image } from '@lenster/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Image } from 'ui';
 
 import Slug from './Slug';
 

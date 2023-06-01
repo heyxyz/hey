@@ -5,20 +5,21 @@
   "license": "GPL-3.0",
   "scripts": {
     "dev": "wrangler dev --port 8082",
-    "worker:deploy": "wrangler deploy",
-    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty",
+    "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.341.0"
+    "@aws-sdk/client-sts": "^3.342.0",
+    "itty-router": "^4.0.9"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
-    "eslint-config-weblint": "workspace:*",
-    "tsconfig": "workspace:*",
+    "@lenster/tsconfig": "workspace:*",
+    "eslint-config-node": "workspace:*",
     "typescript": "^5.0.4",
     "wrangler": "^3.0.1"
   }

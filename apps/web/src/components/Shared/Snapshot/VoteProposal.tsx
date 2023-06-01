@@ -1,20 +1,20 @@
 import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { APP_NAME, Errors } from '@lenster/data';
+import humanize from '@lenster/lib/humanize';
+import { Button, Spinner } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { snapshotClient } from '@lib/snapshotClient';
 import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
 import { useQuery } from '@tanstack/react-query';
 import type { Proposal } from '@workers/snapshot-relay';
 import axios from 'axios';
-import { APP_NAME, Errors } from 'data';
-import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import { Button, Spinner } from 'ui';
 
 interface VoteProposalProps {
   proposal: Proposal;

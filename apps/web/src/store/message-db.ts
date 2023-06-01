@@ -1,6 +1,6 @@
+import type { Profile } from '@lenster/lens';
 import type { Table } from 'dexie';
 import Dexie from 'dexie';
-import type { Profile } from 'lens';
 
 export interface PreviewMessage {
   conversationKey: string;

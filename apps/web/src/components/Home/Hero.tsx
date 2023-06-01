@@ -1,5 +1,5 @@
+import { APP_NAME } from '@lenster/data/constants';
 import { Trans } from '@lingui/macro';
-import { APP_NAME } from 'data/constants';
 import type { FC } from 'react';
 
 const Hero: FC = () => {

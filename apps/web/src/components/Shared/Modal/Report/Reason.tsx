@@ -1,10 +1,10 @@
-import { Trans } from '@lingui/macro';
 import {
   PublicationReportingFraudSubreason,
   PublicationReportingIllegalSubreason,
   PublicationReportingSensitiveSubreason,
   PublicationReportingSpamSubreason
-} from 'lens';
+} from '@lenster/lens';
+import { Trans } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 
 interface ReasonProps {

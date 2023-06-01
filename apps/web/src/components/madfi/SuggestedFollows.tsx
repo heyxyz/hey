@@ -6,14 +6,14 @@ import sampleFromArray from '@lib/sampleFromArray';
 import sanitizeSingleProfileInterest from '@lib/sanitizeSingleProfileInterest';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
-import { useProfilesQuery } from 'lens';
+import type { Profile } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
 import { useFetchSuggestedFollowsForProfile } from 'madfi';
 import type { FC } from 'react';
 import { useMemo, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { FollowSource, MISCELLANEOUS } from 'src/tracking';
-import { Card, EmptyState, ErrorMessage, Modal } from 'ui';
+import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
 
 import SuggestedFull from './SuggestedFull';
 
@@ -57,11 +57,12 @@ const SuggestedFollows: FC = () => {
   const recommendedProfilesNotFollowed = useMemo(() => {
     if (recommendedProfiles?.profiles?.items?.length) {
       const res = recommendedProfiles.profiles.items.filter(
-        ({ isFollowedByMe, id }) => !isFollowedByMe && id !== currentProfile?.id
+        ({ isFollowedByMe, id }: { isFollowedByMe: boolean, id: string }) =>
+          !isFollowedByMe && id !== currentProfile?.id
       );
 
       if (data?.promotedProfile) {
-        return res.sort((a, b) => {
+        return res.sort((a: any, b: any) => {
           if (a.id === data.promotedProfile) {
             return -1;
           } else if (b.id === data.promotedProfile) {
@@ -86,7 +87,7 @@ const SuggestedFollows: FC = () => {
     // include the promoted profile at the top
     if (sample.length && data?.promotedProfile) {
       const promoted = recommendedProfiles?.profiles?.items.find(
-        ({ id }) => id === data.promotedProfile
+        ({ id }: { id: string }) => id === data.promotedProfile
       );
 
       if (promoted) {
@@ -145,7 +146,7 @@ const SuggestedFollows: FC = () => {
             title={t`Failed to load recommendations`}
             error={error as Error}
           />
-          {sampleRecommendedProfiles.map((profile, index) => (
+          {sampleRecommendedProfiles.map((profile: any, index: number) => (
             <div
               key={profile?.id}
               className="flex items-center space-x-3 truncate"

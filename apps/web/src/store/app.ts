@@ -1,5 +1,5 @@
-import { Localstorage } from 'data/storage';
-import type { Profile } from 'lens';
+import { Localstorage } from '@lenster/data/storage';
+import type { Profile } from '@lenster/lens';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

@@ -1,4 +1,4 @@
-import { XMTP_PREFIX } from 'data/constants';
+import { XMTP_PREFIX } from '@lenster/data/constants';
 
 const CONVERSATION_KEY_RE = /^(.*)\/lens\.dev\/dm\/(.*)-(.*)$/;
 

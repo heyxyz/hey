@@ -1,15 +1,15 @@
-import useWindowSize from '@components/utils/hooks/useWindowSize';
 import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
+import { MIN_WIDTH_DESKTOP } from '@lenster/data/constants';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import { Button, Input, Spinner } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
-import { MIN_WIDTH_DESKTOP } from 'data/constants';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
   useAttachmentCachePersistStore,
@@ -17,7 +17,7 @@ import {
 } from 'src/store/attachment';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import { Button, Input, Spinner } from 'ui';
+import { useUpdateEffect, useWindowSize } from 'usehooks-ts';
 import type {
   Attachment as TAttachment,
   RemoteAttachment
@@ -160,7 +160,7 @@ const Composer: FC<ComposerProps> = ({
     setSending(false);
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     setMessage(unsentMessage ?? '');
   }, [unsentMessage]);
 

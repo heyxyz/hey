@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from 'data/constants';
+import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 
 interface WalletDetails {
   name: string;

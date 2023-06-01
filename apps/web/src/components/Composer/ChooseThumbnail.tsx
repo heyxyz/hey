@@ -1,15 +1,16 @@
 import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotographIcon } from '@heroicons/react/outline';
+import { generateVideoThumbnails } from '@lenster/lib/generateVideoThumbnails';
+import getFileFromDataURL from '@lenster/lib/getFileFromDataURL';
+import { Spinner } from '@lenster/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
-import { generateVideoThumbnails } from 'lib/generateVideoThumbnails';
-import getFileFromDataURL from 'lib/getFileFromDataURL';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 import type { MediaSetWithoutOnChain } from 'src/types';
-import { Spinner } from 'ui';
+import { useUpdateEffect } from 'usehooks-ts';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
 export const THUMBNAIL_GENERATE_COUNT = 4;
@@ -98,9 +99,8 @@ const ChooseThumbnail: FC = () => {
     }
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     onSelectThumbnail(selectedThumbnailIndex);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedThumbnailIndex]);
 
   useEffect(() => {

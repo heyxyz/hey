@@ -10,7 +10,7 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', () => new Response('ENS Resolver'));
+router.get('/', () => new Response('say gm to ens resolver service 👋'));
 router.post('/', resolveEns);
 
 const routerHandleStack = (request: Request, ctx: ExecutionContext) =>

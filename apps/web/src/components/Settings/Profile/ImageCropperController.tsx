@@ -1,12 +1,13 @@
 import 'rc-slider/assets/index.css';
 
 import { ZoomInIcon, ZoomOutIcon } from '@heroicons/react/outline';
-import ImageCropper from 'image-cropper/ImageCropper';
-import type { Area, Point, Size } from 'image-cropper/types';
+import ImageCropper from '@lenster/image-cropper/ImageCropper';
+import type { Area, Point, Size } from '@lenster/image-cropper/types';
 import Slider from 'rc-slider';
 import type { Dispatch, FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import useResizeObserver from 'use-resize-observer';
+import { useUpdateEffect } from 'usehooks-ts';
 
 interface ImageCropperControllerProps {
   targetSize: Size;
@@ -37,7 +38,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
   const aspectRatio = targetSize.width / targetSize.height;
   const borderSize = 20;
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     const newWidth = divWidth - borderSize * 2;
     const newHeight = newWidth / aspectRatio;
     setCropSize({ width: newWidth, height: newHeight });

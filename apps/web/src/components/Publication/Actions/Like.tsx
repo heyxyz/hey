@@ -3,29 +3,29 @@ import {
   HeartIcon as HeartIconSolid,
   SunIcon as SunIconSolid
 } from '@heroicons/react/solid';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
-import clsx from 'clsx';
-import Errors from 'data/errors';
-import { motion } from 'framer-motion';
-import type { Publication } from 'lens';
+import Errors from '@lenster/data/errors';
+import type { Publication } from '@lenster/lens';
 import {
   ReactionTypes,
   useAddReactionMutation,
   useRemoveReactionMutation
-} from 'lens';
-import type { ApolloCache } from 'lens/apollo';
-import { publicationKeyFields } from 'lens/apollo/lib';
-import hasGm from 'lib/hasGm';
-import nFormatter from 'lib/nFormatter';
+} from '@lenster/lens';
+import type { ApolloCache } from '@lenster/lens/apollo';
+import { publicationKeyFields } from '@lenster/lens/apollo/lib';
+import hasGm from '@lenster/lib/hasGm';
+import nFormatter from '@lenster/lib/nFormatter';
+import { Tooltip } from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { t } from '@lingui/macro';
+import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import { Tooltip } from 'ui';
 
 interface LikeProps {
   publication: Publication;

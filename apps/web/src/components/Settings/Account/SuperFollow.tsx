@@ -1,29 +1,29 @@
 import { StarIcon, XIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
+import { LensHub } from '@lenster/abis';
 import {
   ADDRESS_REGEX,
   DEFAULT_COLLECT_TOKEN,
   LENSHUB_PROXY
-} from 'data/constants';
-import Errors from 'data/errors';
-import type { Erc20 } from 'lens';
+} from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
+import type { Erc20 } from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useEnabledCurrencyModulesWithProfileQuery
-} from 'lens';
-import getSignature from 'lib/getSignature';
-import getTokenImage from 'lib/getTokenImage';
+  useEnabledModulesQuery
+} from '@lenster/lens';
+import getSignature from '@lenster/lib/getSignature';
+import getTokenImage from '@lenster/lib/getTokenImage';
+import { Button, Card, Form, Input, Spinner, useZodForm } from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -63,11 +63,7 @@ const SuperFollow: FC = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   });
-  const { data: currencyData, loading } =
-    useEnabledCurrencyModulesWithProfileQuery({
-      variables: { request: { profileId: currentProfile?.id } },
-      skip: !currentProfile?.id
-    });
+  const { data: currencyData, loading } = useEnabledModulesQuery();
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -156,7 +152,7 @@ const SuperFollow: FC = () => {
     );
   }
 
-  const followType = currencyData?.profile?.followModule?.__typename;
+  const followType = currentProfile?.followModule?.__typename;
 
   return (
     <Card>

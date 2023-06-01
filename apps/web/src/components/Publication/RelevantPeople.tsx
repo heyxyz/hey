@@ -1,13 +1,16 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import {
+  ALL_HANDLES_REGEX,
+  HANDLE_SANITIZE_REGEX
+} from '@lenster/data/constants';
+import type { Profile, Publication } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import { Card, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import { ALL_HANDLES_REGEX, HANDLE_SANITIZE_REGEX } from 'data/constants';
-import type { Profile, Publication } from 'lens';
-import { useRelevantPeopleQuery } from 'lens';
-import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { FollowSource } from 'src/tracking';
-import { Card, ErrorMessage } from 'ui';
 
 interface RelevantPeopleProps {
   publication: Publication;
@@ -41,7 +44,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
     []
   );
 
-  const { data, loading, error } = useRelevantPeopleQuery({
+  const { data, loading, error } = useProfilesQuery({
     variables: { request: { handles: cleanedMentions.slice(0, 5) } },
     skip: mentions.length <= 0
   });

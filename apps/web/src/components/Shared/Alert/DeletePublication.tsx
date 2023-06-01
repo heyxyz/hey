@@ -1,12 +1,12 @@
+import { useHidePublicationMutation } from '@lenster/lens';
+import { publicationKeyFields } from '@lenster/lens/apollo/lib';
+import { Alert } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { useHidePublicationMutation } from 'lens';
-import { publicationKeyFields } from 'lens/apollo/lib';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { PUBLICATION } from 'src/tracking';
-import { Alert } from 'ui';
 
 const DeletePublication: FC = () => {
   const showPublicationDeleteAlert = useGlobalAlertStateStore(

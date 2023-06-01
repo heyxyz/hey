@@ -1,11 +1,11 @@
 import { MenuAlt2Icon } from '@heroicons/react/solid';
+import { FeatureFlag } from '@lenster/data';
+import { Tooltip } from '@lenster/ui';
 import { Growthbook } from '@lib/growthbook';
 import { t } from '@lingui/macro';
-import { FeatureFlag } from 'data';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { usePublicationStore } from 'src/store/publication';
-import { Tooltip } from 'ui';
 
 const PollSettings: FC = () => {
   const showPollEditor = usePublicationStore((state) => state.showPollEditor);

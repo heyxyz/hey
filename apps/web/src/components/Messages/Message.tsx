@@ -5,21 +5,22 @@ import useGetMessages from '@components/utils/hooks/useGetMessages';
 import { useGetProfile } from '@components/utils/hooks/useMessageDb';
 import useSendMessage from '@components/utils/hooks/useSendMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
+import { APP_NAME } from '@lenster/data/constants';
+import formatHandle from '@lenster/lib/formatHandle';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import { Card, GridItemEight, GridLayout } from '@lenster/ui';
 import { parseConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { APP_NAME } from 'data/constants';
-import formatHandle from 'lib/formatHandle';
-import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridLayout } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import Composer from './Composer';
 import MessagesList from './MessagesList';
@@ -115,9 +116,9 @@ const MessagePage: NextPage = () => {
     query: { conversationKey }
   } = useRouter();
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'conversation' });
-  }, []);
+  });
 
   // Need to have a login page for when there is no currentProfileId
   if (

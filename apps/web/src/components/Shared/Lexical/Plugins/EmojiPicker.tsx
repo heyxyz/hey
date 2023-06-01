@@ -1,3 +1,4 @@
+import { STATIC_ASSETS_URL } from '@lenster/data/constants';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,
@@ -5,13 +6,13 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import clsx from 'clsx';
-import { STATIC_ASSETS_URL } from 'data/constants';
 import type { TextNode } from 'lexical';
 import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical';
 import type { FC } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import type { Emoji } from 'src/types';
+import { useEffectOnce } from 'usehooks-ts';
 
 class EmojiOption extends MenuOption {
   title: string;
@@ -86,9 +87,9 @@ const EmojiPickerPlugin: FC = () => {
     setEmojis(data);
   };
 
-  useEffect(() => {
+  useEffectOnce(() => {
     fetchEmojis();
-  }, []);
+  });
 
   const emojiOptions = useMemo(
     () =>

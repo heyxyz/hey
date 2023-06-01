@@ -1,24 +1,25 @@
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_VIDEO_TYPES,
   ATTACHMENT,
   STATIC_IMAGES_URL
-} from 'data/constants';
-import type { MediaSet, Publication } from 'lens';
-import imageKit from 'lib/imageKit';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
-import stopEventPropagation from 'lib/stopEventPropagation';
+} from '@lenster/data/constants';
+import type { MediaSet, Publication } from '@lenster/lens';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Button, Image, LightBox } from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
+import { Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
-import { Button, Image, LightBox } from 'ui';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from './Audio';
 import Video from './Video';
@@ -66,15 +67,15 @@ const Attachments: FC<AttachmentsProps> = ({
 
   const onDataLoaded = () => {
     if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
+      alert(videoRef.current.duration.toFixed(2));
       setVideoDurationInSeconds(videoRef.current.duration.toFixed(2));
     }
   };
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (videoRef.current) {
       videoRef.current.onloadeddata = onDataLoaded;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoRef, attachments]);
 
   const removeAttachment = (attachment: any) => {
@@ -106,14 +107,12 @@ const Attachments: FC<AttachmentsProps> = ({
   )
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
+  const attachmentsLength = slicedAttachments?.length;
 
-  return slicedAttachments?.length !== 0 ? (
+  return attachmentsLength !== 0 ? (
     <>
       <div
-        className={clsx(
-          getClass(slicedAttachments?.length)?.row,
-          'mt-3 grid gap-2'
-        )}
+        className={clsx(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}
       >
         {slicedAttachments?.map(
           (attachment: NewLensterAttachment & MediaSet, index: number) => {
@@ -129,15 +128,15 @@ const Attachments: FC<AttachmentsProps> = ({
               <div
                 className={clsx(
                   isImage
-                    ? `${getClass(slicedAttachments?.length, isNew)?.aspect} ${
-                        slicedAttachments?.length === 3 && index === 0
+                    ? `${getClass(attachmentsLength, isNew)?.aspect} ${
+                        attachmentsLength === 3 && index === 0
                           ? 'row-span-2'
                           : ''
                       }`
                     : '',
                   {
                     'w-full': isAudio || isVideo,
-                    'w-2/3': !isVideo && slicedAttachments.length === 1
+                    'w-2/3': !isVideo && attachmentsLength === 1
                   },
                   'relative'
                 )}

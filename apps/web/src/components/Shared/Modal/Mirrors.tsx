@@ -1,13 +1,13 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import type { Profile, ProfileQueryRequest } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
+import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { Profile, ProfileQueryRequest } from 'lens';
-import { useMirrorsQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { FollowSource } from 'src/tracking';
-import { EmptyState, ErrorMessage } from 'ui';
 
 import Loader from '../Loader';
 
@@ -24,7 +24,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
     limit: 10
   };
 
-  const { data, loading, error, fetchMore } = useMirrorsQuery({
+  const { data, loading, error, fetchMore } = useProfilesQuery({
     variables: { request },
     skip: !publicationId
   });

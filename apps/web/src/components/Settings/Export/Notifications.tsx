@@ -1,13 +1,13 @@
+import type { NotificationRequest } from '@lenster/lens';
+import { useNotificationsLazyQuery } from '@lenster/lens';
+import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import type { NotificationRequest } from 'lens';
-import { useNotificationsLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card } from 'ui';
 
 const Notifications: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

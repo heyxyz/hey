@@ -1,5 +1,4 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import useOnClickOutside from '@components/utils/hooks/useOnClickOutside';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu } from '@headlessui/react';
 import {
@@ -7,19 +6,20 @@ import {
   PhotographIcon,
   VideoCameraIcon
 } from '@heroicons/react/outline';
-import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
-} from 'data/constants';
+} from '@lenster/data/constants';
+import { Spinner, Tooltip } from '@lenster/ui';
+import { t } from '@lingui/macro';
+import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
-import { Spinner, Tooltip } from 'ui';
+import { useOnClickOutside } from 'usehooks-ts';
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);
   const isUploading = usePublicationStore((state) => state.isUploading);

@@ -2,11 +2,11 @@ import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProf
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
 import { t } from '@lingui/macro';
-import type { Profile } from 'lens';
+import type { Profile } from '@lenster/lens';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { FollowSource } from 'src/tracking';
-import { EmptyState } from 'ui';
+import { EmptyState } from '@lenster/ui';
 
 const SuggestedFull: FC<{ recommendedProfiles: Profile[] }> = ({
   recommendedProfiles

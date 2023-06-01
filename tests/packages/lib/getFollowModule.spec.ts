@@ -1,5 +1,5 @@
+import getFollowModule from '@lenster/lib/getFollowModule';
 import { expect, test } from '@playwright/test';
-import getFollowModule from 'lib/getFollowModule';
 
 test.describe('getFollowModule', () => {
   test('should return correct module for ProfileFollowModuleSettings', () => {

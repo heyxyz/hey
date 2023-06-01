@@ -1,6 +1,6 @@
+import { MESSAGE_PAGE_LIMIT } from '@lenster/data/constants';
 import type { Conversation } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
-import { MESSAGE_PAGE_LIMIT } from 'data/constants';
 import { useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 

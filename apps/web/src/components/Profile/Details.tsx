@@ -14,23 +14,24 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import buildConversationId from '@lib/buildConversationId';
-import { buildConversationKey } from '@lib/conversationKey';
-import { t, Trans } from '@lingui/macro';
 import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
   STATIC_IMAGES_URL
-} from 'data/constants';
-import getEnvConfig from 'data/utils/getEnvConfig';
-import type { Profile } from 'lens';
-import formatAddress from 'lib/formatAddress';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
-import getProfileAttribute from 'lib/getProfileAttribute';
-import isStaff from 'lib/isStaff';
-import isVerified from 'lib/isVerified';
-import sanitizeDisplayName from 'lib/sanitizeDisplayName';
+} from '@lenster/data/constants';
+import getEnvConfig from '@lenster/data/utils/getEnvConfig';
+import type { Profile } from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import isStaff from '@lenster/lib/isStaff';
+import isVerified from '@lenster/lib/isVerified';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import { Button, Image, LightBox, Modal, Tooltip } from '@lenster/ui';
+import buildConversationId from '@lib/buildConversationId';
+import { buildConversationKey } from '@lib/conversationKey';
+import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
@@ -41,7 +42,6 @@ import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessageStore } from 'src/store/message';
 import { FollowSource } from 'src/tracking';
-import { Button, Image, LightBox, Modal, Tooltip } from 'ui';
 
 import Badges from './Badges';
 import Followerings from './Followerings';

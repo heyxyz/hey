@@ -1,23 +1,24 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
-import Errors from 'data/errors';
-import type { ApprovedAllowanceAmount, Profile } from 'lens';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
+import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
 import {
   FollowModules,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useSuperFollowQuery
-} from 'lens';
-import formatAddress from 'lib/formatAddress';
-import formatHandle from 'lib/formatHandle';
-import getSignature from 'lib/getSignature';
-import getTokenImage from 'lib/getTokenImage';
+} from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
+import getSignature from '@lenster/lib/getSignature';
+import getTokenImage from '@lenster/lib/getTokenImage';
+import { Button, Spinner, WarningMessage } from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { t, Trans } from '@lingui/macro';
 import { useLogImpression } from 'madfi';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -28,7 +29,6 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { PROFILE } from 'src/tracking';
-import { Button, Spinner, WarningMessage } from 'ui';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';

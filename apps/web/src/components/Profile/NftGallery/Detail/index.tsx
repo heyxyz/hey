@@ -1,28 +1,34 @@
 import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
+import { FeatureFlag } from '@lenster/data/feature-flags';
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import {
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  Image
+} from '@lenster/ui';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
-import { FeatureFlag } from 'data/feature-flags';
-import type { Profile } from 'lens';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useEffect } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout, Image } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
   const { on: isNftDetailEnabled } = Growthbook.feature(FeatureFlag.NftDetail);
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'nft' });
-  }, []);
+  });
 
   if (!isNftDetailEnabled || !currentProfile) {
     return <Custom404 />;

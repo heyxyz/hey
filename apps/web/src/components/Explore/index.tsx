@@ -3,20 +3,21 @@ import Trending from '@components/Home/Trending';
 import SuggestedFollows from '@components/madfi/SuggestedFollows';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
+import { FeatureFlag } from '@lenster/data';
+import { APP_NAME } from '@lenster/data/constants';
+import type { PublicationMainFocus } from '@lenster/lens';
+import { PublicationSortCriteria } from '@lenster/lens';
+import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import { FeatureFlag } from 'data';
-import { APP_NAME } from 'data/constants';
-import type { PublicationMainFocus } from 'lens';
-import { PublicationSortCriteria } from 'lens';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { EXPLORE, PAGEVIEW } from 'src/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from 'ui';
+import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
@@ -29,9 +30,9 @@ const Explore: NextPage = () => {
     FeatureFlag.TrendingWidget
   );
 
-  useEffect(() => {
+  useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'explore' });
-  }, []);
+  });
 
   const tabs = [
     { name: t`For you`, type: PublicationSortCriteria.CuratedProfiles },

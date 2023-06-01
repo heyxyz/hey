@@ -10,8 +10,8 @@ import {
   SparklesIcon,
   UserIcon
 } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
 import { t, Trans } from '@lingui/macro';
-import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 

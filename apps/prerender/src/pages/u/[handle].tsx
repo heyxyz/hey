@@ -1,7 +1,11 @@
 import Profile from '@components/Profile';
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
-import { CustomFiltersTypes, ProfileDocument, ProfileFeedDocument } from 'lens';
-import { nodeClient } from 'lens/apollo';
+import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
+import {
+  CustomFiltersTypes,
+  ProfileDocument,
+  ProfileFeedDocument
+} from '@lenster/lens';
+import { nodeClient } from '@lenster/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
 export const config = {

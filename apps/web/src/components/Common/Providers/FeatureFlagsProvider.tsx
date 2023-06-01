@@ -1,6 +1,6 @@
+import { IS_MAINNET, mainnetStaffs, testnetStaffs } from '@lenster/data';
+import isGardener from '@lenster/lib/isGardener';
 import { Growthbook } from '@lib/growthbook';
-import { IS_MAINNET, mainnetStaffs, testnetStaffs } from 'data';
-import isGardener from 'lib/isGardener';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';

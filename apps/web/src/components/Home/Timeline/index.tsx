@@ -2,9 +2,10 @@ import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { CollectionIcon } from '@heroicons/react/outline';
+import type { FeedItem, FeedRequest, Publication } from '@lenster/lens';
+import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FeedItem, FeedRequest, Publication } from 'lens';
-import { FeedEventItemType, useTimelineQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -12,7 +13,6 @@ import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { Card, EmptyState, ErrorMessage } from 'ui';
 
 const Timeline: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
