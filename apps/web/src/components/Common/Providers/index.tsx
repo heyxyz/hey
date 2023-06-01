@@ -1,3 +1,4 @@
+import { IS_MAINNET, WALLETCONNECT_PROJECT_ID } from '@lenster/data/constants';
 import { ApolloProvider, webClient } from '@lenster/lens/apollo';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
@@ -6,7 +7,6 @@ import {
   studioProvider
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { IS_MAINNET, WALLETCONNECT_PROJECT_ID } from '@lenster/data/constants';
 import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';

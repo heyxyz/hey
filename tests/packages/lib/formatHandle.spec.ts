@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
 import { LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
+import { expect, test } from '@playwright/test';
 import formatHandle from 'lib/formatHandle';
 
 test.describe('formatHandle', () => {

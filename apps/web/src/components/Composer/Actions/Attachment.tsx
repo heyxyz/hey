@@ -6,14 +6,14 @@ import {
   PhotographIcon,
   VideoCameraIcon
 } from '@heroicons/react/outline';
-import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
 } from '@lenster/data/constants';
+import { t } from '@lingui/macro';
+import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';

@@ -1,6 +1,6 @@
+import { SNAPSHOT_URL } from '@lenster/data';
 import type { Proposal } from '@workers/snapshot-relay';
 import clsx from 'clsx';
-import { SNAPSHOT_URL } from '@lenster/data';
 import formatAddress from 'lib/formatAddress';
 import Link from 'next/link';
 import type { FC } from 'react';

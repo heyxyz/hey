@@ -1,12 +1,12 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import type { Profile, Publication } from '@lenster/lens';
-import { useProfilesQuery } from '@lenster/lens';
-import { t } from '@lingui/macro';
 import {
   ALL_HANDLES_REGEX,
   HANDLE_SANITIZE_REGEX
 } from '@lenster/data/constants';
+import type { Profile, Publication } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
+import { t } from '@lingui/macro';
 import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { FollowSource } from 'src/tracking';

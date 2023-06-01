@@ -1,9 +1,9 @@
 import MetaTags from '@components/Common/MetaTags';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { APP_NAME } from '@lenster/data/constants';
+import { Localstorage } from '@lenster/data/storage';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { Localstorage } from '@lenster/data/storage';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';

@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
 import { OLD_LENS_RELAYER_ADDRESS } from '@lenster/data';
+import { expect, test } from '@playwright/test';
 import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
 
 test.describe('getIsDispatcherEnabled', () => {

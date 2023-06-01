@@ -1,8 +1,8 @@
 import 'rc-slider/assets/index.css';
 
 import { ZoomInIcon, ZoomOutIcon } from '@heroicons/react/outline';
-import ImageCropper from 'image-cropper/ImageCropper';
-import type { Area, Point, Size } from 'image-cropper/types';
+import ImageCropper from '@lenster/image-cropper/ImageCropper';
+import type { Area, Point, Size } from '@lenster/image-cropper/types';
 import Slider from 'rc-slider';
 import type { Dispatch, FC } from 'react';
 import { useRef, useState } from 'react';

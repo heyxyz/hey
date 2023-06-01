@@ -1,4 +1,5 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { AVATAR } from '@lenster/data/constants';
 import type {
   MediaSet,
   NftImage,
@@ -14,7 +15,6 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import clsx from 'clsx';
-import { AVATAR } from '@lenster/data/constants';
 import type { TextNode } from 'lexical';
 import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';

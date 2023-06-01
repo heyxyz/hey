@@ -5,6 +5,7 @@ import {
   DEFAULT_COLLECT_TOKEN,
   LENSHUB_PROXY
 } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
 import type { Erc20 } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -14,7 +15,6 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import Errors from '@lenster/data/errors';
 import getSignature from 'lib/getSignature';
 import getTokenImage from 'lib/getTokenImage';
 import type { FC } from 'react';

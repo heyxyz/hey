@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
 import { AVATAR, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { expect, test } from '@playwright/test';
 import imageKit from 'lib/imageKit';
 
 test.describe('imageKit', () => {

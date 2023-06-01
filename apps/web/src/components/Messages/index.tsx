@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
+import { APP_NAME } from '@lenster/data/constants';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { APP_NAME } from '@lenster/data/constants';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';

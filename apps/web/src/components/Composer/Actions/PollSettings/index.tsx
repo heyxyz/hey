@@ -1,7 +1,7 @@
 import { MenuAlt2Icon } from '@heroicons/react/solid';
+import { FeatureFlag } from '@lenster/data';
 import { Growthbook } from '@lib/growthbook';
 import { t } from '@lingui/macro';
-import { FeatureFlag } from '@lenster/data';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { usePublicationStore } from 'src/store/publication';

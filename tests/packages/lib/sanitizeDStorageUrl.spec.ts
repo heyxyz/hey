@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
 import { IPFS_GATEWAY } from '@lenster/data/constants';
+import { expect, test } from '@playwright/test';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 
 test.describe('getIPFSLink', () => {
