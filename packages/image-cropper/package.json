@@ -21,7 +21,7 @@
     "@types/node": "^20.2.5",
     "@types/normalize-wheel": "^1.0.1",
     "@types/react": "^18.2.7",
-    "eslint-config-weblint": "workspace:*",
+    "eslint-config-node": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-weblint",
+  "name": "eslint-config-node",
   "version": "0.0.0",
   "private": true,
   "license": "GPL-3.0",

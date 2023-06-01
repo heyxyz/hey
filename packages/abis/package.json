@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@lenster/tsconfig": "workspace:*",
-    "eslint-config-weblint": "workspace:*",
+    "eslint-config-node": "workspace:*",
     "typescript": "^5.0.4"
   }
 }
