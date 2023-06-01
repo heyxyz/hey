@@ -1,7 +1,7 @@
 import { PencilAltIcon } from '@heroicons/react/outline';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
 import { t, Trans } from '@lingui/macro';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';

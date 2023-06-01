@@ -10,8 +10,8 @@ import {
   useUpdateNftGalleryItemsMutation
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
+import trimify from '@lenster/lib/trimify';
 import { t, Trans } from '@lingui/macro';
-import trimify from 'lib/trimify';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';

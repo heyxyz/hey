@@ -8,10 +8,10 @@ import {
   useProxyActionMutation
 } from '@lenster/lens';
 import type { ApolloCache } from '@lenster/lens/apollo';
+import getSignature from '@lenster/lib/getSignature';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import getSignature from 'lib/getSignature';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';

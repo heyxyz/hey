@@ -6,8 +6,8 @@ import {
 } from '@lenster/data/constants';
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
 import { t } from '@lingui/macro';
-import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { FollowSource } from 'src/tracking';
 import { Card, ErrorMessage } from 'ui';

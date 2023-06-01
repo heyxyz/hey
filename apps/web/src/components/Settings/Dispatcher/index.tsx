@@ -1,8 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
+import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';

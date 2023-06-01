@@ -1,9 +1,9 @@
 import { ChatAlt2Icon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
+import humanize from '@lenster/lib/humanize';
+import nFormatter from '@lenster/lib/nFormatter';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import humanize from 'lib/humanize';
-import nFormatter from 'lib/nFormatter';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { Tooltip } from 'ui';

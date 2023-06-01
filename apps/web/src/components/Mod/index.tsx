@@ -6,9 +6,9 @@ import {
   PublicationMainFocus,
   PublicationTypes
 } from '@lenster/lens';
+import isGardener from '@lenster/lib/isGardener';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import isGardener from 'lib/isGardener';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';

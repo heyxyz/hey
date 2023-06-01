@@ -1,6 +1,6 @@
 import { RARIBLE_URL, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import type { Nft } from '@lenster/lens';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { CHAIN_ID } from 'src/constants';

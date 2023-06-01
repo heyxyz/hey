@@ -28,15 +28,15 @@ importers:
       '@lenster/lens':
         specifier: workspace:*
         version: link:../../packages/lens
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
       axios:
         specifier: ^1.4.0
         version: 1.4.0
       dotenv:
         specifier: ^16.1.1
         version: 16.1.1
-      lib:
-        specifier: workspace:*
-        version: link:../../packages/lib
       next:
         specifier: ^13.4.2
         version: 13.4.2(@babel/core@7.21.8)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -116,6 +116,9 @@ importers:
       '@lenster/lens':
         specifier: workspace:*
         version: link:../../packages/lens
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../packages/lib
       '@lexical/code':
         specifier: ^0.11.1
         version: 0.11.1(lexical@0.11.1)
@@ -209,9 +212,6 @@ importers:
       lexical:
         specifier: ^0.11.1
         version: 0.11.1
-      lib:
-        specifier: workspace:*
-        version: link:../../packages/lib
       next:
         specifier: ^13.4.2
         version: 13.4.2(@babel/core@7.21.8)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -525,15 +525,15 @@ importers:
       '@lenster/data':
         specifier: workspace:*
         version: link:../data
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../lib
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
-      lib:
-        specifier: workspace:*
-        version: link:../lib
       next:
         specifier: ^13.4.2
         version: 13.4.2(@babel/core@7.21.8)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -658,12 +658,12 @@ importers:
       '@cfworker/base64url':
         specifier: ^1.12.5
         version: 1.12.5
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: 4.0.6
         version: 4.0.6
-      lib:
-        specifier: workspace:*
-        version: link:../../lib
       linkedom:
         specifier: ^0.14.26
         version: 0.14.26
@@ -707,15 +707,15 @@ importers:
       '@apollo/client':
         specifier: ^3.7.14
         version: 3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       '@tsndr/cloudflare-worker-jwt':
         specifier: ^2.2.1
         version: 2.2.1
       itty-router:
         specifier: 4.0.6
         version: 4.0.6
-      lib:
-        specifier: workspace:*
-        version: link:../../lib
       viem:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.0.4)(zod@3.21.4)
@@ -781,7 +781,7 @@ importers:
       '@lenster/lens':
         specifier: workspace:*
         version: link:../packages/lens
-      lib:
+      '@lenster/lib':
         specifier: workspace:*
         version: link:../packages/lib
     devDependencies:

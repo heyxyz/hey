@@ -1,7 +1,7 @@
 import { UsersIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
+import humanize from '@lenster/lib/humanize';
 import { Plural, t } from '@lingui/macro';
-import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Modal } from 'ui';

@@ -1,6 +1,6 @@
 import { MainnetContracts } from '@lenster/data/contracts';
+import getAssetAddress from '@lenster/lib/getAssetAddress';
 import { expect, test } from '@playwright/test';
-import getAssetAddress from 'lib/getAssetAddress';
 
 test.describe('getAssetAddress', () => {
   test('should return MAINNET_DEFAULT_TOKEN for WMATIC', () => {

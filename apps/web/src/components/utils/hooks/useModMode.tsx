@@ -1,4 +1,4 @@
-import isGardener from 'lib/isGardener';
+import isGardener from '@lenster/lib/isGardener';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 
 const useModMode = () => {

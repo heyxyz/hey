@@ -52,6 +52,8 @@ import {
   usePublicationLazyQuery
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
+import getSignature from '@lenster/lib/getSignature';
+import getTags from '@lenster/lib/getTags';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -63,8 +65,6 @@ import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { $getRoot } from 'lexical';
-import getSignature from 'lib/getSignature';
-import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';

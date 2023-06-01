@@ -1,12 +1,12 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import isVerified from '@lenster/lib/isVerified';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import clsx from 'clsx';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
-import getProfileAttribute from 'lib/getProfileAttribute';
-import isVerified from 'lib/isVerified';
-import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo, useState } from 'react';

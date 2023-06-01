@@ -1,9 +1,9 @@
 import { DEFAULT_OG } from '@lenster/data/constants';
 import type { Comment } from '@lenster/lens';
 import { Publication } from '@lenster/lens';
-import getStampFyiURL from 'lib/getStampFyiURL';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
-import truncateByWords from 'lib/truncateByWords';
+import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import truncateByWords from '@lenster/lib/truncateByWords';
 import type { FC } from 'react';
 import { BASE_URL } from 'src/constants';
 

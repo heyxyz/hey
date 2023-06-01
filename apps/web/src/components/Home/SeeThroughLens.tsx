@@ -15,11 +15,11 @@ import {
   useSearchProfilesLazyQuery,
   useSeeThroughProfilesLazyQuery
 } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
