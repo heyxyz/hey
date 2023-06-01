@@ -14,6 +14,7 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { LensHub } from '@lenster/abis';
 import type {
   ApprovedAllowanceAmount,
   ElectedMirror,
@@ -34,7 +35,6 @@ import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
 import dayjs from 'dayjs';

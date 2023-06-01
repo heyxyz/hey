@@ -1,5 +1,6 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
+import { LensHub } from '@lenster/abis';
 import type {
   MediaSet,
   NftImage,
@@ -15,7 +16,6 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
 import { AVATAR, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';

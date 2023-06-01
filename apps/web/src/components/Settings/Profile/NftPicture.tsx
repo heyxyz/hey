@@ -1,4 +1,5 @@
 import { PencilIcon } from '@heroicons/react/outline';
+import { LensHub } from '@lenster/abis';
 import type {
   NftImage,
   Profile,
@@ -13,7 +14,6 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import getSignature from 'lib/getSignature';

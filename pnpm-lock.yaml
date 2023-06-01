@@ -104,6 +104,9 @@ importers:
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+      '@lenster/abis':
+        specifier: workspace:*
+        version: link:../../packages/abis
       '@lenster/lens':
         specifier: workspace:*
         version: link:../../packages/lens
@@ -164,9 +167,6 @@ importers:
       '@xmtp/xmtp-js':
         specifier: ^9.1.1
         version: 9.1.1
-      abis:
-        specifier: workspace:*
-        version: link:../../packages/abis
       axios:
         specifier: ^1.4.0
         version: 1.4.0
