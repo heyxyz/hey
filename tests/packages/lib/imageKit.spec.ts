@@ -1,6 +1,6 @@
 import { AVATAR, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import imageKit from '@lenster/lib/imageKit';
 import { expect, test } from '@playwright/test';
-import imageKit from 'lib/imageKit';
 
 test.describe('imageKit', () => {
   test('should return empty string if url is not provided', () => {

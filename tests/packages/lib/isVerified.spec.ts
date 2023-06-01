@@ -1,5 +1,5 @@
+import isVerified from '@lenster/lib/isVerified';
 import { expect, test } from '@playwright/test';
-import isVerified from 'lib/isVerified';
 
 test.describe('isVerified', () => {
   test('should return true if the ID is included in the verified list', () => {

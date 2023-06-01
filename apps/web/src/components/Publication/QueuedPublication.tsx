@@ -10,8 +10,8 @@ import {
   usePublicationLazyQuery
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
+import getURLs from '@lenster/lib/getURLs';
 import { t } from '@lingui/macro';
-import getURLs from 'lib/getURLs';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';

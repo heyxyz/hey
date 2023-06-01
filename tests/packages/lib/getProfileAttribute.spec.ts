@@ -1,6 +1,6 @@
 import type { Attribute } from '@lenster/lens';
+import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import { expect, test } from '@playwright/test';
-import getProfileAttribute from 'lib/getProfileAttribute';
 
 test.describe('getProfileAttribute', () => {
   test('should return the attribute value from a trait if key is valid', () => {

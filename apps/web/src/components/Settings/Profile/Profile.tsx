@@ -21,16 +21,16 @@ import {
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
 } from '@lenster/lens';
+import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import getSignature from '@lenster/lib/getSignature';
+import hasPrideLogo from '@lenster/lib/hasPrideLogo';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
-import getProfileAttribute from 'lib/getProfileAttribute';
-import getSignature from 'lib/getSignature';
-import hasPrideLogo from 'lib/hasPrideLogo';
-import imageKit from 'lib/imageKit';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

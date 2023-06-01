@@ -1,10 +1,10 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
 import type { Publication } from '@lenster/lens';
+import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
+import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import getPublicationAttribute from 'lib/getPublicationAttribute';
-import getThumbnailUrl from 'lib/getThumbnailUrl';
-import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';

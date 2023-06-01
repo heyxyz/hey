@@ -1,8 +1,8 @@
 import { StarIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import formatHandle from 'lib/formatHandle';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';

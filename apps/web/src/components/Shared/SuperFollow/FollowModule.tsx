@@ -11,13 +11,13 @@ import {
   useCreateFollowTypedDataMutation,
   useSuperFollowQuery
 } from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
+import getSignature from '@lenster/lib/getSignature';
+import getTokenImage from '@lenster/lib/getTokenImage';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import formatAddress from 'lib/formatAddress';
-import formatHandle from 'lib/formatHandle';
-import getSignature from 'lib/getSignature';
-import getTokenImage from 'lib/getTokenImage';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';

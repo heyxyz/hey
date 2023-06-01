@@ -4,10 +4,10 @@ import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
 } from '@lenster/lens';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';

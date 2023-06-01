@@ -11,8 +11,8 @@ import {
   PublicationTypes,
   useProfileFeedQuery
 } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
 import { t } from '@lingui/macro';
-import formatHandle from 'lib/formatHandle';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';

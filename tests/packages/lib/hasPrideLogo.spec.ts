@@ -1,6 +1,6 @@
 import type { Profile } from '@lenster/lens';
+import hasPrideLogo from '@lenster/lib/hasPrideLogo';
 import { expect, test } from '@playwright/test';
-import hasPrideLogo from 'lib/hasPrideLogo';
 
 test.describe('hasPrideLogo', () => {
   test('should return true if profile has pride logo attribute set as true', () => {

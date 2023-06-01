@@ -7,12 +7,12 @@ import {
   STATIC_IMAGES_URL
 } from '@lenster/data/constants';
 import type { MediaSet, Publication } from '@lenster/lens';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import imageKit from 'lib/imageKit';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
-import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';

@@ -2,11 +2,11 @@ import Slug from '@components/Shared/Slug';
 import { POLYGONSCAN_URL } from '@lenster/data/constants';
 import type { Profile, RecipientDataOutput } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import { Trans } from '@lingui/macro';
-import formatAddress from 'lib/formatAddress';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
-import getStampFyiURL from 'lib/getStampFyiURL';
 import Link from 'next/link';
 import type { FC } from 'react';
 

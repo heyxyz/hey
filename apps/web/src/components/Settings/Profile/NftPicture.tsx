@@ -17,10 +17,10 @@ import {
   useCreateSetProfileImageUriViaDispatcherMutation,
   useNftChallengeLazyQuery
 } from '@lenster/lens';
+import getSignature from '@lenster/lib/getSignature';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

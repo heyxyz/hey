@@ -6,14 +6,14 @@ import {
   IS_MAINNET,
   SNAPSHOR_RELAY_WORKER_URL
 } from '@lenster/data';
+import humanize from '@lenster/lib/humanize';
+import nFormatter from '@lenster/lib/nFormatter';
 import { getTimetoNow } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import type { Proposal, Vote } from '@workers/snapshot-relay';
 import axios from 'axios';
 import clsx from 'clsx';
-import humanize from 'lib/humanize';
-import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';

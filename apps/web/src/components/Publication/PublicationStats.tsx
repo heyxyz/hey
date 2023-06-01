@@ -7,8 +7,8 @@ import {
   SwitchHorizontalIcon
 } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
+import nFormatter from '@lenster/lib/nFormatter';
 import { Plural, t } from '@lingui/macro';
-import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Modal } from 'ui';

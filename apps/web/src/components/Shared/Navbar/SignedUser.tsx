@@ -1,11 +1,11 @@
 import { Menu } from '@headlessui/react';
 import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import isGardener from '@lenster/lib/isGardener';
+import isStaff from '@lenster/lib/isStaff';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
-import isGardener from 'lib/isGardener';
-import isStaff from 'lib/isStaff';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';

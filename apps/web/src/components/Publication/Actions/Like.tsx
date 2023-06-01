@@ -12,13 +12,13 @@ import {
 } from '@lenster/lens';
 import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
+import hasGm from '@lenster/lib/hasGm';
+import nFormatter from '@lenster/lib/nFormatter';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import hasGm from 'lib/hasGm';
-import nFormatter from 'lib/nFormatter';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';

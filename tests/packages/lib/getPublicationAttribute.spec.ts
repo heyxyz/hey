@@ -1,6 +1,6 @@
 import type { MetadataAttributeOutput } from '@lenster/lens';
+import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import { expect, test } from '@playwright/test';
-import getPublicationAttribute from 'lib/getPublicationAttribute';
 
 test.describe('getPublicationAttribute', () => {
   const attributes: MetadataAttributeOutput[] = [

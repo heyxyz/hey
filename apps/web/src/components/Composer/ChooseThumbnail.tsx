@@ -1,9 +1,9 @@
 import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotographIcon } from '@heroicons/react/outline';
+import { generateVideoThumbnails } from '@lenster/lib/generateVideoThumbnails';
+import getFileFromDataURL from '@lenster/lib/getFileFromDataURL';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
-import { generateVideoThumbnails } from 'lib/generateVideoThumbnails';
-import getFileFromDataURL from 'lib/getFileFromDataURL';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';

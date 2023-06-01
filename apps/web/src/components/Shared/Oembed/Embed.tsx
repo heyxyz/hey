@@ -1,7 +1,7 @@
 import { ATTACHMENT } from '@lenster/data/constants';
+import imageKit from '@lenster/lib/imageKit';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
-import imageKit from 'lib/imageKit';
-import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { PUBLICATION } from 'src/tracking';
