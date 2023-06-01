@@ -110,6 +110,9 @@ importers:
       '@lenster/data':
         specifier: workspace:*
         version: link:../../packages/data
+      '@lenster/image-cropper':
+        specifier: workspace:*
+        version: link:../../packages/image-cropper
       '@lenster/lens':
         specifier: workspace:*
         version: link:../../packages/lens
@@ -200,9 +203,6 @@ importers:
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
-      image-cropper:
-        specifier: workspace:*
-        version: link:../../packages/image-cropper
       jwt-decode:
         specifier: ^3.1.2
         version: 3.1.2

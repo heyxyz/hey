@@ -1,5 +1,5 @@
-import { expect, test } from '@playwright/test';
 import { APP_NAME } from '@lenster/data/constants';
+import { expect, test } from '@playwright/test';
 import { WEB_BASE_URL } from 'test/constants';
 
 // Check footer is present

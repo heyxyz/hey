@@ -2,6 +2,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
 import type { CreateSetDefaultProfileRequest, Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -10,7 +11,6 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import Errors from '@lenster/data/errors';
 import formatHandle from 'lib/formatHandle';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';

@@ -1,5 +1,5 @@
-import type { Wallet } from '@lenster/lens';
 import { POLYGONSCAN_URL } from '@lenster/data/constants';
+import type { Wallet } from '@lenster/lens';
 import formatAddress from 'lib/formatAddress';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import Link from 'next/link';

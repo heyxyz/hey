@@ -1,9 +1,9 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { IS_MAINNET } from '@lenster/data';
 import type { Profile } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import { IS_MAINNET } from '@lenster/data';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';

@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
+import { APP_NAME } from '@lenster/data/constants';
 import {
   CustomFiltersTypes,
   PublicationMainFocus,
@@ -7,7 +8,6 @@ import {
 } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { APP_NAME } from '@lenster/data/constants';
 import isGardener from 'lib/isGardener';
 import type { NextPage } from 'next';
 import { useState } from 'react';

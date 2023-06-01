@@ -5,6 +5,7 @@ import {
   IS_MAINNET,
   LENSHUB_PROXY
 } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
 import type {
   NftImage,
   Profile,
@@ -19,7 +20,6 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import Errors from '@lenster/data/errors';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useState } from 'react';

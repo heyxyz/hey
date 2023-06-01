@@ -1,9 +1,9 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/outline';
+import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';

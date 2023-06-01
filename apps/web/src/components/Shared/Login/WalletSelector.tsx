@@ -1,6 +1,7 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
+import Errors from '@lenster/data/errors';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
@@ -10,7 +11,6 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import Errors from '@lenster/data/errors';
 import getWalletDetails from 'lib/getWalletDetails';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
