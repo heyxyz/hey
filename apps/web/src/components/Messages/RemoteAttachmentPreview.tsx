@@ -1,13 +1,13 @@
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
+import type { Profile } from '@lenster/lens';
+import { Spinner } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   useAttachmentCachePersistStore,
   useAttachmentStore
 } from 'src/store/attachment';
-import { Spinner } from 'ui';
 import type {
   Attachment as TAttachment,
   RemoteAttachment

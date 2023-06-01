@@ -1,4 +1,4 @@
-import type { Publication } from 'lens';
+import type { Publication } from '@lenster/lens';
 import { create } from 'zustand';
 
 interface GlobalModalState {

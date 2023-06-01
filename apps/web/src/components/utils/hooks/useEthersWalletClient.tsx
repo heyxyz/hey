@@ -1,4 +1,4 @@
-import { ZERO_ADDRESS } from 'data';
+import { ZERO_ADDRESS } from '@lenster/data';
 import { CHAIN_ID } from 'src/constants';
 import { useWalletClient } from 'wagmi';
 

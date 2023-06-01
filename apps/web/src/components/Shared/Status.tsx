@@ -1,27 +1,34 @@
 import { PencilIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadToArweave from '@lib/uploadToArweave';
-import { t, Trans } from '@lingui/macro';
-import { LensPeriphery } from 'abis';
-import { APP_NAME, LENS_PERIPHERY } from 'data/constants';
-import Errors from 'data/errors';
-import type { CreatePublicSetProfileMetadataUriRequest } from 'lens';
+import { LensPeriphery } from '@lenster/abis';
+import { APP_NAME, LENS_PERIPHERY } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
+import type { CreatePublicSetProfileMetadataUriRequest } from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation,
   useProfileSettingsQuery
-} from 'lens';
-import getProfileAttribute from 'lib/getProfileAttribute';
-import getSignature from 'lib/getSignature';
+} from '@lenster/lens';
+import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import getSignature from '@lenster/lib/getSignature';
+import {
+  Button,
+  ErrorMessage,
+  Form,
+  Input,
+  Spinner,
+  useZodForm
+} from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import uploadToArweave from '@lib/uploadToArweave';
+import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { SETTINGS } from 'src/tracking';
-import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';

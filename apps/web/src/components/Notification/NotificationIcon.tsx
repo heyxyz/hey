@@ -1,5 +1,5 @@
 import { BellIcon } from '@heroicons/react/outline';
-import { CustomFiltersTypes, useNotificationCountQuery } from 'lens';
+import { CustomFiltersTypes, useNotificationCountQuery } from '@lenster/lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';

@@ -1,8 +1,8 @@
 import ModAction from '@components/Publication/Actions/ModAction';
+import { Alert } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
-import { Alert } from 'ui';
 
 import DeletePublication from './Alert/DeletePublication';
 

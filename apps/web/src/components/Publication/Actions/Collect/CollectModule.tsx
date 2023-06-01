@@ -14,17 +14,14 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import errorToast from '@lib/errorToast';
-import { formatTime } from '@lib/formatTime';
-import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t, Trans } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
-import { LensHub } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
-import Errors from 'data/errors';
-import dayjs from 'dayjs';
-import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
+import type {
+  ApprovedAllowanceAmount,
+  ElectedMirror,
+  Publication
+} from '@lenster/lens';
 import {
   CollectModules,
   useApprovedModuleAllowanceAmountQuery,
@@ -33,13 +30,21 @@ import {
   useCreateCollectTypedDataMutation,
   useProxyActionMutation,
   usePublicationRevenueQuery
-} from 'lens';
-import formatAddress from 'lib/formatAddress';
-import formatHandle from 'lib/formatHandle';
-import getAssetAddress from 'lib/getAssetAddress';
-import getSignature from 'lib/getSignature';
-import getTokenImage from 'lib/getTokenImage';
-import humanize from 'lib/humanize';
+} from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAssetAddress from '@lenster/lib/getAssetAddress';
+import getSignature from '@lenster/lib/getSignature';
+import getTokenImage from '@lenster/lib/getTokenImage';
+import humanize from '@lenster/lib/humanize';
+import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { formatTime } from '@lib/formatTime';
+import getCoingeckoPrice from '@lib/getCoingeckoPrice';
+import { Leafwatch } from '@lib/leafwatch';
+import { Plural, t, Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import Link from 'next/link';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -47,7 +52,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
-import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
 import { useUpdateEffect } from 'usehooks-ts';
 import {
   useAccount,

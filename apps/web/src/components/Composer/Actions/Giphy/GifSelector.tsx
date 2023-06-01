@@ -2,10 +2,10 @@ import type { ICategory } from '@giphy/js-fetch-api';
 import { GiphyFetch } from '@giphy/js-fetch-api';
 import type { IGif } from '@giphy/js-types';
 import { Grid } from '@giphy/react-components';
+import { Input } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, Dispatch, FC } from 'react';
 import { useState } from 'react';
-import { Input } from 'ui';
 import { useDebounce, useEffectOnce } from 'usehooks-ts';
 
 const giphyFetch = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh');

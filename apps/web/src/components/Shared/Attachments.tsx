@@ -1,24 +1,24 @@
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_VIDEO_TYPES,
   ATTACHMENT,
   STATIC_IMAGES_URL
-} from 'data/constants';
-import type { MediaSet, Publication } from 'lens';
-import imageKit from 'lib/imageKit';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
-import stopEventPropagation from 'lib/stopEventPropagation';
+} from '@lenster/data/constants';
+import type { MediaSet, Publication } from '@lenster/lens';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Button, Image, LightBox } from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
+import { Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
-import { Button, Image, LightBox } from 'ui';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import Audio from './Audio';

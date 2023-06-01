@@ -1,13 +1,13 @@
 import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
+import { XMTP_ENV } from '@lenster/data/constants';
+import { Button, Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
-import { XMTP_ENV } from 'data/constants';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { Button, Card } from 'ui';
 import { useUpdateEffect } from 'usehooks-ts';
 
 const EnableMessages: FC = () => {

@@ -1,4 +1,4 @@
-import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from 'data/constants';
+import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@lenster/data/constants';
 
 /**
  * Returns the IPFS link for a given hash.

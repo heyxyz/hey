@@ -1,7 +1,7 @@
+import { PublicationMainFocus } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import { PublicationMainFocus } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { EXPLORE } from 'src/tracking';
 

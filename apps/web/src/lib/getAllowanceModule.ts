@@ -1,5 +1,5 @@
+import { CollectModules, FollowModules, ReferenceModules } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import { CollectModules, FollowModules, ReferenceModules } from 'lens';
 
 /**
  * Returns the name and field of the specified module.

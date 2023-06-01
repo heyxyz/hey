@@ -1,35 +1,35 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
-import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
-import { AVATAR, LENSHUB_PROXY } from 'data/constants';
-import Errors from 'data/errors';
-import { getCroppedImg } from 'image-cropper/cropUtils';
-import type { Area } from 'image-cropper/types';
+import { LensHub } from '@lenster/abis';
+import { AVATAR, LENSHUB_PROXY } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
+import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
+import type { Area } from '@lenster/image-cropper/types';
 import type {
   MediaSet,
   NftImage,
   Profile,
   UpdateProfileImageRequest
-} from 'lens';
+} from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation
-} from 'lens';
-import getSignature from 'lib/getSignature';
-import imageKit from 'lib/imageKit';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+} from '@lenster/lens';
+import getSignature from '@lenster/lib/getSignature';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import { Button, ErrorMessage, Image, Modal, Spinner } from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
+import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
-import { Button, ErrorMessage, Image, Modal, Spinner } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import ImageCropperController from './ImageCropperController';

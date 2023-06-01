@@ -1,5 +1,5 @@
-import { IS_MAINNET } from 'data/constants';
-import { mainnetVerified, testnetVerified } from 'data/verified';
+import { IS_MAINNET } from '@lenster/data/constants';
+import { mainnetVerified, testnetVerified } from '@lenster/data/verified';
 
 /**
  * Checks whether a profile is verified or not.

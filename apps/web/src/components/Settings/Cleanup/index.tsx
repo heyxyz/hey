@@ -1,15 +1,21 @@
 import MetaTags from '@components/Common/MetaTags';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
+import { APP_NAME } from '@lenster/data/constants';
+import { Localstorage } from '@lenster/data/storage';
+import {
+  Button,
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout
+} from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { APP_NAME } from 'data/constants';
-import { Localstorage } from 'data/storage';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Button, Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';

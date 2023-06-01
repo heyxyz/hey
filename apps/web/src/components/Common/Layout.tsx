@@ -1,10 +1,10 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
+import type { Profile } from '@lenster/lens';
+import { useUserProfilesQuery } from '@lenster/lens';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
-import type { Profile } from 'lens';
-import { useUserProfilesQuery } from 'lens';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';

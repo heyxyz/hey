@@ -1,5 +1,9 @@
+import getRpc, {
+  ethereumRpcs,
+  mumbaiRpcs,
+  polygonRpcs
+} from '@lenster/lib/getRpc';
 import { expect, test } from '@playwright/test';
-import getRpc, { ethereumRpcs, mumbaiRpcs, polygonRpcs } from 'lib/getRpc';
 
 test.describe('getRpc', () => {
   test('should return a random Polygon RPC URL when chainId is 137', () => {

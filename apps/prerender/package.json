@@ -1,24 +1,24 @@
 {
-  "name": "prerender",
+  "name": "@lenster/prerender",
   "version": "0.0.0",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "next dev --port 4784",
     "build": "next build",
-    "start": "next start --port 4784",
-    "typecheck": "tsc --pretty",
+    "dev": "next dev --port 4784",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "next start --port 4784",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
+    "@lenster/data": "workspace:*",
+    "@lenster/lens": "workspace:*",
+    "@lenster/lib": "workspace:*",
     "axios": "^1.4.0",
-    "data": "workspace:*",
     "dotenv": "^16.1.1",
-    "lens": "workspace:*",
-    "lib": "workspace:*",
     "next": "^13.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,11 +26,11 @@
     "schema-dts": "^1.1.2"
   },
   "devDependencies": {
+    "@lenster/lens": "workspace:*",
+    "@lenster/tsconfig": "workspace:*",
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
-    "eslint-config-weblint": "workspace:*",
-    "lens": "workspace:*",
-    "tsconfig": "workspace:*",
+    "eslint-config-node": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

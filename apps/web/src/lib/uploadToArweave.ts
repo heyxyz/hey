@@ -1,6 +1,6 @@
+import { METADATA_WORKER_URL } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
 import axios from 'axios';
-import { METADATA_WORKER_URL } from 'data/constants';
-import Errors from 'data/errors';
 import toast from 'react-hot-toast';
 
 /**

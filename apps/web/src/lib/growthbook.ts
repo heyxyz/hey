@@ -1,5 +1,5 @@
 import { GrowthBook } from '@growthbook/growthbook';
-import { GROWTHBOOK_KEY } from 'data';
+import { GROWTHBOOK_KEY } from '@lenster/data';
 
 const growthbook = new GrowthBook({
   clientKey: GROWTHBOOK_KEY,

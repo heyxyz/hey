@@ -1,23 +1,23 @@
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
-import { t, Trans } from '@lingui/macro';
-import Errors from 'data/errors';
-import type { NftGallery } from 'lens';
+import Errors from '@lenster/data/errors';
+import type { NftGallery } from '@lenster/lens';
 import {
   NftGalleriesDocument,
   useCreateNftGalleryMutation,
   useNftGalleriesLazyQuery,
   useUpdateNftGalleryInfoMutation,
   useUpdateNftGalleryItemsMutation
-} from 'lens';
-import { useApolloClient } from 'lens/apollo';
-import trimify from 'lib/trimify';
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
+import trimify from '@lenster/lib/trimify';
+import { Button, Modal, Spinner } from '@lenster/ui';
+import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
-import { Button, Modal, Spinner } from 'ui';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';

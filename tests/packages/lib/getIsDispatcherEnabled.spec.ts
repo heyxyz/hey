@@ -1,6 +1,6 @@
+import { OLD_LENS_RELAYER_ADDRESS } from '@lenster/data';
+import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import { expect, test } from '@playwright/test';
-import { OLD_LENS_RELAYER_ADDRESS } from 'data';
-import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
 
 test.describe('getIsDispatcherEnabled', () => {
   test('returns false when profile is null', () => {

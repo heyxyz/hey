@@ -1,41 +1,31 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
-import uploadToArweave from '@lib/uploadToArweave';
-import { t, Trans } from '@lingui/macro';
-import { LensPeriphery } from 'abis';
+import { LensPeriphery } from '@lenster/abis';
 import {
   APP_NAME,
   COVER,
   LENS_PERIPHERY,
   PROFILE_NAME_VALIDATOR_REGEX,
   URL_REGEX
-} from 'data/constants';
-import Errors from 'data/errors';
-import { getCroppedImg } from 'image-cropper/cropUtils';
-import type { Area } from 'image-cropper/types';
+} from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
+import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
+import type { Area } from '@lenster/image-cropper/types';
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
   Profile
-} from 'lens';
+} from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
-} from 'lens';
-import getProfileAttribute from 'lib/getProfileAttribute';
-import getSignature from 'lib/getSignature';
-import hasPrideLogo from 'lib/hasPrideLogo';
-import imageKit from 'lib/imageKit';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
-import type { ChangeEvent, FC } from 'react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
+} from '@lenster/lens';
+import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import getSignature from '@lenster/lib/getSignature';
+import hasPrideLogo from '@lenster/lib/hasPrideLogo';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import {
   Button,
   Card,
@@ -48,7 +38,17 @@ import {
   TextArea,
   Toggle,
   useZodForm
-} from 'ui';
+} from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
+import uploadToArweave from '@lib/uploadToArweave';
+import { t, Trans } from '@lingui/macro';
+import type { ChangeEvent, FC } from 'react';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';

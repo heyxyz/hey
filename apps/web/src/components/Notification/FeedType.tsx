@@ -5,12 +5,12 @@ import {
   CollectionIcon,
   HeartIcon
 } from '@heroicons/react/outline';
+import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { NotificationType } from 'src/enums';
 import { NOTIFICATION } from 'src/tracking';
-import { TabButton } from 'ui';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<string>;

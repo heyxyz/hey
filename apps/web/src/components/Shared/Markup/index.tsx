@@ -1,5 +1,5 @@
+import trimify from '@lenster/lib/trimify';
 import { hashtagRegex, mentionRegex, urlRegex } from '@lib/markupUtils';
-import trimify from 'lib/trimify';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';

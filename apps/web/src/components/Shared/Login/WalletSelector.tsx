@@ -1,17 +1,18 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
-import Errors from 'data/errors';
+import Errors from '@lenster/data/errors';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useUserProfilesLazyQuery
-} from 'lens';
-import getWalletDetails from 'lib/getWalletDetails';
+} from '@lenster/lens';
+import getWalletDetails from '@lenster/lib/getWalletDetails';
+import { Button, Spinner } from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { t, Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -19,7 +20,6 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { AUTH } from 'src/tracking';
-import { Button, Spinner } from 'ui';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {

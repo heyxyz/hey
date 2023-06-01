@@ -2,13 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import axios from 'axios';
-import { APP_NAME, FRESHDESK_WORKER_URL } from 'data/constants';
-import type { FC } from 'react';
-import { useState } from 'react';
-import { PAGEVIEW } from 'src/tracking';
+import { APP_NAME, FRESHDESK_WORKER_URL } from '@lenster/data/constants';
 import {
   Button,
   Card,
@@ -21,7 +15,13 @@ import {
   Spinner,
   TextArea,
   useZodForm
-} from 'ui';
+} from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
+import { t, Trans } from '@lingui/macro';
+import axios from 'axios';
+import type { FC } from 'react';
+import { useState } from 'react';
+import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 

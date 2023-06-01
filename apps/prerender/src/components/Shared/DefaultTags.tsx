@@ -1,4 +1,4 @@
-import { APP_NAME, DEFAULT_OG, DESCRIPTION } from 'data/constants';
+import { APP_NAME, DEFAULT_OG, DESCRIPTION } from '@lenster/data/constants';
 import type { FC } from 'react';
 import { BASE_URL } from 'src/constants';
 

@@ -1,6 +1,6 @@
+import { Image } from '@lenster/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Image } from 'ui';
 import type { Attachment as TAttachment } from 'xmtp-content-type-remote-attachment';
 
 interface AttachmentProps {
