@@ -5,7 +5,7 @@ import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
-import { MIN_WIDTH_DESKTOP } from 'data/constants';
+import { MIN_WIDTH_DESKTOP } from '@lenster/data/constants';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';

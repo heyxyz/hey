@@ -9,7 +9,7 @@ import {
   ALLOWED_VIDEO_TYPES,
   ATTACHMENT,
   STATIC_IMAGES_URL
-} from 'data/constants';
+} from '@lenster/data/constants';
 import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import stopEventPropagation from 'lib/stopEventPropagation';

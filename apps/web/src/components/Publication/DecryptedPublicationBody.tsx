@@ -30,7 +30,7 @@ import {
   LIT_PROTOCOL_ENVIRONMENT,
   POLYGONSCAN_URL,
   RARIBLE_URL
-} from 'data/constants';
+} from '@lenster/data/constants';
 import formatHandle from 'lib/formatHandle';
 import getURLs from 'lib/getURLs';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';

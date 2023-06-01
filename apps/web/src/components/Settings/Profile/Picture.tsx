@@ -1,6 +1,7 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { AVATAR, LENSHUB_PROXY } from '@lenster/data/constants';
 import type {
   MediaSet,
   NftImage,
@@ -16,8 +17,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import { t, Trans } from '@lingui/macro';
-import { AVATAR, LENSHUB_PROXY } from 'data/constants';
-import Errors from 'data/errors';
+import Errors from '@lenster/data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
 import type { Area } from 'image-cropper/types';
 import getSignature from 'lib/getSignature';

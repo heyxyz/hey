@@ -1,5 +1,5 @@
 {
-  "name": "data",
+  "name": "@lenster/data",
   "version": "0.0.0",
   "license": "GPL-3.0",
   "main": "index.ts",

@@ -4,7 +4,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import type { Profile } from '@lenster/lens';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
-import { FeatureFlag } from 'data/feature-flags';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';

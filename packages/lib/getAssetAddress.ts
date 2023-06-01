@@ -1,4 +1,4 @@
-import { MainnetContracts } from 'data/contracts';
+import { MainnetContracts } from '@lenster/data/contracts';
 
 /**
  * A mapping of token symbols to their respective addresses.

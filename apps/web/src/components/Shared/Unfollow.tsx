@@ -9,7 +9,7 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import Errors from 'data/errors';
+import Errors from '@lenster/data/errors';
 import getSignature from 'lib/getSignature';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';

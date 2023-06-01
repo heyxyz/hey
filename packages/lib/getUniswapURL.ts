@@ -1,4 +1,4 @@
-import { IS_MAINNET } from 'data/constants';
+import { IS_MAINNET } from '@lenster/data/constants';
 
 /**
  * Returns the Uniswap URL for the specified amount and output currency symbol.

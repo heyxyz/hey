@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { APP_NAME } from 'data/constants';
+import { APP_NAME } from '@lenster/data/constants';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';

@@ -1,5 +1,10 @@
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import {
+  ADDRESS_REGEX,
+  DEFAULT_COLLECT_TOKEN,
+  LENSHUB_PROXY
+} from '@lenster/data/constants';
 import type { Erc20 } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -9,12 +14,7 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import {
-  ADDRESS_REGEX,
-  DEFAULT_COLLECT_TOKEN,
-  LENSHUB_PROXY
-} from 'data/constants';
-import Errors from 'data/errors';
+import Errors from '@lenster/data/errors';
 import getSignature from 'lib/getSignature';
 import getTokenImage from 'lib/getTokenImage';
 import type { FC } from 'react';

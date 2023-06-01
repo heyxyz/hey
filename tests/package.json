@@ -13,8 +13,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
+    "@lenster/data": "workspace:*",
     "@lenster/lens": "workspace:*",
-    "data": "workspace:*",
     "lib": "workspace:*"
   },
   "devDependencies": {

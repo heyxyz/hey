@@ -12,8 +12,8 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
-import Errors from 'data/errors';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getSignature from 'lib/getSignature';

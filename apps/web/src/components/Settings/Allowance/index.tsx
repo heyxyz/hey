@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
+import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@lenster/data/constants';
 import type { Erc20 } from '@lenster/lens';
 import {
   CollectModules,
@@ -10,7 +11,6 @@ import {
 } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { APP_NAME, DEFAULT_COLLECT_TOKEN } from 'data/constants';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';

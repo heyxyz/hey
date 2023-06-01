@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { IPFS_GATEWAY } from 'data/constants';
+import { IPFS_GATEWAY } from '@lenster/data/constants';
 import getAvatar from 'lib/getAvatar';
 
 test.describe('getAvatar', () => {

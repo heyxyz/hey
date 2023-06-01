@@ -14,16 +14,16 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import type { Profile } from '@lenster/lens';
-import buildConversationId from '@lib/buildConversationId';
-import { buildConversationKey } from '@lib/conversationKey';
-import { t, Trans } from '@lingui/macro';
 import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
   STATIC_IMAGES_URL
-} from 'data/constants';
-import getEnvConfig from 'data/utils/getEnvConfig';
+} from '@lenster/data/constants';
+import getEnvConfig from '@lenster/data/utils/getEnvConfig';
+import type { Profile } from '@lenster/lens';
+import buildConversationId from '@lib/buildConversationId';
+import { buildConversationKey } from '@lib/conversationKey';
+import { t, Trans } from '@lingui/macro';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';

@@ -1,4 +1,4 @@
-import { Localstorage } from 'data/storage';
+import { Localstorage } from '@lenster/data/storage';
 
 /**
  * Resets the auth data
