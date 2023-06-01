@@ -7,6 +7,7 @@ import { FeatureFlag } from '@lenster/data';
 import { APP_NAME } from '@lenster/data/constants';
 import type { PublicationMainFocus } from '@lenster/lens';
 import { PublicationSortCriteria } from '@lenster/lens';
+import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -16,7 +17,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { EXPLORE, PAGEVIEW } from 'src/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';

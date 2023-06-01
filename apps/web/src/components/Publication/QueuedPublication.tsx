@@ -11,12 +11,12 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import getURLs from '@lenster/lib/getURLs';
+import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import type { OptimisticTransaction } from 'src/types';
-import { Tooltip } from 'ui';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;

@@ -18,6 +18,14 @@ import {
   useNftChallengeLazyQuery
 } from '@lenster/lens';
 import getSignature from '@lenster/lib/getSignature';
+import {
+  Button,
+  ErrorMessage,
+  Form,
+  Input,
+  Spinner,
+  useZodForm
+} from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -27,7 +35,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
-import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { object, string } from 'zod';

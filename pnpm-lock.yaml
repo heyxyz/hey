@@ -119,6 +119,9 @@ importers:
       '@lenster/lib':
         specifier: workspace:*
         version: link:../../packages/lib
+      '@lenster/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@lexical/code':
         specifier: ^0.11.1
         version: 0.11.1(lexical@0.11.1)
@@ -260,9 +263,6 @@ importers:
       tlds:
         specifier: ^1.238.0
         version: 1.238.0
-      ui:
-        specifier: workspace:*
-        version: link:../../packages/ui
       use-resize-observer:
         specifier: ^9.1.0
         version: 9.1.0(react-dom@18.2.0)(react@18.2.0)

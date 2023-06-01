@@ -1,10 +1,10 @@
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import type { Publication } from '@lenster/lens';
+import { Card } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Card } from 'ui';
 
 interface MetaProps {
   name: string;

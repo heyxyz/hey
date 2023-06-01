@@ -1,10 +1,10 @@
 import { POLYGONSCAN_URL } from '@lenster/data/constants';
 import type { ApprovedAllowanceAmount } from '@lenster/lens';
+import { Card } from '@lenster/ui';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { Card } from 'ui';
 
 import AllowanceButton from './Button';
 

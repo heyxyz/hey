@@ -1,9 +1,9 @@
 import { ArrowRightIcon } from '@heroicons/react/outline';
 import { gql, useQuery } from '@lenster/lens/apollo';
+import { Button, Spinner } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Button, Spinner } from 'ui';
 
 const HAS_PUBLICATION_INDEXED_QUERY = gql`
   query HasPubicationIndexed($request: PublicationQueryRequest!) {

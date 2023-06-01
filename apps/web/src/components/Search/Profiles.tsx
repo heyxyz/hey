@@ -7,11 +7,11 @@ import {
   SearchRequestTypes,
   useSearchProfilesQuery
 } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface ProfilesProps {
   query: string | string[];

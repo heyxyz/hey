@@ -8,12 +8,12 @@ import {
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { ReferenceModules } from '@lenster/lens';
+import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
-import { Tooltip } from 'ui';
 
 const ReferenceSettings: FC = () => {
   const selectedReferenceModule = useReferenceModuleStore(

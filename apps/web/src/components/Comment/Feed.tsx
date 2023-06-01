@@ -13,6 +13,7 @@ import {
   CustomFiltersTypes,
   useCommentFeedQuery
 } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -20,7 +21,6 @@ import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { Card, EmptyState, ErrorMessage } from 'ui';
 
 import NewPublication from '../Composer/NewPublication';
 import CommentWarning from '../Shared/CommentWarning';

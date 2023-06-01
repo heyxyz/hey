@@ -1,5 +1,6 @@
 import type { FollowingRequest } from '@lenster/lens';
 import { useFollowingLazyQuery } from '@lenster/lens';
+import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
@@ -7,7 +8,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card } from 'ui';
 
 const Following: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

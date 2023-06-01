@@ -17,6 +17,7 @@ import {
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import { Image, Input, Spinner } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -25,7 +26,6 @@ import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
 import { MISCELLANEOUS } from 'src/tracking';
-import { Image, Input, Spinner } from 'ui';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

@@ -8,6 +8,7 @@ import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { APP_NAME } from '@lenster/data/constants';
 import formatHandle from '@lenster/lib/formatHandle';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import { Card, GridItemEight, GridLayout } from '@lenster/ui';
 import { parseConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -19,7 +20,6 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridLayout } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Composer from './Composer';

@@ -11,6 +11,14 @@ import {
 } from '@lenster/lens';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import getSignature from '@lenster/lib/getSignature';
+import {
+  Button,
+  ErrorMessage,
+  Form,
+  Input,
+  Spinner,
+  useZodForm
+} from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -21,7 +29,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { SETTINGS } from 'src/tracking';
-import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';

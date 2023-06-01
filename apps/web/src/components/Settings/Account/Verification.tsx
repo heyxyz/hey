@@ -1,10 +1,10 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import isVerified from '@lenster/lib/isVerified';
+import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { Card } from 'ui';
 
 const Verification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

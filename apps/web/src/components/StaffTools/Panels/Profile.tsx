@@ -14,10 +14,10 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getFollowModule from '@lenster/lib/getFollowModule';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import hasPrideLogo from '@lenster/lib/hasPrideLogo';
+import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Card } from 'ui';
 
 import MetaDetails from './MetaDetails';
 

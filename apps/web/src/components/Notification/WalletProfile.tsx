@@ -2,9 +2,9 @@ import { POLYGONSCAN_URL } from '@lenster/data/constants';
 import type { Wallet } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import { Image } from '@lenster/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Image } from 'ui';
 
 interface NotificationWalletProfileProps {
   wallet: Wallet;

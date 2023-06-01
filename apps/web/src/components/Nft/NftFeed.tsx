@@ -5,12 +5,12 @@ import { IS_MAINNET } from '@lenster/data/constants';
 import type { Nft, NfTsRequest, Profile } from '@lenster/lens';
 import { useNftFeedQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { CHAIN_ID } from 'src/constants';
-import { EmptyState, ErrorMessage } from 'ui';
 import { mainnet } from 'wagmi/chains';
 
 interface NftFeedProps {

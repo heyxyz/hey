@@ -4,9 +4,9 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import { Image } from '@lenster/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Image } from 'ui';
 
 interface NotificationProfileProps {
   profile: Profile;

@@ -4,6 +4,7 @@ import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
 import type { ElectedMirror, Publication } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
+import { Modal, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -11,7 +12,6 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
-import { Modal, Tooltip } from 'ui';
 import { useUpdateEffect } from 'usehooks-ts';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {

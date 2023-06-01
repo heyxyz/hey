@@ -3,12 +3,12 @@ import { TrendingUpIcon } from '@heroicons/react/solid';
 import type { TagResult } from '@lenster/lens';
 import { TagSortCriteria, useTrendingQuery } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
+import { Card, ErrorMessage } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
-import { Card, ErrorMessage } from 'ui';
 
 const Title = () => {
   return (

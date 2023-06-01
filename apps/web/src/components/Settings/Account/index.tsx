@@ -1,13 +1,13 @@
 import MetaTags from '@components/Common/MetaTags';
 import SuperFollow from '@components/Settings/Account/SuperFollow';
 import { APP_NAME } from '@lenster/data/constants';
+import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';

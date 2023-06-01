@@ -12,13 +12,13 @@ import {
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
 } from '@lenster/data/constants';
+import { Spinner, Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
-import { Spinner, Tooltip } from 'ui';
 import { useOnClickOutside } from 'usehooks-ts';
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);
