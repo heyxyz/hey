@@ -14,7 +14,7 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "bundlr": "workspace:*"
+    "@lenster/bundlr": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
