@@ -18,7 +18,7 @@ let params: AssumeRoleRequest;
 const app = express();
 
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', process.env.CORS ?? 'http://localhost:4783');
+  res.header('Access-Control-Allow-Origin', process.env.STS_CORS ?? 'http://localhost:4783');
   res.header('Access-Control-Allow-Methods', 'GET');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
@@ -54,15 +54,15 @@ app.get('/', async (req, res) => {
   }
 });
 
-const port = process.env.PORT ?? 8082;
+const port = process.env.STS_PORT ?? 8082;
 
 app.listen(port, () => {
   envVars = {
-    bucketName: process.env.BUCKET_NAME ?? 'lineaster-media',
-    bucketRegion: process.env.BUCKET_REGION ?? 'us-west-2',
+    bucketName: process.env.STS_BUCKET_NAME ?? 'lineaster-media',
+    bucketRegion: process.env.STS_BUCKET_REGION ?? 'us-west-2',
     stsEndpoint: process.env.STS_ENDPOINT ?? 'https://sts.amazonaws.com',
-    filePath: process.env.FILE_PATH ?? '',
-    secretContent: process.env.SECRET_CONTENT
+    filePath: process.env.STS_FILE_PATH ?? '',
+    secretContent: process.env.STS_SECRET_CONTENT
   };
 
   params = {

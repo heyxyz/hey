@@ -154,8 +154,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       )}
       {isModal && (
         <div className="mb-2 space-y-4">
-          <img className="h-10 w-10" height={40} width={40} src="/logo.svg" alt="Logo" />
-          <div className="text-xl font-bold">
+          <div className="text-xl font-medium text-white">
             <Trans>Sign up to {APP_NAME}</Trans>
           </div>
         </div>
@@ -169,7 +168,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
         })}
       />
       <div className="space-y-1.5">
-        <div className="label">Avatar</div>
+        <div className="font-medium text-white">Avatar</div>
         <div className="space-y-3">
           {avatar && (
             <div>
@@ -185,7 +184,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
         </div>
       </div>
       <Button
-        className="ml-auto"
+        className="ml-auto rounded-full"
         type="submit"
         disabled={isLoading || !isConnected}
         icon={isLoading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />}

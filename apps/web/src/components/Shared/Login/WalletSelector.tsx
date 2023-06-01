@@ -118,13 +118,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfil
         {chain?.id === CHAIN_ID ? (
           <Button
             disabled={loading}
-            icon={
-              loading ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : (
-                <img className="mr-0.5 h-4 w-4" height={16} width={16} src="/lens.png" alt="Lens Logo" />
-              )
-            }
+            className="rounded-full"
+            icon={loading && <Spinner className="mr-0.5" size="xs" />}
             onClick={handleSign}
           >
             <Trans>Sign-In with Lens</Trans>
@@ -137,7 +132,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfil
             disconnect?.();
             Mixpanel.track(AUTH.CHANGE_WALLET);
           }}
-          className="flex items-center space-x-1 text-sm underline"
+          className="flex items-center space-x-1 text-sm text-gray-300 underline hover:text-brand-500"
         >
           <KeyIcon className="h-4 w-4" />
           <div>
@@ -160,8 +155,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected, setHasProfil
             type="button"
             key={connector.id}
             className={clsx(
-              { 'hover:bg-gray-100 dark:hover:bg-gray-700': connector.id !== activeConnector?.id },
-              'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
+              { 'hover:bg-brand-500': connector.id !== activeConnector?.id },
+              'flex w-full dark:text-darker hitems-center justify-between overflow-hidden rounded-full bg-white px-3 py-2 outline-none'
             )}
             onClick={() => onConnect(connector)}
             disabled={mounted ? !connector.ready || connector.id === activeConnector?.id : false}

@@ -21,14 +21,14 @@ const Pending: FC<PendingProps> = ({ handle, txHash }) => {
       {loading ||
       (data?.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
         !data?.hasTxHashBeenIndexed.indexed) ? (
-        <div className="space-y-3">
+        <div className="space-y-3 text-white font-medium">
           <Spinner className="mx-auto" />
           <div>
             <Trans>Account creation in progress, please wait!</Trans>
           </div>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3 text-white font-medium">
           <div className="text-[40px]">🌿</div>
           <div>Account created successfully</div>
           <div className="pt-3">
