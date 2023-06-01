@@ -14,7 +14,7 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', () => new Response('Snapshot Relay'));
+router.get('/', () => new Response('say gm to snapshot relay service 👋'));
 router.get('/getProposal/:network/:id/:voter', ({ params }) =>
   getProposal(params.network, params.id, params.voter)
 );

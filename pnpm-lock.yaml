@@ -636,6 +636,9 @@ importers:
       '@lenster/bundlr':
         specifier: workspace:*
         version: link:../../bundlr
+      itty-router:
+        specifier: ^4.0.9
+        version: 4.0.9
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
