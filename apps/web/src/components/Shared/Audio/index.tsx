@@ -1,7 +1,7 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
+import type { Publication } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import type { Publication } from 'lens';
 import getPublicationAttribute from 'lib/getPublicationAttribute';
 import getThumbnailUrl from 'lib/getThumbnailUrl';
 import sanitizeDisplayName from 'lib/sanitizeDisplayName';

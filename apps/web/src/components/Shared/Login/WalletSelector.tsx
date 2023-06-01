@@ -1,16 +1,16 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
+import {
+  useAuthenticateMutation,
+  useChallengeLazyQuery,
+  useUserProfilesLazyQuery
+} from '@lenster/lens';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';
-import {
-  useAuthenticateMutation,
-  useChallengeLazyQuery,
-  useUserProfilesLazyQuery
-} from 'lens';
 import getWalletDetails from 'lib/getWalletDetails';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';

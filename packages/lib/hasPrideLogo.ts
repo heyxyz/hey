@@ -1,4 +1,4 @@
-import type { Profile } from 'lens';
+import type { Profile } from '@lenster/lens';
 
 import getProfileAttribute from './getProfileAttribute';
 

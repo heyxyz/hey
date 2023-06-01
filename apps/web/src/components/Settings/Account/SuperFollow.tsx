@@ -1,4 +1,10 @@
 import { StarIcon, XIcon } from '@heroicons/react/outline';
+import type { Erc20 } from '@lenster/lens';
+import {
+  useBroadcastMutation,
+  useCreateSetFollowModuleTypedDataMutation,
+  useEnabledModulesQuery
+} from '@lenster/lens';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -9,12 +15,6 @@ import {
   LENSHUB_PROXY
 } from 'data/constants';
 import Errors from 'data/errors';
-import type { Erc20 } from 'lens';
-import {
-  useBroadcastMutation,
-  useCreateSetFollowModuleTypedDataMutation,
-  useEnabledModulesQuery
-} from 'lens';
 import getSignature from 'lib/getSignature';
 import getTokenImage from 'lib/getTokenImage';
 import type { FC } from 'react';

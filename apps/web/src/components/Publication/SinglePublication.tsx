@@ -1,5 +1,5 @@
 import ActionType from '@components/Home/Timeline/EventType';
-import type { ElectedMirror, FeedItem, Publication } from 'lens';
+import type { ElectedMirror, FeedItem, Publication } from '@lenster/lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 

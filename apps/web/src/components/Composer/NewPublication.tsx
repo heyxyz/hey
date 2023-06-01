@@ -16,6 +16,32 @@ import type {
   AccessConditionOutput,
   CreatePublicPostRequest
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
+import type {
+  CreatePublicCommentRequest,
+  MetadataAttributeInput,
+  Publication,
+  PublicationMetadataMediaInput,
+  PublicationMetadataV2Input
+} from '@lenster/lens';
+import {
+  CollectModules,
+  PublicationDocument,
+  PublicationMainFocus,
+  PublicationMetadataDisplayTypes,
+  ReferenceModules,
+  useBroadcastDataAvailabilityMutation,
+  useBroadcastMutation,
+  useCreateCommentTypedDataMutation,
+  useCreateCommentViaDispatcherMutation,
+  useCreateDataAvailabilityCommentTypedDataMutation,
+  useCreateDataAvailabilityCommentViaDispatcherMutation,
+  useCreateDataAvailabilityPostTypedDataMutation,
+  useCreateDataAvailabilityPostViaDispatcherMutation,
+  useCreatePostTypedDataMutation,
+  useCreatePostViaDispatcherMutation,
+  usePublicationLazyQuery
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -36,32 +62,6 @@ import {
   LIT_PROTOCOL_ENVIRONMENT
 } from 'data/constants';
 import Errors from 'data/errors';
-import type {
-  CreatePublicCommentRequest,
-  MetadataAttributeInput,
-  Publication,
-  PublicationMetadataMediaInput,
-  PublicationMetadataV2Input
-} from 'lens';
-import {
-  CollectModules,
-  PublicationDocument,
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes,
-  ReferenceModules,
-  useBroadcastDataAvailabilityMutation,
-  useBroadcastMutation,
-  useCreateCommentTypedDataMutation,
-  useCreateCommentViaDispatcherMutation,
-  useCreateDataAvailabilityCommentTypedDataMutation,
-  useCreateDataAvailabilityCommentViaDispatcherMutation,
-  useCreateDataAvailabilityPostTypedDataMutation,
-  useCreateDataAvailabilityPostViaDispatcherMutation,
-  useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation,
-  usePublicationLazyQuery
-} from 'lens';
-import { useApolloClient } from 'lens/apollo';
 import { $getRoot } from 'lexical';
 import getSignature from 'lib/getSignature';
 import getTags from 'lib/getTags';

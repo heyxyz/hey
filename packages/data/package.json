@@ -1,14 +1,14 @@
 {
   "name": "data",
   "version": "0.0.0",
-  "main": "index.ts",
   "license": "GPL-3.0",
+  "main": "index.ts",
   "scripts": {
-    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
   },
   "devDependencies": {
     "@types/node": "^20.2.5",

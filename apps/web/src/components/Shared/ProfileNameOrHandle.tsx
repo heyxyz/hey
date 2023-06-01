@@ -1,5 +1,5 @@
+import type { Profile } from '@lenster/lens';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import Link from 'next/link';

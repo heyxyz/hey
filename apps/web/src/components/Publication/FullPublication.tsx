@@ -1,6 +1,6 @@
+import type { Publication } from '@lenster/lens';
 import { formatTime } from '@lib/formatTime';
 import dayjs from 'dayjs';
-import type { Publication } from 'lens';
 import getAppName from 'lib/getAppName';
 import type { FC } from 'react';
 

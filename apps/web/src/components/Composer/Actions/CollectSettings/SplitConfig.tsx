@@ -6,9 +6,9 @@ import {
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/outline';
+import { CollectModules, useProfileLazyQuery } from '@lenster/lens';
 import { t, Trans } from '@lingui/macro';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
-import { CollectModules, useProfileLazyQuery } from 'lens';
 import isValidEthAddress from 'lib/isValidEthAddress';
 import splitNumber from 'lib/splitNumber';
 import type { FC } from 'react';

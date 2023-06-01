@@ -6,13 +6,13 @@ import useGetMessagePreviews from '@components/utils/hooks/useGetMessagePreviews
 import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';
-import type { Profile } from 'lens';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';

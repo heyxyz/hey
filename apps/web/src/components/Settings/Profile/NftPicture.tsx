@@ -1,17 +1,21 @@
 import { PencilIcon } from '@heroicons/react/outline';
+import type {
+  NftImage,
+  Profile,
+  UpdateProfileImageRequest
+} from '@lenster/lens';
+import {
+  useBroadcastMutation,
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation,
+  useNftChallengeLazyQuery
+} from '@lenster/lens';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
-import type { NftImage, Profile, UpdateProfileImageRequest } from 'lens';
-import {
-  useBroadcastMutation,
-  useCreateSetProfileImageUriTypedDataMutation,
-  useCreateSetProfileImageUriViaDispatcherMutation,
-  useNftChallengeLazyQuery
-} from 'lens';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useState } from 'react';

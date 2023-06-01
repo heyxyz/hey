@@ -1,4 +1,4 @@
-import type { Comment } from 'lens';
+import type { Comment } from '@lenster/lens';
 import type { FC } from 'react';
 
 import ThreadBody from '../ThreadBody';

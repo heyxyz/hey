@@ -1,12 +1,12 @@
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
-import type { Profile, ProfileSearchResult } from 'lens';
+import type { Profile, ProfileSearchResult } from '@lenster/lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesLazyQuery
-} from 'lens';
+} from '@lenster/lens';
+import { t, Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import formatHandle from 'lib/formatHandle';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';

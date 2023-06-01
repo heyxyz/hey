@@ -1,7 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { CollectModules } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import { CollectModules } from 'lens';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { Input } from 'ui';

@@ -1,10 +1,10 @@
 import MetaTags from '@components/Common/MetaTags';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
+import { useRelayQueuesQuery } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
-import { useRelayQueuesQuery } from 'lens';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import type { FC } from 'react';

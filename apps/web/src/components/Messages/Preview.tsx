@@ -1,9 +1,9 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import type { Profile } from '@lenster/lens';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';

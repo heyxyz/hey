@@ -1,12 +1,12 @@
 import { CashIcon, DocumentTextIcon } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
-import clsx from 'clsx';
-import type { Publication } from 'lens';
+import type { Publication } from '@lenster/lens';
 import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
-} from 'lens';
+} from '@lenster/lens';
+import { Leafwatch } from '@lib/leafwatch';
+import { t } from '@lingui/macro';
+import clsx from 'clsx';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';

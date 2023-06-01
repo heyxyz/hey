@@ -1,4 +1,11 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import type {
+  MediaSet,
+  NftImage,
+  Profile,
+  ProfileSearchResult
+} from '@lenster/lens';
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenster/lens';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
@@ -8,8 +15,6 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import clsx from 'clsx';
 import { AVATAR } from 'data/constants';
-import type { MediaSet, NftImage, Profile, ProfileSearchResult } from 'lens';
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import type { TextNode } from 'lexical';
 import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';

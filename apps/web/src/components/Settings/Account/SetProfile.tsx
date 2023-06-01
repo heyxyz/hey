@@ -1,16 +1,16 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
+import type { CreateSetDefaultProfileRequest, Profile } from '@lenster/lens';
+import {
+  useBroadcastMutation,
+  useCreateSetDefaultProfileTypedDataMutation
+} from '@lenster/lens';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { LensHub } from 'abis';
 import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
-import type { CreateSetDefaultProfileRequest, Profile } from 'lens';
-import {
-  useBroadcastMutation,
-  useCreateSetDefaultProfileTypedDataMutation
-} from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';

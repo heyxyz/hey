@@ -1,7 +1,7 @@
 import { StarIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';

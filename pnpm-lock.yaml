@@ -22,6 +22,9 @@ importers:
 
   apps/prerender:
     dependencies:
+      '@lenster/lens':
+        specifier: workspace:*
+        version: link:../../packages/lens
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -31,9 +34,6 @@ importers:
       dotenv:
         specifier: ^16.1.1
         version: 16.1.1
-      lens:
-        specifier: workspace:*
-        version: link:../../packages/lens
       lib:
         specifier: workspace:*
         version: link:../../packages/lib
@@ -104,6 +104,9 @@ importers:
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+      '@lenster/lens':
+        specifier: workspace:*
+        version: link:../../packages/lens
       '@lexical/code':
         specifier: ^0.11.1
         version: 0.11.1(lexical@0.11.1)
@@ -203,9 +206,6 @@ importers:
       jwt-decode:
         specifier: ^3.1.2
         version: 3.1.2
-      lens:
-        specifier: workspace:*
-        version: link:../../packages/lens
       lexical:
         specifier: ^0.11.1
         version: 0.11.1
@@ -486,12 +486,12 @@ importers:
 
   packages/lib:
     dependencies:
+      '@lenster/lens':
+        specifier: workspace:*
+        version: link:../lens
       data:
         specifier: workspace:*
         version: link:../data
-      lens:
-        specifier: workspace:*
-        version: link:../lens
       viem:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.0.4)(zod@3.21.4)
@@ -775,12 +775,12 @@ importers:
 
   tests:
     dependencies:
+      '@lenster/lens':
+        specifier: workspace:*
+        version: link:../packages/lens
       data:
         specifier: workspace:*
         version: link:../packages/data
-      lens:
-        specifier: workspace:*
-        version: link:../packages/lens
       lib:
         specifier: workspace:*
         version: link:../packages/lib
@@ -7465,7 +7465,7 @@ packages:
   /axios@0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.15.2
+      follow-redirects: 1.15.2(debug@4.3.4)
     transitivePeerDependencies:
       - debug
     dev: false
@@ -7481,7 +7481,7 @@ packages:
   /axios@1.4.0:
     resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
     dependencies:
-      follow-redirects: 1.15.2
+      follow-redirects: 1.15.2(debug@4.3.4)
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -9609,16 +9609,6 @@ packages:
   /flatted@3.2.7:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
-
-  /follow-redirects@1.15.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: false
 
   /follow-redirects@1.15.2(debug@4.3.4):
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}

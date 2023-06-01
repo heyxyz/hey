@@ -1,8 +1,8 @@
 import Slug from '@components/Shared/Slug';
+import type { Profile, RecipientDataOutput } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import { POLYGONSCAN_URL } from 'data/constants';
-import type { Profile, RecipientDataOutput } from 'lens';
-import { useProfilesQuery } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';

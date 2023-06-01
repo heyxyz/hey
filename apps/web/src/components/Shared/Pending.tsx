@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from '@heroicons/react/outline';
+import { gql, useQuery } from '@lenster/lens/apollo';
 import { Trans } from '@lingui/macro';
-import { gql, useQuery } from 'lens/apollo';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { Button, Spinner } from 'ui';

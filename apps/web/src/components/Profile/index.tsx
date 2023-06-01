@@ -1,12 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import NftFeed from '@components/Nft/NftFeed';
+import type { Profile } from '@lenster/lens';
+import { useProfileQuery } from '@lenster/lens';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
 import { FeatureFlag } from 'data';
 import { APP_NAME, STATIC_IMAGES_URL } from 'data/constants';
-import type { Profile } from 'lens';
-import { useProfileQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';

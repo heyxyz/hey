@@ -1,7 +1,7 @@
 import { ShieldCheckIcon } from '@heroicons/react/outline';
+import type { Publication } from '@lenster/lens';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { Tooltip } from 'ui';

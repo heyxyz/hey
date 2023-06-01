@@ -1,9 +1,9 @@
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import type { Publication } from '@lenster/lens';
+import { useReportPublicationMutation } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import type { Publication } from 'lens';
-import { useReportPublicationMutation } from 'lens';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useState } from 'react';

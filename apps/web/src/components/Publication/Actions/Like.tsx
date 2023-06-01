@@ -3,20 +3,20 @@ import {
   HeartIcon as HeartIconSolid,
   SunIcon as SunIconSolid
 } from '@heroicons/react/solid';
+import type { Publication } from '@lenster/lens';
+import {
+  ReactionTypes,
+  useAddReactionMutation,
+  useRemoveReactionMutation
+} from '@lenster/lens';
+import type { ApolloCache } from '@lenster/lens/apollo';
+import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import Errors from 'data/errors';
 import { motion } from 'framer-motion';
-import type { Publication } from 'lens';
-import {
-  ReactionTypes,
-  useAddReactionMutation,
-  useRemoveReactionMutation
-} from 'lens';
-import type { ApolloCache } from 'lens/apollo';
-import { publicationKeyFields } from 'lens/apollo/lib';
 import hasGm from 'lib/hasGm';
 import nFormatter from 'lib/nFormatter';
 import { useRouter } from 'next/router';

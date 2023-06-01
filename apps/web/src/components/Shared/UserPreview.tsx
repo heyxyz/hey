@@ -1,9 +1,9 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import type { Profile } from '@lenster/lens';
+import { useProfileLazyQuery } from '@lenster/lens';
 import { Plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
-import { useProfileLazyQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';

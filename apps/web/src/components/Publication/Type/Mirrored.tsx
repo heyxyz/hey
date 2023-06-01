@@ -1,7 +1,7 @@
 import Profiles from '@components/Shared/Profiles';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import type { Mirror } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import type { Mirror } from 'lens';
 import type { FC } from 'react';
 
 interface MirroredProps {

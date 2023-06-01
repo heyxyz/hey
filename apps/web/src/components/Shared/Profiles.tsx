@@ -1,5 +1,5 @@
 import ProfileNameOrHandle from '@components/Shared/ProfileNameOrHandle';
-import type { Profile } from 'lens';
+import type { Profile } from '@lenster/lens';
 import type { FC, ReactNode } from 'react';
 
 interface ProfileCirclesProps {

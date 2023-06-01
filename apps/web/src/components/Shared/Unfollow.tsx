@@ -1,12 +1,15 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
+import {
+  useBroadcastMutation,
+  useCreateUnfollowTypedDataMutation
+} from '@lenster/lens';
+import type { ApolloCache } from '@lenster/lens/apollo';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
 import Errors from 'data/errors';
-import type { Profile } from 'lens';
-import { useBroadcastMutation, useCreateUnfollowTypedDataMutation } from 'lens';
-import type { ApolloCache } from 'lens/apollo';
 import getSignature from 'lib/getSignature';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';

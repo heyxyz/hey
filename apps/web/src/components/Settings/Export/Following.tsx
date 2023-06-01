@@ -1,8 +1,8 @@
+import type { FollowingRequest } from '@lenster/lens';
+import { useFollowingLazyQuery } from '@lenster/lens';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import type { FollowingRequest } from 'lens';
-import { useFollowingLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';

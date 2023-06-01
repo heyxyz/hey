@@ -1,6 +1,6 @@
+import type { Profile } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import { STATIC_IMAGES_URL } from 'data/constants';
-import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { Tooltip } from 'ui';
 

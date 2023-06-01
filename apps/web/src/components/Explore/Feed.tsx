@@ -1,17 +1,17 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { CollectionIcon } from '@heroicons/react/outline';
-import { t } from '@lingui/macro';
 import type {
   ExplorePublicationRequest,
   Publication,
   PublicationMainFocus
-} from 'lens';
+} from '@lenster/lens';
 import {
   CustomFiltersTypes,
   PublicationSortCriteria,
   useExploreFeedQuery
-} from 'lens';
+} from '@lenster/lens';
+import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';

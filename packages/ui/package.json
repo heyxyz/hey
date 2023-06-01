@@ -1,15 +1,15 @@
 {
   "name": "ui",
   "version": "0.0.0",
-  "main": "index.ts",
   "private": true,
   "license": "GPL-3.0",
+  "main": "index.ts",
   "scripts": {
-    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",

@@ -1,8 +1,8 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { HeartIcon } from '@heroicons/react/outline';
+import type { Profile, WhoReactedPublicationRequest } from '@lenster/lens';
+import { useLikesQuery } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import type { Profile, WhoReactedPublicationRequest } from 'lens';
-import { useLikesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';

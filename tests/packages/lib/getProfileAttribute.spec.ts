@@ -1,5 +1,5 @@
+import type { Attribute } from '@lenster/lens';
 import { expect, test } from '@playwright/test';
-import type { Attribute } from 'lens';
 import getProfileAttribute from 'lib/getProfileAttribute';
 
 test.describe('getProfileAttribute', () => {

@@ -1,6 +1,6 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { CollectModules, useEnabledModulesQuery } from '@lenster/lens';
 import { t, Trans } from '@lingui/macro';
-import { CollectModules, useEnabledModulesQuery } from 'lens';
 import isValidEthAddress from 'lib/isValidEthAddress';
 import type { Dispatch, FC } from 'react';
 import type { CollectModuleType } from 'src/store/collect-module';

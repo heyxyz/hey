@@ -1,5 +1,16 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
+import type {
+  MediaSet,
+  NftImage,
+  Profile,
+  UpdateProfileImageRequest
+} from '@lenster/lens';
+import {
+  useBroadcastMutation,
+  useCreateSetProfileImageUriTypedDataMutation,
+  useCreateSetProfileImageUriViaDispatcherMutation
+} from '@lenster/lens';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
@@ -9,17 +20,6 @@ import { AVATAR, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
 import type { Area } from 'image-cropper/types';
-import type {
-  MediaSet,
-  NftImage,
-  Profile,
-  UpdateProfileImageRequest
-} from 'lens';
-import {
-  useBroadcastMutation,
-  useCreateSetProfileImageUriTypedDataMutation,
-  useCreateSetProfileImageUriViaDispatcherMutation
-} from 'lens';
 import getSignature from 'lib/getSignature';
 import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';

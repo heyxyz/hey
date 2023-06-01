@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
+import type { Profile } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isGardener from 'lib/isGardener';

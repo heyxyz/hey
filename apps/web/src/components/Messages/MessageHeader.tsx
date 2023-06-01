@@ -1,7 +1,7 @@
 import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
-import type { Profile } from 'lens';
+import type { Profile } from '@lenster/lens';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
