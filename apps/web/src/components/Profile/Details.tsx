@@ -11,7 +11,14 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { t, Trans } from '@lingui/macro';
-import { STATIC_IMAGES_URL, ZONIC_URL } from 'data/constants';
+import {
+  ENS_DOMAIN_URL,
+  ENS_FRONT_DEV_LINEA_URL,
+  LINEA_RESOLVER,
+  LINEA_RESOLVER_ABI,
+  STATIC_IMAGES_URL,
+  ZONIC_URL
+} from 'data/constants';
 import getEnvConfig from 'data/utils/getEnvConfig';
 import type { Profile } from 'lens';
 import formatAddress from 'lib/formatAddress';
@@ -24,30 +31,69 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { Dispatch, FC, ReactElement } from 'react';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { FollowSource } from 'src/tracking';
 import { Button, Image, Modal, Tooltip } from 'ui';
+import { useContractRead } from 'wagmi';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
 
-interface DetailsProps {
+export interface DetailsProps {
   profile: Profile;
   following: boolean;
   setFollowing: Dispatch<boolean>;
 }
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
+  const address = profile.ownedBy;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showMutualFollowersModal, setShowMutualFollowersModal] = useState(false);
+  const [domain, setDomain] = useState('');
   const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
   const addProfileAndSelectTab = useMessageStore((state) => state.addProfileAndSelectTab);
+
+  const { isError: isBalanceError, data: balanceData } = useContractRead({
+    address: LINEA_RESOLVER,
+    abi: LINEA_RESOLVER_ABI,
+    functionName: 'balanceOf',
+    args: [address]
+  });
+
+  const balance = parseInt(balanceData as string);
+
+  const { data: tokenId, isError: isTokenError } = useContractRead({
+    address: LINEA_RESOLVER,
+    abi: LINEA_RESOLVER_ABI,
+    functionName: 'tokenOfOwnerByIndex',
+    args: [address, 0]
+  });
+
+  const getTokenMetadata = async (tokenId: string) => {
+    const res = await fetch(`${ENS_FRONT_DEV_LINEA_URL}/${tokenId}`);
+    return await res.json();
+  };
+
+  const handleLineaDomain = useCallback(async () => {
+    try {
+      const metadata = await getTokenMetadata(String(tokenId));
+      setDomain((metadata as any).name);
+    } catch (error: any) {
+      console.error('getTokenMetadata error', error?.message);
+    }
+  }, [tokenId]);
+
+  useEffect(() => {
+    if (!isBalanceError && balance > 0 && !isTokenError) {
+      handleLineaDomain();
+    }
+  }, [handleLineaDomain, balance, isTokenError, isBalanceError]);
 
   const onMessageClick = () => {
     if (!currentProfile) {
@@ -203,6 +249,24 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               dataTestId="profile-meta-ens"
             >
               {profile?.onChainIdentity?.ens?.name}
+            </MetaDetails>
+          )}
+          {domain && (
+            <MetaDetails
+              icon={
+                <img
+                  src={`${STATIC_IMAGES_URL}/brands/ens.svg`}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="ENS Logo"
+                />
+              }
+              dataTestId="profile-meta-ens"
+            >
+              <a href={`${ENS_DOMAIN_URL}/${domain}`} target="_blank">
+                {domain}
+              </a>
             </MetaDetails>
           )}
           {getProfileAttribute(profile?.attributes, 'website') && (

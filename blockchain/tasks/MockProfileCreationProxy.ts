@@ -1,6 +1,8 @@
 import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/dist/src/signer-with-address';
 import { ethers } from 'hardhat';
 
+import { LENS_HUB, LINEA_RESOLVER } from '../../packages/data/constants';
+
 async function main() {
   const signers: SignerWithAddress[] = await ethers.getSigners();
   console.log('Deployer address:', signers[0].address);
@@ -8,8 +10,8 @@ async function main() {
     'MockProfileCreationProxy'
   );
   const mockProfileCreationProxy = await mockProfileCreationProxy__factory.deploy(
-    '0x28af365578586eD5Fd500A1Dc0a3E20Fc7b2Cffa', // LensHub
-    '0x117F113aEFb9AeD23d901C1fa02fDdaA1d20cCaB' // Linea ENS Resolver
+    LENS_HUB,
+    LINEA_RESOLVER
   );
   await mockProfileCreationProxy.deployed();
   await mockProfileCreationProxy.deployTransaction.wait();
