@@ -1,5 +1,6 @@
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
+import type { MediaSet, Publication } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -9,7 +10,6 @@ import {
   ATTACHMENT,
   STATIC_IMAGES_URL
 } from 'data/constants';
-import type { MediaSet, Publication } from 'lens';
 import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import stopEventPropagation from 'lib/stopEventPropagation';

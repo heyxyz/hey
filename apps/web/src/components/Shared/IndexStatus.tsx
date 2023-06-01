@@ -1,8 +1,8 @@
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { useHasTxHashBeenIndexedQuery } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { POLYGONSCAN_URL } from 'data/constants';
-import { useHasTxHashBeenIndexedQuery } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';

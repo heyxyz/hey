@@ -1,6 +1,6 @@
+import type { Profile } from '@lenster/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { useLiveQuery } from 'dexie-react-hooks';
-import type { Profile } from 'lens';
 import { useCallback } from 'react';
 import { useAppStore } from 'src/store/app';
 import type { LensProfile, PreviewMessage } from 'src/store/message-db';

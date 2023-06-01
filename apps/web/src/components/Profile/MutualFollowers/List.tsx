@@ -1,8 +1,11 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
+import type {
+  MutualFollowersProfilesQueryRequest,
+  Profile
+} from '@lenster/lens';
+import { useMutualFollowersQuery } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import type { MutualFollowersProfilesQueryRequest, Profile } from 'lens';
-import { useMutualFollowersQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';

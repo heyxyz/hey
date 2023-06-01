@@ -1,5 +1,5 @@
+import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import { expect, test } from '@playwright/test';
-import { publicationKeyFields } from 'lens/apollo/lib';
 
 test.describe('keyFields', () => {
   test.describe('publicationKeyFields', () => {

@@ -7,10 +7,10 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { ReferenceModules } from '@lenster/lens';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import { ReferenceModules } from 'lens';
 import type { FC, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { Tooltip } from 'ui';

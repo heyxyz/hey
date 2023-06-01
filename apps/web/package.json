@@ -4,15 +4,15 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "lingui compile; next dev --port 4783",
     "build": "lingui compile; next build",
-    "start": "next start --port 4783",
-    "typecheck": "tsc --pretty",
+    "dev": "lingui compile; next dev --port 4783",
     "extract": "lingui compile; lingui extract",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "next start --port 4783",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.342.0",
@@ -26,6 +26,7 @@
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.1.0",
     "@lens-protocol/sdk-gated": "^1.2.0",
+    "@lenster/lens": "workspace:*",
     "@lexical/code": "^0.11.1",
     "@lexical/hashtag": "^0.11.1",
     "@lexical/link": "^0.11.1",
@@ -59,7 +60,6 @@
     "idb-keyval": "^6.2.1",
     "image-cropper": "workspace:*",
     "jwt-decode": "^3.1.2",
-    "lens": "workspace:*",
     "lexical": "^0.11.1",
     "lib": "workspace:*",
     "next": "^13.4.2",

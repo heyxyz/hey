@@ -1,4 +1,4 @@
-import type { Publication } from 'lens';
+import type { Publication } from '@lenster/lens';
 import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';

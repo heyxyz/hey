@@ -1,14 +1,14 @@
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
   useRemoveProfileInterestMutation
-} from 'lens';
-import { useApolloClient } from 'lens/apollo';
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';

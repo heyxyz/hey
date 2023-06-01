@@ -1,6 +1,6 @@
+import type { Publication } from '@lenster/lens';
 import { apps } from 'data/apps';
 import { STATIC_IMAGES_URL } from 'data/constants';
-import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { Tooltip } from 'ui';
 

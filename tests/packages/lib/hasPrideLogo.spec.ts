@@ -1,5 +1,5 @@
+import type { Profile } from '@lenster/lens';
 import { expect, test } from '@playwright/test';
-import type { Profile } from 'lens';
 import hasPrideLogo from 'lib/hasPrideLogo';
 
 test.describe('hasPrideLogo', () => {

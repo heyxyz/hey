@@ -1,5 +1,4 @@
 import { BellIcon } from '@heroicons/react/outline';
-import { t } from '@lingui/macro';
 import type {
   NewCollectNotification,
   NewCommentNotification,
@@ -8,12 +7,13 @@ import type {
   NewMirrorNotification,
   NewReactionNotification,
   NotificationRequest
-} from 'lens';
+} from '@lenster/lens';
 import {
   CustomFiltersTypes,
   NotificationTypes,
   useNotificationsQuery
-} from 'lens';
+} from '@lenster/lens';
+import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';

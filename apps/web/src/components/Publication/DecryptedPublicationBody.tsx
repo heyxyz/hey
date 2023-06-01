@@ -20,6 +20,8 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
+import type { Publication, PublicationMetadataV2Input } from '@lenster/lens';
+import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
@@ -29,8 +31,6 @@ import {
   POLYGONSCAN_URL,
   RARIBLE_URL
 } from 'data/constants';
-import type { Publication, PublicationMetadataV2Input } from 'lens';
-import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getURLs from 'lib/getURLs';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';

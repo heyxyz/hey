@@ -1,4 +1,4 @@
-import type { Publication } from 'lens';
+import type { Publication } from '@lenster/lens';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';

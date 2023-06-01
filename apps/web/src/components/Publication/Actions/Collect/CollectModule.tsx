@@ -14,6 +14,20 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import type {
+  ApprovedAllowanceAmount,
+  ElectedMirror,
+  Publication
+} from '@lenster/lens';
+import {
+  CollectModules,
+  useApprovedModuleAllowanceAmountQuery,
+  useBroadcastMutation,
+  useCollectModuleQuery,
+  useCreateCollectTypedDataMutation,
+  useProxyActionMutation,
+  usePublicationRevenueQuery
+} from '@lenster/lens';
 import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
@@ -24,16 +38,6 @@ import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
 import dayjs from 'dayjs';
-import type { ApprovedAllowanceAmount, ElectedMirror, Publication } from 'lens';
-import {
-  CollectModules,
-  useApprovedModuleAllowanceAmountQuery,
-  useBroadcastMutation,
-  useCollectModuleQuery,
-  useCreateCollectTypedDataMutation,
-  useProxyActionMutation,
-  usePublicationRevenueQuery
-} from 'lens';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getAssetAddress from 'lib/getAssetAddress';

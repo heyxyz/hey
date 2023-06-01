@@ -1,9 +1,13 @@
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { CollectionIcon } from '@heroicons/react/outline';
+import type {
+  Profile,
+  Wallet,
+  WhoCollectedPublicationRequest
+} from '@lenster/lens';
+import { useCollectorsQuery } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import type { Profile, Wallet, WhoCollectedPublicationRequest } from 'lens';
-import { useCollectorsQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';

@@ -6,8 +6,8 @@ import {
   HeartIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline';
+import type { Publication } from '@lenster/lens';
 import { Plural, t } from '@lingui/macro';
-import type { Publication } from 'lens';
 import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';

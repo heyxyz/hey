@@ -1,9 +1,9 @@
 import MetaTags from '@components/Common/MetaTags';
 import { CubeIcon, PhotographIcon } from '@heroicons/react/outline';
+import { useProfileSettingsQuery } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { APP_NAME } from 'data/constants';
-import { useProfileSettingsQuery } from 'lens';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';

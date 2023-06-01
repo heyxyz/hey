@@ -2,15 +2,15 @@ import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import UserProfile from '@components/Shared/UserProfile';
-import { t } from '@lingui/macro';
-import type { Profile } from 'lens';
+import type { Profile } from '@lenster/lens';
 import {
   PublicationDocument,
   PublicationMetadataStatusType,
   useHasTxHashBeenIndexedQuery,
   usePublicationLazyQuery
-} from 'lens';
-import { useApolloClient } from 'lens/apollo';
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
+import { t } from '@lingui/macro';
 import getURLs from 'lib/getURLs';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';

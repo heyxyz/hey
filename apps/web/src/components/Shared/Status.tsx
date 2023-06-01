@@ -1,4 +1,11 @@
 import { PencilIcon } from '@heroicons/react/outline';
+import type { CreatePublicSetProfileMetadataUriRequest } from '@lenster/lens';
+import {
+  useBroadcastMutation,
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation,
+  useProfileSettingsQuery
+} from '@lenster/lens';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -6,13 +13,6 @@ import { t, Trans } from '@lingui/macro';
 import { LensPeriphery } from 'abis';
 import { APP_NAME, LENS_PERIPHERY } from 'data/constants';
 import Errors from 'data/errors';
-import type { CreatePublicSetProfileMetadataUriRequest } from 'lens';
-import {
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation,
-  useProfileSettingsQuery
-} from 'lens';
 import getProfileAttribute from 'lib/getProfileAttribute';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';

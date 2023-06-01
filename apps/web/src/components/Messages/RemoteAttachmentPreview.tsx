@@ -1,6 +1,6 @@
 import useXmtpClient from '@components/utils/hooks/useXmtpClient';
+import type { Profile } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {

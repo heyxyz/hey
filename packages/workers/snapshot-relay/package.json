@@ -1,19 +1,19 @@
 {
   "name": "@workers/snapshot-relay",
   "version": "0.0.0",
-  "main": "generated.ts",
   "private": true,
   "license": "GPL-3.0",
+  "main": "generated.ts",
   "scripts": {
-    "dev": "wrangler dev --port 8085",
-    "start": "pnpm dev",
-    "worker:deploy": "wrangler deploy",
     "codegen": "graphql-codegen",
-    "typecheck": "tsc --pretty",
+    "dev": "wrangler dev --port 8085",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "pnpm dev",
+    "typecheck": "tsc --pretty",
+    "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",

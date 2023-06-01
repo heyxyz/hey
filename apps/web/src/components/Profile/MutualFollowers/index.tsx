@@ -1,7 +1,7 @@
+import type { Profile } from '@lenster/lens';
+import { useMutualFollowersQuery } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
-import { useMutualFollowersQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import type { Dispatch, FC, ReactNode } from 'react';

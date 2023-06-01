@@ -3,8 +3,8 @@ import type {
   ModuleFeeAmountParams,
   Profile,
   RecipientDataInput
-} from 'lens';
-import { CollectModules } from 'lens';
+} from '@lenster/lens';
+import { CollectModules } from '@lenster/lens';
 import type { CollectModuleType } from 'src/store/collect-module';
 
 import { getTimeAddedNDay } from './formatTime';

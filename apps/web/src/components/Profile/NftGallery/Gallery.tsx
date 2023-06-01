@@ -1,17 +1,17 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
-import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
-import Errors from 'data/errors';
-import type { Nft, NftGallery } from 'lens';
+import type { Nft, NftGallery } from '@lenster/lens';
 import {
   NftGalleriesDocument,
   useDeleteNftGalleryMutation,
   useNftGalleriesLazyQuery,
   useUpdateNftGalleryOrderMutation
-} from 'lens';
-import { useApolloClient } from 'lens/apollo';
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
+import { t, Trans } from '@lingui/macro';
+import clsx from 'clsx';
+import Errors from 'data/errors';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';

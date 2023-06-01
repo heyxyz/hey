@@ -1,7 +1,7 @@
 import { CollectionIcon, HashtagIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
+import type { Publication } from '@lenster/lens';
 import { t, Trans } from '@lingui/macro';
-import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { Card } from 'ui';
 

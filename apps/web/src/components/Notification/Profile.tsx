@@ -1,5 +1,5 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
-import type { Profile } from 'lens';
+import type { Profile } from '@lenster/lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import isVerified from 'lib/isVerified';

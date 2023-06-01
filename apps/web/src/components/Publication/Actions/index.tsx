@@ -1,5 +1,5 @@
 import useModMode from '@components/utils/hooks/useModMode';
-import type { ElectedMirror, Publication } from 'lens';
+import type { ElectedMirror, Publication } from '@lenster/lens';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
