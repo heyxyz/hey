@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
-import RecommendedProfiles from './RecommendedProfiles';
 import Footer from '@components/Shared/Footer';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -15,6 +14,7 @@ import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
 import Hero from './Hero';
 import Highlights from './Highlights';
+import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import Timeline from './Timeline';
