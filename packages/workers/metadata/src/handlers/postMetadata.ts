@@ -28,7 +28,7 @@ export default async (request: IRequest, env: Env) => {
       );
     }
   } catch (error) {
-    console.error('Failed to get STS data', error);
+    console.error('Failed to create metadata data', error);
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );
