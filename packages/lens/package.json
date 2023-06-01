@@ -25,7 +25,7 @@
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "@lenster/tsconfig": "workspace:*",
     "@types/node": "^20.2.5",
-    "eslint-config-weblint": "workspace:*",
+    "eslint-config-node": "workspace:*",
     "typescript": "^5.0.4"
   }
 }
