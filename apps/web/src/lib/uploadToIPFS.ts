@@ -1,13 +1,13 @@
 import { S3 } from '@aws-sdk/client-s3';
-import { ThirdwebStorage } from '@thirdweb-dev/storage';
-import axios from 'axios';
-import { KillSwitch } from 'data';
+import { KillSwitch } from '@lenster/data';
 import {
   EVER_API,
   IS_PRODUCTION,
   S3_BUCKET,
   STS_GENERATOR_WORKER_URL
-} from 'data/constants';
+} from '@lenster/data/constants';
+import { ThirdwebStorage } from '@thirdweb-dev/storage';
+import axios from 'axios';
 import type { MediaSetWithoutOnChain } from 'src/types';
 import { v4 as uuid } from 'uuid';
 

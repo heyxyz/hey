@@ -1,4 +1,4 @@
-import type { Nft } from 'lens';
+import type { Nft } from '@lenster/lens';
 import { create } from 'zustand';
 
 export interface NftGalleryItem extends Nft {

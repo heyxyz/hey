@@ -1,5 +1,5 @@
+import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@lenster/data';
 import axios from 'axios';
-import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from 'data';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 

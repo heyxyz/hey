@@ -1,5 +1,5 @@
+import getSignature from '@lenster/lib/getSignature';
 import { expect, test } from '@playwright/test';
-import getSignature from 'lib/getSignature';
 
 test.describe('getSignature', () => {
   test('should return an object with domain, types, and value keys', () => {

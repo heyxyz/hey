@@ -1,9 +1,9 @@
 import { SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
+import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
-import { TabButton } from 'ui';
 
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';

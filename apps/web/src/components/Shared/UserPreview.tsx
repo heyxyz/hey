@@ -1,19 +1,19 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import type { Profile } from '@lenster/lens';
+import { useProfileLazyQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import isVerified from '@lenster/lib/isVerified';
+import nFormatter from '@lenster/lib/nFormatter';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Image } from '@lenster/ui';
 import { Plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
-import { useProfileLazyQuery } from 'lens';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
-import isVerified from 'lib/isVerified';
-import nFormatter from 'lib/nFormatter';
-import sanitizeDisplayName from 'lib/sanitizeDisplayName';
-import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { FollowSource } from 'src/tracking';
-import { Image } from 'ui';
 
 import Follow from './Follow';
 import Markup from './Markup';

@@ -1,4 +1,4 @@
-import { ADDRESS_REGEX } from 'data/constants';
+import { ADDRESS_REGEX } from '@lenster/data/constants';
 
 /**
  * Format the given Ethereum address by displaying only the first and last few characters.

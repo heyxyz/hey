@@ -11,19 +11,25 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
+import { APP_NAME } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
+import { useLensterStatsQuery } from '@lenster/lens';
+import humanize from '@lenster/lib/humanize';
+import {
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  Spinner
+} from '@lenster/ui';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { APP_NAME } from 'data/constants';
-import Errors from 'data/errors';
-import { useLensterStatsQuery } from 'lens';
-import humanize from 'lib/humanize';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout, Spinner } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffToolsSidebar from '../Sidebar';

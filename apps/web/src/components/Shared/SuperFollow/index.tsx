@@ -1,15 +1,15 @@
 import { StarIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import { Button, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import type { Profile } from 'lens';
-import formatHandle from 'lib/formatHandle';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PROFILE } from 'src/tracking';
-import { Button, Modal } from 'ui';
 
 import Loader from '../Loader';
 import Slug from '../Slug';

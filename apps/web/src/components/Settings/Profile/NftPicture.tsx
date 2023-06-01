@@ -1,25 +1,40 @@
 import { PencilIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
-import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
-import Errors from 'data/errors';
-import type { NftImage, Profile, UpdateProfileImageRequest } from 'lens';
+import { LensHub } from '@lenster/abis';
+import {
+  ADDRESS_REGEX,
+  IS_MAINNET,
+  LENSHUB_PROXY
+} from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
+import type {
+  NftImage,
+  Profile,
+  UpdateProfileImageRequest
+} from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation,
   useNftChallengeLazyQuery
-} from 'lens';
-import getSignature from 'lib/getSignature';
+} from '@lenster/lens';
+import getSignature from '@lenster/lib/getSignature';
+import {
+  Button,
+  ErrorMessage,
+  Form,
+  Input,
+  Spinner,
+  useZodForm
+} from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
-import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { object, string } from 'zod';

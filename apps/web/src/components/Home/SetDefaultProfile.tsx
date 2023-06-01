@@ -1,9 +1,9 @@
 import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline';
+import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { Card } from 'ui';
 
 const SetDefaultProfile: FC = () => {
   const profiles = useAppStore((state) => state.profiles);

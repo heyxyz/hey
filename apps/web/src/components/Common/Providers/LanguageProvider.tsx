@@ -1,7 +1,7 @@
+import { Localstorage } from '@lenster/data';
 import { i18n } from '@lingui/core';
 import { detect, fromStorage } from '@lingui/detect-locale';
 import { I18nProvider } from '@lingui/react';
-import { Localstorage } from 'data';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'src/i18n';

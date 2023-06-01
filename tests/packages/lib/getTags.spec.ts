@@ -1,5 +1,5 @@
+import getTags from '@lenster/lib/getTags';
 import { expect, test } from '@playwright/test';
-import getTags from 'lib/getTags';
 
 test.describe('getTags', () => {
   test('should return empty array if no tags are found', () => {

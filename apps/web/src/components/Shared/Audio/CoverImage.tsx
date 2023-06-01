@@ -1,13 +1,13 @@
 import { PhotographIcon } from '@heroicons/react/outline';
+import { ATTACHMENT } from '@lenster/data/constants';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import { Image, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import clsx from 'clsx';
-import { ATTACHMENT } from 'data/constants';
-import imageKit from 'lib/imageKit';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
-import { Image, Spinner } from 'ui';
 
 interface CoverImageProps {
   isNew: boolean;

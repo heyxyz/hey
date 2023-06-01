@@ -1,19 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import { APP_NAME } from 'data/constants';
+import { APP_NAME } from '@lenster/data/constants';
 import {
   CustomFiltersTypes,
   PublicationMainFocus,
   PublicationTypes
-} from 'lens';
-import isGardener from 'lib/isGardener';
-import type { NextPage } from 'next';
-import { useState } from 'react';
-import Custom404 from 'src/pages/404';
-import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
+} from '@lenster/lens';
+import isGardener from '@lenster/lib/isGardener';
 import {
   Button,
   Card,
@@ -21,7 +14,14 @@ import {
   GridItemEight,
   GridItemFour,
   GridLayout
-} from 'ui';
+} from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
+import { t, Trans } from '@lingui/macro';
+import type { NextPage } from 'next';
+import { useState } from 'react';
+import Custom404 from 'src/pages/404';
+import { useAppStore } from 'src/store/app';
+import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';

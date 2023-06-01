@@ -1,24 +1,27 @@
 import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
-import clsx from 'clsx';
-import { LENSHUB_PROXY, OLD_LENS_RELAYER_ADDRESS } from 'data/constants';
+import { LensHub } from '@lenster/abis';
+import {
+  LENSHUB_PROXY,
+  OLD_LENS_RELAYER_ADDRESS
+} from '@lenster/data/constants';
 import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation
-} from 'lens';
-import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
-import getSignature from 'lib/getSignature';
+} from '@lenster/lens';
+import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
+import getSignature from '@lenster/lib/getSignature';
+import { Button, Spinner } from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { t, Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
-import { Button, Spinner } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface ToggleDispatcherProps {

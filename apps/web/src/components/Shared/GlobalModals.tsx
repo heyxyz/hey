@@ -4,11 +4,11 @@ import {
   EmojiHappyIcon,
   ShieldCheckIcon
 } from '@heroicons/react/outline';
+import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAuthStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { Modal } from 'ui';
 
 import Login from './Login';
 import Status from './Status';

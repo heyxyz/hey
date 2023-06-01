@@ -1,11 +1,11 @@
 import { LockClosedIcon } from '@heroicons/react/outline';
+import { HelpTooltip, Modal, Tooltip } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
-import { HelpTooltip, Modal, Tooltip } from 'ui';
 
 import BasicSettings from './BasicSettings';
 

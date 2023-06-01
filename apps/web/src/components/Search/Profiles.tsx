@@ -1,17 +1,17 @@
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
-import { t, Trans } from '@lingui/macro';
-import type { ProfileSearchResult, SearchQueryRequest } from 'lens';
+import type { ProfileSearchResult, SearchQueryRequest } from '@lenster/lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesQuery
-} from 'lens';
+} from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface ProfilesProps {
   query: string | string[];

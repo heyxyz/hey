@@ -16,17 +16,7 @@ import type {
   AccessConditionOutput,
   CreatePublicPostRequest
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import { $convertFromMarkdownString } from '@lexical/markdown';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import collectModuleParams from '@lib/collectModuleParams';
-import errorToast from '@lib/errorToast';
-import getTextNftUrl from '@lib/getTextNftUrl';
-import getUserLocale from '@lib/getUserLocale';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadToArweave from '@lib/uploadToArweave';
-import { t } from '@lingui/macro';
-import { LensHub } from 'abis';
-import clsx from 'clsx';
+import { LensHub } from '@lenster/abis';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -34,15 +24,15 @@ import {
   APP_NAME,
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT
-} from 'data/constants';
-import Errors from 'data/errors';
+} from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
 import type {
   CreatePublicCommentRequest,
   MetadataAttributeInput,
   Publication,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
-} from 'lens';
+} from '@lenster/lens';
 import {
   CollectModules,
   PublicationDocument,
@@ -60,11 +50,22 @@ import {
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation,
   usePublicationLazyQuery
-} from 'lens';
-import { useApolloClient } from 'lens/apollo';
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
+import getSignature from '@lenster/lib/getSignature';
+import getTags from '@lenster/lib/getTags';
+import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
+import { $convertFromMarkdownString } from '@lexical/markdown';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import collectModuleParams from '@lib/collectModuleParams';
+import errorToast from '@lib/errorToast';
+import getTextNftUrl from '@lib/getTextNftUrl';
+import getUserLocale from '@lib/getUserLocale';
+import { Leafwatch } from '@lib/leafwatch';
+import uploadToArweave from '@lib/uploadToArweave';
+import { t } from '@lingui/macro';
+import clsx from 'clsx';
 import { $getRoot } from 'lexical';
-import getSignature from 'lib/getSignature';
-import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -80,7 +81,6 @@ import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
-import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';

@@ -1,6 +1,6 @@
 import Markup from '@components/Shared/Markup';
+import type { Profile } from '@lenster/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
-import type { Profile } from 'lens';
 import type { FC } from 'react';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 

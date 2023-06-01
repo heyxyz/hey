@@ -1,4 +1,18 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { AVATAR } from '@lenster/data/constants';
+import type {
+  MediaSet,
+  NftImage,
+  Profile,
+  ProfileSearchResult
+} from '@lenster/lens';
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import imageKit from '@lenster/lib/imageKit';
+import isVerified from '@lenster/lib/isVerified';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
@@ -7,16 +21,7 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import clsx from 'clsx';
-import { AVATAR } from 'data/constants';
-import type { MediaSet, NftImage, Profile, ProfileSearchResult } from 'lens';
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from 'lens';
 import type { TextNode } from 'lexical';
-import formatHandle from 'lib/formatHandle';
-import getStampFyiURL from 'lib/getStampFyiURL';
-import imageKit from 'lib/imageKit';
-import isVerified from 'lib/isVerified';
-import sanitizeDisplayName from 'lib/sanitizeDisplayName';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';

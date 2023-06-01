@@ -1,6 +1,6 @@
+import { ALCHEMY_KEY } from '@lenster/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { ALCHEMY_KEY } from 'data/constants';
 
 interface UseNftProps {
   address: string;

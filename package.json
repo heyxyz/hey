@@ -4,22 +4,22 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --parallel",
-    "dev": "turbo run dev --parallel",
-    "start": "turbo run start --parallel",
-    "typecheck": "turbo run typecheck --parallel",
     "codegen": "turbo run codegen --parallel",
+    "dev": "turbo run dev --parallel",
     "i18n:extract": "turbo run extract",
-    "workers:deploy": "turbo run worker:deploy --parallel",
+    "preinstall": "npx only-allow pnpm",
     "lint": "turbo run lint --parallel",
     "lint:fix": "turbo run lint:fix --parallel",
+    "prepare": "husky install",
     "prettier": "turbo run prettier --parallel",
     "prettier:fix": "turbo run prettier:fix --parallel",
-    "prepare": "husky install",
+    "start": "turbo run start --parallel",
     "test:dev": "turbo run test:dev",
     "test:e2e": "start-server-and-test start '4783|4784|8083|8085|8087' test:dev",
-    "test:nightly": "turbo run test:nightly"
+    "test:nightly": "turbo run test:nightly",
+    "typecheck": "turbo run typecheck --parallel",
+    "workers:deploy": "turbo run worker:deploy --parallel"
   },
   "devDependencies": {
     "husky": "^8.0.3",
@@ -28,8 +28,8 @@
     "start-server-and-test": "^2.0.0",
     "turbo": "^1.10.0"
   },
+  "packageManager": "pnpm@8.5.0",
   "engines": {
     "node": ">=18.0.0"
-  },
-  "packageManager": "pnpm@8.5.0"
+  }
 }

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#/ Usage: script/sort-package-json
+#/ Sort package.json
+
+echo "Sorting package.json 📦"
+find . -name "node_modules" -prune -o -name "package.json" -exec npx sort-package-json {} \;
+echo "package.json sorted 🎉"

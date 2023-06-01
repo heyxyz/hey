@@ -1,5 +1,5 @@
-import type { FeedItem } from 'lens';
-import stopEventPropagation from 'lib/stopEventPropagation';
+import type { FeedItem } from '@lenster/lens';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
 
 import Collected from './Collected';

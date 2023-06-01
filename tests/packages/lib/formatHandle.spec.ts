@@ -1,6 +1,6 @@
+import { LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
+import formatHandle from '@lenster/lib/formatHandle';
 import { expect, test } from '@playwright/test';
-import { LENSPROTOCOL_HANDLE } from 'data/constants';
-import formatHandle from 'lib/formatHandle';
 
 test.describe('formatHandle', () => {
   test('should return empty string when handle is null', () => {

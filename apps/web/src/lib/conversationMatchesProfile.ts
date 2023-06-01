@@ -1,4 +1,4 @@
-import { XMTP_PREFIX } from 'data/constants';
+import { XMTP_PREFIX } from '@lenster/data/constants';
 
 /**
  * Returns a regex that matches a conversation ID for the given profile ID.

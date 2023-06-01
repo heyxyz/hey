@@ -2,21 +2,21 @@ import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import UserProfile from '@components/Shared/UserProfile';
-import { t } from '@lingui/macro';
-import type { Profile } from 'lens';
+import type { Profile } from '@lenster/lens';
 import {
   PublicationDocument,
   PublicationMetadataStatusType,
   useHasTxHashBeenIndexedQuery,
   usePublicationLazyQuery
-} from 'lens';
-import { useApolloClient } from 'lens/apollo';
-import getURLs from 'lib/getURLs';
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
+import getURLs from '@lenster/lib/getURLs';
+import { Tooltip } from '@lenster/ui';
+import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import type { OptimisticTransaction } from 'src/types';
-import { Tooltip } from 'ui';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;
