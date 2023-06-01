@@ -104,7 +104,8 @@ export const mainnetVerified = [
   '0xeb6f', // doobzee
   '0x3093', // sophiest
   '0xee84', // mintedmojito
-  '0x013cee', // gotenks
+  '0xacaf', // gotenks
+  '0x013cee', // 0xZelda
   '0x2e2a', // dheerajshah
   '0xe5cc', // alarke
   '0x012d4e', // connectthecoast
