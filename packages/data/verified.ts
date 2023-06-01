@@ -239,6 +239,7 @@ export const mainnetVerified = [
   '0x84ed', // bensparks
   '0x0636', // jenny
   '0xe2ae', // philand
+  '0x01c173', // pancakesbrah
   ...aaveMembers,
   ...mainnetStaffs
 ];
