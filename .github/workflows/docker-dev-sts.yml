@@ -51,13 +51,13 @@ jobs:
           push: false
           tags: consensys/lineaster:${{ env.DOCKER_TAG }}
           build-args: |
-            "STS_BUCKET_NAME=${{ secrets.STS_BUCKET_NAME }}"
-            "STS_BUCKET_REGION=${{ secrets.STS_BUCKET_REGION }}"
-            "STS_ENDPOINT=${{ secrets.STS_ENDPOINT }}"
-            "STS_FILE_PATH=${{ secrets.STS_FILE_PATH }}"
-            "STS_SECRET_CONTENT=${{ secrets.STS_SECRET_CONTENT }}"
-            "STS_CORS=${{ secrets.STS_CORS }}"
-            "STS_PORT=${{ secrets.STS_PORT }}"
+            STS_BUCKET_NAME=${{ secrets.STS_BUCKET_NAME }}
+            STS_BUCKET_REGION=${{ secrets.STS_BUCKET_REGION }}
+            STS_ENDPOINT=${{ secrets.STS_ENDPOINT }}
+            STS_FILE_PATH=${{ secrets.STS_FILE_PATH }}
+            STS_SECRET_CONTENT=${{ secrets.STS_SECRET_CONTENT }}
+            STS_CORS=${{ secrets.STS_CORS }}
+            STS_PORT=${{ secrets.STS_PORT }}
 
       - name: Docker Image Build and Publish
         id: docker-build-publish
@@ -68,10 +68,10 @@ jobs:
           push: true
           tags: consensys/lineaster:${{ env.DOCKER_TAG }}
           build-args: |
-            "STS_BUCKET_NAME=${{ secrets.STS_BUCKET_NAME }}"
-            "STS_BUCKET_REGION=${{ secrets.STS_BUCKET_REGION }}"
-            "STS_ENDPOINT=${{ secrets.STS_ENDPOINT }}"
-            "STS_FILE_PATH=${{ secrets.STS_FILE_PATH }}"
-            "STS_SECRET_CONTENT=${{ secrets.STS_SECRET_CONTENT }}"
-            "STS_CORS=${{ secrets.STS_CORS }}"
-            "STS_PORT=${{ secrets.STS_PORT }}"
+            STS_BUCKET_NAME=${{ secrets.STS_BUCKET_NAME }}
+            STS_BUCKET_REGION=${{ secrets.STS_BUCKET_REGION }}
+            STS_ENDPOINT=${{ secrets.STS_ENDPOINT }}
+            STS_FILE_PATH=${{ secrets.STS_FILE_PATH }}
+            STS_SECRET_CONTENT=${{ secrets.STS_SECRET_CONTENT }}
+            STS_CORS=${{ secrets.STS_CORS }}
+            STS_PORT=${{ secrets.STS_PORT }}
