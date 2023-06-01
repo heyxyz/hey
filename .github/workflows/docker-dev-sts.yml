@@ -24,12 +24,12 @@ jobs:
       - name: Set Docker Tag
         id: docker-tag
         if: ${{ github.event_name != 'release' }}
-        run: echo "DOCKER_TAG=${GITHUB_SHA:0:7}-$(date +%s)" | tee $GITHUB_ENV
+        run: echo "DOCKER_TAG=sts-${GITHUB_SHA:0:7}-$(date +%s)" | tee $GITHUB_ENV
 
       - name: Set Docker Tag - Release
         id: docker-tag-release
         if: ${{ github.event_name == 'release' }}
-        run: echo "DOCKER_TAG=${GITHUB_SHA:0:7}-$(date +%s)-${GITHUB_REF#refs/tags/}" | tee $GITHUB_ENV
+        run: echo "DOCKER_TAG=sts-${GITHUB_SHA:0:7}-$(date +%s)-${GITHUB_REF#refs/tags/}" | tee $GITHUB_ENV
 
       - name: Login to Docker Repository
         uses: docker/login-action@v2
@@ -47,19 +47,31 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         uses: docker/build-push-action@v4
         with:
-          context: ./apps/web
+          context: ./packages/workers/sts-generator
           push: false
-          tags: consensys/lineaster-sts:${{ env.DOCKER_TAG }}
-          # Env file dedicated for dev
-          build-args: ENV_FILE=.env.development
+          tags: consensys/lineaster:${{ env.DOCKER_TAG }}
+          build-args: |
+            "STS_BUCKET_NAME=${{ secrets.STS_BUCKET_NAME }}"
+            "STS_BUCKET_REGION=${{ secrets.STS_BUCKET_REGION }}"
+            "STS_ENDPOINT=${{ secrets.STS_ENDPOINT }}"
+            "STS_FILE_PATH=${{ secrets.STS_FILE_PATH }}"
+            "STS_SECRET_CONTENT=${{ secrets.STS_SECRET_CONTENT }}"
+            "STS_CORS=${{ secrets.STS_CORS }}"
+            "STS_PORT=${{ secrets.STS_PORT }}"
 
       - name: Docker Image Build and Publish
         id: docker-build-publish
         if: ${{ github.ref == 'refs/heads/develop' || startsWith(github.ref,'refs/tags/') }}
         uses: docker/build-push-action@v4
         with:
-          context: ./apps/web
+          context: ./packages/workers/sts-generator
           push: true
-          tags: consensys/lineaster-sts:${{ env.DOCKER_TAG }}
-          # Env file dedicated for dev
-          build-args: ENV_FILE=.env.development
+          tags: consensys/lineaster:${{ env.DOCKER_TAG }}
+          build-args: |
+            "STS_BUCKET_NAME=${{ secrets.STS_BUCKET_NAME }}"
+            "STS_BUCKET_REGION=${{ secrets.STS_BUCKET_REGION }}"
+            "STS_ENDPOINT=${{ secrets.STS_ENDPOINT }}"
+            "STS_FILE_PATH=${{ secrets.STS_FILE_PATH }}"
+            "STS_SECRET_CONTENT=${{ secrets.STS_SECRET_CONTENT }}"
+            "STS_CORS=${{ secrets.STS_CORS }}"
+            "STS_PORT=${{ secrets.STS_PORT }}"
