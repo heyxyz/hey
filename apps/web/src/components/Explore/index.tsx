@@ -1,4 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
+import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Trending from '@components/Home/Trending';
 import SuggestedFollows from '@components/madfi/SuggestedFollows';
 import Footer from '@components/Shared/Footer';
@@ -12,6 +13,7 @@ import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import { MADFI_API_KEY } from 'madfi';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -95,7 +97,13 @@ const Explore: NextPage = () => {
       </GridItemEight>
       <GridItemFour>
         {isTrendingWidgetEnabled && <Trending />}
-        {currentProfile ? <SuggestedFollows /> : null}
+        {currentProfile ? (
+          MADFI_API_KEY ? (
+            <SuggestedFollows />
+          ) : (
+            <RecommendedProfiles />
+          )
+        ) : null}
         <Footer />
       </GridItemFour>
     </GridLayout>

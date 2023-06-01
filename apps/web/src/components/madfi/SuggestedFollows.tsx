@@ -77,7 +77,7 @@ const SuggestedFollows: FC = () => {
     }
 
     return [];
-  }, [recommendedProfiles]);
+  }, [recommendedProfiles, currentProfile, data]);
 
   const sampleRecommendedProfiles = useMemo(() => {
     const sample = recommendedProfilesNotFollowed?.length
@@ -96,7 +96,7 @@ const SuggestedFollows: FC = () => {
     }
 
     return sample;
-  }, [recommendedProfilesNotFollowed, data]);
+  }, [recommendedProfilesNotFollowed, data, recommendedProfiles]);
 
   const sanitizedInterest = useMemo(() => {
     if (!loadingSuggested && data?.interest) {
