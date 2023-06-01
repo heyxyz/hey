@@ -1,5 +1,6 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
+import { LensHub } from '@lenster/abis';
 import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
 import {
   FollowModules,
@@ -11,7 +12,6 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
 import Errors from 'data/errors';
 import formatAddress from 'lib/formatAddress';

@@ -16,6 +16,7 @@ import type {
   AccessConditionOutput,
   CreatePublicPostRequest
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
+import { LensHub } from '@lenster/abis';
 import type {
   CreatePublicCommentRequest,
   MetadataAttributeInput,
@@ -51,7 +52,6 @@ import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
-import { LensHub } from 'abis';
 import clsx from 'clsx';
 import {
   ALLOWED_AUDIO_TYPES,

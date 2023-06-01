@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
+import { LensHub } from '@lenster/abis';
 import type { CreateSetDefaultProfileRequest, Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -8,7 +9,6 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
 import { APP_NAME, LENSHUB_PROXY } from 'data/constants';
 import Errors from 'data/errors';
 import formatHandle from 'lib/formatHandle';
