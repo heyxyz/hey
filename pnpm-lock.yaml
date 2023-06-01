@@ -566,7 +566,7 @@ importers:
   packages/workers/ens-resolver:
     dependencies:
       itty-router:
-        specifier: 4.0.9
+        specifier: ^4.0.9
         version: 4.0.9
       viem:
         specifier: ^0.3.19
@@ -612,7 +612,7 @@ importers:
         specifier: ^0.0.23
         version: 0.0.23
       itty-router:
-        specifier: 4.0.9
+        specifier: ^4.0.9
         version: 4.0.9
     devDependencies:
       '@cloudflare/workers-types':
@@ -636,6 +636,9 @@ importers:
       '@lenster/bundlr':
         specifier: workspace:*
         version: link:../../bundlr
+      itty-router:
+        specifier: ^4.0.9
+        version: 4.0.9
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -662,7 +665,7 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: 4.0.9
+        specifier: ^4.0.9
         version: 4.0.9
       linkedom:
         specifier: ^0.14.26
@@ -714,7 +717,7 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
       itty-router:
-        specifier: 4.0.9
+        specifier: ^4.0.9
         version: 4.0.9
       viem:
         specifier: ^0.3.19
@@ -756,6 +759,9 @@ importers:
       '@aws-sdk/client-sts':
         specifier: ^3.342.0
         version: 3.342.0
+      itty-router:
+        specifier: ^4.0.9
+        version: 4.0.9
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
