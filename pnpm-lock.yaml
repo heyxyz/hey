@@ -53,6 +53,9 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(typescript@5.0.4)
     devDependencies:
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
       '@types/react':
         specifier: ^18.2.7
         version: 18.2.7
@@ -62,9 +65,6 @@ importers:
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../packages/eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -291,6 +291,9 @@ importers:
       '@giphy/js-types':
         specifier: ^4.2.1
         version: 4.4.0
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
       '@lingui/cli':
         specifier: ^4.1.2
         version: 4.1.2
@@ -324,21 +327,18 @@ importers:
       tailwindcss:
         specifier: ^3.3.2
         version: 3.3.2
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
 
   packages/abis:
     devDependencies:
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -358,30 +358,30 @@ importers:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.0.4)(zod@3.21.4)
     devDependencies:
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/secp256k1':
         specifier: ^4.0.3
         version: 4.0.3
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
 
   packages/data:
     devDependencies:
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -425,6 +425,9 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -437,9 +440,6 @@ importers:
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -471,15 +471,15 @@ importers:
       '@graphql-codegen/typescript-react-apollo':
         specifier: ^3.3.6
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.6.0)
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -496,15 +496,15 @@ importers:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.0.4)(zod@3.21.4)
     devDependencies:
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -547,6 +547,9 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
     devDependencies:
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -556,9 +559,6 @@ importers:
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -575,12 +575,12 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -593,12 +593,12 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -618,12 +618,12 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -640,12 +640,12 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -671,12 +671,12 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -689,12 +689,12 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -738,12 +738,12 @@ importers:
       '@graphql-codegen/typescript-react-apollo':
         specifier: ^3.3.6
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.6.0)
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -760,12 +760,12 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../../tsconfig
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../../eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
@@ -785,6 +785,9 @@ importers:
         specifier: workspace:*
         version: link:../packages/lib
     devDependencies:
+      '@lenster/tsconfig':
+        specifier: workspace:*
+        version: link:../packages/tsconfig
       '@playwright/test':
         specifier: ^1.34.3
         version: 1.34.3
@@ -794,9 +797,6 @@ importers:
       eslint-config-weblint:
         specifier: workspace:*
         version: link:../packages/eslint-config-weblint
-      tsconfig:
-        specifier: workspace:*
-        version: link:../packages/tsconfig
       typescript:
         specifier: ^5.0.4
         version: 5.0.4
