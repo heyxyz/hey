@@ -25,10 +25,10 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@lenster/tsconfig": "workspace:*",
     "@types/node": "^20.2.5",
     "@types/react": "^18.2.7",
     "eslint-config-weblint": "workspace:*",
-    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }

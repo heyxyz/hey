@@ -27,10 +27,10 @@
   },
   "devDependencies": {
     "@lenster/lens": "workspace:*",
+    "@lenster/tsconfig": "workspace:*",
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
     "eslint-config-weblint": "workspace:*",
-    "tsconfig": "workspace:*",
     "typescript": "^5.0.4"
   }
 }
