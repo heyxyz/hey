@@ -14,9 +14,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
+    "@lenster/data": "workspace:*",
     "@lenster/lens": "workspace:*",
     "axios": "^1.4.0",
-    "data": "workspace:*",
     "dotenv": "^16.1.1",
     "lib": "workspace:*",
     "next": "^13.4.2",

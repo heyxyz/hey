@@ -7,7 +7,7 @@ import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
 import { useQuery } from '@tanstack/react-query';
 import type { Proposal } from '@workers/snapshot-relay';
 import axios from 'axios';
-import { APP_NAME, Errors } from 'data';
+import { APP_NAME, Errors } from '@lenster/data';
 import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';

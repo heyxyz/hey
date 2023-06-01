@@ -1,6 +1,10 @@
 import WalletSelector from '@components/Shared/Login/WalletSelector';
 import { Trans } from '@lingui/macro';
-import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from 'data/constants';
+import {
+  APP_NAME,
+  IS_MAINNET,
+  STATIC_IMAGES_URL
+} from '@lenster/data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';

@@ -1,8 +1,8 @@
 import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
+import { XMTP_ENV } from '@lenster/data/constants';
 import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
-import { XMTP_ENV } from 'data/constants';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';

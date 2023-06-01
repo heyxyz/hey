@@ -7,7 +7,7 @@ import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { usePublicationQuery } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
-import { APP_NAME } from 'data/constants';
+import { APP_NAME } from '@lenster/data/constants';
 import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';

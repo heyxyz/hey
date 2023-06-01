@@ -22,15 +22,15 @@ importers:
 
   apps/prerender:
     dependencies:
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../../packages/data
       '@lenster/lens':
         specifier: workspace:*
         version: link:../../packages/lens
       axios:
         specifier: ^1.4.0
         version: 1.4.0
-      data:
-        specifier: workspace:*
-        version: link:../../packages/data
       dotenv:
         specifier: ^16.1.1
         version: 16.1.1
@@ -107,6 +107,9 @@ importers:
       '@lenster/abis':
         specifier: workspace:*
         version: link:../../packages/abis
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../../packages/data
       '@lenster/lens':
         specifier: workspace:*
         version: link:../../packages/lens
@@ -173,9 +176,6 @@ importers:
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
-      data:
-        specifier: workspace:*
-        version: link:../../packages/data
       dayjs:
         specifier: ^1.11.5
         version: 1.11.7
@@ -449,12 +449,12 @@ importers:
       '@apollo/client':
         specifier: ^3.7.14
         version: 3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../data
       axios:
         specifier: ^1.4.0
         version: 1.4.0
-      data:
-        specifier: workspace:*
-        version: link:../data
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^4.0.0
@@ -486,12 +486,12 @@ importers:
 
   packages/lib:
     dependencies:
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../data
       '@lenster/lens':
         specifier: workspace:*
         version: link:../lens
-      data:
-        specifier: workspace:*
-        version: link:../data
       viem:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.0.4)(zod@3.21.4)
@@ -522,15 +522,15 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.1.0
         version: 3.1.0(react-hook-form@7.44.2)
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../data
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
-      data:
-        specifier: workspace:*
-        version: link:../data
       lib:
         specifier: workspace:*
         version: link:../lib
@@ -775,12 +775,12 @@ importers:
 
   tests:
     dependencies:
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../packages/data
       '@lenster/lens':
         specifier: workspace:*
         version: link:../packages/lens
-      data:
-        specifier: workspace:*
-        version: link:../packages/data
       lib:
         specifier: workspace:*
         version: link:../packages/lib

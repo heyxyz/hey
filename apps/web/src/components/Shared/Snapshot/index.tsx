@@ -2,7 +2,7 @@ import getSnapshotProposal from '@lib/getSnapshotProposal';
 import getSnapshotSpace from '@lib/getSnapshotSpace';
 import { useQuery } from '@tanstack/react-query';
 import type { Proposal, Vote } from '@workers/snapshot-relay';
-import { LENSTER_POLLS_SPACE, ZERO_ADDRESS } from 'data';
+import { LENSTER_POLLS_SPACE, ZERO_ADDRESS } from '@lenster/data';
 import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC, ReactNode } from 'react';

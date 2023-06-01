@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { IPFS_GATEWAY } from 'data/constants';
+import { IPFS_GATEWAY } from '@lenster/data/constants';
 import { WEB_BASE_URL } from 'test/constants';
 
 test.describe('Publication attachments', () => {

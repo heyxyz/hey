@@ -11,8 +11,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
+    "@lenster/data": "workspace:*",
     "@lenster/lens": "workspace:*",
-    "data": "workspace:*",
     "viem": "^0.3.19"
   },
   "devDependencies": {

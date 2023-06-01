@@ -1,5 +1,10 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import {
+  ADDRESS_REGEX,
+  IS_MAINNET,
+  LENSHUB_PROXY
+} from '@lenster/data/constants';
 import type {
   NftImage,
   Profile,
@@ -14,8 +19,7 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { ADDRESS_REGEX, IS_MAINNET, LENSHUB_PROXY } from 'data/constants';
-import Errors from 'data/errors';
+import Errors from '@lenster/data/errors';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useState } from 'react';

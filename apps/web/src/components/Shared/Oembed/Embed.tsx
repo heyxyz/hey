@@ -1,5 +1,5 @@
 import { Leafwatch } from '@lib/leafwatch';
-import { ATTACHMENT } from 'data/constants';
+import { ATTACHMENT } from '@lenster/data/constants';
 import imageKit from 'lib/imageKit';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';

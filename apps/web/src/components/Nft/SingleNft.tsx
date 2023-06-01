@@ -1,5 +1,5 @@
 import type { Nft } from '@lenster/lens';
-import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
+import { RARIBLE_URL, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import Link from 'next/link';
 import type { FC } from 'react';

@@ -3,7 +3,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import { IS_MAINNET } from 'data';
+import { IS_MAINNET } from '@lenster/data';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import Link from 'next/link';

@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { MainnetContracts } from 'data/contracts';
+import { MainnetContracts } from '@lenster/data/contracts';
 import getAssetAddress from 'lib/getAssetAddress';
 
 test.describe('getAssetAddress', () => {

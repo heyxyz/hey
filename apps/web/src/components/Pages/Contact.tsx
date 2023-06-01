@@ -5,7 +5,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import { APP_NAME, FRESHDESK_WORKER_URL } from 'data/constants';
+import { APP_NAME, FRESHDESK_WORKER_URL } from '@lenster/data/constants';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { PAGEVIEW } from 'src/tracking';

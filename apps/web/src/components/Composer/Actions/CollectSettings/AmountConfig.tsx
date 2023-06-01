@@ -3,7 +3,7 @@ import { CurrencyDollarIcon } from '@heroicons/react/outline';
 import type { Erc20 } from '@lenster/lens';
 import { CollectModules } from '@lenster/lens';
 import { t, Trans } from '@lingui/macro';
-import { DEFAULT_COLLECT_TOKEN } from 'data';
+import { DEFAULT_COLLECT_TOKEN } from '@lenster/data';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { Input } from 'ui';

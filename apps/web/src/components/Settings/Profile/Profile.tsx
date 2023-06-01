@@ -1,6 +1,13 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
+import {
+  APP_NAME,
+  COVER,
+  LENS_PERIPHERY,
+  PROFILE_NAME_VALIDATOR_REGEX,
+  URL_REGEX
+} from '@lenster/data/constants';
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
@@ -16,14 +23,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
-import {
-  APP_NAME,
-  COVER,
-  LENS_PERIPHERY,
-  PROFILE_NAME_VALIDATOR_REGEX,
-  URL_REGEX
-} from 'data/constants';
-import Errors from 'data/errors';
+import Errors from '@lenster/data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
 import type { Area } from 'image-cropper/types';
 import getProfileAttribute from 'lib/getProfileAttribute';
