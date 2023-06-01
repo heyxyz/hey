@@ -15,14 +15,14 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
+import getSignature from '@lenster/lib/getSignature';
+import humanize from '@lenster/lib/humanize';
+import nFormatter from '@lenster/lib/nFormatter';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-import getSignature from 'lib/getSignature';
-import humanize from 'lib/humanize';
-import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

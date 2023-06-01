@@ -1,6 +1,6 @@
 import type { Profile } from '@lenster/lens';
-import formatHandle from 'lib/formatHandle';
-import stopEventPropagation from 'lib/stopEventPropagation';
+import formatHandle from '@lenster/lib/formatHandle';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
 import type { MarkupLinkProps } from 'src/types';

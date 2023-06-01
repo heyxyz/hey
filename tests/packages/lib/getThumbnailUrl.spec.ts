@@ -1,8 +1,8 @@
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import type { MetadataOutput } from '@lenster/lens';
 import { PublicationMainFocus } from '@lenster/lens';
+import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
 import { expect, test } from '@playwright/test';
-import getThumbnailUrl from 'lib/getThumbnailUrl';
 
 test.describe('getThumbnailUrl', () => {
   const mockMetadata: MetadataOutput = {

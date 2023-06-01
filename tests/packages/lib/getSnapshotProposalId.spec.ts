@@ -1,5 +1,5 @@
+import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import { expect, test } from '@playwright/test';
-import getSnapshotProposalId from 'lib/getSnapshotProposalId';
 
 test.describe('getSnapshotProposalId', () => {
   test('should return null when host is not snapshot.org', () => {

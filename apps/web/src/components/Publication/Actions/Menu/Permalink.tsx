@@ -1,10 +1,10 @@
 import { Menu } from '@headlessui/react';
 import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { PUBLICATION } from 'src/tracking';

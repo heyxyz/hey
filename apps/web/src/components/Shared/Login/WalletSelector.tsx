@@ -7,11 +7,11 @@ import {
   useChallengeLazyQuery,
   useUserProfilesLazyQuery
 } from '@lenster/lens';
+import getWalletDetails from '@lenster/lib/getWalletDetails';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import getWalletDetails from 'lib/getWalletDetails';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

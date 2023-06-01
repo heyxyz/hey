@@ -12,11 +12,11 @@ import {
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledModulesQuery
 } from '@lenster/lens';
+import getSignature from '@lenster/lib/getSignature';
+import getTokenImage from '@lenster/lib/getTokenImage';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import getSignature from 'lib/getSignature';
-import getTokenImage from 'lib/getTokenImage';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

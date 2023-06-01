@@ -1,9 +1,9 @@
 import 'plyr-react/plyr.css';
 
 import { IPFS_GATEWAY } from '@lenster/data';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { Player } from '@livepeer/react';
-import imageKit from 'lib/imageKit';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import { memo } from 'react';
 

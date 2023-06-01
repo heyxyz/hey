@@ -8,11 +8,11 @@ import {
   useBroadcastMutation,
   useCreateSetDefaultProfileTypedDataMutation
 } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getSignature from '@lenster/lib/getSignature';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import formatHandle from 'lib/formatHandle';
-import getSignature from 'lib/getSignature';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

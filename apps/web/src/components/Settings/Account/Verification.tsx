@@ -1,6 +1,6 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import isVerified from '@lenster/lib/isVerified';
 import { Trans } from '@lingui/macro';
-import isVerified from 'lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';

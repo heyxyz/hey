@@ -1,5 +1,5 @@
+import generateSnapshotAccount from '@lenster/lib/generateSnapshotAccount';
 import { expect, test } from '@playwright/test';
-import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 
 test.describe('generateSnapshotAccount', () => {
   global.crypto = require('crypto');

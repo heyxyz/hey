@@ -9,12 +9,12 @@ import {
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import { APP_NAME } from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
+import getFollowModule from '@lenster/lib/getFollowModule';
+import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import hasPrideLogo from '@lenster/lib/hasPrideLogo';
 import { t, Trans } from '@lingui/macro';
-import formatAddress from 'lib/formatAddress';
-import formatHandle from 'lib/formatHandle';
-import getFollowModule from 'lib/getFollowModule';
-import getProfileAttribute from 'lib/getProfileAttribute';
-import hasPrideLogo from 'lib/hasPrideLogo';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { Card } from 'ui';

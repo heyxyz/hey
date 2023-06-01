@@ -1,6 +1,6 @@
 import type { Profile } from '@lenster/lens';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Trans } from '@lingui/macro';
-import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';

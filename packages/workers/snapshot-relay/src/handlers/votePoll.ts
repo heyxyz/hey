@@ -1,7 +1,7 @@
+import generateSnapshotAccount from '@lenster/lib/generateSnapshotAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
-import generateSnapshotAccount from 'lib/generateSnapshotAccount';
 
 import {
   LENSTER_POLLS_SPACE,

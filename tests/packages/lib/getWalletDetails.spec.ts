@@ -1,6 +1,6 @@
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import getWalletDetails from '@lenster/lib/getWalletDetails';
 import { expect, test } from '@playwright/test';
-import getWalletDetails from 'lib/getWalletDetails';
 
 test.describe('getWalletDetails', () => {
   test('should return correct details for WalletConnect', () => {

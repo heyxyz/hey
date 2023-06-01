@@ -1,10 +1,10 @@
 import { XIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import isGardener from '@lenster/lib/isGardener';
+import isStaff from '@lenster/lib/isStaff';
 import { Trans } from '@lingui/macro';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
-import isGardener from 'lib/isGardener';
-import isStaff from 'lib/isStaff';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';

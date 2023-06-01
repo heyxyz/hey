@@ -1,6 +1,6 @@
 import { IPFS_GATEWAY } from '@lenster/data/constants';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { expect, test } from '@playwright/test';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 
 test.describe('getIPFSLink', () => {
   test('should return empty string when input hash is falsy', () => {

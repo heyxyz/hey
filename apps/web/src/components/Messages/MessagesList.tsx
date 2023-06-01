@@ -1,13 +1,13 @@
 import { EmojiSadIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import { formatTime } from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
-import getStampFyiURL from 'lib/getStampFyiURL';
 import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
