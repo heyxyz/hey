@@ -13,6 +13,7 @@ import {
   NotificationTypes,
   useNotificationsQuery
 } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -20,7 +21,6 @@ import { Virtuoso } from 'react-virtuoso';
 import { NotificationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
-import { Card, EmptyState, ErrorMessage } from 'ui';
 
 import NotificationShimmer from './Shimmer';
 import CollectNotification from './Type/CollectNotification';

@@ -1,10 +1,10 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { BellIcon, CogIcon, ColorSwatchIcon } from '@heroicons/react/outline';
+import { Modal, Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
-import { Modal, Tooltip } from 'ui';
 
 const Settings: FC = () => {
   const highSignalNotificationFilter = usePreferencesStore(

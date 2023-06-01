@@ -4,6 +4,7 @@ import { IS_MAINNET } from '@lenster/data';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import { Image } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -11,7 +12,6 @@ import type { FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE } from 'src/tracking';
-import { Image } from 'ui';
 
 const SwitchProfiles: FC = () => {
   const profiles = useAppStore((state) => state.profiles);

@@ -5,12 +5,12 @@ import getAvatar from '@lenster/lib/getAvatar';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import { Image } from '@lenster/ui';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
-import { Image } from 'ui';
 
 import Follow from './Follow';
 import Markup from './Markup';

@@ -9,12 +9,12 @@ import type {
   PublicationTypes
 } from '@lenster/lens';
 import { PublicationSortCriteria, useExploreFeedQuery } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface FeedProps {
   refresh: boolean;

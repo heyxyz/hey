@@ -7,13 +7,13 @@ import isVerified from '@lenster/lib/isVerified';
 import nFormatter from '@lenster/lib/nFormatter';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Image } from '@lenster/ui';
 import { Plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { FollowSource } from 'src/tracking';
-import { Image } from 'ui';
 
 import Follow from './Follow';
 import Markup from './Markup';

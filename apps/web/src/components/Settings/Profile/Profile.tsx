@@ -26,16 +26,6 @@ import getSignature from '@lenster/lib/getSignature';
 import hasPrideLogo from '@lenster/lib/hasPrideLogo';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
-import uploadToArweave from '@lib/uploadToArweave';
-import { t, Trans } from '@lingui/macro';
-import type { ChangeEvent, FC } from 'react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 import {
   Button,
   Card,
@@ -48,7 +38,17 @@ import {
   TextArea,
   Toggle,
   useZodForm
-} from 'ui';
+} from '@lenster/ui';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
+import uploadToArweave from '@lib/uploadToArweave';
+import { t, Trans } from '@lingui/macro';
+import type { ChangeEvent, FC } from 'react';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useAppStore } from 'src/store/app';
+import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';

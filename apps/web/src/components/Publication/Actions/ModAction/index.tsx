@@ -5,6 +5,7 @@ import {
   useReportPublicationMutation
 } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Button } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -12,7 +13,6 @@ import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 import { MOD } from 'src/tracking';
-import { Button } from 'ui';
 
 interface ModActionProps {
   publication: Publication;

@@ -6,12 +6,12 @@ import {
   useSearchProfilesLazyQuery
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import { Card, Input, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
-import { Card, Input, Spinner } from 'ui';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import UserProfile from '../UserProfile';

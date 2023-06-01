@@ -1,12 +1,12 @@
 import { PencilAltIcon } from '@heroicons/react/outline';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import { Card, Image, Modal } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
-import { Card, Image, Modal } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 import NewPublication from '../NewPublication';

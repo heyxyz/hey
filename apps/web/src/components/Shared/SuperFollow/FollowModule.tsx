@@ -15,6 +15,7 @@ import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
 import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
+import { Button, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -26,7 +27,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { PROFILE } from 'src/tracking';
-import { Button, Spinner, WarningMessage } from 'ui';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';

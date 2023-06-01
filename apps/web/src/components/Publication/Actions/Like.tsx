@@ -14,6 +14,7 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import hasGm from '@lenster/lib/hasGm';
 import nFormatter from '@lenster/lib/nFormatter';
+import { Tooltip } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -25,7 +26,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import { Tooltip } from 'ui';
 
 interface LikeProps {
   publication: Publication;

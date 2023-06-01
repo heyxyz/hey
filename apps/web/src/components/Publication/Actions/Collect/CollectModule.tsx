@@ -37,6 +37,7 @@ import getAssetAddress from '@lenster/lib/getAssetAddress';
 import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
 import humanize from '@lenster/lib/humanize';
+import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
@@ -51,7 +52,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
-import { Button, Modal, Spinner, Tooltip, WarningMessage } from 'ui';
 import { useUpdateEffect } from 'usehooks-ts';
 import {
   useAccount,

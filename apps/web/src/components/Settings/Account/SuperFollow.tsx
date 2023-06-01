@@ -14,6 +14,7 @@ import {
 } from '@lenster/lens';
 import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
+import { Button, Card, Form, Input, Spinner, useZodForm } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -23,7 +24,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card, Form, Input, Spinner, useZodForm } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 

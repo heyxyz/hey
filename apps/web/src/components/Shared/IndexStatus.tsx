@@ -1,12 +1,12 @@
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { POLYGONSCAN_URL } from '@lenster/data/constants';
 import { useHasTxHashBeenIndexedQuery } from '@lenster/lens';
+import { Spinner } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { Spinner } from 'ui';
 
 interface IndexStatusProps {
   type?: string;

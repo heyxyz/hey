@@ -3,10 +3,10 @@ import { CurrencyDollarIcon } from '@heroicons/react/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@lenster/data';
 import type { Erc20 } from '@lenster/lens';
 import { CollectModules } from '@lenster/lens';
+import { Input } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { Input } from 'ui';
 
 interface AmountConfigProps {
   enabledModuleCurrencies?: Erc20[];

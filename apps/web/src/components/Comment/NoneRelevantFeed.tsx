@@ -10,12 +10,12 @@ import {
   CustomFiltersTypes,
   useCommentFeedQuery
 } from '@lenster/lens';
+import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-import { Card } from 'ui';
 
 interface NoneRelevantFeedProps {
   publication?: Publication;

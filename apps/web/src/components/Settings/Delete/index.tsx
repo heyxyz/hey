@@ -6,6 +6,16 @@ import { LensHub } from '@lenster/abis';
 import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
 import Errors from '@lenster/data/errors';
 import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
+import {
+  Button,
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  Modal,
+  Spinner,
+  WarningMessage
+} from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
@@ -17,16 +27,6 @@ import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { PAGEVIEW } from 'src/tracking';
-import {
-  Button,
-  Card,
-  GridItemEight,
-  GridItemFour,
-  GridLayout,
-  Modal,
-  Spinner,
-  WarningMessage
-} from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 import { useContractWrite, useDisconnect } from 'wagmi';
 

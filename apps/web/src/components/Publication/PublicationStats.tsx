@@ -8,10 +8,10 @@ import {
 } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
+import { Modal } from '@lenster/ui';
 import { Plural, t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { Modal } from 'ui';
 
 interface PublicationStatsProps {
   publication: Publication;

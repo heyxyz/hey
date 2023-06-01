@@ -1,10 +1,10 @@
 import { ClockIcon, PlusIcon, XIcon } from '@heroicons/react/outline';
 import { MenuAlt2Icon, XCircleIcon } from '@heroicons/react/solid';
+import { Button, Card, Input, Modal, Tooltip } from '@lenster/ui';
 import { Plural, t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
-import { Button, Card, Input, Modal, Tooltip } from 'ui';
 
 const PollEditor: FC = () => {
   const setShowPollEditor = usePublicationStore(

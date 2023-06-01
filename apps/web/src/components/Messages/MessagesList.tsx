@@ -3,6 +3,7 @@ import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import { Card, Image } from '@lenster/ui';
 import { formatTime } from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
@@ -12,7 +13,6 @@ import type { FC, ReactNode } from 'react';
 import { memo } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useMessageStore } from 'src/store/message';
-import { Card, Image } from 'ui';
 
 import MessageContent from './MessageContent';
 

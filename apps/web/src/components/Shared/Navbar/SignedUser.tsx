@@ -4,12 +4,12 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import isGardener from '@lenster/lib/isGardener';
 import isStaff from '@lenster/lib/isStaff';
+import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { Image } from 'ui';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';

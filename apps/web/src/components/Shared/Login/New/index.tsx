@@ -3,11 +3,18 @@ import { PlusIcon } from '@heroicons/react/outline';
 import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from '@lenster/data/constants';
 import { RelayErrorReasons, useCreateProfileMutation } from '@lenster/lens';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import {
+  Button,
+  ErrorMessage,
+  Form,
+  Input,
+  Spinner,
+  useZodForm
+} from '@lenster/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
-import { Button, ErrorMessage, Form, Input, Spinner, useZodForm } from 'ui';
 import { useAccount } from 'wagmi';
 import { object, string } from 'zod';
 
