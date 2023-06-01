@@ -31,7 +31,8 @@ const { chains, publicClient } = configureChains(
 const connectors = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
   new WalletConnectConnector({
-    options: { projectId: WALLETCONNECT_PROJECT_ID }
+    options: { projectId: WALLETCONNECT_PROJECT_ID },
+    chains
   })
 ];
 
