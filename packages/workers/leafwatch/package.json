@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@sagi.io/workers-jwt": "^0.0.23",
-    "itty-router": "4.0.9"
+    "itty-router": "^4.0.9"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
