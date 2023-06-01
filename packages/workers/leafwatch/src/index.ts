@@ -11,7 +11,7 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', () => new Response('Leafwatch'));
+router.get('/', () => new Response('say gm to leafwatch service 👋'));
 router.post('/ingest', ingest);
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
