@@ -6,7 +6,12 @@ import { Plural, t, Trans } from '@lingui/macro';
 import type { Proposal, Vote } from '@workers/snapshot-relay';
 import axios from 'axios';
 import clsx from 'clsx';
-import { APP_NAME, Errors, IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from 'data';
+import {
+  APP_NAME,
+  Errors,
+  IS_MAINNET,
+  SNAPSHOR_RELAY_WORKER_URL
+} from '@lenster/data';
 import humanize from 'lib/humanize';
 import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';

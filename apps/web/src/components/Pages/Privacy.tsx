@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { APP_NAME } from 'data/constants';
+import { APP_NAME } from '@lenster/data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { PAGEVIEW } from 'src/tracking';

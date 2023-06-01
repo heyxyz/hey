@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { OEMBED_WORKER_URL } from 'data/constants';
+import { OEMBED_WORKER_URL } from '@lenster/data/constants';
 import type { FC } from 'react';
 import type { OG } from 'src/types';
 

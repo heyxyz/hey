@@ -6,7 +6,7 @@ import {
   studioProvider
 } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { IS_MAINNET, WALLETCONNECT_PROJECT_ID } from 'data/constants';
+import { IS_MAINNET, WALLETCONNECT_PROJECT_ID } from '@lenster/data/constants';
 import getRpc from 'lib/getRpc';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';

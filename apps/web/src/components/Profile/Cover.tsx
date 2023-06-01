@@ -1,4 +1,4 @@
-import { COVER, STATIC_IMAGES_URL } from 'data/constants';
+import { COVER, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import imageKit from 'lib/imageKit';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import type { FC } from 'react';

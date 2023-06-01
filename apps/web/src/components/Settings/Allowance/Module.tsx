@@ -1,6 +1,6 @@
+import { POLYGONSCAN_URL } from '@lenster/data/constants';
 import type { ApprovedAllowanceAmount } from '@lenster/lens';
 import getAllowanceModule from '@lib/getAllowanceModule';
-import { POLYGONSCAN_URL } from 'data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';

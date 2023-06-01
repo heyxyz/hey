@@ -3,6 +3,7 @@ import {
   HeartIcon as HeartIconSolid,
   SunIcon as SunIconSolid
 } from '@heroicons/react/solid';
+import Errors from '@lenster/data/errors';
 import type { Publication } from '@lenster/lens';
 import {
   ReactionTypes,
@@ -15,7 +16,6 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import Errors from 'data/errors';
 import { motion } from 'framer-motion';
 import hasGm from 'lib/hasGm';
 import nFormatter from 'lib/nFormatter';

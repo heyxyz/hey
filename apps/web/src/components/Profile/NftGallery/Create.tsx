@@ -1,5 +1,6 @@
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
+import Errors from '@lenster/data/errors';
 import type { NftGallery } from '@lenster/lens';
 import {
   NftGalleriesDocument,
@@ -10,7 +11,6 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import { t, Trans } from '@lingui/macro';
-import Errors from 'data/errors';
 import trimify from 'lib/trimify';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';

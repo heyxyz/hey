@@ -2,6 +2,10 @@ import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import {
+  LENSHUB_PROXY,
+  OLD_LENS_RELAYER_ADDRESS
+} from '@lenster/data/constants';
+import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation
 } from '@lenster/lens';
@@ -9,7 +13,6 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { LENSHUB_PROXY, OLD_LENS_RELAYER_ADDRESS } from 'data/constants';
 import getIsDispatcherEnabled from 'lib/getIsDispatcherEnabled';
 import getSignature from 'lib/getSignature';
 import type { FC } from 'react';

@@ -1,5 +1,5 @@
-import { STATIC_IMAGES_URL } from 'data/constants';
-import { hashflags } from 'data/hashflags';
+import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { hashflags } from '@lenster/data/hashflags';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';

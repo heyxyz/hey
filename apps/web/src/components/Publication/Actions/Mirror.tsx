@@ -1,5 +1,7 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
 import type {
   CreateDataAvailabilityMirrorRequest,
   CreateMirrorRequest,
@@ -17,8 +19,6 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import { LENSHUB_PROXY } from 'data/constants';
-import Errors from 'data/errors';
 import { motion } from 'framer-motion';
 import getSignature from 'lib/getSignature';
 import humanize from 'lib/humanize';

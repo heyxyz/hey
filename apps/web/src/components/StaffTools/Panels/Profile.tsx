@@ -7,9 +7,9 @@ import {
   PhotographIcon
 } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
+import { APP_NAME } from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
 import { t, Trans } from '@lingui/macro';
-import { APP_NAME } from 'data/constants';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getFollowModule from 'lib/getFollowModule';

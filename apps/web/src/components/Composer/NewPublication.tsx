@@ -17,6 +17,15 @@ import type {
   CreatePublicPostRequest
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { LensHub } from '@lenster/abis';
+import {
+  ALLOWED_AUDIO_TYPES,
+  ALLOWED_IMAGE_TYPES,
+  ALLOWED_VIDEO_TYPES,
+  APP_NAME,
+  LENSHUB_PROXY,
+  LIT_PROTOCOL_ENVIRONMENT
+} from '@lenster/data/constants';
+import Errors from '@lenster/data/errors';
 import type {
   CreatePublicCommentRequest,
   MetadataAttributeInput,
@@ -53,15 +62,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import {
-  ALLOWED_AUDIO_TYPES,
-  ALLOWED_IMAGE_TYPES,
-  ALLOWED_VIDEO_TYPES,
-  APP_NAME,
-  LENSHUB_PROXY,
-  LIT_PROTOCOL_ENVIRONMENT
-} from 'data/constants';
-import Errors from 'data/errors';
 import { $getRoot } from 'lexical';
 import getSignature from 'lib/getSignature';
 import getTags from 'lib/getTags';

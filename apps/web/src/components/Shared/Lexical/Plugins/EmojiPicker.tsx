@@ -5,7 +5,7 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import clsx from 'clsx';
-import { STATIC_ASSETS_URL } from 'data/constants';
+import { STATIC_ASSETS_URL } from '@lenster/data/constants';
 import type { TextNode } from 'lexical';
 import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical';
 import type { FC } from 'react';
